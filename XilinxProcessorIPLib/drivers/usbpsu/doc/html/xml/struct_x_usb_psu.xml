@@ -1,0 +1,803 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_psu" kind="struct" prot="public">
+    <compoundname>XUsbPsu</compoundname>
+    <includes local="no">xusbpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_psu_1adfd72916c2cb464e04951ed9151b1173" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_setup_packet" kindref="compound">SetupPacket</ref> SetupData</type>
+        <definition>SetupPacket SetupData XUsbPsu::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+<para>Setup Packet buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="525" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a047ab6cc318e18dfe9e0e875fa7bf02f" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref> Ep0_Trb</type>
+        <definition>struct XUsbPsu_Trb Ep0_Trb XUsbPsu::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+<para>TRB for control transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="525" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref> *</type>
+        <definition>XUsbPsu_Config* XUsbPsu::ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>ConfigPtr</name>
+        <briefdescription>
+<para>Configuration info pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="530" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" compoundref="xusbpsu_8c" startline="144" endline="192">XUsbPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga01495a656b7de39f6874390556643a1e" compoundref="xusbpsu__device_8c" startline="461" endline="529">XUsbPsu_CoreInit</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" compoundref="xusbpsu__controltransfers_8c" startline="91" endline="152">XUsbPsu_Ep0DataDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1gacaefa0abe2036b61d3341ee9232ffb17" compoundref="xusbpsu__ep0handler_8c" startline="315" endline="386">XUsbPsu_Ep0Recv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga057ab0e4a9511055a42e60b92550660d" compoundref="xusbpsu__ep0handler_8c" startline="241" endline="301">XUsbPsu_Ep0Send</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" compoundref="xusbpsu__controltransfers_8c" startline="164" endline="192">XUsbPsu_Ep0StatusDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gad0102ce2327d084245189584307ecdfe" compoundref="xusbpsu__ephandler_8c" startline="380" endline="532">XUsbPsu_EpBufferRecv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9a977327906f2995960e50d429703687" compoundref="xusbpsu__ephandler_8c" startline="222" endline="362">XUsbPsu_EpBufferSend</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="86" endline="170">XUsbPsu_EpEnable</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fdd7c08c30d46a9c3024ebe404d877e" compoundref="xusbpsu__ephandler_8c" startline="680" endline="757">XUsbPsu_EpXferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" compoundref="xusbpsu__device_8c" startline="68" endline="79">XUsbPsu_WaitClearTimeout</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaf75d50db67d1cab7fed1c8738d1b95c9" compoundref="xusbpsu__device_8c" startline="95" endline="106">XUsbPsu_WaitSetTimeout</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref></type>
+        <definition>struct XUsbPsu_Ep XUsbPsu::eps[XUSBPSU_ENDPOINTS_NUM]</definition>
+        <argsstring>[XUSBPSU_ENDPOINTS_NUM]</argsstring>
+        <name>eps</name>
+        <briefdescription>
+<para>Endpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="531" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga16d89863a86fe201e813e39f08edaaf9" compoundref="xusbpsu__endpoint_8c" startline="267" endline="287">XUsbPsu_ClearStallAllEp</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1f081ab527bf9b7a15bd24ebea69138b" compoundref="xusbpsu__ephandler_8c" startline="178" endline="204">XUsbPsu_ClearStalls</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" compoundref="xusbpsu__controltransfers_8c" startline="91" endline="152">XUsbPsu_Ep0DataDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1gacaefa0abe2036b61d3341ee9232ffb17" compoundref="xusbpsu__ep0handler_8c" startline="315" endline="386">XUsbPsu_Ep0Recv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga057ab0e4a9511055a42e60b92550660d" compoundref="xusbpsu__ep0handler_8c" startline="241" endline="301">XUsbPsu_Ep0Send</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" compoundref="xusbpsu__controltransfers_8c" startline="61" endline="78">XUsbPsu_Ep0StallRestart</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa1b5bb2653180e74fb187989bd68ee5c" compoundref="xusbpsu__ep0handler_8c" startline="195" endline="227">XUsbPsu_Ep0XferNotReady</referencedby>
+        <referencedby refid="group__usbpsu__api_1gad0102ce2327d084245189584307ecdfe" compoundref="xusbpsu__ephandler_8c" startline="380" endline="532">XUsbPsu_EpBufferRecv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9a977327906f2995960e50d429703687" compoundref="xusbpsu__ephandler_8c" startline="222" endline="362">XUsbPsu_EpBufferSend</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaeff04b67a7a4a8c63da2327c6ae5e81b" compoundref="xusbpsu__ephandler_8c" startline="583" endline="604">XUsbPsu_EpClearStall</referencedby>
+        <referencedby refid="group__usbpsu__api_1gab3a191b5b5a02738beffd951ce4883d8" compoundref="xusbpsu__command_8c" startline="186" endline="217">XUsbPsu_EpDisable</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="86" endline="170">XUsbPsu_EpEnable</referencedby>
+        <referencedby refid="group__usbpsu__api_1gac357a27a8c52267042cd2bc937a92331" compoundref="xusbpsu__event_8c" startline="55" endline="88">XUsbPsu_EpEvent</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga07f17ab6f8a9e4881fab867ff7e4ecaa" compoundref="xusbpsu__ephandler_8c" startline="547" endline="568">XUsbPsu_EpSetStall</referencedby>
+        <referencedby refid="group__usbpsu__api_1gacdbae228fd638ec5e1598c4528a135cf" compoundref="xusbpsu__ephandler_8c" startline="112" endline="140">XUsbPsu_EpTransferDeactive</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fdd7c08c30d46a9c3024ebe404d877e" compoundref="xusbpsu__ephandler_8c" startline="680" endline="757">XUsbPsu_EpXferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2d7229b7b3d937ed82f79c3ec35e97f8" compoundref="xusbpsu__ephandler_8c" startline="771" endline="793">XUsbPsu_EpXferNotReady</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga940e5d8d4c56eec4e394507eb0e1ab8b" compoundref="xusbpsu__ephandler_8c" startline="653" endline="667">XUsbPsu_IsEpStalled</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga41fcbddbefdf6f9534c188255a0d61c1" compoundref="xusbpsu__endpoint_8c" startline="147" endline="200">XUsbPsu_SetEpConfig</referencedby>
+        <referencedby refid="group__usbpsu__api_1gad585fe1304adfd139727220832c2dcf5" compoundref="xusbpsu__ephandler_8c" startline="621" endline="635">XUsbPsu_SetEpHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1gacc29605c0bd7068a2f97c8c2ed0a8ea6" compoundref="xusbpsu__endpoint_8c" startline="239" endline="255">XUsbPsu_StopActiveTransfers</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga0358f9d4714f7d4e19d429ccf8cc6b26" compoundref="xusbpsu__ephandler_8c" startline="58" endline="97">XUsbPsu_StopTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1abed0f73af5cd1d46f7dd9b632ff952ab" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___evt_buffer" kindref="compound">XUsbPsu_EvtBuffer</ref></type>
+        <definition>struct XUsbPsu_EvtBuffer XUsbPsu::Evt</definition>
+        <argsstring></argsstring>
+        <name>Evt</name>
+        <briefdescription>
+<para>Usb event buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="532" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="540" endline="556">XUsbPsu_EventBuffersSetup</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9b106790d1b007e134bda766af314a9a" compoundref="xusbpsu__intr_8c" startline="395" endline="427">XUsbPsu_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1aed5d70302a79377b093aa8a7ab8c1ea4" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___ep_params" kindref="compound">XUsbPsu_EpParams</ref></type>
+        <definition>struct XUsbPsu_EpParams XUsbPsu::EpParams</definition>
+        <argsstring></argsstring>
+        <name>EpParams</name>
+        <briefdescription>
+<para>Endpoint Parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="530" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="533" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga539653e2157529aeedf78d66aa135a7f" compoundref="xusbpsu__command_8c" startline="55" endline="66">XUsbPsu_GetEpParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a740530acd1ee913daa3399e377b8916a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Core register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="534" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="534" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a27f0b2b815eb772a7b6aa78a9242a6cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu::DevDescSize</definition>
+        <argsstring></argsstring>
+        <name>DevDescSize</name>
+        <briefdescription>
+<para>Device descriptor size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="535" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1aa69cbbae426523374ab55d27cc82ad5e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu::ConfigDescSize</definition>
+        <argsstring></argsstring>
+        <name>ConfigDescSize</name>
+        <briefdescription>
+<para>Config descriptor size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="536" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="536" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+        <definition>struct Usb_DevData* XUsbPsu::AppData</definition>
+        <argsstring></argsstring>
+        <name>AppData</name>
+        <briefdescription>
+<para>Allication Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="537" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="537" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga5d44b4cfe8de7ab1fa6b98710bd7836f" compoundref="xusbpsu__intr_8c" startline="189" endline="258">XUsbPsu_ConnDoneIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9cf34b2d4e41f0b0b02b5dee88cd5e6e" compoundref="xusbpsu__intr_8c" startline="64" endline="95">XUsbPsu_DisconnectIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" compoundref="xusbpsu__controltransfers_8c" startline="91" endline="152">XUsbPsu_Ep0DataDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5fdd7c08c30d46a9c3024ebe404d877e" compoundref="xusbpsu__ephandler_8c" startline="680" endline="757">XUsbPsu_EpXferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga2d7229b7b3d937ed82f79c3ec35e97f8" compoundref="xusbpsu__ephandler_8c" startline="771" endline="793">XUsbPsu_EpXferNotReady</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" compoundref="xusbpsu_8c" startline="493" endline="502">XUsbPsu_IsSuperSpeed</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12567217fd7112e7d8fc4c6d91b20e11" compoundref="xusbpsu__device_8c" startline="279" endline="302">XUsbPsu_SetDeviceAddress</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga41fcbddbefdf6f9534c188255a0d61c1" compoundref="xusbpsu__endpoint_8c" startline="147" endline="200">XUsbPsu_SetEpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a87ae2aeb78698021bb0bdb913072ddd8" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XUsbPsu::Chapter9)(struct Usb_DevData *, SetupPacket *)</definition>
+        <argsstring>)(struct Usb_DevData *, SetupPacket *)</argsstring>
+        <name>Chapter9</name>
+        <briefdescription>
+<para>USB Chapter9 function handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="538" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a015c992834762e7f50d5be2c99df277d" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XUsbPsu::ResetIntrHandler)(struct Usb_DevData *)</definition>
+        <argsstring>)(struct Usb_DevData *)</argsstring>
+        <name>ResetIntrHandler</name>
+        <briefdescription>
+<para>Reset function handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="540" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="540" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a0206367c1062fe236eca8cdcb11625dd" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* XUsbPsu::DisconnectIntrHandler)(struct Usb_DevData *)</definition>
+        <argsstring>)(struct Usb_DevData *)</argsstring>
+        <name>DisconnectIntrHandler</name>
+        <briefdescription>
+<para>Disconnect function handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="542" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga9cf34b2d4e41f0b0b02b5dee88cd5e6e" compoundref="xusbpsu__intr_8c" startline="64" endline="95">XUsbPsu_DisconnectIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a1eed0afa2ceb6ac1b0994d4db20dab4f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUsbPsu::DevDesc</definition>
+        <argsstring></argsstring>
+        <name>DevDesc</name>
+        <briefdescription>
+<para>Device descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="544" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1ae368965a87e8989140dc3a9def9a762d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUsbPsu::ConfigDesc</definition>
+        <argsstring></argsstring>
+        <name>ConfigDesc</name>
+        <briefdescription>
+<para>Config descriptor pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a745947b0e9ccf61ace8de7e84d77763f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::EventBuffer[XUSBPSU_EVENT_BUFFERS_SIZE]</definition>
+        <argsstring>[XUSBPSU_EVENT_BUFFERS_SIZE]</argsstring>
+        <name>EventBuffer</name>
+        <briefdescription>
+<para>Event buffer array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="551" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="540" endline="556">XUsbPsu_EventBuffersSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a65d03f0b14986135e50959098d945db2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::NumOutEps</definition>
+        <argsstring></argsstring>
+        <name>NumOutEps</name>
+        <briefdescription>
+<para>Number of out endpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="554" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" compoundref="xusbpsu_8c" startline="144" endline="192">XUsbPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::NumInEps</definition>
+        <argsstring></argsstring>
+        <name>NumInEps</name>
+        <briefdescription>
+<para>Number of in endpoint. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="555" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" compoundref="xusbpsu_8c" startline="144" endline="192">XUsbPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a901a6ff790827750bf380fbd3187c71e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::ControlDir</definition>
+        <argsstring></argsstring>
+        <name>ControlDir</name>
+        <briefdescription>
+<para>Control endpoint direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="556" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa1b5bb2653180e74fb187989bd68ee5c" compoundref="xusbpsu__ep0handler_8c" startline="195" endline="227">XUsbPsu_Ep0XferNotReady</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a331eaae0d8c8cfd0782f960138422358" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::IsInTestMode</definition>
+        <argsstring></argsstring>
+        <name>IsInTestMode</name>
+        <briefdescription>
+<para>USB test mode flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="557" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" compoundref="xusbpsu__controltransfers_8c" startline="164" endline="192">XUsbPsu_Ep0StatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a71a0cd96ef36f74fd8a258959195cfdb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::TestMode</definition>
+        <argsstring></argsstring>
+        <name>TestMode</name>
+        <briefdescription>
+<para>Test Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="558" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" compoundref="xusbpsu__controltransfers_8c" startline="164" endline="192">XUsbPsu_Ep0StatusDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::Ep0State</definition>
+        <argsstring></argsstring>
+        <name>Ep0State</name>
+        <briefdescription>
+<para>Control EP state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="559" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gacaefa0abe2036b61d3341ee9232ffb17" compoundref="xusbpsu__ep0handler_8c" startline="315" endline="386">XUsbPsu_Ep0Recv</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga057ab0e4a9511055a42e60b92550660d" compoundref="xusbpsu__ep0handler_8c" startline="241" endline="301">XUsbPsu_Ep0Send</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" compoundref="xusbpsu__controltransfers_8c" startline="61" endline="78">XUsbPsu_Ep0StallRestart</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a710de9231e8b9881cce866f535b342f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::LinkState</definition>
+        <argsstring></argsstring>
+        <name>LinkState</name>
+        <briefdescription>
+<para>Usb link state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="560" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga4cf4f7f831c9b7968d7ef0005ea64b50" compoundref="xusbpsu__intr_8c" startline="271" endline="275">XUsbPsu_LinkStsChangeIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1ae376f2105fa48414707e1ab3fcd3dc69" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::UnalignedTx</definition>
+        <argsstring></argsstring>
+        <name>UnalignedTx</name>
+        <briefdescription>
+<para>Unaligned transfer flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a08f67def1d92b23c1988c830f4d8b83f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::IsConfigDone</definition>
+        <argsstring></argsstring>
+        <name>IsConfigDone</name>
+        <briefdescription>
+<para>Flag - Check config is done or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="562" bodyend="-1"/>
+        <referencedby refid="xusb__wrapper_8h_1a30882c23a359d37202d4096f8e278a69" compoundref="xusb__wrapper_8c" startline="298" endline="301">GetConfigDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9cf34b2d4e41f0b0b02b5dee88cd5e6e" compoundref="xusbpsu__intr_8c" startline="64" endline="95">XUsbPsu_DisconnectIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaefd17a7722d63d1afe8fb6d1815000ed" compoundref="xusbpsu__intr_8c" startline="107" endline="139">XUsbPsu_ResetIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1gadda2d8102910024fbfa5bc7a471bea86" compoundref="xusbpsu__endpoint_8c" startline="102" endline="128">XUsbPsu_StartEpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1ab4420cef27d39897c9cd53ef04f3db50" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::IsThreeStage</definition>
+        <argsstring></argsstring>
+        <name>IsThreeStage</name>
+        <briefdescription>
+<para>USB three stage communication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="563" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" compoundref="xusbpsu__controltransfers_8c" startline="205" endline="271">XUsbPsu_Ep0StartStatus</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a9f122f4dc17866427f6353722dfefb0e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::IsHibernated</definition>
+        <argsstring></argsstring>
+        <name>IsHibernated</name>
+        <briefdescription>
+<para>Hibernated state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="564" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="86" endline="170">XUsbPsu_EpEnable</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a050cc34c0d7cc36465d4bc7b9a51c22e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPsu::HasHibernation</definition>
+        <argsstring></argsstring>
+        <name>HasHibernation</name>
+        <briefdescription>
+<para>Has hibernation support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="565" bodyend="-1"/>
+        <referencedby refid="xusb__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusb__intr__example_8c" startline="186" endline="308">main</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga5d44b4cfe8de7ab1fa6b98710bd7836f" compoundref="xusbpsu__intr_8c" startline="189" endline="258">XUsbPsu_ConnDoneIntr</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga01495a656b7de39f6874390556643a1e" compoundref="xusbpsu__device_8c" startline="461" endline="529">XUsbPsu_CoreInit</referencedby>
+        <referencedby refid="group__usbpsu__api_1gab9c5e8289701e82cf940fd2d0c239fd1" compoundref="xusbpsu__event_8c" startline="101" endline="158">XUsbPsu_DeviceEvent</referencedby>
+        <referencedby refid="group__usbpsu__api_1ga9cf34b2d4e41f0b0b02b5dee88cd5e6e" compoundref="xusbpsu__intr_8c" startline="64" endline="95">XUsbPsu_DisconnectIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_psu_1a39f5c2d3a066390f293fce24734f76fe" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUsbPsu::data_ptr</definition>
+        <argsstring></argsstring>
+        <name>data_ptr</name>
+        <briefdescription>
+<para>pointer for storing applications data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="566" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="566" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>USB Device Controller representation USB Device Controller representation. </para>    </briefdescription>
+    <detaileddescription>
+<para>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> - USB Device Controller representation <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SetupData</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Setup data packet </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ep0_Trb</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TRB for control transfers </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration info pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eps</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Endpoints array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Evt</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Usb event buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EpParams</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Endpoint Parameters </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Core register base address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DevDescSize</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device descriptor size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigDescSize</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Config descriptor size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AppData</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Application data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*Chapter9</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>USB Chapter9 function handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*ResetIntrHandler</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reset function handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*DisconnectIntrHandler</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Disconnect function handler </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*DevDesc</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device descriptor pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*ConfigDesc</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Config descriptor pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EventBuffer</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event buffer array </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumOutEps</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of out endpoints </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumInEps</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of in endpoint </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ControlDir</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Control endpoint direction </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsInTestMode</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>USB test mode flag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TestMode</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Test Mode </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ep0State</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Control EP state </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkState</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>USB link state </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UnalignedTx</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unaligned transfer flag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsConfigDone</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag - Check config is done or not </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsThreeStage</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>USB three stage communication </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsHibernated</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag - Hibernated state </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HasHibernation</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Has hibernation support </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>*data_ptr</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer for storing applications data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="74">
+        <label>XUsbPsu</label>
+        <link refid="struct_x_usb_psu"/>
+        <childnode refid="75" relation="usage">
+          <edgelabel>eps</edgelabel>
+        </childnode>
+        <childnode refid="77" relation="usage">
+          <edgelabel>ConfigPtr</edgelabel>
+        </childnode>
+        <childnode refid="78" relation="usage">
+          <edgelabel>EpParams</edgelabel>
+        </childnode>
+        <childnode refid="79" relation="usage">
+          <edgelabel>ALIGNMENT_CACHELINE</edgelabel>
+        </childnode>
+        <childnode refid="80" relation="usage">
+          <edgelabel>AppData</edgelabel>
+        </childnode>
+        <childnode refid="81" relation="usage">
+          <edgelabel>Evt</edgelabel>
+        </childnode>
+        <childnode refid="76" relation="usage">
+          <edgelabel>ALIGNMENT_CACHELINE</edgelabel>
+        </childnode>
+      </node>
+      <node id="76">
+        <label>XUsbPsu_Trb</label>
+        <link refid="struct_x_usb_psu___trb"/>
+      </node>
+      <node id="75">
+        <label>XUsbPsu_Ep</label>
+        <link refid="struct_x_usb_psu___ep"/>
+        <childnode refid="76" relation="usage">
+          <edgelabel>ALIGNMENT_CACHELINE</edgelabel>
+        </childnode>
+      </node>
+      <node id="81">
+        <label>XUsbPsu_EvtBuffer</label>
+        <link refid="struct_x_usb_psu___evt_buffer"/>
+      </node>
+      <node id="78">
+        <label>XUsbPsu_EpParams</label>
+        <link refid="struct_x_usb_psu___ep_params"/>
+      </node>
+      <node id="77">
+        <label>XUsbPsu_Config</label>
+        <link refid="struct_x_usb_psu___config"/>
+      </node>
+      <node id="80">
+        <label>Usb_DevData</label>
+        <link refid="struct_usb___dev_data"/>
+      </node>
+      <node id="79">
+        <label>SetupPacket</label>
+        <link refid="struct_setup_packet"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="520" bodyend="567"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_psu_1adfd72916c2cb464e04951ed9151b1173" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="struct_x_usb_psu_1a047ab6cc318e18dfe9e0e875fa7bf02f" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>AppData</name></member>
+      <member refid="struct_x_usb_psu_1a740530acd1ee913daa3399e377b8916a" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_usb_psu_1a87ae2aeb78698021bb0bdb913072ddd8" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>Chapter9</name></member>
+      <member refid="struct_x_usb_psu_1ae368965a87e8989140dc3a9def9a762d" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ConfigDesc</name></member>
+      <member refid="struct_x_usb_psu_1aa69cbbae426523374ab55d27cc82ad5e" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ConfigDescSize</name></member>
+      <member refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ConfigPtr</name></member>
+      <member refid="struct_x_usb_psu_1a901a6ff790827750bf380fbd3187c71e" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ControlDir</name></member>
+      <member refid="struct_x_usb_psu_1a39f5c2d3a066390f293fce24734f76fe" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>data_ptr</name></member>
+      <member refid="struct_x_usb_psu_1a1eed0afa2ceb6ac1b0994d4db20dab4f" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>DevDesc</name></member>
+      <member refid="struct_x_usb_psu_1a27f0b2b815eb772a7b6aa78a9242a6cc" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>DevDescSize</name></member>
+      <member refid="struct_x_usb_psu_1a0206367c1062fe236eca8cdcb11625dd" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>DisconnectIntrHandler</name></member>
+      <member refid="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>Ep0State</name></member>
+      <member refid="struct_x_usb_psu_1aed5d70302a79377b093aa8a7ab8c1ea4" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>EpParams</name></member>
+      <member refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>eps</name></member>
+      <member refid="struct_x_usb_psu_1a745947b0e9ccf61ace8de7e84d77763f" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>EventBuffer</name></member>
+      <member refid="struct_x_usb_psu_1abed0f73af5cd1d46f7dd9b632ff952ab" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>Evt</name></member>
+      <member refid="struct_x_usb_psu_1a050cc34c0d7cc36465d4bc7b9a51c22e" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>HasHibernation</name></member>
+      <member refid="struct_x_usb_psu_1a08f67def1d92b23c1988c830f4d8b83f" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>IsConfigDone</name></member>
+      <member refid="struct_x_usb_psu_1a9f122f4dc17866427f6353722dfefb0e" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>IsHibernated</name></member>
+      <member refid="struct_x_usb_psu_1a331eaae0d8c8cfd0782f960138422358" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>IsInTestMode</name></member>
+      <member refid="struct_x_usb_psu_1ab4420cef27d39897c9cd53ef04f3db50" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>IsThreeStage</name></member>
+      <member refid="struct_x_usb_psu_1a710de9231e8b9881cce866f535b342f8" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>LinkState</name></member>
+      <member refid="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>NumInEps</name></member>
+      <member refid="struct_x_usb_psu_1a65d03f0b14986135e50959098d945db2" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>NumOutEps</name></member>
+      <member refid="struct_x_usb_psu_1a015c992834762e7f50d5be2c99df277d" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>ResetIntrHandler</name></member>
+      <member refid="struct_x_usb_psu_1a71a0cd96ef36f74fd8a258959195cfdb" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>TestMode</name></member>
+      <member refid="struct_x_usb_psu_1ae376f2105fa48414707e1ab3fcd3dc69" prot="public" virt="non-virtual"><scope>XUsbPsu</scope><name>UnalignedTx</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

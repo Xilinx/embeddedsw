@@ -1,0 +1,922 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xrtcpsu_8c" kind="file">
+    <compoundname>xrtcpsu.c</compoundname>
+    <includes refid="xrtcpsu_8h" local="yes">xrtcpsu.h</includes>
+    <includes refid="xrtcpsu__hw_8h" local="yes">xrtcpsu_hw.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6">
+        <label>xrtcpsu.c</label>
+        <link refid="xrtcpsu.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xrtcpsu.h</label>
+        <link refid="xrtcpsu_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="12">
+        <label>xil_types.h</label>
+      </node>
+      <node id="11">
+        <label>xrtcpsu_hw.h</label>
+        <link refid="xrtcpsu__hw_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__rtcpsu_1ga03758aa122b5b07465a6edb7b56322f4" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 DaysInMonth[]</definition>
+        <argsstring>[]</argsstring>
+        <name>DaysInMonth</name>
+        <initializer>= {31, 28, 31, 30, 31,
+				  30, 31, 31, 30, 31, 30, 31
+				 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__rtcpsu_1ga1d65c2b140d250cf40ae77eb4e704bc8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XRtcPsu_StubHandler</definition>
+        <argsstring>(void *CallBackRef, u32 Event)</argsstring>
+        <name>XRtcPsu_StubHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>This function is a stub handler that is the default handler such that if the application has not set the handler when interrupts are enabled, this function will be called. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is unused by this function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is unused by this function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="176" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XRtcPsu_CfgInitialize</definition>
+        <argsstring>(XRtcPsu *InstancePtr, XRtcPsu_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XRtcPsu_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_rtc_psu___config" kindref="compound">XRtcPsu_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The initialization entails:<itemizedlist>
+<listitem><para>Initialize all members of the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> structure.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed. Unexpected errors may occur if the address mapping is changed after this function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS always.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="97" bodyend="159"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" compoundref="xrtcpsu_8h" startline="190">XRtcPsu::CalibrationValue</references>
+        <references refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" compoundref="xrtcpsu_8h" startline="196">XRtcPsu::CurrTimeUpdated</references>
+        <references refid="struct_x_rtc_psu_1a78494428d54e782b45aa81cb473ad3c8" compoundref="xrtcpsu_8h" startline="191">XRtcPsu::Handler</references>
+        <references refid="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" compoundref="xrtcpsu_8h" startline="188">XRtcPsu::IsPeriodicAlarm</references>
+        <references refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" compoundref="xrtcpsu_8h" startline="186">XRtcPsu::IsReady</references>
+        <references refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" compoundref="xrtcpsu_8h" startline="189">XRtcPsu::OscillatorFreq</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" compoundref="xrtcpsu_8h" startline="195">XRtcPsu::TimeUpdated</references>
+        <references refid="group__rtcpsu_1ga7226dae4931d57f6e45a86c0b1b8fa2f" compoundref="xrtcpsu__hw_8h" startline="88">XRTC_CALIB_WR_OFFSET</references>
+        <references refid="group__rtcpsu_1gad7a184022ff2ba6eab442bb895f7df30" compoundref="xrtcpsu_8h" startline="233">XRTC_CALIBRATION_VALUE</references>
+        <references refid="group__rtcpsu_1ga0fc893db4a633de94bdfc6f4f59df62f" compoundref="xrtcpsu__hw_8h" startline="298">XRTC_CTL_OFFSET</references>
+        <references refid="group__rtcpsu_1gac41e797cd2c6162d086c237426eafa9e" compoundref="xrtcpsu__hw_8h" startline="232">XRTC_INT_DIS_OFFSET</references>
+        <references refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" compoundref="xrtcpsu__hw_8h" startline="184">XRTC_INT_STS_OFFSET</references>
+        <references refid="group__rtcpsu_1ga7e8bad01d40368b034d49dfcb4401486" compoundref="xrtcpsu_8h" startline="234">XRTC_TYPICAL_OSC_FREQ</references>
+        <references refid="group__rtcpsu_1gae7da0eb25a60f80358a637f7a2429216" compoundref="xrtcpsu_8h" startline="141">XRTCPSU_CRYSTAL_OSC_EN</references>
+        <references refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" compoundref="xrtcpsu__hw_8h" startline="361">XRtcPsu_ReadReg</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__seconds__interrupt__example_8c_1a62dc54770bc562926f39bbce4bf82236" compoundref="xrtcpsu__seconds__interrupt__example_8c" startline="154" endline="221">RtcPsuSecondsIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__seconds__polled__example_8c_1a97a07e8ae01687a3a33c4bcdd5cb54d9" compoundref="xrtcpsu__seconds__polled__example_8c" startline="123" endline="166">RtcPsuSecondsPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XRtcPsu_SetTime</definition>
+        <argsstring>(XRtcPsu *InstancePtr, u32 Time)</argsstring>
+        <name>XRtcPsu_SetTime</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Time</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the RTC time by writing into rtc write register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>that should be updated into RTC write register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="199" bodyend="212"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" compoundref="xrtcpsu_8h" startline="196">XRtcPsu::CurrTimeUpdated</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" compoundref="xrtcpsu_8h" startline="195">XRtcPsu::TimeUpdated</references>
+        <references refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" compoundref="xrtcpsu__hw_8h" startline="184">XRTC_INT_STS_OFFSET</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <references refid="group__rtcpsu_1ga2d6afae471b9ad6df9d1ca0ae7c7d16c" compoundref="xrtcpsu_8h" startline="250">XRtcPsu_WriteSetTime</references>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_GetCurrentTime</definition>
+        <argsstring>(XRtcPsu *InstancePtr)</argsstring>
+        <name>XRtcPsu_GetCurrentTime</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the current RTC time. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RTC Current time.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="226" bodyend="269"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" compoundref="xrtcpsu_8h" startline="196">XRtcPsu::CurrTimeUpdated</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" compoundref="xrtcpsu_8h" startline="195">XRtcPsu::TimeUpdated</references>
+        <references refid="group__rtcpsu_1gac915150ede3fb8aab0d68c1ed072e4f8" compoundref="xrtcpsu__hw_8h" startline="200">XRTC_INT_MSK_OFFSET</references>
+        <references refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" compoundref="xrtcpsu__hw_8h" startline="184">XRTC_INT_STS_OFFSET</references>
+        <references refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" compoundref="xrtcpsu_8h" startline="268">XRtcPsu_GetLastSetTime</references>
+        <references refid="group__rtcpsu_1gac30a01306c1b613d66fb25777962ff9f" compoundref="xrtcpsu_8h" startline="301">XRtcPsu_ReadCurrentTime</references>
+        <references refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" compoundref="xrtcpsu__hw_8h" startline="361">XRtcPsu_ReadReg</references>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" compoundref="xrtcpsu_8c" startline="467" endline="515">XRtcPsu_CalculateCalibration</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" compoundref="xrtcpsu_8c" startline="286" endline="300">XRtcPsu_SetAlarm</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XRtcPsu_SetAlarm</definition>
+        <argsstring>(XRtcPsu *InstancePtr, u32 Alarm, u32 Periodic)</argsstring>
+        <name>XRtcPsu_SetAlarm</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Alarm</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Periodic</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the alarm value of RTC device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Alarm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired alarm time for RTC. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodic</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>says whether the alarm need to set at periodic Intervals or a one-time alarm.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="286" bodyend="300"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" compoundref="xrtcpsu_8h" startline="188">XRtcPsu::IsPeriodicAlarm</references>
+        <references refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" compoundref="xrtcpsu_8h" startline="186">XRtcPsu::IsReady</references>
+        <references refid="struct_x_rtc_psu_1ae5d67d1d0e93c88735e9fa550b91b280" compoundref="xrtcpsu_8h" startline="187">XRtcPsu::PeriodicAlarmTime</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="group__rtcpsu_1gaefe187edd9e6057a21bed63b21980824" compoundref="xrtcpsu__hw_8h" startline="166">XRTC_ALRM_OFFSET</references>
+        <references refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="group__rtcpsu_1ga01ca03d23194687c8026dc2f38da6ff7" compoundref="xrtcpsu__intr_8c" startline="163" endline="225">XRtcPsu_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XRtcPsu_SecToDateTime</definition>
+        <argsstring>(u32 Seconds, XRtcPsu_DT *dt)</argsstring>
+        <name>XRtcPsu_SecToDateTime</name>
+        <param>
+          <type>u32</type>
+          <declname>Seconds</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_rtc_psu___d_t" kindref="compound">XRtcPsu_DT</ref> *</type>
+          <declname>dt</declname>
+        </param>
+        <briefdescription>
+<para>This function translates time in seconds to a YEAR:MON:DAY HR:MIN:SEC format and saves it in the DT structure variable. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also reports the weekday.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Seconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the time value that has to be shown in DateTime format. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DateTime format variable that stores the translated time.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference. Supports years from 1970 to 2106 (unsigned 32-bit limit).</para></simplesect>
+WEEKDAY CONVENTION: WeekDay field follows POSIX standard: 0=Sunday, 1=Monday, 2=Tuesday, 3=Wednesday, 4=Thursday, 5=Friday, 6=Saturday 1970-01-01 (epoch) was Thursday, so WeekDay = 4.</para><para>For u32 input, overflow is impossible. Maximum timestamp (0xFFFFFFFF) correctly converts to 2106-02-07 06:28:15. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="330" bodyend="381"/>
+        <references refid="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" compoundref="xrtcpsu_8h" startline="205">XRtcPsu_DT::Day</references>
+        <references refid="group__rtcpsu_1ga5f20a16494c136368d1754bf5f8f8963" compoundref="xrtcpsu_8h" startline="221">EPOCH_WDAY</references>
+        <references refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" compoundref="xrtcpsu_8h" startline="220">EPOCH_YEAR</references>
+        <references refid="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" compoundref="xrtcpsu_8h" startline="206">XRtcPsu_DT::Hour</references>
+        <references refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" compoundref="xrtcpsu_8h" startline="230">IS_LEAP_YEAR</references>
+        <references refid="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" compoundref="xrtcpsu_8h" startline="207">XRtcPsu_DT::Min</references>
+        <references refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" compoundref="xrtcpsu_8h" startline="204">XRtcPsu_DT::Month</references>
+        <references refid="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" compoundref="xrtcpsu_8h" startline="208">XRtcPsu_DT::Sec</references>
+        <references refid="struct_x_rtc_psu___d_t_1a768d292f62468b17e36dce098f8c7d49" compoundref="xrtcpsu_8h" startline="209">XRtcPsu_DT::WeekDay</references>
+        <references refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" compoundref="xrtcpsu_8h" startline="203">XRtcPsu_DT::Year</references>
+        <referencedby refid="xrtcpsu__alarm__interrupt__example_8c_1a3e843772dd9d972673b8f2da8914f458" compoundref="xrtcpsu__alarm__interrupt__example_8c" startline="154" endline="234">RtcPsuAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+        <referencedby refid="xrtcpsu__periodic__alarm__interrupt__example_8c_1a466f19414ce6436bac17f8528a587308" compoundref="xrtcpsu__periodic__alarm__interrupt__example_8c" startline="159" endline="240">RtcPsuPeriodicAlarmIntrExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_DateTimeToSec</definition>
+        <argsstring>(XRtcPsu_DT *dt)</argsstring>
+        <name>XRtcPsu_DateTimeToSec</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu___d_t" kindref="compound">XRtcPsu_DT</ref> *</type>
+          <declname>dt</declname>
+        </param>
+        <briefdescription>
+<para>This function translates time in YEAR:MON:DAY HR:MIN:SEC format to seconds since Unix epoch (1970-01-01 00:00:00 UTC). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a DateTime format structure variable of time that has to be converted to seconds.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Seconds value since Unix epoch (1970-01-01).</para></simplesect>
+<simplesect kind="note"><para>This API uses Unix epoch (1970-01-01 00:00:00 UTC) as reference. Input must be in range 1970-2106. The input structure is not modified. This is the inverse of <ref refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" kindref="member">XRtcPsu_SecToDateTime()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="399" bodyend="437"/>
+        <references refid="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" compoundref="xrtcpsu_8h" startline="205">XRtcPsu_DT::Day</references>
+        <references refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" compoundref="xrtcpsu_8h" startline="220">EPOCH_YEAR</references>
+        <references refid="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" compoundref="xrtcpsu_8h" startline="206">XRtcPsu_DT::Hour</references>
+        <references refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" compoundref="xrtcpsu_8h" startline="230">IS_LEAP_YEAR</references>
+        <references refid="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" compoundref="xrtcpsu_8h" startline="207">XRtcPsu_DT::Min</references>
+        <references refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" compoundref="xrtcpsu_8h" startline="204">XRtcPsu_DT::Month</references>
+        <references refid="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" compoundref="xrtcpsu_8h" startline="208">XRtcPsu_DT::Sec</references>
+        <references refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" compoundref="xrtcpsu_8h" startline="203">XRtcPsu_DT::Year</references>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+        <referencedby refid="xrtcpsu__set__time__example_8c_1a2e15617fdde74cad66814bc251619131" compoundref="xrtcpsu__set__time__example_8c" startline="124" endline="182">RtcPsuSetTimeExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XRtcPsu_CalculateCalibration</definition>
+        <argsstring>(XRtcPsu *InstancePtr, u32 TimeReal, u32 CrystalOscFreq)</argsstring>
+        <name>XRtcPsu_CalculateCalibration</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeReal</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CrystalOscFreq</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the calibration value depending on the actual realworld time and also helps in deriving new calibration value if the user wishes to change his oscillator frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para>TimeReal should be the accurate reference time in seconds since Unix epoch (1970-01-01 00:00:00 UTC). This matches standard internet time sources (NTP, GPS, etc.) and can be used directly without conversion.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeReal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the actual realworld time in seconds since Unix epoch (1970-01-01). This can be obtained from network time protocols (NTP) or other accurate time sources. The value must be greater than the RTC&apos;s current time for calibration to work correctly.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrystalOscFreq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Oscillator new frequency. If using the typical 32768Hz crystal, then input the same frequency value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>After calculating the calibration register value, user / application must call CfgInitialize API again to apply the new calibration into effect. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="467" bodyend="515"/>
+        <references refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" compoundref="xrtcpsu_8h" startline="190">XRtcPsu::CalibrationValue</references>
+        <references refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" compoundref="xrtcpsu_8h" startline="189">XRtcPsu::OscillatorFreq</references>
+        <references refid="group__rtcpsu_1ga4464d5485ee8d997454a4eff3c497040" compoundref="xrtcpsu_8h" startline="285">XRtcPsu_GetCalibration</references>
+        <references refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" compoundref="xrtcpsu_8c" startline="226" endline="269">XRtcPsu_GetCurrentTime</references>
+        <references refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" compoundref="xrtcpsu_8h" startline="268">XRtcPsu_GetLastSetTime</references>
+        <references refid="group__rtcpsu_1gab9fa0e5d7c9536a238863272a1e21bfa" compoundref="xrtcpsu_8h" startline="387">XRtcPsu_RoundOff</references>
+        <referencedby refid="xrtcpsu__set__calibration__example_8c_1a120cb273455f9b3ac137ec30f7af45bf" compoundref="xrtcpsu__set__calibration__example_8c" startline="126" endline="203">RtcPsuSetCalibrationExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_IsSecondsEventGenerated</definition>
+        <argsstring>(XRtcPsu *InstancePtr)</argsstring>
+        <name>XRtcPsu_IsSecondsEventGenerated</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the seconds event status by reading interrupt status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if a new second event is generated.Else 0..</para></simplesect>
+<simplesect kind="note"><para>This API is used in polled mode operation of RTC. This also clears interrupt status seconds bit. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="531" bodyend="546"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" compoundref="xrtcpsu__hw_8h" startline="184">XRTC_INT_STS_OFFSET</references>
+        <references refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" compoundref="xrtcpsu__hw_8h" startline="361">XRtcPsu_ReadReg</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <referencedby refid="xrtcpsu__seconds__polled__example_8c_1a97a07e8ae01687a3a33c4bcdd5cb54d9" compoundref="xrtcpsu__seconds__polled__example_8c" startline="123" endline="166">RtcPsuSecondsPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRtcPsu_IsAlarmEventGenerated</definition>
+        <argsstring>(XRtcPsu *InstancePtr)</argsstring>
+        <name>XRtcPsu_IsAlarmEventGenerated</name>
+        <param>
+          <type><ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the alarm event status by reading interrupt status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if the alarm event is generated.Else 0.</para></simplesect>
+<simplesect kind="note"><para>This API is used in polled mode operation of RTC. This also clears interrupt status alarm bit. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" line="562" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c" bodystart="562" bodyend="577"/>
+        <references refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" compoundref="xrtcpsu_8h" startline="170">XRtcPsu_Config::BaseAddr</references>
+        <references refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" compoundref="xrtcpsu_8h" startline="185">XRtcPsu::RtcConfig</references>
+        <references refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" compoundref="xrtcpsu__hw_8h" startline="184">XRTC_INT_STS_OFFSET</references>
+        <references refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" compoundref="xrtcpsu__hw_8h" startline="361">XRtcPsu_ReadReg</references>
+        <references refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" compoundref="xrtcpsu__hw_8h" startline="377">XRtcPsu_WriteReg</references>
+        <referencedby refid="xrtcpsu__alarm__polled__example_8c_1ade766b38594035be98f9fd0c0647b8d4" compoundref="xrtcpsu__alarm__polled__example_8c" startline="123" endline="174">RtcPsuAlarmPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xrtcpsu_8h" kindref="compound">xrtcpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xrtcpsu__hw_8h" kindref="compound">xrtcpsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>DaysInMonth[]<sp/>=<sp/>{31,<sp/>28,<sp/>31,<sp/>30,<sp/>31,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>30,<sp/>31,<sp/>31,<sp/>30,<sp/>31,<sp/>30,<sp/>31</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XRtcPsu_StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="97" refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__rtcpsu_1ga04fcc0a1ae6b27f2a3e0f1ba723c48e3" kindref="member">XRtcPsu_CfgInitialize</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_rtc_psu___config" kindref="compound">XRtcPsu_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ControlRegister;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>some<sp/>default<sp/>values<sp/>for<sp/>instance<sp/>data,<sp/>don&apos;t<sp/>indicate<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>ready<sp/>to<sp/>use<sp/>until<sp/>everything<sp/>has<sp/>been<sp/>initialized<sp/>successfully.</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" kindref="member">IsReady</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.DeviceId<sp/>=<sp/>ConfigPtr-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" kindref="member">OscillatorFreq</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" kindref="member">CalibrationValue</ref><sp/>=<sp/><ref refid="group__rtcpsu_1gad7a184022ff2ba6eab442bb895f7df30" kindref="member">XRTC_CALIBRATION_VALUE</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" kindref="member">OscillatorFreq</ref><sp/>=<sp/><ref refid="group__rtcpsu_1ga7e8bad01d40368b034d49dfcb4401486" kindref="member">XRTC_TYPICAL_OSC_FREQ</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>all<sp/>handlers<sp/>to<sp/>stub<sp/>values,<sp/>let<sp/>user<sp/>configure<sp/>this</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>data<sp/>later.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a78494428d54e782b45aa81cb473ad3c8" kindref="member">Handler</ref><sp/>=<sp/>(<ref refid="group__rtcpsu_1ga275e074ddd4db57dfbcfb362c41c9af0" kindref="member">XRtcPsu_Handler</ref>)XRtcPsu_StubHandler;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" kindref="member">IsPeriodicAlarm</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>calibration<sp/>value<sp/>in<sp/>calibration<sp/>register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1ga7226dae4931d57f6e45a86c0b1b8fa2f" kindref="member">XRTC_CALIB_WR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" kindref="member">CalibrationValue</ref>);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/><sp/><sp/><sp/><sp/>Set<sp/>the<sp/>Oscillator<sp/>crystal<sp/>and<sp/>Battery<sp/>switch<sp/>enable</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>in<sp/>control<sp/>register.</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ControlRegister<sp/>=<sp/><ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/><ref refid="group__rtcpsu_1ga0fc893db4a633de94bdfc6f4f59df62f" kindref="member">XRTC_CTL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1ga0fc893db4a633de94bdfc6f4f59df62f" kindref="member">XRTC_CTL_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ControlRegister<sp/>|<sp/>(u32)<ref refid="group__rtcpsu_1gae7da0eb25a60f80358a637f7a2429216" kindref="member">XRTCPSU_CRYSTAL_OSC_EN</ref><sp/>|</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XRTC_CTL_BATTERY_EN_MASK));</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>Interrupt<sp/>Status<sp/>and<sp/>Disable<sp/>the<sp/>interrupts.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XRTC_INT_STS_ALRM_MASK<sp/>|</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XRTC_INT_STS_SECS_MASK));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1gac41e797cd2c6162d086c237426eafa9e" kindref="member">XRTC_INT_DIS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XRTC_INT_DIS_ALRM_MASK<sp/>|</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XRTC_INT_DIS_SECS_MASK));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indicate<sp/>the<sp/>component<sp/>is<sp/>now<sp/>ready<sp/>to<sp/>use.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>TimeUpdated<sp/>and<sp/>CurrTimeUpdated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>=<sp/>(u32)0U;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" kindref="member">CurrTimeUpdated</ref><sp/>=<sp/>(u32)0U;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="176"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XRtcPsu_StubHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Event)</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>Event;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>occurs<sp/>always<sp/>since<sp/>this<sp/>is<sp/>a<sp/>stub<sp/>and<sp/>should</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>never<sp/>be<sp/>called</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="199" refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__rtcpsu_1ga71a08172e9403add8c6ec37842b49512" kindref="member">XRtcPsu_SetTime</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Time)</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>clear<sp/>the<sp/>RTC<sp/>secs<sp/>interrupt<sp/>from<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRTC_INT_STS_SECS_MASK);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" kindref="member">CurrTimeUpdated</ref><sp/>=<sp/>(u32)0U;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>flag<sp/>before<sp/>setting<sp/>the<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>=<sp/>(u32)1U;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Since<sp/>RTC<sp/>takes<sp/>1<sp/>sec<sp/>to<sp/>update<sp/>the<sp/>time<sp/>into<sp/>current</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>time<sp/>register,<sp/>write</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>load<sp/>time<sp/>+<sp/>1sec<sp/>into<sp/>the<sp/>set<sp/>time<sp/>register.</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga2d6afae471b9ad6df9d1ca0ae7c7d16c" kindref="member">XRtcPsu_WriteSetTime</ref>(InstancePtr,<sp/>Time<sp/>+<sp/>(u32)1U);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="226" refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" kindref="member">XRtcPsu_GetCurrentTime</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntMask;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrTime;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntMask<sp/>=<sp/><ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac915150ede3fb8aab0d68c1ed072e4f8" kindref="member">XRTC_INT_MSK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntMask<sp/>&amp;<sp/>XRTC_INT_STS_SECS_MASK)<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>We<sp/>come<sp/>here<sp/>if<sp/>interrupts<sp/>are<sp/>disabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>==<sp/>(u32)1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Status<sp/>&amp;<sp/>XRTC_INT_STS_SECS_MASK)<sp/>==<sp/>(u32)0))<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Give<sp/>the<sp/>previous<sp/>written<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrTime<sp/>=<sp/><ref refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" kindref="member">XRtcPsu_GetLastSetTime</ref>(InstancePtr)<sp/>-<sp/>(u32)1;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>TimeUpdated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>==<sp/>(u32)1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Status<sp/>&amp;<sp/>XRTC_INT_STS_SECS_MASK)<sp/>==<sp/>(u32)1))<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>=<sp/>(u32)0;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RTC<sp/>time<sp/>got<sp/>updated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrTime<sp/>=<sp/><ref refid="group__rtcpsu_1gac30a01306c1b613d66fb25777962ff9f" kindref="member">XRtcPsu_ReadCurrentTime</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>We<sp/>come<sp/>here<sp/>if<sp/>interrupts<sp/>are<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>==<sp/>(u32)1)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1ad5a686b703aa9e5e9a64adff1a66a1e3" kindref="member">CurrTimeUpdated</ref><sp/>==<sp/>(u32)0))<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Give<sp/>the<sp/>previous<sp/>written<sp/>time<sp/>-1<sp/>sec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrTime<sp/>=<sp/><ref refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" kindref="member">XRtcPsu_GetLastSetTime</ref>(InstancePtr)<sp/>-<sp/>(u32)1;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>TimeUpdated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>==<sp/>(u32)1)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1afacea0bb9d86fd587cac2040b30c1cfb" kindref="member">TimeUpdated</ref><sp/>=<sp/>(u32)0;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RTC<sp/>time<sp/>got<sp/>updated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrTime<sp/>=<sp/><ref refid="group__rtcpsu_1gac30a01306c1b613d66fb25777962ff9f" kindref="member">XRtcPsu_ReadCurrentTime</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CurrTime;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="286" refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__rtcpsu_1ga201537801ac896c73018a8719e8637d8" kindref="member">XRtcPsu_SetAlarm</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Alarm,<sp/>u32<sp/>Periodic)</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Alarm<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a944bb7e04321463dcfde5e2eac03d271" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Alarm<sp/>-<sp/><ref refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" kindref="member">XRtcPsu_GetCurrentTime</ref>(InstancePtr))<sp/>&gt;<sp/>(u32)0);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+<sp/><ref refid="group__rtcpsu_1gaefe187edd9e6057a21bed63b21980824" kindref="member">XRTC_ALRM_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Alarm);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Periodic<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a77b2fe94d941fd85130aecaf8b5a4f8d" kindref="member">IsPeriodicAlarm</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1ae5d67d1d0e93c88735e9fa550b91b280" kindref="member">PeriodicAlarmTime</ref><sp/>=</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Alarm<sp/>-<sp/><ref refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" kindref="member">XRtcPsu_GetCurrentTime</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="330" refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__rtcpsu_1gaac3d95ea1a75533a1fd3cd95d62a9914" kindref="member">XRtcPsu_SecToDateTime</ref>(u32<sp/>Seconds,<sp/><ref refid="struct_x_rtc_psu___d_t" kindref="compound">XRtcPsu_DT</ref><sp/>*dt)</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrentTime;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempDays;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DaysPerMonth;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Leap<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(dt<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Extract<sp/>time-of-day<sp/>components<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentTime<sp/>=<sp/>Seconds;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" kindref="member">Sec</ref><sp/>=<sp/>CurrentTime<sp/>%<sp/>60U;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentTime<sp/>/=<sp/>60U;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" kindref="member">Min</ref><sp/>=<sp/>CurrentTime<sp/>%<sp/>60U;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentTime<sp/>/=<sp/>60U;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" kindref="member">Hour</ref><sp/>=<sp/>CurrentTime<sp/>%<sp/>24U;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempDays<sp/>=<sp/>CurrentTime<sp/>/<sp/>24U;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>weekday:<sp/>POSIX<sp/>convention<sp/>(0=Sunday,<sp/>4=Thursday)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a768d292f62468b17e36dce098f8c7d49" kindref="member">WeekDay</ref><sp/>=<sp/>(TempDays<sp/>+<sp/><ref refid="group__rtcpsu_1ga5f20a16494c136368d1754bf5f8f8963" kindref="member">EPOCH_WDAY</ref>)<sp/>%<sp/>7U;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>year<sp/>by<sp/>iterating<sp/>from<sp/>epoch<sp/>(max<sp/>136<sp/>iterations)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" kindref="member">Year</ref><sp/>=<sp/><ref refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" kindref="member">EPOCH_YEAR</ref>;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Leap<sp/>=<sp/><ref refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kindref="member">IS_LEAP_YEAR</ref>(dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" kindref="member">Year</ref>)<sp/>?<sp/>1U<sp/>:<sp/>0U;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TempDays<sp/>&lt;<sp/>(365U<sp/>+<sp/>Leap))</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempDays<sp/>-=<sp/>(365U<sp/>+<sp/>Leap);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" kindref="member">Year</ref>++;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>month:<sp/>TempDays<sp/>is<sp/>0-indexed<sp/>(0=Jan<sp/>1st,<sp/>30=Jan<sp/>31st)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" kindref="member">Month</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DaysPerMonth<sp/>=<sp/>DaysInMonth[dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" kindref="member">Month</ref><sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Adjust<sp/>February<sp/>for<sp/>leap<sp/>years<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Leap<sp/>==<sp/>1U)<sp/>&amp;&amp;<sp/>(dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" kindref="member">Month</ref><sp/>==<sp/>2U))</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DaysPerMonth++;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TempDays<sp/>&lt;<sp/>DaysPerMonth)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempDays<sp/>-=<sp/>DaysPerMonth;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" kindref="member">Month</ref>++;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>0-indexed<sp/>day<sp/>to<sp/>1-indexed<sp/>day-of-month<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" kindref="member">Day</ref><sp/>=<sp/>TempDays<sp/>+<sp/>1U;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="399" refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__rtcpsu_1ga15d97f88e65f27121f56f06480717824" kindref="member">XRtcPsu_DateTimeToSec</ref>(<ref refid="struct_x_rtc_psu___d_t" kindref="compound">XRtcPsu_DT</ref><sp/>*dt)</highlight></codeline>
+<codeline lineno="400"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Year;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Month;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalDays;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DaysInYear;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Seconds;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(dt<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Year<sp/>=<sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a422474627fadc62823e8ff87e0bf1863" kindref="member">Year</ref>;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Month<sp/>=<sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a17e3941ee44e1c60d8702e5ea9a6b658" kindref="member">Month</ref>;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>total<sp/>days<sp/>from<sp/>epoch<sp/>(1970-01-01)<sp/>to<sp/>start<sp/>of<sp/>target<sp/>year<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalDays<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/><ref refid="group__rtcpsu_1gaa0e47af385cda59b56c1ba71dee795d8" kindref="member">EPOCH_YEAR</ref>;<sp/>i<sp/>&lt;<sp/>Year;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DaysInYear<sp/>=<sp/><ref refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kindref="member">IS_LEAP_YEAR</ref>(i)<sp/>?<sp/>366U<sp/>:<sp/>365U;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalDays<sp/>+=<sp/>DaysInYear;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>days<sp/>for<sp/>complete<sp/>months<sp/>in<sp/>target<sp/>year<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>1U;<sp/>i<sp/>&lt;<sp/>Month;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalDays<sp/>+=<sp/>DaysInMonth[i<sp/>-<sp/>1U];</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>leap<sp/>day<sp/>if<sp/>February<sp/>and<sp/>target<sp/>year<sp/>is<sp/>leap<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((i<sp/>==<sp/>2U)<sp/>&amp;&amp;<sp/><ref refid="group__rtcpsu_1ga2e9e3f0230de087bdabd2246a59ba1d1" kindref="member">IS_LEAP_YEAR</ref>(Year))</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalDays++;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>day<sp/>of<sp/>month<sp/>(subtract<sp/>1<sp/>because<sp/>Day<sp/>is<sp/>1-indexed)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalDays<sp/>+=<sp/>(dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a0d91fe193b2ace3bec1c253d9d4651b0" kindref="member">Day</ref><sp/>-<sp/>1U);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>to<sp/>seconds<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Seconds<sp/>=<sp/>(((((TotalDays<sp/>*<sp/>24U)<sp/>+<sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a5217abcfa19b6ee79441c80593233410" kindref="member">Hour</ref>)<sp/>*<sp/>60U)<sp/>+<sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a985ad2e22c16c13787bad0bc5a6252d3" kindref="member">Min</ref>)<sp/>*<sp/>60U)</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>dt-&gt;<ref refid="struct_x_rtc_psu___d_t_1a2a4a6d1fc2f482c69610be4c46681ee0" kindref="member">Sec</ref>;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Seconds;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="467" refid="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__rtcpsu_1ga33633f27f8155128cc6815d883f9e22c" kindref="member">XRtcPsu_CalculateCalibration</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>TimeReal,</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CrystalOscFreq)</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadTime;</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SetTime;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Cprev;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Fprev;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Cnew;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Fnew;</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Calibration;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TimeReal<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CrystalOscFreq<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadTime<sp/>=<sp/><ref refid="group__rtcpsu_1gad47ac1cadbbe8dd0e67588d1fc658cc2" kindref="member">XRtcPsu_GetCurrentTime</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SetTime<sp/>=<sp/><ref refid="group__rtcpsu_1gaa1d04a3a39aa70df47747733af96e1c7" kindref="member">XRtcPsu_GetLastSetTime</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Calibration<sp/>=<sp/><ref refid="group__rtcpsu_1ga4464d5485ee8d997454a4eff3c497040" kindref="member">XRtcPsu_GetCalibration</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="486"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>When<sp/>board<sp/>gets<sp/>reset,<sp/>Calibration<sp/>value<sp/>is<sp/>zero</highlight></codeline>
+<codeline lineno="487"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>Last<sp/>setTime<sp/>will<sp/>be<sp/>marked<sp/>as<sp/>1st<sp/><sp/>second.<sp/>This<sp/>implies</highlight></codeline>
+<codeline lineno="488"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CurrentTime<sp/>to<sp/>be<sp/>in<sp/>few<sp/>seconds<sp/>say<sp/>something<sp/>in<sp/>tens.<sp/>TimeReal<sp/>will</highlight></codeline>
+<codeline lineno="489"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>be<sp/>huge,<sp/>say<sp/>something<sp/>in<sp/>thousands.<sp/>So<sp/>to<sp/>prevent</highlight></codeline>
+<codeline lineno="490"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>such<sp/>reset<sp/>case,<sp/>Cnew</highlight></codeline>
+<codeline lineno="491"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>Fnew<sp/>will<sp/>not<sp/>be<sp/>calculated.</highlight></codeline>
+<codeline lineno="492"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Calibration<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CrystalOscFreq<sp/>!=<sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" kindref="member">OscillatorFreq</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cnew<sp/>=<sp/>CrystalOscFreq<sp/>-<sp/>(u32)1;</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fnew<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Xf;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cprev<sp/>=<sp/>Calibration<sp/>&amp;<sp/>XRTC_CALIB_RD_MAX_TCK_MASK;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fprev<sp/>=<sp/>(Calibration<sp/>&amp;<sp/>XRTC_CALIB_RD_FRACTN_DATA_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XRTC_CALIB_RD_FRACTN_DATA_SHIFT;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xf<sp/>=<sp/>(float)((ReadTime<sp/>-<sp/>SetTime)<sp/>/<sp/>(TimeReal<sp/>-<sp/>SetTime));</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xf<sp/>=<sp/>Xf<sp/>*<sp/>(float)((Cprev<sp/>+<sp/>1U)<sp/>+<sp/>((Fprev<sp/>+<sp/>1U)<sp/>/<sp/>16U));</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cnew<sp/>=<sp/>(u32)(Xf)<sp/>-<sp/>(u32)1;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fnew<sp/>=<sp/><ref refid="group__rtcpsu_1gab9fa0e5d7c9536a238863272a1e21bfa" kindref="member">XRtcPsu_RoundOff</ref>((Xf<sp/>-<sp/>(u32)Xf)<sp/>*<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)16U)<sp/>-<sp/>(u32)1;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Calibration<sp/>=<sp/>(Fnew<sp/>&lt;&lt;<sp/>XRTC_CALIB_RD_FRACTN_DATA_SHIFT)<sp/>+<sp/>Cnew;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Calibration<sp/>|=<sp/>XRTC_CALIB_RD_FRACTN_EN_MASK;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a4b7486e6c28ee7d980fa315362fefd75" kindref="member">CalibrationValue</ref><sp/>=<sp/>Calibration;</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a435c6e39ea7caad737c3ab01193144e0" kindref="member">OscillatorFreq</ref><sp/>=<sp/>CrystalOscFreq;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="531" refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__rtcpsu_1gafe9ec3849cca99b5d67f76ffafcc3ab2" kindref="member">XRtcPsu_IsSecondsEventGenerated</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Loop<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>for<sp/>Seconds<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>)<sp/>&amp;<sp/>(XRTC_INT_STS_SECS_MASK))<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>((InstancePtr)-&gt;RtcConfig.BaseAddr<sp/>+</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>,<sp/>XRTC_INT_STS_SECS_MASK);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="562" refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__rtcpsu_1ga75de01e02970e25ccbbeb1af33d0e808" kindref="member">XRtcPsu_IsAlarmEventGenerated</ref>(<ref refid="struct_x_rtc_psu" kindref="compound">XRtcPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="563"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Loop<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>for<sp/>Alarm<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__rtcpsu_1gaccbbc47feabb330a937816bc347766ea" kindref="member">XRtcPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_rtc_psu_1a510539ab390fac74a4e6f7d8a837e20c" kindref="member">RtcConfig</ref>.<ref refid="struct_x_rtc_psu___config_1a0bc4fef50a1edc589aaa4f9fed0a50c2" kindref="member">BaseAddr</ref><sp/>+</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>)<sp/>&amp;<sp/>(XRTC_INT_STS_ALRM_MASK))<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1gac80374611ede3fc00461df6aaff75028" kindref="member">XRtcPsu_WriteReg</ref>((InstancePtr)-&gt;RtcConfig.BaseAddr<sp/>+</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__rtcpsu_1ga5031f5d32d26c4887751966503470c83" kindref="member">XRTC_INT_STS_OFFSET</ref>,<sp/>XRTC_INT_STS_ALRM_MASK);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rtcpsu/src/xrtcpsu.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,495 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsu__polled__example_8c" kind="file">
+    <compoundname>xsysmonpsu_polled_example.c</compoundname>
+    <includes refid="xsysmonpsu_8h" local="yes">xsysmonpsu.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">stdio.h</includes>
+    <incdepgraph>
+      <node id="98">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="99">
+        <label>xil_io.h</label>
+      </node>
+      <node id="95">
+        <label>xsysmonpsu_polled_example.c</label>
+        <link refid="xsysmonpsu_polled_example.c"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="97">
+        <label>xstatus.h</label>
+      </node>
+      <node id="100">
+        <label>xsysmonpsu_hw.h</label>
+        <link refid="xsysmonpsu__hw_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>xil_types.h</label>
+      </node>
+      <node id="96">
+        <label>xsysmonpsu.h</label>
+        <link refid="xsysmonpsu_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsysmonpsu__polled__example_8c_1a84f7428db805800241676dd836763f43" prot="public" static="no">
+        <name>SYSMON_DEVICE_ID</name>
+        <initializer>0xffa50000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsysmonpsu__polled__example_8c_1ae5220dd124756fac31a6df97e2d3d6ac" prot="public" static="no">
+        <name>XSYSMON_TYPE</name>
+        <initializer>XSYSMON_PS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="71" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsysmonpsu__polled__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" prot="public" static="no">
+        <name>printf</name>
+        <initializer>xil_printf /* Small foot-print printf function */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xsysmonpsu__polled__example_8c_1a716ed0bf1bd2ddff5de8b5d57b489a01" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref></type>
+        <definition>XSysMonPsu SysMonInst</definition>
+        <argsstring></argsstring>
+        <name>SysMonInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SysMonPsuPolledPrintfExample</definition>
+        <argsstring>(u32 SysMonDeviceId)</argsstring>
+        <name>SysMonPsuPolledPrintfExample</name>
+        <param>
+          <type>u32</type>
+          <declname>SysMonDeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a test on the System Monitor device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Initiate the System Monitor device driver instance</para></listitem><listitem><para>Run self-test on the device</para></listitem><listitem><para>Setup the sequence registers to continuously monitor on-chip temperature, Supply 1 and Supply 3</para></listitem><listitem><para>Setup configuration registers to start the sequence</para></listitem><listitem><para>Read the latest on-chip temperature, Supply 1 and Supply 3</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SysMonDeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPAR_&lt;SYSMON_instance&gt;_DEVICE_ID value from xparameters.h.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="147" bodyend="300"/>
+        <references refid="struct_x_sys_mon_psu___config_1a0166b8968529950a2b997038b7d99f16" compoundref="xsysmonpsu_8h" startline="393">XSysMonPsu_Config::BaseAddress</references>
+        <references refid="xsysmonpsu_8h_1a7cd77d90e7456614726390476f3636c8" compoundref="xsysmonpsu_8h" startline="275">XSM_AVG_16_SAMPLES</references>
+        <references refid="xsysmonpsu_8h_1a0b564ae32085a3fc51c452d1babe46db" compoundref="xsysmonpsu_8h" startline="196">XSM_CH_SUPPLY1</references>
+        <references refid="xsysmonpsu_8h_1a7c4df26dc69ef41921c484fd3ccc006c" compoundref="xsysmonpsu_8h" startline="201">XSM_CH_SUPPLY3</references>
+        <references refid="xsysmonpsu_8h_1af2f79c54dddbdf090934f80f315b2e60" compoundref="xsysmonpsu_8h" startline="195">XSM_CH_TEMP</references>
+        <references refid="xsysmonpsu_8h_1a2ab1b4304d1e781bd7a9908718620c0b" compoundref="xsysmonpsu_8h" startline="242">XSM_MAX_SUPPLY1</references>
+        <references refid="xsysmonpsu_8h_1a4cc0e390c18e733d61a5bec32f8f806f" compoundref="xsysmonpsu_8h" startline="244">XSM_MAX_SUPPLY3</references>
+        <references refid="xsysmonpsu_8h_1a35d9814abedb2943f4a84ecff66351e5" compoundref="xsysmonpsu_8h" startline="241">XSM_MAX_TEMP</references>
+        <references refid="xsysmonpsu_8h_1acda48741be11b7a96ece33a3f67dbd74" compoundref="xsysmonpsu_8h" startline="246">XSM_MIN_SUPPLY1</references>
+        <references refid="xsysmonpsu_8h_1a4ae90b5125c90a5ecf98415c05e493a2" compoundref="xsysmonpsu_8h" startline="248">XSM_MIN_SUPPLY3</references>
+        <references refid="xsysmonpsu_8h_1af3acf3098ee563aa1cc3e35555d4e801" compoundref="xsysmonpsu_8h" startline="245">XSM_MIN_TEMP</references>
+        <references refid="xsysmonpsu_8h_1a090e870886f3ed8d58efc57c763772f2" compoundref="xsysmonpsu_8h" startline="287">XSM_SEQ_MODE_CONTINPASS</references>
+        <references refid="xsysmonpsu_8h_1a223c74befcd8a6710ea7a7acbaf41636" compoundref="xsysmonpsu_8h" startline="285">XSM_SEQ_MODE_SAFE</references>
+        <references refid="xsysmonpsu_8c_1a8cd0584410c0931f931aa4da1e3e151b" compoundref="xsysmonpsu_8c" startline="113" endline="170">XSysMonPsu_CfgInitialize</references>
+        <references refid="xsysmonpsu_8c_1a54eb6ba4c6f594b75d402cde03f6e173" compoundref="xsysmonpsu_8c" startline="326" endline="362">XSysMonPsu_GetAdcData</references>
+        <references refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" compoundref="xsysmonpsu_8c" startline="430" endline="458">XSysMonPsu_GetMinMaxMeasurement</references>
+        <references refid="xsysmonpsu_8h_1a7c41996bf95cd7119dba302246345a9d" compoundref="xsysmonpsu__intr_8c" startline="202" endline="222">XSysMonPsu_IntrClear</references>
+        <references refid="xsysmonpsu_8h_1a3ef44a74426b13480363747a5dedc5d0" compoundref="xsysmonpsu__intr_8c" startline="166" endline="182">XSysMonPsu_IntrGetStatus</references>
+        <references refid="xsysmonpsu_8h_1a58103c6523a6624346c905932a73d71b" compoundref="xsysmonpsu__sinit_8c" startline="85" endline="100">XSysMonPsu_LookupConfig</references>
+        <references refid="xsysmonpsu_8h_1a380d87507652a19d453b20e6d7655d65" compoundref="xsysmonpsu_8h" startline="438">XSysMonPsu_RawToTemperature_OnChip</references>
+        <references refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" compoundref="xsysmonpsu_8h" startline="522">XSysMonPsu_RawToVoltage</references>
+        <references refid="xsysmonpsu_8h_1a39d8d59cc35fe4151b51b5bbafdca2ca" compoundref="xsysmonpsu__selftest_8c" startline="76" endline="108">XSysMonPsu_SelfTest</references>
+        <references refid="xsysmonpsu_8c_1a3ce8ca01b6992994737213f342847662" compoundref="xsysmonpsu_8c" startline="711" endline="751">XSysMonPsu_SetAlarmEnables</references>
+        <references refid="xsysmonpsu_8c_1a711d9441ecb7c36f22b11f941d7f994b" compoundref="xsysmonpsu_8c" startline="483" endline="505">XSysMonPsu_SetAvg</references>
+        <references refid="xsysmonpsu_8c_1adb114566387fa8889b913f34a7de6010" compoundref="xsysmonpsu_8c" startline="1424" endline="1469">XSysMonPsu_SetSeqAvgEnables</references>
+        <references refid="xsysmonpsu_8c_1ac51295c525a507a8f334c97f02a84221" compoundref="xsysmonpsu_8c" startline="1307" endline="1346">XSysMonPsu_SetSeqChEnables</references>
+        <references refid="xsysmonpsu_8c_1aa4bdb4e555b2c8d47a0185862c9cb4c6" compoundref="xsysmonpsu_8c" startline="836" endline="862">XSysMonPsu_SetSequencerMode</references>
+        <referencedby refid="xsysmonpsu__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsysmonpsu__polled__example_8c" startline="99" endline="121">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xsysmonpsu__polled__example_8c_1abd13f325c3563fded1cc133193e5f66d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int SysMonPsuFractionToInt</definition>
+        <argsstring>(float FloatNum)</argsstring>
+        <name>SysMonPsuFractionToInt</name>
+        <param>
+          <type>float</type>
+          <declname>FloatNum</declname>
+        </param>
+        <briefdescription>
+<para>This function converts the fraction part of the given floating point number (after the decimal point)to an integer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FloatNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the floating point number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Integer number to a precision of 3 digits.</para></simplesect>
+<simplesect kind="note"><para>This function is used in the printing of floating point data to a STDIO device using the xil_printf function. The xil_printf is a very small foot-print printf function and does not support the printing of floating point numbers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="319" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="xsysmonpsu__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that invokes the polled example in this file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c" bodystart="99" bodyend="121"/>
+        <references refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" compoundref="xsysmonpsu__polled__example_8c" startline="147" endline="300">SysMonPsuPolledPrintfExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the driver functions of the System Monitor driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example here shows the driver/device in polled mode to check the on-chip temperature and voltages.</para><para><simplesect kind="note"><para></para></simplesect>
+This examples also assumes that there is a STDIO device in the system.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kvn    12/15/15 First release
+      ms     04/05/17 Modified Comment lines in functions to
+                      recognize it as documentation block for doxygen
+                      generation.
+2.3   ms    12/12/17 Added peripheral test support.
+      mn    03/08/18 Update code to run at higher frequency and remove sleep
+2.6   aad   11/21/19 Removed reading of AUX channels
+      aad   11/22/19 Added support for XSYSMON_PL
+2.9   cog    07/20/23 Added support for SDT flow
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XSYSMONPSU_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xffa50000</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>needs<sp/>to<sp/>define<sp/>the<sp/>macro<sp/>PL_EXAMPLE<sp/>to<sp/>run<sp/>the<sp/>code<sp/>on<sp/>PL<sp/>SYSMON.</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/>*<sp/>By<sp/>default<sp/>the<sp/>example<sp/>will<sp/>run<sp/>on<sp/>XSYSMON_PS</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PL_EXAMPLE</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSYSMON_TYPE<sp/><sp/><sp/><sp/>XSYSMON_PL</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSYSMON_TYPE<sp/><sp/><sp/><sp/>XSYSMON_PS</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>printf<sp/>xil_printf<sp/></highlight><highlight class="comment">/*<sp/>Small<sp/>foot-print<sp/>printf<sp/>function<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" kindref="member">SysMonPsuPolledPrintfExample</ref>(u32<sp/>SysMonDeviceId);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SysMonPsuFractionToInt(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>FloatNum);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref><sp/>SysMonInst;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>System<sp/>Monitor<sp/>driver<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="xsysmonpsu__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__ams__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>SysMonitor<sp/>polled<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>generated<sp/>in<sp/>xparameters.h.</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" kindref="member">SysMonPsuPolledPrintfExample</ref>(SYSMON_DEVICE_ID);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Sysmon<sp/>Polled<sp/>Example<sp/>Test<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PL_EXAMPLE</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Sysmon<sp/>PL<sp/>Polled<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Sysmon<sp/>PS<sp/>Polled<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" kindref="member">SysMonPsuPolledPrintfExample</ref>(u32<sp/>SysMonDeviceId)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon_psu___config" kindref="compound">XSysMonPsu_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempRawData;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Supply3RawData;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Supply1RawData;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>TempData;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Supply3Data;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Supply1Data;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>MaxData;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>MinData;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref><sp/>*SysMonInstPtr<sp/>=<sp/>&amp;SysMonInst;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nEntering<sp/>the<sp/>SysMon<sp/>Polled<sp/>Example.<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>SysMon<sp/>driver.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a58103c6523a6624346c905932a73d71b" kindref="member">XSysMonPsu_LookupConfig</ref>(SysMonDeviceId);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1a8cd0584410c0931f931aa4da1e3e151b" kindref="member">XSysMonPsu_CfgInitialize</ref>(SysMonInstPtr,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_sys_mon_psu___config_1a0166b8968529950a2b997038b7d99f16" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Self<sp/>Test<sp/>the<sp/>System<sp/>Monitor<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a39d8d59cc35fe4151b51b5bbafdca2ca" kindref="member">XSysMonPsu_SelfTest</ref>(SysMonInstPtr);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>before<sp/>configuring<sp/>the<sp/>Sequence</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers.</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1aa4bdb4e555b2c8d47a0185862c9cb4c6" kindref="member">XSysMonPsu_SetSequencerMode</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a223c74befcd8a6710ea7a7acbaf41636" kindref="member">XSM_SEQ_MODE_SAFE</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>all<sp/>the<sp/>alarms<sp/>in<sp/>the<sp/>Configuration<sp/>Register<sp/>1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1a3ce8ca01b6992994737213f342847662" kindref="member">XSysMonPsu_SetAlarmEnables</ref>(SysMonInstPtr,<sp/>0x0,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="190"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>the<sp/>Averaging<sp/>to<sp/>be<sp/>done<sp/>for<sp/>the<sp/>channels<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configuration<sp/>0<sp/>register<sp/>as<sp/>16<sp/>samples:</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1a711d9441ecb7c36f22b11f941d7f994b" kindref="member">XSysMonPsu_SetAvg</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a7cd77d90e7456614726390476f3636c8" kindref="member">XSM_AVG_16_SAMPLES</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>averaging<sp/>on<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>registers:</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature,<sp/>Supply<sp/>1/Supply<sp/>3<sp/><sp/>supply<sp/>sensors</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/>-<sp/>Calibration<sp/>Channel</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="xsysmonpsu_8c_1adb114566387fa8889b913f34a7de6010" kindref="member">XSysMonPsu_SetSeqAvgEnables</ref>(SysMonInstPtr,<sp/>XSYSMONPSU_SEQ_CH0_TEMP_MASK<sp/>|</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_SUP1_MASK<sp/>|</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_SUP3_MASK<sp/>|</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>following<sp/>channels<sp/>in<sp/>the<sp/>Sequencer<sp/>registers:</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>On-chip<sp/>Temperature,<sp/>Supply<sp/>1/Supply<sp/>3<sp/>supply<sp/>sensors</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Calibration<sp/>Channel</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><sp/><ref refid="xsysmonpsu_8c_1ac51295c525a507a8f334c97f02a84221" kindref="member">XSysMonPsu_SetSeqChEnables</ref>(SysMonInstPtr,<sp/>XSYSMONPSU_SEQ_CH0_TEMP_MASK<sp/>|</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_SUP1_MASK<sp/>|</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_SUP3_MASK<sp/>|</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSU_SEQ_CH0_CALIBRTN_MASK,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>any<sp/>bits<sp/>set<sp/>in<sp/>the<sp/>Interrupt<sp/>Status<sp/>Register.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a3ef44a74426b13480363747a5dedc5d0" kindref="member">XSysMonPsu_IntrGetStatus</ref>(SysMonInstPtr);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a7c41996bf95cd7119dba302246345a9d" kindref="member">XSysMonPsu_IntrClear</ref>(SysMonInstPtr,<sp/>IntrStatus);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>Channel<sp/>Sequencer<sp/>in<sp/>continuous<sp/>sequencer<sp/>cycling<sp/>mode.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1aa4bdb4e555b2c8d47a0185862c9cb4c6" kindref="member">XSysMonPsu_SetSequencerMode</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a090e870886f3ed8d58efc57c763772f2" kindref="member">XSM_SEQ_MODE_CONTINPASS</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>till<sp/>the<sp/>End<sp/>of<sp/>Sequence<sp/>occurs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="xsysmonpsu_8h_1a3ef44a74426b13480363747a5dedc5d0" kindref="member">XSysMonPsu_IntrGetStatus</ref>(SysMonInstPtr)<sp/>&amp;<sp/>((u64)XSYSMONPSU_ISR_1_EOS_MASK&lt;&lt;<sp/>32))<sp/>!=</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u64)XSYSMONPSU_ISR_1_EOS_MASK&lt;&lt;<sp/>32));</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>on-chip<sp/>Temperature<sp/>Data<sp/>(Current/Maximum/Minimum)</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>from<sp/>the<sp/>ADC<sp/>data<sp/>registers.</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempRawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1a54eb6ba4c6f594b75d402cde03f6e173" kindref="member">XSysMonPsu_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1af2f79c54dddbdf090934f80f315b2e60" kindref="member">XSM_CH_TEMP</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a380d87507652a19d453b20e6d7655d65" kindref="member">XSysMonPsu_RawToTemperature_OnChip</ref>(TempRawData);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nThe<sp/>Current<sp/>Temperature<sp/>is<sp/>%0d.%03d<sp/>Centigrades.\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(TempData),<sp/>SysMonPsuFractionToInt(TempData));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempRawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a35d9814abedb2943f4a84ecff66351e5" kindref="member">XSM_MAX_TEMP</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a380d87507652a19d453b20e6d7655d65" kindref="member">XSysMonPsu_RawToTemperature_OnChip</ref>(TempRawData);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Maximum<sp/>Temperature<sp/>is<sp/>%0d.%03d<sp/>Centigrades.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MaxData),<sp/>SysMonPsuFractionToInt(MaxData));</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempRawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1af3acf3098ee563aa1cc3e35555d4e801" kindref="member">XSM_MIN_TEMP</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MinData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1a380d87507652a19d453b20e6d7655d65" kindref="member">XSysMonPsu_RawToTemperature_OnChip</ref>(TempRawData);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Minimum<sp/>Temperature<sp/>is<sp/>%0d.%03d<sp/>Centigrades.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MinData),<sp/>SysMonPsuFractionToInt(MinData));</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Supply<sp/>1<sp/>Votage<sp/>Data<sp/>(Current/Maximum/Minimum)<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ADC<sp/>data<sp/>registers.</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply1RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1a54eb6ba4c6f594b75d402cde03f6e173" kindref="member">XSysMonPsu_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a0b564ae32085a3fc51c452d1babe46db" kindref="member">XSM_CH_SUPPLY1</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply1Data<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply1RawData);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nThe<sp/>Current<sp/>Supply<sp/>1<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(Supply1Data),<sp/>SysMonPsuFractionToInt(Supply1Data));</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply1RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a2ab1b4304d1e781bd7a9908718620c0b" kindref="member">XSM_MAX_SUPPLY1</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply1RawData);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Maximum<sp/>Supply<sp/>1<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MaxData),<sp/>SysMonPsuFractionToInt(MaxData));</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply1RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1acda48741be11b7a96ece33a3f67dbd74" kindref="member">XSM_MIN_SUPPLY1</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MinData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply1RawData);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Minimum<sp/>Supply<sp/>1<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MinData),<sp/>SysMonPsuFractionToInt(MinData));</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Supply<sp/>3<sp/>Votage<sp/>Data<sp/>(Current/Maximum/Minimum)<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ADC<sp/>data<sp/>registers.</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply3RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1a54eb6ba4c6f594b75d402cde03f6e173" kindref="member">XSysMonPsu_GetAdcData</ref>(SysMonInstPtr,<sp/><ref refid="xsysmonpsu_8h_1a7c4df26dc69ef41921c484fd3ccc006c" kindref="member">XSM_CH_SUPPLY3</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply3Data<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply3RawData);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nThe<sp/>Current<sp/>Supply<sp/>3<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(Supply3Data),<sp/>SysMonPsuFractionToInt(Supply3Data));</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply3RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a4cc0e390c18e733d61a5bec32f8f806f" kindref="member">XSM_MAX_SUPPLY3</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply3RawData);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Maximum<sp/>Supply<sp/>3<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MaxData),<sp/>SysMonPsuFractionToInt(MaxData));</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Supply3RawData<sp/>=<sp/><ref refid="xsysmonpsu_8c_1aa4312c89ab0280cd7df2de940193fe32" kindref="member">XSysMonPsu_GetMinMaxMeasurement</ref>(SysMonInstPtr,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a4ae90b5125c90a5ecf98415c05e493a2" kindref="member">XSM_MIN_SUPPLY3</ref>,<sp/>XSYSMON_TYPE);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MinData<sp/>=<sp/><ref refid="xsysmonpsu_8h_1af6667f0fcc65dda4a7af897b2924143c" kindref="member">XSysMonPsu_RawToVoltage</ref>(Supply3RawData);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;The<sp/>Minimum<sp/>Supply<sp/>3<sp/>is<sp/>%0d.%03d<sp/>Volts.<sp/>\r\n\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)(MinData),<sp/>SysMonPsuFractionToInt(MinData));</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Exiting<sp/>the<sp/>SysMon<sp/>Polled<sp/>Example.<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="319"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SysMonPsuFractionToInt(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>FloatNum)</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>Temp;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temp<sp/>=<sp/>FloatNum;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FloatNum<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temp<sp/>=<sp/>-(FloatNum);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<sp/>((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)((Temp<sp/>-(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Temp))<sp/>*<sp/>(1000.0f))));</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/examples/xsysmonpsu_polled_example.c"/>
+  </compounddef>
+</doxygen>

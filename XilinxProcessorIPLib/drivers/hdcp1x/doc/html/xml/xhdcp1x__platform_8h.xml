@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp1x__platform_8h" kind="file">
+    <compoundname>xhdcp1x_platform.h</compoundname>
+    <includes refid="xhdcp1x_8h" local="yes">xhdcp1x.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xhdcp1x__platform_8c" local="yes">xhdcp1x_platform.c</includedby>
+    <includedby refid="xhdcp1x__rx_8c" local="yes">xhdcp1x_rx.c</includedby>
+    <includedby refid="xhdcp1x__tx_8c" local="yes">xhdcp1x_tx.c</includedby>
+    <incdepgraph>
+      <node id="170">
+        <label>xil_io.h</label>
+      </node>
+      <node id="165">
+        <label>xhdcp1x_platform.h</label>
+        <link refid="xhdcp1x_platform.h"/>
+        <childnode refid="166" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+      </node>
+      <node id="172">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="171">
+        <label>xstatus.h</label>
+      </node>
+      <node id="169">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="170" relation="include">
+        </childnode>
+      </node>
+      <node id="168">
+        <label>xil_types.h</label>
+      </node>
+      <node id="167">
+        <label>xparameters.h</label>
+      </node>
+      <node id="166">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="167" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+        <childnode refid="172" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="176">
+        <label>xhdcp1x_tx.c</label>
+        <link refid="xhdcp1x__tx_8c"/>
+      </node>
+      <node id="175">
+        <label>xhdcp1x_rx.c</label>
+        <link refid="xhdcp1x__rx_8c"/>
+      </node>
+      <node id="174">
+        <label>xhdcp1x_platform.c</label>
+        <link refid="xhdcp1x__platform_8c"/>
+      </node>
+      <node id="173">
+        <label>xhdcp1x_platform.h</label>
+        <link refid="xhdcp1x_platform.h"/>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+        <childnode refid="176" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdcp1x_1ga6d720dad094a6cd5b5bfbd81d97086a5" prot="public" static="no">
+        <name>XHDCP1X_PLATFORM_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdcp1x_1gaceb8746cc60b1628b4df76d155f0b6a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PlatformIsKsvRevoked</definition>
+        <argsstring>(const XHdcp1x *InstancePtr, u64 Ksv)</argsstring>
+        <name>XHdcp1x_PlatformIsKsvRevoked</name>
+        <param>
+          <type>const <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Ksv</declname>
+        </param>
+        <briefdescription>
+<para>This function checks a KSV value to determine if it has been revoked or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the HDCP interface. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ksv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the KSV to check.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating the KSV is revoked (TRUE) or not (FALSE)</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="62" bodyend="75"/>
+        <references refid="group__hdcp1x_1ga8669f2b83df6c835492036a201fbae27" compoundref="xhdcp1x_8c" startline="102">XHdcp1xKsvRevokeCheck</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga702d5623fb869e3454ce5557b79cca1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PlatformTimerStart</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u16 TimeoutInMs)</argsstring>
+        <name>XHdcp1x_PlatformTimerStart</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>TimeoutInMs</declname>
+        </param>
+        <briefdescription>
+<para>This function starts a timer on behalf of an HDCP interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the hdcp interface. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeoutInMs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the duration of the timer in milliseconds.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="91" bodyend="105"/>
+        <references refid="struct_x_hdcp1x_1a72c9f45f22ce6f84365adebdb31f3211" compoundref="xhdcp1x_8h" startline="1165">XHdcp1x::XHdcp1xTimerStart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga1c5ac368d276bfd8e6a017b64c90cbf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PlatformTimerStop</definition>
+        <argsstring>(XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PlatformTimerStop</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stop a timer on behalf of an HDCP interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the HDCP interface.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="120" bodyend="133"/>
+        <references refid="struct_x_hdcp1x_1a4d8be50f6a3e7200a1a09af3ecc2aa2f" compoundref="xhdcp1x_8h" startline="1169">XHdcp1x::XHdcp1xTimerStop</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga0f5e4cf832a1dd14f902a2e25043a56e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PlatformTimerBusy</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u16 DelayInMs)</argsstring>
+        <name>XHdcp1x_PlatformTimerBusy</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DelayInMs</declname>
+        </param>
+        <briefdescription>
+<para>This function busy waits on a timer for a number of milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the hdcp interface. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayInMs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay time in milliseconds.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.c" bodystart="149" bodyend="163"/>
+        <references refid="struct_x_hdcp1x_1aff7bd50973bcc42ab5540bd9c9d8a709" compoundref="xhdcp1x_8h" startline="1173">XHdcp1x::XHdcp1xTimerDelay</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XHDCP1X_PLATFORM_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28" refid="group__hdcp1x_1ga6d720dad094a6cd5b5bfbd81d97086a5" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PLATFORM_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x_8h" kindref="compound">xhdcp1x.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1gaceb8746cc60b1628b4df76d155f0b6a5" kindref="member">XHdcp1x_PlatformIsKsvRevoked</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u64<sp/>Ksv);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga702d5623fb869e3454ce5557b79cca1a" kindref="member">XHdcp1x_PlatformTimerStart</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u16<sp/>TimeoutInMs);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga1c5ac368d276bfd8e6a017b64c90cbf1" kindref="member">XHdcp1x_PlatformTimerStop</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga0f5e4cf832a1dd14f902a2e25043a56e" kindref="member">XHdcp1x_PlatformTimerBusy</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u16<sp/>DelayInMs);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XHDCP1X_PLATFORM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_platform.h"/>
+  </compounddef>
+</doxygen>

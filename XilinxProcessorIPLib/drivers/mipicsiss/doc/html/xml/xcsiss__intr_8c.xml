@@ -1,0 +1,341 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsiss__intr_8c" kind="file">
+    <compoundname>xcsiss_intr.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xcsi.h</includes>
+    <includes refid="xcsiss_8h" local="yes">xcsiss.h</includes>
+    <incdepgraph>
+      <node id="1508">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1507">
+        <label>xcsiss_hw.h</label>
+        <link refid="xcsiss__hw_8h"/>
+        <childnode refid="1508" relation="include">
+        </childnode>
+      </node>
+      <node id="1503">
+        <label>xcsi.h</label>
+      </node>
+      <node id="1506">
+        <label>xdebug.h</label>
+      </node>
+      <node id="1504">
+        <label>xcsiss.h</label>
+        <link refid="xcsiss_8h"/>
+        <childnode refid="1505" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1507" relation="include">
+        </childnode>
+      </node>
+      <node id="1505">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1502">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1501">
+        <label>xcsiss_intr.c</label>
+        <link refid="xcsiss_intr.c"/>
+        <childnode refid="1502" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csiss_1ga7144ae932dcf2ddf7ad15e7ec7565bba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsiSs_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XCsiSs_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the MIPI CSI Rx Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the MIPI CSI Rx Subsystem.</para><para>This function is the interrupt handler for the MIPI CSI Rx Subsystem driver. It processes all pending interrupts and routes them to the appropriate callback handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> instance (passed as void *).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function should be connected to the interrupt system.</para></simplesect>
+The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__csiss_1ga806675fd5dc154656f12869b549e916a" kindref="member">XCsiSs_SetCallBack()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="520" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="72" bodyend="81"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csiss_1ga806675fd5dc154656f12869b549e916a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsiSs_SetCallBack</definition>
+        <argsstring>(XCsiSs *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XCsiSs_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Set callback function for interrupt handling. </para>        </briefdescription>
+        <detaileddescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType:</para><para>This function sets a callback function for a specific interrupt handler type. The registered callback function will be called when the corresponding interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of handler to register. It can be one of:<itemizedlist>
+<listitem><para>XCSISS_HANDLER_DPHY</para></listitem><listitem><para>XCSISS_HANDLER_PKTLVL</para></listitem><listitem><para>XCSISS_HANDLER_PROTLVL</para></listitem><listitem><para>XCSISS_HANDLER_SHORTPACKET</para></listitem><listitem><para>XCSISS_HANDLER_FRAMERECVD</para></listitem><listitem><para>XCSISS_HANDLER_OTHERERROR</para></listitem><listitem><para>XCSISS_HANDLER_VCX </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback was successfully registered.</para></listitem><listitem><para>XST_FAILURE if callback registration failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+HandlerType                Invoked by this driver when:
+-------------------------  --------------------------------------------------
+XCSISS_HANDLER_DPHY        A DPHY Level Error has been detected.
+XCSISS_HANDLER_PROTLVL     A Protocol Level Error has been detected.
+XCSISS_HANDLER_PKTLVL      A Packet Level Error has been detected.
+XCSISS_HANDLER_SHORTPACKET A Short packet has been received or the
+                           Short Packet FIFO is full.
+XCSISS_HANDLER_FRAMERECVD  A Frame has been received
+XCSISS_HANDLER_OTHERERROR  Any other type of interrupt has occurred like
+                           Stream Line Buffer Full, Incorrect Lanes, etc
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XCsi instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of call back to be registered. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to a call back function which is called when a particular event occurs. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a void pointer to data to be referenced to by the CallBackFunc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="564" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="117" bodyend="132"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
+        <references refid="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" compoundref="xcsiss_8h" startline="254">XCsiSs::IsReady</references>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsiSs_IntrDisable</definition>
+        <argsstring>(XCsiSs *InstancePtr, u32 IntrMask)</argsstring>
+        <name>XCsiSs_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrMask</declname>
+        </param>
+        <briefdescription>
+<para>Disable interrupts in the MIPI CSI Rx Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is used to disable the interrupts in the CSI core.</para><para>This function disables the specified interrupts in the MIPI CSI Rx Subsystem.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates Mask for enable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c" bodystart="147" bodyend="155"/>
+        <references refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" compoundref="xcsiss_8h" startline="256">XCsiSs::CsiPtr</references>
+        <references refid="group__csiss_1gaf23dc8ba1af93a7c2ecccbe7c0ebe98e" compoundref="xcsiss__hw_8h" startline="79">XCSISS_ISR_ALLINTR_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcsi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsiss_8h" kindref="compound">xcsiss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Local<sp/>Global<sp/>***********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group__csiss_1ga7144ae932dcf2ddf7ad15e7ec7565bba" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csiss_1ga7144ae932dcf2ddf7ad15e7ec7565bba" kindref="member">XCsiSs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref><sp/>*XCsiSsPtr<sp/>=<sp/>(<ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XCsiSsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XCsiSsPtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_IntrHandler(XCsiSsPtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117" refid="group__csiss_1ga806675fd5dc154656f12869b549e916a" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csiss_1ga806675fd5dc154656f12869b549e916a" kindref="member">XCsiSs_SetCallBack</ref>(<ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi_SetCallBack(InstancePtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref>,<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" kindref="member">XCsiSs_IntrDisable</ref>(<ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>IntrMask)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((IntrMask<sp/>&amp;<sp/>~<ref refid="group__csiss_1gaf23dc8ba1af93a7c2ecccbe7c0ebe98e" kindref="member">XCSISS_ISR_ALLINTR_MASK</ref>)<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi_IntrDisable(InstancePtr-&gt;<ref refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" kindref="member">CsiPtr</ref>,<sp/>IntrMask);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss_intr.c"/>
+  </compounddef>
+</doxygen>

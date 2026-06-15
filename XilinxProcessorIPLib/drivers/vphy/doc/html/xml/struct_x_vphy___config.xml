@@ -1,0 +1,463 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vphy___config" kind="struct" prot="public">
+    <compoundname>XVphy_Config</compoundname>
+    <includes local="no">xvphy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vphy___config_1a4e46ce5abd860393f1891835dc783583" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XVphy_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="680" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVphy_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="682" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="682" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga6955153625236c5779240d2aab90678e" compoundref="xvphy__intr_8c" startline="265" endline="284">XVphy_CfgErrIntr</referencedby>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+        <referencedby refid="xvphy_8c_1ab5c0be51d9acd79559d092d16e7d1fe8" compoundref="xvphy_8c" startline="1368" endline="1392">XVphy_Clkout1OBufTdsEnable</referencedby>
+        <referencedby refid="group__xvphy_1ga8e1cf75cf2ecce4902aeb0faca3d0c7c" compoundref="xvphy__i_8c" startline="290" endline="319">XVphy_GetSysClkDataSel</referencedby>
+        <referencedby refid="group__xvphy_1gafa18f0da25042d12e577a5e16d950476" compoundref="xvphy__i_8c" startline="335" endline="364">XVphy_GetSysClkOutSel</referencedby>
+        <referencedby refid="xvphy_8c_1aa4cef4dea102e0cbb7671d8113f9d52e" compoundref="xvphy_8c" startline="363" endline="366">XVphy_GetVersion</referencedby>
+        <referencedby refid="group__xvphy_1gae11d25f939879208256c3e8155f9873c" compoundref="xvphy__i_8c" startline="448" endline="490">XVphy_GtUserRdyEnable</referencedby>
+        <referencedby refid="xvphy_8c_1ac5754f49fa0df65d75a6d62f4885b94c" compoundref="xvphy_8c" startline="1302" endline="1354">XVphy_IBufDsEnable</referencedby>
+        <referencedby refid="xvphy__intr_8c_1a75e14bbc2dcc8eeeaaed26371ae1b34c" compoundref="xvphy__intr_8c" startline="189" endline="249">XVphy_InterruptHandler</referencedby>
+        <referencedby refid="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" compoundref="xvphy__intr_8c" startline="69" endline="78">XVphy_IntrDisable</referencedby>
+        <referencedby refid="group__xvphy_1gab0c6c186dbb5142d23a6a3b76148c37b" compoundref="xvphy__intr_8c" startline="47" endline="54">XVphy_IntrEnable</referencedby>
+        <referencedby refid="group__xvphy_1gaef25e82d5f217655c1c3c3039c9e1dc3" compoundref="xvphy__i_8c" startline="381" endline="429">XVphy_IsPllLocked</referencedby>
+        <referencedby refid="group__xvphy_1gac7160e541232b5a66b08df49d415acb1" compoundref="xvphy__i_8c" startline="597" endline="617">XVphy_MmcmLocked</referencedby>
+        <referencedby refid="group__xvphy_1ga096dbcd95256264a53fe8af27c8387fb" compoundref="xvphy__i_8c" startline="553" endline="580">XVphy_MmcmLockedMaskEnable</referencedby>
+        <referencedby refid="xvphy_8c_1a59516866f229178eca67ede70680a751" compoundref="xvphy_8c" startline="1182" endline="1209">XVphy_MmcmPowerDown</referencedby>
+        <referencedby refid="group__xvphy_1gadc182ff22a7ec230dc163f90ec5263a3" compoundref="xvphy__i_8c" startline="508" endline="536">XVphy_MmcmReset</referencedby>
+        <referencedby refid="group__xvphy_1ga1b82d1b302268e36126450121d948505" compoundref="xvphy__i_8c" startline="680" endline="726">XVphy_PowerDownGtPll</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+        <referencedby refid="xvphy_8c_1ad1c3340164a0759e485ba914ef282dc3" compoundref="xvphy_8c" startline="682" endline="717">XVphy_ResetGtPll</referencedby>
+        <referencedby refid="xvphy_8c_1a3d258176c8a2cc605cdaf8f28a72559d" compoundref="xvphy_8c" startline="736" endline="771">XVphy_ResetGtTxRx</referencedby>
+        <referencedby refid="xvphy__selftest_8c_1a772c4c6e8f106de408926972cb2443f2" compoundref="xvphy__selftest_8c" startline="60" endline="77">XVphy_SelfTest</referencedby>
+        <referencedby refid="group__xvphy_1ga15c1341136ca5bde85ab447ba9e09c56" compoundref="xvphy__i_8c" startline="630" endline="662">XVphy_SetBufgGtDiv</referencedby>
+        <referencedby refid="xvphy_8c_1a68f7e59747886068c7a4829e93e4fd6b" compoundref="xvphy_8c" startline="789" endline="830">XVphy_SetPolarity</referencedby>
+        <referencedby refid="xvphy_8c_1a0b84e89a63bfed4a253be21d5c1d45d7" compoundref="xvphy_8c" startline="848" endline="897">XVphy_SetPrbsSel</referencedby>
+        <referencedby refid="xvphy_8c_1ab4dbca672563dce677d06d7bbbbe23d9" compoundref="xvphy_8c" startline="1075" endline="1103">XVphy_SetRxLpm</referencedby>
+        <referencedby refid="xvphy_8c_1a66bc59cb2c2578b0f5738fab63960a66" compoundref="xvphy_8c" startline="1036" endline="1058">XVphy_SetTxPostCursor</referencedby>
+        <referencedby refid="xvphy_8c_1a4071a10340c3cda8cfb3aa3bfb4483e9" compoundref="xvphy_8c" startline="998" endline="1020">XVphy_SetTxPreEmphasis</referencedby>
+        <referencedby refid="xvphy_8c_1a7526bb0de496313d804798dcc1df8cc8" compoundref="xvphy_8c" startline="960" endline="982">XVphy_SetTxVoltageSwing</referencedby>
+        <referencedby refid="xvphy_8c_1a871b3166b3cda10fc41fdba4a1afc185" compoundref="xvphy_8c" startline="914" endline="944">XVphy_TxPrbsForceError</referencedby>
+        <referencedby refid="group__xvphy_1ga5041cead7e1fe927d645c4e681e95837" compoundref="xvphy__i_8c" startline="64" endline="116">XVphy_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" prot="public" static="no" mutable="no">
+        <type>XVphy_GtType</type>
+        <definition>XVphy_GtType XVphy_Config::XcvrType</definition>
+        <argsstring></argsstring>
+        <name>XcvrType</name>
+        <briefdescription>
+<para>VPHY Transceiver Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="684" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="684" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+        <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+        <referencedby refid="group__xvphy_1ga609475eec7171bd779b972e31496c717" compoundref="xvphy__i_8c" startline="831" endline="875">XVphy_DirReconfig</referencedby>
+        <referencedby refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</referencedby>
+        <referencedby refid="group__xvphy_1ga8e1cf75cf2ecce4902aeb0faca3d0c7c" compoundref="xvphy__i_8c" startline="290" endline="319">XVphy_GetSysClkDataSel</referencedby>
+        <referencedby refid="group__xvphy_1gafa18f0da25042d12e577a5e16d950476" compoundref="xvphy__i_8c" startline="335" endline="364">XVphy_GetSysClkOutSel</referencedby>
+        <referencedby refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</referencedby>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+        <referencedby refid="group__xvphy_1ga5041cead7e1fe927d645c4e681e95837" compoundref="xvphy__i_8c" startline="64" endline="116">XVphy_WriteCfgRefClkSelReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a2b34afde69ce6733341003cde6aee506" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::TxChannels</definition>
+        <argsstring></argsstring>
+        <name>TxChannels</name>
+        <briefdescription>
+<para>No. </para>        </briefdescription>
+        <detaileddescription>
+<para>of active channels in TX </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="685" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1af7fdb76ac0ffc18275711ae874d309a1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::RxChannels</definition>
+        <argsstring></argsstring>
+        <name>RxChannels</name>
+        <briefdescription>
+<para>No. </para>        </briefdescription>
+        <detaileddescription>
+<para>of active channels in RX </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="686" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="686" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" prot="public" static="no" mutable="no">
+        <type>XVphy_ProtocolType</type>
+        <definition>XVphy_ProtocolType XVphy_Config::TxProtocol</definition>
+        <argsstring></argsstring>
+        <name>TxProtocol</name>
+        <briefdescription>
+<para>Protocol which TX is used for. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="687" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="687" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga609475eec7171bd779b972e31496c717" compoundref="xvphy__i_8c" startline="831" endline="875">XVphy_DirReconfig</referencedby>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</referencedby>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" prot="public" static="no" mutable="no">
+        <type>XVphy_ProtocolType</type>
+        <definition>XVphy_ProtocolType XVphy_Config::RxProtocol</definition>
+        <argsstring></argsstring>
+        <name>RxProtocol</name>
+        <briefdescription>
+<para>Protocol which RX is used for. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="688" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="688" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga609475eec7171bd779b972e31496c717" compoundref="xvphy__i_8c" startline="831" endline="875">XVphy_DirReconfig</referencedby>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</referencedby>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <referencedby refid="xvphy_8c_1af9bbda81424daad014c9666a6c40f621" compoundref="xvphy_8c" startline="1901" endline="1977">XVphy_RegisterDebug</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a051aa77b41a00fb1fa60db838fb388e2" prot="public" static="no" mutable="no">
+        <type>XVphy_PllRefClkSelType</type>
+        <definition>XVphy_PllRefClkSelType XVphy_Config::TxRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>TxRefClkSel</name>
+        <briefdescription>
+<para>TX REFCLK selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="689" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="689" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="xvphy_8c_1ac5754f49fa0df65d75a6d62f4885b94c" compoundref="xvphy_8c" startline="1302" endline="1354">XVphy_IBufDsEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1ae9a8b806d7a523628ca8b375836b1d73" prot="public" static="no" mutable="no">
+        <type>XVphy_PllRefClkSelType</type>
+        <definition>XVphy_PllRefClkSelType XVphy_Config::RxRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>RxRefClkSel</name>
+        <briefdescription>
+<para>RX REFCLK selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="690" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="690" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="xvphy_8c_1ac5754f49fa0df65d75a6d62f4885b94c" compoundref="xvphy_8c" startline="1302" endline="1354">XVphy_IBufDsEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a0a90870fb48e6531605c476589478da5" prot="public" static="no" mutable="no">
+        <type>XVphy_SysClkDataSelType</type>
+        <definition>XVphy_SysClkDataSelType XVphy_Config::TxSysPllClkSel</definition>
+        <argsstring></argsstring>
+        <name>TxSysPllClkSel</name>
+        <briefdescription>
+<para>TX SYSCLK selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="691" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a2b4d48a3996cdf9255626e1ecb5adc5e" prot="public" static="no" mutable="no">
+        <type>XVphy_SysClkDataSelType</type>
+        <definition>XVphy_SysClkDataSelType XVphy_Config::RxSysPllClkSel</definition>
+        <argsstring></argsstring>
+        <name>RxSysPllClkSel</name>
+        <briefdescription>
+<para>RX SYSCLK selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="692" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="692" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1af548321a00c7220627ee6a34d930f103" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::DruIsPresent</definition>
+        <argsstring></argsstring>
+        <name>DruIsPresent</name>
+        <briefdescription>
+<para>A data recovery unit (DRU) exists in the design . </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="693" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="693" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="xvphy_8c_1ac5754f49fa0df65d75a6d62f4885b94c" compoundref="xvphy_8c" startline="1302" endline="1354">XVphy_IBufDsEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1ae27a9635e2070126c83f132e3c885dd9" prot="public" static="no" mutable="no">
+        <type>XVphy_PllRefClkSelType</type>
+        <definition>XVphy_PllRefClkSelType XVphy_Config::DruRefClkSel</definition>
+        <argsstring></argsstring>
+        <name>DruRefClkSel</name>
+        <briefdescription>
+<para>DRU REFCLK selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="695" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="695" bodyend="-1"/>
+        <referencedby refid="xvphy_8c_1ab71ec5984965000a5c84b07805d4bf58" compoundref="xvphy_8c" startline="101" endline="178">XVphy_CfgInitialize</referencedby>
+        <referencedby refid="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" compoundref="xvphy__i_8c" startline="1247" endline="1294">XVphy_GetRefClkSourcesCount</referencedby>
+        <referencedby refid="xvphy_8c_1ac5754f49fa0df65d75a6d62f4885b94c" compoundref="xvphy_8c" startline="1302" endline="1354">XVphy_IBufDsEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a231054143e9206cfca1c8be3ef1c3be9" prot="public" static="no" mutable="no">
+        <type>XVidC_PixelsPerClock</type>
+        <definition>XVidC_PixelsPerClock XVphy_Config::Ppc</definition>
+        <argsstring></argsstring>
+        <name>Ppc</name>
+        <briefdescription>
+<para>Number of input pixels per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="696" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="696" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1ae8a4369e0f9d4a0239750dec8a2efc68" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::TxBufferBypass</definition>
+        <argsstring></argsstring>
+        <name>TxBufferBypass</name>
+        <briefdescription>
+<para>TX Buffer Bypass is enabled in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="698" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="698" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a96e29e533d5dfa68d40561bd177f8349" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::HdmiFastSwitch</definition>
+        <argsstring></argsstring>
+        <name>HdmiFastSwitch</name>
+        <briefdescription>
+<para>HDMI fast switching is enabled in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="700" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="700" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a0f0e94fa34b4466ee40769c0c5b07ef4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::TransceiverWidth</definition>
+        <argsstring></argsstring>
+        <name>TransceiverWidth</name>
+        <briefdescription>
+<para>Transceiver Width setting in the design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="702" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1aba647d9d8866bf36cf10387377e34f9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVphy_Config::ErrIrq</definition>
+        <argsstring></argsstring>
+        <name>ErrIrq</name>
+        <briefdescription>
+<para>Error IRQ is enabled in design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="703" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="703" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1acadf4c6ceb71207c48f45410893c8bc8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVphy_Config::AxiLiteClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiLiteClkFreq</name>
+        <briefdescription>
+<para>AXI Lite Clock Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="704" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="704" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1aa12a0c97877837147de3e9f6343645f5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XVphy_Config::DrpClkFreq</definition>
+        <argsstring></argsstring>
+        <name>DrpClkFreq</name>
+        <briefdescription>
+<para>DRP Clock Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="705" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="705" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a99ff7516bbf21301a9d10ca0faf725a2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::UseGtAsTxTmdsClk</definition>
+        <argsstring></argsstring>
+        <name>UseGtAsTxTmdsClk</name>
+        <briefdescription>
+<para>Use 4th GT channel as TX TMDS clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="706" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="706" bodyend="-1"/>
+        <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a340638f344c3ce753da34ef88a62d5e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::DpTxProtocol</definition>
+        <argsstring></argsstring>
+        <name>DpTxProtocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="707" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="707" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1aad73720f126327ed3ef2c468d7a7164f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVphy_Config::DpRxProtocol</definition>
+        <argsstring></argsstring>
+        <name>DpRxProtocol</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="708" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="708" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a2c697356ede0da78b16f542c3c888aeb" prot="public" static="no" mutable="no">
+        <type>XVphy_ClkPrimitive</type>
+        <definition>XVphy_ClkPrimitive XVphy_Config::TxClkPrimitive</definition>
+        <argsstring></argsstring>
+        <name>TxClkPrimitive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="709" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="709" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a6fae215469b8b8db0568272c402d4b27" prot="public" static="no" mutable="no">
+        <type>XVphy_ClkPrimitive</type>
+        <definition>XVphy_ClkPrimitive XVphy_Config::RxClkPrimitive</definition>
+        <argsstring></argsstring>
+        <name>RxClkPrimitive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="710" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a99faf7904911b6465ea29b5826c7db45" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVphy_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="712" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vphy___config_1a25da731de75a6275c0bff859a7be1ad3" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVphy_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="713" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="713" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the Video PHY core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy.h" bodystart="676" bodyend="716"/>
+    <listofallmembers>
+      <member refid="struct_x_vphy___config_1acadf4c6ceb71207c48f45410893c8bc8" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>AxiLiteClkFreq</name></member>
+      <member refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_vphy___config_1aad73720f126327ed3ef2c468d7a7164f" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>DpRxProtocol</name></member>
+      <member refid="struct_x_vphy___config_1a340638f344c3ce753da34ef88a62d5e1" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>DpTxProtocol</name></member>
+      <member refid="struct_x_vphy___config_1aa12a0c97877837147de3e9f6343645f5" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>DrpClkFreq</name></member>
+      <member refid="struct_x_vphy___config_1af548321a00c7220627ee6a34d930f103" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>DruIsPresent</name></member>
+      <member refid="struct_x_vphy___config_1ae27a9635e2070126c83f132e3c885dd9" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>DruRefClkSel</name></member>
+      <member refid="struct_x_vphy___config_1aba647d9d8866bf36cf10387377e34f9a" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>ErrIrq</name></member>
+      <member refid="struct_x_vphy___config_1a96e29e533d5dfa68d40561bd177f8349" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>HdmiFastSwitch</name></member>
+      <member refid="struct_x_vphy___config_1a99faf7904911b6465ea29b5826c7db45" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_vphy___config_1a25da731de75a6275c0bff859a7be1ad3" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_vphy___config_1a4e46ce5abd860393f1891835dc783583" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>Name</name></member>
+      <member refid="struct_x_vphy___config_1a231054143e9206cfca1c8be3ef1c3be9" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>Ppc</name></member>
+      <member refid="struct_x_vphy___config_1af7fdb76ac0ffc18275711ae874d309a1" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>RxChannels</name></member>
+      <member refid="struct_x_vphy___config_1a6fae215469b8b8db0568272c402d4b27" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>RxClkPrimitive</name></member>
+      <member refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>RxProtocol</name></member>
+      <member refid="struct_x_vphy___config_1ae9a8b806d7a523628ca8b375836b1d73" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>RxRefClkSel</name></member>
+      <member refid="struct_x_vphy___config_1a2b4d48a3996cdf9255626e1ecb5adc5e" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>RxSysPllClkSel</name></member>
+      <member refid="struct_x_vphy___config_1a0f0e94fa34b4466ee40769c0c5b07ef4" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TransceiverWidth</name></member>
+      <member refid="struct_x_vphy___config_1ae8a4369e0f9d4a0239750dec8a2efc68" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxBufferBypass</name></member>
+      <member refid="struct_x_vphy___config_1a2b34afde69ce6733341003cde6aee506" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxChannels</name></member>
+      <member refid="struct_x_vphy___config_1a2c697356ede0da78b16f542c3c888aeb" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxClkPrimitive</name></member>
+      <member refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxProtocol</name></member>
+      <member refid="struct_x_vphy___config_1a051aa77b41a00fb1fa60db838fb388e2" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxRefClkSel</name></member>
+      <member refid="struct_x_vphy___config_1a0a90870fb48e6531605c476589478da5" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>TxSysPllClkSel</name></member>
+      <member refid="struct_x_vphy___config_1a99ff7516bbf21301a9d10ca0faf725a2" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>UseGtAsTxTmdsClk</name></member>
+      <member refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" prot="public" virt="non-virtual"><scope>XVphy_Config</scope><name>XcvrType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

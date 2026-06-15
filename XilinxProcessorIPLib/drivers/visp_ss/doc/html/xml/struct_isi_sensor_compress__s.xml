@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_compress__s" kind="struct" prot="public">
+    <compoundname>IsiSensorCompress_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__isi__vvsensor_1ga6cde09051d4b89d0dc22e7eb1dc1f521" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorCompress_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1ga0368c22a0e65c65d21ff916edf0d087a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorCompress_s::xBit</definition>
+        <argsstring></argsstring>
+        <name>xBit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1gad3546597d152cb0ee9dd97aa01571fe5" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorCompress_s::yBit</definition>
+        <argsstring></argsstring>
+        <name>yBit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="116" bodyend="120"/>
+    <listofallmembers>
+      <member refid="group__isi__vvsensor_1ga6cde09051d4b89d0dc22e7eb1dc1f521" prot="public" virt="non-virtual"><scope>IsiSensorCompress_s</scope><name>enable</name></member>
+      <member refid="group__isi__vvsensor_1ga0368c22a0e65c65d21ff916edf0d087a" prot="public" virt="non-virtual"><scope>IsiSensorCompress_s</scope><name>xBit</name></member>
+      <member refid="group__isi__vvsensor_1gad3546597d152cb0ee9dd97aa01571fe5" prot="public" virt="non-virtual"><scope>IsiSensorCompress_s</scope><name>yBit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

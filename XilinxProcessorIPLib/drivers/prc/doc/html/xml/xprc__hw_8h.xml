@@ -1,0 +1,1567 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xprc__hw_8h" kind="file">
+    <compoundname>xprc_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xprc_8h" local="yes">xprc.h</includedby>
+    <incdepgraph>
+      <node id="49">
+        <label>xprc_hw.h</label>
+        <link refid="xprc_hw.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xil_io.h</label>
+      </node>
+      <node id="50">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="52">
+        <label>xprc_hw.h</label>
+        <link refid="xprc_hw.h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xprc.c</label>
+        <link refid="xprc_8c"/>
+      </node>
+      <node id="53">
+        <label>xprc.h</label>
+        <link refid="xprc_8h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xprc_g.c</label>
+      </node>
+      <node id="58">
+        <label>xprc_example.c</label>
+        <link refid="xprc__example_8c"/>
+      </node>
+      <node id="57">
+        <label>xprc_sinit.c</label>
+        <link refid="xprc__sinit_8c"/>
+      </node>
+      <node id="56">
+        <label>xprc_selftest.c</label>
+        <link refid="xprc__selftest_8c"/>
+      </node>
+      <node id="59">
+        <label>xprc_selftest_example.c</label>
+        <link refid="xprc__selftest__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Bank Numbers</header>
+      <memberdef kind="define" id="group__prc_1ga39845de1f35c11952bd876d71193ce1d" prot="public" static="no">
+        <name>XPRC_VSM_GENERAL_REG_BANK</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>General registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga88683985343af8c22e58f227e80aa1d0" prot="public" static="no">
+        <name>XPRC_VSM_TRIGGER_REG_BANK</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Trigger to Rm register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga377bd28ad45278dc2a38cca4e0543ac7" prot="public" static="no">
+        <name>XPRC_VSM_RM_REG_BANK</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Rm Information register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga5a269e4715f69014d7182062633718fe" prot="public" static="no">
+        <name>XPRC_VSM_BS_REG_BANK</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Bs Information register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bank Identifier</header>
+      <memberdef kind="define" id="group__prc_1gaa2f1770f55f7c66582f4be05b67dd149" prot="public" static="no">
+        <name>XPRC_DEFAULT_BANKID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Default Bank Identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>The Table Identifiers within a bank for each Register type</header>
+      <memberdef kind="define" id="group__prc_1ga4363c1281865d2042c9b4ed84a562e13" prot="public" static="no">
+        <name>XPRC_STATUS_REG_TABLE_ID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Status register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga355c95a99da0f86bc06d090a24d7d0e7" prot="public" static="no">
+        <name>XPRC_CONTROL_REG_TABLE_ID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Control register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga0bf7d5df4f57e2531aa37ae489efa6e0" prot="public" static="no">
+        <name>XPRC_SW_TRIGGER_REG_TABLE_ID</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Sw Trigger register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gacd84129729b2466f1235729b86fbf0c5" prot="public" static="no">
+        <name>XPRC_TRIGGER_REG_TABLE_ID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Trigger register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gae8b37df1b5944054e72ef7a799777aed" prot="public" static="no">
+        <name>XPRC_RM_BS_INDEX_REG_TABLE_ID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>RmBs Index register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga5fbec6bb5b2a9c467c5829e720208e07" prot="public" static="no">
+        <name>XPRC_RM_CONTROL_REG_TABLE_ID</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Rm Control register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga300085f26470938636222a8352a3a9cf" prot="public" static="no">
+        <name>XPRC_BS_ID_REG_TABLE_ID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Bs Identifier register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaefaa8b4573432b34194a88b2481a94d2" prot="public" static="no">
+        <name>XPRC_BS_ADDRESS_REG_TABLE_ID</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Bs Address register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaed990ba762a23bbcb16300f49f897102" prot="public" static="no">
+        <name>XPRC_BS_SIZE_REG_TABLE_ID</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Bs Size register Table ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga2507e79a5a16cd30ab71eb7eead3d05c" prot="public" static="no">
+        <name>XPRC_DEFAULT_TABLEID</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Default Table Identifier within the Bank. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>These are not addresses. They identify the type of register to be</header>
+      <description><para>accessed. </para></description>
+      <memberdef kind="define" id="group__prc_1gaf01bbecc79e713ee67aff6b809da2aef" prot="public" static="no">
+        <name>XPRC_STATUS_REG</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga1352d5c7fa50ff03c099da95d1f6d368" compoundref="xprc_8c" startline="917" endline="929">XPrc_ReadStatusReg</referencedby>
+        <referencedby refid="group__prc_1gaf15c985cf911548b53252824dc933313" compoundref="xprc__selftest_8c" startline="60" endline="76">XPrc_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga919421a9b7c3646ff84f97c52bdecc8c" prot="public" static="no">
+        <name>XPRC_CONTROL_REG</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga774af306d4d2a91344adddeea082200c" prot="public" static="no">
+        <name>XPRC_SW_TRIGGER_REG</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Sw Trigger register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+        <referencedby refid="group__prc_1ga6d547d05931dc7104a1c99ac832a84fb" compoundref="xprc_8c" startline="1234" endline="1250">XPrc_SendSwTrigger</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gabd189a3fb5785c20dd4dcb9b628649c4" prot="public" static="no">
+        <name>XPRC_TRIGGER_REG</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Trigger register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga715f096ec7bc1c5eaac8395444fcd03f" compoundref="xprc_8c" startline="348" endline="360">XPrc_GetTriggerToRmMapping</referencedby>
+        <referencedby refid="group__prc_1gabc3b273ffd5f67fbdfc7f57d7929b45b" compoundref="xprc_8c" startline="312" endline="330">XPrc_SetTriggerToRmMapping</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaf24b291f63c30f7c6fad59e90440109e" prot="public" static="no">
+        <name>XPRC_RM_BS_INDEX_REG</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>RmBs Index register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga4328f5b970ea41269486688d36c71330" compoundref="xprc_8c" startline="469" endline="487">XPrc_GetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga1d9eb3af06c1eb952ac109f395feed75" compoundref="xprc_8c" startline="507" endline="524">XPrc_GetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1gafa73a0de6152ced50f55b50533135d0d" compoundref="xprc_8c" startline="384" endline="401">XPrc_SetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gace313f53a181ec04f6196f1cef5577aa" prot="public" static="no">
+        <name>XPRC_RM_CONTROL_REG</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>Rm Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gab8d5b4415b54b1be74121a67b8f0a78c" prot="public" static="no">
+        <name>XPRC_BS_ID_REG</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Bs Identifier register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaa1e1c547c5d110ec0e5fb28721398547" compoundref="xprc_8c" startline="739" endline="755">XPrc_GetBsId</referencedby>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1gab956d1c5dcfea3a937b2d13cdbe7ea40" compoundref="xprc_8c" startline="702" endline="719">XPrc_SetBsId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga90b5b3edaf9a6609d14dccd79d3c8555" prot="public" static="no">
+        <name>XPRC_BS_ADDRESS_REG</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>Bs Address register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga66ef8c25b6a68047e74a6d30d215ebf9" compoundref="xprc_8c" startline="846" endline="864">XPrc_SetBsAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gad0c751148f2cb2dbf6ce61fc58ce059f" prot="public" static="no">
+        <name>XPRC_BS_SIZE_REG</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Bs Size register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
+        <referencedby refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" compoundref="xprc_8c" startline="1367" endline="1422">XPrc_GetRegisterAddress</referencedby>
+        <referencedby refid="group__prc_1ga77ae77f041ca0822956e93f2c4841384" compoundref="xprc_8c" startline="773" endline="790">XPrc_SetBsSize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Register commands</header>
+      <memberdef kind="define" id="group__prc_1ga81642f553e3aa977c78b2def8ea0da89" prot="public" static="no">
+        <name>XPRC_CR_SHUTDOWN_CMD</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Shutdown Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga8ae7427d46695146ebd8bb1cae333ad7" compoundref="xprc_8c" startline="158" endline="166">XPrc_SendShutdownCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaaedc55c791fb1cf32010c047811be984" prot="public" static="no">
+        <name>XPRC_CR_RESTART_NO_STATUS_CMD</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Restart With No Status Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__prc_1gabf496a0a03c16a90c4579f5eb9346289" compoundref="xprc_8c" startline="182" endline="190">XPrc_SendRestartWithNoStatusCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gac07a0788d3833f0b9802763e7d55d432" prot="public" static="no">
+        <name>XPRC_CR_RESTART_WITH_STATUS_CMD</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Restart With Status Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaf1aadeb2cbc8b0ea416b86f6a722112d" compoundref="xprc_8c" startline="210" endline="221">XPrc_SendRestartWithStatusCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga14021b1b9d161dbcc6ea209cbe0d6ddd" prot="public" static="no">
+        <name>XPRC_CR_OK_TO_PROCEED_CMD</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Proceed Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__prc_1gab034fcd298e89f9ba4c45d4a0dc01258" compoundref="xprc_8c" startline="237" endline="245">XPrc_SendProceedCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga87a1ac044ee0c96cdb1f9080993b27a1" prot="public" static="no">
+        <name>XPRC_CR_USER_CTRL_CMD</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>User Control Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>The Command field</header>
+      <memberdef kind="define" id="group__prc_1ga2af1bde819cc11faf28a2dbd5519a385" prot="public" static="no">
+        <name>XPRC_CR_CMD_FIELD_LSB</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Command Field LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga2befc58e2a2ce1b3de7006a4554a9c8c" prot="public" static="no">
+        <name>XPRC_CR_CMD_FIELD_WIDTH</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Command Field Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga25eec8c4ee4ee63edac60bf0522265bc" prot="public" static="no">
+        <name>XPRC_CR_CMD_FIELD_MSB</name>
+        <initializer>(<ref refid="group__prc_1ga2af1bde819cc11faf28a2dbd5519a385" kindref="member">XPRC_CR_CMD_FIELD_LSB</ref> + <ref refid="group__prc_1ga2befc58e2a2ce1b3de7006a4554a9c8c" kindref="member">XPRC_CR_CMD_FIELD_WIDTH</ref>-1)</initializer>
+        <briefdescription>
+<para>Command Field MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>The Byte field</header>
+      <memberdef kind="define" id="group__prc_1ga8cb8bfe63b812afc3f8b5822dcf735b1" prot="public" static="no">
+        <name>XPRC_CR_BYTE_FIELD_LSB</name>
+        <initializer>(<ref refid="group__prc_1ga25eec8c4ee4ee63edac60bf0522265bc" kindref="member">XPRC_CR_CMD_FIELD_MSB</ref>+1)</initializer>
+        <briefdescription>
+<para>Byte Field LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga2ad28544cf513f64bbd6a750d2e1d4c4" prot="public" static="no">
+        <name>XPRC_CR_BYTE_FIELD_WIDTH</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Byte Field Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaded253423a7a822363ed4611695862fc" prot="public" static="no">
+        <name>XPRC_CR_BYTE_FIELD_MSB</name>
+        <initializer>(<ref refid="group__prc_1ga8cb8bfe63b812afc3f8b5822dcf735b1" kindref="member">XPRC_CR_BYTE_FIELD_LSB</ref> + <ref refid="group__prc_1ga2ad28544cf513f64bbd6a750d2e1d4c4" kindref="member">XPRC_CR_BYTE_FIELD_WIDTH</ref>-1)</initializer>
+        <briefdescription>
+<para>Byte Field MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>The Halfword field</header>
+      <memberdef kind="define" id="group__prc_1gaaf61e02c8ba31939a16aea9669eed637" prot="public" static="no">
+        <name>XPRC_CR_HALFWORD_FIELD_LSB</name>
+        <initializer>(<ref refid="group__prc_1gaded253423a7a822363ed4611695862fc" kindref="member">XPRC_CR_BYTE_FIELD_MSB</ref>+1)</initializer>
+        <briefdescription>
+<para>Halfword Field LSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga45067506395b82333ad9e4a4d0a50ea2" prot="public" static="no">
+        <name>XPRC_CR_HALFWORD_FIELD_WIDTH</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>Halfword Field Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga0683063c5cc964583ff4b527debe77e1" prot="public" static="no">
+        <name>XPRC_CR_HALFWORD_FIELD_MSB</name>
+        <initializer>(<ref refid="group__prc_1gaaf61e02c8ba31939a16aea9669eed637" kindref="member">XPRC_CR_HALFWORD_FIELD_LSB</ref> + <ref refid="group__prc_1ga45067506395b82333ad9e4a4d0a50ea2" kindref="member">XPRC_CR_HALFWORD_FIELD_WIDTH</ref>-1)</initializer>
+        <briefdescription>
+<para>Halfword Field MSB. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bit positions for User Control command options within the byte field</header>
+      <memberdef kind="define" id="group__prc_1ga3ed8dfec1197fb072d20d942de4aa90f" prot="public" static="no">
+        <name>XPRC_CR_USER_CONTROL_RM_SHUTDOWN_REQ_BIT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Rm Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1a5765ffedbd730a8b289991c23dc0bd2f" compoundref="xprc__example_8c" startline="321" endline="422">Xprc_Check_User_Command</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gae563b82b291ba26d8b6c5baaa8144b73" prot="public" static="no">
+        <name>XPRC_CR_USER_CONTROL_RM_DECOUPLE_BIT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Rm Decouple. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1a5765ffedbd730a8b289991c23dc0bd2f" compoundref="xprc__example_8c" startline="321" endline="422">Xprc_Check_User_Command</referencedby>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga9f5efab7321c347477127e3179f509cf" prot="public" static="no">
+        <name>XPRC_CR_USER_CONTROL_SW_SHUTDOWN_REQ_BIT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Sw_Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1a5765ffedbd730a8b289991c23dc0bd2f" compoundref="xprc__example_8c" startline="321" endline="422">Xprc_Check_User_Command</referencedby>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga46d6b311b4ead348bb4b28de8c6836d2" prot="public" static="no">
+        <name>XPRC_CR_USER_CONTROL_SW_STARTUP_REQ_BIT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Sw Startup Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1a5765ffedbd730a8b289991c23dc0bd2f" compoundref="xprc__example_8c" startline="321" endline="422">Xprc_Check_User_Command</referencedby>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga6e35414473fc5e26c96db54d6dc44bae" prot="public" static="no">
+        <name>XPRC_CR_USER_CONTROL_RM_RESET_BIT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>Rm Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1a5765ffedbd730a8b289991c23dc0bd2f" compoundref="xprc__example_8c" startline="321" endline="422">Xprc_Check_User_Command</referencedby>
+        <referencedby refid="group__prc_1gad837665803c2971d369e832f4d4bd764" compoundref="xprc_8c" startline="271" endline="293">XPrc_SendUserControlCommand</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register Value</header>
+      <memberdef kind="define" id="group__prc_1ga06269e6ad646250131a9c7214269a647" prot="public" static="no">
+        <name>XPRC_SR_SHUTDOWN_MASK</name>
+        <initializer>(0x80)</initializer>
+        <briefdescription>
+<para>Shutdown State Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga169cd249e2ebac1ec7aaa31c6be22ec0" compoundref="xprc_8c" startline="951" endline="961">XPrc_IsVsmInShutdown</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>State is stored in bits 2:0, Mask = 111 = 0x7</header>
+      <memberdef kind="define" id="group__prc_1ga5d417b125cd8067e99eaea3294e4b669" prot="public" static="no">
+        <name>XPRC_SR_STATE_MASK</name>
+        <initializer>(0x7)</initializer>
+        <briefdescription>
+<para>Vsm State Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga16cd7447ee658a590b4e84fbcdd655fd" compoundref="xprc_8c" startline="982" endline="991">XPrc_GetVsmState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga210d1f8df780c04c34d97f12c5248c16" prot="public" static="no">
+        <name>XPRC_SR_STATE_EMPTY</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Empty State Of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1ac01e9e9445033fc90819edb82300b676" compoundref="xprc__example_8c" startline="441" endline="542">Xprc_Check_RestartWithStatus_Command</referencedby>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga2cd3646b4c319cf7b367774f43564588" prot="public" static="no">
+        <name>XPRC_SR_STATE_HW_SHUTDOWN</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Hardware Shutdown State of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gab7bcaaf49a5cdfff3d4a1792a02e9cfd" prot="public" static="no">
+        <name>XPRC_SR_STATE_SW_SHUTDOWN</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Software Shutdown State of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga92fe379122f77b7cafc20b0c939b3df8" prot="public" static="no">
+        <name>XPRC_SR_STATE_RM_UNLOAD</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Reconfigurable Module Unload State Of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaeb09b55b4120b22235365928c3cffcbb" prot="public" static="no">
+        <name>XPRC_SR_STATE_RM_LOAD</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>Reconfigurable Module Load State Of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gafee6a61c1882103230e9748afa1e3b92" prot="public" static="no">
+        <name>XPRC_SR_STATE_SW_STARTUP</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>Software Startup State of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaa1b7cc01acb3f68e962d07dcbc9853a3" prot="public" static="no">
+        <name>XPRC_SR_STATE_RM_RESET</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Reset State of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga8c5e23d32e70feaa633f2947fc072c16" prot="public" static="no">
+        <name>XPRC_SR_STATE_FULL</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>Full State Of VSM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="xprc__example_8c_1ac01e9e9445033fc90819edb82300b676" compoundref="xprc__example_8c" startline="441" endline="542">Xprc_Check_RestartWithStatus_Command</referencedby>
+        <referencedby refid="xprc__example_8c_1a27ed847b2e946decd90de3370484db51" compoundref="xprc__example_8c" startline="118" endline="298">XPrc_Example</referencedby>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gacfe42de58c5a70adb12d6ccbc965faad" prot="public" static="no">
+        <name>XPRC_SR_ERROR_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Error Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__prc_1gad3861c91efd431128e1bf9bd20f1fa9e" compoundref="xprc_8c" startline="1012" endline="1021">XPrc_GetVsmErrorStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Errors are stored in bits 6:3, Mask = 1111000 = 0x78</header>
+      <memberdef kind="define" id="group__prc_1gac0ac35cdf070fe4cd3d747c491b2aade" prot="public" static="no">
+        <name>XPRC_SR_ERROR_MASK</name>
+        <initializer>(0x78)</initializer>
+        <briefdescription>
+<para>Error Codes Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__prc_1gad3861c91efd431128e1bf9bd20f1fa9e" compoundref="xprc_8c" startline="1012" endline="1021">XPrc_GetVsmErrorStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaccb9ea668198005e87064319bfe0e4b9" prot="public" static="no">
+        <name>XPRC_SR_UNKNOWN_ERROR</name>
+        <initializer>(15)</initializer>
+        <briefdescription>
+<para>Unknown Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga9731383b0981bfd7e782e85995575a9d" prot="public" static="no">
+        <name>XPRC_SR_BS_COMPATIBLE_ERROR</name>
+        <initializer>(14)</initializer>
+        <briefdescription>
+<para>Bitstream Compatible Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga8bb61959aa8058774d273c8a132ad44c" prot="public" static="no">
+        <name>XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Bad compression format error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaf1a3e3c77b8f7a2032a7c8640930b7d6" prot="public" static="no">
+        <name>XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>Bad compression size error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga088a898b00f0aef5ea68640f18efc1f6" prot="public" static="no">
+        <name>XPRC_SR_FETCH_AND_CP_LOST_ERROR</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Fetch and Lost Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga22259372b76c1074f864c02d4a8e2e65" prot="public" static="no">
+        <name>XPRC_SR_FETCH_AND_BS_ERROR</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>Fetch and Bitstream Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga759a33507b698203b0dc2148ddf60994" prot="public" static="no">
+        <name>XPRC_SR_FETCH_ERROR</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>Fetch Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga61ab77165481452fd3c22c67d10c3f9c" prot="public" static="no">
+        <name>XPRC_SR_CP_LOST_ERROR</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>CP Lost Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga8e4a604f85ca423d627e3662c0ca1b8d" prot="public" static="no">
+        <name>XPRC_SR_BS_ERROR</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Bitstream Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga45630e5bf6e13259895f5f29bae48339" prot="public" static="no">
+        <name>XPRC_SR_BAD_CONFIG_ERROR</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Bad Configuration Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaf67e05688a8f6cf88ded68f646d4ef4d" prot="public" static="no">
+        <name>XPRC_SR_NO_ERROR</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>No Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga284cb34c70c7bcdcd8c94f6843184b33" compoundref="xprc_8c" startline="1098" endline="1218">XPrc_PrintVsmStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaf9047742a8d0bfc14f875926f4f160f2" prot="public" static="no">
+        <name>XPRC_SR_RMID_SHIFT</name>
+        <initializer>(8)</initializer>
+        <briefdescription>
+<para>Rm Identifier Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga90981b900ba7f2e8db1eae4f5d1a8eae" compoundref="xprc_8c" startline="1042" endline="1051">XPrc_GetRmIdFromStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RM_ID is stored in bits 23:8,</header>
+      <description><para>Mask = 111111111111111100000000 = 0xFFFF00 </para></description>
+      <memberdef kind="define" id="group__prc_1ga4ab20d10f0abc177dbf27224ea422d2d" prot="public" static="no">
+        <name>XPRC_SR_RMID_MASK</name>
+        <initializer>(0xFFFF00)</initializer>
+        <briefdescription>
+<para>Rm Identifier Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga90981b900ba7f2e8db1eae4f5d1a8eae" compoundref="xprc_8c" startline="1042" endline="1051">XPrc_GetRmIdFromStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gae45613698a185e54c64e1babeba04d67" prot="public" static="no">
+        <name>XPRC_SR_BSID_SHIFT</name>
+        <initializer>(24)</initializer>
+        <briefdescription>
+<para>Bs Identifier Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga1c9a8e7e2e73aba4b08f6ea4ee234b53" compoundref="xprc_8c" startline="1072" endline="1081">XPrc_GetBsIdFromStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>BS_ID is stored in bits 31:24,</header>
+      <description><para>Mask = 11111111000000000000000000000000 </para></description>
+      <memberdef kind="define" id="group__prc_1gaa9be77881baa159d3f66aca2898a5729" prot="public" static="no">
+        <name>XPRC_SR_BSID_MASK</name>
+        <initializer>(0xFF000000)</initializer>
+        <briefdescription>
+<para>Bs Identifier Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga1c9a8e7e2e73aba4b08f6ea4ee234b53" compoundref="xprc_8c" startline="1072" endline="1081">XPrc_GetBsIdFromStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Software Trigger Register Values</header>
+      <description><para>This is the largest ID possible.</para><para>The bits used are will be sized in hardware to match the number of triggers actually allocated. </para></description>
+      <memberdef kind="define" id="group__prc_1ga0a9267f6d2d2c43fec841971f7b780be" prot="public" static="no">
+        <name>XPRC_SW_TRIGGER_ID_MASK</name>
+        <initializer>(0x7FFFFFFF)</initializer>
+        <briefdescription>
+<para>Sw Trigger Id Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gade8464e75af922f53214a2c05cd39e95" prot="public" static="no">
+        <name>XPRC_SW_TRIGGER_PENDING_MASK</name>
+        <initializer>(0x80000000)</initializer>
+        <briefdescription>
+<para>Sw Trigger Pending Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="262" bodyend="-1"/>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga28eb37231aa682e57810327fa2434a5d" prot="public" static="no">
+        <name>XPRC_RM_BS_INDEX_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Rm Bs Index Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gad267352668888e67a02da3e45c8a7964" prot="public" static="no">
+        <name>XPRC_RM_BS_INDEX_MASK</name>
+        <initializer>(0x0000FFFF)</initializer>
+        <briefdescription>
+<para>Rm Bs Index Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4328f5b970ea41269486688d36c71330" compoundref="xprc_8c" startline="469" endline="487">XPrc_GetRmBsIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga6744da88d89aad6f7328ce72d1137d5f" prot="public" static="no">
+        <name>XPRC_RM_CLEARING_BS_INDEX_SHIFT</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>Clearing Bs Index Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga1d9eb3af06c1eb952ac109f395feed75" compoundref="xprc_8c" startline="507" endline="524">XPrc_GetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga854881419e2bc5b511b3608f1d303bf9" prot="public" static="no">
+        <name>XPRC_RM_CLEARING_BS_INDEX_MASK</name>
+        <initializer>(0xFFFF0000)</initializer>
+        <briefdescription>
+<para>Clearing Bs Index Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RM Control Register constants</header>
+      <memberdef kind="define" id="group__prc_1ga027e090975c9332f37a9d9012c502e61" prot="public" static="no">
+        <name>XPRC_RM_CR_SHUTDOWN_REQUIRED_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Shutdown Required Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gacbfc1cd04760222028de1a5afeb01428" prot="public" static="no">
+        <name>XPRC_RM_CR_STARTUP_REQUIRED_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Startup Required Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga2d1d133820a46f679f0d37ed61c72587" prot="public" static="no">
+        <name>XPRC_RM_CR_RESET_REQUIRED_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Reset Required Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga768e20ac3e109a3d1c1e8f7fc9f7e06b" prot="public" static="no">
+        <name>XPRC_RM_CR_RESET_DURATION_SHIFT</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>Reset Duration Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Shutdown required stored in bits 0:1, 0000000000011 = 0x3</header>
+      <memberdef kind="define" id="group__prc_1ga49f8c91cdcf8483eec8e5472a261ec48" prot="public" static="no">
+        <name>XPRC_RM_CR_SHUTDOWN_REQUIRED_MASK</name>
+        <initializer>(0x3)</initializer>
+        <briefdescription>
+<para>Shutdown Required Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Startup required stored in bit 2, 0000000000100 = 0x4</header>
+      <memberdef kind="define" id="group__prc_1gaf4b28b907b0d464dbfa35cf5b60aed1c" prot="public" static="no">
+        <name>XPRC_RM_CR_STARTUP_REQUIRED_MASK</name>
+        <initializer>(0x4)</initializer>
+        <briefdescription>
+<para>Startup Required Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset required stored in bits 3:4, 0000000011000 = 0x18</header>
+      <memberdef kind="define" id="group__prc_1ga64ae4e6242ce146a48b3a51768d751b8" prot="public" static="no">
+        <name>XPRC_RM_CR_RESET_REQUIRED_MASK</name>
+        <initializer>(0x18)</initializer>
+        <briefdescription>
+<para>Reset Required Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset Duration stored in bits 5:12, 1111111100000 = 0x1FE0</header>
+      <memberdef kind="define" id="group__prc_1ga371450269162583f1c577267e6c3cfff" prot="public" static="no">
+        <name>XPRC_RM_CR_RESET_DURATION_MASK</name>
+        <initializer>(0x1FE0)</initializer>
+        <briefdescription>
+<para>Reset Duration Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga0cb9ace63b78b2054a07d98cccd2eadd" prot="public" static="no">
+        <name>XPRC_RM_CR_NO_SHUTDOWN_REQUIRED</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>No Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga0e153636db97085dec5ce1ee2139dceb" prot="public" static="no">
+        <name>XPRC_RM_CR_HW_SHUTDOWN_REQUIRED</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Hardware Only Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga7c6622024d1c0522d728d3fb8318d6aa" prot="public" static="no">
+        <name>XPRC_RM_CR_HW_SW_SHUTDOWN_REQUIRED</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Hardware Shutdown and then Software Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga01a65e92d1a1e01db47674508666bbd7" prot="public" static="no">
+        <name>XPRC_RM_CR_SW_HW_SHUTDOWN_REQUIRED</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Software Shutdown and then Hardware Shutdown Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga4060d2a59d5b159febfcbcac2ab84ca9" prot="public" static="no">
+        <name>XPRC_RM_CR_STARTUP_NOT_REQUIRED</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Startup Not Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga143ea376682bf6fbf812832971e06fb8" prot="public" static="no">
+        <name>XPRC_RM_CR_SW_STARTUP_REQUIRED</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Software Only Startup Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gac73bb06108fb37a49041d2525572b9db" prot="public" static="no">
+        <name>XPRC_RM_CR_NO_RESET_REQUIRED</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>No Reset Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga60f9987c002a35768352d6f4453be06e" prot="public" static="no">
+        <name>XPRC_RM_CR_LOW_RESET_REQUIRED</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Low Reset Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga512819755e00506c6c6340a0857f0004" prot="public" static="no">
+        <name>XPRC_RM_CR_HIGH_RESET_REQUIRED</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>High Reset Required. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="367" bodyend="-1"/>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__prc_1ga19af6774eb27c97f5641a710f02abc87" prot="public" static="no">
+        <name>XPRC_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1gaac6bb0bd1600014fa021b96e45a7e09d" prot="public" static="no">
+        <name>XPrc_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga4002c56ade696b4a14067deeda3f1cd9" prot="public" static="no">
+        <name>XPrc_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga1d86cb8f5ad2afda254ebd2c4cce2a75" prot="public" static="no">
+        <name>XPrc_WriteReg</name>
+        <param><defname>Address</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XPrc_Out32((Address), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a PRC register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XPRC_WriteReg(u32 Address, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="343" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga6d547d05931dc7104a1c99ac832a84fb" compoundref="xprc_8c" startline="1234" endline="1250">XPrc_SendSwTrigger</referencedby>
+        <referencedby refid="group__prc_1ga66ef8c25b6a68047e74a6d30d215ebf9" compoundref="xprc_8c" startline="846" endline="864">XPrc_SetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gab956d1c5dcfea3a937b2d13cdbe7ea40" compoundref="xprc_8c" startline="702" endline="719">XPrc_SetBsId</referencedby>
+        <referencedby refid="group__prc_1ga77ae77f041ca0822956e93f2c4841384" compoundref="xprc_8c" startline="773" endline="790">XPrc_SetBsSize</referencedby>
+        <referencedby refid="group__prc_1gafa73a0de6152ced50f55b50533135d0d" compoundref="xprc_8c" startline="384" endline="401">XPrc_SetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+        <referencedby refid="group__prc_1gabc3b273ffd5f67fbdfc7f57d7929b45b" compoundref="xprc_8c" startline="312" endline="330">XPrc_SetTriggerToRmMapping</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prc_1ga47629a2aecf739afd5c2aea86e62624d" prot="public" static="no">
+        <name>XPrc_ReadReg</name>
+        <param><defname>Address</defname></param>
+        <initializer>XPrc_In32((Address))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a PRC register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Data read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__prc_1ga47629a2aecf739afd5c2aea86e62624d" kindref="member">XPrc_ReadReg(u32 Address)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" line="358" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
+        <referencedby refid="group__prc_1gaa1e1c547c5d110ec0e5fb28721398547" compoundref="xprc_8c" startline="739" endline="755">XPrc_GetBsId</referencedby>
+        <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
+        <referencedby refid="group__prc_1ga4328f5b970ea41269486688d36c71330" compoundref="xprc_8c" startline="469" endline="487">XPrc_GetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga1d9eb3af06c1eb952ac109f395feed75" compoundref="xprc_8c" startline="507" endline="524">XPrc_GetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1ga715f096ec7bc1c5eaac8395444fcd03f" compoundref="xprc_8c" startline="348" endline="360">XPrc_GetTriggerToRmMapping</referencedby>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+        <referencedby refid="group__prc_1ga1352d5c7fa50ff03c099da95d1f6d368" compoundref="xprc_8c" startline="917" endline="929">XPrc_ReadStatusReg</referencedby>
+        <referencedby refid="group__prc_1gaf15c985cf911548b53252824dc933313" compoundref="xprc__selftest_8c" startline="60" endline="76">XPrc_SelfTest</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XPRC_HW_H_<sp/></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPRC_HW_H_<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__prc_1ga39845de1f35c11952bd876d71193ce1d" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_VSM_GENERAL_REG_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__prc_1ga88683985343af8c22e58f227e80aa1d0" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_VSM_TRIGGER_REG_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__prc_1ga377bd28ad45278dc2a38cca4e0543ac7" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_VSM_RM_REG_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__prc_1ga5a269e4715f69014d7182062633718fe" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_VSM_BS_REG_BANK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="group__prc_1gaa2f1770f55f7c66582f4be05b67dd149" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_DEFAULT_BANKID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="group__prc_1ga4363c1281865d2042c9b4ed84a562e13" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_STATUS_REG_TABLE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XPRC_CONTROL_REG_TABLE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XPRC_SW_TRIGGER_REG_TABLE_ID<sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__prc_1ga0bf7d5df4f57e2531aa37ae489efa6e0" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_TRIGGER_REG_TABLE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XPRC_RM_BS_INDEX_REG_TABLE_ID<sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XPRC_RM_CONTROL_REG_TABLE_ID<sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__prc_1gae8b37df1b5944054e72ef7a799777aed" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_BS_ID_REG_TABLE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XPRC_BS_ADDRESS_REG_TABLE_ID<sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XPRC_BS_SIZE_REG_TABLE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__prc_1ga300085f26470938636222a8352a3a9cf" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_DEFAULT_TABLEID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="group__prc_1gaefaa8b4573432b34194a88b2481a94d2" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XPRC_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__prc_1ga2507e79a5a16cd30ab71eb7eead3d05c" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CONTROL_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XPRC_SW_TRIGGER_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XPRC_TRIGGER_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XPRC_RM_BS_INDEX_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XPRC_RM_CONTROL_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XPRC_BS_ID_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XPRC_BS_ADDRESS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XPRC_BS_SIZE_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="group__prc_1gaf01bbecc79e713ee67aff6b809da2aef" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__prc_1ga919421a9b7c3646ff84f97c52bdecc8c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="group__prc_1gaf24b291f63c30f7c6fad59e90440109e" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_SHUTDOWN_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="group__prc_1gace313f53a181ec04f6196f1cef5577aa" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_RESTART_NO_STATUS_CMD<sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group__prc_1ga90b5b3edaf9a6609d14dccd79d3c8555" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_RESTART_WITH_STATUS_CMD<sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XPRC_CR_OK_TO_PROCEED_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CTRL_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XPRC_CR_CMD_FIELD_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="group__prc_1ga14021b1b9d161dbcc6ea209cbe0d6ddd" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_CMD_FIELD_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125" refid="group__prc_1ga87a1ac044ee0c96cdb1f9080993b27a1" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_CMD_FIELD_MSB<sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPRC_CR_CMD_FIELD_LSB<sp/>+<sp/>XPRC_CR_CMD_FIELD_WIDTH-1)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129"></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XPRC_CR_BYTE_FIELD_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPRC_CR_CMD_FIELD_MSB+1)</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="group__prc_1ga2af1bde819cc11faf28a2dbd5519a385" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_BYTE_FIELD_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="group__prc_1ga2befc58e2a2ce1b3de7006a4554a9c8c" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_BYTE_FIELD_MSB<sp/>\</highlight></codeline>
+<codeline lineno="137" refid="group__prc_1ga25eec8c4ee4ee63edac60bf0522265bc" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPRC_CR_BYTE_FIELD_LSB<sp/>+<sp/>XPRC_CR_BYTE_FIELD_WIDTH-1)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XPRC_CR_HALFWORD_FIELD_LSB<sp/><sp/><sp/><sp/><sp/><sp/>(XPRC_CR_BYTE_FIELD_MSB+1)</highlight></codeline>
+<codeline lineno="145" refid="group__prc_1ga8cb8bfe63b812afc3f8b5822dcf735b1" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XPRC_CR_HALFWORD_FIELD_WIDTH<sp/><sp/><sp/><sp/>(16)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group__prc_1ga2ad28544cf513f64bbd6a750d2e1d4c4" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_HALFWORD_FIELD_MSB<sp/>\</highlight></codeline>
+<codeline lineno="148" refid="group__prc_1gaded253423a7a822363ed4611695862fc" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPRC_CR_HALFWORD_FIELD_LSB<sp/>+<sp/>XPRC_CR_HALFWORD_FIELD_WIDTH-1)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CONTROL_RM_SHUTDOWN_REQ_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="156" refid="group__prc_1gaaf61e02c8ba31939a16aea9669eed637" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CONTROL_RM_DECOUPLE_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)</highlight></codeline>
+<codeline lineno="158" refid="group__prc_1ga45067506395b82333ad9e4a4d0a50ea2" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159" refid="group__prc_1ga0683063c5cc964583ff4b527debe77e1" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CONTROL_SW_SHUTDOWN_REQ_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CONTROL_SW_STARTUP_REQ_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XPRC_CR_USER_CONTROL_RM_RESET_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166"></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XPRC_SR_SHUTDOWN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80)<sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173" refid="group__prc_1ga46d6b311b4ead348bb4b28de8c6836d2" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_EMPTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_HW_SHUTDOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_SW_SHUTDOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__prc_1ga06269e6ad646250131a9c7214269a647" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_RM_UNLOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_RM_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_SW_STARTUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="group__prc_1ga5d417b125cd8067e99eaea3294e4b669" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_RM_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="group__prc_1ga210d1f8df780c04c34d97f12c5248c16" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_STATE_FULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XPRC_SR_ERROR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="group__prc_1gab7bcaaf49a5cdfff3d4a1792a02e9cfd" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XPRC_SR_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x78)<sp/><sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XPRC_SR_UNKNOWN_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="group__prc_1gaeb09b55b4120b22235365928c3cffcbb" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_BS_COMPATIBLE_ERROR<sp/><sp/><sp/><sp/><sp/>(14)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XPRC_SR_DECOMPRESS_BAD_FORMAT_ERROR<sp/><sp/><sp/><sp/><sp/>(8)<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XPRC_SR_DECOMPRESS_BAD_SIZE_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7)<sp/></highlight></codeline>
+<codeline lineno="205" refid="group__prc_1gaa1b7cc01acb3f68e962d07dcbc9853a3" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_FETCH_AND_CP_LOST_ERROR<sp/>(6)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="group__prc_1ga8c5e23d32e70feaa633f2947fc072c16" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_FETCH_AND_BS_ERROR<sp/><sp/><sp/><sp/><sp/><sp/>(5)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="group__prc_1gacfe42de58c5a70adb12d6ccbc965faad" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_FETCH_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XPRC_SR_CP_LOST_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XPRC_SR_BS_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XPRC_SR_BAD_CONFIG_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XPRC_SR_NO_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="group__prc_1gac0ac35cdf070fe4cd3d747c491b2aade" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_RMID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="group__prc_1ga9731383b0981bfd7e782e85995575a9d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor">#define<sp/>XPRC_SR_RMID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFF00)<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XPRC_SR_BSID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(24)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="group__prc_1ga088a898b00f0aef5ea68640f18efc1f6" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="226" refid="group__prc_1ga22259372b76c1074f864c02d4a8e2e65" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="230" refid="group__prc_1ga61ab77165481452fd3c22c67d10c3f9c" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_SR_BSID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFF000000)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232" refid="group__prc_1ga45630e5bf6e13259895f5f29bae48339" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="233" refid="group__prc_1gaf67e05688a8f6cf88ded68f646d4ef4d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor">#define<sp/>XPRC_SW_TRIGGER_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7FFFFFFF)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XPRC_SW_TRIGGER_PENDING_MASK<sp/><sp/><sp/><sp/>(0x80000000)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XPRC_RM_BS_INDEX_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XPRC_RM_BS_INDEX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000FFFF)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor">#define<sp/>XPRC_RM_CLEARING_BS_INDEX_SHIFT<sp/>(16)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XPRC_RM_CLEARING_BS_INDEX_MASK<sp/><sp/>(0xFFFF0000)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_SHUTDOWN_REQUIRED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="group__prc_1ga0a9267f6d2d2c43fec841971f7b780be" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_STARTUP_REQUIRED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_RESET_REQUIRED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_RESET_DURATION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="group__prc_1ga28eb37231aa682e57810327fa2434a5d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_SHUTDOWN_REQUIRED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="group__prc_1ga6744da88d89aad6f7328ce72d1137d5f" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_STARTUP_REQUIRED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="284" refid="group__prc_1ga027e090975c9332f37a9d9012c502e61" refkind="member"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_RESET_REQUIRED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18)<sp/><sp/></highlight></codeline>
+<codeline lineno="287" refid="group__prc_1gacbfc1cd04760222028de1a5afeb01428" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_RESET_DURATION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FE0)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_NO_SHUTDOWN_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_HW_SHUTDOWN_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_HW_SW_SHUTDOWN_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_SW_HW_SHUTDOWN_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_STARTUP_NOT_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_SW_STARTUP_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_NO_RESET_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_LOW_RESET_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor">#define<sp/>XPRC_RM_CR_HIGH_RESET_REQUIRED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325" refid="group__prc_1ga371450269162583f1c577267e6c3cfff" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPrc_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPrc_Out32<sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329" refid="group__prc_1ga0cb9ace63b78b2054a07d98cccd2eadd" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor">#define<sp/>XPrc_WriteReg(Address,<sp/>Data)<sp/><sp/><sp/><sp/>XPrc_Out32((Address),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="344" refid="group__prc_1ga01a65e92d1a1e01db47674508666bbd7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor">#define<sp/>XPrc_ReadReg(Address)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPrc_In32((Address))</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361" refid="group__prc_1gac73bb06108fb37a49041d2525572b9db" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364" refid="group__prc_1ga60f9987c002a35768352d6f4453be06e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="367" refid="group__prc_1ga512819755e00506c6c6340a0857f0004" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc_hw.h"/>
+  </compounddef>
+</doxygen>

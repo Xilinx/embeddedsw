@@ -1,0 +1,424 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xprc__selftest__example_8c" kind="file">
+    <compoundname>xprc_selftest_example.c</compoundname>
+    <includes refid="xprc_8h" local="yes">xprc.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="72">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="74">
+        <label>xprc_hw.h</label>
+        <link refid="xprc__hw_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xil_io.h</label>
+      </node>
+      <node id="70">
+        <label>xprc.h</label>
+        <link refid="xprc_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="69">
+        <label>xprc_selftest_example.c</label>
+        <link refid="xprc_selftest_example.c"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xil_types.h</label>
+      </node>
+      <node id="77">
+        <label>xparameters.h</label>
+      </node>
+      <node id="76">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xprc__selftest__example_8c_1a7c91e2956ed694cc32af7ec60f153f96" prot="public" static="no">
+        <name>XPRC_BASEADDR</name>
+        <initializer>XPAR_XPRC_0_BASEADDR</initializer>
+        <briefdescription>
+<para>The following constants map to the XPAR parameters created in the xparameters.h file. </para>        </briefdescription>
+        <detaileddescription>
+<para>They are defined here such that a user can easily change all the needed parameters in one place. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="46" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" bodystart="46" bodyend="-1"/>
+        <referencedby refid="xprc__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xprc__selftest__example_8c" startline="83" endline="104">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xprc__selftest__example_8c_1a9e091ccb1aea5e06e9debda64511d19c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_prc" kindref="compound">XPrc</ref></type>
+        <definition>XPrc Prc</definition>
+        <argsstring></argsstring>
+        <name>Prc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPrc_SelfTestExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XPrc_SelfTestExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function does a minimal test on the PRC device and driver as a design example. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this function is to illustrate how to use the <ref refid="struct_x_prc" kindref="compound">XPrc</ref> component.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPAR_&lt;prc_instance&gt;_DEVICE_ID value from xparameters.h.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" bodystart="126" bodyend="159"/>
+        <references refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" compoundref="xprc_8c" startline="75" endline="142">XPrc_CfgInitialize</references>
+        <references refid="group__prc_1ga51e9679d6d99b32bfafc1a8543556297" compoundref="xprc__sinit_8c" startline="84" endline="98">XPrc_LookupConfig</references>
+        <references refid="group__prc_1gaf15c985cf911548b53252824dc933313" compoundref="xprc__selftest_8c" startline="60" endline="76">XPrc_SelfTest</references>
+        <referencedby refid="xprc__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xprc__selftest__example_8c" startline="83" endline="104">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPrc_GetRegisterAddress</definition>
+        <argsstring>(XPrc *InstancePtr, u32 VsmId, u8 RegisterType, u16 TableRow)</argsstring>
+        <name>XPrc_GetRegisterAddress</name>
+        <param>
+          <type><ref refid="struct_x_prc" kindref="compound">XPrc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>VsmId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterType</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>TableRow</declname>
+        </param>
+        <briefdescription>
+<para>The register offsets for the PRC are dynamic. </para>        </briefdescription>
+        <detaileddescription>
+<para>These could become awkward to use as each Trigger, VS, RM and BS require their own registers so looking up hard wired names would be clumsy. For example a reference to a constant PRC_VS3_TRIGGER7 would be difficult to generate in a loop that iterated over each VS and Trigger.</para><para>This function gets the address offset for a register in the PRC. As this is a Direct Hardware Interface, it cannot use device configuration parameters, and multiple instances are supported through the base address.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the PRC instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VsmId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the identifier of the VSM to access. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of register(XPRC_STATUS_REG, XPRC_CONTROL_REG, XPRC_SW_TRIGGER_REG, XPRC_TRIGGER_REG, etc) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TableRow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the row of the table(trigger_id, rm_id, rm_bs_index).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Address of the register.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/xprc.c" bodystart="1367" bodyend="1422"/>
+        <references refid="group__prc_1gaf01bbecc79e713ee67aff6b809da2aef" compoundref="xprc__hw_8h" startline="103">XPRC_STATUS_REG</references>
+        <references refid="group__prc_1ga39845de1f35c11952bd876d71193ce1d" compoundref="xprc__hw_8h" startline="52">XPRC_VSM_GENERAL_REG_BANK</references>
+        <references refid="group__prc_1ga4363c1281865d2042c9b4ed84a562e13" compoundref="xprc__hw_8h" startline="67">XPRC_STATUS_REG_TABLE_ID</references>
+        <references refid="group__prc_1ga919421a9b7c3646ff84f97c52bdecc8c" compoundref="xprc__hw_8h" startline="104">XPRC_CONTROL_REG</references>
+        <references refid="group__prc_1ga355c95a99da0f86bc06d090a24d7d0e7" compoundref="xprc__hw_8h" startline="70">XPRC_CONTROL_REG_TABLE_ID</references>
+        <references refid="group__prc_1ga774af306d4d2a91344adddeea082200c" compoundref="xprc__hw_8h" startline="105">XPRC_SW_TRIGGER_REG</references>
+        <references refid="group__prc_1ga0bf7d5df4f57e2531aa37ae489efa6e0" compoundref="xprc__hw_8h" startline="73">XPRC_SW_TRIGGER_REG_TABLE_ID</references>
+        <references refid="group__prc_1gabd189a3fb5785c20dd4dcb9b628649c4" compoundref="xprc__hw_8h" startline="106">XPRC_TRIGGER_REG</references>
+        <references refid="group__prc_1ga88683985343af8c22e58f227e80aa1d0" compoundref="xprc__hw_8h" startline="53">XPRC_VSM_TRIGGER_REG_BANK</references>
+        <references refid="group__prc_1gacd84129729b2466f1235729b86fbf0c5" compoundref="xprc__hw_8h" startline="76">XPRC_TRIGGER_REG_TABLE_ID</references>
+        <references refid="group__prc_1gaf24b291f63c30f7c6fad59e90440109e" compoundref="xprc__hw_8h" startline="107">XPRC_RM_BS_INDEX_REG</references>
+        <references refid="group__prc_1ga377bd28ad45278dc2a38cca4e0543ac7" compoundref="xprc__hw_8h" startline="54">XPRC_VSM_RM_REG_BANK</references>
+        <references refid="group__prc_1gae8b37df1b5944054e72ef7a799777aed" compoundref="xprc__hw_8h" startline="79">XPRC_RM_BS_INDEX_REG_TABLE_ID</references>
+        <references refid="group__prc_1gace313f53a181ec04f6196f1cef5577aa" compoundref="xprc__hw_8h" startline="108">XPRC_RM_CONTROL_REG</references>
+        <references refid="group__prc_1ga5fbec6bb5b2a9c467c5829e720208e07" compoundref="xprc__hw_8h" startline="82">XPRC_RM_CONTROL_REG_TABLE_ID</references>
+        <references refid="group__prc_1gab8d5b4415b54b1be74121a67b8f0a78c" compoundref="xprc__hw_8h" startline="109">XPRC_BS_ID_REG</references>
+        <references refid="group__prc_1ga5a269e4715f69014d7182062633718fe" compoundref="xprc__hw_8h" startline="55">XPRC_VSM_BS_REG_BANK</references>
+        <references refid="group__prc_1ga300085f26470938636222a8352a3a9cf" compoundref="xprc__hw_8h" startline="85">XPRC_BS_ID_REG_TABLE_ID</references>
+        <references refid="group__prc_1ga90b5b3edaf9a6609d14dccd79d3c8555" compoundref="xprc__hw_8h" startline="110">XPRC_BS_ADDRESS_REG</references>
+        <references refid="group__prc_1gaefaa8b4573432b34194a88b2481a94d2" compoundref="xprc__hw_8h" startline="88">XPRC_BS_ADDRESS_REG_TABLE_ID</references>
+        <references refid="group__prc_1gad0c751148f2cb2dbf6ce61fc58ce059f" compoundref="xprc__hw_8h" startline="111">XPRC_BS_SIZE_REG</references>
+        <references refid="group__prc_1gaed990ba762a23bbcb16300f49f897102" compoundref="xprc__hw_8h" startline="91">XPRC_BS_SIZE_REG_TABLE_ID</references>
+        <references refid="group__prc_1gaa2f1770f55f7c66582f4be05b67dd149" compoundref="xprc__hw_8h" startline="61">XPRC_DEFAULT_BANKID</references>
+        <references refid="group__prc_1ga2507e79a5a16cd30ab71eb7eead3d05c" compoundref="xprc__hw_8h" startline="94">XPRC_DEFAULT_TABLEID</references>
+        <references refid="struct_x_prc_1a004702b744e3189596b5ac40f0b439ad" compoundref="xprc_8h" startline="319">XPrc::Config</references>
+        <referencedby refid="group__prc_1gabc3b273ffd5f67fbdfc7f57d7929b45b" compoundref="xprc_8c" startline="312" endline="330">XPrc_SetTriggerToRmMapping</referencedby>
+        <referencedby refid="group__prc_1ga715f096ec7bc1c5eaac8395444fcd03f" compoundref="xprc_8c" startline="348" endline="360">XPrc_GetTriggerToRmMapping</referencedby>
+        <referencedby refid="group__prc_1gafa73a0de6152ced50f55b50533135d0d" compoundref="xprc_8c" startline="384" endline="401">XPrc_SetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga84b724988773a1fdf54a84325e020b51" compoundref="xprc_8c" startline="424" endline="450">XPrc_SetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga4328f5b970ea41269486688d36c71330" compoundref="xprc_8c" startline="469" endline="487">XPrc_GetRmBsIndex</referencedby>
+        <referencedby refid="group__prc_1ga1d9eb3af06c1eb952ac109f395feed75" compoundref="xprc_8c" startline="507" endline="524">XPrc_GetRmClearingBsIndex</referencedby>
+        <referencedby refid="group__prc_1gaa3c36e7ac22439e68a49baf08a07cfc8" compoundref="xprc_8c" startline="563" endline="599">XPrc_SetRmControl</referencedby>
+        <referencedby refid="group__prc_1ga4ae04635e1799c1fff8a1bf0acd7f10e" compoundref="xprc_8c" startline="639" endline="682">XPrc_GetRmControl</referencedby>
+        <referencedby refid="group__prc_1gab956d1c5dcfea3a937b2d13cdbe7ea40" compoundref="xprc_8c" startline="702" endline="719">XPrc_SetBsId</referencedby>
+        <referencedby refid="group__prc_1gaa1e1c547c5d110ec0e5fb28721398547" compoundref="xprc_8c" startline="739" endline="755">XPrc_GetBsId</referencedby>
+        <referencedby refid="group__prc_1ga77ae77f041ca0822956e93f2c4841384" compoundref="xprc_8c" startline="773" endline="790">XPrc_SetBsSize</referencedby>
+        <referencedby refid="group__prc_1ga23ab1e4290b46abb79a99627c2f85d41" compoundref="xprc_8c" startline="807" endline="828">XPrc_GetBsSize</referencedby>
+        <referencedby refid="group__prc_1ga66ef8c25b6a68047e74a6d30d215ebf9" compoundref="xprc_8c" startline="846" endline="864">XPrc_SetBsAddress</referencedby>
+        <referencedby refid="group__prc_1ga74079c4b27f1c4dc1a7947911b7682d1" compoundref="xprc_8c" startline="881" endline="902">XPrc_GetBsAddress</referencedby>
+        <referencedby refid="group__prc_1ga1352d5c7fa50ff03c099da95d1f6d368" compoundref="xprc_8c" startline="917" endline="929">XPrc_ReadStatusReg</referencedby>
+        <referencedby refid="group__prc_1ga6d547d05931dc7104a1c99ac832a84fb" compoundref="xprc_8c" startline="1234" endline="1250">XPrc_SendSwTrigger</referencedby>
+        <referencedby refid="group__prc_1gabf8e49096fb637345e7d26b56abdea3a" compoundref="xprc_8c" startline="1272" endline="1291">XPrc_IsSwTriggerPending</referencedby>
+        <referencedby refid="group__prc_1gaf15c985cf911548b53252824dc933313" compoundref="xprc__selftest_8c" startline="60" endline="76">XPrc_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xprc__selftest__example_8c_1ac5bbe6e4203c27940d97596fb432fe81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPrc_GetRegisterOffset</definition>
+        <argsstring>(XPrc *InstancePtr, u32 VsmId, u8 BankId, u8 TableInBank, u8 TableRow)</argsstring>
+        <name>XPrc_GetRegisterOffset</name>
+        <param>
+          <type><ref refid="struct_x_prc" kindref="compound">XPrc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>VsmId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BankId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TableInBank</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TableRow</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xprc__selftest__example_8c_1a7fe1df48c9b555c91f1ad41bf4f3cf9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XPrc_GetOffsetForTableType</definition>
+        <argsstring>(u8 TableId)</argsstring>
+        <name>XPrc_GetOffsetForTableType</name>
+        <param>
+          <type>u8</type>
+          <declname>TableId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xprc__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This is the main function to call the example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c" bodystart="83" bodyend="104"/>
+        <references refid="xprc__selftest__example_8c_1a7c91e2956ed694cc32af7ec60f153f96" compoundref="xprc__selftest__example_8c" startline="46">XPRC_BASEADDR</references>
+        <references refid="xprc__example_8c_1abe6791e387b3717786af2eed5ab74b8a" compoundref="xprc__example_8c" startline="46">XPRC_DEVICE_ID</references>
+        <references refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" compoundref="xprc__selftest__example_8c" startline="126" endline="159">XPrc_SelfTestExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the PRC driver (<ref refid="struct_x_prc" kindref="compound">XPrc</ref>) to do self test on the device. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None</para></simplesect>
+MODIFICATION HISTORY: <preformatted>
+Ver   Who     Date          Changes
+<hruler/>
+
+1.0   ms   07/18/2016   First release
+      ms   04/05/2017   Modified comment lines notation in functions to
+                        avoid unnecessary description displayed
+                        while generating doxygen.
+2.2  Nava  07/04/2023   Added support for system device-tree flow.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xprc_8h" kindref="compound">xprc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPRC_DEVICE_ID<sp/><sp/>XPAR_PRC_DEVICE_ID</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="46" refid="xprc__selftest__example_8c_1a7c91e2956ed694cc32af7ec60f153f96" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPRC_BASEADDR<sp/><sp/><sp/>XPAR_XPRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__prc_1gaf1fd82200fe71d1518e59cb6ff84e395" kindref="member">XPrc_GetRegisterAddress</ref>(<ref refid="struct_x_prc" kindref="compound">XPrc</ref><sp/>*InstancePtr,<sp/>u32<sp/>VsmId,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RegisterType,<sp/>u16<sp/>TableRow);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XPrc_GetRegisterOffset(<ref refid="struct_x_prc" kindref="compound">XPrc</ref><sp/>*InstancePtr,<sp/>u32<sp/>VsmId,<sp/>u8<sp/>BankId,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TableInBank,<sp/>u8<sp/>TableRow);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u16<sp/>XPrc_GetOffsetForTableType(u8<sp/>TableId);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><ref refid="struct_x_prc" kindref="compound">XPrc</ref><sp/>Prc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>PRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="83" refid="xprc__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xprc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>PRC<sp/>self<sp/>test<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>generated<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>((u16)<ref refid="xprc__example_8c_1abe6791e387b3717786af2eed5ab74b8a" kindref="member">XPRC_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>(<ref refid="xprc__selftest__example_8c_1a7c91e2956ed694cc32af7ec60f153f96" kindref="member">XPRC_BASEADDR</ref>);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PRC<sp/>Selftest<sp/>example<sp/>is<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>PRC<sp/>Selftest<sp/>example\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="126" refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xprc__selftest__example_8c_1abeb4848ef5535bada5cd3482fe992e9f" kindref="member">XPrc_SelfTestExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPrc_Config<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>PRC<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use.</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Look<sp/>up<sp/>the<sp/>configuration<sp/>in<sp/>the<sp/>config<sp/>table,<sp/>then<sp/>initialize<sp/>it.</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__prc_1ga51e9679d6d99b32bfafc1a8543556297" kindref="member">XPrc_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr<sp/>=<sp/><ref refid="group__prc_1ga51e9679d6d99b32bfafc1a8543556297" kindref="member">XPrc_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>CfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__prc_1ga860a4c5ba01881e1547b8150affa7c0d" kindref="member">XPrc_CfgInitialize</ref>(&amp;Prc,<sp/>CfgPtr,<sp/>CfgPtr-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>a<sp/>self-test<sp/>to<sp/>ensure<sp/>that<sp/>the<sp/>hardware<sp/>was<sp/>built<sp/>correctly.</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__prc_1gaf15c985cf911548b53252824dc933313" kindref="member">XPrc_SelfTest</ref>(&amp;Prc);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/examples/xprc_selftest_example.c"/>
+  </compounddef>
+</doxygen>

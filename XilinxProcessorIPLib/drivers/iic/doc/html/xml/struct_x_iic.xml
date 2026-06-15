@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_iic" kind="struct" prot="public">
+    <compoundname>XIic</compoundname>
+    <includes local="no">xiic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_iic_stats" kindref="compound">XIicStats</ref></type>
+        <definition>XIicStats XIic::Stats</definition>
+        <argsstring></argsstring>
+        <name>Stats</name>
+        <briefdescription>
+<para>Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1a4a76229cbb6ce631f3271eb592b69d0f" compoundref="xiic__dynamic__eeprom__example_8c" startline="428" endline="508">DynEepromWriteData</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1a40d92867ead2dc8efe06207b8b0f3494" compoundref="xiic__eeprom__example_8c" startline="485" endline="564">EepromWriteData</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="group___overview_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="99" endline="112">XIic_ClearStats</referencedby>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="63" endline="85">XIic_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIic::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a91e062862cf2b2bf6c6f8120baa882be" compoundref="xiic__slave__example_8c" startline="280" endline="333">SlaveReadData</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a0f41d940d34ed71035e6f6aeb24bdf67" compoundref="xiic__slave__example_8c" startline="348" endline="400">SlaveWriteData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1adc9d7e63c6a7961710a9ae7df6b824d7" compoundref="xiic__tenbitaddr__example_8c" startline="285" endline="338">TenBitAddrReadData</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1a2e451cd59da6f2b702a42a4fcb21a362" compoundref="xiic__tenbitaddr__example_8c" startline="353" endline="404">TenBitAddrWriteData</referencedby>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
+        <referencedby refid="group___overview_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="552" endline="568">XIic_GetGpOutput</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gaa4b84f9d58cbd40d2633140d79e2aed4" compoundref="xiic_8c" startline="584" endline="593">XIic_IsSlave</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="341" endline="348">XIic_Reset</referencedby>
+        <referencedby refid="group___overview_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="81" endline="134">XIic_SelfTest</referencedby>
+        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
+        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+        <referencedby refid="group___overview_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="513" endline="528">XIic_SetGpOutput</referencedby>
+        <referencedby refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="121" endline="152">XIic_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+        <referencedby refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::Has10BitAddr</definition>
+        <argsstring></argsstring>
+        <name>Has10BitAddr</name>
+        <briefdescription>
+<para>TRUE when 10 bit addressing in design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="467" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
+        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaf56beeeacad67c0d24ad330ce5c42f90" compoundref="xiic__stats_8c" startline="99" endline="112">XIic_ClearStats</referencedby>
+        <referencedby refid="group___overview_1gae7a801efedbe489ba0e984dbf8f6daa4" compoundref="xiic__stats_8c" startline="63" endline="85">XIic_GetStats</referencedby>
+        <referencedby refid="group___overview_1ga237935ed7fb41369f52d1d8a4f6fe2a6" compoundref="xiic_8c" startline="341" endline="348">XIic_Reset</referencedby>
+        <referencedby refid="group___overview_1ga0a4d9b646c26bcf932561699d69d52b1" compoundref="xiic__selftest_8c" startline="81" endline="134">XIic_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
+        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
+        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
+        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device has been started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="469" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+        <referencedby refid="group___overview_1gaaa989e0128057bf11803825d774d496f" compoundref="xiic_8c" startline="294" endline="324">XIic_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::AddrOfSlave</definition>
+        <argsstring></argsstring>
+        <name>AddrOfSlave</name>
+        <briefdescription>
+<para>Slave Address writing to. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="470" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga3e8f77e5df8d92a4b27627e03b5e1807" compoundref="xiic_8c" startline="464" endline="490">XIic_GetAddress</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1gad944f42c3d9972fc2c986a7eed726297" compoundref="xiic_8c" startline="397" endline="437">XIic_SetAddress</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic::Options</definition>
+        <argsstring></argsstring>
+        <name>Options</name>
+        <briefdescription>
+<para>Current operating options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="472" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaf15dd70c4f1bb34a9e35c1ca85cee841" compoundref="xiic__options_8c" startline="171" endline="176">XIic_GetOptions</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga900a7ab49c2e13b0562ab629c088cf3a" compoundref="xiic__options_8c" startline="121" endline="152">XIic_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XIic::SendBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>SendBufferPtr</name>
+        <briefdescription>
+<para>Buffer to send (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="473" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XIic::RecvBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>RecvBufferPtr</name>
+        <briefdescription>
+<para>Buffer to receive (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="474" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
+        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIic::TxAddrMode</definition>
+        <argsstring></argsstring>
+        <name>TxAddrMode</name>
+        <briefdescription>
+<para>State of Tx Address transmission. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="475" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::SendByteCount</definition>
+        <argsstring></argsstring>
+        <name>SendByteCount</name>
+        <briefdescription>
+<para>Number of data bytes in buffer (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="476" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga24873473751e355c82bb074a0d42ddbc" compoundref="xiic__slave_8c" startline="122" endline="170">XIic_SlaveSend</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::RecvByteCount</definition>
+        <argsstring></argsstring>
+        <name>RecvByteCount</name>
+        <briefdescription>
+<para>Number of empty bytes in buffer (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="477" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga25dc714d97f71049154461e1ff16bcad" compoundref="xiic__slave_8c" startline="226" endline="277">XIic_SlaveRecv</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a309fbb83dcbf11ecb031fc3283c21bd1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic::BNBOnly</definition>
+        <argsstring></argsstring>
+        <name>BNBOnly</name>
+        <briefdescription>
+<para>TRUE when BNB interrupt needs to. </para>        </briefdescription>
+        <detaileddescription>
+<para>call callback </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="479" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIic::GpOutWidth</definition>
+        <argsstring></argsstring>
+        <name>GpOutWidth</name>
+        <briefdescription>
+<para>General purpose output width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="481" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga4108f79d22b71e2455844a8487b1a776" compoundref="xiic_8c" startline="552" endline="568">XIic_GetGpOutput</referencedby>
+        <referencedby refid="group___overview_1gafe4e886e72abb9d860a6cb83c84c74a1" compoundref="xiic_8c" startline="513" endline="528">XIic_SetGpOutput</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1gac96e3f6975be1bdb8fe5956812855962" kindref="member">XIic_StatusHandler</ref></type>
+        <definition>XIic_StatusHandler XIic::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Status Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="483" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIic::StatusCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>StatusCallBackRef</name>
+        <briefdescription>
+<para>Callback reference for status handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="484" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaa74a6884f6dfc826a10768d7d0333991" compoundref="xiic_8c" startline="678" endline="687">XIic_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a6459379a9289a7db0f29ded8c4696e7e" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+        <definition>XIic_Handler XIic::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>Receive Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="485" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a089dc79200a64984f2fc5dca2b3a0ab5" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIic::RecvCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>RecvCallBackRef</name>
+        <briefdescription>
+<para>Callback reference for Recv handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="486" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga86b4b2b307df26df2ecac39337c78bed" compoundref="xiic_8c" startline="619" endline="628">XIic_SetRecvHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" prot="public" static="no" mutable="no">
+        <type><ref refid="group___overview_1ga85db866c44d23a4c6e985f2c6c647053" kindref="member">XIic_Handler</ref></type>
+        <definition>XIic_Handler XIic::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+<para>Send Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a42ba7a5a3635caf03b7e15fa3348b32f" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XIic::SendCallBackRef</definition>
+        <argsstring></argsstring>
+        <name>SendCallBackRef</name>
+        <briefdescription>
+<para>Callback reference for send handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="488" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga50c5aa4448e8993c80ef7b6a87b1aaea" compoundref="xiic__intr_8c" startline="109" endline="228">XIic_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gad33428830e9016ef50c1deae59d1e604" compoundref="xiic_8c" startline="648" endline="657">XIic_SetSendHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::IsDynamic</definition>
+        <argsstring></argsstring>
+        <name>IsDynamic</name>
+        <briefdescription>
+<para>TRUE when Dynamic control is used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="489" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga4d7985d95cd029ab0b0f2a5ccc614793" compoundref="xiic__dyn__master_8c" startline="303" endline="422">XIic_DynMasterRecv</referencedby>
+        <referencedby refid="group___overview_1gac4c6388d0db3b08ddcd47f0b2459ff3c" compoundref="xiic__dyn__master_8c" startline="92" endline="178">XIic_DynMasterSend</referencedby>
+        <referencedby refid="group___overview_1ga337bf0d322d4a7d9b4f8baa30e00ab45" compoundref="xiic__master_8c" startline="248" endline="387">XIic_MasterRecv</referencedby>
+        <referencedby refid="group___overview_1ga977382e8a20bd5e690229f82af2e7603" compoundref="xiic__master_8c" startline="109" endline="215">XIic_MasterSend</referencedby>
+        <referencedby refid="group___overview_1ga5f4e497710a9c3719f27d40faa74a10f" compoundref="xiic_8c" startline="223" endline="265">XIic_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a85857f85c5a0fc9af74f3a6745839eca" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic::IsSlaveSetAckOff</definition>
+        <argsstring></argsstring>
+        <name>IsSlaveSetAckOff</name>
+        <briefdescription>
+<para>TRUE when Slave has set the ACK Off. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic::SerialClkDelay</definition>
+        <argsstring></argsstring>
+        <name>SerialClkDelay</name>
+        <briefdescription>
+<para>Serial clock delay in clock cycles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="492" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic::AxiClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiClkFreq</name>
+        <briefdescription>
+<para>AXI clock frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="493" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga6e3b4f3e96cb3da5216030e32cbf8894" compoundref="xiic__options_8c" startline="200" endline="257">XIic_SetClk</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_iic" kindref="compound">XIic</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every IIC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XIic</label>
+        <link refid="struct_x_iic"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XIicStats</label>
+        <link refid="struct_x_iic_stats"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="464" bodyend="496"/>
+    <listofallmembers>
+      <member refid="struct_x_iic_1ac8791f24ad6311a916cedb2ebd6b3774" prot="public" virt="non-virtual"><scope>XIic</scope><name>AddrOfSlave</name></member>
+      <member refid="struct_x_iic_1a49d641dc9939a2df6265df4a17d6fa18" prot="public" virt="non-virtual"><scope>XIic</scope><name>AxiClkFreq</name></member>
+      <member refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" prot="public" virt="non-virtual"><scope>XIic</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_iic_1a309fbb83dcbf11ecb031fc3283c21bd1" prot="public" virt="non-virtual"><scope>XIic</scope><name>BNBOnly</name></member>
+      <member refid="struct_x_iic_1a19e2155bd464d4dc9e13d5008e22b404" prot="public" virt="non-virtual"><scope>XIic</scope><name>GpOutWidth</name></member>
+      <member refid="struct_x_iic_1a8ab26622cd8ec42dde9515c917a6f5ab" prot="public" virt="non-virtual"><scope>XIic</scope><name>Has10BitAddr</name></member>
+      <member refid="struct_x_iic_1abf2872ae10b1c7faf6256e6691ff46af" prot="public" virt="non-virtual"><scope>XIic</scope><name>IsDynamic</name></member>
+      <member refid="struct_x_iic_1ae84af1d59d6e5339a26045e730f0cbde" prot="public" virt="non-virtual"><scope>XIic</scope><name>IsReady</name></member>
+      <member refid="struct_x_iic_1a85857f85c5a0fc9af74f3a6745839eca" prot="public" virt="non-virtual"><scope>XIic</scope><name>IsSlaveSetAckOff</name></member>
+      <member refid="struct_x_iic_1add800c0b51a637b186fa8e3b6adf7a7f" prot="public" virt="non-virtual"><scope>XIic</scope><name>IsStarted</name></member>
+      <member refid="struct_x_iic_1ab975cd4f9408fa6285bc8ba7e030a97a" prot="public" virt="non-virtual"><scope>XIic</scope><name>Options</name></member>
+      <member refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" prot="public" virt="non-virtual"><scope>XIic</scope><name>RecvBufferPtr</name></member>
+      <member refid="struct_x_iic_1ad2cc469bc553fdedcf67a71e36baecb6" prot="public" virt="non-virtual"><scope>XIic</scope><name>RecvByteCount</name></member>
+      <member refid="struct_x_iic_1a089dc79200a64984f2fc5dca2b3a0ab5" prot="public" virt="non-virtual"><scope>XIic</scope><name>RecvCallBackRef</name></member>
+      <member refid="struct_x_iic_1a6459379a9289a7db0f29ded8c4696e7e" prot="public" virt="non-virtual"><scope>XIic</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_iic_1afcc1aa70319f4a9676b02f9f019b76b5" prot="public" virt="non-virtual"><scope>XIic</scope><name>SendBufferPtr</name></member>
+      <member refid="struct_x_iic_1a754131dbb0faeda957f6124df82eecf0" prot="public" virt="non-virtual"><scope>XIic</scope><name>SendByteCount</name></member>
+      <member refid="struct_x_iic_1a42ba7a5a3635caf03b7e15fa3348b32f" prot="public" virt="non-virtual"><scope>XIic</scope><name>SendCallBackRef</name></member>
+      <member refid="struct_x_iic_1aeb346adbf6b1c39840c28e52bb5283e0" prot="public" virt="non-virtual"><scope>XIic</scope><name>SendHandler</name></member>
+      <member refid="struct_x_iic_1ae9c85429fc4c93fc189315dccdc4a2d6" prot="public" virt="non-virtual"><scope>XIic</scope><name>SerialClkDelay</name></member>
+      <member refid="struct_x_iic_1a823a2f7407e2c6990f1eb507ea742e85" prot="public" virt="non-virtual"><scope>XIic</scope><name>Stats</name></member>
+      <member refid="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" prot="public" virt="non-virtual"><scope>XIic</scope><name>StatusCallBackRef</name></member>
+      <member refid="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" prot="public" virt="non-virtual"><scope>XIic</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_iic_1ae712d64fa4297ec0ca4792be679c161c" prot="public" virt="non-virtual"><scope>XIic</scope><name>TxAddrMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

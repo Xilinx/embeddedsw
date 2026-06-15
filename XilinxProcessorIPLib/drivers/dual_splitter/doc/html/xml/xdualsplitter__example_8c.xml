@@ -1,0 +1,279 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdualsplitter__example_8c" kind="file">
+    <compoundname>xdualsplitter_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xdualsplitter_8h" local="yes">xdualsplitter.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="29">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="28">
+        <label>xil_io.h</label>
+      </node>
+      <node id="30">
+        <label>xstatus.h</label>
+      </node>
+      <node id="27">
+        <label>xdualsplitter_hw.h</label>
+        <link refid="xdualsplitter__hw_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>xdualsplitter_example.c</label>
+        <link refid="xdualsplitter_example.c"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>xparameters.h</label>
+      </node>
+      <node id="31">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="26">
+        <label>xdualsplitter.h</label>
+        <link refid="xdualsplitter_8h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdualsplitter__example_8c_1af0db7818cd069fc5b9421828c8f5f1e2" prot="public" static="no">
+        <name>XDUALSPLITTER_DEVICE_ID</name>
+        <initializer>XPAR_DUALSPLITTER_0_DEVICE_ID</initializer>
+        <briefdescription>
+<para>The following constants map to the XPAR parameters created in the xparameters.h file. </para>        </briefdescription>
+        <detaileddescription>
+<para>They are defined here such that a user can easily change all the needed parameters in one place. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdualsplitter__example_8c" startline="69" endline="83">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdualsplitter__example_8c_1a8fc2fbe2788dd2b39f2b86b5e513c325" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref></type>
+        <definition>XDualSplitter DualSplitterInst</definition>
+        <argsstring></argsstring>
+        <name>DualSplitterInst</name>
+        <briefdescription>
+<para>Instance of the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDualSplitterExample</definition>
+        <argsstring>(u16 DeviceId)</argsstring>
+        <name>XDualSplitterExample</name>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function demonstrates the use of Dual Splitter driver functions. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the Dual Splitter core.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Dual Splitter example ran successfully.</para></listitem><listitem><para>XST_FAILURE if Dual Splitter example failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" bodystart="99" bodyend="165"/>
+        <references refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" compoundref="xdualsplitter_8h" startline="123">XDualSplitter_Config::BaseAddress</references>
+        <references refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" compoundref="xdualsplitter_8c" startline="73" endline="102">XDualSplitter_CfgInitialize</references>
+        <references refid="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" compoundref="xdualsplitter_8h" startline="225">XDualSplitter_Enable</references>
+        <references refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" compoundref="xdualsplitter__sinit_8c" startline="101" endline="122">XDualSplitter_LookupConfig</references>
+        <references refid="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" compoundref="xdualsplitter_8h" startline="206">XDualSplitter_RegUpdateDisable</references>
+        <references refid="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" compoundref="xdualsplitter_8h" startline="185">XDualSplitter_RegUpdateEnable</references>
+        <references refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" compoundref="xdualsplitter_8c" startline="149" endline="167">XDualSplitter_SetImageSize</references>
+        <references refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" compoundref="xdualsplitter_8c" startline="223" endline="249">XDualSplitter_SetImgParam</references>
+        <referencedby refid="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdualsplitter__example_8c" startline="69" endline="83">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This is the main function for Dual Splitter example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Dual Splitter example ran successfully.</para></listitem><listitem><para>XST_FAILURE if Dual Splitter example failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c" bodystart="69" bodyend="83"/>
+        <references refid="xdualsplitter__example_8c_1af0db7818cd069fc5b9421828c8f5f1e2" compoundref="xdualsplitter__example_8c" startline="39">XDUALSPLITTER_DEVICE_ID</references>
+        <references refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" compoundref="xdualsplitter__example_8c" startline="99" endline="165">XDualSplitterExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains an example of how to use the Dual Splitter driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.00  sha 08/05/14 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdualsplitter_8h" kindref="compound">xdualsplitter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="xdualsplitter__example_8c_1af0db7818cd069fc5b9421828c8f5f1e2" refkind="member"><highlight class="preprocessor">#define<sp/>XDUALSPLITTER_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DUALSPLITTER_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" kindref="member">XDualSplitterExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="xdualsplitter__example_8c_1a8fc2fbe2788dd2b39f2b86b5e513c325" refkind="member"><highlight class="normal"><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref><sp/><ref refid="xdualsplitter__example_8c_1a8fc2fbe2788dd2b39f2b86b5e513c325" kindref="member">DualSplitterInst</ref>;<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdualsplitter__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>Dual<sp/>Splitter<sp/>example<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" kindref="member">XDualSplitterExample</ref>(<ref refid="xdualsplitter__example_8c_1af0db7818cd069fc5b9421828c8f5f1e2" kindref="member">XDUALSPLITTER_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Dual<sp/>Splitter<sp/>driver<sp/>example<sp/>failed.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Dual<sp/>Splitter<sp/>driver<sp/>example<sp/>ran<sp/>successfully.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdualsplitter__example_8c_1a42e5da16cadf070754de53ee38e934b2" kindref="member">XDualSplitterExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Height;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Width;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>InputSamples<sp/>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>OutputSamples;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ImageSegments;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Overlap<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dual_splitter___config" kindref="compound">XDualSplitter_Config</ref><sp/>*Config;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>Dual<sp/>Splitter<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>look<sp/>up<sp/>the<sp/>configuration<sp/>in<sp/>the<sp/>config<sp/>table,<sp/>then<sp/>initialize<sp/>it.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/><ref refid="group__dual__splitter_1ga2d3c807cc8cb5d2425b784b9864d35e6" kindref="member">XDualSplitter_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__dual__splitter_1gae802302ea4de37154e36cbe0993e8cfd" kindref="member">XDualSplitter_CfgInitialize</ref>(&amp;DualSplitterInst,<sp/>Config,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;<ref refid="struct_x_dual_splitter___config_1a3da7ad4f8e876ab73acc8c72274ea0f6" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>Dual<sp/>Splitter<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1gab5e16cc8824c65a7f9072d6ae226cd7e" kindref="member">XDualSplitter_Enable</ref>(&amp;DualSplitterInst);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>register<sp/>update,<sp/>program<sp/>all<sp/>other<sp/>registers<sp/>and<sp/>at</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>end<sp/>of<sp/>programming<sp/>enable<sp/>register<sp/>update.</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1ga80e7605f293b4f935ed78a86232777ba" kindref="member">XDualSplitter_RegUpdateDisable</ref>(&amp;DualSplitterInst);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>image<sp/>size<sp/>width<sp/>x<sp/>height<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Width<sp/>=<sp/>1920;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Height<sp/>=<sp/>2160;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1ga134facdfb0255d7de8f17cccf404349b" kindref="member">XDualSplitter_SetImageSize</ref>(&amp;DualSplitterInst,<sp/>Height,<sp/>Width);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UHD2@60:</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MST<sp/>-<sp/>4<sp/>Streams:<sp/>InputSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Number<sp/>of<sp/>segments<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>MST<sp/>-<sp/>2<sp/>Streams:<sp/>InputSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutPutSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Number<sp/>of<sp/>segments<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>UHD@60:</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>SST<sp/>:<sp/><sp/><sp/>InputSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputSamples<sp/>per<sp/>clock<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Number<sp/>of<sp/>segments<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>UHD@30:</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>SST<sp/>:<sp/><sp/><sp/>InputSamples<sp/>per<sp/>clock<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputSamples<sp/>per<sp/>clock<sp/>=<sp/>2</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Number<sp/>of<sp/>segments<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UHD2@60<sp/>in<sp/>MST<sp/>mode<sp/>with<sp/>2<sp/>streams<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InputSamples<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputSamples<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ImageSegments<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1gab4b2ff70f887d9e406ab83d7c23e19a0" kindref="member">XDualSplitter_SetImgParam</ref>(&amp;DualSplitterInst,<sp/>InputSamples,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OutputSamples,<sp/>ImageSegments,<sp/>Overlap);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>register<sp/>update<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1ga9436f877783ccefb508aa8dceb3e4f51" kindref="member">XDualSplitter_RegUpdateEnable</ref>(&amp;DualSplitterInst);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/examples/xdualsplitter_example.c"/>
+  </compounddef>
+</doxygen>

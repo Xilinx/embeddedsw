@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___trans_spec_flds" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_TransSpecFlds</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1af7b9a3f3e63646b0a44fac40f25eb184" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_TransSpecFlds::Opcode</definition>
+        <argsstring></argsstring>
+        <name>Opcode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1a93e7977cd32f6c8e3c2874003114d31c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_TransSpecFlds::DescId</definition>
+        <argsstring></argsstring>
+        <name>DescId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1a622fede5105fb602d067af638517a37d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_TransSpecFlds::Index</definition>
+        <argsstring></argsstring>
+        <name>Index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1ae14b21751d17e8e0b84699e685423a2f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_TransSpecFlds::Selector</definition>
+        <argsstring></argsstring>
+        <name>Selector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1a30efe195c34853d148d68e28d7dc32b0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_TransSpecFlds::Reserved0</definition>
+        <argsstring></argsstring>
+        <name>Reserved0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1ac6512ba6322482bbd9bca657edd01910" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XUfsPsxc_TransSpecFlds::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Big Endian format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1a437caa37722a261cba1a2ef6cacfef23" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_TransSpecFlds::Value</definition>
+        <argsstring></argsstring>
+        <name>Value</name>
+        <briefdescription>
+<para>Big Endian format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" compoundref="xufspsxc__init_8c" startline="205" endline="257">XUfsPsxc_CardInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" compoundref="xufspsxc__hw_8c" startline="391" endline="424">XUfsPsxc_FillFlagUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="360" endline="436">XUfsPsxc_GetLUNInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="264" endline="322">XUfsPsxc_SwitchBootLUN</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___trans_spec_flds_1a8bba68acffa0aa93b79a4972497a590e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_TransSpecFlds::Reserved1</definition>
+        <argsstring></argsstring>
+        <name>Reserved1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Transaction Specific Fields Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="103" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1a93e7977cd32f6c8e3c2874003114d31c" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>DescId</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1a622fede5105fb602d067af638517a37d" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Index</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1ac6512ba6322482bbd9bca657edd01910" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Length</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1af7b9a3f3e63646b0a44fac40f25eb184" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Opcode</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1a30efe195c34853d148d68e28d7dc32b0" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Reserved0</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1a8bba68acffa0aa93b79a4972497a590e" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Reserved1</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1ae14b21751d17e8e0b84699e685423a2f" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Selector</name></member>
+      <member refid="struct_x_ufs_psxc___trans_spec_flds_1a437caa37722a261cba1a2ef6cacfef23" prot="public" virt="non-virtual"><scope>XUfsPsxc_TransSpecFlds</scope><name>Value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

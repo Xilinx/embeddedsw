@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mipi___tx___phy" kind="struct" prot="public">
+    <compoundname>XMipi_Tx_Phy</compoundname>
+    <includes local="no">xmipi_tx_phy.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mipi___tx___phy___config" kindref="compound">XMipi_Tx_Phy_Config</ref></type>
+        <definition>XMipi_Tx_Phy_Config XMipi_Tx_Phy::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+        <referencedby refid="group__mipi__tx__phy_1ga4a6f46a83ce56b8538bd115feb1e652f" compoundref="xmipi__tx__phy__selftest_8c" startline="60" endline="72">XMipi_Tx_Phy_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMipi_Tx_Phy::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__mipi__tx__phy_1ga6e9c7bebd5db9ead39815cac90867d2f" compoundref="xmipi__tx__phy_8c" startline="64" endline="80">XMipi_Tx_Phy_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The Xmipi_tx_phy Controller driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every Xmipi_tx_phy device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XMipi_Tx_Phy_Config</label>
+        <link refid="struct_x_mipi___tx___phy___config"/>
+      </node>
+      <node id="1">
+        <label>XMipi_Tx_Phy</label>
+        <link refid="struct_x_mipi___tx___phy"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy.h" bodystart="304" bodyend="307"/>
+    <listofallmembers>
+      <member refid="struct_x_mipi___tx___phy_1a537c46a9f925d363e47dcaa75cd6fab1" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy</scope><name>Config</name></member>
+      <member refid="struct_x_mipi___tx___phy_1a56f91293f1bd1129e782b457a99812ae" prot="public" virt="non-virtual"><scope>XMipi_Tx_Phy</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

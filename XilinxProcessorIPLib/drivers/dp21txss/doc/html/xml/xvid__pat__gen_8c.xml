@@ -1,0 +1,1285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvid__pat__gen_8c" kind="file">
+    <compoundname>xvid_pat_gen.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="507">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="504">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="507" relation="include">
+        </childnode>
+        <childnode refid="508" relation="include">
+        </childnode>
+        <childnode refid="509" relation="include">
+        </childnode>
+        <childnode refid="510" relation="include">
+        </childnode>
+        <childnode refid="511" relation="include">
+        </childnode>
+        <childnode refid="513" relation="include">
+        </childnode>
+        <childnode refid="514" relation="include">
+        </childnode>
+      </node>
+      <node id="506">
+        <label>xil_io.h</label>
+      </node>
+      <node id="516">
+        <label>sleep.h</label>
+      </node>
+      <node id="513">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="512" relation="include">
+        </childnode>
+      </node>
+      <node id="510">
+        <label>xdebug.h</label>
+      </node>
+      <node id="512">
+        <label>xdp.h</label>
+      </node>
+      <node id="514">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="515" relation="include">
+        </childnode>
+        <childnode refid="512" relation="include">
+        </childnode>
+      </node>
+      <node id="508">
+        <label>xstatus.h</label>
+      </node>
+      <node id="511">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="512" relation="include">
+        </childnode>
+      </node>
+      <node id="509">
+        <label>xvidc.h</label>
+      </node>
+      <node id="505">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="502">
+        <label>xil_types.h</label>
+      </node>
+      <node id="503">
+        <label>xparameters.h</label>
+      </node>
+      <node id="515">
+        <label>xvtc.h</label>
+      </node>
+      <node id="501">
+        <label>xvid_pat_gen.c</label>
+        <link refid="xvid_pat_gen.c"/>
+        <childnode refid="502" relation="include">
+        </childnode>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+        <childnode refid="516" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_vpg___vidgen_config" prot="public">Vpg_VidgenConfig</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xvid__pat__gen_8c_1afcc0e4ed8bdbb70d7f3b73772246246e" prot="public" static="no">
+        <name>XILINX_DISPLAYPORT_VID_BASE_ADDRESS</name>
+        <initializer>XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a5db1225630b4b2aef2bde07bc9706c81" prot="public" static="no">
+        <name>XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a99c5e72ce735c579f67736a185d0438a" prot="public" static="no">
+        <name>XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a69aba0b273ceb34701a2a9ae98045fd6" prot="public" static="no">
+        <name>XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET</name>
+        <initializer>0x30000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a53ae440ae82bbfd5daeb8614c832e06d" prot="public" static="no">
+        <name>PatternGeneratorEnable</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a78beaebceff89170e255715fb9a0706c" prot="public" static="no">
+        <name>VsyncPolarity</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a1fceff140a07b2d9495ca93497f3e267" prot="public" static="no">
+        <name>HsyncPolarity</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a8f00505e26f5af45501ba1daa23b2bb1" prot="public" static="no">
+        <name>DataEnablePolarity</name>
+        <initializer>0xC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1acd422392163f9ef3f08e3ea7e14d6167" prot="public" static="no">
+        <name>VsyncWidth</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a467a24469fed1a1152c4ebf5598c0cae" prot="public" static="no">
+        <name>VerticalBackPorch</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a712211b5a9d1a36c15888690adeb5f74" prot="public" static="no">
+        <name>VerticalFrontPorch</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a35edb47183964b798c4905a87e86fb07" prot="public" static="no">
+        <name>VerticalResolution</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a3af6fe1895f52a66f19122f95714f4e1" prot="public" static="no">
+        <name>HsyncWidth</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ab491712f8078f7f9c7ca79f89c68a13e" prot="public" static="no">
+        <name>HorizontalBackPorch</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a85cccd5efb8117dc7f52027eac08ed42" prot="public" static="no">
+        <name>HorizontalFrontPorch</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a447699736e9667d89fd00b60b9fe86a9" prot="public" static="no">
+        <name>HorizontalResolution</name>
+        <initializer>0x2C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a2905da71d69903aa1ca5557562490ab0" prot="public" static="no">
+        <name>Framelock_Enable_Delay</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a3fc0dfb4fcebec820550b0b1cfe34705" prot="public" static="no">
+        <name>FrameLock_AlignHsync_LineFrac</name>
+        <initializer>0x3C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ae41c4d0147e5935366f0f9ef94411e30" prot="public" static="no">
+        <name>HdColorBarCfg</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ab6ca984ad5966e1b3d7ffa61e4414c28" prot="public" static="no">
+        <name>HSBLANK</name>
+        <initializer>0x44</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a9e3599b9afc502a0ba6a4526705074de" prot="public" static="no">
+        <name>HSSYNC</name>
+        <initializer>0x48</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a4bc06c97e6ad7b9cd8de8eb487f2521a" prot="public" static="no">
+        <name>HESYNC</name>
+        <initializer>0x4C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a04a080bece959ff2f5e29f3c435c88b9" prot="public" static="no">
+        <name>HEBLNK</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a6c5091e4aa9c1371e8d9453dc7034184" prot="public" static="no">
+        <name>VSBLNK</name>
+        <initializer>0x54</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a58909e4b3a3e350f0da79a7caee5b116" prot="public" static="no">
+        <name>VSSYNC</name>
+        <initializer>0x58</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1abbd800cee00a216875a1f83b3e12dd5a" prot="public" static="no">
+        <name>VESYNC</name>
+        <initializer>0x5C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a7ad718901a26bcf1b5544bbf0781ea4c" prot="public" static="no">
+        <name>VEBLNK</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a52e81ee854689db125d8fb37e4aad75d" prot="public" static="no">
+        <name>MISC0</name>
+        <initializer>0x300</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ae329ec8008096911d2610e19ddb46c71" prot="public" static="no">
+        <name>MISC1</name>
+        <initializer>0x304</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ad69721998234150ff1f19b64fd076ebd" prot="public" static="no">
+        <name>TestPatternControl</name>
+        <initializer>0x308</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1adbaec589a4574c0b38fdcb9f9ce59780" prot="public" static="no">
+        <name>Audio_Control</name>
+        <initializer>0x400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a86776537d0757658bfa2fb2baa4ee2c6" prot="public" static="no">
+        <name>AudioSampleRate_Chcount</name>
+        <initializer>0x404</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a72944307c4f6d2a6530338d236ea2560" prot="public" static="no">
+        <name>AudioPatternCH1</name>
+        <initializer>0x410</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a2c8159c02c05b2f05564389df452ca6a" prot="public" static="no">
+        <name>AudioPatternCH2</name>
+        <initializer>0x420</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a182ad22ad59f2f77d4fb2dd6206a5db0" prot="public" static="no">
+        <name>AudioPatternCH3</name>
+        <initializer>0x430 </initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a18f58cefaae071faf69c96dd853c3f9c" prot="public" static="no">
+        <name>AudioPatternCH4</name>
+        <initializer>0x440</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1ae7d6c0c782b62d54eb5fa1f195526e3b" prot="public" static="no">
+        <name>AudioPatternCH5</name>
+        <initializer>0x450 </initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a70961998f5e7de0fa1a6c9ef30999ee5" prot="public" static="no">
+        <name>AudioPatternCH6</name>
+        <initializer>0x460 </initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a849dd4c2302b0d2f27b5568ffef269b2" prot="public" static="no">
+        <name>AudioPatternCH7</name>
+        <initializer>0x470 </initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a6d05da59b3585df7dae833a074bf0e78" prot="public" static="no">
+        <name>AudioPatternCH8</name>
+        <initializer>0x480</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a5e5ebb18959669a173553d956bc88997" prot="public" static="no">
+        <name>AudioCHStatus1</name>
+        <initializer>0x4A0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a4c81437f8b7fc557d9d72f275064a726" prot="public" static="no">
+        <name>AudioCHStatus2</name>
+        <initializer>0x4A4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1aa3b661055cdb723d9dd72c6c2d1293a2" prot="public" static="no">
+        <name>AudioCheckStart</name>
+        <initializer>0x4B8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1aa13e54f4302c547705cb7152efccbcf1" prot="public" static="no">
+        <name>Timer</name>
+        <initializer>0x4C0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a7fc4442f417e19d8d366d79072c98008" prot="public" static="no">
+        <name>DualPixelMode</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a9205d0d6d61266fae98c967567d579e0" prot="public" static="no">
+        <name>QuadPixelMode</name>
+        <initializer>0x200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a4b724d32d4d8a1d612bfbf9d6b122d2d" prot="public" static="no">
+        <name>OctaPixelMode</name>
+        <initializer>0x400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a3e98ab494dbdea7e5365d0d82d8f7feb" prot="public" static="no">
+        <name>PIXEL_MODE</name>
+        <initializer>QuadPixelMode</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="114" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xvid__pat__gen_8c_1a7dd6c2660bb7b14ba6cbf1fb656e4aba" prot="public" static="no">
+        <name>MicrosecToWait</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="118" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xvid__pat__gen_8c_1affb8bc4d245a7976e80009fe8fe7496b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 StreamOffset[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>StreamOffset</name>
+        <initializer>= {0, XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET,
+			  XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET,
+			  XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xvid__pat__gen_8c_1a7d4e6b504e30c06e0e2aa8094b9e3282" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 StreamPattern_vpg[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>StreamPattern_vpg</name>
+        <initializer>= {0x11, 0x13, 0x15, 0x16, 0x10}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xvid__pat__gen_8c_1ac86dd68b2dd870be01f121a1e209496a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VidgenSetConfig</definition>
+        <argsstring>(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig, u8 Stream, u8 VSplitMode, u8 first_time)</argsstring>
+        <name>VidgenSetConfig</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Vpg_VidgenConfig *</type>
+          <declname>VidgenConfig</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VSplitMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>first_time</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates video pattern generator parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidgenConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to Vpg_VidgenConfig that will be used to timing parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the stream number that will be used to ret rive MSA parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VSplitMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies vertical split mode to be used for splitting resolution vertically.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="361" bodyend="388"/>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1a8329782a14aaa8c14cff0c89e17a5d29" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void VidgenWriteConfig</definition>
+        <argsstring>(XDp *InstancePtr, Vpg_VidgenConfig *VidgenConfig, u8 Stream)</argsstring>
+        <name>VidgenWriteConfig</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>Vpg_VidgenConfig *</type>
+          <declname>VidgenConfig</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+<para>This function writes timing parameters to Video Pattern Generator core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidgenConfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to Vpg_VidgenConfig that will be used to write parameter values into Video Pattern Generator core registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the stream number used to identify the steam for which parameters to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="407" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_VidgenSetTestPattern</definition>
+        <argsstring>(XDp *InstancePtr, u8 Stream)</argsstring>
+        <name>Vpg_VidgenSetTestPattern</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+<para>This function sets pattern to generate in Video Pattern Generator core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the stream number for which to set the pattern.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="249" bodyend="259"/>
+        <referencedby refid="xvid__pat__gen_8c_1a6e5b492b075584802d8e448341ad463c" compoundref="xvid__pat__gen_8c" startline="185" endline="232">Vpg_StreamSrcConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1a306e207aa67909d2660b4d99c74d6518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_Audio_start</definition>
+        <argsstring>(void)</argsstring>
+        <name>Vpg_Audio_start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function starts audio pattern generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="296" bodyend="326"/>
+        <referencedby refid="xdptxss__dp21__tx_8c_1a4aa2d6078cb7f20cad91adb07fdcb5ae" compoundref="menus_8c" startline="386" endline="1035">main_loop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1a7a23d7ce2380ce84a5b92fbeb9c1c565" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_Audio_stop</definition>
+        <argsstring>(void)</argsstring>
+        <name>Vpg_Audio_stop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stops audio pattern generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="338" bodyend="341"/>
+        <referencedby refid="xdptxss__dp21__tx_8c_1a4aa2d6078cb7f20cad91adb07fdcb5ae" compoundref="menus_8c" startline="386" endline="1035">main_loop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1a6e5b492b075584802d8e448341ad463c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Vpg_StreamSrcConfigure</definition>
+        <argsstring>(XDp *InstancePtr, u8 VSplitMode, u8 first_time)</argsstring>
+        <name>Vpg_StreamSrcConfigure</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VSplitMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>first_time</declname>
+        </param>
+        <briefdescription>
+<para>This function updates required timing values in Video Pattern Generator core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VSplitMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies vertical split mode to be used for splitting resolution vertically.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Video pattern configured successfully.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="185" bodyend="232"/>
+        <references refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" compoundref="xvid__pat__gen_8c" startline="249" endline="259">Vpg_VidgenSetTestPattern</references>
+        <referencedby refid="xdptxss__dp21__tx_8h_1af3117a55422e550a0ce3fa03ef562393" compoundref="xdptxss__dp21__tx_8c" startline="1351" endline="1500">DpTxSs_StartTx</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xvid__pat__gen_8c_1aae950e5381749a4972645f73cfa8c478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_VidgenSetUserPattern</definition>
+        <argsstring>(XDp *InstancePtr, u8 Pattern)</argsstring>
+        <name>Vpg_VidgenSetUserPattern</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Pattern</declname>
+        </param>
+        <briefdescription>
+<para>This function sets user pattern. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number to set with</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c" bodystart="274" bodyend="284"/>
+        <referencedby refid="xdptxss__dp21__tx_8h_1af3117a55422e550a0ce3fa03ef562393" compoundref="xdptxss__dp21__tx_8c" startline="1351" endline="1500">DpTxSs_StartTx</referencedby>
+        <referencedby refid="xdptxss__dp21__tx_8c_1a4aa2d6078cb7f20cad91adb07fdcb5ae" compoundref="menus_8c" startline="386" endline="1035">main_loop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions to configure Video Pattern Generator core. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who      Date      Changes
+-<mdash/> <mdash/>      -----<mdash/>  -----------------------------------------------<mdash/>.
+1.00  ND      18/10/22  Common DP 2.1 tx only application for zcu102 and
+                                                  vcu118
+1.01    ND              26/02/24  Added support for 13.5 and 20G
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XILINX_DISPLAYPORT_VID_BASE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_TX_SUBSYSTEM_AV_PAT_GEN_0_BASEADDR</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET<sp/><sp/><sp/><sp/><sp/>0x10000</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET<sp/><sp/><sp/><sp/><sp/>0x20000</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET<sp/><sp/><sp/><sp/><sp/>0x30000</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">u32<sp/>StreamOffset[4]<sp/>=<sp/>{0,<sp/>XILINX_DISPLAYPORT_VID2_BASE_ADDRESS_OFFSET,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILINX_DISPLAYPORT_VID3_BASE_ADDRESS_OFFSET,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILINX_DISPLAYPORT_VID4_BASE_ADDRESS_OFFSET};</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">u8<sp/>StreamPattern_vpg[5]<sp/>=<sp/>{0x11,<sp/>0x13,<sp/>0x15,<sp/>0x16,<sp/>0x10};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PatternGeneratorEnable<sp/>0x0<sp/>//0<sp/>-<sp/>Pattern<sp/>Generator<sp/>Enable</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VsyncPolarity<sp/>0x4<sp/>//0<sp/>Vsync<sp/>Polarity </highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HsyncPolarity<sp/>0x8<sp/>//0<sp/>-<sp/>Hsync<sp/>Polarity </highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DataEnablePolarity<sp/>0xC<sp/>//0<sp/>-<sp/>Data<sp/>Enable<sp/>Polarity </highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VsyncWidth<sp/>0x10<sp/>//13:0<sp/>-<sp/> Vsync<sp/>Width</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VerticalBackPorch<sp/>0x14<sp/>//13:0<sp/>-<sp/>Vertical<sp/>Back<sp/>Porch </highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VerticalFrontPorch<sp/>0x18<sp/>//13:0<sp/>-<sp/>Vertical<sp/>Front<sp/>Porch </highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VerticalResolution<sp/>0x1C<sp/>//13:0<sp/>-<sp/>Vertical<sp/>Resolution </highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HsyncWidth<sp/>0x20<sp/>//13:0<sp/>-<sp/>Hsync<sp/>Width </highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HorizontalBackPorch<sp/>0x24<sp/>//13:0<sp/>-<sp/>Horizontal<sp/>Back<sp/>Porch</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HorizontalFrontPorch<sp/>0x28<sp/>//13:0<sp/>-<sp/>Horizontal<sp/>Front<sp/>Porch</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HorizontalResolution<sp/>0x2C<sp/>//13:0<sp/>-<sp/>Horizontal<sp/>Resolution </highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Framelock_Enable_Delay<sp/>0x34<sp/>//31<sp/>-<sp/>Frame<sp/>lock<sp/>Enable </highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//10:0<sp/>-<sp/><sp/>Frame<sp/>lock<sp/>Delay</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FrameLock_AlignHsync_LineFrac<sp/>0x3C<sp/>//16:<sp/>Frame<sp/>Lock<sp/>Align<sp/>Hsync</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//10:0<sp/>-<sp/>Frame<sp/>lock<sp/>Line<sp/>Frac</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HdColorBarCfg<sp/>0x40<sp/>//2:0<sp/>-<sp/>hd<sp/>color<sp/>bar<sp/>cfg</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HSBLANK<sp/>0x44<sp/>//13:0<sp/>-<sp/>HSBLANK </highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HSSYNC<sp/>0x48<sp/>//13:0<sp/>-<sp/>HSSYNC</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HESYNC<sp/>0x4C<sp/>//13:0<sp/>-<sp/>HESYNC </highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>HEBLNK<sp/>0x50<sp/>//13:0<sp/>-<sp/>HEBLNK </highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VSBLNK<sp/>0x54<sp/>//13:0<sp/>-<sp/>VSBLNK </highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VSSYNC<sp/>0x58<sp/>//13:0<sp/>-<sp/>VSSYNC </highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VESYNC<sp/>0x5C<sp/>//13:0<sp/>-<sp/>VESYNC </highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VEBLNK<sp/>0x60<sp/>//13:0<sp/>-<sp/>VEBLNK </highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MISC0<sp/>0x300<sp/>//7:0<sp/>-<sp/>MISC0 </highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MISC1<sp/>0x304<sp/>//7:0<sp/>-<sp/>MISC1 </highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TestPatternControl<sp/>0x308<sp/>//2:0<sp/>Test<sp/>Pattern</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//4<sp/>-<sp/>En<sp/>Sw<sp/>Pattern</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//8<sp/>-<sp/>Dual<sp/>Pixel<sp/>Mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//9<sp/>-<sp/>Quad<sp/>Pixel<sp/>Mode </highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Audio_Control<sp/>0x400<sp/>//0:<sp/>Audio<sp/>Reset</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//1:<sp/>Audio<sp/>Start</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//2:<sp/>Audio<sp/>Drop </highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AudioSampleRate_Chcount<sp/>0x404<sp/>//3:0<sp/>-<sp/>Audio<sp/>Sample<sp/>Rate </highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//11:8<sp/>-<sp/>Audio<sp/>Channel<sp/>Count</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//AudioPatternCH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">//1:0<sp/>-<sp/>Audio<sp/>Pattern<sp/>Ch1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//11:8<sp/>-<sp/>Audio<sp/>Period </highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH1<sp/>0x410</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH2<sp/>0x420</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH3<sp/>0x430 </highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH4<sp/>0x440</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH5<sp/>0x450 </highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH6<sp/>0x460 </highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH7<sp/>0x470 </highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioPatternCH8<sp/>0x480</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AudioCHStatus1<sp/>0x4A0</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AudioCHStatus2<sp/>0x4A4</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AudioCheckStart<sp/>0x4B8<sp/>//0<sp/>-<sp/>Audio<sp/>check<sp/>start</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Timer<sp/>0x4C0<sp/>//31:0<sp/>-<sp/>Timer </highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DualPixelMode<sp/>0x100</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>QuadPixelMode<sp/>0x200</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OctaPixelMode<sp/>0x400</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_TX_SUBSYSTEM_V_DP_TXSS2_0_DP_OCTA_PIXEL_ENABLE</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PIXEL_MODE<sp/>OctaPixelMode</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PIXEL_MODE<sp/>QuadPixelMode</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MicrosecToWait<sp/>1<sp/>//<sp/>to<sp/>avoid<sp/>hang<sp/>in<sp/>A53</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>This<sp/>typedef<sp/>specifies<sp/>video<sp/>pattern<sp/>generator<sp/>parameter<sp/>information.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoTiming<sp/>Timing;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DePolarity;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameLock0;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameLock1;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HdColorBarMode;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcHsBlnk;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcHsSync;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcHeSync;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcHeBlnk;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcVsBlnk;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcVsSync;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcVeSync;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TcVeBlnk;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VidClkSel;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MVid;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VidClkD;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DSMode;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MvidBy2;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VidClkDBy2;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Misc0;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Misc1;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}<sp/>Vpg_VidgenConfig;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VidgenSetConfig(XDp<sp/>*InstancePtr,<sp/>Vpg_VidgenConfig<sp/>*VidgenConfig,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Stream,<sp/>u8<sp/>VSplitMode,<sp/>u8<sp/>first_time);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VidgenWriteConfig(XDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vpg_VidgenConfig<sp/>*VidgenConfig,<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" kindref="member">Vpg_VidgenSetTestPattern</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8h_1a306e207aa67909d2660b4d99c74d6518" kindref="member">Vpg_Audio_start</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8h_1a7a23d7ce2380ce84a5b92fbeb9c1c565" kindref="member">Vpg_Audio_stop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="185" refid="xvid__pat__gen_8c_1a6e5b492b075584802d8e448341ad463c" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8c_1a6e5b492b075584802d8e448341ad463c" kindref="member">Vpg_StreamSrcConfigure</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>VSplitMode,<sp/>u8<sp/>first_time)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vpg_VidgenConfig<sp/>VidgenConfig;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>StreamIndex;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>up<sp/>timing<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;VidgenConfig.Timing,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XVidC_VideoTiming));</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>MST<sp/>enable<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;TxInstance.MstEnable)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(StreamIndex<sp/>=<sp/>0;<sp/>StreamIndex<sp/>&lt;<sp/>4;<sp/>StreamIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDp_TxMstStreamIsEnabled(InstancePtr,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1)<sp/>+<sp/>StreamIndex))<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>VPG<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenSetConfig(InstancePtr,<sp/>&amp;VidgenConfig,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1)<sp/>+<sp/>StreamIndex,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VSplitMode,<sp/>first_time);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>VPG<sp/>with<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenWriteConfig(InstancePtr,<sp/>&amp;VidgenConfig,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1)<sp/>+<sp/>StreamIndex);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>pattern<sp/>to<sp/>stream<sp/>1,<sp/>2,<sp/>3,<sp/>4<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" kindref="member">Vpg_VidgenSetTestPattern</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1)<sp/>+<sp/>StreamIndex);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>VPG<sp/>for<sp/>each<sp/>stream.<sp/>Number<sp/>of<sp/>VPG</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>are<sp/>equal<sp/>to<sp/>number<sp/>of<sp/>streams</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILINX_DISPLAYPORT_VID_BASE_ADDRESS,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[StreamIndex],</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>VPG<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenSetConfig(InstancePtr,<sp/>&amp;VidgenConfig,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1),<sp/>0,<sp/>first_time);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>VPG<sp/>with<sp/>parameter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenWriteConfig(InstancePtr,<sp/>&amp;VidgenConfig,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDP_TX_STREAM_ID1));</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="249" refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" kindref="member">Vpg_VidgenSetTestPattern</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[Stream<sp/>-<sp/>1],<sp/>TestPatternControl,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PIXEL_MODE<sp/>|<sp/>StreamPattern_vpg[Stream<sp/>-<sp/>1]));</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>VPG<sp/>for<sp/>only<sp/>one<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PatternGeneratorEnable,<sp/>0x1);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="274" refid="xvid__pat__gen_8c_1aae950e5381749a4972645f73cfa8c478" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8c_1aae950e5381749a4972645f73cfa8c478" kindref="member">Vpg_VidgenSetUserPattern</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>Pattern)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>TestPatternControl,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PIXEL_MODE<sp/>|<sp/>Pattern));</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>VPG<sp/>for<sp/>only<sp/>one<sp/>stream<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg(XILINX_DISPLAYPORT_VID_BASE_ADDRESS,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PatternGeneratorEnable,<sp/>0x1);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="296" refid="xvid__pat__gen_8c_1a306e207aa67909d2660b4d99c74d6518" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8h_1a306e207aa67909d2660b4d99c74d6518" kindref="member">Vpg_Audio_start</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">){</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//unsigned<sp/>int<sp/>MicrosecToWait<sp/>=<sp/>1;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>Audio_Control,<sp/>0x1);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>Audio_Control,<sp/>0x2);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>AudioPatternCH1,0x2);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>AudioPatternCH2,0x2);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>AudioCHStatus1,<sp/>0x10000244);</highlight><highlight class="comment">//channel<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>AudioCHStatus2,0x40000000);</highlight><highlight class="comment">//channel<sp/>status</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>AudioSampleRate_Chcount,0x202);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="338" refid="xvid__pat__gen_8c_1a7a23d7ce2380ce84a5b92fbeb9c1c565" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdptxss__dp21__tx_8h_1a7a23d7ce2380ce84a5b92fbeb9c1c565" kindref="member">Vpg_Audio_stop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">){</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[0],<sp/>Audio_Control,0x0);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="361"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VidgenSetConfig(XDp<sp/>*InstancePtr,<sp/>Vpg_VidgenConfig<sp/>*VidgenConfig,</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Stream,<sp/>u8<sp/>VSplitMode,<sp/>u8<sp/>first_time)</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)first_time;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)VSplitMode;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxMainStreamAttributes<sp/>*MsaConfig<sp/>=</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;InstancePtr-&gt;TxInstance.MsaConfig[Stream<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_TxLinkConfig<sp/>*LinkConfig<sp/>=<sp/>&amp;InstancePtr-&gt;TxInstance.LinkConfig;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="371"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configure<sp/>MSA<sp/>values<sp/>from<sp/>the<sp/>Display<sp/>Monitor<sp/>Timing<sp/>(DMT)<sp/>table.</highlight></codeline>
+<codeline lineno="372"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Will<sp/>provide<sp/>a<sp/>way<sp/>to<sp/>optionally<sp/>acquire<sp/>these<sp/>values<sp/>from<sp/>the<sp/>EDID</highlight></codeline>
+<codeline lineno="373"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>of<sp/>the<sp/>sink.</highlight></codeline>
+<codeline lineno="374"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;MVid<sp/>=<sp/>MsaConfig-&gt;PixelClockHz<sp/>/<sp/>1000;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;VidClkSel<sp/>=</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(LinkConfig-&gt;LinkRate<sp/>==<sp/>(XDP_TX_LINK_BW_SET_270GBPS));</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Misc0<sp/>=<sp/>MsaConfig-&gt;Misc0;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Misc1<sp/>=<sp/>MsaConfig-&gt;Misc1;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Timing.VActive<sp/>=<sp/>MsaConfig-&gt;Vtm.Timing.VActive;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Timing.HActive<sp/>=</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(PIXEL_MODE<sp/>==<sp/>OctaPixelMode)</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;Vtm.Timing.HActive<sp/>/<sp/>8;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsaConfig-&gt;Vtm.Timing.HActive<sp/>/<sp/>4;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="407"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>VidgenWriteConfig(XDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vpg_VidgenConfig<sp/>*VidgenConfig,<sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[Stream<sp/>-<sp/>1],<sp/>VerticalResolution,</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Timing.VActive);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[Stream<sp/>-<sp/>1],<sp/>HorizontalResolution,</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VidgenConfig-&gt;Timing.HActive);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[Stream<sp/>-<sp/>1],<sp/>MISC0,</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.MsaConfig[0].Misc0);</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(MicrosecToWait);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_WriteReg((XILINX_DISPLAYPORT_VID_BASE_ADDRESS)<sp/>+</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StreamOffset[Stream<sp/>-<sp/>1],<sp/>MISC1,</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;TxInstance.MsaConfig[0].Misc1);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/examples/src/dp21_tx_only/xvid_pat_gen.c"/>
+  </compounddef>
+</doxygen>

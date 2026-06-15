@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_sensor__device__t" kind="struct" prot="public">
+    <compoundname>Sensor_device_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sensor__device__t_1a07fbc796975e014cfcc223db34ffd51a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Sensor_device_t::SensorCfg_Enabled</definition>
+        <argsstring></argsstring>
+        <name>SensorCfg_Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor__device__t_1aea51edd16dcad5a002b7663f72bb01ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Sensor_device_t::Sensortype</definition>
+        <argsstring></argsstring>
+        <name>Sensortype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor__device__t_1aa8387b432ac1b284858e40ea9271097e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Sensor_device_t::Sensor_resolution</definition>
+        <argsstring></argsstring>
+        <name>Sensor_resolution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor__device__t_1adc3a435afd31e88cefd97a789ef60800" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Sensor_device_t::Sensor_format</definition>
+        <argsstring></argsstring>
+        <name>Sensor_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor__device__t_1a6e6e09d56e17db1dc01c9de1b276b4bc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Sensor_device_t::Sensor_framerate</definition>
+        <argsstring></argsstring>
+        <name>Sensor_framerate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="232" bodyend="238"/>
+    <listofallmembers>
+      <member refid="struct_sensor__device__t_1adc3a435afd31e88cefd97a789ef60800" prot="public" virt="non-virtual"><scope>Sensor_device_t</scope><name>Sensor_format</name></member>
+      <member refid="struct_sensor__device__t_1a6e6e09d56e17db1dc01c9de1b276b4bc" prot="public" virt="non-virtual"><scope>Sensor_device_t</scope><name>Sensor_framerate</name></member>
+      <member refid="struct_sensor__device__t_1aa8387b432ac1b284858e40ea9271097e" prot="public" virt="non-virtual"><scope>Sensor_device_t</scope><name>Sensor_resolution</name></member>
+      <member refid="struct_sensor__device__t_1a07fbc796975e014cfcc223db34ffd51a" prot="public" virt="non-virtual"><scope>Sensor_device_t</scope><name>SensorCfg_Enabled</name></member>
+      <member refid="struct_sensor__device__t_1aea51edd16dcad5a002b7663f72bb01ba" prot="public" virt="non-virtual"><scope>Sensor_device_t</scope><name>Sensortype</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

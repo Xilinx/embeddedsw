@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e694b64cc1eab3070e8805e4dab239ea" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__demosaic_8c">xv_demosaic.c</innerfile>
+    <innerfile refid="xv__demosaic_8h">xv_demosaic.h</innerfile>
+    <innerfile refid="xv__demosaic__g_8c">xv_demosaic_g.c</innerfile>
+    <innerfile refid="xv__demosaic__hw_8h">xv_demosaic_hw.h</innerfile>
+    <innerfile refid="xv__demosaic__intr_8c">xv_demosaic_intr.c</innerfile>
+    <innerfile refid="xv__demosaic__linux_8c">xv_demosaic_linux.c</innerfile>
+    <innerfile refid="xv__demosaic__sinit_8c">xv_demosaic_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/"/>
+  </compounddef>
+</doxygen>

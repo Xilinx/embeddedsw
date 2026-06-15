@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_271455b3cf3c68d644cc10d96dc8be0b" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_d67b9fd8e946d5624e80ac464da6933f">generate_ebd_golden_data</innerdir>
+    <innerfile refid="xsem__cram__example_8c">xsem_cram_example.c</innerfile>
+    <innerfile refid="xsem__cram__example__pl__mb_8c">xsem_cram_example_pl_mb.c</innerfile>
+    <innerfile refid="xsem__cram__ssit__example_8c">xsem_cram_ssit_example.c</innerfile>
+    <innerfile refid="xsem__ebd__example_8c">xsem_ebd_example.c</innerfile>
+    <innerfile refid="xsem__ebd__search_8c">xsem_ebd_search.c</innerfile>
+    <innerfile refid="xsem__ebd__search_8h">xsem_ebd_search.h</innerfile>
+    <innerfile refid="xsem__ebd__ssit__example_8c">xsem_ebd_ssit_example.c</innerfile>
+    <innerfile refid="xsem__ebdgoldendata_8c">xsem_ebdgoldendata.c</innerfile>
+    <innerfile refid="xsem__ebdgoldendata0_8c">xsem_ebdgoldendata0.c</innerfile>
+    <innerfile refid="xsem__ebdgoldendata1_8c">xsem_ebdgoldendata1.c</innerfile>
+    <innerfile refid="xsem__gic__setup_8c">xsem_gic_setup.c</innerfile>
+    <innerfile refid="xsem__gic__setup_8h">xsem_gic_setup.h</innerfile>
+    <innerfile refid="xsem__ipi_8c">xsem_ipi.c</innerfile>
+    <innerfile refid="xsem__ipi_8h">xsem_ipi.h</innerfile>
+    <innerfile refid="xsem__npi__example_8c">xsem_npi_example.c</innerfile>
+    <innerfile refid="xsem__npi__example__pl__mb_8c">xsem_npi_example_pl_mb.c</innerfile>
+    <innerfile refid="xsem__npi__ssit__example_8c">xsem_npi_ssit_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/"/>
+  </compounddef>
+</doxygen>

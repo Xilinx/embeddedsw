@@ -1,0 +1,596 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartpsv__intr_8c" kind="file">
+    <compoundname>xuartpsv_intr.c</compoundname>
+    <includes refid="xuartpsv_8h" local="yes">xuartpsv.h</includes>
+    <includes refid="xuartpsv__xfer_8h" local="yes">xuartpsv_xfer.h</includes>
+    <incdepgraph>
+      <node id="82">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="88">
+        <label>xuartpsv_xfer.h</label>
+        <link refid="xuartpsv__xfer_8h"/>
+      </node>
+      <node id="85">
+        <label>xil_io.h</label>
+      </node>
+      <node id="80">
+        <label>xuartpsv.h</label>
+        <link refid="xuartpsv_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="83" relation="include">
+        </childnode>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="87">
+        <label>xil_util.h</label>
+      </node>
+      <node id="84">
+        <label>xuartpsv_hw.h</label>
+        <link refid="xuartpsv__hw_8h"/>
+        <childnode refid="81" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="83">
+        <label>xstatus.h</label>
+      </node>
+      <node id="79">
+        <label>xuartpsv_intr.c</label>
+        <link refid="xuartpsv_intr.c"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartpsv_1gac855a3f88037fa84842831ac10803eb9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUartPsv_ReceiveErrorHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_ReceiveErrorHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when there is overrun error in Rx path. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="230" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga2fec4f26ffaa9795c00a4b74abd397ff" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUartPsv_ReceiveDataHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_ReceiveDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data is in RX FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="264" bodyend="288"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gae671249b882e19f12abc5d571b004074" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUartPsv_SendDataHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_SendDataHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles the interrupt when data has been sent, the transmit FIFO is empty (transmitter holding register). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="303" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gadd601046018c3b86b13c89fc3eacedef" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUartPsv_ModemHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_ModemHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles modem interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>It does not do any processing except to call the application handler to indicate a modem event.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="339" bodyend="358"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga049a65e8d28c43b51ce4c67b15a2d07e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XUartPsv_GetInterruptMask</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_GetInterruptMask</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current interrupt mask. The mask indicates which interrupts are enabled.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="64" bodyend="72"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" compoundref="xuartpsv__hw_8h" startline="57">XUARTPSV_UARTIMSC_OFFSET</references>
+        <referencedby refid="group__uartpsv_1ga4d4d20bbcedb1de2adbe2644b821d12d" compoundref="xuartpsv_8c" startline="381" endline="402">XUartPsv_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga09b94a490c696d7ff7b1c6bbec42b226" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetInterruptMask</definition>
+        <argsstring>(XUartPsv *InstancePtr, u32 Mask)</argsstring>
+        <name>XUartPsv_SetInterruptMask</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the interrupts to be enabled or disabled. A &apos;1&apos; enables an interrupt, and a &apos;0&apos; disables.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="88" bodyend="100"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="group__uartpsv_1gaaa9d0a0700b98c4852bc4658d2feca61" compoundref="xuartpsv__hw_8h" startline="221">XUARTPSV_UARTIMSC_MASK</references>
+        <references refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" compoundref="xuartpsv__hw_8h" startline="57">XUARTPSV_UARTIMSC_OFFSET</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1gafc24dc61fc253a957ba631fb53b5dfc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_SetHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr, XUartPsv_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XUartPsv_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__uartpsv_1gab83b4279762a2b3f20b1c50998a709d3" kindref="member">XUartPsv_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs that needs application&apos;s attention. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="120" bodyend="133"/>
+        <references refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" compoundref="xuartpsv_8h" startline="315">XUartPsv::CallBackRef</references>
+        <references refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" compoundref="xuartpsv_8h" startline="314">XUartPsv::Handler</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartpsv_1ga869ac0531d2e16457706d013d7f0a0cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPsv_InterruptHandler</definition>
+        <argsstring>(XUartPsv *InstancePtr)</argsstring>
+        <name>XUartPsv_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to an interrupt system by the application such that it can be called when an interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c" bodystart="149" bodyend="216"/>
+        <references refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" compoundref="xuartpsv_8h" startline="249">XUartPsv_Config::BaseAddress</references>
+        <references refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" compoundref="xuartpsv_8h" startline="315">XUartPsv::CallBackRef</references>
+        <references refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" compoundref="xuartpsv_8h" startline="306">XUartPsv::Config</references>
+        <references refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" compoundref="xuartpsv_8h" startline="314">XUartPsv::Handler</references>
+        <references refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" compoundref="xuartpsv_8h" startline="308">XUartPsv::IsReady</references>
+        <references refid="group__uartpsv_1ga85a13c60627c82f2cede7deab0926d5a" compoundref="xuartpsv_8h" startline="231">XUARTPSV_EVENT_PARE_FRAME_BRKE</references>
+        <references refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" compoundref="xuartpsv__hw_8h" startline="481">XUartPsv_ReadReg</references>
+        <references refid="group__uartpsv_1ga57aee99ed20e8b0a6c2529abe80d8a62" compoundref="xuartpsv__hw_8h" startline="60">XUARTPSV_UARTICR_OFFSET</references>
+        <references refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" compoundref="xuartpsv__hw_8h" startline="57">XUARTPSV_UARTIMSC_OFFSET</references>
+        <references refid="group__uartpsv_1ga39f7fe6bb088a17ff3c3aae55bdb83e5" compoundref="xuartpsv__hw_8h" startline="234">XUARTPSV_UARTRIS_BERIS</references>
+        <references refid="group__uartpsv_1ga212984492952ed44c8cc5f1f2c21b88b" compoundref="xuartpsv__hw_8h" startline="244">XUARTPSV_UARTRIS_CTSRMIS</references>
+        <references refid="group__uartpsv_1ga6af359ea5edadfcc8336579bdc117996" compoundref="xuartpsv__hw_8h" startline="242">XUARTPSV_UARTRIS_DCDRMIS</references>
+        <references refid="group__uartpsv_1ga25fffe7167abcd67778afa4c408e6010" compoundref="xuartpsv__hw_8h" startline="240">XUARTPSV_UARTRIS_DSRRMIS</references>
+        <references refid="group__uartpsv_1ga0a42968f9e1b0c8e51a0557160a0594b" compoundref="xuartpsv__hw_8h" startline="236">XUARTPSV_UARTRIS_FERIS</references>
+        <references refid="group__uartpsv_1gad8e6dbbb885dc5746daeefd03576fd64" compoundref="xuartpsv__hw_8h" startline="233">XUARTPSV_UARTRIS_OERIS</references>
+        <references refid="group__uartpsv_1gae409fde818bb1e9093340a7713c416ee" compoundref="xuartpsv__hw_8h" startline="58">XUARTPSV_UARTRIS_OFFSET</references>
+        <references refid="group__uartpsv_1ga21cda2af097b5f20a56ed916234fc94a" compoundref="xuartpsv__hw_8h" startline="235">XUARTPSV_UARTRIS_PERIS</references>
+        <references refid="group__uartpsv_1gabdd920d80d9cc6482c1a3895d73ae53b" compoundref="xuartpsv__hw_8h" startline="246">XUARTPSV_UARTRIS_RIRMIS</references>
+        <references refid="group__uartpsv_1gab9429289524c4c6a407444f5585bb380" compoundref="xuartpsv__hw_8h" startline="237">XUARTPSV_UARTRIS_RTRIS</references>
+        <references refid="group__uartpsv_1ga17fbfe1af8b3e0afeebb101d38831356" compoundref="xuartpsv__hw_8h" startline="239">XUARTPSV_UARTRIS_RXRIS</references>
+        <references refid="group__uartpsv_1ga06182e2897e64336bcab44a0012f8711" compoundref="xuartpsv__hw_8h" startline="238">XUARTPSV_UARTRIS_TXRIS</references>
+        <references refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" compoundref="xuartpsv__hw_8h" startline="500">XUartPsv_WriteReg</references>
+        <referencedby refid="xuartpsv__intr__example_8c_1a1d007e6ca11ccbd17910903ff771b3a5" compoundref="xuartpsv__intr__example_8c" startline="191" endline="321">UartPsvIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartpsv_8h" kindref="compound">xuartpsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartpsv__xfer_8h" kindref="compound">xuartpsv_xfer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ReceiveErrorHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ReceiveDataHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_SendDataHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ModemHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__uartpsv_1ga049a65e8d28c43b51ce4c67b15a2d07e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__uartpsv_1ga049a65e8d28c43b51ce4c67b15a2d07e" kindref="member">XUartPsv_GetInterruptMask</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Interrupt<sp/>Mask<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" kindref="member">XUARTPSV_UARTIMSC_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="88" refid="group__uartpsv_1ga09b94a490c696d7ff7b1c6bbec42b226" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga09b94a490c696d7ff7b1c6bbec42b226" kindref="member">XUartPsv_SetInterruptMask</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TempMask<sp/>=<sp/>Mask;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TempMask<sp/>&amp;=<sp/>(u32)<ref refid="group__uartpsv_1gaaa9d0a0700b98c4852bc4658d2feca61" kindref="member">XUARTPSV_UARTIMSC_MASK</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>mask<sp/>to<sp/>the<sp/>mask<sp/>set/clear<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" kindref="member">XUARTPSV_UARTIMSC_OFFSET</ref>,<sp/>TempMask);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="120" refid="group__uartpsv_1gafc24dc61fc253a957ba631fb53b5dfc8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1gafc24dc61fc253a957ba631fb53b5dfc8" kindref="member">XUartPsv_SetHandler</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr,<sp/><ref refid="group__uartpsv_1gab83b4279762a2b3f20b1c50998a709d3" kindref="member">XUartPsv_Handler</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Asserts<sp/>validate<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="149" refid="group__uartpsv_1ga869ac0531d2e16457706d013d7f0a0cc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartpsv_1ga869ac0531d2e16457706d013d7f0a0cc" kindref="member">XUartPsv_InterruptHandler</ref>(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Imsc;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsrStatus;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a4dd385478a1d6f6dcbff3d0642ac1904" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="158"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Mask<sp/>Set/Clear<sp/>register<sp/>to<sp/>determine<sp/>which</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts<sp/>are<sp/>enabled</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Imsc<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga0cb9a381f2ea7582c0f361fbe2a77246" kindref="member">XUARTPSV_UARTIMSC_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>raw<sp/>interrupt<sp/>status<sp/>register<sp/>to<sp/>determine<sp/>which</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>is<sp/>active</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gae409fde818bb1e9093340a7713c416ee" kindref="member">XUARTPSV_UARTRIS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IsrStatus<sp/>&amp;=<sp/>Imsc;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga57aee99ed20e8b0a6c2529abe80d8a62" kindref="member">XUARTPSV_UARTICR_OFFSET</ref>,<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsrStatus<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dispatch<sp/>an<sp/>appropriate<sp/>handler.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1ga17fbfe1af8b3e0afeebb101d38831356" kindref="member">XUARTPSV_UARTRIS_RXRIS</ref><sp/>|</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gab9429289524c4c6a407444f5585bb380" kindref="member">XUARTPSV_UARTRIS_RTRIS</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Received<sp/>data<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_ReceiveDataHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1ga06182e2897e64336bcab44a0012f8711" kindref="member">XUARTPSV_UARTRIS_TXRIS</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>data<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_SendDataHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1ga25fffe7167abcd67778afa4c408e6010" kindref="member">XUARTPSV_UARTRIS_DSRRMIS</ref><sp/>|</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1ga6af359ea5edadfcc8336579bdc117996" kindref="member">XUARTPSV_UARTRIS_DCDRMIS</ref><sp/><sp/><sp/>|</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1ga212984492952ed44c8cc5f1f2c21b88b" kindref="member">XUARTPSV_UARTRIS_CTSRMIS</ref><sp/>|</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1gabdd920d80d9cc6482c1a3895d73ae53b" kindref="member">XUARTPSV_UARTRIS_RIRMIS</ref>))<sp/>!=</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Modem<sp/>status<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_ModemHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1ga0a42968f9e1b0c8e51a0557160a0594b" kindref="member">XUARTPSV_UARTRIS_FERIS</ref><sp/>|</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1ga21cda2af097b5f20a56ed916234fc94a" kindref="member">XUARTPSV_UARTRIS_PERIS</ref><sp/>|</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartpsv_1ga39f7fe6bb088a17ff3c3aae55bdb83e5" kindref="member">XUARTPSV_UARTRIS_BERIS</ref>))<sp/>!=</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Frame/Parity/Break<sp/>error<sp/>interrupt*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga85a13c60627c82f2cede7deab0926d5a" kindref="member">XUARTPSV_EVENT_PARE_FRAME_BRKE</ref>,<sp/>IsrStatus);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IsrStatus<sp/>&amp;<sp/>((u32)<ref refid="group__uartpsv_1gad8e6dbbb885dc5746daeefd03576fd64" kindref="member">XUARTPSV_UARTRIS_OERIS</ref>))<sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Overrun<sp/>Error<sp/>Interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_ReceiveErrorHandler(InstancePtr);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="230"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ReceiveErrorHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them.<sp/>Removing<sp/>bytes<sp/>from<sp/>the<sp/>RX<sp/>FIFO<sp/>will</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clear<sp/>the<sp/>interrupt.</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref><sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__uartpsv_1gab7c628a4fd29e1f9d1d4cb9cbe672279" kindref="member">XUartPsv_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>error<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga1fcbc3ad3fd4949b016ae362929ee344" kindref="member">XUartPsv_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga65163bef9c7aeef0a20ecd553ab0812a" kindref="member">XUARTPSV_UARTRSR_OFFSET</ref>,<ref refid="group__uartpsv_1gaef8dbb9828f6d363739c9093af53e234" kindref="member">XUARTPSV_UARTRSR_OE</ref>);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Indicate<sp/>the<sp/>overrun<sp/>error<sp/>to<sp/>the<sp/>application<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga262c69ea932231fe45ae6ed2e3210215" kindref="member">XUARTPSV_EVENT_RECV_ORERR</ref>,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a4d70a13255d768fc2f870aa6eac05f5f" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref>));</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="264"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ReceiveDataHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>bytes<sp/>still<sp/>to<sp/>be<sp/>received<sp/>in<sp/>the<sp/>specified<sp/>buffer</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>go<sp/>ahead<sp/>and<sp/>receive<sp/>them.<sp/>Removing<sp/>bytes<sp/>from<sp/>the<sp/>RX<sp/>FIFO<sp/>will</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>clear<sp/>the<sp/>interrupt.</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref><sp/>!=<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__uartpsv_1gab7c628a4fd29e1f9d1d4cb9cbe672279" kindref="member">XUartPsv_ReceiveBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>the<sp/>last<sp/>byte<sp/>of<sp/>a<sp/>message<sp/>was<sp/>received<sp/>then<sp/>call<sp/>the</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>application<sp/>handler,<sp/>this<sp/>code<sp/>should<sp/>not<sp/>use<sp/>an<sp/>else<sp/>from</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>previous<sp/>check<sp/>of<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>receive<sp/>because</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>call<sp/>to<sp/>receive<sp/>the<sp/>buffer<sp/>updates<sp/>the<sp/>bytes<sp/>remained</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref><sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga0a9e98d37b78397ab99517d4c11d9066" kindref="member">XUARTPSV_EVENT_RECV_DATA</ref>,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a4d70a13255d768fc2f870aa6eac05f5f" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aeee14c65e38a5fa3dc2eeaf6d60281ab" kindref="member">ReceiveBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref>));</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="303"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_SendDataHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="304"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>the<sp/>data.<sp/>This<sp/>function<sp/>takes<sp/>care<sp/>of<sp/>the<sp/>remaining<sp/>bytes</highlight></codeline>
+<codeline lineno="306"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>check.</highlight></codeline>
+<codeline lineno="307"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__uartpsv_1ga2236ec3fe4acd721566be3025554826b" kindref="member">XUartPsv_SendBuffer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="311"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>are<sp/>no<sp/>bytes<sp/>to<sp/>be<sp/>sent<sp/>from<sp/>the<sp/>specified<sp/>buffer,</highlight></codeline>
+<codeline lineno="312"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>inform<sp/>the<sp/>application<sp/>with<sp/>event.</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a52503eea4d30a82b0036bf8ee40980a2" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref><sp/>==<sp/>(u32)0)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="316"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>sending</highlight></codeline>
+<codeline lineno="317"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>done</highlight></codeline>
+<codeline lineno="318"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref>,</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1ga899b6bc03c74523f8fe4c955428bb1ee" kindref="member">XUARTPSV_EVENT_SENT_DATA</ref>,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a52503eea4d30a82b0036bf8ee40980a2" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a4d70a13255d768fc2f870aa6eac05f5f" kindref="member">RequestedBytes</ref><sp/>-</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a52503eea4d30a82b0036bf8ee40980a2" kindref="member">SendBuffer</ref>.<ref refid="struct_x_uart_psv_buffer_1a606a38ec3c1bb6656084bb1c106ad895" kindref="member">RemainingBytes</ref>);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="339"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUartPsv_ModemHandler(<ref refid="struct_x_uart_psv" kindref="compound">XUartPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsrRegister;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>modem<sp/>status<sp/>register<sp/>so<sp/>that<sp/>the<sp/>interrupt<sp/>is</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>acknowledged<sp/>and<sp/>it<sp/>can<sp/>be<sp/>passed<sp/>to<sp/>the<sp/>callback<sp/>handler<sp/>with</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>event</highlight></codeline>
+<codeline lineno="347"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsrRegister<sp/>=<sp/><ref refid="group__uartpsv_1ga6272b3263e840a8218fc070c1656b9b9" kindref="member">XUartPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1a28f121775b342f18caae6f39331d1079" kindref="member">Config</ref>.<ref refid="struct_x_uart_psv___config_1ad3fc1852bc0fda04d7db7887d20f3ce2" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartpsv_1gae409fde818bb1e9093340a7713c416ee" kindref="member">XUARTPSV_UARTRIS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="352"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>application<sp/>handler<sp/>to<sp/>indicate<sp/>the<sp/>modem<sp/>status<sp/>changed,</highlight></codeline>
+<codeline lineno="353"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>passing<sp/>the<sp/>modem<sp/>status<sp/>and<sp/>the<sp/>event<sp/>data<sp/>in<sp/>the<sp/>call</highlight></codeline>
+<codeline lineno="354"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_uart_psv_1aa64939340dd16487202fa1cc9a0af657" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_psv_1af86e00e608392fe594cb87d10dd3686e" kindref="member">CallBackRef</ref>,<sp/><ref refid="group__uartpsv_1ga76a511ea3a1140df5f5c682b19d8b0ce" kindref="member">XUARTPSV_EVENT_MODEM</ref>,</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsrRegister);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/xuartpsv_intr.c"/>
+  </compounddef>
+</doxygen>

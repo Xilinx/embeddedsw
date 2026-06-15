@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix" kind="struct" prot="public">
+    <compoundname>XDfeMix</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a329540ffe939609c3958ec8bc56ad276" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___config" kindref="compound">XDfeMix_Config</ref></type>
+        <definition>XDfeMix_Config XDfeMix::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="542" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="542" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" compoundref="xdfemix_8c" startline="2054" endline="2086">XDfeMix_Activate</referencedby>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+        <referencedby refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" compoundref="xdfemix_8c" startline="2096" endline="2126">XDfeMix_Deactivate</referencedby>
+        <referencedby refid="group__dfemix_1gafe3362f64442004a66fe7d081d7cb556" compoundref="xdfemix_8c" startline="2290" endline="2318">XDfeMix_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</referencedby>
+        <referencedby refid="group__dfemix_1ga75ed6eb3b9b4e21b150473f09f8f0283" compoundref="xdfemix_8c" startline="2963" endline="3038">XDfeMix_MoveCC</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" compoundref="xdfemix_8c" startline="3131" endline="3155">XDfeMix_SetAntennaGain</referencedby>
+        <referencedby refid="group__dfemix_1ga97dede152c6db53539bb7e3d1f0b9ca9" compoundref="xdfemix_8c" startline="2728" endline="2778">XDfeMix_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1gaae9fc185dcc63dc0256b5e7ec802764b" compoundref="xdfemix_8c" startline="3175" endline="3199">XDfeMix_UpdateAntennaCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a5b2016a2954bac4e922af9d1939d7215" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dfemix_1gad928151f284be6a0860fc5f7d356d182" kindref="member">XDfeMix_StateId</ref></type>
+        <definition>XDfeMix_StateId XDfeMix::StateId</definition>
+        <argsstring></argsstring>
+        <name>StateId</name>
+        <briefdescription>
+<para>StateId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="543" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="543" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" compoundref="xdfemix_8c" startline="2054" endline="2086">XDfeMix_Activate</referencedby>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+        <referencedby refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" compoundref="xdfemix_8c" startline="2096" endline="2126">XDfeMix_Deactivate</referencedby>
+        <referencedby refid="group__dfemix_1ga33030e76902b46e8b159da6410e037f4" compoundref="xdfemix_8c" startline="3439" endline="3462">XDfeMix_GetDUCDDCStatus</referencedby>
+        <referencedby refid="group__dfemix_1ga234e33372e58ae0665ae2988a73a5b3c" compoundref="xdfemix_8c" startline="3473" endline="3498">XDfeMix_GetMixerStatus</referencedby>
+        <referencedby refid="group__dfemix_1ga530ee11233ef87c8932545e5b5902c15" compoundref="xdfemix_8c" startline="2138" endline="2142">XDfeMix_GetStateID</referencedby>
+        <referencedby refid="group__dfemix_1gace396f6630605798c654ddbff69c75ba" compoundref="xdfemix_8c" startline="3211" endline="3299">XDfeMix_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga499409b4675bb141d962a2c15ad3dc61" compoundref="xdfemix_8c" startline="3625" endline="3650">XDfeMix_GetVersions</referencedby>
+        <referencedby refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</referencedby>
+        <referencedby refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" compoundref="xdfemix_8c" startline="1856" endline="1875">XDfeMix_InstanceClose</referencedby>
+        <referencedby refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" compoundref="xdfemix_8c" startline="1751" endline="1845">XDfeMix_InstanceInit</referencedby>
+        <referencedby refid="group__dfemix_1ga75ed6eb3b9b4e21b150473f09f8f0283" compoundref="xdfemix_8c" startline="2963" endline="3038">XDfeMix_MoveCC</referencedby>
+        <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
+        <referencedby refid="group__dfemix_1ga8d63f4fc15bb4344b6fb33d382468c35" compoundref="xdfemix_8c" startline="1885" endline="1893">XDfeMix_Reset</referencedby>
+        <referencedby refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga92d9bb5aef65adb32b1d27a650d218ff" compoundref="xdfemix_8c" startline="3510" endline="3517">XDfeMix_SetTUserDelay</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a7d583eebea2812c3d98f5de53dcbc940" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfeMix::NotUsedCCID</definition>
+        <argsstring></argsstring>
+        <name>NotUsedCCID</name>
+        <briefdescription>
+<para><verbatim>          Lowest CCID number not allocated, in
+</verbatim> non-switchable mode, also for DL in switchable mode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="544" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="544" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga85f60b156f5de8fd8b2ef6b182966d70" compoundref="xdfemix_8c" startline="2816" endline="2880">XDfeMix_AddCC</referencedby>
+        <referencedby refid="group__dfemix_1ga55eacf5f171e7530a27abfd12d2caf0d" compoundref="xdfemix_8c" startline="2156" endline="2164">XDfeMix_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1gafe3362f64442004a66fe7d081d7cb556" compoundref="xdfemix_8c" startline="2290" endline="2318">XDfeMix_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</referencedby>
+        <referencedby refid="group__dfemix_1ga75ed6eb3b9b4e21b150473f09f8f0283" compoundref="xdfemix_8c" startline="2963" endline="3038">XDfeMix_MoveCC</referencedby>
+        <referencedby refid="group__dfemix_1gae90385e9162730111e9f19d29c18e68a" compoundref="xdfemix_8c" startline="2905" endline="2933">XDfeMix_RemoveCC</referencedby>
+        <referencedby refid="group__dfemix_1ga3fc0d6657fbed9b7f1baf1552c6ae316" compoundref="xdfemix_8c" startline="2624" endline="2645">XDfeMix_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfemix_1ga97dede152c6db53539bb7e3d1f0b9ca9" compoundref="xdfemix_8c" startline="2728" endline="2778">XDfeMix_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1ga5a3170046f6a8e1669f14053119569a2" compoundref="xdfemix_8c" startline="3066" endline="3111">XDfeMix_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a854b6f09f9d327bffe80905bc7b73ce0" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfeMix::NotUsedCCID_UL</definition>
+        <argsstring></argsstring>
+        <name>NotUsedCCID_UL</name>
+        <briefdescription>
+<para><verbatim>             Lowest CCID number not allocated for UL in
+</verbatim> switchable mode </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="546" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="546" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gafe3362f64442004a66fe7d081d7cb556" compoundref="xdfemix_8c" startline="2290" endline="2318">XDfeMix_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</referencedby>
+        <referencedby refid="group__dfemix_1ga97dede152c6db53539bb7e3d1f0b9ca9" compoundref="xdfemix_8c" startline="2728" endline="2778">XDfeMix_SetNextCCCfgAndTriggerSwitchable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a949baeb8c68db2aa82e27b708b3fe92e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix::SequenceLength</definition>
+        <argsstring></argsstring>
+        <name>SequenceLength</name>
+        <briefdescription>
+<para>Exact sequence length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="548" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="548" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gad22be272891dfb491c35e4ee7d6f543b" compoundref="xdfemix_8c" startline="2331" endline="2345">XDfeMix_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a2cb71b0f5ee30bad73933cec8e57b4cc" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XDfeMix::NodeName[XDFEMIX_NODE_NAME_MAX_LENGTH]</definition>
+        <argsstring>[XDFEMIX_NODE_NAME_MAX_LENGTH]</argsstring>
+        <name>NodeName</name>
+        <briefdescription>
+<para>Node name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="549" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="549" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" compoundref="xdfemix_8c" startline="1856" endline="1875">XDfeMix_InstanceClose</referencedby>
+        <referencedby refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" compoundref="xdfemix_8c" startline="1751" endline="1845">XDfeMix_InstanceInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1aa7c1d87716039193dcb047d348ca519a" prot="public" static="no" mutable="no">
+        <type>struct metal_io_region *</type>
+        <definition>struct metal_io_region* XDfeMix::Io</definition>
+        <argsstring></argsstring>
+        <name>Io</name>
+        <briefdescription>
+<para>Libmetal IO structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix_1a2b3f5e48d819f6f4348f4496f27be8ab" prot="public" static="no" mutable="no">
+        <type>struct metal_device *</type>
+        <definition>struct metal_device* XDfeMix::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Libmetal device structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="551" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" compoundref="xdfemix_8c" startline="1856" endline="1875">XDfeMix_InstanceClose</referencedby>
+        <referencedby refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" compoundref="xdfemix_8c" startline="1751" endline="1845">XDfeMix_InstanceInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mixer Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XDfeMix</label>
+        <link refid="struct_x_dfe_mix"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XDfeMix_Config</label>
+        <link refid="struct_x_dfe_mix___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="541" bodyend="552"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix_1a329540ffe939609c3958ec8bc56ad276" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>Config</name></member>
+      <member refid="struct_x_dfe_mix_1a2b3f5e48d819f6f4348f4496f27be8ab" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>Device</name></member>
+      <member refid="struct_x_dfe_mix_1aa7c1d87716039193dcb047d348ca519a" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>Io</name></member>
+      <member refid="struct_x_dfe_mix_1a2cb71b0f5ee30bad73933cec8e57b4cc" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>NodeName</name></member>
+      <member refid="struct_x_dfe_mix_1a7d583eebea2812c3d98f5de53dcbc940" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>NotUsedCCID</name></member>
+      <member refid="struct_x_dfe_mix_1a854b6f09f9d327bffe80905bc7b73ce0" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>NotUsedCCID_UL</name></member>
+      <member refid="struct_x_dfe_mix_1a949baeb8c68db2aa82e27b708b3fe92e" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>SequenceLength</name></member>
+      <member refid="struct_x_dfe_mix_1a5b2016a2954bac4e922af9d1939d7215" prot="public" virt="non-virtual"><scope>XDfeMix</scope><name>StateId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

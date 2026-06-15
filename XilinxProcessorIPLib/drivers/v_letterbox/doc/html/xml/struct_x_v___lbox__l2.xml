@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___lbox__l2" kind="struct" prot="public">
+    <compoundname>XV_Lbox_l2</compoundname>
+    <includes local="no">xv_letterbox_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___lbox__l2_1aaaa9d85a9c8f7f36f6b96c5ae7f57070" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__letterbox" kindref="compound">XV_letterbox</ref></type>
+        <definition>XV_letterbox XV_Lbox_l2::Lbox</definition>
+        <argsstring></argsstring>
+        <name>Lbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Letterbox Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every V Scaler device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XV_letterbox</label>
+        <link refid="struct_x_v__letterbox"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XV_letterbox_Config</label>
+        <link refid="struct_x_v__letterbox___config"/>
+      </node>
+      <node id="1">
+        <label>XV_Lbox_l2</label>
+        <link refid="struct_x_v___lbox__l2"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Lbox</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_letterbox/src/xv_letterbox_l2.h" bodystart="105" bodyend="109"/>
+    <listofallmembers>
+      <member refid="struct_x_v___lbox__l2_1aaaa9d85a9c8f7f36f6b96c5ae7f57070" prot="public" virt="non-virtual"><scope>XV_Lbox_l2</scope><name>Lbox</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

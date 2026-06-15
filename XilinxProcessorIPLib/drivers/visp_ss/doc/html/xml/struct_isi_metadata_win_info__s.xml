@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_metadata_win_info__s" kind="struct" prot="public">
+    <compoundname>IsiMetadataWinInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_metadata_win_info__s_1acc48e2b47bb39efb843e95100a5b6434" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiMetadataWinInfo_s::winNum</definition>
+        <argsstring></argsstring>
+        <name>winNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_metadata_win_info__s_1ac1bcbf281c2278b19b88e26aa47615a1" prot="public" static="no" mutable="no">
+        <type>IsiSensorWin_t</type>
+        <definition>IsiSensorWin_t IsiMetadataWinInfo_s::metaWin[ISI_METADATA_WIN_NUM_MAX]</definition>
+        <argsstring>[ISI_METADATA_WIN_NUM_MAX]</argsstring>
+        <name>metaWin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="56" bodyend="59"/>
+    <listofallmembers>
+      <member refid="struct_isi_metadata_win_info__s_1ac1bcbf281c2278b19b88e26aa47615a1" prot="public" virt="non-virtual"><scope>IsiMetadataWinInfo_s</scope><name>metaWin</name></member>
+      <member refid="struct_isi_metadata_win_info__s_1acc48e2b47bb39efb843e95100a5b6434" prot="public" virt="non-virtual"><scope>IsiMetadataWinInfo_s</scope><name>winNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

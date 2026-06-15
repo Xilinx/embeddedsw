@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7816ce2070d35d922b8443b74860f4a6" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="versal__gen_2server_2xpuf_8c">versal_gen/server/xpuf.c</innerfile>
+    <innerfile refid="versal__gen_2server_2xpuf__ipihandler_8c">versal_gen/server/xpuf_ipihandler.c</innerfile>
+    <innerfile refid="versal__gen_2server_2xpuf__plat_8c">versal_gen/server/xpuf_plat.c</innerfile>
+    <innerfile refid="versal__gen_2server_2xpuf__plat_8h">versal_gen/server/xpuf_plat.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/versal_gen/server/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="_c_make_lists_8txt" kind="file"><name>CMakeLists.txt</name>
+  </compound>
+  <compound refid="xcoresightpsdcc_8c" kind="file"><name>xcoresightpsdcc.c</name>
+    <member refid="group__coresightps__dcc_1ga2eb6f9e0395b47b8d5e3eeae4fe0c116" kind="define"><name>INLINE</name></member>
+    <member refid="group__coresightps__dcc_1ga2ee8d807420c735c1ba17a26fc4491b0" kind="define"><name>XCORESIGHTPS_DCC_STATUS_RX</name></member>
+    <member refid="group__coresightps__dcc_1gade67de45c061af33652b3b410ee8b915" kind="define"><name>XCORESIGHTPS_DCC_STATUS_TX</name></member>
+    <member refid="group__coresightps__dcc_1ga74003f6d0f9f7987a8554dd389fd9182" kind="function"><name>XCoresightPs_DccGetStatus</name></member>
+    <member refid="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" kind="function"><name>XCoresightPs_DccSendByte</name></member>
+    <member refid="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" kind="function"><name>XCoresightPs_DccRecvByte</name></member>
+  </compound>
+  <compound refid="xcoresightpsdcc_8h" kind="file"><name>xcoresightpsdcc.h</name>
+    <member refid="group__coresightps__dcc_1gaf77fb5d935e60314cf2b35deeae53c76" kind="define"><name>XCORESIGHTPSDCC_H</name></member>
+    <member refid="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" kind="function"><name>XCoresightPs_DccSendByte</name></member>
+    <member refid="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" kind="function"><name>XCoresightPs_DccRecvByte</name></member>
+  </compound>
+  <compound refid="group__coresightps__dcc" kind="group"><name>coresightps_dcc</name>
+    <member refid="group__coresightps__dcc_1ga74003f6d0f9f7987a8554dd389fd9182" kind="function"><name>XCoresightPs_DccGetStatus</name></member>
+    <member refid="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" kind="function"><name>XCoresightPs_DccSendByte</name></member>
+    <member refid="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" kind="function"><name>XCoresightPs_DccRecvByte</name></member>
+    <member refid="group__coresightps__dcc_1ga2eb6f9e0395b47b8d5e3eeae4fe0c116" kind="define"><name>INLINE</name></member>
+    <member refid="group__coresightps__dcc_1ga2ee8d807420c735c1ba17a26fc4491b0" kind="define"><name>XCORESIGHTPS_DCC_STATUS_RX</name></member>
+    <member refid="group__coresightps__dcc_1gade67de45c061af33652b3b410ee8b915" kind="define"><name>XCORESIGHTPS_DCC_STATUS_TX</name></member>
+    <member refid="group__coresightps__dcc_1gaf77fb5d935e60314cf2b35deeae53c76" kind="define"><name>XCORESIGHTPSDCC_H</name></member>
+  </compound>
+  <compound refid="dir_95dd6db57f281e8d83f6c70c74548fef" kind="dir"><name>coresightps_dcc</name>
+  </compound>
+  <compound refid="dir_7af5cd58385c0c17c3ce281805f3481a" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

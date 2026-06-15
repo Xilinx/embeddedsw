@@ -1,0 +1,431 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilrsa_8h" kind="file">
+    <compoundname>xilrsa.h</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilrsa__apis_1ga94cb0e9ea77ca68a380c25b42910fa8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rsa2048_exp</definition>
+        <argsstring>(const unsigned char *base, const unsigned char *modular, const unsigned char *modular_ext, const unsigned char *exponent, unsigned char *result)</argsstring>
+        <name>rsa2048_exp</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>base</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>modular</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>modular_ext</declname>
+        </param>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>exponent</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>result</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to encrypt the data using 2048 bit private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>modular</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the key modulus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>modular_ext</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the key modulus extension </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>exponent</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the private key exponent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>result</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A char pointer which contains the encrypted data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="135" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga810797c1bab84cda9d48b734ba8b0405" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rsa2048_pubexp</definition>
+        <argsstring>(RSA_NUMBER a, RSA_NUMBER x, unsigned long e, RSA_NUMBER m, RSA_NUMBER rrm)</argsstring>
+        <name>rsa2048_pubexp</name>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>a</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>e</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>RSA_NUMBER</type>
+          <declname>rrm</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to decrypt the data using 2048 bit public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the decrypted data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>e</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unsigned number containing the public key exponent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the public key modulus </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>rrm</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>RSA_NUMBER containing the public key modulus extension.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga735718f1bf2a30893d3e854d439c69fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha_256</definition>
+        <argsstring>(const unsigned char *in, const unsigned int size, unsigned char *out)</argsstring>
+        <name>sha_256</name>
+        <param>
+          <type>const unsigned char *</type>
+          <declname>in</declname>
+        </param>
+        <param>
+          <type>const unsigned int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>out</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the hash for the input data using SHA-256 algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function internally calls the sha2_init, updates and finishes functions and updates the result.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>In</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Char pointer which contains the input data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the input data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to location where resulting hash will be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="173" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1gaaa0bff1f1bcda10be83c3bf2f3af690b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_starts</definition>
+        <argsstring>(sha2_context *ctx)</argsstring>
+        <name>sha2_starts</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the SHA2 context. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="185" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1gad03b4e01ae41a4b91888ab05a307bcfe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_update</definition>
+        <argsstring>(sha2_context *ctx, unsigned char *input, unsigned int ilen)</argsstring>
+        <name>sha2_update</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>ilen</declname>
+        </param>
+        <briefdescription>
+<para>This function adds the input data to SHA256 calculation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to add. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the input data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="199" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilrsa__apis_1ga4dbd38a93b5b61c637a8a29dd0e850f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sha2_finish</definition>
+        <argsstring>(sha2_context *ctx, unsigned char *output)</argsstring>
+        <name>sha2_finish</name>
+        <param>
+          <type>sha2_context *</type>
+          <declname>ctx</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>output</declname>
+        </param>
+        <briefdescription>
+<para>This function finishes the SHA calculation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sha2_context structure that stores status and buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the calculated hash data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h" line="213" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>___XIL_RSA_H___</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>___XIL_RSA_H___</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*<sp/>Digit<sp/>size<sp/>selection<sp/>(32<sp/>or<sp/>16-bit).<sp/>If<sp/>supported<sp/>by<sp/>the<sp/>CPU/compiler,</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*<sp/>32-bit<sp/>digits<sp/>are<sp/>approximately<sp/>4<sp/>times<sp/>faster</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>RSA_DIGIT_16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RSA_DIGIT_32</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>RSA<sp/>loop<sp/>unrolling<sp/>selection</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>RSA<sp/>main<sp/>loop<sp/>can<sp/>be<sp/>unrolled<sp/>2,<sp/>4<sp/>or<sp/>8<sp/>ways</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RSA_UNROLL<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>Select<sp/>if<sp/>ARM-optimized<sp/>code<sp/>is<sp/>to<sp/>be<sp/>used.<sp/>Only<sp/>GCC<sp/>for<sp/>ARM<sp/>is<sp/>supported</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>RSA_ARM_OPTIMIZED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>Check<sp/>the<sp/>compatibility<sp/>of<sp/>the<sp/>selection</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(RSA_DIGIT_16)<sp/>&amp;&amp;<sp/>defined(RSA_DIGIT_32)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>Please<sp/>select<sp/>a<sp/>digit<sp/>size</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>!defined(RSA_DIGIT_16)<sp/>&amp;&amp;<sp/>!defined(RSA_DIGIT_32)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>Please<sp/>select<sp/>just<sp/>one<sp/>digit<sp/>size</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(!defined(__GNUC__)<sp/>||<sp/>!defined(__arm__))<sp/>&amp;&amp;<sp/>defined(RSA_ARM_OPTIMIZED)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>Assembly<sp/>level<sp/>code<sp/>is<sp/>only<sp/>supported<sp/>for<sp/>the<sp/>GCC/ARM<sp/>combination</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(RSA_UNROLL<sp/>!=<sp/>1)<sp/>&amp;&amp;<sp/>(RSA_UNROLL<sp/>!=<sp/>2)<sp/>&amp;&amp;<sp/>(RSA_UNROLL<sp/>!=<sp/>4)<sp/>&amp;&amp;<sp/>(RSA_UNROLL<sp/>!=<sp/>8)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>Only<sp/>1,<sp/>2,<sp/>4,<sp/>and<sp/>8<sp/>unrolling<sp/>are<sp/>supported</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>RSA_DIGIT_16</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>short</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_SDIGIT<sp/><sp/><sp/><sp/><sp/><sp/>short</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_DDIGIT<sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>long</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>RSA_DIGIT_32</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_DIGIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>long</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_SDIGIT<sp/><sp/><sp/><sp/><sp/><sp/>long</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_DDIGIT<sp/><sp/><sp/><sp/><sp/><sp/>unsigned<sp/>long<sp/>long</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RSA_NUMBER<sp/><sp/><sp/><sp/><sp/><sp/>RSA_DIGIT<sp/>*</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_NBITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2048</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_NDIGITS<sp/><sp/><sp/><sp/><sp/>(RSA_NBITS/(sizeof(RSA_DIGIT)*8))</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_NBYTES<sp/><sp/><sp/><sp/><sp/><sp/>(RSA_NDIGITS*sizeof(RSA_DIGIT))</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*<sp/>Double-digit<sp/>to<sp/>single<sp/>digit<sp/>conversion</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RSA_MSB(x)<sp/><sp/>(x<sp/>&gt;&gt;<sp/>(sizeof(RSA_DIGIT)*8))</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RSA_LSB(x)<sp/><sp/>(x<sp/>&amp;<sp/>(RSA_DIGIT)~0)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHA_BLKSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>512</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_BLKBYTES<sp/><sp/><sp/><sp/>(SHA_BLKSIZE/8)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_BLKWORDS<sp/><sp/><sp/><sp/>(SHA_BLKBYTES/4)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHA_VALSIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_VALBYTES<sp/><sp/><sp/><sp/>(SHA_VALSIZE/8)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_VALWORDS<sp/><sp/><sp/><sp/>(SHA_VALBYTES/4)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/>*<sp/>SHA-256<sp/>context<sp/>structure</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/>*<sp/>Includes<sp/>SHA-256<sp/>state,<sp/>coalescing<sp/>buffer<sp/>to<sp/>collect<sp/>the<sp/>processed<sp/>strings,<sp/>and</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>total<sp/>byte<sp/>length<sp/>counter<sp/>(used<sp/>both<sp/>to<sp/>manage<sp/>the<sp/>buffer<sp/>and<sp/>for<sp/>padding)</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="107"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>state[8];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>buffer[SHA_BLKBYTES];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>bytes;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<sp/>sha2_context;</highlight></codeline>
+<codeline lineno="114"></codeline>
+<codeline lineno="117"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*<sp/>RSA-2048<sp/>user<sp/>interfaces</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="135"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1ga94cb0e9ea77ca68a380c25b42910fa8e" kindref="member">rsa2048_exp</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*base,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>modular,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*modular_ext,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*exponent,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*result);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="152"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1ga810797c1bab84cda9d48b734ba8b0405" kindref="member">rsa2048_pubexp</ref>(RSA_NUMBER<sp/>a,<sp/>RSA_NUMBER<sp/>x,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>e,<sp/>RSA_NUMBER<sp/>m,<sp/>RSA_NUMBER<sp/>rrm);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*<sp/>SHA-256<sp/>user<sp/>interfaces</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="173"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1ga735718f1bf2a30893d3e854d439c69fd" kindref="member">sha_256</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*in,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*out);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="185"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1gaaa0bff1f1bcda10be83c3bf2f3af690b" kindref="member">sha2_starts</ref>(sha2_context<sp/>*ctx);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="199"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1gad03b4e01ae41a4b91888ab05a307bcfe" kindref="member">sha2_update</ref>(sha2_context<sp/>*ctx,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>input,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ilen);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="213"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilrsa__apis_1ga4dbd38a93b5b61c637a8a29dd0e850f0" kindref="member">sha2_finish</ref>(sha2_context<sp/>*ctx,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>output);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/>*<sp/>Preprocessing<sp/>interface<sp/>(pre-computation<sp/>of<sp/>R*R<sp/>mod<sp/>M)</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="219"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>modular_ext(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*modular,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*res);</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>___XIL_RSA_H___<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilrsa/src/include/xilrsa.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_ps_format" kind="struct" prot="public">
+    <compoundname>XUartPsFormat</compoundname>
+    <includes local="no">xuartps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_ps_format_1a267c8cfe489f4bedda2f746bae10091a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsFormat::BaudRate</definition>
+        <argsstring></argsstring>
+        <name>BaudRate</name>
+        <briefdescription>
+<para>In bps, ie 1200. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="310" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga3de8ab4e4aca0ba939bc547b5592726c" compoundref="xuartps__options_8c" startline="707" endline="741">XUartPs_GetDataFormat</referencedby>
+        <referencedby refid="group__uartps_1ga249eaf3cd4be5242d4143a88bab1add0" compoundref="xuartps__options_8c" startline="627" endline="689">XUartPs_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_format_1a965929f6a567dffcbce97adba720ab60" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsFormat::DataBits</definition>
+        <argsstring></argsstring>
+        <name>DataBits</name>
+        <briefdescription>
+<para>Number of data bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga3de8ab4e4aca0ba939bc547b5592726c" compoundref="xuartps__options_8c" startline="707" endline="741">XUartPs_GetDataFormat</referencedby>
+        <referencedby refid="group__uartps_1ga249eaf3cd4be5242d4143a88bab1add0" compoundref="xuartps__options_8c" startline="627" endline="689">XUartPs_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_format_1a11981131b499be00644cffadf1e8eadc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsFormat::Parity</definition>
+        <argsstring></argsstring>
+        <name>Parity</name>
+        <briefdescription>
+<para>Parity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga3de8ab4e4aca0ba939bc547b5592726c" compoundref="xuartps__options_8c" startline="707" endline="741">XUartPs_GetDataFormat</referencedby>
+        <referencedby refid="group__uartps_1ga249eaf3cd4be5242d4143a88bab1add0" compoundref="xuartps__options_8c" startline="627" endline="689">XUartPs_SetDataFormat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_format_1a79b08626f18007181dbc8a6e99ce0d64" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUartPsFormat::StopBits</definition>
+        <argsstring></argsstring>
+        <name>StopBits</name>
+        <briefdescription>
+<para>Number of stop bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="313" bodyend="-1"/>
+        <referencedby refid="group__uartps_1ga3de8ab4e4aca0ba939bc547b5592726c" compoundref="xuartps__options_8c" startline="707" endline="741">XUartPs_GetDataFormat</referencedby>
+        <referencedby refid="group__uartps_1ga249eaf3cd4be5242d4143a88bab1add0" compoundref="xuartps__options_8c" startline="627" endline="689">XUartPs_SetDataFormat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Keep track of data format setting of a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="309" bodyend="314"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_ps_format_1a267c8cfe489f4bedda2f746bae10091a" prot="public" virt="non-virtual"><scope>XUartPsFormat</scope><name>BaudRate</name></member>
+      <member refid="struct_x_uart_ps_format_1a965929f6a567dffcbce97adba720ab60" prot="public" virt="non-virtual"><scope>XUartPsFormat</scope><name>DataBits</name></member>
+      <member refid="struct_x_uart_ps_format_1a11981131b499be00644cffadf1e8eadc" prot="public" virt="non-virtual"><scope>XUartPsFormat</scope><name>Parity</name></member>
+      <member refid="struct_x_uart_ps_format_1a79b08626f18007181dbc8a6e99ce0d64" prot="public" virt="non-virtual"><scope>XUartPsFormat</scope><name>StopBits</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

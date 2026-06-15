@@ -1,0 +1,1575 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp1x__hw_8h" kind="file">
+    <compoundname>xhdcp1x_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xhdcp1x_8h" local="yes">xhdcp1x.h</includedby>
+    <includedby refid="xhdcp1x__cipher__intr_8c" local="yes">xhdcp1x_cipher_intr.c</includedby>
+    <incdepgraph>
+      <node id="121">
+        <label>xil_io.h</label>
+      </node>
+      <node id="120">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x_hw.h"/>
+        <childnode refid="121" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="126">
+        <label>xhdcp1x_cipher.c</label>
+        <link refid="xhdcp1x__cipher_8c"/>
+      </node>
+      <node id="125">
+        <label>xhdcp1x_cipher.h</label>
+        <link refid="xhdcp1x__cipher_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="136">
+        <label>xhdcp1x_port_intr.c</label>
+        <link refid="xhdcp1x__port__intr_8c"/>
+      </node>
+      <node id="130">
+        <label>xhdcp1x_selftest.c</label>
+        <link refid="xhdcp1x__selftest_8c"/>
+      </node>
+      <node id="127">
+        <label>xhdcp1x_cipher_intr.c</label>
+        <link refid="xhdcp1x__cipher__intr_8c"/>
+      </node>
+      <node id="132">
+        <label>xhdcp1x_tx.c</label>
+        <link refid="xhdcp1x__tx_8c"/>
+      </node>
+      <node id="138">
+        <label>xhdcp1x_tx.h</label>
+        <link refid="xhdcp1x__tx_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>xhdcp1x_rx.c</label>
+        <link refid="xhdcp1x__rx_8c"/>
+      </node>
+      <node id="137">
+        <label>xhdcp1x_rx.h</label>
+        <link refid="xhdcp1x__rx_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xhdcp1x_port.c</label>
+        <link refid="xhdcp1x__port_8c"/>
+      </node>
+      <node id="140">
+        <label>xhdcp1x_platform.c</label>
+        <link refid="xhdcp1x__platform_8c"/>
+      </node>
+      <node id="134">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x__port_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>xhdcp1x_platform.h</label>
+        <link refid="xhdcp1x__platform_8h"/>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="133">
+        <label>xhdcp1x_debug.h</label>
+        <link refid="xhdcp1x__debug_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>xhdcp1x_sinit.c</label>
+        <link refid="xhdcp1x__sinit_8c"/>
+      </node>
+      <node id="122">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x_hw.h"/>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="139">
+        <label>xhdcp1x_g.c</label>
+      </node>
+      <node id="124">
+        <label>xhdcp1x.c</label>
+        <link refid="xhdcp1x_8c"/>
+      </node>
+      <node id="123">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>xhdcp1x_intr.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdcp1x_1ga8262573a0c348ed5cec9f44b279c3356" prot="public" static="no">
+        <name>XHDCP1X_HW_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaae5186441608522aa26ea269b028545d" prot="public" static="no">
+        <name>XPAR_XDPTXSS_NUM_INSTANCES</name>
+        <initializer>XPAR_DPTXSS_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga1079c7d5e8a3030035d37fa5f3a59690" prot="public" static="no">
+        <name>XPAR_XDPRXSS_NUM_INSTANCES</name>
+        <initializer>XPAR_DPRXSS_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga45c93818933d05bc03a38d74aaf33721" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_VERSION</name>
+        <initializer>(0x0000u)</initializer>
+        <briefdescription>
+<para>Version register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaac542620e5aa06df5f83f097a6fc7738" compoundref="xhdcp1x__cipher_8c" startline="1250" endline="1262">XHdcp1x_CipherGetVersion</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_TYPE</name>
+        <initializer>(0x0004u)</initializer>
+        <briefdescription>
+<para>Type register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga3d29fa022935e0bc6e45f42d089bcfae" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_SCRATCH</name>
+        <initializer>(0x0008u)</initializer>
+        <briefdescription>
+<para>Scratch pad register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga388ba97163cd68f5e6124a80bd78c30d" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CONTROL</name>
+        <initializer>(0x000Cu)</initializer>
+        <briefdescription>
+<para>Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gacfeb8a266c1bc554753f93d62eb9a891" compoundref="xhdcp1x__cipher_8c" startline="393" endline="410">XHdcp1x_CipherGetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga47125197300d8d534c2ac141686a23c2" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_STATUS</name>
+        <initializer>(0x0010u)</initializer>
+        <briefdescription>
+<para>Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga40c4838c730476e98dfcd742eb1d21a4" compoundref="xhdcp1x__cipher_8c" startline="110" endline="129">XHdcp1x_CipherIsLinkUp</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf2d2522cb49e8fb546d3f19cc27bc550" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_INTERRUPT_MASK</name>
+        <initializer>(0x0014u)</initializer>
+        <briefdescription>
+<para>Interrupt Mask register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae606ccf3553446bcdc5910dbae74e07e" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_INTERRUPT_STATUS</name>
+        <initializer>(0x0018u)</initializer>
+        <briefdescription>
+<para>Interrupt Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga9e2aef2d07c6314c854fef365f381036" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H</name>
+        <initializer>(0x0020u)</initializer>
+        <briefdescription>
+<para>Encryption Enable (High) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaefc63f94eea644f969857f99264a9a5a" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L</name>
+        <initializer>(0x0024u)</initializer>
+        <briefdescription>
+<para>Encryption Enable (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaed0d27e72d03245fa63cd14fa678d44c" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL</name>
+        <initializer>(0x002Cu)</initializer>
+        <briefdescription>
+<para>Key Management Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga6f0a88da0a794b63e3f6caafa912dc10" compoundref="xhdcp1x__cipher_8c" startline="263" endline="281">XHdcp1x_CipherSetKeySelect</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae54c355c17e6c20cff27fb271d4a311f" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KEYMGMT_STATUS</name>
+        <initializer>(0x0030u)</initializer>
+        <briefdescription>
+<para>Key Management Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gad33df471264ecb7ad47c56b1965c32e2" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KSV_LOCAL_H</name>
+        <initializer>(0x0038u)</initializer>
+        <briefdescription>
+<para>Local KSV (High) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaa0daeba5517cd7489c1c30982867d4c8" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KSV_LOCAL_L</name>
+        <initializer>(0x003Cu)</initializer>
+        <briefdescription>
+<para>Local KSV (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga2229a2994fb98bd78c61c91e8556c33c" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KSV_REMOTE_H</name>
+        <initializer>(0x0040u)</initializer>
+        <briefdescription>
+<para>Remote KSV (High) offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga9d260acd4a5eb9842f5a4bbb31be0e36" compoundref="xhdcp1x__cipher_8c" startline="794" endline="809">XHdcp1x_CipherGetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga129daeee5e3119a9c1607a0ab0b6de63" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_KSV_REMOTE_L</name>
+        <initializer>(0x0044u)</initializer>
+        <briefdescription>
+<para>Remote KSV (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga9d260acd4a5eb9842f5a4bbb31be0e36" compoundref="xhdcp1x__cipher_8c" startline="794" endline="809">XHdcp1x_CipherGetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga2b043d7a07fbab96bdef50de9d3d8ffd" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_Km_H</name>
+        <initializer>(0x0048u)</initializer>
+        <briefdescription>
+<para>Km (High) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac39b8b595cf8a79c08b196de5a11e5ee" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_Km_L</name>
+        <initializer>(0x004Cu)</initializer>
+        <briefdescription>
+<para>Km (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gabdf7f5d97b37f0649c697488cc36bc3b" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_CONTROL</name>
+        <initializer>(0x0050u)</initializer>
+        <briefdescription>
+<para>Cipher Control register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae3972aa89e01893b3fe8f5218625d512" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_STATUS</name>
+        <initializer>(0x0054u)</initializer>
+        <briefdescription>
+<para>Cipher Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gace24c74db709b523e1aae7e082494022" compoundref="xhdcp1x__cipher_8c" startline="361" endline="380">XHdcp1x_CipherIsRequestComplete</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac1d454c21b0a16c522875ba13573dee0" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Bx</name>
+        <initializer>(0x0058u)</initializer>
+        <briefdescription>
+<para>Cipher Bx register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga7d2bc6d575edff65961d636f20503d65" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_By</name>
+        <initializer>(0x005Cu)</initializer>
+        <briefdescription>
+<para>Cipher By register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga3d01b54a0fd09d11bbdf0b76180c381e" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Bz</name>
+        <initializer>(0x0060u)</initializer>
+        <briefdescription>
+<para>Cipher Bz register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaad2ec605c8db4820f38ffd88f0273a6a" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Kx</name>
+        <initializer>(0x0064u)</initializer>
+        <briefdescription>
+<para>Cipher Kx register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gacd07f7fbf273cdc8c00a08fb2f8fb0eb" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Ky</name>
+        <initializer>(0x0068u)</initializer>
+        <briefdescription>
+<para>Cipher Ky register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gacc91172cce2e873df65a9cfd5b4f6e06" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Kz</name>
+        <initializer>(0x006Cu)</initializer>
+        <briefdescription>
+<para>Cipher Kz register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf1add239c0ecfb90a3fc94eaafccbb31" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Mi_H</name>
+        <initializer>(0x0070u)</initializer>
+        <briefdescription>
+<para>Cipher Mi (High) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga72d8fd0f45ff6424d3aac43e36360fec" compoundref="xhdcp1x__cipher_8c" startline="1124" endline="1144">XHdcp1x_CipherGetMi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga0aa61ee18e89809a5cfc537a72d32eae" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Mi_L</name>
+        <initializer>(0x0074u)</initializer>
+        <briefdescription>
+<para>Cipher Mi (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga72d8fd0f45ff6424d3aac43e36360fec" compoundref="xhdcp1x__cipher_8c" startline="1124" endline="1144">XHdcp1x_CipherGetMi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga9f1a35f1da810221d96ba0da2664eda3" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Ri</name>
+        <initializer>(0x0078u)</initializer>
+        <briefdescription>
+<para>Cipher Ri register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga9719a81dc9b6815f6b616ccc076f03c2" compoundref="xhdcp1x__cipher_8c" startline="1157" endline="1174">XHdcp1x_CipherGetRi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga4afb7f142a1f9ef42220be416475c2da" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Ro</name>
+        <initializer>(0x007Cu)</initializer>
+        <briefdescription>
+<para>Cipher Ro register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga14ed33ea832900d1022b7a1e8ddba397" compoundref="xhdcp1x__cipher_8c" startline="1220" endline="1237">XHdcp1x_CipherGetRo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac372c841db1b7543feccc7db3d69b589" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Mo_H</name>
+        <initializer>(0x0080u)</initializer>
+        <briefdescription>
+<para>Cipher Mo (High) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad8759c2071248b537b7ae18b2a1ec5a6" compoundref="xhdcp1x__cipher_8c" startline="1187" endline="1207">XHdcp1x_CipherGetMo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaafe1da3a001a875beee367e4376b98e9" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_CIPHER_Mo_L</name>
+        <initializer>(0x0084u)</initializer>
+        <briefdescription>
+<para>Cipher Mo (Low) register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad8759c2071248b537b7ae18b2a1ec5a6" compoundref="xhdcp1x__cipher_8c" startline="1187" endline="1207">XHdcp1x_CipherGetMo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga9ac8d8f8ab7abc814ada20ee259aa1d2" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_BLANK_VALUE</name>
+        <initializer>(0x00BCu)</initializer>
+        <briefdescription>
+<para>Cipher blank value register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac375f416684e4c6180a85c3689a149d4" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_REG_BLANK_SEL</name>
+        <initializer>(0x00C0u)</initializer>
+        <briefdescription>
+<para>Cipher blank select register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa2bcbd719e1f2f9b0b5fe6757b5a14b2" compoundref="xhdcp1x__cipher_8c" startline="1305" endline="1318">XHdcp1x_CipherDisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga0798856f180c219e38c507a192e3ae1f" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL</name>
+        <initializer>(0x03u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>Protocol bitmask in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga84b710cd1da8802a7dce1a7a637fb7f4" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION</name>
+        <initializer>(0x01u &lt;&lt;  2)</initializer>
+        <briefdescription>
+<para>Direction bitmask in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga10ea0666c02c4c6343b9ae9e251ae6a3" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>Enable bitmask in Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac6a1df11b9bce083f4396c73d2e66208" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_MODE</name>
+        <initializer>(0x01u &lt;&lt;  3)</initializer>
+        <briefdescription>
+<para>Enable SST/MST in Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga26e1542eb772b2449973d200297da4f4" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE</name>
+        <initializer>(0x01u &lt;&lt;  1)</initializer>
+        <briefdescription>
+<para>Update bitmask in Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae41022b4dbc46732ab6dcbec56ba7fc8" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES</name>
+        <initializer>(0x07u &lt;&lt;  4)</initializer>
+        <briefdescription>
+<para>Num Lanes bitmask in Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacfeb8a266c1bc554753f93d62eb9a891" compoundref="xhdcp1x__cipher_8c" startline="393" endline="410">XHdcp1x_CipherGetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga26fcb950b098b95e5e74232357ce158c" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CONTROL_RESET</name>
+        <initializer>(0x01u &lt;&lt; 31)</initializer>
+        <briefdescription>
+<para>Reset bitmask in Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaabf04c9775bb969435eb0a56a67e8f57" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>Link Failure bitmask in Interrupt register(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga40c4838c730476e98dfcd742eb1d21a4" compoundref="xhdcp1x__cipher_8c" startline="110" endline="129">XHdcp1x_CipherIsLinkUp</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga1b2651a6446b10aab2f229e506d75304" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE</name>
+        <initializer>(0x01u &lt;&lt;  1)</initializer>
+        <briefdescription>
+<para>Ri bitmask in Interrupt register(s) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga1d700722a5c16cf1bd605cd010b9383a" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>Read Local KSV bitmask in Key Management Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga9a7b2e5dbaac71ec8ec49eb48d29efc5" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km</name>
+        <initializer>(0x01u &lt;&lt;  1)</initializer>
+        <briefdescription>
+<para>Being Km bitmask in Key Management Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga0499c0ca032f1fc1230ae9ee10021e32" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km</name>
+        <initializer>(0x01u &lt;&lt;  2)</initializer>
+        <briefdescription>
+<para>Abort Km bitmask in Key Management Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf042b01ec650012737670869f098b0bc" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_SET_SELECT</name>
+        <initializer>(0x07u &lt;&lt; 16)</initializer>
+        <briefdescription>
+<para>Key Set Select bitmask in Key Management Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga6f0a88da0a794b63e3f6caafa912dc10" compoundref="xhdcp1x__cipher_8c" startline="263" endline="281">XHdcp1x_CipherSetKeySelect</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga5ac122eb8e2456759a8207831615cc0c" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>Local KSV ready bitmask in Key Management Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga74f6d8a048e1f8b3c386e5755d77b2bc" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY</name>
+        <initializer>(0x01u &lt;&lt;  1)</initializer>
+        <briefdescription>
+<para>Km Value ready bitmask in Key Management Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gad79579919909139a889131cfca73eef5" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>XOR Enable bitmask in Cipher Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf0b6126446543cb6cb9be5b0aa90801d" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST</name>
+        <initializer>(0x07u &lt;&lt;  8)</initializer>
+        <briefdescription>
+<para>Request bitmask in Cipher Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga0b6854f289450df142cde1637a13092b" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>XOR In Progress bitmask in Cipher Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga57d495d46e345da61f512d5c33d3dbd9" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG</name>
+        <initializer>(0x07u &lt;&lt;  8)</initializer>
+        <briefdescription>
+<para>Request In Progress bitmask in Cipher Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gace24c74db709b523e1aae7e082494022" compoundref="xhdcp1x__cipher_8c" startline="361" endline="380">XHdcp1x_CipherIsRequestComplete</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga4922903951c850d40666a25feaed783a" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_BLANK_VALUE</name>
+        <initializer>(0x000000FF)</initializer>
+        <briefdescription>
+<para>Cipher blank value bitmask, lower 24 bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf79f131e95519546c77b8fc62abeddc4" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_BITMASK_BLANK_SEL</name>
+        <initializer>(0x1u)</initializer>
+        <briefdescription>
+<para>Cipher blank select bitmask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa2bcbd719e1f2f9b0b5fe6757b5a14b2" compoundref="xhdcp1x__cipher_8c" startline="1305" endline="1318">XHdcp1x_CipherDisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga5ed9ffd759a96f662221c27cfca0b985" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP</name>
+        <initializer>(0x00u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>DP Protocol value in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga680a297bf1b072fd0d516a07e311d4de" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI</name>
+        <initializer>(0x01u &lt;&lt;  0)</initializer>
+        <briefdescription>
+<para>HDMI Protocol value in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga7ed6efb073f7ca9454407f78461a1967" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX</name>
+        <initializer>(0x00u &lt;&lt;  2)</initializer>
+        <briefdescription>
+<para>RX Direction value in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaadbc4627cd5bf1f2f2c0726f8375b5ce" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX</name>
+        <initializer>(0x01u &lt;&lt;  2)</initializer>
+        <briefdescription>
+<para>TX Direction value in Type register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga325ae78cb623a0eea61b1e4de1a26d2c" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK</name>
+        <initializer>(0x01u &lt;&lt;  8)</initializer>
+        <briefdescription>
+<para>Block Request value in Cipher Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae94bf604302490591a7255f06f2b759a" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_REKEY</name>
+        <initializer>(0x01u &lt;&lt;  9)</initializer>
+        <briefdescription>
+<para>ReKey Request value in Cipher Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga37e61c92d34794e986023f506feadd5d" prot="public" static="no">
+        <name>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_RNG</name>
+        <initializer>(0x01u &lt;&lt; 10)</initializer>
+        <briefdescription>
+<para>RNG Request value in Cipher Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga97852d12d6d27dbf95f755aa5e3c44e0" prot="public" static="no">
+        <name>XHdcp1x_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga4797628ed0ce1674c0e34d410185e29c" prot="public" static="no">
+        <name>XHdcp1x_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" prot="public" static="no">
+        <name>XHdcp1x_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__hdcp1x_1ga97852d12d6d27dbf95f755aa5e3c44e0" kindref="member">XHdcp1x_In32</ref>((BaseAddress) + ((u32)RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads a value from a HDCP cipher register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is always performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style: u32 <ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg(UINTPTR BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa2bcbd719e1f2f9b0b5fe6757b5a14b2" compoundref="xhdcp1x__cipher_8c" startline="1305" endline="1318">XHdcp1x_CipherDisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga72d8fd0f45ff6424d3aac43e36360fec" compoundref="xhdcp1x__cipher_8c" startline="1124" endline="1144">XHdcp1x_CipherGetMi</referencedby>
+        <referencedby refid="group__hdcp1x_1gad8759c2071248b537b7ae18b2a1ec5a6" compoundref="xhdcp1x__cipher_8c" startline="1187" endline="1207">XHdcp1x_CipherGetMo</referencedby>
+        <referencedby refid="group__hdcp1x_1gacfeb8a266c1bc554753f93d62eb9a891" compoundref="xhdcp1x__cipher_8c" startline="393" endline="410">XHdcp1x_CipherGetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9d260acd4a5eb9842f5a4bbb31be0e36" compoundref="xhdcp1x__cipher_8c" startline="794" endline="809">XHdcp1x_CipherGetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9719a81dc9b6815f6b616ccc076f03c2" compoundref="xhdcp1x__cipher_8c" startline="1157" endline="1174">XHdcp1x_CipherGetRi</referencedby>
+        <referencedby refid="group__hdcp1x_1ga14ed33ea832900d1022b7a1e8ddba397" compoundref="xhdcp1x__cipher_8c" startline="1220" endline="1237">XHdcp1x_CipherGetRo</referencedby>
+        <referencedby refid="group__hdcp1x_1gaac542620e5aa06df5f83f097a6fc7738" compoundref="xhdcp1x__cipher_8c" startline="1250" endline="1262">XHdcp1x_CipherGetVersion</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1ga40c4838c730476e98dfcd742eb1d21a4" compoundref="xhdcp1x__cipher_8c" startline="110" endline="129">XHdcp1x_CipherIsLinkUp</referencedby>
+        <referencedby refid="group__hdcp1x_1gace24c74db709b523e1aae7e082494022" compoundref="xhdcp1x__cipher_8c" startline="361" endline="380">XHdcp1x_CipherIsRequestComplete</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga6f0a88da0a794b63e3f6caafa912dc10" compoundref="xhdcp1x__cipher_8c" startline="263" endline="281">XHdcp1x_CipherSetKeySelect</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga8e356b098ccbcf8c2a851425e884ac00" prot="public" static="no">
+        <name>XHdcp1x_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__hdcp1x_1ga4797628ed0ce1674c0e34d410185e29c" kindref="member">XHdcp1x_Out32</ref>((BaseAddress) + ((u32)RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to a HDCP cipher register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is always performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the HDCP cipher core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style: void <ref refid="group__hdcp1x_1ga8e356b098ccbcf8c2a851425e884ac00" kindref="member">XHdcp1x_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga2ca06586dc06796fdc31a2f64096a28d" compoundref="xhdcp1x__cipher_8c" startline="209" endline="248">XHdcp1x_CipherDisable</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa2bcbd719e1f2f9b0b5fe6757b5a14b2" compoundref="xhdcp1x__cipher_8c" startline="1305" endline="1318">XHdcp1x_CipherDisableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga1075068f7db6bf3b0ae31818534f93e8" compoundref="xhdcp1x__cipher_8c" startline="1274" endline="1294">XHdcp1x_CipherEnableBlank</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga6f0a88da0a794b63e3f6caafa912dc10" compoundref="xhdcp1x__cipher_8c" startline="263" endline="281">XHdcp1x_CipherSetKeySelect</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaa99360d2e6f5cc2071ff95729c222344" prot="public" static="no">
+        <name>XHdcp1x_CipherIsEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1ga388ba97163cd68f5e6124a80bd78c30d" kindref="member">XHDCP1X_CIPHER_REG_CONTROL</ref>) &amp; \
+	<ref refid="group__hdcp1x_1ga10ea0666c02c4c6343b9ae9e251ae6a3" kindref="member">XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE</ref>) != 0)</initializer>
+        <briefdescription>
+<para>This queries a cipher to determine if it is enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating transmitter (TRUE) or not (FALSE).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gad44ad72f65d851de50c40053e327ba9e" compoundref="xhdcp1x__cipher_8c" startline="298" endline="348">XHdcp1x_CipherDoRequest</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8ecfb468f0917a558f7713ab74903033" compoundref="xhdcp1x__cipher_8c" startline="907" endline="939">XHdcp1x_CipherGetB</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga987fc5a5170470f0bbff214d317aac17" compoundref="xhdcp1x__cipher_8c" startline="1019" endline="1051">XHdcp1x_CipherGetK</referencedby>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+        <referencedby refid="group__hdcp1x_1ga72d8fd0f45ff6424d3aac43e36360fec" compoundref="xhdcp1x__cipher_8c" startline="1124" endline="1144">XHdcp1x_CipherGetMi</referencedby>
+        <referencedby refid="group__hdcp1x_1gad8759c2071248b537b7ae18b2a1ec5a6" compoundref="xhdcp1x__cipher_8c" startline="1187" endline="1207">XHdcp1x_CipherGetMo</referencedby>
+        <referencedby refid="group__hdcp1x_1gacfeb8a266c1bc554753f93d62eb9a891" compoundref="xhdcp1x__cipher_8c" startline="393" endline="410">XHdcp1x_CipherGetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9719a81dc9b6815f6b616ccc076f03c2" compoundref="xhdcp1x__cipher_8c" startline="1157" endline="1174">XHdcp1x_CipherGetRi</referencedby>
+        <referencedby refid="group__hdcp1x_1ga14ed33ea832900d1022b7a1e8ddba397" compoundref="xhdcp1x__cipher_8c" startline="1220" endline="1237">XHdcp1x_CipherGetRo</referencedby>
+        <referencedby refid="group__hdcp1x_1ga40c4838c730476e98dfcd742eb1d21a4" compoundref="xhdcp1x__cipher_8c" startline="110" endline="129">XHdcp1x_CipherIsLinkUp</referencedby>
+        <referencedby refid="group__hdcp1x_1ga70bcb7dd61e57e5b33d2213817a80eca" compoundref="xhdcp1x__cipher_8c" startline="957" endline="999">XHdcp1x_CipherSetB</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89ff306031805dad1e1ff7af0c836873" compoundref="xhdcp1x__cipher_8c" startline="1069" endline="1111">XHdcp1x_CipherSetK</referencedby>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga9d98f541dd4fe90543190e24a4f6b5cc" prot="public" static="no">
+        <name>XHdcp1x_CipherXorInProgress</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gae3972aa89e01893b3fe8f5218625d512" kindref="member">XHDCP1X_CIPHER_REG_CIPHER_STATUS</ref>) &amp; \
+	<ref refid="group__hdcp1x_1ga0b6854f289450df142cde1637a13092b" kindref="member">XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG</ref>) != 0)</initializer>
+        <briefdescription>
+<para>This queries a cipher to determine if the XOR (encryption) function is currently in progress. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating in progress (TRUE) or not (FALSE).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="372" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gae38ae0f74022763d8650a21fedcd15e5" compoundref="xhdcp1x__cipher_8c" startline="515" endline="541">XHdcp1x_CipherGetEncryption</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae90182b983742cb8e2fa091cffc83aaa" prot="public" static="no">
+        <name>XHdcp1x_CipherLocalKsvReady</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gae54c355c17e6c20cff27fb271d4a311f" kindref="member">XHDCP1X_CIPHER_REG_KEYMGMT_STATUS</ref>) &amp; \
+	<ref refid="group__hdcp1x_1ga5ac122eb8e2456759a8207831615cc0c" kindref="member">XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY</ref>) != 0)</initializer>
+        <briefdescription>
+<para>This queries a cipher to determine if the local KSV is ready to read. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating ready (TRUE) or not (FALSE).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gacc166098738c7aac2703ee0cbd757c01" compoundref="xhdcp1x__cipher_8c" startline="725" endline="781">XHdcp1x_CipherGetLocalKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac433f89288e18ce7be66f0871bf285e4" prot="public" static="no">
+        <name>XHdcp1x_CipherKmReady</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gae54c355c17e6c20cff27fb271d4a311f" kindref="member">XHDCP1X_CIPHER_REG_KEYMGMT_STATUS</ref>) &amp; \
+	<ref refid="group__hdcp1x_1ga74f6d8a048e1f8b3c386e5755d77b2bc" kindref="member">XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY</ref>) != 0)</initializer>
+        <briefdescription>
+<para>This queries a cipher to determine if the Km value is ready. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating ready (TRUE) or not (FALSE).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="336" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga320b0410ab8e10a8bc5c2a6278ed06d7" compoundref="xhdcp1x__cipher_8c" startline="827" endline="888">XHdcp1x_CipherSetRemoteKsv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga2870575e04b7a20bca6801f47f1f2169" prot="public" static="no">
+        <name>XHdcp1x_IsDP</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" kindref="member">XHDCP1X_CIPHER_REG_TYPE</ref>) &amp; <ref refid="group__hdcp1x_1ga0798856f180c219e38c507a192e3ae1f" kindref="member">XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL</ref>) \
+	== <ref refid="group__hdcp1x_1ga5ed9ffd759a96f662221c27cfca0b985" kindref="member">XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP</ref>)</initializer>
+        <briefdescription>
+<para>This macro checks if a core supports the Display Port protocol. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating DP (TRUE) or not (FALSE) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="351" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="419" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga458350d13807e4d1c4d3655167ec6f03" compoundref="xhdcp1x__cipher_8c" startline="58" endline="97">XHdcp1x_CipherInit</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga43765c1afc08c59a03b619d0c822e8b7" prot="public" static="no">
+        <name>XHdcp1x_IsHDMI</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" kindref="member">XHDCP1X_CIPHER_REG_TYPE</ref>) &amp; <ref refid="group__hdcp1x_1ga0798856f180c219e38c507a192e3ae1f" kindref="member">XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL</ref>) \
+	== <ref refid="group__hdcp1x_1ga680a297bf1b072fd0d516a07e311d4de" kindref="member">XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI</ref>)</initializer>
+        <briefdescription>
+<para>This macro checks if a core supports the HDMI protocol. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating HDMI (TRUE) or not (FALSE) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="366" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="434" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1ga8438aa18360e551721d2803cf11004a2" compoundref="xhdcp1x__cipher_8c" startline="478" endline="499">XHdcp1x_CipherSetMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gad104aebb80bb03cb66c31eaabf21247a" compoundref="xhdcp1x__cipher_8c" startline="425" endline="463">XHdcp1x_CipherSetNumLanes</referencedby>
+        <referencedby refid="group__hdcp1x_1gae2ae95918ecd46e725812a9bce8f6478" compoundref="xhdcp1x__cipher__intr_8c" startline="168" endline="201">XHdcp1x_CipherSetRiUpdate</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae45c2870e08ccd6d6e51409ede847c80" prot="public" static="no">
+        <name>XHdcp1x_IsRX</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" kindref="member">XHDCP1X_CIPHER_REG_TYPE</ref>) &amp; <ref refid="group__hdcp1x_1ga84b710cd1da8802a7dce1a7a637fb7f4" kindref="member">XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION</ref>) \
+	== <ref refid="group__hdcp1x_1ga7ed6efb073f7ca9454407f78461a1967" kindref="member">XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX</ref>)</initializer>
+        <briefdescription>
+<para>This macro checks if a core supports the receive direction. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating receive (TRUE) or not (FALSE) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="381" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="449" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga49cf0f72f0d918e33d66ff40c91d3073" compoundref="xhdcp1x__cipher_8c" startline="640" endline="712">XHdcp1x_CipherDisableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa3f73058855c8d60cbd588d74e60a668" compoundref="xhdcp1x__cipher_8c" startline="144" endline="194">XHdcp1x_CipherEnable</referencedby>
+        <referencedby refid="group__hdcp1x_1ga706d8729ad07f34fad5e20f83c59d69f" compoundref="xhdcp1x__cipher_8c" startline="558" endline="623">XHdcp1x_CipherEnableEncryption</referencedby>
+        <referencedby refid="group__hdcp1x_1gac3912c6a86498e0559470ce8ce148cd1" compoundref="xhdcp1x__cipher__intr_8c" startline="119" endline="152">XHdcp1x_CipherSetLinkStateCheck</referencedby>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga0eb257e3b2af7d84e72e89dd93703d3d" prot="public" static="no">
+        <name>XHdcp1x_IsTX</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((<ref refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" kindref="member">XHdcp1x_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddress, \
+	<ref refid="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" kindref="member">XHDCP1X_CIPHER_REG_TYPE</ref>) &amp; <ref refid="group__hdcp1x_1ga84b710cd1da8802a7dce1a7a637fb7f4" kindref="member">XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION</ref>) \
+	== <ref refid="group__hdcp1x_1gaadbc4627cd5bf1f2f2c0726f8375b5ce" kindref="member">XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX</ref>)</initializer>
+        <briefdescription>
+<para>This macro checks if a core supports the transmit direction. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value indicating transmit (TRUE) or not (FALSE) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" line="396" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h" bodystart="464" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga710df77b22f0b5c728a51747be26ca2e" compoundref="xhdcp1x__selftest_8c" startline="61" endline="89">XHdcp1x_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XHDCP1X_HW_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35" refid="group__hdcp1x_1ga8262573a0c348ed5cec9f44b279c3356" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_HW_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XDPTXSS_NUM_INSTANCES<sp/>XPAR_DPTXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XDPRXSS_NUM_INSTANCES<sp/>XPAR_DPRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDCP<sp/>Cipher<sp/>register<sp/>offsets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group__hdcp1x_1ga45c93818933d05bc03a38d74aaf33721" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_VERSION<sp/><sp/><sp/><sp/><sp/><sp/>(0x0000u)<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0004u)<sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__hdcp1x_1gaed76d9474c5b8112f70540b4b13430cf" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_SCRATCH<sp/><sp/><sp/><sp/><sp/><sp/>(0x0008u)<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/>(0x000Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__hdcp1x_1ga388ba97163cd68f5e6124a80bd78c30d" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0010u)<sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_INTERRUPT_MASK<sp/>(0x0014u)<sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_INTERRUPT_STATUS<sp/>\</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0018u)<sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_H<sp/>\</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0020u)<sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_ENCRYPT_ENABLE_L<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0024u)<sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KEYMGMT_CONTROL<sp/>\</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x002Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__hdcp1x_1gaefc63f94eea644f969857f99264a9a5a" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KEYMGMT_STATUS<sp/>(0x0030u)<sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KSV_LOCAL_H<sp/><sp/>(0x0038u)<sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KSV_LOCAL_L<sp/><sp/>(0x003Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KSV_REMOTE_H<sp/>(0x0040u)<sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_KSV_REMOTE_L<sp/>(0x0044u)<sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_Km_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0048u)<sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="group__hdcp1x_1gad33df471264ecb7ad47c56b1965c32e2" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_Km_L<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x004Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__hdcp1x_1gaa0daeba5517cd7489c1c30982867d4c8" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_CONTROL<sp/>\</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0050u)<sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__hdcp1x_1ga2229a2994fb98bd78c61c91e8556c33c" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_STATUS<sp/>(0x0054u)<sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Bx<sp/><sp/><sp/><sp/>(0x0058u)<sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_By<sp/><sp/><sp/><sp/>(0x005Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group__hdcp1x_1ga2b043d7a07fbab96bdef50de9d3d8ffd" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Bz<sp/><sp/><sp/><sp/>(0x0060u)<sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Kx<sp/><sp/><sp/><sp/>(0x0064u)<sp/><sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Ky<sp/><sp/><sp/><sp/>(0x0068u)<sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Kz<sp/><sp/><sp/><sp/>(0x006Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Mi_H<sp/><sp/>(0x0070u)<sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Mi_L<sp/><sp/>(0x0074u)<sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Ri<sp/><sp/><sp/><sp/>(0x0078u)<sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__hdcp1x_1gac1d454c21b0a16c522875ba13573dee0" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Ro<sp/><sp/><sp/><sp/>(0x007Cu)<sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Mo_H<sp/><sp/>(0x0080u)<sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_CIPHER_Mo_L<sp/><sp/>(0x0084u)<sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="group__hdcp1x_1ga3d01b54a0fd09d11bbdf0b76180c381e" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_BLANK_VALUE<sp/><sp/>(0x00BCu)<sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_REG_BLANK_SEL<sp/>(0x00C0u)<sp/><sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>HDCP<sp/>Cipher<sp/>register<sp/>bit<sp/>mask<sp/>definitions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125" refid="group__hdcp1x_1gacd07f7fbf273cdc8c00a08fb2f8fb0eb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL<sp/>\</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="group__hdcp1x_1gacc91172cce2e873df65a9cfd5b4f6e06" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>2)<sp/><sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE<sp/>\</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_MODE<sp/>\</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>3)<sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CONTROL_UPDATE<sp/>\</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>1)<sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CONTROL_NUM_LANES<sp/>\</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07u<sp/>&lt;&lt;<sp/><sp/>4)<sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CONTROL_RESET<sp/>\</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/>31)<sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_INTERRUPT_LINK_FAIL<sp/>\</highlight></codeline>
+<codeline lineno="149" refid="group__hdcp1x_1ga9ac8d8f8ab7abc814ada20ee259aa1d2" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_INTERRUPT_Ri_UPDATE<sp/>\</highlight></codeline>
+<codeline lineno="152" refid="group__hdcp1x_1gac375f416684e4c6180a85c3689a149d4" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>1)<sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_LOCAL_KSV<sp/>\</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_BEGIN_Km<sp/>\</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>1)<sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_ABORT_Km<sp/>\</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>2)<sp/><sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_CONTROL_SET_SELECT<sp/>\</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07u<sp/>&lt;&lt;<sp/>16)<sp/><sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY<sp/>\</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY<sp/>\</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>1)<sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_XOR_ENABLE<sp/>\</highlight></codeline>
+<codeline lineno="182" refid="group__hdcp1x_1ga26fcb950b098b95e5e74232357ce158c" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CIPHER_CONTROL_REQUEST<sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07u<sp/>&lt;&lt;<sp/><sp/>8)<sp/><sp/></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_REQUEST_IN_PROG<sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07u<sp/>&lt;&lt;<sp/><sp/>8)<sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_BLANK_VALUE<sp/>\</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000FF)<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_BITMASK_BLANK_SEL<sp/>\</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1u)<sp/><sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>HDCP<sp/>Cipher<sp/>register<sp/>bit<sp/>value<sp/>definitions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP<sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="208" refid="group__hdcp1x_1ga0499c0ca032f1fc1230ae9ee10021e32" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI<sp/>\</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>0)<sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX<sp/>\</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00u<sp/>&lt;&lt;<sp/><sp/>2)<sp/><sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX<sp/>\</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>2)<sp/><sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_BLOCK<sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>8)<sp/><sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_REKEY<sp/>\</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/><sp/>9)<sp/><sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XHDCP1X_CIPHER_VALUE_CIPHER_CONTROL_REQUEST_RNG<sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01u<sp/>&lt;&lt;<sp/>10)<sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>access<sp/>macro<sp/>definition<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234" refid="group__hdcp1x_1gad79579919909139a889131cfca73eef5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHdcp1x_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XHdcp1x_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238" refid="group__hdcp1x_1gaf0b6126446543cb6cb9be5b0aa90801d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XHdcp1x_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp1x_In32((BaseAddress)<sp/>+<sp/>((u32)RegOffset))</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="group__hdcp1x_1ga4922903951c850d40666a25feaed783a" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XHdcp1x_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp1x_Out32((BaseAddress)<sp/>+<sp/>((u32)RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="275" refid="group__hdcp1x_1ga7ed6efb073f7ca9454407f78461a1967" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor">#define<sp/>XHdcp1x_CipherIsEnabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="288" refid="group__hdcp1x_1gae94bf604302490591a7255f06f2b759a" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_CONTROL)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_BITMASK_CONTROL_ENABLE)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="group__hdcp1x_1ga37e61c92d34794e986023f506feadd5d" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor">#define<sp/>XHdcp1x_CipherXorInProgress(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_CIPHER_STATUS)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_BITMASK_CIPHER_STATUS_XOR_IN_PROG)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor">#define<sp/>XHdcp1x_CipherLocalKsvReady(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="321" refid="group__hdcp1x_1ga5477e830e157f72072a2a7f470365682" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_KEYMGMT_STATUS)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_KSV_READY)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor">#define<sp/>XHdcp1x_CipherKmReady(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_KEYMGMT_STATUS)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_BITMASK_KEYMGMT_STATUS_Km_READY)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341" refid="group__hdcp1x_1ga8e356b098ccbcf8c2a851425e884ac00" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor">#define<sp/>XHdcp1x_IsDP(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_TYPE)<sp/>&amp;<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL)<sp/>\</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_DP)</highlight></codeline>
+<codeline lineno="355" refid="group__hdcp1x_1gaa99360d2e6f5cc2071ff95729c222344" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor">#define<sp/>XHdcp1x_IsHDMI(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_TYPE)<sp/>&amp;<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_PROTOCOL)<sp/>\</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>XHDCP1X_CIPHER_VALUE_TYPE_PROTOCOL_HDMI)</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor">#define<sp/>XHdcp1x_IsRX(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_TYPE)<sp/>&amp;<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION)<sp/>\</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_RX)</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="396"><highlight class="preprocessor">#define<sp/>XHdcp1x_IsTX(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XHdcp1x_ReadReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDCP1X_CIPHER_REG_TYPE)<sp/>&amp;<sp/>XHDCP1X_CIPHER_BITMASK_TYPE_DIRECTION)<sp/>\</highlight></codeline>
+<codeline lineno="399"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>XHDCP1X_CIPHER_VALUE_TYPE_DIRECTION_TX)</highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404" refid="group__hdcp1x_1gac433f89288e18ce7be66f0871bf285e4" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP1X_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_hw.h"/>
+  </compounddef>
+</doxygen>

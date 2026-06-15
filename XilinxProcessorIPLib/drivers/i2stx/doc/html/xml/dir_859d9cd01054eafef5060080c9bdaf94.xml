@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_859d9cd01054eafef5060080c9bdaf94" kind="dir">
+    <compoundname>i2stx</compoundname>
+    <innerdir refid="dir_6fcbde17cf8aadd7aec90cfe81ad7630">examples</innerdir>
+    <innerdir refid="dir_509166222308dca3052b8d36a7800013">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/"/>
+  </compounddef>
+</doxygen>

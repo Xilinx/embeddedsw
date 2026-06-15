@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_metadata__s" kind="struct" prot="public">
+    <compoundname>IsiSensorMetadata_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_sensor_metadata__s_1acbecb90ad926593cad32ae8cd23412c1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorMetadata_s::chipId</definition>
+        <argsstring></argsstring>
+        <name>chipId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_metadata__s_1ade2793b24b3a883874c111c19c5aeeca" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiSensorMetadata_s::frmCount</definition>
+        <argsstring></argsstring>
+        <name>frmCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_sensor_metadata__s_1a6e623da3a29f0eaa0b25d0296708d0ec" prot="public" static="no" mutable="no">
+        <type>IsiMetadataParserInfo_t</type>
+        <definition>IsiMetadataParserInfo_t IsiSensorMetadata_s::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="78" bodyend="83"/>
+    <listofallmembers>
+      <member refid="struct_isi_sensor_metadata__s_1acbecb90ad926593cad32ae8cd23412c1" prot="public" virt="non-virtual"><scope>IsiSensorMetadata_s</scope><name>chipId</name></member>
+      <member refid="struct_isi_sensor_metadata__s_1a6e623da3a29f0eaa0b25d0296708d0ec" prot="public" virt="non-virtual"><scope>IsiSensorMetadata_s</scope><name>data</name></member>
+      <member refid="struct_isi_sensor_metadata__s_1ade2793b24b3a883874c111c19c5aeeca" prot="public" virt="non-virtual"><scope>IsiSensorMetadata_s</scope><name>frmCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

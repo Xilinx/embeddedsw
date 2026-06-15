@@ -1,0 +1,1036 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__mmi__dcdma" kind="group">
+    <compoundname>mmi_dcdma</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_CfgInitialize</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 BaseAddr)</argsstring>
+        <name>XDcDma_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the configuration for the DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the base address of the DcDma instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Base address and DeviceId is same as the Dc Timing driver. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="60" bodyend="85"/>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga406539d327e2a84079b1105fc64465ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_WriteProtEnable</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_WriteProtEnable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the write protection for DCDMA registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="96" bodyend="107"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga5d173da16718d01d9ef53fc5d424678a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_WriteProtDisable</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_WriteProtDisable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the write protection for DCDMA registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="118" bodyend="131"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga91f1b1f6e28e522f43cd33bb8a17a4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDCDma_GetWriteProt</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDCDma_GetWriteProt</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="142" bodyend="156"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gabc7c14d891e4136ce8c504151deeda69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDescDelay</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u16 Val)</argsstring>
+        <name>XDcDma_SetDescDelay</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the Desc Delay for required channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies desc delay</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="169" bodyend="179"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gac128f4e7ac7421d2dfafe00c784d5990" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDataQoS</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel, u8 Val)</argsstring>
+        <name>XDcDma_SetDataQoS</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the data QoS for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="192" bodyend="239"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga292c45343371203644273eb47c9fbd4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDescQoS</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel, u8 Val)</argsstring>
+        <name>XDcDma_SetDescQoS</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="251" bodyend="300"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga08fe48548a67b91d7eeadea4ae85b908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAxCache</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u8 Val)</argsstring>
+        <name>XDcDma_SetAxCache</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the Ax Cache register for specific channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="312" bodyend="322"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gad05901557988e38b788efcb691a179a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAxProt</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u8 Val)</argsstring>
+        <name>XDcDma_SetAxProt</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the AxProt register for specific channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="335" bodyend="346"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_ConfigChannelState</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, XDcDma_State Enable)</argsstring>
+        <name>XDcDma_ConfigChannelState</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XDcDma_State</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the channel state as enable, disable or idle. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel to configure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the channel state.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="359" bodyend="418"/>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" compoundref="xdcdma_8c" startline="430" endline="450">XDcDma_WaitPendingTransaction</references>
+        <referencedby refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</referencedby>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_WaitPendingTransaction</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id)</argsstring>
+        <name>XDcDma_WaitPendingTransaction</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>This function checks for any pending transactions for a given channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id is channel number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="430" bodyend="450"/>
+        <references refid="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" compoundref="xdcdma_8c" startline="462" endline="472">XDCDma_GetOutstandingTxn</references>
+        <referencedby refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDCDma_GetOutstandingTxn</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id)</argsstring>
+        <name>XDCDma_GetOutstandingTxn</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id is channel number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="462" bodyend="472"/>
+        <references refid="xdcdma__hw_8h_1a8a10fd4606e24d0e3131f1bffa2eb231" compoundref="xdcdma__hw_8h" startline="2128">XDCDMA_CH0_STATUS</references>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <referencedby refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" compoundref="xdcdma_8c" startline="430" endline="450">XDcDma_WaitPendingTransaction</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga178425efb51b5e613b27cdd6eac15a59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptEnable</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcDma_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is interrupt to unmask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="484" bodyend="490"/>
+        <references refid="xdcdma__hw_8h_1a4ab30311a6a69d413c2f7507e5e8cc9f" compoundref="xdcdma__hw_8h" startline="788">XDCDMA_MISC_IER</references>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga00a98d41f9767c53fab0a3284f005e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptDisable</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcDma_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="501" bodyend="504"/>
+        <references refid="xdcdma__hw_8h_1a9d215a90fc7e95562adb843c7936a2ba" compoundref="xdcdma__hw_8h" startline="809">XDCDMA_MISC_IDR</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga153e5abe962b93c6ee19741da7f150ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_SetCallBack</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_IntHandlerType HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDcDma_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_IntHandlerType</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the callback for different interrupt handlers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="515" bodyend="586"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_Trigger</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_Trigger</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="597" bodyend="656"/>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_ReTrigger</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_ReTrigger</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with retrigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="667" bodyend="724"/>
+        <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga34970edec008b2d87dfb528dc57ff180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptHandler</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function calls the VsyncInterrupt Handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="735" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="735" bodyend="748"/>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_VSyncHandler</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_VSyncHandler</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function services the VsyncInterrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="759" bodyend="862"/>
+        <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
+        <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <references refid="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" compoundref="xdcdma_8c" startline="667" endline="724">XDcDma_ReTrigger</references>
+        <references refid="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" compoundref="xdcdma_8c" startline="955" endline="998">XDcDma_SetupChannel</references>
+        <references refid="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" compoundref="xdcdma_8c" startline="597" endline="656">XDcDma_Trigger</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <referencedby refid="group__mmi__dcdma_1ga34970edec008b2d87dfb528dc57ff180" compoundref="xdcdma_8c" startline="735" endline="748">XDcDma_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga784c0d37e867e95959d4c10fb0af12e5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDcDma_SetDescriptorAddress</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id)</argsstring>
+        <name>XDcDma_SetDescriptorAddress</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the descriptor address for each video stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="874" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="874" bodyend="943"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetupChannel</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_SetupChannel</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the descriptor address for each video stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="955" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="955" bodyend="998"/>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_DescInit</definition>
+        <argsstring>(XDcDma_Descriptor *XDesc)</argsstring>
+        <name>XDcDma_DescInit</name>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>XDesc</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the descriptor for the DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1009" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1009" bodyend="1016"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_GetNewDescId</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_GetNewDescId</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function increments the LastDescId of DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Updated LastDescId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1027" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1027" bodyend="1035"/>
+        <references refid="struct_x_dc_dma_1a43095e622f6bb0153c07149129ec6633" compoundref="xdcdma_8h" startline="235">XDcDma::LastDescId</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga74f4612f706aaf02b9f780c0046c99e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAudioChCtrl</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_SetAudioChCtrl</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets DcDma Audio Channel Control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="1046" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1046" bodyend="1057"/>
+        <references refid="xdcdma__hw_8h_1a9a6e190e3d9a169d6202601553bec00a" compoundref="xdcdma__hw_8h" startline="72">XDCDMA_AUD_CTRL</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mmi__dcdma_1gacf7af66d111ac7e75f379ddf48e1836c" prot="public" static="no">
+        <name>XDCDMA_CH_OFFSET</name>
+        <initializer>0x100U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1gabfb60a6caf47298b9e44e03695f39a4b" prot="public" static="no">
+        <name>XDCDMA_QOS_MIN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1ga65f9182e8fb06650cf1c6a84dd11a190" prot="public" static="no">
+        <name>XDCDMA_QOS_MAX</name>
+        <initializer>15U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1ga52cc3029795f0b28fc48e4c06950d789" prot="public" static="no">
+        <name>XDCDMA_DSCR_DLY_MIN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1gaef3a87a78ea5708a965f60ce8d19f41b" prot="public" static="no">
+        <name>XDCDMA_DSCR_DLY_MAX</name>
+        <initializer>1023U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1gaaa728f3b4f0ee2e8e29791d0ae657b6a" prot="public" static="no">
+        <name>XDCDMA_AXCACHE_MIN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1ga3c144e3ba0ff1f46b7463e7662cfc3c4" prot="public" static="no">
+        <name>XDCDMA_AXCACHE_MAX</name>
+        <initializer>15U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1gadad0fdfdc14a354ddd1f71ef4dbd43ae" prot="public" static="no">
+        <name>XDCDMA_AXPROT_MIN</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1ga53ea4241679d835873db3b32f3356d46" prot="public" static="no">
+        <name>XDCDMA_AXPROT_MAX</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mmi__dcdma_1gaba091834006573d08f0c5021695cd919" prot="public" static="no">
+        <name>XDCDMA_WAIT_TIMEOUT</name>
+        <initializer>10000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file implements all the DMA functions related to the Video Pipeline of the DisplayPort Subsystem. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0      ck    03/14/25  Initial Release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

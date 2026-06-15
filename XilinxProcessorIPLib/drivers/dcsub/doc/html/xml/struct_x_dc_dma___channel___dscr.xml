@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___channel___dscr" kind="struct" prot="public">
+    <compoundname>XDcDma_Channel_Dscr</compoundname>
+    <includes local="no">xdcdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___channel___dscr_1a53f8a648e9f1870faaf09cefe20d0bb3" prot="public" static="no" mutable="no">
+        <type>XDcDma_Descriptor *</type>
+        <definition>XDcDma_Descriptor* XDcDma_Channel_Dscr::Current</definition>
+        <argsstring></argsstring>
+        <name>Current</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the Video/Graphics Channel attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="182" bodyend="184"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___channel___dscr_1a53f8a648e9f1870faaf09cefe20d0bb3" prot="public" virt="non-virtual"><scope>XDcDma_Channel_Dscr</scope><name>Current</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

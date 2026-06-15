@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___lms_hss_sign_verify_params" kind="struct" prot="public">
+    <compoundname>XAsu_LmsHssSignVerifyParams</compoundname>
+    <includes local="no">xasu_lmsinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1ad706187fe5e4d081fcb4357cf8a380f3" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___lms_hss_key_object" kindref="compound">XAsu_LmsHssKeyObject</ref></type>
+        <definition>XAsu_LmsHssKeyObject XAsu_LmsHssSignVerifyParams::LmsHssKeyObj</definition>
+        <argsstring></argsstring>
+        <name>LmsHssKeyObj</name>
+        <briefdescription>
+<para>Key object for the public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1abc451c2fd592e99fcd0d0b333f97a117" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_LmsHssSignVerifyParams::MsgAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgAddr</name>
+        <briefdescription>
+<para>Address of the message to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1ad36ea5a2491c6e52f7f57dd8401cfb57" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_LmsHssSignVerifyParams::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of the LMS signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1a7683e8ee4e8d6e8172ce68baf40b4cb2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_LmsHssSignVerifyParams::MsgLen</definition>
+        <argsstring></argsstring>
+        <name>MsgLen</name>
+        <briefdescription>
+<para>Length of the message in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1a111e80dc30131fa73a1105897ea1cc56" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_LmsHssSignVerifyParams::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>Length of the signature in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1ad28500d3973f5d86f3e6042203edc84f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_LmsHssSignVerifyParams::PreHashedMsg</definition>
+        <argsstring></argsstring>
+        <name>PreHashedMsg</name>
+        <briefdescription>
+<para>Flag indicating if message is pre-hashed (XASU_LMS_MSG_NOT_PREHASHED / XASU_LMS_MSG_PREHASHED) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_LmsHssSignVerifyParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga82e8754efc7bf804924fd4c107fbab54" compoundref="xasu__lms_8c" startline="266" endline="310">XAsu_HssSignVerify</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" compoundref="xasu__lms_8c" startline="201" endline="245">XAsu_LmsSignVerify</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1aac66f1315c92aee53b8bcb92e438fe7b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_LmsHssSignVerifyParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para>SHA Mode (XASU_SHA_MODE_SHA2_256 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___lms_hss_sign_verify_params_1a8bc1b230335a4e856d4990fc1f339e33" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_LmsHssSignVerifyParams::Reserved[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains LMS/HSS signature verification parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="93">
+        <label>XAsu_LmsHssKeyObject</label>
+        <link refid="struct_x_asu___lms_hss_key_object"/>
+      </node>
+      <node id="92">
+        <label>XAsu_LmsHssSignVerifyParams</label>
+        <link refid="struct_x_asu___lms_hss_sign_verify_params"/>
+        <childnode refid="93" relation="usage">
+          <edgelabel>LmsHssKeyObj</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lmsinfo.h" bodystart="92" bodyend="103"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1ad706187fe5e4d081fcb4357cf8a380f3" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>LmsHssKeyObj</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1abc451c2fd592e99fcd0d0b333f97a117" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>MsgAddr</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1a7683e8ee4e8d6e8172ce68baf40b4cb2" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>MsgLen</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1ad28500d3973f5d86f3e6042203edc84f" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>PreHashedMsg</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1a8bc1b230335a4e856d4990fc1f339e33" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1aac66f1315c92aee53b8bcb92e438fe7b" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>ShaType</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1ad36ea5a2491c6e52f7f57dd8401cfb57" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_asu___lms_hss_sign_verify_params_1a111e80dc30131fa73a1105897ea1cc56" prot="public" virt="non-virtual"><scope>XAsu_LmsHssSignVerifyParams</scope><name>SignatureLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

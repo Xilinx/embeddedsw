@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_hal_i2c_config__s" kind="struct" prot="public">
+    <compoundname>HalI2cConfig_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_hal_i2c_config__s_1a464e100dfb418e4f9f5a2824e19ef419" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* HalI2cConfig_s::hHalI2c</definition>
+        <argsstring></argsstring>
+        <name>hHalI2c</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_config__s_1a19fd0d25e512269e4deb62bd64cb98b2" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t HalI2cConfig_s::i2cBusId</definition>
+        <argsstring></argsstring>
+        <name>i2cBusId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_hal_i2c_config__s_1a25a49532ab21d3b9bb5f7b908bc9b049" prot="public" static="no" mutable="no">
+        <type>HalI2cMode_t</type>
+        <definition>HalI2cMode_t HalI2cConfig_s::HalI2cMode</definition>
+        <argsstring></argsstring>
+        <name>HalI2cMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/platform/include/hal_i2c.h" bodystart="30" bodyend="34"/>
+    <listofallmembers>
+      <member refid="struct_hal_i2c_config__s_1a25a49532ab21d3b9bb5f7b908bc9b049" prot="public" virt="non-virtual"><scope>HalI2cConfig_s</scope><name>HalI2cMode</name></member>
+      <member refid="struct_hal_i2c_config__s_1a464e100dfb418e4f9f5a2824e19ef419" prot="public" virt="non-virtual"><scope>HalI2cConfig_s</scope><name>hHalI2c</name></member>
+      <member refid="struct_hal_i2c_config__s_1a19fd0d25e512269e4deb62bd64cb98b2" prot="public" virt="non-virtual"><scope>HalI2cConfig_s</scope><name>i2cBusId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

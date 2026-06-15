@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_d_i_r" kind="struct" prot="public">
+    <compoundname>DIR</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_d_i_r_1a8fa2dfd8198410ea92a98281d982cf44" prot="public" static="no" mutable="no">
+        <type>FFOBJID</type>
+        <definition>FFOBJID DIR::obj</definition>
+        <argsstring></argsstring>
+        <name>obj</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_i_r_1a0330e9554e1f38795debe4495156873e" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD DIR::dptr</definition>
+        <argsstring></argsstring>
+        <name>dptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_i_r_1acfbb8ba2d6e73b6f999ceffd1857c190" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD DIR::clust</definition>
+        <argsstring></argsstring>
+        <name>clust</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_i_r_1ae76119034beae8f34eb1536d0ef83a40" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t DIR::sect</definition>
+        <argsstring></argsstring>
+        <name>sect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_i_r_1a6c2a8c0cf2d55ae99775e93a16593449" prot="public" static="no" mutable="no">
+        <type>BYTE *</type>
+        <definition>BYTE* DIR::dir</definition>
+        <argsstring></argsstring>
+        <name>dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_i_r_1ad90d974c0e7640307598c586bf141b32" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE DIR::fn[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>fn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="261" bodyend="274"/>
+    <listofallmembers>
+      <member refid="struct_d_i_r_1acfbb8ba2d6e73b6f999ceffd1857c190" prot="public" virt="non-virtual"><scope>DIR</scope><name>clust</name></member>
+      <member refid="struct_d_i_r_1a6c2a8c0cf2d55ae99775e93a16593449" prot="public" virt="non-virtual"><scope>DIR</scope><name>dir</name></member>
+      <member refid="struct_d_i_r_1a0330e9554e1f38795debe4495156873e" prot="public" virt="non-virtual"><scope>DIR</scope><name>dptr</name></member>
+      <member refid="struct_d_i_r_1ad90d974c0e7640307598c586bf141b32" prot="public" virt="non-virtual"><scope>DIR</scope><name>fn</name></member>
+      <member refid="struct_d_i_r_1a8fa2dfd8198410ea92a98281d982cf44" prot="public" virt="non-virtual"><scope>DIR</scope><name>obj</name></member>
+      <member refid="struct_d_i_r_1ae76119034beae8f34eb1536d0ef83a40" prot="public" virt="non-virtual"><scope>DIR</scope><name>sect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

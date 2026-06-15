@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_buf_pool_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceBufPoolConfig_s</compoundname>
+    <includes local="no">cam_device_buffer_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1a8c9b6fac9d88e4f193223f551dc4237c" prot="public" static="no" mutable="no">
+        <type><ref refid="group____buf__mgmt__ctrl_1gaabd1c3649d1090fdbf374d4998429302" kindref="member">CamDeviceBufMode_t</ref></type>
+        <definition>CamDeviceBufMode_t CamDeviceBufPoolConfig_s::bufMode</definition>
+        <argsstring></argsstring>
+        <name>bufMode</name>
+        <briefdescription>
+<para>Buffer memory mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1a9d6681ca7a3480628ef32114bc723cbb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceBufPoolConfig_s::bufNum</definition>
+        <argsstring></argsstring>
+        <name>bufNum</name>
+        <briefdescription>
+<para>The number of buffer pool. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1a2fe18992f958c0d9fdcd18bda4a40ba7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceBufPoolConfig_s::bufSize</definition>
+        <argsstring></argsstring>
+        <name>bufSize</name>
+        <briefdescription>
+<para>The buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1ae685f7b8a952c56a1faa0c302b7e1d23" prot="public" static="no" mutable="no">
+        <type>uint32_t *</type>
+        <definition>uint32_t* CamDeviceBufPoolConfig_s::pBaseAddrList</definition>
+        <argsstring></argsstring>
+        <name>pBaseAddrList</name>
+        <briefdescription>
+<para>The physical base address list. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the bufMode is set to USERPTR, this member must be set. The base address should be aligned with 1024. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1a0a90939a9f64ff7fe3a94ba1894f463d" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceBufPoolConfig_s::is_mapped</definition>
+        <argsstring></argsstring>
+        <name>is_mapped</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_pool_config__s_1a8f14ae20dbc0e0fe255e197578c45c32" prot="public" static="no" mutable="no">
+        <type>void **</type>
+        <definition>void** CamDeviceBufPoolConfig_s::pIplAddrList</definition>
+        <argsstring></argsstring>
+        <name>pIplAddrList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The buffer pool configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="110" bodyend="118"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_buf_pool_config__s_1a8c9b6fac9d88e4f193223f551dc4237c" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>bufMode</name></member>
+      <member refid="struct_cam_device_buf_pool_config__s_1a9d6681ca7a3480628ef32114bc723cbb" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>bufNum</name></member>
+      <member refid="struct_cam_device_buf_pool_config__s_1a2fe18992f958c0d9fdcd18bda4a40ba7" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>bufSize</name></member>
+      <member refid="struct_cam_device_buf_pool_config__s_1a0a90939a9f64ff7fe3a94ba1894f463d" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>is_mapped</name></member>
+      <member refid="struct_cam_device_buf_pool_config__s_1ae685f7b8a952c56a1faa0c302b7e1d23" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>pBaseAddrList</name></member>
+      <member refid="struct_cam_device_buf_pool_config__s_1a8f14ae20dbc0e0fe255e197578c45c32" prot="public" virt="non-virtual"><scope>CamDeviceBufPoolConfig_s</scope><name>pIplAddrList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

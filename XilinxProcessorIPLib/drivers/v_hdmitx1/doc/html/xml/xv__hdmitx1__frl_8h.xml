@@ -1,0 +1,438 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmitx1__frl_8h" kind="file">
+    <compoundname>xv_hdmitx1_frl.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xv__hdmitx1_8h" local="yes">xv_hdmitx1.h</includedby>
+    <includedby refid="xv__hdmitx1__frl_8c" local="yes">xv_hdmitx1_frl.c</includedby>
+    <incdepgraph>
+      <node id="51">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="49">
+        <label>xv_hdmitx1_frl.h</label>
+        <link refid="xv_hdmitx1_frl.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xstatus.h</label>
+      </node>
+      <node id="50">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="59">
+        <label>xv_hdmitx1_selftest.c</label>
+        <link refid="xv__hdmitx1__selftest_8c"/>
+      </node>
+      <node id="56">
+        <label>xv_hdmitx1_frl.c</label>
+      </node>
+      <node id="53">
+        <label>xv_hdmitx1_frl.h</label>
+        <link refid="xv_hdmitx1_frl.h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xv_hdmitx1_intr.c</label>
+        <link refid="xv__hdmitx1__intr_8c"/>
+      </node>
+      <node id="60">
+        <label>xv_hdmitx1_sinit.c</label>
+        <link refid="xv__hdmitx1__sinit_8c"/>
+      </node>
+      <node id="57">
+        <label>xv_hdmitx1_g.c</label>
+      </node>
+      <node id="55">
+        <label>xv_hdmitx1.c</label>
+        <link refid="xv__hdmitx1_8c"/>
+      </node>
+      <node id="54">
+        <label>xv_hdmitx1.h</label>
+        <link refid="xv__hdmitx1_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="union_x_v___hdmi_tx1___frl_ffe_adj_type" prot="public">XV_HdmiTx1_FrlFfeAdjType</innerclass>
+    <innerclass refid="struct_x_v___hdmi_tx1___frl" prot="public">XV_HdmiTx1_Frl</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hdmitx1__frl_8h_1a278ba63cb581ced213ae23aabafe201b" prot="public" static="no">
+        <name>XV_HDMITX1_FRL_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitx1__frl_8h_1a8f659f78051a07b3171f3070a209c661" prot="public" static="no">
+        <name>XV_HDMITX1_DDC_ADDRESS</name>
+        <initializer>0x54</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359d" prot="public" static="no">
+        <name>XV_HdmiTx1_FrlTrainingState</name>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dacd9d0355cd5368f0a7bb5a52032ddc0f" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_L</name>
+          <briefdescription>
+<para>LTS:L. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da18f01a39b69d7e83798eddd44fe2ef36" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_1</name>
+          <briefdescription>
+<para>LTS:1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dad85c4ec956e3588c7c58418b7a17e892" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_2</name>
+          <briefdescription>
+<para>LTS:2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da420d4cb835ab97462b3152d8a3bb9863" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_3_ARM</name>
+          <briefdescription>
+<para>LTS:3 (ARM) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da38a10a25ab5b09c35df19edd837e14c5" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_3</name>
+          <briefdescription>
+<para>LTS:3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da706fbc773b7963e5c9580150a001bf30" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_4</name>
+          <briefdescription>
+<para>LTS:4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359daabb9f58282792461caeac209a65e09ce" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_P_ARM</name>
+          <briefdescription>
+<para>LTS:P (Step 1) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da0e5f640157ee4f09a6c786d71272fdf2" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_P</name>
+          <briefdescription>
+<para>LTS:P. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da5c3364011f03752ebb97241c7f170f84" prot="public">
+          <name>XV_HDMITX1_FRLSTATE_LTS_P_FRL_RDY</name>
+          <briefdescription>
+<para>LTS:P (FRL_START = 1) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enumeration defines the various training states for the HDMI TX FRL link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="126" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9" prot="public" static="no">
+        <name>XV_HdmiTx1_FrlLtpType</name>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a986cd1bc5dcff1a19e5ccd11dc51b782" prot="public">
+          <name>XV_HDMITX1_LTP_NO_LTP</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No LTP pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9abcd4e4155ea31d3890898a6c9367d63f" prot="public">
+          <name>XV_HDMITX1_LTP_ALL_ONES</name>
+          <briefdescription>
+<para>All ones pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9adbd05e744a8dab78d6ff395ecb51030b" prot="public">
+          <name>XV_HDMITX1_LTP_ALL_ZEROES</name>
+          <briefdescription>
+<para>All zeroes pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9ab69c787ea3095c837ff2cdd92178576f" prot="public">
+          <name>XV_HDMITX1_LTP_NYQUIST_CLOCK</name>
+          <briefdescription>
+<para>Nyquist clock pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a483fb68ea5454b4cefd52fe3903d0191" prot="public">
+          <name>XV_HDMITX1_LTP_TXDDE_COMPLIANCE</name>
+          <briefdescription>
+<para>TXDDE compliance pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0c2af811836d8fd014882dde23951ab8" prot="public">
+          <name>XV_HDMITX1_LTP_LFSR0</name>
+          <briefdescription>
+<para>LFSR0 pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0313c6ed67c598835809768477b1f63a" prot="public">
+          <name>XV_HDMITX1_LTP_LFSR1</name>
+          <briefdescription>
+<para>LFSR1 pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a14eecb0a86d48eb996ea8071ad8856db" prot="public">
+          <name>XV_HDMITX1_LTP_LFSR2</name>
+          <briefdescription>
+<para>LFSR2 pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a2bb7e96b44eb23962dc5f006996bad3c" prot="public">
+          <name>XV_HDMITX1_LTP_LFSR3</name>
+          <briefdescription>
+<para>LFSR3 pattern. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enumeration defines the possible Link Training Patterns (LTP) used by the HDMI TX FRL link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="143" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6" prot="public" static="no">
+        <name>XV_HdmiTx1_FrlActiveMode</name>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6a63b192ec1136617d40f54f343862e930" prot="public">
+          <name>XV_HDMITX1_FRL_ACTIVE_MODE_GAP_ONLY</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>     *. </para>          </briefdescription>
+          <detaileddescription>
+<para>Gap-only mode.      * Only FRL gap sequences are transmitted. No active video or audio data is sent.      </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6a50d833ccc4376d8f1cc8ffbb8efb6ec1" prot="public">
+          <name>XV_HDMITX1_FRL_ACTIVE_MODE_FULL_STREAM</name>
+          <briefdescription>
+<para>     *. </para>          </briefdescription>
+          <detaileddescription>
+<para>Full stream mode.      * The full HDMI stream is transmitted over FRL, including video, audio, and auxiliary data.      </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enumeration defines the operational modes for the HDMI transmitter when using FRL. </para>        </briefdescription>
+        <detaileddescription>
+<para>It indicates whether the transmitter is sending only gap sequences or the full HDMI stream including video, audio, and auxiliary data. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h" bodystart="162" bodyend="174"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main header file for Xilinx HDMI TX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>HDMI TX core is used for transmitting the incoming video and audio streams. It consists of<itemizedlist>
+<listitem><para>Transmitter core</para></listitem><listitem><para>AXI4-Stream to Video Bridge</para></listitem><listitem><para>Video Timing Controller and</para></listitem><listitem><para>High-bandwidth Digital Content Protection (HDCP) (Optional).</para></listitem></itemizedlist>
+</para><para>The HDMI TX uses three AXI interfaces for Video, Audio and Processor:<itemizedlist>
+<listitem><para>AXI4-Stream interface for Video, can be single, dual or quad pixels per clock and supports 8 and 10 bits per component.</para></listitem><listitem><para>AXI4-Stream interface for Audio, accepts multiple channels uncompressed and compressed audio data.</para></listitem><listitem><para>AXI4-Lite interface for processor, controls the transmitter. Please do refer AXI Reference Guide (UG761) for more information on AXI interfaces.</para></listitem></itemizedlist>
+</para><para>Transmitter core performs following operations:<itemizedlist>
+<listitem><para>Converts video data from the video clock domain into the link clock domain.</para></listitem><listitem><para>TMDS (Transition Minimized Differential Signaling) encoding.</para></listitem><listitem><para>Merges encoded video data and packet data into a single HDMI stream.</para></listitem><listitem><para>Optional HDMI stream is encrypted by an external HDCP module.</para></listitem><listitem><para>Over samples HDMI stream if stream bandwidth is too low for the transceiver to handle.</para></listitem><listitem><para>Scrambles encrypted/HDMI stream if data rate is above 3.4 Gbps otherwise bypasses the Scrambler.</para></listitem></itemizedlist>
+</para><para>AXI Video Bridge converts the incoming video AXI-stream to native video.</para><para>Video Timing Controller (VTC) generates the native video timing.</para><para><bold>Core Features </bold></para><para>For a full description of HDMI TX features, please see the hardware specification.</para><para><bold>Software Initialization &amp; Configuration</bold></para><para>The application needs to do following steps in order for preparing the HDMI TX core to be ready.</para><para><itemizedlist>
+<listitem><para>Call XV_HdmiTx1_LookupConfig using a device ID to find the core configuration.</para></listitem><listitem><para>Call XV_HdmiTx1_CfgInitialize to initialize the device and the driver instance associated with it.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts </bold></para><para>This driver provides interrupt handlers<itemizedlist>
+<listitem><para>XV_HdmiTx1_IntrHandler, for handling the interrupts from the HDMI TX core PIO and DDC peripheral respectively.</para></listitem></itemizedlist>
+</para><para>Application developer needs to register interrupt handler with the processor, within their examples. Whenever processor calls registered application&apos;s interrupt handler associated with interrupt id, application&apos;s interrupt handler needs to call appropriate peripheral interrupt handler reading peripheral&apos;s Status register.</para><para>This driver provides XV_HdmiTx1_SetCallback API to register functions with HDMI TX core instance.</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The HDMI TX driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><preformatted>
+ MODIFICATION HISTORY:
+s
+ Ver   Who    Date     Changes
+<hruler/>
+
+ 1.00  EB     22/05/18 Initial release.
+ </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#ifndef<sp/>XV_HDMITX1_FRL_H_</highlight></codeline>
+<codeline lineno="104" refid="xv__hdmitx1__frl_8h_1a278ba63cb581ced213ae23aabafe201b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMITX1_FRL_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMITX1_DDC_ADDRESS<sp/>0x54</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="125"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="126" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dacd9d0355cd5368f0a7bb5a52032ddc0f" kindref="member">XV_HDMITX1_FRLSTATE_LTS_L</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dacd9d0355cd5368f0a7bb5a52032ddc0f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da18f01a39b69d7e83798eddd44fe2ef36" kindref="member">XV_HDMITX1_FRLSTATE_LTS_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da18f01a39b69d7e83798eddd44fe2ef36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dad85c4ec956e3588c7c58418b7a17e892" kindref="member">XV_HDMITX1_FRLSTATE_LTS_2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359dad85c4ec956e3588c7c58418b7a17e892" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da420d4cb835ab97462b3152d8a3bb9863" kindref="member">XV_HDMITX1_FRLSTATE_LTS_3_ARM</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da420d4cb835ab97462b3152d8a3bb9863" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da38a10a25ab5b09c35df19edd837e14c5" kindref="member">XV_HDMITX1_FRLSTATE_LTS_3</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da38a10a25ab5b09c35df19edd837e14c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da706fbc773b7963e5c9580150a001bf30" kindref="member">XV_HDMITX1_FRLSTATE_LTS_4</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da706fbc773b7963e5c9580150a001bf30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359daabb9f58282792461caeac209a65e09ce" kindref="member">XV_HDMITX1_FRLSTATE_LTS_P_ARM</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359daabb9f58282792461caeac209a65e09ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da0e5f640157ee4f09a6c786d71272fdf2" kindref="member">XV_HDMITX1_FRLSTATE_LTS_P</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da0e5f640157ee4f09a6c786d71272fdf2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da5c3364011f03752ebb97241c7f170f84" kindref="member">XV_HDMITX1_FRLSTATE_LTS_P_FRL_RDY</ref><sp/></highlight></codeline>
+<codeline lineno="135" refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359da5c3364011f03752ebb97241c7f170f84" refkind="member"><highlight class="normal">}<sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359d" kindref="member">XV_HdmiTx1_FrlTrainingState</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="143" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a986cd1bc5dcff1a19e5ccd11dc51b782" kindref="member">XV_HDMITX1_LTP_NO_LTP</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a986cd1bc5dcff1a19e5ccd11dc51b782" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9abcd4e4155ea31d3890898a6c9367d63f" kindref="member">XV_HDMITX1_LTP_ALL_ONES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9abcd4e4155ea31d3890898a6c9367d63f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9adbd05e744a8dab78d6ff395ecb51030b" kindref="member">XV_HDMITX1_LTP_ALL_ZEROES</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9adbd05e744a8dab78d6ff395ecb51030b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9ab69c787ea3095c837ff2cdd92178576f" kindref="member">XV_HDMITX1_LTP_NYQUIST_CLOCK</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9ab69c787ea3095c837ff2cdd92178576f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a483fb68ea5454b4cefd52fe3903d0191" kindref="member">XV_HDMITX1_LTP_TXDDE_COMPLIANCE</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a483fb68ea5454b4cefd52fe3903d0191" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0c2af811836d8fd014882dde23951ab8" kindref="member">XV_HDMITX1_LTP_LFSR0</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0c2af811836d8fd014882dde23951ab8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0313c6ed67c598835809768477b1f63a" kindref="member">XV_HDMITX1_LTP_LFSR1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a0313c6ed67c598835809768477b1f63a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a14eecb0a86d48eb996ea8071ad8856db" kindref="member">XV_HDMITX1_LTP_LFSR2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a14eecb0a86d48eb996ea8071ad8856db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a2bb7e96b44eb23962dc5f006996bad3c" kindref="member">XV_HDMITX1_LTP_LFSR3</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9a2bb7e96b44eb23962dc5f006996bad3c" refkind="member"><highlight class="normal">}<sp/><ref refid="xv__hdmitx1__frl_8h_1afd0877f78089682c46d57eb1012ba6e9" kindref="member">XV_HdmiTx1_FrlLtpType</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6a63b192ec1136617d40f54f343862e930" kindref="member">XV_HDMITX1_FRL_ACTIVE_MODE_GAP_ONLY</ref><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6a50d833ccc4376d8f1cc8ffbb8efb6ec1" kindref="member">XV_HDMITX1_FRL_ACTIVE_MODE_FULL_STREAM</ref></highlight></codeline>
+<codeline lineno="173" refid="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6a50d833ccc4376d8f1cc8ffbb8efb6ec1" refkind="member"><highlight class="normal">}<sp/><ref refid="xv__hdmitx1__frl_8h_1a5b99df30b0bf9c96608c0167750bbfb6" kindref="member">XV_HdmiTx1_FrlActiveMode</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Byte[4];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}<sp/>XV_HdmiTx1_FrlFfeAdjType;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184" refid="struct_x_v___hdmi_tx1___frl" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx1__frl_8h_1a835a33b58542988390ee91c443f6359d" kindref="member">XV_HdmiTx1_FrlTrainingState</ref><sp/>TrainingState;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerCnt;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="struct_x_v___hdmi_tx1___frl_1a9c81dd1423d1ab65271f44d39ec4c806" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxFrlRate;<sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrlRate;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_x_v___hdmi_tx1___frl_1adfeeedbdb9a0a9c4a7ecc2d7b21f3704" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxLineRate;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LineRate;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="struct_x_v___hdmi_tx1___frl_1a8d9f5de0ab29699e3308bbcd372d7888" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxLanes;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Lanes;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FfeLevels;<sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_FrlFfeAdjType<sp/><sp/><sp/><sp/>LaneFfeAdjReq;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerEvent;<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateLock;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FltNoTimeout;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBSendWrongLTP;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DBMessage;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}<sp/><ref refid="struct_x_v___hdmi_tx1___frl" kindref="compound">XV_HdmiTx1_Frl</ref>;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMI_TX_FRL_ENABLE</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlIntrEnable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_SET_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_IE_MASK))</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlIntrDisable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_CLR_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_IE_MASK))</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlRcEnable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_CLR_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_TST_RC_MASK))</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlRcDisable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_SET_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_CTRL_TST_RC_MASK))</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_SetFrlLinkClock(InstancePtr,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="305"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_LNK_CLK_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Value));<sp/>\</highlight></codeline>
+<codeline lineno="307"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_SetFrlVidClock(InstancePtr,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor">{<sp/>\</highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTx1_WriteReg((InstancePtr)-&gt;Config.BaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XV_HDMITX1_FRL_VID_CLK_OFFSET),<sp/>\</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Value));<sp/>\</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlRateLockEnable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Stream.Frl.RateLock<sp/>=<sp/>TRUE</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor">#define<sp/>XV_HdmiTx1_FrlRateLockDisable(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr)-&gt;Stream.Frl.RateLock<sp/>=<sp/>FALSE</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1_frl.h"/>
+  </compounddef>
+</doxygen>

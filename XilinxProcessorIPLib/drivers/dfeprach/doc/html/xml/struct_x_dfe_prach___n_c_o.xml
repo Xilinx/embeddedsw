@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___n_c_o" kind="struct" prot="public">
+    <compoundname>XDfePrach_NCO</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a1e85da023c1c88ceb56ed748ae727e12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::PhaseAcc</definition>
+        <argsstring></argsstring>
+        <name>PhaseAcc</name>
+        <briefdescription>
+<para><verbatim>       [0-2^32-1] Initial Phase accumulator value, used to
+</verbatim> set the NCO phase accumualtor to a specific phase when a capture is initiated on the channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the value the internal phase accumulator will start on when a capture begins. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="366" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gafe346328ed61f363a42a46f743b7a83d" compoundref="xdfeprach_8c" startline="3395" endline="3417">XDfePrach_GetCapturePhase</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1aafb16e37434841de906c93a9846b1090" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::DualModCount</definition>
+        <argsstring></argsstring>
+        <name>DualModCount</name>
+        <briefdescription>
+<para><verbatim>           [0-2^32-1] The phase accumulator allows for dual
+</verbatim> modulus accumulation to create fractional frequencies. </para>        </briefdescription>
+        <detaileddescription>
+<para>This requires an internal Modulus counter, which tracks the number of samples at FCW and the number at &quot;FCW+1&quot;. This field allows the value of that counter to be initialized when a capture begins. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gafe346328ed61f363a42a46f743b7a83d" compoundref="xdfeprach_8c" startline="3395" endline="3417">XDfePrach_GetCapturePhase</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a7dc99e4741b7693489d6d6b5799de490" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::DualModSel</definition>
+        <argsstring></argsstring>
+        <name>DualModSel</name>
+        <briefdescription>
+<para><verbatim>         [0,1] The Modulus counter can either be in the
+</verbatim> &quot;Single Mod&quot; part of the count, where the phase accumulator increments by FCW; Or in the &quot;Dual Mod&quot;, where the phase increments by &quot;FCW+1&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para>This Initialization field determines which of the two counts the Modulus counter begins in when the capture begins. 0 starts in Single Mod Count and 1 starts in Dual Mod. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="376" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gafe346328ed61f363a42a46f743b7a83d" compoundref="xdfeprach_8c" startline="3395" endline="3417">XDfePrach_GetCapturePhase</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a342fc87278e3f1fa9934f34bac18dd38" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfePrach_NCO::UserFreq</definition>
+        <argsstring></argsstring>
+        <name>UserFreq</name>
+        <briefdescription>
+<para><verbatim>       [-(2^23)-2^23] User defined frequency in half PRACH
+</verbatim> channel RE. </para>        </briefdescription>
+        <detaileddescription>
+<para>UserFreq should be set equal to the PRACH channel center frequency. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a910685f45334111d31a24622e5699ce9" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfePrach_NCO::Frequency</definition>
+        <argsstring></argsstring>
+        <name>Frequency</name>
+        <briefdescription>
+<para>[0-2^32-1] Frequency control word (FCW). </para>        </briefdescription>
+        <detaileddescription>
+<para>The FCW value that determines how much the phase accumulator increases by on each sample. This value is not used by the API when operating in Dynamic mode. It is supplied directly by the FCW field in the DCP. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a99a67084c1c62e2318e655d9bcb01a33" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::FreqSingleModCount</definition>
+        <argsstring></argsstring>
+        <name>FreqSingleModCount</name>
+        <briefdescription>
+<para>[0-2^32-1] Single modulus cycle count (S). </para>        </briefdescription>
+        <detaileddescription>
+<para>Determines how many samples the Modulus counter spends in the Single Mod count, where the phase increments by FCW. If this is set to 0, FreqDualModCount is ignored and the phase always increments by FCW. This value is not used by the API when operating in Dynamic mode. It is supplied directly by the SingleModCount field in the DCP. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="391" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1aad462ca5cbdca1cc04dd20864e1375c1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::FreqDualModCount</definition>
+        <argsstring></argsstring>
+        <name>FreqDualModCount</name>
+        <briefdescription>
+<para>[0-2^32-1] Dual modulus cycle count (T-S). </para>        </briefdescription>
+        <detaileddescription>
+<para>Determines how many samples the Modulus counter spends in the Dual Mod count, where the phase increments by FCW+1. This value is not used by the API when operating in Dynamic mode. It is supplied directly by the DualModCount field in the DCP. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a190d32246497f3ba038346c963b93afe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::FreqPhaseOffset</definition>
+        <argsstring></argsstring>
+        <name>FreqPhaseOffset</name>
+        <briefdescription>
+<para>[0-2^18-1] Phase offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___n_c_o_1a801e8496f7c43f2e6931277900899b77" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_NCO::NcoGain</definition>
+        <argsstring></argsstring>
+        <name>NcoGain</name>
+        <briefdescription>
+<para><verbatim>      [0-3] Scaling of NCO output (0=0dB, 1=-3dB,
+</verbatim> 2=-6dB, 3=-9dB) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>NCO Configuration Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="365" bodyend="406"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___n_c_o_1aafb16e37434841de906c93a9846b1090" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>DualModCount</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a7dc99e4741b7693489d6d6b5799de490" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>DualModSel</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1aad462ca5cbdca1cc04dd20864e1375c1" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>FreqDualModCount</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a190d32246497f3ba038346c963b93afe" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>FreqPhaseOffset</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a99a67084c1c62e2318e655d9bcb01a33" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>FreqSingleModCount</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a910685f45334111d31a24622e5699ce9" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>Frequency</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a801e8496f7c43f2e6931277900899b77" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>NcoGain</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a1e85da023c1c88ceb56ed748ae727e12" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>PhaseAcc</name></member>
+      <member refid="struct_x_dfe_prach___n_c_o_1a342fc87278e3f1fa9934f34bac18dd38" prot="public" virt="non-virtual"><scope>XDfePrach_NCO</scope><name>UserFreq</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

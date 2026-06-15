@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_u_s_b_c_b_w_1_1_length" kind="union" prot="public">
+    <compoundname>USBCBW::Length</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_u_s_b_c_b_w_1_1_length_1a2635b0ffcf8d01be0e3fd03d47ba6cd9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USBCBW::Length::dCBWDataTransferLength[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>dCBWDataTransferLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_u_s_b_c_b_w_1_1_length_1a07fdd9bdf3ac75384d7d74154fbdacca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USBCBW::Length::VALUE</definition>
+        <argsstring></argsstring>
+        <name>VALUE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="346" bodyend="350"/>
+    <listofallmembers>
+      <member refid="union_u_s_b_c_b_w_1_1_length_1a2635b0ffcf8d01be0e3fd03d47ba6cd9" prot="public" virt="non-virtual"><scope>USBCBW::Length</scope><name>dCBWDataTransferLength</name></member>
+      <member refid="union_u_s_b_c_b_w_1_1_length_1a07fdd9bdf3ac75384d7d74154fbdacca" prot="public" virt="non-virtual"><scope>USBCBW::Length</scope><name>VALUE</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

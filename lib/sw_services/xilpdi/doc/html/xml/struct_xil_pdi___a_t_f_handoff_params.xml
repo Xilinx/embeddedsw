@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi___a_t_f_handoff_params" kind="struct" prot="public">
+    <compoundname>XilPdi_ATFHandoffParams</compoundname>
+    <includes local="no">xilpdi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi___a_t_f_handoff_params_1ab2c5d32dbf2a2ca0d0fa23a2644046ad" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XilPdi_ATFHandoffParams::MagicValue[4U]</definition>
+        <argsstring>[4U]</argsstring>
+        <name>MagicValue</name>
+        <briefdescription>
+<para>32 bit magic string </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___a_t_f_handoff_params_1a3ca01df14bdcfbe0d89759bcba3a54c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ATFHandoffParams::NumEntries</definition>
+        <argsstring></argsstring>
+        <name>NumEntries</name>
+        <briefdescription>
+<para>Number of Entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___a_t_f_handoff_params_1a409811194022ad64e19b2e3c3a865799" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_xil_pdi___prtn_entry" kindref="compound">XilPdi_PrtnEntry</ref></type>
+        <definition>XilPdi_PrtnEntry XilPdi_ATFHandoffParams::Entry[XILPDI_MAX_ENTRIES_FOR_ATF]</definition>
+        <argsstring>[XILPDI_MAX_ENTRIES_FOR_ATF]</argsstring>
+        <name>Entry</name>
+        <briefdescription>
+<para>Structure corresponding to each entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for handoff parameters to ARM Trusted Firmware (ATF) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XilPdi_ATFHandoffParams</label>
+        <link refid="struct_xil_pdi___a_t_f_handoff_params"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Entry</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XilPdi_PrtnEntry</label>
+        <link refid="struct_xil_pdi___prtn_entry"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="326" bodyend="331"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi___a_t_f_handoff_params_1a409811194022ad64e19b2e3c3a865799" prot="public" virt="non-virtual"><scope>XilPdi_ATFHandoffParams</scope><name>Entry</name></member>
+      <member refid="struct_xil_pdi___a_t_f_handoff_params_1ab2c5d32dbf2a2ca0d0fa23a2644046ad" prot="public" virt="non-virtual"><scope>XilPdi_ATFHandoffParams</scope><name>MagicValue</name></member>
+      <member refid="struct_xil_pdi___a_t_f_handoff_params_1a3ca01df14bdcfbe0d89759bcba3a54c8" prot="public" virt="non-virtual"><scope>XilPdi_ATFHandoffParams</scope><name>NumEntries</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

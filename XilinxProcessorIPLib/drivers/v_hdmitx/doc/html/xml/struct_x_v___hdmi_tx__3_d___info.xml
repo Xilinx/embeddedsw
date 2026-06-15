@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx__3_d___info" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx_3D_Info</compoundname>
+    <includes local="no">xv_hdmitx_vsif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx__3_d___info_1abd3df97edab28cfee0659bac3352d66c" prot="public" static="no" mutable="no">
+        <type>XVidC_3DInfo</type>
+        <definition>XVidC_3DInfo XV_HdmiTx_3D_Info::Stream</definition>
+        <argsstring></argsstring>
+        <name>Stream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx__3_d___info_1a403ede184224b508369b1f2d4e25b999" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx__3_d___meta_data" kindref="compound">XV_HdmiTx_3D_MetaData</ref></type>
+        <definition>XV_HdmiTx_3D_MetaData XV_HdmiTx_3D_Info::MetaData</definition>
+        <argsstring></argsstring>
+        <name>MetaData</name>
+        <briefdescription>
+<para>3D Metadata </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a6f1f13016820477055fddefc1336af95" compoundref="xv__hdmitx__vsif_8c" startline="556" endline="588">XV_HdmiTx_VSIF_DisplayInfo</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure containing 3D information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XV_HdmiTx_3D_Info</label>
+        <link refid="struct_x_v___hdmi_tx__3_d___info"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>MetaData</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XV_HdmiTx_3D_MetaData</label>
+        <link refid="struct_x_v___hdmi_tx__3_d___meta_data"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="150" bodyend="153"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx__3_d___info_1a403ede184224b508369b1f2d4e25b999" prot="public" virt="non-virtual"><scope>XV_HdmiTx_3D_Info</scope><name>MetaData</name></member>
+      <member refid="struct_x_v___hdmi_tx__3_d___info_1abd3df97edab28cfee0659bac3352d66c" prot="public" virt="non-virtual"><scope>XV_HdmiTx_3D_Info</scope><name>Stream</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

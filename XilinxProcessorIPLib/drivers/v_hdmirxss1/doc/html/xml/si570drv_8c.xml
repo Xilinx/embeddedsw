@@ -1,0 +1,768 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="si570drv_8c" kind="file">
+    <compoundname>si570drv.c</compoundname>
+    <includes refid="si570drv_8h" local="yes">si570drv.h</includes>
+    <includes local="yes">stdio.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <incdepgraph>
+      <node id="285">
+        <label>si570drv.c</label>
+        <link refid="si570drv.c"/>
+        <childnode refid="286" relation="include">
+        </childnode>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+      </node>
+      <node id="286">
+        <label>si570drv.h</label>
+        <link refid="si570drv_8h"/>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+      </node>
+      <node id="287">
+        <label>xil_types.h</label>
+      </node>
+      <node id="288">
+        <label>xparameters.h</label>
+      </node>
+      <node id="289">
+        <label>xiic.h</label>
+      </node>
+      <node id="290">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="si570drv_8c_1a0b9e575e9af23ae9be286cb3c575d66e" prot="public" static="no">
+        <name>I2C_REPEATED_START</name>
+        <initializer>XIIC_REPEATED_START</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="45" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="si570drv_8c_1ae97924b7877c5f26955e82ab97470b95" prot="public" static="no">
+        <name>I2C_STOP</name>
+        <initializer>XIIC_STOP</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="si570drv_8c_1a561b1a8681b210f52e4fbcf070c2c696" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void double2hex</definition>
+        <argsstring>(double dnum, u8 *hnum)</argsstring>
+        <name>double2hex</name>
+        <param>
+          <type>double</type>
+          <declname>dnum</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>hnum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="55" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1aea0831a1efa170694d0b612e59e7d290" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>static unsigned Si570_I2cSend</definition>
+        <argsstring>(void *IicPtr, u16 SlaveAddr, u8 *MsgPtr, unsigned ByteCount, u8 Option)</argsstring>
+        <name>Si570_I2cSend</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>This function send the IIC data to Si570. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IicPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IIC instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the 7 bit IIC address of the device to send the specified data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the data to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether to hold or free the bus after transmitting the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para><simplesectsep/><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="108" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1ad175ce35c6a36acc39181d68b84bc1d3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned</type>
+        <definition>static unsigned Si570_I2cRecv</definition>
+        <argsstring>(void *IicPtr, u16 SlaveAddr, u8 *BufPtr, unsigned ByteCount, u8 Option)</argsstring>
+        <name>Si570_I2cRecv</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>SlaveAddr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>BufPtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Option</declname>
+        </param>
+        <briefdescription>
+<para>This function send the IIC data to Si570. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IicPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IIC instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlaveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the 7 bit IIC address of the device to send the specified data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the memory to write the data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Option</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates whether to hold or free the bus after transmitting the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes sent.</para><simplesectsep/><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="170" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1aafcd3aacee14d0c6d6101785a45be0d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Si570_SetFreq</definition>
+        <argsstring>(void *IicPtr, u8 Si_Addr, double Freq)</argsstring>
+        <name>Si570_SetFreq</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Si_Addr</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Freq</declname>
+        </param>
+        <briefdescription>
+<para>This function the frequency output of Si570. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IicPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IIC instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Si_Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the 7 bit IIC address of the device to send the specified data to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Freq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the requested frequency output in MHz (floating)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="224" bodyend="247"/>
+        <referencedby refid="xhdmi__example_8c_1a54ca8506adb51891dee91bd4003f31a9" compoundref="xhdmi__example_8c" startline="6258" endline="6402">Exdes_SetupClkSrc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1a3be40281cb4de42c3e0745d31398a153" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Si570_ReadCal</definition>
+        <argsstring>(void *IicPtr, u8 Addr, u8 *RFreq_Cal, u8 *HSDIV_Cal, u8 *N1_Cal)</argsstring>
+        <name>Si570_ReadCal</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RFreq_Cal</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HSDIV_Cal</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>N1_Cal</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="249" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1a640999aa58c89dc80dbac09501bd61aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Si570_XtalFreqCalc</definition>
+        <argsstring>(double *XtalFreq, u8 *RFreq_Cal, u8 *HSDIV_Set, u8 *N1_Set)</argsstring>
+        <name>Si570_XtalFreqCalc</name>
+        <param>
+          <type>double *</type>
+          <declname>XtalFreq</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RFreq_Cal</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HSDIV_Set</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>N1_Set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="288" bodyend="308"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1adc6e5b7fc5f8f5b88805b04b5040abe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Si570_RfreqCalc</definition>
+        <argsstring>(double Freq, u8 *RFreq_Cal, u8 *RFreq_Set, u8 *HSDIV_Set, u8 *N1_Set, double *XtalFreq)</argsstring>
+        <name>Si570_RfreqCalc</name>
+        <param>
+          <type>double</type>
+          <declname>Freq</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RFreq_Cal</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RFreq_Set</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HSDIV_Set</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>N1_Set</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>XtalFreq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="310" bodyend="357"/>
+      </memberdef>
+      <memberdef kind="function" id="si570drv_8c_1a9f02525f0931d074bf55fe74c1ccdec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Si570_WriteRfreq</definition>
+        <argsstring>(void *IicPtr, u8 Addr, u8 *RFreq_Set, u8 HSDIV_Set, u8 N1_Set)</argsstring>
+        <name>Si570_WriteRfreq</name>
+        <param>
+          <type>void *</type>
+          <declname>IicPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RFreq_Set</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>HSDIV_Set</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>N1_Set</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c" bodystart="360" bodyend="413"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains low-level driver functions for controlling the SiliconLabs Si570 clock generator as mounted on the ZCU106 demo board. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user should refer to the hardware device specification for more details of the device operation.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date         Changes
+<hruler/>
+
+1.0   ssh 07/28/2021      Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2024-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="si570drv_8h" kindref="compound">si570drv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I2C_REPEATED_START<sp/>0x01</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I2C_STOP<sp/>0x00</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I2C_REPEATED_START<sp/>XIIC_REPEATED_START</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>I2C_STOP<sp/>XIIC_STOP</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>double2hex(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dnum,<sp/>u8<sp/>*hnum);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Si570_I2cSend(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u16<sp/>SlaveAddr,<sp/>u8<sp/>*MsgPtr,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount,<sp/>u8<sp/>Option);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Si570_I2cRecv(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u16<sp/>SlaveAddr,<sp/>u8<sp/>*BufPtr,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount,<sp/>u8<sp/>Option);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>double2hex(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>dnum,<sp/>u8<sp/>*hnum)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>i;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/>bnum[38];</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>pwr_2;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/><sp/>Find<sp/>binary<sp/>values<sp/>for<sp/>[37:0]<sp/>by<sp/>successive<sp/>subtraction</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/>pwr_2<sp/>=<sp/>two_to_37;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i=37;i&gt;=0;i--){</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>bnum[i]=0;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(dnum<sp/>&gt;=<sp/>pwr_2<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[i]=1;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dnum<sp/>=<sp/>dnum<sp/>-<sp/>pwr_2;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>pwr_2=pwr_2/2;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Calculate<sp/>5<sp/>HEX<sp/>values<sp/>to<sp/>represent<sp/>[37:0]</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/>hnum[0]=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[37]*32<sp/>+<sp/>bnum[36]*16<sp/>+</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[35]*8<sp/><sp/><sp/>+<sp/>bnum[34]*4<sp/><sp/>+<sp/>bnum[33]*2<sp/><sp/>+<sp/>bnum[32];</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/>hnum[1]=bnum[31]*128<sp/>+<sp/>bnum[30]*64<sp/>+<sp/>bnum[29]*32<sp/>+<sp/>bnum[28]*16<sp/>+</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[27]*8<sp/><sp/><sp/>+<sp/>bnum[26]*4<sp/><sp/>+<sp/>bnum[25]*2<sp/><sp/>+<sp/>bnum[24];</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/>hnum[2]=bnum[23]*128<sp/>+<sp/>bnum[22]*64<sp/>+<sp/>bnum[21]*32<sp/>+<sp/>bnum[20]*16<sp/>+</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[19]*8<sp/><sp/><sp/>+<sp/>bnum[18]*4<sp/><sp/>+<sp/>bnum[17]*2<sp/><sp/>+<sp/>bnum[16];</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/>hnum[3]=bnum[15]*128<sp/>+<sp/>bnum[14]*64<sp/>+<sp/>bnum[13]*32<sp/>+<sp/>bnum[12]*16<sp/>+</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[11]*8<sp/><sp/><sp/>+<sp/>bnum[10]*4<sp/><sp/>+<sp/>bnum[<sp/>9]*2<sp/><sp/>+<sp/>bnum[<sp/>8];</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/>hnum[4]=bnum[<sp/>7]*128<sp/>+<sp/>bnum[<sp/>6]*64<sp/>+<sp/>bnum[<sp/>5]*32<sp/>+<sp/>bnum[<sp/>4]*16<sp/>+</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bnum[<sp/>3]*8<sp/><sp/><sp/>+<sp/>bnum[<sp/>2]*4<sp/><sp/>+<sp/>bnum[<sp/>1]*2<sp/><sp/>+<sp/>bnum[<sp/>0];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="108"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Si570_I2cSend(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u16<sp/>SlaveAddr,<sp/>u8<sp/>*MsgPtr,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount,<sp/>u8<sp/>Option)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs<sp/>*Iic_Ptr<sp/>=<sp/>IicPtr;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>operation<sp/>to<sp/>7-bit<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_SetOptions(Iic_Ptr,<sp/>XIICPS_7_BIT_ADDR_OPTION);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_ClearOptions(Iic_Ptr,<sp/>XIICPS_10_BIT_ADDR_OPTION);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Repeated<sp/>Start<sp/>option<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Option<sp/>==<sp/>I2C_REPEATED_START)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_SetOptions(Iic_Ptr,<sp/>XIICPS_REP_START_OPTION);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_ClearOptions(Iic_Ptr,<sp/>XIICPS_REP_START_OPTION);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIicPs_MasterSendPolled(Iic_Ptr,<sp/>MsgPtr,<sp/>ByteCount,<sp/>SlaveAddr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>until<sp/>bus<sp/>is<sp/>idle<sp/>to<sp/>start<sp/>another<sp/>transfer.</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(Iic_Ptr-&gt;IsRepeatedStart))<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(XIicPs_BusIsBusy(Iic_Ptr));</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ByteCount;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic<sp/>*Iic_Ptr<sp/>=<sp/>IicPtr;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XIic_Send(Iic_Ptr-&gt;BaseAddress,<sp/>SlaveAddr,<sp/>MsgPtr,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount,<sp/>Option);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="170"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Si570_I2cRecv(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u16<sp/>SlaveAddr,<sp/>u8<sp/>*BufPtr,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>ByteCount,<sp/>u8<sp/>Option)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU104)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs<sp/>*Iic_Ptr<sp/>=<sp/>IicPtr;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_SetOptions(Iic_Ptr,<sp/>XIICPS_7_BIT_ADDR_OPTION);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_ClearOptions(Iic_Ptr,<sp/>XIICPS_10_BIT_ADDR_OPTION);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Option<sp/>==<sp/>I2C_REPEATED_START)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_SetOptions(Iic_Ptr,<sp/>XIICPS_REP_START_OPTION);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIicPs_ClearOptions(Iic_Ptr,<sp/>XIICPS_REP_START_OPTION);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIicPs_MasterRecvPolled(Iic_Ptr,<sp/>BufPtr,<sp/>ByteCount,<sp/>SlaveAddr);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>until<sp/>bus<sp/>is<sp/>idle<sp/>to<sp/>start<sp/>another<sp/>transfer.</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(Iic_Ptr-&gt;IsRepeatedStart))<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(XIicPs_BusIsBusy(Iic_Ptr));</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ByteCount;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic<sp/>*Iic_Ptr<sp/>=<sp/>IicPtr;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XIic_Recv(Iic_Ptr-&gt;BaseAddress,<sp/>SlaveAddr,<sp/>BufPtr,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ByteCount,<sp/>Option);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="si570drv_8h_1aafcd3aacee14d0c6d6101785a45be0d3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="si570drv_8c_1aafcd3aacee14d0c6d6101785a45be0d3" kindref="member">Si570_SetFreq</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>Si_Addr,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Freq)</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>RFreq_Cal[5];</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>HSDIV_Cal;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>N1_Cal;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>RFreq_Set[5];</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>HSDIV_Set;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>N1_Set;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>XtalFreq;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>NVM<sp/>RFreq_Cal<sp/>Data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Si570_ReadCal(IicPtr,<sp/>Si_Addr,<sp/>RFreq_Cal,<sp/>&amp;HSDIV_Cal,<sp/>&amp;N1_Cal);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Si570_XtalFreqCalc(&amp;XtalFreq,<sp/>RFreq_Cal,<sp/>&amp;HSDIV_Cal,<sp/>&amp;N1_Cal);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Calculate<sp/>New<sp/>Frequency<sp/>Settings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Si570_RfreqCalc(Freq,<sp/>RFreq_Cal,<sp/>RFreq_Set,<sp/>&amp;HSDIV_Set,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;N1_Set,<sp/>&amp;XtalFreq);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>New<sp/>Frequency<sp/>Settings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Si570_WriteRfreq(IicPtr,<sp/>Si_Addr,<sp/>RFreq_Set,<sp/>HSDIV_Set,<sp/>N1_Set);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Si570_ReadCal(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>Addr,<sp/>u8<sp/>*RFreq_Cal,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*HSDIV_Cal,<sp/>u8<sp/>*N1_Cal)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>retry<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>N1_HS_DIV;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RST<sp/>&amp;<sp/>RECALL<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){135,0x01},<sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>N1_HS_DIV<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>7,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>&amp;N1_HS_DIV,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>N1[1:0],RF[37:32]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>8,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>RFreq_Cal+0,<sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RF[31:24]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>9,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>RFreq_Cal+1,<sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RF[23:16]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>10,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>RFreq_Cal+2,<sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RF[15:8]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>11,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>RFreq_Cal+3,<sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RF[7:0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>12,0xff},<sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cRecv(IicPtr,<sp/>Addr,<sp/>RFreq_Cal+4,<sp/><sp/><sp/><sp/><sp/><sp/>1,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*HSDIV_Cal<sp/>=<sp/>(N1_HS_DIV<sp/>&gt;&gt;<sp/>5)<sp/>&amp;<sp/>0x7;</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*N1_Cal<sp/><sp/><sp/><sp/>=<sp/>((N1_HS_DIV<sp/>&amp;<sp/>0x1f)<sp/>&lt;&lt;<sp/>2)<sp/>|<sp/>((*(RFreq_Cal+0)<sp/>&gt;&gt;<sp/>6)<sp/>&amp;<sp/>0x3);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RFreq_Cal<sp/>=<sp/>(*(RFreq_Cal+0)<sp/>&amp;<sp/>(u8)0x3f);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retry++;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(retry<sp/>&lt;<sp/>5));</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Si570_XtalFreqCalc(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*XtalFreq,<sp/>u8<sp/>*RFreq_Cal,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*HSDIV_Set,<sp/>u8<sp/>*N1_Set)</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>HS_DIV;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>N1;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RFREQ;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/>HS_DIV<sp/>=<sp/>*HSDIV_Set<sp/>+<sp/>4;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(*N1_Set<sp/>==<sp/>0x0)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>N1<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>N1<sp/>=<sp/>(*N1_Set<sp/>%<sp/>2)<sp/>?<sp/>*N1_Set+1<sp/>:<sp/>*N1_Set;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/>RFREQ<sp/>=<sp/>((RFreq_Cal[0]<sp/>*<sp/>two_to_32)<sp/>+<sp/>(RFreq_Cal[1]<sp/>*<sp/>two_to_24)<sp/>+</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RFreq_Cal[2]<sp/>*<sp/>two_to_16)<sp/>+<sp/>(RFreq_Cal[3]<sp/>*<sp/>two_to_8)<sp/>+</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RFreq_Cal[4])<sp/>/<sp/>two_to_28;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>*XtalFreq<sp/>=<sp/>(156.25<sp/>*<sp/>HS_DIV<sp/>*<sp/>N1)<sp/>/<sp/>RFREQ;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Si570_RfreqCalc(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Freq,<sp/>u8<sp/>*RFreq_Cal,<sp/>u8<sp/>*RFreq_Set,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*HSDIV_Set,<sp/>u8<sp/>*N1_Set,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*XtalFreq)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>HSDIV_Valid[6]<sp/>=<sp/>{4,5,6,7,9,11};</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>N1_Valid[65]<sp/>=<sp/>{1,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>38,40,42,44,46,48,50,52,54,56,58,60,62,64,66,68,70,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>72,74,76,78,80,82,84,86,88,90,92,94,96,98,100,102,</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>104,106,108,110,112,114,116,118,120,122,124,126,128};</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>i,j;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Rval_Std,<sp/>Rval_Cal;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>DCO;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>RFreq_Val;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Find<sp/>the<sp/>lowest<sp/>HS_DIV<sp/>and<sp/>N1<sp/>settings</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/>*HSDIV_Set=255;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/>*N1_Set=255;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i=0;i&lt;6;i++)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j=0;j&lt;65;j++)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DCO<sp/>=<sp/>Freq<sp/>*<sp/>HSDIV_Valid[i]<sp/>*<sp/>N1_Valid[j];</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DCO<sp/>&gt;=<sp/>4850.0<sp/>&amp;&amp;<sp/>DCO<sp/>&lt;=<sp/>5670.0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((HSDIV_Valid[i]<sp/>*<sp/>N1_Valid[j])<sp/>&lt;<sp/>((*HSDIV_Set)<sp/>*<sp/>(*N1_Set))))<sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*HSDIV_Set<sp/>=<sp/>HSDIV_Valid[i];</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*N1_Set<sp/><sp/><sp/><sp/>=<sp/>N1_Valid[j];</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(*HSDIV_Set==255)<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(<ref refid="xv__hdmirxss1_8h_1a34995b955465f6bbb37c359173d50477" kindref="member">ANSI_COLOR_RED</ref><sp/></highlight><highlight class="stringliteral">&quot;Si570<sp/>Error!<sp/>Configuration<sp/>not<sp/>found<sp/>for<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;frequency<sp/>%13.10lf\n&quot;</highlight><highlight class="normal"><sp/><ref refid="xv__hdmirxss1_8h_1a92a364c2b863dde1a024a77eac2a5b3b" kindref="member">ANSI_COLOR_RESET</ref>,<sp/>Freq);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/>DCO<sp/>=<sp/>Freq<sp/>*<sp/>(*HSDIV_Set)<sp/>*<sp/>(*N1_Set);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="347"><highlight class="comment"><sp/><sp/><sp/><sp/>*<sp/>Calculate<sp/>New<sp/>RFreq<sp/>Setting</highlight></codeline>
+<codeline lineno="348"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/>Rval_Std<sp/>=<sp/>5000.0<sp/>/<sp/>(*XtalFreq)<sp/>*<sp/>two_to_28;<sp/><sp/></highlight><highlight class="comment">//<sp/>0x2BC011EB8;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/>Rval_Cal<sp/>=<sp/>(RFreq_Cal[0]<sp/>*<sp/>two_to_32)<sp/>+<sp/>(RFreq_Cal[1]<sp/>*<sp/>two_to_24)<sp/>+</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RFreq_Cal[2]<sp/>*<sp/>two_to_16)<sp/>+<sp/>(RFreq_Cal[3]<sp/>*<sp/>two_to_8)<sp/>+</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RFreq_Cal[4];</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/>RFreq_Val=<sp/>((DCO<sp/>/<sp/>(*XtalFreq))<sp/>*<sp/>(Rval_Cal<sp/>/<sp/>Rval_Std))<sp/>*<sp/>two_to_28;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/>double2hex(RFreq_Val,<sp/>RFreq_Set);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Si570_WriteRfreq(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*IicPtr,<sp/>u8<sp/>Addr,<sp/>u8<sp/>*RFreq_Set,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HSDIV_Set,<sp/>u8<sp/>N1_Set)</highlight></codeline>
+<codeline lineno="362"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reg7,reg8;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>retry<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="368"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Change<sp/>from<sp/>human<sp/>readable<sp/>settings<sp/>to<sp/>Si570<sp/>programming<sp/>values</highlight></codeline>
+<codeline lineno="369"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Valid<sp/>4=000,<sp/>5=001,<sp/>6=010,<sp/>7=011,<sp/>9=101,<sp/>11=111<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HSDIV_Set<sp/>=<sp/>HSDIV_Set<sp/>-<sp/>4;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Subtract<sp/>one<sp/>from<sp/>N1<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>N1_Set<sp/><sp/><sp/><sp/>=<sp/>N1_Set-1;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HSDIV[2:0]<sp/>&amp;<sp/>N1[6:2]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>reg7<sp/>=<sp/>(<sp/>HSDIV_Set<sp/>&amp;<sp/>0x07)*32<sp/>+<sp/>((N1_Set<sp/>&amp;<sp/>0x7C)/4);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>N1[1:0]<sp/>&amp;<sp/>RFREQ[37:32]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>reg8<sp/>=<sp/>(<sp/>N1_Set<sp/><sp/><sp/><sp/>&amp;<sp/>0x03)*64<sp/>+<sp/>(*RFreq_Set<sp/>&amp;<sp/>0x3F);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>137:Freeze<sp/>DCO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){137,0x18},</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>7:HSDIV[2:0],<sp/>N1[6:2]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>7,reg7},</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>8:N1[1:0],RFREQ[37:32]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>8,reg8},</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>9:RFREQ[31:24]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/><sp/>9,*(RFreq_Set+1)},</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>10:RFREQ[23:16]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>10,*(RFreq_Set+2)},</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>11:RFREQ[15:8]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>11,*(RFreq_Set+3)},</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>12:RFREQ[<sp/>7:0]<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){<sp/>12,*(RFreq_Set+4)},</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>137:Unfreeze<sp/>DCO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){137,0x08},</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>135:Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>Si570_I2cSend(IicPtr,<sp/>Addr,<sp/>(u8[]){135,0x40},</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,<sp/>I2C_STOP);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retry++;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Status<sp/>!=<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(retry<sp/>&lt;<sp/>5));</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/si570drv.c"/>
+  </compounddef>
+</doxygen>

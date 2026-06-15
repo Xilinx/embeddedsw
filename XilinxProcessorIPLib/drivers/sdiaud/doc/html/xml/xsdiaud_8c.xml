@@ -1,0 +1,1354 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdiaud_8c" kind="file">
+    <compoundname>xsdiaud.c</compoundname>
+    <includes refid="xsdiaud_8h" local="yes">xsdiaud.h</includes>
+    <includes refid="xsdiaud__hw_8h" local="yes">xsdiaud_hw.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="5">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2">
+        <label>xsdiaud.c</label>
+        <link refid="xsdiaud.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xsdiaud.h</label>
+        <link refid="xsdiaud_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xsdiaud_hw.h</label>
+        <link refid="xsdiaud__hw_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__sdiaud_1gaa0dc77c871a706362832246536a36dd8" prot="public" static="no">
+        <name>XSDIAUD_CHSTAT_NUMBER_OF_BYTES</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__sdiaud_1ga3a8ea58898cb58fc96013383d39f482c" prot="public" static="no">
+        <name>BIT</name>
+        <param><defname>n</defname></param>
+        <initializer>(1 &lt;&lt; (n))</initializer>
+        <briefdescription>
+<para>Audio Embed total number of bytes in the 6 channel status registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" compoundref="xsdiaud_8c" startline="406" endline="420">XSdiAud_GetActGrpStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sdiaud_1gabdfdc63e19d4b1d3f37d47617fd01da8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XSdiAud_CountBits</definition>
+        <argsstring>(u32 n)</argsstring>
+        <name>XSdiAud_CountBits</name>
+        <param>
+          <type>u32</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="53" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSdiAud_CfgInitialize</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XSdiAud_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_sdi_aud___config" kindref="compound">XSdiAud_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the core. Initialization of the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> includes setting up the instance data, and ensuring the hardware is in a quiescent state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS : if successful.</para></listitem><listitem><para>XST_FAILURE : if version mismatched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="86" bodyend="110"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="struct_x_sdi_aud_1a6aafb987091e41fa5f5152a89b8dbdd6" compoundref="xsdiaud_8h" startline="314">XSdiAud::IsReady</references>
+        <references refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</references>
+        <references refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</references>
+        <referencedby refid="group__sdiaud_1ga4d88f80aaac70751a7a303b8d3e6ded5" compoundref="xsdiaud__sinit_8c" startline="174" endline="191">XSdiAud_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gac73f97119062624890969aa0c926cd51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Enable</definition>
+        <argsstring>(XSdiAud *InstancePtr, u8 Enable)</argsstring>
+        <name>XSdiAud_Enable</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables/disables the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies TRUE/FALSE value to either enable or disable the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref>. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="122" bodyend="139"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="struct_x_sdi_aud_1a41390d7cf53355e1b3756aa36bd6694d" compoundref="xsdiaud_8h" startline="316">XSdiAud::IsStarted</references>
+        <references refid="group__sdiaud_1gabdf4a004144a48991762d729111d4a18" compoundref="xsdiaud__hw_8h" startline="102">XSDIAUD_CNTRL_EN_MASK</references>
+        <references refid="group__sdiaud_1ga1f08582db325cf112b15ab3d0816857b" compoundref="xsdiaud__hw_8h" startline="47">XSDIAUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+        <referencedby refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" compoundref="xsdiaud_8c" startline="86" endline="110">XSdiAud_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_GetChStat</definition>
+        <argsstring>(XSdiAud *InstancePtr, u8 *ChStatBuf)</argsstring>
+        <name>XSdiAud_GetChStat</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ChStatBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function reads all the Channel Status registers and writes to a buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChStatBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="149" bodyend="164"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2979a7a1dad335bb0f17585159d2e313" compoundref="xsdiaud__hw_8h" startline="80">XSDIAUD_EXT_CH_STAT0_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdiAud_GetCoreVersion</definition>
+        <argsstring>(XSdiAud *InstancePtr)</argsstring>
+        <name>XSdiAud_GetCoreVersion</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the core version register and returns its value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>core version register value is returned. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="175" bodyend="183"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga6cc6d41fbe52f28c3cf35cec94d48e67" compoundref="xsdiaud__hw_8h" startline="56">XSDIAUD_CORE_VERSION_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdiAud_GetIntStat</definition>
+        <argsstring>(XSdiAud *InstancePtr)</argsstring>
+        <name>XSdiAud_GetIntStat</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Interrupt Status register and returns its value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt status register value is returned. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="194" bodyend="202"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gab2b1473b41e24f4514ca318acca41225" compoundref="xsdiaud__hw_8h" startline="59">XSDIAUD_INT_STS_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Emb_SetSmpRate</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_SampRate XSdiAud_SRate)</argsstring>
+        <name>XSdiAud_Emb_SetSmpRate</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sdiaud_1ga399edacae0513ed723ff853e339f9ff7" kindref="member">XSdiAud_SampRate</ref></type>
+          <declname>XSdiAud_SRate</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Embed function sets the sampling rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_SRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sampling rate, it is enum XSdiAud_SampRate, it can be anyone of these 000 - 48 KHz, 001 - 44.1 KHz, 010 - 32 KHz </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="216" bodyend="228"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" compoundref="xsdiaud__hw_8h" startline="65">XSDIAUD_AUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga09217b3af8d4facca26f791529de4f0b" compoundref="xsdiaud__hw_8h" startline="144">XSDIAUD_EMB_AUD_CNT_SR_MASK</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1gga399edacae0513ed723ff853e339f9ff7a3aebfdddbde6b4580b5f3678b22dc5cb" compoundref="xsdiaud_8h" startline="105">XSDIAUD_SMPLRATE_32</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Emb_SetSmpSize</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_SampSize XSdiAud_SSize)</argsstring>
+        <name>XSdiAud_Emb_SetSmpSize</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sdiaud_1ga5a99beee13b12771837e2e19d7a1edd3" kindref="member">XSdiAud_SampSize</ref></type>
+          <declname>XSdiAud_SSize</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Embed function sets the sample size in only SD Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_SSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the sample size, it is enum XSdiAud_SampSize, it can be 0 or 1. 0 - 20 Bit 1 - 24 Bit </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="242" bodyend="255"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" compoundref="xsdiaud__hw_8h" startline="65">XSDIAUD_AUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga084fb742dfefc4a7db95c2b698f222f6" compoundref="xsdiaud__hw_8h" startline="149">XSDIAUD_EMB_AUD_CNT_SS_MASK</references>
+        <references refid="group__sdiaud_1gac6ebf195f75e217b238fb2da602b413d" compoundref="xsdiaud__hw_8h" startline="147">XSDIAUD_EMB_AUD_CNT_SS_SHIFT</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Emb_SetAsx</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_Asx XSdiAud_Async_data_flag)</argsstring>
+        <name>XSdiAud_Emb_SetAsx</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sdiaud_1ga142a44365d9f1b0c1b1b63effe9ac57a" kindref="member">XSdiAud_Asx</ref></type>
+          <declname>XSdiAud_Async_data_flag</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Embed function sets the asynchronous data flag. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_Async_data_flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the async data flag, it is enum XSdiAud_Asx, it can be 0 or 1. 0 - Synchronous audio 1 - Asynchronous audio </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="268" bodyend="282"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" compoundref="xsdiaud__hw_8h" startline="65">XSDIAUD_AUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gaac1e02272193d665db60e8daac570a0d" compoundref="xsdiaud__hw_8h" startline="154">XSDIAUD_EMB_AUD_CNT_ASX_MASK</references>
+        <references refid="group__sdiaud_1gaf8c0d1bd73ea277f2b53ec6d89784dba" compoundref="xsdiaud__hw_8h" startline="152">XSDIAUD_EMB_AUD_CNT_ASX_SHIFT</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_SetAesChPair</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_AesChPair XSdiAud_ACP)</argsstring>
+        <name>XSdiAud_SetAesChPair</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__sdiaud_1gae4509da21438dc640c6e8ff7a33b9a51" kindref="member">XSdiAud_AesChPair</ref></type>
+          <declname>XSdiAud_ACP</declname>
+        </param>
+        <briefdescription>
+<para>This Audio function selects the aes channel pair. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_ACP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the async data flag, it is enum XSdiAud_AesChPair, it can be any value between 0 to 16. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="293" bodyend="306"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" compoundref="xsdiaud__hw_8h" startline="65">XSDIAUD_AUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga0a557e06e50ec9a1a0735b09ed686e73" compoundref="xsdiaud__hw_8h" startline="159">XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_MASK</references>
+        <references refid="group__sdiaud_1ga8d7d3f4a30794d28d84f9f120bb8f4e4" compoundref="xsdiaud__hw_8h" startline="157">XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Emb_SetVidProps</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_Emb_Vid_Props *XSdiAud_VP)</argsstring>
+        <name>XSdiAud_Emb_SetVidProps</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_sdi_aud___emb___vid___props" kindref="compound">XSdiAud_Emb_Vid_Props</ref> *</type>
+          <declname>XSdiAud_VP</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Embed function sets the video properties of the image like transport scan, transport rate and transport family. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_VP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the struct containing the video family, rate and video scan information. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="318" bodyend="350"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gac749ee59cb93eca33ed3dfbd90a46477" compoundref="xsdiaud__hw_8h" startline="122">XSDIAUD_EMB_VID_CNT_FAMILY_MASK</references>
+        <references refid="group__sdiaud_1ga3e4b664a5530d0e264fa758957dc7f83" compoundref="xsdiaud__hw_8h" startline="120">XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT</references>
+        <references refid="group__sdiaud_1ga5a0971a2abda6198dc2ca87dc7fda332" compoundref="xsdiaud__hw_8h" startline="128">XSDIAUD_EMB_VID_CNT_RATE_MASK</references>
+        <references refid="group__sdiaud_1ga7b0eb77fd24d0b2ab5320a5d32117602" compoundref="xsdiaud__hw_8h" startline="126">XSDIAUD_EMB_VID_CNT_RATE_SHIFT</references>
+        <references refid="group__sdiaud_1ga3b643780a49dc7c4a38a4f271c62fd78" compoundref="xsdiaud__hw_8h" startline="134">XSDIAUD_EMB_VID_CNT_SCAN_MASK</references>
+        <references refid="group__sdiaud_1gaa1bc0f79d572ee442af322281bdc8623" compoundref="xsdiaud__hw_8h" startline="132">XSDIAUD_EMB_VID_CNT_SCAN_SHIFT</references>
+        <references refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" compoundref="xsdiaud__hw_8h" startline="62">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="struct_x_sdi_aud___emb___vid___props_1ad0f8b43cbf25fd42bfaad2a4b4fc63dd" compoundref="xsdiaud_8h" startline="376">XSdiAud_Emb_Vid_Props::XSdiAud_TFamily</references>
+        <references refid="struct_x_sdi_aud___emb___vid___props_1ade28d08d30145b99b3e329b0f66937d0" compoundref="xsdiaud_8h" startline="378">XSdiAud_Emb_Vid_Props::XSdiAud_TRate</references>
+        <references refid="struct_x_sdi_aud___emb___vid___props_1aa82d5f2bfaa38f0624a61788804cea87" compoundref="xsdiaud_8h" startline="380">XSdiAud_Emb_Vid_Props::XSdiAud_TScan</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Emb_EnExtrnLine</definition>
+        <argsstring>(XSdiAud *InstancePtr, u8 XSdiAud_En)</argsstring>
+        <name>XSdiAud_Emb_EnExtrnLine</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>XSdiAud_En</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Embed function enables the external line number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_En</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>can be 0 or 1, 0 is to disable and 1 is to enable </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="360" bodyend="371"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gacf150171fe18f56fd1e761b00c75d436" compoundref="xsdiaud__hw_8h" startline="139">XSDIAUD_EMB_VID_CNT_ELE_MASK</references>
+        <references refid="group__sdiaud_1ga8c966a683b8728719008b7b5a8149465" compoundref="xsdiaud__hw_8h" startline="137">XSDIAUD_EMB_VID_CNT_ELE_SHIFT</references>
+        <references refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" compoundref="xsdiaud__hw_8h" startline="62">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Ext_DisableClkPhase</definition>
+        <argsstring>(XSdiAud *InstancePtr, u8 XSdiAud_SetClkP)</argsstring>
+        <name>XSdiAud_Ext_DisableClkPhase</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>XSdiAud_SetClkP</declname>
+        </param>
+        <briefdescription>
+<para>This Audio Extract function sets the clock phase. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAud_SetClkP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>enables the use of clock phase data, 0 is to enable 1 is to disable </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="382" bodyend="393"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" compoundref="xsdiaud__hw_8h" startline="65">XSDIAUD_AUD_CNTRL_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gad887c3eaf0345a5cfe8db381c1a15a38" compoundref="xsdiaud__hw_8h" startline="297">XSDIAUD_EXT_AUD_CNT_CP_EN_MASK</references>
+        <references refid="group__sdiaud_1gaef1123be527142242330daffe04726fb" compoundref="xsdiaud__hw_8h" startline="295">XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_GetActGrpStatus</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_ActGrpSt *GrpSt)</argsstring>
+        <name>XSdiAud_GetActGrpStatus</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSdiAud_ActGrpSt *</type>
+          <declname>GrpSt</declname>
+        </param>
+        <briefdescription>
+<para>This function detects the Audio groups and returns the groups which are present. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GrpSt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer tp no. of active groups and also which groups are active. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="406" bodyend="420"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="group__sdiaud_1ga3a8ea58898cb58fc96013383d39f482c" compoundref="xsdiaud_8c" startline="41">BIT</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gad9a9a72bba9a4ff117315a8c9bae6411" compoundref="xsdiaud__hw_8h" startline="74">XSDIAUD_ACT_GRP_PRES_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga990e0e67803f66bff97aed595b1b8c7e" compoundref="xsdiaud__hw_8h" startline="175">XSDIAUD_GRP_PRESNT_MASK</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_SetCh</definition>
+        <argsstring>(XSdiAud *InstancePtr, u32 XSdiAudSetChMask)</argsstring>
+        <name>XSdiAud_SetCh</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>XSdiAudSetChMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the channel valid register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Based on the mask provided the corresponding channels are embedded/extracted onto sdi.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAudSetChMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit mask used to set the specific channels. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="432" bodyend="439"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga11bab2fbb639aa280156a6c989fdc272" compoundref="xsdiaud__hw_8h" startline="68">XSDIAUD_VALID_CH_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_MuteCh</definition>
+        <argsstring>(XSdiAud *InstancePtr, u32 XSdiAudMuteChMask)</argsstring>
+        <name>XSdiAud_MuteCh</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>XSdiAudMuteChMask</declname>
+        </param>
+        <briefdescription>
+<para>This function mutes a specific channel based on the mask provided. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>XSdiAudMuteChMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a 32 bit mask used to mute specific channels. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="449" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="449" bodyend="456"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga2e495d663d19b1fd4cfd26d108e27e54" compoundref="xsdiaud__hw_8h" startline="71">XSDIAUD_MUTE_CH_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XSdiAud_Ext_GetFIFOOvFlwStatus</definition>
+        <argsstring>(XSdiAud *InstancePtr)</argsstring>
+        <name>XSdiAud_Ext_GetFIFOOvFlwStatus</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the FIFO overflow status. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each bit when read as 1, indicates that RX Sample FIFO for that group is overflowing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns a u8 value, we can know the group overflowing using the bits set in this value. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="469" bodyend="480"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gad2b9e608a3c085ec358e6975bb862630" compoundref="xsdiaud__hw_8h" startline="77">XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Ext_GetAcChStatus</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_ActChSt *ActChSt)</argsstring>
+        <name>XSdiAud_Ext_GetAcChStatus</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSdiAud_ActChSt *</type>
+          <declname>ActChSt</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the active channel information decoded from audio control packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActChSt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to no. of active channels and the channels active in each group. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="492" bodyend="506"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1ga5f7de194e38c0b3e73ba14f4b8573ca0" compoundref="xsdiaud__hw_8h" startline="83">XSDIAUD_ACT_CH_STAT_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Ext_GetSRStatus</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_SRSt *SRSt)</argsstring>
+        <name>XSdiAud_Ext_GetSRStatus</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSdiAud_SRSt *</type>
+          <declname>SRSt</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the sample rate information decoded from audio control packet (0 - 48 KHz, 1 - 44.1 KHz, 2 - 32 KHz, 3 - Reserved). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SRSt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the sample rate information of each channel pair. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="518" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="518" bodyend="531"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga65453fe22a0cb6e794871f54bf919d8a" compoundref="xsdiaud__hw_8h" startline="86">XSDIAUD_SR_STAT_REG_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_Ext_GetAsxStatus</definition>
+        <argsstring>(XSdiAud *InstancePtr, XSdiAud_AsxSt *AsxSt)</argsstring>
+        <name>XSdiAud_Ext_GetAsxStatus</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XSdiAud_AsxSt *</type>
+          <declname>AsxSt</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the ASX information decoded from audio control packet. </para>        </briefdescription>
+        <detaileddescription>
+<para>Bit 0 - Channel 1 &amp; 2 Asx <heading level="2">Bit 1 - Channel 3 &amp; 4 Asx </heading>
+</para><para>Bit 15 - Channel 31 &amp; 32 Asx</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AsxSt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Asx status information of each channel pair. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="545" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="545" bodyend="558"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gab89624efecca512d0d257f785a2f1322" compoundref="xsdiaud__hw_8h" startline="89">XSDIAUD_ASX_STAT_REG_OFFSET</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_ConfigReset</definition>
+        <argsstring>(XSdiAud *InstancePtr)</argsstring>
+        <name>XSdiAud_ConfigReset</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to soft reset the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> registers.It resets all the configuration registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="568" bodyend="580"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1ga9e767926697356a0bc196ba474322523" compoundref="xsdiaud__hw_8h" startline="107">XSDIAUD_SOFT_RST_ACLK_MASK</references>
+        <references refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" compoundref="xsdiaud__hw_8h" startline="50">XSDIAUD_SOFT_RST_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdiAud_CoreReset</definition>
+        <argsstring>(XSdiAud *InstancePtr, u8 RstCoreEnable)</argsstring>
+        <name>XSdiAud_CoreReset</name>
+        <param>
+          <type><ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RstCoreEnable</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to soft reset the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RstCoreEnable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to enable or disable. When set to 1(i.e.enable), it resets the embedded core. When set to 0, it clears the reset (i.e.disable). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c" bodystart="592" bodyend="611"/>
+        <references refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" compoundref="xsdiaud_8h" startline="296">XSdiAud_Config::BaseAddress</references>
+        <references refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" compoundref="xsdiaud_8h" startline="318">XSdiAud::Config</references>
+        <references refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" compoundref="xsdiaud__hw_8h" startline="382">XSdiAud_ReadReg</references>
+        <references refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" compoundref="xsdiaud__hw_8h" startline="50">XSDIAUD_SOFT_RST_REG_OFFSET</references>
+        <references refid="group__sdiaud_1ga4cfa9301af60c82345c3e614c1d8a74a" compoundref="xsdiaud__hw_8h" startline="112">XSDIAUD_SOFT_RST_SCLK_MASK</references>
+        <references refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" compoundref="xsdiaud__hw_8h" startline="400">XSdiAud_WriteReg</references>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsdiaud_8h" kindref="compound">xsdiaud.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsdiaud__hw_8h" kindref="compound">xsdiaud_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(In-line<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDIAUD_CHSTAT_NUMBER_OF_BYTES<sp/><sp/>24</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bit<sp/>shift<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="group__sdiaud_1ga3a8ea58898cb58fc96013383d39f482c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BIT(n)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>(n))</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">u8<sp/>XSdiAud_CountBits(u32<sp/>n)</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(n)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>n<sp/>=<sp/>n<sp/>&amp;<sp/>(n-1);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>count++;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>count;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="85"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" kindref="member">XSdiAud_CfgInitialize</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="86" refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sdi_aud___config" kindref="compound">XSdiAud_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>self<sp/>test.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" kindref="member">XSdiAud_SelfTest</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" kindref="member">XSdiAud_Enable</ref>(InstancePtr,<sp/>FALSE);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>flag<sp/>to<sp/>indicate<sp/>the<sp/>driver<sp/>is<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1a6aafb987091e41fa5f5152a89b8dbdd6" kindref="member">IsReady</ref><sp/>=<sp/>(u32)(XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="121"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" kindref="member">XSdiAud_Enable</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable)</highlight></codeline>
+<codeline lineno="122" refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga1f08582db325cf112b15ab3d0816857b" kindref="member">XSDIAUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Enable)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/><ref refid="group__sdiaud_1gabdf4a004144a48991762d729111d4a18" kindref="member">XSDIAUD_CNTRL_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1a41390d7cf53355e1b3756aa36bd6694d" kindref="member">IsStarted</ref><sp/>=<sp/>(XIL_COMPONENT_IS_STARTED);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1gabdf4a004144a48991762d729111d4a18" kindref="member">XSDIAUD_CNTRL_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1a41390d7cf53355e1b3756aa36bd6694d" kindref="member">IsStarted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga1f08582db325cf112b15ab3d0816857b" kindref="member">XSDIAUD_CNTRL_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="148"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" kindref="member">XSdiAud_GetChStat</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u8<sp/>*ChStatBuf)</highlight></codeline>
+<codeline lineno="149" refid="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RegOffset<sp/>=<sp/><ref refid="group__sdiaud_1ga2979a7a1dad335bb0f17585159d2e313" kindref="member">XSDIAUD_EXT_CH_STAT0_REG_OFFSET</ref>;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*pBuf32<sp/>=<sp/>(u32<sp/>*)<sp/>ChStatBuf;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumBytes<sp/>=<sp/>XSDIAUD_CHSTAT_NUMBER_OF_BYTES;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ChStatBuf<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>NumBytes;<sp/>i<sp/>+=<sp/>4)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pBuf32<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pBuf32++;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegOffset<sp/>+=<sp/>4;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">u32<sp/><ref refid="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" kindref="member">XSdiAud_GetCoreVersion</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="175" refid="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_CoreVersion;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_CoreVersion<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga6cc6d41fbe52f28c3cf35cec94d48e67" kindref="member">XSDIAUD_CORE_VERSION_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSdiAud_CoreVersion;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">u32<sp/><ref refid="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" kindref="member">XSdiAud_GetIntStat</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="194" refid="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_IntStat;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_IntStat<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gab2b1473b41e24f4514ca318acca41225" kindref="member">XSDIAUD_INT_STS_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSdiAud_IntStat;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" kindref="member">XSdiAud_Emb_SetSmpRate</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/><ref refid="group__sdiaud_1ga399edacae0513ed723ff853e339f9ff7" kindref="member">XSdiAud_SampRate</ref><sp/>XSdiAud_SRate)</highlight></codeline>
+<codeline lineno="216" refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_SR;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XSdiAud_SRate<sp/>&lt;=<sp/><ref refid="group__sdiaud_1gga399edacae0513ed723ff853e339f9ff7a3aebfdddbde6b4580b5f3678b22dc5cb" kindref="member">XSDIAUD_SMPLRATE_32</ref>);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SR<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SR<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga09217b3af8d4facca26f791529de4f0b" kindref="member">XSDIAUD_EMB_AUD_CNT_SR_MASK</ref>;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SR<sp/>|=<sp/>XSdiAud_SRate;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_SR);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="241"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" kindref="member">XSdiAud_Emb_SetSmpSize</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/><ref refid="group__sdiaud_1ga5a99beee13b12771837e2e19d7a1edd3" kindref="member">XSdiAud_SampSize</ref><sp/>XSdiAud_SSize)</highlight></codeline>
+<codeline lineno="242" refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_SS,<sp/>XSdiAud_SSizeS;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XSdiAud_SSize<sp/>&lt;=<sp/>1);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SS<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SS<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga084fb742dfefc4a7db95c2b698f222f6" kindref="member">XSDIAUD_EMB_AUD_CNT_SS_MASK</ref>;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SSizeS<sp/>=<sp/>XSdiAud_SSize<sp/>&lt;&lt;<sp/><ref refid="group__sdiaud_1gac6ebf195f75e217b238fb2da602b413d" kindref="member">XSDIAUD_EMB_AUD_CNT_SS_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SS<sp/>|=<sp/>XSdiAud_SSizeS;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_SS);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="267"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" kindref="member">XSdiAud_Emb_SetAsx</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/><ref refid="group__sdiaud_1ga142a44365d9f1b0c1b1b63effe9ac57a" kindref="member">XSdiAud_Asx</ref></highlight></codeline>
+<codeline lineno="268" refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Async_data_flag)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_Adf,<sp/>XSdiAud_Async_data_flag_val;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Adf<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Adf<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1gaac1e02272193d665db60e8daac570a0d" kindref="member">XSDIAUD_EMB_AUD_CNT_ASX_MASK</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Async_data_flag_val<sp/>=<sp/>XSdiAud_Async_data_flag<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaf8c0d1bd73ea277f2b53ec6d89784dba" kindref="member">XSDIAUD_EMB_AUD_CNT_ASX_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Adf<sp/>|=<sp/>XSdiAud_Async_data_flag_val;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_Adf);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="292"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" kindref="member">XSdiAud_SetAesChPair</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="293" refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gae4509da21438dc640c6e8ff7a33b9a51" kindref="member">XSdiAud_AesChPair</ref><sp/>XSdiAud_ACP)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_Acp,<sp/>XSdiAud_Acp_val;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Acp<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Acp<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga0a557e06e50ec9a1a0735b09ed686e73" kindref="member">XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_MASK</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Acp_val<sp/>=<sp/>XSdiAud_ACP<sp/>&lt;&lt;<sp/><ref refid="group__sdiaud_1ga8d7d3f4a30794d28d84f9f120bb8f4e4" kindref="member">XSDIAUD_EMB_AUD_CNT_AES_CH_PAIR_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Acp<sp/>|=<sp/>XSdiAud_Acp_val;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_Acp);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="317"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" kindref="member">XSdiAud_Emb_SetVidProps</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="318" refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_sdi_aud___emb___vid___props" kindref="compound">XSdiAud_Emb_Vid_Props</ref><sp/>*XSdiAud_VP)</highlight></codeline>
+<codeline lineno="319"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_Vf,<sp/>XSdiAud_Vf_val;</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_Vr,<sp/>XSdiAud_Vr_val;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_Vs,<sp/>XSdiAud_Vs_val;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vf<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vf<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1gac749ee59cb93eca33ed3dfbd90a46477" kindref="member">XSDIAUD_EMB_VID_CNT_FAMILY_MASK</ref>;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vf_val<sp/>=<sp/>XSdiAud_VP-&gt;<ref refid="struct_x_sdi_aud___emb___vid___props_1ad0f8b43cbf25fd42bfaad2a4b4fc63dd" kindref="member">XSdiAud_TFamily</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga3e4b664a5530d0e264fa758957dc7f83" kindref="member">XSDIAUD_EMB_VID_CNT_FAMILY_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vf<sp/>|=<sp/>XSdiAud_Vf_val;</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_Vf);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vr<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vr<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga5a0971a2abda6198dc2ca87dc7fda332" kindref="member">XSDIAUD_EMB_VID_CNT_RATE_MASK</ref>;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vr_val<sp/>=<sp/>XSdiAud_VP-&gt;<ref refid="struct_x_sdi_aud___emb___vid___props_1ade28d08d30145b99b3e329b0f66937d0" kindref="member">XSdiAud_TRate</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga7b0eb77fd24d0b2ab5320a5d32117602" kindref="member">XSDIAUD_EMB_VID_CNT_RATE_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vr<sp/>|=<sp/>XSdiAud_Vr_val;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_Vr);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vs<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vs<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga3b643780a49dc7c4a38a4f271c62fd78" kindref="member">XSDIAUD_EMB_VID_CNT_SCAN_MASK</ref>;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vs_val<sp/>=<sp/>XSdiAud_VP-&gt;<ref refid="struct_x_sdi_aud___emb___vid___props_1aa82d5f2bfaa38f0624a61788804cea87" kindref="member">XSdiAud_TScan</ref><sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa1bc0f79d572ee442af322281bdc8623" kindref="member">XSDIAUD_EMB_VID_CNT_SCAN_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_Vs<sp/>|=<sp/>XSdiAud_Vs_val;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_Vs);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="359"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" kindref="member">XSdiAud_Emb_EnExtrnLine</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u8<sp/>XSdiAud_En)</highlight></codeline>
+<codeline lineno="360" refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_EEL;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_EEL<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_EEL<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1gacf150171fe18f56fd1e761b00c75d436" kindref="member">XSDIAUD_EMB_VID_CNT_ELE_MASK</ref>;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_EEL<sp/>|=<sp/>(XSdiAud_En<sp/>&lt;&lt;<sp/><ref refid="group__sdiaud_1ga8c966a683b8728719008b7b5a8149465" kindref="member">XSDIAUD_EMB_VID_CNT_ELE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga0257b8d983e181923b40f100102a6dd2" kindref="member">XSDIAUD_EMB_VID_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_EEL);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="381"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" kindref="member">XSdiAud_Ext_DisableClkPhase</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u8<sp/>XSdiAud_SetClkP)</highlight></codeline>
+<codeline lineno="382" refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_SCP;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SCP<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SCP<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1gad887c3eaf0345a5cfe8db381c1a15a38" kindref="member">XSDIAUD_EXT_AUD_CNT_CP_EN_MASK</ref>;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_SCP<sp/>|=<sp/>(XSdiAud_SetClkP<sp/>&lt;&lt;<sp/><ref refid="group__sdiaud_1gaef1123be527142242330daffe04726fb" kindref="member">XSDIAUD_EXT_AUD_CNT_CP_EN_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2ad7f7a55b3ed67326c1dafc285ff41c" kindref="member">XSDIAUD_AUD_CNTRL_REG_OFFSET</ref>,<sp/>XSdiAud_SCP);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="405"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" kindref="member">XSdiAud_GetActGrpStatus</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>XSdiAud_ActGrpSt<sp/>*GrpSt)</highlight></codeline>
+<codeline lineno="406" refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_GP;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_GPE;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_GP<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gad9a9a72bba9a4ff117315a8c9bae6411" kindref="member">XSDIAUD_ACT_GRP_PRES_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_GPE<sp/>=<sp/>(XSdiAud_GP<sp/>&amp;<sp/><ref refid="group__sdiaud_1ga990e0e67803f66bff97aed595b1b8c7e" kindref="member">XSDIAUD_GRP_PRESNT_MASK</ref>);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GrpSt-&gt;NumGroups<sp/>=<sp/>XSdiAud_CountBits(XSdiAud_GPE);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>MAX_AUDIO_GROUPS;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GrpSt-&gt;GrpActive[i]<sp/>=<sp/>XSdiAud_GPE<sp/>&amp;<sp/><ref refid="group__sdiaud_1ga3a8ea58898cb58fc96013383d39f482c" kindref="member">BIT</ref>(i);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="419"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="431"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" kindref="member">XSdiAud_SetCh</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u32<sp/>XSdiAudSetChMask)</highlight></codeline>
+<codeline lineno="432" refid="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga11bab2fbb639aa280156a6c989fdc272" kindref="member">XSDIAUD_VALID_CH_REG_OFFSET</ref>,<sp/>XSdiAudSetChMask);</highlight></codeline>
+<codeline lineno="438"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="448"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" kindref="member">XSdiAud_MuteCh</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u32<sp/>XSdiAudMuteChMask)</highlight></codeline>
+<codeline lineno="449" refid="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga2e495d663d19b1fd4cfd26d108e27e54" kindref="member">XSDIAUD_MUTE_CH_REG_OFFSET</ref>,<sp/>XSdiAudMuteChMask);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="468"><highlight class="normal">u8<sp/><ref refid="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" kindref="member">XSdiAud_Ext_GetFIFOOvFlwStatus</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="469" refid="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>XSdiAud_FIFOOvFlw;</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>XSdiAud_FIFOOvFlw<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gad2b9e608a3c085ec358e6975bb862630" kindref="member">XSDIAUD_EXT_FIFO_OVFLW_ST_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSdiAud_FIFOOvFlw;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="491"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" kindref="member">XSdiAud_Ext_GetAcChStatus</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>XSdiAud_ActChSt<sp/>*ActChSt)</highlight></codeline>
+<codeline lineno="492" refid="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_ActCh,<sp/>i;</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"></highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/>XSdiAud_ActCh<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga5f7de194e38c0b3e73ba14f4b8573ca0" kindref="member">XSDIAUD_ACT_CH_STAT_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/>ActChSt-&gt;NumChannels<sp/>=<sp/>XSdiAud_CountBits(XSdiAud_ActCh);</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>MAX_AUDIO_GROUPS;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActChSt-&gt;GrpActCh[i]<sp/>=<sp/>XSdiAud_CountBits((XSdiAud_ActCh<sp/>&gt;&gt;<sp/>(4<sp/>*<sp/>i))<sp/>&amp;<sp/>0xF);</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="505"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="517"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" kindref="member">XSdiAud_Ext_GetSRStatus</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>XSdiAud_SRSt<sp/>*SRSt)</highlight></codeline>
+<codeline lineno="518" refid="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_SR;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/>XSdiAud_SR<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga65453fe22a0cb6e794871f54bf919d8a" kindref="member">XSDIAUD_SR_STAT_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>MAX_AUDIO_CHANNELS<sp/>/<sp/>2;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SRSt-&gt;SRChPair[i]<sp/>=<sp/>(XSdiAud_SR<sp/>&gt;&gt;<sp/>(2<sp/>*<sp/>i))<sp/>&amp;<sp/>0x3;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="530"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="544"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" kindref="member">XSdiAud_Ext_GetAsxStatus</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>XSdiAud_AsxSt<sp/>*AsxSt)</highlight></codeline>
+<codeline lineno="545" refid="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="group__sdiaud_1ga142a44365d9f1b0c1b1b63effe9ac57a" kindref="member">XSdiAud_Asx</ref>,<sp/>i;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"></highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/>XSdiAud_Asx<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gab89624efecca512d0d257f785a2f1322" kindref="member">XSDIAUD_ASX_STAT_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>(MAX_AUDIO_CHANNELS<sp/>/<sp/>2);<sp/>i++<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AsxSt-&gt;AsxPair[i]<sp/>=<sp/>(XSdiAud_Asx<sp/>&gt;&gt;<sp/>i)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="557"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="567"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" kindref="member">XSdiAud_ConfigReset</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="568" refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_RstRVal;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstRVal<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" kindref="member">XSDIAUD_SOFT_RST_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstRVal<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga9e767926697356a0bc196ba474322523" kindref="member">XSDIAUD_SOFT_RST_ACLK_MASK</ref>;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstRVal<sp/>|=<sp/><ref refid="group__sdiaud_1ga9e767926697356a0bc196ba474322523" kindref="member">XSDIAUD_SOFT_RST_ACLK_MASK</ref>;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" kindref="member">XSDIAUD_SOFT_RST_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstRVal);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="591"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" kindref="member">XSdiAud_CoreReset</ref>(<ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref><sp/>*InstancePtr,<sp/>u8<sp/>RstCoreEnable)</highlight></codeline>
+<codeline lineno="592" refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>XSdiAud_RstCVal;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal<sp/>=<sp/><ref refid="group__sdiaud_1gacf68b32152d4eec1b20a9bf1aa607429" kindref="member">XSdiAud_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" kindref="member">XSDIAUD_SOFT_RST_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal<sp/>&amp;=<sp/>~<ref refid="group__sdiaud_1ga4cfa9301af60c82345c3e614c1d8a74a" kindref="member">XSDIAUD_SOFT_RST_SCLK_MASK</ref>;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(RstCoreEnable)<sp/>{</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal<sp/>|=<sp/><ref refid="group__sdiaud_1ga4cfa9301af60c82345c3e614c1d8a74a" kindref="member">XSDIAUD_SOFT_RST_SCLK_MASK</ref>;</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" kindref="member">XSDIAUD_SOFT_RST_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal);</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal<sp/>|=<sp/>RstCoreEnable;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1ga93179727b5f81cfa14da795ef19f2ce2" kindref="member">XSdiAud_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_sdi_aud_1ac25a09acc7056003e1beb8e8111f5e0d" kindref="member">Config</ref>.<ref refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdiaud_1gaa264a0eb161bcfd0d6226fd6e654e75f" kindref="member">XSDIAUD_SOFT_RST_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdiAud_RstCVal);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="610"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.c"/>
+  </compounddef>
+</doxygen>

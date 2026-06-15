@@ -1,0 +1,464 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ox05b1s___context__s" kind="struct" prot="public">
+    <compoundname>Ox05b1s_Context_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a5587597b889cd6435ffc5a411043e7e3" prot="public" static="no" mutable="no">
+        <type>IsiSensorContext_t</type>
+        <definition>IsiSensorContext_t Ox05b1s_Context_s::isiCtx</definition>
+        <argsstring></argsstring>
+        <name>isiCtx</name>
+        <briefdescription>
+<para>common context of ISI and ISI driver layer; </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>: MUST BE FIRST IN DRIVER CONTEXT </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a9064790018926348d118b3cdc746bef5" prot="public" static="no" mutable="no">
+        <type>IsiSensorMode_t</type>
+        <definition>IsiSensorMode_t Ox05b1s_Context_s::sensorMode</definition>
+        <argsstring></argsstring>
+        <name>sensorMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a57f5523e1950afffa57f799c34697af8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Ox05b1s_Context_s::maxFps</definition>
+        <argsstring></argsstring>
+        <name>maxFps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a17a2e93c3a128703820bba5ce0dba356" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Ox05b1s_Context_s::minFps</definition>
+        <argsstring></argsstring>
+        <name>minFps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1acc5a6af402893b02a3f095594c3f26df" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Ox05b1s_Context_s::currFps</definition>
+        <argsstring></argsstring>
+        <name>currFps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a16cfdc4a9af6f7bc02431368b9889778" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t Ox05b1s_Context_s::configured</definition>
+        <argsstring></argsstring>
+        <name>configured</name>
+        <briefdescription>
+<para>flags that config was applied to sensor </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a0d7a1b8c1018c109667cf8fea778d448" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t Ox05b1s_Context_s::streaming</definition>
+        <argsstring></argsstring>
+        <name>streaming</name>
+        <briefdescription>
+<para>flags that csensor is streaming data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a545b49f1fddd0352f61c8f7e4eb0a0c7" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t Ox05b1s_Context_s::testPattern</definition>
+        <argsstring></argsstring>
+        <name>testPattern</name>
+        <briefdescription>
+<para>flags that sensor is streaming test-pattern </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1ad28b8fd5136da8a015df6e8b8fa8437e" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t Ox05b1s_Context_s::isAfpsRun</definition>
+        <argsstring></argsstring>
+        <name>isAfpsRun</name>
+        <briefdescription>
+<para>if true, just do anything required for Afps parameter calculation, but DON&apos;T access SensorHW! </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a5baab1b97af05ed106423a84907765c3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::oneLineExpTime</definition>
+        <argsstring></argsstring>
+        <name>oneLineExpTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a31635a63066f0b5eb029e878321fa45e" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_Context_s::maxIntegrationLine</definition>
+        <argsstring></argsstring>
+        <name>maxIntegrationLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a0e10f29b22bff75cfcb5d1ee263388cd" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_Context_s::minIntegrationLine</definition>
+        <argsstring></argsstring>
+        <name>minIntegrationLine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a06716fbd40d7430534166f0690170728" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_Context_s::frameLengthLines</definition>
+        <argsstring></argsstring>
+        <name>frameLengthLines</name>
+        <briefdescription>
+<para>frame line length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1aabe9bd87e1c3533fc7a6082f566f0bd4" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_Context_s::curFrameLengthLines</definition>
+        <argsstring></argsstring>
+        <name>curFrameLengthLines</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1aef8eaa6bfd1bbf1110c794c5c9531436" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecMinGain</definition>
+        <argsstring></argsstring>
+        <name>aecMinGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a4777967fd946995d7955a843772405de" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecMaxGain</definition>
+        <argsstring></argsstring>
+        <name>aecMaxGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a61f112038fa252c81e508920dce0ab95" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecMinIntegrationTime</definition>
+        <argsstring></argsstring>
+        <name>aecMinIntegrationTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1ae1d9fa2176458a8d34b4c478876f4e58" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecMaxIntegrationTime</definition>
+        <argsstring></argsstring>
+        <name>aecMaxIntegrationTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1adf359ed1563f7914a4fd0384d585de6a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecIntegrationTimeIncrement</definition>
+        <argsstring></argsstring>
+        <name>aecIntegrationTimeIncrement</name>
+        <briefdescription>
+<para><emphasis>smallest</emphasis> increment the sensor/driver can handle (e.g. </para>        </briefdescription>
+        <detaileddescription>
+<para>used for sliders in the application) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1abc1d7cd7c40820cd38beae17425e3ad5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecGainIncrement</definition>
+        <argsstring></argsstring>
+        <name>aecGainIncrement</name>
+        <briefdescription>
+<para><emphasis>smallest</emphasis> increment the sensor/driver can handle (e.g. </para>        </briefdescription>
+        <detaileddescription>
+<para>used for sliders in the application) </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a8892b0e743d0be754fba36402e6c0e90" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecCurGain</definition>
+        <argsstring></argsstring>
+        <name>aecCurGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a2c032a0c55201ca289bc482d9e653909" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::aecCurIntegrationTime</definition>
+        <argsstring></argsstring>
+        <name>aecCurIntegrationTime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a874d3922be0b1997b7468fe8a52967d7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::curAgain</definition>
+        <argsstring></argsstring>
+        <name>curAgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a4ed86e36d55d244ddbdec6da267d65d7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Ox05b1s_Context_s::curDgain</definition>
+        <argsstring></argsstring>
+        <name>curDgain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a198478cdcb8195225b3de7ad10400c69" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Ox05b1s_Context_s::groupHold</definition>
+        <argsstring></argsstring>
+        <name>groupHold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1abe5ad3a3b4aeaed37b3a093f5b08126c" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t Ox05b1s_Context_s::aGain</definition>
+        <argsstring></argsstring>
+        <name>aGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a9d0f9cc19860062921e4e4a1735da937" prot="public" static="no" mutable="no">
+        <type>IsiGainInfo_t</type>
+        <definition>IsiGainInfo_t Ox05b1s_Context_s::dGain</definition>
+        <argsstring></argsstring>
+        <name>dGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a14f84bc8db4951ad18ed865e1dea4874" prot="public" static="no" mutable="no">
+        <type>IsiSensorWb_t</type>
+        <definition>IsiSensorWb_t Ox05b1s_Context_s::sensorWb</definition>
+        <argsstring></argsstring>
+        <name>sensorWb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1a24400b2389ad5845d95d750aedc10f10" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Ox05b1s_Context_s::i2cId</definition>
+        <argsstring></argsstring>
+        <name>i2cId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1ab1e4b4d7339dbdfea8505605bd9e3ea7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Ox05b1s_Context_s::sensorDevId</definition>
+        <argsstring></argsstring>
+        <name>sensorDevId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1ac6d24888db7fe0f623c9a78682a89c5f" prot="public" static="no" mutable="no">
+        <type>IsiIrLightExp_t</type>
+        <definition>IsiIrLightExp_t Ox05b1s_Context_s::irLightExp</definition>
+        <argsstring></argsstring>
+        <name>irLightExp</name>
+        <briefdescription>
+<para>aec irLightOn and irLightStrength </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ox05b1s___context__s_1af2af66e766f297eb300e0ce3eb0d3774" prot="public" static="no" mutable="no">
+        <type>IsiIrLightInfo_t</type>
+        <definition>IsiIrLightInfo_t Ox05b1s_Context_s::irLightInfo</definition>
+        <argsstring></argsstring>
+        <name>irLightInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="52" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_ox05b1s___context__s_1a8892b0e743d0be754fba36402e6c0e90" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecCurGain</name></member>
+      <member refid="struct_ox05b1s___context__s_1a2c032a0c55201ca289bc482d9e653909" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecCurIntegrationTime</name></member>
+      <member refid="struct_ox05b1s___context__s_1abc1d7cd7c40820cd38beae17425e3ad5" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecGainIncrement</name></member>
+      <member refid="struct_ox05b1s___context__s_1adf359ed1563f7914a4fd0384d585de6a" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecIntegrationTimeIncrement</name></member>
+      <member refid="struct_ox05b1s___context__s_1a4777967fd946995d7955a843772405de" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecMaxGain</name></member>
+      <member refid="struct_ox05b1s___context__s_1ae1d9fa2176458a8d34b4c478876f4e58" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecMaxIntegrationTime</name></member>
+      <member refid="struct_ox05b1s___context__s_1aef8eaa6bfd1bbf1110c794c5c9531436" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecMinGain</name></member>
+      <member refid="struct_ox05b1s___context__s_1a61f112038fa252c81e508920dce0ab95" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aecMinIntegrationTime</name></member>
+      <member refid="struct_ox05b1s___context__s_1abe5ad3a3b4aeaed37b3a093f5b08126c" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>aGain</name></member>
+      <member refid="struct_ox05b1s___context__s_1a16cfdc4a9af6f7bc02431368b9889778" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>configured</name></member>
+      <member refid="struct_ox05b1s___context__s_1a874d3922be0b1997b7468fe8a52967d7" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>curAgain</name></member>
+      <member refid="struct_ox05b1s___context__s_1a4ed86e36d55d244ddbdec6da267d65d7" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>curDgain</name></member>
+      <member refid="struct_ox05b1s___context__s_1aabe9bd87e1c3533fc7a6082f566f0bd4" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>curFrameLengthLines</name></member>
+      <member refid="struct_ox05b1s___context__s_1acc5a6af402893b02a3f095594c3f26df" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>currFps</name></member>
+      <member refid="struct_ox05b1s___context__s_1a9d0f9cc19860062921e4e4a1735da937" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>dGain</name></member>
+      <member refid="struct_ox05b1s___context__s_1a06716fbd40d7430534166f0690170728" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>frameLengthLines</name></member>
+      <member refid="struct_ox05b1s___context__s_1a198478cdcb8195225b3de7ad10400c69" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>groupHold</name></member>
+      <member refid="struct_ox05b1s___context__s_1a24400b2389ad5845d95d750aedc10f10" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>i2cId</name></member>
+      <member refid="struct_ox05b1s___context__s_1ac6d24888db7fe0f623c9a78682a89c5f" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>irLightExp</name></member>
+      <member refid="struct_ox05b1s___context__s_1af2af66e766f297eb300e0ce3eb0d3774" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>irLightInfo</name></member>
+      <member refid="struct_ox05b1s___context__s_1ad28b8fd5136da8a015df6e8b8fa8437e" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>isAfpsRun</name></member>
+      <member refid="struct_ox05b1s___context__s_1a5587597b889cd6435ffc5a411043e7e3" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>isiCtx</name></member>
+      <member refid="struct_ox05b1s___context__s_1a57f5523e1950afffa57f799c34697af8" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>maxFps</name></member>
+      <member refid="struct_ox05b1s___context__s_1a31635a63066f0b5eb029e878321fa45e" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>maxIntegrationLine</name></member>
+      <member refid="struct_ox05b1s___context__s_1a17a2e93c3a128703820bba5ce0dba356" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>minFps</name></member>
+      <member refid="struct_ox05b1s___context__s_1a0e10f29b22bff75cfcb5d1ee263388cd" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>minIntegrationLine</name></member>
+      <member refid="struct_ox05b1s___context__s_1a5baab1b97af05ed106423a84907765c3" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>oneLineExpTime</name></member>
+      <member refid="struct_ox05b1s___context__s_1ab1e4b4d7339dbdfea8505605bd9e3ea7" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>sensorDevId</name></member>
+      <member refid="struct_ox05b1s___context__s_1a9064790018926348d118b3cdc746bef5" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>sensorMode</name></member>
+      <member refid="struct_ox05b1s___context__s_1a14f84bc8db4951ad18ed865e1dea4874" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>sensorWb</name></member>
+      <member refid="struct_ox05b1s___context__s_1a0d7a1b8c1018c109667cf8fea778d448" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>streaming</name></member>
+      <member refid="struct_ox05b1s___context__s_1a545b49f1fddd0352f61c8f7e4eb0a0c7" prot="public" virt="non-virtual"><scope>Ox05b1s_Context_s</scope><name>testPattern</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

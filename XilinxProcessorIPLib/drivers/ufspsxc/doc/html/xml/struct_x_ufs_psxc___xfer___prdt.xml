@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___xfer___prdt" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_Xfer_Prdt</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1ac41f0cc63095080fad9b5c364771f25e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::BufAddr_Lower</definition>
+        <argsstring></argsstring>
+        <name>BufAddr_Lower</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1a0e7b82f740ecc0dd68be3a8552b85eb0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::BufAddr_Upper</definition>
+        <argsstring></argsstring>
+        <name>BufAddr_Upper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1a47e9c81bda17175381717c037ffb5154" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::reserved</definition>
+        <argsstring></argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___prdt_1aae045485fa6094164fa0b04fba24eec9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_Xfer_Prdt::DataByteCount</definition>
+        <argsstring></argsstring>
+        <name>DataByteCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Physical Region Descriptor Table - 8-byte aligned. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="167" bodyend="172"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1ac41f0cc63095080fad9b5c364771f25e" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>BufAddr_Lower</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1a0e7b82f740ecc0dd68be3a8552b85eb0" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>BufAddr_Upper</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1aae045485fa6094164fa0b04fba24eec9" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>DataByteCount</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___prdt_1a47e9c81bda17175381717c037ffb5154" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_Prdt</scope><name>reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

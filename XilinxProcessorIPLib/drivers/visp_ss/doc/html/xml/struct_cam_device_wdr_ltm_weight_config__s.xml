@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_wdr_ltm_weight_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceWdrLtmWeightConfig_s</compoundname>
+    <includes local="no">cam_device_wdr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_weight_config__s_1af47cb7482de82c7b24317cb9711fa806" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t CamDeviceWdrLtmWeightConfig_s::contrast</definition>
+        <argsstring></argsstring>
+        <name>contrast</name>
+        <briefdescription>
+<para>WDR contrast. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_weight_config__s_1add6f4a9d168402effed7f0202fa5960a" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceWdrLtmWeightConfig_s::entropyEnable</definition>
+        <argsstring></argsstring>
+        <name>entropyEnable</name>
+        <briefdescription>
+<para>WDR entropy enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_weight_config__s_1a9e50bda863677e9352217848f1fecbf7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrLtmWeightConfig_s::entropyBase</definition>
+        <argsstring></argsstring>
+        <name>entropyBase</name>
+        <briefdescription>
+<para>WDR factor for all pixel based on image base. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_weight_config__s_1a8d15e6b78438de4b6683f876d845d939" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrLtmWeightConfig_s::entropySlope</definition>
+        <argsstring></argsstring>
+        <name>entropySlope</name>
+        <briefdescription>
+<para>WDR factor for all pixel based on image slope. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_wdr_ltm_weight_config__s_1a941759030f74f5bcce1f76a74a769555" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceWdrLtmWeightConfig_s::wdrLumaThr</definition>
+        <argsstring></argsstring>
+        <name>wdrLumaThr</name>
+        <briefdescription>
+<para>WDR luma threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice WDR LTM weight configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="71" bodyend="78"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_wdr_ltm_weight_config__s_1af47cb7482de82c7b24317cb9711fa806" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmWeightConfig_s</scope><name>contrast</name></member>
+      <member refid="struct_cam_device_wdr_ltm_weight_config__s_1a9e50bda863677e9352217848f1fecbf7" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmWeightConfig_s</scope><name>entropyBase</name></member>
+      <member refid="struct_cam_device_wdr_ltm_weight_config__s_1add6f4a9d168402effed7f0202fa5960a" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmWeightConfig_s</scope><name>entropyEnable</name></member>
+      <member refid="struct_cam_device_wdr_ltm_weight_config__s_1a8d15e6b78438de4b6683f876d845d939" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmWeightConfig_s</scope><name>entropySlope</name></member>
+      <member refid="struct_cam_device_wdr_ltm_weight_config__s_1a941759030f74f5bcce1f76a74a769555" prot="public" virt="non-virtual"><scope>CamDeviceWdrLtmWeightConfig_s</scope><name>wdrLumaThr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

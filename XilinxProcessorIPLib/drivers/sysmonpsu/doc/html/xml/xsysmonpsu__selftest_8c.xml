@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsysmonpsu__selftest_8c" kind="file">
+    <compoundname>xsysmonpsu_selftest.c</compoundname>
+    <includes refid="xsysmonpsu_8h" local="yes">xsysmonpsu.h</includes>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="108">
+        <label>xil_io.h</label>
+      </node>
+      <node id="106">
+        <label>xstatus.h</label>
+      </node>
+      <node id="109">
+        <label>xsysmonpsu_hw.h</label>
+        <link refid="xsysmonpsu__hw_8h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>xsysmonpsu_selftest.c</label>
+        <link refid="xsysmonpsu_selftest.c"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xil_types.h</label>
+      </node>
+      <node id="105">
+        <label>xsysmonpsu.h</label>
+        <link refid="xsysmonpsu_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsysmonpsu__selftest_8c_1adede42b163bc7f23c95e7007fa336b9a" prot="public" static="no">
+        <name>XSM_ATR_TEST_VALUE</name>
+        <initializer>0x55U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsysmonpsu__selftest_8c_1a39d8d59cc35fe4151b51b5bbafdca2ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSysMonPsu_SelfTest</definition>
+        <argsstring>(XSysMonPsu *InstancePtr)</argsstring>
+        <name>XSysMonPsu_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The test<itemizedlist>
+<listitem><para>Resets the device,</para></listitem><listitem><para>Writes a value into the Alarm Threshold register and reads it back for comparison.</para></listitem><listitem><para>Resets the device again.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the value read from the Alarm Threshold register is the same as the value written.</para></listitem><listitem><para>XST_FAILURE Otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a destructive test in that resets of the device are performed. Refer to the device specification for the device status after the reset operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c" bodystart="76" bodyend="108"/>
+        <references refid="struct_x_sys_mon_psu_1ae4e48efa3298714b2e190f2dbfc9566a" compoundref="xsysmonpsu_8h" startline="404">XSysMonPsu::IsReady</references>
+        <references refid="xsysmonpsu_8h_1a220ecdeca017ceb88fcb61fcc0f20253" compoundref="xsysmonpsu_8h" startline="317">XSM_ATR_SUP1_UPPER</references>
+        <references refid="xsysmonpsu_8c_1a708bc2465a24743784ce6119bc05b10a" compoundref="xsysmonpsu_8c" startline="1846" endline="1896">XSysMonPsu_GetAlarmThreshold</references>
+        <references refid="xsysmonpsu_8c_1ad6fc9daa41e50955a71e2fe7a107a0e5" compoundref="xsysmonpsu_8c" startline="209" endline="228">XSysMonPsu_Reset</references>
+        <references refid="xsysmonpsu_8c_1a6d436ab807a561d70339cdfe52f6f560" compoundref="xsysmonpsu_8c" startline="1779" endline="1826">XSysMonPsu_SetAlarmThreshold</references>
+        <referencedby refid="xsysmonpsu__ams__example_8c_1a61d355bff86a58c5cc63a7dafbcc5ea8" compoundref="xsysmonpsu__ams__example_8c" startline="186" endline="471">SysMonPsuAMSExample</referencedby>
+        <referencedby refid="xsysmonpsu__intr__example_8c_1a26b92e20e1b2b69c588591b91d185d12" compoundref="xsysmonpsu__intr__example_8c" startline="213" endline="561">SysMonPsuIntrExample</referencedby>
+        <referencedby refid="xsysmonpsu__polled__example_8c_1ae53b4649b4f9335a87072df7e5e579c4" compoundref="xsysmonpsu__polled__example_8c" startline="147" endline="300">SysMonPsuPolledPrintfExample</referencedby>
+        <referencedby refid="xsysmonpsu__single__ch__intr__example_8c_1a6f2a932c9e346a5009826057a3e7bd69" compoundref="xsysmonpsu__single__ch__intr__example_8c" startline="163" endline="276">SysMonPsuSingleChannelIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsysmonpsu_8h" kindref="compound">xsysmonpsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>defines<sp/>the<sp/>test<sp/>value<sp/>to<sp/>be<sp/>written</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/>to<sp/>the<sp/>Alarm<sp/>Threshold<sp/>Register</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSM_ATR_TEST_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x55U</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="76" refid="xsysmonpsu__selftest_8c_1a39d8d59cc35fe4151b51b5bbafdca2ca" refkind="member"><highlight class="normal">s32<sp/><ref refid="xsysmonpsu_8h_1a39d8d59cc35fe4151b51b5bbafdca2ca" kindref="member">XSysMonPsu_SelfTest</ref>(<ref refid="struct_x_sys_mon_psu" kindref="compound">XSysMonPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>the<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sys_mon_psu_1ae4e48efa3298714b2e190f2dbfc9566a" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>device<sp/>to<sp/>get<sp/>it<sp/>back<sp/>to<sp/>its<sp/>default<sp/>state<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1ad6fc9daa41e50955a71e2fe7a107a0e5" kindref="member">XSysMonPsu_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>a<sp/>value<sp/>into<sp/>the<sp/>Alarm<sp/>Threshold<sp/>registers,<sp/>read<sp/>it<sp/>back,<sp/>and</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>do<sp/>the<sp/>comparison</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1a6d436ab807a561d70339cdfe52f6f560" kindref="member">XSysMonPsu_SetAlarmThreshold</ref>(InstancePtr,<sp/><ref refid="xsysmonpsu_8h_1a220ecdeca017ceb88fcb61fcc0f20253" kindref="member">XSM_ATR_SUP1_UPPER</ref>,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSM_ATR_TEST_VALUE,<sp/>XSYSMON_PS);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/>(u32)<ref refid="xsysmonpsu_8c_1a708bc2465a24743784ce6119bc05b10a" kindref="member">XSysMonPsu_GetAlarmThreshold</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8h_1a220ecdeca017ceb88fcb61fcc0f20253" kindref="member">XSM_ATR_SUP1_UPPER</ref>,<sp/>XSYSMON_PS);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegValue<sp/>==<sp/>XSM_ATR_TEST_VALUE)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>device<sp/>again<sp/>to<sp/>its<sp/>default<sp/>state.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsysmonpsu_8c_1ad6fc9daa41e50955a71e2fe7a107a0e5" kindref="member">XSysMonPsu_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>the<sp/>test<sp/>result.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsu/src/xsysmonpsu_selftest.c"/>
+  </compounddef>
+</doxygen>

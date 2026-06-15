@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details which gives an idea of how the Axi Ethernet and its driver are intended to be used.</para><para>SYSTEM REQUIREMENTS: The system containing the Axi Ethernet should have the following capabilities:<itemizedlist>
+<listitem><para>An interrupt controller</para></listitem><listitem><para>An external memory controller with at least 200KB of RAM available</para></listitem><listitem><para>A UART to display messages</para></listitem><listitem><para>The reset line of the device connected to the AxiEthernet AXI4-Stream interface (AXIDMA or AXIFIFO) must be connected to the reset line of AxiEthernet. (By default for BSB generated systems this is the case.)</para></listitem></itemizedlist>
+</para><sect1 id="example_1ex1">
+<title>xaxiethernet_example_extmulticast.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example uses the AXI Ethernet&apos;s interrupt driven DMA packet transfer mode to send and receive multicast frames when XAE_EXT_MULTICAST_OPTION is enabled.</para><para>For details, see <ref refid="xaxiethernet__example__extmulticast_8c" kindref="compound">xaxiethernet_example_extmulticast.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xaxiethernet_example_extvlan.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example uses the Axi Ethernet&apos;s interrupt driven SGDMA packet transfer mode to send and receive frames.</para><para>For details, see <ref refid="xaxiethernet__example__extvlan_8c" kindref="compound">xaxiethernet_example_extvlan.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xaxiethernet_example_intr_fifo.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example uses the Axi Ethernet&apos;s interrupt driven FIFO direct packet transfer mode to send and receive frames. HW must be setup for FIFO direct mode.</para><para>For details, see <ref refid="xaxiethernet__example__intr__fifo_8c" kindref="compound">xaxiethernet_example_intr_fifo.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xaxiethernet_example_intr_sgdma.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example uses the Axi Ethernet&apos;s interrupt driven SGDMA packet transfer mode to send and receive frames. HW must be setup for checksum offloading for this example to properly execute.</para><para>For details, see <ref refid="xaxiethernet__example__intr__sgdma_8c" kindref="compound">xaxiethernet_example_intr_sgdma.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xaxiethernet_example_polled.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example uses the Axi Ethernet&apos;s FIFO direct frame transfer mode in a polled fashion to send and receive frames. HW must be setup for FIFO direct mode.</para><para>For details, see <ref refid="xaxiethernet__example__polled_8c" kindref="compound">xaxiethernet_example_polled.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xaxiethernet_example_util.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example implements the utility functions for debugging, and ethernet frame construction.</para><para>For details, see <ref refid="xaxiethernet__example__util_8c" kindref="compound">xaxiethernet_example_util.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xaxiethernet_example_mcdma_poll.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in polled mode to send and receive frames.</para><para>For details, see <ref refid="xaxiethernet__example__mcdma__poll_8c" kindref="compound">xaxiethernet_example_mcdma_poll.c</ref>.</para></sect1>
+<sect1 id="example_1ex8">
+<title>xaxiethernet_example_intr_mcdma.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in interrupt mode to send and receive frames.</para><para>For details, see <ref refid="xaxiethernet__example__intr__mcdma_8c" kindref="compound">xaxiethernet_example_intr_mcdma.c</ref>.</para></sect1>
+<sect1 id="example_1ex9">
+<title>xaxiethernet_mcdma_ping_req_example.c</title>
+<para>Contains an example on how to use the XAxietherent driver directly. This example shows how to use Axi Ethernet with MCDMA in polled mode to send ping request&apos;s.</para><para>For details, see <ref refid="xaxiethernet__mcdma__ping__req__example_8c" kindref="compound">xaxiethernet_mcdma_ping_req_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex10">
+<title>xaxiethernet_example.h</title>
+<para>This headerfile defines common data types, prototypes, and includes the proper headers for use with the Axi Ethernet examples.</para><para>For details, see <ref refid="xaxiethernet__example_8h" kindref="compound">xaxiethernet_example.h</ref>.</para><sect2 id="example_1INCLUDING">
+<title>EXAMPLES IN EDK:</title>
+<para><itemizedlist>
+<listitem><para>Each example is independent from the others except for common code found in <ref refid="xaxiethernet__example__util_8c" kindref="compound">xaxiethernet_example_util.c</ref>. When including source code files in an EDK SW application, select <ref refid="xaxiethernet__example__util_8c" kindref="compound">xaxiethernet_example_util.c</ref> along with one other example source code file.</para></listitem></itemizedlist>
+</para></sect2>
+<sect2 id="example_1IMPORTANT">
+<title>NOTES:</title>
+<para><itemizedlist>
+<listitem><para>Included HW features are critical as to which examples will run properly.</para></listitem><listitem><para>The device connected to the AXI4-Stream interface (AXIFIFO or AXIDMA or AXI MCDMA) of the AxiEthernet must be initialized before AxiEthernet initialization. Since the reset line of AXIFIFO or AXIDMA or AXI MCDMA is connected to the reset line of AxiEthernet, AXIDMA/AXIFIFO/AXI MCDMA initialization would reset AxiEthernet. AxiEthernet hardware initialization routines in the AxiEthernet driver do not reset the AxiEthernet hardware. </para></listitem></itemizedlist>
+</para></sect2>
+</sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

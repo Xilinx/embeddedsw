@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__shainfo_8h" kind="file">
+    <compoundname>xasu_shainfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xasu__ecc_8c" local="yes">xasu_ecc.c</includedby>
+    <includedby refid="xasu__ecies_8c" local="yes">xasu_ecies.c</includedby>
+    <includedby refid="xasu__hmac_8h" local="yes">xasu_hmac.h</includedby>
+    <includedby refid="xasu__kdf_8c" local="yes">xasu_kdf.c</includedby>
+    <includedby refid="xasu__lms_8c" local="yes">xasu_lms.c</includedby>
+    <includedby refid="xasu__rsa_8c" local="yes">xasu_rsa.c</includedby>
+    <includedby refid="xasu__sha2_8h" local="yes">xasu_sha2.h</includedby>
+    <includedby refid="xasu__sha3_8h" local="yes">xasu_sha3.h</includedby>
+    <includedby refid="xasu__ecies__common_8c" local="yes">xasu_ecies_common.c</includedby>
+    <includedby refid="xasu__kdf__common_8c" local="yes">xasu_kdf_common.c</includedby>
+    <includedby refid="xasu__keywrap__common_8h" local="yes">xasu_keywrap_common.h</includedby>
+    <includedby refid="xasu__lms__common_8c" local="yes">xasu_lms_common.c</includedby>
+    <includedby refid="xasu__ecies__example_8c" local="yes">xasu_ecies_example.c</includedby>
+    <includedby refid="xasu__kdf__example_8c" local="yes">xasu_kdf_example.c</includedby>
+    <includedby refid="xasu__keywrap__example_8c" local="yes">xasu_keywrap_example.c</includedby>
+    <includedby refid="xasu__lms__example_8c" local="yes">xasu_lms_example.c</includedby>
+    <incdepgraph>
+      <node id="1128">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu_shainfo.h"/>
+        <childnode refid="1129" relation="include">
+        </childnode>
+        <childnode refid="1130" relation="include">
+        </childnode>
+      </node>
+      <node id="1130">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1129">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1131">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu_shainfo.h"/>
+        <childnode refid="1132" relation="include">
+        </childnode>
+        <childnode refid="1133" relation="include">
+        </childnode>
+        <childnode refid="1134" relation="include">
+        </childnode>
+        <childnode refid="1137" relation="include">
+        </childnode>
+        <childnode refid="1138" relation="include">
+        </childnode>
+        <childnode refid="1139" relation="include">
+        </childnode>
+        <childnode refid="1140" relation="include">
+        </childnode>
+        <childnode refid="1144" relation="include">
+        </childnode>
+        <childnode refid="1147" relation="include">
+        </childnode>
+        <childnode refid="1148" relation="include">
+        </childnode>
+        <childnode refid="1149" relation="include">
+        </childnode>
+        <childnode refid="1152" relation="include">
+        </childnode>
+        <childnode refid="1153" relation="include">
+        </childnode>
+        <childnode refid="1154" relation="include">
+        </childnode>
+        <childnode refid="1155" relation="include">
+        </childnode>
+        <childnode refid="1156" relation="include">
+        </childnode>
+      </node>
+      <node id="1135">
+        <label>xasu_hmac.c</label>
+        <link refid="xasu__hmac_8c"/>
+      </node>
+      <node id="1134">
+        <label>xasu_hmac.h</label>
+        <link refid="xasu__hmac_8h"/>
+        <childnode refid="1135" relation="include">
+        </childnode>
+        <childnode refid="1136" relation="include">
+        </childnode>
+      </node>
+      <node id="1150">
+        <label>xasu_keywrap.c</label>
+        <link refid="xasu__keywrap_8c"/>
+      </node>
+      <node id="1151">
+        <label>xasu_keywrap_common.c</label>
+        <link refid="xasu__keywrap__common_8c"/>
+      </node>
+      <node id="1149">
+        <label>xasu_keywrap_common.h</label>
+        <link refid="xasu__keywrap__common_8h"/>
+        <childnode refid="1150" relation="include">
+        </childnode>
+        <childnode refid="1151" relation="include">
+        </childnode>
+      </node>
+      <node id="1153">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu__ecies__example_8c"/>
+      </node>
+      <node id="1142">
+        <label>xasu_multi_crypto_example.c</label>
+        <link refid="xasu__multi__crypto__example_8c"/>
+      </node>
+      <node id="1132">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="1156">
+        <label>xasu_lms_example.c</label>
+        <link refid="xasu__lms__example_8c"/>
+      </node>
+      <node id="1137">
+        <label>xasu_kdf.c</label>
+        <link refid="xasu__kdf_8c"/>
+      </node>
+      <node id="1141">
+        <label>xasu_sha2.c</label>
+        <link refid="xasu__sha2_8c"/>
+      </node>
+      <node id="1140">
+        <label>xasu_sha2.h</label>
+        <link refid="xasu__sha2_8h"/>
+        <childnode refid="1141" relation="include">
+        </childnode>
+        <childnode refid="1142" relation="include">
+        </childnode>
+        <childnode refid="1143" relation="include">
+        </childnode>
+      </node>
+      <node id="1155">
+        <label>xasu_keywrap_example.c</label>
+        <link refid="xasu__keywrap__example_8c"/>
+      </node>
+      <node id="1143">
+        <label>xasu_sha2_example.c</label>
+        <link refid="xasu__sha2__example_8c"/>
+      </node>
+      <node id="1146">
+        <label>xasu_sha3_example.c</label>
+        <link refid="xasu__sha3__example_8c"/>
+      </node>
+      <node id="1138">
+        <label>xasu_lms.c</label>
+        <link refid="xasu__lms_8c"/>
+      </node>
+      <node id="1139">
+        <label>xasu_rsa.c</label>
+        <link refid="xasu__rsa_8c"/>
+      </node>
+      <node id="1147">
+        <label>xasu_ecies_common.c</label>
+        <link refid="xasu__ecies__common_8c"/>
+      </node>
+      <node id="1145">
+        <label>xasu_sha3.c</label>
+        <link refid="xasu__sha3_8c"/>
+      </node>
+      <node id="1144">
+        <label>xasu_sha3.h</label>
+        <link refid="xasu__sha3_8h"/>
+        <childnode refid="1145" relation="include">
+        </childnode>
+        <childnode refid="1146" relation="include">
+        </childnode>
+      </node>
+      <node id="1133">
+        <label>xasu_ecies.c</label>
+        <link refid="xasu__ecies_8c"/>
+      </node>
+      <node id="1148">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu__kdf__common_8c"/>
+      </node>
+      <node id="1154">
+        <label>xasu_kdf_example.c</label>
+        <link refid="xasu__kdf__example_8c"/>
+      </node>
+      <node id="1136">
+        <label>xasu_hmac_example.c</label>
+        <link refid="xasu__hmac__example_8c"/>
+      </node>
+      <node id="1152">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___sha_operation_cmd" prot="public">XAsu_ShaOperationCmd</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga219220a0d5563c2fc911864cd15a8d96" prot="public" static="no">
+        <name>XASU_SHA_OPERATION_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for SHA3 operation command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf93a04d434eb1a5f7cf9f5c4cd2f717a" prot="public" static="no">
+        <name>XASU_SHA_KAT_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for SHA3 KAT command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" compoundref="xasu__sha2_8c" startline="172" endline="206">XAsu_Sha2Kat</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga6bee0e4d744e4febdfbb84efd76ae207" compoundref="xasu__sha3_8c" startline="171" endline="199">XAsu_Sha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaf407e64f0d31841abdaab5bf6e60aca1" prot="public" static="no">
+        <name>XASU_SHA_MAX_CMDS</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by SHA module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" prot="public" static="no">
+        <name>XASU_SHA_MODE_256</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SHA2/SHA3 mode 256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" compoundref="xasu__sha2_8c" startline="172" endline="206">XAsu_Sha2Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa1612fa7174ed6da5dafeb55d8af9381" prot="public" static="no">
+        <name>XASU_SHA_MODE_384</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>SHA2/SHA3 mode 384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" prot="public" static="no">
+        <name>XASU_SHA_MODE_512</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>SHA2/SHA3 mode 512. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga6a607ba08dd12b58054f04cc6e8c6dd3" compoundref="xasu__sha2_8c" startline="172" endline="206">XAsu_Sha2Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaacee72cf9c2d25a922f117c6da956f25" prot="public" static="no">
+        <name>XASU_SHA_MODE_SHAKE256</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>SHA3 mode SHAKE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" prot="public" static="no">
+        <name>XASU_SHA2_TYPE</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>SHA2 type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__example_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xasu__ecies__example_8c" startline="109" endline="236">main</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga82e8754efc7bf804924fd4c107fbab54" compoundref="xasu__lms_8c" startline="266" endline="310">XAsu_HssSignVerify</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" compoundref="xasu__lms_8c" startline="201" endline="245">XAsu_LmsSignVerify</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1ga24961041e33b59a290d2902c1d26e6e6" compoundref="xasu__lms_8c" startline="340" endline="381">XAsu_LmsSignVerifyKat</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+        <referencedby refid="group__xasu__sha2__client__apis_1ga3495a73519c85badf4c6c2fa83216d7f" compoundref="xasu__sha2_8c" startline="68" endline="154">XAsu_Sha2Operation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" prot="public" static="no">
+        <name>XASU_SHA3_TYPE</name>
+        <initializer>(0x03U)</initializer>
+        <briefdescription>
+<para>SHA3 type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1ga5182a3df4600b1e0c78db02eab118fe7" compoundref="xasu__keywrap_8c" startline="129" endline="178">XAsu_KeyUnwrap</referencedby>
+        <referencedby refid="group__xasu__keywrap__client__apis_1gad64883d138efba842bfc4961b3c8ee0f" compoundref="xasu__keywrap_8c" startline="61" endline="110">XAsu_KeyWrap</referencedby>
+        <referencedby refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" compoundref="xasu__lms__common_8c" startline="58" endline="147">XAsu_LmsValidateParams</referencedby>
+        <referencedby refid="group__xasu__sha3__client__apis_1ga522f701ac29ec343d5ad2d90ebac4a2a" compoundref="xasu__sha3_8c" startline="69" endline="154">XAsu_Sha3Operation</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" prot="public" static="no">
+        <name>XASU_SHA_SHAKE_256_HASH_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>SHA2/3 256 and SHAKE 256 hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" prot="public" static="no">
+        <name>XASU_SHA_384_HASH_LEN</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>SHA2/3 384 hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" prot="public" static="no">
+        <name>XASU_SHA_512_HASH_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+<para>SHA2/3 512 hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" prot="public" static="no">
+        <name>XASU_SHAKE_256_MAX_HASH_LEN</name>
+        <initializer>(136U)</initializer>
+        <briefdescription>
+<para>SHAKE 256 maximum hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xasu__shainfo_8h_1a9d81cc7efee8a471d7bbd8a3d5c5cc6f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ShaValidateModeAndType</definition>
+        <argsstring>(u8 ShaType, u8 ShaMode)</argsstring>
+        <name>XAsu_ShaValidateModeAndType</name>
+        <param>
+          <type>u8</type>
+          <declname>ShaType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ShaMode</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the specified SHA mode and SHA type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The SHA type to validate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The SHA mode to validate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation is successful.</para></listitem><listitem><para>XST_FAILURE, if validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="99" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="xasu__shainfo_8h_1a6c14876d71eedc099aa55816f26036a5" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ShaValidateHashLen</definition>
+        <argsstring>(u8 ShaMode, u32 HashLen)</argsstring>
+        <name>XAsu_ShaValidateHashLen</name>
+        <param>
+          <type>u8</type>
+          <declname>ShaMode</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashLen</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the specified SHA length for respective SHA mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ShaMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The SHA mode to validate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The hash length to validate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation is successful.</para></listitem><listitem><para>XST_FAILURE, if validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h" bodystart="132" bodyend="152"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the SHA definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   vns  06/04/24 Initial release
+      ma   06/14/24 Updated XAsufw_ShaOperationCmd structure to have 64-bit hash address
+      vns  08/22/24 Updated sha command structure
+      am   10/22/24 Added macros for hash lengths.
+      yog  01/02/25 Added macros for SHA type.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XASU_SHAINFO_H_</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHAINFO_H_</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SHA<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="group__xasu__common__defs_1ga219220a0d5563c2fc911864cd15a8d96" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHA_OPERATION_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1gaf93a04d434eb1a5f7cf9f5c4cd2f717a" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1gaf407e64f0d31841abdaab5bf6e60aca1" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>SHA<sp/>modes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHA_MODE_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="52" refid="group__xasu__common__defs_1gaa1612fa7174ed6da5dafeb55d8af9381" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_MODE_384<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_MODE_512<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="group__xasu__common__defs_1gaacee72cf9c2d25a922f117c6da956f25" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_MODE_SHAKE256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>SHA<sp/>Type<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHA2_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA3_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03U)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>SHA<sp/>hash<sp/>lengths<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_SHA_SHAKE_256_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_384_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHA_512_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_SHAKE_256_MAX_HASH_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(136U)<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="struct_x_asu___sha_operation_cmd" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70" refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___sha_operation_cmd_1a0c80fb45a77e0d8703c26624f7880384" kindref="member">DataAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___sha_operation_cmd_1a5a46d5d9f4cbfa657beb34d64989fb93" kindref="member">HashAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___sha_operation_cmd_1a158287b66e45758c02fa6738afad4716" kindref="member">DataSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___sha_operation_cmd_1afc4e0234d282f65f5a863173f5003624" kindref="member">HashBufSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___sha_operation_cmd_1a156f2363c44178819cae2f58e1fdab5c" kindref="member">ShaMode</ref>;<sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___sha_operation_cmd_1afac49d6bc5df4eb5cfcc97cdfd808436" kindref="member">IsLast</ref>;<sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___sha_operation_cmd_1a3e45916a5f844bc83a5607e5f836cd5a" kindref="member">OperationFlags</ref>;<sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_asu___sha_operation_cmd_1afdd18b075d9489ac81f456def251f877" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___sha_operation_cmd_1afdd18b075d9489ac81f456def251f877" kindref="member">ShakeReserved</ref>;<sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_asu___sha_operation_cmd_1afd817d2215d8e31a45c023c0e3dd5779" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved[4];<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/><ref refid="struct_x_asu___sha_operation_cmd" kindref="compound">XAsu_ShaOperationCmd</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="99"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>s32<sp/>XAsu_ShaValidateModeAndType(u8<sp/>ShaType,<sp/>u8<sp/>ShaMode)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ShaType<sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" kindref="member">XASU_SHA2_TYPE</ref>)<sp/>&amp;&amp;<sp/>(ShaType<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" kindref="member">XASU_SHA3_TYPE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((ShaMode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaMode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaa1612fa7174ed6da5dafeb55d8af9381" kindref="member">XASU_SHA_MODE_384</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaMode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" kindref="member">XASU_SHA_MODE_512</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ShaType<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" kindref="member">XASU_SHA3_TYPE</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(ShaMode<sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaacee72cf9c2d25a922f117c6da956f25" kindref="member">XASU_SHA_MODE_SHAKE256</ref>))))<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="132"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>s32<sp/>XAsu_ShaValidateHashLen(u8<sp/>ShaMode,<sp/>u32<sp/>HashLen)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((HashLen<sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ShaMode<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" kindref="member">XASU_SHA_MODE_256</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HashLen<sp/>!=<sp/><ref refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" kindref="member">XASU_SHA_SHAKE_256_HASH_LEN</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ShaMode<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaa1612fa7174ed6da5dafeb55d8af9381" kindref="member">XASU_SHA_MODE_384</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HashLen<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga03b4e128752ecabe8915b7c8a8a4d73f" kindref="member">XASU_SHA_384_HASH_LEN</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ShaMode<sp/>==<sp/><ref refid="group__xasu__common__defs_1ga4047c862b722198278f8856b50525be0" kindref="member">XASU_SHA_MODE_512</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HashLen<sp/>!=<sp/><ref refid="group__xasu__common__defs_1ga2f1dce4b9423d6e10cd1914f67a70178" kindref="member">XASU_SHA_512_HASH_LEN</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((ShaMode<sp/>==<sp/><ref refid="group__xasu__common__defs_1gaacee72cf9c2d25a922f117c6da956f25" kindref="member">XASU_SHA_MODE_SHAKE256</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HashLen<sp/>&gt;<sp/><ref refid="group__xasu__common__defs_1ga76b2a99254d75adbf6f36f2cfbb39964" kindref="member">XASU_SHAKE_256_MAX_HASH_LEN</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_SHAINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_shainfo.h"/>
+  </compounddef>
+</doxygen>

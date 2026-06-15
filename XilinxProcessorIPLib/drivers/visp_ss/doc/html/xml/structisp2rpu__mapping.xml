@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structisp2rpu__mapping" kind="struct" prot="public">
+    <compoundname>isp2rpu_mapping</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structisp2rpu__mapping_1a69737bdc798b6a43090985b06afb09a3" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t isp2rpu_mapping::reg[XPAR_XVISP_SS_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XVISP_SS_NUM_INSTANCES]</argsstring>
+        <name>reg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="45" bodyend="47"/>
+    <listofallmembers>
+      <member refid="structisp2rpu__mapping_1a69737bdc798b6a43090985b06afb09a3" prot="public" virt="non-virtual"><scope>isp2rpu_mapping</scope><name>reg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1076 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvidc__edid_8c" kind="file">
+    <compoundname>xvidc_edid.c</compoundname>
+    <includes refid="xvidc__edid_8h" local="yes">xvidc_edid.h</includes>
+    <incdepgraph>
+      <node id="32">
+        <label>xvidc.h</label>
+        <link refid="xvidc_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xstatus.h</label>
+      </node>
+      <node id="29">
+        <label>xvidc_edid.c</label>
+        <link refid="xvidc_edid.c"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>xvidc_edid.h</label>
+        <link refid="xvidc__edid_8h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xil_types.h</label>
+      </node>
+      <node id="34">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__video__common_1ga6f20a68bdd275228248233d656faa166" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XVidC_EdidIsVideoTimingSupportedPreferredTiming</definition>
+        <argsstring>(const u8 *EdidRaw, const XVidC_VideoTimingMode *VtMode)</argsstring>
+        <name>XVidC_EdidIsVideoTimingSupportedPreferredTiming</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref> *</type>
+          <declname>VtMode</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether or not a specified video timing mode is the preferred timing of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to check the timing against. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video timing mode to check for support.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status code.<itemizedlist>
+<listitem><para>XST_SUCCESS if the video timing mode is the preferred timing as specified in the base EDID.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="427" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga5e6ceef38b4f7ab2de16e1ca317d222a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XVidC_EdidIsVideoTimingSupportedEstablishedTimings</definition>
+        <argsstring>(const u8 *EdidRaw, const XVidC_VideoTimingMode *VtMode)</argsstring>
+        <name>XVidC_EdidIsVideoTimingSupportedEstablishedTimings</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref> *</type>
+          <declname>VtMode</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether or not a specified video timing mode is supported in the established timings field of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to check the timing against. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video timing mode to check for support.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status code.<itemizedlist>
+<listitem><para>XST_SUCCESS if the video timing mode is supported in the base EDID&apos;s established timings field.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="472" bodyend="582"/>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga165bb3a7329585874585ded06b91b226" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XVidC_EdidIsVideoTimingSupportedStandardTimings</definition>
+        <argsstring>(const u8 *EdidRaw, const XVidC_VideoTimingMode *VtMode)</argsstring>
+        <name>XVidC_EdidIsVideoTimingSupportedStandardTimings</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref> *</type>
+          <declname>VtMode</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether or not a specified video timing mode is supported in the standard timings field of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to check the timing against. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video timing mode to check for support.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status code.<itemizedlist>
+<listitem><para>XST_SUCCESS if the video timing mode is supported in the base EDID&apos;s standard timings fields.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="601" bodyend="618"/>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gacd4bafd0c490ff27b3b7d4772de20815" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XVidC_CalculatePower</definition>
+        <argsstring>(u8 Base, u8 Power)</argsstring>
+        <name>XVidC_CalculatePower</name>
+        <param>
+          <type>u8</type>
+          <declname>Base</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Power</declname>
+        </param>
+        <briefdescription>
+<para>Perform a power operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Base</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is b in the power operation, b^n. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Power</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is n in the power operation, b^n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Base^Power (Base to the power of Power).</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="632" bodyend="642"/>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gadacb7f740e7c3b557350d7c415d6b224" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XVidC_CalculateBinaryFraction_QFormat</definition>
+        <argsstring>(u16 Val, u8 DecPtIndex)</argsstring>
+        <name>XVidC_CalculateBinaryFraction_QFormat</name>
+        <param>
+          <type>u16</type>
+          <declname>Val</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DecPtIndex</declname>
+        </param>
+        <briefdescription>
+<para>Convert a fractional binary number into a fixed point Q0.DecPtIndex number Binary digits to the right of the decimal point represent 2^-1 to 2^-(DecPtIndex+1). </para>        </briefdescription>
+        <detaileddescription>
+<para>Binary digits to the left of the decimal point represent 2^0, 2^1, etc. For a given Q format, using an unsigned integer container with n fractional bits: its range is [0, 2^-n] its resolution is 2^n</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the binary representation of the fraction. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecPtIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the index of the decimal point in the binary number. The decimal point is between the binary digits at Val&apos;s indices (DecPtIndex -1) and (DecPtIndex). DecPtIndex will determine the Q format resolution.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Fixed point representation of the fractional part of the binary number in Q format.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="667" bodyend="679"/>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga1b80756fac5f42d2d022df81f099c56e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVidC_EdidGetManName</definition>
+        <argsstring>(const u8 *EdidRaw, char ManName[4])</argsstring>
+        <name>XVidC_EdidGetManName</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>ManName</declname>
+          <array>[4]</array>
+        </param>
+        <briefdescription>
+<para>Get the manufacturer name as specified in the vendor and product ID field of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve the manufacturer name from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ManName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the string that will be modified to hold the retrieved manufacturer name.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The ManName argument is modified with the manufacturer name. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="64" bodyend="77"/>
+        <references refid="group__video__common_1ga992d1b471bce0701879299ef6300ee5c" compoundref="xvidc__edid_8h" startline="56">XVIDC_EDID_VPI_ID_MAN_NAME0</references>
+        <references refid="group__video__common_1ga7031bed745604bce8083eeeff77caba8" compoundref="xvidc__edid_8h" startline="183">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_MASK</references>
+        <references refid="group__video__common_1ga4e0c1183d93fbfe65b713827857909e5" compoundref="xvidc__edid_8h" startline="181">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_SHIFT</references>
+        <references refid="group__video__common_1gaceb32b6b05b58e9da50ad1dfa8fa48a9" compoundref="xvidc__edid_8h" startline="185">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR1_MASK</references>
+        <references refid="group__video__common_1ga7eebbe165fe64af5e23c07b6b6b6be54" compoundref="xvidc__edid_8h" startline="187">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR1_POS</references>
+        <references refid="group__video__common_1gae0e11f161c9069675d9c44fa656b3420" compoundref="xvidc__edid_8h" startline="58">XVIDC_EDID_VPI_ID_MAN_NAME1</references>
+        <references refid="group__video__common_1ga4be6dd399ad8c43b1eaf4f6c5056c95e" compoundref="xvidc__edid_8h" startline="189">XVIDC_EDID_VPI_ID_MAN_NAME1_CHAR1_SHIFT</references>
+        <references refid="group__video__common_1gaa64f390571d9d8c1924cf65f85db93a5" compoundref="xvidc__edid_8h" startline="191">XVIDC_EDID_VPI_ID_MAN_NAME1_CHAR2_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga3988a58b29b44426b5317f38ada2d069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__video__common_1ga8006bc80e39c26ee0081647990b9fedc" kindref="member">XVidC_ColorDepth</ref></type>
+        <definition>XVidC_ColorDepth XVidC_EdidGetColorDepth</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetColorDepth</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Get the color bit depth (bits per primary color) as specified in the basic display parameters and features, video input definition field of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve color depth information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bits per primary color as specified by the supplied base EDID.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="94" bodyend="131"/>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca1861e2353b85d28dc891b577db9603cf" compoundref="xvidc_8h" startline="384">XVIDC_BPC_10</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca6619574cccd4408c758f2cdb85077b98" compoundref="xvidc_8h" startline="385">XVIDC_BPC_12</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcaa03c1a08325b77a551d5bacfaa8ce8dc" compoundref="xvidc_8h" startline="386">XVIDC_BPC_14</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcaade26fc550c66173dd59f10ab59d1e99" compoundref="xvidc_8h" startline="387">XVIDC_BPC_16</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca5f5c2304856751cf8a16108a563af862" compoundref="xvidc_8h" startline="382">XVIDC_BPC_6</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcadadb68ef4c87a2675fbf8f481e9a033d" compoundref="xvidc_8h" startline="383">XVIDC_BPC_8</references>
+        <references refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcacc9b6cef74fe895d1ce4b4e23111f471" compoundref="xvidc_8h" startline="389">XVIDC_BPC_UNKNOWN</references>
+        <references refid="group__video__common_1gaffe39e367f8004f9be58d14730a99933" compoundref="xvidc__edid_8h" startline="82">XVIDC_EDID_BDISP_VID</references>
+        <references refid="group__video__common_1gab0a07ffe5b8bdb0a05297faa418ff429" compoundref="xvidc__edid_8h" startline="231">XVIDC_EDID_BDISP_VID_DIG_BPC_10</references>
+        <references refid="group__video__common_1ga9d941e0fd1cbb73d9456ae44ec309081" compoundref="xvidc__edid_8h" startline="233">XVIDC_EDID_BDISP_VID_DIG_BPC_12</references>
+        <references refid="group__video__common_1ga7ed5faccf263784a889e9643b1f936d2" compoundref="xvidc__edid_8h" startline="235">XVIDC_EDID_BDISP_VID_DIG_BPC_14</references>
+        <references refid="group__video__common_1ga3f13d811694f1d1c2a4284bb72acf8ca" compoundref="xvidc__edid_8h" startline="237">XVIDC_EDID_BDISP_VID_DIG_BPC_16</references>
+        <references refid="group__video__common_1ga664ba485dae57acdf3a9b972ad4392ea" compoundref="xvidc__edid_8h" startline="227">XVIDC_EDID_BDISP_VID_DIG_BPC_6</references>
+        <references refid="group__video__common_1ga265949e2cdd3411d56657d7a8555df6b" compoundref="xvidc__edid_8h" startline="229">XVIDC_EDID_BDISP_VID_DIG_BPC_8</references>
+        <references refid="group__video__common_1ga4ca75668ad2e29af3d8002b7246c6939" compoundref="xvidc__edid_8h" startline="223">XVIDC_EDID_BDISP_VID_DIG_BPC_MASK</references>
+        <references refid="group__video__common_1ga65d4e063202e1306d1ca759660e6eff6" compoundref="xvidc__edid_8h" startline="221">XVIDC_EDID_BDISP_VID_DIG_BPC_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gae49edeb7342792894a7879e7a8edc2d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcRedX</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcRedX</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the x chromaticity coordinate for red by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The x chromatacity coordinate for red.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="148" bodyend="154"/>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1ga6a59ce37b3e6ffe5338df885e5c36e21" compoundref="xvidc__edid_8h" startline="287">XVIDC_EDID_CC_RBX_LOW_SHIFT</references>
+        <references refid="group__video__common_1gaa89a3d1f41dc1018989f68d51b0a6ca6" compoundref="xvidc__edid_8h" startline="97">XVIDC_EDID_CC_REDX_HIGH</references>
+        <references refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" compoundref="xvidc__edid_8h" startline="93">XVIDC_EDID_CC_RG_LOW</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga2833ca9c7e3254b4d74fd38703e266e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcRedY</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcRedY</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the y chromaticity coordinate for red by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The y chromatacity coordinate for red.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="171" bodyend="178"/>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1gadaca2bb5cbdc8aa74059e0251dc35dcf" compoundref="xvidc__edid_8h" startline="291">XVIDC_EDID_CC_RBY_LOW_MASK</references>
+        <references refid="group__video__common_1gab9b1f17905f4728a39928c05870880a9" compoundref="xvidc__edid_8h" startline="289">XVIDC_EDID_CC_RBY_LOW_SHIFT</references>
+        <references refid="group__video__common_1gad198bd30698f8fdedfb9605a665d7ab2" compoundref="xvidc__edid_8h" startline="99">XVIDC_EDID_CC_REDY_HIGH</references>
+        <references refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" compoundref="xvidc__edid_8h" startline="93">XVIDC_EDID_CC_RG_LOW</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga6ec1f3728397da4c5d0fa869d87fd594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcGreenX</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcGreenX</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the x chromaticity coordinate for green by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The x chromatacity coordinate for green.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="195" bodyend="202"/>
+        <references refid="group__video__common_1ga5589b83030bfe4db814746bc342c1ba3" compoundref="xvidc__edid_8h" startline="101">XVIDC_EDID_CC_GREENX_HIGH</references>
+        <references refid="group__video__common_1ga815e263f1bd2367529923e32178e6647" compoundref="xvidc__edid_8h" startline="295">XVIDC_EDID_CC_GWX_LOW_MASK</references>
+        <references refid="group__video__common_1ga0f28c2c455b7742fec587b789eff8cf9" compoundref="xvidc__edid_8h" startline="293">XVIDC_EDID_CC_GWX_LOW_SHIFT</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" compoundref="xvidc__edid_8h" startline="93">XVIDC_EDID_CC_RG_LOW</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gaea0110e5c619c903a07e5a13692d827e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcGreenY</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcGreenY</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the y chromaticity coordinate for green by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The y chromatacity coordinate for green.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="219" bodyend="225"/>
+        <references refid="group__video__common_1ga274936d48b2e0c281e54922ea657b3ee" compoundref="xvidc__edid_8h" startline="299">XVIDC_EDID_CC_GREENY_HIGH</references>
+        <references refid="group__video__common_1ga3b385af9e8671bae2c837c33af89bd03" compoundref="xvidc__edid_8h" startline="297">XVIDC_EDID_CC_GWY_LOW_MASK</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" compoundref="xvidc__edid_8h" startline="93">XVIDC_EDID_CC_RG_LOW</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga9472ec6a42c466a75eb0bcb50881b490" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcBlueX</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcBlueX</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the x chromaticity coordinate for blue by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The x chromatacity coordinate for blue.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="242" bodyend="248"/>
+        <references refid="group__video__common_1ga2e0f31afb51d9e86d31b6d67f1adf6f8" compoundref="xvidc__edid_8h" startline="301">XVIDC_EDID_CC_BLUEX_HIGH</references>
+        <references refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" compoundref="xvidc__edid_8h" startline="95">XVIDC_EDID_CC_BW_LOW</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1ga6a59ce37b3e6ffe5338df885e5c36e21" compoundref="xvidc__edid_8h" startline="287">XVIDC_EDID_CC_RBX_LOW_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gad3bb8db79fd246d7d2e3a9780b1a0927" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcBlueY</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcBlueY</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the y chromaticity coordinate for blue by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The y chromatacity coordinate for blue.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="265" bodyend="272"/>
+        <references refid="group__video__common_1gaa2a0606e3dc5298ba834fcbe7715b5e9" compoundref="xvidc__edid_8h" startline="303">XVIDC_EDID_CC_BLUEY_HIGH</references>
+        <references refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" compoundref="xvidc__edid_8h" startline="95">XVIDC_EDID_CC_BW_LOW</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1gadaca2bb5cbdc8aa74059e0251dc35dcf" compoundref="xvidc__edid_8h" startline="291">XVIDC_EDID_CC_RBY_LOW_MASK</references>
+        <references refid="group__video__common_1gab9b1f17905f4728a39928c05870880a9" compoundref="xvidc__edid_8h" startline="289">XVIDC_EDID_CC_RBY_LOW_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gaf12b42f0cb98aa08c133f60452026685" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcWhiteX</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcWhiteX</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the x chromaticity coordinate for white by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to a integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The x chromatacity coordinate for white.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="289" bodyend="295"/>
+        <references refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" compoundref="xvidc__edid_8h" startline="95">XVIDC_EDID_CC_BW_LOW</references>
+        <references refid="group__video__common_1ga815e263f1bd2367529923e32178e6647" compoundref="xvidc__edid_8h" startline="295">XVIDC_EDID_CC_GWX_LOW_MASK</references>
+        <references refid="group__video__common_1ga0f28c2c455b7742fec587b789eff8cf9" compoundref="xvidc__edid_8h" startline="293">XVIDC_EDID_CC_GWX_LOW_SHIFT</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1gadf0022dcd7f9d8af0abf707d00552aae" compoundref="xvidc__edid_8h" startline="305">XVIDC_EDID_CC_WHITEX_HIGH</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga00f4fb59577dd4d299ab240611a51782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidC_EdidGetCcWhiteY</definition>
+        <argsstring>(const u8 *EdidRaw)</argsstring>
+        <name>XVidC_EdidGetCcWhiteY</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <briefdescription>
+<para>Calculates the y chromaticity coordinate for white by converting a 10 bit binary fraction representation from the supplied base Extended Display Identification Data (EDID) to an integer in Q0.10 Format. </para>        </briefdescription>
+        <detaileddescription>
+<para>To convert back to float divide the fixed point value by 2^10.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to retrieve chromaticity information from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The y chromatacity coordinate for white.</para></simplesect>
+<simplesect kind="note"><para>All values will be accurate to +/-0.0005. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="312" bodyend="318"/>
+        <references refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" compoundref="xvidc__edid_8h" startline="95">XVIDC_EDID_CC_BW_LOW</references>
+        <references refid="group__video__common_1ga3b385af9e8671bae2c837c33af89bd03" compoundref="xvidc__edid_8h" startline="297">XVIDC_EDID_CC_GWY_LOW_MASK</references>
+        <references refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" compoundref="xvidc__edid_8h" startline="285">XVIDC_EDID_CC_HIGH_SHIFT</references>
+        <references refid="group__video__common_1gaa49726189d6ddc19b0904ad7c04e88d0" compoundref="xvidc__edid_8h" startline="307">XVIDC_EDID_CC_WHITEY_HIGH</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1ga96078c39f2c8daece7337a14e6e5568f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XVidC_EdidGetStdTimingsV</definition>
+        <argsstring>(const u8 *EdidRaw, u8 StdTimingsNum)</argsstring>
+        <name>XVidC_EdidGetStdTimingsV</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>StdTimingsNum</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the active vertical resolution from the standard timings field of the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to check the timing against. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StdTimingsNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies which one of the standard timings to retrieve from the standard timings field.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The vertical active resolution of the specified standard timing from the supplied base EDID.</para></simplesect>
+<simplesect kind="note"><para>StdTimingsNum is an index 1-8. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="335" bodyend="365"/>
+        <references refid="group__video__common_1ga97f6d1ba9dd156ee63d05472befcb909" compoundref="xvidc__edid_8h" startline="351">XVIDC_EDID_STD_TIMINGS_AR_16_10</references>
+        <references refid="group__video__common_1ga6a6b3275a587f116444378ce4892eed7" compoundref="xvidc__edid_8h" startline="357">XVIDC_EDID_STD_TIMINGS_AR_16_9</references>
+        <references refid="group__video__common_1gaea8a07e041f666807cde431b8e7cc8ab" compoundref="xvidc__edid_8h" startline="353">XVIDC_EDID_STD_TIMINGS_AR_4_3</references>
+        <references refid="group__video__common_1ga69a6f36479ff9f687d2f1082dd254b2f" compoundref="xvidc__edid_8h" startline="355">XVIDC_EDID_STD_TIMINGS_AR_5_4</references>
+        <references refid="group__video__common_1gada1341853790912a0cd0eedef9621ea5" compoundref="xvidc__edid_8h" startline="691">XVidC_EdidGetStdTimingsAr</references>
+        <references refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" compoundref="xvidc__edid_8h" startline="686">XVidC_EdidGetStdTimingsH</references>
+      </memberdef>
+      <memberdef kind="function" id="group__video__common_1gaf00ac478683fd1d3c550e22416cb7c05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVidC_EdidIsVideoTimingSupported</definition>
+        <argsstring>(const u8 *EdidRaw, const XVidC_VideoTimingMode *VtMode)</argsstring>
+        <name>XVidC_EdidIsVideoTimingSupported</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>EdidRaw</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref> *</type>
+          <declname>VtMode</declname>
+        </param>
+        <briefdescription>
+<para>Checks whether or not a specified video timing mode is supported as specified in the supplied base Extended Display Identification Data (EDID). </para>        </briefdescription>
+        <detaileddescription>
+<para>The preferred timing, established timings (I, II, II), and the standard timings fields are checked for support.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EdidRaw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the supplied base EDID to check the timing against. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VtMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the video timing mode to check for support.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status code.<itemizedlist>
+<listitem><para>XST_SUCCESS if the video timing mode is supported as specified in the supplied base EDID.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c" bodystart="385" bodyend="409"/>
+        <referencedby refid="xvidc__edid__print__example_8h_1a1c214b447b3327e8e6a6e99f6d9bab2d" compoundref="xvidc__edid__print__example_8c" startline="120" endline="133">Edid_PrintSuppVmTable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvidc__edid_8h" kindref="compound">xvidc_edid.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedPreferredTiming(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedEstablishedTimings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedStandardTimings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XVidC_CalculatePower(u8<sp/>Base,<sp/>u8<sp/>Power);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(u16<sp/>Val,<sp/>u8<sp/>DecPtIndex);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__video__common_1ga1b80756fac5f42d2d022df81f099c56e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga1b80756fac5f42d2d022df81f099c56e" kindref="member">XVidC_EdidGetManName</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ManName[4])</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ManName[0]<sp/>=<sp/>0x40<sp/>+<sp/>((EdidRaw[<ref refid="group__video__common_1ga992d1b471bce0701879299ef6300ee5c" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga7031bed745604bce8083eeeff77caba8" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga4e0c1183d93fbfe65b713827857909e5" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR0_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ManName[1]<sp/>=<sp/>0x40<sp/>+<sp/>(((EdidRaw[<ref refid="group__video__common_1ga992d1b471bce0701879299ef6300ee5c" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gaceb32b6b05b58e9da50ad1dfa8fa48a9" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR1_MASK</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga7eebbe165fe64af5e23c07b6b6b6be54" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME0_CHAR1_POS</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gae0e11f161c9069675d9c44fa656b3420" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME1</ref>]<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga4be6dd399ad8c43b1eaf4f6c5056c95e" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME1_CHAR1_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ManName[2]<sp/>=<sp/>0x40<sp/>+<sp/>(EdidRaw[<ref refid="group__video__common_1gae0e11f161c9069675d9c44fa656b3420" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME1</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gaa64f390571d9d8c1924cf65f85db93a5" kindref="member">XVIDC_EDID_VPI_ID_MAN_NAME1_CHAR2_MASK</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ManName[3]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group__video__common_1ga3988a58b29b44426b5317f38ada2d069" refkind="member"><highlight class="normal"><ref refid="group__video__common_1ga8006bc80e39c26ee0081647990b9fedc" kindref="member">XVidC_ColorDepth</ref><sp/><ref refid="group__video__common_1ga3988a58b29b44426b5317f38ada2d069" kindref="member">XVidC_EdidGetColorDepth</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga8006bc80e39c26ee0081647990b9fedc" kindref="member">XVidC_ColorDepth</ref><sp/>Bpc;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(((EdidRaw[<ref refid="group__video__common_1gaffe39e367f8004f9be58d14730a99933" kindref="member">XVIDC_EDID_BDISP_VID</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga4ca75668ad2e29af3d8002b7246c6939" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga65d4e063202e1306d1ca759660e6eff6" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_SHIFT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga664ba485dae57acdf3a9b972ad4392ea" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_6</ref>:</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca5f5c2304856751cf8a16108a563af862" kindref="member">XVIDC_BPC_6</ref>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga265949e2cdd3411d56657d7a8555df6b" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_8</ref>:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcadadb68ef4c87a2675fbf8f481e9a033d" kindref="member">XVIDC_BPC_8</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gab0a07ffe5b8bdb0a05297faa418ff429" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_10</ref>:</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca1861e2353b85d28dc891b577db9603cf" kindref="member">XVIDC_BPC_10</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga9d941e0fd1cbb73d9456ae44ec309081" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_12</ref>:</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedca6619574cccd4408c758f2cdb85077b98" kindref="member">XVIDC_BPC_12</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga7ed5faccf263784a889e9643b1f936d2" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_14</ref>:</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcaa03c1a08325b77a551d5bacfaa8ce8dc" kindref="member">XVIDC_BPC_14</ref>;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga3f13d811694f1d1c2a4284bb72acf8ca" kindref="member">XVIDC_EDID_BDISP_VID_DIG_BPC_16</ref>:</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcaade26fc550c66173dd59f10ab59d1e99" kindref="member">XVIDC_BPC_16</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Bpc<sp/>=<sp/><ref refid="group__video__common_1gga8006bc80e39c26ee0081647990b9fedcacc9b6cef74fe895d1ce4b4e23111f471" kindref="member">XVIDC_BPC_UNKNOWN</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Bpc;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="group__video__common_1gae49edeb7342792894a7879e7a8edc2d0" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gae49edeb7342792894a7879e7a8edc2d0" kindref="member">XVidC_EdidGetCcRedX</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gaa89a3d1f41dc1018989f68d51b0a6ca6" kindref="member">XVIDC_EDID_CC_REDX_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>(EdidRaw[<ref refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" kindref="member">XVIDC_EDID_CC_RG_LOW</ref>]<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga6a59ce37b3e6ffe5338df885e5c36e21" kindref="member">XVIDC_EDID_CC_RBX_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="171" refid="group__video__common_1ga2833ca9c7e3254b4d74fd38703e266e4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga2833ca9c7e3254b4d74fd38703e266e4" kindref="member">XVidC_EdidGetCcRedY</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="172"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gad198bd30698f8fdedfb9605a665d7ab2" kindref="member">XVIDC_EDID_CC_REDY_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>((EdidRaw[<ref refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" kindref="member">XVIDC_EDID_CC_RG_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gadaca2bb5cbdc8aa74059e0251dc35dcf" kindref="member">XVIDC_EDID_CC_RBY_LOW_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gab9b1f17905f4728a39928c05870880a9" kindref="member">XVIDC_EDID_CC_RBY_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="195" refid="group__video__common_1ga6ec1f3728397da4c5d0fa869d87fd594" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga6ec1f3728397da4c5d0fa869d87fd594" kindref="member">XVidC_EdidGetCcGreenX</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1ga5589b83030bfe4db814746bc342c1ba3" kindref="member">XVIDC_EDID_CC_GREENX_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>((EdidRaw[<ref refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" kindref="member">XVIDC_EDID_CC_RG_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga815e263f1bd2367529923e32178e6647" kindref="member">XVIDC_EDID_CC_GWX_LOW_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga0f28c2c455b7742fec587b789eff8cf9" kindref="member">XVIDC_EDID_CC_GWX_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="219" refid="group__video__common_1gaea0110e5c619c903a07e5a13692d827e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gaea0110e5c619c903a07e5a13692d827e" kindref="member">XVidC_EdidGetCcGreenY</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1ga274936d48b2e0c281e54922ea657b3ee" kindref="member">XVIDC_EDID_CC_GREENY_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>(EdidRaw[<ref refid="group__video__common_1ga5bd95a7235149bfb5b8a5bfcc1e62765" kindref="member">XVIDC_EDID_CC_RG_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga3b385af9e8671bae2c837c33af89bd03" kindref="member">XVIDC_EDID_CC_GWY_LOW_MASK</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="242" refid="group__video__common_1ga9472ec6a42c466a75eb0bcb50881b490" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga9472ec6a42c466a75eb0bcb50881b490" kindref="member">XVidC_EdidGetCcBlueX</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1ga2e0f31afb51d9e86d31b6d67f1adf6f8" kindref="member">XVIDC_EDID_CC_BLUEX_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>(EdidRaw[<ref refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" kindref="member">XVIDC_EDID_CC_BW_LOW</ref>]<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga6a59ce37b3e6ffe5338df885e5c36e21" kindref="member">XVIDC_EDID_CC_RBX_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="265" refid="group__video__common_1gad3bb8db79fd246d7d2e3a9780b1a0927" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gad3bb8db79fd246d7d2e3a9780b1a0927" kindref="member">XVidC_EdidGetCcBlueY</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gaa2a0606e3dc5298ba834fcbe7715b5e9" kindref="member">XVIDC_EDID_CC_BLUEY_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>((EdidRaw[<ref refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" kindref="member">XVIDC_EDID_CC_BW_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gadaca2bb5cbdc8aa74059e0251dc35dcf" kindref="member">XVIDC_EDID_CC_RBY_LOW_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gab9b1f17905f4728a39928c05870880a9" kindref="member">XVIDC_EDID_CC_RBY_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="289" refid="group__video__common_1gaf12b42f0cb98aa08c133f60452026685" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gaf12b42f0cb98aa08c133f60452026685" kindref="member">XVidC_EdidGetCcWhiteX</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gadf0022dcd7f9d8af0abf707d00552aae" kindref="member">XVIDC_EDID_CC_WHITEX_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>((EdidRaw[<ref refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" kindref="member">XVIDC_EDID_CC_BW_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga815e263f1bd2367529923e32178e6647" kindref="member">XVIDC_EDID_CC_GWX_LOW_MASK</ref>)<sp/>&gt;&gt;<sp/><ref refid="group__video__common_1ga0f28c2c455b7742fec587b789eff8cf9" kindref="member">XVIDC_EDID_CC_GWX_LOW_SHIFT</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="312" refid="group__video__common_1ga00f4fb59577dd4d299ab240611a51782" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga00f4fb59577dd4d299ab240611a51782" kindref="member">XVidC_EdidGetCcWhiteY</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw)</highlight></codeline>
+<codeline lineno="313"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EdidRaw[<ref refid="group__video__common_1gaa49726189d6ddc19b0904ad7c04e88d0" kindref="member">XVIDC_EDID_CC_WHITEY_HIGH</ref>]<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga85114b12ea02c9d733fc88b6ee08596f" kindref="member">XVIDC_EDID_CC_HIGH_SHIFT</ref>)<sp/>|<sp/>(EdidRaw[<ref refid="group__video__common_1ga6fbb5b3378227634c8473261aa0a90f5" kindref="member">XVIDC_EDID_CC_BW_LOW</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga3b385af9e8671bae2c837c33af89bd03" kindref="member">XVIDC_EDID_CC_GWY_LOW_MASK</ref>),<sp/>10);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="335" refid="group__video__common_1ga96078c39f2c8daece7337a14e6e5568f" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__video__common_1ga96078c39f2c8daece7337a14e6e5568f" kindref="member">XVidC_EdidGetStdTimingsV</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,<sp/>u8<sp/>StdTimingsNum)</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>V;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(<ref refid="group__video__common_1gada1341853790912a0cd0eedef9621ea5" kindref="member">XVidC_EdidGetStdTimingsAr</ref>(EdidRaw,<sp/>StdTimingsNum))<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga97f6d1ba9dd156ee63d05472befcb909" kindref="member">XVIDC_EDID_STD_TIMINGS_AR_16_10</ref>:</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V<sp/>=<sp/>(10<sp/>*<sp/><ref refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" kindref="member">XVidC_EdidGetStdTimingsH</ref>(EdidRaw,</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StdTimingsNum))<sp/>/<sp/>16;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1gaea8a07e041f666807cde431b8e7cc8ab" kindref="member">XVIDC_EDID_STD_TIMINGS_AR_4_3</ref>:</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V<sp/>=<sp/>(3<sp/>*<sp/><ref refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" kindref="member">XVidC_EdidGetStdTimingsH</ref>(EdidRaw,</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StdTimingsNum))<sp/>/<sp/>4;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga69a6f36479ff9f687d2f1082dd254b2f" kindref="member">XVIDC_EDID_STD_TIMINGS_AR_5_4</ref>:</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V<sp/>=<sp/>(4<sp/>*<sp/><ref refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" kindref="member">XVidC_EdidGetStdTimingsH</ref>(EdidRaw,</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StdTimingsNum))<sp/>/<sp/>5;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__video__common_1ga6a6b3275a587f116444378ce4892eed7" kindref="member">XVIDC_EDID_STD_TIMINGS_AR_16_9</ref>:</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V<sp/>=<sp/>(9<sp/>*<sp/><ref refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" kindref="member">XVidC_EdidGetStdTimingsH</ref>(EdidRaw,</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StdTimingsNum))<sp/>/<sp/>16;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>V<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>V;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="385" refid="group__video__common_1gaf00ac478683fd1d3c550e22416cb7c05" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__video__common_1gaf00ac478683fd1d3c550e22416cb7c05" kindref="member">XVidC_EdidIsVideoTimingSupported</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode)</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>video<sp/>mode<sp/>is<sp/>the<sp/>preferred<sp/>timing.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVidC_EdidIsVideoTimingSupportedPreferredTiming(EdidRaw,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VtMode);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>established<sp/>timings<sp/>I,<sp/>II,<sp/>and<sp/>III.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVidC_EdidIsVideoTimingSupportedEstablishedTimings(EdidRaw,</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VtMode);</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>in<sp/>standard<sp/>timings<sp/>support.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVidC_EdidIsVideoTimingSupportedStandardTimings(EdidRaw,</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VtMode);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="427"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedPreferredTiming(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode)</highlight></codeline>
+<codeline lineno="429"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Ptm;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ptm<sp/>=<sp/>&amp;EdidRaw[<ref refid="group__video__common_1ga1d55e7e30f086eb53dc0987214121aa1" kindref="member">XVIDC_EDID_PTM</ref>];</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HActive<sp/>=<sp/>(((Ptm[<ref refid="group__video__common_1gae2fad995fef64ee2a8b570a8b97f4a25" kindref="member">XVIDC_EDID_DTD_PTM_HRES_HBLANK_U4</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga89553679d06c163dab8716792bfad710" kindref="member">XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gaf07b60635d61dcd930de3d9ce0022389" kindref="member">XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT</ref>)<sp/>&lt;&lt;<sp/>8)<sp/>|</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ptm[<ref refid="group__video__common_1ga19a1d9073365b203cd16c943d2a1738e" kindref="member">XVIDC_EDID_DTD_PTM_HRES_LSB</ref>];</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>VActive<sp/>=<sp/>(((Ptm[<ref refid="group__video__common_1gafd028d8ec7267f0244b252c96bed2aa0" kindref="member">XVIDC_EDID_DTD_PTM_VRES_VBLANK_U4</ref>]<sp/>&amp;</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga89553679d06c163dab8716792bfad710" kindref="member">XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gaf07b60635d61dcd930de3d9ce0022389" kindref="member">XVIDC_EDID_DTD_PTM_XRES_XBLANK_U4_XRES_SHIFT</ref>)<sp/>&lt;&lt;<sp/>8)<sp/>|</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ptm[<ref refid="group__video__common_1ga95baa6ffe400e6c4e22bb67e778881ae" kindref="member">XVIDC_EDID_DTD_PTM_VRES_LSB</ref>];</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a500751aa1021ab9583b14b877442e318" kindref="member">F1VTotal</ref><sp/>!=<sp/><ref refid="group__video__common_1ga0d2a862abcedf68524b2287d46c98c25" kindref="member">XVidC_EdidIsDtdPtmInterlaced</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_FAILURE);</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>HActive)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>VActive))<sp/>{</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="472"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedEstablishedTimings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode)</highlight></codeline>
+<codeline lineno="474"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>established<sp/>timings<sp/>I,<sp/>II,<sp/>and<sp/>III.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>800)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>640)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea76ada0eaff3fd30af479de2d060a2371" kindref="member">XVIDC_FR_56HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga961c71d3ad59844489c4f31fa82d4503" kindref="member">XVidC_EdidSuppEstTimings800x600_56</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>640)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>480)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea0abd513f5fc44a34296d254ebf3f1188" kindref="member">XVIDC_FR_60HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gac66bd5e661cd67cd4e73e3e2cd571b4b" kindref="member">XVidC_EdidSuppEstTimings640x480_60</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>800)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>600)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea0abd513f5fc44a34296d254ebf3f1188" kindref="member">XVIDC_FR_60HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga3a15e250b217507fcc88d171afa558ee" kindref="member">XVidC_EdidSuppEstTimings800x600_60</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1024)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>768)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea0abd513f5fc44a34296d254ebf3f1188" kindref="member">XVIDC_FR_60HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga2674a82a1dd091cce747dace9568dc66" kindref="member">XVidC_EdidSuppEstTimings1024x768_60</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>640)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>480)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4eadb1f4e76d9cd19c4917d419de5ed5254" kindref="member">XVIDC_FR_67HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga4a1ef16e4f4e7c14035366274c662542" kindref="member">XVidC_EdidSuppEstTimings640x480_67</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>720)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>400)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea2c4404e9b234453acd12299551d6a7ff" kindref="member">XVIDC_FR_70HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga66615adc8e1f58bbd0e85a35b9649d23" kindref="member">XVidC_EdidSuppEstTimings720x400_70</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1024)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>768)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea2c4404e9b234453acd12299551d6a7ff" kindref="member">XVIDC_FR_70HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga1be7c56f4c7d3adf3a9bc8f83e5aff08" kindref="member">XVidC_EdidSuppEstTimings1024x768_70</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>640)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>480)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea379dd9b9c94bd10d2dc685950c2965ff" kindref="member">XVIDC_FR_72HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga249fb93b1371330693ebe81a97bec924" kindref="member">XVidC_EdidSuppEstTimings640x480_72</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>800)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>600)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea379dd9b9c94bd10d2dc685950c2965ff" kindref="member">XVIDC_FR_72HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga5b938338df13742b086b959b330cb47a" kindref="member">XVidC_EdidSuppEstTimings800x600_72</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>640)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>480)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gafb6daa97f3c9906ca48a1a2a68b5eb76" kindref="member">XVidC_EdidSuppEstTimings640x480_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>800)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>600)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga43f3be2d3f548aed03c3526c68bb44e2" kindref="member">XVidC_EdidSuppEstTimings800x600_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>832)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>624)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gad8342435075e593bf4226eb987058577" kindref="member">XVidC_EdidSuppEstTimings832x624_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1024)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>768)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gaaf1b3ab433229ae19ae1cf576445b4d3" kindref="member">XVidC_EdidSuppEstTimings1024x768_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1152)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>870)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga384757220e26bf9393a18ae768d15007" kindref="member">XVidC_EdidSuppEstTimings1152x870_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1280)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>1024)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea690ac8575d88ae5b7cdbdf5cb638feb2" kindref="member">XVIDC_FR_75HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga9b8672193c972e1dc216df52c594fd89" kindref="member">XVidC_EdidSuppEstTimings1280x1024_75</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>1024)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>768)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea9f78b081be329f1fb25e827a14d0d200" kindref="member">XVIDC_FR_87HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1gabfe5e7a2e680eb5ce758438c73cf32c6" kindref="member">XVidC_EdidSuppEstTimings1024x768_87</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==<sp/>720)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==<sp/>400)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/><ref refid="group__video__common_1ggac192cb9c275d8ef2c985646f420c1a4ea38b6e415477c5dd2d912b42b6768774c" kindref="member">XVIDC_FR_88HZ</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga8483f6e6164e7a33a6ca00f263ea2614" kindref="member">XVidC_EdidSuppEstTimings720x400_88</ref>(EdidRaw))<sp/>{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="582"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="601"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>XVidC_EdidIsVideoTimingSupportedStandardTimings(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*EdidRaw,</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_vid_c___video_timing_mode" kindref="compound">XVidC_VideoTimingMode</ref><sp/>*VtMode)</highlight></codeline>
+<codeline lineno="603"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>8;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1ab54a81d1484f2c87552b1565cbfa469e" kindref="member">HActive</ref><sp/>==</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga3111aff312042e5b107fa793d31fbae9" kindref="member">XVidC_EdidGetStdTimingsH</ref>(EdidRaw,<sp/>Index<sp/>+<sp/>1))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a13601eb4bde0d026402fa7b05750eec4" kindref="member">Timing</ref>.<ref refid="struct_x_vid_c___video_timing_1a497b50f5ae89eee52cad7c9457373f06" kindref="member">VActive</ref><sp/>==</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__video__common_1ga96078c39f2c8daece7337a14e6e5568f" kindref="member">XVidC_EdidGetStdTimingsV</ref>(EdidRaw,<sp/>Index<sp/>+<sp/>1))<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(VtMode-&gt;<ref refid="struct_x_vid_c___video_timing_mode_1a49a18969ef2ed7ce9b33018abc2df615" kindref="member">FrameRate</ref><sp/>==<sp/>(u8)<ref refid="group__video__common_1ga4e7ed71dc86e988b18dc01245d8ee969" kindref="member">XVidC_EdidGetStdTimingsFrr</ref>(</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EdidRaw,<sp/>Index<sp/>+<sp/>1)))<sp/>{</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="618"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="632"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XVidC_CalculatePower(u8<sp/>Base,<sp/>u8<sp/>Power)</highlight></codeline>
+<codeline lineno="633"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Res<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>Power;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Res<sp/>*=<sp/>Base;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="640"><highlight class="normal"></highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Res;</highlight></codeline>
+<codeline lineno="642"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="667"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XVidC_CalculateBinaryFraction_QFormat(u16<sp/>Val,<sp/>u8<sp/>DecPtIndex)</highlight></codeline>
+<codeline lineno="668"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Res;</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>DecPtIndex<sp/>-<sp/>1,<sp/>Res<sp/>=<sp/>0;<sp/>Index<sp/>&gt;=<sp/>0;<sp/>Index--)<sp/>{</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((Val<sp/>&gt;&gt;<sp/>Index)<sp/>&amp;<sp/>0x1)<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Res<sp/>+=<sp/>XVidC_CalculatePower(2<sp/>,<sp/>Index);</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="677"><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Res;</highlight></codeline>
+<codeline lineno="679"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_edid.c"/>
+  </compounddef>
+</doxygen>

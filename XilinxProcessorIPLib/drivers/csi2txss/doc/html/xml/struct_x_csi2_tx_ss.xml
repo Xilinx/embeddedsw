@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi2_tx_ss" kind="struct" prot="public">
+    <compoundname>XCsi2TxSs</compoundname>
+    <includes local="no">xcsi2txss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref></type>
+        <definition>XCsi2TxSs_Config XCsi2TxSs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" compoundref="xcsi2txss_8c" startline="248" endline="266">XCsi2TxSs_Activate</referencedby>
+        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" compoundref="xcsi2txss_8c" startline="198" endline="229">XCsi2TxSs_Configure</referencedby>
+        <referencedby refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" compoundref="xcsi2txss_8c" startline="752" endline="762">XCsi2TxSs_GetLineCountForVC</referencedby>
+        <referencedby refid="group__csi2txss_1ga05e607ece4b52c59fa349f5f2e42976f" compoundref="xcsi2txss__intr_8c" startline="150" endline="168">XCsi2TxSs_IntrDisable</referencedby>
+        <referencedby refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" compoundref="xcsi2txss_8c" startline="311" endline="337">XCsi2TxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" compoundref="xcsi2txss_8c" startline="720" endline="730">XCsi2TxSs_SetLineCountForVC</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" compoundref="xcsi2txss_8c" startline="104" endline="139">XCsi2TxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csi2txss_1ga445feeebfebea8ae0119be48a4a27ede" compoundref="xcsi2txss__intr_8c" startline="120" endline="135">XCsi2TxSs_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" prot="public" static="no" mutable="no">
+        <type>XCsi2Tx *</type>
+        <definition>XCsi2Tx* XCsi2TxSs::CsiPtr</definition>
+        <argsstring></argsstring>
+        <name>CsiPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" prot="public" static="no" mutable="no">
+        <type>XCsi2Tx_SPktData</type>
+        <definition>XCsi2Tx_SPktData XCsi2TxSs::SpktData</definition>
+        <argsstring></argsstring>
+        <name>SpktData</name>
+        <briefdescription>
+<para>Short packet. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__csi2txss_1ga066c927aebc1b2c199e33350662e4fd9" compoundref="xcsi2txss_8c" startline="351" endline="357">XCsi2TxSs_GetShortPacket</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XCsi2TxSs</label>
+        <link refid="struct_x_csi2_tx_ss"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XCsi2TxSs_Config</label>
+        <link refid="struct_x_csi2_tx_ss___config"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>CsiInfo</edgelabel>
+          <edgelabel>DphyInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>SubCoreCsi2Tx</label>
+        <link refid="struct_sub_core_csi2_tx"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.h" bodystart="248" bodyend="258"/>
+    <listofallmembers>
+      <member refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" prot="public" virt="non-virtual"><scope>XCsi2TxSs</scope><name>Config</name></member>
+      <member refid="struct_x_csi2_tx_ss_1acce65bd75151241e752b95d27eb3d4be" prot="public" virt="non-virtual"><scope>XCsi2TxSs</scope><name>CsiPtr</name></member>
+      <member refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" prot="public" virt="non-virtual"><scope>XCsi2TxSs</scope><name>IsReady</name></member>
+      <member refid="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" prot="public" virt="non-virtual"><scope>XCsi2TxSs</scope><name>SpktData</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__common__awb__api_8h" kind="file">
+    <compoundname>cam_common_awb_api.h</compoundname>
+    <includes refid="cam__common__api_8h" local="yes">cam_common_api.h</includes>
+    <includedby refid="vv_metadata_8c" local="yes">vvMetadata.c</includedby>
+    <incdepgraph>
+      <node id="531">
+        <label>stdbool.h</label>
+      </node>
+      <node id="530">
+        <label>stdint.h</label>
+      </node>
+      <node id="529">
+        <label>cam_common_api.h</label>
+        <childnode refid="530" relation="include">
+        </childnode>
+        <childnode refid="531" relation="include">
+        </childnode>
+      </node>
+      <node id="528">
+        <label>cam_common_awb_api.h</label>
+        <link refid="cam_common_awb_api.h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="533">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="532">
+        <label>cam_common_awb_api.h</label>
+        <link refid="cam_common_awb_api.h"/>
+        <childnode refid="533" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cam__common__awb__api_8h_1a9a64da7c1df5fd5e478379713ae6540f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamCommonAwbGetMode</definition>
+        <argsstring>(CamCommonHandle_t hCamCommon, unsigned int *pMode)</argsstring>
+        <name>VsiCamCommonAwbGetMode</name>
+        <param>
+          <type>CamCommonHandle_t</type>
+          <declname>hCamCommon</declname>
+        </param>
+        <param>
+          <type>unsigned int *</type>
+          <declname>pMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_awb_api.h" line="11" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Stub<sp/>header<sp/>-<sp/>function<sp/>implementations<sp/>provided<sp/>by<sp/>libvisp.a<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAM_COMMON_AWB_API_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAM_COMMON_AWB_API_H</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_common_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">RESULT<sp/>VsiCamCommonAwbGetMode(CamCommonHandle_t<sp/>hCamCommon,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*pMode);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAM_COMMON_AWB_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_awb_api.h"/>
+  </compounddef>
+</doxygen>

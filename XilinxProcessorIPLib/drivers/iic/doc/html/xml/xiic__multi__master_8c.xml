@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiic__multi__master_8c" kind="file">
+    <compoundname>xiic_multi_master.c</compoundname>
+    <includes refid="xiic_8h" local="yes">xiic.h</includes>
+    <includes refid="xiic__i_8h" local="yes">xiic_i.h</includes>
+    <incdepgraph>
+      <node id="198">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="195">
+        <label>xiic_multi_master.c</label>
+        <link refid="xiic_multi_master.c"/>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+      <node id="201">
+        <label>xil_io.h</label>
+      </node>
+      <node id="200">
+        <label>xiic_l.h</label>
+        <link refid="xiic__l_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+      </node>
+      <node id="202">
+        <label>xiic_i.h</label>
+        <link refid="xiic__i_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xstatus.h</label>
+      </node>
+      <node id="197">
+        <label>xil_types.h</label>
+      </node>
+      <node id="196">
+        <label>xiic.h</label>
+        <link refid="xiic_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga3186f30177413b881da91f8e7feefcb6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void BusNotBusyHandler</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>BusNotBusyHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The IIC bus busy signals when a master has control of the bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>Until the bus is released, i.e. not busy, other devices must wait to use it.</para><para>When this interrupt occurs, it signals that the previous master has released the bus for another user.</para><para>This interrupt is only enabled when the master Tx is waiting for the bus.</para><para>This interrupt causes the following tasks:<itemizedlist>
+<listitem><para>Disable Bus not busy interrupt</para></listitem><listitem><para>Enable bus Ack Should the slave receive have disabled acknowledgement, enable to allow acknowledgment of the sending of our address to again be addressed as slave</para></listitem><listitem><para>Flush Rx FIFO Should the slave receive have disabled acknowledgement, a few bytes may be in FIFO if Rx full did not occur because of not enough byte in FIFO to have caused an interrupt.</para></listitem><listitem><para>Send status to user via status callback with the value: XII_BUS_NOT_BUSY_EVENT</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" bodystart="109" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga12888981d2c1d75ffbb2a853269fc8ec" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void ArbitrationLostHandler</definition>
+        <argsstring>(XIic *InstancePtr)</argsstring>
+        <name>ArbitrationLostHandler</name>
+        <param>
+          <type><ref refid="struct_x_iic" kindref="compound">XIic</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>When multiple IIC devices attempt to use the bus simultaneously, only a single device will be able to keep control as a master. </para>        </briefdescription>
+        <detaileddescription>
+<para>Those devices that didn&apos;t retain control over the bus are said to have lost arbitration. When arbitration is lost, this interrupt occurs sigaling the user that the message did not get sent as expected.</para><para>This function, at arbitration lost:<itemizedlist>
+<listitem><para>Disables Tx empty, � empty and Tx error interrupts</para></listitem><listitem><para>Clears any Tx empty, � empty Rx Full or Tx error interrupts</para></listitem><listitem><para>Clears Arbitration lost interrupt,</para></listitem><listitem><para>Flush Tx FIFO</para></listitem><listitem><para>Call StatusHandler callback with the value: XII_ARB_LOST_EVENT</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_iic" kindref="compound">XIic</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" bodystart="190" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaa8c54559d0b1cf0d86c51a0f1d3151eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIic_MultiMasterInclude</definition>
+        <argsstring>(void)</argsstring>
+        <name>XIic_MultiMasterInclude</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function includes multi-master code such that multi-master events are handled properly. </para>        </briefdescription>
+        <detaileddescription>
+<para>Multi-master events include a loss of arbitration and the bus transitioning from busy to not busy. This function allows the multi-master processing to be optional. This function must be called prior to allowing any multi-master events to occur, such as after the driver is initialized.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c" bodystart="72" bodyend="76"/>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic_8h" kindref="compound">xiic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiic__i_8h" kindref="compound">xiic_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BusNotBusyHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ArbitrationLostHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>**************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group___overview_1gaa8c54559d0b1cf0d86c51a0f1d3151eb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1gaa8c54559d0b1cf0d86c51a0f1d3151eb" kindref="member">XIic_MultiMasterInclude</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ArbLostFuncPtr<sp/>=<sp/>ArbitrationLostHandler;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_BusNotBusyFuncPtr<sp/>=<sp/>BusNotBusyHandler;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="109"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>BusNotBusyHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CntlReg;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Should<sp/>the<sp/>slave<sp/>receive<sp/>have<sp/>disabled<sp/>acknowledgement,</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>enable<sp/>to<sp/>allow<sp/>acknowledgment<sp/>of<sp/>the<sp/>sending<sp/>of<sp/>our<sp/>address<sp/>to</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>again<sp/>be<sp/>addressed<sp/>as<sp/>slave.</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CntlReg<sp/>=<sp/><ref refid="xiic__l_8h_1ab28be58b11c65ecc54fc2f0c300412c1" kindref="member">XIic_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__l_8h_1a7a9318f43afc81c1dbd30a27587ba51d" kindref="member">XIic_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="group___overview_1ga03585e458e3c5adf56986e7c2c3d9d42" kindref="member">XIIC_CR_REG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(CntlReg<sp/>&amp;<sp/>~<ref refid="xiic__l_8h_1a79990adaa6f077302644d7b787b19c53" kindref="member">XIIC_CR_NO_ACK_MASK</ref>));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Flush<sp/>Tx<sp/>FIFO<sp/>by<sp/>toggling<sp/>TxFIFOResetBit.<sp/>FIFO<sp/>runs<sp/>normally<sp/>at<sp/>0</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>this<sp/>in<sp/>case<sp/>needed<sp/>to<sp/>Tx<sp/>FIFO<sp/>with<sp/>more<sp/>than<sp/>expected<sp/>if<sp/>what</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>was<sp/>set<sp/>to<sp/>Tx<sp/>was<sp/>less<sp/>than<sp/>what<sp/>the<sp/>Master<sp/>expected<sp/>-<sp/>read<sp/>more</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>from<sp/>this<sp/>slave<sp/>so<sp/>FIFO<sp/>had<sp/>junk<sp/>in<sp/>it.</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_FlushTxFifo(InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Flush<sp/>Rx<sp/>FIFO<sp/>should<sp/>slave<sp/>Rx<sp/>had<sp/>a<sp/>problem,<sp/>sent<sp/>No<sp/>ack<sp/>but</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>still<sp/>received<sp/>a<sp/>few<sp/>bytes.<sp/>Should<sp/>the<sp/>slave<sp/>receive<sp/>have<sp/>disabled</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>acknowledgement,<sp/>clear<sp/>Rx<sp/>FIFO.</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_FlushRxFifo(InstancePtr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>Application<sp/>messaging<sp/>status<sp/>via<sp/>callbacks.<sp/>Disable<sp/>either<sp/>Tx<sp/>or</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Receive<sp/>interrupt.<sp/>Which<sp/>callback<sp/>depends<sp/>on<sp/>messaging<sp/>direction.</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xiic__l_8h_1aee17ffc86a8270abeb1319e8c67ccce5" kindref="member">XIic_ReadIier</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_iic_1aa962aaf40d5fb305ae9cca9bb00ac4ca" kindref="member">RecvBufferPtr</ref><sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Slave<sp/>was<sp/>sending<sp/>data<sp/>(master<sp/>was<sp/>reading),<sp/>disable</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>all<sp/>the<sp/>transmit<sp/>interrupts.</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__l_8h_1a2f926a076e9a6b80bea46664d2e55ee9" kindref="member">XIic_WriteIier</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status<sp/>&amp;<sp/>~<ref refid="xiic__l_8h_1ac9441942c102ac8a8485609d98ba5d5c" kindref="member">XIIC_TX_INTERRUPTS</ref>));</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Slave<sp/>was<sp/>receiving<sp/>data<sp/>(master<sp/>was<sp/>writing)<sp/>disable<sp/>receive</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupts.</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xiic__l_8h_1a2f926a076e9a6b80bea46664d2e55ee9" kindref="member">XIic_WriteIier</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Status<sp/>&amp;<sp/>~<ref refid="xiic__l_8h_1ac96fa03c6a514cd87cb9deadaef7e574" kindref="member">XIIC_INTR_RX_FULL_MASK</ref>));</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>Status<sp/>in<sp/>StatusHandler<sp/>callback.</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" kindref="member">StatusCallBackRef</ref>,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga37e4df461ec4c6ecb22d05e4dfabd841" kindref="member">XII_BUS_NOT_BUSY_EVENT</ref>);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="190"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>ArbitrationLostHandler(<ref refid="struct_x_iic" kindref="compound">XIic</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>Tx<sp/>empty<sp/>and<sp/>�<sp/>empty<sp/>and<sp/>Tx<sp/>error<sp/>interrupts<sp/>before<sp/>clearing</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>them<sp/>so<sp/>they<sp/>won&apos;t<sp/>occur<sp/>again.</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_DisableIntr(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="xiic__l_8h_1ac9441942c102ac8a8485609d98ba5d5c" kindref="member">XIIC_TX_INTERRUPTS</ref>);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>any<sp/>Tx<sp/>empty,<sp/>�<sp/>empty<sp/>Rx<sp/>Full<sp/>or<sp/>Tx<sp/>error<sp/>interrupts.</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_ClearIntr(InstancePtr-&gt;<ref refid="struct_x_iic_1a389e4b8500329c37d7835098408b5ed3" kindref="member">BaseAddress</ref>,<sp/><ref refid="xiic__l_8h_1ac9441942c102ac8a8485609d98ba5d5c" kindref="member">XIIC_TX_INTERRUPTS</ref>);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIic_FlushTxFifo(InstancePtr);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>Status<sp/>via<sp/>StatusHandler<sp/>callback.</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_iic_1a7e5b8273cb34338759107df1121d03d1" kindref="member">StatusHandler</ref>(InstancePtr-&gt;<ref refid="struct_x_iic_1a97be26eed0e2551b19c3a296c1c20909" kindref="member">StatusCallBackRef</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group___overview_1ga5843af7de7006ae82767f16bb78ee84e" kindref="member">XII_ARB_LOST_EVENT</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_multi_master.c"/>
+  </compounddef>
+</doxygen>

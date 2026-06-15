@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dpcc_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDpccManualConfig_s</compoundname>
+    <includes local="no">cam_device_dpcc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1aaa03b1cbfc788065f873b85bac33e89e" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDpccManualConfig_s::bptEnable</definition>
+        <argsstring></argsstring>
+        <name>bptEnable</name>
+        <briefdescription>
+<para>Bad pixel table enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1ac420b386ec8697b98423029408fa3c75" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDpccManualConfig_s::bptNum</definition>
+        <argsstring></argsstring>
+        <name>bptNum</name>
+        <briefdescription>
+<para>Bad pixel table number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a6777c409114cc1e1bdc88c508d509f89" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::bptOutMode</definition>
+        <argsstring></argsstring>
+        <name>bptOutMode</name>
+        <briefdescription>
+<para>Bad pixel table output mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1ab3e3240ea47c4ce14992cd81386bc6eb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDpccManualConfig_s::bptPosX[CAMDEV_DPCC_DEFECT_PIXEL_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_DEFECT_PIXEL_NUM]</argsstring>
+        <name>bptPosX</name>
+        <briefdescription>
+<para>Bad pixel table X position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a5378a95f933f7ceda5eb5c1629cfce15" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDpccManualConfig_s::bptPosY[CAMDEV_DPCC_DEFECT_PIXEL_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_DEFECT_PIXEL_NUM]</argsstring>
+        <name>bptPosY</name>
+        <briefdescription>
+<para>Bad pixel table Y position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1ae6e6159c5e1ca0814ac16d4a7076e7d0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::lineMadFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>lineMadFac</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of Line_mad method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of Line_mad method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a369f58d6ca0796020176b1275ea37ecd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::lineThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>lineThresh</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of Line_thresh method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of Line_thresh method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1acb0423fbfbee5c3e59ddd3f54dd1388a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDpccManualConfig_s::methodsSet[CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>methodsSet</name>
+        <briefdescription>
+<para>[0] Represents the switch whether the first set of thresholds of the five bad point determination methods are enabled<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1] Represents the switch whether the second set of thresholds of the five bad point determination methods are enabled<linebreak/>
+ [2] Represents the switch whether the third set of thresholds of the five bad point determination methods are enabled </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1ac2a4c1328fa5e02e8d6d9b97c5aab84c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::outMode</definition>
+        <argsstring></argsstring>
+        <name>outMode</name>
+        <briefdescription>
+<para>Interpolation mode for correction unit. </para>        </briefdescription>
+        <detaileddescription>
+<para>range:[0, 15] </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a7b0b4fd18c4ffdd84f107b0c7a89b501" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::pgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>pgFac</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of peak Gradient check method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of peak Gradient check method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a0d95f891a648e01f54d14f4705056dce" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::rgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>rgFac</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of Rank neighbor difference method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of Rank neighbor difference method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a77cbf648583959ec978030befb448bba" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::rndOffs[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>rndOffs</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three offsets of Rand Neighbor Difference method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three offsets of Rand Neighbor Difference method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1a8814343904c1303c6653bfa007d67f65" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::rndThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>rndThresh</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1aaa9cd7ed1717965729b9d25e161b195c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::roLimits[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</definition>
+        <argsstring>[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]</argsstring>
+        <name>roLimits</name>
+        <briefdescription>
+<para>[0][0~2]Represents the three thresholds of Rand Order method used by the RB channel<linebreak/>
+</para>        </briefdescription>
+        <detaileddescription>
+<para>[1][0~2]Represents the three thresholds of Rand Order method used by the G channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dpcc_manual_config__s_1ab88ac53943a21b865c00b26765ccfc34" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDpccManualConfig_s::setUse</definition>
+        <argsstring></argsstring>
+        <name>setUse</name>
+        <briefdescription>
+<para>DPCC methods set usage for detection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DPCC manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="58" bodyend="83"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1aaa03b1cbfc788065f873b85bac33e89e" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>bptEnable</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1ac420b386ec8697b98423029408fa3c75" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>bptNum</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a6777c409114cc1e1bdc88c508d509f89" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>bptOutMode</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1ab3e3240ea47c4ce14992cd81386bc6eb" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>bptPosX</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a5378a95f933f7ceda5eb5c1629cfce15" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>bptPosY</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1ae6e6159c5e1ca0814ac16d4a7076e7d0" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>lineMadFac</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a369f58d6ca0796020176b1275ea37ecd" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>lineThresh</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1acb0423fbfbee5c3e59ddd3f54dd1388a" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>methodsSet</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1ac2a4c1328fa5e02e8d6d9b97c5aab84c" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>outMode</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a7b0b4fd18c4ffdd84f107b0c7a89b501" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>pgFac</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a0d95f891a648e01f54d14f4705056dce" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>rgFac</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a77cbf648583959ec978030befb448bba" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>rndOffs</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1a8814343904c1303c6653bfa007d67f65" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>rndThresh</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1aaa9cd7ed1717965729b9d25e161b195c" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>roLimits</name></member>
+      <member refid="struct_cam_device_dpcc_manual_config__s_1ab88ac53943a21b865c00b26765ccfc34" prot="public" virt="non-virtual"><scope>CamDeviceDpccManualConfig_s</scope><name>setUse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

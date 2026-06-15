@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_mix___alpha_flag" kind="struct" prot="public">
+    <compoundname>XVMix_AlphaFlag</compoundname>
+    <includes local="no">xv_mix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a5d9bbdb3ec5e990d67d8deb8d571ec4e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer1AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer1AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1ad56e647f99b52693320460801ff2e968" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer2AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer2AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a76033cfc845e0ee47a92c7c47bef9fea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer3AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer3AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1adc2e8885256ca41bbaaefbdedf7f69f1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer4AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer4AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1ae3e6a3ba5388347f59b77b50ae7e3acc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer5AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer5AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a95cec330336d9c0714acec382ea59249" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer6AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer6AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a23f7763a2516eb965a8832653702d99c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer7AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer7AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a34db0e865b92ee64694cbec591dd9a30" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer8AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer8AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a76398491eeceadd6db11110f2ab76953" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer9AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer9AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a7e3aab28b06915544ead446f97bef3e1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer10AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer10AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a1a5fee4f3fc8ec1d7ef58863a1f5556f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer11AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer11AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a458e0ba767a49564bec3b9a0e757b149" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer12AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer12AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a40eb3c9eef0dbab7f40adb4c921a240d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer13AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer13AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a57657d8d632f825907bf7216d120f3f6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer14AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer14AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1aa2c24a2f48680d51cd5923aad9529d80" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer15AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer15AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___alpha_flag_1a54bcd4e7c91c44195b536b473b0d974a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_AlphaFlag::Layer16AlphaEn</definition>
+        <argsstring></argsstring>
+        <name>Layer16AlphaEn</name>
+        <briefdescription>
+<para>Layer Alpha support indicator flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains Alpha feature enable flag per memory layer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="52" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_x_v_mix___alpha_flag_1a7e3aab28b06915544ead446f97bef3e1" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer10AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a1a5fee4f3fc8ec1d7ef58863a1f5556f" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer11AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a458e0ba767a49564bec3b9a0e757b149" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer12AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a40eb3c9eef0dbab7f40adb4c921a240d" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer13AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a57657d8d632f825907bf7216d120f3f6" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer14AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1aa2c24a2f48680d51cd5923aad9529d80" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer15AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a54bcd4e7c91c44195b536b473b0d974a" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer16AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a5d9bbdb3ec5e990d67d8deb8d571ec4e" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer1AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1ad56e647f99b52693320460801ff2e968" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer2AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a76033cfc845e0ee47a92c7c47bef9fea" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer3AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1adc2e8885256ca41bbaaefbdedf7f69f1" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer4AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1ae3e6a3ba5388347f59b77b50ae7e3acc" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer5AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a95cec330336d9c0714acec382ea59249" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer6AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a23f7763a2516eb965a8832653702d99c" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer7AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a34db0e865b92ee64694cbec591dd9a30" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer8AlphaEn</name></member>
+      <member refid="struct_x_v_mix___alpha_flag_1a76398491eeceadd6db11110f2ab76953" prot="public" virt="non-virtual"><scope>XVMix_AlphaFlag</scope><name>Layer9AlphaEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

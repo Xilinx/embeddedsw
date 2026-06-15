@@ -1,0 +1,337 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structsi5324__settings__t" kind="struct" prot="public">
+    <compoundname>si5324_settings_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsi5324__settings__t_1ae35fd09a007d93f0c259d0f3c3555aa5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n1_min</definition>
+        <argsstring></argsstring>
+        <name>n1_min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a52864dea9b8407a56d21ae9ed991de80" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n1_max</definition>
+        <argsstring></argsstring>
+        <name>n1_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a3faefec916ccc9b8acc87d55fb7dad96" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n1_hs</definition>
+        <argsstring></argsstring>
+        <name>n1_hs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1acd56eb11188c3932296c29010a4b3f21" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::nc_ls_min</definition>
+        <argsstring></argsstring>
+        <name>nc_ls_min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a1a7b87eeaf0beb82f19038e9f5f9780c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::nc_ls_max</definition>
+        <argsstring></argsstring>
+        <name>nc_ls_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a42975a67c03443e97a2b422e04b3a432" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::nc_ls</definition>
+        <argsstring></argsstring>
+        <name>nc_ls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1ae01c71b6598ab70167d4ade4a37ed287" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n2_hs</definition>
+        <argsstring></argsstring>
+        <name>n2_hs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a54d9461b36ab0a49af1ce70c4879e7ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n2_ls_min</definition>
+        <argsstring></argsstring>
+        <name>n2_ls_min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a597b258726fd146f69e049078fde4dfd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n2_ls_max</definition>
+        <argsstring></argsstring>
+        <name>n2_ls_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a95b5908dc430a442df098b82923b5af7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n2_ls</definition>
+        <argsstring></argsstring>
+        <name>n2_ls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a1f4a1807fc30a91cc418f75ae3c6800e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n3_min</definition>
+        <argsstring></argsstring>
+        <name>n3_min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1acc21f3ec3a46ebb74cca3047c5405437" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n3_max</definition>
+        <argsstring></argsstring>
+        <name>n3_max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1acee0bed9decd60f622c8f5bb6ad8fcfc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::n3</definition>
+        <argsstring></argsstring>
+        <name>n3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1ad470e779690296923f140ebc514ea632" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 si5324_settings_t::fin</definition>
+        <argsstring></argsstring>
+        <name>fin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1aaca779f492fb0ebd15a5cf42178bf4b5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 si5324_settings_t::fout</definition>
+        <argsstring></argsstring>
+        <name>fout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a00592a4edf1e54ecb1b0de4a1ccc1f64" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 si5324_settings_t::fosc</definition>
+        <argsstring></argsstring>
+        <name>fosc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a2c13fe400c11b51357380e3079800092" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 si5324_settings_t::best_delta_fout</definition>
+        <argsstring></argsstring>
+        <name>best_delta_fout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a02b2bd2bfc45c088c465332142abc812" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 si5324_settings_t::best_fout</definition>
+        <argsstring></argsstring>
+        <name>best_fout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1ad6de453b420bbaf19f03bdaa2f8dba12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::best_n1_hs</definition>
+        <argsstring></argsstring>
+        <name>best_n1_hs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a45623e7819b4707876300c3a1fbc8157" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::best_nc_ls</definition>
+        <argsstring></argsstring>
+        <name>best_nc_ls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1ade7e5cbcabef2f0479b58cbf4985ed24" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::best_n2_hs</definition>
+        <argsstring></argsstring>
+        <name>best_n2_hs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a7c1375be674d6d12f76fe35f18eab337" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::best_n2_ls</definition>
+        <argsstring></argsstring>
+        <name>best_n2_ls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsi5324__settings__t_1a10b79723ea25d5a327517bae7d334420" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 si5324_settings_t::best_n3</definition>
+        <argsstring></argsstring>
+        <name>best_n3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/si5324drv.h" bodystart="100" bodyend="127"/>
+    <listofallmembers>
+      <member refid="structsi5324__settings__t_1a2c13fe400c11b51357380e3079800092" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_delta_fout</name></member>
+      <member refid="structsi5324__settings__t_1a02b2bd2bfc45c088c465332142abc812" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_fout</name></member>
+      <member refid="structsi5324__settings__t_1ad6de453b420bbaf19f03bdaa2f8dba12" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_n1_hs</name></member>
+      <member refid="structsi5324__settings__t_1ade7e5cbcabef2f0479b58cbf4985ed24" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_n2_hs</name></member>
+      <member refid="structsi5324__settings__t_1a7c1375be674d6d12f76fe35f18eab337" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_n2_ls</name></member>
+      <member refid="structsi5324__settings__t_1a10b79723ea25d5a327517bae7d334420" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_n3</name></member>
+      <member refid="structsi5324__settings__t_1a45623e7819b4707876300c3a1fbc8157" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>best_nc_ls</name></member>
+      <member refid="structsi5324__settings__t_1ad470e779690296923f140ebc514ea632" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>fin</name></member>
+      <member refid="structsi5324__settings__t_1a00592a4edf1e54ecb1b0de4a1ccc1f64" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>fosc</name></member>
+      <member refid="structsi5324__settings__t_1aaca779f492fb0ebd15a5cf42178bf4b5" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>fout</name></member>
+      <member refid="structsi5324__settings__t_1a3faefec916ccc9b8acc87d55fb7dad96" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n1_hs</name></member>
+      <member refid="structsi5324__settings__t_1a52864dea9b8407a56d21ae9ed991de80" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n1_max</name></member>
+      <member refid="structsi5324__settings__t_1ae35fd09a007d93f0c259d0f3c3555aa5" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n1_min</name></member>
+      <member refid="structsi5324__settings__t_1ae01c71b6598ab70167d4ade4a37ed287" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n2_hs</name></member>
+      <member refid="structsi5324__settings__t_1a95b5908dc430a442df098b82923b5af7" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n2_ls</name></member>
+      <member refid="structsi5324__settings__t_1a597b258726fd146f69e049078fde4dfd" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n2_ls_max</name></member>
+      <member refid="structsi5324__settings__t_1a54d9461b36ab0a49af1ce70c4879e7ba" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n2_ls_min</name></member>
+      <member refid="structsi5324__settings__t_1acee0bed9decd60f622c8f5bb6ad8fcfc" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n3</name></member>
+      <member refid="structsi5324__settings__t_1acc21f3ec3a46ebb74cca3047c5405437" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n3_max</name></member>
+      <member refid="structsi5324__settings__t_1a1f4a1807fc30a91cc418f75ae3c6800e" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>n3_min</name></member>
+      <member refid="structsi5324__settings__t_1a42975a67c03443e97a2b422e04b3a432" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>nc_ls</name></member>
+      <member refid="structsi5324__settings__t_1a1a7b87eeaf0beb82f19038e9f5f9780c" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>nc_ls_max</name></member>
+      <member refid="structsi5324__settings__t_1acd56eb11188c3932296c29010a4b3f21" prot="public" virt="non-virtual"><scope>si5324_settings_t</scope><name>nc_ls_min</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

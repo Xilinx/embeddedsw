@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__scu200__hpio__example_2sensor__cfgs_8c" kind="file">
+    <compoundname>xmipi_scu200_hpio_example/sensor_cfgs.c</compoundname>
+    <includes refid="xmipi__scu200__hpio__example_2sensor__cfgs_8h" local="yes">sensor_cfgs.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="690">
+        <label>xvidc.h</label>
+      </node>
+      <node id="689">
+        <label>xil_types.h</label>
+      </node>
+      <node id="687">
+        <label>sensor_cfgs.c</label>
+        <link refid="xmipi_scu200_hpio_example/sensor_cfgs.c"/>
+        <childnode refid="688" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+      </node>
+      <node id="688">
+        <label>sensor_cfgs.h</label>
+        <childnode refid="689" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+      </node>
+      <node id="691">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__scu200__hpio__example_2sensor__cfgs_8c_1a6242a25f9d996f0cc4f4cdb911218b75" prot="public" static="no">
+        <name>ARRAY_SIZE</name>
+        <param><defname>x</defname></param>
+        <initializer>sizeof((x))/sizeof((x)[0])</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__scu200__hpio__example_2sensor__cfgs_8c_1ab42e9332d08b16440b253f6444065bac" prot="public" static="no" mutable="no">
+        <type>struct regval_list</type>
+        <definition>struct regval_list IMX219_config_1080p_60fps_regs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>IMX219_config_1080p_60fps_regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__hpio__example_2sensor__cfgs_8c_1a42c79850a63541d077a730e4efe93e1b" prot="public" static="no" mutable="no">
+        <type>const int</type>
+        <definition>const int length_IMX219_config_1080p_60fps_regs</definition>
+        <argsstring></argsstring>
+        <name>length_IMX219_config_1080p_60fps_regs</name>
+        <initializer>=
+		ARRAY_SIZE(IMX219_config_1080p_60fps_regs)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#include<sp/>&quot;sensor_cfgs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">regval_list<sp/>IMX219_config_1080p_60fps_regs[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">{0x30EB,<sp/>0x05},</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{0x30EB,<sp/>0x0C},</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{0x300A,<sp/>0xFF},</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">{0x300B,<sp/>0xFF},</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{0x30EB,<sp/>0x05},</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{0x30EB,<sp/>0x09},</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{0x0114,<sp/>0x03},<sp/></highlight><highlight class="comment">//<sp/>2-wire<sp/>csi</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{0x0128,<sp/>0x00},<sp/></highlight><highlight class="comment">//<sp/>auto<sp/>MIPI<sp/>global<sp/>timing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{0x012A,<sp/>0x18},<sp/></highlight><highlight class="comment">//<sp/>INCK<sp/>freq:<sp/>24.0Mhz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">{0x012B,<sp/>0x00},</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{0x0160,<sp/>0x04},<sp/></highlight><highlight class="comment">//<sp/>frame<sp/>length<sp/>lines<sp/>=<sp/>1113</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{0x0161,<sp/>0x59},</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{0x0162,<sp/>0x0D},<sp/></highlight><highlight class="comment">//<sp/>line<sp/>length<sp/>pixels<sp/>=<sp/>3448</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{0x0163,<sp/>0x78},</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{0x0164,<sp/>0x02},<sp/></highlight><highlight class="comment">//<sp/>x-start<sp/>address<sp/>=<sp/>680</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">{0x0165,<sp/>0xA8},</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{0x0166,<sp/>0x0A},<sp/></highlight><highlight class="comment">//<sp/>x-end<sp/>address<sp/>=<sp/>2599</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{0x0167,<sp/>0x27},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{0x0168,<sp/>0x02},<sp/></highlight><highlight class="comment">//<sp/>y-start<sp/>address<sp/>=<sp/>692</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{0x0169,<sp/>0xB4},</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{0x016A,<sp/>0x06},<sp/></highlight><highlight class="comment">//<sp/>y-end<sp/>address<sp/>=<sp/>1771</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{0x016B,<sp/>0xEB},</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{0x016C,<sp/>0x07},<sp/></highlight><highlight class="comment">//<sp/>x-output<sp/>size<sp/>=<sp/>1920</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{0x016D,<sp/>0x80},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{0x016E,<sp/>0x04},<sp/></highlight><highlight class="comment">//<sp/>y-output<sp/>size<sp/>=<sp/>1080</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{0x016F,<sp/>0x38},</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{0x0170,<sp/>0x01},<sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>{0x015A,<sp/>0x03},<sp/>//<sp/>Coarse<sp/>Integration<sp/>Time<sp/>MSB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>{0x015B,<sp/>0xE8},<sp/>//<sp/>Coarse<sp/>Integration<sp/>Time<sp/>LSB<sp/><sp/>}<sp/>=<sp/>1000<sp/>lines<sp/>exposure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>{0x0157,<sp/>0x80},<sp/>//<sp/>Analogue<sp/>Gain<sp/>=<sp/>2x<sp/>(128/256<sp/>code)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>{0x0158,<sp/>0x01},<sp/>//<sp/>Digital<sp/>Gain<sp/>MSB<sp/>=<sp/>1x<sp/>(no<sp/>digital<sp/>gain)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>{0x0159,<sp/>0x00},<sp/>//<sp/>Digital<sp/>Gain<sp/>LSB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{0x015A,<sp/>0x04},<sp/></highlight><highlight class="comment">//<sp/>Coarse<sp/>Integration<sp/>Time<sp/>MSB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{0x015B,<sp/>0x50},<sp/></highlight><highlight class="comment">//<sp/>Coarse<sp/>Integration<sp/>Time<sp/>LSB<sp/><sp/>}<sp/>=<sp/>1104<sp/>lines<sp/>(near<sp/>max)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{0x0157,<sp/>0xC0},<sp/></highlight><highlight class="comment">//<sp/>Analogue<sp/>Gain<sp/>=<sp/>4x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{0x0158,<sp/>0x02},<sp/></highlight><highlight class="comment">//<sp/>Digital<sp/>Gain<sp/>=<sp/>2x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{0x0159,<sp/>0x00},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">{0x0171,<sp/>0x01},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{0x0174,<sp/>0x00},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{0x0175,<sp/>0x00},</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">{0x018C,<sp/>0x0A},</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{0x018D,<sp/>0x0A},</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{0x0301,<sp/>0x05},<sp/></highlight><highlight class="comment">//<sp/>video<sp/>timing<sp/>pixel<sp/>clock<sp/>divider<sp/>value<sp/>=<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{0x0303,<sp/>0x01},<sp/></highlight><highlight class="comment">//<sp/>video<sp/>timing<sp/>system<sp/>clock<sp/>divider<sp/>value<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">{0x0304,<sp/>0x03},<sp/></highlight><highlight class="comment">//<sp/>external<sp/>clock<sp/>24-27MHz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{0x0305,<sp/>0x03},<sp/></highlight><highlight class="comment">//<sp/>external<sp/>clock<sp/>24-27MHz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{0x0306,<sp/>0x00},<sp/></highlight><highlight class="comment">//<sp/>PLL<sp/>Video<sp/>Timing<sp/>system<sp/>multiplier<sp/>value<sp/>=<sp/>57</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{0x0307,<sp/>0x57},</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{0x0309,<sp/>0x0A},<sp/></highlight><highlight class="comment">//<sp/>output<sp/>pixel<sp/>clock<sp/>divider<sp/>value<sp/>=<sp/>10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{0x030B,<sp/>0x01},<sp/></highlight><highlight class="comment">//<sp/>output<sp/>system<sp/>clock<sp/>divider<sp/>value<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{0x030C,<sp/>0x00},<sp/></highlight><highlight class="comment">//<sp/>PLL<sp/>output<sp/>system<sp/>multiplier<sp/>value<sp/>=<sp/>114</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{0x030D,<sp/>0x72},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{0x455E,<sp/>0x00},</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{0x471E,<sp/>0x4B},</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{0x4767,<sp/>0x0F},</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{0x4750,<sp/>0x14},</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{0x4540,<sp/>0x00},</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{0x47B4,<sp/>0x14},</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{0x4713,<sp/>0x30},</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{0x478B,<sp/>0x10},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">{0x478F,<sp/>0x10},</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{0x4793,<sp/>0x10},</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">{0x4797,<sp/>0x0E},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{0x479B,<sp/>0x0E},</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{0x0100,<sp/>0x01}</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ARRAY_SIZE(x)<sp/><sp/><sp/>sizeof((x))/sizeof((x)[0])</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length_IMX219_config_1080p_60fps_regs<sp/>=</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ARRAY_SIZE(IMX219_config_1080p_60fps_regs);</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/sensor_cfgs.c"/>
+  </compounddef>
+</doxygen>

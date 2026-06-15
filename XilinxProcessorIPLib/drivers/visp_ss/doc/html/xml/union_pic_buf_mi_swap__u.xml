@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_pic_buf_mi_swap__u" kind="union" prot="public">
+    <compoundname>PicBufMiSwap_u</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_pic_buf_mi_swap__u_1a83aad6bab166bcfbda538f2f4228ef7c" prot="public" static="no" mutable="no">
+        <type>PicBufMiDataSwap_t</type>
+        <definition>PicBufMiDataSwap_t PicBufMiSwap_u::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_mi_swap__u_1af823e05a9670fa964bab0d8c605e192c" prot="public" static="no" mutable="no">
+        <type>PicBufMiDataSwap_t</type>
+        <definition>PicBufMiDataSwap_t PicBufMiSwap_u::u</definition>
+        <argsstring></argsstring>
+        <name>u</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_mi_swap__u_1a1973b11b02453efe725596d2ce2d57ca" prot="public" static="no" mutable="no">
+        <type>PicBufMiDataSwap_t</type>
+        <definition>PicBufMiDataSwap_t PicBufMiSwap_u::v</definition>
+        <argsstring></argsstring>
+        <name>v</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_mi_swap__u_1abfaa7d541cca7b46a01177c09eb7a85d" prot="public" static="no" mutable="no">
+        <type>struct PicBufMiSwap_u::@5</type>
+        <definition>struct PicBufMiSwap_u::@5  PicBufMiSwap_u::yuvSwap</definition>
+        <argsstring></argsstring>
+        <name>yuvSwap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="164" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_mi_swap__u_1a358d3554fa37fe259f634cde1cd7781c" prot="public" static="no" mutable="no">
+        <type>PicBufMiDataSwap_t</type>
+        <definition>PicBufMiDataSwap_t PicBufMiSwap_u::rawSwap</definition>
+        <argsstring></argsstring>
+        <name>rawSwap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Union type to specify the raw and yuv swap control. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This union type is used to specify the raw and yuv swap control. </para></simplesect>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="159" bodyend="166"/>
+    <listofallmembers>
+      <member refid="union_pic_buf_mi_swap__u_1a358d3554fa37fe259f634cde1cd7781c" prot="public" virt="non-virtual"><scope>PicBufMiSwap_u</scope><name>rawSwap</name></member>
+      <member refid="union_pic_buf_mi_swap__u_1af823e05a9670fa964bab0d8c605e192c" prot="public" virt="non-virtual"><scope>PicBufMiSwap_u</scope><name>u</name></member>
+      <member refid="union_pic_buf_mi_swap__u_1a1973b11b02453efe725596d2ce2d57ca" prot="public" virt="non-virtual"><scope>PicBufMiSwap_u</scope><name>v</name></member>
+      <member refid="union_pic_buf_mi_swap__u_1a83aad6bab166bcfbda538f2f4228ef7c" prot="public" virt="non-virtual"><scope>PicBufMiSwap_u</scope><name>y</name></member>
+      <member refid="union_pic_buf_mi_swap__u_1abfaa7d541cca7b46a01177c09eb7a85d" prot="public" virt="non-virtual"><scope>PicBufMiSwap_u</scope><name>yuvSwap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

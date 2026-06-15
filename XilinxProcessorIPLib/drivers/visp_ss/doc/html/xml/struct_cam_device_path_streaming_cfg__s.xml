@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_path_streaming_cfg__s" kind="struct" prot="public">
+    <compoundname>CamDevicePathStreamingCfg_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_path_streaming_cfg__s_1a842343e19a382c0464a851617a60cbba" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevicePathStreamingCfg_s::outPathEnable</definition>
+        <argsstring></argsstring>
+        <name>outPathEnable</name>
+        <briefdescription>
+<para>Path streaming configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to set ISP output streaming. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="159" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_path_streaming_cfg__s_1a842343e19a382c0464a851617a60cbba" prot="public" virt="non-virtual"><scope>CamDevicePathStreamingCfg_s</scope><name>outPathEnable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

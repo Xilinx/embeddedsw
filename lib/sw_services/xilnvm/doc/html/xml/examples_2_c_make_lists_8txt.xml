@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="examples_2_c_make_lists_8txt" kind="file">
+    <compoundname>examples/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">include(${CMAKE_CURRENT_SOURCE_DIR}/XilnvmExample.cmake)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(xilnvm)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">enable_language(C<sp/>ASM)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xilstandalone)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xil)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect(PROJECT_LIB_DEPS<sp/>xiltimer)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">if(NOT(&quot;${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">collect(PROJECT_LIB_DEPS<sp/>xilmailbox)</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">collect(PROJECT_LIB_DEPS<sp/>xilnvm)</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">collect(PROJECT_LIB_DEPS<sp/>gcc)</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">collect(PROJECT_LIB_DEPS<sp/>c)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">collector_list<sp/>(_deps<sp/>PROJECT_LIB_DEPS)</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral">if(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilnvm_efuse_spartan_ultrascale_plus_example.c;)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">else()</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>if(&quot;</highlight><highlight class="normal">${XILNVM_mode}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">server</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilnvm_bbram_versal_server_example.c;xilnvm_efuse_versal_server_example.c;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(&quot;</highlight><highlight class="normal">${CMAKE_SUBMACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal_2VE_2VM</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_net_client_example.c;xilnvm_bbram_config_limiter_client_example.c)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SET(COMMON_EXAMPLES<sp/>xilnvm_bbram_versal_client_example.c;xilnvm_efuse_versal_client_example.c;xilnvm_bbram_versal_ssit_client_example.c;xilnvm_efuse_versal_ssit_client_example.c)</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral">linker_gen(&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}/../../../../scripts/linker_files/</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral">foreach(EXAMPLE<sp/>${COMMON_EXAMPLES})</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>string(REGEX<sp/>REPLACE<sp/>&quot;</highlight><highlight class="normal">\\.[^.]*$</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="stringliteral">&quot;<sp/>EXAMPLE<sp/>${EXAMPLE})</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_executable(${EXAMPLE}.elf<sp/>${EXAMPLE})</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>target_link_libraries(${EXAMPLE}.elf<sp/>-Wl,--gc-sections<sp/>-T\&quot;${CMAKE_SOURCE_DIR}/lscript.ld\&quot;<sp/>-L\&quot;${CMAKE_SOURCE_DIR}/\&quot;<sp/>-Wl,--start-group<sp/>${_deps}<sp/>-Wl,--end-group)</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral">endforeach()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

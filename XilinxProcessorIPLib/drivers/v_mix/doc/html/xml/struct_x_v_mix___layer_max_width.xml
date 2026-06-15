@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_mix___layer_max_width" kind="struct" prot="public">
+    <compoundname>XVMix_LayerMaxWidth</compoundname>
+    <includes local="no">xv_mix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a161a250d0d4f942646f82046e44bddfb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer1MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer1MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1ae6f2c03032abae1c8cb6a0fd7e3b19f5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer2MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer2MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a23f714fdf0e21425c07a346a24e79916" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer3MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer3MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1aa6ad9ea8911e611b34e33d49d23fdd48" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer4MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer4MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a7c5e92b9a1a18ccbe29ad193573e811b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer5MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer5MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a0aa79056d3c3cbdbc4e525fc0d68b6ba" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer6MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer6MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a7cd785ce5c148b3dd1c07be438ef0831" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer7MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer7MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a4adfb6a52fca749167a604ea02116ffd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer8MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer8MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1aaa6732d49fc428ba9d783a0fc63c61ee" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer9MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer9MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1af6cbe0815bf5515e475776fe9f250bae" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer10MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer10MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a7526250987114cd45cecaef21f9ae9ac" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer11MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer11MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a3e716627e886082b44017fbb519ddfc0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer12MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer12MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1a651d5dcdc61e95892812156db7d7c7d5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer13MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer13MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1abe0f1627911398db188a20cd42fa352c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer14MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer14MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1acdd16ba31c17b40f6005b89c0794291f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer15MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer15MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_max_width_1af33d4fee5056023185a500b6cb3171b1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVMix_LayerMaxWidth::Layer16MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Layer16MaxWidth</name>
+        <briefdescription>
+<para>Layer maximum column width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains maximum width per memory layer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="140" bodyend="157"/>
+    <listofallmembers>
+      <member refid="struct_x_v_mix___layer_max_width_1af6cbe0815bf5515e475776fe9f250bae" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer10MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a7526250987114cd45cecaef21f9ae9ac" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer11MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a3e716627e886082b44017fbb519ddfc0" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer12MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a651d5dcdc61e95892812156db7d7c7d5" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer13MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1abe0f1627911398db188a20cd42fa352c" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer14MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1acdd16ba31c17b40f6005b89c0794291f" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer15MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1af33d4fee5056023185a500b6cb3171b1" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer16MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a161a250d0d4f942646f82046e44bddfb" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer1MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1ae6f2c03032abae1c8cb6a0fd7e3b19f5" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer2MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a23f714fdf0e21425c07a346a24e79916" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer3MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1aa6ad9ea8911e611b34e33d49d23fdd48" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer4MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a7c5e92b9a1a18ccbe29ad193573e811b" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer5MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a0aa79056d3c3cbdbc4e525fc0d68b6ba" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer6MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a7cd785ce5c148b3dd1c07be438ef0831" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer7MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1a4adfb6a52fca749167a604ea02116ffd" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer8MaxWidth</name></member>
+      <member refid="struct_x_v_mix___layer_max_width_1aaa6732d49fc428ba9d783a0fc63c61ee" prot="public" virt="non-virtual"><scope>XVMix_LayerMaxWidth</scope><name>Layer9MaxWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

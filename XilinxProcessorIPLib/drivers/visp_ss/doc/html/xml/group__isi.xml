@@ -1,0 +1,3820 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__isi" kind="group">
+    <compoundname>isi</compoundname>
+    <title>Independent Sensor Interface</title>
+    <innerclass refid="struct_isi_sensor_inst__s" prot="public">IsiSensorInst_s</innerclass>
+    <innerclass refid="struct_isi_resolution__s" prot="public">IsiResolution_s</innerclass>
+    <innerclass refid="struct_isi_caps__s" prot="public">IsiCaps_s</innerclass>
+    <innerclass refid="struct_isi_isp_status__s" prot="public">IsiIspStatus_s</innerclass>
+    <innerclass refid="struct_isi_ir_light_exp__s" prot="public">IsiIrLightExp_s</innerclass>
+    <innerclass refid="struct_isi_ir_light_range__s" prot="public">IsiIrLightRange_s</innerclass>
+    <innerclass refid="struct_isi_ir_light_info__s" prot="public">IsiIrLightInfo_s</innerclass>
+    <innerclass refid="struct_isi_focus_pos_info__s" prot="public">IsiFocusPosInfo_s</innerclass>
+    <innerclass refid="struct_isi_focus_p_d_info__s" prot="public">IsiFocusPDInfo_s</innerclass>
+    <innerclass refid="struct_isi_focus_calib_attr__s" prot="public">IsiFocusCalibAttr_s</innerclass>
+    <innerclass refid="struct_isi_focus_pos__s" prot="public">IsiFocusPos_s</innerclass>
+    <innerclass refid="struct_isi_bus__s" prot="public">IsiBus_s</innerclass>
+    <innerclass refid="struct_isi_sensor_instance_config__s" prot="public">IsiSensorInstanceConfig_s</innerclass>
+    <innerclass refid="struct_isi_ae_base_info__s" prot="public">IsiAeBaseInfo_s</innerclass>
+    <innerclass refid="struct_isi_exp_decompose_param__s" prot="public">IsiExpDecomposeParam_s</innerclass>
+    <innerclass refid="struct_isi_exp_decompose_result__s" prot="public">IsiExpDecomposeResult_s</innerclass>
+    <innerclass refid="struct_isi_sensor_exp_param__s" prot="public">IsiSensorExpParam_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__isi_1ga4935c00d2760c3abf984f940fe96f851" prot="public" static="no">
+        <name>IsiFocusPosMode_enum</name>
+        <enumvalue id="group__isi_1gga4935c00d2760c3abf984f940fe96f851ae2712197f2221d143d866430252565db" prot="public">
+          <name>ISI_FOCUS_POS_ABSOLUTE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi_1gga4935c00d2760c3abf984f940fe96f851a10035f3c823b1ff3a9908352373bff81" prot="public">
+          <name>ISI_FOCUS_POS_RELATIVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi_1gga4935c00d2760c3abf984f940fe96f851aed556dad226e48f606b9eb70507d9cca" prot="public">
+          <name>DUMMY_ISI_014</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="127" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__isi_1gab5d161f1e2a614874b4a008a477f656a" prot="public" static="no">
+        <name>IsiPdafSensorType_enum</name>
+        <enumvalue id="group__isi_1ggab5d161f1e2a614874b4a008a477f656aa221b377eff3e0259d1dfca55c603bded" prot="public">
+          <name>ISI_PDAF_SENSOR_DUAL_PIXEL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi_1ggab5d161f1e2a614874b4a008a477f656aaa7962281be7a8a6adf0be12e2ecb2faf" prot="public">
+          <name>ISI_PDAF_SENSOR_OCL2X1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi_1ggab5d161f1e2a614874b4a008a477f656aae71d0f84bd931d9592d9341b6d8cff04" prot="public">
+          <name>ISI_PDAF_SENSOR_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__isi_1ggab5d161f1e2a614874b4a008a477f656aaef42885823580121b40061c98d17a8e8" prot="public">
+          <name>DUMMY_ISI_015</name>
+          <initializer>= 0xdeadfeed</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="133" bodyend="138"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__isi_1ga12d91f296456fe39fcfc9a916e1202c8" prot="public" static="no">
+        <type>struct IsiSensorInst_s</type>
+        <definition>typedef struct IsiSensorInst_s  IsiSensorInst_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorInst_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga02374161a5004596ff2ddc6c3ee2fecf" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* IsiSensorHandle_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorHandle_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gab85dd9fe88260ab3917552dab3f15c4e" prot="public" static="no">
+        <type>struct <ref refid="struct_isi_sensor__s" kindref="compound">IsiSensor_s</ref></type>
+        <definition>typedef struct IsiSensor_s IsiSensor_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensor_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gaa00ce3f1bb51559987648fed2189b562" prot="public" static="no">
+        <type>struct IsiResolution_s</type>
+        <definition>typedef struct IsiResolution_s  IsiResolution_t</definition>
+        <argsstring></argsstring>
+        <name>IsiResolution_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga8f5b11036e332d8d0ce011de3035834b" prot="public" static="no">
+        <type>struct <ref refid="struct_isi_caps__s" kindref="compound">IsiCaps_s</ref></type>
+        <definition>typedef struct IsiCaps_s  IsiCaps_t</definition>
+        <argsstring></argsstring>
+        <name>IsiCaps_t</name>
+        <briefdescription>
+<para>This structure defines the sensor capabilities. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gad79bdffe3bd56a42510ef8947fcdc699" prot="public" static="no">
+        <type>struct IsiIspStatus_s</type>
+        <definition>typedef struct IsiIspStatus_s  IsiIspStatus_t</definition>
+        <argsstring></argsstring>
+        <name>IsiIspStatus_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga05079f3be1ea848dd997c4167ab59fd3" prot="public" static="no">
+        <type>struct IsiIrLightExp_s</type>
+        <definition>typedef struct IsiIrLightExp_s  IsiIrLightExp_t</definition>
+        <argsstring></argsstring>
+        <name>IsiIrLightExp_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="113" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gaae2ce22ba6852bf6f5ae4024170fa887" prot="public" static="no">
+        <type>struct IsiIrLightRange_s</type>
+        <definition>typedef struct IsiIrLightRange_s  IsiIrLightRange_t</definition>
+        <argsstring></argsstring>
+        <name>IsiIrLightRange_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="119" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga3f7be8074fa200b023da73f6edaef3d7" prot="public" static="no">
+        <type>struct IsiIrLightInfo_s</type>
+        <definition>typedef struct IsiIrLightInfo_s  IsiIrLightInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiIrLightInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="125" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga6b1fa5ed5f53a00df9aa7162f0e5a208" prot="public" static="no">
+        <type>enum IsiFocusPosMode_enum</type>
+        <definition>typedef enum IsiFocusPosMode_enum  IsiFocusPosMode_e</definition>
+        <argsstring></argsstring>
+        <name>IsiFocusPosMode_e</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga821911eac92cad81f2c865a07ab95898" prot="public" static="no">
+        <type>enum IsiPdafSensorType_enum</type>
+        <definition>typedef enum IsiPdafSensorType_enum  IsiPdafSensorType_e</definition>
+        <argsstring></argsstring>
+        <name>IsiPdafSensorType_e</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="138" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gad31e5aae08750da5c9347a357e64b292" prot="public" static="no">
+        <type>struct IsiFocusPosInfo_s</type>
+        <definition>typedef struct IsiFocusPosInfo_s  IsiFocusPosInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiFocusPosInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga28cafab9cd4880e4d301cc3fad6e167f" prot="public" static="no">
+        <type>struct IsiFocusPDInfo_s</type>
+        <definition>typedef struct IsiFocusPDInfo_s  IsiFocusPDInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiFocusPDInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga460a8ce9b3170897cb2d785c7c7401b3" prot="public" static="no">
+        <type>struct IsiFocusCalibAttr_s</type>
+        <definition>typedef struct IsiFocusCalibAttr_s  IsiFocusCalibAttr_t</definition>
+        <argsstring></argsstring>
+        <name>IsiFocusCalibAttr_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="167" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga6811aaab2a38dc04aae05a8b6027076a" prot="public" static="no">
+        <type>struct IsiFocusPos_s</type>
+        <definition>typedef struct IsiFocusPos_s  IsiFocusPos_t</definition>
+        <argsstring></argsstring>
+        <name>IsiFocusPos_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="172" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gab17e10a24d1d399c7ab3ebebab2beaac" prot="public" static="no">
+        <type>struct IsiBus_s</type>
+        <definition>typedef struct IsiBus_s  IsiBus_t</definition>
+        <argsstring></argsstring>
+        <name>IsiBus_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="188" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga3debe437783297c930f42649b1bb37ce" prot="public" static="no">
+        <type>struct IsiSensorInstanceConfig_s</type>
+        <definition>typedef struct IsiSensorInstanceConfig_s  IsiSensorInstanceConfig_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorInstanceConfig_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="198" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1gae8aebb496560d3d2c37c134bd5d19736" prot="public" static="no">
+        <type>struct IsiAeBaseInfo_s</type>
+        <definition>typedef struct IsiAeBaseInfo_s  IsiAeBaseInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IsiAeBaseInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="226" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga9fd8b619422fe98f6cea329af100d10c" prot="public" static="no">
+        <type>struct IsiExpDecomposeParam_s</type>
+        <definition>typedef struct IsiExpDecomposeParam_s  IsiExpDecomposeParam_t</definition>
+        <argsstring></argsstring>
+        <name>IsiExpDecomposeParam_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="233" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga7e2b4a6097a355ba52e2c69522ea915f" prot="public" static="no">
+        <type>struct IsiExpDecomposeResult_s</type>
+        <definition>typedef struct IsiExpDecomposeResult_s  IsiExpDecomposeResult_t</definition>
+        <argsstring></argsstring>
+        <name>IsiExpDecomposeResult_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="240" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__isi_1ga1c912a46ceb01cd8e9a3993fc906db49" prot="public" static="no">
+        <type>struct IsiSensorExpParam_s</type>
+        <definition>typedef struct IsiSensorExpParam_s  IsiSensorExpParam_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorExpParam_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="248" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__isi_1gae539e08d0b0a45138e09d19b1b52576e" prot="public" static="no" mutable="no">
+        <type>IsiSensorHandle_t</type>
+        <definition>IsiSensorHandle_t IsiSensorInst_s::hIsiSensor[CAMDEV_INSTANCE_MAX]</definition>
+        <argsstring>[CAMDEV_INSTANCE_MAX]</argsstring>
+        <name>hIsiSensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__isi_1gaf486a7495e06b15e76df16008763bdbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSensorDrvHandleRegisterIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSensorDrvHandleRegisterIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="54" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaceb06d096bd9b934035a984a25e49bb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSensorDrvHandleUnRegisterIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSensorDrvHandleUnRegisterIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="119" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaccb738c36b240c1fc0276174b88495c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiEnumModeIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiEnumModeIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="147" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gab271496afdcf5464767a35977848358a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiOpenIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiOpenIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="184" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga04c64782e978826e78558d4aaba4e20a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiCloseIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiCloseIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="211" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gadb3a7edf1bddf7b8c7623a033de64e0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiCheckConnectionIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiCheckConnectionIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="235" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga0da5f60124e6c046ec776d69d57d0fda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetModeIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetModeIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="259" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga9c5333aa1b5a9960a0aa30c31e1ca5ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetCapsIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetCapsIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="291" bodyend="320"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga44f27498ce3ee66bed73c19ccc899e78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetStreamingIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetStreamingIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="321" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga371e4239a22758e7a3672926f8ec5f3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetRevisionIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetRevisionIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="348" bodyend="377"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gad122766c9573b6b29ef540fe5a58919d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetAeBaseInfoIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetAeBaseInfoIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="379" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga6e54c857e1ee13f9438acfc7c80c3834" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetAGainIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetAGainIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="409" bodyend="438"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga1a71b65aa9c72b5b25d109efcff47052" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetDGainIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetDGainIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="439" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gac72123a04772f23b5635cef797b6757e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetAGainIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetAGainIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="469" bodyend="495"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga7e21dc4c8e56e617a7b92645199f284b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetDGainIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetDGainIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="496" bodyend="522"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga5b111642814c496d16f55946b53a5e69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetIntTimeIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetIntTimeIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="523" bodyend="552"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga99c49069e2fa364f1851040a1f456c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetIntTimeIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetIntTimeIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="553" bodyend="579"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaa67c445d505945f5e9f48a3f44d2e964" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetFpsIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetFpsIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="580" bodyend="609"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga2139e65e24eea2feda95e4a2ce0f7815" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetFpsIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetFpsIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="610" bodyend="636"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga1287d4202de54e3b52f8d4f8d6cf04d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetIspStatusIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetIspStatusIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="638" bodyend="667"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga9c4d2aa919fb0cc74a81d65fedc3f384" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetWBIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetWBIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="668" bodyend="694"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gafdfc466f4343f12e8bb4a234b923d3db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetWBIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetWBIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="695" bodyend="724"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga16b4b87b3646eba992badec56ce0acc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetBlcIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetBlcIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="725" bodyend="751"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaec10c875e17495d67b9ee36fcabeff98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetBlcIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetBlcIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="752" bodyend="781"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga5a9d286cf056493b8ccfcbd780a05119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiSetTpgIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiSetTpgIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="783" bodyend="809"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga4598eb9d20809b70652e9a0df3ca2c89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetTpgIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetTpgIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="810" bodyend="839"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga37f9bd1e42732feb5068dbb3f4f1e902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiGetExpandCurveIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiGetExpandCurveIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="840" bodyend="869"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga4e74d10a5ca8745d06df4f234a5023a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiWriteRegIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiWriteRegIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="872" bodyend="901"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga761e99f6fb81a1c68fe86b5c355bc710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT ControlIsiReadRegIss</definition>
+        <argsstring>(void *data)</argsstring>
+        <name>ControlIsiReadRegIss</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/source/isi_control.c" bodystart="902" bodyend="935"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga0c43bb412279cb70381a4a3f0fe2e1f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiOpenIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t mode)</argsstring>
+        <name>IsiOpenIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>IsiOpenIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Open of the image sensor considering the given configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current work mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Open the image sensor considering the given configuration.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="152" bodyend="174"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gac7f86ed7e3602f2c33c1d7770b1511b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiCloseIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiCloseIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>IsiCloseIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Close the image sensor considering the given configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Close the image sensor considering the given configuration.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="191" bodyend="212"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaffc1a6f31051016b51ece1b39caa67c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiReadRegIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const uint16_t addr, uint16_t *pValue)</argsstring>
+        <name>IsiReadRegIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint16_t *</type>
+          <declname>pValue</declname>
+        </param>
+        <briefdescription>
+<para>IsiReadRegIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>reads a given number of bytes from the image sensor device</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to image sensor device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>register address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="370" bodyend="396"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga06e5ea1830cc28443cf2821e1eb1c496" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiWriteRegIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const uint16_t addr, const uint16_t value)</argsstring>
+        <name>IsiWriteRegIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>IsiWriteRegIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>writes a given number of bytes to the image sensor device by calling the corresponding sensor-function</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to image sensor device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>register address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>value to write</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="417" bodyend="440"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga8fcb824fe2d07484d72d1622aa2a49f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetModeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorMode_t *pMode)</argsstring>
+        <name>IsiGetModeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorMode_t *</type>
+          <declname>pMode</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetModeIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>get cuurent sensor mode info.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="229" bodyend="265"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga1de8858e4298abd251148bcd25f891f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiEnumModeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorEnumMode_t *pEnumMode)</argsstring>
+        <name>IsiEnumModeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorEnumMode_t *</type>
+          <declname>pEnumMode</declname>
+        </param>
+        <briefdescription>
+<para>IsiEnumModeIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>query sensor info.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pEnumMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor query mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>query sensor info array.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pEnumMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor query mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="284" bodyend="309"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga1f62d016684df0e75229eeff8f34a508" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetCapsIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiCaps_t *pCaps)</argsstring>
+        <name>IsiGetCapsIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type><ref refid="group__isi_1ga8f5b11036e332d8d0ce011de3035834b" kindref="member">IsiCaps_t</ref> *</type>
+          <declname>pCaps</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetCapsIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>fills in the correct pointers for the sensor description struct</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pCaps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor caps pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="327" bodyend="350"/>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga1252b913bb884882436ee78ca34a7bf5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiCheckConnectionIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiCheckConnectionIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>IsiCheckConnectionIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Checks the connection to the camera sensor, if possible.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Performs the power-up sequence of the camera, if possible.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="458" bodyend="479"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaab57d4ffc77ad2248de3786af710c94d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetRevisionIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t *pRevision)</argsstring>
+        <name>IsiGetRevisionIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pRevision</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetRevisionIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads the sensor revision register and returns it.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pRevision</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to revision</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>reads the sensor revision register and returns this value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor description struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pRevision</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to storage value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="498" bodyend="523"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaea77c47a3b22f7cf8595eeeb6e3b1a03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetStreamingIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, bool_t on)</argsstring>
+        <name>IsiSetStreamingIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>bool_t</type>
+          <declname>on</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetStreamingIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Enables/disables streaming of sensor data, if possible.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>on</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new streaming state (BOOL_TRUE=on, BOOL_FALSE=off)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enables/disables streaming of sensor data, if possible.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>on</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new streaming state (BOOL_TRUE=on, BOOL_FALSE=off)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="461" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="543" bodyend="565"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gafa01032d8121144b890495f77dfdc6c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGainExecuteIss</definition>
+        <argsstring>(float32_t totalGain, IsiGainInfo_t aGain, IsiGainInfo_t dGain, float32_t *splitAgain, float32_t *splitDgain)</argsstring>
+        <name>IsiGainExecuteIss</name>
+        <param>
+          <type>float32_t</type>
+          <declname>totalGain</declname>
+        </param>
+        <param>
+          <type>IsiGainInfo_t</type>
+          <declname>aGain</declname>
+        </param>
+        <param>
+          <type>IsiGainInfo_t</type>
+          <declname>dGain</declname>
+        </param>
+        <param>
+          <type>float32_t *</type>
+          <declname>splitAgain</declname>
+        </param>
+        <param>
+          <type>float32_t *</type>
+          <declname>splitDgain</declname>
+        </param>
+        <briefdescription>
+<para>IsiGainExecuteIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>complete the sensor gain execute.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>totalGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the sensor total gain need to execute </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>aGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the limit of sensor analog gain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the limit of sensor digital gain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>splitAgain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the pointer of split analog gain </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>splitDgain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the pointer of split digital gain</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="587" bodyend="616"/>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga52b594db8df809e15ae7d75ba2514a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSensorExecuteExposureControl</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiSensorExpParam_t *pExpParam, IsiSensorExpParam_t *pExpResult)</argsstring>
+        <name>IsiSensorExecuteExposureControl</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiSensorExpParam_t *</type>
+          <declname>pExpParam</declname>
+        </param>
+        <param>
+          <type>IsiSensorExpParam_t *</type>
+          <declname>pExpResult</declname>
+        </param>
+        <briefdescription>
+<para>IsiSensorExecuteExposureControl. </para>        </briefdescription>
+        <detaileddescription>
+<para>Execute exposure divided in sensor driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pExpParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the input parameters for dividing exposure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pExpResult</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the result after dividing exposure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="624" bodyend="650"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gae483ef1ceb1f331971993fa0b31f85d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiExpDecomposeControl</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiExpDecomposeParam_t *pDecParam, IsiExpDecomposeResult_t *pDecResult)</argsstring>
+        <name>IsiExpDecomposeControl</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiExpDecomposeParam_t *</type>
+          <declname>pDecParam</declname>
+        </param>
+        <param>
+          <type>IsiExpDecomposeResult_t *</type>
+          <declname>pDecResult</declname>
+        </param>
+        <briefdescription>
+<para>IsiExpDecomposeControl. </para>        </briefdescription>
+        <detaileddescription>
+<para>Execute exposure decompose in sensor driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IsiExpDecomposeParam_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the input parameters for decomposing exposure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsiExpDecomposeResult_t</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the result after decomposing exposure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="535" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="658" bodyend="684"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga896cd1825599338870761d17d4e5d349" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetAeBaseInfoIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiAeBaseInfo_t *pAeBaseInfo)</argsstring>
+        <name>IsiGetAeBaseInfoIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiAeBaseInfo_t *</type>
+          <declname>pAeBaseInfo</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetAeBaseInfoIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns the Ae base info of a sensor instance</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pAeBaseInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor aebase info value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="703" bodyend="728"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gad3a5dce446ceb73de01d11045dcf38f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetAGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>IsiGetAGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorAGain</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetAGainIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads gain values from the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorAGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor again to get</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="736" bodyend="761"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga93b3ea1d1658c60144c73bdacccdd1b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetDGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>IsiGetDGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorDGain</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetDGainIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads gain values from the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorDGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor dgain to get</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="601" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="769" bodyend="794"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga4730d49cdfff48159d1fe4445e1a8b7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetAGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>IsiSetAGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorAGain</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetAGainIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Writes gain values to the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorAGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor again to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="802" bodyend="827"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gad464e39542dd035816a6723d0de89eb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetDGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>IsiSetDGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorDGain</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetDGainIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Writes gain values to the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorDGain</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor dgain to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="835" bodyend="860"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga71ac9872b59e96e08f038bbb3603fe16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetIntTimeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>IsiGetIntTimeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorIntTime_t *</type>
+          <declname>pSensorIntTime</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetIntTimeIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads integration time values from the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorIntTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to integration time to get </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="664" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="869" bodyend="894"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gadc22408b6742c7a4bebe9f48f369b46d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetIntTimeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>IsiSetIntTimeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiSensorIntTime_t *</type>
+          <declname>pSensorIntTime</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetIntTimeIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Writes integration time values to the image sensor module.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorIntTime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to sensor integration time to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="686" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="902" bodyend="927"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga58abf8f9d5a92f8bddf747af71bb1f26" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetFpsIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t *pFps)</argsstring>
+        <name>IsiGetFpsIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pFps</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetFpsIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get Sensor Fps Config.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pFps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>current fps</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="708" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="946" bodyend="971"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gae8854478f37673a566648f2fa4234a09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetFpsIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t fps)</argsstring>
+        <name>IsiSetFpsIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>fps</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetFpsIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set Sensor Fps Config.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>fps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Setfps</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="730" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="990" bodyend="1014"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga0bdda2ff2b82c774aa8e2809f3541d2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetIspStatusIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiIspStatus_t *pIspStatus)</argsstring>
+        <name>IsiGetIspStatusIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiIspStatus_t *</type>
+          <declname>pIspStatus</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetIspStatusIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Get sensor isp status.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorIspStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor isp status</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="752" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1032" bodyend="1056"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gab2cf70baba6096cb1256db46bccc6e36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetBlcIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiSensorBlc_t *pBlc)</argsstring>
+        <name>IsiSetBlcIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiSensorBlc_t *</type>
+          <declname>pBlc</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetBlcIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor linear mode black level</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pBlc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>blc params pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>set sensor linear mode black level</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pBlc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>blc params point</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="774" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1075" bodyend="1097"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gabbcbe44d9afe218c051ea0f2492e64e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetBlcIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorBlc_t *pBlc)</argsstring>
+        <name>IsiGetBlcIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorBlc_t *</type>
+          <declname>pBlc</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetBlcIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor linear mode black level</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pBlc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>blc params point</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1115" bodyend="1137"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga882e7744cb8adc132dd1e9eee2d209a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetWBIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiSensorWb_t *pWb)</argsstring>
+        <name>IsiSetWBIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiSensorWb_t *</type>
+          <declname>pWb</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetWBIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor linear mode white balance or hdr mode normal exp frame white balance</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pWb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>wb params pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>set sensor linear mode white balance or hdr mode normal exp frame white balance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pWb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>wb params point</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="817" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1156" bodyend="1178"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gac2e13b1795b9cd1897b5b3c585fe72ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetWBIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorWb_t *pWb)</argsstring>
+        <name>IsiGetWBIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorWb_t *</type>
+          <declname>pWb</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetWBIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor linear mode white balance or hdr mode normal exp frame white balance</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pWb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>wb params point</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1196" bodyend="1218"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gab5fe0357fdb6cb6df4df65434973dae0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetTpgIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorTpg_t tpg)</argsstring>
+        <name>IsiSetTpgIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorTpg_t</type>
+          <declname>tpg</declname>
+        </param>
+        <briefdescription>
+<para>IsiSetTpgIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor test pattern.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tpg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor test pattern</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="859" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1236" bodyend="1258"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga38bb93a440db3b0449b6ca064c7992cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetTpgIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorTpg_t *pTpg)</argsstring>
+        <name>IsiGetTpgIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorTpg_t *</type>
+          <declname>pTpg</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetTpgIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>set sensor test pattern.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pTpg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor test pattern ptr</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="880" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1275" bodyend="1297"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga2efd6ba1f930c71202bbe090756f4354" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetExpandCurveIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</argsstring>
+        <name>IsiGetExpandCurveIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorCompandCurve_t *</type>
+          <declname>pCurve</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetExpandCurveIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>get sensor expand curve</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pCurve</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>expand curve pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="900" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1313" bodyend="1335"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga6897fde60fc17c55eec911eaf753775b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetCompressCurveIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorCompandCurve_t *pCurve)</argsstring>
+        <name>IsiGetCompressCurveIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorCompandCurve_t *</type>
+          <declname>pCurve</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetCompressCurveIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>get sensor compress curve</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pCurve</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>compress curve pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="921" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1353" bodyend="1375"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga7ef5a9b3d21039b7efe97d43ecaa5015" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiExtendFuncIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, void *pUserData)</argsstring>
+        <name>IsiExtendFuncIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserData</declname>
+        </param>
+        <briefdescription>
+<para>IsiExtendFuncIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>sensor extend function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pUserData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor extend info</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="943" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1394" bodyend="1419"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gafe94752d804d90439b9a9594f9a8328c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetOtpDataIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiOTP_t *pOtpData)</argsstring>
+        <name>IsiGetOtpDataIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiOTP_t *</type>
+          <declname>pOtpData</declname>
+        </param>
+        <briefdescription>
+<para>IsiGetOtpDataIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>get sensor otp data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ctx</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor otp data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>get sensor otp data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pOtpData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor otp data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="965" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1438" bodyend="1463"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga4db18f988e6cdccffd9ae59506c1986c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiFocusCreateIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiFocusCreateIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>IsiFocusCreateIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>create sensor focus</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1480" bodyend="1501"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaeb05a40f7c7f88230bab86341bf5ebd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiFocusReleaseIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>IsiFocusReleaseIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>IsiFocusReleaseIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>release sensor focus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1006" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1519" bodyend="1540"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga5ea6bb983c81dca3b723e1999fbae836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiFocusGetCalibrateIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiFocusCalibAttr_t *pFocusCalib)</argsstring>
+        <name>IsiFocusGetCalibrateIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiFocusCalibAttr_t *</type>
+          <declname>pFocusCalib</declname>
+        </param>
+        <briefdescription>
+<para>IsiFocusGetCalibrateIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Triggers a forced calibration of the focus hardware.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pFocusCalib</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor focus calib pointor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1027" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1559" bodyend="1584"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga69098da3b53920d78acf3964ea3bd95d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiFocusSetIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const IsiFocusPos_t *pPos)</argsstring>
+        <name>IsiFocusSetIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const IsiFocusPos_t *</type>
+          <declname>pPos</declname>
+        </param>
+        <briefdescription>
+<para>IsiFocusSetIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Drives the lens system to a certain focus point.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pPos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>focus position pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1049" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1603" bodyend="1628"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaea34c0a4e40af01356490ef5b2fac117" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiFocusGetIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiFocusPos_t *pPos)</argsstring>
+        <name>IsiFocusGetIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiFocusPos_t *</type>
+          <declname>pPos</declname>
+        </param>
+        <briefdescription>
+<para>IsiFocusGetIss. </para>        </briefdescription>
+        <detaileddescription>
+<para>Retrieves the currently applied focus point.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sensor instance handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pPos</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to a variable to receive the current focus point</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return the result of the function call. </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1072" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1648" bodyend="1673"/>
+        <references refid="return__codes_8h_1ae1192044d3215967b192c7169c6f4cec" compoundref="return__codes_8h" startline="44">RET_NOTSUPP</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gab195f801d07ee706e061807977eaed9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetInfraredLightExpParamIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiIrLightExp_t *pIrExpParam)</argsstring>
+        <name>IsiSetInfraredLightExpParamIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiIrLightExp_t *</type>
+          <declname>pIrExpParam</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1078" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1676" bodyend="1698"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga4033c68577e46223217e13044d12813a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetInfraredLightExpParamIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiIrLightExp_t *pIrExpParam)</argsstring>
+        <name>IsiGetInfraredLightExpParamIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiIrLightExp_t *</type>
+          <declname>pIrExpParam</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1084" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1701" bodyend="1723"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga2e5e812d6e5b3408ac560d4dcf19ef23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiQueryMetadataAttrIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</argsstring>
+        <name>IsiQueryMetadataAttrIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiMetadataAttr_t *</type>
+          <declname>pAttr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1091" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1727" bodyend="1752"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga8307fa92de3bd960335221d466c5172f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiSetMetadataAttrEnableIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiMetadataAttr_t attr)</argsstring>
+        <name>IsiSetMetadataAttrEnableIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiMetadataAttr_t</type>
+          <declname>attr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1097" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1755" bodyend="1777"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaf7af387f909973943073935a551985db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetMetadataAttrEnableIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiMetadataAttr_t *pAttr)</argsstring>
+        <name>IsiGetMetadataAttrEnableIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiMetadataAttr_t *</type>
+          <declname>pAttr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1780" bodyend="1805"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1ga48ff568fc6e4f698ad179f45bb0f560c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiGetMetadataWindowIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiMetadataWinInfo_t *pMetaWin)</argsstring>
+        <name>IsiGetMetadataWindowIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiMetadataWinInfo_t *</type>
+          <declname>pMetaWin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1808" bodyend="1833"/>
+      </memberdef>
+      <memberdef kind="function" id="group__isi_1gaa19e1f7fc81267f32c276c30c1d9a82a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT IsiParserMetadataIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, const MetadataBufInfo_t *pMetaBuf, IsiSensorMetadata_t *pMetaInfo)</argsstring>
+        <name>IsiParserMetadataIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_metadata_buf_info__s" kindref="compound">MetadataBufInfo_t</ref> *</type>
+          <declname>pMetaBuf</declname>
+        </param>
+        <param>
+          <type>IsiSensorMetadata_t *</type>
+          <declname>pMetaInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="1115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/source/isi.c" bodystart="1836" bodyend="1862"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__isi_1ga044c3b9ae4b5b8e3840929c229397cff" prot="public" static="no">
+        <name>CAMDEV_INSTANCE_MAX</name>
+        <initializer>(<ref refid="group____cam__device__general_1ga77de744a97a5586c2da3908fa78b569f" kindref="member">CAMDEV_HARDWARE_ID_MAX</ref>*<ref refid="group____cam__device__general_1ga889ddd35806b6a0f95426a2fc1f8e120" kindref="member">CAMDEV_VIRTUAL_ID_MAX</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1gad2a147e8f57ef51b39a21d15ad2146a2" prot="public" static="no">
+        <name>ISI_LINEAR_PARAS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1gaacd51f985eebcba5bae14437ae1bc4e8" prot="public" static="no">
+        <name>ISI_DUAL_EXP_L_PARAS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga4b6663c088e53cfa08b6cbbda223f32c" prot="public" static="no">
+        <name>ISI_DUAL_EXP_S_PARAS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1gafa5403dac872b9a8f8a5904a6811e6e5" prot="public" static="no">
+        <name>ISI_TRI_EXP_L_PARAS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga5f1fe385d67b11e94c01c61f7c4d0dc8" prot="public" static="no">
+        <name>ISI_TRI_EXP_S_PARAS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga1036388d81305b4eec6eb0be739bf4f7" prot="public" static="no">
+        <name>ISI_TRI_EXP_VS_PARAS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga1a24d82e199a4b8dba8ae1b617e62a73" prot="public" static="no">
+        <name>ISI_QUAD_EXP_L_PARAS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga3dccf5cb844f68eda85375d4e1a1d826" prot="public" static="no">
+        <name>ISI_QUAD_EXP_S_PARAS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1gad9e6191d6840f640acb956193cd59ece" prot="public" static="no">
+        <name>ISI_QUAD_EXP_VS_PARAS</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1ga575fa3ed11cc450c24e2ac6f87373518" prot="public" static="no">
+        <name>ISI_QUAD_EXP_VVS_PARAS</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__isi_1gae52bbd66ac0e32cb46c90ff2dd454e6f" prot="public" static="no">
+        <name>ISI_EXP_NUM_MAX</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

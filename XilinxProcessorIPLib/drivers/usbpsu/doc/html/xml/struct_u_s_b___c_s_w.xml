@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___c_s_w" kind="struct" prot="public">
+    <compoundname>USB_CSW</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___c_s_w_1a39b2a4f30cb67e6e1544221cb5295811" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CSW::dCSWSignature</definition>
+        <argsstring></argsstring>
+        <name>dCSWSignature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_s_w_1afba99883e1187598ebf59e7cea60e6a4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CSW::dCSWTag</definition>
+        <argsstring></argsstring>
+        <name>dCSWTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_s_w_1a747ea205c2871343386d03757ff2b9ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CSW::dCSWDataResidue</definition>
+        <argsstring></argsstring>
+        <name>dCSWDataResidue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_s_w_1ab6b6c2eb57ca284e47361fca074617bb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CSW::bCSWStatus</definition>
+        <argsstring></argsstring>
+        <name>bCSWStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="195" bodyend="204"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___c_s_w_1ab6b6c2eb57ca284e47361fca074617bb" prot="public" virt="non-virtual"><scope>USB_CSW</scope><name>bCSWStatus</name></member>
+      <member refid="struct_u_s_b___c_s_w_1a747ea205c2871343386d03757ff2b9ed" prot="public" virt="non-virtual"><scope>USB_CSW</scope><name>dCSWDataResidue</name></member>
+      <member refid="struct_u_s_b___c_s_w_1a39b2a4f30cb67e6e1544221cb5295811" prot="public" virt="non-virtual"><scope>USB_CSW</scope><name>dCSWSignature</name></member>
+      <member refid="struct_u_s_b___c_s_w_1afba99883e1187598ebf59e7cea60e6a4" prot="public" virt="non-virtual"><scope>USB_CSW</scope><name>dCSWTag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

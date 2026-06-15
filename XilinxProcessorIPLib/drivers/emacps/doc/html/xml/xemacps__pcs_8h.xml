@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemacps__pcs_8h" kind="file">
+    <compoundname>xemacps_pcs.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includes refid="xemacps_8h" local="yes">xemacps.h</includes>
+    <includes refid="xemacps__hw_8h" local="yes">xemacps_hw.h</includes>
+    <includedby refid="xemacps_8c" local="yes">xemacps.c</includedby>
+    <includedby refid="xemacps__pcs_8c" local="yes">xemacps_pcs.c</includedby>
+    <incdepgraph>
+      <node id="229">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="226">
+        <label>stdbool.h</label>
+      </node>
+      <node id="232">
+        <label>xil_io.h</label>
+      </node>
+      <node id="233">
+        <label>xemacps_bd.h</label>
+        <link refid="xemacps__bd_8h"/>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+      </node>
+      <node id="235">
+        <label>xemacps_bdring.h</label>
+        <link refid="xemacps__bdring_8h"/>
+      </node>
+      <node id="225">
+        <label>xemacps_pcs.h</label>
+        <link refid="xemacps_pcs.h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>xemacps_hw.h</label>
+        <link refid="xemacps__hw_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="234">
+        <label>string.h</label>
+      </node>
+      <node id="230">
+        <label>xstatus.h</label>
+      </node>
+      <node id="227">
+        <label>xemacps.h</label>
+        <link refid="xemacps_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="238">
+        <label>xemacps_pcs.c</label>
+        <link refid="xemacps__pcs_8c"/>
+      </node>
+      <node id="236">
+        <label>xemacps_pcs.h</label>
+        <link refid="xemacps_pcs.h"/>
+        <childnode refid="237" relation="include">
+        </childnode>
+        <childnode refid="238" relation="include">
+        </childnode>
+      </node>
+      <node id="237">
+        <label>xemacps.c</label>
+        <link refid="xemacps_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__emacps_1ga53aae101b5a334ecbf702694fb2e2f9b" prot="public" static="no">
+        <name>XEMACPS_PCS_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__emacps_1ga59068c475e39ab63193369fdf252a999" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacPs_SetupPCS</definition>
+        <argsstring>(XEmacPs *EmacPsInstancePtr)</argsstring>
+        <name>XEmacPs_SetupPCS</name>
+        <param>
+          <type><ref refid="group__emacps_1ga7510da8ed2cb292c5abdbcc18cc26c67" kindref="member">XEmacPs</ref> *</type>
+          <declname>EmacPsInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Set up PCS as follows for every given speed: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>Configure HS_MAC register for given speed</para></listitem><listitem><para>Configure serdes rate and speed in USX_CONTROL register</para></listitem><listitem><para>Assert Rx reset signal for GT reset</para></listitem><listitem><para>Wait for PCS_BLOCK_LOCK</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="44" bodyend="72"/>
+        <references refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" compoundref="xemacps_8h" startline="522">XEmacPs_Config::BaseAddress</references>
+        <references refid="group__emacps_1gaa73686ecb4c8560dd37d813fe4e51b1f" compoundref="xemacps__hw_8h" startline="521">XEMACPS_NWSR_MDIOIDLE_MASK</references>
+        <references refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" compoundref="xemacps__hw_8h" startline="902">XEmacPs_WriteReg</references>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emacps_1gaa1f18f2a92625e6defa38cf285408231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool XEmacPs_USXPCSGetState</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XEmacPs_USXPCSGetState</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Get USX synchronisation status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if block synchronization achieved</para></listitem><listitem><para>false if block is out of sync </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="85" bodyend="92"/>
+        <references refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" compoundref="xemacps__hw_8h" startline="881">XEmacPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__emacps_1ga93fbf442aff0cbef6046bdf24906391b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool XEmacPs_IsHighSpeedPCS</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XEmacPs_IsHighSpeedPCS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Detect if the device supports High Speeds ( 5G, 10G ) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>true if the device support High Speed</para></listitem><listitem><para>false if the device doesn&apos;t support High Speed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.c" bodystart="105" bodyend="116"/>
+        <references refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" compoundref="xemacps__hw_8h" startline="881">XEmacPs_ReadReg</references>
+        <referencedby refid="group__emacps_1gadd5f487c873ef70ab8fda69b4ec3938e" compoundref="xemacps_8c" startline="324" endline="491">XEmacPs_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#ifndef<sp/>XEMACPS_PCS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XEMACPS_PCS_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemacps_8h" kindref="compound">xemacps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemacps__hw_8h" kindref="compound">xemacps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>functions<sp/>in<sp/>xemacps_pcs.c</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1ga59068c475e39ab63193369fdf252a999" kindref="member">XEmacPs_SetupPCS</ref>(<ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*EmacPsInstancePtr);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1gaa1f18f2a92625e6defa38cf285408231" kindref="member">XEmacPs_USXPCSGetState</ref>(UINTPTR<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1ga93fbf442aff0cbef6046bdf24906391b" kindref="member">XEmacPs_IsHighSpeedPCS</ref>(UINTPTR);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_pcs.h"/>
+  </compounddef>
+</doxygen>

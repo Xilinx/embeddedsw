@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx1___stream" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx1_Stream</compoundname>
+    <includes local="no">xv_hdmitx1.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a294dfd0caf934682685fafc257d49e2b" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoStream</type>
+        <definition>XVidC_VideoStream XV_HdmiTx1_Stream::Video</definition>
+        <argsstring></argsstring>
+        <name>Video</name>
+        <briefdescription>
+<para>Video stream for HDMI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="282" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1a2fdc16b8be464514b4d72ddfb947cee9" compoundref="xv__hdmitx1_8c" startline="548" endline="603">XV_HdmiTx1_GetTmdsClk</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1ab0ff2a9927fe900b25456955341dfa31" compoundref="xv__hdmitx1_8c" startline="2340" endline="2352">XV_HdmiTx1_Info</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a25379b09e782626e79fd3b785b671f2e" compoundref="xv__hdmitx1_8c" startline="1514" endline="1558">XV_HdmiTx1_SetColorDepth</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a0aa5bbd57a95785df766d6d5a919479a" compoundref="xv__hdmitx1_8c" startline="1460" endline="1500">XV_HdmiTx1_SetColorFormat</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a7fa66e3baa8894a6c59b3fbc96d18354" prot="public" static="no" mutable="no">
+        <type>XVidC_PixelsPerClock</type>
+        <definition>XVidC_PixelsPerClock XV_HdmiTx1_Stream::CorePixPerClk</definition>
+        <argsstring></argsstring>
+        <name>CorePixPerClk</name>
+        <briefdescription>
+<para>Core operates at a fixed 4PPC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a606cf8a2a1153de19c66925b9d462636" compoundref="xv__hdmitx1_8c" startline="1362" endline="1389">XV_HdmiTx1_SetPixelRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1ac110c3e0296b6f95e3647410e3ddadd2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx1___audio_stream" kindref="compound">XV_HdmiTx1_AudioStream</ref></type>
+        <definition>XV_HdmiTx1_AudioStream XV_HdmiTx1_Stream::Audio</definition>
+        <argsstring></argsstring>
+        <name>Audio</name>
+        <briefdescription>
+<para>Audio stream for HDMI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="284" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7f1498e69d193cbd626999414e863558" compoundref="xv__hdmitx1_8c" startline="2638" endline="2700">XV_HdmiTx1_TMDSACRStart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1aeb7e0c79ea8b44c2eac37ce9a063587e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_tx1___frl" kindref="compound">XV_HdmiTx1_Frl</ref></type>
+        <definition>XV_HdmiTx1_Frl XV_HdmiTx1_Stream::Frl</definition>
+        <argsstring></argsstring>
+        <name>Frl</name>
+        <briefdescription>
+<para>FRL for HDMI TX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a8d5bc8d6358c0f2151505ec6d84e0b14" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::Vic</definition>
+        <argsstring></argsstring>
+        <name>Vic</name>
+        <briefdescription>
+<para>Video Identification code flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1afba1e6e6e959c57d1921ecf0f40b7f49" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::IsHdmi</definition>
+        <argsstring></argsstring>
+        <name>IsHdmi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a2409a41b7043003c69d4b2fe75491e32" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::IsFrl</definition>
+        <argsstring></argsstring>
+        <name>IsFrl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a4cee4a4b0708d7e886ab923114753d75" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::ScdcSupport</definition>
+        <argsstring></argsstring>
+        <name>ScdcSupport</name>
+        <briefdescription>
+<para>SCDC Support flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="290" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1af8b34671e3735035e8dd68f6bdbb7904" compoundref="xv__hdmitx1_8c" startline="707" endline="764">XV_HdmiTx1_ClockRatio</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1ab2deec246bd2a50733347cdb293e7d59" compoundref="xv__hdmitx1_8c" startline="781" endline="811">XV_HdmiTx1_DetectHdmi20</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a94632fdfed2327f40f06b80162ae6244" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::ScdcEd[11]</definition>
+        <argsstring>[11]</argsstring>
+        <name>ScdcEd</name>
+        <briefdescription>
+<para>SCDC - Character Error Detection Readings. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1a4623f1c32afecde613bfb2c4517597b1" compoundref="xv__hdmitx1_8c" startline="2982" endline="2999">XV_HdmiTx1_GetScdcEdRegisters</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a195ea9a4cc60940fab80604ebb6a2651" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::IsScrambled</definition>
+        <argsstring></argsstring>
+        <name>IsScrambled</name>
+        <briefdescription>
+<para>Scrambler flag 1 - scrambled data , 0 - non scrambled data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="293" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ad3a48e290c617a6ede63a42f1d586364" compoundref="xv__hdmitx1_8c" startline="2514" endline="2521">XV_HdmiTx1_IsStreamScrambled</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a9947243bcf378409927347939617a886" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::OverrideScrambler</definition>
+        <argsstring></argsstring>
+        <name>OverrideScrambler</name>
+        <briefdescription>
+<para>Override scramble flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="296" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a07e8f7fff100be805de99a80219c2f8c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XV_HdmiTx1_Stream::TMDSClock</definition>
+        <argsstring></argsstring>
+        <name>TMDSClock</name>
+        <briefdescription>
+<para>TMDS clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1a83f6939b0f5205344a276489afe45223" compoundref="xv__hdmitx1_8c" startline="620" endline="690">XV_HdmiTx1_Scrambler</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7f1498e69d193cbd626999414e863558" compoundref="xv__hdmitx1_8c" startline="2638" endline="2700">XV_HdmiTx1_TMDSACRStart</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1abd62e567ccef9f34c2614909fed625ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::TMDSClockRatio</definition>
+        <argsstring></argsstring>
+        <name>TMDSClockRatio</name>
+        <briefdescription>
+<para>TMDS clock ration 0 - 1/10, 1 - 1/40. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1af8b34671e3735035e8dd68f6bdbb7904" compoundref="xv__hdmitx1_8c" startline="707" endline="764">XV_HdmiTx1_ClockRatio</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1a7a20221c997a381a61b4e7e98c5a4370" compoundref="xv__hdmitx1_8c" startline="939" endline="1117">XV_HdmiTx1_SetStream</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a9516babecbb4fd2a295df625a12473d5" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XV_HdmiTx1_Stream::PixelClk</definition>
+        <argsstring></argsstring>
+        <name>PixelClk</name>
+        <briefdescription>
+<para>Pixel Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1a2fdc16b8be464514b4d72ddfb947cee9" compoundref="xv__hdmitx1_8c" startline="548" endline="603">XV_HdmiTx1_GetTmdsClk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1a59d80fb969eedd5ca7c59960fe5460a7" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmitx1_8h_1afdfa1de50e03ac7983bc1dff7d4d0a4f" kindref="member">XV_HdmiTx1_State</ref></type>
+        <definition>XV_HdmiTx1_State XV_HdmiTx1_Stream::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1afa7e042159e99edf7f02139af8cba046" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::IsConnected</definition>
+        <argsstring></argsstring>
+        <name>IsConnected</name>
+        <briefdescription>
+<para>Connected flag. </para>        </briefdescription>
+        <detaileddescription>
+<para>This flag is set when the cable is connected </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ade49d67af0d4ac0c3d5756a5cfdfe15f" compoundref="xv__hdmitx1_8c" startline="88" endline="258">XV_HdmiTx1_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx1_8h_1aa0ee62f31bc2ceaa6b7dd92618560a0a" compoundref="xv__hdmitx1_8c" startline="2537" endline="2544">XV_HdmiTx1_IsStreamConnected</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx1___stream_1aa3aac13005a54f8b27d42bf9c3f4b17d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiTx1_Stream::SampleRate</definition>
+        <argsstring></argsstring>
+        <name>SampleRate</name>
+        <briefdescription>
+<para>Sample rate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx1_8h_1ab1c2a996dc8766605df5df4d6a37eb45" compoundref="xv__hdmitx1_8c" startline="1407" endline="1446">XV_HdmiTx1_SetSampleRate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains HDMI TX stream specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="18">
+        <label>XV_HdmiTx1_AudioStream</label>
+        <link refid="struct_x_v___hdmi_tx1___audio_stream"/>
+      </node>
+      <node id="17">
+        <label>XV_HdmiTx1_Stream</label>
+        <link refid="struct_x_v___hdmi_tx1___stream"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Audio</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>Frl</edgelabel>
+        </childnode>
+      </node>
+      <node id="19">
+        <label>XV_HdmiTx1_Frl</label>
+        <link refid="struct_x_v___hdmi_tx1___frl"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx1/src/xv_hdmitx1.h" bodystart="281" bodyend="307"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx1___stream_1ac110c3e0296b6f95e3647410e3ddadd2" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>Audio</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a7fa66e3baa8894a6c59b3fbc96d18354" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>CorePixPerClk</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1aeb7e0c79ea8b44c2eac37ce9a063587e" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>Frl</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1afa7e042159e99edf7f02139af8cba046" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>IsConnected</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a2409a41b7043003c69d4b2fe75491e32" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>IsFrl</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1afba1e6e6e959c57d1921ecf0f40b7f49" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>IsHdmi</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a195ea9a4cc60940fab80604ebb6a2651" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>IsScrambled</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a9947243bcf378409927347939617a886" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>OverrideScrambler</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a9516babecbb4fd2a295df625a12473d5" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>PixelClk</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1aa3aac13005a54f8b27d42bf9c3f4b17d" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>SampleRate</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a94632fdfed2327f40f06b80162ae6244" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>ScdcEd</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a4cee4a4b0708d7e886ab923114753d75" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>ScdcSupport</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a59d80fb969eedd5ca7c59960fe5460a7" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>State</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a07e8f7fff100be805de99a80219c2f8c" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>TMDSClock</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1abd62e567ccef9f34c2614909fed625ce" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>TMDSClockRatio</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a8d5bc8d6358c0f2151505ec6d84e0b14" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>Vic</name></member>
+      <member refid="struct_x_v___hdmi_tx1___stream_1a294dfd0caf934682685fafc257d49e2b" prot="public" virt="non-virtual"><scope>XV_HdmiTx1_Stream</scope><name>Video</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

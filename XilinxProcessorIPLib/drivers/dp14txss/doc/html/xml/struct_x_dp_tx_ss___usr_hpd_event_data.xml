@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___usr_hpd_event_data" kind="struct" prot="public">
+    <compoundname>XDpTxSs_UsrHpdEventData</compoundname>
+    <includes local="no">xdptxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a187ec25585e9b56f3952742270db4000" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::MaxCapNew</definition>
+        <argsstring></argsstring>
+        <name>MaxCapNew</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1aa3a1035e8589c63fbadeaf85e0b0c8e9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::MaxCapLanesNew</definition>
+        <argsstring></argsstring>
+        <name>MaxCapLanesNew</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a9a5e613ad5d2d2103f93788cc1d8aa00" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::Lane0Sts</definition>
+        <argsstring></argsstring>
+        <name>Lane0Sts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a2d4a01f1732bc0b4eb5b80f785f08336" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::Lane2Sts</definition>
+        <argsstring></argsstring>
+        <name>Lane2Sts</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a1bf27b38dfdaada726285a78a1e61365" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::Rd200</definition>
+        <argsstring></argsstring>
+        <name>Rd200</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a291bd1629204008450d85e343de84c1b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::EdidOrg[XDP_EDID_BLOCK_SIZE]</definition>
+        <argsstring>[XDP_EDID_BLOCK_SIZE]</argsstring>
+        <name>EdidOrg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1ab9fec17368ec7b9fbe2536d3cb72721a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::EdidOrg_1[XDP_EDID_BLOCK_SIZE]</definition>
+        <argsstring>[XDP_EDID_BLOCK_SIZE]</argsstring>
+        <name>EdidOrg_1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a3fadf343fca3dd8ccbc24c8057afa2c2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::EdidOrg_2[XDP_EDID_BLOCK_SIZE]</definition>
+        <argsstring>[XDP_EDID_BLOCK_SIZE]</argsstring>
+        <name>EdidOrg_2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1a306b735649d63f3afddfc478ec8dc8e9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::Dpcd[88]</definition>
+        <argsstring>[88]</argsstring>
+        <name>Dpcd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_hpd_event_data_1ab40fba7fa9812e3b5fbfdede1e537dba" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrHpdEventData::Tmp[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>Tmp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>HPD Event User Data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/src/xdptxss.h" bodystart="364" bodyend="375"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a306b735649d63f3afddfc478ec8dc8e9" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>Dpcd</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a291bd1629204008450d85e343de84c1b" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>EdidOrg</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1ab9fec17368ec7b9fbe2536d3cb72721a" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>EdidOrg_1</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a3fadf343fca3dd8ccbc24c8057afa2c2" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>EdidOrg_2</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a9a5e613ad5d2d2103f93788cc1d8aa00" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>Lane0Sts</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a2d4a01f1732bc0b4eb5b80f785f08336" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>Lane2Sts</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1aa3a1035e8589c63fbadeaf85e0b0c8e9" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>MaxCapLanesNew</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a187ec25585e9b56f3952742270db4000" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>MaxCapNew</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1a1bf27b38dfdaada726285a78a1e61365" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>Rd200</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_hpd_event_data_1ab40fba7fa9812e3b5fbfdede1e537dba" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrHpdEventData</scope><name>Tmp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

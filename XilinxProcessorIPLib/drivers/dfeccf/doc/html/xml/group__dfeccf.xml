@@ -1,0 +1,2693 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dfeccf" kind="group">
+    <compoundname>dfeccf</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_dfe_ccf___version" prot="public">XDfeCcf_Version</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___trigger" prot="public">XDfeCcf_Trigger</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___trigger_cfg" prot="public">XDfeCcf_TriggerCfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___c_c_sequence" prot="public">XDfeCcf_CCSequence</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___model_parameters" prot="public">XDfeCcf_ModelParameters</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___cfg" prot="public">XDfeCcf_Cfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___init" prot="public">XDfeCcf_Init</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___coefficients" prot="public">XDfeCcf_Coefficients</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___carrier_cfg" prot="public">XDfeCcf_CarrierCfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___internal_carrier_cfg" prot="public">XDfeCcf_InternalCarrierCfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___antenna_cfg" prot="public">XDfeCcf_AntennaCfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___c_c_cfg" prot="public">XDfeCcf_CCCfg</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___overflow_status" prot="public">XDfeCcf_OverflowStatus</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___status" prot="public">XDfeCcf_Status</innerclass>
+    <innerclass refid="struct_x_dfe_ccf___config" prot="public">XDfeCcf_Config</innerclass>
+    <innerclass refid="struct_x_dfe_ccf" prot="public">XDfeCcf</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__dfeccf_1ga116fd095a3afc965a9c7e93a9405687e" prot="public" static="no">
+        <name>XDfeCcf_StateId</name>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" prot="public">
+          <name>XDFECCF_STATE_NOT_READY</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Not ready state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea5f58182e37081399dbc1678e2efccbd8" prot="public">
+          <name>XDFECCF_STATE_READY</name>
+          <briefdescription>
+<para>Ready state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaac04f967b7f06284d5565c3193dc4327" prot="public">
+          <name>XDFECCF_STATE_RESET</name>
+          <briefdescription>
+<para>Reset state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea7e735bd70583958407046c810eea4d63" prot="public">
+          <name>XDFECCF_STATE_CONFIGURED</name>
+          <briefdescription>
+<para>Configured state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" prot="public">
+          <name>XDFECCF_STATE_INITIALISED</name>
+          <briefdescription>
+<para>Initialised state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" prot="public">
+          <name>XDFECCF_STATE_OPERATIONAL</name>
+          <briefdescription>
+<para>Operational state. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="184" bodyend="191"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__dfeccf_1ga4b24553f052bbb6aae7623e647e703c9" prot="public" static="no">
+        <type>__u32</type>
+        <definition>typedef __u32 u32</definition>
+        <argsstring></argsstring>
+        <name>u32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga511bb645f13930f9dfb7378323c18d8c" prot="public" static="no">
+        <type>__u16</type>
+        <definition>typedef __u16 u16</definition>
+        <argsstring></argsstring>
+        <name>u16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga10801722996ad842da66f2e8410abbfd" prot="public" static="no">
+        <type>__u8</type>
+        <definition>typedef __u8 u8</definition>
+        <argsstring></argsstring>
+        <name>u8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga11ec34ef758da01f2b58048ee9f341a4" prot="public" static="no">
+        <type>__s32</type>
+        <definition>typedef __s32 s32</definition>
+        <argsstring></argsstring>
+        <name>s32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga16625962bdbeef4eeed1ca29afaf9315" prot="public" static="no">
+        <type>__s16</type>
+        <definition>typedef __s16 s16</definition>
+        <argsstring></argsstring>
+        <name>s16</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga188d2e643418d2823898e7886eb9450a" prot="public" static="no">
+        <type>__u64</type>
+        <definition>typedef __u64 u64</definition>
+        <argsstring></argsstring>
+        <name>u64</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga5e4313b611ec4cd604fa6ce89384919e" prot="public" static="no">
+        <type>__s64</type>
+        <definition>typedef __s64 s64</definition>
+        <argsstring></argsstring>
+        <name>s64</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1gaead5279be31a82e3bf411e4dcb051668" prot="public" static="no">
+        <type>__s8</type>
+        <definition>typedef __s8 s8</definition>
+        <argsstring></argsstring>
+        <name>s8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1gaac308cdc4c647985d0fb11e59526e977" prot="public" static="no">
+        <type>enum <ref refid="group__dfeccf_1ga116fd095a3afc965a9c7e93a9405687e" kindref="member">XDfeCcf_StateId</ref></type>
+        <definition>typedef enum XDfeCcf_StateId  XDfeCcf_StateId</definition>
+        <argsstring></argsstring>
+        <name>XDfeCcf_StateId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="191" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__dfeccf_1ga9ed2f46bba77a9add30f01c407e3b216" prot="public" static="no">
+        <type><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref></type>
+        <definition>typedef XDfeCcf_Status XDfeCcf_InterruptMask</definition>
+        <argsstring></argsstring>
+        <name>XDfeCcf_InterruptMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeccf_1ga6c50ea98543ca3fde3496c6d89aee5bb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDfeCcf_GetCurrentCCCfgLocal</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CurrCCCfg)</argsstring>
+        <name>XDfeCcf_GetCurrentCCCfgLocal</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CurrCCCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="100" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+        <definition>XDfeCcf * XDfeCcf_InstanceInit</definition>
+        <argsstring>(const char *DeviceNodeName)</argsstring>
+        <name>XDfeCcf_InstanceInit</name>
+        <param>
+          <type>const char *</type>
+          <declname>DeviceNodeName</declname>
+        </param>
+        <briefdescription>
+<para>Initialises one instance of a channel filter driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>Traverses &quot;/sys/bus/platform/device&quot; directory (in Linux), to find registered CCF device with the name DeviceNodeName. The first available slot in the instances array XDfeCcf_ChFilter[] will be taken as a DeviceNodeName object. On success it moves the state machine to a Ready state, while on failure stays in a Not Ready state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceNodeName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device node name.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the instance if successful.</para></listitem><listitem><para>NULL on error. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="774" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="774" bodyend="869"/>
+        <references refid="struct_x_dfe_ccf_1a3b268bd922b32e917d46b5ba9f0c7f33" compoundref="xdfeccf_8h" startline="431">XDfeCcf::Device</references>
+        <references refid="struct_x_dfe_ccf_1a99ff27c764da9cb54c39f3323e90a90d" compoundref="xdfeccf_8h" startline="429">XDfeCcf::NodeName</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1ga7054d0916d25666a70f17461d1a98e53" compoundref="xdfeccf_8h" startline="149">XDFECCF_NODE_NAME_MAX_LENGTH</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" compoundref="xdfeccf_8h" startline="185">XDFECCF_STATE_NOT_READY</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea5f58182e37081399dbc1678e2efccbd8" compoundref="xdfeccf_8h" startline="186">XDFECCF_STATE_READY</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_InstanceClose</definition>
+        <argsstring>(XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_InstanceClose</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Closes the instances of a channel filter driver and moves the state machine to a Not Ready state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="880" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="880" bodyend="899"/>
+        <references refid="struct_x_dfe_ccf_1a3b268bd922b32e917d46b5ba9f0c7f33" compoundref="xdfeccf_8h" startline="431">XDfeCcf::Device</references>
+        <references refid="struct_x_dfe_ccf_1a99ff27c764da9cb54c39f3323e90a90d" compoundref="xdfeccf_8h" startline="429">XDfeCcf::NodeName</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" compoundref="xdfeccf_8h" startline="185">XDFECCF_STATE_NOT_READY</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_Reset</definition>
+        <argsstring>(XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_Reset</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets channel filter and puts block into a reset state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="909" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="909" bodyend="917"/>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" compoundref="xdfeccf_8h" startline="185">XDFECCF_STATE_NOT_READY</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaac04f967b7f06284d5565c3193dc4327" compoundref="xdfeccf_8h" startline="187">XDFECCF_STATE_RESET</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_Configure</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_Cfg *Cfg)</argsstring>
+        <name>XDfeCcf_Configure</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___cfg" kindref="compound">XDfeCcf_Cfg</ref> *</type>
+          <declname>Cfg</declname>
+        </param>
+        <briefdescription>
+<para>Reads configuration from device tree/xparameters.h and IP registers. </para>        </briefdescription>
+        <detaileddescription>
+<para>Removes S/W reset and moves the state machine to a Configured state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Configuration data container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="929" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="929" bodyend="979"/>
+        <references refid="struct_x_dfe_ccf___model_parameters_1acfe1535f58ea0b70a19ec5dbe42568fe" compoundref="xdfeccf_8h" startline="280">XDfeCcf_ModelParameters::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ccf___config_1ab3eab60e3dc00872b67e4e1b576d0cc5" compoundref="xdfeccf_8h" startline="414">XDfeCcf_Config::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" compoundref="xdfeccf_8h" startline="197">XDfeCcf_Version::Major</references>
+        <references refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" compoundref="xdfeccf_8h" startline="198">XDfeCcf_Version::Minor</references>
+        <references refid="struct_x_dfe_ccf___cfg_1aa9fbb430aca104d90ff2334e2fd26f6d" compoundref="xdfeccf_8h" startline="289">XDfeCcf_Cfg::ModelParams</references>
+        <references refid="struct_x_dfe_ccf___model_parameters_1aab8818a9342abd0c618f8f779d0ac6ba" compoundref="xdfeccf_8h" startline="278">XDfeCcf_ModelParameters::NumAntenna</references>
+        <references refid="struct_x_dfe_ccf___config_1a5ae55243e96cbc57f1ecf782fce8b016" compoundref="xdfeccf_8h" startline="412">XDfeCcf_Config::NumAntenna</references>
+        <references refid="struct_x_dfe_ccf___model_parameters_1a4f8b8cf85413a38c22a91495a33d80c0" compoundref="xdfeccf_8h" startline="279">XDfeCcf_ModelParameters::NumCCPerAntenna</references>
+        <references refid="struct_x_dfe_ccf___config_1acac0536f040af21eb665eaac12ada98f" compoundref="xdfeccf_8h" startline="413">XDfeCcf_Config::NumCCPerAntenna</references>
+        <references refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" compoundref="xdfeccf_8h" startline="200">XDfeCcf_Version::Patch</references>
+        <references refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" compoundref="xdfeccf_8h" startline="199">XDfeCcf_Version::Revision</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___model_parameters_1a8d8e0aa6f826e7fa60bca195ea5ce82a" compoundref="xdfeccf_8h" startline="281">XDfeCcf_ModelParameters::Switchable</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="struct_x_dfe_ccf___cfg_1a80fdb42dc31a17a54a4f8b230a9f42bc" compoundref="xdfeccf_8h" startline="288">XDfeCcf_Cfg::Version</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea7e735bd70583958407046c810eea4d63" compoundref="xdfeccf_8h" startline="188">XDFECCF_STATE_CONFIGURED</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaac04f967b7f06284d5565c3193dc4327" compoundref="xdfeccf_8h" startline="187">XDFECCF_STATE_RESET</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_Initialize</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_Init *Init)</argsstring>
+        <name>XDfeCcf_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___init" kindref="compound">XDfeCcf_Init</ref> *</type>
+          <declname>Init</declname>
+        </param>
+        <briefdescription>
+<para>DFE Ccf driver one time initialisation, also moves the state machine to an Initialised state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Init</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initialisation data container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="991" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="991" bodyend="1022"/>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf___init_1ae158951ef0ce8ea7c1726d0590cb3231" compoundref="xdfeccf_8h" startline="298">XDfeCcf_Init::GainStage</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" compoundref="xdfeccf_8h" startline="265">XDfeCcf_CCSequence::Length</references>
+        <references refid="struct_x_dfe_ccf_1acec3da262f44a8fd3d29e2bd452ba58d" compoundref="xdfeccf_8h" startline="424">XDfeCcf::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1ae5ad811a5d5a0fb971901049ebc86d4e" compoundref="xdfeccf_8h" startline="426">XDfeCcf::NotUsedCCID_UL</references>
+        <references refid="struct_x_dfe_ccf___init_1a33a2bd2ba08ad2526b80ed3e60338537" compoundref="xdfeccf_8h" startline="297">XDfeCcf_Init::Sequence</references>
+        <references refid="struct_x_dfe_ccf_1ad28cdc27ca05b1db6e7e48fc049f5409" compoundref="xdfeccf_8h" startline="428">XDfeCcf::SequenceLength</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" compoundref="xdfeccf_8h" startline="299">XDfeCcf_Init::TuserSelect</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea7e735bd70583958407046c810eea4d63" compoundref="xdfeccf_8h" startline="188">XDFECCF_STATE_CONFIGURED</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" compoundref="xdfeccf_8h" startline="189">XDFECCF_STATE_INITIALISED</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_Activate</definition>
+        <argsstring>(XDfeCcf *InstancePtr, bool EnableLowPower)</argsstring>
+        <name>XDfeCcf_Activate</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>EnableLowPower</declname>
+        </param>
+        <briefdescription>
+<para>Activates channel filter and moves the state machine to an Activated state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EnableLowPower</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag indicating low power. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1033" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1033" bodyend="1064"/>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" compoundref="xdfeccf_8h" startline="189">XDFECCF_STATE_INITIALISED</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_Deactivate</definition>
+        <argsstring>(XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_Deactivate</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Deactivates channel filter and moves the state machine to Initialised state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1074" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1074" bodyend="1103"/>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" compoundref="xdfeccf_8h" startline="189">XDFECCF_STATE_INITIALISED</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gac83eb8c8d423a12cc23f3a699e87ff4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__dfeccf_1ga116fd095a3afc965a9c7e93a9405687e" kindref="member">XDfeCcf_StateId</ref></type>
+        <definition>XDfeCcf_StateId XDfeCcf_GetStateID</definition>
+        <argsstring>(XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_GetStateID</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets a state machine state id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>State machine StateID </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1115" bodyend="1119"/>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetCurrentCCCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CurrCCCfg)</argsstring>
+        <name>XDfeCcf_GetCurrentCCCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CurrCCCfg</declname>
+        </param>
+        <briefdescription>
+<para>Returns the current CC configuration in non-switchable mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Not used slot ID in a sequence (Sequence.CCID[Index]) are represented as (-1), not the value in registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurrCCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>For a sequence conversion see <ref refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" kindref="member">XDfeCcf_AddCCtoCCCfg()</ref> comment. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1136" bodyend="1144"/>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" compoundref="xdfeccf_8h" startline="269">XDfeCcf_CCSequence::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1acec3da262f44a8fd3d29e2bd452ba58d" compoundref="xdfeccf_8h" startline="424">XDfeCcf::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1ga52137ddc16812fff73bf4ad1c1a2e35b" compoundref="xdfeccf_8c" startline="2331" endline="2347">XDfeCcf_GetTDataDelay</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1ga890dacc7d32bf591be36640065cfe414" compoundref="xdfeccf_8c" startline="1772" endline="1792">XDfeCcf_UpdateAntenna</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f55600425550380b976828c7947ac2" compoundref="xdfeccf_8c" startline="1810" endline="1822">XDfeCcf_UpdateAntennaCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetCurrentCCCfgSwitchable</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfgDownlink, XDfeCcf_CCCfg *CCCfgUplink)</argsstring>
+        <name>XDfeCcf_GetCurrentCCCfgSwitchable</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfgDownlink</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfgUplink</declname>
+        </param>
+        <briefdescription>
+<para>Returns the current CC configuration for Downlink and Uplink in switchable mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Not used slot ID in a sequence (Sequence.CCID[Index]) are represented as (-1), not the value in registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Mixer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfgDownlink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Downlink CC configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfgUplink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uplink CC configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1218" bodyend="1245"/>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" compoundref="xdfeccf_8h" startline="269">XDfeCcf_CCSequence::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1acec3da262f44a8fd3d29e2bd452ba58d" compoundref="xdfeccf_8h" startline="424">XDfeCcf::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1ae5ad811a5d5a0fb971901049ebc86d4e" compoundref="xdfeccf_8h" startline="426">XDfeCcf::NotUsedCCID_UL</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="group__dfeccf_1ga18d48134af3d084bb06f9267b671ff72" compoundref="xdfeccf_8c" startline="2425" endline="2429">XDfeCcf_SetRegBank</references>
+        <referencedby refid="group__dfeccf_1gae0913ce20c92ecd4a35a59a19ad171af" compoundref="xdfeccf_8c" startline="1842" endline="1868">XDfeCcf_UpdateAntennaCfgSwitchable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga699c8f140720fcbf22543c7758ace5d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetEmptyCCCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)</argsstring>
+        <name>XDfeCcf_GetEmptyCCCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <briefdescription>
+<para>Returns configuration structure CCCfg with CCCfg-&gt;Sequence.Length value set in <ref refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" kindref="member">XDfeCcf_Configure()</ref>, array CCCfg-&gt;Sequence.CCID[] members are set to not used value (-1) and the other CCCfg members are set to 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1258" bodyend="1272"/>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1af6b2c36ead2d397dede8ea6e1d54e982" compoundref="xdfeccf_8h" startline="266">XDfeCcf_CCSequence::CCID</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" compoundref="xdfeccf_8h" startline="265">XDfeCcf_CCSequence::Length</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="struct_x_dfe_ccf_1ad28cdc27ca05b1db6e7e48fc049f5409" compoundref="xdfeccf_8h" startline="428">XDfeCcf::SequenceLength</references>
+        <references refid="group__dfeccf_1ga9b76f5dec4c8a9c2ce94e764726c3b5f" compoundref="xdfeccf_8h" startline="151">XDFECCF_CC_NUM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetCarrierCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID, u32 *CCSeqBitmap, XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_GetCarrierCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>CCSeqBitmap</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Returns the current CCID carrier configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Component carrier (CC) configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel ID for which configuration parameters are returned, range [0-15]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCSeqBitmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC slot position container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1287" bodyend="1310"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1af6b2c36ead2d397dede8ea6e1d54e982" compoundref="xdfeccf_8h" startline="266">XDfeCcf_CCSequence::CCID</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" compoundref="xdfeccf_8h" startline="341">XDfeCcf_InternalCarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" compoundref="xdfeccf_8h" startline="342">XDfeCcf_InternalCarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" compoundref="xdfeccf_8h" startline="265">XDfeCcf_CCSequence::Length</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" compoundref="xdfeccf_8h" startline="344">XDfeCcf_InternalCarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <referencedby refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gab5d7373cd4ff648bb2d785fcf5f92c1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetAntennaCfgInCCCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, XDfeCcf_AntennaCfg *AntennaCfg)</argsstring>
+        <name>XDfeCcf_SetAntennaCfgInCCCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___antenna_cfg" kindref="compound">XDfeCcf_AntennaCfg</ref> *</type>
+          <declname>AntennaCfg</declname>
+        </param>
+        <briefdescription>
+<para>Set antenna configuration in CC configuration container. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AntennaCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of all antenna configurations. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1322" bodyend="1331"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" compoundref="xdfeccf_8h" startline="362">XDfeCcf_CCCfg::AntennaCfg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_AddCCtoCCCfg</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID, u32 CCSeqBitmap, const XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_AddCCtoCCCfg</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CCSeqBitmap</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Adds specified CCID, with specified configuration, to a local CC configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>If there is insufficient capacity for the new CC the function will return an error. Initiates CC update (enable CCUpdate trigger TUSER Single Shot).</para><para>The returned CCCfg.Sequence is translated as there is no explicit indication that SEQUENCE[i] is not used - 0 can define the slot as either used or not used. Sequence data that is returned in the CCIDSequence is not the same as what is written in the registers. The translation is:<itemizedlist>
+<listitem><para>CCIDSequence.CCID[i] = -1 - if [i] is unused slot</para></listitem><listitem><para>CCIDSequence.CCID[i] = CCID - if [i] is used slot</para></listitem><listitem><para>a returned CCIDSequence-&gt;Length = length in register + 1</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Component carrier (CC) configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCSeqBitmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC slot position container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1361" bodyend="1399"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" compoundref="xdfeccf_8h" startline="330">XDfeCcf_InternalCarrierCfg::Enable</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" compoundref="xdfeccf_8h" startline="333">XDfeCcf_InternalCarrierCfg::Flush</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" compoundref="xdfeccf_8h" startline="341">XDfeCcf_InternalCarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" compoundref="xdfeccf_8h" startline="342">XDfeCcf_InternalCarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" compoundref="xdfeccf_8h" startline="336">XDfeCcf_InternalCarrierCfg::MappedId</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" compoundref="xdfeccf_8h" startline="344">XDfeCcf_InternalCarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaeb13bf603062867f0e7827abcf65fb34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_RemoveCCfromCCCfg</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID)</argsstring>
+        <name>XDfeCcf_RemoveCCfromCCCfg</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <briefdescription>
+<para>Removes specified CCID from a local CC configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Component carrier (CC) configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel ID to be removed, range [0-15].</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>For a sequence conversion see XDfeCcf_AddCCtoCCCfg comment. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1413" bodyend="1425"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" compoundref="xdfeccf_8h" startline="330">XDfeCcf_InternalCarrierCfg::Enable</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" compoundref="xdfeccf_8h" startline="336">XDfeCcf_InternalCarrierCfg::MappedId</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_UpdateCCinCCCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg, s32 CCID, const XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_UpdateCCinCCCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Updates specified CCID, with specified configuration to a local CC configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>If there is insufficient capacity for the new CC the function will return an error.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Component carrier (CC) configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Channel ID to be updated, range [0-15]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1441" bodyend="1466"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" compoundref="xdfeccf_8h" startline="333">XDfeCcf_InternalCarrierCfg::Flush</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" compoundref="xdfeccf_8h" startline="341">XDfeCcf_InternalCarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" compoundref="xdfeccf_8h" startline="342">XDfeCcf_InternalCarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" compoundref="xdfeccf_8h" startline="344">XDfeCcf_InternalCarrierCfg::RealCoeffSet</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gacd14259acee557613b0002ec6d187550" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_SetNextCCCfgAndTrigger</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfg)</argsstring>
+        <name>XDfeCcf_SetNextCCCfgAndTrigger</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <briefdescription>
+<para>Writes local CC configuration to the shadow (NEXT) registers and triggers copying from shadow to operational (CURRENT) registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1482" bodyend="1499"/>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" compoundref="xdfeccf_8h" startline="269">XDfeCcf_CCSequence::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1acec3da262f44a8fd3d29e2bd452ba58d" compoundref="xdfeccf_8h" startline="424">XDfeCcf::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1ga890dacc7d32bf591be36640065cfe414" compoundref="xdfeccf_8c" startline="1772" endline="1792">XDfeCcf_UpdateAntenna</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f55600425550380b976828c7947ac2" compoundref="xdfeccf_8c" startline="1810" endline="1822">XDfeCcf_UpdateAntennaCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_SetNextCCCfgAndTriggerSwitchable</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_CCCfg *CCCfgDownlink, XDfeCcf_CCCfg *CCCfgUplink)</argsstring>
+        <name>XDfeCcf_SetNextCCCfgAndTriggerSwitchable</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfgDownlink</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfgUplink</declname>
+        </param>
+        <briefdescription>
+<para>Writes local CC configuration to the shadow (NEXT) registers and triggers copying from shadow to operational (CURRENT) registers for both Downlink and Upling in switchable mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfgDownlink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Downlink CC configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfgUplink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Uplink CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1517" bodyend="1559"/>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a285b2d7961bb99a925837e8adce464c2" compoundref="xdfeccf_8h" startline="269">XDfeCcf_CCSequence::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1acec3da262f44a8fd3d29e2bd452ba58d" compoundref="xdfeccf_8h" startline="424">XDfeCcf::NotUsedCCID</references>
+        <references refid="struct_x_dfe_ccf_1ae5ad811a5d5a0fb971901049ebc86d4e" compoundref="xdfeccf_8h" startline="426">XDfeCcf::NotUsedCCID_UL</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="group__dfeccf_1ga18d48134af3d084bb06f9267b671ff72" compoundref="xdfeccf_8c" startline="2425" endline="2429">XDfeCcf_SetRegBank</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="group__dfeccf_1gae0913ce20c92ecd4a35a59a19ad171af" compoundref="xdfeccf_8c" startline="1842" endline="1868">XDfeCcf_UpdateAntennaCfgSwitchable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_AddCC</definition>
+        <argsstring>(XDfeCcf *InstancePtr, s32 CCID, u32 CCSeqBitmap, const XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_AddCC</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CCSeqBitmap</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Adds specified CCID, with specified configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>If there is insufficient capacity for the new CC the function will return an error. Initiates CC update (enable CCUpdate trigger TUSER Single Shot).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCSeqBitmap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- up to 16 defined slots into which a CC can be allocated. The number of slots can be from 1 to 16 depending on system initialization. The number of slots is defined by the &quot;sequence length&quot; parameter which is provided during initialization. The Bit offset within the CCSeqBitmap indicates the equivalent Slot number to allocate. e.g. 0x0003 means the caller wants the passed component carrier (CC) to be allocated to slots 0 and 1. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API.</para><simplesectsep/><para>: This API is deprecated in the release 2023.2. The functionality of this API can be reproduced with the following API sequence: XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg); XDfeCcf_AddCCtoCCCfg(InstancePtr, CCCfg, CCID, CCSeqBitmap, CarrierCfg); XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1595" bodyend="1649"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" compoundref="xdfeccf_8h" startline="330">XDfeCcf_InternalCarrierCfg::Enable</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" compoundref="xdfeccf_8h" startline="333">XDfeCcf_InternalCarrierCfg::Flush</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" compoundref="xdfeccf_8h" startline="341">XDfeCcf_InternalCarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" compoundref="xdfeccf_8h" startline="342">XDfeCcf_InternalCarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___c_c_sequence_1a36267b2f5389400df112003f4d4736b6" compoundref="xdfeccf_8h" startline="265">XDfeCcf_CCSequence::Length</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" compoundref="xdfeccf_8h" startline="336">XDfeCcf_InternalCarrierCfg::MappedId</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" compoundref="xdfeccf_8h" startline="344">XDfeCcf_InternalCarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_RemoveCC</definition>
+        <argsstring>(XDfeCcf *InstancePtr, s32 CCID)</argsstring>
+        <name>XDfeCcf_RemoveCC</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <briefdescription>
+<para>Removes specified CCID. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initiates CC update (enable CCUpdate trigger TUSER Single Shot).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API.</para><simplesectsep/><para>: This API is deprecated in the release 2023.2. The functionality of this API can be reproduced with the following API sequence: XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg); XDfeCcf_RemoveCCfromCCCfg(InstancePtr, CCCfg, CCID); XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1674" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1674" bodyend="1693"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" compoundref="xdfeccf_8h" startline="330">XDfeCcf_InternalCarrierCfg::Enable</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" compoundref="xdfeccf_8h" startline="336">XDfeCcf_InternalCarrierCfg::MappedId</references>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1abed0b47de6a645db63b4a99d0811a253" compoundref="xdfeccf_8h" startline="359">XDfeCcf_CCCfg::Sequence</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_UpdateCC</definition>
+        <argsstring>(XDfeCcf *InstancePtr, s32 CCID, const XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_UpdateCC</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Updates specified CCID carrier configuration; change gain or filter coefficients set. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initiates CC update (enable CCUpdate trigger TUSER Single Shot).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC configuration container.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API.</para><simplesectsep/><para>: This API is deprecated in the release 2023.2. The functionality of this API can be reproduced with the following API sequence: XDfeCcf_GetCurrentCCCfg(InstancePtr, CCCfg); XDfeCcf_UpdateCCinCCCfg(InstancePtr, CCCfg, CCID, CarrierCfg); XDfeCcf_SetNextCCCfgAndTrigger(InstancePtr, CCCfg); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1721" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1721" bodyend="1751"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a9ce7a33596f8bde0e056af616e1c5ca8" compoundref="xdfeccf_8h" startline="361">XDfeCcf_CCCfg::CarrierCfg</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" compoundref="xdfeccf_8h" startline="333">XDfeCcf_InternalCarrierCfg::Flush</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" compoundref="xdfeccf_8h" startline="341">XDfeCcf_InternalCarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" compoundref="xdfeccf_8h" startline="342">XDfeCcf_InternalCarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" compoundref="xdfeccf_8h" startline="344">XDfeCcf_InternalCarrierCfg::RealCoeffSet</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga890dacc7d32bf591be36640065cfe414" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_UpdateAntenna</definition>
+        <argsstring>(XDfeCcf *InstancePtr, u32 Ant, bool Enabled)</argsstring>
+        <name>XDfeCcf_UpdateAntenna</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Ant</declname>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>Enabled</declname>
+        </param>
+        <briefdescription>
+<para>Updates specified antenna TDM slot enablement. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initiates CC update (enable CCUpdate trigger one-shot).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ant</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Antenna ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enabled</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flag indicating enable status of the antenna.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1772" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1772" bodyend="1792"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" compoundref="xdfeccf_8h" startline="362">XDfeCcf_CCCfg::AntennaCfg</references>
+        <references refid="struct_x_dfe_ccf___antenna_cfg_1a4784b546fe3413211e18ccee38d87582" compoundref="xdfeccf_8h" startline="352">XDfeCcf_AntennaCfg::Enable</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga47f55600425550380b976828c7947ac2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_UpdateAntennaCfg</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_AntennaCfg *AntennaCfg)</argsstring>
+        <name>XDfeCcf_UpdateAntennaCfg</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___antenna_cfg" kindref="compound">XDfeCcf_AntennaCfg</ref> *</type>
+          <declname>AntennaCfg</declname>
+        </param>
+        <briefdescription>
+<para>Updates antenna configuration to all antennas. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AntennaCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of all antenna configurations.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1810" bodyend="1822"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" compoundref="xdfeccf_8h" startline="362">XDfeCcf_CCCfg::AntennaCfg</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gae0913ce20c92ecd4a35a59a19ad171af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_UpdateAntennaCfgSwitchable</definition>
+        <argsstring>(XDfeCcf *InstancePtr, XDfeCcf_AntennaCfg *AntennaCfgDownlink, XDfeCcf_AntennaCfg *AntennaCfgUplink)</argsstring>
+        <name>XDfeCcf_UpdateAntennaCfgSwitchable</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___antenna_cfg" kindref="compound">XDfeCcf_AntennaCfg</ref> *</type>
+          <declname>AntennaCfgDownlink</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___antenna_cfg" kindref="compound">XDfeCcf_AntennaCfg</ref> *</type>
+          <declname>AntennaCfgUplink</declname>
+        </param>
+        <briefdescription>
+<para>Updates antenna configuration of all antennas. </para>        </briefdescription>
+        <detaileddescription>
+<para>Applies gain to downlink only in switchable mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AntennaCfgDownlink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of all downlink antenna configurations. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AntennaCfgUplink</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of all uplink antenna configurations.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Clear event status with <ref refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" kindref="member">XDfeCcf_ClearEventStatus()</ref> before running this API. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1842" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1842" bodyend="1868"/>
+        <references refid="struct_x_dfe_ccf___c_c_cfg_1a05d55118937cf523f1644b656b32d734" compoundref="xdfeccf_8h" startline="362">XDfeCcf_CCCfg::AntennaCfg</references>
+        <references refid="struct_x_dfe_ccf_1ad548ed4e86e8e8f8631654383085ca40" compoundref="xdfeccf_8h" startline="422">XDfeCcf::Config</references>
+        <references refid="struct_x_dfe_ccf___config_1ad46fbde689c4b6f65464ba50a1c3c8b4" compoundref="xdfeccf_8h" startline="415">XDfeCcf_Config::Switchable</references>
+        <references refid="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" compoundref="xdfeccf_8c" startline="1218" endline="1245">XDfeCcf_GetCurrentCCCfgSwitchable</references>
+        <references refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gab972682f29380a36912ecb49a929f6d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetTriggersCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_TriggerCfg *TriggerCfg)</argsstring>
+        <name>XDfeCcf_GetTriggersCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___trigger_cfg" kindref="compound">XDfeCcf_TriggerCfg</ref> *</type>
+          <declname>TriggerCfg</declname>
+        </param>
+        <briefdescription>
+<para>Returns current trigger configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TriggerCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1879" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1879" bodyend="1959"/>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" compoundref="xdfeccf_8h" startline="250">XDfeCcf_TriggerCfg::Activate</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" compoundref="xdfeccf_8h" startline="255">XDfeCcf_TriggerCfg::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1adc803d7fc4d6b3db21c766936584cd71" compoundref="xdfeccf_8h" startline="253">XDfeCcf_TriggerCfg::LowPower</references>
+        <references refid="struct_x_dfe_ccf___trigger_1ad3425932d5c5d5eeed83626352cff051" compoundref="xdfeccf_8h" startline="211">XDfeCcf_Trigger::Mode</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___trigger_1a5b5d8daad748d41b77912257f95e57e5" compoundref="xdfeccf_8h" startline="239">XDfeCcf_Trigger::StateOutput</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1a433d274ba4944916125721e9063e0355" compoundref="xdfeccf_8h" startline="257">XDfeCcf_TriggerCfg::Switch</references>
+        <references refid="struct_x_dfe_ccf___trigger_1ad035ee76a341023726114c3487516656" compoundref="xdfeccf_8h" startline="207">XDfeCcf_Trigger::TriggerEnable</references>
+        <references refid="struct_x_dfe_ccf___trigger_1a14a3f0a4e6da803d48d252e6720d352f" compoundref="xdfeccf_8h" startline="242">XDfeCcf_Trigger::TUSERBit</references>
+        <references refid="struct_x_dfe_ccf___trigger_1af705f9aaa7971ea54ebccba554007dce" compoundref="xdfeccf_8h" startline="227">XDfeCcf_Trigger::TuserEdgeLevel</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" compoundref="xdfeccf_8h" startline="185">XDFECCF_STATE_NOT_READY</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetTriggersCfg</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_TriggerCfg *TriggerCfg)</argsstring>
+        <name>XDfeCcf_SetTriggersCfg</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___trigger_cfg" kindref="compound">XDfeCcf_TriggerCfg</ref> *</type>
+          <declname>TriggerCfg</declname>
+        </param>
+        <briefdescription>
+<para>Sets trigger configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TriggerCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="1970" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="1970" bodyend="2076"/>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1a8e0fd292605e716b1e580cca643140f9" compoundref="xdfeccf_8h" startline="250">XDfeCcf_TriggerCfg::Activate</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1ab268b98412be113d4be332409eacb24e" compoundref="xdfeccf_8h" startline="255">XDfeCcf_TriggerCfg::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1adc803d7fc4d6b3db21c766936584cd71" compoundref="xdfeccf_8h" startline="253">XDfeCcf_TriggerCfg::LowPower</references>
+        <references refid="struct_x_dfe_ccf___trigger_1ad3425932d5c5d5eeed83626352cff051" compoundref="xdfeccf_8h" startline="211">XDfeCcf_Trigger::Mode</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="struct_x_dfe_ccf___trigger_1a5b5d8daad748d41b77912257f95e57e5" compoundref="xdfeccf_8h" startline="239">XDfeCcf_Trigger::StateOutput</references>
+        <references refid="struct_x_dfe_ccf___trigger_cfg_1a433d274ba4944916125721e9063e0355" compoundref="xdfeccf_8h" startline="257">XDfeCcf_TriggerCfg::Switch</references>
+        <references refid="struct_x_dfe_ccf___trigger_1ad035ee76a341023726114c3487516656" compoundref="xdfeccf_8h" startline="207">XDfeCcf_Trigger::TriggerEnable</references>
+        <references refid="struct_x_dfe_ccf___trigger_1a14a3f0a4e6da803d48d252e6720d352f" compoundref="xdfeccf_8h" startline="242">XDfeCcf_Trigger::TUSERBit</references>
+        <references refid="struct_x_dfe_ccf___trigger_1af705f9aaa7971ea54ebccba554007dce" compoundref="xdfeccf_8h" startline="227">XDfeCcf_Trigger::TuserEdgeLevel</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" compoundref="xdfeccf_8h" startline="189">XDFECCF_STATE_INITIALISED</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga35abbe8a94908b712c6eda7cfecd02c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetCC</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, s32 CCID, XDfeCcf_CarrierCfg *CarrierCfg)</argsstring>
+        <name>XDfeCcf_GetCC</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___carrier_cfg" kindref="compound">XDfeCcf_CarrierCfg</ref> *</type>
+          <declname>CarrierCfg</declname>
+        </param>
+        <briefdescription>
+<para>Gets specified CCID carrier configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CarrierCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Trigger configuration container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2088" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2088" bodyend="2107"/>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a173a44d57df127ae6f699998b1d5291b" compoundref="xdfeccf_8h" startline="319">XDfeCcf_CarrierCfg::Gain</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a7226c29ffda01e9c56d3ed701bd9f274" compoundref="xdfeccf_8h" startline="320">XDfeCcf_CarrierCfg::ImagCoeffSet</references>
+        <references refid="struct_x_dfe_ccf___carrier_cfg_1a255ccae92608e4170f1d4b47c8132412" compoundref="xdfeccf_8h" startline="322">XDfeCcf_CarrierCfg::RealCoeffSet</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga0028339b7f787cbfa961bc5e74ae0700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetActiveSets</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, u32 *IsActive)</argsstring>
+        <name>XDfeCcf_GetActiveSets</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IsActive</declname>
+        </param>
+        <briefdescription>
+<para>Returns a list indicating which coefficient sets are currently in use. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsActive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer indicating an activation status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2118" bodyend="2166"/>
+        <references refid="struct_x_dfe_ccf_1ad28cdc27ca05b1db6e7e48fc049f5409" compoundref="xdfeccf_8h" startline="428">XDfeCcf::SequenceLength</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1gaf1ffcef735a004f30f8dd892ec39c0eb" compoundref="xdfeccf_8c" startline="93">XDFECCF_ACTIVE_SET_NUM</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ea39fe433ef7b79302f0d0d24797bc1d37" compoundref="xdfeccf_8h" startline="190">XDFECCF_STATE_OPERATIONAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_LoadCoefficients</definition>
+        <argsstring>(XDfeCcf *InstancePtr, u32 Set, u32 Shift, const XDfeCcf_Coefficients *Coeffs)</argsstring>
+        <name>XDfeCcf_LoadCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Set</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Shift</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___coefficients" kindref="compound">XDfeCcf_Coefficients</ref> *</type>
+          <declname>Coeffs</declname>
+        </param>
+        <briefdescription>
+<para>Writes the coefficient set defined into the register map and commit them to the hard block&apos;s internal coefficient memory for the specified Set. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coefficient set Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Shift</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Coefficient shift value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeffs</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Array of filter coefficients. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2180" bodyend="2273"/>
+        <references refid="struct_x_dfe_ccf___coefficients_1ad1fd3761a5756748f27999add2fa43a2" compoundref="xdfeccf_8h" startline="306">XDfeCcf_Coefficients::Num</references>
+        <references refid="struct_x_dfe_ccf___coefficients_1abf7037bea46a3bea957c5c61bf769f85" compoundref="xdfeccf_8h" startline="308">XDfeCcf_Coefficients::Symmetric</references>
+        <references refid="struct_x_dfe_ccf___coefficients_1a451f67197f8a1cc8b44708b08c409ca1" compoundref="xdfeccf_8h" startline="310">XDfeCcf_Coefficients::Value</references>
+        <references refid="group__dfeccf_1ga881f7592e65e134b13c07bdf2dd7038e" compoundref="xdfeccf_8h" startline="154">XDFECCF_NUM_COEFF</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga131a7d12a37de928a5929ec29ea78a8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetTUserDelay</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, u32 Delay)</argsstring>
+        <name>XDfeCcf_SetTUserDelay</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Delay</declname>
+        </param>
+        <briefdescription>
+<para>Sets the delay, which will be added to TUSER and TLAST (delay matched through the IP). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Requested delay variable. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2285" bodyend="2292"/>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687eaad01a2fb437ec5096b3c0d29482266c2" compoundref="xdfeccf_8h" startline="189">XDFECCF_STATE_INITIALISED</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga588bd4dd006fed9210e22952c919b9ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_GetTUserDelay</definition>
+        <argsstring>(const XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_GetTUserDelay</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the delay, which will be added to TUSER and TLAST (delay matched through the IP). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Delay value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2305" bodyend="2312"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga52137ddc16812fff73bf4ad1c1a2e35b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_GetTDataDelay</definition>
+        <argsstring>(XDfeCcf *InstancePtr, u32 Tap, s32 CCID, u32 Symmetric, u32 Num, u32 *TDataDelay)</argsstring>
+        <name>XDfeCcf_GetTDataDelay</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Tap</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Symmetric</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Num</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TDataDelay</declname>
+        </param>
+        <briefdescription>
+<para>Gets calculated TDataDelay value for CCID from current CC configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tap value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Symmetric</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Select symmetric (1) or non-symmetric (0) filter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of coefficients values. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TDataDelay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data latency value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2331" bodyend="2347"/>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</references>
+        <references refid="group__dfeccf_1gad31524f178963c8fcccf0686fee63fec" compoundref="xdfeccf_8c" startline="95">XDFECCF_TAP_NUMBER_MAX</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_GetTDataDelayFromCCCfg</definition>
+        <argsstring>(XDfeCcf *InstancePtr, u32 Tap, s32 CCID, XDfeCcf_CCCfg *CCCfg, u32 Symmetric, u32 Num, u32 *TDataDelay)</argsstring>
+        <name>XDfeCcf_GetTDataDelayFromCCCfg</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Tap</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>CCID</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___c_c_cfg" kindref="compound">XDfeCcf_CCCfg</ref> *</type>
+          <declname>CCCfg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Symmetric</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Num</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>TDataDelay</declname>
+        </param>
+        <briefdescription>
+<para>Gets calculated TDataDelay value for CCID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tap value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CC ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CCCfg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Component carrier (CC) configuration container. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Symmetric</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Select symmetric (1) or non-symmetric (0) filter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of coefficients values. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TDataDelay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data latency value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if error occurs. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2367" bodyend="2414"/>
+        <references refid="struct_x_dfe_ccf_1ad28cdc27ca05b1db6e7e48fc049f5409" compoundref="xdfeccf_8h" startline="428">XDfeCcf::SequenceLength</references>
+        <references refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</references>
+        <references refid="group__dfeccf_1ga881f7592e65e134b13c07bdf2dd7038e" compoundref="xdfeccf_8h" startline="154">XDFECCF_NUM_COEFF</references>
+        <references refid="group__dfeccf_1gad31524f178963c8fcccf0686fee63fec" compoundref="xdfeccf_8c" startline="95">XDFECCF_TAP_NUMBER_MAX</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="group__dfeccf_1ga52137ddc16812fff73bf4ad1c1a2e35b" compoundref="xdfeccf_8c" startline="2331" endline="2347">XDfeCcf_GetTDataDelay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga18d48134af3d084bb06f9267b671ff72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetRegBank</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, u32 RegBank)</argsstring>
+        <name>XDfeCcf_SetRegBank</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegBank</declname>
+        </param>
+        <briefdescription>
+<para>Sets uplink/downlink register bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Channel Filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegBank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register bank value to be set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2425" bodyend="2429"/>
+        <referencedby refid="group__dfeccf_1ga9dabb47e081bcecd0c865126daa6a92a" compoundref="xdfeccf_8c" startline="1218" endline="1245">XDfeCcf_GetCurrentCCCfgSwitchable</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gacfa67489ec2094636315d1c987e2a324" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_GetIsCcfOperational</definition>
+        <argsstring>(XDfeCcf *InstancePtr)</argsstring>
+        <name>XDfeCcf_GetIsCcfOperational</name>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Retrieves the current operational state of CCF. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Ccf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS CCF is operational.</para></listitem><listitem><para>XST_FAILURE CCF is NOT operational. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2443" bodyend="2457"/>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetVersions</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_Version *SwVersion, XDfeCcf_Version *HwVersion)</argsstring>
+        <name>XDfeCcf_GetVersions</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___version" kindref="compound">XDfeCcf_Version</ref> *</type>
+          <declname>SwVersion</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___version" kindref="compound">XDfeCcf_Version</ref> *</type>
+          <declname>HwVersion</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to get the driver version. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SwVersion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Driver version numbers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HwVersion</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>HW version numbers. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="2468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="2468" bodyend="2493"/>
+        <references refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" compoundref="xdfeccf_8h" startline="197">XDfeCcf_Version::Major</references>
+        <references refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" compoundref="xdfeccf_8h" startline="198">XDfeCcf_Version::Minor</references>
+        <references refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" compoundref="xdfeccf_8h" startline="200">XDfeCcf_Version::Patch</references>
+        <references refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" compoundref="xdfeccf_8h" startline="199">XDfeCcf_Version::Revision</references>
+        <references refid="struct_x_dfe_ccf_1aec418fa89bceaa29912c8324f19a02bb" compoundref="xdfeccf_8h" startline="423">XDfeCcf::StateId</references>
+        <references refid="group__dfeccf_1gae3d3aae158a4f739a39c87e623c410e3" compoundref="xdfeccf_8c" startline="97">XDFECCF_DRIVER_VERSION_MAJOR</references>
+        <references refid="group__dfeccf_1gaa2f6335105623e17b2cc8a465d4319c1" compoundref="xdfeccf_8c" startline="96">XDFECCF_DRIVER_VERSION_MINOR</references>
+        <references refid="group__dfeccf_1gga116fd095a3afc965a9c7e93a9405687ead2a18d94a321e249d79dc347782d0ca3" compoundref="xdfeccf_8h" startline="185">XDFECCF_STATE_NOT_READY</references>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga4e155714de12813abe240aad00f33f46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetOverflowStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_OverflowStatus *Status)</argsstring>
+        <name>XDfeCcf_GetOverflowStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___overflow_status" kindref="compound">XDfeCcf_OverflowStatus</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets overflow event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a returned overflow event status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="59" bodyend="91"/>
+        <references refid="struct_x_dfe_ccf___overflow_status_1af6240b052ed9fec1346b03b162adca4c" compoundref="xdfeccf_8h" startline="375">XDfeCcf_OverflowStatus::OverflowAfterGainImag</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1acd1567bbd77539afc66066770d89c688" compoundref="xdfeccf_8h" startline="373">XDfeCcf_OverflowStatus::OverflowAfterGainReal</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a83cd0a44050799fba7c1fa35ad85af49" compoundref="xdfeccf_8h" startline="377">XDfeCcf_OverflowStatus::OverflowAntenna</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1ae7b33a58ad3a19f8f2aec00749537caf" compoundref="xdfeccf_8h" startline="371">XDfeCcf_OverflowStatus::OverflowBeforeGainImag</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1aa89876d869cbdbf4e2e2a7a10ccae490" compoundref="xdfeccf_8h" startline="369">XDfeCcf_OverflowStatus::OverflowBeforeGainReal</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a0485eecafccd4ef409908a7af80135a8" compoundref="xdfeccf_8h" startline="379">XDfeCcf_OverflowStatus::OverflowCCID</references>
+        <references refid="struct_x_dfe_ccf___overflow_status_1a5bdc515694f470412e13596f2b2548ff" compoundref="xdfeccf_8h" startline="381">XDfeCcf_OverflowStatus::OverflowSwitch</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga5a08588a90ca50aca0e8667e8692618b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetEventStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_Status *Status)</argsstring>
+        <name>XDfeCcf_GetEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a returned event status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="102" bodyend="117"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_ClearEventStatus</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, const XDfeCcf_Status *Status)</argsstring>
+        <name>XDfeCcf_ClearEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Clears events status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clear event status container.<itemizedlist>
+<listitem><para>0 - does not clear corresponding event status</para></listitem><listitem><para>1 - clears corresponding event status </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="130" bodyend="151"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gaad3c846e9293c67f7b80fd933da9ce77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_SetInterruptMask</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, const XDfeCcf_InterruptMask *Mask)</argsstring>
+        <name>XDfeCcf_SetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value.<itemizedlist>
+<listitem><para>0 - does not mask corresponding interrupt</para></listitem><listitem><para>1 - masks corresponding interrupt </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="164" bodyend="196"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1gab4d92a6803379d258e013f46b5be16a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeCcf_GetInterruptMask</definition>
+        <argsstring>(const XDfeCcf *InstancePtr, XDfeCcf_InterruptMask *Mask)</argsstring>
+        <name>XDfeCcf_GetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ccf" kindref="compound">XDfeCcf</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ccf___status" kindref="compound">XDfeCcf_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Gets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the channel filter instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_intr.c" bodystart="208" bodyend="225"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeCcf_MultiInstancesExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeCcf_MultiInstancesExample</name>
+        <briefdescription>
+<para>This example runs two instances of DFE Channel Filter. </para>        </briefdescription>
+        <detaileddescription>
+<para>The example does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample1] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multi_instance_initialization_example.c" bodystart="60" bodyend="110"/>
+        <references refid="struct_x_dfe_ccf___version_1a256d43186042de1081540877baf29022" compoundref="xdfeccf_8h" startline="197">XDfeCcf_Version::Major</references>
+        <references refid="struct_x_dfe_ccf___version_1a2b2d70cba4fc2f5ffab0da34c0038ee4" compoundref="xdfeccf_8h" startline="198">XDfeCcf_Version::Minor</references>
+        <references refid="struct_x_dfe_ccf___version_1a8e73945c3ac762a34b5af546a55d66f2" compoundref="xdfeccf_8h" startline="200">XDfeCcf_Version::Patch</references>
+        <references refid="struct_x_dfe_ccf___version_1a3296cc94083b4a0342053b2c26da5a77" compoundref="xdfeccf_8h" startline="199">XDfeCcf_Version::Revision</references>
+        <references refid="struct_x_dfe_ccf___init_1ad4cfb3484ed25bd566a28943eb6f6566" compoundref="xdfeccf_8h" startline="299">XDfeCcf_Init::TuserSelect</references>
+        <references refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" compoundref="xdfeccf_8c" startline="1033" endline="1064">XDfeCcf_Activate</references>
+        <references refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</references>
+        <references refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" compoundref="xdfeccf_8c" startline="1074" endline="1103">XDfeCcf_Deactivate</references>
+        <references refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</references>
+        <references refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</references>
+        <references refid="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" compoundref="xdfeccf_8c" startline="880" endline="899">XDfeCcf_InstanceClose</references>
+        <references refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</references>
+        <references refid="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" compoundref="xdfeccf_8c" startline="909" endline="917">XDfeCcf_Reset</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</name>
+        <briefdescription>
+<para>This example configures Channel Filter driver for one NR100 carrier and three NR20 whit multiAddCC API and at the end close and release the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The example does the following:<itemizedlist>
+<listitem><para>initialize driver from reset to activation</para></listitem><listitem><para>configure filters with the pre-calculated coefficients</para></listitem><listitem><para>Get current configuration.</para></listitem><listitem><para>add 4 carriers CCID={0,1,2,3}, 1xNR100(122.88Msps) and 3xNR20(30.72Msps)</para></listitem><listitem><para>Trigger configuration update.</para></listitem><listitem><para>at this point filters are set and ready to operate</para></listitem><listitem><para>close the driver</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample3] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multiAddCC_1xNR100_3xNR20_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/examples/xdfeccf_multiAddCC_1xNR100_3xNR20_example.c" bodystart="118" bodyend="204"/>
+        <references refid="struct_x_dfe_ccf___status_1a18b5b8ebcd0324b23abdda08a124f4b1" compoundref="xdfeccf_8h" startline="397">XDfeCcf_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_ccf___status_1a64f494d148062c29e4bdfd2eee5a5897" compoundref="xdfeccf_8h" startline="396">XDfeCcf_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ccf___status_1ab78ac3eb12e3ea828f6dde34c258e8c1" compoundref="xdfeccf_8h" startline="395">XDfeCcf_Status::Overflow</references>
+        <references refid="group__dfeccf_1ga6fec5800f070fd68474f513b9d95aad7" compoundref="xdfeccf_8c" startline="1033" endline="1064">XDfeCcf_Activate</references>
+        <references refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</references>
+        <references refid="group__dfeccf_1ga6ced5736831794879ad88390a58e6a3e" compoundref="xdfeccf__intr_8c" startline="130" endline="151">XDfeCcf_ClearEventStatus</references>
+        <references refid="group__dfeccf_1ga59ba4de329a470946d9fc2a040d7a492" compoundref="xdfeccf_8c" startline="929" endline="979">XDfeCcf_Configure</references>
+        <references refid="group__dfeccf_1gad8a56e64a51a4cbea54dd830f33730e2" compoundref="xdfeccf_8c" startline="1074" endline="1103">XDfeCcf_Deactivate</references>
+        <references refid="group__dfeccf_1ga31a32e74a6fef543927f191eed1fbbb0" compoundref="xdfeccf_8c" startline="1136" endline="1144">XDfeCcf_GetCurrentCCCfg</references>
+        <references refid="group__dfeccf_1gaf8c982653b47be37c3ad6a374142984f" compoundref="xdfeccf_8c" startline="991" endline="1022">XDfeCcf_Initialize</references>
+        <references refid="group__dfeccf_1ga9d2ea94dbf78348129a5ef459b9e7483" compoundref="xdfeccf_8c" startline="880" endline="899">XDfeCcf_InstanceClose</references>
+        <references refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</references>
+        <references refid="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" compoundref="xdfeccf_8c" startline="2180" endline="2273">XDfeCcf_LoadCoefficients</references>
+        <references refid="group__dfeccf_1gaf3cd62fb4f6a5924a14f99a311167d91" compoundref="xdfeccf_8c" startline="909" endline="917">XDfeCcf_Reset</references>
+        <references refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeccf_1ga7b3d2fde4403c86dc13478fadb4665ab" compoundref="xdfeccf_8c" startline="1970" endline="2076">XDfeCcf_SetTriggersCfg</references>
+        <references refid="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeccf_8h" startline="136">XST_FAILURE</references>
+        <references refid="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeccf_8h" startline="133">XST_SUCCESS</references>
+        <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__dfeccf_1gaf1ffcef735a004f30f8dd892ec39c0eb" prot="public" static="no">
+        <name>XDFECCF_ACTIVE_SET_NUM</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum number of active sets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga0028339b7f787cbfa961bc5e74ae0700" compoundref="xdfeccf_8c" startline="2118" endline="2166">XDfeCcf_GetActiveSets</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gafb5cf1104f3fe59d0792e6f9344f3bfa" prot="public" static="no">
+        <name>XDFECCF_U32_NUM_BITS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Number of bits in register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gad31524f178963c8fcccf0686fee63fec" prot="public" static="no">
+        <name>XDFECCF_TAP_NUMBER_MAX</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>Maximum tap number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga52137ddc16812fff73bf4ad1c1a2e35b" compoundref="xdfeccf_8c" startline="2331" endline="2347">XDfeCcf_GetTDataDelay</referencedby>
+        <referencedby refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gaa2f6335105623e17b2cc8a465d4319c1" prot="public" static="no">
+        <name>XDFECCF_DRIVER_VERSION_MINOR</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Driver&apos;s minor version number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gae3d3aae158a4f739a39c87e623c410e3" prot="public" static="no">
+        <name>XDFECCF_DRIVER_VERSION_MAJOR</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Driver&apos;s major version number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.c" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1gaddc6102af25a271aedf00ec96b315f4e" compoundref="xdfeccf_8c" startline="2468" endline="2493">XDfeCcf_GetVersions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gacff04ffa86d52a23196c20197865117c" prot="public" static="no">
+        <name>XDFECCF_MAX_NUM_INSTANCES</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Maximum number of driver instances running at the same time. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga1b00fbaa49ad4327a4d9554c7fce52eb" prot="public" static="no">
+        <name>XDFECCF_INSTANCE_EXISTS</name>
+        <param><defname>X</defname></param>
+        <initializer>(X &lt; <ref refid="group__dfeccf_1gacff04ffa86d52a23196c20197865117c" kindref="member">XDFECCF_MAX_NUM_INSTANCES</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga959ffc15251ddc9b3a883a30f97b7715" prot="public" static="no">
+        <name>XST_SUCCESS</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Success flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gacfa67489ec2094636315d1c987e2a324" compoundref="xdfeccf_8c" startline="2443" endline="2457">XDfeCcf_GetIsCcfOperational</referencedby>
+        <referencedby refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="xdfeccf__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" compoundref="xdfesi570__mgt_8c" startline="654" endline="665">XDfeSi570_SetMgtOscillator</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga9478d2b97aa40e09052dee2571940ef9" prot="public" static="no">
+        <name>XST_FAILURE</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Failure flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="xdfeccf__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeccf__examples_8c" startline="85" endline="126">main</referencedby>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gacfa67489ec2094636315d1c987e2a324" compoundref="xdfeccf_8c" startline="2443" endline="2457">XDfeCcf_GetIsCcfOperational</referencedby>
+        <referencedby refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</referencedby>
+        <referencedby refid="group__dfeccf_1ga23a4ce2ee3c9bf313b65a3b932c0278b" compoundref="xdfeccf__multi_add_c_c__1x_n_r100__3x_n_r20__example_8c" startline="118" endline="204">XDfeCcf_multiAddCC_1xNR100_3xNR20_Example</referencedby>
+        <referencedby refid="group__dfeccf_1ga9e35acd47a43b212159caf45bf8ae1fb" compoundref="xdfeccf__multi__instance__initialization__example_8c" startline="60" endline="110">XDfeCcf_MultiInstancesExample</referencedby>
+        <referencedby refid="xdfeccf__pass__through__example_8c_1a6e4a59a64bb3ee3a50a0ea8802942969" compoundref="xdfeccf__pass__through__example_8c" startline="61" endline="162">XDfeCcf_PassThroughExample</referencedby>
+        <referencedby refid="group__dfeccf_1gacd14259acee557613b0002ec6d187550" compoundref="xdfeccf_8c" startline="1482" endline="1499">XDfeCcf_SetNextCCCfgAndTrigger</referencedby>
+        <referencedby refid="group__dfeccf_1ga47f2c3d66e66518a7337906b5871e04d" compoundref="xdfeccf_8c" startline="1517" endline="1559">XDfeCcf_SetNextCCCfgAndTriggerSwitchable</referencedby>
+        <referencedby refid="xdfeccf__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" compoundref="xdfesi570__mgt_8c" startline="654" endline="665">XDfeSi570_SetMgtOscillator</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga7054d0916d25666a70f17461d1a98e53" prot="public" static="no">
+        <name>XDFECCF_NODE_NAME_MAX_LENGTH</name>
+        <initializer>(50U)</initializer>
+        <briefdescription>
+<para>Node name maximum length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga664e353c81bd46ef9cd1bc562504af52" compoundref="xdfeccf_8c" startline="774" endline="869">XDfeCcf_InstanceInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga9b76f5dec4c8a9c2ce94e764726c3b5f" prot="public" static="no">
+        <name>XDFECCF_CC_NUM</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+<para>Maximum CC number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga699c8f140720fcbf22543c7758ace5d5" compoundref="xdfeccf_8c" startline="1258" endline="1272">XDfeCcf_GetEmptyCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga2f8933eb3001f0df1f2e6b1aeee39332" prot="public" static="no">
+        <name>XDFECCF_ANT_NUM_MAX</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Maximum anntena number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga7c2e580da15edcdb46882d8664b9ac9e" prot="public" static="no">
+        <name>XDFECCF_SEQ_LENGTH_MAX</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Maximum sequence length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga881f7592e65e134b13c07bdf2dd7038e" prot="public" static="no">
+        <name>XDFECCF_NUM_COEFF</name>
+        <initializer>(128U)</initializer>
+        <briefdescription>
+<para>Maximum number of coefficients. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga3179eaabc10a956de802e38d8e7ff5cd" compoundref="xdfeccf_8c" startline="2367" endline="2414">XDfeCcf_GetTDataDelayFromCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gae4ded5b6e8aefa55eb911df631fdedd2" compoundref="xdfeccf_8c" startline="2180" endline="2273">XDfeCcf_LoadCoefficients</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gae385befee6451f719f1bd650e6cea867" prot="public" static="no">
+        <name>XDFECCF_COMPATIBLE_STRING</name>
+        <initializer>&quot;xlnx,xdfe-cc-filter-1.1&quot;</initializer>
+        <briefdescription>
+<para>Device name property. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga35cb06fc9d42009271e9315f2759dd94" prot="public" static="no">
+        <name>XDFECCF_PLATFORM_DEVICE_DIR</name>
+        <initializer>&quot;/sys/bus/platform/devices/&quot;</initializer>
+        <briefdescription>
+<para>Device location in a file system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga69fe24be78c2b4bccff86ac690bbe7e2" prot="public" static="no">
+        <name>XDFECCF_COMPATIBLE_PROPERTY</name>
+        <initializer>&quot;compatible&quot;</initializer>
+        <briefdescription>
+<para>Device tree property. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga0b0446a1c4b02b21df04e687f6cf5b1a" prot="public" static="no">
+        <name>XDFECCF_BUS_NAME</name>
+        <initializer>&quot;platform&quot;</initializer>
+        <briefdescription>
+<para>System bus name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gae37e4cd6145f959c25613ea7cd0cbe57" prot="public" static="no">
+        <name>XDFECCF_BASEADDR_PROPERTY</name>
+        <initializer>&quot;reg&quot;</initializer>
+        <briefdescription>
+<para>Base address property. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga8f23d47e76e900e3b0be5b58d04a96ba" prot="public" static="no">
+        <name>XDFECCF_BASEADDR_SIZE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Base address bit-size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1gaefa9270fd5df08ed3d152000f164c473" prot="public" static="no">
+        <name>XDFECCF_NUM_ANTENNA_CFG</name>
+        <initializer>&quot;xlnx,num-antenna&quot;</initializer>
+        <briefdescription>
+<para>Number of antenna property. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga1710adae7e81e9b4c923393586750777" prot="public" static="no">
+        <name>XDFECCF_NUM_CC_PER_ANTENNA_CFG</name>
+        <initializer>&quot;xlnx,num-cc-per-antenna&quot;</initializer>
+        <briefdescription>
+<para>Maximum number of CC&apos;s per antenna. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga5b6e59e458ddbdc6c3ac3d4e9406f9cf" prot="public" static="no">
+        <name>XDFECCF_ANTENNA_INTERLEAVE_CFG</name>
+        <initializer>&quot;xlnx,antenna-interleave&quot;</initializer>
+        <briefdescription>
+<para>Number of Antenna TDM slots, per CC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga88f0cfbdb353f95d39faed2227735312" prot="public" static="no">
+        <name>XDFECCF_SWITCHABLE_CFG</name>
+        <initializer>&quot;xlnx,switchable&quot;</initializer>
+        <briefdescription>
+<para>DL/UL switching support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__dfeccf_1ga85e59a23d1fc6d7fd612a815c4f254b1" prot="public" static="no">
+        <name>XDFECCF_TUSER_WIDTH_CFG</name>
+        <initializer>&quot;xlnx,tuser-width&quot;</initializer>
+        <briefdescription>
+<para>TUSER width property. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf_sinit.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xiltimer</title>
+    <detaileddescription>
+<para>This file contains the definitions for axi timer implementation. <preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+ ----- ---- -------- -------------------------------------------------------
+  1.0  adk   24/11/21 Initial release.
+         adk   07/02/22 Updated the IntrHandler as per <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API.
+  1.1    adk   08/08/22 Added doxygen tags.
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="spartanup_2xsecure__sha__hw_8h" kind="file">
+    <compoundname>spartanup/xsecure_sha_hw.h</compoundname>
+    <includedby refid="spartanup_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="spartanup_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <invincdepgraph>
+      <node id="4070">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="spartanup/xsecure_sha_hw.h"/>
+        <childnode refid="4071" relation="include">
+        </childnode>
+        <childnode refid="4072" relation="include">
+        </childnode>
+      </node>
+      <node id="4071">
+        <label>xsecure_plat.c</label>
+        <link refid="spartanup_2xsecure__plat_8c"/>
+      </node>
+      <node id="4072">
+        <label>xsecure_plat.h</label>
+        <link refid="spartanup_2xsecure__plat_8h"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This file contains SHA3 core hardware definitions for spartan ultrascale plus. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.5   kpt  08/16/24 Initial release
+      tri  10/25/24 Added maximum supported hash size macro
+5.6   aa   07/21/25 Removed unused macros
+5.7   tvp  02/23/26 Move SHA mode and auto padding offset from common file</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SHA_HW_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA_HW_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_utils.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA_NUM_OF_INSTANCES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_BASE_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04100000U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#define<sp/>XSECURE_SHA_0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_DEVICE_ID)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#ifdef<sp/>SPARTANUPLUSAES1</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_MAX_HASH_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_MAX_HASH_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA2_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA0U)<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA0U)<sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XSECURE_SHA2_AUTO_PADDING_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA4U)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_AUTO_PADDING_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xA4U)<sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SHA_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sha_hw.h"/>
+  </compounddef>
+</doxygen>

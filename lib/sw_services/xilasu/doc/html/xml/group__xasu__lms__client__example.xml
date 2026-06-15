@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__lms__client__example" kind="group">
+    <compoundname>xasu_lms_client_example</compoundname>
+    <title>XilAsu LMS Sign Verification API Example Generic Usage</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of ASU LMS signature verification API. It verifies an LMS signature against a message using the provided LMS public key.</para></simplesect>
+The LMS (Leighton-Micali Signature) is a hash-based signature scheme defined in RFC 8554.</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   ss     01/23/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

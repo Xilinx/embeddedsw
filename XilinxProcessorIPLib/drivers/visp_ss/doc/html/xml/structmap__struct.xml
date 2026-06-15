@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structmap__struct" kind="struct" prot="public">
+    <compoundname>map_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmap__struct_1a3d4f91d2a6c446a2eec6a603f016e859" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int map_struct::orig</definition>
+        <argsstring></argsstring>
+        <name>orig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmap__struct_1acd3cecc9a12c85a8d3226dc75ecf3b29" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int map_struct::alias</definition>
+        <argsstring></argsstring>
+        <name>alias</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="161" bodyend="164"/>
+    <listofallmembers>
+      <member refid="structmap__struct_1acd3cecc9a12c85a8d3226dc75ecf3b29" prot="public" virt="non-virtual"><scope>map_struct</scope><name>alias</name></member>
+      <member refid="structmap__struct_1a3d4f91d2a6c446a2eec6a603f016e859" prot="public" virt="non-virtual"><scope>map_struct</scope><name>orig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

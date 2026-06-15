@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_adc_ps" kind="struct" prot="public">
+    <compoundname>XAdcPs</compoundname>
+    <includes local="no">xadcps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_adc_ps___config" kindref="compound">XAdcPs_Config</ref></type>
+        <definition>XAdcPs_Config XAdcPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para><ref refid="struct_x_adc_ps___config" kindref="compound">XAdcPs_Config</ref> of current device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" compoundref="xadcps_8c" startline="86" endline="133">XAdcPs_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" compoundref="xadcps__intr_8c" startline="206" endline="225">XAdcPs_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" compoundref="xadcps__intr_8c" startline="110" endline="129">XAdcPs_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" compoundref="xadcps__intr_8c" startline="72" endline="91">XAdcPs_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" compoundref="xadcps__intr_8c" startline="144" endline="157">XAdcPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" compoundref="xadcps__intr_8c" startline="174" endline="187">XAdcPs_IntrGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAdcPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="323" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga57807452402a6b52dd48083f676bd4ff" compoundref="xadcps_8c" startline="86" endline="133">XAdcPs_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaac4aa7cafe46dc4ec867050db6bd8fd8" compoundref="xadcps_8c" startline="1498" endline="1517">XAdcPs_DisableUserOverTemp</referencedby>
+        <referencedby refid="group___overview_1ga7bd1df96dde38098c639a690484c063d" compoundref="xadcps_8c" startline="1458" endline="1482">XAdcPs_EnableUserOverTemp</referencedby>
+        <referencedby refid="group___overview_1gaa4717a648a61251606e5278c696e6443" compoundref="xadcps_8c" startline="961" endline="978">XAdcPs_GetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga249774f7bd8cf631b066db344e77807a" compoundref="xadcps_8c" startline="334" endline="351">XAdcPs_GetAdcData</referencedby>
+        <referencedby refid="group___overview_1ga38e17d0dd36367a5aa24c5444e4382b7" compoundref="xadcps_8c" startline="715" endline="732">XAdcPs_GetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1ga486398d4b0619f38c1e9b0893f1f7bb3" compoundref="xadcps_8c" startline="1423" endline="1442">XAdcPs_GetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1ga0397f1d96815a4a31f17e807965061bc" compoundref="xadcps_8c" startline="500" endline="518">XAdcPs_GetAvg</referencedby>
+        <referencedby refid="group___overview_1ga8a7eeef3612853a2473de9e887329623" compoundref="xadcps_8c" startline="372" endline="390">XAdcPs_GetCalibCoefficient</referencedby>
+        <referencedby refid="group___overview_1gafa9c172914ab5ce1d737ecf2d6d96707" compoundref="xadcps_8c" startline="810" endline="824">XAdcPs_GetCalibEnables</referencedby>
+        <referencedby refid="group___overview_1ga14382d04f08cd07a120af43f823b5e23" compoundref="xadcps_8c" startline="177" endline="190">XAdcPs_GetConfigRegister</referencedby>
+        <referencedby refid="group___overview_1ga4cecd7eded845124675357247a87bd2b" compoundref="xadcps_8c" startline="415" endline="434">XAdcPs_GetMinMaxMeasurement</referencedby>
+        <referencedby refid="group___overview_1ga6a44797b1370a4dc147d0249991893c9" compoundref="xadcps_8c" startline="266" endline="279">XAdcPs_GetMiscCtrlRegister</referencedby>
+        <referencedby refid="group___overview_1ga3a0b53ba580c00c9e9212ee47f38ecee" compoundref="xadcps_8c" startline="207" endline="220">XAdcPs_GetMiscStatus</referencedby>
+        <referencedby refid="group___overview_1gade5ed9cc4af7327d8d8e9c90c967c7fe" compoundref="xadcps_8c" startline="1722" endline="1743">XAdcPs_GetPowerdownMode</referencedby>
+        <referencedby refid="group___overview_1ga3df99fa9e9735c4bff9505973d2ec7d2" compoundref="xadcps_8c" startline="1581" endline="1603">XAdcPs_GetSamplingMode</referencedby>
+        <referencedby refid="group___overview_1gab1c514d17f79cecc7e962b5ab449ba25" compoundref="xadcps_8c" startline="1347" endline="1370">XAdcPs_GetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1ga1366299a4770116ed0153c9b5ce45aa5" compoundref="xadcps_8c" startline="1151" endline="1172">XAdcPs_GetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1gad57d70cea121cfe0e1bf04c9362b8024" compoundref="xadcps_8c" startline="1053" endline="1077">XAdcPs_GetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1ga1735b8b15f8d2c11a7315d1cb361c81e" compoundref="xadcps_8c" startline="1247" endline="1270">XAdcPs_GetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1gadebc7c47c2bd2b8dbede2ba65224c395" compoundref="xadcps_8c" startline="894" endline="909">XAdcPs_GetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1gaa533b6151f09a4fa96ebfb8abd5fa519" compoundref="xadcps__intr_8c" startline="206" endline="225">XAdcPs_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga8340c0a6f59fb3ed560fbcf8fd43ac2c" compoundref="xadcps__intr_8c" startline="110" endline="129">XAdcPs_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga321d111c2a771286a7fc4b4bd8f3e744" compoundref="xadcps__intr_8c" startline="72" endline="91">XAdcPs_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1gafc0371ab003ca92552165bfd3ced33ee" compoundref="xadcps__intr_8c" startline="144" endline="157">XAdcPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga3b905da7fd36abc6ef2ea11dc6f6ec6d" compoundref="xadcps__intr_8c" startline="174" endline="187">XAdcPs_IntrGetStatus</referencedby>
+        <referencedby refid="group___overview_1ga5d96b5dc7c813d1f1aa6238885fbc44b" compoundref="xadcps_8c" startline="294" endline="310">XAdcPs_Reset</referencedby>
+        <referencedby refid="group___overview_1ga56acf22b23c7ff0ea8ba0c763209d0a6" compoundref="xadcps__selftest_8c" startline="77" endline="116">XAdcPs_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga533b23d4d7b4e0bee4517b0ae0329576" compoundref="xadcps_8c" startline="931" endline="945">XAdcPs_SetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga62adf11abdc10aa3d1f064265337a3dd" compoundref="xadcps_8c" startline="667" endline="689">XAdcPs_SetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1ga222a97998083c80b4f0415a94aa4efc9" compoundref="xadcps_8c" startline="1389" endline="1405">XAdcPs_SetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1gae1f591246d331a09c598f2b01590e1f8" compoundref="xadcps_8c" startline="457" endline="479">XAdcPs_SetAvg</referencedby>
+        <referencedby refid="group___overview_1gac53ac264bb557251c7b3ea90ccb1c389" compoundref="xadcps_8c" startline="762" endline="786">XAdcPs_SetCalibEnables</referencedby>
+        <referencedby refid="group___overview_1gae236a12120e287388f8d6818d281aefc" compoundref="xadcps_8c" startline="149" endline="160">XAdcPs_SetConfigRegister</referencedby>
+        <referencedby refid="group___overview_1ga763e37d1e500182da4a7a7dd1f765ee1" compoundref="xadcps_8c" startline="236" endline="249">XAdcPs_SetMiscCtrlRegister</referencedby>
+        <referencedby refid="group___overview_1ga78ab54803a8e6e9993de88523fdc93ab" compoundref="xadcps_8c" startline="1626" endline="1657">XAdcPs_SetMuxMode</referencedby>
+        <referencedby refid="group___overview_1gad8e4a4799ac10ae15c068f660d3d5392" compoundref="xadcps_8c" startline="1678" endline="1703">XAdcPs_SetPowerdownMode</referencedby>
+        <referencedby refid="group___overview_1gaff3e133a519580ccdb9a415b26d0382c" compoundref="xadcps_8c" startline="1297" endline="1328">XAdcPs_SetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1ga326bb6bf25e4bb80e7622eb23f5021a2" compoundref="xadcps_8c" startline="1102" endline="1132">XAdcPs_SetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1ga9ca50428b4ee0369cd2dcd5bbdb0f6f3" compoundref="xadcps_8c" startline="1003" endline="1033">XAdcPs_SetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1ga9bb2c8daf81fcb50c214834e900c44ff" compoundref="xadcps_8c" startline="1198" endline="1228">XAdcPs_SetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1ga25ad16579977f4b366c57c5b0bdd8b65" compoundref="xadcps_8c" startline="1535" endline="1564">XAdcPs_SetSequencerEvent</referencedby>
+        <referencedby refid="group___overview_1gaf004d6f72df7692239604326bb2de23d" compoundref="xadcps_8c" startline="849" endline="872">XAdcPs_SetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1gac586b30d9704eecc92119c437430d3ef" compoundref="xadcps_8c" startline="560" endline="642">XAdcPs_SetSingleChParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The driver&apos;s instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every XADC/ADC device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XAdcPs_Config</label>
+        <link refid="struct_x_adc_ps___config"/>
+      </node>
+      <node id="1">
+        <label>XAdcPs</label>
+        <link refid="struct_x_adc_ps"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xadcps/src/xadcps.h" bodystart="321" bodyend="325"/>
+    <listofallmembers>
+      <member refid="struct_x_adc_ps_1abc36cf9ffc332333b61451e78cdf9d2b" prot="public" virt="non-virtual"><scope>XAdcPs</scope><name>Config</name></member>
+      <member refid="struct_x_adc_ps_1a40e3a4f4eab9a20778cc65642a3b9785" prot="public" virt="non-virtual"><scope>XAdcPs</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

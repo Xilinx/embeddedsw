@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f4b3b0b8ce20503e152383e586776ccd" kind="dir">
+    <compoundname>crypto_kat</compoundname>
+    <innerfile refid="xsecure__kat_8c">xsecure_kat.c</innerfile>
+    <innerfile refid="xsecure__kat_8h">xsecure_kat.h</innerfile>
+    <innerfile refid="xsecure__kat__ipihandler_8c">xsecure_kat_ipihandler.c</innerfile>
+    <innerfile refid="xsecure__kat__ipihandler_8h">xsecure_kat_ipihandler.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/crypto_kat/"/>
+  </compounddef>
+</doxygen>

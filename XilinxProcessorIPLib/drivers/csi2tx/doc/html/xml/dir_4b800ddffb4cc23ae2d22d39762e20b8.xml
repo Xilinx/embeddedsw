@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4b800ddffb4cc23ae2d22d39762e20b8" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xcsi2tx_8c">xcsi2tx.c</innerfile>
+    <innerfile refid="xcsi2tx_8h">xcsi2tx.h</innerfile>
+    <innerfile refid="xcsi2tx__g_8c">xcsi2tx_g.c</innerfile>
+    <innerfile refid="xcsi2tx__hw_8h">xcsi2tx_hw.h</innerfile>
+    <innerfile refid="xcsi2tx__intr_8c">xcsi2tx_intr.c</innerfile>
+    <innerfile refid="xcsi2tx__selftest_8c">xcsi2tx_selftest.c</innerfile>
+    <innerfile refid="xcsi2tx__sinit_8c">xcsi2tx_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/"/>
+  </compounddef>
+</doxygen>

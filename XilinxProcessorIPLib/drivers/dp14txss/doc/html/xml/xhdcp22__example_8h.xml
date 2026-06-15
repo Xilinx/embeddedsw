@@ -1,0 +1,553 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp22__example_8h" kind="file">
+    <compoundname>xhdcp22_example.h</compoundname>
+    <includes local="yes">xdprxss.h</includes>
+    <includes refid="xdptxss_8h" local="yes">xdptxss.h</includes>
+    <includedby refid="zcu__pt__dp14__hdcp_2main_8h" local="yes">main.h</includedby>
+    <includedby refid="xhdcp22__example_8c" local="yes">xhdcp22_example.c</includedby>
+    <incdepgraph>
+      <node id="2973">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2972">
+        <label>xil_io.h</label>
+      </node>
+      <node id="2981">
+        <label>xdptxss_vtc.h</label>
+        <link refid="xdptxss__vtc_8h"/>
+        <childnode refid="2982" relation="include">
+        </childnode>
+        <childnode refid="2978" relation="include">
+        </childnode>
+      </node>
+      <node id="2979">
+        <label>xdptxss_dualsplitter.h</label>
+        <link refid="xdptxss__dualsplitter_8h"/>
+        <childnode refid="2980" relation="include">
+        </childnode>
+        <childnode refid="2978" relation="include">
+        </childnode>
+      </node>
+      <node id="2969">
+        <label>xdprxss.h</label>
+      </node>
+      <node id="2976">
+        <label>xdebug.h</label>
+      </node>
+      <node id="2978">
+        <label>xdp.h</label>
+      </node>
+      <node id="2977">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss__dptx_8h"/>
+        <childnode refid="2978" relation="include">
+        </childnode>
+      </node>
+      <node id="2971">
+        <label>xdptxss_hw.h</label>
+        <link refid="xdptxss__hw_8h"/>
+        <childnode refid="2972" relation="include">
+        </childnode>
+      </node>
+      <node id="2974">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2975">
+        <label>xvidc.h</label>
+      </node>
+      <node id="2970">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="2971" relation="include">
+        </childnode>
+        <childnode refid="2973" relation="include">
+        </childnode>
+        <childnode refid="2974" relation="include">
+        </childnode>
+        <childnode refid="2975" relation="include">
+        </childnode>
+        <childnode refid="2976" relation="include">
+        </childnode>
+        <childnode refid="2977" relation="include">
+        </childnode>
+        <childnode refid="2979" relation="include">
+        </childnode>
+        <childnode refid="2981" relation="include">
+        </childnode>
+      </node>
+      <node id="2980">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2982">
+        <label>xvtc.h</label>
+      </node>
+      <node id="2968">
+        <label>xhdcp22_example.h</label>
+        <link refid="xhdcp22_example.h"/>
+        <childnode refid="2969" relation="include">
+        </childnode>
+        <childnode refid="2970" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2990">
+        <label>rx.c</label>
+      </node>
+      <node id="2992">
+        <label>xdptxss_zcu102_dp14_pt_hdcp.c</label>
+      </node>
+      <node id="2984">
+        <label>main.h</label>
+        <childnode refid="2985" relation="include">
+        </childnode>
+        <childnode refid="2986" relation="include">
+        </childnode>
+        <childnode refid="2987" relation="include">
+        </childnode>
+        <childnode refid="2988" relation="include">
+        </childnode>
+        <childnode refid="2989" relation="include">
+        </childnode>
+        <childnode refid="2990" relation="include">
+        </childnode>
+        <childnode refid="2991" relation="include">
+        </childnode>
+        <childnode refid="2992" relation="include">
+        </childnode>
+        <childnode refid="2993" relation="include">
+        </childnode>
+      </node>
+      <node id="2988">
+        <label>menus.c</label>
+      </node>
+      <node id="2991">
+        <label>tx.c</label>
+      </node>
+      <node id="2989">
+        <label>passthrough.c</label>
+      </node>
+      <node id="2987">
+        <label>keys.c</label>
+      </node>
+      <node id="2986">
+        <label>keymgmt_loader.c</label>
+      </node>
+      <node id="2985">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="2993">
+        <label>xhdcp22_example.c</label>
+      </node>
+      <node id="2983">
+        <label>xhdcp22_example.h</label>
+        <link refid="xhdcp22_example.h"/>
+        <childnode refid="2984" relation="include">
+        </childnode>
+        <childnode refid="2993" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdcp___topology" prot="public">XHdcp_Topology</innerclass>
+    <innerclass refid="struct_x_hdcp22___repeater" prot="public">XHdcp22_Repeater</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdcp22__example_8h_1a4a2574955587585808cf5639097be074" prot="public" static="no">
+        <name>XHDCP_DEVICE_ID_SIZE</name>
+        <initializer>5    /*&lt; Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__example_8h_1a32731b78a925f6d26235cff32dc2d078" prot="public" static="no">
+        <name>XHDCP_MAX_DOWNSTREAM_INTERFACES</name>
+        <initializer>32   /*&lt; Maximum number of HDCP downstream interfaces allowed */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__example_8h_1a4a8f1d1a3ddfdf9d32e21e18933c65b7" prot="public" static="no">
+        <name>XHDCP_MAX_DEVICE_CNT_HDCP14</name>
+        <initializer>127  /*&lt; Maximum repeater topology device count for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__example_8h_1a0a2359d05aeaf88cfdf607a5ec546626" prot="public" static="no">
+        <name>XHDCP_MAX_DEPTH_HDCP14</name>
+        <initializer>7    /*&lt; Maximum repeater topology depth for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__example_8h_1a3d25b813153073899737255069def999" prot="public" static="no">
+        <name>XHDCP_MAX_DEVICE_CNT_HDCP22</name>
+        <initializer>31   /*&lt; Maximum repeater topology device count for HDCP 2.2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__example_8h_1a273db92cfd343af564aba8e47638dcce" prot="public" static="no">
+        <name>XHDCP_MAX_DEPTH_HDCP22</name>
+        <initializer>4    /*&lt; Maximum repeater topology depth for HDCP 2.2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xhdcp22__example_8h_1ae375941c5cc9f4c4854d09a80c266764" prot="public" static="no">
+        <name>XV_DpRxSs_Hdcp22KeyType</name>
+        <enumvalue id="xhdcp22__example_8h_1ae375941c5cc9f4c4854d09a80c266764a88f93b88190a4310a0b9d89a8f3da01c" prot="public">
+          <name>XV_DPRXSS_KEY_HDCP22_LC128</name>
+          <briefdescription>
+<para>HDCP 2.2 LC128. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdcp22__example_8h_1ae375941c5cc9f4c4854d09a80c266764a96dc9f04565eea4b3981477c2d077a94" prot="public">
+          <name>XV_DPRXSS_KEY_HDCP22_PRIVATE</name>
+          <briefdescription>
+<para>HDCP 2.2 Private. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>These constants specify the HDCP key types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="86" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="enum" id="xhdcp22__example_8h_1aaa83f2bc3270b2061067aa277ae3257b" prot="public" static="no">
+        <name>XV_DpTxSs_Hdcp22KeyType</name>
+        <enumvalue id="xhdcp22__example_8h_1aaa83f2bc3270b2061067aa277ae3257ba4479cb821be8fcdf8677093d96beb582" prot="public">
+          <name>XV_DPTXSS_KEY_HDCP22_LC128</name>
+          <briefdescription>
+<para>HDCP 2.2 LC128. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdcp22__example_8h_1aaa83f2bc3270b2061067aa277ae3257bada0ff359816ad057d410eb35f88b239d" prot="public">
+          <name>XV_DPTXSS_KEY_HDCP22_SRM</name>
+          <briefdescription>
+<para>HDCP 2.2 SRM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xhdcp22__example_8h_1aaa83f2bc3270b2061067aa277ae3257baf9dc5932e3ae4bbd4a1fe357a29f1bf3" prot="public">
+          <name>XV_DPTXSS_KEY_INVALID</name>
+          <briefdescription>
+<para>Invalid Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>These constants specify the HDCP key types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" bodystart="105" bodyend="110"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xhdcp22__example_8h_1ae6905be3f2b156fa1c12df7dc292ab4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22_SetUpstream</definition>
+        <argsstring>(XHdcp22_Repeater *InstancePtr, XDpRxSs *UpstreamInstancePtr)</argsstring>
+        <name>XHdcp22_SetUpstream</name>
+        <param>
+          <type>XHdcp22_Repeater *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDpRxSs *</type>
+          <declname>UpstreamInstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__example_8h_1ace434e8bb2128485da90d58aae3b8ba8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_Poll</definition>
+        <argsstring>(XHdcp22_Repeater *InstancePtr)</argsstring>
+        <name>XHdcp22_Poll</name>
+        <param>
+          <type>XHdcp22_Repeater *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.c" bodystart="162" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__example_8h_1ad8f98ee83fdb0a42bec1a11e54fb3dc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22_LoadKeys_rx</definition>
+        <argsstring>(uint8_t *Hdcp22Lc128, uint32_t Hdcp22Lc128Size, uint8_t *Hdcp22RxPrivateKey, uint32_t Hdcp22RxPrivateKeySize)</argsstring>
+        <name>XHdcp22_LoadKeys_rx</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>Hdcp22Lc128</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>Hdcp22Lc128Size</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>Hdcp22RxPrivateKey</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>Hdcp22RxPrivateKeySize</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.c" bodystart="184" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__example_8h_1a3500be414dc07efcf0b50a9030cac7c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DpRxSs_Hdcp22SetKey</definition>
+        <argsstring>(XDpRxSs *InstancePtr, XV_DpRxSs_Hdcp22KeyType KeyType, u8 *KeyPtr)</argsstring>
+        <name>XV_DpRxSs_Hdcp22SetKey</name>
+        <param>
+          <type>XDpRxSs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XV_DpRxSs_Hdcp22KeyType</type>
+          <declname>KeyType</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>KeyPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets pointers to the HDCP 2.2 keys. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDpRxSs instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.c" bodystart="212" bodyend="233"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__example_8h_1a2dd7a0d1711f96dbc10846aad82c8edb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22_LoadKeys_tx</definition>
+        <argsstring>(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size)</argsstring>
+        <name>XHdcp22_LoadKeys_tx</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp22Lc128</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp22Lc128Size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.c" bodystart="403" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__example_8h_1aa07898a52ca92f7db5c35bdb533fe5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DpTxSs_Hdcp22SetKey</definition>
+        <argsstring>(XDpTxSs *InstancePtr, XV_DpTxSs_Hdcp22KeyType KeyType, u8 *KeyPtr)</argsstring>
+        <name>XV_DpTxSs_Hdcp22SetKey</name>
+        <param>
+          <type><ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XV_DpTxSs_Hdcp22KeyType</type>
+          <declname>KeyType</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>KeyPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets pointers to the HDCP 2.2 keys. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDpRxSs instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.c" bodystart="380" bodyend="401"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020-2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>xhdcp22_example.h</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>Dec<sp/>17,<sp/>2018</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>jbaniset</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XHDCP22_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP22_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdprxss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdptxss_8h" kindref="compound">xdptxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_DEVICE_ID_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Size<sp/>in<sp/>bytes<sp/>of<sp/>ReceiverID<sp/>for<sp/>HDCP<sp/>2.2<sp/>or<sp/>KSV<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DOWNSTREAM_INTERFACES<sp/><sp/><sp/><sp/>32<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>number<sp/>of<sp/>HDCP<sp/>downstream<sp/>interfaces<sp/>allowed<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEVICE_CNT_HDCP14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>127<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>device<sp/>count<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEPTH_HDCP14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>depth<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEVICE_CNT_HDCP22<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>device<sp/>count<sp/>for<sp/>HDCP<sp/>2.2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEPTH_HDCP22<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>depth<sp/>for<sp/>HDCP<sp/>2.2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DeviceCnt;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Depth;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>DeviceList[XHDCP_MAX_DEVICE_CNT_HDCP14][XHDCP_DEVICE_ID_SIZE];</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>MaxDevsExceeded;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>MaxCascadeExceeded;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>Hdcp2LegacyDeviceDownstream;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>Hdcp1DeviceDownstream;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}<sp/>XHdcp_Topology;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XDPRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/>XDpRxSs<sp/>*UpstreamInstancePtr;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceBinded;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceConnected;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceStreamUp;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>This<sp/>should<sp/>be<sp/>enabled<sp/>with<sp/>if<sp/>both<sp/>RX<sp/>and<sp/>TX</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>HDCP22<sp/>are<sp/>enable<sp/>din<sp/>the<sp/>same<sp/>design*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>1</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XDPTXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*DownstreamInstancePtr[XHDCP_MAX_DOWNSTREAM_INTERFACES];</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>u8<sp/>DownstreamInstanceBinded;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>u32<sp/>DownstreamInstanceConnected;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>u32<sp/>DownstreamInstanceStreamUp;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XDPTXSS_NUM_INSTANCES)<sp/>&amp;&amp;<sp/>defined<sp/>(XPAR_XDPRXSS_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/>XHdcp_Topology<sp/>Topology;</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XDPTXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>u8<sp/>EnforceBlocking;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/>u8<sp/>StreamType;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*#if<sp/>0*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>u32<sp/>IsReady;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}<sp/>XHdcp22_Repeater;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>XV_DPRXSS_KEY_HDCP22_LC128,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>XV_DPRXSS_KEY_HDCP22_PRIVATE<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}<sp/>XV_DpRxSs_Hdcp22KeyType;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_SetUpstream(XHdcp22_Repeater<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>XDpRxSs<sp/>*UpstreamInstancePtr);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_Poll(XHdcp22_Repeater<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_LoadKeys_rx(uint8_t<sp/>*Hdcp22Lc128,<sp/>uint32_t<sp/>Hdcp22Lc128Size,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*Hdcp22RxPrivateKey,<sp/>uint32_t<sp/>Hdcp22RxPrivateKeySize);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_DpRxSs_Hdcp22SetKey(XDpRxSs<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_DpRxSs_Hdcp22KeyType<sp/>KeyType,<sp/>u8<sp/>*KeyPtr);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>XV_DPTXSS_KEY_HDCP22_LC128,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>XV_DPTXSS_KEY_HDCP22_SRM,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>XV_DPTXSS_KEY_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}<sp/>XV_DpTxSs_Hdcp22KeyType;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_LoadKeys_tx(u8<sp/>*Hdcp22Lc128,<sp/>u32<sp/>Hdcp22Lc128Size);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XV_DpTxSs_Hdcp22SetKey(<ref refid="struct_x_dp_tx_ss" kindref="compound">XDpTxSs</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_DpTxSs_Hdcp22KeyType<sp/>KeyType,<sp/>u8<sp/>*KeyPtr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xhdcp22_example.h"/>
+  </compounddef>
+</doxygen>

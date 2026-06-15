@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_Cfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___cfg_1a5c9028fa34271373dd002f83b56892d7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___version" kindref="compound">XDfeMix_Version</ref></type>
+        <definition>XDfeMix_Version XDfeMix_Cfg::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Logicore version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___cfg_1ac355352fefb3803a5e48944491042db7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___model_parameters" kindref="compound">XDfeMix_ModelParameters</ref></type>
+        <definition>XDfeMix_ModelParameters XDfeMix_Cfg::ModelParams</definition>
+        <argsstring></argsstring>
+        <name>ModelParams</name>
+        <briefdescription>
+<para><verbatim>                              Logicore
+</verbatim> parameterization </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="24">
+        <label>XDfeMix_Version</label>
+        <link refid="struct_x_dfe_mix___version"/>
+      </node>
+      <node id="23">
+        <label>XDfeMix_Cfg</label>
+        <link refid="struct_x_dfe_mix___cfg"/>
+        <childnode refid="24" relation="usage">
+          <edgelabel>Version</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>ModelParams</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XDfeMix_ModelParameters</label>
+        <link refid="struct_x_dfe_mix___model_parameters"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="305" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___cfg_1ac355352fefb3803a5e48944491042db7" prot="public" virt="non-virtual"><scope>XDfeMix_Cfg</scope><name>ModelParams</name></member>
+      <member refid="struct_x_dfe_mix___cfg_1a5c9028fa34271373dd002f83b56892d7" prot="public" virt="non-virtual"><scope>XDfeMix_Cfg</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

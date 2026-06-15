@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_sharpen_line_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscSharpenLineConfig_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_sharpen_line_config__s_1a874d1133f0334be690ecd11d7020b60c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSharpenLineConfig_s::dmscSharpenLineR1</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineR1</name>
+        <briefdescription>
+<para>Curve of the overall enhancement of the line stroke. </para>        </briefdescription>
+        <detaileddescription>
+<para>The larger the curve, the more texture will be considered as a line and enhanced, first point Y axis </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_sharpen_line_config__s_1aa729027da6b71e226f8dc4d9e11985f3" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSharpenLineConfig_s::dmscSharpenLineR2</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineR2</name>
+        <briefdescription>
+<para>Curve of the overall enhancement of the line stroke. </para>        </briefdescription>
+        <detaileddescription>
+<para>The larger the curve, the more texture will be considered as a line and enhanced, second point Y axis </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_sharpen_line_config__s_1ae5c53b4d541120e869172036ad7206b0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSharpenLineConfig_s::dmscSharpenLineStrength</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineStrength</name>
+        <briefdescription>
+<para>The strength of line sharpen. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_sharpen_line_config__s_1a60c6c01cee290a16205ce8a6dab35d55" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceDmscSharpenLineConfig_s::dmscSharpenLineThr</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineThr</name>
+        <briefdescription>
+<para>The line detection, get line rate, to control the line sharpen strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_sharpen_line_config__s_1a03ecfac79295498e1ec42e511aa5ad71" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceDmscSharpenLineConfig_s::dmscSharpenLineThrShift1</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineThrShift1</name>
+        <briefdescription>
+<para>Curve of the overall enhancement of the line stroke. </para>        </briefdescription>
+        <detaileddescription>
+<para>The larger the curve, the more texture will be considered as a line and enhanced, first point X axis left shift value </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC sharpenLine configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="180" bodyend="191"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_sharpen_line_config__s_1a874d1133f0334be690ecd11d7020b60c" prot="public" virt="non-virtual"><scope>CamDeviceDmscSharpenLineConfig_s</scope><name>dmscSharpenLineR1</name></member>
+      <member refid="struct_cam_device_dmsc_sharpen_line_config__s_1aa729027da6b71e226f8dc4d9e11985f3" prot="public" virt="non-virtual"><scope>CamDeviceDmscSharpenLineConfig_s</scope><name>dmscSharpenLineR2</name></member>
+      <member refid="struct_cam_device_dmsc_sharpen_line_config__s_1ae5c53b4d541120e869172036ad7206b0" prot="public" virt="non-virtual"><scope>CamDeviceDmscSharpenLineConfig_s</scope><name>dmscSharpenLineStrength</name></member>
+      <member refid="struct_cam_device_dmsc_sharpen_line_config__s_1a60c6c01cee290a16205ce8a6dab35d55" prot="public" virt="non-virtual"><scope>CamDeviceDmscSharpenLineConfig_s</scope><name>dmscSharpenLineThr</name></member>
+      <member refid="struct_cam_device_dmsc_sharpen_line_config__s_1a03ecfac79295498e1ec42e511aa5ad71" prot="public" virt="non-virtual"><scope>CamDeviceDmscSharpenLineConfig_s</scope><name>dmscSharpenLineThrShift1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_851a3270a4f845375b922eb81654a5d0" kind="dir">
+    <compoundname>xhdmi_example</compoundname>
+    <innerdir refid="dir_cc485ab2ff4345f7a7d26336adabf74e">PassThrough</innerdir>
+    <innerfile refid="xhdmi__example_2aes256_8c">xhdmi_example/aes256.c</innerfile>
+    <innerfile refid="xhdmi__example_2aes256_8h">xhdmi_example/aes256.h</innerfile>
+    <innerfile refid="audiogen__drv_8c">audiogen_drv.c</innerfile>
+    <innerfile refid="audiogen__drv_8h">audiogen_drv.h</innerfile>
+    <innerfile refid="xhdmi__example_2idt__8t49n24x_8c">xhdmi_example/idt_8t49n24x.c</innerfile>
+    <innerfile refid="xhdmi__example_2idt__8t49n24x_8h">xhdmi_example/idt_8t49n24x.h</innerfile>
+    <innerfile refid="onsemi__nb7nq621m_8c">onsemi_nb7nq621m.c</innerfile>
+    <innerfile refid="onsemi__nb7nq621m_8h">onsemi_nb7nq621m.h</innerfile>
+    <innerfile refid="rc21008adrv_8c">rc21008adrv.c</innerfile>
+    <innerfile refid="rc21008adrv_8h">rc21008adrv.h</innerfile>
+    <innerfile refid="sha256_8c">sha256.c</innerfile>
+    <innerfile refid="sha256_8h">sha256.h</innerfile>
+    <innerfile refid="xhdmi__example_2si5324drv_8c">xhdmi_example/si5324drv.c</innerfile>
+    <innerfile refid="xhdmi__example_2si5324drv_8h">xhdmi_example/si5324drv.h</innerfile>
+    <innerfile refid="si5344drv_8c">si5344drv.c</innerfile>
+    <innerfile refid="si5344drv_8h">si5344drv.h</innerfile>
+    <innerfile refid="si570drv_8c">si570drv.c</innerfile>
+    <innerfile refid="si570drv_8h">si570drv.h</innerfile>
+    <innerfile refid="xhdmi__example_2ti__lmk03318_8c">xhdmi_example/ti_lmk03318.c</innerfile>
+    <innerfile refid="xhdmi__example_2ti__lmk03318_8h">xhdmi_example/ti_lmk03318.h</innerfile>
+    <innerfile refid="ti__tmds1204_8c">ti_tmds1204.c</innerfile>
+    <innerfile refid="ti__tmds1204_8h">ti_tmds1204.h</innerfile>
+    <innerfile refid="xhdmi__example_2video__fmc_8c">xhdmi_example/video_fmc.c</innerfile>
+    <innerfile refid="xhdmi__example_2video__fmc_8h">xhdmi_example/video_fmc.h</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys_8c">xhdmi_hdcp_keys.c</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys_8h">xhdmi_hdcp_keys.h</innerfile>
+    <innerfile refid="xhdmi__hdcp__keys__table_8h">xhdmi_hdcp_keys_table.h</innerfile>
+    <innerfile refid="xhdmi__intr_8c">xhdmi_intr.c</innerfile>
+    <innerfile refid="xhdmi__intr_8h">xhdmi_intr.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_isi_metadata_attr__s" kind="union" prot="public">
+    <compoundname>IsiMetadataAttr_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1ad6e6dd8737b98499f0f86114ce0fcc1a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::support</definition>
+        <argsstring></argsstring>
+        <name>support</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 0: 0-disable 1-enable </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1abeb51593c0be02056f97900d999177b4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::regInfo</definition>
+        <argsstring></argsstring>
+        <name>regInfo</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1ad8165af5cc6f3dd05d76c52e68e14d27" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::expTime</definition>
+        <argsstring></argsstring>
+        <name>expTime</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 2 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1ae837e4d6a2ec1915e41db8eb2db2672c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::again</definition>
+        <argsstring></argsstring>
+        <name>again</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 3 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1ac10eb8073245a8e36b2e34e9c956669f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::dgain</definition>
+        <argsstring></argsstring>
+        <name>dgain</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 4 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1a578ff0fd1f3fbe4969e1f673553842c3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::bls</definition>
+        <argsstring></argsstring>
+        <name>bls</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 5 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1a751812b58fa3358dd0b9aace38712187" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::hist</definition>
+        <argsstring></argsstring>
+        <name>hist</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 6 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1a3afbe8ef73783b44fb4bb384135712f0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::meanLuma</definition>
+        <argsstring></argsstring>
+        <name>meanLuma</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+<para>bit 7 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1af0b6367d9cc22df001cd292b166af6fc" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::reservedEnable</definition>
+        <argsstring></argsstring>
+        <name>reservedEnable</name>
+        <bitfield> 23</bitfield>
+        <briefdescription>
+<para>bit 8:31 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1aa95dd4d26fe73d8a36069b4f6ffd2539" prot="public" static="no" mutable="no">
+        <type>struct IsiMetadataAttr_s::@10</type>
+        <definition>struct IsiMetadataAttr_s::@10  IsiMetadataAttr_s::subAttr</definition>
+        <argsstring></argsstring>
+        <name>subAttr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="52" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_isi_metadata_attr__s_1ac69a759b682c1cac743403099d0c442e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiMetadataAttr_s::mainAttr</definition>
+        <argsstring></argsstring>
+        <name>mainAttr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_metadata.h" bodystart="41" bodyend="54"/>
+    <listofallmembers>
+      <member refid="union_isi_metadata_attr__s_1ae837e4d6a2ec1915e41db8eb2db2672c" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>again</name></member>
+      <member refid="union_isi_metadata_attr__s_1a578ff0fd1f3fbe4969e1f673553842c3" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>bls</name></member>
+      <member refid="union_isi_metadata_attr__s_1ac10eb8073245a8e36b2e34e9c956669f" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>dgain</name></member>
+      <member refid="union_isi_metadata_attr__s_1ad8165af5cc6f3dd05d76c52e68e14d27" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>expTime</name></member>
+      <member refid="union_isi_metadata_attr__s_1a751812b58fa3358dd0b9aace38712187" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>hist</name></member>
+      <member refid="union_isi_metadata_attr__s_1ac69a759b682c1cac743403099d0c442e" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>mainAttr</name></member>
+      <member refid="union_isi_metadata_attr__s_1a3afbe8ef73783b44fb4bb384135712f0" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>meanLuma</name></member>
+      <member refid="union_isi_metadata_attr__s_1abeb51593c0be02056f97900d999177b4" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>regInfo</name></member>
+      <member refid="union_isi_metadata_attr__s_1af0b6367d9cc22df001cd292b166af6fc" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>reservedEnable</name></member>
+      <member refid="union_isi_metadata_attr__s_1aa95dd4d26fe73d8a36069b4f6ffd2539" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>subAttr</name></member>
+      <member refid="union_isi_metadata_attr__s_1ad6e6dd8737b98499f0f86114ce0fcc1a" prot="public" virt="non-virtual"><scope>IsiMetadataAttr_s</scope><name>support</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

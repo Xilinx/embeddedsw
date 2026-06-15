@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c__3_d___additional_info" kind="struct" prot="public">
+    <compoundname>XHdmiC_3D_AdditionalInfo</compoundname>
+    <includes local="no">xv_hdmic_vsif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___additional_info_1a7534a9729fcc2748073477628201bf01" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_3D_AdditionalInfo::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Indicates 3D Additional info presence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___additional_info_1ab2122392afe6bf7078938e6356938101" prot="public" static="no" mutable="no">
+        <type>XHdmiC_3D_Preferred2DView</type>
+        <definition>XHdmiC_3D_Preferred2DView XHdmiC_3D_AdditionalInfo::Preferred2DView</definition>
+        <argsstring></argsstring>
+        <name>Preferred2DView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___additional_info_1a94836b092146f4d880ac6ac5a0de94b1" prot="public" static="no" mutable="no">
+        <type>XHdmiC_3D_ViewDependency</type>
+        <definition>XHdmiC_3D_ViewDependency XHdmiC_3D_AdditionalInfo::ViewDependency</definition>
+        <argsstring></argsstring>
+        <name>ViewDependency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi_c__3_d___additional_info_1a34c1830cae51a824888d8e19d2c65e61" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdmiC_3D_AdditionalInfo::DualView</definition>
+        <argsstring></argsstring>
+        <name>DualView</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for 3D Additional Info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic_vsif.h" bodystart="221" bodyend="226"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi_c__3_d___additional_info_1a34c1830cae51a824888d8e19d2c65e61" prot="public" virt="non-virtual"><scope>XHdmiC_3D_AdditionalInfo</scope><name>DualView</name></member>
+      <member refid="struct_x_hdmi_c__3_d___additional_info_1a7534a9729fcc2748073477628201bf01" prot="public" virt="non-virtual"><scope>XHdmiC_3D_AdditionalInfo</scope><name>IsPresent</name></member>
+      <member refid="struct_x_hdmi_c__3_d___additional_info_1ab2122392afe6bf7078938e6356938101" prot="public" virt="non-virtual"><scope>XHdmiC_3D_AdditionalInfo</scope><name>Preferred2DView</name></member>
+      <member refid="struct_x_hdmi_c__3_d___additional_info_1a94836b092146f4d880ac6ac5a0de94b1" prot="public" virt="non-virtual"><scope>XHdmiC_3D_AdditionalInfo</scope><name>ViewDependency</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

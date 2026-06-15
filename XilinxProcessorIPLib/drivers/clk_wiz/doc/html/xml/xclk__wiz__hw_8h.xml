@@ -1,0 +1,1901 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xclk__wiz__hw_8h" kind="file">
+    <compoundname>xclk_wiz_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xclk__wiz_8h" local="yes">xclk_wiz.h</includedby>
+    <includedby refid="xclk__wiz__intr_8c" local="yes">xclk_wiz_intr.c</includedby>
+    <incdepgraph>
+      <node id="44">
+        <label>xil_io.h</label>
+      </node>
+      <node id="42">
+        <label>xclk_wiz_hw.h</label>
+        <link refid="xclk_wiz_hw.h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="52">
+        <label>xclk_wiz_setrate_example.c</label>
+        <link refid="xclk__wiz__setrate__example_8c"/>
+      </node>
+      <node id="47">
+        <label>xclk_wiz.c</label>
+        <link refid="xclk__wiz_8c"/>
+      </node>
+      <node id="46">
+        <label>xclk_wiz.h</label>
+        <link refid="xclk__wiz_8h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xclk_wiz_intr.c</label>
+        <link refid="xclk__wiz__intr_8c"/>
+      </node>
+      <node id="48">
+        <label>xclk_wiz_g.c</label>
+      </node>
+      <node id="50">
+        <label>xclk_wiz_sinit.c</label>
+        <link refid="xclk__wiz__sinit_8c"/>
+      </node>
+      <node id="53">
+        <label>xclk_wiz_versal_example.c</label>
+        <link refid="xclk__wiz__versal__example_8c"/>
+      </node>
+      <node id="45">
+        <label>xclk_wiz_hw.h</label>
+        <link refid="xclk_wiz_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xclk_wiz_intr_example.c</label>
+        <link refid="xclk__wiz__intr__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device registers</header>
+      <description><para>Register sets of CLK_WIZ </para></description>
+      <memberdef kind="define" id="group___overview_1ga1130a3203681c537950cc8229a696105" prot="public" static="no">
+        <name>XCLK_WIZ_STATUS_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__setrate__example_8c_1a91d283445c401eebe2a05eff4c549363" compoundref="xclk__wiz__setrate__example_8c" startline="137" endline="190">ClkWiz_Example</referencedby>
+        <referencedby refid="group___overview_1gacf581607624ee4f19e501ff7802101db" compoundref="xclk__wiz_8c" startline="991" endline="999">XClk_Wiz_WaitForLock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga54bfc49d1a188b798cb96cfd40a0dc54" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_OFFSET</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaab5f77647fad82a4c02eb29b8180f89b" prot="public" static="no">
+        <name>XCLK_WIZ_IER_OFFSET</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8d853c1eaeeb4b89d06b7de0ff13d999" prot="public" static="no">
+        <name>XCLK_WIZ_RECONFIG_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+<para>Reconfig Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga0408e2c4fba6d9237aeb72db5c38164b" compoundref="xclk__wiz_8c" startline="632" endline="674">XClk_Wiz_SetRateHz</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga16472d2b7db6445311e7f55befc24288" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_OFFSET</name>
+        <initializer>0x00000330</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab2cc56d1cb816584cc6e38ae9801be20" prot="public" static="no">
+        <name>XCLK_WIZ_REG2_OFFSET</name>
+        <initializer>0x00000334</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa2093a22445263697e6d75945eb3f3b3" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_OFFSET</name>
+        <initializer>0x00000338</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga38a1af73dd61e339615ff6d772c67bd6" prot="public" static="no">
+        <name>XCLK_WIZ_REG4_OFFSET</name>
+        <initializer>0x0000033C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8436a4b72c342af56c35f7867729349c" prot="public" static="no">
+        <name>XCLK_WIZ_REG12_OFFSET</name>
+        <initializer>0x00000380</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga48d2a0b4bd2670f13d8eba0ecc12013c" prot="public" static="no">
+        <name>XCLK_WIZ_REG13_OFFSET</name>
+        <initializer>0x00000384</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga33ba12baa3f240e12cd7add43233787f" prot="public" static="no">
+        <name>XCLK_WIZ_REG11_OFFSET</name>
+        <initializer>0x00000378</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga877e1e65713c2198cba0f8acb1ed8e12" prot="public" static="no">
+        <name>XCLK_WIZ_REG14_OFFSET</name>
+        <initializer>0x00000398</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf166739dc153b008e1e348c39bdb7a3a" prot="public" static="no">
+        <name>XCLK_WIZ_REG15_OFFSET</name>
+        <initializer>0x0000039C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf1b0fb18434dbf800de1a87a44e87c26" prot="public" static="no">
+        <name>XCLK_WIZ_REG16_OFFSET</name>
+        <initializer>0x000003A0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6bc158a8205cb827773cf79b606e7eb5" prot="public" static="no">
+        <name>XCLK_WIZ_REG17_OFFSET</name>
+        <initializer>0x000003A8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga52ee62bcaae7ccae96c34546aef1e57c" prot="public" static="no">
+        <name>XCLK_WIZ_REG19_OFFSET</name>
+        <initializer>0x000003CC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8344ad97aac75db9f1529b4f639565f1" prot="public" static="no">
+        <name>XCLK_WIZ_REG25_OFFSET</name>
+        <initializer>0x000003F0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0b52940d0a236e7c554cd4cf6e6b749c" prot="public" static="no">
+        <name>XCLK_WIZ_REG26_OFFSET</name>
+        <initializer>0x000003FC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafa2b2cfbe6e272742dcc2e34b6b85e29" prot="public" static="no">
+        <name>XCLK_WIZ_PRIM_L_OFFSET</name>
+        <initializer>0x000003B0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadda287640b316b00c39ee54db353b3a2" prot="public" static="no">
+        <name>XCLK_WIZ_PRIM_H_OFFSET</name>
+        <initializer>0x000003B4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga19db1ef993e47e4cea3ba42457fedbc5" prot="public" static="no">
+        <name>XCLK_WIZ_SEC_L_OFFSET</name>
+        <initializer>0x000003B8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6e6d247b1bc9ef9a94afba81dd9a410d" prot="public" static="no">
+        <name>XCLK_WIZ_SEC_H_OFFSET</name>
+        <initializer>0x000003BC</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga770802596d8178917c74a1f576706311" prot="public" static="no">
+        <name>XCLK_WIZ_ZYNQMP_REG0_OFFSET</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga83482bf9fdb74d48dd564b9d83f3a4f5" prot="public" static="no">
+        <name>XCLK_WIZ_ZYNQMP_REG2_OFFSET</name>
+        <initializer>0x00000208</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6da1e217985fa8bf4f9dcb7fee746f2c" prot="public" static="no">
+        <name>XCLK_WIZ_REG0_FBMULT_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafbc45a9f25d2d1193770eb76c372cd59" prot="public" static="no">
+        <name>XCLK_WIZ_REG0_FBMULT_WIDTH</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9e4d6e887019342a03e245ab8bd4770c" prot="public" static="no">
+        <name>XCLK_WIZ_REG0_FBMULT_MASK</name>
+        <initializer>0xFF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga62a9d31adf2d12521dbbd98cc6aac307" prot="public" static="no">
+        <name>XCLK_WIZ_REG0_DIV_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4ca7e08a4b9c730f7243b0f080a5f36c" prot="public" static="no">
+        <name>XCLK_WIZ_REG0_DIV_WIDTH</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae58427074588814d172bd522786e0410" prot="public" static="no">
+        <name>XCLK_WIZ_REG2_DIV_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafa257e031d2c60c9fdd568df2fa023d0" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_EDGE_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift bits for Edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga99acc131620a3cad06a7500f478f5c96" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_EDGE_MASK</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadc89856fec13ca7e805cf8f952ab0c71" prot="public" static="no">
+        <name>XCLK_WIZ_CLKFBOUT_L_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaad78547ca013fac05670bc7c4024ad4d" prot="public" static="no">
+        <name>XCLK_WIZ_CLKFBOUT_H_MASK</name>
+        <initializer>0xFF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga28d8bf4ce4bf53f003f77e0fae443759" prot="public" static="no">
+        <name>XCLK_WIZ_CLKFBOUT_H_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga54a3a8ae461408ea4561c64230ceddbe" prot="public" static="no">
+        <name>XCLK_WIZ_EDGE_MASK</name>
+        <initializer>(1 &lt;&lt; 10) /** Edge */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac5d8620b5660eebc6714828b27d58bc4" prot="public" static="no">
+        <name>XCLK_WIZ_P5EN_MASK</name>
+        <initializer>(1 &lt;&lt; 8)  /** p5en */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2aa4f4906d0adf01130e806e3dcc29aa" prot="public" static="no">
+        <name>XCLK_WIZ_LOCK</name>
+        <initializer>1    /** Lock */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0e335ce1a067f54477c247e74a4dbc3d" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_PREDIV2</name>
+        <initializer>(1 &lt;&lt; 11)</initializer>
+        <briefdescription>
+<para>Prediv2 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5da48627691e7e979b7c4fbcb608796a" compoundref="xclk__wiz_8c" startline="737" endline="795">XClk_Wiz_GetRate</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad606e744fe0c6f943317e4a10f0642ad" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_P5EN_MASK</name>
+        <initializer>(1 &lt;&lt; 13)  /** p5en */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_USED</name>
+        <initializer>(1 &lt;&lt; 12)</initializer>
+        <briefdescription>
+<para>Prediv2 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac6b82e8b7e00bc66dd233345a4cb5c41" compoundref="xclk__wiz_8c" startline="952" endline="978">XClk_Wiz_DisableClock</referencedby>
+        <referencedby refid="group___overview_1ga0965f9b5b43c453ca70e8b43f03490ca" compoundref="xclk__wiz_8c" startline="911" endline="938">XClk_Wiz_EnableClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2ce6c2a6375c78f8b9923d2330941dae" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_MX</name>
+        <initializer>(1 &lt;&lt; 9)</initializer>
+        <briefdescription>
+<para>MX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4aee77026ead48f03c5aa8708aa25f53" prot="public" static="no">
+        <name>XCLK_WIZ_REG3_EDGE_MASK</name>
+        <initializer>(1 &lt;&lt; 8)    /* EDGE */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga92d4bacb8f557d499888a14e1c48b3c9" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_PREDIV2</name>
+        <initializer>(1 &lt;&lt; 12)</initializer>
+        <briefdescription>
+<para>Prediv2 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8162c60bfa65bf8e6856f4ab94845337" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_EN</name>
+        <initializer>(1 &lt;&lt; 9)</initializer>
+        <briefdescription>
+<para>FBout enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga901c3adb5465cdf153c4b0d1a51e3bd9" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_MX</name>
+        <initializer>(1 &lt;&lt; 10)</initializer>
+        <briefdescription>
+<para>MX 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab434cd858b06997f7ac2c8cdbbb5f525" prot="public" static="no">
+        <name>XCLK_WIZ_RECONFIG_LOAD</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1c1811b6a3ab2f3c0e824a07b7ea816d" prot="public" static="no">
+        <name>XCLK_WIZ_RECONFIG_SADDR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa2ba1f47e0dd5f31f04772815fbbd9c9" prot="public" static="no">
+        <name>XCLK_WIZ_REG11_CP_MASK</name>
+        <initializer>(0xF)</initializer>
+        <briefdescription>
+<para>Mask for Charge Pump. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7a0c8b8e8e6a672a420ccd76f74b0c1b" prot="public" static="no">
+        <name>XCLK_WIZ_REG17_RES_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift bits for Res. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad8bb24e5b8298058dd2022b50c76590b" prot="public" static="no">
+        <name>XCLK_WIZ_REG17_RES_MASK</name>
+        <initializer>(0xF)</initializer>
+        <briefdescription>
+<para>Shift bits for Res. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga08d3ed49dd4e113043ee4dc9ac479d80" prot="public" static="no">
+        <name>XCLK_WIZ_REG15_LOCK_FB_DLY_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for FB DELAY. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaeec15e5dc318d01ac136746f43b5f651" prot="public" static="no">
+        <name>XCLK_WIZ_REG16_LOCK_REF_DLY_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for Reference DELAY. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga142028c206e507df8633d0b91b0ef273" prot="public" static="no">
+        <name>XCLK_WIZ_REG12_EDGE_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for DIVCLK_EDGE. </para>        </briefdescription>
+        <detaileddescription>
+<para>Shift bits for Edge. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaadc9301adbc410105ae4dc8509c135aa" prot="public" static="no">
+        <name>XCLK_WIZ_REG12_EDGE_MASK</name>
+        <initializer>(1 &lt;&lt; 10)</initializer>
+        <briefdescription>
+<para>Mask for DIVCLK_EDGE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga26c3e66c06696502f24f013c0da90e55" prot="public" static="no">
+        <name>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Shift bits for Prediv2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5b78de754a5a563c46cc4364b9698488" prot="public" static="no">
+        <name>XCLK_WIZ_CLKOUT0_MX_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>Shift bits for MUX. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac7482b3e0a5b624637346bee0811515d" prot="public" static="no">
+        <name>XCLK_WIZ_CLKOUT0_P5EN_SHIFT</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>Shift bits for P5EN. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae49b1d691b76f209b89e751b7d091d43" prot="public" static="no">
+        <name>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Shift bits for P5EDGE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae826d18d7971be10836d3804ad4ed38e" prot="public" static="no">
+        <name>XCLK_WIZ_CLKOUT0_P5FEDGE_MASK</name>
+        <initializer>(1 &lt;&lt; 15)</initializer>
+        <briefdescription>
+<para>Mask for P5EDGE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga142028c206e507df8633d0b91b0ef273" prot="public" static="no">
+        <name>XCLK_WIZ_REG12_EDGE_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for DIVCLK_EDGE. </para>        </briefdescription>
+        <detaileddescription>
+<para>Shift bits for Edge. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafa257e031d2c60c9fdd568df2fa023d0" prot="public" static="no">
+        <name>XCLK_WIZ_REG1_EDGE_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift bits for Edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XCLK_WIZ_ISR_OFFSET register</header>
+      <description><para>This register is used to display interrupt status register </para></description>
+      <memberdef kind="define" id="group___overview_1ga6a11cf2b70a1598342cde6ad50577ec9" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_STOP_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>User clock 3 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a24a8c4f20358d67ba7512698e94ec60d" compoundref="xclk__wiz__intr__example_8c" startline="764" endline="779">ClkWiz_ClkStopEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab7ecb70f6cf41fd44769722fdcf2a6a6" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_STOP_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>User clock 2 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a24a8c4f20358d67ba7512698e94ec60d" compoundref="xclk__wiz__intr__example_8c" startline="764" endline="779">ClkWiz_ClkStopEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7152a10657a3caeef169c0be28087362" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_STOP_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>User clock 1 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a24a8c4f20358d67ba7512698e94ec60d" compoundref="xclk__wiz__intr__example_8c" startline="764" endline="779">ClkWiz_ClkStopEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga29f231a7715e94baec2277b768f5f1a5" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_STOP_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>User clock 0 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a24a8c4f20358d67ba7512698e94ec60d" compoundref="xclk__wiz__intr__example_8c" startline="764" endline="779">ClkWiz_ClkStopEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5634a366b8ced209061e028c163fddd5" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_GLITCH_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>User clock 3 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a129f20100bd1ab7e3165219f38659e90" compoundref="xclk__wiz__intr__example_8c" startline="732" endline="747">ClkWiz_ClkGlitchEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa79abe7629e383c5d83f09ab640a7267" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_GLITCH_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>User clock 2 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a129f20100bd1ab7e3165219f38659e90" compoundref="xclk__wiz__intr__example_8c" startline="732" endline="747">ClkWiz_ClkGlitchEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafcb540ab2c83a559450ae71633258269" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_GLITCH_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>User clock 1 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a129f20100bd1ab7e3165219f38659e90" compoundref="xclk__wiz__intr__example_8c" startline="732" endline="747">ClkWiz_ClkGlitchEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabf7f48abd562e1b1389b86bb978f091e" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_GLITCH_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>User clock 0 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a129f20100bd1ab7e3165219f38659e90" compoundref="xclk__wiz__intr__example_8c" startline="732" endline="747">ClkWiz_ClkGlitchEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga163b2686ce7e37b98fc9d510a95febdb" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_MINFREQ_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>User clock 3 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="147" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga24b899afdcc87e9a2c97eabe52fb610c" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_MINFREQ_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>User clock 2 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8e3dd7df0cf46c203cab6d190c9e4cd9" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_MINFREQ_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>User clock 1 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga37ecc718da5a33c16329f6f6d1967e4e" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_MINFREQ_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>User clock 0 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="156" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9a3354cec0d629d0ed3c26d28bbd1994" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_MAXFREQ_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>User clock 3 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="159" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2cfaf083bfc11e4d527262c6dfe0c24e" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_MAXFREQ_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>User clock 2 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga834ed8f9541edc0c5be94ca0de404f87" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_MAXFREQ_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>User clock 1 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5e762fe87dddbe8ac453306748a216f5" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_MAXFREQ_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>User clock 0 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1abf464e4d1be9b2b093b568d721920bb2" compoundref="xclk__wiz__intr__example_8c" startline="679" endline="714">ClkWiz_ClkOutOfRangeEventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga82daa29abf414a316c26355e3771cf88" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLKALL_STOP_MASK</name>
+        <initializer>0x0000F000</initializer>
+        <briefdescription>
+<para>User clock[0-3] has stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga868aa5dd6399404298d686e73a44a565" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLKALL_GLITCH_MASK</name>
+        <initializer>0x00000F00</initializer>
+        <briefdescription>
+<para>User clock[0-3] has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9cfc8a66cb70f62b8546fb4b9a448d50" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK</name>
+        <initializer>0x000000F0</initializer>
+        <briefdescription>
+<para>User clock[0-3] is min than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7b6a6f0f1fda56cdb7b97a293e9ee72e" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLKALL_MAXFREQ_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>User clock[0-3] is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab4d4ca4b2b5d036b0e0df621692135f6" compoundref="xclk__wiz__intr_8c" startline="261" endline="310">XClk_Wiz_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga546bf7c1903e83e52e69fbaa1d603343" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_STOP_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf3a0cc16b3ad77228b11f05e11d6e733" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_STOP_SHIFT</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab79b4b574363916c1021f811376f1660" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_STOP_SHIFT</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0f168b5c26d91d8aa5c92d7a4e922631" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_STOP_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0914e2de55970b885f8c50667b85c8f3" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_GLITCH_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac893b3b69a6950f520de28c97b80f149" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_GLITCH_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6cd50be9be9ce6dda280b3200d73c236" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_GLITCH_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa28febc03c84cdbbffc5ea57e4124fe7" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_GLITCH_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf702d2921c3b616066cfd2e76de620b2" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_MINFREQ_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4d719247c9dfed11e36dfacb58f25fb8" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_MINFREQ_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad4ffc8a12873db9cdcb8e31c9bfdf923" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_MINFREQ_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga737f9a73cb6f0fe8402585a70f35492c" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_MINFREQ_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5f70d46d84d4629688388134ebc3dca6" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK3_MAXFREQ_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac546d9f62ddcc7fc8584ef9de13d7bb9" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK2_MAXFREQ_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga176e2701427376ad264054f9abd3f1ba" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK1_MAXFREQ_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga991df75896a6505b7d17031df5216319" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_CLK0_MAXFREQ_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XCLK_WIZ_IER_OFFSET register</header>
+      <description><para>This register is used to display interrupt status register </para></description>
+      <memberdef kind="define" id="group___overview_1gaa19f2cd1e19eefbe675b2ca7433a6594" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_STOP_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>User clock 3 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa29a0866b87ef2332a9e8076676e4e11" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_STOP_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>User clock 2 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaea0e4748f55d38744ca6f95ccd68a1ad" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_STOP_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>User clock 1 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac73712dd09ff0df8c1d71a53e4c826ce" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_STOP_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>User clock 0 stopped. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0df64f19a3ed2d4a49889b9ca8bfbb3a" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_GLITCH_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>User clock 3 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0a23825d334858f643dd8bdeeac557c8" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_GLITCH_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>User clock 2 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabb022733e8a876fee569991cb5c548f3" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_GLITCH_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>User clock 1 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1f63ddcc1041b05a1da8790ce88064b2" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_GLITCH_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>User clock 0 has glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab8ed2bdc3136a5a915c0ff8902c93e6f" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_MINFREQ_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>User clock 3 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabe0932d7fe457fcf7530e782de0b1b08" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_MINFREQ_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>User clock 2 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga057dc5e6b87b7ba9333ec0e44ac40c9a" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_MINFREQ_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>User clock 1 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga125707922533b9049f08dd26271519d5" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_MINFREQ_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>User clock 0 is less than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga32f362272205283dba350e23e7222a3a" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_MAXFREQ_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>User clock 3 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0e663b1df0fb873cbbe96967b980426b" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_MAXFREQ_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>User clock 2 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="233" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8c45e5d3fad76bf173750242c885e3d4" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_MAXFREQ_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>User clock 1 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0119267bfa918f08ca0a11de0951b2ab" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_MAXFREQ_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>User clock 0 is max than specification. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga7bb1dd7a981035a3aa91248e00ae98ad" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_STOP_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gafbb37482481fd93ec9ab5253a0796fd7" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_STOP_SHIFT</name>
+        <initializer>14</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga44438e619f42b96ccc021a1c3063f6b8" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_STOP_SHIFT</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2872e30e84d68905c43bd7806cc83fa0" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_STOP_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 stop. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga1ca586bbfdafb1acb2ce1fd97a4902b1" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_GLITCH_SHIFT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaac99c7c36e58c2177e35f81ea3ce1c60" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_GLITCH_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga19877011447febc4438bc39978270229" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_GLITCH_SHIFT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad55c9367027a06417ae89436f7ba3b77" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_GLITCH_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 glitch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2073518a02f6716b33fd721eed2740b5" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_MINFREQ_SHIFT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9d7b6317ea1bc997bac64ff903f253b8" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_MINFREQ_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8e862f52dce0734899a9b851b0b59b7e" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_MINFREQ_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9429606a7f041a1c7995a01b3b16c83f" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_MINFREQ_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 less. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5528da0dd2acef0622e92b42cde63b30" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK3_MAXFREQ_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 3 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabb60b1ae1eb59840446df19b84379396" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK2_MAXFREQ_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 2 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab9224e9f271c5ab6f75811dc297c10db" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK1_MAXFREQ_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 1 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4e61a8e24258a5c6eed44bb975b681a6" prot="public" static="no">
+        <name>XCLK_WIZ_IER_CLK0_MAXFREQ_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Shift bits for User clock 0 max. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1gaa454fd2cfc7ed730c52b747b72de71ef" prot="public" static="no">
+        <name>XCLK_WIZ_IER_ALLINTR_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>All interrupts enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="xclk__wiz__intr__example_8c_1a4317fcb0dd04f5e8a7ea459815115c12" compoundref="xclk__wiz__intr__example_8c" startline="563" endline="661">ClkWiz_IntrExample</referencedby>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+        <referencedby refid="group___overview_1gab48767fd035d10bd40cec167cdd7778d" compoundref="xclk__wiz__intr_8c" startline="163" endline="172">XClk_Wiz_InterruptClear</referencedby>
+        <referencedby refid="group___overview_1gab75c6d3b3e928e8cfcf136e93cdf20b2" compoundref="xclk__wiz__intr_8c" startline="91" endline="99">XClk_Wiz_InterruptDisable</referencedby>
+        <referencedby refid="group___overview_1ga4f547fb0dce8abc367979e38081a5080" compoundref="xclk__wiz__intr_8c" startline="66" endline="76">XClk_Wiz_InterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga18e65431f48acae3734420b5f3ffa490" prot="public" static="no">
+        <name>XCLK_WIZ_IER_ALLINTR_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>All interrupts enable shift bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="346" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga8e1db287d69d02c673140eae664c1a34" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_ALLINTR_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>All interrupt status register mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="350" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga757264554263d3e4035a7433e43ade17" prot="public" static="no">
+        <name>XCLK_WIZ_ISR_ALLINTR_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>All interrupts status register shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga3ad6007a242ec441ccb612d7ff2050c0" compoundref="xclk__wiz_8c" startline="1078" endline="1088">XClk_Wiz_GetInterruptSettings</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga28fa1e98c9bb59a998b9733cb092ebed" prot="public" static="no">
+        <name>XCLK_WIZ_MAX_OUTPUT</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga7ca07d2b8308f3c073d4d6a35939e5ff" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XClk_Wiz_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XClk_Wiz_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Macro to read register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of CLK_WIZ </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XClk_Wiz_ReadReg(UINTPTR BaseAddress, u32 RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="372" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga1be8bbd803c1eb82c54fae8902db860f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XClk_Wiz_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XClk_Wiz_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Macro to write to register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of CLK_WIZ </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XClk_Wiz_WriteReg(UINTPTR BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h" bodystart="392" bodyend="396"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XCLK_WIZ_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_HW_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Register<sp/>accesses<sp/>are<sp/>32-bit.</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="48" refid="group___overview_1ga1130a3203681c537950cc8229a696105" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_STATUS_OFFSET<sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group___overview_1ga54bfc49d1a188b798cb96cfd40a0dc54" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/>0x0000000C<sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group___overview_1gaab5f77647fad82a4c02eb29b8180f89b" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group___overview_1ga8d853c1eaeeb4b89d06b7de0ff13d999" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_RECONFIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_OFFSET<sp/><sp/><sp/><sp/>0x00000330</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG2_OFFSET<sp/><sp/><sp/><sp/>0x00000334</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_OFFSET<sp/><sp/><sp/><sp/>0x00000338</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG4_OFFSET<sp/><sp/><sp/><sp/>0x0000033C</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG12_OFFSET<sp/><sp/><sp/>0x00000380</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG13_OFFSET<sp/><sp/><sp/>0x00000384</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG11_OFFSET<sp/><sp/><sp/>0x00000378</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG14_OFFSET<sp/><sp/><sp/>0x00000398</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG15_OFFSET<sp/><sp/><sp/>0x0000039C</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG16_OFFSET<sp/><sp/><sp/>0x000003A0</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG17_OFFSET<sp/><sp/><sp/>0x000003A8</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG19_OFFSET<sp/><sp/><sp/>0x000003CC</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG25_OFFSET<sp/><sp/><sp/>0x000003F0</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG26_OFFSET<sp/><sp/><sp/>0x000003FC</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_PRIM_L_OFFSET<sp/><sp/>0x000003B0</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_PRIM_H_OFFSET<sp/><sp/>0x000003B4</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_SEC_L_OFFSET<sp/><sp/><sp/>0x000003B8</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_SEC_H_OFFSET<sp/><sp/><sp/>0x000003BC</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ZYNQMP_REG0_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000200</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ZYNQMP_REG2_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000208</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG0_FBMULT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG0_FBMULT_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG0_FBMULT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF00</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG0_DIV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG0_DIV_WIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG2_DIV_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_EDGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKFBOUT_L_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKFBOUT_H_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF00</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKFBOUT_H_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>10)<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_P5EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>8)<sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group___overview_1ga0e335ce1a067f54477c247e74a4dbc3d" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_PREDIV2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>11)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_P5EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>13)<sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group___overview_1ga9c0c8a7ada27a0cfba39c0f3aa922c7d" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_USED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>12)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group___overview_1ga2ce6c2a6375c78f8b9923d2330941dae" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>9)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG3_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>8)<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>EDGE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96" refid="group___overview_1ga92d4bacb8f557d499888a14e1c48b3c9" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_PREDIV2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>12)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group___overview_1ga8162c60bfa65bf8e6856f4ab94845337" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>9)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group___overview_1ga901c3adb5465cdf153c4b0d1a51e3bd9" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_MX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>10)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_RECONFIG_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_RECONFIG_SADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="group___overview_1gaa2ba1f47e0dd5f31f04772815fbbd9c9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG11_CP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF)<sp/></highlight></codeline>
+<codeline lineno="103" refid="group___overview_1ga7a0c8b8e8e6a672a420ccd76f74b0c1b" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG17_RES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/></highlight></codeline>
+<codeline lineno="104" refid="group___overview_1gad8bb24e5b8298058dd2022b50c76590b" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG17_RES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF)<sp/></highlight></codeline>
+<codeline lineno="105" refid="group___overview_1ga08d3ed49dd4e113043ee4dc9ac479d80" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG15_LOCK_FB_DLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group___overview_1gaeec15e5dc318d01ac136746f43b5f651" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG16_LOCK_REF_DLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG12_EDGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="group___overview_1gaadc9301adbc410105ae4dc8509c135aa" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG12_EDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>10)<sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="group___overview_1ga26c3e66c06696502f24f013c0da90e55" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group___overview_1ga5b78de754a5a563c46cc4364b9698488" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKOUT0_MX_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group___overview_1gac7482b3e0a5b624637346bee0811515d" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKOUT0_P5EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="group___overview_1gae49b1d691b76f209b89e751b7d091d43" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKOUT0_P5FEDGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group___overview_1gae826d18d7971be10836d3804ad4ed38e" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_CLKOUT0_P5FEDGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>15)<sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="group___overview_1ga142028c206e507df8633d0b91b0ef273" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG12_EDGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="group___overview_1gafa257e031d2c60c9fdd568df2fa023d0" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_REG1_EDGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123" refid="group___overview_1ga6a11cf2b70a1598342cde6ad50577ec9" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00008000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00004000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00002000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group___overview_1ga7152a10657a3caeef169c0be28087362" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00001000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_GLITCH_MASK<sp/><sp/><sp/>0x00000800<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_GLITCH_MASK<sp/><sp/><sp/>0x00000400<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="group___overview_1ga5634a366b8ced209061e028c163fddd5" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_GLITCH_MASK<sp/><sp/><sp/>0x00000200<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_GLITCH_MASK<sp/><sp/><sp/>0x00000100<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_MINFREQ_MASK<sp/><sp/>0x00000080<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="group___overview_1gafcb540ab2c83a559450ae71633258269" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_MINFREQ_MASK<sp/><sp/>0x00000040<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_MINFREQ_MASK<sp/><sp/>0x00000020<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_MINFREQ_MASK<sp/><sp/>0x00000010<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="group___overview_1ga163b2686ce7e37b98fc9d510a95febdb" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_MAXFREQ_MASK<sp/><sp/>0x00000008<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_MAXFREQ_MASK<sp/><sp/>0x00000004<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_MAXFREQ_MASK<sp/><sp/>0x00000002<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="group___overview_1ga8e3dd7df0cf46c203cab6d190c9e4cd9" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_MAXFREQ_MASK<sp/><sp/>0x00000001<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group___overview_1ga37ecc718da5a33c16329f6f6d1967e4e" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLKALL_STOP_MASK<sp/><sp/><sp/>0x0000F000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLKALL_GLITCH_MASK<sp/>0x00000F00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLKALL_MINFREQ_MASK<sp/>0x000000F0<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLKALL_MAXFREQ_MASK<sp/>0x0000000F<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group___overview_1ga868aa5dd6399404298d686e73a44a565" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183" refid="group___overview_1ga7b6a6f0f1fda56cdb7b97a293e9ee72e" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="group___overview_1ga546bf7c1903e83e52e69fbaa1d603343" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK3_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK2_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195" refid="group___overview_1gab79b4b574363916c1021f811376f1660" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK1_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_CLK0_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201" refid="group___overview_1ga0914e2de55970b885f8c50667b85c8f3" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00008000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00004000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210" refid="group___overview_1gaa28febc03c84cdbbffc5ea57e4124fe7" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00002000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_STOP_MASK<sp/><sp/><sp/><sp/><sp/>0x00001000<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_GLITCH_MASK<sp/><sp/><sp/>0x00000800<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="group___overview_1ga4d719247c9dfed11e36dfacb58f25fb8" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_GLITCH_MASK<sp/><sp/><sp/>0x00000400<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_GLITCH_MASK<sp/><sp/><sp/>0x00000200<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_GLITCH_MASK<sp/><sp/><sp/>0x00000100<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="group___overview_1ga737f9a73cb6f0fe8402585a70f35492c" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_MINFREQ_MASK<sp/><sp/>0x00000080<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_MINFREQ_MASK<sp/><sp/>0x00000040<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_MINFREQ_MASK<sp/><sp/>0x00000020<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="228" refid="group___overview_1gac546d9f62ddcc7fc8584ef9de13d7bb9" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_MINFREQ_MASK<sp/><sp/>0x00000010<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_MAXFREQ_MASK<sp/><sp/>0x00000008<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_MAXFREQ_MASK<sp/><sp/>0x00000004<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234" refid="group___overview_1ga991df75896a6505b7d17031df5216319" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_MAXFREQ_MASK<sp/><sp/>0x00000002<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_MAXFREQ_MASK<sp/><sp/>0x00000001<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_STOP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="247" refid="group___overview_1gaa29a0866b87ef2332a9e8076676e4e11" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="253" refid="group___overview_1gac73712dd09ff0df8c1d71a53e4c826ce" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_GLITCH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259" refid="group___overview_1ga0a23825d334858f643dd8bdeeac557c8" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_MINFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK3_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265" refid="group___overview_1ga1f63ddcc1041b05a1da8790ce88064b2" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK2_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK1_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_CLK0_MAXFREQ_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_IER_ALLINTR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="280" refid="group___overview_1ga32f362272205283dba350e23e7222a3a" refkind="member"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_ISR_ALLINTR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XCLK_WIZ_MAX_OUTPUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7</highlight></codeline>
+<codeline lineno="283" refid="group___overview_1ga0e663b1df0fb873cbbe96967b980426b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="298"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XClk_Wiz_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="299" refid="group___overview_1ga44438e619f42b96ccc021a1c3063f6b8" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Xil_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset)));</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="302" refid="group___overview_1ga2872e30e84d68905c43bd7806cc83fa0" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="318"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XClk_Wiz_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="320" refid="group___overview_1ga9d7b6317ea1bc997bac64ff903f253b8" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data));</highlight></codeline>
+<codeline lineno="322"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="323" refid="group___overview_1ga8e862f52dce0734899a9b851b0b59b7e" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326" refid="group___overview_1ga9429606a7f041a1c7995a01b3b16c83f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="329" refid="group___overview_1ga5528da0dd2acef0622e92b42cde63b30" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz_hw.h"/>
+  </compounddef>
+</doxygen>

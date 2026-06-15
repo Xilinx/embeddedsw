@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_sditxss</title>
+    <detaileddescription>
+<para>SDI TX Subsystem Sub-Cores initialization The functions in this file provides an abstraction from the initialization sequence for included sub-cores. Subsystem is assigned an address and range on the axi-lite interface. This address space is condensed where-in each sub-core is at a fixed offset from the subsystem base address. For processor to be able to access the sub-core this offset needs to be translated into a absolute address within the subsystems addressable range</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  jsr  07/17/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,579 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmbox__tapp__example_8c" kind="file">
+    <compoundname>xmbox_tapp_example.c</compoundname>
+    <includes refid="xmbox_8h" local="yes">xmbox.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="68">
+        <label>xmbox.h</label>
+        <link refid="xmbox_8h"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xil_io.h</label>
+      </node>
+      <node id="72">
+        <label>sleep.h</label>
+      </node>
+      <node id="67">
+        <label>xmbox_tapp_example.c</label>
+        <link refid="xmbox_tapp_example.c"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>xstatus.h</label>
+      </node>
+      <node id="73">
+        <label>xparameters.h</label>
+      </node>
+      <node id="70">
+        <label>xmbox_hw.h</label>
+        <link refid="xmbox__hw_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" prot="public" static="no">
+        <name>MY_CPU_ID</name>
+        <initializer>XPAR_CPU_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="81" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1a874ca7320cf9069af2a681e2a84ca681" prot="public" static="no">
+        <name>MSGSIZ</name>
+        <initializer>1024 /* Size of the buffer for received message */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1a01b2e1fd70a540680bef645105162367" prot="public" static="no">
+        <name>HELLO_SIZE</name>
+        <initializer>40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1ae1a372c1d2c551a1af2008b134c4c66b" prot="public" static="no">
+        <name>TIMEOUT_MAX_COUNT</name>
+        <initializer>2000	/* Max count to wait for the message */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1af8a133ef5c6f97caba00ee21c14078c4" prot="public" static="no">
+        <name>XMBOX_SLEEP_IN_US</name>
+        <initializer>1000U	/* Sleep for 1000Us */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1ab003e9181150a36765700ca762de347d" prot="public" static="no">
+        <name>XMBOX_BASEADDRESS</name>
+        <initializer>XPAR_MBOX_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="100" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmbox__tapp__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" prot="public" static="no">
+        <name>printf</name>
+        <initializer>xil_printf	/* A smaller footprint printf */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmbox__tapp__example_8c_1a170040866afd8458ca4ed00685b4c1a8" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref></type>
+        <definition>XMbox Mbox</definition>
+        <argsstring></argsstring>
+        <name>Mbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmbox__tapp__example_8c_1af945918362a0b78e636262f73df9cf72" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char RecvMsg[MSGSIZ]</definition>
+        <argsstring>[MSGSIZ]</argsstring>
+        <name>RecvMsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmbox__tapp__example_8c_1a986f6ed84827f9139e5dbed39c647488" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Temp1pad</definition>
+        <argsstring></argsstring>
+        <name>Temp1pad</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmbox__tapp__example_8c_1add1d76c0b443aa9824036b08de58ff42" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* ProducerHello</definition>
+        <argsstring></argsstring>
+        <name>ProducerHello</name>
+        <initializer>= &quot;Hello! The Producer greets the Consumer...&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmbox__tapp__example_8c_1aefc5f5e01458f72883ec8055905bc150" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int MailboxExample</definition>
+        <argsstring>(XMbox *MboxInstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>MailboxExample</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>MboxInstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function sends a message to and receives a message from the other processor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MboxInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the test passes.</para></listitem><listitem><para>XST_FAILURE if the test fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="191" bodyend="239"/>
+        <references refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" compoundref="xmbox_8h" startline="175">XMbox_Config::BaseAddress</references>
+        <references refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" compoundref="xmbox__intr__example_8c" startline="404" endline="441">MailboxExample_Receive</references>
+        <references refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" compoundref="xmbox__intr__example_8c" startline="356" endline="384">MailboxExample_Send</references>
+        <references refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" compoundref="xmbox__example_8c" startline="64">MY_CPU_ID</references>
+        <references refid="group__mbox_1ga34fbeaf8de9092cb4d5b00dfbf054426" compoundref="xmbox_8c" startline="80" endline="97">XMbox_CfgInitialize</references>
+        <references refid="group__mbox_1gafe477f8e46421e3752c5c1b92a8fec61" compoundref="xmbox__sinit_8c" startline="86" endline="101">XMbox_LookupConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="xmbox__tapp__example_8c_1af3eee08c6ec3124c00189313caac54d2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int MailboxExample_Send</definition>
+        <argsstring>(XMbox *MboxInstancePtr, int CPU_Id)</argsstring>
+        <name>MailboxExample_Send</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>MboxInstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>CPU_Id</declname>
+        </param>
+        <briefdescription>
+<para>This function sends the hello message to the other processor. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MboxInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer for the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CPU_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the CPU ID for the program that is running on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the send succeeds.<itemizedlist>
+<listitem><para>XST_FAILURE if the send fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="255" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="xmbox__tapp__example_8c_1a7c6bd6d2a312ec320a1f3a4aec6fb9b0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int MailboxExample_Receive</definition>
+        <argsstring>(XMbox *MboxInstancePtr, int CPU_Id)</argsstring>
+        <name>MailboxExample_Receive</name>
+        <param>
+          <type><ref refid="struct_x_mbox" kindref="compound">XMbox</ref> *</type>
+          <declname>MboxInstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>CPU_Id</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a message from the other processor and verifies that it&apos;s the expected message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MboxInstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer for the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CPU_Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the CPU ID for the program that is running on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if the receive succeeds.<itemizedlist>
+<listitem><para>XST_FAILURE if the receive fails.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="293" bodyend="325"/>
+      </memberdef>
+      <memberdef kind="function" id="xmbox__tapp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function for the mailbox example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c" bodystart="145" bodyend="163"/>
+        <references refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" compoundref="xmbox__intr__example_8c" startline="224" endline="305">MailboxExample</references>
+        <references refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" compoundref="xmbox__example_8c" startline="64">MY_CPU_ID</references>
+        <references refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" compoundref="xmbox__example_8c" startline="76">printf</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example for using the Mailbox hardware and driver <ref refid="struct_x_mbox" kindref="compound">XMbox</ref>. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example attempts to send a known message through the mailbox from the processor identified as 0 (XPAR_CPU_ID=0) to the other processor. The message is received by the receiver and the test passes. Since the application is running on two separate processors, the initiator declares success when the message is sent and the receiver declares success when the message is received. There is no feedback to the initiator so a terminal is required for each processor to verify that the test passed for both sides.</para><para>The example assumes there are two processors availabile in the system that are expected to inter-communicate. If Mailbox is connected to only one Processor then Data has to be sent from one port and should be received from another port.</para><para>This example has been tested on ML505 Hardware Evaluation board.</para><para><simplesect kind="note"><para></para></simplesect>
+These code fragments will illustrate how the <ref refid="struct_x_mbox" kindref="compound">XMbox</ref> component can be used to:<itemizedlist>
+<listitem><para>Initialize the Mailbox core</para></listitem><listitem><para>pass data between two processors.</para></listitem></itemizedlist>
+</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date         Changes
+<hruler/>
+
+ 1.00a va             First release
+ 1.00a ecm  06/09/07 Cleanup, new coding standard, check into XCS
+ 1.01a ecm  08/28/08 converted to testapp example
+ 1.01a ecm  10/28/08 corrected output to match the requirements for TestApp
+                      integration.
+ 2.00a hm   04/09/09 Added receiving data from the other processor.
+ 3.01a sdm  05/06/10 Cleanup for coding guidelines and removed printfs
+ 4.1   ms   01/23/17 Modified xil_printf statement in main function to
+                     ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                     are available in all examples. This is a fix for
+                     CR-965028.
+       ms   04/05/17 Added tabspace for return statements in functions for
+                     proper documentation while generating doxygen.
+ 4.6   ht   07/07/23 Added support for system device-tree flow.
+ 4.8   ht   08/08/24 Optimize wait time with timeout reduction and usleep()
+                     inclusion.
+ 4.9   ht   04/17/25 Update Canonical definition to be inline with xsct flow.
+ 4.10  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
+ 4.10  ht   02/04/26 Fix GCC warnings for unused variables in SDT flow.
+ </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2007<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64"><highlight class="comment">/****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xmbox_8h" kindref="compound">xmbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="74"><highlight class="comment">*<sp/>If<sp/>the<sp/>XPAR_CPU_ID<sp/>!=<sp/>0<sp/>for<sp/>this<sp/>instance,<sp/>the<sp/>only<sp/>other<sp/>option<sp/>is<sp/>1</highlight></codeline>
+<codeline lineno="75"><highlight class="comment">*<sp/>to<sp/>make<sp/>the<sp/>example<sp/>work.<sp/>It<sp/>is<sp/>possible<sp/>that<sp/>there<sp/>are<sp/>more<sp/>than</highlight></codeline>
+<codeline lineno="76"><highlight class="comment">*<sp/>2<sp/>processors<sp/>in<sp/>the<sp/>system<sp/>but<sp/>there<sp/>must<sp/>always<sp/>be<sp/>a<sp/>0</highlight></codeline>
+<codeline lineno="77"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_CPU_ID<sp/>!=<sp/>0</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MY_CPU_ID<sp/>1</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MY_CPU_ID<sp/>XPAR_CPU_ID</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_CPU_ID<sp/>!=<sp/>0<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSGSIZ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024<sp/></highlight><highlight class="comment">/*<sp/>Size<sp/>of<sp/>the<sp/>buffer<sp/>for<sp/>received<sp/>message<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HELLO_SIZE<sp/><sp/><sp/><sp/><sp/><sp/>40</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMEOUT_MAX_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2000<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>count<sp/>to<sp/>wait<sp/>for<sp/>the<sp/>message<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMBOX_SLEEP_IN_US<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000U<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sleep<sp/>for<sp/>1000Us<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MBOX_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_MBOX_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMBOX_BASEADDRESS<sp/>XPAR_MBOX_0_BASEADDR</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>printf<sp/>xil_printf<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>A<sp/>smaller<sp/>footprint<sp/>printf<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!(defined<sp/>(SDT)<sp/>&amp;&amp;<sp/>defined<sp/>(TESTAPP_GEN))</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>Mbox;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Instance<sp/>of<sp/>the<sp/>Mailbox<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Buffer<sp/>for<sp/>storing<sp/>received<sp/>the<sp/>message<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>RecvMsg[<ref refid="xmbox__example_8c_1a874ca7320cf9069af2a681e2a84ca681" kindref="member">MSGSIZ</ref>]<sp/>__attribute__<sp/>((aligned(4)));</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">u32<sp/>Temp1pad<sp/>=<sp/>0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>alignment<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sent<sp/>Message<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*ProducerHello<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Hello!<sp/>The<sp/>Producer<sp/>greets<sp/>the<sp/>Consumer...&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(u16<sp/>MboxDeviceId);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" kindref="member">MailboxExample_Send</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CPU_Id);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" kindref="member">MailboxExample_Receive</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CPU_Id);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="145" refid="xmbox__tapp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kindref="member">printf</ref><sp/>(</highlight><highlight class="stringliteral">&quot;MailboxExample<sp/>:\tStarts<sp/>for<sp/>CPU<sp/>%d.\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" kindref="member">MY_CPU_ID</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(MBOX_DEVICE_ID)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(&amp;Mbox,<sp/>XMBOX_BASEADDRESS)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kindref="member">printf</ref>(</highlight><highlight class="stringliteral">&quot;MailboxExample<sp/>:\t<sp/>mbox<sp/>tapp<sp/>Example<sp/>Failed.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kindref="member">printf</ref>(</highlight><highlight class="stringliteral">&quot;MailboxExample<sp/>:\tEnds.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kindref="member">printf</ref>(</highlight><highlight class="stringliteral">&quot;MailboxExample<sp/>:\tSuccessfully<sp/>ran<sp/>mbox<sp/>tapp<sp/>Example<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a3cb9f0894fab1c8fbb0753c9c7c2a8d9" kindref="member">printf</ref>(</highlight><highlight class="stringliteral">&quot;MailboxExample<sp/>:\tEnds<sp/>for<sp/>CPU<sp/>%d.\r\n&quot;</highlight><highlight class="normal">,<sp/><ref refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" kindref="member">MY_CPU_ID</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(u16<sp/>MboxDeviceId)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="191" refid="xmbox__tapp__example_8c_1aefc5f5e01458f72883ec8055905bc150" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1aa3546c3248b04f6aeb362c1b55e13391" kindref="member">MailboxExample</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/>UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxPtr<sp/>=<sp/>MboxInstancePtr;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxPtr<sp/>=<sp/>&amp;Mbox;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Lookup<sp/>configuration<sp/>data<sp/>in<sp/>the<sp/>device<sp/>configuration<sp/>table.</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Use<sp/>this<sp/>configuration<sp/>info<sp/>down<sp/>below<sp/>when<sp/>initializing<sp/>this</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>component.</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__mbox_1gafe477f8e46421e3752c5c1b92a8fec61" kindref="member">XMbox_LookupConfig</ref>(MboxDeviceId<sp/>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__mbox_1gafe477f8e46421e3752c5c1b92a8fec61" kindref="member">XMbox_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>(<ref refid="struct_x_mbox___config" kindref="compound">XMbox_Config</ref><sp/>*)NULL)<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>the<sp/>rest<sp/>of<sp/>the<sp/>initialization.</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mbox_1ga34fbeaf8de9092cb4d5b00dfbf054426" kindref="member">XMbox_CfgInitialize</ref>(MboxPtr,<sp/>ConfigPtr,<sp/>ConfigPtr-&gt;<ref refid="struct_x_mbox___config_1a7a357a3188be88d9aaba7e8cc60960a8" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>the<sp/>hello<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" kindref="member">MailboxExample_Send</ref>(MboxPtr,<sp/><ref refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" kindref="member">MY_CPU_ID</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Receive<sp/>the<sp/>hello<sp/>and<sp/>verify<sp/>the<sp/>message<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" kindref="member">MailboxExample_Receive</ref>(MboxPtr,<sp/><ref refid="xmbox__example_8c_1a8447bdbdbd8cb98edb1be7d0096709a9" kindref="member">MY_CPU_ID</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="255"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1a8906eefcbf88897e5608bc257daeec6f" kindref="member">MailboxExample_Send</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CPU_Id)</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesSent;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Nbytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CPU_Id;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Nbytes<sp/>!=<sp/><ref refid="xmbox__example_8c_1a01b2e1fd70a540680bef645105162367" kindref="member">HELLO_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>a<sp/>message<sp/>to<sp/>the<sp/>mbox<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mbox_1ga254c4e5a042e34520c3669fbf9651bc2" kindref="member">XMbox_Write</ref>(MboxInstancePtr,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)((u8<sp/>*)ProducerHello<sp/>+<sp/>Nbytes),</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a01b2e1fd70a540680bef645105162367" kindref="member">HELLO_SIZE</ref><sp/>-<sp/>Nbytes,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;BytesSent);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Nbytes<sp/>+=<sp/>BytesSent;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="293"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xmbox__intr__example_8c_1a82d99e5d2c3904a519d03a588ba9e1d8" kindref="member">MailboxExample_Receive</ref>(<ref refid="struct_x_mbox" kindref="compound">XMbox</ref><sp/>*MboxInstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>CPU_Id)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BytesRcvd;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Nbytes<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Timeout<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CPU_Id;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Nbytes<sp/>&lt;<sp/><ref refid="xmbox__example_8c_1a01b2e1fd70a540680bef645105162367" kindref="member">HELLO_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>a<sp/>message<sp/>from<sp/>the<sp/>mbox<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__mbox_1gaa1f68405027d147c68aa53bcb49fbd5a" kindref="member">XMbox_Read</ref>(MboxInstancePtr,</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32<sp/>*)(RecvMsg<sp/>+<sp/>Nbytes),</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmbox__example_8c_1a01b2e1fd70a540680bef645105162367" kindref="member">HELLO_SIZE</ref><sp/>-<sp/>Nbytes,<sp/>&amp;BytesRcvd);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Nbytes<sp/>+=<sp/>BytesRcvd;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(XMBOX_SLEEP_IN_US);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Timeout++<sp/>&gt;<sp/><ref refid="xmbox__intr__example_8c_1ae1a372c1d2c551a1af2008b134c4c66b" kindref="member">TIMEOUT_MAX_COUNT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>the<sp/>received<sp/>the<sp/>message<sp/>is<sp/>the<sp/>same<sp/>as<sp/>we<sp/>expect<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(memcmp(RecvMsg,<sp/>ProducerHello,<sp/><ref refid="xmbox__example_8c_1a01b2e1fd70a540680bef645105162367" kindref="member">HELLO_SIZE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/examples/xmbox_tapp_example.c"/>
+  </compounddef>
+</doxygen>

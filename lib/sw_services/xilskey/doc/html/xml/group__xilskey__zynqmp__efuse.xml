@@ -1,0 +1,1096 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__zynqmp__efuse" kind="group">
+    <compoundname>xilskey_zynqmp_efuse</compoundname>
+    <title>ZynqMP EFUSE PS</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga1456bb1e5601881e5064de0adcfc999e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc</definition>
+        <argsstring>(u32 CrcValue)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc</name>
+        <param>
+          <type>u32</type>
+          <declname>CrcValue</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the CRC check of AES key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CrcValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 32 bit CRC value of an expected AES key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful CRC check.</para></listitem><listitem><para>ErrorCode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>For Calculating the CRC of the AES key use the <ref refid="group__xilskey__cmn__crc_1gaf973666d5d2787e571a17f6c12d6cd29" kindref="member">XilSKey_CrcCalculation()</ref> function or <ref refid="group__xilskey__cmn__crc_1ga0552daa4e1f376eaac1360aba6d23930" kindref="member">XilSkey_CrcCalculation_AesKey()</ref> function </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1767" bodyend="1809"/>
+        <references refid="group__xilskey__zynqmp__efuse_1ga32901f95760a2e693f484f5a57d1ad06" compoundref="xilskey__eps__zynqmp_8c" startline="1212" endline="1251">XilSKey_ZynqMp_EfusePs_SetTimerValues</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9c9a3cf5fac3eb7cca38c68a9b95ca98" compoundref="xilskey__eps__zynqmp__hw_8h" startline="457">XSK_ZYNQMP_EFUSEPS_AES_CRC_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga6e3922cb096a5f9d79ca4ebb3080ecae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadUserFuse</definition>
+        <argsstring>(u32 *UseFusePtr, u8 UserFuse_Num, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadUserFuse</name>
+        <param>
+          <type>u32 *</type>
+          <declname>UseFusePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserFuse_Num</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read a user fuse from the eFUSE or cache. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>UseFusePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an array which holds the readback user fuse. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserFuse_Num</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A variable which holds the user fuse number. Range is (User fuses: 0 to 7) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read</para></listitem><listitem><para>ErrorCode on failure </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is highly recommended to read from eFuse cache. Because reading from efuse may reduce the life of the efuse. And Cache reload is required for obtaining updated values for ReadOption 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1832" bodyend="1855"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a073448ec30c4797a255e559267cabfe3" compoundref="xilskey__eps__zynqmp__hw_8h" startline="522">XSK_ZYNQMP_EFUSEPS_USER_0_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga56fb70c1fe6c73dc49f0a4366b891efe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadPpk0Hash</definition>
+        <argsstring>(u32 *Ppk0Hash, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadPpk0Hash</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Ppk0Hash</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PPK0 hash from an eFUSE or eFUSE cache. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ppk0Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to an array which holds the readback PPK0 hash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read</para></listitem><listitem><para>ErrorCode on failure </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is highly recommended to read from eFuse cache. Because reading from efuse may reduce the life of the efuse. And Cache reload is required for obtaining updated values for ReadOption 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1877" bodyend="1905"/>
+        <references refid="xilskey__utils_8c_1a5c47bf0a861cbd2a3b6287b12bd633e5" compoundref="xilskey__utils_8c" startline="849" endline="867">XilSKey_EfusePs_ConvertBytesBeToLe</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a7bd2195e6e359d3db88f2faa194191ba" compoundref="xilskey__eps__zynqmp__hw_8h" startline="871">XSK_ZYNQMP_EFUSEPS_PPK0_0_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga2d6c621edaf9dc92652e650a6faceaf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadPpk1Hash</definition>
+        <argsstring>(u32 *Ppk1Hash, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadPpk1Hash</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Ppk1Hash</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PPK1 hash from eFUSE or cache. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ppk1Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an array which holds the readback PPK1 hash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read</para></listitem><listitem><para>ErrorCode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is highly recommended to read from eFuse cache. Because reading from efuse may reduce the life of the efuse. And Cache reload is required for obtaining updated values for ReadOption 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1928" bodyend="1956"/>
+        <references refid="xilskey__utils_8c_1a5c47bf0a861cbd2a3b6287b12bd633e5" compoundref="xilskey__utils_8c" startline="849" endline="867">XilSKey_EfusePs_ConvertBytesBeToLe</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ac4ea8599e5560b0a055fa8278960deb0" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1039">XSK_ZYNQMP_EFUSEPS_PPK1_0_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaf32df4375d96c29c860c68670fecba41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadSpkId</definition>
+        <argsstring>(u32 *SpkId, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadSpkId</name>
+        <param>
+          <type>u32 *</type>
+          <declname>SpkId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read SPKID from eFUSE or cache based on user&apos;s read option. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SpkId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a 32 bit variable which holds SPK ID. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read</para></listitem><listitem><para>ErrorCode on failure </para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is highly recommended to read from eFuse cache. Because reading from efuse may reduce the life of the efuse. And Cache reload is required for obtaining updated values for ReadOption 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1978" bodyend="1997"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1afd7667ec4d59b33d8bce9d17b3fd9e44" compoundref="xilskey__eps__zynqmp__hw_8h" startline="857">XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga4ce06d6fa81a7374a6bc03c566303a5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilSKey_ZynqMp_EfusePs_ReadDna</definition>
+        <argsstring>(u32 *DnaRead)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadDna</name>
+        <param>
+          <type>u32 *</type>
+          <declname>DnaRead</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read DNA from eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DnaRead</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an array of 3 x u32 words which holds the readback DNA. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="2007" bodyend="2026"/>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a7ce9334f0ef892afe93f49efd39c728c" compoundref="xilskey__eps__zynqmp__hw_8h" startline="480">XSK_ZYNQMP_EFUSEPS_DNA_0_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ac0d5b8edbb4b9b94b47f2d5c51202859" compoundref="xilskey__eps__zynqmp__hw_8h" startline="494">XSK_ZYNQMP_EFUSEPS_DNA_1_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a82d1108699b1436943088d3a2e0b3585" compoundref="xilskey__eps__zynqmp__hw_8h" startline="508">XSK_ZYNQMP_EFUSEPS_DNA_2_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gafe8ae7aba73e1e4b667aed0bad8f64aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits</definition>
+        <argsstring>(XilSKey_SecCtrlBits *ReadBackSecCtrlBits, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadSecCtrlBits</name>
+        <param>
+          <type>XilSKey_SecCtrlBits *</type>
+          <declname>ReadBackSecCtrlBits</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PS eFUSE secure control bits from cache or eFUSE based on user input provided. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ReadBackSecCtrlBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_SecCtrlBits which holds the read secure control bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from eFUSE cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reads successfully</para></listitem><listitem><para>XST_FAILURE if reading is failed</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>It is highly recommended to read from eFuse cache. Because reading from efuse may reduce the life of the efuse. And Cache reload is required for obtaining updated values for ReadOption 0. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="536" bodyend="557"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaba4a03dfa30f51139e6db70eac6583be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_CacheLoad</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_CacheLoad</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reloads the cache of eFUSE so that can be directly read from cache. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful cache reload</para></listitem><listitem><para>ErrorCode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Not recommended to call this API frequently, if this API is called all the cache memory is reloded by reading eFUSE array, reading eFUSE bit multiple times may diminish the life time. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1121" bodyend="1166"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaf7d4f28944a4d6037b6b75661e3a65be" compoundref="xilskey__utils_8h" startline="1029">XSK_EFUSEPS_ERROR_CACHE_LOAD</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1aafff21d216364b94d98b63aa38193712" compoundref="xilskey__eps__zynqmp__hw_8h" startline="429">XSK_ZYNQMP_EFUSEPS_CACHE_LOAD_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga9491848827417a1fb9e25947487e27bf" compoundref="xilskey__eps__zynqmp__puf_8c" startline="804" endline="900">XilSKey_Write_Puf_EfusePs_SecureBits</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_Write</definition>
+        <argsstring>(XilSKey_ZynqMpEPs *InstancePtr)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_Write</name>
+        <param>
+          <type>XilSKey_ZynqMpEPs *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to program the PS eFUSE of ZynqMP, based on user inputs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_ZynqMpEPs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if programs successfully.</para></listitem><listitem><para>Errorcode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>After eFUSE programming is complete, the cache is automatically reloaded so all programmed eFUSE bits can be directly read from cache. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check the temperature and voltage(VCC_AUX and VCC_PINT_LP)</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="182" bodyend="512"/>
+        <references refid="group__xilskey__cmn__crc_1ga0552daa4e1f376eaac1360aba6d23930" compoundref="xilskey__utils_8c" startline="1384" endline="1446">XilSkey_CrcCalculation_AesKey</references>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <references refid="xilskey__utils_8c_1a5c47bf0a861cbd2a3b6287b12bd633e5" compoundref="xilskey__utils_8c" startline="849" endline="867">XilSKey_EfusePs_ConvertBytesBeToLe</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gaba4a03dfa30f51139e6db70eac6583be" compoundref="xilskey__eps__zynqmp_8c" startline="1121" endline="1166">XilSKey_ZynqMp_EfusePs_CacheLoad</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga1456bb1e5601881e5064de0adcfc999e" compoundref="xilskey__eps__zynqmp_8c" startline="1767" endline="1809">XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga56fb70c1fe6c73dc49f0a4366b891efe" compoundref="xilskey__eps__zynqmp_8c" startline="1877" endline="1905">XilSKey_ZynqMp_EfusePs_ReadPpk0Hash</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga2d6c621edaf9dc92652e650a6faceaf9" compoundref="xilskey__eps__zynqmp_8c" startline="1928" endline="1956">XilSKey_ZynqMp_EfusePs_ReadPpk1Hash</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aae5d02c7b329fd3e6e76712cc822e0c90" compoundref="xilskey__utils_8h" startline="1042">XSK_EFUSEPS_ERROR_BEFORE_PROGRAMMING</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa6cab76eded6a371c6416b960a49030fb" compoundref="xilskey__utils_8h" startline="1025">XSK_EFUSEPS_ERROR_CMPLTD_EFUSE_PRGRM_WITH_ERR</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aafb01cdc39e379b9e4a1390f21081f03c" compoundref="xilskey__utils_8h" startline="1018">XSK_EFUSEPS_ERROR_PPK0_BIT_CANT_REVERT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa5a85ddfb818ab6252934752598cdef1c" compoundref="xilskey__utils_8h" startline="1021">XSK_EFUSEPS_ERROR_PPK1_BIT_CANT_REVERT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa48364ba8b27a6b28dde3ad4043fe2502" compoundref="xilskey__utils_8h" startline="1003">XSK_EFUSEPS_ERROR_SPKID_BIT_CANT_REVERT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa034607eb313bb1dca1545036012b130a" compoundref="xilskey__utils_8h" startline="751">XSK_EFUSEPS_ERROR_VERIFICATION</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa582aed56f7438d5a840b227e43b56bae" compoundref="xilskey__utils_8h" startline="899">XSK_EFUSEPS_ERROR_WRITE_AES_KEY</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aab5dbeb589e78612310fafdedd3e90d21" compoundref="xilskey__utils_8h" startline="905">XSK_EFUSEPS_ERROR_WRITE_PPK0_HASH</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaf0ad4df13576f66d1c0f6db4141f0bae" compoundref="xilskey__utils_8h" startline="907">XSK_EFUSEPS_ERROR_WRITE_PPK1_HASH</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aade6ed8f5dad424294515463008df2a82" compoundref="xilskey__utils_8h" startline="901">XSK_EFUSEPS_ERROR_WRITE_SPK_ID</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa1f2b77a28a4c9e17b6345252191548ad" compoundref="xilskey__utils_8h" startline="911">XSK_EFUSEPS_ERROR_WRITE_USER0_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa236e954cca52738d5fe10c2db640043e" compoundref="xilskey__utils_8h" startline="913">XSK_EFUSEPS_ERROR_WRITE_USER1_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaacb5cd2f128436ac08752510bb86aad9" compoundref="xilskey__utils_8h" startline="915">XSK_EFUSEPS_ERROR_WRITE_USER2_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aadcfa43e3a116e3d8ea18cf18f9947b1e" compoundref="xilskey__utils_8h" startline="917">XSK_EFUSEPS_ERROR_WRITE_USER3_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa90aeced2e0e09c9bb1496a5149c48479" compoundref="xilskey__utils_8h" startline="919">XSK_EFUSEPS_ERROR_WRITE_USER4_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa7970f0e9d2fa264063880f69e8443c58" compoundref="xilskey__utils_8h" startline="921">XSK_EFUSEPS_ERROR_WRITE_USER5_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aad1da451468fbd1b196bc653cde0a1b28" compoundref="xilskey__utils_8h" startline="923">XSK_EFUSEPS_ERROR_WRITE_USER6_FUSE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaf72349a1d00039c6179cb758cc1dfec1" compoundref="xilskey__utils_8h" startline="925">XSK_EFUSEPS_ERROR_WRITE_USER7_FUSE</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1afd7667ec4d59b33d8bce9d17b3fd9e44" compoundref="xilskey__eps__zynqmp__hw_8h" startline="857">XSK_ZYNQMP_EFUSEPS_SPK_ID_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaf92ce5c0ea8ffaa5e15fc9125ae3363f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSkey_ZynqMpEfuseAccess</definition>
+        <argsstring>(const u32 AddrHigh, const u32 AddrLow)</argsstring>
+        <name>XilSkey_ZynqMpEfuseAccess</name>
+        <param>
+          <type>const u32</type>
+          <declname>AddrHigh</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>AddrLow</declname>
+        </param>
+        <briefdescription>
+<para>This function is used by PMUFW IPI call handler for programming eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><table rows="17" cols="5"><row>
+<entry thead="yes"><para>Register </para></entry><entry thead="yes"><para>Read </para></entry><entry thead="yes"><para>Write </para></entry><entry thead="yes"><para>Size in bytes </para></entry><entry thead="yes"><para>Offset  </para></entry></row>
+<row>
+<entry thead="no"><para>Version </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>NO </para></entry><entry thead="no"><para>0x0 </para></entry><entry thead="no"><para>0x4 </para></entry></row>
+<row>
+<entry thead="no"><para>DNA </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>NO </para></entry><entry thead="no"><para>0xc </para></entry><entry thead="no"><para>0xC </para></entry></row>
+<row>
+<entry thead="no"><para>User0 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x20 </para></entry></row>
+<row>
+<entry thead="no"><para>User1 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x24 </para></entry></row>
+<row>
+<entry thead="no"><para>User2 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x28 </para></entry></row>
+<row>
+<entry thead="no"><para>User3 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x2c </para></entry></row>
+<row>
+<entry thead="no"><para>User4 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x30 </para></entry></row>
+<row>
+<entry thead="no"><para>User5 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x34 </para></entry></row>
+<row>
+<entry thead="no"><para>User6 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x38 </para></entry></row>
+<row>
+<entry thead="no"><para>User7 </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x3C </para></entry></row>
+<row>
+<entry thead="no"><para>Misc user </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x40 </para></entry></row>
+<row>
+<entry thead="no"><para>Secure control </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x58 </para></entry></row>
+<row>
+<entry thead="no"><para>SPK ID </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x4 </para></entry><entry thead="no"><para>0x5C </para></entry></row>
+<row>
+<entry thead="no"><para>AES key </para></entry><entry thead="no"><para>NO </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x20 </para></entry><entry thead="no"><para>0x60 </para></entry></row>
+<row>
+<entry thead="no"><para>PPK0 hash </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x30 </para></entry><entry thead="no"><para>0xA0 </para></entry></row>
+<row>
+<entry thead="no"><para>PPK1 hash </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>YES </para></entry><entry thead="no"><para>0x30 </para></entry><entry thead="no"><para>0xD0 </para></entry></row>
+</table>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AddrHigh</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Higher 32-bit address of the XilSKey_Efuse structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>AddrLow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lower 32-bit address of the XilSKey_Efuse structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - On success ErrorCode - on Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="2807" bodyend="2843"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa4efc2267dc8a8327076144477344d578" compoundref="xilskey__utils_8h" startline="816">XSK_EFUSEPS_ERROR_ADDR_ACCESS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga32901f95760a2e693f484f5a57d1ad06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilSKey_ZynqMp_EfusePs_SetTimerValues</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_SetTimerValues</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets timers for programming and reading from eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1212" bodyend="1251"/>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ae1e1889129e7164534d9e7d4cb722280" compoundref="xilskey__eps__zynqmp__hw_8h" startline="70">XSK_ZYNQMP_EFUSEPS_CFG_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ac0bd825bd39728466589fd17f1b36484" compoundref="xilskey__eps__zynqmp__hw_8h" startline="203">XSK_ZYNQMP_EFUSEPS_TPGM_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1aea8887d4faec0054424952b2f9d93eed" compoundref="xilskey__eps__zynqmp__hw_8h" startline="217">XSK_ZYNQMP_EFUSEPS_TRD_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1adfa7de983a7b34abf8a80db48fda3dd8" compoundref="xilskey__eps__zynqmp__hw_8h" startline="259">XSK_ZYNQMP_EFUSEPS_TSU_H_CS_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ab819ddad8891f52368fcbf436fbe049e" compoundref="xilskey__eps__zynqmp__hw_8h" startline="245">XSK_ZYNQMP_EFUSEPS_TSU_H_PS_CS_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a63a6cff16ba7c5a39b008afd4d8bac69" compoundref="xilskey__eps__zynqmp__hw_8h" startline="231">XSK_ZYNQMP_EFUSEPS_TSU_H_PS_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga1456bb1e5601881e5064de0adcfc999e" compoundref="xilskey__eps__zynqmp_8c" startline="1767" endline="1809">XilSKey_ZynqMp_EfusePs_CheckAesKeyCrc</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga244ec0ae43d34ee6500c06dd91f9d372" compoundref="xilskey__eps__zynqmp__puf_8c" startline="231" endline="304">XilSKey_ZynqMp_EfusePs_ReadPufHelprData</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga5ccf425dc11a9659dd31419233c1382b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadRow</definition>
+        <argsstring>(u8 Row, XskEfusePs_Type EfuseType, u32 *RowData)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadRow</name>
+        <param>
+          <type>u8</type>
+          <declname>Row</declname>
+        </param>
+        <param>
+          <type>XskEfusePs_Type</type>
+          <declname>EfuseType</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RowData</declname>
+        </param>
+        <briefdescription>
+<para>This function returns particular row data directly from eFUSE array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the row number to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EfuseType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the eFUSE type. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to 32 bit variable to hold the data read from provided data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - On success ErrorCode - on Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="998" bodyend="1049"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa0c98a5e3fb9e7f9ba4feba35f2e7fd9f" compoundref="xilskey__utils_8h" startline="798">XSK_EFUSEPS_ERROR_READ</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aabcbe521939011f2d89555b7f781a1d79" compoundref="xilskey__utils_8h" startline="818">XSK_EFUSEPS_ERROR_READ_NOT_DONE</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a98c0da736e1132e645c89dc4ebbb3c07" compoundref="xilskey__eps__zynqmp__hw_8h" startline="273">XSK_ZYNQMP_EFUSEPS_ISR_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1abd5753c2cfa07b06f85076d548e7bc97" compoundref="xilskey__eps__zynqmp__hw_8h" startline="170">XSK_ZYNQMP_EFUSEPS_RD_ADDR_OFFSET</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a7e3df7cb64618c1ca212af82e415174d" compoundref="xilskey__eps__zynqmp__hw_8h" startline="189">XSK_ZYNQMP_EFUSEPS_RD_DATA_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5467284f0486d3afa7953eb51876757b" compoundref="xilskey__eps__zynqmp_8c" startline="2042" endline="2063">XilSKey_ZynqMp_EfusePs_CheckForZeros</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga244ec0ae43d34ee6500c06dd91f9d372" compoundref="xilskey__eps__zynqmp__puf_8c" startline="231" endline="304">XilSKey_ZynqMp_EfusePs_ReadPufHelprData</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_SetWriteConditions</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_SetWriteConditions</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets all the required parameters to program eFUSE array. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS - On success ErrorCode - on Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="1177" bodyend="1205"/>
+        <references refid="group__xilskey__zynqmp__efuse_1ga32901f95760a2e693f484f5a57d1ad06" compoundref="xilskey__eps__zynqmp_8c" startline="1212" endline="1251">XilSKey_ZynqMp_EfusePs_SetTimerValues</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa6ce361f6a2493eee8972b1a8c363d80a" compoundref="xilskey__utils_8h" startline="790">XSK_EFUSEPS_ERROR_IN_TBIT_PATTERN</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga9491848827417a1fb9e25947487e27bf" compoundref="xilskey__eps__zynqmp__puf_8c" startline="804" endline="900">XilSKey_Write_Puf_EfusePs_SecureBits</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" compoundref="xilskey__eps__zynqmp__puf_8c" startline="452" endline="524">XilSKey_ZynqMp_EfusePs_WritePufAux</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" compoundref="xilskey__eps__zynqmp__puf_8c" startline="320" endline="393">XilSKey_ZynqMp_EfusePs_WritePufChash</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b392432af864665cf95a540ab576388" compoundref="xilskey__eps__zynqmp__puf_8c" startline="116" endline="214">XilSKey_ZynqMp_EfusePs_WritePufHelprData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</definition>
+        <argsstring>(u8 Row, u8 Column, XskEfusePs_Type EfuseType)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</name>
+        <param>
+          <type>u8</type>
+          <declname>Row</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Column</declname>
+        </param>
+        <param>
+          <type>XskEfusePs_Type</type>
+          <declname>EfuseType</declname>
+        </param>
+        <briefdescription>
+<para>This function programs and verifies the particular bit of eFUSE array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Row</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the row number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Column</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the column number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EfuseType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the eFUSE type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS - On success ErrorCode - on Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="930" bodyend="982"/>
+        <references refid="group__xilskey__zynqmp__efuse_1ga5ccf425dc11a9659dd31419233c1382b" compoundref="xilskey__eps__zynqmp_8c" startline="998" endline="1049">XilSKey_ZynqMp_EfusePs_ReadRow</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa034607eb313bb1dca1545036012b130a" compoundref="xilskey__utils_8h" startline="751">XSK_EFUSEPS_ERROR_VERIFICATION</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1ae1e1889129e7164534d9e7d4cb722280" compoundref="xilskey__eps__zynqmp__hw_8h" startline="70">XSK_ZYNQMP_EFUSEPS_CFG_OFFSET</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga9491848827417a1fb9e25947487e27bf" compoundref="xilskey__eps__zynqmp__puf_8c" startline="804" endline="900">XilSKey_Write_Puf_EfusePs_SecureBits</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" compoundref="xilskey__eps__zynqmp__puf_8c" startline="452" endline="524">XilSKey_ZynqMp_EfusePs_WritePufAux</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" compoundref="xilskey__eps__zynqmp__puf_8c" startline="320" endline="393">XilSKey_ZynqMp_EfusePs_WritePufChash</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes sysmonpsu driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS - On success ErrorCode - on Failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="2750" bodyend="2774"/>
+        <references refid="xilskey__utils_8c_1ac23b7512fa6d7680514d181ef2a51963" compoundref="xilskey__utils_8c" startline="127" endline="210">XilSKey_EfusePs_XAdcInit</references>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b46f3a03d5163f08b7782f669a78748" compoundref="xilskey__eps__zynqmp_8c" startline="182" endline="512">XilSKey_ZynqMp_EfusePs_Write</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" compoundref="xilskey__eps__zynqmp__puf_8c" startline="452" endline="524">XilSKey_ZynqMp_EfusePs_WritePufAux</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" compoundref="xilskey__eps__zynqmp__puf_8c" startline="320" endline="393">XilSKey_ZynqMp_EfusePs_WritePufChash</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga5b392432af864665cf95a540ab576388" compoundref="xilskey__eps__zynqmp__puf_8c" startline="116" endline="214">XilSKey_ZynqMp_EfusePs_WritePufHelprData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga5467284f0486d3afa7953eb51876757b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_CheckForZeros</definition>
+        <argsstring>(u8 RowStart, u8 RowEnd, XskEfusePs_Type EfuseType)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_CheckForZeros</name>
+        <param>
+          <type>u8</type>
+          <declname>RowStart</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RowEnd</declname>
+        </param>
+        <param>
+          <type>XskEfusePs_Type</type>
+          <declname>EfuseType</declname>
+        </param>
+        <briefdescription>
+<para>This function is used verify eFUSE keys for Zeros. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RowStart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is row number from which verification has to be started. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RowEnd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is row number till which verification has to be ended. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EfuseType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of the eFUSE in which these rows reside.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if keys are not programmed. Errorcode on failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp.c" bodystart="2042" bodyend="2063"/>
+        <references refid="group__xilskey__zynqmp__efuse_1ga5ccf425dc11a9659dd31419233c1382b" compoundref="xilskey__eps__zynqmp_8c" startline="998" endline="1049">XilSKey_ZynqMp_EfusePs_ReadRow</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga5b392432af864665cf95a540ab576388" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_WritePufHelprData</definition>
+        <argsstring>(const XilSKey_Puf *InstancePtr)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_WritePufHelprData</name>
+        <param>
+          <type>const XilSKey_Puf *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the PS eFUSEs with the PUF helper data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_Puf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if programs successfully.</para></listitem><listitem><para>Errorcode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>To generate PufSyndromeData please use XilSKey_Puf_Registration API </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="116" bodyend="214"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1abf43b17cdeb5ef29427835349fc8741d" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1207">XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga244ec0ae43d34ee6500c06dd91f9d372" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadPufHelprData</definition>
+        <argsstring>(u32 *Address)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadPufHelprData</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the PUF helper data from eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to data array which holds the PUF helper data read from eFUSEs.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reads successfully.</para></listitem><listitem><para>Errorcode on failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function only reads from eFUSE non-volatile memory. There is no option to read from Cache. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="231" bodyend="304"/>
+        <references refid="group__xilskey__zynqmp__efuse_1ga5ccf425dc11a9659dd31419233c1382b" compoundref="xilskey__eps__zynqmp_8c" startline="998" endline="1049">XilSKey_ZynqMp_EfusePs_ReadRow</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga32901f95760a2e693f484f5a57d1ad06" compoundref="xilskey__eps__zynqmp_8c" startline="1212" endline="1251">XilSKey_ZynqMp_EfusePs_SetTimerValues</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1abf43b17cdeb5ef29427835349fc8741d" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1207">XSK_ZYNQMP_EFUSEPS_PUF_ROW_UPPER_MASK</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_WritePufChash</definition>
+        <argsstring>(const XilSKey_Puf *InstancePtr)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_WritePufChash</name>
+        <param>
+          <type>const XilSKey_Puf *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs eFUSE with CHash value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_Puf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if chash is programmed successfully.</para></listitem><listitem><para>An Error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>To generate the CHash value, please use XilSKey_Puf_Registration function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="320" bodyend="393"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" compoundref="xilskey__eps__zynqmp__puf_8c" startline="414" endline="436">XilSKey_ZynqMp_EfusePs_ReadPufChash</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9096db2e0e44bf178f5966cb13f5c80e" compoundref="xilskey__utils_8h" startline="1012">XSK_EFUSEPS_ERROR_PUF_CHASH_ALREADY_PROGRAMMED</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadPufChash</definition>
+        <argsstring>(u32 *Address, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadPufChash</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function reads eFUSE PUF CHash data from the eFUSE array or cache based on the user read option. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer which holds the read back value of the chash. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if programs successfully.</para></listitem><listitem><para>Errorcode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Cache reload is required for obtaining updated values for reading from cache.. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="414" bodyend="436"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a56e241b58e20d81f4e8e4864fdf3947a" compoundref="xilskey__eps__zynqmp__hw_8h" startline="715">XSK_ZYNQMP_EFUSEPS_PUF_CHASH_OFFSET</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1gaccdc46658f23f994c89596961a8580c7" compoundref="xilskey__eps__zynqmp__puf_8c" startline="745" endline="790">XilSKey_Puf_Regeneration</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1gaf1587f5d17256fdbca55efa1cc0eeac0" compoundref="xilskey__eps__zynqmp__puf_8c" startline="320" endline="393">XilSKey_ZynqMp_EfusePs_WritePufChash</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_WritePufAux</definition>
+        <argsstring>(const XilSKey_Puf *InstancePtr)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_WritePufAux</name>
+        <param>
+          <type>const XilSKey_Puf *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs eFUSE PUF auxiliary data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_Puf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the eFUSE is programmed successfully.</para></listitem><listitem><para>Errorcode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>To generate auxiliary data, please use XilSKey_Puf_Registration function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="452" bodyend="524"/>
+        <references refid="xilskey__utils_8c_1a45d2897e5b27bd01b0b7e20ecea133af" compoundref="xilskey__utils_8c" startline="887" endline="927">XilSKey_Efuse_ConvertBitsToBytes</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gabbf6b819a248562326af345bd43947c9" compoundref="xilskey__eps__zynqmp_8c" startline="2750" endline="2774">XilSKey_ZynqMp_EfusePs_Init</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gad1be2e29f7eba2e556ac69870cd2e028" compoundref="xilskey__eps__zynqmp__puf_8c" startline="546" endline="570">XilSKey_ZynqMp_EfusePs_ReadPufAux</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
+        <references refid="xilskey__utils_8c_1aa67d1e0eca8dccc57c20e7d69b496366" compoundref="xilskey__utils_8c" startline="424" endline="457">XilSKey_ZynqMp_EfusePs_Temp_Vol_Checks</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaed84f9e28f19156244a8c8dfe014040f" compoundref="xilskey__utils_8h" startline="1015">XSK_EFUSEPS_ERROR_PUF_AUX_ALREADY_PROGRAMMED</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gad1be2e29f7eba2e556ac69870cd2e028" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_EfusePs_ReadPufAux</definition>
+        <argsstring>(u32 *Address, u8 ReadOption)</argsstring>
+        <name>XilSKey_ZynqMp_EfusePs_ReadPufAux</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function reads eFUSE PUF auxiliary data from eFUSE array or cache based on user read option. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer which holds the read back value of PUF&apos;s auxiliary data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if PUF auxiliary data is read successfully.</para></listitem><listitem><para>Errorcode on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Cache reload is required for obtaining updated values for reading from cache. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="546" bodyend="570"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a9600c88345f2ca86156d134c33e7ae62" compoundref="xilskey__eps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_EFUSEPS_BASEADDR</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a148a851dfe5a8e5cc2cf5c544d53b1c1" compoundref="xilskey__eps__zynqmp__hw_8h" startline="729">XSK_ZYNQMP_EFUSEPS_PUF_MISC_OFFSET</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+        <referencedby refid="group__xilskey__zynqmp__efuse_1ga67de13526ea1502e25b09f80094f2246" compoundref="xilskey__eps__zynqmp__puf_8c" startline="452" endline="524">XilSKey_ZynqMp_EfusePs_WritePufAux</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga9491848827417a1fb9e25947487e27bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_Write_Puf_EfusePs_SecureBits</definition>
+        <argsstring>(const XilSKey_Puf_Secure *WriteSecureBits)</argsstring>
+        <name>XilSKey_Write_Puf_EfusePs_SecureBits</name>
+        <param>
+          <type>const XilSKey_Puf_Secure *</type>
+          <declname>WriteSecureBits</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the eFUSE PUF secure bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WriteSecureBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_Puf_Secure structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if eFUSE PUF secure bits are programmed successfully.</para></listitem><listitem><para>Errorcode on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="804" bodyend="900"/>
+        <references refid="group__xilskey__zynqmp__efuse_1gaba4a03dfa30f51139e6db70eac6583be" compoundref="xilskey__eps__zynqmp_8c" startline="1121" endline="1166">XilSKey_ZynqMp_EfusePs_CacheLoad</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga0bbd694e7fdef850812aeccbf6da42a8" compoundref="xilskey__eps__zynqmp_8c" startline="1177" endline="1205">XilSKey_ZynqMp_EfusePs_SetWriteConditions</references>
+        <references refid="group__xilskey__zynqmp__efuse_1ga481698e87679ed2fbabb51ae433e2998" compoundref="xilskey__eps__zynqmp_8c" startline="930" endline="982">XilSKey_ZynqMp_EfusePs_WriteAndVerifyBit</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa51b19122bd2d929bac2c23850fd31f43" compoundref="xilskey__utils_8h" startline="827">XSK_EFUSEPS_ERROR_CONTROLLER_LOCK</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaba96fe0fc4b478d5e2f1440c7b8b1c6c" compoundref="xilskey__utils_8h" startline="974">XSK_EFUSEPS_ERROR_WRITE_PUF_RESERVED_BIT</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aadd63eed9124336e7c533a4cd61bcd42b" compoundref="xilskey__utils_8h" startline="965">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_INVLD</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac3e4d7e897e349f879d6089308c53db2" compoundref="xilskey__utils_8h" startline="971">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_REG_DIS</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaaae389f21cedce3366b4857b0db9d962" compoundref="xilskey__utils_8h" startline="968">XSK_EFUSEPS_ERROR_WRITE_PUF_SYN_WRLK</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga64b5db9c2f22e5e5092d58ac7ad4d7f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_Read_Puf_EfusePs_SecureBits</definition>
+        <argsstring>(XilSKey_Puf_Secure *SecureBitsRead, u8 ReadOption)</argsstring>
+        <name>XilSKey_Read_Puf_EfusePs_SecureBits</name>
+        <param>
+          <type>XilSKey_Puf_Secure *</type>
+          <declname>SecureBitsRead</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ReadOption</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the PS eFUSE PUF secure bits from cache or from eFUSE array. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureBitsRead</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the XilSKey_Puf_Secure structure which holds the read eFUSE secure bits from the PUF. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ReadOption</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Indicates whether or not to read from the actual eFUSE array or from the eFUSE cache.<itemizedlist>
+<listitem><para>0(XSK_EFUSEPS_READ_FROM_CACHE) Reads from cache</para></listitem><listitem><para>1(XSK_EFUSEPS_READ_FROM_EFUSE) Reads from eFUSE array</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if reads successfully.</para></listitem><listitem><para>Errorcode on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="920" bodyend="941"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aaa3e0ccc70663fc7ab1bcbc4308e48163" compoundref="xilskey__utils_8h" startline="1031">XSK_EFUSEPS_RD_FROM_EFUSE_NOT_ALLOWED</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1ga4f7dae2403511abb09eb0504751f35f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_Puf_Registration</definition>
+        <argsstring>(XilSKey_Puf *InstancePtr)</argsstring>
+        <name>XilSKey_Puf_Registration</name>
+        <param>
+          <type>XilSKey_Puf *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs registration of PUF which generates a new KEK and associated CHash, Auxiliary and PUF-syndrome data which are unique for each silicon. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XilSKey_Puf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if registration/re-registration was successful.</para></listitem><listitem><para>ERROR if registration was unsuccessful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>With the help of generated PUF syndrome data, it will be possible to re-generate same PUF KEK. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Request PUF to register. This will trigger an interrupt to CSUROM</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="623" bodyend="731"/>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aac840ba4043d600d19b7699544a2f461f" compoundref="xilskey__utils_8h" startline="1001">XSK_EFUSEPS_ERROR_PUF_DATA_OVERFLOW</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa9e49ab4ac302de7f5e31c12e97cf2ab0" compoundref="xilskey__utils_8h" startline="1006">XSK_EFUSEPS_ERROR_PUF_DATA_UNDERFLOW</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa8cc0fae305d80ef7c765388160da60ad" compoundref="xilskey__utils_8h" startline="986">XSK_EFUSEPS_ERROR_PUF_INVALID_REG_MODE</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aad68fd75ddf9629a4acaa5c42a7116d18" compoundref="xilskey__utils_8h" startline="1008">XSK_EFUSEPS_ERROR_PUF_TIMEOUT</references>
+        <references refid="xilskey__eps__zynqmp__puf_8c_1a61995a6593f2767e9a52586c1d69a822aeda9b548d47505ea751e58ad29e01358" compoundref="xilskey__eps__zynqmp__puf_8c" startline="79">XSK_EFUSEPS_PUF_REGISTRATION_COMPLETE</references>
+        <references refid="xilskey__eps__zynqmp__puf_8c_1a61995a6593f2767e9a52586c1d69a822abed240fdfae746394ccad3f8b278ccab" compoundref="xilskey__eps__zynqmp__puf_8c" startline="77">XSK_EFUSEPS_PUF_REGISTRATION_STARTED</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a22e91434be8027511030a0e8acbc103f" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1218">XSK_ZYNQMP_CSU_BASEADDR</references>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynqmp__efuse_1gaccdc46658f23f994c89596961a8580c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_Puf_Regeneration</definition>
+        <argsstring>(const XilSKey_Puf *InstancePtr)</argsstring>
+        <name>XilSKey_Puf_Regeneration</name>
+        <param>
+          <type>const XilSKey_Puf *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function regenerates the PUF data so that the PUF&apos;s output can be used as the key source to the AES-GCM hardware cryptographic engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XilSKey_Puf instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if regeneration was successful.</para></listitem><listitem><para>ERROR if regeneration was unsuccessful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_eps_zynqmp_puf.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_eps_zynqmp_puf.c" bodystart="745" bodyend="790"/>
+        <references refid="xilskey__eps__zynqmp__puf_8c_1ae173a76c6c5c1accfaae2131821b7818" compoundref="xilskey__eps__zynqmp__puf_8c" startline="73">XILSKEY_PUF_KEK_REGEN_RDY_TIMEOUT</references>
+        <references refid="group__xilskey__zynqmp__efuse_1gaea3d5e3e09a52ed2a9a3027c065cca23" compoundref="xilskey__eps__zynqmp__puf_8c" startline="414" endline="436">XilSKey_ZynqMp_EfusePs_ReadPufChash</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aabf26a924fc71ce21326d35f8b9a3f618" compoundref="xilskey__utils_8h" startline="1010">XSK_EFUSEPS_ERROR_PUF_ACCESS</references>
+        <references refid="group__xilskey__psefuse__error__codes_1gga35d67e0a9db73e1fa64262f5eb8f9d6aa7493aa3e36b95f1adad1714ff264bde0" compoundref="xilskey__utils_8h" startline="996">XSK_EFUSEPS_ERROR_PUF_INVALID_REQUEST</references>
+        <references refid="xilskey__eps__zynqmp__hw_8h_1a22e91434be8027511030a0e8acbc103f" compoundref="xilskey__eps__zynqmp__hw_8h" startline="1218">XSK_ZYNQMP_CSU_BASEADDR</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

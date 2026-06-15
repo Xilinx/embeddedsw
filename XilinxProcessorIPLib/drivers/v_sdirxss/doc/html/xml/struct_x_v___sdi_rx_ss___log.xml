@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___sdi_rx_ss___log" kind="struct" prot="public">
+    <compoundname>XV_SdiRxSs_Log</compoundname>
+    <includes local="no">xv_sdirxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_SdiRxSs_Log::DataBuffer[256]</definition>
+        <argsstring>[256]</argsstring>
+        <name>DataBuffer</name>
+        <briefdescription>
+<para>Log buffer with event data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" compoundref="xv__sdirxss__log_8c" startline="106" endline="129">XV_SdiRxSs_LogRead</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_SdiRxSs_Log::HeadIndex</definition>
+        <argsstring></argsstring>
+        <name>HeadIndex</name>
+        <briefdescription>
+<para>Index of the head entry of the Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" compoundref="xv__sdirxss__log_8c" startline="106" endline="129">XV_SdiRxSs_LogRead</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4deea5c587f6a732de2f6b127fc12b4d" compoundref="xv__sdirxss__log_8c" startline="42" endline="49">XV_SdiRxSs_LogReset</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_SdiRxSs_Log::TailIndex</definition>
+        <argsstring></argsstring>
+        <name>TailIndex</name>
+        <briefdescription>
+<para>Index of the tail entry of the Event/DataBuffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" compoundref="xv__sdirxss__log_8c" startline="106" endline="129">XV_SdiRxSs_LogRead</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4deea5c587f6a732de2f6b127fc12b4d" compoundref="xv__sdirxss__log_8c" startline="42" endline="49">XV_SdiRxSs_LogReset</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the logging mechanism for debug. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="93" bodyend="99"/>
+    <listofallmembers>
+      <member refid="struct_x_v___sdi_rx_ss___log_1a23c2cddf5a657c4e288e0866596c70de" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Log</scope><name>DataBuffer</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___log_1abcbcd469377f7579be30243c760b3709" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Log</scope><name>HeadIndex</name></member>
+      <member refid="struct_x_v___sdi_rx_ss___log_1a993b179ac73b296c64a86ed0a9633c80" prot="public" virt="non-virtual"><scope>XV_SdiRxSs_Log</scope><name>TailIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structvdma__handle" kind="struct" prot="public">
+    <compoundname>vdma_handle</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvdma__handle_1a6d6db2ba08244f67dab75f47b3a1e56d" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::device_id</definition>
+        <argsstring></argsstring>
+        <name>device_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a5270231da0e796e84eb8752cf6abaacf" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::init_done</definition>
+        <argsstring></argsstring>
+        <name>init_done</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a1c41d59125352fd0912b3bb79c6b3b03" prot="public" static="no" mutable="no">
+        <type>XAxiVdma *</type>
+        <definition>XAxiVdma* vdma_handle::InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <briefdescription>
+<para>The XAxiVdma driver instance data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1ac4103e88f9e34b155cc74e61638cd527" prot="public" static="no" mutable="no">
+        <type>XAxiVdma_DmaSetup</type>
+        <definition>XAxiVdma_DmaSetup vdma_handle::ReadCfg</definition>
+        <argsstring></argsstring>
+        <name>ReadCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a5367e744dbd6c1ead513f41221155dff" prot="public" static="no" mutable="no">
+        <type>XAxiVdma_DmaSetup</type>
+        <definition>XAxiVdma_DmaSetup vdma_handle::WriteCfg</definition>
+        <argsstring></argsstring>
+        <name>WriteCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1aaaaf6327deb16be58051dd8b828e3e48" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::hsize</definition>
+        <argsstring></argsstring>
+        <name>hsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a4a281304da0ecfc271473288d87c6aad" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::vsize</definition>
+        <argsstring></argsstring>
+        <name>vsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a643157a8050aff195c8e6a986576faa7" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::buffer_address</definition>
+        <argsstring></argsstring>
+        <name>buffer_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1a6046f272250a0c00373980ec4fb25c28" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::enable_frm_cnt_intr</definition>
+        <argsstring></argsstring>
+        <name>enable_frm_cnt_intr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvdma__handle_1abc2ec8a7f98140c127c02e382e3d71d4" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int vdma_handle::number_of_frame_count</definition>
+        <argsstring></argsstring>
+        <name>number_of_frame_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="187" bodyend="209"/>
+    <listofallmembers>
+      <member refid="structvdma__handle_1a643157a8050aff195c8e6a986576faa7" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>buffer_address</name></member>
+      <member refid="structvdma__handle_1a6d6db2ba08244f67dab75f47b3a1e56d" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>device_id</name></member>
+      <member refid="structvdma__handle_1a6046f272250a0c00373980ec4fb25c28" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>enable_frm_cnt_intr</name></member>
+      <member refid="structvdma__handle_1aaaaf6327deb16be58051dd8b828e3e48" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>hsize</name></member>
+      <member refid="structvdma__handle_1a5270231da0e796e84eb8752cf6abaacf" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>init_done</name></member>
+      <member refid="structvdma__handle_1a1c41d59125352fd0912b3bb79c6b3b03" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>InstancePtr</name></member>
+      <member refid="structvdma__handle_1abc2ec8a7f98140c127c02e382e3d71d4" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>number_of_frame_count</name></member>
+      <member refid="structvdma__handle_1ac4103e88f9e34b155cc74e61638cd527" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>ReadCfg</name></member>
+      <member refid="structvdma__handle_1a4a281304da0ecfc271473288d87c6aad" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>vsize</name></member>
+      <member refid="structvdma__handle_1a5367e744dbd6c1ead513f41221155dff" prot="public" virt="non-virtual"><scope>vdma_handle</scope><name>WriteCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

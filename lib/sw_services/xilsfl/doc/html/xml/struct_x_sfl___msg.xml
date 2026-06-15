@@ -1,0 +1,266 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sfl___msg" kind="struct" prot="public">
+    <compoundname>XSfl_Msg</compoundname>
+    <includes local="no">xilsfl.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilsfl_1ga857e87a3ce1d3539abd1a4c485ace65a" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSfl_Msg::RxAddr64bit</definition>
+        <argsstring></argsstring>
+        <name>RxAddr64bit</name>
+        <briefdescription>
+<para>Provide 64-bit read address for 32-bit platform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSfl_Msg::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>Number of bytes to read or write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1gac1c48155b607da578d432d697249e702" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSfl_Msg::Addr</definition>
+        <argsstring></argsstring>
+        <name>Addr</name>
+        <briefdescription>
+<para>Device Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSfl_Msg::TxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>TxBfrPtr</name>
+        <briefdescription>
+<para>Write buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="267" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSfl_Msg::RxBfrPtr</definition>
+        <argsstring></argsstring>
+        <name>RxBfrPtr</name>
+        <briefdescription>
+<para>Read buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Opcode</definition>
+        <argsstring></argsstring>
+        <name>Opcode</name>
+        <briefdescription>
+<para>Opcode/Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Dummy</definition>
+        <argsstring></argsstring>
+        <name>Dummy</name>
+        <briefdescription>
+<para>Number of dummy cycles for opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga5cb4882d5fd9d67c8061759327734df9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Xfer64bit</definition>
+        <argsstring></argsstring>
+        <name>Xfer64bit</name>
+        <briefdescription>
+<para>Set to 1 when reading from 64-bit addr otherwise 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::DualByteOpCode</definition>
+        <argsstring></argsstring>
+        <name>DualByteOpCode</name>
+        <briefdescription>
+<para>Extended opcode in dual-byte opcode mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Addrsize</definition>
+        <argsstring></argsstring>
+        <name>Addrsize</name>
+        <briefdescription>
+<para>Size of address in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="274" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Addrvalid</definition>
+        <argsstring></argsstring>
+        <name>Addrvalid</name>
+        <briefdescription>
+<para>1 if Address is required for opcode, 0 otherwise </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSfl_Msg::Proto</definition>
+        <argsstring></argsstring>
+        <name>Proto</name>
+        <briefdescription>
+<para>Indicate number of Cmd-Addr-Data lines. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="276" bodyend="-1"/>
+        <referencedby refid="group__xilsfl_1gae7d287a9ac84fa27612bfe2104d91819" compoundref="xilsfl__interface_8c" startline="109" endline="140">XSfl_FlashCmdTransfer</referencedby>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+        <referencedby refid="group__xilsfl_1ga8c62ceb6e67539fb6d9a3ebe110dd1b3" compoundref="xilsfl__control_8c" startline="520" endline="633">XSfl_FlashNonBlockingReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gac66a63ff325a29a34bb794facae9532e" compoundref="xilsfl__control_8c" startline="305" endline="381">XSfl_FlashPageWrite</referencedby>
+        <referencedby refid="group__xilsfl_1ga665675fe0b9996bed72aaca43f801e89" compoundref="xilsfl__control_8c" startline="399" endline="502">XSfl_FlashReadProcess</referencedby>
+        <referencedby refid="group__xilsfl_1gad43f7ae3c8e3ec11631b4a3e9443abcd" compoundref="xilsfl__interface_8c" startline="58" endline="94">XSfl_FlashRegisterReadWrite</referencedby>
+        <referencedby refid="group__xilsfl_1gadf862581219f7242e0affc2f270c82c2" compoundref="xilsfl__control_8c" startline="225" endline="289">XSfl_SectorErase</referencedby>
+        <referencedby refid="group__xilsfl_1ga93a864b058c078efaa24b42110a616b0" compoundref="xilsfl__interface_8c" startline="154" endline="206">XSfl_WaitforStatusDone</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a flash message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl.h" bodystart="262" bodyend="277"/>
+    <listofallmembers>
+      <member refid="group__xilsfl_1gac1c48155b607da578d432d697249e702" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Addr</name></member>
+      <member refid="group__xilsfl_1ga17743aa6d48afbdf0f60beb7eb061aa8" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Addrsize</name></member>
+      <member refid="group__xilsfl_1gac9e0ab7a825b0814d87e950abd5beee3" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Addrvalid</name></member>
+      <member refid="group__xilsfl_1ga0aaf9cdfa888bb10e62abbc77feea088" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>ByteCount</name></member>
+      <member refid="group__xilsfl_1ga43eded5844e9e26ae779ea9517d94da3" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>DualByteOpCode</name></member>
+      <member refid="group__xilsfl_1ga68fa3b7667ab72139e2e6872bca2c614" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Dummy</name></member>
+      <member refid="group__xilsfl_1gae9b81ed42e5d9d188dcb7ca2e3b930d5" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Opcode</name></member>
+      <member refid="group__xilsfl_1gad0719815f6ede45c39a438ac3165ddbe" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Proto</name></member>
+      <member refid="group__xilsfl_1ga857e87a3ce1d3539abd1a4c485ace65a" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>RxAddr64bit</name></member>
+      <member refid="group__xilsfl_1ga9cf6ea17dbe8ad48845b03e6591435ff" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>RxBfrPtr</name></member>
+      <member refid="group__xilsfl_1ga969f1c20ce715974afed66a0f96cc8fb" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>TxBfrPtr</name></member>
+      <member refid="group__xilsfl_1ga5cb4882d5fd9d67c8061759327734df9" prot="public" virt="non-virtual"><scope>XSfl_Msg</scope><name>Xfer64bit</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_pcie___config" kind="struct" prot="public">
+    <compoundname>XAxiPcie_Config</compoundname>
+    <includes local="no">xaxipcie.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_pcie___config_1ab26d2b30291a208e2909d2356df9736e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAxiPcie_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiPcie_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="xaxipcie__ep__cdma__example_8c_1a0305d38f6ee9ba0d3e2e545b96201ce3" compoundref="xaxipcie__ep__cdma__example_8c" startline="173" endline="289">PCIeEndPointInitialize</referencedby>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+        <referencedby refid="group__axipcie_1ga6eaa13c68af6eb2ca12ae556f9e0769b" compoundref="xaxipcie_8c" startline="94" endline="121">XAxiPcie_CfgInitialize</referencedby>
+        <referencedby refid="group__axipcie_1gabdf66d0cb481a5eea62e1f98e71d9520" compoundref="xaxipcie__intr_8c" startline="222" endline="231">XAxiPcie_ClearPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" compoundref="xaxipcie_8c" startline="485" endline="495">XAxiPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" compoundref="xaxipcie_8c" startline="576" endline="586">XAxiPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1gaace3ba2f6c70cd207c9c65d92c634ee8" compoundref="xaxipcie__intr_8c" startline="79" endline="94">XAxiPcie_DisableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1gae238cf115bd039e0f7228e385c893aad" compoundref="xaxipcie__intr_8c" startline="141" endline="154">XAxiPcie_DisableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga062809d176f81251886d5372c0714f7a" compoundref="xaxipcie__intr_8c" startline="52" endline="66">XAxiPcie_EnableGlobalInterrupt</referencedby>
+        <referencedby refid="group__axipcie_1ga22a95261655e78a944d1a2462031da57" compoundref="xaxipcie__intr_8c" startline="111" endline="124">XAxiPcie_EnableInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga75ca6a068024666c0199ea90d3ce4276" compoundref="xaxipcie_8c" startline="236" endline="259">XAxiPcie_GetBridgeInfo</referencedby>
+        <referencedby refid="group__axipcie_1gae118e9d7fd6b78ca0b8d4fd6694f9808" compoundref="xaxipcie__intr_8c" startline="170" endline="180">XAxiPcie_GetEnabledInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1gaec39c65db1aeac38798a250a25298208" compoundref="xaxipcie__intr_8c" startline="196" endline="206">XAxiPcie_GetPendingInterrupts</referencedby>
+        <referencedby refid="group__axipcie_1ga372301905fec6833c06320fb45261cd7" compoundref="xaxipcie_8c" startline="322" endline="334">XAxiPcie_GetPhyStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1ga77063428b5641d07910419770813c148" compoundref="xaxipcie_8c" startline="280" endline="307">XAxiPcie_GetRequesterId</referencedby>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" compoundref="xaxipcie_8c" startline="350" endline="360">XAxiPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1ga745d2811e366fbe0e5499cfef90adbcc" compoundref="xaxipcie_8c" startline="144" endline="168">XAxiPcie_GetVsecCapability</referencedby>
+        <referencedby refid="group__axipcie_1gaa26f5255cb42e55351c7cb802f71d56c" compoundref="xaxipcie_8c" startline="191" endline="216">XAxiPcie_GetVsecHeader</referencedby>
+        <referencedby refid="group__axipcie_1gad9494095b9350f455af9e7da5375d522" compoundref="xaxipcie_8c" startline="672" endline="683">XAxiPcie_ReadLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" compoundref="xaxipcie_8c" startline="773" endline="802">XAxiPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+        <referencedby refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" compoundref="xaxipcie_8c" startline="375" endline="386">XAxiPcie_SetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" compoundref="xaxipcie_8c" startline="701" endline="712">XAxiPcie_WriteLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" compoundref="xaxipcie_8c" startline="825" endline="865">XAxiPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pcie___config_1acc17a390741f66b2be44f17ef6e983d6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPcie_Config::LocalBarsNum</definition>
+        <argsstring></argsstring>
+        <name>LocalBarsNum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPcie_Config::IncludeBarOffsetReg</definition>
+        <argsstring></argsstring>
+        <name>IncludeBarOffsetReg</name>
+        <briefdescription>
+<para>Are BAR Offset registers built in hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__axipcie_1ga19d8a1973231160bdd518b1c62bda3d4" compoundref="xaxipcie_8c" startline="603" endline="621">XAxiPcie_GetLocalBusBar2PcieBar</referencedby>
+        <referencedby refid="group__axipcie_1ga51ee29d03fbefc82b9208f46a12d5a06" compoundref="xaxipcie_8c" startline="638" endline="654">XAxiPcie_SetLocalBusBar2PcieBar</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAxiPcie_Config::IncludeRootComplex</definition>
+        <argsstring></argsstring>
+        <name>IncludeRootComplex</name>
+        <briefdescription>
+<para>Is IP built as root complex. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="xaxipcie__rc__cdma__example_8c_1ae4d64f629bd35e874ac76b2e7159b73f" compoundref="xaxipcie__rc__cdma__example_8c" startline="204" endline="344">PcieInitRootComplex</referencedby>
+        <referencedby refid="group__axipcie_1ga225811fdbd9b22b8208a83ca4d3818ce" compoundref="xaxipcie_8c" startline="485" endline="495">XAxiPcie_ClearRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga4b043d41a5668f97f83518327023ea0d" compoundref="xaxipcie_8c" startline="576" endline="586">XAxiPcie_ClearRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1ga32604cb99f7d35107ee59ff121e0024d" compoundref="xaxipcie_8c" startline="448" endline="471">XAxiPcie_GetRootPortErrFIFOMsg</referencedby>
+        <referencedby refid="group__axipcie_1ga8b13520d9f4472bc16cfa5a6266f6795" compoundref="xaxipcie_8c" startline="520" endline="561">XAxiPcie_GetRootPortIntFIFOReg</referencedby>
+        <referencedby refid="group__axipcie_1ga0899628f4ecfb6d3b05671933c375ae5" compoundref="xaxipcie_8c" startline="350" endline="360">XAxiPcie_GetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1gae4aafc6b1766352ed5347e40762f0649" compoundref="xaxipcie_8c" startline="773" endline="802">XAxiPcie_ReadRemoteConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1ga0ce4f790929f629f225c2ef2fbcc2647" compoundref="xaxipcie_8c" startline="402" endline="428">XAxiPcie_SetRootPortMSIBase</referencedby>
+        <referencedby refid="group__axipcie_1ga2860cd7b0180a99fb324c085fc8fa746" compoundref="xaxipcie_8c" startline="375" endline="386">XAxiPcie_SetRootPortStatusCtrl</referencedby>
+        <referencedby refid="group__axipcie_1gafbdf9a7e71effb96353079d1c177888b" compoundref="xaxipcie_8c" startline="701" endline="712">XAxiPcie_WriteLocalConfigSpace</referencedby>
+        <referencedby refid="group__axipcie_1gadb4d67df95f1c7b0010e370312283f22" compoundref="xaxipcie_8c" startline="825" endline="865">XAxiPcie_WriteRemoteConfigSpace</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains IP hardware configuration information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axipcie/src/xaxipcie.h" bodystart="161" bodyend="175"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_pcie___config_1a98bdcba67cfa7c75179ae1b0b7b6415f" prot="public" virt="non-virtual"><scope>XAxiPcie_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_axi_pcie___config_1a57ad5737694668f53134af341ccf9428" prot="public" virt="non-virtual"><scope>XAxiPcie_Config</scope><name>IncludeBarOffsetReg</name></member>
+      <member refid="struct_x_axi_pcie___config_1a9cf8eebd3200725c2102ea9c1a5aea28" prot="public" virt="non-virtual"><scope>XAxiPcie_Config</scope><name>IncludeRootComplex</name></member>
+      <member refid="struct_x_axi_pcie___config_1acc17a390741f66b2be44f17ef6e983d6" prot="public" virt="non-virtual"><scope>XAxiPcie_Config</scope><name>LocalBarsNum</name></member>
+      <member refid="struct_x_axi_pcie___config_1ab26d2b30291a208e2909d2356df9736e" prot="public" virt="non-virtual"><scope>XAxiPcie_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

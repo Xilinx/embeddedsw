@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___sub_core_config" kind="struct" prot="public">
+    <compoundname>XDpTxSs_SubCoreConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sub_core_config_1a5b46602f77c5892b58d13dbad92cb6c3" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDpTxSs_SubCoreConfig::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sub_core_config_1a8e33930ca5a1ceea8a3a102b7915f279" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpTxSs_SubCoreConfig::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss.h" bodystart="240" bodyend="248"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___sub_core_config_1a8e33930ca5a1ceea8a3a102b7915f279" prot="public" virt="non-virtual"><scope>XDpTxSs_SubCoreConfig</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dp_tx_ss___sub_core_config_1a5b46602f77c5892b58d13dbad92cb6c3" prot="public" virt="non-virtual"><scope>XDpTxSs_SubCoreConfig</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

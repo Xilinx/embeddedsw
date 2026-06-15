@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_k_e_y_f_i_l_e__t_header" kind="struct" prot="public">
+    <compoundname>KEYFILE_tHeader</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_k_e_y_f_i_l_e__t_header_1a208df80c0ae9ea54c1cd8033d8666cf5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t KEYFILE_tHeader::fMagicValue[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>fMagicValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_k_e_y_f_i_l_e__t_header_1af3968a84b3c0330ee16fff6e5b81ed80" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t KEYFILE_tHeader::fVersion[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>fVersion</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_k_e_y_f_i_l_e__t_header_1a9d6b240a9ed905e8f4197709e5ecc434" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t KEYFILE_tHeader::fNumDevKey[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>fNumDevKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_k_e_y_f_i_l_e__t_header_1a13092816b3384419e9cbf7a9a20de589" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t KEYFILE_tHeader::fEncryptKey[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>fEncryptKey</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_k_e_y_f_i_l_e__t_header_1ae6ddfb1842085bf836d7e45f211daa6a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t KEYFILE_tHeader::fRffu[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>fRffu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_keyfile.c" bodystart="31" bodyend="39"/>
+    <listofallmembers>
+      <member refid="struct_k_e_y_f_i_l_e__t_header_1a13092816b3384419e9cbf7a9a20de589" prot="public" virt="non-virtual"><scope>KEYFILE_tHeader</scope><name>fEncryptKey</name></member>
+      <member refid="struct_k_e_y_f_i_l_e__t_header_1a208df80c0ae9ea54c1cd8033d8666cf5" prot="public" virt="non-virtual"><scope>KEYFILE_tHeader</scope><name>fMagicValue</name></member>
+      <member refid="struct_k_e_y_f_i_l_e__t_header_1a9d6b240a9ed905e8f4197709e5ecc434" prot="public" virt="non-virtual"><scope>KEYFILE_tHeader</scope><name>fNumDevKey</name></member>
+      <member refid="struct_k_e_y_f_i_l_e__t_header_1ae6ddfb1842085bf836d7e45f211daa6a" prot="public" virt="non-virtual"><scope>KEYFILE_tHeader</scope><name>fRffu</name></member>
+      <member refid="struct_k_e_y_f_i_l_e__t_header_1af3968a84b3c0330ee16fff6e5b81ed80" prot="public" virt="non-virtual"><scope>KEYFILE_tHeader</scope><name>fVersion</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

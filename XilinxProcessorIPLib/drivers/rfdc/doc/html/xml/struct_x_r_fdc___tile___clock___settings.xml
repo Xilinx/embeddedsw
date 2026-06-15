@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___tile___clock___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Tile_Clock_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a2ed0f5fa4b544828b7f543485022d167" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Tile_Clock_Settings::SourceType</definition>
+        <argsstring></argsstring>
+        <name>SourceType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="380" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a9932e93be330cf95bc7a5499b5d405e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Tile_Clock_Settings::SourceTile</definition>
+        <argsstring></argsstring>
+        <name>SourceTile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a29ad6038e5cca9c198defada7ec71870" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Tile_Clock_Settings::PLLEnable</definition>
+        <argsstring></argsstring>
+        <name>PLLEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a377fbc8bebcb6d269a236947ba86806f" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_Tile_Clock_Settings::RefClkFreq</definition>
+        <argsstring></argsstring>
+        <name>RefClkFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a2834d11d2aff406eb87899885822ad25" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_Tile_Clock_Settings::SampleRate</definition>
+        <argsstring></argsstring>
+        <name>SampleRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a5deb8f4d24268b7780882d5cb0a6997f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Tile_Clock_Settings::DivisionFactor</definition>
+        <argsstring></argsstring>
+        <name>DivisionFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a9f4a801cbfd60e3821e289c868483000" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Tile_Clock_Settings::DistributedClock</definition>
+        <argsstring></argsstring>
+        <name>DistributedClock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___tile___clock___settings_1a04724d4995bf37136f6227e05adfd3e5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_Tile_Clock_Settings::Delay</definition>
+        <argsstring></argsstring>
+        <name>Delay</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ClkIntraTile Settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="379" bodyend="388"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a04724d4995bf37136f6227e05adfd3e5" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>Delay</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a9f4a801cbfd60e3821e289c868483000" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>DistributedClock</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a5deb8f4d24268b7780882d5cb0a6997f" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>DivisionFactor</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a29ad6038e5cca9c198defada7ec71870" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>PLLEnable</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a377fbc8bebcb6d269a236947ba86806f" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>RefClkFreq</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a2834d11d2aff406eb87899885822ad25" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>SampleRate</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a9932e93be330cf95bc7a5499b5d405e3" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>SourceTile</name></member>
+      <member refid="struct_x_r_fdc___tile___clock___settings_1a2ed0f5fa4b544828b7f543485022d167" prot="public" virt="non-virtual"><scope>XRFdc_Tile_Clock_Settings</scope><name>SourceType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

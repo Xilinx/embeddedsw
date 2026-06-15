@@ -1,0 +1,1876 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xzdma__hw_8h" kind="file">
+    <compoundname>xzdma_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xzdma_8h" local="yes">xzdma.h</includedby>
+    <incdepgraph>
+      <node id="49">
+        <label>xil_io.h</label>
+      </node>
+      <node id="48">
+        <label>xzdma_hw.h</label>
+        <link refid="xzdma_hw.h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="58">
+        <label>xzdma_linkedlist_example.c</label>
+        <link refid="xzdma__linkedlist__example_8c"/>
+      </node>
+      <node id="60">
+        <label>xzdma_selftest_example.c</label>
+        <link refid="xzdma__selftest__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xzdma_sinit.c</label>
+        <link refid="xzdma__sinit_8c"/>
+      </node>
+      <node id="54">
+        <label>xzdma_intr.c</label>
+        <link refid="xzdma__intr_8c"/>
+      </node>
+      <node id="53">
+        <label>xzdma_g.c</label>
+      </node>
+      <node id="61">
+        <label>xzdma_simple_example.c</label>
+        <link refid="xzdma__simple__example_8c"/>
+      </node>
+      <node id="62">
+        <label>xzdma_writeonlymode_example.c</label>
+        <link refid="xzdma__writeonlymode__example_8c"/>
+      </node>
+      <node id="52">
+        <label>xzdma.c</label>
+        <link refid="xzdma_8c"/>
+      </node>
+      <node id="55">
+        <label>xzdma_selftest.c</label>
+        <link refid="xzdma__selftest_8c"/>
+      </node>
+      <node id="51">
+        <label>xzdma.h</label>
+        <link refid="xzdma_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xzdma_linear_example.c</label>
+        <link refid="xzdma__linear__example_8c"/>
+      </node>
+      <node id="50">
+        <label>xzdma_hw.h</label>
+        <link refid="xzdma_hw.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xzdma_readonlymode_example.c</label>
+        <link refid="xzdma__readonlymode__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers offsets</header>
+      <memberdef kind="define" id="group__zdma_1ga2e795eef49b7533e1fad1147cd4d32e2" prot="public" static="no">
+        <name>XZDMA_ERR_CTRL</name>
+        <initializer>(0x000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga4eb1a3278c41660c45c98a912f3bb78c" prot="public" static="no">
+        <name>XZDMA_CH_ECO</name>
+        <initializer>(0x004U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gac6740420ce03e98a2f5b45b8ad1f0355" prot="public" static="no">
+        <name>XZDMA_CH_ISR_OFFSET</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;irq_offset + (0x100U))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1a2bcbbb054687e954fc4cf47bd00814" prot="public" static="no">
+        <name>XZDMA_CH_IMR_OFFSET</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;irq_offset + (0x104U))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gae373e3cd4e578135f87f1c9ada77bd96" prot="public" static="no">
+        <name>XZDMA_CH_IEN_OFFSET</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;irq_offset + (0x108U))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga31c7d4f413ec01bd5efde82c2be409f0" prot="public" static="no">
+        <name>XZDMA_CH_IDS_OFFSET</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;irq_offset + (0x10CU))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga4a136b2f8463361f6b1dfbb7f5a529c1" prot="public" static="no">
+        <name>XZDMA_CH_CTRL0_OFFSET</name>
+        <initializer>(0x110U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga37ac29f8d312223e1357d1682a9bb8f6" prot="public" static="no">
+        <name>XZDMA_CH_CTRL1_OFFSET</name>
+        <initializer>(0x114U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga09d02e009e3b1b334316006a36fea17d" prot="public" static="no">
+        <name>XZDMA_CH_PERIF_OFFSET</name>
+        <initializer>(0x118U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacf2c937862ebe510ca2a31cd62de3017" prot="public" static="no">
+        <name>XZDMA_CH_STS_OFFSET</name>
+        <initializer>(0x11CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga9196e8301f49c2498a9035170f45def1" prot="public" static="no">
+        <name>XZDMA_CH_DATA_ATTR_OFFSET</name>
+        <initializer>(0x120U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacbcc7d174206d2b6927fba4740183bce" prot="public" static="no">
+        <name>XZDMA_CH_DSCR_ATTR_OFFSET</name>
+        <initializer>(0x124U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga3aa2f0fe4fc563f34c49689edf018302" prot="public" static="no">
+        <name>XZDMA_CH_SRC_DSCR_WORD0_OFFSET</name>
+        <initializer>(0x128U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga64688f77cd5fec81da1973eff340e919" prot="public" static="no">
+        <name>XZDMA_CH_SRC_DSCR_WORD1_OFFSET</name>
+        <initializer>(0x12CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gae18fd24798587afe61c205325eb6301d" prot="public" static="no">
+        <name>XZDMA_CH_SRC_DSCR_WORD2_OFFSET</name>
+        <initializer>(0x130U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gab915c862c927027cd7dd25a8c42969d9" prot="public" static="no">
+        <name>XZDMA_CH_SRC_DSCR_WORD3_OFFSET</name>
+        <initializer>(0x134U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga4fdd34e17d7abcc60475f81c0a7de6f4" prot="public" static="no">
+        <name>XZDMA_CH_DST_DSCR_WORD0_OFFSET</name>
+        <initializer>(0x138U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaa062a8821ff410ea7a98e8c1e4eef87f" prot="public" static="no">
+        <name>XZDMA_CH_DST_DSCR_WORD1_OFFSET</name>
+        <initializer>(0x13CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga74352d16d6a3336ee60043e1253d9f47" prot="public" static="no">
+        <name>XZDMA_CH_DST_DSCR_WORD2_OFFSET</name>
+        <initializer>(0x140U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gabd326c9d0c1efa74ffbda717bf0cfefb" prot="public" static="no">
+        <name>XZDMA_CH_DST_DSCR_WORD3_OFFSET</name>
+        <initializer>(0x144U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga9ba7c0a6aa5f518c15d9bec7f261a492" prot="public" static="no">
+        <name>XZDMA_CH_WR_ONLY_WORD0_OFFSET</name>
+        <initializer>(0x148U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga301b9fb0505f2b64c7a41d3c956de93f" prot="public" static="no">
+        <name>XZDMA_CH_WR_ONLY_WORD1_OFFSET</name>
+        <initializer>(0x14CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga68220f8d3664c6012b808215eda04462" prot="public" static="no">
+        <name>XZDMA_CH_WR_ONLY_WORD2_OFFSET</name>
+        <initializer>(0x150U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gadae78ae61707870b55b8b412768a1a37" prot="public" static="no">
+        <name>XZDMA_CH_WR_ONLY_WORD3_OFFSET</name>
+        <initializer>(0x154U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga9af56378e9c0989dc9fe35c8e85d2261" prot="public" static="no">
+        <name>XZDMA_CH_SRC_START_LSB_OFFSET</name>
+        <initializer>(0x158U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga98bffa226e8ece5bc195272d60b209b4" prot="public" static="no">
+        <name>XZDMA_CH_SRC_START_MSB_OFFSET</name>
+        <initializer>(0x15CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga496651b7d9da3578eb51210f0466df68" prot="public" static="no">
+        <name>XZDMA_CH_DST_START_LSB_OFFSET</name>
+        <initializer>(0x160U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga599e6e7cedb027a4b49c3f406fe86add" prot="public" static="no">
+        <name>XZDMA_CH_DST_START_MSB_OFFSET</name>
+        <initializer>(0x164U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga438955bc22a22c55b481e40e4f635809" prot="public" static="no">
+        <name>XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET</name>
+        <initializer>(0x168U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacc6dc118b05c1c0ab02787d3de139e15" prot="public" static="no">
+        <name>XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET</name>
+        <initializer>(0x16CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga2cd0e4c651ffaeafe1990051b88ce016" prot="public" static="no">
+        <name>XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET</name>
+        <initializer>(0x170U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga5d05b9255c5b779b608669bf9fae0ac4" prot="public" static="no">
+        <name>XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET</name>
+        <initializer>(0x174U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga5c9dcfaacc2f1ef285ccb6e28826cd46" prot="public" static="no">
+        <name>XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET</name>
+        <initializer>(0x178U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga5c2c55382cf4766ba3d4b0d35c32be85" prot="public" static="no">
+        <name>XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET</name>
+        <initializer>(0x17CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga2176641500144717c316406133cfac12" prot="public" static="no">
+        <name>XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET</name>
+        <initializer>(0x180U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga534f29f951a3338d3d0d76e79c6fa4e3" prot="public" static="no">
+        <name>XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET</name>
+        <initializer>(0x184U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gade1e5356258bd5c5eafc876bed488e1a" prot="public" static="no">
+        <name>XZDMA_CH_TOTAL_BYTE_OFFSET</name>
+        <initializer>(0x188U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gafb2cdf2275f6f25e1d128f238fa7035e" prot="public" static="no">
+        <name>XZDMA_CH_RATE_CNTL_OFFSET</name>
+        <initializer>(0x18CU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga30aeaaca2f21411011a96e73136260f9" prot="public" static="no">
+        <name>XZDMA_CH_IRQ_SRC_ACCT_OFFSET</name>
+        <initializer>(0x190U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gab3e42d0eaebdc47c69b0d07f66d6db4a" prot="public" static="no">
+        <name>XZDMA_CH_IRQ_DST_ACCT_OFFSET</name>
+        <initializer>(0x194U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga26ee1ec7457309de7a3beecbad91c636" prot="public" static="no">
+        <name>XZDMA_CH_CTRL2_OFFSET</name>
+        <initializer>(0x200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>IRQ Register offset for Versal 2VE and 2VM devices</header>
+      <memberdef kind="define" id="group__zdma_1ga2b4c0c5989a766cf6bef03446eb20922" prot="public" static="no">
+        <name>XZDMA_IRQ_REG_OFFSET</name>
+        <initializer>(0x308U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Enable/Disable/Mask/Status registers bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga749957c47c3d65c99861579af039b5db" prot="public" static="no">
+        <name>XZDMA_IXR_DMA_PAUSE_MASK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>IXR pause mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga3427b844ce3c78c2e203cbe632ce8d11" prot="public" static="no">
+        <name>XZDMA_IXR_DMA_DONE_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>IXR done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="xzdma__linear__example_8c_1a910e85a529128bf68b6ebf34ff403edb" compoundref="xzdma__linear__example_8c" startline="179" endline="369">XZDma_LinearExample</referencedby>
+        <referencedby refid="xzdma__linkedlist__example_8c_1a8eaf63cf61558e3f6df72461882a5f38" compoundref="xzdma__linkedlist__example_8c" startline="171" endline="336">XZDma_LinkedListExample</referencedby>
+        <referencedby refid="xzdma__readonlymode__example_8c_1af71ec0de7cd3c5ec4b6ec49ee901c62f" compoundref="xzdma__readonlymode__example_8c" startline="147" endline="268">XZDma_SimpleReadOnlyExample</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaf54288858bd030f724d9939416975778" prot="public" static="no">
+        <name>XZDMA_IXR_AXI_WR_DATA_MASK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>IXR AXI write data error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gae24332b4ced51e3a17de66e87f508e72" prot="public" static="no">
+        <name>XZDMA_IXR_AXI_RD_DATA_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>IXR AXI read data error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga508df1ddb568661acbe7eb02addd91aa" prot="public" static="no">
+        <name>XZDMA_IXR_AXI_RD_DST_DSCR_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>IXR AXI read descriptor error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaa616129e7e1d450c57a45518c883a4b0" prot="public" static="no">
+        <name>XZDMA_IXR_AXI_RD_SRC_DSCR_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>IXR AXI write descriptor error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga063a0a10898da8f3c94a0aa9fadba651" prot="public" static="no">
+        <name>XZDMA_IXR_DST_ACCT_ERR_MASK</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>IXR DST interrupt count overflow mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaeeea1f0a82eac76cd1dc511109f98981" prot="public" static="no">
+        <name>XZDMA_IXR_SRC_ACCT_ERR_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>IXR SRC interrupt count overflow mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gadc7f60924f5a890f36512209d386bbc4" prot="public" static="no">
+        <name>XZDMA_IXR_BYTE_CNT_OVRFL_MASK</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>IXR byte count over flow mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga3dd41eac3fa26888a9aa221b7b595c86" prot="public" static="no">
+        <name>XZDMA_IXR_DST_DSCR_DONE_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>IXR destination descriptor done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga7c2d94ea3ac539c290ef339a08e92e39" prot="public" static="no">
+        <name>XZDMA_IXR_SRC_DSCR_DONE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>IXR source descriptor done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1d088945acbf596b4b967fd8d88475db" prot="public" static="no">
+        <name>XZDMA_IXR_INV_APB_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>IXR invalid APB access mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gad82b072a8c2cc4c5e32fc43e9822e634" prot="public" static="no">
+        <name>XZDMA_IXR_ALL_INTR_MASK</name>
+        <initializer>(0x00000FFFU)</initializer>
+        <briefdescription>
+<para>IXR OR of all the interrupts mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga34c98a505b24c6e549ed7f746a82676e" compoundref="xzdma_8c" startline="1201" endline="1211">XZDma_Enable</referencedby>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+        <referencedby refid="xzdma__simple__example_8c_1aebcaa07fcc29d54aad629d7735a9cb07" compoundref="xzdma__simple__example_8c" startline="201" endline="373">XZDma_SimpleExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga10a95a922410cd0599c744a1b17d568e" prot="public" static="no">
+        <name>XZDMA_IXR_DONE_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>IXR All done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaf2a5aa7481789b82f9a68ddbb803b072" prot="public" static="no">
+        <name>XZDMA_IXR_ERR_MASK</name>
+        <initializer>(0x00000BF9U)</initializer>
+        <briefdescription>
+<para>IXR all Error mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Or of XZDMA_IXR_AXI_WR_DATA_MASK, XZDMA_IXR_AXI_RD_DATA_MASK, XZDMA_IXR_AXI_RD_DST_DSCR_MASK, XZDMA_IXR_AXI_RD_SRC_DSCR_MASK, XZDMA_IXR_INV_APB_MASK, XZDMA_IXR_DMA_PAUSE_MASK, XZDMA_IXR_BYTE_CNT_OVRFL_MASK, XZDMA_IXR_SRC_ACCT_ERR_MASK, XZDMA_IXR_DST_ACCT_ERR_MASK </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Control0 register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1gac02824ee188615e27684eaea248c33eb" prot="public" static="no">
+        <name>XZDMA_CTRL0_OVR_FETCH_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Over fetch mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga166edb355a4395294e7910c68f4840ca" compoundref="xzdma__selftest_8c" startline="62" endline="92">XZDma_SelfTest</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaadd46eb8217527c9907eced132dd50e1" prot="public" static="no">
+        <name>XZDMA_CTRL0_POINT_TYPE_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Pointer type mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaec1a986d8168e84618d9513a2c56541b" prot="public" static="no">
+        <name>XZDMA_CTRL0_MODE_MASK</name>
+        <initializer>(0x00000030U)</initializer>
+        <briefdescription>
+<para>Mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1fc161baf17e0a6ba73942b50e0b2880" prot="public" static="no">
+        <name>XZDMA_CTRL0_WRONLY_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Write only mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga4bb41a2cbf283dbbfdba7f9bc1f5bac3" prot="public" static="no">
+        <name>XZDMA_CTRL0_RDONLY_MASK</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>Read only mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1a026580754e7de6e4305af5390959f7" prot="public" static="no">
+        <name>XZDMA_CTRL0_RATE_CNTL_MASK</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Rate control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga7eca536c9dac7c46bb03eadd6a391402" prot="public" static="no">
+        <name>XZDMA_CTRL0_CONT_ADDR_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Continue address specified mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaa10c98a9560919004f43cbcbe665b5b3" prot="public" static="no">
+        <name>XZDMA_CTRL0_CONT_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Continue mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga076b5d95f700c212f10016db79d3099a" prot="public" static="no">
+        <name>XZDMA_CTRL0_OVR_FETCH_SHIFT</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Over fetch shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga891c765b2004ba8b15018f99261a9ccb" prot="public" static="no">
+        <name>XZDMA_CTRL0_POINT_TYPE_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Pointer type shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga66eaaf914136ac4eb5c4c758b4eea0ce" prot="public" static="no">
+        <name>XZDMA_CTRL0_MODE_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Mode type shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gadb99cf87cd8081ab8195fafb44005d8d" prot="public" static="no">
+        <name>XZDMA_CTRL0_RESET_VALUE</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>CTRL0 reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Control1 register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga4771477b0ae47b43caa80ce62cd5da26" prot="public" static="no">
+        <name>XZDMA_CTRL1_SRC_ISSUE_MASK</name>
+        <initializer>(0x0000001FU)</initializer>
+        <briefdescription>
+<para>Source issue mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gad1a614229d720d8abc65e98bba16def8" prot="public" static="no">
+        <name>XZDMA_CTRL1_RESET_VALUE</name>
+        <initializer>(0x000003FFU)</initializer>
+        <briefdescription>
+<para>CTRL1 reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Peripheral register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga8348716bc8a747b60d1f8cd8451c6750" prot="public" static="no">
+        <name>XZDMA_PERIF_PROG_CELL_CNT_MASK</name>
+        <initializer>(0x0000003EU)</initializer>
+        <briefdescription>
+<para>Peripheral program cell count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga63e0ec02ac5103d16e751d5bd4878177" prot="public" static="no">
+        <name>XZDMA_PERIF_SIDE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Interface attached the side mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaaac5b3b9cef7eef0b1fcf253ad736314" prot="public" static="no">
+        <name>XZDMA_PERIF_EN_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Peripheral flow control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Status register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga26a7f12c178d08cf180df3a77dfa04c6" prot="public" static="no">
+        <name>XZDMA_STS_DONE_ERR_MASK</name>
+        <initializer>(0x00000003U)</initializer>
+        <briefdescription>
+<para>Done with errors mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="202" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga40cbf55c8d0f036f23a8a948a293b219" prot="public" static="no">
+        <name>XZDMA_STS_BUSY_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>ZDMA is busy in transfer mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gad902db953958b9834264c8f6801b0b27" prot="public" static="no">
+        <name>XZDMA_STS_PAUSE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>ZDMA is in Pause state mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga98e3cde4448cc5bccfd0929889b78694" prot="public" static="no">
+        <name>XZDMA_STS_DONE_MASK</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>ZDMA done mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gad241ee38734a72209dee1fdd21cf573f" prot="public" static="no">
+        <name>XZDMA_STS_ALL_MASK</name>
+        <initializer>(0x00000003U)</initializer>
+        <briefdescription>
+<para>ZDMA status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Data Attribute register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1gaa881506ca78408d01653104a4250ab0c" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARBURST_MASK</name>
+        <initializer>(0x0C000000U)</initializer>
+        <briefdescription>
+<para>Data ArBurst mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1c99701981861114d5e4d470728b4fbe" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARCACHE_MASK</name>
+        <initializer>(0x03C00000U)</initializer>
+        <briefdescription>
+<para>Data ArCache mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga38b5f7ce878bbea9db766a8a7b2c315b" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARQOS_MASK</name>
+        <initializer>(0x003C0000U)</initializer>
+        <briefdescription>
+<para>Data ARQos masks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga07bd79ddfdc6aae7c165b7650f84256c" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARLEN_MASK</name>
+        <initializer>(0x0003C000U)</initializer>
+        <briefdescription>
+<para>Data Arlen mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacd98a78505f4b50ccf9bcee2cf4d4217" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWBURST_MASK</name>
+        <initializer>(0x00003000U)</initializer>
+        <briefdescription>
+<para>Data Awburst mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga4dea58f251b7ccea5ea60374edec3c7d" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWCACHE_MASK</name>
+        <initializer>(0x00000F00U)</initializer>
+        <briefdescription>
+<para>Data AwCache mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaa7a54821c20e9a7e23252a5ec971c5bd" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWQOS_MASK</name>
+        <initializer>(0x000000F0U)</initializer>
+        <briefdescription>
+<para>Data AwQos mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga89ab3c509042ce8ddd0fec5c83a8bc8b" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWLEN_MASK</name>
+        <initializer>(0x0000000FU)</initializer>
+        <briefdescription>
+<para>Data Awlen mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaefa353e6b08ee707e01d99d1c45be931" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARBURST_SHIFT</name>
+        <initializer>(26U)</initializer>
+        <briefdescription>
+<para>Data Arburst shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="226" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga3fe36e16ad31159f99a640e9c3bb6568" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARCACHE_SHIFT</name>
+        <initializer>(22U)</initializer>
+        <briefdescription>
+<para>Data ArCache shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="227" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaf3d3eac7b0b5139637930e1d58775d2b" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARQOS_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>Data ARQos shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gad57774673e1e4297dada019e7a1351a0" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_ARLEN_SHIFT</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>Data Arlen shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="229" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga7002622e4bf8c047681ebe4b0efdedc7" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWBURST_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Data Awburst shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga0320f84e12d6075b163f5adf415496fc" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWCACHE_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Data Awcache shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gab5a55d0a765874f387e853cfebaa48a7" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_AWQOS_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Data Awqos shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga6fc39f50cddb793d1ffa51bf3b36e471" prot="public" static="no">
+        <name>XZDMA_DATA_ATTR_RESET_VALUE</name>
+        <initializer>(0x0483D20FU)</initializer>
+        <briefdescription>
+<para>Data Attributes reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel DSCR Attribute register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga0c761d93384a2590517648a21792a938" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_AXCOHRNT_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Descriptor coherent mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gabc067f3d88ea147d23f49168fc3f7de6" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_AXCACHE_MASK</name>
+        <initializer>(0x000000F0U)</initializer>
+        <briefdescription>
+<para>Descriptor cache mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gab1f6da6a358a3f6c721b9fccabc6b4d1" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_AXQOS_MASK</name>
+        <initializer>(0x0000000FU)</initializer>
+        <briefdescription>
+<para>Descriptor AxQos mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacf85276abd3537f849cb9279861570a4" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Descriptor coherent shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="252" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga6cae905057544443789c744ace6b7700" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_AXCACHE_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Descriptor cache shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaeb9a7bdb3c0b6be0adf689c98e0526c3" prot="public" static="no">
+        <name>XZDMA_DSCR_ATTR_RESET_VALUE</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Dscr Attributes reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination Word0 register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1gad1af37520a9ff8f0b18ae5cb2af2f9f4" prot="public" static="no">
+        <name>XZDMA_WORD0_LSB_MASK</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>LSB Address mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination Word1 register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1gac8bb93895e5f91a7c3133e1cf3f51cf0" prot="public" static="no">
+        <name>XZDMA_WORD1_MSB_MASK</name>
+        <initializer>(0x0001FFFFU)</initializer>
+        <briefdescription>
+<para>MSB Address mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga055f4c7ad4789221cc57f6006e616d7f" prot="public" static="no">
+        <name>XZDMA_WORD1_MSB_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>MSB Address shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination Word2 register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1ga806daa6c38fb4441e8031789784b89b3" prot="public" static="no">
+        <name>XZDMA_WORD2_SIZE_MASK</name>
+        <initializer>(0x3FFFFFFFU)</initializer>
+        <briefdescription>
+<para>Size mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination Word3 register bit masks and shifts</header>
+      <memberdef kind="define" id="group__zdma_1ga8485f09f7b5e6c611b533862b4023860" prot="public" static="no">
+        <name>XZDMA_WORD3_CMD_MASK</name>
+        <initializer>(0x00000018U)</initializer>
+        <briefdescription>
+<para>Cmd mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga93e3bffa167d70e2f56c8e93d114d335" prot="public" static="no">
+        <name>XZDMA_WORD3_CMD_SHIFT</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Cmd shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gacf5d8cf4ecff1be0f2dacfa5fb90c8d9" prot="public" static="no">
+        <name>XZDMA_WORD3_CMD_NXTVALID_MASK</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Next Dscr is valid mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga68ef623af6d8fe3215167f134daae66c" prot="public" static="no">
+        <name>XZDMA_WORD3_CMD_PAUSE_MASK</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Pause after this dscr mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga0ec4db1fe53ded3ce7696e291b5188c2" prot="public" static="no">
+        <name>XZDMA_WORD3_CMD_STOP_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Stop after this ..* dscr mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaf7a5b80dbf16443b2f9b0247f7da946d" prot="public" static="no">
+        <name>XZDMA_WORD3_INTR_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Interrupt enable or disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga482e905a7456e30f19e0a6b465e4f591" prot="public" static="no">
+        <name>XZDMA_WORD3_INTR_SHIFT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Interrupt enable disable shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga993831fb92a5b1b006e16fe087fd1b85" prot="public" static="no">
+        <name>XZDMA_WORD3_TYPE_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Type of Descriptor mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga69cfbc1e5425c35ed1bd98376cedc61a" prot="public" static="no">
+        <name>XZDMA_WORD3_TYPE_SHIFT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Type of Descriptor Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gac2aeec8d3bc367ed78ec8a2436f780a7" prot="public" static="no">
+        <name>XZDMA_WORD3_COHRNT_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Coherence mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination start address or current payload</header>
+      <description><para>MSB register bit mask </para></description>
+      <memberdef kind="define" id="group__zdma_1ga8b4169e9fb49a54f7c287d6ae3e57654" prot="public" static="no">
+        <name>XZDMA_START_MSB_ADDR_MASK</name>
+        <initializer>(0x0001FFFFU)</initializer>
+        <briefdescription>
+<para>Start msb address mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Rate control count register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1ga88b8a953147eb61c544be509076c84e3" prot="public" static="no">
+        <name>XZDMA_CH_RATE_CNTL_MASK</name>
+        <initializer>(0x00000FFFU)</initializer>
+        <briefdescription>
+<para>Channel rate control mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel Source/Destination Interrupt account count register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1gaae2ef41062c0004503031e155538ffa6" prot="public" static="no">
+        <name>XZDMA_CH_IRQ_ACCT_MASK</name>
+        <initializer>(0x000000FFU)</initializer>
+        <briefdescription>
+<para>Interrupt count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel debug register 0/1 bit mask</header>
+      <memberdef kind="define" id="group__zdma_1ga0876c52b246b078b952127de1c6db4e7" prot="public" static="no">
+        <name>XZDMA_CH_DBG_CMN_BUF_MASK</name>
+        <initializer>(0x000001FFU)</initializer>
+        <briefdescription>
+<para>Common buffer count mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Channel control2 register bit mask</header>
+      <memberdef kind="define" id="group__zdma_1gaca1442dbc95787a8aaa20b1f8640a85a" prot="public" static="no">
+        <name>XZDMA_CH_CTRL2_EN_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Channel enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga90faf95a70486b3e9f1782f2e7a89767" prot="public" static="no">
+        <name>XZDMA_CH_CTRL2_DIS_MASK</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Channel disable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gadf9417e895645aaec67c6985b8c6f5eb" prot="public" static="no">
+        <name>XZDMA_WRITE_TO_CLEAR_MASK</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Write to clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__zdma_1ga7221416427c693436f444f4bf2d343ac" prot="public" static="no">
+        <name>XZDMA_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga3218611d01dec526018a6bd63dce603c" prot="public" static="no">
+        <name>XZDma_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga35a6987a4645af9cf6fc7463ca90f855" prot="public" static="no">
+        <name>XZDma_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1gaf3bdd7a21f9d6add3ec23802122a7a85" prot="public" static="no">
+        <name>XZDma_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer><ref refid="group__zdma_1ga3218611d01dec526018a6bd63dce603c" kindref="member">XZDma_In32</ref>((BaseAddress) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Xilinx base address of the ZDMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__zdma_1gaf3bdd7a21f9d6add3ec23802122a7a85" kindref="member">XZDma_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="338" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+        <referencedby refid="group__zdma_1ga166edb355a4395294e7910c68f4840ca" compoundref="xzdma__selftest_8c" startline="62" endline="92">XZDma_SelfTest</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__zdma_1ga1fe52ea6cc149bd35296d497837eff5b" prot="public" static="no">
+        <name>XZDma_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer><ref refid="group__zdma_1ga35a6987a4645af9cf6fc7463ca90f855" kindref="member">XZDma_Out32</ref>(((BaseAddress) + (u32)(RegOffset)), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes the value into the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Xilinx base address of the ZDMA core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__zdma_1ga1fe52ea6cc149bd35296d497837eff5b" kindref="member">XZDma_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga34c98a505b24c6e549ed7f746a82676e" compoundref="xzdma_8c" startline="1201" endline="1211">XZDma_Enable</referencedby>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <referencedby refid="group__zdma_1ga166edb355a4395294e7910c68f4840ca" compoundref="xzdma__selftest_8c" startline="62" endline="92">XZDma_SelfTest</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+        <referencedby refid="group__zdma_1ga15a0124d42f8ff48e54f32c1b643fe7b" compoundref="xzdma_8c" startline="608" endline="638">XZDma_WOData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XZDMA_HW_H_</highlight></codeline>
+<codeline lineno="27" refid="group__zdma_1ga7221416427c693436f444f4bf2d343ac" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#define<sp/>XZDMA_ERR_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_ECO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x004U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_ISR_OFFSET(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;irq_offset<sp/>+<sp/>(0x100U))</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_IMR_OFFSET(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;irq_offset<sp/>+<sp/>(0x104U))</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_IEN_OFFSET(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;irq_offset<sp/>+<sp/>(0x108U))</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_IDS_OFFSET(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;irq_offset<sp/>+<sp/>(0x10CU))</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_CTRL0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x110U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_CTRL1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x114U)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_PERIF_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x118U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x11CU)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DATA_ATTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x120U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DSCR_ATTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x124U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_DSCR_WORD0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x128U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_DSCR_WORD1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x12CU)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_DSCR_WORD2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x130U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_DSCR_WORD3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x134U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_DSCR_WORD0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x138U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_DSCR_WORD1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x13CU)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_DSCR_WORD2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x140U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_DSCR_WORD3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x144U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_WR_ONLY_WORD0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x148U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_WR_ONLY_WORD1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14CU)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_WR_ONLY_WORD2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x150U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_WR_ONLY_WORD3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x154U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_START_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x158U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_START_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x15CU)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_START_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x160U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_START_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x164U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_CUR_PYLD_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x168U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_CUR_PYLD_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x16CU)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_CUR_PYLD_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x170U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_CUR_PYLD_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x174U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_CUR_DSCR_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x178U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_SRC_CUR_DSCR_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x17CU)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_CUR_DSCR_LSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x180U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_DST_CUR_DSCR_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x184U)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_TOTAL_BYTE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x188U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_RATE_CNTL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18CU)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_IRQ_SRC_ACCT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x190U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_IRQ_DST_ACCT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x194U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XZDMA_CH_CTRL2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XZDMA_IRQ_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x308U)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_DMA_PAUSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000800U)<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__zdma_1ga749957c47c3d65c99861579af039b5db" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_DMA_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000400U)<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__zdma_1ga3427b844ce3c78c2e203cbe632ce8d11" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_AXI_WR_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000200U)<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_AXI_RD_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)<sp/></highlight></codeline>
+<codeline lineno="101" refid="group__zdma_1gae24332b4ced51e3a17de66e87f508e72" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_AXI_RD_DST_DSCR_MASK<sp/><sp/>(0x00000080U)<sp/></highlight></codeline>
+<codeline lineno="104" refid="group__zdma_1ga508df1ddb568661acbe7eb02addd91aa" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_AXI_RD_SRC_DSCR_MASK<sp/><sp/>(0x00000040U)<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_DST_ACCT_ERR_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000020U)<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_SRC_ACCT_ERR_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000010U)<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_BYTE_CNT_OVRFL_MASK<sp/><sp/><sp/>(0x00000008U)<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_DST_DSCR_DONE_MASK<sp/><sp/><sp/><sp/>(0x00000004U)<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_SRC_DSCR_DONE_MASK<sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_INV_APB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_ALL_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000FFFU)<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000400U)<sp/></highlight></codeline>
+<codeline lineno="127" refid="group__zdma_1ga3dd41eac3fa26888a9aa221b7b595c86" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_IXR_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000BF9U)<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_OVR_FETCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)<sp/></highlight></codeline>
+<codeline lineno="143" refid="group__zdma_1ga10a95a922410cd0599c744a1b17d568e" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_POINT_TYPE_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000040U)<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000030U)<sp/></highlight></codeline>
+<codeline lineno="145" refid="group__zdma_1gaf2a5aa7481789b82f9a68ddbb803b072" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_WRONLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)<sp/></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_RDONLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_RATE_CNTL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_CONT_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_CONT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_OVR_FETCH_SHIFT<sp/><sp/><sp/><sp/><sp/>(7U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_POINT_TYPE_SHIFT<sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_MODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL0_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162" refid="group__zdma_1gaec1a986d8168e84618d9513a2c56541b" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL1_SRC_ISSUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x0000001FU)<sp/></highlight></codeline>
+<codeline lineno="163" refid="group__zdma_1ga1fc161baf17e0a6ba73942b50e0b2880" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_CTRL1_RESET_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000003FFU)<sp/></highlight></codeline>
+<codeline lineno="165" refid="group__zdma_1ga1a026580754e7de6e4305af5390959f7" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166" refid="group__zdma_1ga7eca536c9dac7c46bb03eadd6a391402" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="169" refid="group__zdma_1gaa10c98a9560919004f43cbcbe665b5b3" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_PERIF_PROG_CELL_CNT_MASK<sp/><sp/>(0x0000003EU)<sp/></highlight></codeline>
+<codeline lineno="171" refid="group__zdma_1ga076b5d95f700c212f10016db79d3099a" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_PERIF_SIDE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="173" refid="group__zdma_1ga66eaaf914136ac4eb5c4c758b4eea0ce" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_PERIF_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XZDMA_STS_DONE_ERR_MASK<sp/>(0x00000003U)<sp/></highlight></codeline>
+<codeline lineno="181" refid="group__zdma_1ga4771477b0ae47b43caa80ce62cd5da26" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_STS_BUSY_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor">#define<sp/>XZDMA_STS_PAUSE_MASK<sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XZDMA_STS_DONE_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XZDMA_STS_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000003U)<sp/></highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARBURST_MASK<sp/><sp/><sp/><sp/>(0x0C000000U)<sp/></highlight></codeline>
+<codeline lineno="194" refid="group__zdma_1gaaac5b3b9cef7eef0b1fcf253ad736314" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARCACHE_MASK<sp/><sp/><sp/><sp/>(0x03C00000U)<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARQOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x003C0000U)<sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARLEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x0003C000U)<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWBURST_MASK<sp/><sp/><sp/><sp/>(0x00003000U)<sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWCACHE_MASK<sp/><sp/><sp/><sp/>(0x00000F00U)<sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWQOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x000000F0U)<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWLEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000FU)<sp/></highlight></codeline>
+<codeline lineno="202" refid="group__zdma_1ga26a7f12c178d08cf180df3a77dfa04c6" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARBURST_SHIFT<sp/><sp/><sp/>(26U)<sp/></highlight></codeline>
+<codeline lineno="203" refid="group__zdma_1ga40cbf55c8d0f036f23a8a948a293b219" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARCACHE_SHIFT<sp/><sp/><sp/>(22U)<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARQOS_SHIFT<sp/><sp/><sp/><sp/><sp/>(18U)<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_ARLEN_SHIFT<sp/><sp/><sp/><sp/><sp/>(14U)<sp/></highlight></codeline>
+<codeline lineno="206" refid="group__zdma_1gad902db953958b9834264c8f6801b0b27" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWBURST_SHIFT<sp/><sp/><sp/>(12U)<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWCACHE_SHIFT<sp/><sp/><sp/>(8U)<sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_AWQOS_SHIFT<sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="group__zdma_1ga98e3cde4448cc5bccfd0929889b78694" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DATA_ATTR_RESET_VALUE<sp/><sp/><sp/><sp/><sp/>(0x0483D20FU)<sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="217" refid="group__zdma_1gaa881506ca78408d01653104a4250ab0c" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_AXCOHRNT_MASK<sp/><sp/><sp/>(0x00000100U)<sp/></highlight></codeline>
+<codeline lineno="219" refid="group__zdma_1ga38b5f7ce878bbea9db766a8a7b2c315b" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_AXCACHE_MASK<sp/><sp/><sp/><sp/>(0x000000F0U)<sp/></highlight></codeline>
+<codeline lineno="221" refid="group__zdma_1gacd98a78505f4b50ccf9bcee2cf4d4217" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_AXQOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000FU)<sp/></highlight></codeline>
+<codeline lineno="224" refid="group__zdma_1ga89ab3c509042ce8ddd0fec5c83a8bc8b" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_AXCOHRNT_SHIFT<sp/><sp/>(8U)<sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_AXCACHE_SHIFT<sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="226" refid="group__zdma_1gaefa353e6b08ee707e01d99d1c45be931" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_DSCR_ATTR_RESET_VALUE<sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="230" refid="group__zdma_1ga7002622e4bf8c047681ebe4b0efdedc7" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="231" refid="group__zdma_1ga0320f84e12d6075b163f5adf415496fc" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor">#define<sp/>XZDMA_WORD0_LSB_MASK<sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XZDMA_WORD1_MSB_MASK<sp/><sp/><sp/><sp/>(0x0001FFFFU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XZDMA_WORD1_MSB_SHIFT<sp/><sp/><sp/>(32U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XZDMA_WORD2_SIZE_MASK<sp/><sp/><sp/>(0x3FFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253" refid="group__zdma_1ga6cae905057544443789c744ace6b7700" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_CMD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000018U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="group__zdma_1gaeb9a7bdb3c0b6be0adf689c98e0526c3" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_CMD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_CMD_NXTVALID_MASK<sp/><sp/><sp/>(0x00000000U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_CMD_PAUSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_CMD_STOP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_INTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_INTR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="group__zdma_1gac8bb93895e5f91a7c3133e1cf3f51cf0" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XZDMA_WORD3_COHRNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#define<sp/>XZDMA_START_MSB_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001FFFFU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="282" refid="group__zdma_1ga8485f09f7b5e6c611b533862b4023860" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor">#define<sp/>XZDMA_CH_RATE_CNTL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000FFFU)<sp/></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XZDMA_CH_IRQ_ACCT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000FFU)<sp/></highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#define<sp/>XZDMA_CH_DBG_CMN_BUF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001FFU)<sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="303" refid="group__zdma_1ga993831fb92a5b1b006e16fe087fd1b85" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="306" refid="group__zdma_1ga69cfbc1e5425c35ed1bd98376cedc61a" refkind="member"><highlight class="preprocessor">#define<sp/>XZDMA_CH_CTRL2_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor">#define<sp/>XZDMA_CH_CTRL2_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor">#define<sp/>XZDMA_WRITE_TO_CLEAR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XZDma_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor">#define<sp/>XZDma_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="324" refid="group__zdma_1ga88b8a953147eb61c544be509076c84e3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor">#define<sp/>XZDma_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="340" refid="group__zdma_1ga0876c52b246b078b952127de1c6db4e7" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor">#define<sp/>XZDma_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XZDma_Out32(((BaseAddress)<sp/>+<sp/>(u32)(RegOffset)),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359" refid="group__zdma_1gadf9417e895645aaec67c6985b8c6f5eb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XZDMA_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma_hw.h"/>
+  </compounddef>
+</doxygen>

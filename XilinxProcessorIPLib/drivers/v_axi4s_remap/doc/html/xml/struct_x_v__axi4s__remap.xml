@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__axi4s__remap" kind="struct" prot="public">
+    <compoundname>XV_axi4s_remap</compoundname>
+    <includes local="no">xv_axi4s_remap.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__axi4s__remap___config" kindref="compound">XV_axi4s_remap_Config</ref></type>
+        <definition>XV_axi4s_remap_Config XV_axi4s_remap::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="350" endline="453">main</referencedby>
+        <referencedby refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="211" endline="300">videoClockConfig</referencedby>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ae173d8c933eff784e841ac5f0210f9bc" compoundref="xv__axi4s__remap_8c" startline="34" endline="49">XV_axi4s_remap_CfgInitialize</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a58a64814ff2ecb80a378f30c3d523970" compoundref="xv__axi4s__remap_8c" startline="184" endline="189">XV_axi4s_remap_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afff5b0d7a50476327f3256ed64efab5f" compoundref="xv__axi4s__remap_8c" startline="163" endline="168">XV_axi4s_remap_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a969d050b1514cd1a5a8b3f9460b213f0" compoundref="xv__axi4s__remap_8c" startline="319" endline="327">XV_axi4s_remap_Get_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6c754c1c09b21f92fea36a52e960ea68" compoundref="xv__axi4s__remap_8c" startline="227" endline="235">XV_axi4s_remap_Get_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab27cb65f1da442f8b867d7039e6cc3d2" compoundref="xv__axi4s__remap_8c" startline="457" endline="465">XV_axi4s_remap_Get_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a06a9f36d19d2af3c6219ab2f862b102f" compoundref="xv__axi4s__remap_8c" startline="365" endline="373">XV_axi4s_remap_Get_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a91a7dd205a573c309efb2fb7f5f10ea3" compoundref="xv__axi4s__remap_8c" startline="549" endline="557">XV_axi4s_remap_Get_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa0d733f2f1af598377ce45866faedb57" compoundref="xv__axi4s__remap_8c" startline="503" endline="511">XV_axi4s_remap_Get_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afb73f3b3b69ad79fb12d40679365853f" compoundref="xv__axi4s__remap_8c" startline="411" endline="419">XV_axi4s_remap_Get_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a901b524fa549a3c5340cdcfc831fe1c9" compoundref="xv__axi4s__remap_8c" startline="595" endline="603">XV_axi4s_remap_Get_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a59eaeec1e8e7d67de71b3d1f9ac01861" compoundref="xv__axi4s__remap_8c" startline="273" endline="281">XV_axi4s_remap_Get_width</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a088bad78ede022f42248f80fc315c366" compoundref="xv__axi4s__remap_8c" startline="715" endline="720">XV_axi4s_remap_InterruptClear</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abc70f3279632c8ecddae5a8c9e89d6f9" compoundref="xv__axi4s__remap_8c" startline="689" endline="697">XV_axi4s_remap_InterruptDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa2f4ec7778d206f4d6f7881fc1947371" compoundref="xv__axi4s__remap_8c" startline="664" endline="672">XV_axi4s_remap_InterruptEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a802375a319bf4d5fbfc47957287b9a8d" compoundref="xv__axi4s__remap_8c" startline="736" endline="741">XV_axi4s_remap_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a731437bea890cda27301b64a7bb80045" compoundref="xv__axi4s__remap_8c" startline="758" endline="763">XV_axi4s_remap_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ad1880d9e0af52561b9d4a66980676cdb" compoundref="xv__axi4s__remap_8c" startline="641" endline="646">XV_axi4s_remap_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abdf4a5d8f81e4716fa007df4ca4b494c" compoundref="xv__axi4s__remap_8c" startline="620" endline="625">XV_axi4s_remap_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a8420c0dd9b8304c3e19a9d1c86fbbedf" compoundref="xv__axi4s__remap_8c" startline="90" endline="98">XV_axi4s_remap_IsDone</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" compoundref="xv__axi4s__remap_8c" startline="114" endline="122">XV_axi4s_remap_IsIdle</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a3e9c5feb14cf78cd7d2f9fc2a365daae" compoundref="xv__axi4s__remap_8c" startline="138" endline="147">XV_axi4s_remap_IsReady</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6e8b67ede52a11d74c2c2c7e9e8ae903" compoundref="xv__axi4s__remap_8c" startline="298" endline="303">XV_axi4s_remap_Set_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aedbd7449447da1b3f14975cc0c90c966" compoundref="xv__axi4s__remap_8c" startline="206" endline="211">XV_axi4s_remap_Set_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a28d9e3f48e2b722840bbf6ed30b7986d" compoundref="xv__axi4s__remap_8c" startline="436" endline="441">XV_axi4s_remap_Set_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a77f9f62e7d191df271744850241d81d4" compoundref="xv__axi4s__remap_8c" startline="344" endline="349">XV_axi4s_remap_Set_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a99269876f11e022e1d945961eaf351e8" compoundref="xv__axi4s__remap_8c" startline="528" endline="533">XV_axi4s_remap_Set_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a423440084f71d7a0bf5b67375220c385" compoundref="xv__axi4s__remap_8c" startline="482" endline="487">XV_axi4s_remap_Set_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab1aef19d2557481c1211517325a94100" compoundref="xv__axi4s__remap_8c" startline="390" endline="395">XV_axi4s_remap_Set_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" compoundref="xv__axi4s__remap_8c" startline="574" endline="579">XV_axi4s_remap_Set_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a0f4db0b3b4b6a236c763d891ce66fe91" compoundref="xv__axi4s__remap_8c" startline="252" endline="257">XV_axi4s_remap_Set_width</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a20a0ac05eb63d7d010fcc6b8fcce01e6" compoundref="xv__axi4s__remap_8c" startline="66" endline="74">XV_axi4s_remap_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_axi4s_remap::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="xv__axi4s__remap_8h_1ae173d8c933eff784e841ac5f0210f9bc" compoundref="xv__axi4s__remap_8c" startline="34" endline="49">XV_axi4s_remap_CfgInitialize</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a58a64814ff2ecb80a378f30c3d523970" compoundref="xv__axi4s__remap_8c" startline="184" endline="189">XV_axi4s_remap_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afff5b0d7a50476327f3256ed64efab5f" compoundref="xv__axi4s__remap_8c" startline="163" endline="168">XV_axi4s_remap_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a969d050b1514cd1a5a8b3f9460b213f0" compoundref="xv__axi4s__remap_8c" startline="319" endline="327">XV_axi4s_remap_Get_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6c754c1c09b21f92fea36a52e960ea68" compoundref="xv__axi4s__remap_8c" startline="227" endline="235">XV_axi4s_remap_Get_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab27cb65f1da442f8b867d7039e6cc3d2" compoundref="xv__axi4s__remap_8c" startline="457" endline="465">XV_axi4s_remap_Get_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a06a9f36d19d2af3c6219ab2f862b102f" compoundref="xv__axi4s__remap_8c" startline="365" endline="373">XV_axi4s_remap_Get_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a91a7dd205a573c309efb2fb7f5f10ea3" compoundref="xv__axi4s__remap_8c" startline="549" endline="557">XV_axi4s_remap_Get_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa0d733f2f1af598377ce45866faedb57" compoundref="xv__axi4s__remap_8c" startline="503" endline="511">XV_axi4s_remap_Get_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afb73f3b3b69ad79fb12d40679365853f" compoundref="xv__axi4s__remap_8c" startline="411" endline="419">XV_axi4s_remap_Get_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a901b524fa549a3c5340cdcfc831fe1c9" compoundref="xv__axi4s__remap_8c" startline="595" endline="603">XV_axi4s_remap_Get_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a59eaeec1e8e7d67de71b3d1f9ac01861" compoundref="xv__axi4s__remap_8c" startline="273" endline="281">XV_axi4s_remap_Get_width</referencedby>
+        <referencedby refid="xv__axi4s__remap__sinit_8c_1ad3b6d0fd3c85cdabcfb25e77b0806eae" compoundref="xv__axi4s__remap__sinit_8c" startline="155" endline="169">XV_axi4s_remap_Initialize</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a088bad78ede022f42248f80fc315c366" compoundref="xv__axi4s__remap_8c" startline="715" endline="720">XV_axi4s_remap_InterruptClear</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abc70f3279632c8ecddae5a8c9e89d6f9" compoundref="xv__axi4s__remap_8c" startline="689" endline="697">XV_axi4s_remap_InterruptDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa2f4ec7778d206f4d6f7881fc1947371" compoundref="xv__axi4s__remap_8c" startline="664" endline="672">XV_axi4s_remap_InterruptEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a802375a319bf4d5fbfc47957287b9a8d" compoundref="xv__axi4s__remap_8c" startline="736" endline="741">XV_axi4s_remap_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a731437bea890cda27301b64a7bb80045" compoundref="xv__axi4s__remap_8c" startline="758" endline="763">XV_axi4s_remap_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ad1880d9e0af52561b9d4a66980676cdb" compoundref="xv__axi4s__remap_8c" startline="641" endline="646">XV_axi4s_remap_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abdf4a5d8f81e4716fa007df4ca4b494c" compoundref="xv__axi4s__remap_8c" startline="620" endline="625">XV_axi4s_remap_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a8420c0dd9b8304c3e19a9d1c86fbbedf" compoundref="xv__axi4s__remap_8c" startline="90" endline="98">XV_axi4s_remap_IsDone</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" compoundref="xv__axi4s__remap_8c" startline="114" endline="122">XV_axi4s_remap_IsIdle</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a3e9c5feb14cf78cd7d2f9fc2a365daae" compoundref="xv__axi4s__remap_8c" startline="138" endline="147">XV_axi4s_remap_IsReady</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6e8b67ede52a11d74c2c2c7e9e8ae903" compoundref="xv__axi4s__remap_8c" startline="298" endline="303">XV_axi4s_remap_Set_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aedbd7449447da1b3f14975cc0c90c966" compoundref="xv__axi4s__remap_8c" startline="206" endline="211">XV_axi4s_remap_Set_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a28d9e3f48e2b722840bbf6ed30b7986d" compoundref="xv__axi4s__remap_8c" startline="436" endline="441">XV_axi4s_remap_Set_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a77f9f62e7d191df271744850241d81d4" compoundref="xv__axi4s__remap_8c" startline="344" endline="349">XV_axi4s_remap_Set_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a99269876f11e022e1d945961eaf351e8" compoundref="xv__axi4s__remap_8c" startline="528" endline="533">XV_axi4s_remap_Set_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a423440084f71d7a0bf5b67375220c385" compoundref="xv__axi4s__remap_8c" startline="482" endline="487">XV_axi4s_remap_Set_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab1aef19d2557481c1211517325a94100" compoundref="xv__axi4s__remap_8c" startline="390" endline="395">XV_axi4s_remap_Set_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" compoundref="xv__axi4s__remap_8c" startline="574" endline="579">XV_axi4s_remap_Set_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a0f4db0b3b4b6a236c763d891ce66fe91" compoundref="xv__axi4s__remap_8c" startline="252" endline="257">XV_axi4s_remap_Set_width</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a20a0ac05eb63d7d010fcc6b8fcce01e6" compoundref="xv__axi4s__remap_8c" startline="66" endline="74">XV_axi4s_remap_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>AXI4-Stream Remap driver instance structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>Driver instance data. An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XV_axi4s_remap_Config</label>
+        <link refid="struct_x_v__axi4s__remap___config"/>
+      </node>
+      <node id="1">
+        <label>XV_axi4s_remap</label>
+        <link refid="struct_x_v__axi4s__remap"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="86" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_x_v__axi4s__remap_1a9e59f6124518be9245ab6dff4aeb37bd" prot="public" virt="non-virtual"><scope>XV_axi4s_remap</scope><name>Config</name></member>
+      <member refid="struct_x_v__axi4s__remap_1a1cc06359e0ad0672047f3d004e4e4ba7" prot="public" virt="non-virtual"><scope>XV_axi4s_remap</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

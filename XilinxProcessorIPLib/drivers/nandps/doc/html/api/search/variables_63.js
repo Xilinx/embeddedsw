@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['clkinputpincap',['ClkInputPinCap',['../struct_onfi_nand___geometry.html#a60d7ac11afac43616d0d7f1046076cd1',1,'OnfiNand_Geometry']]],
+  ['coladdrcycles',['ColAddrCycles',['../struct_x_nand_ps___geometry.html#a602a44775b539f786e98dbcb50327454',1,'XNandPs_Geometry']]],
+  ['commandphaseaddr',['CommandPhaseAddr',['../struct_x_nand_ps_tag.html#a6d919091ec87fbd2ff032ba5650ec51a',1,'XNandPsTag']]],
+  ['config',['Config',['../struct_x_nand_ps_tag.html#ab1b1e7e123f5de23692bb7f7f757061a',1,'XNandPsTag']]],
+  ['crc',['Crc',['../struct_onfi_nand___geometry.html#a2a7b3db37ef9b5d259d8c6786de422ad',1,'OnfiNand_Geometry']]]
+];

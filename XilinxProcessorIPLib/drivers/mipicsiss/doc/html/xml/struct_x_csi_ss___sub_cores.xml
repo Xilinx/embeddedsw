@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XCsiSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi_ss___sub_cores_1a11d64c435b1aa7dcb692df60ccb8dbf6" prot="public" static="no" mutable="no">
+        <type>XCsi</type>
+        <definition>XCsi XCsiSs_SubCores::CsiInst</definition>
+        <argsstring></argsstring>
+        <name>CsiInst</name>
+        <briefdescription>
+<para>CSI instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the driver instances for all sub-cores included in the MIPI CSI Rx Subsystem. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.c" bodystart="54" bodyend="62"/>
+    <listofallmembers>
+      <member refid="struct_x_csi_ss___sub_cores_1a11d64c435b1aa7dcb692df60ccb8dbf6" prot="public" virt="non-virtual"><scope>XCsiSs_SubCores</scope><name>CsiInst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

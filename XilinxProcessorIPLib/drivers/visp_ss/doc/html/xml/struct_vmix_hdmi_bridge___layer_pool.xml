@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vmix_hdmi_bridge___layer_pool" kind="struct" prot="public">
+    <compoundname>VmixHdmiBridge_LayerPool</compoundname>
+    <includes local="no">vmix_hdmi_bridge.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1ad1c6dad646aac1beed11ded90c2620f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 VmixHdmiBridge_LayerPool::LayerID</definition>
+        <argsstring></argsstring>
+        <name>LayerID</name>
+        <briefdescription>
+<para>VMix layer index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1a9180fede910c0373c4d1a849156b3ec5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 VmixHdmiBridge_LayerPool::LayerCfmt</definition>
+        <argsstring></argsstring>
+        <name>LayerCfmt</name>
+        <briefdescription>
+<para>XVidC_ColorFormat for this layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1a99b080402db65434a7e41ed30805af22" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 VmixHdmiBridge_LayerPool::IsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsEnabled</name>
+        <briefdescription>
+<para>Layer currently enabled in VMix HW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1a131a996c06c5d74fe42b0b4fb52880ff" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 VmixHdmiBridge_LayerPool::IsMapped</definition>
+        <argsstring></argsstring>
+        <name>IsMapped</name>
+        <briefdescription>
+<para>Layer mapped to an ISP instance+path. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1acfd5e05fdb39737021b78e5565155388" prot="public" static="no" mutable="no">
+        <type>s16</type>
+        <definition>s16 VmixHdmiBridge_LayerPool::MappedInstanceId</definition>
+        <argsstring></argsstring>
+        <name>MappedInstanceId</name>
+        <briefdescription>
+<para>ISP instance ID mapped to this layer (-1 = none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vmix_hdmi_bridge___layer_pool_1ac3519242a9fd3dc50d1c80fabf6f8259" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 VmixHdmiBridge_LayerPool::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+<para>Memory stride in bytes for this layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Per-layer tracking structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vmix_hdmi_bridge.h" bodystart="82" bodyend="89"/>
+    <listofallmembers>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1a99b080402db65434a7e41ed30805af22" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>IsEnabled</name></member>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1a131a996c06c5d74fe42b0b4fb52880ff" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>IsMapped</name></member>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1a9180fede910c0373c4d1a849156b3ec5" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>LayerCfmt</name></member>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1ad1c6dad646aac1beed11ded90c2620f0" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>LayerID</name></member>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1acfd5e05fdb39737021b78e5565155388" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>MappedInstanceId</name></member>
+      <member refid="struct_vmix_hdmi_bridge___layer_pool_1ac3519242a9fd3dc50d1c80fabf6f8259" prot="public" virt="non-virtual"><scope>VmixHdmiBridge_LayerPool</scope><name>Stride</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

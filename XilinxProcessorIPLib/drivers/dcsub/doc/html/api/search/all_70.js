@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['partial_5fplane_5fblend_5fenable',['partial_plane_blend_enable',['../struct_init_run_config.html#a4a47f59bc1e496228cfdfedea34499a9',1,'InitRunConfig']]],
+  ['pattern',['pattern',['../struct_avpg_run_config.html#ac02c760c30561b2efd844c75862a9cd7',1,'AvpgRunConfig']]],
+  ['pix_5ffmt',['pix_fmt',['../struct_avpg_run_config.html#a9a79d968a2a5907ea10ad7ae4befe65d',1,'AvpgRunConfig']]],
+  ['pixel_5fmode',['pixel_mode',['../struct_x_dc___stream_config.html#ac24b732fb88681af468c6e037c78b986',1,'XDc_StreamConfig']]],
+  ['pixelclkhz',['PixelClkHz',['../struct_run_config.html#a6dd3cf00b1ae6c5771e848baa6d63380',1,'RunConfig']]],
+  ['port',['port',['../struct_x_dc___config.html#a006c359253513ab0c2ee5f40ec4e47e9',1,'XDc_Config']]],
+  ['power_5fcycle_5fon_5fstart',['power_cycle_on_start',['../struct_init_run_config.html#a5fb760ba22f240982415ebefbefe867d',1,'InitRunConfig']]],
+  ['ppb_5fcoord_5fx',['ppb_coord_x',['../struct_init_run_config.html#a71603b6f22ac9006c4f2c02eeee717e9',1,'InitRunConfig']]],
+  ['ppb_5fcoord_5fy',['ppb_coord_y',['../struct_init_run_config.html#a5a09ba3119a11846784fefbcc6b72288',1,'InitRunConfig']]],
+  ['ppb_5foffset_5fx',['ppb_offset_x',['../struct_init_run_config.html#a8245e9c4114e879804afaaa337a182b8',1,'InitRunConfig']]],
+  ['ppb_5foffset_5fy',['ppb_offset_y',['../struct_init_run_config.html#a9ed6fe0fbe5ae437314eece44884f5fb',1,'InitRunConfig']]],
+  ['ppb_5fsize_5fx',['ppb_size_x',['../struct_init_run_config.html#adc20f46f2387d4c46abacfcb749edc0b',1,'InitRunConfig']]],
+  ['ppb_5fsize_5fy',['ppb_size_y',['../struct_init_run_config.html#ab18d2f57601fedc6553aa5c016aaa703',1,'InitRunConfig']]],
+  ['ppb_5fstream_5fselect',['ppb_stream_select',['../struct_init_run_config.html#a0d9dad981dd504dd30778afa7aa479e1',1,'InitRunConfig']]],
+  ['ppbcoordx',['PpbCoordX',['../struct_run_config.html#aedebedc6ff67f0ed64f987b8548a8554',1,'RunConfig']]],
+  ['ppbcoordy',['PpbCoordY',['../struct_run_config.html#a0204dfaaa74d8a0c7c7c29a291a25ad6',1,'RunConfig']]],
+  ['ppboffsetx',['PpbOffsetX',['../struct_run_config.html#a9009deb408fcea686b6846e06b2b5134',1,'RunConfig']]],
+  ['ppboffsety',['PpbOffsetY',['../struct_run_config.html#ad5999c160200ee00bae388de38d06ed0',1,'RunConfig']]],
+  ['ppbsizex',['PpbSizeX',['../struct_run_config.html#a8612be37b0cdf9932f1de7f82a30f3d2',1,'RunConfig']]],
+  ['ppbsizey',['PpbSizeY',['../struct_run_config.html#a982b47059a0853debe3fd9facadaedc0',1,'RunConfig']]],
+  ['ppc',['ppc',['../struct_avpg_run_config.html#a7a66cbfbab8be0e62fbc9f8d881c5723',1,'AvpgRunConfig::ppc()'],['../struct_run_config.html#aeb9281a032b40152f1bc10e483bfe954',1,'RunConfig::PPC()']]],
+  ['presentationmode',['presentationmode',['../struct_x_dc___config.html#aacbe211537993cecff751e6977bddf18',1,'XDc_Config::presentationmode()'],['../struct_run_config.html#a9983481d9e3ae8274b831da8fc715586',1,'RunConfig::presentationmode()'],['../struct_init_run_config.html#acf3f022de58d9725ec65c0e0ec216ccd',1,'InitRunConfig::presentationmode()']]]
+];

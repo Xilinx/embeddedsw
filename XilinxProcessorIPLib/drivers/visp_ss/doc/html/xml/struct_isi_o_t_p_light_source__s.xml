@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_o_t_p_light_source__s" kind="struct" prot="public">
+    <compoundname>IsiOTPLightSource_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_o_t_p_light_source__s_1a64a154c0780fd15f7b9a4b8dd4b491d3" prot="public" static="no" mutable="no">
+        <type>IsiColorTemperature_t</type>
+        <definition>IsiColorTemperature_t IsiOTPLightSource_s::colorTemperature</definition>
+        <argsstring></argsstring>
+        <name>colorTemperature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_light_source__s_1afd504d3a53799154c8a55c8d0495aecc" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPLightSource_s::xCIE</definition>
+        <argsstring></argsstring>
+        <name>xCIE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_light_source__s_1a6b7ea18cf3e1e7501bf8cd38b374fe29" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPLightSource_s::yCIE</definition>
+        <argsstring></argsstring>
+        <name>yCIE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_o_t_p_light_source__s_1a91a67cafdb262bf50881d0506830caf0" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiOTPLightSource_s::intensity</definition>
+        <argsstring></argsstring>
+        <name>intensity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_otp.h" bodystart="64" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_isi_o_t_p_light_source__s_1a64a154c0780fd15f7b9a4b8dd4b491d3" prot="public" virt="non-virtual"><scope>IsiOTPLightSource_s</scope><name>colorTemperature</name></member>
+      <member refid="struct_isi_o_t_p_light_source__s_1a91a67cafdb262bf50881d0506830caf0" prot="public" virt="non-virtual"><scope>IsiOTPLightSource_s</scope><name>intensity</name></member>
+      <member refid="struct_isi_o_t_p_light_source__s_1afd504d3a53799154c8a55c8d0495aecc" prot="public" virt="non-virtual"><scope>IsiOTPLightSource_s</scope><name>xCIE</name></member>
+      <member refid="struct_isi_o_t_p_light_source__s_1a6b7ea18cf3e1e7501bf8cd38b374fe29" prot="public" virt="non-virtual"><scope>IsiOTPLightSource_s</scope><name>yCIE</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

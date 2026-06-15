@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__dpdma__v1__4" kind="group">
+    <compoundname>dpdma_v1_4</compoundname>
+    <title>Dpdma_v1_4</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dpdma__v1__4_1ga51811fd3a410bcc4de1edec25b6f328e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDpDma_Config *</type>
+        <definition>XDpDma_Config* XDpDma_LookupConfig</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XDpDma_LookupConfig</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XDpDma_ConfigTable[] contains the configuration information for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device being looked up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/src/xdpdma_sinit.c" bodystart="67" bodyend="80"/>
+        <referencedby refid="xdpdma__video__example_8h_1a80296bbf6ce18bd52a48ac07844ec8ea" compoundref="xdpdma__video__example_8c" startline="186" endline="261">InitDpDmaSubsystem</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains static initialization methods for the XDpDma driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  01/20/15 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

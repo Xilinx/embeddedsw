@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_instance_path_switch_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchInstancePathSwitchCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a59aebc8b6859b84fdefe64a3f4d1cb92" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstancePathSwitchCfg_s::isBufferReCreate</definition>
+        <argsstring></argsstring>
+        <name>isBufferReCreate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1afaacb235ca76782146f7313ffc74f06b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::pathIdLength</definition>
+        <argsstring></argsstring>
+        <name>pathIdLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1aff39c2cdd22e2f5a012c0cc5bd10cb7a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::pathId[SWITCH_TIMES]</definition>
+        <argsstring>[SWITCH_TIMES]</argsstring>
+        <name>pathId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a4d087c53bab9d6c95e60b4b966b7a04f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropWindowLength</definition>
+        <argsstring></argsstring>
+        <name>cropWindowLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a5e139a6753dad9e9fb9b3fa0cb73eac7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropPathId</definition>
+        <argsstring></argsstring>
+        <name>cropPathId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a10aa60b15b654fdc5a123b9594ccd61d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropWindowHOffset[SWITCH_TIMES]</definition>
+        <argsstring>[SWITCH_TIMES]</argsstring>
+        <name>cropWindowHOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a4df82967262392b0fa1b49dfd0c7288f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropWindowVOffset[SWITCH_TIMES]</definition>
+        <argsstring>[SWITCH_TIMES]</argsstring>
+        <name>cropWindowVOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a1f8a88b0fe13d43545af1c08f0e333f6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropWindowWidth[SWITCH_TIMES]</definition>
+        <argsstring>[SWITCH_TIMES]</argsstring>
+        <name>cropWindowWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_path_switch_cfg__s_1a019512c9ff6e534c901f2586d3699db9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstancePathSwitchCfg_s::cropWindowHeight[SWITCH_TIMES]</definition>
+        <argsstring>[SWITCH_TIMES]</argsstring>
+        <name>cropWindowHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="120" bodyend="130"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a5e139a6753dad9e9fb9b3fa0cb73eac7" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropPathId</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a019512c9ff6e534c901f2586d3699db9" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropWindowHeight</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a10aa60b15b654fdc5a123b9594ccd61d" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropWindowHOffset</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a4d087c53bab9d6c95e60b4b966b7a04f" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropWindowLength</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a4df82967262392b0fa1b49dfd0c7288f" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropWindowVOffset</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a1f8a88b0fe13d43545af1c08f0e333f6" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>cropWindowWidth</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1a59aebc8b6859b84fdefe64a3f4d1cb92" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>isBufferReCreate</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1aff39c2cdd22e2f5a012c0cc5bd10cb7a" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>pathId</name></member>
+      <member refid="struct_vvbench_instance_path_switch_cfg__s_1afaacb235ca76782146f7313ffc74f06b" prot="public" virt="non-virtual"><scope>VvbenchInstancePathSwitchCfg_s</scope><name>pathIdLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

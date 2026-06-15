@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_882cadcf8a613e85293f896e0f975318" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_23691fae39d657c36221119512ebc474">dp</innerdir>
+    <innerdir refid="dir_e064c88eca74b9f19db648de0048a65f">hdcp1x</innerdir>
+    <innerdir refid="dir_6c2676319984a78f69b728942ea7b32e">hdcp22</innerdir>
+    <innerdir refid="dir_b0a6c3e02836a6e271751daecd8ba5b7">iic</innerdir>
+    <innerfile refid="xdprxss_8c">xdprxss.c</innerfile>
+    <innerfile refid="xdprxss_8h">xdprxss.h</innerfile>
+    <innerfile refid="xdprxss__dbg_8c">xdprxss_dbg.c</innerfile>
+    <innerfile refid="xdprxss__g_8c">xdprxss_g.c</innerfile>
+    <innerfile refid="xdprxss__hw_8h">xdprxss_hw.h</innerfile>
+    <innerfile refid="xdprxss__intr_8c">xdprxss_intr.c</innerfile>
+    <innerfile refid="xdprxss__mcdp6000_8c">xdprxss_mcdp6000.c</innerfile>
+    <innerfile refid="xdprxss__mcdp6000_8h">xdprxss_mcdp6000.h</innerfile>
+    <innerfile refid="xdprxss__selftest_8c">xdprxss_selftest.c</innerfile>
+    <innerfile refid="xdprxss__sinit_8c">xdprxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/"/>
+  </compounddef>
+</doxygen>

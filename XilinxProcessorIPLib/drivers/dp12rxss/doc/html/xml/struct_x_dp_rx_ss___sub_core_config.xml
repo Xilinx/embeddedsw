@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___sub_core_config" kind="struct" prot="public">
+    <compoundname>XDpRxSs_SubCoreConfig</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___sub_core_config_1ad305685baf76041b978a0ce07019d591" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDpRxSs_SubCoreConfig::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___sub_core_config_1a970ea4730e9822f0c1ffaf00f02701df" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpRxSs_SubCoreConfig::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the DpRxSs subcore instances. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/src/xdprxss.h" bodystart="236" bodyend="244"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___sub_core_config_1a970ea4730e9822f0c1ffaf00f02701df" prot="public" virt="non-virtual"><scope>XDpRxSs_SubCoreConfig</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dp_rx_ss___sub_core_config_1ad305685baf76041b978a0ce07019d591" prot="public" virt="non-virtual"><scope>XDpRxSs_SubCoreConfig</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1375 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__jscmd_8h" kind="file">
+    <compoundname>xilskey_jscmd.h</compoundname>
+    <includes refid="xilskey__js_8h" local="yes">xilskey_js.h</includes>
+    <includedby refid="xilskey__jscmd_8c" local="yes">xilskey_jscmd.c</includedby>
+    <includedby refid="xilskey__jtag_8h" local="yes">xilskey_jtag.h</includedby>
+    <incdepgraph>
+      <node id="175">
+        <label>stdint.h</label>
+      </node>
+      <node id="174">
+        <label>stdlib.h</label>
+      </node>
+      <node id="173">
+        <label>xilskey_js.h</label>
+        <childnode refid="174" relation="include">
+        </childnode>
+        <childnode refid="175" relation="include">
+        </childnode>
+      </node>
+      <node id="172">
+        <label>xilskey_jscmd.h</label>
+        <link refid="xilskey_jscmd.h"/>
+        <childnode refid="173" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="178">
+        <label>xilskey_jtag.h</label>
+      </node>
+      <node id="177">
+        <label>xilskey_jscmd.c</label>
+        <link refid="xilskey__jscmd_8c"/>
+      </node>
+      <node id="176">
+        <label>xilskey_jscmd.h</label>
+        <link refid="xilskey_jscmd.h"/>
+        <childnode refid="177" relation="include">
+        </childnode>
+        <childnode refid="178" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_xil_s_key___jtag_slr" prot="public">XilSKey_JtagSlr</innerclass>
+    <innerclass refid="structid__codes__t" prot="public">id_codes_t</innerclass>
+    <innerclass refid="struct_xil_s_key___e_pl" prot="public">XilSKey_EPl</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Constant definitions</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ab4db47b3b50f9b0070f4f27de2dadb64" prot="public" static="no">
+        <name>JPROGRAM</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+<para>&lt; Constant definitions for instruction used in BBRAM key program and verify </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a63c393efd70a0f09eed6189ad20920c5" prot="public" static="no">
+        <name>ISC_NOOP</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a5f31d1ec057d9dfe1ead52af5e9818d7" prot="public" static="no">
+        <name>ISC_ENABLE</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a95936995e081044414b52ac5e1e3a613" prot="public" static="no">
+        <name>ISC_PROGRAM_KEY</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ad31ee1d9e6e171eb83717edd6bc0531d" prot="public" static="no">
+        <name>ISC_PROGRAM</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a0aacfadc07c4906ffafe28fe2eec474e" prot="public" static="no">
+        <name>ISC_READ</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a7b7e0d86ac7ee79b65d061f45c11c7af" prot="public" static="no">
+        <name>ISC_DISABLE</name>
+        <initializer>0x16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ac2e389417b21a770511b0c3ab16c6ebf" prot="public" static="no">
+        <name>BYPASS</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a72a28aec39ec1a0bef8717710d1db1cb" prot="public" static="no">
+        <name>SYSMON_DRP</name>
+        <initializer>0x37</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a4e32e61d5625cf1ac6b4242f52bc5f15" prot="public" static="no">
+        <name>CFG_OUT_SLRX</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a733157f9da872564215fc5a9bac85d97" prot="public" static="no">
+        <name>CFG_IN_SLRX</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ad1a286da6642f2ac20075c5fbd0f954d" prot="public" static="no">
+        <name>ISC_ENABLE_SLRX</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ad801a95353960ddb684cba3e629e31bf" prot="public" static="no">
+        <name>ISC_PROGRAM_SLRX</name>
+        <initializer>0x11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a23b7c7738069599a6fe97532999c1e44" prot="public" static="no">
+        <name>XSC_PROGRAM_SLRX</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1acd2ddd5637b5dd543cfa30350494bbe1" prot="public" static="no">
+        <name>ISC_READ_SLRX</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1afad3c4ff465c03d2e2ee2823568e0a63" prot="public" static="no">
+        <name>FEEDTHROUGH</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ac7fc89f0bf37ff3f8b90fc22657de9b7" prot="public" static="no">
+        <name>FUSE_CTS_SLRX</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aea9b4c604a3b08df8f11e8071b2b239b" prot="public" static="no">
+        <name>FUSE_KEY_SLRX</name>
+        <initializer>0x31</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Pre and post pads</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a672097dbb5ea9fedf79d93ec88be0ab1" prot="public" static="no">
+        <name>IRHEADER</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>&lt; Pre and post pads definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a3e412955acfd801b1d5be177fa71256e" prot="public" static="no">
+        <name>IRTRAILER</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a66fbe49771bf827e02a9bb871b8d0144" prot="public" static="no">
+        <name>DRHEADER</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a8359beab8b80fc347f90c6704baec1d7" prot="public" static="no">
+        <name>DRTRAILER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Pre and post pads for BYPASS in de-init</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a8ce6bcbbd109cb5a53fd654b1986a997" prot="public" static="no">
+        <name>IRHEADER_BYP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>&lt; Pre and post pads for BYPASS in de-init definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a752e2506a933b3ea2ad80a735629555e" prot="public" static="no">
+        <name>IRTRAILER_BYP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ab41474de88e8da7ee6673583b6550ebe" prot="public" static="no">
+        <name>DRHEADER_BYP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a406a724dba0ebfa1f57e0e3944245a33" prot="public" static="no">
+        <name>DRTRAILER_BYP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Data register load after ISC_ENABLE</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1abd46893e1e59d48ef1405bf78abdde76" prot="public" static="no">
+        <name>DR_EN</name>
+        <initializer>0x15</initializer>
+        <briefdescription>
+<para>&lt; Data register load after ISC_ENABLE definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aaffca0bb659a6f1e8a24a54fd5657fda" prot="public" static="no">
+        <name>CALC_SINGLE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a53006ccb57933858dc674c10808993a3" prot="public" static="no">
+        <name>CALC_ALL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a4578ea0754b588f05be63ef9af9cd2ed" prot="public" static="no">
+        <name>CALC_MSTR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MIO assignments</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a8c1787b8aa58693e78503f4bb3060a1f" prot="public" static="no">
+        <name>MIO_TDI</name>
+        <initializer>g_mio_jtag_tdi</initializer>
+        <briefdescription>
+<para>&lt; MIO assignments definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="141" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a0a73c311c7b759c98922dc3062648261" prot="public" static="no">
+        <name>MIO_TDO</name>
+        <initializer>g_mio_jtag_tdo</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ada74fe40ecba1bc79e25e1aac960fe09" prot="public" static="no">
+        <name>MIO_TCK</name>
+        <initializer>g_mio_jtag_tck</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a70c9b9d7fc8c7d87bc809d9199fc12ef" prot="public" static="no">
+        <name>MIO_TMS</name>
+        <initializer>g_mio_jtag_tms</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ac31390b04dc3f465d91c0d5030509422" prot="public" static="no">
+        <name>MIO_MUX_SELECT</name>
+        <initializer>g_mio_jtag_mux_sel</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>GPIO JTAG registers</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a5e5d984b69d2906963003ab790c8c93b" prot="public" static="no">
+        <name>GPIO_TDI</name>
+        <initializer>GpioPinMasterJtagTDI</initializer>
+        <briefdescription>
+<para>&lt; GPIO JTAG register definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ae4dd0d74af4acee68ff5858b9c4b4e62" prot="public" static="no">
+        <name>GPIO_TDO</name>
+        <initializer>GpioPinMasterJtagTDO</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a39ae2902c5f67a77ee2009c9e4bec3df" prot="public" static="no">
+        <name>GPIO_TMS</name>
+        <initializer>GpioPinMasterJtagTMS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a54f45af27a444f1604537f8c5079b46d" prot="public" static="no">
+        <name>GPIO_TCK</name>
+        <initializer>GpioPinMasterJtagTCK</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>GPIO HWM registers</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a40522d5981091aab1209b0908c82f57f" prot="public" static="no">
+        <name>GPIO_HWM_START</name>
+        <initializer>GpioPinHwmStart</initializer>
+        <briefdescription>
+<para>&lt; GPIO HWM register definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aa1a6ff87f70a27c498e26e21127b7952" prot="public" static="no">
+        <name>GPIO_HWM_READY</name>
+        <initializer>GpioPinHwmReady</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1acbda70f57263023f7788e54bd7782c61" prot="public" static="no">
+        <name>GPIO_HWM_END</name>
+        <initializer>GpioPinHwmEnd</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>IR length registers</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a8af60630104c963209a7588c91569151" prot="public" static="no">
+        <name>TAP_IR_LENGTH</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>&lt; IR length register definitions </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a08ecd27955baac8df4187325fa1de134" prot="public" static="no">
+        <name>ZYNQ_DAP_IR_LENGTH</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>ATOMIC scan</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aa6d23d0b9f733f9d7735efa2a4f1cbf7" prot="public" static="no">
+        <name>ATOMIC_DR_SCAN</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>&lt; ATOMIC scan for IR and DR </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a5410a2534441e6a991f23623cc7b1c2c" prot="public" static="no">
+        <name>ATOMIC_IR_SCAN</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>GPIO registers</header>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a45d36b41a075f38c101d52a2224aede5" prot="public" static="no">
+        <name>GPIO_BASE_ADDR</name>
+        <initializer>0xF8000700</initializer>
+        <briefdescription>
+<para>&lt; GPIO register offsets and definition </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ae09dd7e557f998666779cdfb2be462c6" prot="public" static="no">
+        <name>GPIO_MASK_VAL</name>
+        <initializer>0x00003FFFU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ac19abe7e763810cb7e5cec4b1cb4ba41" prot="public" static="no">
+        <name>GPIO_TDI_VAL</name>
+        <initializer>0x00001300U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a53f96aabc96d15363a1252e4b19f3cfd" prot="public" static="no">
+        <name>GPIO_TDO_VAL</name>
+        <initializer>0x00001301U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a9d0deff2debc70427e86d38729e9a4a6" prot="public" static="no">
+        <name>GPIO_TCK_VAL</name>
+        <initializer>0x00001300U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a1ce00643293aac8d953ee40369eb13fc" prot="public" static="no">
+        <name>GPIO_TMS_VAL</name>
+        <initializer>0x00001300U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aa028065ac47e6cb1b27dd51ea07d005e" prot="public" static="no">
+        <name>GPIO_MUX_SEL_VAL</name>
+        <initializer>0x00001300U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Xilskey jscmd API declarations</header>
+      <description><para>  </para></description>
+      <memberdef kind="function" id="xilskey__jscmd_8h_1aee00f0d188be833aa847480de8dc1ecb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+        <definition>js_server_t* js_init_zynq</definition>
+        <argsstring>(void)</argsstring>
+        <name>js_init_zynq</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>&lt; Prototype declarations for Xilskey jscmd APIs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="1254" bodyend="1267"/>
+        <references refid="xilskey__jscmd_8c_1a4303ea32671ab608d25123c7f70159ae" compoundref="xilskey__jscmd_8c" startline="1149" endline="1208">open_port</references>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a399e6b6a3d8842f49de0758c5b25c67d" compoundref="xilskey__jscmd_8c" startline="1612" endline="1733">JtagServerInitBbram</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jscmd_8h_1ad442c62b85591b16bbebcc35c9e63dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void initGPIO</definition>
+        <argsstring>(void)</argsstring>
+        <name>initGPIO</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="22" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jscmd_8h_1aaebc31c432e1cd2d9ebdbaa0b06a4995" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int jtag_setPreAndPostPads</definition>
+        <argsstring>(js_port_t *port_arg, int irPrePadBits, int irPostPadBits, int drPrePadBits, int drPostPadBits)</argsstring>
+        <name>jtag_setPreAndPostPads</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port_arg</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>irPrePadBits</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>irPostPadBits</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>drPrePadBits</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>drPostPadBits</declname>
+        </param>
+        <briefdescription>
+<para>This function sets Jtag Pre and Post Pads. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>status value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="876" bodyend="885"/>
+        <referencedby refid="xilskey__jscmd_8c_1a8a1a649f81c76f0a81196ac2d6a411bc" compoundref="xilskey__jscmd_8c" startline="1269" endline="1344">JtagWrite</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a59fd1f16ea68cca3d04d37883079e6f4" compoundref="xilskey__jscmd_8c" startline="1347" endline="1393">JtagRead</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1abae9797f8dabe8fe6089a60337059572" compoundref="xilskey__jscmd_8c" startline="1749" endline="1809">Bbram_Init</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a78e9cdbbe9a8bb08255b8cdada63efe5" compoundref="xilskey__jscmd_8c" startline="1827" endline="1951">Bbram_ProgramKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a0099206e41d3ca07d3d0feeb8a1802bb" compoundref="xilskey__jscmd_8c" startline="1971" endline="2177">Bbram_VerifyKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a7d6c014687d7fabae96174e4e80907a3" compoundref="xilskey__jscmd_8c" startline="2189" endline="2225">Bbram_DeInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jscmd_8h_1a78af9b51ba9fcca1fee4e43816ccf78f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int jtag_navigate</definition>
+        <argsstring>(js_port_t *port, js_state_t state)</argsstring>
+        <name>jtag_navigate</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+        </param>
+        <param>
+          <type>js_state_t</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>This function performs Jtag navigate operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>status value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="895" bodyend="913"/>
+        <references refid="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" compoundref="xilskey__js_8h" startline="112">js_port_struct::root_node</references>
+        <referencedby refid="xilskey__jscmd_8c_1a4303ea32671ab608d25123c7f70159ae" compoundref="xilskey__jscmd_8c" startline="1149" endline="1208">open_port</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a8a1a649f81c76f0a81196ac2d6a411bc" compoundref="xilskey__jscmd_8c" startline="1269" endline="1344">JtagWrite</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a59fd1f16ea68cca3d04d37883079e6f4" compoundref="xilskey__jscmd_8c" startline="1347" endline="1393">JtagRead</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1abae9797f8dabe8fe6089a60337059572" compoundref="xilskey__jscmd_8c" startline="1749" endline="1809">Bbram_Init</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a78e9cdbbe9a8bb08255b8cdada63efe5" compoundref="xilskey__jscmd_8c" startline="1827" endline="1951">Bbram_ProgramKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a0099206e41d3ca07d3d0feeb8a1802bb" compoundref="xilskey__jscmd_8c" startline="1971" endline="2177">Bbram_VerifyKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a7d6c014687d7fabae96174e4e80907a3" compoundref="xilskey__jscmd_8c" startline="2189" endline="2225">Bbram_DeInit</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a65f94f046816b7e5dddb8e06dcfa0db0" compoundref="xilskey__jscmd_8c" startline="2241" endline="2276">Jtag_Read_Sysmon</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1ad71fe773dff0bd882d39c2936e319c63" compoundref="xilskey__jscmd_8c" startline="2296" endline="2370">JtagWrite_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a2740a0531078952f78e0b2680f62cd1a" compoundref="xilskey__jscmd_8c" startline="2398" endline="2443">JtagRead_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a81be870dc9cfe995815d14bc106473a7" compoundref="xilskey__jscmd_8c" startline="2463" endline="2532">JtagRead_Status_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a2240f1d411f1eef6605ee6da1426c5ba" compoundref="xilskey__jscmd_8c" startline="2563" endline="2685">JtagAES_Check_Ultrascale</referencedby>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1afdb9b1c206a7bc8f6b18653dc3b5e5e1" compoundref="xilskey__jscmd_8c" startline="2905" endline="2950">Bbram_Close_Ultra</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__jscmd_8h_1a142699a6a901503abc8c986a3557ab53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int jtag_shift</definition>
+        <argsstring>(js_port_t *port, unsigned char mode, int bits, unsigned char *wrBuffer, unsigned char *rdBuffer, js_state_t state)</argsstring>
+        <name>jtag_shift</name>
+        <param>
+          <type><ref refid="structjs__port__struct" kindref="compound">js_port_t</ref> *</type>
+          <declname>port</declname>
+          <defname>port_arg</defname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>mode</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>bits</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>wrBuffer</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>rdBuffer</declname>
+        </param>
+        <param>
+          <type>js_state_t</type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+<para>This function takes care of padding Must be set up with pre/post ir/dr info. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>status value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.c" bodystart="923" bodyend="986"/>
+        <references refid="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" compoundref="xilskey__js_8h" startline="112">js_port_struct::root_node</references>
+        <references refid="xilskey__jscmd_8c_1a7536fc31bdd4f46c83f517442b520977" compoundref="xilskey__jscmd_8c" startline="329" endline="337">getByteCountFromBitCount</references>
+        <referencedby refid="xilskey__jscmd_8c_1a8a1a649f81c76f0a81196ac2d6a411bc" compoundref="xilskey__jscmd_8c" startline="1269" endline="1344">JtagWrite</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a59fd1f16ea68cca3d04d37883079e6f4" compoundref="xilskey__jscmd_8c" startline="1347" endline="1393">JtagRead</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1abae9797f8dabe8fe6089a60337059572" compoundref="xilskey__jscmd_8c" startline="1749" endline="1809">Bbram_Init</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a78e9cdbbe9a8bb08255b8cdada63efe5" compoundref="xilskey__jscmd_8c" startline="1827" endline="1951">Bbram_ProgramKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a0099206e41d3ca07d3d0feeb8a1802bb" compoundref="xilskey__jscmd_8c" startline="1971" endline="2177">Bbram_VerifyKey</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a7d6c014687d7fabae96174e4e80907a3" compoundref="xilskey__jscmd_8c" startline="2189" endline="2225">Bbram_DeInit</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a65f94f046816b7e5dddb8e06dcfa0db0" compoundref="xilskey__jscmd_8c" startline="2241" endline="2276">Jtag_Read_Sysmon</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1ad71fe773dff0bd882d39c2936e319c63" compoundref="xilskey__jscmd_8c" startline="2296" endline="2370">JtagWrite_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a2740a0531078952f78e0b2680f62cd1a" compoundref="xilskey__jscmd_8c" startline="2398" endline="2443">JtagRead_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a81be870dc9cfe995815d14bc106473a7" compoundref="xilskey__jscmd_8c" startline="2463" endline="2532">JtagRead_Status_Ultrascale</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a2240f1d411f1eef6605ee6da1426c5ba" compoundref="xilskey__jscmd_8c" startline="2563" endline="2685">JtagAES_Check_Ultrascale</referencedby>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1afdb9b1c206a7bc8f6b18653dc3b5e5e1" compoundref="xilskey__jscmd_8c" startline="2905" endline="2950">Bbram_Close_Ultra</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a7e3b4ea87392372e172a50037158c814" prot="public" static="no">
+        <name>ZUPLUS_PL_IDCODE</name>
+        <initializer>0x25U</initializer>
+        <briefdescription>
+<para>zu+ pl_idcode instruction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ada03aa6ca1b75fac4edc8c5c0510ae85" prot="public" static="no">
+        <name>DRLENGTH_FUSE</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Data register length for fuse_cts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a1c26a1dbc6ba4e8ed14a0d2f6baa9cc5" prot="public" static="no">
+        <name>DRLENGTH_PROGRAM</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>Data register lengths for program. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1aaa514925b935ec8828df7101f4b7dcb2" prot="public" static="no">
+        <name>DRLENGTH_VERIFY</name>
+        <initializer>37</initializer>
+        <briefdescription>
+<para>Data register lengths for verify. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a27fff40d77c12f61e3fade11170d1058" prot="public" static="no">
+        <name>DRLENGTH_EN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Data register lengths for data load after ISC_ENABLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1a20b6864d1cf141dd57aea00ad8f91559" prot="public" static="no">
+        <name>XSK_EFUSEPL_GPIO_CH1</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>GPIO channel numbers of Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>GPIO channel 1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ae765a18595af888a39ac007407dbf777" prot="public" static="no">
+        <name>XSK_EFUSEPL_GPIO_CH2</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>GPIO channel 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__jscmd_8h_1ade9f0b3c15226255f855a13b422f2001" prot="public" static="no">
+        <name>XSK_GPIO_PIN_MAX</name>
+        <initializer>(31)</initializer>
+        <briefdescription>
+<para>Maximum valid GPIO number. </para>        </briefdescription>
+        <detaileddescription>
+<para>Maximum valid gpio pin number </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xilskey__jscmd_8h_1adae841c199a9dd1b4908830b802e8fe2" prot="public" static="no">
+        <name>XilSKey_ModuleSelection</name>
+        <enumvalue id="xilskey__jscmd_8h_1adae841c199a9dd1b4908830b802e8fe2acf23136fe0eabfe57a1390d6b37b209e" prot="public">
+          <name>XSK_EFUSE</name>
+          <briefdescription>
+<para>For eFUSE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilskey__jscmd_8h_1adae841c199a9dd1b4908830b802e8fe2a52ed12504bfcc890e130b8c747b1ecab" prot="public">
+          <name>XSK_BBRAM</name>
+          <briefdescription>
+<para>For BBRAM. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Option selection among efuse and bbram. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="222" bodyend="225"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1ad7198ea02823a2019477f45f00cf3206" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mio_jtag_tdi</definition>
+        <argsstring></argsstring>
+        <name>g_mio_jtag_tdi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a4c28d9bcc2cb75094de84448c03d839a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mio_jtag_tdo</definition>
+        <argsstring></argsstring>
+        <name>g_mio_jtag_tdo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a501dd157706cf61065f40756f9a0eb29" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mio_jtag_tck</definition>
+        <argsstring></argsstring>
+        <name>g_mio_jtag_tck</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a97c9f474c6903964f921093cd20e937f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mio_jtag_tms</definition>
+        <argsstring></argsstring>
+        <name>g_mio_jtag_tms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a11efcc4217a19f8a365fa48e3dccf7da" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mio_jtag_mux_sel</definition>
+        <argsstring></argsstring>
+        <name>g_mio_jtag_mux_sel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a0dd8ec823fbdef44f1d59bf275658d18" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int g_mux_sel_def_val</definition>
+        <argsstring></argsstring>
+        <name>g_mux_sel_def_val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a0c817e299c1c7985e83252d523de45cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinMasterJtagTDI</definition>
+        <argsstring></argsstring>
+        <name>GpioPinMasterJtagTDI</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a48e8926e854ed8636fe4f76c75cecd7e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinMasterJtagTDO</definition>
+        <argsstring></argsstring>
+        <name>GpioPinMasterJtagTDO</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a1b70f1169a5740efd32190cd5db57fda" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinMasterJtagTMS</definition>
+        <argsstring></argsstring>
+        <name>GpioPinMasterJtagTMS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1af72a13d2bfc6a0b0e88d3e8f27c5900d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinMasterJtagTCK</definition>
+        <argsstring></argsstring>
+        <name>GpioPinMasterJtagTCK</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a6f3bff027ce1166aecaf61730b572d50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinHwmStart</definition>
+        <argsstring></argsstring>
+        <name>GpioPinHwmStart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1ae05a6d1845d323346ca5ba80d0eb6c6b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinHwmEnd</definition>
+        <argsstring></argsstring>
+        <name>GpioPinHwmEnd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1acab00238362b0f33bd787d2983eead50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioPinHwmReady</definition>
+        <argsstring></argsstring>
+        <name>GpioPinHwmReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1ae2ab8e7a4636167a14f6da2f2cc64bb1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioInPutCh</definition>
+        <argsstring></argsstring>
+        <name>GpioInPutCh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1aa151eb1bb8fe2641a1fefb9807054e4e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioOutPutCh</definition>
+        <argsstring></argsstring>
+        <name>GpioOutPutCh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__jscmd_8h_1a16040cfc58ae5a5660de47cca0a2605f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 GpioDeviceId</definition>
+        <argsstring></argsstring>
+        <name>GpioDeviceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XILSKEY_JSCMD_H</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_JSCMD_H</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilskey_js.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="21"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref><sp/>*<ref refid="xilskey__jscmd_8c_1a84993b73c0bf1d71424fad91d4fdfbe7" kindref="member">js_init_zynq</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>initGPIO<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1aaebc31c432e1cd2d9ebdbaa0b06a4995" kindref="member">jtag_setPreAndPostPads</ref><sp/>(<ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port_arg,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>irPrePadBits,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>irPostPadBits,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>drPrePadBits,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>drPostPadBits);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" kindref="member">jtag_navigate</ref><sp/>(<ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port,<sp/>js_state_t<sp/>state);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" kindref="member">jtag_shift</ref><sp/>(<ref refid="structjs__port__struct" kindref="compound">js_port_t</ref><sp/>*port,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>mode,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>bits,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>wrBuffer,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>rdBuffer,<sp/>js_state_t<sp/>state);</highlight></codeline>
+<codeline lineno="28"><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mio_jtag_tdi;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mio_jtag_tdo;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mio_jtag_tck;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mio_jtag_tms;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mio_jtag_mux_sel;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>g_mux_sel_def_val;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">u32<sp/>GpioPinMasterJtagTDI;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">u32<sp/>GpioPinMasterJtagTDO;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">u32<sp/>GpioPinMasterJtagTMS;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">u32<sp/>GpioPinMasterJtagTCK;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">u32<sp/>GpioPinHwmStart;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">u32<sp/>GpioPinHwmEnd;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">u32<sp/>GpioPinHwmReady;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">u32<sp/>GpioInPutCh;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">u32<sp/>GpioOutPutCh;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">u32<sp/>GpioDeviceId;</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>JPROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0B</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_NOOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_PROGRAM_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_PROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x11</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x16</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SYSMON_DRP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x37</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CFG_OUT_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFG_IN_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x05</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_ENABLE_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_PROGRAM_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x11</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSC_PROGRAM_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_READ_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FEEDTHROUGH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x24</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FUSE_CTS_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FUSE_KEY_SLRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x31</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>ZUPLUS_PL_IDCODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x25U</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>IRHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IRTRAILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRTRAILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>IRHEADER_BYP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IRTRAILER_BYP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRHEADER_BYP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRTRAILER_BYP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>DRLENGTH_FUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>DRLENGTH_PROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>DRLENGTH_VERIFY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>37</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>DRLENGTH_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>DR_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CALC_SINGLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CALC_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CALC_MSTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#ifdef<sp/>XSK_MICROBLAZE_PLATFORM</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO_TDI</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO_TDO</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO_TCK</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GPIO_TMS</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g_mio_jtag_tdi</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g_mio_jtag_tdo</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g_mio_jtag_tck</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_TMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g_mio_jtag_tms</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MIO_MUX_SELECT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>g_mio_jtag_mux_sel</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>GPIO_TDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinMasterJtagTDI</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinMasterJtagTDO</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinMasterJtagTMS</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinMasterJtagTCK</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>GPIO_HWM_START<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinHwmStart</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_HWM_READY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinHwmReady</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_HWM_END<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GpioPinHwmEnd</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>TAP_IR_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZYNQ_DAP_IR_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/>(4)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>ATOMIC_DR_SCAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ATOMIC_IR_SCAN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>GPIO_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF8000700</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_MASK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00003FFFU</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TDI_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001300U</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TDO_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001301U</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TCK_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001300U</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_TMS_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001300U</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_MUX_SEL_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001300U</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_GPIO_CH1<sp/><sp/><sp/><sp/>(1)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_GPIO_CH2<sp/><sp/><sp/><sp/>(2)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XSK_GPIO_PIN_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">typedef<sp/>struct<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>NumSlr;<sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CurSlr;<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IrLen;<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}XilSKey_JtagSlr;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">}<sp/>XilSKey_ModuleSelection;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSKEfusePl_Fpga<sp/>flag;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>id;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>irLen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>numSlr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>masterSlr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}<sp/>id_codes_t;</highlight></codeline>
+<codeline lineno="238"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>ForcePowerCycle;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AESKeyRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserKeyRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSARead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserKeyWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecureWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSAWrite;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>User128BitWrite;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecureRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AESKeyExclusive;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagDisable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UseAESOnly;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncryptOnly;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntTestAccessDisable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DecoderDisable;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSAEnable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FuseObfusEn;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgAESandUserLowKey;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUserHighKey;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgAESKeyUltra;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUserKeyUltra;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgRSAKeyUltra;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUser128BitUltra;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CheckAESKeyUltra;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadUserKeyUltra;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadRSAKeyUltra;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadUser128BitUltra;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKey[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];<sp/></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserKey[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];<sp/></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RSAKeyHash[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];<sp/></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>User128Bit[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDI;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDO;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTCK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTMS;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioMuxSel;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMuxSelLineDefVal;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioID;<sp/></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioStart;<sp/></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioReady;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioEnd;<sp/></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDI;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDO;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTMS;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTCK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioInputCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioOutPutCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKeyReadback[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserKeyReadback[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CrcOfAESKey;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKeyMatched;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>User128BitReadBack[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SystemInitDone;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSKEfusePl_Fpga<sp/>FpgaFlag;</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CrcToVerify;<sp/></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>NumSlr;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>MasterSlr;</highlight></codeline>
+<codeline lineno="486" refid="struct_xil_s_key___e_pl_1a4b9a790a0d2ce5fee937ab96fc48cb54" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>SlrConfigOrderIndex;<sp/></highlight></codeline>
+<codeline lineno="488"><highlight class="normal">}<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref>;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="493"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*XILSKEY_JSCMD_H*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h"/>
+  </compounddef>
+</doxygen>

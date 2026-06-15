@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mutex" kind="struct" prot="public">
+    <compoundname>XMutex</compoundname>
+    <includes local="no">xmutex.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref></type>
+        <definition>XMutex_Config XMutex::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration data, includes base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" compoundref="xmutex_8c" startline="76" endline="97">XMutex_CfgInitialize</referencedby>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" compoundref="xmutex_8c" startline="312" endline="325">XMutex_GetUser</referencedby>
+        <referencedby refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" compoundref="xmutex_8c" startline="241" endline="252">XMutex_IsLocked</referencedby>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+        <referencedby refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" compoundref="xmutex_8c" startline="349" endline="362">XMutex_SetUser</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mutex_1aab67818beece616d3da30ef3944681e8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMutex::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" compoundref="xmutex_8c" startline="76" endline="97">XMutex_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every Mutex device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XMutex_Config</label>
+        <link refid="struct_x_mutex___config"/>
+      </node>
+      <node id="1">
+        <label>XMutex</label>
+        <link refid="struct_x_mutex"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" bodystart="139" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" prot="public" virt="non-virtual"><scope>XMutex</scope><name>Config</name></member>
+      <member refid="struct_x_mutex_1aab67818beece616d3da30ef3944681e8" prot="public" virt="non-virtual"><scope>XMutex</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

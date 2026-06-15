@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___counters" kind="struct" prot="public">
+    <compoundname>XAvb_Counters</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___counters_1a736ce9a6afef4a9305cdd6e2e2ba28dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_Counters::RxPtpHardPointer</definition>
+        <argsstring></argsstring>
+        <name>RxPtpHardPointer</name>
+        <briefdescription>
+<para>The Rx PTP Buffer last written to. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="388" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___counters_1a4efdfe9a00248e2adfae1c7015d1a5fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_Counters::RxPtpSoftPointer</definition>
+        <argsstring></argsstring>
+        <name>RxPtpSoftPointer</name>
+        <briefdescription>
+<para>The current software pointer to Rx Buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___counters_1a33a32af6ca968fac37957cbe9435f1db" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_Counters::CounterSyncInterval</definition>
+        <argsstring></argsstring>
+        <name>CounterSyncInterval</name>
+        <briefdescription>
+<para>To count units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___counters_1a618c3216d8806db71be2a72d24d5d9ac" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_Counters::CounterLinkDelayInterval</definition>
+        <argsstring></argsstring>
+        <name>CounterLinkDelayInterval</name>
+        <briefdescription>
+<para>To count units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___counters_1af9de244165a5492b2ee9b90a625a7922" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_Counters::CounterAnnounceInterval</definition>
+        <argsstring></argsstring>
+        <name>CounterAnnounceInterval</name>
+        <briefdescription>
+<para>To count units of 1/128 seconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="392" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___counters_1a9228c57c4b090294bf8f034f94fbba06" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_Counters::CounterSyncEvents</definition>
+        <argsstring></argsstring>
+        <name>CounterSyncEvents</name>
+        <briefdescription>
+<para>To count the number of Sync Events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the various counters which have to maintained for the PTP operation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="386" bodyend="394"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___counters_1af9de244165a5492b2ee9b90a625a7922" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>CounterAnnounceInterval</name></member>
+      <member refid="struct_x_avb___counters_1a618c3216d8806db71be2a72d24d5d9ac" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>CounterLinkDelayInterval</name></member>
+      <member refid="struct_x_avb___counters_1a9228c57c4b090294bf8f034f94fbba06" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>CounterSyncEvents</name></member>
+      <member refid="struct_x_avb___counters_1a33a32af6ca968fac37957cbe9435f1db" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>CounterSyncInterval</name></member>
+      <member refid="struct_x_avb___counters_1a736ce9a6afef4a9305cdd6e2e2ba28dc" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>RxPtpHardPointer</name></member>
+      <member refid="struct_x_avb___counters_1a4efdfe9a00248e2adfae1c7015d1a5fa" prot="public" virt="non-virtual"><scope>XAvb_Counters</scope><name>RxPtpSoftPointer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

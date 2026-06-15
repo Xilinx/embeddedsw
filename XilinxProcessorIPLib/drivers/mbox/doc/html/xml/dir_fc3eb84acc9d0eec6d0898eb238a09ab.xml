@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fc3eb84acc9d0eec6d0898eb238a09ab" kind="dir">
+    <compoundname>mbox</compoundname>
+    <innerdir refid="dir_8336bf6e3c04ff414ebbcead5498ed82">examples</innerdir>
+    <innerdir refid="dir_9fcda810e70486f19633877fdc82f5f0">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mbox/"/>
+  </compounddef>
+</doxygen>

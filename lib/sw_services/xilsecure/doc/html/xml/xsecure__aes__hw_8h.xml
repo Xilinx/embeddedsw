@@ -1,0 +1,794 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__aes__hw_8h" kind="file">
+    <compoundname>xsecure_aes_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="zynqmp_2xsecure__aes_8h" local="yes">xsecure_aes.h</includedby>
+    <incdepgraph>
+      <node id="617">
+        <label>xsecure_aes_hw.h</label>
+        <link refid="xsecure_aes_hw.h"/>
+        <childnode refid="618" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
+        <label>xil_io.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="640">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="624">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="619">
+        <label>xsecure_aes_hw.h</label>
+        <link refid="xsecure_aes_hw.h"/>
+        <childnode refid="620" relation="include">
+        </childnode>
+      </node>
+      <node id="639">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="653">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="670">
+        <label>xsecure.c</label>
+        <link refid="xsecure_8c"/>
+      </node>
+      <node id="669">
+        <label>xsecure.h</label>
+        <link refid="xsecure_8h"/>
+        <childnode refid="670" relation="include">
+        </childnode>
+      </node>
+      <node id="659">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="623">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="663">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="622">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="623" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+      </node>
+      <node id="650">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="651">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="668">
+        <label>xsecure_plat.c</label>
+        <link refid="spartanup_2xsecure__plat_8c"/>
+      </node>
+      <node id="621">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="657">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="637">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="633">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8h"/>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+      </node>
+      <node id="645">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="667">
+        <label>xsecure_plat_aes.c</label>
+        <link refid="xsecure__plat__aes_8c"/>
+      </node>
+      <node id="641">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="666">
+        <label>xsecure_plat_aes.h</label>
+        <link refid="xsecure__plat__aes_8h"/>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+      </node>
+      <node id="673">
+        <label>xilsecure_simple_aes_example.c</label>
+        <link refid="xilsecure__simple__aes__example_8c"/>
+      </node>
+      <node id="655">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="658">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="661">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="671">
+        <label>xsecure_aes.c</label>
+        <link refid="zynqmp_2xsecure__aes_8c"/>
+      </node>
+      <node id="643">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="620">
+        <label>xsecure_aes.h</label>
+        <link refid="zynqmp_2xsecure__aes_8h"/>
+        <childnode refid="621" relation="include">
+        </childnode>
+        <childnode refid="622" relation="include">
+        </childnode>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="666" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="669" relation="include">
+        </childnode>
+        <childnode refid="671" relation="include">
+        </childnode>
+        <childnode refid="672" relation="include">
+        </childnode>
+        <childnode refid="673" relation="include">
+        </childnode>
+        <childnode refid="674" relation="include">
+        </childnode>
+      </node>
+      <node id="642">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="646">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="638">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+      </node>
+      <node id="644">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+      </node>
+      <node id="648">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="647">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+      </node>
+      <node id="631">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="627">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8h"/>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+      </node>
+      <node id="656">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="665">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="635">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="660">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="672">
+        <label>xilsecure_aes_example.c</label>
+        <link refid="xilsecure__aes__example_8c"/>
+      </node>
+      <node id="652">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="654">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="636">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="634">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="628">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+      </node>
+      <node id="632">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="625">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="626">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="662">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="629">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="649">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="664">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="674">
+        <label>xilsecure_versal_aes_server_example.c</label>
+        <link refid="xilsecure__versal__aes__server__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the AES module. </para></description>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" prot="public" static="no">
+        <name>XSECURE_CSU_AES_STS_OFFSET</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>AES Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabc4743067996b2f55c4a701ca6c2a331" compoundref="zynqmp_2xsecure__aes_8c" startline="878" endline="918">XSecure_AesKeyZero</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1ac4f6d3f9238230cda8ad67d102f6e6d6" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KEY_SRC_OFFSET</name>
+        <initializer>(0x04U)</initializer>
+        <briefdescription>
+<para>AES Key Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1ae1c3ca104b2640688266e44b30c888f7" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KEY_LOAD_OFFSET</name>
+        <initializer>(0x08U)</initializer>
+        <briefdescription>
+<para>AES Key Load Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" prot="public" static="no">
+        <name>XSECURE_CSU_AES_START_MSG_OFFSET</name>
+        <initializer>(0x0CU)</initializer>
+        <briefdescription>
+<para>AES Start Message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" prot="public" static="no">
+        <name>XSECURE_CSU_AES_RESET_OFFSET</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+<para>AES Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" compoundref="zynqmp_2xsecure__aes_8c" startline="319" endline="387">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KEY_CLR_OFFSET</name>
+        <initializer>(0x14U)</initializer>
+        <briefdescription>
+<para>AES Key Clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabc4743067996b2f55c4a701ca6c2a331" compoundref="zynqmp_2xsecure__aes_8c" startline="878" endline="918">XSecure_AesKeyZero</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" prot="public" static="no">
+        <name>XSECURE_CSU_AES_CFG_OFFSET</name>
+        <initializer>(0x18U)</initializer>
+        <briefdescription>
+<para>AES Operational Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a77b13d20302780896f179e0c3789b224" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_WR_OFFSET</name>
+        <initializer>(0x1CU)</initializer>
+        <briefdescription>
+<para>AES KUP Write Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_0_OFFSET</name>
+        <initializer>(0x20U)</initializer>
+        <briefdescription>
+<para>AES Key Update 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1adab546acdb0e3f981d4e76606bfec672" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_1_OFFSET</name>
+        <initializer>(0x24U)</initializer>
+        <briefdescription>
+<para>AES Key Update 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a4ae4618af67751a42aff5de918d54c32" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_2_OFFSET</name>
+        <initializer>(0x28U)</initializer>
+        <briefdescription>
+<para>AES Key Update 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a0b8c817875ebc805ee81be1538c11a1a" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_3_OFFSET</name>
+        <initializer>(0x2CU)</initializer>
+        <briefdescription>
+<para>AES Key Update 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a64924a072197d0e34f8305ff47233489" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_4_OFFSET</name>
+        <initializer>(0x30U)</initializer>
+        <briefdescription>
+<para>AES Key Update 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a19c67648b6a09009674f0861c821ca34" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_5_OFFSET</name>
+        <initializer>(0x34U)</initializer>
+        <briefdescription>
+<para>AES Key Update 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a72eb0cb82eaccede4a02892b15485fc7" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_6_OFFSET</name>
+        <initializer>(0x38U)</initializer>
+        <briefdescription>
+<para>AES Key Update 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a2c9e9eed8028aa153d63c660c60bd493" prot="public" static="no">
+        <name>XSECURE_CSU_AES_KUP_7_OFFSET</name>
+        <initializer>(0x3CU)</initializer>
+        <briefdescription>
+<para>AES Key Update 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a288b9458ee0a6ca2541a80df9bbdf2b5" prot="public" static="no">
+        <name>XSECURE_CSU_AES_IV_0_OFFSET</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+<para>AES IV 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a38bf5d9e9916114373fb74f3eed8efd7" prot="public" static="no">
+        <name>XSECURE_CSU_AES_IV_1_OFFSET</name>
+        <initializer>(0x44U)</initializer>
+        <briefdescription>
+<para>AES IV 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1afc8d7dd85f087061e1a4d0e366779ea2" prot="public" static="no">
+        <name>XSECURE_CSU_AES_IV_2_OFFSET</name>
+        <initializer>(0x48U)</initializer>
+        <briefdescription>
+<para>AES IV 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" prot="public" static="no">
+        <name>XSECURE_CSU_AES_IV_3_OFFSET</name>
+        <initializer>(0x4CU)</initializer>
+        <briefdescription>
+<para>AES IV 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1aae1144b9830a93d8a345636a8082431c" prot="public" static="no">
+        <name>XSECURE_CSU_AES_BASE</name>
+        <initializer>(0xFFCA1000U)</initializer>
+        <briefdescription>
+<para>CSU AES base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gadeb15e6ff58fe7e52935350e1a92a102" compoundref="zynqmp_2xsecure__aes_8c" startline="150" endline="186">XSecure_AesInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a70cfd063e5c71090c16a94edb5ae8a0d" prot="public" static="no">
+        <name>XSECURE_CSU_PCAP_STATUS</name>
+        <initializer>(0xFFCA3010U)</initializer>
+        <briefdescription>
+<para>CSU PCAP Status reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsecure__aes__hw_8h_1a2df1b86f0df945633e73080ff4322e05" prot="public" static="no">
+        <name>XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK</name>
+        <initializer>(0X00000001U)</initializer>
+        <briefdescription>
+<para>PCAP Write Idle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsecure__aes__hw_8h_1a22b34a6f25ed064486a686b787b2a53d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_PcapWaitForDone</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_PcapWaitForDone</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Wait for writes to PL and hence PCAP write cycle to complete. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XSecure_PcapWaitForDone(void) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h" bodystart="90" bodyend="97"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file which contains ZynqMP AES core hardware definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+4.0   vns  03/11/19 Initial release
+4.6   am   09/17/21 Resolved compiler warnings
+4.7   am   11/26/21 Resolved doxygen warning</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_AES_HW_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_HW_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="xsecure__aes__hw_8h_1aae1144b9830a93d8a345636a8082431c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFCA1000U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43" refid="xsecure__aes__hw_8h_1a70cfd063e5c71090c16a94edb5ae8a0d" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_PCAP_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFCA3010U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45" refid="xsecure__aes__hw_8h_1a2df1b86f0df945633e73080ff4322e05" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000001U)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
+<codeline lineno="53" refid="xsecure__aes__hw_8h_1ac4f6d3f9238230cda8ad67d102f6e6d6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_SRC_OFFSET<sp/><sp/>(0x04U)<sp/></highlight></codeline>
+<codeline lineno="54" refid="xsecure__aes__hw_8h_1ae1c3ca104b2640688266e44b30c888f7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_LOAD_OFFSET<sp/>(0x08U)<sp/></highlight></codeline>
+<codeline lineno="55" refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_START_MSG_OFFSET<sp/>(0x0CU)<sp/></highlight></codeline>
+<codeline lineno="56" refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_RESET_OFFSET<sp/><sp/><sp/><sp/>(0x10U)<sp/></highlight></codeline>
+<codeline lineno="57" refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_CLR_OFFSET<sp/><sp/>(0x14U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>(0x18U)</highlight></codeline>
+<codeline lineno="59" refid="xsecure__aes__hw_8h_1a77b13d20302780896f179e0c3789b224" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_WR_OFFSET<sp/><sp/><sp/>(0x1CU)</highlight></codeline>
+<codeline lineno="61" refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_0_OFFSET<sp/><sp/><sp/><sp/>(0x20U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="xsecure__aes__hw_8h_1adab546acdb0e3f981d4e76606bfec672" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_1_OFFSET<sp/><sp/><sp/><sp/>(0x24U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="xsecure__aes__hw_8h_1a4ae4618af67751a42aff5de918d54c32" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_2_OFFSET<sp/><sp/><sp/><sp/>(0x28U)<sp/></highlight></codeline>
+<codeline lineno="65" refid="xsecure__aes__hw_8h_1a0b8c817875ebc805ee81be1538c11a1a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_3_OFFSET<sp/><sp/><sp/><sp/>(0x2CU)<sp/></highlight></codeline>
+<codeline lineno="66" refid="xsecure__aes__hw_8h_1a64924a072197d0e34f8305ff47233489" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_4_OFFSET<sp/><sp/><sp/><sp/>(0x30U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="xsecure__aes__hw_8h_1a19c67648b6a09009674f0861c821ca34" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_5_OFFSET<sp/><sp/><sp/><sp/>(0x34U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="xsecure__aes__hw_8h_1a72eb0cb82eaccede4a02892b15485fc7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_6_OFFSET<sp/><sp/><sp/><sp/>(0x38U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="xsecure__aes__hw_8h_1a2c9e9eed8028aa153d63c660c60bd493" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_7_OFFSET<sp/><sp/><sp/><sp/>(0x3CU)<sp/></highlight></codeline>
+<codeline lineno="71" refid="xsecure__aes__hw_8h_1a288b9458ee0a6ca2541a80df9bbdf2b5" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IV_0_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x40U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="xsecure__aes__hw_8h_1a38bf5d9e9916114373fb74f3eed8efd7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IV_1_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x44U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="xsecure__aes__hw_8h_1afc8d7dd85f087061e1a4d0e366779ea2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IV_2_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x48U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IV_3_OFFSET<sp/><sp/><sp/><sp/><sp/>(0x4CU)<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="90"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_PcapWaitForDone(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Xil_In32(<ref refid="xsecure__aes__hw_8h_1a70cfd063e5c71090c16a94edb5ae8a0d" kindref="member">XSECURE_CSU_PCAP_STATUS</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__aes__hw_8h_1a2df1b86f0df945633e73080ff4322e05" kindref="member">XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CSU_PCAP_STATUS_PCAP_WR_IDLE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_AES_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes_hw.h"/>
+  </compounddef>
+</doxygen>

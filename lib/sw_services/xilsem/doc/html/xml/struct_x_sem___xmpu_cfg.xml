@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem___xmpu_cfg" kind="struct" prot="public">
+    <compoundname>XSem_XmpuCfg</compoundname>
+    <includes local="no">xilsem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1ab4e6a11887b9040c92ecf9719d345159" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::DdrmcNocAddr</definition>
+        <argsstring></argsstring>
+        <name>DdrmcNocAddr</name>
+        <briefdescription>
+<para>DDRMC NOC address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1a392e0989d39e31fd5114d833ea89ae48" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuRegionNum</definition>
+        <argsstring></argsstring>
+        <name>XmpuRegionNum</name>
+        <briefdescription>
+<para>XMPU region number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1a3a802b0f10d9f9559ba3a3abb34d9b49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuConfig</definition>
+        <argsstring></argsstring>
+        <name>XmpuConfig</name>
+        <briefdescription>
+<para>XMPU entry config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1af821df2a894d0814c566f09b8e07df52" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuStartAddrLo</definition>
+        <argsstring></argsstring>
+        <name>XmpuStartAddrLo</name>
+        <briefdescription>
+<para>XMPU start address lower portion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1ae1eb4aed09a5aac319fb2ba8162f47c3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuStartAddrUp</definition>
+        <argsstring></argsstring>
+        <name>XmpuStartAddrUp</name>
+        <briefdescription>
+<para>XMPU start address upper portion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1a5469026a0bdfb14e20ece1ab7bb706bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuEndAddrLo</definition>
+        <argsstring></argsstring>
+        <name>XmpuEndAddrLo</name>
+        <briefdescription>
+<para>XMPU end address lower portion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1a1d7fb9d29be4f9acd7993eccd6fd7181" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuEndAddrUp</definition>
+        <argsstring></argsstring>
+        <name>XmpuEndAddrUp</name>
+        <briefdescription>
+<para>XMPU end address upper portion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___xmpu_cfg_1a2b7f2016c9bc4bf621d1dccd85819861" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_XmpuCfg::XmpuMaster</definition>
+        <argsstring></argsstring>
+        <name>XmpuMaster</name>
+        <briefdescription>
+<para>XMPU master ID and mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XMPU Config Database. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h" bodystart="43" bodyend="52"/>
+    <listofallmembers>
+      <member refid="struct_x_sem___xmpu_cfg_1ab4e6a11887b9040c92ecf9719d345159" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>DdrmcNocAddr</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1a3a802b0f10d9f9559ba3a3abb34d9b49" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuConfig</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1a5469026a0bdfb14e20ece1ab7bb706bf" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuEndAddrLo</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1a1d7fb9d29be4f9acd7993eccd6fd7181" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuEndAddrUp</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1a2b7f2016c9bc4bf621d1dccd85819861" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuMaster</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1a392e0989d39e31fd5114d833ea89ae48" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuRegionNum</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1af821df2a894d0814c566f09b8e07df52" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuStartAddrLo</name></member>
+      <member refid="struct_x_sem___xmpu_cfg_1ae1eb4aed09a5aac319fb2ba8162f47c3" prot="public" virt="non-virtual"><scope>XSem_XmpuCfg</scope><name>XmpuStartAddrUp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

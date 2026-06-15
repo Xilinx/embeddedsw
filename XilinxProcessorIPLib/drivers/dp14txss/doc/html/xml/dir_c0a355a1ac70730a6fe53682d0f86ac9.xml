@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c0a355a1ac70730a6fe53682d0f86ac9" kind="dir">
+    <compoundname>inc</compoundname>
+    <innerfile refid="_l_m_k04906_8h">LMK04906.h</innerfile>
+    <innerfile refid="_p_l_l___conf_8h">PLL_Conf.h</innerfile>
+    <innerfile refid="inc_2xclk__wiz_8h">inc/xclk_wiz.h</innerfile>
+    <innerfile refid="inc_2xedid__print__example_8h">inc/xedid_print_example.h</innerfile>
+    <innerfile refid="inc_2xlib__string_8h">inc/xlib_string.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/"/>
+  </compounddef>
+</doxygen>

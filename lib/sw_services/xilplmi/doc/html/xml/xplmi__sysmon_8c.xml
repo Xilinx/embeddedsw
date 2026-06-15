@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__sysmon_8c" kind="file">
+    <compoundname>xplmi_sysmon.c</compoundname>
+    <includes refid="xplmi__sysmon_8h" local="yes">xplmi_sysmon.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes local="yes">xplmi_wdt.h</includes>
+    <incdepgraph>
+      <node id="2795">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2787">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="2788" relation="include">
+        </childnode>
+        <childnode refid="2789" relation="include">
+        </childnode>
+        <childnode refid="2790" relation="include">
+        </childnode>
+        <childnode refid="2785" relation="include">
+        </childnode>
+        <childnode refid="2784" relation="include">
+        </childnode>
+      </node>
+      <node id="2796">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="2778">
+        <label>sleep.h</label>
+      </node>
+      <node id="2801">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2782">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="2783" relation="include">
+        </childnode>
+        <childnode refid="2785" relation="include">
+        </childnode>
+      </node>
+      <node id="2791">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="2792" relation="include">
+        </childnode>
+        <childnode refid="2793" relation="include">
+        </childnode>
+        <childnode refid="2783" relation="include">
+        </childnode>
+        <childnode refid="2795" relation="include">
+        </childnode>
+        <childnode refid="2796" relation="include">
+        </childnode>
+      </node>
+      <node id="2797">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="2795" relation="include">
+        </childnode>
+        <childnode refid="2798" relation="include">
+        </childnode>
+        <childnode refid="2786" relation="include">
+        </childnode>
+        <childnode refid="2799" relation="include">
+        </childnode>
+        <childnode refid="2800" relation="include">
+        </childnode>
+      </node>
+      <node id="2779">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="2780" relation="include">
+        </childnode>
+        <childnode refid="2781" relation="include">
+        </childnode>
+        <childnode refid="2782" relation="include">
+        </childnode>
+        <childnode refid="2787" relation="include">
+        </childnode>
+      </node>
+      <node id="2775">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi_sysmon.c"/>
+        <childnode refid="2776" relation="include">
+        </childnode>
+        <childnode refid="2778" relation="include">
+        </childnode>
+        <childnode refid="2779" relation="include">
+        </childnode>
+        <childnode refid="2802" relation="include">
+        </childnode>
+        <childnode refid="2803" relation="include">
+        </childnode>
+      </node>
+      <node id="2776">
+        <label>xplmi_sysmon.h</label>
+        <link refid="xplmi__sysmon_8h"/>
+        <childnode refid="2777" relation="include">
+        </childnode>
+      </node>
+      <node id="2785">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="2786" relation="include">
+        </childnode>
+      </node>
+      <node id="2798">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="2793">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="2783" relation="include">
+        </childnode>
+        <childnode refid="2794" relation="include">
+        </childnode>
+        <childnode refid="2792" relation="include">
+        </childnode>
+        <childnode refid="2786" relation="include">
+        </childnode>
+      </node>
+      <node id="2799">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2781">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2789">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="2777">
+        <label>xsysmonpsv.h</label>
+      </node>
+      <node id="2786">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2783">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="2784" relation="include">
+        </childnode>
+        <childnode refid="2781" relation="include">
+        </childnode>
+      </node>
+      <node id="2792">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2780">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2800">
+        <label>list.h</label>
+        <childnode refid="2801" relation="include">
+        </childnode>
+      </node>
+      <node id="2802">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="2790">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="2791" relation="include">
+        </childnode>
+        <childnode refid="2797" relation="include">
+        </childnode>
+      </node>
+      <node id="2788">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="2794">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="2784">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="2803">
+        <label>xplmi_wdt.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga39aa1c35cce0109151c7fc2216f718bd" prot="public" static="no">
+        <name>XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET</name>
+        <initializer>(0x10000U)</initializer>
+        <briefdescription>
+<para>SAT0 PCSR mask offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" compoundref="xplmi__sysmon_8c" startline="118" endline="168">XPlmi_SysMonInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga3e97a29bd54dd37e86f69ea20057e2e2" prot="public" static="no">
+        <name>XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET</name>
+        <initializer>(0x20000U)</initializer>
+        <briefdescription>
+<para>SAT1 PCSR mask offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" compoundref="xplmi__sysmon_8c" startline="118" endline="168">XPlmi_SysMonInit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" prot="public" static="no">
+        <name>XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK</name>
+        <initializer>(0x80000U)</initializer>
+        <briefdescription>
+<para>PCSR control slave error enable mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" compoundref="xplmi__sysmon_8c" startline="118" endline="168">XPlmi_SysMonInit</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gacbec33b2ad6599c4832da9eeb392386b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_WriteSysmonCtrlReg</definition>
+        <argsstring>(u32 Addr, u32 Value)</argsstring>
+        <name>XPlmi_WriteSysmonCtrlReg</name>
+        <param>
+          <type>u32</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function writes given configuration to Sysmon Ctrl register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of Sysmon Mask register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the configuration to be written to Control register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="99" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga5dcd8914dd53d7f531efec97aadde7af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSysMonPsv *</type>
+        <definition>XSysMonPsv* XPlmi_GetSysmonInst</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetSysmonInst</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides address of Sysmon Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Address of SysmonInst </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="84" bodyend="89"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" compoundref="xplmi__sysmon_8c" startline="118" endline="168">XPlmi_SysMonInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_SysMonInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SysMonInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the SysMon. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Get Instance of SysMon Driver</para><para>Enable Over-temperature handling. We need to unlock PCSR to enable SysMon interrupt. Lock it back in after write.</para><para>Enable SLVERR for Sysmon</para><para>Enable SLVERR for Sysmon SAT0</para><para>Enable SLVERR for Sysmon SAT1</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="118" bodyend="168"/>
+        <references refid="group__xilplmi__server__apis_1ga5dcd8914dd53d7f531efec97aadde7af" compoundref="xplmi__sysmon_8c" startline="84" endline="89">XPlmi_GetSysmonInst</references>
+        <references refid="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" compoundref="xplmi__sysmon_8c" startline="64">XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK</references>
+        <references refid="group__xilplmi__server__apis_1ga39aa1c35cce0109151c7fc2216f718bd" compoundref="xplmi__sysmon_8c" startline="62">XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET</references>
+        <references refid="group__xilplmi__server__apis_1ga3e97a29bd54dd37e86f69ea20057e2e2" compoundref="xplmi__sysmon_8c" startline="63">XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga2381d59a5154e7ef73fa658045a3c825" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_SysMonOTDetect</definition>
+        <argsstring>(u32 WaitInMSecVal)</argsstring>
+        <name>XPlmi_SysMonOTDetect</name>
+        <param>
+          <type>u32</type>
+          <declname>WaitInMSecVal</declname>
+        </param>
+        <briefdescription>
+<para>This function detects if we are still in over-temperature condition. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WaitInMSecVal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the time in milliseconds for which the firmware must wait before proceeding after over temperature event clears up </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Check for over-temperature condition in Interrupt Status Register.</para><para>Wait until over-temperature condition is resolved.</para><para>In case of boot after an OT event, wait for this additional time after OT clears to allow the temperature across the chip to cool down</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c" bodystart="178" bodyend="226"/>
+        <references refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" compoundref="server_2xplmi__wdt_8c" startline="175" endline="178">XPlmi_SetPlmLiveStatus</references>
+        <referencedby refid="group__xilplmi__server__apis_1gae83dd010247be2d703509c88895fa4f6" compoundref="xplmi__err__common_8c" startline="1273" endline="1369">XPlmi_EmInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the file which contains SysMon manager code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  sn   07/01/2019 Initial release
+      sn   07/04/2019 Enabled SysMon&apos;s over-temperature interrupt
+      sn   08/03/2019 Added code to wait until over-temperature condition
+                      gets resolved before restart
+1.01  bsv  04/04/2020 Code clean up
+1.02  bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.03  bm   02/08/2021 Add GetSysmonPsv API
+1.04  td   07/08/2021 Fix doxygen warnings
+      rb   08/11/2021 Fix compilation warnings
+      is   01/10/2022 Updated XPlmi_SysMonOTDetect to wait additional time
+                      after OT event clears up
+      is   01/10/2022 Updated Copyright Year to 2022
+      ma   01/17/2022 Enable SLVERR for Sysmon
+      ma   03/01/2022 Write PCSR MASK register before enabling SLVERR
+1.05  skd  04/21/2022 Misra-C violation Rule 8.7 fixed
+      bsv  07/20/2022 Removed magic number usage
+      bm   07/24/2022 Set PlmLiveStatus during boot time
+1.07  ng   11/11/2022 Updated doxygen comments
+      dd   03/28/2023 Updated doxygen comments
+1.08  rama 08/10/2023 Changed OT print to DEBUG_ALWAYS for
+                      debug level_0 option
+      mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__sysmon_8h" kindref="compound">xplmi_sysmon.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="group__xilplmi__server__apis_1ga39aa1c35cce0109151c7fc2216f718bd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10000U)<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xilplmi__server__apis_1ga3e97a29bd54dd37e86f69ea20057e2e2" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000U)<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" refkind="member"><highlight class="preprocessor">#define<sp/>XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK<sp/><sp/><sp/><sp/>(0x80000U)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_WriteSysmonCtrlReg(u32<sp/>Addr,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__xilplmi__server__apis_1ga5dcd8914dd53d7f531efec97aadde7af" refkind="member"><highlight class="normal">XSysMonPsv*<sp/><ref refid="group__xilplmi__server__apis_1ga5dcd8914dd53d7f531efec97aadde7af" kindref="member">XPlmi_GetSysmonInst</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSysMonPsv<sp/>SysMonInst;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;SysMonInst;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_WriteSysmonCtrlReg(u32<sp/>Addr,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>We<sp/>need<sp/>to<sp/>unlock<sp/>PCSR<sp/>to<sp/>write<sp/>to<sp/>control<sp/>register.</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Lock<sp/>it<sp/>back<sp/>in<sp/>after<sp/>write.</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((Addr<sp/>+<sp/>(u32)XSYSMONPSV_PCSR_LOCK),<sp/>PCSR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>(Addr,<sp/>Value,<sp/>Value);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>((Addr<sp/>+<sp/>(u32)XSYSMONPSV_PCSR_CONTROL),<sp/>Value,<sp/>Value);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((Addr<sp/>+<sp/>(u32)XSYSMONPSV_PCSR_LOCK),<sp/>PCSR_LOCK_VAL);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7005f232679e61ea2232d46ef9897b8a" kindref="member">XPlmi_SysMonInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysMonPsv<sp/>*SysMonInstPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga5dcd8914dd53d7f531efec97aadde7af" kindref="member">XPlmi_GetSysmonInst</ref>();</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysMonPsv_Config<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XSysMonPsv_LookupConfig();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<sp/>XSysMonPsv_CfgInitialize(SysMonInstPtr,<sp/>ConfigPtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(ConfigPtr-&gt;BaseAddress<sp/>+<sp/>(u32)XSYSMONPSV_PCSR_LOCK,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PCSR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSysMonPsv_IntrEnable(SysMonInstPtr,<sp/>(u32)XSYSMONPSV_IER0_OT_MASK,<sp/>0U);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(ConfigPtr-&gt;BaseAddress<sp/>+<sp/>(u32)XSYSMONPSV_PCSR_LOCK,<sp/>0U);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_WriteSysmonCtrlReg(ConfigPtr-&gt;BaseAddress,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" kindref="member">XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_WriteSysmonCtrlReg((ConfigPtr-&gt;BaseAddress<sp/>+</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__xilplmi__server__apis_1ga39aa1c35cce0109151c7fc2216f718bd" kindref="member">XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" kindref="member">XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_WriteSysmonCtrlReg((ConfigPtr-&gt;BaseAddress<sp/>+</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__xilplmi__server__apis_1ga3e97a29bd54dd37e86f69ea20057e2e2" kindref="member">XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga2b5106ad511f759370c3988b4fc89019" kindref="member">XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK</ref>);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_DETAILED,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;%s:<sp/>SysMon<sp/>init<sp/>status:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal">,<sp/>__func__,<sp/>Status);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="178" refid="group__xilplmi__server__apis_1ga2381d59a5154e7ef73fa658045a3c825" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2381d59a5154e7ef73fa658045a3c825" kindref="member">XPlmi_SysMonOTDetect</ref>(u32<sp/>WaitInMSecVal)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WaitInMSec<sp/>=<sp/>WaitInMSecVal;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR<sp/>+<sp/>(UINTPTR)XSYSMONPSV_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>(Val<sp/>&amp;<sp/>(u32)XSYSMONPSV_ISR_OT_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR<sp/>+<sp/>(UINTPTR)XSYSMONPSV_PCSR_LOCK,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PCSR_UNLOCK_VAL);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>=<sp/>1000U;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(0U<sp/>!=<sp/>(Val<sp/>&amp;<sp/>(u32)XSYSMONPSV_ISR_OT_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR<sp/>+<sp/>(UINTPTR)XSYSMONPSV_ISR_OFFSET,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSYSMONPSV_ISR_OT_MASK);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(1000U);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>();</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count--;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0U<sp/>==<sp/>Count)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Warning:<sp/>Over-temperature<sp/>condition!\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Count<sp/>=<sp/>1000U;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR<sp/>+<sp/>(UINTPTR)XSYSMONPSV_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(WaitInMSec--<sp/>&gt;<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(1000U);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>();</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR<sp/>+<sp/>(UINTPTR)XSYSMONPSV_PCSR_LOCK,<sp/>0U);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_sysmon.c"/>
+  </compounddef>
+</doxygen>

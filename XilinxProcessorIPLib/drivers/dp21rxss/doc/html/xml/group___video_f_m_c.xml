@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___video_f_m_c" kind="group">
+    <compoundname>VideoFMC</compoundname>
+    <title>VideoFMC</title>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___video_f_m_c_1ga9e3c02ccaf71eeda39e2524f2fb02a41" prot="public" static="no">
+        <name>I2C_MUX_ADDR</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+<para>I2C Mux Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" bodystart="36" bodyend="-1"/>
+        <referencedby refid="xdprxss__dp21__pt_8c_1acba5d3628f36b62266d9ed64022d52dd" compoundref="xdprxss__dp21__pt_8c" startline="324" endline="376">Dp21RxSs_Pt_VideoFMC_Init</referencedby>
+        <referencedby refid="xdprxss__dp21__pt__hdcp_8c_1a83b1170da398be3c53b87955c0a5b6a3" compoundref="xdprxss__dp21__pt__hdcp_8c" startline="310" endline="359">VideoFMC_Init</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___video_f_m_c_1ga71bd0b63917e21a117972939353bda39" prot="public" static="no">
+        <name>I2C_CLK_ADDR</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>I2C Clk Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___video_f_m_c_1ga3533962d24b154c228d21d6fb051451d" prot="public" static="no">
+        <name>I2C_VFMCEXP_1_ADDR</name>
+        <initializer>0x65</initializer>
+        <briefdescription>
+<para>I2C VideoFMC IO Expander 1 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___video_f_m_c_1ga183b83e0a3cd48b9fcafcbced07db03c" prot="public" static="no">
+        <name>I2C_VFMCEXP_0_ADDR</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>I2C VideoFMC IO Expander 0 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___video_f_m_c_1ga9173462497742b835783c5f05cd19122" prot="public" static="no">
+        <name>I2C_MUX_ADDR2</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+<para>I2C Mux Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/videofmc_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+X.XX  XX     YY/MM/DD
+1.00  RHe    16/06/20 Initial release.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

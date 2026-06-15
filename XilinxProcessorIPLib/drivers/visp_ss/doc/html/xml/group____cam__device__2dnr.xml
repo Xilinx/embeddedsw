@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__2dnr" kind="group">
+    <compoundname>_cam_device_2dnr</compoundname>
+    <title>VsCamDevice E01C08 Device_2DNR Definitions</title>
+    <innerclass refid="struct_cam_device2_dnr_curve_config__s" prot="public">CamDevice2DnrCurveConfig_s</innerclass>
+    <innerclass refid="struct_cam_device2_dnr_manual_config__s" prot="public">CamDevice2DnrManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device2_dnr_auto_config__s" prot="public">CamDevice2DnrAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device2_dnr_config__s" prot="public">CamDevice2DnrConfig_s</innerclass>
+    <innerclass refid="struct_cam_device2_dnr_status__s" prot="public">CamDevice2DnrStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__2dnr_1gad348cab982cc1efc45c3a3027daebdfe" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device2_dnr_curve_config__s" kindref="compound">CamDevice2DnrCurveConfig_s</ref></type>
+        <definition>typedef struct CamDevice2DnrCurveConfig_s  CamDevice2DnrCurveConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice2DnrCurveConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 2DNR curve configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__2dnr_1ga90e6303a051703aa5d4db57885dbc0b6" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device2_dnr_manual_config__s" kindref="compound">CamDevice2DnrManualConfig_s</ref></type>
+        <definition>typedef struct CamDevice2DnrManualConfig_s  CamDevice2DnrManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice2DnrManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 2DNR current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__2dnr_1ga82cefcbf88c833bfc0b2cc5d9c405fc3" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device2_dnr_auto_config__s" kindref="compound">CamDevice2DnrAutoConfig_s</ref></type>
+        <definition>typedef struct CamDevice2DnrAutoConfig_s  CamDevice2DnrAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice2DnrAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 2DNR auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__2dnr_1gaac36ed4d59e81750a5f011d600160a99" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device2_dnr_config__s" kindref="compound">CamDevice2DnrConfig_s</ref></type>
+        <definition>typedef struct CamDevice2DnrConfig_s CamDevice2DnrConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice2DnrConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice 2DNR configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="100" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__2dnr_1ga4704543bc7e6c52aa0d3d299192301d4" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device2_dnr_status__s" kindref="compound">CamDevice2DnrStatus_s</ref></type>
+        <definition>typedef struct CamDevice2DnrStatus_s  CamDevice2DnrStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDevice2DnrStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice 2DNR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="113" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__2dnr_1gacce87f7fd44fa8dfa7000fcbf64c2984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice2DnrEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="19" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga7cd37ff1fdb0d283a5a0a7b23b61f776" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice2DnrDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="57" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga4f134ccf4ada5a5df5cd9cd3b798bbdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice2DnrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDevice2DnrSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__2dnr_1gaac36ed4d59e81750a5f011d600160a99" kindref="member">CamDevice2DnrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="95" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga2abc68d1401011a56412126aedad0189" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice2DnrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDevice2DnrGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__2dnr_1gaac36ed4d59e81750a5f011d600160a99" kindref="member">CamDevice2DnrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="139" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga8f14372c9fa50ccc57f180e54a64a056" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrLumaEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice2DnrLumaEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="183" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga50d55fdc75765c75fe88c7db146f1f29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrLumaDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice2DnrLumaDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="221" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga4b96f5804a457652706bea252dc8bd68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDevice2DnrStatus_t *pStatus)</argsstring>
+        <name>VsiCamDevice2DnrGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__2dnr_1ga4704543bc7e6c52aa0d3d299192301d4" kindref="member">CamDevice2DnrStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="259" bodyend="300"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1ga6bca33eab44954e306b39276b626c7f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDevice2DnrGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="303" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__2dnr_1gada23bf4e2232e914e24ad3349ca43883" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDevice2DnrReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDevice2DnrReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/2dnr/cam_device_2dnr_api_v5_2.c" bodystart="346" bodyend="381"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__2dnr_1ga9ab208ce009d6994648fa675ccca717a" prot="public" static="no">
+        <name>CAMDEV_DNR_LUMA_CURVE_SIZE</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the 2D noise reduction module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

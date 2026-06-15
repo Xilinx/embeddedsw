@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vfrmbufrd__example__kc705_8tcl" kind="file">
+    <compoundname>vfrmbufrd_example_kc705.tcl</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vfrmbufrd__example__kc705_8tcl_1a118f8904c99e6149aee708cb385b0ba7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>vfrmbufrd_example</definition>
+        <argsstring>args</argsstring>
+        <name>vfrmbufrd_example</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/vfrmbufrd_example_kc705.tcl" line="9" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/vfrmbufrd_example_kc705.tcl" bodystart="9" bodyend="35"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="comment">#<sp/>==============================================================</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment">#<sp/>==============================================================</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>scripts<sp/>creates<sp/>bsp<sp/>and<sp/>application,<sp/>targeted<sp/>for<sp/>kc705</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keyword">proc</highlight><highlight class="normal"><sp/>vfrmbufrd_example<sp/>args<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">if</highlight><highlight class="normal"><sp/>{[llength<sp/>$args]<sp/>!=<sp/>1}<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;error:<sp/>xsa<sp/>file<sp/>name<sp/>missing<sp/>from<sp/>command<sp/>line&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Please<sp/>specify<sp/>xsa<sp/>to<sp/>process&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Example<sp/>Usage:<sp/>vfrmbufrd_example.tcl<sp/>design1.xsa&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keyword">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>xsa<sp/>[</highlight><highlight class="keyword">lindex</highlight><highlight class="normal"><sp/>$args<sp/>0]</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#set<sp/>workspace</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Create<sp/>Workspace&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>setws<sp/>vfrmbufrd_example.sdk</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>a<sp/>[getws]</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">set</highlight><highlight class="normal"><sp/>app<sp/>&quot;Empty<sp/>Application&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>create<sp/>-name<sp/>vfrmbufrd_example_design<sp/>-template<sp/>${app}<sp/>-hw<sp/>./$xsa<sp/>-os<sp/>standalone<sp/>-proc<sp/>processor_ss_processor</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#copy<sp/>example<sp/>source<sp/>files<sp/>to<sp/>app<sp/>project</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Get<sp/>Example<sp/>Design<sp/>Source<sp/>Files&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>importsources<sp/>-name<sp/>vfrmbufrd_example_design<sp/>-path<sp/>./src</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#build<sp/>project</highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">puts</highlight><highlight class="normal"><sp/>&quot;Build<sp/>Project&quot;</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>app<sp/>build<sp/>-name<sp/>vfrmbufrd_example_design</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="comment"></highlight></codeline>
+<codeline><highlight class="comment"></highlight><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/vfrmbufrd_example_kc705.tcl"/>
+  </compounddef>
+</doxygen>

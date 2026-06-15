@@ -1,0 +1,723 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="sensor__drv_8c" kind="file">
+    <compoundname>sensor_drv.c</compoundname>
+    <includes refid="sensor__drv_8h" local="yes">sensor_drv.h</includes>
+    <includes refid="sensor__cmd_8h" local="yes">sensor_cmd.h</includes>
+    <includes refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includes>
+    <includes refid="types_8h" local="no">types.h</includes>
+    <includes refid="trace_8h" local="no">trace.h</includes>
+    <includes refid="return__codes_8h" local="no">return_codes.h</includes>
+    <includes local="no">string.h</includes>
+    <incdepgraph>
+      <node id="7651">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="7629">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7636" relation="include">
+        </childnode>
+        <childnode refid="7637" relation="include">
+        </childnode>
+      </node>
+      <node id="7645">
+        <label>stdbool.h</label>
+      </node>
+      <node id="7636">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="7658">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="7659" relation="include">
+        </childnode>
+        <childnode refid="7661" relation="include">
+        </childnode>
+      </node>
+      <node id="7646">
+        <label>stdint.h</label>
+      </node>
+      <node id="7633">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7652">
+        <label>fcntl.h</label>
+      </node>
+      <node id="7643">
+        <label>sensor_cmd.h</label>
+        <childnode refid="7644" relation="include">
+        </childnode>
+        <childnode refid="7636" relation="include">
+        </childnode>
+      </node>
+      <node id="7656">
+        <label>mbox_hardware.h</label>
+        <childnode refid="7647" relation="include">
+        </childnode>
+      </node>
+      <node id="7635">
+        <label>stddef.h</label>
+      </node>
+      <node id="7627">
+        <label>sensor_drv.c</label>
+        <link refid="sensor_drv.c"/>
+        <childnode refid="7628" relation="include">
+        </childnode>
+        <childnode refid="7643" relation="include">
+        </childnode>
+        <childnode refid="7649" relation="include">
+        </childnode>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7657" relation="include">
+        </childnode>
+        <childnode refid="7636" relation="include">
+        </childnode>
+        <childnode refid="7660" relation="include">
+        </childnode>
+      </node>
+      <node id="7634">
+        <label>limits.h</label>
+      </node>
+      <node id="7638">
+        <label>buf_defs.h</label>
+        <childnode refid="7630" relation="include">
+        </childnode>
+      </node>
+      <node id="7644">
+        <label>mbox_api.h</label>
+        <childnode refid="7645" relation="include">
+        </childnode>
+        <childnode refid="7646" relation="include">
+        </childnode>
+        <childnode refid="7647" relation="include">
+        </childnode>
+      </node>
+      <node id="7639">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi__vvsensor_8h"/>
+        <childnode refid="7640" relation="include">
+        </childnode>
+      </node>
+      <node id="7650">
+        <label>sys/types.h</label>
+      </node>
+      <node id="7660">
+        <label>string.h</label>
+      </node>
+      <node id="7637">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7636" relation="include">
+        </childnode>
+        <childnode refid="7638" relation="include">
+        </childnode>
+        <childnode refid="7639" relation="include">
+        </childnode>
+        <childnode refid="7641" relation="include">
+        </childnode>
+        <childnode refid="7642" relation="include">
+        </childnode>
+      </node>
+      <node id="7647">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="7645" relation="include">
+        </childnode>
+        <childnode refid="7648" relation="include">
+        </childnode>
+      </node>
+      <node id="7642">
+        <label>isi_metadata.h</label>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7639" relation="include">
+        </childnode>
+      </node>
+      <node id="7641">
+        <label>isi_otp.h</label>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7640" relation="include">
+        </childnode>
+      </node>
+      <node id="7653">
+        <label>signal.h</label>
+      </node>
+      <node id="7655">
+        <label>mbox_error_code.h</label>
+      </node>
+      <node id="7648">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="7654">
+        <label>xil_types.h</label>
+      </node>
+      <node id="7661">
+        <label>ff.h</label>
+      </node>
+      <node id="7657">
+        <label>trace.h</label>
+        <link refid="trace_8h"/>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7658" relation="include">
+        </childnode>
+      </node>
+      <node id="7640">
+        <label>isi_common.h</label>
+        <link refid="isi__common_8h"/>
+      </node>
+      <node id="7628">
+        <label>sensor_drv.h</label>
+        <childnode refid="7629" relation="include">
+        </childnode>
+      </node>
+      <node id="7630">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7631" relation="include">
+        </childnode>
+        <childnode refid="7634" relation="include">
+        </childnode>
+        <childnode refid="7635" relation="include">
+        </childnode>
+      </node>
+      <node id="7649">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="7632" relation="include">
+        </childnode>
+        <childnode refid="7633" relation="include">
+        </childnode>
+        <childnode refid="7650" relation="include">
+        </childnode>
+        <childnode refid="7651" relation="include">
+        </childnode>
+        <childnode refid="7652" relation="include">
+        </childnode>
+        <childnode refid="7653" relation="include">
+        </childnode>
+        <childnode refid="7654" relation="include">
+        </childnode>
+        <childnode refid="7644" relation="include">
+        </childnode>
+        <childnode refid="7655" relation="include">
+        </childnode>
+        <childnode refid="7647" relation="include">
+        </childnode>
+        <childnode refid="7656" relation="include">
+        </childnode>
+        <childnode refid="7643" relation="include">
+        </childnode>
+      </node>
+      <node id="7659">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="7630" relation="include">
+        </childnode>
+        <childnode refid="7660" relation="include">
+        </childnode>
+      </node>
+      <node id="7632">
+        <label>stdio.h</label>
+      </node>
+      <node id="7631">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7632" relation="include">
+        </childnode>
+        <childnode refid="7633" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="sensor__drv_8c_1a9b37aadd64d79952b1fdcd95d5dd99dc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref></type>
+        <definition>IsiCamDrvConfig_t Ox03f10_IsiCamDrvConfig</definition>
+        <argsstring></argsstring>
+        <name>Ox03f10_IsiCamDrvConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="1261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sensor__drv_8c_1aa93da82c00c61fd06bde9d881c0b4ecf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref></type>
+        <definition>IsiCamDrvConfig_t Ox08b40_IsiCamDrvConfig</definition>
+        <argsstring></argsstring>
+        <name>Ox08b40_IsiCamDrvConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox08b40.c" bodystart="1587" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sensor__drv_8c_1a09bba7d9d0dfb38d717d387aea65f0fe" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref></type>
+        <definition>IsiCamDrvConfig_t Ox05b1s_IsiCamDrvConfig</definition>
+        <argsstring></argsstring>
+        <name>Ox05b1s_IsiCamDrvConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="1322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sensor__drv_8c_1af78e0ac257ba2765d73689a501142625" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga6fbde4b75c044b729d80908359a16e5b" kindref="member">IsiCamDrvConfig_t</ref></type>
+        <definition>IsiCamDrvConfig_t virtualSensor_IsiCamDrvConfig</definition>
+        <argsstring></argsstring>
+        <name>virtualSensor_IsiCamDrvConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sensor__drv_8c_1af6f7a40086654328c639f207c456130f" prot="public" static="no" mutable="no">
+        <type>IsiSensorMode_t</type>
+        <definition>IsiSensorMode_t pox03f10_mode_info[]</definition>
+        <argsstring>[]</argsstring>
+        <name>pox03f10_mode_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox03f10.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetNumber</definition>
+        <argsstring>(uint16_t *pNumber)</argsstring>
+        <name>VsiCamDeviceSensorGetNumber</name>
+        <param>
+          <type>uint16_t *</type>
+          <declname>pNumber</declname>
+        </param>
+        <briefdescription>
+<para>Gets the number of sensors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="43" bodyend="77"/>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetListInfo</definition>
+        <argsstring>(CamDeviceSensorListInfo_t *pSensorListInfo, const uint16_t sensorNum)</argsstring>
+        <name>VsiCamDeviceSensorGetListInfo</name>
+        <param>
+          <type><ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref> *</type>
+          <declname>pSensorListInfo</declname>
+        </param>
+        <param>
+          <type>const uint16_t</type>
+          <declname>sensorNum</declname>
+        </param>
+        <briefdescription>
+<para>Gets all sensor mode information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSensorListInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the sensor mode list </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sensorNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of sensors</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="80" bodyend="117"/>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8c_1abb7e03a20e4611714b484233162428f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetConnectPortInfo</definition>
+        <argsstring>(uint32_t sensorDrvId, CamDeviceSensorConnectPortInfo_t *pPortInfo)</argsstring>
+        <name>VsiCamDeviceSensorGetConnectPortInfo</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>sensorDrvId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref> *</type>
+          <declname>pPortInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="120" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorMapping</definition>
+        <argsstring>(const CamDeviceSensorModuleMapCfg_t *pModuleInfo, CamDeviceSensorDrvHandle_t *pSensorDrvhandle)</argsstring>
+        <name>VsiCamDeviceSensorMapping</name>
+        <param>
+          <type>const CamDeviceSensorModuleMapCfg_t *</type>
+          <declname>pModuleInfo</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga2f830a5e504fcd4dc1a2d1a6bae84ffe" kindref="member">CamDeviceSensorDrvHandle_t</ref> *</type>
+          <declname>pSensorDrvhandle</declname>
+        </param>
+        <briefdescription>
+<para>Mapping the sensor driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pSensorName</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to sensor driver name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pSensorDrvhandle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sensor driver handle pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation failed </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NULL_POINTER</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Null pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_STATE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State machine in wrong state </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_NOTSUPP</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Feature not supported </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_INVALID_PARM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid parameter </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c" bodystart="158" bodyend="217"/>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" compoundref="return__codes_8h" startline="51">RET_NULL_POINTER</references>
+        <references refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" compoundref="return__codes_8h" startline="47">RET_OUTOFMEM</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ADD_DESCRIPTION_HERE. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************\</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">|*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.<sp/>(&quot;VeriSilicon&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">|*<sp/>All<sp/>Rights<sp/>Reserved.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">|*<sp/>The<sp/>material<sp/>in<sp/>this<sp/>file<sp/>is<sp/>confidential<sp/>and<sp/>contains<sp/>trade<sp/>secrets<sp/>of<sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">|*<sp/>of<sp/>VeriSilicon.<sp/><sp/>This<sp/>is<sp/>proprietary<sp/>information<sp/>owned<sp/>or<sp/>licensed<sp/>by<sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">|*<sp/>VeriSilicon.<sp/><sp/>No<sp/>part<sp/>of<sp/>this<sp/>work<sp/>may<sp/>be<sp/>disclosed,<sp/>reproduced,<sp/>copied,<sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">|*<sp/>transmitted,<sp/>or<sp/>used<sp/>in<sp/>any<sp/>way<sp/>for<sp/>any<sp/>purpose,<sp/>without<sp/>the<sp/>express<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">|*<sp/>written<sp/>permission<sp/>of<sp/>VeriSilicon.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">\******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2023<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor">#include<sp/>&quot;sensor_drv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sensor_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__cmd_8h" kindref="compound">mbox_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="trace_8h" kindref="compound">trace.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="return__codes_8h" kindref="compound">return_codes.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>Ox03f10_IsiCamDrvConfig;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>Ox08b40_IsiCamDrvConfig;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>Ox05b1s_IsiCamDrvConfig;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_isi_cam_drv_config__s" kindref="compound">IsiCamDrvConfig_t</ref><sp/>virtualSensor_IsiCamDrvConfig;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>IsiSensorMode_t<sp/>pox03f10_mode_info[];</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" kindref="member">VsiCamDeviceSensorGetNumber</ref></highlight></codeline>
+<codeline lineno="43" refid="sensor__drv_8c_1af1024b1f477eb572990fb0fd2d6432ad" refkind="member"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>*pNumber</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>pNumber)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" kindref="member">RET_NULL_POINTER</ref>);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>memcpy(p_data,<sp/>&amp;pCamDevCtx-&gt;instanceId,<sp/>sizeof(uint32_t));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>pNumber,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t));</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_NUMBER,<sp/>&amp;packet,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.resp_field.error_subcode_t<sp/>=<sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(pNumber,<sp/>p_data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t));</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>packet.resp_field.error_subcode_t;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" kindref="member">VsiCamDeviceSensorGetListInfo</ref></highlight></codeline>
+<codeline lineno="80" refid="sensor__drv_8c_1a458cbae82977ab34a30d911e23cab829" refkind="member"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref><sp/>*pSensorListInfo,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint16_t<sp/>sensorNum</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>pSensorListInfo)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" kindref="member">RET_NULL_POINTER</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>memcpy(p_data,<sp/>&amp;pCamDevCtx-&gt;instanceId,<sp/>sizeof(uint32_t));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;sensorNum,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t));</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint16_t)<sp/>+<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref>)*<sp/>sensorNum;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_LIST_INFO,<sp/>&amp;packet,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.resp_field.error_subcode_t<sp/>=<sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(pSensorListInfo,<sp/>p_data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_sensor_list_info__s" kindref="compound">CamDeviceSensorListInfo_t</ref>));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>packet.resp_field.error_subcode_t;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal">RESULT<sp/>VsiCamDeviceSensorGetConnectPortInfo</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>sensorDrvId,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref><sp/>*pPortInfo</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>pPortInfo)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" kindref="member">RET_NULL_POINTER</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;sensorDrvId,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SensorDrvId_t));</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SensorDrvId_t);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(SensorDrvId_t);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_ConnectPortInfo,<sp/>&amp;packet,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.resp_field.error_subcode_t<sp/>=<sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(pPortInfo,<sp/>p_data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_sensor_connect_port_info__s" kindref="compound">CamDeviceSensorConnectPortInfo_t</ref>));</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>packet.resp_field.error_subcode_t;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal">RESULT<sp/><ref refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" kindref="member">VsiCamDeviceSensorMapping</ref></highlight></codeline>
+<codeline lineno="158" refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" refkind="member"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CamDeviceSensorModuleMapCfg_t<sp/><sp/>*pModuleInfo,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceSensorDrvHandle_t<sp/>*pSensorDrvhandle</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RESULT<sp/>result<sp/>=<sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>i<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>pModuleInfo<sp/>||<sp/>NULL<sp/>==<sp/>pSensorDrvhandle)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="return__codes_8h_1a6096836b5d49986baff0c5ec8cf37053" kindref="member">RET_NULL_POINTER</ref>);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structpayload__template" kindref="compound">Payload_packet</ref><sp/>packet;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(&amp;packet,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structpayload__template" kindref="compound">Payload_packet</ref>));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.cookie<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.type<sp/>=<sp/>CMD;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*p_data<sp/>=<sp/>packet.payload_data;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>pModuleInfo-&gt;moduleName,<sp/>SENSOR_MODULE_NAME);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/>SENSOR_MODULE_NAME;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/>SENSOR_MODULE_NAME;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(p_data,<sp/>&amp;pModuleInfo-&gt;sensorDevId,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t));</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>p_data<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(uint32_t);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+=<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(IsiCamDrvConfigMbox_t);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(packet.payload_size<sp/>&gt;<sp/>MAX_ITEM)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" kindref="member">RET_OUTOFRANGE</ref>;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>Send_Command(APU_2_RPU_MB_CMD_SENSOR_MAPPING,<sp/>&amp;packet,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.payload_size<sp/>+<sp/>payload_extra_size,<sp/>dest_cpu_id,<sp/>src_cpu_id);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" kindref="member">RET_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>packet.resp_field.error_subcode_t<sp/>=<sp/>apu_wait_for_ACK(packet.cookie,<sp/>packet.payload_data);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pSensorDrvhandle<sp/>=<sp/>(IsiCamDrvConfigMbox_t<sp/>*)<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(IsiCamDrvConfigMbox_t));</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(*pSensorDrvhandle<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;APU<sp/>Failed<sp/>to<sp/>allocate<sp/>memory<sp/>for<sp/>sensor<sp/>mapping.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa5cb2d36c7e83d897dc356314da28356" kindref="member">RET_OUTOFMEM</ref>;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>memcpy(*pSensorDrvhandle,<sp/>p_data,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(IsiCamDrvConfigMbox_t));</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>IsiCamDrvConfigMbox_t<sp/>*pcamcfg<sp/>=<sp/>(IsiCamDrvConfigMbox_t<sp/>*)*pSensorDrvhandle;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Apu<sp/>mapping<sp/>end:<sp/>cameraDriverID:<sp/>%x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>pcamcfg-&gt;cameraDriverID);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Apu<sp/>mapping<sp/>end:<sp/>sensorDevId:<sp/>%d<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>pcamcfg-&gt;sensorDevId);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Apu<sp/>mapping<sp/>end:<sp/>pIsiGetSensorIss:<sp/>%d<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>pcamcfg-&gt;pIsiGetSensorIss);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>packet.resp_field.error_subcode_t;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/sensor_drv.c"/>
+  </compounddef>
+</doxygen>

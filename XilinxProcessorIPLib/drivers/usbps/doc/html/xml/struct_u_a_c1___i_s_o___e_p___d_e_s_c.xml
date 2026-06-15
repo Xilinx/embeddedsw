@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_a_c1___i_s_o___e_p___d_e_s_c" kind="struct" prot="public">
+    <compoundname>UAC1_ISO_EP_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1af8608631a2f1dc7f91b9dce30ab4cc4b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a6cb0dd2d4593f722311d30c1815cb1e2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1aae365778911b8f679fb954540908fce3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1aa0168912c0d395ca5a393c8bb8a4c2ae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::bmAttributes</definition>
+        <argsstring></argsstring>
+        <name>bmAttributes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1afc35c0f4faaca33364f3b1bee290d6b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::bLockDelayUnits</definition>
+        <argsstring></argsstring>
+        <name>bLockDelayUnits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a9972737ef09e12a37eafdfdc4fba004e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::wLockDelayL</definition>
+        <argsstring></argsstring>
+        <name>wLockDelayL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a733769bf9053155f0bdf12cea98d4602" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC1_ISO_EP_DESC::wLockDelayH</definition>
+        <argsstring></argsstring>
+        <name>wLockDelayH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_ch9_audio.h" bodystart="407" bodyend="415"/>
+    <listofallmembers>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1aae365778911b8f679fb954540908fce3" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a6cb0dd2d4593f722311d30c1815cb1e2" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1af8608631a2f1dc7f91b9dce30ab4cc4b" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1afc35c0f4faaca33364f3b1bee290d6b0" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>bLockDelayUnits</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1aa0168912c0d395ca5a393c8bb8a4c2ae" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>bmAttributes</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a733769bf9053155f0bdf12cea98d4602" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>wLockDelayH</name></member>
+      <member refid="struct_u_a_c1___i_s_o___e_p___d_e_s_c_1a9972737ef09e12a37eafdfdc4fba004e" prot="public" virt="non-virtual"><scope>UAC1_ISO_EP_DESC</scope><name>wLockDelayL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

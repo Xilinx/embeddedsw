@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csu_dma" kind="struct" prot="public">
+    <compoundname>XCsuDma</compoundname>
+    <includes local="no">xcsudma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_csu_dma___config" kindref="compound">XCsuDma_Config</ref></type>
+        <definition>XCsuDma_Config XCsuDma::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" compoundref="xcsudma_8c" startline="90" endline="115">XCsuDma_CfgInitialize</referencedby>
+        <referencedby refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" compoundref="xcsudma_8c" startline="598" endline="606">XCsuDma_ClearCheckSum</referencedby>
+        <referencedby refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" compoundref="xcsudma__intr_8c" startline="185" endline="209">XCsuDma_DisableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" compoundref="xcsudma__intr_8c" startline="140" endline="163">XCsuDma_EnableIntr</referencedby>
+        <referencedby refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" compoundref="xcsudma_8c" startline="316" endline="336">XCsuDma_GetAddr</referencedby>
+        <referencedby refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" compoundref="xcsudma_8c" startline="567" endline="582">XCsuDma_GetCheckSum</referencedby>
+        <referencedby refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" compoundref="xcsudma_8c" startline="857" endline="916">XCsuDma_GetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" compoundref="xcsudma__intr_8c" startline="233" endline="247">XCsuDma_GetIntrMask</referencedby>
+        <referencedby refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" compoundref="xcsudma_8c" startline="354" endline="370">XCsuDma_GetSize</referencedby>
+        <referencedby refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" compoundref="xcsudma__intr_8c" startline="98" endline="118">XCsuDma_IntrClear</referencedby>
+        <referencedby refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" compoundref="xcsudma__intr_8c" startline="60" endline="76">XCsuDma_IntrGetStatus</referencedby>
+        <referencedby refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" compoundref="xcsudma_8c" startline="455" endline="493">XCsuDma_IsPaused</referencedby>
+        <referencedby refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" compoundref="xcsudma_8c" startline="395" endline="428">XCsuDma_Pause</referencedby>
+        <referencedby refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" compoundref="xcsudma_8c" startline="519" endline="549">XCsuDma_Resume</referencedby>
+        <referencedby refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" compoundref="xcsudma__selftest_8c" startline="68" endline="101">XCsuDma_SelfTest</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+        <referencedby refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" compoundref="xcsudma_8c" startline="624" endline="643">XCsuDma_WaitForDoneTimeout</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsuDma::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" compoundref="xcsudma_8c" startline="254" endline="294">XCsuDma_64BitTransfer</referencedby>
+        <referencedby refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" compoundref="xcsudma_8c" startline="90" endline="115">XCsuDma_CfgInitialize</referencedby>
+        <referencedby refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" compoundref="xcsudma_8c" startline="567" endline="582">XCsuDma_GetCheckSum</referencedby>
+        <referencedby refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" compoundref="xcsudma_8c" startline="395" endline="428">XCsuDma_Pause</referencedby>
+        <referencedby refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" compoundref="xcsudma_8c" startline="519" endline="549">XCsuDma_Resume</referencedby>
+        <referencedby refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" compoundref="xcsudma_8c" startline="720" endline="781">XCsuDma_SetConfig</referencedby>
+        <referencedby refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" compoundref="xcsudma_8c" startline="146" endline="216">XCsuDma_Transfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_csu_dma" kindref="compound">XCsuDma</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XCsuDma_Config</label>
+        <link refid="struct_x_csu_dma___config"/>
+      </node>
+      <node id="1">
+        <label>XCsuDma</label>
+        <link refid="struct_x_csu_dma"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csudma/src/xcsudma.h" bodystart="337" bodyend="341"/>
+    <listofallmembers>
+      <member refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" prot="public" virt="non-virtual"><scope>XCsuDma</scope><name>Config</name></member>
+      <member refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" prot="public" virt="non-virtual"><scope>XCsuDma</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

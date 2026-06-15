@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__scenechange__g_8c" kind="file">
+    <compoundname>xv_scenechange_g.c</compoundname>
+    <includes refid="xv__scenechange_8h" local="yes">xv_scenechange.h</includes>
+    <incdepgraph>
+      <node id="47">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="49">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>sleep.h</label>
+      </node>
+      <node id="45">
+        <label>xv_scenechange.h</label>
+        <link refid="xv__scenechange_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="44">
+        <label>xv_scenechange_g.c</label>
+        <link refid="xv_scenechange_g.c"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xstatus.h</label>
+      </node>
+      <node id="50">
+        <label>xv_scenechange_hw.h</label>
+        <link refid="xv__scenechange__hw_8h"/>
+      </node>
+      <node id="46">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__scenechange__g_8c_1a158128afaad562b4dec0df2297e46537" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__scenechange___config" kindref="compound">XV_scenechange_Config</ref></type>
+        <definition>XV_scenechange_Config XV_scenechange_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_scenechange_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_V_SCENECHANGE_0_DEVICE_ID,
+		XPAR_V_SCENECHANGE_0_S_AXI_CTRL_BASEADDR,
+		XPAR_XV_SCENECHANGE_0_MEMORY_BASED,
+		XPAR_XV_SCENECHANGE_0_MAX_NR_STREAMS,
+		XPAR_XV_SCENECHANGE_0_HISTOGRAM_BITS,
+		XPAR_XV_SCENECHANGE_0_HAS_Y10,
+		XPAR_XV_SCENECHANGE_0_HAS_Y8,
+		XPAR_XV_SCENECHANGE_0_MAX_ROWS,
+		XPAR_XV_SCENECHANGE_0_MAX_COLS
+	}
+}</initializer>
+        <briefdescription>
+<para>Configuration table for SceneChange devices. </para>        </briefdescription>
+        <detaileddescription>
+<para>This table contains the configuration information for each SceneChange device in the system. Each entry includes device ID, base address, operational mode (memory/stream), and IP capabilities. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_g.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_g.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2010-2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__scenechange_8h" kindref="compound">xv_scenechange.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="28" refid="xv__scenechange__sinit_8c_1a158128afaad562b4dec0df2297e46537" refkind="member"><highlight class="normal"><ref refid="struct_x_v__scenechange___config" kindref="compound">XV_scenechange_Config</ref><sp/><ref refid="xv__scenechange__g_8c_1a158128afaad562b4dec0df2297e46537" kindref="member">XV_scenechange_ConfigTable</ref>[]<sp/>=</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_SCENECHANGE_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_SCENECHANGE_0_S_AXI_CTRL_BASEADDR,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_MEMORY_BASED,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_MAX_NR_STREAMS,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_HISTOGRAM_BITS,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_HAS_Y10,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_HAS_Y8,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_MAX_ROWS,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XV_SCENECHANGE_0_MAX_COLS</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/src/xv_scenechange_g.c"/>
+  </compounddef>
+</doxygen>

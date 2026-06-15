@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_psu___ecc_matrix" kind="struct" prot="public">
+    <compoundname>XNandPsu_EccMatrix</compoundname>
+    <includes local="no">xnandpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1a53db2ac8de7624033469d5159ab877bf" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XNandPsu_EccMatrix::PageSize</definition>
+        <argsstring></argsstring>
+        <name>PageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1a291a991a76ed825e73531a8063baddf4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XNandPsu_EccMatrix::CodeWordSize</definition>
+        <argsstring></argsstring>
+        <name>CodeWordSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="362" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1a2e80644943af39103fd9915f4b7a1d46" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsu_EccMatrix::NumEccBits</definition>
+        <argsstring></argsstring>
+        <name>NumEccBits</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1ab77229a05bbe7e892a6d1028899a5e30" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsu_EccMatrix::IsBCH</definition>
+        <argsstring></argsstring>
+        <name>IsBCH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1a5ff1749b32b20010bb045aa1a6327bd0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XNandPsu_EccMatrix::EccAddr</definition>
+        <argsstring></argsstring>
+        <name>EccAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___ecc_matrix_1a379a73614b53bff7ec67bf93830c5211" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XNandPsu_EccMatrix::EccSize</definition>
+        <argsstring></argsstring>
+        <name>EccSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_nand_psu___ecc_matrix" kindref="compound">XNandPsu_EccMatrix</ref> structure contains ECC features information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="360" bodyend="367"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_psu___ecc_matrix_1a291a991a76ed825e73531a8063baddf4" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>CodeWordSize</name></member>
+      <member refid="struct_x_nand_psu___ecc_matrix_1a5ff1749b32b20010bb045aa1a6327bd0" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>EccAddr</name></member>
+      <member refid="struct_x_nand_psu___ecc_matrix_1a379a73614b53bff7ec67bf93830c5211" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>EccSize</name></member>
+      <member refid="struct_x_nand_psu___ecc_matrix_1ab77229a05bbe7e892a6d1028899a5e30" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>IsBCH</name></member>
+      <member refid="struct_x_nand_psu___ecc_matrix_1a2e80644943af39103fd9915f4b7a1d46" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>NumEccBits</name></member>
+      <member refid="struct_x_nand_psu___ecc_matrix_1a53db2ac8de7624033469d5159ab877bf" prot="public" virt="non-virtual"><scope>XNandPsu_EccMatrix</scope><name>PageSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

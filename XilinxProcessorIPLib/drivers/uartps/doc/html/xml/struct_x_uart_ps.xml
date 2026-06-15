@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_ps" kind="struct" prot="public">
+    <compoundname>XUartPs</compoundname>
+    <includes local="no">xuartps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_ps_1a4b3be9869a125e6db5eda4bc365fa0fd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_uart_ps___config" kindref="compound">XUartPs_Config</ref></type>
+        <definition>XUartPs_Config XUartPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1afd3a984f8177e6fe818af3a9e4f5ae77" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPs::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a5a375a8ba1979793e8972b32576f01b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1ada2839f882456e1e3b46202210ee2b0b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPs::BaudRate</definition>
+        <argsstring></argsstring>
+        <name>BaudRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a4e7f6b3c6ec5c7bcb1ac4ede082ae5c0" prot="public" static="no" mutable="no">
+        <type>XUartPsBuffer</type>
+        <definition>XUartPsBuffer XUartPs::SendBuffer</definition>
+        <argsstring></argsstring>
+        <name>SendBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1af96c7c5143f143017bcea582485169db" prot="public" static="no" mutable="no">
+        <type>XUartPsBuffer</type>
+        <definition>XUartPsBuffer XUartPs::ReceiveBuffer</definition>
+        <argsstring></argsstring>
+        <name>ReceiveBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a8bd89486b1c05ca2edbbee86b5f439c8" prot="public" static="no" mutable="no">
+        <type><ref refid="group__uartps_1ga5bb8d1f316dacd471a6cd3c976c7b1ca" kindref="member">XUartPs_Handler</ref></type>
+        <definition>XUartPs_Handler XUartPs::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a17f507fdd197c74872359f92c54a07b1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XUartPs::CallBackRef</definition>
+        <argsstring></argsstring>
+        <name>CallBackRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a934372f095fd87736dfd83781f0fe065" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPs::Platform</definition>
+        <argsstring></argsstring>
+        <name>Platform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_1a0dca8203bf86704b3a8753e8446e5a6d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUartPs::is_rxbs_error</definition>
+        <argsstring></argsstring>
+        <name>is_rxbs_error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_uart_ps" kindref="compound">XUartPs</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XUartPs</label>
+        <link refid="struct_x_uart_ps"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XUartPs_Config</label>
+        <link refid="struct_x_uart_ps___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="340" bodyend="353"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_ps_1ada2839f882456e1e3b46202210ee2b0b" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>BaudRate</name></member>
+      <member refid="struct_x_uart_ps_1a17f507fdd197c74872359f92c54a07b1" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>CallBackRef</name></member>
+      <member refid="struct_x_uart_ps_1a4b3be9869a125e6db5eda4bc365fa0fd" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>Config</name></member>
+      <member refid="struct_x_uart_ps_1a8bd89486b1c05ca2edbbee86b5f439c8" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>Handler</name></member>
+      <member refid="struct_x_uart_ps_1afd3a984f8177e6fe818af3a9e4f5ae77" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_uart_ps_1a0dca8203bf86704b3a8753e8446e5a6d" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>is_rxbs_error</name></member>
+      <member refid="struct_x_uart_ps_1a5a375a8ba1979793e8972b32576f01b1" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>IsReady</name></member>
+      <member refid="struct_x_uart_ps_1a934372f095fd87736dfd83781f0fe065" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>Platform</name></member>
+      <member refid="struct_x_uart_ps_1af96c7c5143f143017bcea582485169db" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>ReceiveBuffer</name></member>
+      <member refid="struct_x_uart_ps_1a4e7f6b3c6ec5c7bcb1ac4ede082ae5c0" prot="public" virt="non-virtual"><scope>XUartPs</scope><name>SendBuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

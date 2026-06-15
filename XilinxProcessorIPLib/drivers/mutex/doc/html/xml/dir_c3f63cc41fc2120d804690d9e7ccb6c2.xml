@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c3f63cc41fc2120d804690d9e7ccb6c2" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xmutex_8c">xmutex.c</innerfile>
+    <innerfile refid="xmutex_8h">xmutex.h</innerfile>
+    <innerfile refid="xmutex__g_8c">xmutex_g.c</innerfile>
+    <innerfile refid="xmutex__hw_8h">xmutex_hw.h</innerfile>
+    <innerfile refid="xmutex__selftest_8c">xmutex_selftest.c</innerfile>
+    <innerfile refid="xmutex__sinit_8c">xmutex_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/"/>
+  </compounddef>
+</doxygen>

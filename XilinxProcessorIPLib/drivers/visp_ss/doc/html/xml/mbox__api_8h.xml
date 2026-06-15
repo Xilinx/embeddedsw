@@ -1,0 +1,2152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mbox__api_8h" kind="file">
+    <compoundname>mbox_api.h</compoundname>
+    <includes local="no">stdbool.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includes refid="mbox__fifo_8h" local="yes">mbox_fifo.h</includes>
+    <includedby refid="mbox__cmd_8h" local="yes">mbox_cmd.h</includedby>
+    <includedby refid="sensor__cmd_8h" local="yes">sensor_cmd.h</includedby>
+    <includedby refid="apu__to__rpu__ipi_8c" local="no">apu_to_rpu_ipi.c</includedby>
+    <includedby refid="mbox__api_8c" local="yes">mbox_api.c</includedby>
+    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
+    <includedby refid="mbox__fifo_8c" local="yes">mbox_fifo.c</includedby>
+    <incdepgraph>
+      <node id="6203">
+        <label>stdbool.h</label>
+      </node>
+      <node id="6204">
+        <label>stdint.h</label>
+      </node>
+      <node id="6202">
+        <label>mbox_api.h</label>
+        <link refid="mbox_api.h"/>
+        <childnode refid="6203" relation="include">
+        </childnode>
+        <childnode refid="6204" relation="include">
+        </childnode>
+        <childnode refid="6205" relation="include">
+        </childnode>
+      </node>
+      <node id="6205">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="6203" relation="include">
+        </childnode>
+        <childnode refid="6206" relation="include">
+        </childnode>
+      </node>
+      <node id="6206">
+        <label>sys/_stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6260">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="6351">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6253" relation="include">
+        </childnode>
+        <childnode refid="6259" relation="include">
+        </childnode>
+      </node>
+      <node id="6374">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="6237">
+        <label>vvdevice_common.h</label>
+        <childnode refid="6238" relation="include">
+        </childnode>
+        <childnode refid="6241" relation="include">
+        </childnode>
+        <childnode refid="6243" relation="include">
+        </childnode>
+        <childnode refid="6245" relation="include">
+        </childnode>
+        <childnode refid="6247" relation="include">
+        </childnode>
+        <childnode refid="6249" relation="include">
+        </childnode>
+        <childnode refid="6251" relation="include">
+        </childnode>
+        <childnode refid="6253" relation="include">
+        </childnode>
+        <childnode refid="6255" relation="include">
+        </childnode>
+        <childnode refid="6257" relation="include">
+        </childnode>
+        <childnode refid="6259" relation="include">
+        </childnode>
+        <childnode refid="6261" relation="include">
+        </childnode>
+        <childnode refid="6263" relation="include">
+        </childnode>
+        <childnode refid="6265" relation="include">
+        </childnode>
+        <childnode refid="6267" relation="include">
+        </childnode>
+        <childnode refid="6269" relation="include">
+        </childnode>
+        <childnode refid="6271" relation="include">
+        </childnode>
+        <childnode refid="6273" relation="include">
+        </childnode>
+        <childnode refid="6275" relation="include">
+        </childnode>
+        <childnode refid="6277" relation="include">
+        </childnode>
+        <childnode refid="6279" relation="include">
+        </childnode>
+        <childnode refid="6281" relation="include">
+        </childnode>
+        <childnode refid="6283" relation="include">
+        </childnode>
+        <childnode refid="6285" relation="include">
+        </childnode>
+        <childnode refid="6287" relation="include">
+        </childnode>
+        <childnode refid="6289" relation="include">
+        </childnode>
+        <childnode refid="6291" relation="include">
+        </childnode>
+        <childnode refid="6293" relation="include">
+        </childnode>
+        <childnode refid="6295" relation="include">
+        </childnode>
+        <childnode refid="6297" relation="include">
+        </childnode>
+        <childnode refid="6299" relation="include">
+        </childnode>
+        <childnode refid="6301" relation="include">
+        </childnode>
+        <childnode refid="6303" relation="include">
+        </childnode>
+        <childnode refid="6305" relation="include">
+        </childnode>
+      </node>
+      <node id="6284">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="6282">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="6367">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6289" relation="include">
+        </childnode>
+      </node>
+      <node id="6343">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="6341">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="6340">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="6278">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="6344">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="6314">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="6315" relation="include">
+        </childnode>
+      </node>
+      <node id="6209">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="6288">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="6354">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6265" relation="include">
+        </childnode>
+      </node>
+      <node id="6224">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="6355">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6267" relation="include">
+        </childnode>
+      </node>
+      <node id="6265">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6266" relation="include">
+        </childnode>
+      </node>
+      <node id="6246">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="6259">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6260" relation="include">
+        </childnode>
+      </node>
+      <node id="6316">
+        <label>control.h</label>
+        <childnode refid="6317" relation="include">
+        </childnode>
+      </node>
+      <node id="6302">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="6285">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6286" relation="include">
+        </childnode>
+      </node>
+      <node id="6368">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6253" relation="include">
+        </childnode>
+        <childnode refid="6295" relation="include">
+        </childnode>
+        <childnode refid="6301" relation="include">
+        </childnode>
+      </node>
+      <node id="6266">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="6313">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6238" relation="include">
+        </childnode>
+      </node>
+      <node id="6349">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6253" relation="include">
+        </childnode>
+        <childnode refid="6259" relation="include">
+        </childnode>
+        <childnode refid="6295" relation="include">
+        </childnode>
+      </node>
+      <node id="6306">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="6338">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="6225">
+        <label>cam_device_api.h</label>
+        <childnode refid="6226" relation="include">
+        </childnode>
+        <childnode refid="6308" relation="include">
+        </childnode>
+        <childnode refid="6215" relation="include">
+        </childnode>
+        <childnode refid="6227" relation="include">
+        </childnode>
+        <childnode refid="6309" relation="include">
+        </childnode>
+        <childnode refid="6310" relation="include">
+        </childnode>
+        <childnode refid="6233" relation="include">
+        </childnode>
+        <childnode refid="6311" relation="include">
+        </childnode>
+        <childnode refid="6236" relation="include">
+        </childnode>
+        <childnode refid="6307" relation="include">
+        </childnode>
+      </node>
+      <node id="6346">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="6231">
+        <label>vvpath.c</label>
+      </node>
+      <node id="6296">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="6324">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="6221">
+        <label>isi_control.h</label>
+        <link refid="isi__control_8h"/>
+        <childnode refid="6222" relation="include">
+        </childnode>
+      </node>
+      <node id="6370">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6295" relation="include">
+        </childnode>
+        <childnode refid="6301" relation="include">
+        </childnode>
+      </node>
+      <node id="6332">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="6241">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6242" relation="include">
+        </childnode>
+      </node>
+      <node id="6326">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="6330">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="6276">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="6255">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6256" relation="include">
+        </childnode>
+      </node>
+      <node id="6239">
+        <label>submodule_def.h</label>
+        <childnode refid="6236" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6217">
+        <label>sensor_cmd.h</label>
+        <childnode refid="6208" relation="include">
+        </childnode>
+        <childnode refid="6209" relation="include">
+        </childnode>
+        <childnode refid="6210" relation="include">
+        </childnode>
+        <childnode refid="6218" relation="include">
+        </childnode>
+        <childnode refid="6219" relation="include">
+        </childnode>
+        <childnode refid="6211" relation="include">
+        </childnode>
+        <childnode refid="6212" relation="include">
+        </childnode>
+        <childnode refid="6214" relation="include">
+        </childnode>
+        <childnode refid="6220" relation="include">
+        </childnode>
+        <childnode refid="6215" relation="include">
+        </childnode>
+        <childnode refid="6227" relation="include">
+        </childnode>
+        <childnode refid="6322" relation="include">
+        </childnode>
+        <childnode refid="6323" relation="include">
+        </childnode>
+        <childnode refid="6337" relation="include">
+        </childnode>
+        <childnode refid="6345" relation="include">
+        </childnode>
+        <childnode refid="6216" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6303">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6304" relation="include">
+        </childnode>
+      </node>
+      <node id="6291">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6292" relation="include">
+        </childnode>
+      </node>
+      <node id="6270">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="6295">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6296" relation="include">
+        </childnode>
+      </node>
+      <node id="6322">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="6286">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="6263">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6264" relation="include">
+        </childnode>
+      </node>
+      <node id="6273">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6244" relation="include">
+        </childnode>
+        <childnode refid="6274" relation="include">
+        </childnode>
+      </node>
+      <node id="6363">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6279" relation="include">
+        </childnode>
+      </node>
+      <node id="6309">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="6226">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="6227" relation="include">
+        </childnode>
+        <childnode refid="6228" relation="include">
+        </childnode>
+        <childnode refid="6229" relation="include">
+        </childnode>
+        <childnode refid="6233" relation="include">
+        </childnode>
+        <childnode refid="6307" relation="include">
+        </childnode>
+      </node>
+      <node id="6361">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6275" relation="include">
+        </childnode>
+      </node>
+      <node id="6245">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6246" relation="include">
+        </childnode>
+      </node>
+      <node id="6364">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6281" relation="include">
+        </childnode>
+      </node>
+      <node id="6289">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6290" relation="include">
+        </childnode>
+      </node>
+      <node id="6272">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="6372">
+        <label>vvformat.h</label>
+        <childnode refid="6373" relation="include">
+        </childnode>
+      </node>
+      <node id="6371">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6303" relation="include">
+        </childnode>
+      </node>
+      <node id="6227">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="6305">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6251">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6252" relation="include">
+        </childnode>
+      </node>
+      <node id="6236">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="6333">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="6325">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="6262">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="6211">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="6219">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="6220">
+        <label>cam_device_common.h</label>
+        <childnode refid="6221" relation="include">
+        </childnode>
+        <childnode refid="6223" relation="include">
+        </childnode>
+        <childnode refid="6225" relation="include">
+        </childnode>
+        <childnode refid="6312" relation="include">
+        </childnode>
+        <childnode refid="6313" relation="include">
+        </childnode>
+        <childnode refid="6347" relation="include">
+        </childnode>
+        <childnode refid="6348" relation="include">
+        </childnode>
+        <childnode refid="6349" relation="include">
+        </childnode>
+        <childnode refid="6350" relation="include">
+        </childnode>
+        <childnode refid="6351" relation="include">
+        </childnode>
+        <childnode refid="6352" relation="include">
+        </childnode>
+        <childnode refid="6353" relation="include">
+        </childnode>
+        <childnode refid="6354" relation="include">
+        </childnode>
+        <childnode refid="6355" relation="include">
+        </childnode>
+        <childnode refid="6356" relation="include">
+        </childnode>
+        <childnode refid="6357" relation="include">
+        </childnode>
+        <childnode refid="6358" relation="include">
+        </childnode>
+        <childnode refid="6359" relation="include">
+        </childnode>
+        <childnode refid="6360" relation="include">
+        </childnode>
+        <childnode refid="6361" relation="include">
+        </childnode>
+        <childnode refid="6362" relation="include">
+        </childnode>
+        <childnode refid="6363" relation="include">
+        </childnode>
+        <childnode refid="6364" relation="include">
+        </childnode>
+        <childnode refid="6365" relation="include">
+        </childnode>
+        <childnode refid="6366" relation="include">
+        </childnode>
+        <childnode refid="6367" relation="include">
+        </childnode>
+        <childnode refid="6368" relation="include">
+        </childnode>
+        <childnode refid="6369" relation="include">
+        </childnode>
+        <childnode refid="6370" relation="include">
+        </childnode>
+        <childnode refid="6371" relation="include">
+        </childnode>
+        <childnode refid="6315" relation="include">
+        </childnode>
+        <childnode refid="6228" relation="include">
+        </childnode>
+        <childnode refid="6229" relation="include">
+        </childnode>
+        <childnode refid="6233" relation="include">
+        </childnode>
+        <childnode refid="6372" relation="include">
+        </childnode>
+        <childnode refid="6307" relation="include">
+        </childnode>
+      </node>
+      <node id="6328">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="6331">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="6357">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6245" relation="include">
+        </childnode>
+      </node>
+      <node id="6318">
+        <label>cam_device.c</label>
+      </node>
+      <node id="6238">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6240" relation="include">
+        </childnode>
+      </node>
+      <node id="6207">
+        <label>mbox_api.h</label>
+        <link refid="mbox_api.h"/>
+        <childnode refid="6208" relation="include">
+        </childnode>
+        <childnode refid="6217" relation="include">
+        </childnode>
+        <childnode refid="6209" relation="include">
+        </childnode>
+        <childnode refid="6374" relation="include">
+        </childnode>
+        <childnode refid="6210" relation="include">
+        </childnode>
+        <childnode refid="6218" relation="include">
+        </childnode>
+      </node>
+      <node id="6323">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="6321">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="6274">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="6261">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6262" relation="include">
+        </childnode>
+      </node>
+      <node id="6315">
+        <label>cam_device_app.h</label>
+        <childnode refid="6316" relation="include">
+        </childnode>
+        <childnode refid="6317" relation="include">
+        </childnode>
+        <childnode refid="6214" relation="include">
+        </childnode>
+        <childnode refid="6318" relation="include">
+        </childnode>
+        <childnode refid="6215" relation="include">
+        </childnode>
+        <childnode refid="6227" relation="include">
+        </childnode>
+        <childnode refid="6309" relation="include">
+        </childnode>
+        <childnode refid="6319" relation="include">
+        </childnode>
+        <childnode refid="6320" relation="include">
+        </childnode>
+        <childnode refid="6321" relation="include">
+        </childnode>
+        <childnode refid="6322" relation="include">
+        </childnode>
+        <childnode refid="6323" relation="include">
+        </childnode>
+        <childnode refid="6324" relation="include">
+        </childnode>
+        <childnode refid="6325" relation="include">
+        </childnode>
+        <childnode refid="6326" relation="include">
+        </childnode>
+        <childnode refid="6327" relation="include">
+        </childnode>
+        <childnode refid="6328" relation="include">
+        </childnode>
+        <childnode refid="6329" relation="include">
+        </childnode>
+        <childnode refid="6330" relation="include">
+        </childnode>
+        <childnode refid="6331" relation="include">
+        </childnode>
+        <childnode refid="6332" relation="include">
+        </childnode>
+        <childnode refid="6333" relation="include">
+        </childnode>
+        <childnode refid="6334" relation="include">
+        </childnode>
+        <childnode refid="6335" relation="include">
+        </childnode>
+        <childnode refid="6336" relation="include">
+        </childnode>
+        <childnode refid="6337" relation="include">
+        </childnode>
+        <childnode refid="6338" relation="include">
+        </childnode>
+        <childnode refid="6339" relation="include">
+        </childnode>
+        <childnode refid="6340" relation="include">
+        </childnode>
+        <childnode refid="6341" relation="include">
+        </childnode>
+        <childnode refid="6342" relation="include">
+        </childnode>
+        <childnode refid="6343" relation="include">
+        </childnode>
+        <childnode refid="6344" relation="include">
+        </childnode>
+        <childnode refid="6345" relation="include">
+        </childnode>
+        <childnode refid="6346" relation="include">
+        </childnode>
+        <childnode refid="6216" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+        <childnode refid="6307" relation="include">
+        </childnode>
+      </node>
+      <node id="6317">
+        <label>control.c</label>
+      </node>
+      <node id="6275">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6276" relation="include">
+        </childnode>
+      </node>
+      <node id="6312">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="6233" relation="include">
+        </childnode>
+      </node>
+      <node id="6242">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="6248">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="6358">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6247" relation="include">
+        </childnode>
+      </node>
+      <node id="6268">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="6310">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6373">
+        <label>vvformat.c</label>
+      </node>
+      <node id="6271">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6272" relation="include">
+        </childnode>
+      </node>
+      <node id="6308">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="6309" relation="include">
+        </childnode>
+        <childnode refid="6233" relation="include">
+        </childnode>
+      </node>
+      <node id="6235">
+        <label>vvpath.h</label>
+        <childnode refid="6224" relation="include">
+        </childnode>
+        <childnode refid="6231" relation="include">
+        </childnode>
+      </node>
+      <node id="6362">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6277" relation="include">
+        </childnode>
+      </node>
+      <node id="6279">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6280" relation="include">
+        </childnode>
+      </node>
+      <node id="6222">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="6345">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="6267">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6268" relation="include">
+        </childnode>
+      </node>
+      <node id="6360">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6271" relation="include">
+        </childnode>
+      </node>
+      <node id="6352">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6261" relation="include">
+        </childnode>
+      </node>
+      <node id="6342">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="6218">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="6269">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6270" relation="include">
+        </childnode>
+      </node>
+      <node id="6281">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6282" relation="include">
+        </childnode>
+      </node>
+      <node id="6359">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6269" relation="include">
+        </childnode>
+      </node>
+      <node id="6256">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="6277">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6278" relation="include">
+        </childnode>
+      </node>
+      <node id="6334">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="6301">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6302" relation="include">
+        </childnode>
+      </node>
+      <node id="6233">
+        <label>vvdevice.h</label>
+        <childnode refid="6234" relation="include">
+        </childnode>
+        <childnode refid="6237" relation="include">
+        </childnode>
+        <childnode refid="6235" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+        <childnode refid="6306" relation="include">
+        </childnode>
+        <childnode refid="6231" relation="include">
+        </childnode>
+      </node>
+      <node id="6292">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="6299">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6300" relation="include">
+        </childnode>
+      </node>
+      <node id="6249">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6246" relation="include">
+        </childnode>
+        <childnode refid="6250" relation="include">
+        </childnode>
+      </node>
+      <node id="6257">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6258" relation="include">
+        </childnode>
+      </node>
+      <node id="6253">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6254" relation="include">
+        </childnode>
+      </node>
+      <node id="6264">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="6335">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="6369">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6297" relation="include">
+        </childnode>
+      </node>
+      <node id="6356">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6241" relation="include">
+        </childnode>
+      </node>
+      <node id="6336">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="6311">
+        <label>vvbench.c</label>
+      </node>
+      <node id="6213">
+        <label>visp_common.c</label>
+      </node>
+      <node id="6297">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6298" relation="include">
+        </childnode>
+      </node>
+      <node id="6212">
+        <label>visp_common.h</label>
+        <childnode refid="6213" relation="include">
+        </childnode>
+      </node>
+      <node id="6254">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="6216">
+        <label>oba.c</label>
+      </node>
+      <node id="6228">
+        <label>oba.h</label>
+        <childnode refid="6216" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6215">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6250">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="6247">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6246" relation="include">
+        </childnode>
+        <childnode refid="6248" relation="include">
+        </childnode>
+      </node>
+      <node id="6240">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="6337">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="6304">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="6243">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6244" relation="include">
+        </childnode>
+      </node>
+      <node id="6347">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6243" relation="include">
+        </childnode>
+      </node>
+      <node id="6300">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="6283">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6284" relation="include">
+        </childnode>
+      </node>
+      <node id="6230">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="6229">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="6230" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+        <childnode refid="6231" relation="include">
+        </childnode>
+        <childnode refid="6232" relation="include">
+        </childnode>
+      </node>
+      <node id="6298">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="6258">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="6339">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="6348">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6251" relation="include">
+        </childnode>
+      </node>
+      <node id="6214">
+        <label>iba.c</label>
+      </node>
+      <node id="6223">
+        <label>iba.h</label>
+        <childnode refid="6214" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6287">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6288" relation="include">
+        </childnode>
+      </node>
+      <node id="6327">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="6353">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6263" relation="include">
+        </childnode>
+      </node>
+      <node id="6350">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="6225" relation="include">
+        </childnode>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6255" relation="include">
+        </childnode>
+      </node>
+      <node id="6208">
+        <label>mbox_cmd.h</label>
+        <link refid="mbox__cmd_8h"/>
+        <childnode refid="6209" relation="include">
+        </childnode>
+        <childnode refid="6210" relation="include">
+        </childnode>
+        <childnode refid="6211" relation="include">
+        </childnode>
+        <childnode refid="6212" relation="include">
+        </childnode>
+        <childnode refid="6214" relation="include">
+        </childnode>
+        <childnode refid="6215" relation="include">
+        </childnode>
+        <childnode refid="6216" relation="include">
+        </childnode>
+      </node>
+      <node id="6234">
+        <label>vvbparser.h</label>
+        <childnode refid="6235" relation="include">
+        </childnode>
+        <childnode refid="6236" relation="include">
+        </childnode>
+        <childnode refid="6224" relation="include">
+        </childnode>
+      </node>
+      <node id="6290">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="6319">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="6365">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6287" relation="include">
+        </childnode>
+      </node>
+      <node id="6210">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="6294">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="6329">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="6280">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="6366">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="6314" relation="include">
+        </childnode>
+        <childnode refid="6285" relation="include">
+        </childnode>
+      </node>
+      <node id="6244">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="6252">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="6293">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="6239" relation="include">
+        </childnode>
+        <childnode refid="6294" relation="include">
+        </childnode>
+      </node>
+      <node id="6232">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="6307">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="6232" relation="include">
+        </childnode>
+      </node>
+      <node id="6320">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_mbox_pair" prot="public">MboxPair</innerclass>
+    <innerclass refid="struct_mbox_fifo_ctrl" prot="public">MboxFifoCtrl</innerclass>
+    <innerclass refid="struct_mbox_ack_msg" prot="public">MboxAckMsg</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037" prot="public" static="no">
+        <name>MboxCoreId</name>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037a0dceede32ed73ebc3cdbd3632ef84725" prot="public">
+          <name>MBOX_CORE_RPU0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037aef1c94976c57c7b193b5423bec462ee9" prot="public">
+          <name>MBOX_CORE_RPU1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037aafea21a94313c114def861ff8d57b4d4" prot="public">
+          <name>MBOX_CORE_RPU2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037a2e914e3bc2dd34ea3dbf579382bd868f" prot="public">
+          <name>MBOX_CORE_RPU3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037a8b06bf72ed30e67a0bd42b0b662f8ab9" prot="public">
+          <name>MBOX_CORE_APU</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037a0756c8b272fe2b47084e00ad854eb45b" prot="public">
+          <name>MBOX_CORE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a4c929eb02e943ef5791d69f1add3e037afd9737cc11a79d0a488cbbadc3d6a008" prot="public">
+          <name>DUMMY_MBOX_CORE</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enum structure of Mbox core id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="33" bodyend="41"/>
+      </memberdef>
+      <memberdef kind="enum" id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01be" prot="public" static="no">
+        <name>ipi_target_code_id</name>
+        <enumvalue id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01beac43bab02aba9dbf86079a5149df69d67" prot="public">
+          <name>RPU0_TARGET</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01bea5d96f195431eb54ca95fbdcd02ab0990" prot="public">
+          <name>RPU1_TARGET</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01bea0aab8f10ea3300f65e6530f9ee616f8e" prot="public">
+          <name>RPU2_TARGET</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01beaef4b6de0a6fcbca46772db1f9ed39b25" prot="public">
+          <name>RPU3_TARGET</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1a3212a8160f886a4b415ca907ca6e01bea0c0fab8ffa1e7198556578a2b88a4d4c" prot="public">
+          <name>APU_TARGET</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="44" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="enum" id="mbox__api_8h_1ab5dc53cc715ee8c1d3aff4109c98a9d2" prot="public" static="no">
+        <name>MboxDirection</name>
+        <enumvalue id="mbox__api_8h_1ab5dc53cc715ee8c1d3aff4109c98a9d2a6217c64be6aea570e97c5b922b5acc7f" prot="public">
+          <name>MBOX_SEND</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mbox__api_8h_1ab5dc53cc715ee8c1d3aff4109c98a9d2af35feb75444f8382189956fac6be388e" prot="public">
+          <name>MBOX_RECEIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Macros for Mbox get direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="70" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="mbox__api_8h_1a9d696aa22e17e4a8207a6a00878d8a59" prot="public" static="no">
+        <type>enum MboxCoreId</type>
+        <definition>typedef enum MboxCoreId  MboxCoreId</definition>
+        <argsstring></argsstring>
+        <name>MboxCoreId</name>
+        <briefdescription>
+<para>Enum structure of Mbox core id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="41" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="mbox__api_8h_1a0ce5e7b040b4e1fc7e1fdd76b9d663db" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* MboxDriverCb)(MboxCoreId receiver_id)</definition>
+        <argsstring>)(MboxCoreId receiver_id)</argsstring>
+        <name>MboxDriverCb</name>
+        <briefdescription>
+<para>write data callback </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>id of receiver core </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="mbox__api_8h_1a72d6ab89a0b8feeb49187cb3c56ce86d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t dest_cpu_id</definition>
+        <argsstring></argsstring>
+        <name>dest_cpu_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1a12fa9d8c5bcdff2208af3346fecd7bc8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t src_cpu_id</definition>
+        <argsstring></argsstring>
+        <name>src_cpu_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1af0fc1d722d1da98de6dd690abe367661" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_mbox_pair" kindref="compound">MboxPair</ref></type>
+        <definition>const MboxPair default_pairs[]</definition>
+        <argsstring>[]</argsstring>
+        <name>default_pairs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1aaebda90470d75aff98276ed596bb81d1" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId core_id</definition>
+        <argsstring></argsstring>
+        <name>core_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1abdc4accdc1dfdca5334ba37403c3f6d2" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId sender_id</definition>
+        <argsstring></argsstring>
+        <name>sender_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1ace3b253b936de9075baf6700355e088a" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId receiver_id</definition>
+        <argsstring></argsstring>
+        <name>receiver_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1a32cfd9395e306fe48e3927012d760b1c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref> *</type>
+        <definition>FifoControl* fifo</definition>
+        <argsstring></argsstring>
+        <name>fifo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1a9219c76d0c521b28ac7c63042267940b" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* buffer_addresses[MAX_MSGS_PER_BOX]</definition>
+        <argsstring>[MAX_MSGS_PER_BOX]</argsstring>
+        <name>buffer_addresses</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1ab327a92716d7b6269786657f3f2e01bd" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t meg_id</definition>
+        <argsstring></argsstring>
+        <name>meg_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="mbox__api_8h_1abfd24350fd0f519cf2cc67a7827ab6fa" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t result</definition>
+        <argsstring></argsstring>
+        <name>result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mbox__api_8h_1aa7c7d57944ee9fe5b8db45231b06b731" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void dsb_sync_barrier</definition>
+        <argsstring>(void)</argsstring>
+        <name>dsb_sync_barrier</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="54" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1a5c52cdb1748a6af3bc0feb4849940d5c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void dmb_memory_barrier</definition>
+        <argsstring>(void)</argsstring>
+        <name>dmb_memory_barrier</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="55" bodyend="55"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1ad121eb15d370a531fe37c640b7dca0d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref></type>
+        <definition>struct MboxPostMsg __attribute</definition>
+        <argsstring>((aligned(8))) MboxFifoCtrl</argsstring>
+        <name>__attribute</name>
+        <param>
+          <type>(aligned(8))</type>
+        </param>
+        <briefdescription>
+<para>Structure of Mbox Control. </para>        </briefdescription>
+        <detaileddescription>
+<para>Structure of Mbox post message - must match NEW_RPU binary layout. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1aa956877fcf4fbab6db3d8f0290baa051" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="struct_mbox_ack_msg" kindref="compound">MboxAckMsg</ref></type>
+        <definition>struct oba_map __attribute</definition>
+        <argsstring>((__packed__)) MboxAckMsg</argsstring>
+        <name>__attribute</name>
+        <param>
+          <type>(__packed__)</type>
+        </param>
+        <briefdescription>
+<para>Structure of Mbox ack message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="65" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1ab3ff575c9bbb1e38669523615369965c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+        <definition>MboxFifoCtrl* vpi_mbox_init</definition>
+        <argsstring>(MboxCoreId core_id, uint32_t shm_addr, uint32_t shm_block_size)</argsstring>
+        <name>vpi_mbox_init</name>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>core_id</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>shm_addr</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>shm_block_size</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a Mbox and register the FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>core_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID of current core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shm_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Customized shared memory physical address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>shm_block_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Customized shared memory block size </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>point for succeed, NULL for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="126" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1a19812f9632779757086085f151a0c876" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t vpi_mbox_post</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxCoreId receiver_id, MboxDriverCb mbox_driver_cb)</argsstring>
+        <name>vpi_mbox_post</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <param>
+          <type>MboxDriverCb</type>
+          <declname>mbox_driver_cb</declname>
+        </param>
+        <briefdescription>
+<para>Post meg to the designated receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>message to post </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mbox_driver_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback function of mbox driver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>MBOX_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for succeed, others for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="158" bodyend="181"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1ad443d26463fc3d21052eb7aa1fce5754" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t vpi_mbox_broadcast</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxDriverCb mbox_driver_cb)</argsstring>
+        <name>vpi_mbox_broadcast</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>MboxDriverCb</type>
+          <declname>mbox_driver_cb</declname>
+        </param>
+        <briefdescription>
+<para>Broadcast msg to all other known cores. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>message to post </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mbox_driver_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>callback function of mbox driver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>MBOX_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for succeed, others for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="184" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1a2e5c83c40adf1773f3aecf37151762b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t vpi_mbox_read</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxPostMsg *msg, MboxCoreId sender_id)</argsstring>
+        <name>vpi_mbox_read</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>sender_id</declname>
+        </param>
+        <briefdescription>
+<para>Read meg from the designated sender. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>read message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sender_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>MBOX_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for succeed, others for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="203" bodyend="216"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1a0e4cfd425e310056cae58a8cda5b24c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t vpi_mbox_reset</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id, MboxCoreId receiver_id)</argsstring>
+        <name>vpi_mbox_reset</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>sender_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Reset the designated FIFO with id to specify. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sender_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the sender </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>MBOX_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for succeed, others for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="218" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1af413dc50e8f7ccb9f319f9e65e76d186" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t vpi_mbox_get_stored</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id, MboxCoreId receiver_id)</argsstring>
+        <name>vpi_mbox_get_stored</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>sender_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Check designated FIFO stored number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sender_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the sender </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>stored</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>numbers, others for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="228" bodyend="236"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1ab44aa8047814c8e4420622d51e406d86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vpi_mbox_is_full</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id, MboxCoreId receiver_id)</argsstring>
+        <name>vpi_mbox_is_full</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>sender_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Check designated FIFO is full or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sender_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the sender </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for full, false for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="238" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1af8c2ea8d878abbedb5ce18206e8a2a2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool vpi_mbox_is_empty</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo, MboxCoreId sender_id, MboxCoreId receiver_id)</argsstring>
+        <name>vpi_mbox_is_empty</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>sender_id</declname>
+        </param>
+        <param>
+          <type>MboxCoreId</type>
+          <declname>receiver_id</declname>
+        </param>
+        <briefdescription>
+<para>Check designated FIFO is empty or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sender_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the sender </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>receiver_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>core_id of the receiver </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Return result </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>true</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for empty, false for failure </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="247" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="mbox__api_8h_1a4f3f6f5330a6b19a01640c4b85a893fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vpi_mbox_destory</definition>
+        <argsstring>(MboxFifoCtrl *mbox_fifo)</argsstring>
+        <name>vpi_mbox_destory</name>
+        <param>
+          <type><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> *</type>
+          <declname>mbox_fifo</declname>
+        </param>
+        <briefdescription>
+<para>Free everything including FIFO. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mbox_fifo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref> pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/src/mbox_api.c" bodystart="256" bodyend="267"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"></codeline>
+<codeline lineno="9"><highlight class="preprocessor">#ifndef<sp/>_MBOX_API_H_</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_MBOX_API_H_</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mbox__fifo_8h" kindref="compound">mbox_fifo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Each<sp/>core<sp/>should<sp/>be<sp/>assigned<sp/>an<sp/>id<sp/>number<sp/>to<sp/>tell</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>the<sp/>mbox<sp/>who<sp/>it<sp/>is<sp/>and<sp/>give<sp/>proper<sp/>sender<sp/>and<sp/>receiver</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>number<sp/>of<sp/>the<sp/>message<sp/>to<sp/>clarify<sp/>the<sp/>source<sp/>and</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>destination<sp/>of<sp/>the<sp/>incoming<sp/>or<sp/>outcoming<sp/>message</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>id<sp/>number<sp/>is<sp/>defined<sp/>based<sp/>on<sp/>MBOX_CORE_MAX</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>count<sp/>from<sp/>0<sp/>~<sp/>MBOX_CORE_MAX-1</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>whole<sp/>MBOX<sp/>FIFO<sp/>structure<sp/>needs<sp/>register<sp/>size</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>of<sp/>mbox_fifo_block_size<sp/>*<sp/>MBOX_CORE_MAX<sp/>*</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MBOX_CORE_MAX<sp/>-1)</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>MboxCoreId<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_RPU0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_RPU1<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_RPU2<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_RPU3<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_APU<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_CORE_MAX,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_MBOX_CORE<sp/>=<sp/>0xDEADFEED,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}<sp/>MboxCoreId;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*Target<sp/>ID<sp/>should<sp/>be<sp/>the<sp/>index<sp/>of<sp/>XIpiPsu_Target<sp/>TargetList[XIPIPSU_MAX_TARGETS]<sp/>in<sp/>XIpiPsu_Config,<sp/>xipipsu_g.c*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>ipi_target_code_id<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU0_TARGET<sp/>=<sp/>1,<sp/></highlight><highlight class="comment">//trigger<sp/>63<sp/>IPI<sp/>Irq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU1_TARGET<sp/>=<sp/>2,<sp/></highlight><highlight class="comment">//trigger<sp/>64<sp/>IPI<sp/>Irq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU2_TARGET<sp/>=<sp/>3,<sp/></highlight><highlight class="comment">//trigger<sp/>64<sp/>IPI<sp/>Irq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RPU3_TARGET<sp/>=<sp/>4,<sp/></highlight><highlight class="comment">//trigger<sp/>64<sp/>IPI<sp/>Irq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>APU_TARGET<sp/>=<sp/>5<sp/><sp/></highlight><highlight class="comment">//trigger<sp/>65<sp/>IPI<sp/>Irq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint32_t<sp/>dest_cpu_id,<sp/>src_cpu_id;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>dsb_sync_barrier(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{<sp/>__asm__<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;dsb<sp/>sy&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;memory&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>dmb_memory_barrier(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{<sp/>__asm__<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;dmb<sp/>sy&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;memory&quot;</highlight><highlight class="normal">);<sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="struct_mbox_pair" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>sender;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}<sp/><ref refid="struct_mbox_pair" kindref="compound">MboxPair</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_mbox_pair" kindref="compound">MboxPair</ref><sp/>default_pairs[];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_SEND<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MBOX_RECEIVE<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>MboxDirection;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="struct_mbox_fifo_ctrl" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>core_id;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>sender_id;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver_id;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref><sp/>*fifo;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>*buffer_addresses[MAX_MSGS_PER_BOX];</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((aligned(8)))<sp/><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="struct_mbox_ack_msg" refkind="compound"><highlight class="normal">typedef<sp/>struct<sp/><ref refid="struct_mbox_ack_msg" kindref="compound">MboxAckMsg</ref><sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>meg_id;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/>result;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}<sp/><ref refid="mbox__fifo_8h_1a9a2e6eb08f03c130861efc945c3831e4" kindref="member">__attribute</ref>((__packed__))<sp/><ref refid="struct_mbox_ack_msg" kindref="compound">MboxAckMsg</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">typedef<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*MboxDriverCb)(MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*vpi_mbox_init(MboxCoreId<sp/>core_id,<sp/>uint32_t<sp/>shm_addr,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>shm_block_size</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal">int32_t<sp/>vpi_mbox_post(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/>MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxDriverCb<sp/>mbox_driver_cb);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">int32_t<sp/>vpi_mbox_broadcast(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/></highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxDriverCb<sp/>mbox_driver_cb);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal">int32_t<sp/>vpi_mbox_read(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/><ref refid="struct_mbox_post_msg" kindref="compound">MboxPostMsg</ref><sp/>*msg,<sp/>MboxCoreId<sp/>sender_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">int32_t<sp/>vpi_mbox_reset(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/>MboxCoreId<sp/>sender_id,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal">uint32_t<sp/>vpi_mbox_get_stored(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/>MboxCoreId<sp/>sender_id,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>vpi_mbox_is_full(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/>MboxCoreId<sp/>sender_id,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>vpi_mbox_is_empty(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo,<sp/>MboxCoreId<sp/>sender_id,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MboxCoreId<sp/>receiver_id</highlight><highlight class="comment">/*,int<sp/>fd*/</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>vpi_mbox_destory(<ref refid="struct_mbox_fifo_ctrl" kindref="compound">MboxFifoCtrl</ref><sp/>*mbox_fifo);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//_MBOX_API_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h"/>
+  </compounddef>
+</doxygen>

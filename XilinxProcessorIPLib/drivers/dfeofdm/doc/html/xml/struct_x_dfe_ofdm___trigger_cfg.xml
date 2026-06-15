@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___trigger_cfg" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_TriggerCfg</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_cfg_1aa57868c1544ac36a8c3c0df957280b3f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___trigger" kindref="compound">XDfeOfdm_Trigger</ref></type>
+        <definition>XDfeOfdm_Trigger XDfeOfdm_TriggerCfg::Activate</definition>
+        <argsstring></argsstring>
+        <name>Activate</name>
+        <briefdescription>
+<para><verbatim>                    Switch between &quot;Initialized&quot;,
+</verbatim> ultra-low power state, and &quot;Operational&quot;. </para>        </briefdescription>
+        <detaileddescription>
+<para>One-shot trigger, disabled following a single event. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_cfg_1af491898987784d03f07c2a9074ec11f2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___trigger" kindref="compound">XDfeOfdm_Trigger</ref></type>
+        <definition>XDfeOfdm_Trigger XDfeOfdm_TriggerCfg::LowPower</definition>
+        <argsstring></argsstring>
+        <name>LowPower</name>
+        <briefdescription>
+<para><verbatim>                    Switch between &quot;Low-power&quot;
+</verbatim> and &quot;Operational&quot; state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___trigger_cfg_1aa18f8fff86f7d41df716d87e6332665f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_ofdm___trigger" kindref="compound">XDfeOfdm_Trigger</ref></type>
+        <definition>XDfeOfdm_Trigger XDfeOfdm_TriggerCfg::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para><verbatim>                    Transition to next CC
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will initiate flush based on CC configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga8432ece95eb4a12d2f1eb60e87436809" compoundref="xdfeofdm_8c" startline="2100" endline="2168">XDfeOfdm_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>All IP triggers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="34">
+        <label>XDfeOfdm_Trigger</label>
+        <link refid="struct_x_dfe_ofdm___trigger"/>
+      </node>
+      <node id="33">
+        <label>XDfeOfdm_TriggerCfg</label>
+        <link refid="struct_x_dfe_ofdm___trigger_cfg"/>
+        <childnode refid="34" relation="usage">
+          <edgelabel>LowPower</edgelabel>
+          <edgelabel>Activate</edgelabel>
+          <edgelabel>CCUpdate</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="235" bodyend="243"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___trigger_cfg_1aa57868c1544ac36a8c3c0df957280b3f" prot="public" virt="non-virtual"><scope>XDfeOfdm_TriggerCfg</scope><name>Activate</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_cfg_1aa18f8fff86f7d41df716d87e6332665f" prot="public" virt="non-virtual"><scope>XDfeOfdm_TriggerCfg</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_ofdm___trigger_cfg_1af491898987784d03f07c2a9074ec11f2" prot="public" virt="non-virtual"><scope>XDfeOfdm_TriggerCfg</scope><name>LowPower</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

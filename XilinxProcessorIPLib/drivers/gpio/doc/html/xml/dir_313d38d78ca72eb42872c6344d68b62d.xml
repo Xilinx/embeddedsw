@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_313d38d78ca72eb42872c6344d68b62d" kind="dir">
+    <compoundname>gpio</compoundname>
+    <innerdir refid="dir_ce498a965794222a1dca4f21dbe167d6">examples</innerdir>
+    <innerdir refid="dir_d494ed8e91d9508258ef27324b785d8a">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/"/>
+  </compounddef>
+</doxygen>

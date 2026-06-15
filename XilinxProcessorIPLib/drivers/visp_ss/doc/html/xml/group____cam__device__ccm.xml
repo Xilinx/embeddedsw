@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__ccm" kind="group">
+    <compoundname>_cam_device_ccm</compoundname>
+    <title>VsCamDevice E01C03 Device_CCM Definitions</title>
+    <innerclass refid="struct_cam_device_ccm_auto_config__s" prot="public">CamDeviceCcmAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ccm_manual_config__s" prot="public">CamDeviceCcmManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ccm_config__s" prot="public">CamDeviceCcmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_ccm_status__s" prot="public">CamDeviceCcmStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__ccm_1ga2eb3f6748141e80030d54b091f57ff94" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ccm_auto_config__s" kindref="compound">CamDeviceCcmAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCcmAutoConfig_s  CamDeviceCcmAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCcmAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CCM manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ccm_1ga89d77270f7a79e18d20fdec552df6d23" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ccm_manual_config__s" kindref="compound">CamDeviceCcmManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCcmManualConfig_s CamDeviceCcmManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCcmManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CCM manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="70" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ccm_1gaffdeca759ebf76c99809c7da5033c94c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ccm_config__s" kindref="compound">CamDeviceCcmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceCcmConfig_s CamDeviceCcmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCcmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice CCM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="81" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__ccm_1ga2fee4ff01088ce10c3da7ae6937ee2b9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_ccm_status__s" kindref="compound">CamDeviceCcmStatus_s</ref></type>
+        <definition>typedef struct CamDeviceCcmStatus_s CamDeviceCcmStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCcmStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice CCM status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="93" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__ccm_1ga79eb2eccfb9f45381c8dde7e89633b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceCcmConfig_t *pCcmCfg)</argsstring>
+        <name>VsiCamDeviceCcmSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__ccm_1gaffdeca759ebf76c99809c7da5033c94c" kindref="member">CamDeviceCcmConfig_t</ref> *</type>
+          <declname>pCcmCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="19" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1ga05b299d1a5e1b40d4c2e918bde1a26fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCcmConfig_t *pCcmCfg)</argsstring>
+        <name>VsiCamDeviceCcmGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ccm_1gaffdeca759ebf76c99809c7da5033c94c" kindref="member">CamDeviceCcmConfig_t</ref> *</type>
+          <declname>pCcmCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="67" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1ga742f9caf30ba2cd4eab2cba069127db5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCcmEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="110" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1gac8dae7901406094024cc893190130610" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCcmDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="147" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1ga9979b3670dfd36fef2b3e2c613ac36bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCcmStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceCcmGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__ccm_1ga2fee4ff01088ce10c3da7ae6937ee2b9" kindref="member">CamDeviceCcmStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="184" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1ga36478f1c543d1250873e85c3fcfd2459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCcmReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="227" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__ccm_1ga5d8d1da53985077c399731781684fe93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCcmGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceCcmGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/ccm/cam_device_ccm_api.c" bodystart="265" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__ccm_1ga4cfa6a6e5db139fc75e462526d931d47" prot="public" static="no">
+        <name>CAMDEV_CC_MATRIX_SIZE</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+<para>Color correction matrix size 3x3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__ccm_1ga1545797081310c047245263dbac329b8" prot="public" static="no">
+        <name>CAMDEV_CC_COLOR_CHANNEL_NUM</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Color channel number 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the color correction matrix module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

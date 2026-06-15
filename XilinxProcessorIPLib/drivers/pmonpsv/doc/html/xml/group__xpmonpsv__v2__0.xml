@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xpmonpsv__v2__0" kind="group">
+    <compoundname>xpmonpsv_v2_0</compoundname>
+    <title>Xpmonpsv_v2_0</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xpmonpsv__v2__0_1ga5fd8f80892ea070261662b8856820dc4" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref></type>
+        <definition>XPmonPsv PmonPsvInstance</definition>
+        <argsstring></argsstring>
+        <name>PmonPsvInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpmonpsv__v2__0_1ga23a2012c0656c0d0c0c05f62ee3b8ee4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPmonPsv_SelfTest</definition>
+        <argsstring>(XPmonPsv *InstancePtr)</argsstring>
+        <name>XPmonPsv_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The test<itemizedlist>
+<listitem><para>Resets the device,</para></listitem><listitem><para>Writes a value into the Range Registers of Incrementer 0 and reads it back for comparison.</para></listitem><listitem><para>Resets the device again.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the value read from the Range Register of Incrementer 0 is the same as the value written.</para></listitem><listitem><para>XST_FAILURE Otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a destructive test in that resets of the device are performed. Refer to the device specification for the device status after the reset operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="83" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpmonpsv__v2__0_1gaf7d076b47a1c56d85ab46937170826b8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XpmonpsvSelfTestExample</definition>
+        <argsstring>(u16 DeviceId)</argsstring>
+        <name>XpmonpsvSelfTestExample</name>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function does a selftest on the PMONPSV device and coresight_apm driver as an example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the XPAR_&lt;PMONPSV_instance&gt;_DEVICE_ID value from xparameters.h.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE if unsuccessful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="137" bodyend="162"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xpmonpsv__v2__0_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the pmonpsv example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="175" bodyend="192"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xpmonpsv__v2__0_1gae1d1ca826b71e4f8a7c7ae0910cd151f" prot="public" static="no">
+        <name>TESTADDRESS</name>
+        <initializer>0x80000000; /* LPD AFI interface */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xpmonpsv__v2__0_1ga7d1c94a31efabdcf1b565d0da0925bae" prot="public" static="no">
+        <name>PMON_DEVICE_ID</name>
+        <initializer>XPAR_XPMONPSV_1_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/examples/xpmonpsv_selftest_example.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a diagnostic self test function for the <ref refid="struct_x_pmon_psv" kindref="compound">XPmonPsv</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The self test function does a simple read/write test of the Alarm Threshold Register.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0 sd  01/20/19 First release
+1.2 sd  11/14/19 Update the name of the device id.
+2.0 sd  04/22/20 Change the file name.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

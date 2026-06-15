@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xxxvethernet__g_8c" kind="file">
+    <compoundname>xxxvethernet_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xxxvethernet_8h" local="yes">xxxvethernet.h</includes>
+    <incdepgraph>
+      <node id="89">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="92">
+        <label>xil_io.h</label>
+      </node>
+      <node id="86">
+        <label>sleep.h</label>
+      </node>
+      <node id="87">
+        <label>xenv.h</label>
+      </node>
+      <node id="91">
+        <label>xdebug.h</label>
+      </node>
+      <node id="85">
+        <label>xxxvethernet.h</label>
+        <link refid="xxxvethernet_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xstatus.h</label>
+      </node>
+      <node id="83">
+        <label>xxxvethernet_g.c</label>
+        <link refid="xxxvethernet_g.c"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xil_types.h</label>
+      </node>
+      <node id="84">
+        <label>xparameters.h</label>
+      </node>
+      <node id="90">
+        <label>xxxvethernet_hw.h</label>
+        <link refid="xxxvethernet__hw_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xxxvethernet__g_8c_1a4592484253fdf197445fde66e4ebf0d0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref></type>
+        <definition>XXxvEthernet_Config XXxvEthernet_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XXxvEthernet_ConfigTable</name>
+        <initializer>= {
+	{
+		XPAR_XXVETHERNET_0_DEVICE_ID,
+		XPAR_XXVETHERNET_0_BASEADDR,
+		XPAR_XXVETHERNET_0_STATS,
+		XPAR_XXVETHERNET_0_CONNECTED_TYPE,
+		XPAR_XXVETHERNET_0_CONNECTED_BASEADDR,
+		XPAR_XXVETHERNET_0_CONNECTED_FIFO_INTR,
+		0xFF,
+		0xFF
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_g.c" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_g.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">*@file<sp/>xxxvethernet_g.c</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*@addtogroup<sp/>xxvethernet<sp/>Overview</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref><sp/>XXxvEthernet_ConfigTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_BASEADDR,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_STATS,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_CONNECTED_TYPE,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_CONNECTED_BASEADDR,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XXVETHERNET_0_CONNECTED_FIFO_INTR,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_g.c"/>
+  </compounddef>
+</doxygen>

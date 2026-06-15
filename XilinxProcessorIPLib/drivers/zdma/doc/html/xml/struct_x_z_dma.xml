@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_z_dma" kind="struct" prot="public">
+    <compoundname>XZDma</compoundname>
+    <includes local="no">xzdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_z_dma_1a16d3eccbc976f6b61c7b83ac0df68f89" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_z_dma___config" kindref="compound">XZDma_Config</ref></type>
+        <definition>XZDma_Config XZDma::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1gabbb337d990f31dc8932356f5abeb78bf" compoundref="xzdma_8c" startline="746" endline="768">XZDma_ChannelState</referencedby>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga34c98a505b24c6e549ed7f746a82676e" compoundref="xzdma_8c" startline="1201" endline="1211">XZDma_Enable</referencedby>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <referencedby refid="group__zdma_1ga166edb355a4395294e7910c68f4840ca" compoundref="xzdma__selftest_8c" startline="62" endline="92">XZDma_SelfTest</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+        <referencedby refid="group__zdma_1gadb6efafcf9f5a1a77808dfc8d9a9f82a" compoundref="xzdma_8c" startline="1313" endline="1326">XZDma_Stop</referencedby>
+        <referencedby refid="group__zdma_1ga15a0124d42f8ff48e54f32c1b643fe7b" compoundref="xzdma_8c" startline="608" endline="638">XZDma_WOData</referencedby>
+        <referencedby refid="xzdma__writeonlymode__example_8c_1aa41225599b937564211d0a7c122ebfd2" compoundref="xzdma__writeonlymode__example_8c" startline="161" endline="324">XZDma_WriteOnlyExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a11e560b15511ce0c1bea957659236f4a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" compoundref="xzdma__intr_8c" startline="140" endline="168">XZDma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a418f988cd455196d6127689c8e665da4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma::IntrMask</definition>
+        <argsstring></argsstring>
+        <name>IntrMask</name>
+        <briefdescription>
+<para>Mask for enabling interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="328" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1ga34c98a505b24c6e549ed7f746a82676e" compoundref="xzdma_8c" startline="1201" endline="1211">XZDma_Enable</referencedby>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a6ce36be06f13ecb70ac666bb3819e394" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1a84e5ba98d56dac2078e4bc68d5b5ab92" kindref="member">XZDma_Mode</ref></type>
+        <definition>XZDma_Mode XZDma::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>Mode of ZDMA core to be operated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="330" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a1e4b5934b1b40ebc10ed5969bbc27c30" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma::IsSgDma</definition>
+        <argsstring></argsstring>
+        <name>IsSgDma</name>
+        <briefdescription>
+<para>Is ZDMA core is in scatter gather or not will be specified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+        <referencedby refid="group__zdma_1ga70f7466e97aae2126181727774f6e6bb" compoundref="xzdma_8c" startline="818" endline="844">XZDma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1aea5c37a59737c90ea9387f350ca1acb0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma::Slcr_adma</definition>
+        <argsstring></argsstring>
+        <name>Slcr_adma</name>
+        <briefdescription>
+<para>Used to hold SLCR ADMA register contents. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a5bd448e43cadd065021bfe03ec8bcd4b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_z_dma___descriptor" kindref="compound">XZDma_Descriptor</ref></type>
+        <definition>XZDma_Descriptor XZDma::Descriptor</definition>
+        <argsstring></argsstring>
+        <name>Descriptor</name>
+        <briefdescription>
+<para>It contains information about descriptors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga4f701b228ebc77f96faaba09cd9c63db" compoundref="xzdma_8c" startline="265" endline="299">XZDma_CreateBDList</referencedby>
+        <referencedby refid="group__zdma_1ga4e1c01839429d264c285bc7488b42fb8" compoundref="xzdma_8c" startline="924" endline="992">XZDma_ScatterGather</referencedby>
+        <referencedby refid="group__zdma_1ga70f7466e97aae2126181727774f6e6bb" compoundref="xzdma_8c" startline="818" endline="844">XZDma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1a741c5a34979dbc89ac158ce254092481" kindref="member">XZDma_DoneHandler</ref></type>
+        <definition>XZDma_DoneHandler XZDma::DoneHandler</definition>
+        <argsstring></argsstring>
+        <name>DoneHandler</name>
+        <briefdescription>
+<para>Call back for transfer done interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="338" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" compoundref="xzdma__intr_8c" startline="140" endline="168">XZDma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1af216f69d108160949a9f319929d64727" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XZDma::DoneRef</definition>
+        <argsstring></argsstring>
+        <name>DoneRef</name>
+        <briefdescription>
+<para>To be passed to the done interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" compoundref="xzdma__intr_8c" startline="140" endline="168">XZDma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1ac57192732fbc322f6875a31f9d7b830e" kindref="member">XZDma_ErrorHandler</ref></type>
+        <definition>XZDma_ErrorHandler XZDma::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>Call back for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="343" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" compoundref="xzdma__intr_8c" startline="140" endline="168">XZDma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XZDma::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1ga78a9c500b9c87963f7695fc5edf87a21" compoundref="xzdma__intr_8c" startline="140" endline="168">XZDma_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1ace8acb1e903931b38a9f6393cfca5f51" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_z_dma___data_config" kindref="compound">XZDma_DataConfig</ref></type>
+        <definition>XZDma_DataConfig XZDma::DataConfig</definition>
+        <argsstring></argsstring>
+        <name>DataConfig</name>
+        <briefdescription>
+<para>Current configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gacdca22a1e7cd74b3f2acbfec3f0509f4" compoundref="xzdma_8c" startline="465" endline="485">XZDma_GetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a7c98e315d4533b69b0add5bbf21e2954" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_z_dma___dscr_config" kindref="compound">XZDma_DscrConfig</ref></type>
+        <definition>XZDma_DscrConfig XZDma::DscrConfig</definition>
+        <argsstring></argsstring>
+        <name>DscrConfig</name>
+        <briefdescription>
+<para>Current configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="348" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga595ab84007b44249fe04571d18856158" compoundref="xzdma_8c" startline="570" endline="581">XZDma_GetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" prot="public" static="no" mutable="no">
+        <type><ref refid="xzdma_8h_1a19f8494063d56f2f39f9d40e6ded952a" kindref="member">XZDmaState</ref></type>
+        <definition>XZDmaState XZDma::ChannelState</definition>
+        <argsstring></argsstring>
+        <name>ChannelState</name>
+        <briefdescription>
+<para>ZDMA channel is busy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+        <referencedby refid="group__zdma_1ga34c98a505b24c6e549ed7f746a82676e" compoundref="xzdma_8c" startline="1201" endline="1211">XZDma_Enable</referencedby>
+        <referencedby refid="group__zdma_1gaa5012fbb827d2330cae8cb90cafb388c" compoundref="xzdma__intr_8c" startline="70" endline="110">XZDma_IntrHandler</referencedby>
+        <referencedby refid="group__zdma_1gaf236c2323636d87ab0888b2d6f55a313" compoundref="xzdma_8c" startline="683" endline="728">XZDma_Reset</referencedby>
+        <referencedby refid="group__zdma_1ga7cb39835692353e5c34d95938b8ce8d0" compoundref="xzdma_8c" startline="653" endline="668">XZDma_Resume</referencedby>
+        <referencedby refid="group__zdma_1ga9f83e94a6ecae10b6bff851d76ffef24" compoundref="xzdma_8c" startline="343" endline="428">XZDma_SetChDataConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1gaf1772f190fe0a67a17c78f5f23fc8024" compoundref="xzdma_8c" startline="182" endline="234">XZDma_SetMode</referencedby>
+        <referencedby refid="group__zdma_1ga70f7466e97aae2126181727774f6e6bb" compoundref="xzdma_8c" startline="818" endline="844">XZDma_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma_1a0da5e708ed63a1daa9ef3931f27759ec" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma::irq_offset</definition>
+        <argsstring></argsstring>
+        <name>irq_offset</name>
+        <briefdescription>
+<para>IRQ offset for Versal_2VE_2VM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__zdma_1gad882e6d7430871e5b71643c8be2512d5" compoundref="xzdma_8c" startline="95" endline="155">XZDma_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_z_dma" kindref="compound">XZDma</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XZDma_DscrConfig</label>
+        <link refid="struct_x_z_dma___dscr_config"/>
+      </node>
+      <node id="1">
+        <label>XZDma</label>
+        <link refid="struct_x_z_dma"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Descriptor</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>DataConfig</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>DscrConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XZDma_DataConfig</label>
+        <link refid="struct_x_z_dma___data_config"/>
+      </node>
+      <node id="2">
+        <label>XZDma_Descriptor</label>
+        <link refid="struct_x_z_dma___descriptor"/>
+      </node>
+      <node id="4">
+        <label>XZDma_Config</label>
+        <link refid="struct_x_z_dma___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="324" bodyend="353"/>
+    <listofallmembers>
+      <member refid="struct_x_z_dma_1ae7cb358dd89da5287751442fd9a7fb53" prot="public" virt="non-virtual"><scope>XZDma</scope><name>ChannelState</name></member>
+      <member refid="struct_x_z_dma_1a16d3eccbc976f6b61c7b83ac0df68f89" prot="public" virt="non-virtual"><scope>XZDma</scope><name>Config</name></member>
+      <member refid="struct_x_z_dma_1ace8acb1e903931b38a9f6393cfca5f51" prot="public" virt="non-virtual"><scope>XZDma</scope><name>DataConfig</name></member>
+      <member refid="struct_x_z_dma_1a5bd448e43cadd065021bfe03ec8bcd4b" prot="public" virt="non-virtual"><scope>XZDma</scope><name>Descriptor</name></member>
+      <member refid="struct_x_z_dma_1a6ee062895bf6a06d28bb9aa2e118a11b" prot="public" virt="non-virtual"><scope>XZDma</scope><name>DoneHandler</name></member>
+      <member refid="struct_x_z_dma_1af216f69d108160949a9f319929d64727" prot="public" virt="non-virtual"><scope>XZDma</scope><name>DoneRef</name></member>
+      <member refid="struct_x_z_dma_1a7c98e315d4533b69b0add5bbf21e2954" prot="public" virt="non-virtual"><scope>XZDma</scope><name>DscrConfig</name></member>
+      <member refid="struct_x_z_dma_1ad507017674e5386e741e8e05d9415c98" prot="public" virt="non-virtual"><scope>XZDma</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_z_dma_1aeb05d269e323ab52e9dd37fce46ad807" prot="public" virt="non-virtual"><scope>XZDma</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_z_dma_1a418f988cd455196d6127689c8e665da4" prot="public" virt="non-virtual"><scope>XZDma</scope><name>IntrMask</name></member>
+      <member refid="struct_x_z_dma_1a0da5e708ed63a1daa9ef3931f27759ec" prot="public" virt="non-virtual"><scope>XZDma</scope><name>irq_offset</name></member>
+      <member refid="struct_x_z_dma_1a11e560b15511ce0c1bea957659236f4a" prot="public" virt="non-virtual"><scope>XZDma</scope><name>IsReady</name></member>
+      <member refid="struct_x_z_dma_1a1e4b5934b1b40ebc10ed5969bbc27c30" prot="public" virt="non-virtual"><scope>XZDma</scope><name>IsSgDma</name></member>
+      <member refid="struct_x_z_dma_1a6ce36be06f13ecb70ac666bb3819e394" prot="public" virt="non-virtual"><scope>XZDma</scope><name>Mode</name></member>
+      <member refid="struct_x_z_dma_1aea5c37a59737c90ea9387f350ca1acb0" prot="public" virt="non-virtual"><scope>XZDma</scope><name>Slcr_adma</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

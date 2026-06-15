@@ -1,0 +1,679 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcfupmc_8h" kind="file">
+    <compoundname>xcfupmc.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="cfu__apb_8h" local="yes">cfu_apb.h</includes>
+    <includes refid="xcfupmc__hw_8h" local="yes">xcfupmc_hw.h</includes>
+    <includedby refid="xcfupmc_8c" local="yes">xcfupmc.c</includedby>
+    <includedby refid="xcfupmc__g_8c" local="yes">xcfupmc_g.c</includedby>
+    <includedby refid="xcfupmc__selftest_8c" local="yes">xcfupmc_selftest.c</includedby>
+    <includedby refid="xcfupmc__sinit_8c" local="yes">xcfupmc_sinit.c</includedby>
+    <incdepgraph>
+      <node id="22">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="24">
+        <label>xil_io.h</label>
+      </node>
+      <node id="20">
+        <label>xcfupmc.h</label>
+        <link refid="xcfupmc.h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xcfupmc_hw.h</label>
+        <link refid="xcfupmc__hw_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xstatus.h</label>
+      </node>
+      <node id="21">
+        <label>xil_types.h</label>
+      </node>
+      <node id="25">
+        <label>cfu_apb.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="29">
+        <label>xcfupmc_g.c</label>
+      </node>
+      <node id="30">
+        <label>xcfupmc_selftest.c</label>
+        <link refid="xcfupmc__selftest_8c"/>
+      </node>
+      <node id="28">
+        <label>xcfupmc.c</label>
+        <link refid="xcfupmc_8c"/>
+      </node>
+      <node id="27">
+        <label>xcfupmc.h</label>
+        <link refid="xcfupmc.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xcfupmc_sinit.c</label>
+        <link refid="xcfupmc__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_cfupmc___config" prot="public">XCfupmc_Config</innerclass>
+    <innerclass refid="struct_x_cfupmc" prot="public">XCfupmc</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__cfupmc_1ga18f9fcd27c56970ee648e91e200b1445" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XCfupmc_ClearIsr</definition>
+        <argsstring>(const XCfupmc *InstancePtr, u32 IsrMask)</argsstring>
+        <name>XCfupmc_ClearIsr</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IsrMask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears CFU ISR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the bits to be cleared in ISR </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="128" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga0360bd74e9fabd0b5f0c622469dd66dd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XCfupmc_ReadIsr</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_ReadIsr</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads CFU ISR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance._</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32-bit register value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="143" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga7d87a247e80a5b32714a23f7c94b5028" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XCfupmc_ReadStatus</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_ReadStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads CFU Status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>32-bit register value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" bodystart="159" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref> *</type>
+        <definition>XCfupmc_Config * XCfupmc_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XCfupmc_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XCfupmc_LookupConfig returns a reference to an <ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref> structure based on the unique device id, <emphasis>DeviceId</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>The return value will refer to an entry in the device configuration table defined in the xcfupmc_g.c file.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>CfgPtr is a reference to a config record in the configuration table (in xcfupmc_g.c) corresponding to <emphasis>DeviceId</emphasis>, or NULL if no match is found. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_sinit.c" bodystart="94" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1gae431e6d523e3367426562b426498a69b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCfupmc_CfgInitialize</definition>
+        <argsstring>(XCfupmc *InstancePtr, const XCfupmc_Config *CfgPtr, u32 EffectiveAddr)</argsstring>
+        <name>XCfupmc_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes an CFU core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using an CFU driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, pass in the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="67" bodyend="82"/>
+        <references refid="struct_x_cfupmc___config_1a49746695520bff28b5b9a454ab58dbbb" compoundref="xcfupmc_8h" startline="94">XCfupmc_Config::BaseAddress</references>
+        <references refid="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" compoundref="xcfupmc_8h" startline="107">XCfupmc::Config</references>
+        <references refid="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" compoundref="xcfupmc_8h" startline="108">XCfupmc::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga99e1c013f0adcbda4fdbf3225c114f5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCfupmc_SelfTest</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_SelfTest</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the driver and hardware device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed.</para></listitem><listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc_selftest.c" bodystart="60" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga292850519911e823d55c85033de72933" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_MaskRegWrite</definition>
+        <argsstring>(const XCfupmc *InstancePtr, u32 Addr, u32 Mask, u32 Val)</argsstring>
+        <name>XCfupmc_MaskRegWrite</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function does CFI register write using MASK register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the register to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the bit field to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value of bit field </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="94" bodyend="105"/>
+        <referencedby refid="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" compoundref="xcfupmc_8c" startline="243" endline="259">XCfupmc_CfiErrHandler</referencedby>
+        <referencedby refid="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" compoundref="xcfupmc_8c" startline="289" endline="298">XCfupmc_ClearIgnoreCfiErr</referencedby>
+        <referencedby refid="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" compoundref="xcfupmc_8c" startline="307" endline="333">XCfupmc_ExtErrorHandler</referencedby>
+        <referencedby refid="group__cfupmc_1ga764c63377415499485fec8665dcb7290" compoundref="xcfupmc_8c" startline="149" endline="175">XCfupmc_GlblSeqInit</referencedby>
+        <referencedby refid="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" compoundref="xcfupmc_8c" startline="116" endline="139">XCfupmc_SetGlblSigEn</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_SetGlblSigEn</definition>
+        <argsstring>(const XCfupmc *InstancePtr, u8 Enable)</argsstring>
+        <name>XCfupmc_SetGlblSigEn</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function enables or disables the global signals. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pass 0x1 to enable the global signals, 0x0 to disable the global signals. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="116" bodyend="139"/>
+        <references refid="group__cfupmc_1ga292850519911e823d55c85033de72933" compoundref="xcfupmc_8c" startline="94" endline="105">XCfupmc_MaskRegWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga764c63377415499485fec8665dcb7290" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_GlblSeqInit</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_GlblSeqInit</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function inits the global events to needs to be done before loading the CFI data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="149" bodyend="175"/>
+        <references refid="group__cfupmc_1ga292850519911e823d55c85033de72933" compoundref="xcfupmc_8c" startline="94" endline="105">XCfupmc_MaskRegWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_CfuErrHandler</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_CfuErrHandler</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function checks and handles CFU errors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="216" bodyend="234"/>
+        <references refid="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" compoundref="xcfupmc_8c" startline="268" endline="280">XCfupmc_ClearCfuIsr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_CfiErrHandler</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_CfiErrHandler</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function handles CFI errors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="243" bodyend="259"/>
+        <references refid="group__cfupmc_1ga292850519911e823d55c85033de72933" compoundref="xcfupmc_8c" startline="94" endline="105">XCfupmc_MaskRegWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_ExtErrorHandler</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_ExtErrorHandler</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when bitstream transfer is aborted by user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="307" bodyend="333"/>
+        <references refid="group__cfupmc_1ga292850519911e823d55c85033de72933" compoundref="xcfupmc_8c" startline="94" endline="105">XCfupmc_MaskRegWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_ClearIgnoreCfiErr</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_ClearIgnoreCfiErr</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears Ignore CFI ERROR mask in CFU_APB_CFU_CTL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="289" bodyend="298"/>
+        <references refid="group__cfupmc_1ga292850519911e823d55c85033de72933" compoundref="xcfupmc_8c" startline="94" endline="105">XCfupmc_MaskRegWrite</references>
+      </memberdef>
+      <memberdef kind="function" id="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCfupmc_ClearCfuIsr</definition>
+        <argsstring>(const XCfupmc *InstancePtr)</argsstring>
+        <name>XCfupmc_ClearCfuIsr</name>
+        <param>
+          <type>const <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears CFU ISR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.c" bodystart="268" bodyend="280"/>
+        <referencedby refid="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" compoundref="xcfupmc_8c" startline="216" endline="234">XCfupmc_CfuErrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the file which contains code for CFU block. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  kc   12/21/2017 Initial release
+2.00  bsv  03/01/2019 Added error handling APIs
+2.01  bsv  11/06/2019 XCfupmc_ClearCfuIsr API added
+3.00  bsv  06/27/2020 Code clean up
+4.00  ma   06/17/2021 Added defines for CFU_STREAM_2 and CFU_FDRO_2
+                      base addresses
+      bsv  07/15/2021 Fix doxygen warnings
+4.01  ng   06/30/23   Added support for system device tree flow
+4.2   ng   03/26/2026 Fixed doxygen warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#ifndef<sp/>XCFUPMC_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCFUPMC_H</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cfu_apb.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcfupmc__hw_8h" kindref="compound">xcfupmc_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="59"><highlight class="comment">/*<sp/>CFU<sp/>key<sp/>hole<sp/>register<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Address<sp/>updates<sp/>after<sp/>RTL<sp/>HW40<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CFU_STREAM_ADDR<sp/>(0xF12C0000U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_FDRO_ADDR<sp/><sp/><sp/>(0xF12C2000U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_STREAM_2_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1F80000U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_FDRO_2_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1FC0000U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFUPMC_GLB_SIG_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFUPMC_PROT_DISABLE<sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFUPMC_PROT_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_GRESTORE_CLEAR<sp/>(0x0U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_FGCR_EN_GLOBS_B_ASSERT_VAL<sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_CFRAME_DISABLE_CLR_VAL<sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_CFI_LOCAL_RESET_CLR_VAL<sp/>(0x0U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_SEU_GO_CLR_VAL<sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL<sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_IGNORE_CFI_ERROR_CLR_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFU_APB_CFU_CTL_DECOMPRESS_CLR_VAL<sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="87" refid="struct_x_cfupmc___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="94" refid="struct_x_cfupmc___config_1a49746695520bff28b5b9a454ab58dbbb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_cfupmc___config_1a49746695520bff28b5b9a454ab58dbbb" kindref="member">BaseAddress</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}<sp/><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="struct_x_cfupmc" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107" refid="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref><sp/><ref refid="struct_x_cfupmc_1a49f5364c66c7035ad93a9f555954dbeb" kindref="member">Config</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_cfupmc_1a5c4a8f6fb22a71818964638dc366b74e" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_cfupmc_1aee6564c0a7c832c40052feb8099bd39c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_cfupmc_1aee6564c0a7c832c40052feb8099bd39c" kindref="member">DeCompress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_cfupmc_1a935f0085b8fff25bc037af2fcf8b94be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_cfupmc_1a935f0085b8fff25bc037af2fcf8b94be" kindref="member">Crc32Check</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_cfupmc_1afb0abc51a163523cc4b0304f47a464ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_cfupmc_1afb0abc51a163523cc4b0304f47a464ad" kindref="member">Crc32Val</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_cfupmc_1a1fcbf71d89a3837dc78371358b6758f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_cfupmc_1a1fcbf71d89a3837dc78371358b6758f5" kindref="member">Crc8Dis</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}<sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="128"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XCfupmc_ClearIsr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr,<sp/>u32<sp/>IsrMask)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCfupmc_WriteReg(CFU_APB_CFU_ISR,<sp/>IsrMask);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XCfupmc_ReadIsr(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCfupmc_ReadReg(CFU_APB_CFU_ISR);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="159"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XCfupmc_ReadStatus(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCfupmc_ReadReg(CFU_APB_CFU_STATUS);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#ifdef<sp/>XCFUPMC_DEBUG</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCfupmc_Printf(...)<sp/><sp/><sp/><sp/><sp/>xil_printf(__VA_ARGS__)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCfupmc_Printf(...)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref><sp/>*<ref refid="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" kindref="member">XCfupmc_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref><sp/>*<ref refid="group__cfupmc_1ga4693b0a6f861c685812d90e48f8862f7" kindref="member">XCfupmc_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">s32<sp/><ref refid="group__cfupmc_1gae431e6d523e3367426562b426498a69b" kindref="member">XCfupmc_CfgInitialize</ref>(<ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc___config" kindref="compound">XCfupmc_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">s32<sp/><ref refid="group__cfupmc_1ga99e1c013f0adcbda4fdbf3225c114f5a" kindref="member">XCfupmc_SelfTest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1ga292850519911e823d55c85033de72933" kindref="member">XCfupmc_MaskRegWrite</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr,<sp/>u32<sp/>Addr,<sp/>u32<sp/>Mask,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1gaab316a163c92406b0e5fa4f58cdab121" kindref="member">XCfupmc_SetGlblSigEn</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1ga764c63377415499485fec8665dcb7290" kindref="member">XCfupmc_GlblSeqInit</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1gaab8b841f14c140c5f487d62484db8743" kindref="member">XCfupmc_CfuErrHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1ga794386528397e2a781fd5761629f6b77" kindref="member">XCfupmc_CfiErrHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1gab725f059d40cb1239f40076fdcd7db9f" kindref="member">XCfupmc_ExtErrorHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1ga7e02c1a51adb392521d233962f01f58a" kindref="member">XCfupmc_ClearIgnoreCfiErr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__cfupmc_1gaddaced8535cbf5a88be4e24c9556495d" kindref="member">XCfupmc_ClearCfuIsr</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_cfupmc" kindref="compound">XCfupmc</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XCFUPMC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cfupmc/src/xcfupmc.h"/>
+  </compounddef>
+</doxygen>

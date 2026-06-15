@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_rgbir_status__s" kind="struct" prot="public">
+    <compoundname>CamDeviceRgbirStatus_s</compoundname>
+    <includes local="no">cam_device_rgbir_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_rgbir_status__s_1a70629d14a2693bdcc70f87de532f6ca3" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceRgbirStatus_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+<para>RGBIR enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_status__s_1af146ace0dfcdc49bd35d1dea3d1f8807" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceRgbirStatus_s::rcccEnable</definition>
+        <argsstring></argsstring>
+        <name>rcccEnable</name>
+        <briefdescription>
+<para>RGBIR RCCC enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_status__s_1ad4d5ac25806f8bc591e0ce1dc66ec3d4" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceRgbirStatus_s::lrEnable</definition>
+        <argsstring></argsstring>
+        <name>lrEnable</name>
+        <briefdescription>
+<para>RGBIR LR enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_status__s_1a0a982b664232d03a6e295d0695571461" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceRgbirStatus_s::currentMode</definition>
+        <argsstring></argsstring>
+        <name>currentMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_status__s_1abe6b883a217ee92ca1cd92e057398e3a" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__rgbir_1gac7e62b360ff6609357d76f63d3618916" kindref="member">CamDeviceRgbirConfig_t</ref></type>
+        <definition>CamDeviceRgbirConfig_t CamDeviceRgbirStatus_s::currentCfg</definition>
+        <argsstring></argsstring>
+        <name>currentCfg</name>
+        <briefdescription>
+<para>RGBIR current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice RGBIR status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="539">
+        <label>CamDeviceRgbirStatus_s</label>
+        <link refid="struct_cam_device_rgbir_status__s"/>
+        <childnode refid="540" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="540">
+        <label>CamDeviceRgbirConfig_s</label>
+        <link refid="struct_cam_device_rgbir_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="91" bodyend="97"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_rgbir_status__s_1abe6b883a217ee92ca1cd92e057398e3a" prot="public" virt="non-virtual"><scope>CamDeviceRgbirStatus_s</scope><name>currentCfg</name></member>
+      <member refid="struct_cam_device_rgbir_status__s_1a0a982b664232d03a6e295d0695571461" prot="public" virt="non-virtual"><scope>CamDeviceRgbirStatus_s</scope><name>currentMode</name></member>
+      <member refid="struct_cam_device_rgbir_status__s_1a70629d14a2693bdcc70f87de532f6ca3" prot="public" virt="non-virtual"><scope>CamDeviceRgbirStatus_s</scope><name>enable</name></member>
+      <member refid="struct_cam_device_rgbir_status__s_1ad4d5ac25806f8bc591e0ce1dc66ec3d4" prot="public" virt="non-virtual"><scope>CamDeviceRgbirStatus_s</scope><name>lrEnable</name></member>
+      <member refid="struct_cam_device_rgbir_status__s_1af146ace0dfcdc49bd35d1dea3d1f8807" prot="public" virt="non-virtual"><scope>CamDeviceRgbirStatus_s</scope><name>rcccEnable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

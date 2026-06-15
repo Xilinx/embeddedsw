@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_eb_db" kind="struct" prot="public">
+    <compoundname>EbDb</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_eb_db_1a09d9e8b2fd1fd82ebae16720cac86abf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 EbDb::frames</definition>
+        <argsstring></argsstring>
+        <name>frames</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_eb_db_1a4eb84c8d3a5113ec08f984f7440b87d3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 EbDb::offset</definition>
+        <argsstring></argsstring>
+        <name>offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>EbDb - EBD buffer structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="84" bodyend="87"/>
+    <listofallmembers>
+      <member refid="struct_eb_db_1a09d9e8b2fd1fd82ebae16720cac86abf" prot="public" virt="non-virtual"><scope>EbDb</scope><name>frames</name></member>
+      <member refid="struct_eb_db_1a4eb84c8d3a5113ec08f984f7440b87d3" prot="public" virt="non-virtual"><scope>EbDb</scope><name>offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

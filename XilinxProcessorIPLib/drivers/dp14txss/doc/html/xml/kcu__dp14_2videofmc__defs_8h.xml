@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="kcu__dp14_2videofmc__defs_8h" kind="file">
+    <compoundname>kcu_dp14/videofmc_defs.h</compoundname>
+    <includedby refid="dp141_8c" local="yes">dp141.c</includedby>
+    <includedby refid="dppt_8h" local="yes">dppt.h</includedby>
+    <invincdepgraph>
+      <node id="1754">
+        <label>menus.c</label>
+      </node>
+      <node id="1755">
+        <label>si570.c</label>
+      </node>
+      <node id="1751">
+        <label>dppt.h</label>
+        <link refid="dppt_8h"/>
+        <childnode refid="1752" relation="include">
+        </childnode>
+        <childnode refid="1754" relation="include">
+        </childnode>
+        <childnode refid="1755" relation="include">
+        </childnode>
+        <childnode refid="1756" relation="include">
+        </childnode>
+        <childnode refid="1757" relation="include">
+        </childnode>
+        <childnode refid="1758" relation="include">
+        </childnode>
+        <childnode refid="1759" relation="include">
+        </childnode>
+      </node>
+      <node id="1749">
+        <label>videofmc_defs.h</label>
+        <link refid="kcu_dp14/videofmc_defs.h"/>
+        <childnode refid="1750" relation="include">
+        </childnode>
+        <childnode refid="1751" relation="include">
+        </childnode>
+      </node>
+      <node id="1757">
+        <label>xdptxss_kcu105_dp14.c</label>
+        <link refid="xdptxss__kcu105__dp14_8c"/>
+      </node>
+      <node id="1759">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="1756">
+        <label>xclk_wiz.c</label>
+        <link refid="xclk__wiz_8c"/>
+      </node>
+      <node id="1750">
+        <label>dp141.c</label>
+        <link refid="dp141_8c"/>
+      </node>
+      <node id="1758">
+        <label>xedid_print_example.c</label>
+        <link refid="xedid__print__example_8c"/>
+      </node>
+      <node id="1753">
+        <label>xvidframe_crc.c</label>
+      </node>
+      <node id="1752">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="1751" relation="include">
+        </childnode>
+        <childnode refid="1753" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a60b2fd4ae00432c84056c3a567732d2c" prot="public" static="no">
+        <name>I2C_TI_DP141_ADDR</name>
+        <initializer>0x05</initializer>
+        <briefdescription>
+<para>I2C TI DP141 Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1ab075b41308ffcbf01f58a95728665e06" prot="public" static="no">
+        <name>I2C_MCDP6000_ADDR</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>I2C MCDP6000 Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a792ad36b659173ce0f6f2a18fc9ae4b4" prot="public" static="no">
+        <name>I2C_SI5344_ADDR</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>I2C Si5344 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1af00f400af9574a116f5d50997152cfba" prot="public" static="no">
+        <name>I2C_IDT8N49_ADDR</name>
+        <initializer>0x7C</initializer>
+        <briefdescription>
+<para>I2C IDT 8N49N241 Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a9e3c02ccaf71eeda39e2524f2fb02a41" prot="public" static="no">
+        <name>I2C_MUX_ADDR</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+<para>I2C Mux Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a71bd0b63917e21a117972939353bda39" prot="public" static="no">
+        <name>I2C_CLK_ADDR</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>I2C Clk Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a3533962d24b154c228d21d6fb051451d" prot="public" static="no">
+        <name>I2C_VFMCEXP_1_ADDR</name>
+        <initializer>0x65</initializer>
+        <briefdescription>
+<para>I2C VideoFMC IO Expander 1 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a183b83e0a3cd48b9fcafcbced07db03c" prot="public" static="no">
+        <name>I2C_VFMCEXP_0_ADDR</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>I2C VideoFMC IO Expander 0 address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="kcu__dp14_2videofmc__defs_8h_1a57222e901113b502f13494add3c4de91" prot="public" static="no">
+        <name>I2C_LMK03318_ADDR</name>
+        <initializer>0x51</initializer>
+        <briefdescription>
+<para>I2C TI LMK03318 Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>VIDEOFMC_DEFS_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEOFMC_DEFS_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I2C_TI_DP141_ADDR<sp/><sp/>0x05<sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#define<sp/>I2C_MCDP6000_ADDR<sp/><sp/>0x14<sp/></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#define<sp/>I2C_SI5344_ADDR<sp/><sp/><sp/><sp/>0x68<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#define<sp/>I2C_IDT8N49_ADDR<sp/><sp/><sp/>0x7C<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#define<sp/>I2C_MUX_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#define<sp/>I2C_CLK_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x68<sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#define<sp/>I2C_VFMCEXP_1_ADDR<sp/>0x65<sp/></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#define<sp/>I2C_VFMCEXP_0_ADDR<sp/>0x64<sp/></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#define<sp/>I2C_LMK03318_ADDR<sp/><sp/>0x51<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VIDEOFMC_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/videofmc_defs.h"/>
+  </compounddef>
+</doxygen>

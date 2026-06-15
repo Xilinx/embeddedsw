@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrngpsx__alginfo_8h" kind="file">
+    <compoundname>xtrngpsx_alginfo.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includedby refid="xtrngpsx_8h" local="yes">xtrngpsx.h</includedby>
+    <incdepgraph>
+      <node id="25">
+        <label>xtrngpsx_alginfo.h</label>
+        <link refid="xtrngpsx_alginfo.h"/>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="26">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="33">
+        <label>xtrngpsx_tests.c</label>
+        <link refid="xtrngpsx__tests_8c"/>
+      </node>
+      <node id="36">
+        <label>xtrngpsx_ptrng_example.c</label>
+        <link refid="xtrngpsx__ptrng__example_8c"/>
+      </node>
+      <node id="28">
+        <label>xtrngpsx_alginfo.h</label>
+        <link refid="xtrngpsx_alginfo.h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xtrngpsx_g.c</label>
+      </node>
+      <node id="34">
+        <label>xtrngpsx_drng_example.c</label>
+        <link refid="xtrngpsx__drng__example_8c"/>
+      </node>
+      <node id="35">
+        <label>xtrngpsx_hrng_example.c</label>
+        <link refid="xtrngpsx__hrng__example_8c"/>
+      </node>
+      <node id="32">
+        <label>xtrngpsx_sinit.c</label>
+        <link refid="xtrngpsx__sinit_8c"/>
+      </node>
+      <node id="30">
+        <label>xtrngpsx.c</label>
+        <link refid="xtrngpsx_8c"/>
+      </node>
+      <node id="29">
+        <label>xtrngpsx.h</label>
+        <link refid="xtrngpsx_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xtrngpsx__alginfo_8h_1a16a205198ac85e381bceb0213a964f48" prot="public" static="no">
+        <name>XTRNGPSX_MAJOR_VERSION</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Major version of Trngpsx driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrngpsx__alginfo_8h_1a6a317ea3d4873b4e3c4851f1f4186cdf" prot="public" static="no">
+        <name>XTRNGPSX_MINOR_VERSION</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Minor version of Trngpsx driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xtrngpsx__alginfo_8h_1a98c1b1502c50355ff036c70f41f204ae" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XTrngpsx_GetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XTrngpsx_GetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the TRNG crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h" bodystart="55" bodyend="59"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.1   mmd     07/04/23 Initial Release
+1.2   mb      04/01/24 Updated minor version
+1.4   vss     04/25/25 Updated minor version
+1.5   ank     09/26/25 Fixed MISRA-C Violations
+1.6   mb      04/28/26 Updated minor version to 1.6</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XTRNGPSX_ALGINFO_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTRNGPSX_ALGINFO_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="xtrngpsx__alginfo_8h_1a16a205198ac85e381bceb0213a964f48" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTRNGPSX_MAJOR_VERSION<sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="40" refid="xtrngpsx__alginfo_8h_1a6a317ea3d4873b4e3c4851f1f4186cdf" refkind="member"><highlight class="preprocessor">#define<sp/>XTRNGPSX_MINOR_VERSION<sp/><sp/>6U<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="54"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>__attribute__((always_inline))<sp/>inline</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XTrngpsx_GetCryptoAlgInfo<sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;Version<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="xtrngpsx__alginfo_8h_1a16a205198ac85e381bceb0213a964f48" kindref="member">XTRNGPSX_MAJOR_VERSION</ref>,<sp/><ref refid="xtrngpsx__alginfo_8h_1a6a317ea3d4873b4e3c4851f1f4186cdf" kindref="member">XTRNGPSX_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XTRNGPSX_ALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx_alginfo.h"/>
+  </compounddef>
+</doxygen>

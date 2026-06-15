@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['xspi_2ec',['xspi.c',['../xspi_8c.html',1,'']]],
+  ['xspi_2eh',['xspi.h',['../xspi_8h.html',1,'']]],
+  ['xspi_5fatmel_5fflash_5fexample_2ec',['xspi_atmel_flash_example.c',['../xspi__atmel__flash__example_8c.html',1,'']]],
+  ['xspi_5feeprom_5fexample_2ec',['xspi_eeprom_example.c',['../xspi__eeprom__example_8c.html',1,'']]],
+  ['xspi_5fg_2ec',['xspi_g.c',['../xspi__g_8c.html',1,'']]],
+  ['xspi_5fi_2eh',['xspi_i.h',['../xspi__i_8h.html',1,'']]],
+  ['xspi_5fintel_5fflash_5fexample_2ec',['xspi_intel_flash_example.c',['../xspi__intel__flash__example_8c.html',1,'']]],
+  ['xspi_5fintr_5fexample_2ec',['xspi_intr_example.c',['../xspi__intr__example_8c.html',1,'']]],
+  ['xspi_5fl_2eh',['xspi_l.h',['../xspi__l_8h.html',1,'']]],
+  ['xspi_5flow_5flevel_5fexample_2ec',['xspi_low_level_example.c',['../xspi__low__level__example_8c.html',1,'']]],
+  ['xspi_5fnumonyx_5fflash_5fquad_5fexample_2ec',['xspi_numonyx_flash_quad_example.c',['../xspi__numonyx__flash__quad__example_8c.html',1,'']]],
+  ['xspi_5foptions_2ec',['xspi_options.c',['../xspi__options_8c.html',1,'']]],
+  ['xspi_5fpolled_5fexample_2ec',['xspi_polled_example.c',['../xspi__polled__example_8c.html',1,'']]],
+  ['xspi_5fselftest_2ec',['xspi_selftest.c',['../xspi__selftest_8c.html',1,'']]],
+  ['xspi_5fselftest_5fexample_2ec',['xspi_selftest_example.c',['../xspi__selftest__example_8c.html',1,'']]],
+  ['xspi_5fsinit_2ec',['xspi_sinit.c',['../xspi__sinit_8c.html',1,'']]],
+  ['xspi_5fslave_5fintr_5fexample_2ec',['xspi_slave_intr_example.c',['../xspi__slave__intr__example_8c.html',1,'']]],
+  ['xspi_5fslave_5fpolled_5fexample_2ec',['xspi_slave_polled_example.c',['../xspi__slave__polled__example_8c.html',1,'']]],
+  ['xspi_5fstats_2ec',['xspi_stats.c',['../xspi__stats_8c.html',1,'']]],
+  ['xspi_5fstm_5fflash_5fexample_2ec',['xspi_stm_flash_example.c',['../xspi__stm__flash__example_8c.html',1,'']]],
+  ['xspi_5fwinbond_5fflash_5fquad_5fexample_2ec',['xspi_winbond_flash_quad_example.c',['../xspi__winbond__flash__quad__example_8c.html',1,'']]],
+  ['xspi_5fwinbond_5fflash_5fxip_5fexample_2ec',['xspi_winbond_flash_xip_example.c',['../xspi__winbond__flash__xip__example_8c.html',1,'']]]
+];

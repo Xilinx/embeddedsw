@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_fmc__s" kind="struct" prot="public">
+    <compoundname>IsiFmc_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a56677f5ddac91dad17a6cb2de4711e9d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char IsiFmc_s::FmcName[30]</definition>
+        <argsstring>[30]</argsstring>
+        <name>FmcName</name>
+        <briefdescription>
+<para>name of the FMC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a2fedb95ff64d1202ebf51a21a146309e" prot="public" static="no" mutable="no">
+        <type>IsiCreateFmcIss_t</type>
+        <definition>IsiCreateFmcIss_t IsiFmc_s::pIsiCreateFmcIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiCreateFmcIss</name>
+        <briefdescription>
+<para>create a FMC handle </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a1da88053ab92d64235424a476ccd0faa" prot="public" static="no" mutable="no">
+        <type>IsiFmcSetup</type>
+        <definition>IsiFmcSetup IsiFmc_s::pIsiIsiFmcSetup</definition>
+        <argsstring></argsstring>
+        <name>pIsiIsiFmcSetup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a8dfa8557b81686c28ca8778ba4d3236a" prot="public" static="no" mutable="no">
+        <type>IsiDeserSetup</type>
+        <definition>IsiDeserSetup IsiFmc_s::pIsiDeserSetup</definition>
+        <argsstring></argsstring>
+        <name>pIsiDeserSetup</name>
+        <briefdescription>
+<para>FMC setup. </para>        </briefdescription>
+        <detaileddescription>
+<para>Deser Setup </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a453e85cb66b7c640ab16d4dc162510a3" prot="public" static="no" mutable="no">
+        <type>IsiDeserEnable</type>
+        <definition>IsiDeserEnable IsiFmc_s::pIsiDeserEnable</definition>
+        <argsstring></argsstring>
+        <name>pIsiDeserEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a3ff47bd0f0b69ec90f5a00a6b0a3551e" prot="public" static="no" mutable="no">
+        <type>IsiDeserDisable</type>
+        <definition>IsiDeserDisable IsiFmc_s::pIsiDeserDisable</definition>
+        <argsstring></argsstring>
+        <name>pIsiDeserDisable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1af3faeb1104f1a9dbbc20a386ea178f27" prot="public" static="no" mutable="no">
+        <type>struct serializer_driver *</type>
+        <definition>struct serializer_driver* IsiFmc_s::serializer_array[MAX_SER_COUNT]</definition>
+        <argsstring>[MAX_SER_COUNT]</argsstring>
+        <name>serializer_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1a62fcf9c29d1a1a00711ed11d389f42d0" prot="public" static="no" mutable="no">
+        <type>struct sensor_driver *</type>
+        <definition>struct sensor_driver* IsiFmc_s::sensor_array[MAX_SENSOR_COUNT]</definition>
+        <argsstring>[MAX_SENSOR_COUNT]</argsstring>
+        <name>sensor_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc__s_1ad957a808677fbbb69a505ffe0a20aa14" prot="public" static="no" mutable="no">
+        <type>struct accessIIC *</type>
+        <definition>struct accessIIC* IsiFmc_s::accessiic_array[MAX_SENSOR_COUNT]</definition>
+        <argsstring>[MAX_SENSOR_COUNT]</argsstring>
+        <name>accessiic_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="90" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_isi_fmc__s_1ad957a808677fbbb69a505ffe0a20aa14" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>accessiic_array</name></member>
+      <member refid="struct_isi_fmc__s_1a56677f5ddac91dad17a6cb2de4711e9d" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>FmcName</name></member>
+      <member refid="struct_isi_fmc__s_1a2fedb95ff64d1202ebf51a21a146309e" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>pIsiCreateFmcIss</name></member>
+      <member refid="struct_isi_fmc__s_1a3ff47bd0f0b69ec90f5a00a6b0a3551e" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>pIsiDeserDisable</name></member>
+      <member refid="struct_isi_fmc__s_1a453e85cb66b7c640ab16d4dc162510a3" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>pIsiDeserEnable</name></member>
+      <member refid="struct_isi_fmc__s_1a8dfa8557b81686c28ca8778ba4d3236a" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>pIsiDeserSetup</name></member>
+      <member refid="struct_isi_fmc__s_1a1da88053ab92d64235424a476ccd0faa" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>pIsiIsiFmcSetup</name></member>
+      <member refid="struct_isi_fmc__s_1a62fcf9c29d1a1a00711ed11d389f42d0" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>sensor_array</name></member>
+      <member refid="struct_isi_fmc__s_1af3faeb1104f1a9dbbc20a386ea178f27" prot="public" virt="non-virtual"><scope>IsiFmc_s</scope><name>serializer_array</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

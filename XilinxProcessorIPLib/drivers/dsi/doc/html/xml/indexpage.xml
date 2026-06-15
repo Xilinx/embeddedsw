@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>dsi</title>
+    <detaileddescription>
+<para>This file contains the implementation of the MIPI DSI TX Controller driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date    Changes
+<hruler/>
+
+1.0 ram 11/02/16 Initial Release for DSI driver
+1.1 sss 08/17/16 Added 64 bit support
+    sss 08/26/16 XDSI_VM_NON_BURST_SYNC_PULSES enum changed
+                 Add &quot;Command Queue Vacancy&quot; API
+                 API for getting pixel format
+    ms  01/23/17 Modified xil_printf statement in main function for all
+                 examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                 strings are available in all examples. This is a fix
+                 for CR-965028.
+    ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                 generation.
+    ms  04/05/17 Modified Comment lines in functions of dsi
+                 examples to recognize it as documentation block
+                 for doxygen generation of examples.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

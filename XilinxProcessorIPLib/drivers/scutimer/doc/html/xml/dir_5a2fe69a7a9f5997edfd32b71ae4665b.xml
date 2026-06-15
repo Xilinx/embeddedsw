@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5a2fe69a7a9f5997edfd32b71ae4665b" kind="dir">
+    <compoundname>scutimer</compoundname>
+    <innerdir refid="dir_b605b453f870463da40a43a169d3b1e1">examples</innerdir>
+    <innerdir refid="dir_0c0ebd2721e7f2e1723af093c7dab0b2">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/"/>
+  </compounddef>
+</doxygen>

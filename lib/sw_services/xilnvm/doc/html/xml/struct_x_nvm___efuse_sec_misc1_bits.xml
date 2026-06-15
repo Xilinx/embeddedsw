@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_sec_misc1_bits" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseSecMisc1Bits</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_sec_misc1_bits_1adb64de83726a36d2acfc04710c21c7e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseSecMisc1Bits::LpdMbistEn</definition>
+        <argsstring></argsstring>
+        <name>LpdMbistEn</name>
+        <briefdescription>
+<para>LPD MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_sec_misc1_bits_1a6c1988a42ab85a86396270e7bce822f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseSecMisc1Bits::PmcMbistEn</definition>
+        <argsstring></argsstring>
+        <name>PmcMbistEn</name>
+        <briefdescription>
+<para>PMC MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_sec_misc1_bits_1a83daad4db244eef535d09e774dfb6201" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseSecMisc1Bits::LpdNocScEn</definition>
+        <argsstring></argsstring>
+        <name>LpdNocScEn</name>
+        <briefdescription>
+<para>LPD NOC secure control enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_sec_misc1_bits_1a94882d18b3b74fc2c2cdfa2958d2d275" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseSecMisc1Bits::SysmonVoltMonEn</definition>
+        <argsstring></argsstring>
+        <name>SysmonVoltMonEn</name>
+        <briefdescription>
+<para>System monitor voltage monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_sec_misc1_bits_1a0699e197081cfb6b0fc42292fc9e964b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseSecMisc1Bits::SysmonTempMonEn</definition>
+        <argsstring></argsstring>
+        <name>SysmonTempMonEn</name>
+        <briefdescription>
+<para>System monitor temperature monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac805987f2e5adffda160b2027ff46ed6" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="718" endline="762">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for SecMisc1 Ctrl Bits. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="210" bodyend="216"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_sec_misc1_bits_1adb64de83726a36d2acfc04710c21c7e3" prot="public" virt="non-virtual"><scope>XNvm_EfuseSecMisc1Bits</scope><name>LpdMbistEn</name></member>
+      <member refid="struct_x_nvm___efuse_sec_misc1_bits_1a83daad4db244eef535d09e774dfb6201" prot="public" virt="non-virtual"><scope>XNvm_EfuseSecMisc1Bits</scope><name>LpdNocScEn</name></member>
+      <member refid="struct_x_nvm___efuse_sec_misc1_bits_1a6c1988a42ab85a86396270e7bce822f5" prot="public" virt="non-virtual"><scope>XNvm_EfuseSecMisc1Bits</scope><name>PmcMbistEn</name></member>
+      <member refid="struct_x_nvm___efuse_sec_misc1_bits_1a0699e197081cfb6b0fc42292fc9e964b" prot="public" virt="non-virtual"><scope>XNvm_EfuseSecMisc1Bits</scope><name>SysmonTempMonEn</name></member>
+      <member refid="struct_x_nvm___efuse_sec_misc1_bits_1a94882d18b3b74fc2c2cdfa2958d2d275" prot="public" virt="non-virtual"><scope>XNvm_EfuseSecMisc1Bits</scope><name>SysmonVoltMonEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

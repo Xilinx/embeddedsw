@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___audio_channel" kind="struct" prot="public">
+    <compoundname>XDcDma_AudioChannel</compoundname>
+    <includes local="no">xdcdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1a8e36d53a01acd4a5480e77f41b52dc2f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref></type>
+        <definition>XDcDma_Channel_Dscr XDcDma_AudioChannel::Channel</definition>
+        <argsstring></argsstring>
+        <name>Channel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1ac26a6481563bae247d6ca84487ad96da" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___audio_buffer" kindref="compound">XDcDma_AudioBuffer</ref> *</type>
+        <definition>XDcDma_AudioBuffer* XDcDma_AudioChannel::Buffer</definition>
+        <argsstring></argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1a42dde21b805b6f0171367622a0bd4512" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_AudioChannel::Audio_TriggerStatus</definition>
+        <argsstring></argsstring>
+        <name>Audio_TriggerStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1a3c772b69fe1ce4a6972f98eacb476be2" prot="public" static="no" mutable="no">
+        <type>XDcDma_State</type>
+        <definition>XDcDma_State XDcDma_AudioChannel::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1aa3a025c1636c68a08736d8d4c81a56a1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_AudioChannel::DscrErrDis</definition>
+        <argsstring></argsstring>
+        <name>DscrErrDis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___audio_channel_1a25c9b534f327057d2b83714af8c167ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_AudioChannel::VidActvFetchEn</definition>
+        <argsstring></argsstring>
+        <name>VidActvFetchEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the Audio Channel attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="58">
+        <label>XDcDma_AudioBuffer</label>
+        <link refid="struct_x_dc_dma___audio_buffer"/>
+      </node>
+      <node id="57">
+        <label>XDcDma_AudioChannel</label>
+        <link refid="struct_x_dc_dma___audio_channel"/>
+        <childnode refid="58" relation="usage">
+          <edgelabel>Buffer</edgelabel>
+        </childnode>
+        <childnode refid="59" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="59">
+        <label>XDcDma_Channel_Dscr</label>
+        <link refid="struct_x_dc_dma___channel___dscr"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="201" bodyend="208"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___audio_channel_1a42dde21b805b6f0171367622a0bd4512" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>Audio_TriggerStatus</name></member>
+      <member refid="struct_x_dc_dma___audio_channel_1ac26a6481563bae247d6ca84487ad96da" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>Buffer</name></member>
+      <member refid="struct_x_dc_dma___audio_channel_1a8e36d53a01acd4a5480e77f41b52dc2f" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>Channel</name></member>
+      <member refid="struct_x_dc_dma___audio_channel_1aa3a025c1636c68a08736d8d4c81a56a1" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>DscrErrDis</name></member>
+      <member refid="struct_x_dc_dma___audio_channel_1a3c772b69fe1ce4a6972f98eacb476be2" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>State</name></member>
+      <member refid="struct_x_dc_dma___audio_channel_1a25c9b534f327057d2b83714af8c167ce" prot="public" virt="non-virtual"><scope>XDcDma_AudioChannel</scope><name>VidActvFetchEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

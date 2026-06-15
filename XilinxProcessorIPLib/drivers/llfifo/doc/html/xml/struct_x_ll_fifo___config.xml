@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ll_fifo___config" kind="struct" prot="public">
+    <compoundname>XLlFifo_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1a604e2954aee625fdf21ba1d1585bbda9" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XLlFifo_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1ac956a0e7095709b947878fb9686dec2b" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XLlFifo_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base Address of the AXI FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1a3055c01c4cf2a1baabed6e34fdfd0425" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XLlFifo_Config::Axi4BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>Axi4BaseAddress</name>
+        <briefdescription>
+<para>Axi4 interface Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1a9e1566949ac9b883fe383d308dea1a43" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLlFifo_Config::Datainterface</definition>
+        <argsstring></argsstring>
+        <name>Datainterface</name>
+        <briefdescription>
+<para>Type of Datainterface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1ab18daabce36a4d129d53a0226e3ec879" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLlFifo_Config::IntId</definition>
+        <argsstring></argsstring>
+        <name>IntId</name>
+        <briefdescription>
+<para>Interrupt ID on GIC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ll_fifo___config_1a866f5af45ae48c2cf49c4879879bcefe" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XLlFifo_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo.h" bodystart="221" bodyend="235"/>
+    <listofallmembers>
+      <member refid="struct_x_ll_fifo___config_1a3055c01c4cf2a1baabed6e34fdfd0425" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>Axi4BaseAddress</name></member>
+      <member refid="struct_x_ll_fifo___config_1ac956a0e7095709b947878fb9686dec2b" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_ll_fifo___config_1a9e1566949ac9b883fe383d308dea1a43" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>Datainterface</name></member>
+      <member refid="struct_x_ll_fifo___config_1ab18daabce36a4d129d53a0226e3ec879" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>IntId</name></member>
+      <member refid="struct_x_ll_fifo___config_1a866f5af45ae48c2cf49c4879879bcefe" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_ll_fifo___config_1a604e2954aee625fdf21ba1d1585bbda9" prot="public" virt="non-virtual"><scope>XLlFifo_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_mbox_ack_msg" kind="struct" prot="public">
+    <compoundname>MboxAckMsg</compoundname>
+    <includes local="no">mbox_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_mbox_ack_msg_1abdad0f0ff9016489ddf71970333c2815" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t MboxAckMsg::meg_id</definition>
+        <argsstring></argsstring>
+        <name>meg_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_ack_msg_1a5eb4dbf48fa84471f339f5d7cdd5f938" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t MboxAckMsg::result</definition>
+        <argsstring></argsstring>
+        <name>result</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of Mbox ack message. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="90" bodyend="93"/>
+    <listofallmembers>
+      <member refid="struct_mbox_ack_msg_1abdad0f0ff9016489ddf71970333c2815" prot="public" virt="non-virtual"><scope>MboxAckMsg</scope><name>meg_id</name></member>
+      <member refid="struct_mbox_ack_msg_1a5eb4dbf48fa84471f339f5d7cdd5f938" prot="public" virt="non-virtual"><scope>MboxAckMsg</scope><name>result</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

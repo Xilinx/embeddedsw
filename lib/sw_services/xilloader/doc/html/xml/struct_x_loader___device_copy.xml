@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___device_copy" kind="struct" prot="public">
+    <compoundname>XLoader_DeviceCopy</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_DeviceCopy::SrcAddr</definition>
+        <argsstring></argsstring>
+        <name>SrcAddr</name>
+        <briefdescription>
+<para>Source Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_DeviceCopy::DestAddr</definition>
+        <argsstring></argsstring>
+        <name>DestAddr</name>
+        <briefdescription>
+<para>Desrination Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="406" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga4ee480ef9152cd51e9aabb49fd0515fd" compoundref="server_2xloader__plat_8c" startline="1034" endline="1223">XLoader_ProcessElf</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_DeviceCopy::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+<para>Number of bytes to be copied. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="407" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_DeviceCopy::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+<para>Flags indicate mode of copying. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="408" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga629ebb0c55462b5cde87f7e91037b8c0" compoundref="xloader__prtn__load_8c" startline="392" endline="486">XLoader_PrtnCopy</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store various parameters for Device Copy. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="404" bodyend="409"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___device_copy_1aa5d26c1fc32172b4befdda406a2e3873" prot="public" virt="non-virtual"><scope>XLoader_DeviceCopy</scope><name>DestAddr</name></member>
+      <member refid="struct_x_loader___device_copy_1aa6a1e07e689496e0213bea601168adc4" prot="public" virt="non-virtual"><scope>XLoader_DeviceCopy</scope><name>Flags</name></member>
+      <member refid="struct_x_loader___device_copy_1a1a82e013c67a6b7f0664d90a31461d9a" prot="public" virt="non-virtual"><scope>XLoader_DeviceCopy</scope><name>Len</name></member>
+      <member refid="struct_x_loader___device_copy_1a262d93387fc1f3019c567d8230beba86" prot="public" virt="non-virtual"><scope>XLoader_DeviceCopy</scope><name>SrcAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

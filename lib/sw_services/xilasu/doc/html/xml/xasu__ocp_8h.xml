@@ -1,0 +1,546 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ocp_8h" kind="file">
+    <compoundname>xasu_ocp.h</compoundname>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includes refid="xasu__ocpinfo_8h" local="yes">xasu_ocpinfo.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xasu__ocp_8c" local="yes">xasu_ocp.c</includedby>
+    <includedby refid="xasu__ocp__example_8c" local="yes">xasu_ocp_example.c</includedby>
+    <includedby refid="xasu__ocp__ude__example_8c" local="yes">xasu_ocp_ude_example.c</includedby>
+    <includedby refid="xasu__ude__keys__enc__example_8c" local="yes">xasu_ude_keys_enc_example.c</includedby>
+    <incdepgraph>
+      <node id="835">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+      <node id="829">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+      <node id="828">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="829" relation="include">
+        </childnode>
+        <childnode refid="831" relation="include">
+        </childnode>
+        <childnode refid="832" relation="include">
+        </childnode>
+        <childnode refid="834" relation="include">
+        </childnode>
+        <childnode refid="835" relation="include">
+        </childnode>
+      </node>
+      <node id="837">
+        <label>xil_util.h</label>
+      </node>
+      <node id="833">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="831">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="836">
+        <label>xasu_ocpinfo.h</label>
+        <link refid="xasu__ocpinfo_8h"/>
+        <childnode refid="830" relation="include">
+        </childnode>
+        <childnode refid="837" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+      </node>
+      <node id="832">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="830" relation="include">
+        </childnode>
+        <childnode refid="833" relation="include">
+        </childnode>
+      </node>
+      <node id="827">
+        <label>xasu_ocp.h</label>
+        <link refid="xasu_ocp.h"/>
+        <childnode refid="828" relation="include">
+        </childnode>
+        <childnode refid="836" relation="include">
+        </childnode>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+      <node id="830">
+        <label>xil_types.h</label>
+      </node>
+      <node id="834">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="830" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="842">
+        <label>xasu_ude_keys_enc_example.c</label>
+        <link refid="xasu__ude__keys__enc__example_8c"/>
+      </node>
+      <node id="841">
+        <label>xasu_ocp_ude_example.c</label>
+        <link refid="xasu__ocp__ude__example_8c"/>
+      </node>
+      <node id="839">
+        <label>xasu_ocp.c</label>
+        <link refid="xasu__ocp_8c"/>
+      </node>
+      <node id="838">
+        <label>xasu_ocp.h</label>
+        <link refid="xasu_ocp.h"/>
+        <childnode refid="839" relation="include">
+        </childnode>
+        <childnode refid="840" relation="include">
+        </childnode>
+        <childnode refid="841" relation="include">
+        </childnode>
+        <childnode refid="842" relation="include">
+        </childnode>
+      </node>
+      <node id="840">
+        <label>xasu_ocp_example.c</label>
+        <link refid="xasu__ocp__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1ga75a2fbdb2ea2b018cfc332f53db0cee9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpGetDevIkX509Certificate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpCertParams *OcpCertClientParamPtr)</argsstring>
+        <name>XAsu_OcpGetDevIkX509Certificate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> *</type>
+          <declname>OcpCertClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform DevIk certificate generation operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpCertClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> structure which holds the parameters of OCP input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameter.</para><para>Validate client parameter.</para><para>Validate OCP client parameter inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="60" bodyend="104"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1ga6c15d8e4380c6e2e5b69488f9e13e29f" compoundref="xasu__ocpinfo_8h" startline="44">XASU_OCP_GET_DEVIK_X509_CERT_CMD_ID</references>
+        <references refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="58" endline="72">XAsu_OcpValidateCertParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1gaa09f38e166d54e624013584714c334dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpGetDevAkX509Certificate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpCertParams *OcpCertClientParamPtr)</argsstring>
+        <name>XAsu_OcpGetDevAkX509Certificate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> *</type>
+          <declname>OcpCertClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform DevAk certificate generation operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpCertClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> structure which holds the parameters of OCP input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameter.</para><para>Validate client parameter.</para><para>Validate OCP client parameter inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="121" bodyend="165"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1ga89ca56a0a284a6e111c65b06bf64006b" compoundref="xasu__ocpinfo_8h" startline="47">XASU_OCP_GET_DEVAK_X509_CERT_CMD_ID</references>
+        <references refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="58" endline="72">XAsu_OcpValidateCertParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1ga5ea47b4f5a36aace5a9f471042173fa3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpGetDevIkCsr</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpCertParams *OcpCertClientParamPtr)</argsstring>
+        <name>XAsu_OcpGetDevIkCsr</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> *</type>
+          <declname>OcpCertClientParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform CSR(Certificate Signing Request) generation operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpCertClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref> structure which holds the parameters of OCP input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameter.</para><para>Validate client parameter.</para><para>Validate OCP client parameter inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="182" bodyend="226"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1gafd3de6d620f6f39a948e274349f33ff2" compoundref="xasu__ocpinfo_8h" startline="50">XASU_OCP_GET_DEVIK_CSR_X509_CERT_CMD_ID</references>
+        <references refid="group__xasu__ocp__common__apis_1ga14a22333993f81451f6060e6432b5608" compoundref="xasu__ocp__common_8c" startline="58" endline="72">XAsu_OcpValidateCertParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1ga9ac4646205a525765f9b6fac4b030875" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpDevAkAttestation</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpDevAkAttest *OcpDevAkAttestParamPtr)</argsstring>
+        <name>XAsu_OcpDevAkAttestation</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref> *</type>
+          <declname>OcpDevAkAttestParamPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform DevAk attestation operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpDevAkAttestParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref> structure which holds the parameters of OCP input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameter.</para><para>Validate client parameters.</para><para>Validate OCP client parameter inputs.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="242" bodyend="286"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1ga016ff10e1279fe16c9007cdd3eca19aa" compoundref="xasu__ocpinfo_8h" startline="53">XASU_OCP_DEVAK_ATTESTATION_CMD_ID</references>
+        <references refid="group__xasu__ocp__common__apis_1ga3e41f95cc96b47f6c22d3a45f9acacf7" compoundref="xasu__ocp__common_8c" startline="86" endline="101">XAsu_OcpValidateAttestParams</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpUdeChallengeReq</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeParams *OcpUdeParamsPtr)</argsstring>
+        <name>XAsu_OcpUdeChallengeReq</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_ude_params" kindref="compound">XAsu_OcpUdeParams</ref> *</type>
+          <declname>OcpUdeParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to generate UDE challenge response. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpUdeParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___ocp_ude_params" kindref="compound">XAsu_OcpUdeParams</ref> structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.<itemizedlist>
+<listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameters.</para><para>Validate the Nonce buffer to be non-zero.</para><para>Validate client parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="303" bodyend="353"/>
+        <references refid="struct_x_asu___ocp_ude_params_1adc1581b5e472714037858d6925c243ae" compoundref="xasu__ocpinfo_8h" startline="131">XAsu_OcpUdeParams::NonceAddr</references>
+        <references refid="struct_x_asu___ocp_ude_params_1a02a1410a6391e264049b304435ae62a7" compoundref="xasu__ocpinfo_8h" startline="132">XAsu_OcpUdeParams::OcpUdeResponseAddr</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__generic__apis_1ga04f710c11a465ba2bca492d9517c73d1" compoundref="xasu__generic_8c" startline="56" endline="73">XAsu_IsBufferNonZero</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1gac5d62e631dcbe2c388a5d3c913a8ea2b" compoundref="xasu__ocpinfo_8h" startline="54">XASU_OCP_UDE_CHALLENGE_REQ_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga28aceb2c4710123b9d78e04221c1ec9a" compoundref="xasu__ocpinfo_8h" startline="66">XASU_OCP_UDE_NONCE_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpUdeKeysEncrypt</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc)</argsstring>
+        <name>XAsu_OcpUdeKeysEncrypt</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___ocp_ude_key_encrypt" kindref="compound">XAsu_OcpUdeKeyEncrypt</ref> *</type>
+          <declname>OcpUdeKeyEnc</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform UDE key encryption operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OcpUdeKeyEnc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ocp_ude_key_encrypt" kindref="compound">XAsu_OcpUdeKeyEncrypt</ref> structure which holds the parameters of UDE key arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASUFW is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.<itemizedlist>
+<listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem></itemizedlist>
+</para></listitem><listitem><para>XST_FAILURE, in case of failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate OCP client parameter.</para><para>Validate client parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Update request buffer and send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="371" bodyend="420"/>
+        <references refid="struct_x_asu___ocp_ude_key_encrypt_1aefc8f560af9956ce96269c0671904a55" compoundref="xasu__ocpinfo_8h" startline="139">XAsu_OcpUdeKeyEncrypt::UdeEncPvtKeyAddr</references>
+        <references refid="struct_x_asu___ocp_ude_key_encrypt_1af51069cc503e1ada4c3ed809c44052b1" compoundref="xasu__ocpinfo_8h" startline="140">XAsu_OcpUdeKeyEncrypt::UdeKeyId</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1ga68a46fe8a839c20f661cf42486bbbfd0" compoundref="xasu__ocpinfo_8h" startline="55">XASU_OCP_UDE_PVT_KEYS_ENCRYPT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gad880d89ca1a89bc2c2ff4fac497c3265" compoundref="xasu__ocpinfo_8h" startline="73">XASU_OCP_UDE_USER_KEY_0_ID</references>
+        <references refid="group__xasu__common__defs_1ga470f236563fb84db2eaef155ccded4d7" compoundref="xasu__ocpinfo_8h" startline="74">XASU_OCP_UDE_USER_KEY_1_ID</references>
+        <references refid="group__xasu__common__defs_1gad14e623466c119d4d421f9bf9f7d0b71" compoundref="xasu__ocpinfo_8h" startline="75">XASU_OCP_UDE_USER_KEY_2_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ocp__client__apis_1gaa4e266d168a74b841012e6884d281486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_OcpGetHuk</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamPtr, u8 *HukBuf, u32 BufLen)</argsstring>
+        <name>XAsu_OcpGetHuk</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HukBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends an IPI request to get the Hardware Unique Key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to XAsu_ClientParams which has parameters for the client request. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HukBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a buffer to hold the 256-bit Hardware Unique Key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the buffer pointed to by HukBuf. It should not be less than XASU_OCP_HUK_SIZE_IN_BYTES (32 bytes).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if the function finishes successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if invalid parameters used.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if failed to get unique ID.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Generate a unique ID and register the callback function.</para><para>Create command header.</para><para>Send an IPI request to ASUFW. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" line="439" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.c" bodystart="439" bodyend="473"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga1158cb3e6515c65776b230c7e77b3dd5" compoundref="xasu__def_8h" startline="61">XASU_MODULE_OCP_ID</references>
+        <references refid="group__xasu__common__defs_1ga9849535a85851d241f7bdc65ba8eb56c" compoundref="xasu__ocpinfo_8h" startline="56">XASU_OCP_GET_HUK_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga08c9eebd9e9ac6065e63dd0cd9c6222e" compoundref="xasu__ocpinfo_8h" startline="77">XASU_OCP_HUK_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the OCP client function prototypes, defines and macros for the OCP hardware module. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rmv  08/04/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_OCP_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_OCP_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__ocpinfo_8h" kindref="compound">xasu_ocpinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1ga75a2fbdb2ea2b018cfc332f53db0cee9" kindref="member">XAsu_OcpGetDevIkX509Certificate</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref><sp/>*OcpCertClientParamPtr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1gaa09f38e166d54e624013584714c334dd" kindref="member">XAsu_OcpGetDevAkX509Certificate</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref><sp/>*OcpCertClientParamPtr);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1ga5ea47b4f5a36aace5a9f471042173fa3" kindref="member">XAsu_OcpGetDevIkCsr</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ocp_cert_params" kindref="compound">XAsu_OcpCertParams</ref><sp/>*OcpCertClientParamPtr);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1ga9ac4646205a525765f9b6fac4b030875" kindref="member">XAsu_OcpDevAkAttestation</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___ocp_dev_ak_attest" kindref="compound">XAsu_OcpDevAkAttest</ref><sp/>*OcpDevAkAttestParamPtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1ga3c3e8b42eab489f97dab01062de04aba" kindref="member">XAsu_OcpUdeChallengeReq</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___ocp_ude_params" kindref="compound">XAsu_OcpUdeParams</ref><sp/>*OcpUdeParamsPtr);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1ga56ee81058035dc435d3cc4597c769b10" kindref="member">XAsu_OcpUdeKeysEncrypt</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/><ref refid="struct_x_asu___ocp_ude_key_encrypt" kindref="compound">XAsu_OcpUdeKeyEncrypt</ref><sp/>*OcpUdeKeyEnc);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">s32<sp/><ref refid="group__xasu__ocp__client__apis_1gaa4e266d168a74b841012e6884d281486" kindref="member">XAsu_OcpGetHuk</ref>(XAsu_ClientParams<sp/>*ClientParamPtr,<sp/>u8<sp/>*HukBuf,<sp/>u32<sp/>BufLen);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_OCP_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_ocp.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__demosaic___config" kind="struct" prot="public">
+    <compoundname>XV_demosaic_Config</compoundname>
+    <includes local="no">xv_demosaic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1aab59673ef07b56714fe8652a83e176f4" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_demosaic_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Device name string for SDT builds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="xv__demosaic__sinit_8c_1a357663e2a0c965194d856bfda50d4291" compoundref="xv__demosaic__sinit_8c" startline="117" endline="131">XV_demosaic_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_demosaic_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of the core instance registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="118">driverInit</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a602f8a7aadb48c2e10b3748a9d33de06" compoundref="xv__demosaic_8c" startline="35" endline="50">XV_demosaic_CfgInitialize</referencedby>
+        <referencedby refid="xv__demosaic_8h_1af01e921cbe12a3628cc237f090ac0bcd" compoundref="xv__demosaic_8c" startline="188" endline="193">XV_demosaic_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5f0761b2c3d98c221e6b3d1a3153bd23" compoundref="xv__demosaic_8c" startline="166" endline="171">XV_demosaic_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aad5daf24f3e5183eb540c7e9558f0345" compoundref="xv__demosaic_8c" startline="324" endline="332">XV_demosaic_Get_HwReg_bayer_phase</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a8cad5ce63900772b821e46d6c60ead88" compoundref="xv__demosaic_8c" startline="277" endline="285">XV_demosaic_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a21bc9ff12055b15575178d906a131e31" compoundref="xv__demosaic_8c" startline="231" endline="239">XV_demosaic_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__demosaic__sinit_8c_1a395e8e7efdf053e79d5b9a14d90f6767" compoundref="xv__demosaic__sinit_8c" startline="152" endline="165">XV_demosaic_Initialize</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a7158f8e24e9a182c264a876013681193" compoundref="xv__demosaic_8c" startline="448" endline="453">XV_demosaic_InterruptClear</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a4f0de1734d2a54e682d620f06514049f" compoundref="xv__demosaic_8c" startline="421" endline="429">XV_demosaic_InterruptDisable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a69fa1f851aa2f2d43ad537ccbdb9260d" compoundref="xv__demosaic_8c" startline="395" endline="403">XV_demosaic_InterruptEnable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa538f7cb79b4692a6584beaf89e6afb7" compoundref="xv__demosaic_8c" startline="469" endline="474">XV_demosaic_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5543702ffe2eca8a81cbcc4c004e88df" compoundref="xv__demosaic_8c" startline="491" endline="496">XV_demosaic_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa71214d873527ed1af928e50b252affb" compoundref="xv__demosaic_8c" startline="371" endline="376">XV_demosaic_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a6891f3d35c268cddf40987470001ef6c" compoundref="xv__demosaic_8c" startline="349" endline="354">XV_demosaic_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a5e3a407d7833c2bc549928d745bd32b1" compoundref="xv__demosaic_8c" startline="91" endline="99">XV_demosaic_IsDone</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a3e78dd875d5342088e53634681f22d8a" compoundref="xv__demosaic_8c" startline="115" endline="123">XV_demosaic_IsIdle</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a591e5c37e9e274122fab9a763eca2a5b" compoundref="xv__demosaic_8c" startline="140" endline="149">XV_demosaic_IsReady</referencedby>
+        <referencedby refid="xv__demosaic_8h_1adfe6297757130862d4d2fd25ff4c413f" compoundref="xv__demosaic_8c" startline="303" endline="308">XV_demosaic_Set_HwReg_bayer_phase</referencedby>
+        <referencedby refid="xv__demosaic_8h_1aa40e36caefa57c07fe9b9e068f9c8493" compoundref="xv__demosaic_8c" startline="256" endline="261">XV_demosaic_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__demosaic_8h_1ac238328090e6c339df7e342215984be8" compoundref="xv__demosaic_8c" startline="210" endline="215">XV_demosaic_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__demosaic_8h_1a41dc5cdfde882e8bed16965d5f5f5f86" compoundref="xv__demosaic_8c" startline="67" endline="75">XV_demosaic_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1af09ffebc8586404cb984f29417c2b073" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::PixPerClk</definition>
+        <argsstring></argsstring>
+        <name>PixPerClk</name>
+        <briefdescription>
+<para>Number of pixels processed per clock cycle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a791fe13c7b8bf55c68a8ce3b963ea65c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxWidth</name>
+        <briefdescription>
+<para>Maximum frame width in pixels supported by hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a4acacb419d07407516fc8009779a2e47" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>MaxHeight</name>
+        <briefdescription>
+<para>Maximum frame height in lines supported by hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a619e45306e63fe3a426439ee9ea2561d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::MaxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidth</name>
+        <briefdescription>
+<para>Maximum data width in bits for each color channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a87e02e1799d7bcc346bccf80a78e17e9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::Algorithm</definition>
+        <argsstring></argsstring>
+        <name>Algorithm</name>
+        <briefdescription>
+<para>Demosaicing interpolation algorithm used. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1a0e478147ba877fbdeaf758ead2079858" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_demosaic_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID for SDT builds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__demosaic___config_1ae971c8ee16963c044eaffb51c6c23847" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_demosaic_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Interrupt parent: Bit[0]=type, Bit[64/32:1]=base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration structure for the Demosaic IP core. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains configuration information for the Demosaic core. Each core instance should have a configuration structure associated with it. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/src/xv_demosaic.h" bodystart="74" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_v__demosaic___config_1a87e02e1799d7bcc346bccf80a78e17e9" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>Algorithm</name></member>
+      <member refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v__demosaic___config_1a0e478147ba877fbdeaf758ead2079858" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v__demosaic___config_1ae971c8ee16963c044eaffb51c6c23847" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v__demosaic___config_1a619e45306e63fe3a426439ee9ea2561d" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>MaxDataWidth</name></member>
+      <member refid="struct_x_v__demosaic___config_1a4acacb419d07407516fc8009779a2e47" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>MaxHeight</name></member>
+      <member refid="struct_x_v__demosaic___config_1a791fe13c7b8bf55c68a8ce3b963ea65c" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>MaxWidth</name></member>
+      <member refid="struct_x_v__demosaic___config_1aab59673ef07b56714fe8652a83e176f4" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v__demosaic___config_1af09ffebc8586404cb984f29417c2b073" prot="public" virt="non-virtual"><scope>XV_demosaic_Config</scope><name>PixPerClk</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

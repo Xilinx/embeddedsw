@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sys_mon___config" kind="struct" prot="public">
+    <compoundname>XSysMon_Config</compoundname>
+    <includes local="no">xsysmon.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1a07bdb0e6c23c9cbebbc127511e596503" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSysMon_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1a0c21814e1533c922ccbb0a70bf60261f" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSysMon_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="381" bodyend="-1"/>
+        <referencedby refid="xsysmon__aux__polled__example_8c_1ad8d0b9e2ee5e4dbbfd83ea1453b20d0a" compoundref="xsysmon__aux__polled__example_8c" startline="131" endline="243">SysMonAuxPolledExample</referencedby>
+        <referencedby refid="xsysmon__intr__example_8c_1af50518d379f898d28dfc9072e9984140" compoundref="xsysmon__intr__example_8c" startline="233" endline="465">SysMonIntrExample</referencedby>
+        <referencedby refid="xsysmon__polled__example_8c_1a61263d0e8e0dcc83b57e5620d0cd4d72" compoundref="xsysmon__polled__example_8c" startline="142" endline="356">SysMonPolledExample</referencedby>
+        <referencedby refid="group___overview_1ga04de4a4efc9fab7a41b88166bbffc615" compoundref="xsysmon_8c" startline="98" endline="128">XSysMon_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga1d581ce24419f37988afac551a0f1a75" compoundref="xsysmon_8c" startline="1844" endline="1860">XSysMon_DisableTempUpdate</referencedby>
+        <referencedby refid="group___overview_1ga1d7558af57526ea84cb80a2395549b53" compoundref="xsysmon_8c" startline="1779" endline="1798">XSysMon_DisableUserOverTemp</referencedby>
+        <referencedby refid="group___overview_1ga6d5e047df91be7cc3463ae0881754f0f" compoundref="xsysmon_8c" startline="1813" endline="1830">XSysMon_EnableTempUpdate</referencedby>
+        <referencedby refid="group___overview_1ga8967ba93f41673db1105df3d6d851e62" compoundref="xsysmon_8c" startline="1738" endline="1762">XSysMon_EnableUserOverTemp</referencedby>
+        <referencedby refid="group___overview_1ga78664f36e8cac2dd37b6cf6ddc340076" compoundref="xsysmon_8c" startline="1117" endline="1134">XSysMon_GetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga97e7f65e62613938d74c4b4ddfa8a3fc" compoundref="xsysmon_8c" startline="763" endline="796">XSysMon_GetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1ga2220b73838f1d10b79b688d1a8ce4c03" compoundref="xsysmon_8c" startline="208" endline="221">XSysMon_GetAlarmOutputStatus</referencedby>
+        <referencedby refid="group___overview_1gadacbf7c393aa18cacfc08e267db5e87b" compoundref="xsysmon_8c" startline="1616" endline="1637">XSysMon_GetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1gab3af3c52fe39c41739b9fe95657e23ed" compoundref="xsysmon_8c" startline="527" endline="544">XSysMon_GetAvg</referencedby>
+        <referencedby refid="group___overview_1gae3e66317b9e918f0aeb5ca8bdc204c31" compoundref="xsysmon_8c" startline="379" endline="397">XSysMon_GetCalibCoefficient</referencedby>
+        <referencedby refid="group___overview_1ga1997b528dc71315f9ac87b7b3985967d" compoundref="xsysmon_8c" startline="873" endline="886">XSysMon_GetCalibEnables</referencedby>
+        <referencedby refid="group___overview_1ga15022394c1ba90705c3227f6cfa0f892" compoundref="xsysmon_8c" startline="440" endline="463">XSysMon_GetMinMaxMeasurement</referencedby>
+        <referencedby refid="group___overview_1ga40de55fb20bf40a5cc9c12fe9ee844bd" compoundref="xsysmon_8c" startline="1702" endline="1721">XSysMon_GetOverTemp</referencedby>
+        <referencedby refid="group___overview_1gabbe503899860c22ba1ee72db5171ba34" compoundref="xsysmon_8c" startline="1528" endline="1549">XSysMon_GetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1ga5a31c725e3171a80ca4d90eebcee5577" compoundref="xsysmon_8c" startline="1324" endline="1354">XSysMon_GetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1gad9aa35ccde843ef5b7182d171d3b4324" compoundref="xsysmon_8c" startline="1215" endline="1245">XSysMon_GetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1ga45d42e268bdaba00cdbd121894aac96f" compoundref="xsysmon_8c" startline="1430" endline="1451">XSysMon_GetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1ga046913c88b8e3b794d21a14b8ed5219c" compoundref="xsysmon_8c" startline="952" endline="966">XSysMon_GetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1ga34d731dace546db3397741f0d229cb3b" compoundref="xsysmon_8c" startline="180" endline="192">XSysMon_GetStatus</referencedby>
+        <referencedby refid="group___overview_1ga27b30e66ba4301e6cb02d1cc6a478a2b" compoundref="xsysmon__intr_8c" startline="275" endline="295">XSysMon_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga2f1afce92df09c2b023605eb510fcc61" compoundref="xsysmon__intr_8c" startline="174" endline="193">XSysMon_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga42618007571bfd0d5f51dfcc66de0c12" compoundref="xsysmon__intr_8c" startline="136" endline="155">XSysMon_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1ga1b3e61dde34a23c6c906ddde3aabcce3" compoundref="xsysmon__intr_8c" startline="210" endline="224">XSysMon_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga49bbe691a17f0d77753754fb18cfadb4" compoundref="xsysmon__intr_8c" startline="241" endline="255">XSysMon_IntrGetStatus</referencedby>
+        <referencedby refid="group___overview_1ga025ee112aa4af95e592b05ce99b07497" compoundref="xsysmon__intr_8c" startline="102" endline="115">XSysMon_IntrGlobalDisable</referencedby>
+        <referencedby refid="group___overview_1ga10375fa7b5de21898a2184fa934d04ca" compoundref="xsysmon__intr_8c" startline="72" endline="86">XSysMon_IntrGlobalEnable</referencedby>
+        <referencedby refid="group___overview_1ga7f77755a291cf2bac28ff12a5cdd5d8a" compoundref="xsysmon_8c" startline="150" endline="164">XSysMon_Reset</referencedby>
+        <referencedby refid="group___overview_1ga9efcdd44a813be1e9b0e33b64c616cb3" compoundref="xsysmon_8c" startline="285" endline="304">XSysMon_ResetAdc</referencedby>
+        <referencedby refid="group___overview_1ga3c119682ea951295d41462e329da881a" compoundref="xsysmon_8c" startline="1087" endline="1101">XSysMon_SetAdcClkDivisor</referencedby>
+        <referencedby refid="group___overview_1ga458e2807135bef154d249e80b145520a" compoundref="xsysmon_8c" startline="700" endline="736">XSysMon_SetAlarmEnables</referencedby>
+        <referencedby refid="group___overview_1gaf9d2de8d4141ae1e7e073ea296df739d" compoundref="xsysmon_8c" startline="1575" endline="1592">XSysMon_SetAlarmThreshold</referencedby>
+        <referencedby refid="group___overview_1gaf3504732dccf017f38fa7ffd7483f358" compoundref="xsysmon_8c" startline="486" endline="506">XSysMon_SetAvg</referencedby>
+        <referencedby refid="group___overview_1ga94f9f1484443b0855b724b44e97f998c" compoundref="xsysmon_8c" startline="826" endline="849">XSysMon_SetCalibEnables</referencedby>
+        <referencedby refid="group___overview_1gaa5e941d4d6d614920634a8ff1925cbfd" compoundref="xsysmon_8c" startline="1033" endline="1061">XSysMon_SetExtenalMux</referencedby>
+        <referencedby refid="group___overview_1ga433f79238dd1c1cdd6e1b1cfb9c0e7a1" compoundref="xsysmon_8c" startline="1658" endline="1683">XSysMon_SetOverTemp</referencedby>
+        <referencedby refid="group___overview_1gaeafd06e40eff4807b362edf043d725e8" compoundref="xsysmon_8c" startline="1478" endline="1509">XSysMon_SetSeqAcqTime</referencedby>
+        <referencedby refid="group___overview_1gae7072bfa213b7318fcc29408a459c0bb" compoundref="xsysmon_8c" startline="1270" endline="1305">XSysMon_SetSeqAvgEnables</referencedby>
+        <referencedby refid="group___overview_1ga60d92b3a70aab326364319b3d1f1a7cc" compoundref="xsysmon_8c" startline="1159" endline="1195">XSysMon_SetSeqChEnables</referencedby>
+        <referencedby refid="group___overview_1ga3d3d8052fae049f4ca772b5956ced31f" compoundref="xsysmon_8c" startline="1380" endline="1411">XSysMon_SetSeqInputMode</referencedby>
+        <referencedby refid="group___overview_1ga415023d979e637bac035cf6f902ab256" compoundref="xsysmon_8c" startline="984" endline="1012">XSysMon_SetSequencerEvent</referencedby>
+        <referencedby refid="group___overview_1ga433e353cd5a25454ce2a6da51494e478" compoundref="xsysmon_8c" startline="909" endline="931">XSysMon_SetSequencerMode</referencedby>
+        <referencedby refid="group___overview_1ga44e6fba16cf4b8cc69301523ed8344ce" compoundref="xsysmon_8c" startline="584" endline="662">XSysMon_SetSingleChParams</referencedby>
+        <referencedby refid="group___overview_1gae3c96e6cb365a22d5aff07acaedb2101" compoundref="xsysmon_8c" startline="1875" endline="1894">XSysMon_SetTempWaitCycles</referencedby>
+        <referencedby refid="group___overview_1gad9997219e88de3f17da39970d52014fe" compoundref="xsysmon_8c" startline="240" endline="264">XSysMon_StartAdcConversion</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1a88c6ac6136074c08c60e82a37ab7f576" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XSysMon_Config::IncludeInterrupt</definition>
+        <argsstring></argsstring>
+        <name>IncludeInterrupt</name>
+        <briefdescription>
+<para>Supports Interrupt driven mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga27b30e66ba4301e6cb02d1cc6a478a2b" compoundref="xsysmon__intr_8c" startline="275" endline="295">XSysMon_IntrClear</referencedby>
+        <referencedby refid="group___overview_1ga2f1afce92df09c2b023605eb510fcc61" compoundref="xsysmon__intr_8c" startline="174" endline="193">XSysMon_IntrDisable</referencedby>
+        <referencedby refid="group___overview_1ga42618007571bfd0d5f51dfcc66de0c12" compoundref="xsysmon__intr_8c" startline="136" endline="155">XSysMon_IntrEnable</referencedby>
+        <referencedby refid="group___overview_1ga1b3e61dde34a23c6c906ddde3aabcce3" compoundref="xsysmon__intr_8c" startline="210" endline="224">XSysMon_IntrGetEnabled</referencedby>
+        <referencedby refid="group___overview_1ga49bbe691a17f0d77753754fb18cfadb4" compoundref="xsysmon__intr_8c" startline="241" endline="255">XSysMon_IntrGetStatus</referencedby>
+        <referencedby refid="group___overview_1ga025ee112aa4af95e592b05ce99b07497" compoundref="xsysmon__intr_8c" startline="102" endline="115">XSysMon_IntrGlobalDisable</referencedby>
+        <referencedby refid="group___overview_1ga10375fa7b5de21898a2184fa934d04ca" compoundref="xsysmon__intr_8c" startline="72" endline="86">XSysMon_IntrGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1ae6c7c6c711214fd5559ca9e7c6a8e9ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSysMon_Config::IpType</definition>
+        <argsstring></argsstring>
+        <name>IpType</name>
+        <briefdescription>
+<para>1 - System Management </para>        </briefdescription>
+        <detaileddescription>
+<para>0 - XADC/System Monoitor </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1a0db7726d50d6d872e6a84d05b50b5954" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSysMon_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="386" bodyend="-1"/>
+        <referencedby refid="xsysmon__intr__example_8c_1af50518d379f898d28dfc9072e9984140" compoundref="xsysmon__intr__example_8c" startline="233" endline="465">SysMonIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon___config_1a2b812572c48d437fa9349e16014d0de4" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSysMon_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="xsysmon__intr__example_8c_1af50518d379f898d28dfc9072e9984140" compoundref="xsysmon__intr__example_8c" startline="233" endline="465">SysMonIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the System Monitor/ADC device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/src/xsysmon.h" bodystart="375" bodyend="390"/>
+    <listofallmembers>
+      <member refid="struct_x_sys_mon___config_1a0c21814e1533c922ccbb0a70bf60261f" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sys_mon___config_1a88c6ac6136074c08c60e82a37ab7f576" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>IncludeInterrupt</name></member>
+      <member refid="struct_x_sys_mon___config_1a0db7726d50d6d872e6a84d05b50b5954" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_sys_mon___config_1a2b812572c48d437fa9349e16014d0de4" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_sys_mon___config_1ae6c7c6c711214fd5559ca9e7c6a8e9ac" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>IpType</name></member>
+      <member refid="struct_x_sys_mon___config_1a07bdb0e6c23c9cbebbc127511e596503" prot="public" virt="non-virtual"><scope>XSysMon_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

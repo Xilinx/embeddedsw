@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XV_HdmiTxSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___sub_cores_1a1055ba56d7c5fd67ddb68d5e9f2f1f9a" prot="public" static="no" mutable="no">
+        <type>XV_HdmiTx</type>
+        <definition>XV_HdmiTx XV_HdmiTxSs_SubCores::HdmiTx</definition>
+        <argsstring></argsstring>
+        <name>HdmiTx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx_ss___sub_cores_1a75d98baaa7ba015b806d6f526a43e6f2" prot="public" static="no" mutable="no">
+        <type>XVtc</type>
+        <definition>XVtc XV_HdmiTxSs_SubCores::Vtc</definition>
+        <argsstring></argsstring>
+        <name>Vtc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef declares the driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/src/xv_hdmitxss.c" bodystart="169" bodyend="180"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx_ss___sub_cores_1a1055ba56d7c5fd67ddb68d5e9f2f1f9a" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_SubCores</scope><name>HdmiTx</name></member>
+      <member refid="struct_x_v___hdmi_tx_ss___sub_cores_1a75d98baaa7ba015b806d6f526a43e6f2" prot="public" virt="non-virtual"><scope>XV_HdmiTxSs_SubCores</scope><name>Vtc</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

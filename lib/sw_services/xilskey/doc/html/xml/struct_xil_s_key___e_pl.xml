@@ -1,0 +1,946 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_s_key___e_pl" kind="struct" prot="public">
+    <compoundname>XilSKey_EPl</compoundname>
+    <includes local="no">xilskey_jscmd.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a1b59c48cecc611c8bcebfd5d3c771e2b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ForcePowerCycle</definition>
+        <argsstring></argsstring>
+        <name>ForcePowerCycle</name>
+        <briefdescription>
+<para>Following are the FUSE CNTRL bits[1:5, 8-10]. </para>        </briefdescription>
+        <detaileddescription>
+<para>If XTRUE then part has to be power cycled to be able to be reconfigured only for zynqOnly for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a774ab7699dcc7f98e2fa6ecad1e8f756" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::KeyWrite</definition>
+        <argsstring></argsstring>
+        <name>KeyWrite</name>
+        <briefdescription>
+<para>If XTRUE will disable eFUSE write to FUSE_AES and FUSE_USER blocks valid only for zynq but in ultrascale If XTRUE will disable eFUSE write to FUSE_AESKEY block in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>For ZYNQ and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a711c95684db2e41a869d10459d88e9b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::AESKeyRead</definition>
+        <argsstring></argsstring>
+        <name>AESKeyRead</name>
+        <briefdescription>
+<para>If XTRUE will disable eFUSE read to FUSE_AES block and also disables eFUSE write to FUSE_AES and FUSE_USER blocks in Zynq Pl.but in Ultrascale if XTRUE will disable eFUSE read to FUSE_KEY block and also disables eFUSE write to FUSE_KEY blocks. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a5538ca40d23c65ee020b4470ce049e0c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::UserKeyRead</definition>
+        <argsstring></argsstring>
+        <name>UserKeyRead</name>
+        <briefdescription>
+<para>If XTRUE will disable eFUSE read to FUSE_USER block and also disables eFUSE write to FUSE_AES and FUSE_USER blocks in zynq but in ultrascale if XTRUE will disable eFUSE read to FUSE_USER block and also disables eFUSE write to FUSE_USER blocks. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a196329dc81109234ef4f1edd57a01880" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::CtrlWrite</definition>
+        <argsstring></argsstring>
+        <name>CtrlWrite</name>
+        <briefdescription>
+<para>If XTRUE will disable eFUSE write to FUSE_CNTRL block in both Zynq and Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a4cbfec6ccb5280bd9260ae15441a6271" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::RSARead</definition>
+        <argsstring></argsstring>
+        <name>RSARead</name>
+        <briefdescription>
+<para>If XTRUE will disable eFuse read to FUSE_RSA block and also disables eFuse write to FUSE_RSA block in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>only For Ultrascale If XTRUE will disable eFUSE write to FUSE_USER block in Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aab8339da7263b300324db20a3ee72724" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::UserKeyWrite</definition>
+        <argsstring></argsstring>
+        <name>UserKeyWrite</name>
+        <briefdescription>
+<para>only For Ultrascale </para>        </briefdescription>
+        <detaileddescription>
+<para>If XTRUE will disable eFUSE write to FUSE_SEC block in Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="277" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a4ada22f99111140d11cc67226569376f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::SecureWrite</definition>
+        <argsstring></argsstring>
+        <name>SecureWrite</name>
+        <briefdescription>
+<para>only For Ultrascale </para>        </briefdescription>
+        <detaileddescription>
+<para>If XTRUE will disable eFUSE write to FUSE_RSA block in Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a9729ef3c149797740d10822b39b19018" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::RSAWrite</definition>
+        <argsstring></argsstring>
+        <name>RSAWrite</name>
+        <briefdescription>
+<para>only For Ultrascale </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a5967e09149546718390b703241026c82" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::User128BitWrite</definition>
+        <argsstring></argsstring>
+        <name>User128BitWrite</name>
+        <briefdescription>
+<para>If TRUE will disable eFUSE write to 128BIT FUSE_USER block in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>only For Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a86a44bd882e3545554782a10e6e3ccad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::SecureRead</definition>
+        <argsstring></argsstring>
+        <name>SecureRead</name>
+        <briefdescription>
+<para>IF XTRUE will disable eFuse read to FUSE_SEC block and also disables eFuse write to FUSE_SEC block in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>only For Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="291" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aa8accba02c9a494c07e8961af0d66f91" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::AESKeyExclusive</definition>
+        <argsstring></argsstring>
+        <name>AESKeyExclusive</name>
+        <briefdescription>
+<para>If XTRUE will force eFUSE key to be used if booting Secure Image In Zynq. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Zynq </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ae8d6993d65619202c4f26b0201beabd2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagDisable</definition>
+        <argsstring></argsstring>
+        <name>JtagDisable</name>
+        <briefdescription>
+<para>If XTRUE then permanently sets the Zynq ARM DAP controller in bypass mode in both zynq and ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>for Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="300" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ac13e638ed18908b22a6f9655149d23f8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::UseAESOnly</definition>
+        <argsstring></argsstring>
+        <name>UseAESOnly</name>
+        <briefdescription>
+<para>If XTRUE will force to use Secure boot with eFUSE key only for both Zynq and Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aab3257952c815e823614a6006dbace38" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::EncryptOnly</definition>
+        <argsstring></argsstring>
+        <name>EncryptOnly</name>
+        <briefdescription>
+<para>If XTRUE will only allow encrypted bitstreams only. </para>        </briefdescription>
+        <detaileddescription>
+<para>For Ultrascale only </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a3e9b2dfd9d2c0bb6f229379a35e12bd0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::IntTestAccessDisable</definition>
+        <argsstring></argsstring>
+        <name>IntTestAccessDisable</name>
+        <briefdescription>
+<para>If XTRUE then sets the disable&apos;s Xilinx internal test access in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a5774c588ee1a0ea1ad3d041015fa7043" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::DecoderDisable</definition>
+        <argsstring></argsstring>
+        <name>DecoderDisable</name>
+        <briefdescription>
+<para>If XTRUE then permanently disables the decryptor in Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a8e307477f877e9cfe590d48938cf0641" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::RSAEnable</definition>
+        <argsstring></argsstring>
+        <name>RSAEnable</name>
+        <briefdescription>
+<para>Enable RSA authentication in ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a6b3ef36f911c7b13d5a41a08abe0bfee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::FuseObfusEn</definition>
+        <argsstring></argsstring>
+        <name>FuseObfusEn</name>
+        <briefdescription>
+<para>Enable Obfuscated feature for decryption of eFUSE AES. </para>        </briefdescription>
+        <detaileddescription>
+<para>only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aff5241ec33acd90c43a890de5cb5a436" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgAESandUserLowKey</definition>
+        <argsstring></argsstring>
+        <name>ProgAESandUserLowKey</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select AES key and User Low Key for Zynq. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Zynq </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="329" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a602174fd48e8a64b3d3b17d265bfebe8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgUserHighKey</definition>
+        <argsstring></argsstring>
+        <name>ProgUserHighKey</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select User Low Key for Zynq. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Zynq </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="334" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a107defbe48daf538934109698094c593" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgAESKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>ProgAESKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select User key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aa3847b2035f72162f03c24341aeb3f74" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgUserKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>ProgUserKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select User key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ad937f035079a6feae899c34ee3b53fcc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgRSAKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>ProgRSAKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to select RSA key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a4a0372b19cab30cde15c54da188a0224" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ProgUser128BitUltra</definition>
+        <argsstring></argsstring>
+        <name>ProgUser128BitUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to program 128 bit User key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a9d38ca57c12c5b32ba4647206874bf99" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::CheckAESKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>CheckAESKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to read AES key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a20f1a57abc56693ad01407de88393a73" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ReadUserKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>ReadUserKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to read User key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a1ccd65d13cb719bcf3fdc437a983f530" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ReadRSAKeyUltra</definition>
+        <argsstring></argsstring>
+        <name>ReadRSAKeyUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to read RSA key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="369" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a7723fdbadd052ca1c51026e257fd5bc6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::ReadUser128BitUltra</definition>
+        <argsstring></argsstring>
+        <name>ReadUser128BitUltra</name>
+        <briefdescription>
+<para>Following is the define to select if the user wants to read 128 bit User key for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="374" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aa2faee19a31db87af9a53673566f2f13" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::AESKey[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>AESKey</name>
+        <briefdescription>
+<para>This is the REF_CLK value in Hz. </para>        </briefdescription>
+        <detaileddescription>
+<para>&lt; u32 RefClk; This is for the aes_key valuefor both Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="382" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a38dd51b5e9ad3cdc7a28b375f76d26c0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::UserKey[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>UserKey</name>
+        <briefdescription>
+<para>This is for the user_key value. </para>        </briefdescription>
+        <detaileddescription>
+<para>for both Zynq and Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="386" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a54e3f92351b5dcc194ec5457958e031f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::RSAKeyHash[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>RSAKeyHash</name>
+        <briefdescription>
+<para>This is for the rsa_key value for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a063cfa4b21e1b383cd83ad325b8e64ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::User128Bit[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES]</argsstring>
+        <name>User128Bit</name>
+        <briefdescription>
+<para>This is for the User 128 bit key value for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a2776f357478d389408d232913c1cbb53" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMioTDI</definition>
+        <argsstring></argsstring>
+        <name>JtagMioTDI</name>
+        <briefdescription>
+<para>TDI MIO Pin Number for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1af8f9f0570d4bfc7acacee027586f5e56" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMioTDO</definition>
+        <argsstring></argsstring>
+        <name>JtagMioTDO</name>
+        <briefdescription>
+<para>TDO MIO Pin Number for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a96ac0343e25d5018afdf244e151b5774" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMioTCK</definition>
+        <argsstring></argsstring>
+        <name>JtagMioTCK</name>
+        <briefdescription>
+<para>TCK MIO Pin Number for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="407" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aba077864dc5eaae499c2248fac346f25" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMioTMS</definition>
+        <argsstring></argsstring>
+        <name>JtagMioTMS</name>
+        <briefdescription>
+<para>TMS MIO Pin Number for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a5df47267442068ab0ed0246010b830eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMioMuxSel</definition>
+        <argsstring></argsstring>
+        <name>JtagMioMuxSel</name>
+        <briefdescription>
+<para>MUX Selection MIO Pin Number for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a591d57563de0bf3d53980b2044668838" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagMuxSelLineDefVal</definition>
+        <argsstring></argsstring>
+        <name>JtagMuxSelLineDefVal</name>
+        <briefdescription>
+<para>Value on the MUX Selection line for ZYNQ. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for ZYNQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="419" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ada4028ad814145b1809a2f88898aaecd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagGpioID</definition>
+        <argsstring></argsstring>
+        <name>JtagGpioID</name>
+        <briefdescription>
+<para>GPIO device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="423" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a56d91ced464348fec8f2a8fbce77bb7a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::HwmGpioStart</definition>
+        <argsstring></argsstring>
+        <name>HwmGpioStart</name>
+        <briefdescription>
+<para>Hardware module Start signal&apos;s GPIO pin number. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="428" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ae55857a70dba305506c52fba852110ac" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::HwmGpioReady</definition>
+        <argsstring></argsstring>
+        <name>HwmGpioReady</name>
+        <briefdescription>
+<para>Hardware module Ready signal&apos;s GPIO pin number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="433" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ac202d3a966a769834389ff7c6290b35d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::HwmGpioEnd</definition>
+        <argsstring></argsstring>
+        <name>HwmGpioEnd</name>
+        <briefdescription>
+<para>Hardware module End signal&apos;s GPIO pin number. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ae75b1daf8df1029358e5a15ab9bc26fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagGpioTDI</definition>
+        <argsstring></argsstring>
+        <name>JtagGpioTDI</name>
+        <briefdescription>
+<para>TDI AXI GPIO pin number for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a4134bce2ab39d2d47673f291dcce73c2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagGpioTDO</definition>
+        <argsstring></argsstring>
+        <name>JtagGpioTDO</name>
+        <briefdescription>
+<para>TDO AXI GPIO pin number for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a05f212c85ea8dbd450f600aa21e6e8ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagGpioTMS</definition>
+        <argsstring></argsstring>
+        <name>JtagGpioTMS</name>
+        <briefdescription>
+<para>TMS AXI GPIO pin number for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="444" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="444" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a0d11eb75b7c39d9dc0e78f024d614537" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::JtagGpioTCK</definition>
+        <argsstring></argsstring>
+        <name>JtagGpioTCK</name>
+        <briefdescription>
+<para>TCK AXI GPIO pin number for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="446" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="446" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aab5460f2ce046d0465e58816aee2ec4c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::GpioInputCh</definition>
+        <argsstring></argsstring>
+        <name>GpioInputCh</name>
+        <briefdescription>
+<para>AXI GPIO Channel number of all Inputs TDO. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="448" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a48f629a0d571b0446bef0bdf880838b3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::GpioOutPutCh</definition>
+        <argsstring></argsstring>
+        <name>GpioOutPutCh</name>
+        <briefdescription>
+<para>AXI GPIO Channel number for all Outputs TDI/TMS/TCK. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ad985a52bc03fb6c518d69bc408993a16" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::AESKeyReadback[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>AESKeyReadback</name>
+        <briefdescription>
+<para>AES key read only for Zynq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="454" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="454" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ac87e2861138039e830dbd7135dcd7f10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::UserKeyReadback[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES]</argsstring>
+        <name>UserKeyReadback</name>
+        <briefdescription>
+<para>User key read in Ultrascale and Zynq. </para>        </briefdescription>
+        <detaileddescription>
+<para>for Ultrascale and Zynq </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="458" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1afa9047760ff4bc90ba35d87fab6c3f92" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::CrcOfAESKey</definition>
+        <argsstring></argsstring>
+        <name>CrcOfAESKey</name>
+        <briefdescription>
+<para>Expected AES key&apos;s CRC for Ultrascale here we can&apos;t read AES key directly. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="464" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1ad8c001614e2da159f22cca4a8177313f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::AESKeyMatched</definition>
+        <argsstring></argsstring>
+        <name>AESKeyMatched</name>
+        <briefdescription>
+<para>Flag is True is AES&apos;s CRC is matched, otherwise False. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="466" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="466" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a9a0d5ef04ec9687a70291766b687524e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES]</argsstring>
+        <name>RSAHashReadback</name>
+        <briefdescription>
+<para>RSA key read back for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="468" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="468" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a299adba0c12ba9e0862f4ccff2a2a85b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilSKey_EPl::User128BitReadBack[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES]</definition>
+        <argsstring>[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES]</argsstring>
+        <name>User128BitReadBack</name>
+        <briefdescription>
+<para>User 128 bit key read back for Ultrascale. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="473" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a8986470536a340a600dd4f7413f24278" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::SystemInitDone</definition>
+        <argsstring></argsstring>
+        <name>SystemInitDone</name>
+        <briefdescription>
+<para>Internal variable to check if timer, XADC and JTAG are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="478" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a862b8c5897a66fabd7bc5bb3c9b4723c" compoundref="xilskey__efuse__example_8c" startline="1382" endline="1541">XilSKey_EfusePl_InitData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a38866931c81a58e00bcc5ddb97bc480f" prot="public" static="no" mutable="no">
+        <type>XSKEfusePl_Fpga</type>
+        <definition>XSKEfusePl_Fpga XilSKey_EPl::FpgaFlag</definition>
+        <argsstring></argsstring>
+        <name>FpgaFlag</name>
+        <briefdescription>
+<para>Stores Fpga series of Efuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="480" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a2b3ccd58ca8df92062ffcf357c287723" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::CrcToVerify</definition>
+        <argsstring></argsstring>
+        <name>CrcToVerify</name>
+        <briefdescription>
+<para>CRC of AES key to verify programmed AES key. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for Ultrascale </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a9822db41ea7dafc7f6228f4993f290c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::NumSlr</definition>
+        <argsstring></argsstring>
+        <name>NumSlr</name>
+        <briefdescription>
+<para>Number of SLRs to iterate through. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="484" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1a4b9a790a0d2ce5fee937ab96fc48cb54" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::MasterSlr</definition>
+        <argsstring></argsstring>
+        <name>MasterSlr</name>
+        <briefdescription>
+<para>Current SLR to iterate through. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="486" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1ae229739e4765d3ed48b18e529764bdfe" compoundref="xilskey__jscmd_8c" startline="1467" endline="1594">JtagServerInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_s_key___e_pl_1aa5d097fa213f877bd730d56f061f524d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilSKey_EPl::SlrConfigOrderIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrConfigOrderIndex</name>
+        <briefdescription>
+<para>Slr configuration order Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="487" bodyend="-1"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>XEfusePl is the PL eFUSE driver instance. </para>    </briefdescription>
+    <detaileddescription>
+<para>Using this structure, user can define the eFUSE bits to be blown. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="239" bodyend="489"/>
+    <listofallmembers>
+      <member refid="struct_xil_s_key___e_pl_1aa2faee19a31db87af9a53673566f2f13" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>AESKey</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aa8accba02c9a494c07e8961af0d66f91" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>AESKeyExclusive</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ad8c001614e2da159f22cca4a8177313f" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>AESKeyMatched</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a711c95684db2e41a869d10459d88e9b1" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>AESKeyRead</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ad985a52bc03fb6c518d69bc408993a16" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>AESKeyReadback</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a9d38ca57c12c5b32ba4647206874bf99" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>CheckAESKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1afa9047760ff4bc90ba35d87fab6c3f92" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>CrcOfAESKey</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a2b3ccd58ca8df92062ffcf357c287723" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>CrcToVerify</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a196329dc81109234ef4f1edd57a01880" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>CtrlWrite</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a5774c588ee1a0ea1ad3d041015fa7043" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>DecoderDisable</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aab3257952c815e823614a6006dbace38" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>EncryptOnly</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a1b59c48cecc611c8bcebfd5d3c771e2b" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ForcePowerCycle</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a38866931c81a58e00bcc5ddb97bc480f" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>FpgaFlag</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a6b3ef36f911c7b13d5a41a08abe0bfee" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>FuseObfusEn</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aab5460f2ce046d0465e58816aee2ec4c" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>GpioInputCh</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a48f629a0d571b0446bef0bdf880838b3" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>GpioOutPutCh</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ac202d3a966a769834389ff7c6290b35d" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>HwmGpioEnd</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ae55857a70dba305506c52fba852110ac" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>HwmGpioReady</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a56d91ced464348fec8f2a8fbce77bb7a" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>HwmGpioStart</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a3e9b2dfd9d2c0bb6f229379a35e12bd0" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>IntTestAccessDisable</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ae8d6993d65619202c4f26b0201beabd2" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagDisable</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ada4028ad814145b1809a2f88898aaecd" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagGpioID</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a0d11eb75b7c39d9dc0e78f024d614537" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagGpioTCK</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ae75b1daf8df1029358e5a15ab9bc26fe" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagGpioTDI</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a4134bce2ab39d2d47673f291dcce73c2" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagGpioTDO</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a05f212c85ea8dbd450f600aa21e6e8ed" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagGpioTMS</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a5df47267442068ab0ed0246010b830eb" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMioMuxSel</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a96ac0343e25d5018afdf244e151b5774" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMioTCK</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a2776f357478d389408d232913c1cbb53" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMioTDI</name></member>
+      <member refid="struct_xil_s_key___e_pl_1af8f9f0570d4bfc7acacee027586f5e56" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMioTDO</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aba077864dc5eaae499c2248fac346f25" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMioTMS</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a591d57563de0bf3d53980b2044668838" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>JtagMuxSelLineDefVal</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a774ab7699dcc7f98e2fa6ecad1e8f756" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>KeyWrite</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a4b9a790a0d2ce5fee937ab96fc48cb54" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>MasterSlr</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a9822db41ea7dafc7f6228f4993f290c8" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>NumSlr</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aff5241ec33acd90c43a890de5cb5a436" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgAESandUserLowKey</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a107defbe48daf538934109698094c593" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgAESKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ad937f035079a6feae899c34ee3b53fcc" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgRSAKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a4a0372b19cab30cde15c54da188a0224" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgUser128BitUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a602174fd48e8a64b3d3b17d265bfebe8" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgUserHighKey</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aa3847b2035f72162f03c24341aeb3f74" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ProgUserKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a1ccd65d13cb719bcf3fdc437a983f530" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ReadRSAKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a7723fdbadd052ca1c51026e257fd5bc6" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ReadUser128BitUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a20f1a57abc56693ad01407de88393a73" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>ReadUserKeyUltra</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a8e307477f877e9cfe590d48938cf0641" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>RSAEnable</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a9a0d5ef04ec9687a70291766b687524e" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>RSAHashReadback</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a54e3f92351b5dcc194ec5457958e031f" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>RSAKeyHash</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a4cbfec6ccb5280bd9260ae15441a6271" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>RSARead</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a9729ef3c149797740d10822b39b19018" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>RSAWrite</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a86a44bd882e3545554782a10e6e3ccad" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>SecureRead</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a4ada22f99111140d11cc67226569376f" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>SecureWrite</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aa5d097fa213f877bd730d56f061f524d" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>SlrConfigOrderIndex</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a8986470536a340a600dd4f7413f24278" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>SystemInitDone</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ac13e638ed18908b22a6f9655149d23f8" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>UseAESOnly</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a063cfa4b21e1b383cd83ad325b8e64ed" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>User128Bit</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a299adba0c12ba9e0862f4ccff2a2a85b" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>User128BitReadBack</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a5967e09149546718390b703241026c82" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>User128BitWrite</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a38dd51b5e9ad3cdc7a28b375f76d26c0" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>UserKey</name></member>
+      <member refid="struct_xil_s_key___e_pl_1a5538ca40d23c65ee020b4470ce049e0c" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>UserKeyRead</name></member>
+      <member refid="struct_xil_s_key___e_pl_1ac87e2861138039e830dbd7135dcd7f10" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>UserKeyReadback</name></member>
+      <member refid="struct_xil_s_key___e_pl_1aab8339da7263b300324db20a3ee72724" prot="public" virt="non-virtual"><scope>XilSKey_EPl</scope><name>UserKeyWrite</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

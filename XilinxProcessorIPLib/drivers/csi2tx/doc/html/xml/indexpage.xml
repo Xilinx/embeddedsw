@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>csi2tx</title>
+    <detaileddescription>
+<para>This file contains the implementation of the MIPI CSI2 TX Controller driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para><bold>MIPI CSI2 Tx Overview</bold></para><para>CSI-2 Tx Controller receives stream of image data via Native / AXI4 Stream input interface. It Packs the incoming image data into CSI-2 Packet Structure i.e Packs the Synchronization pacckets &amp; performs the pixel-2-Byte Conversions for the pixel Data.Packed Byte data is sent over the D-PHY Interface for transmission. AXI4-Lite interface will be used to access core registers. CSI2-Tx Controller support’s ECC &amp; CRC generation for header &amp; payload respectively.</para><para><bold>Core Features</bold> The Xilinx CSI-2 Tx has the following features: • Compliant with the MIPI CSI-2 Interface Specification, rev. 1.1 • Standard PPI interface i.e. D-PHY • 1-4 Lane Support,configurable through GUI • Maximum Data Rate per – 1.5 Gigabits per second • Multiple data type support : • RAW8,RAW10,RAW12,RAW14,RGB888,YUV422-8Bit,User defined Data types • Supports Single,Dual,Quad Pixel Modes, configurable through GUI • Virtual channel Support (1 to 4) • Low Power State(LPS) insertion between the packets. • Ultra Low Power(ULP) mode generation using register access. • Interrupt generation &amp; Core Status information can be accessed through Register Interface • Multilane interoperability. • ECC generation for packet header. • CRC generation for data bytes(Can be Enabled / Disabled), configurable through GUI. • Pixel byte conversion based on data format. • AXI4-Lite interface to access core registers. • Compliant with Xilinx AXI Stream Interface &amp; native Interface for input video stream. • LS/LE Packet Generation,can be configured through register interface. • Configurable selection of D-PHY Register Interface through GUI options. • Support for transmission of Embedded Data packet’s through Input Interface.</para><para><bold>Interrupts</bold></para><para>The <ref refid="group__csi2tx_1ga4dd6f019a905c50bfa662e9823cf5b00" kindref="member">XCsi2Tx_SetCallBack()</ref> is used to register the call back functions for MIPI CSI2 Tx driver with the corresponding handles</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver Who Date     Changes
+<hruler/>
+
+1.0 sss 07/15/16 Initial release
+    ms  01/23/17 Modified xil_printf statement in main function for all
+                 examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                 strings are available in all examples. This is a fix
+                 for CR-965028.
+    ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                 generation.
+    ms  04/05/17 Modified Comment lines in functions of csi2tx
+                 examples to recognize it as documentation block
+                 for doxygen generation of examples.
+    vsa 15/12/17 Add support for Clock Mode
+1.1 vsa 02/28/18 Added Frame End Generation feature
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

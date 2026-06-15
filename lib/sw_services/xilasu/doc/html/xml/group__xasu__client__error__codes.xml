@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__client__error__codes" kind="group">
+    <compoundname>xasu_client_error_codes</compoundname>
+    <title>Client Error Codes</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xasu__client__error__codes_1ga06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" prot="public">
+          <name>XASU_INVALID_ARGUMENT</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 - Invalid argument </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacaea704768d9c8d55b805df90562e163" prot="public">
+          <name>XASU_QUEUE_FULL</name>
+          <briefdescription>
+<para>0x11 - Channel queue is full </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba14a3c46663928dd982add07a88cac34c" prot="public">
+          <name>XASU_ASUFW_NOT_PRESENT</name>
+          <briefdescription>
+<para>0x12 - ASU application FW is not present </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba79d3275b5fa663a028a67a27cf88ee43" prot="public">
+          <name>XASU_IPI_CONFIG_NOT_FOUND</name>
+          <briefdescription>
+<para>0x13 - IPI configuration is not found </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" prot="public">
+          <name>XASU_INVALID_UNIQUE_ID</name>
+          <briefdescription>
+<para>0x14 - Invalid unique ID </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bae4f80be759414e5ad3ddaa0fbdf38e9b" prot="public">
+          <name>XASU_CLIENT_NOT_INITIALIZED</name>
+          <briefdescription>
+<para>0x15 - Client is not initialized </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba7509138a31d57c8690f0024844d3b332" prot="public">
+          <name>XASU_INVALID_PRIORITY</name>
+          <briefdescription>
+<para>0x16 - Invalid Priority </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2fb601ec956ba2da480183a3fd5860a7" prot="public">
+          <name>XASU_INVALID_CALL_BACK_REF</name>
+          <briefdescription>
+<para>0x17 - Invalid callback reference </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba75f1ff4f934092149c9cba455d697e6e" prot="public">
+          <name>XASU_INVALID_CLIENT_PARAM</name>
+          <briefdescription>
+<para>0x18 - Invalid client parameter pointer </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba5a6da12f20e6e0ba9d599220a65e3391" prot="public">
+          <name>XASU_INVALID_CLIENT_CTX</name>
+          <briefdescription>
+<para>0x19 - Client context is not valid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55baba48c86a73142cb74e29cb65cbde6a30" prot="public">
+          <name>XASU_FAIL_SAVE_CTX</name>
+          <briefdescription>
+<para>0x1A - Failed in saving the context </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba2e92f55c533ae361894e1cebba98f7ed" prot="public">
+          <name>XASU_INVALID_CURVEINFO</name>
+          <briefdescription>
+<para>0x1B - Invalid curve type or curve length </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bac00c7e8b02b839c57ce3261a8df126cd" prot="public">
+          <name>XASU_CLIENT_CTX_NOT_CREATED</name>
+          <briefdescription>
+<para>0x1C - Client context is not created </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba20cdb67a7fe49f251439231c6191a41c" prot="public">
+          <name>XASU_REQUEST_INPROGRESS</name>
+          <briefdescription>
+<para>0x1D - Client should not allow more than one split request </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba302b80e256caae8900ae0c26fdcc142a" prot="public">
+          <name>XASU_INVALID_SECURE_FLAG</name>
+          <briefdescription>
+<para>0x1E - Invalid secure flag </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba654447ddb809843b76806e7fead5dbe5" prot="public">
+          <name>XASU_KAT_EXEC_NOT_COMPLETED</name>
+          <briefdescription>
+<para>0x1F - KAT execution is not completed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bac972a95fdfceea1eb384b55bb3be0c12" prot="public">
+          <name>XASU_FREE_CTX_FAIL</name>
+          <briefdescription>
+<para>0x20 - Failed to free context </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This contains the client error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="48" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xasu__client__error__codes_1gadf764cbdea00d65edcd07bb9953ad2b7" prot="public" static="no">
+        <name>@1</name>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7aadc3b6c86c335200f8c1c8328574826d" prot="public">
+          <name>XASU_OCP_CERT_GENERATION_SUCCESS</name>
+          <initializer>= 0x3F7U</initializer>
+          <briefdescription>
+<para>0x3F7U - OCP certificate generation successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7af40de706d6ba36093a1928159f78da2a" prot="public">
+          <name>XASU_LMS_SIGNATURE_VERIFIED</name>
+          <briefdescription>
+<para>0x3F8U - LMS signature verification is successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a09043513c957027bc66990f916c083a8" prot="public">
+          <name>XASU_RSA_ECDH_SUCCESS</name>
+          <briefdescription>
+<para>0x3F9U - RSA ECDH operation is successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7ada06104968fa432497b171a3359d3f96" prot="public">
+          <name>XASU_RSA_PSS_SIGNATURE_VERIFIED</name>
+          <briefdescription>
+<para>0x3FAU - RSA PSS decode and sign verify operation is successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a06a7ac3371f7cc993e46f930007afa34" prot="public">
+          <name>XASU_RSA_DECRYPTION_SUCCESS</name>
+          <briefdescription>
+<para>0x3FBU - Successfully decrypted RSA provided message </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a9caf51afab4d40adad1ccc41269ef75c" prot="public">
+          <name>XASU_ECC_SIGNATURE_VERIFIED</name>
+          <briefdescription>
+<para>0x3FCU - Successfully verified ECC signature </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7ac75fa777c5b7051b9ee754b1a091e486" prot="public">
+          <name>XASU_AES_TAG_MATCHED</name>
+          <briefdescription>
+<para>0x3FDU - Successfully verified AES tag </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xasu__client__error__codes_1ggadf764cbdea00d65edcd07bb9953ad2b7a182d3a73baac3219d888cde296efa9e4" prot="public">
+          <name>XASU_AES_TAG_READ</name>
+          <briefdescription>
+<para>0x3FEU - Successfully read AES tag </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This contains the non-zero success values returned from server for critical security functionalities and these codes should not be used for failures in client. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_status.h" bodystart="73" bodyend="85"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

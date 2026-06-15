@@ -1,0 +1,325 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi" kind="struct" prot="public">
+    <compoundname>XCsi</compoundname>
+    <includes local="no">xcsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_csi___config" kindref="compound">XCsi_Config</ref></type>
+        <definition>XCsi_Config XCsi::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="232" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+        <referencedby refid="group__csi_1ga2588fe696b38dd330514a55fd839965a" compoundref="xcsi_8c" startline="379" endline="392">XCsi_GetClkLaneInfo</referencedby>
+        <referencedby refid="group__csi_1ga15dac2ab0092aadc270c1cd074ca917c" compoundref="xcsi_8c" startline="408" endline="452">XCsi_GetDataLaneInfo</referencedby>
+        <referencedby refid="group__csi_1gaf224384089501234f8c3ef338fbe242f" compoundref="xcsi__intr_8c" startline="112" endline="122">XCsi_GetIntrEnable</referencedby>
+        <referencedby refid="group__csi_1gad685546b6515977cc8149620ef3298bd" compoundref="xcsi__intr_8c" startline="137" endline="147">XCsi_GetIntrStatus</referencedby>
+        <referencedby refid="group__csi_1ga9a4ced8d01b40c64ed467ff71ed4533c" compoundref="xcsi_8c" startline="345" endline="364">XCsi_GetShortPacket</referencedby>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+        <referencedby refid="group__csi_1ga20061dc4d29af4f28937f3791e12b282" compoundref="xcsi_8c" startline="316" endline="329">XCsi_GetVCSelection</referencedby>
+        <referencedby refid="group__csi_1ga237454e9bbb1b663513369b6bc703f97" compoundref="xcsi__intr_8c" startline="163" endline="174">XCsi_InterruptClear</referencedby>
+        <referencedby refid="group__csi_1ga9cc5750f241d74489ee972978f99ec74" compoundref="xcsi__intr_8c" startline="89" endline="98">XCsi_IntrDisable</referencedby>
+        <referencedby refid="group__csi_1gacd995a7fb82069ad196da70b4d033f19" compoundref="xcsi__intr_8c" startline="63" endline="74">XCsi_IntrEnable</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1ga60136f55dc84f4b4dde66f187b09a78d" compoundref="xcsi_8c" startline="516" endline="544">XCsi_IsActiveLaneCountValid</referencedby>
+        <referencedby refid="group__csi_1gab06eaea50112054c5a19ea52976d00e9" compoundref="xcsi__selftest_8c" startline="64" endline="82">XCsi_SelfTest</referencedby>
+        <referencedby refid="group__csi_1ga32489a42829995877019f38cfaa06cf8" compoundref="xcsi_8c" startline="293" endline="303">XCsi_SetVCSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi::ActiveLanes</definition>
+        <argsstring></argsstring>
+        <name>ActiveLanes</name>
+        <briefdescription>
+<para>Number of Active Lanes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::ShortPacketCallBack</definition>
+        <argsstring></argsstring>
+        <name>ShortPacketCallBack</name>
+        <briefdescription>
+<para>Callback for Short Packet interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::ShortPacketRef</definition>
+        <argsstring></argsstring>
+        <name>ShortPacketRef</name>
+        <briefdescription>
+<para>To be passed to the Short Packet interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::FrameRecvdCallBack</definition>
+        <argsstring></argsstring>
+        <name>FrameRecvdCallBack</name>
+        <briefdescription>
+<para>Callback for Frame Received interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::FrameRecvdRef</definition>
+        <argsstring></argsstring>
+        <name>FrameRecvdRef</name>
+        <briefdescription>
+<para>To be passed to the Frame Received interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::DPhyLvlErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>DPhyLvlErrCallBack</name>
+        <briefdescription>
+<para>Callback for Error at the DPhy level as per spec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a781bc587af702e0911297922bcf902be" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::DPhyLvlErrRef</definition>
+        <argsstring></argsstring>
+        <name>DPhyLvlErrRef</name>
+        <briefdescription>
+<para>To be passed to the DPhy Level Error Call back function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::PktLvlErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>PktLvlErrCallBack</name>
+        <briefdescription>
+<para>Callback for Packet Level Error as per CSI Spec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::PktLvlErrRef</definition>
+        <argsstring></argsstring>
+        <name>PktLvlErrRef</name>
+        <briefdescription>
+<para>To be passed to the Packet Level Error Call back function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1abc9974457110808626dcbbee8e189abc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::ProtDecodeErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>ProtDecodeErrCallBack</name>
+        <briefdescription>
+<para>Callback for Protocol Decoding Level errors as per CSI Spec. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="251" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::ProtDecErrRef</definition>
+        <argsstring></argsstring>
+        <name>ProtDecErrRef</name>
+        <briefdescription>
+<para>To be passed to the Protocol Decoding Level Error call back function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::ErrorCallBack</definition>
+        <argsstring></argsstring>
+        <name>ErrorCallBack</name>
+        <briefdescription>
+<para>Call back function for rest all errors like Stream Line Buffer Full, Stop State errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::ErrRef</definition>
+        <argsstring></argsstring>
+        <name>ErrRef</name>
+        <briefdescription>
+<para>To be passed to the Error Call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="259" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__csi_1ga3b00c1b69de1732b56face639ec2f7e9" kindref="member">XCsi_CallBack</ref></type>
+        <definition>XCsi_CallBack XCsi::VCXErrCallBack</definition>
+        <argsstring></argsstring>
+        <name>VCXErrCallBack</name>
+        <briefdescription>
+<para>Call back function for rest all errors like Stream Line Buffer Full, Stop State errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="260" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCsi::VCXErrRef</definition>
+        <argsstring></argsstring>
+        <name>VCXErrRef</name>
+        <briefdescription>
+<para>To be passed to the Error Call back. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsi::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Driver is ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__csi_1ga067001a4c7e39114b27d3926c4ae8e63" compoundref="xcsi_8c" startline="161" endline="188">XCsi_Activate</referencedby>
+        <referencedby refid="group__csi_1ga0805b66d6432c2d9cc42b1e2e8a547bc" compoundref="xcsi_8c" startline="78" endline="105">XCsi_CfgInitialize</referencedby>
+        <referencedby refid="group__csi_1ga757f09602140036cdf563da1df275d1a" compoundref="xcsi_8c" startline="203" endline="277">XCsi_Configure</referencedby>
+        <referencedby refid="group__csi_1ga965f0a1afd6a596528c1d68642a65911" compoundref="xcsi__intr_8c" startline="283" endline="349">XCsi_IntrHandler</referencedby>
+        <referencedby refid="group__csi_1gab06eaea50112054c5a19ea52976d00e9" compoundref="xcsi__selftest_8c" startline="64" endline="82">XCsi_SelfTest</referencedby>
+        <referencedby refid="group__csi_1gacb1df45621d8075df1f159781ae4936e" compoundref="xcsi__intr_8c" startline="209" endline="259">XCsi_SetCallBack</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_csi" kindref="compound">XCsi</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each CSI in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XCsi</label>
+        <link refid="struct_x_csi"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XCsi_Config</label>
+        <link refid="struct_x_csi___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="231" bodyend="265"/>
+    <listofallmembers>
+      <member refid="struct_x_csi_1a051d338982c8f95bf20f4a422a5d09fa" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ActiveLanes</name></member>
+      <member refid="struct_x_csi_1a971920fa16a3d4c65164356c993ab375" prot="public" virt="non-virtual"><scope>XCsi</scope><name>Config</name></member>
+      <member refid="struct_x_csi_1a8b406c848347ac5d063b7865ea0762d0" prot="public" virt="non-virtual"><scope>XCsi</scope><name>DPhyLvlErrCallBack</name></member>
+      <member refid="struct_x_csi_1a781bc587af702e0911297922bcf902be" prot="public" virt="non-virtual"><scope>XCsi</scope><name>DPhyLvlErrRef</name></member>
+      <member refid="struct_x_csi_1a8ddd267108d3d2f22658ea312562f379" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ErrorCallBack</name></member>
+      <member refid="struct_x_csi_1aa8bec27bda8ff0f1ae8e6dd4486f757b" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ErrRef</name></member>
+      <member refid="struct_x_csi_1ab46f113494ae58a53682d744ae6548bf" prot="public" virt="non-virtual"><scope>XCsi</scope><name>FrameRecvdCallBack</name></member>
+      <member refid="struct_x_csi_1a0bc9bfffbac5a95998e137b91b0e53af" prot="public" virt="non-virtual"><scope>XCsi</scope><name>FrameRecvdRef</name></member>
+      <member refid="struct_x_csi_1a36462ce1359d50dbf5ecea4f0168c2cb" prot="public" virt="non-virtual"><scope>XCsi</scope><name>IsReady</name></member>
+      <member refid="struct_x_csi_1a05071607f3b47ecce8babbd0a728eee0" prot="public" virt="non-virtual"><scope>XCsi</scope><name>PktLvlErrCallBack</name></member>
+      <member refid="struct_x_csi_1a09b81e82ca24d7c72061f85f16e0992a" prot="public" virt="non-virtual"><scope>XCsi</scope><name>PktLvlErrRef</name></member>
+      <member refid="struct_x_csi_1a68ba8b307c888284f4c56bd8e64a1aeb" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ProtDecErrRef</name></member>
+      <member refid="struct_x_csi_1abc9974457110808626dcbbee8e189abc" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ProtDecodeErrCallBack</name></member>
+      <member refid="struct_x_csi_1a1e8a9855b48d7110615dd76476a766af" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ShortPacketCallBack</name></member>
+      <member refid="struct_x_csi_1a814e78a706b75732626f4dd2151ac133" prot="public" virt="non-virtual"><scope>XCsi</scope><name>ShortPacketRef</name></member>
+      <member refid="struct_x_csi_1adafcf436efdfd4b5e5eaebf3a0a9833f" prot="public" virt="non-virtual"><scope>XCsi</scope><name>VCXErrCallBack</name></member>
+      <member refid="struct_x_csi_1acb9c75b998cacffa5f70a3db6809d2fa" prot="public" virt="non-virtual"><scope>XCsi</scope><name>VCXErrRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

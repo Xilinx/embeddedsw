@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem___npi___events__t" kind="struct" prot="public">
+    <compoundname>XSem_Npi_Events_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a2ab372ff21e3ecfc410eb3bc85a46a49" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::CrcEventCnt</definition>
+        <argsstring></argsstring>
+        <name>CrcEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a32deafb381d5b81ffece7af2298fd4d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::IntEventCnt</definition>
+        <argsstring></argsstring>
+        <name>IntEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a390839361729ffb4e160b7a0b9cfd407" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::DescFmtEventCnt</definition>
+        <argsstring></argsstring>
+        <name>DescFmtEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a5e727cb58d964f04e4fbf55762d19d88" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::DescAbsntEventCnt</definition>
+        <argsstring></argsstring>
+        <name>DescAbsntEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1ab10868dbfb01dd0e22d7d5644dac91fa" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::ShaIndEventCnt</definition>
+        <argsstring></argsstring>
+        <name>ShaIndEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a295510c086f66f8ad9fff22e857ce9f6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::ShaEngineEventCnt</definition>
+        <argsstring></argsstring>
+        <name>ShaEngineEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a631dfedae3ede4ce6d90371882677e9e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::PscanMissedEventCnt</definition>
+        <argsstring></argsstring>
+        <name>PscanMissedEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1aaed7a2a79655dcfe0b82420aee5f11cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::CryptoExportSetEventCnt</definition>
+        <argsstring></argsstring>
+        <name>CryptoExportSetEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a0d8132930d6cda763cd5d84e477d6fe9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::SftyWrEventCnt</definition>
+        <argsstring></argsstring>
+        <name>SftyWrEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a627f9c1665c2019a34beb2b7f00ec62f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::GpioEventCnt</definition>
+        <argsstring></argsstring>
+        <name>GpioEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1aa1306032f26ff79f26f90e20d0240968" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::SelfDiagFailEventCnt</definition>
+        <argsstring></argsstring>
+        <name>SelfDiagFailEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem___npi___events__t_1a3a8eb6af562ff403d444ea65016d149b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSem_Npi_Events_t::GtArbFailEventCnt</definition>
+        <argsstring></argsstring>
+        <name>GtArbFailEventCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/xsem_npi_example.c" bodystart="78" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_x_sem___npi___events__t_1a2ab372ff21e3ecfc410eb3bc85a46a49" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>CrcEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1aaed7a2a79655dcfe0b82420aee5f11cd" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>CryptoExportSetEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a5e727cb58d964f04e4fbf55762d19d88" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>DescAbsntEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a390839361729ffb4e160b7a0b9cfd407" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>DescFmtEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a627f9c1665c2019a34beb2b7f00ec62f" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>GpioEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a3a8eb6af562ff403d444ea65016d149b" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>GtArbFailEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a32deafb381d5b81ffece7af2298fd4d1" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>IntEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a631dfedae3ede4ce6d90371882677e9e" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>PscanMissedEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1aa1306032f26ff79f26f90e20d0240968" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>SelfDiagFailEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a0d8132930d6cda763cd5d84e477d6fe9" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>SftyWrEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1a295510c086f66f8ad9fff22e857ce9f6" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>ShaEngineEventCnt</name></member>
+      <member refid="struct_x_sem___npi___events__t_1ab10868dbfb01dd0e22d7d5644dac91fa" prot="public" virt="non-virtual"><scope>XSem_Npi_Events_t</scope><name>ShaIndEventCnt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

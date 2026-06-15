@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2ecec65a8c1f955623b00f27d1a20031" kind="dir">
+    <compoundname>axidma</compoundname>
+    <innerdir refid="dir_23133cb58aa7b8bfce2ebdf8410b5482">examples</innerdir>
+    <innerdir refid="dir_7ae7bf4c0de0a8970eca632890d14c92">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/"/>
+  </compounddef>
+</doxygen>

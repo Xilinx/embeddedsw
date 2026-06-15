@@ -1,0 +1,703 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__bls__api_8h" kind="file">
+    <compoundname>cam_device_bls_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__bls__api_8h" local="yes">vvbench_bls_api.h</includedby>
+    <includedby refid="vvbench__cpd__api_8h" local="yes">vvbench_cpd_api.h</includedby>
+    <includedby refid="vvbench__rgbir__api_8h" local="yes">vvbench_rgbir_api.h</includedby>
+    <incdepgraph>
+      <node id="1622">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1616">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="1623">
+        <label>stdint.h</label>
+      </node>
+      <node id="1613">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1608">
+        <label>cam_device_bls_api.h</label>
+        <link refid="cam_device_bls_api.h"/>
+        <childnode refid="1609" relation="include">
+        </childnode>
+      </node>
+      <node id="1620">
+        <label>sensor_cmd.h</label>
+        <childnode refid="1621" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+      </node>
+      <node id="1615">
+        <label>stddef.h</label>
+      </node>
+      <node id="1614">
+        <label>limits.h</label>
+      </node>
+      <node id="1609">
+        <label>cam_device_common.h</label>
+        <childnode refid="1610" relation="include">
+        </childnode>
+        <childnode refid="1616" relation="include">
+        </childnode>
+        <childnode refid="1617" relation="include">
+        </childnode>
+        <childnode refid="1619" relation="include">
+        </childnode>
+        <childnode refid="1620" relation="include">
+        </childnode>
+      </node>
+      <node id="1619">
+        <label>buf_defs.h</label>
+        <childnode refid="1610" relation="include">
+        </childnode>
+      </node>
+      <node id="1621">
+        <label>mbox_api.h</label>
+        <childnode refid="1622" relation="include">
+        </childnode>
+        <childnode refid="1623" relation="include">
+        </childnode>
+        <childnode refid="1624" relation="include">
+        </childnode>
+      </node>
+      <node id="1618">
+        <label>string.h</label>
+      </node>
+      <node id="1624">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="1622" relation="include">
+        </childnode>
+        <childnode refid="1625" relation="include">
+        </childnode>
+      </node>
+      <node id="1625">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="1610">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="1611" relation="include">
+        </childnode>
+        <childnode refid="1614" relation="include">
+        </childnode>
+        <childnode refid="1615" relation="include">
+        </childnode>
+      </node>
+      <node id="1617">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="1610" relation="include">
+        </childnode>
+        <childnode refid="1618" relation="include">
+        </childnode>
+      </node>
+      <node id="1612">
+        <label>stdio.h</label>
+      </node>
+      <node id="1611">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="1612" relation="include">
+        </childnode>
+        <childnode refid="1613" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1673">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="1660">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="1658">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="1657">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="1661">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="1627">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="1628" relation="include">
+        </childnode>
+      </node>
+      <node id="1665">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="1672">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="1669" relation="include">
+        </childnode>
+        <childnode refid="1673" relation="include">
+        </childnode>
+      </node>
+      <node id="1629">
+        <label>control.h</label>
+        <childnode refid="1630" relation="include">
+        </childnode>
+      </node>
+      <node id="1626">
+        <label>cam_device_bls_api.h</label>
+        <link refid="cam_device_bls_api.h"/>
+        <childnode refid="1627" relation="include">
+        </childnode>
+        <childnode refid="1668" relation="include">
+        </childnode>
+        <childnode refid="1672" relation="include">
+        </childnode>
+        <childnode refid="1674" relation="include">
+        </childnode>
+      </node>
+      <node id="1655">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="1663">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="1675">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="1641">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="1649">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="1643">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="1647">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="1669">
+        <label>submodule_def.h</label>
+        <childnode refid="1670" relation="include">
+        </childnode>
+        <childnode refid="1665" relation="include">
+        </childnode>
+      </node>
+      <node id="1674">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="1669" relation="include">
+        </childnode>
+        <childnode refid="1675" relation="include">
+        </childnode>
+      </node>
+      <node id="1639">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="1635">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="1634">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="1670">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="1650">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="1642">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="1645">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="1648">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="1632">
+        <label>cam_device.c</label>
+      </node>
+      <node id="1640">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="1638">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="1628">
+        <label>cam_device_app.h</label>
+        <childnode refid="1629" relation="include">
+        </childnode>
+        <childnode refid="1630" relation="include">
+        </childnode>
+        <childnode refid="1631" relation="include">
+        </childnode>
+        <childnode refid="1632" relation="include">
+        </childnode>
+        <childnode refid="1633" relation="include">
+        </childnode>
+        <childnode refid="1634" relation="include">
+        </childnode>
+        <childnode refid="1635" relation="include">
+        </childnode>
+        <childnode refid="1636" relation="include">
+        </childnode>
+        <childnode refid="1637" relation="include">
+        </childnode>
+        <childnode refid="1638" relation="include">
+        </childnode>
+        <childnode refid="1639" relation="include">
+        </childnode>
+        <childnode refid="1640" relation="include">
+        </childnode>
+        <childnode refid="1641" relation="include">
+        </childnode>
+        <childnode refid="1642" relation="include">
+        </childnode>
+        <childnode refid="1643" relation="include">
+        </childnode>
+        <childnode refid="1644" relation="include">
+        </childnode>
+        <childnode refid="1645" relation="include">
+        </childnode>
+        <childnode refid="1646" relation="include">
+        </childnode>
+        <childnode refid="1647" relation="include">
+        </childnode>
+        <childnode refid="1648" relation="include">
+        </childnode>
+        <childnode refid="1649" relation="include">
+        </childnode>
+        <childnode refid="1650" relation="include">
+        </childnode>
+        <childnode refid="1651" relation="include">
+        </childnode>
+        <childnode refid="1652" relation="include">
+        </childnode>
+        <childnode refid="1653" relation="include">
+        </childnode>
+        <childnode refid="1654" relation="include">
+        </childnode>
+        <childnode refid="1655" relation="include">
+        </childnode>
+        <childnode refid="1656" relation="include">
+        </childnode>
+        <childnode refid="1657" relation="include">
+        </childnode>
+        <childnode refid="1658" relation="include">
+        </childnode>
+        <childnode refid="1659" relation="include">
+        </childnode>
+        <childnode refid="1660" relation="include">
+        </childnode>
+        <childnode refid="1661" relation="include">
+        </childnode>
+        <childnode refid="1662" relation="include">
+        </childnode>
+        <childnode refid="1663" relation="include">
+        </childnode>
+        <childnode refid="1664" relation="include">
+        </childnode>
+        <childnode refid="1665" relation="include">
+        </childnode>
+        <childnode refid="1666" relation="include">
+        </childnode>
+      </node>
+      <node id="1630">
+        <label>control.c</label>
+      </node>
+      <node id="1662">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="1659">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="1651">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="1668">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="1669" relation="include">
+        </childnode>
+        <childnode refid="1671" relation="include">
+        </childnode>
+      </node>
+      <node id="1652">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="1653">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="1671">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="1664">
+        <label>oba.c</label>
+      </node>
+      <node id="1633">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="1654">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="1656">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="1631">
+        <label>iba.c</label>
+      </node>
+      <node id="1644">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="1636">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="1646">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="1667">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="1666">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="1667" relation="include">
+        </childnode>
+      </node>
+      <node id="1637">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_bls_auto_config__s" prot="public">CamDeviceBlsAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_manual_config__s" prot="public">CamDeviceBlsManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_config__s" prot="public">CamDeviceBlsConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_bls_status__s" prot="public">CamDeviceBlsStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__bls_1gab72204d2dc57735aba9840e636b25ed9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_auto_config__s" kindref="compound">CamDeviceBlsAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsAutoConfig_s CamDeviceBlsAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga71e647ae01b03930b5c86212146fdbfa" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_manual_config__s" kindref="compound">CamDeviceBlsManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsManualConfig_s CamDeviceBlsManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="68" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_config__s" kindref="compound">CamDeviceBlsConfig_s</ref></type>
+        <definition>typedef struct CamDeviceBlsConfig_s CamDeviceBlsConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="80" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__bls_1ga108d941bdf6b8590e87c69737664d4df" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_bls_status__s" kindref="compound">CamDeviceBlsStatus_s</ref></type>
+        <definition>typedef struct CamDeviceBlsStatus_s CamDeviceBlsStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceBlsStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice BLS status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="92" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__bls_1ga1bb318542b66bad9960ec818df6076eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsConfig_t *pBlsCfg)</argsstring>
+        <name>VsiCamDeviceBlsSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" kindref="member">CamDeviceBlsConfig_t</ref> *</type>
+          <declname>pBlsCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gaa30356ce58aa129921059af5fe445db3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsConfig_t *pBlsCfg)</argsstring>
+        <name>VsiCamDeviceBlsGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" kindref="member">CamDeviceBlsConfig_t</ref> *</type>
+          <declname>pBlsCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="62" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga54fa81582f998cffb0f10ce274347900" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsSetBitWidth</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t blsBitWidth)</argsstring>
+        <name>VsiCamDeviceBlsSetBitWidth</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>blsBitWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="103" bodyend="141"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga10af84b4897999ca58222b9ab1df0b63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetBitWidth</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint8_t *blsBitWidth)</argsstring>
+        <name>VsiCamDeviceBlsGetBitWidth</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>blsBitWidth</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="145" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gadeebefa3cd728b5b4299512d50472aa1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceBlsStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceBlsGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__bls_1ga108d941bdf6b8590e87c69737664d4df" kindref="member">CamDeviceBlsStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="185" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1ga484902012a5d0d017153989f42b71112" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceBlsReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="226" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__bls_1gaa27e9eebc70e9692674aabd350e0334e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceBlsGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceBlsGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/bls/cam_device_bls_api.c" bodystart="263" bodyend="302"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_BLS_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_BLS_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="51" refid="struct_cam_device_bls_auto_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_bls_auto_config__s" kindref="compound">CamDeviceBlsAutoConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="52" refid="struct_cam_device_bls_auto_config__s_1a945ccf585a709e70a9b8321eecf4b2ff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_bls_auto_config__s_1a945ccf585a709e70a9b8321eecf4b2ff" kindref="member">autoLevel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="struct_cam_device_bls_auto_config__s_1a73b50456de099800ddc3e6ab1fbe5090" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_bls_auto_config__s_1a73b50456de099800ddc3e6ab1fbe5090" kindref="member">gains</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="struct_cam_device_bls_auto_config__s_1a2b0b3ed00e84cf0a6b8ab5873bbaac2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_bls_auto_config__s_1a2b0b3ed00e84cf0a6b8ab5873bbaac2a" kindref="member">bls</ref>[<ref refid="group____cam__device__general_1gacf4b0c0a6159fed6c0115c585da55a03" kindref="member">CAMDEV_ISO_STRENGTH_NUM</ref>][CAMDEV_RAW_CHANNEL_NUM];<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}<ref refid="group____cam__device__bls_1gab72204d2dc57735aba9840e636b25ed9" kindref="member">CamDeviceBlsAutoConfig_t</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="struct_cam_device_bls_manual_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_bls_manual_config__s" kindref="compound">CamDeviceBlsManualConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="65" refid="struct_cam_device_bls_manual_config__s_1a97f4a9944de8572cfabd11ba814a2203" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="struct_cam_device_bls_manual_config__s_1a97f4a9944de8572cfabd11ba814a2203" kindref="member">bls</ref>[CAMDEV_RAW_CHANNEL_NUM];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<ref refid="group____cam__device__bls_1ga71e647ae01b03930b5c86212146fdbfa" kindref="member">CamDeviceBlsManualConfig_t</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="76" refid="struct_cam_device_bls_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_bls_config__s" kindref="compound">CamDeviceBlsConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="77" refid="struct_cam_device_bls_config__s_1a2d16960865b7ba34815071ba696947b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_bls_config__s_1a2d16960865b7ba34815071ba696947b4" kindref="member">configMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_cam_device_bls_config__s_1a39caf3539f0f5bd4a0f5199a1e0cde88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_auto_config__s" kindref="compound">CamDeviceBlsAutoConfig_t</ref><sp/><ref refid="struct_cam_device_bls_config__s_1a39caf3539f0f5bd4a0f5199a1e0cde88" kindref="member">autoCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_cam_device_bls_config__s_1a8083a88e35d496d8d071ec09482c6a09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_manual_config__s" kindref="compound">CamDeviceBlsManualConfig_t</ref><sp/><ref refid="struct_cam_device_bls_config__s_1a8083a88e35d496d8d071ec09482c6a09" kindref="member">manualCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<ref refid="group____cam__device__bls_1ga887c7ac2b9dc883340e17bc6d3f75cd3" kindref="member">CamDeviceBlsConfig_t</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="88" refid="struct_cam_device_bls_status__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_bls_status__s" kindref="compound">CamDeviceBlsStatus_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="89" refid="struct_cam_device_bls_status__s_1a37c39152424bc73519864b1638844735" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><ref refid="struct_cam_device_bls_status__s_1a37c39152424bc73519864b1638844735" kindref="member">enable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_cam_device_bls_status__s_1ae7bb177d3c85ed3e46196f21a42145b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref><sp/><ref refid="struct_cam_device_bls_status__s_1ae7bb177d3c85ed3e46196f21a42145b6" kindref="member">currentMode</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_cam_device_bls_status__s_1a0464ad68dbf8150cb3287e7a0df60f64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_manual_config__s" kindref="compound">CamDeviceBlsManualConfig_t</ref><sp/><ref refid="struct_cam_device_bls_status__s_1a0464ad68dbf8150cb3287e7a0df60f64" kindref="member">currentCfg</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<ref refid="group____cam__device__bls_1ga108d941bdf6b8590e87c69737664d4df" kindref="member">CamDeviceBlsStatus_t</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsSetConfig</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_config__s" kindref="compound">CamDeviceBlsConfig_t</ref><sp/><sp/>*pBlsCfg</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsGetConfig</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_config__s" kindref="compound">CamDeviceBlsConfig_t</ref><sp/>*pBlsCfg</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsSetBitWidth</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/>blsBitWidth</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsGetBitWidth</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/>*blsBitWidth</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsGetStatus</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_bls_status__s" kindref="compound">CamDeviceBlsStatus_t</ref><sp/>*pStatus</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsReset</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">RESULT<sp/>VsiCamDeviceBlsGetVersion</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pVersion</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/>//<sp/>CAMDEV_BLS_API_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h"/>
+  </compounddef>
+</doxygen>

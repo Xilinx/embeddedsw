@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___sha_plat_config" kind="struct" prot="public">
+    <compoundname>XSecure_ShaPlatConfig</compoundname>
+    <includes local="no">xsecure_sha.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaPlatConfig::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para>ShaMode value to be configured in SHA_MODE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="435" endline="548">XSecure_ExtendedShaFinish</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_plat_config_1a3542ae46ebb059ae83c7e802563efae9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaPlatConfig::ShaDigestSize</definition>
+        <argsstring></argsstring>
+        <name>ShaDigestSize</name>
+        <briefdescription>
+<para>Digest size in bytes for specific SHA Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_plat_config_1af3c96d165d5aa9f0c644d1367822343c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaPlatConfig::ModeOffset</definition>
+        <argsstring></argsstring>
+        <name>ModeOffset</name>
+        <briefdescription>
+<para>SHA mode offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_plat_config_1a909b20b88618fc0ef7e2adb4e4a0ac79" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ShaPlatConfig::AutoPaddingOffset</definition>
+        <argsstring></argsstring>
+        <name>AutoPaddingOffset</name>
+        <briefdescription>
+<para>SHA auto padding offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga7a3f9d4fcb7292b40c9d91a0e82d1b22" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="435" endline="548">XSecure_ExtendedShaFinish</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha_plat_config_1ade16cec2869a9f44274030a759eb71bc" prot="public" static="no" mutable="no">
+        <type>XSecure_ShaMode</type>
+        <definition>XSecure_ShaMode XSecure_ShaPlatConfig::HashAlgo</definition>
+        <argsstring></argsstring>
+        <name>HashAlgo</name>
+        <briefdescription>
+<para>ShaMode input. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SHA platform specific configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/sha_pmxc/xsecure_sha.h" bodystart="71" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___sha_plat_config_1a909b20b88618fc0ef7e2adb4e4a0ac79" prot="public" virt="non-virtual"><scope>XSecure_ShaPlatConfig</scope><name>AutoPaddingOffset</name></member>
+      <member refid="struct_x_secure___sha_plat_config_1ade16cec2869a9f44274030a759eb71bc" prot="public" virt="non-virtual"><scope>XSecure_ShaPlatConfig</scope><name>HashAlgo</name></member>
+      <member refid="struct_x_secure___sha_plat_config_1af3c96d165d5aa9f0c644d1367822343c" prot="public" virt="non-virtual"><scope>XSecure_ShaPlatConfig</scope><name>ModeOffset</name></member>
+      <member refid="struct_x_secure___sha_plat_config_1a3542ae46ebb059ae83c7e802563efae9" prot="public" virt="non-virtual"><scope>XSecure_ShaPlatConfig</scope><name>ShaDigestSize</name></member>
+      <member refid="struct_x_secure___sha_plat_config_1a4c9187d7eda8e453721639fc9baedbad" prot="public" virt="non-virtual"><scope>XSecure_ShaPlatConfig</scope><name>ShaMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

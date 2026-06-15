@@ -1,0 +1,333 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp1x__intr_8c" kind="file">
+    <compoundname>xhdcp1x_intr.c</compoundname>
+    <includes refid="xhdcp1x_8h" local="yes">xhdcp1x.h</includes>
+    <includes refid="xhdcp1x__cipher_8h" local="yes">xhdcp1x_cipher.h</includes>
+    <includes refid="xhdcp1x__port_8h" local="yes">xhdcp1x_port.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xhdcp1x__tx_8h" local="yes">xhdcp1x_tx.h</includes>
+    <includes refid="xhdcp1x__rx_8h" local="yes">xhdcp1x_rx.h</includes>
+    <incdepgraph>
+      <node id="150">
+        <label>xhdcp1x_cipher.h</label>
+        <link refid="xhdcp1x__cipher_8h"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="147">
+        <label>xil_io.h</label>
+      </node>
+      <node id="152">
+        <label>xhdcp1x_tx.h</label>
+        <link refid="xhdcp1x__tx_8h"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>xhdcp1x_rx.h</label>
+        <link refid="xhdcp1x__rx_8h"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="151">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x__port_8h"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="149">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="148">
+        <label>xstatus.h</label>
+      </node>
+      <node id="146">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>xil_types.h</label>
+      </node>
+      <node id="144">
+        <label>xparameters.h</label>
+      </node>
+      <node id="143">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>xhdcp1x_intr.c</label>
+        <link refid="xhdcp1x_intr.c"/>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdcp1x_1ga145ec2236143e47dd0bb8e31fbf690e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_SetCallback</definition>
+        <argsstring>(XHdcp1x *InstancePtr, XHdcp1x_HandlerType HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XHdcp1x_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdcp1x_1gaa46858c4b302cf0e3f9d59d5c5e6bbb9" kindref="member">XHdcp1x_HandlerType</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs callback functions for the given HandlerType. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_intr.c" bodystart="63" bodyend="90"/>
+        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1147">XHdcp1x::Config</references>
+        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="904">XHdcp1x_Config::IsRx</references>
+        <references refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" compoundref="xhdcp1x__rx_8c" startline="192" endline="294">XHdcp1x_RxSetCallback</references>
+        <references refid="group__hdcp1x_1ga67f8a82df784bef00e7532a43b495d85" compoundref="xhdcp1x__tx_8c" startline="227" endline="293">XHdcp1x_TxSetCallback</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga73b8452615938e9aca91f3e87a959b9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp1x_CipherIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XHdcp1x_CipherIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the cipher interrupt handler for the HDCP module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function just forwards the interrupt along to the corresponding cipher core. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_intr.c" bodystart="102" bodyend="112"/>
+        <references refid="struct_x_hdcp1x_1a0486da7e6f9a79ef7a2a86ffce168d0c" compoundref="xhdcp1x_8h" startline="1154">XHdcp1x::IsReady</references>
+        <references refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1gaac0a3b497e4974beccb2adfba3d5fa19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp1x_PortIntrHandler</definition>
+        <argsstring>(void *InstancePtr, u32 IntCause)</argsstring>
+        <name>XHdcp1x_PortIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntCause</declname>
+        </param>
+        <briefdescription>
+<para>This function is the port interrupt handler for the HDCP module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device instance that just interrupted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntCause</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt cause bit map.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function just forwards the interrupt along to the corresponding cipher core. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="1238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_intr.c" bodystart="125" bodyend="135"/>
+        <references refid="struct_x_hdcp1x_1a0486da7e6f9a79ef7a2a86ffce168d0c" compoundref="xhdcp1x_8h" startline="1154">XHdcp1x::IsReady</references>
+        <references refid="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" compoundref="xhdcp1x__port__intr_8c" startline="104" endline="119">XHdcp1x_PortHandleInterrupt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x_8h" kindref="compound">xhdcp1x.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x__cipher_8h" kindref="compound">xhdcp1x_cipher.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x__port_8h" kindref="compound">xhdcp1x_port.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x__tx_8h" kindref="compound">xhdcp1x_tx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x__rx_8h" kindref="compound">xhdcp1x_rx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="group__hdcp1x_1ga145ec2236143e47dd0bb8e31fbf690e4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga145ec2236143e47dd0bb8e31fbf690e4" kindref="member">XHdcp1x_SetCallback</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/><ref refid="group__hdcp1x_1gaa46858c4b302cf0e3f9d59d5c5e6bbb9" kindref="member">XHdcp1x_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&gt;<sp/>(XHDCP1X_HANDLER_UNDEFINED));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&lt;<sp/>(XHDCP1X_HANDLER_INVALID));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>TX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" kindref="member">Config</ref>.<ref refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" kindref="member">IsRx</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__hdcp1x_1ga67f8a82df784bef00e7532a43b495d85" kindref="member">XHdcp1x_TxSetCallback</ref>(InstancePtr,<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>RX<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" kindref="member">Config</ref>.<ref refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" kindref="member">IsRx</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__hdcp1x_1ga10379d782472233124be66f42559f093" kindref="member">XHdcp1x_RxSetCallback</ref>(InstancePtr,<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallbackFunc,<sp/>CallbackRef);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Status);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="102" refid="group__hdcp1x_1ga73b8452615938e9aca91f3e87a959b9d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga73b8452615938e9aca91f3e87a959b9d" kindref="member">XHdcp1x_CipherIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*HdcpPtr<sp/>=<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdcpPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdcpPtr-&gt;<ref refid="struct_x_hdcp1x_1a0486da7e6f9a79ef7a2a86ffce168d0c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dispatch<sp/>it<sp/>to<sp/>the<sp/>corresponding<sp/>cipher<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" kindref="member">XHdcp1x_CipherHandleInterrupt</ref>(HdcpPtr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="125" refid="group__hdcp1x_1gaac0a3b497e4974beccb2adfba3d5fa19" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1gaac0a3b497e4974beccb2adfba3d5fa19" kindref="member">XHdcp1x_PortIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>IntCause)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*HdcpPtr<sp/>=<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdcpPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(HdcpPtr-&gt;<ref refid="struct_x_hdcp1x_1a0486da7e6f9a79ef7a2a86ffce168d0c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Dispatch<sp/>it<sp/>to<sp/>the<sp/>corresponding<sp/>port<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" kindref="member">XHdcp1x_PortHandleInterrupt</ref>(HdcpPtr,<sp/>IntCause);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_intr.c"/>
+  </compounddef>
+</doxygen>

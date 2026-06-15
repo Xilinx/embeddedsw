@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structuser__config__struct" kind="struct" prot="public">
+    <compoundname>user_config_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structuser__config__struct_1a4283d3a69f33e420ab780c91aa49b472" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoMode</type>
+        <definition>XVidC_VideoMode user_config_struct::VideoMode_local</definition>
+        <argsstring></argsstring>
+        <name>VideoMode_local</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1a5b46c178b4441ddff19f0f1bea781df5" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char user_config_struct::user_bpc</definition>
+        <argsstring></argsstring>
+        <name>user_bpc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1afffb28f49b4f3df7cfdc4e52ddba66be" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char user_config_struct::user_pattern</definition>
+        <argsstring></argsstring>
+        <name>user_pattern</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1ac49b06f6658844bebedd40e93eda7fd6" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char user_config_struct::user_format</definition>
+        <argsstring></argsstring>
+        <name>user_format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1aeb30c81e5bf8ae0f70fc7686bb3b6988" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int user_config_struct::user_numStreams</definition>
+        <argsstring></argsstring>
+        <name>user_numStreams</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1a01fa549fa986dc28bfb453a747ff728a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int user_config_struct::user_stream_number</definition>
+        <argsstring></argsstring>
+        <name>user_stream_number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuser__config__struct_1a38c598f2dd163189cbfb6fe29640d733" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int user_config_struct::mst_check_flag</definition>
+        <argsstring></argsstring>
+        <name>mst_check_flag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="184" bodyend="193"/>
+    <listofallmembers>
+      <member refid="structuser__config__struct_1a38c598f2dd163189cbfb6fe29640d733" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>mst_check_flag</name></member>
+      <member refid="structuser__config__struct_1a5b46c178b4441ddff19f0f1bea781df5" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>user_bpc</name></member>
+      <member refid="structuser__config__struct_1ac49b06f6658844bebedd40e93eda7fd6" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>user_format</name></member>
+      <member refid="structuser__config__struct_1aeb30c81e5bf8ae0f70fc7686bb3b6988" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>user_numStreams</name></member>
+      <member refid="structuser__config__struct_1afffb28f49b4f3df7cfdc4e52ddba66be" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>user_pattern</name></member>
+      <member refid="structuser__config__struct_1a01fa549fa986dc28bfb453a747ff728a" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>user_stream_number</name></member>
+      <member refid="structuser__config__struct_1a4283d3a69f33e420ab780c91aa49b472" prot="public" virt="non-virtual"><scope>user_config_struct</scope><name>VideoMode_local</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

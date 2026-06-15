@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xscutimer__selftest_8c" kind="file">
+    <compoundname>xscutimer_selftest.c</compoundname>
+    <includes refid="xscutimer_8h" local="yes">xscutimer.h</includes>
+    <incdepgraph>
+      <node id="79">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="73">
+        <label>xscutimer_selftest.c</label>
+        <link refid="xscutimer_selftest.c"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="78">
+        <label>xil_io.h</label>
+      </node>
+      <node id="80">
+        <label>bspconfig.h</label>
+      </node>
+      <node id="74">
+        <label>xscutimer.h</label>
+        <link refid="xscutimer_8h"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xscutimer_hw.h</label>
+        <link refid="xscutimer__hw_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="77">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__scutimer_1ga2795253b5bea39b3ca8e8bf96bec03f5" prot="public" static="no">
+        <name>XSCUTIMER_SELFTEST_VALUE</name>
+        <initializer>0xA55AF00FU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XScuTimer_SelfTest</definition>
+        <argsstring>(XScuTimer *InstancePtr)</argsstring>
+        <name>XScuTimer_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Run a self-test on the timer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This test clears the timer enable bit in the control register, writes to the timer load register and verifies the value read back matches the value written and restores the control register and the timer load register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if self-test was successful.</para></listitem><listitem><para>XST_FAILURE if self test was not successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c" bodystart="60" bodyend="112"/>
+        <references refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" compoundref="xscutimer_8h" startline="116">XScuTimer_Config::BaseAddr</references>
+        <references refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" compoundref="xscutimer_8h" startline="130">XScuTimer::Config</references>
+        <references refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" compoundref="xscutimer_8h" startline="131">XScuTimer::IsReady</references>
+        <references refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" compoundref="xscutimer__hw_8h" startline="68">XSCUTIMER_CONTROL_ENABLE_MASK</references>
+        <references refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" compoundref="xscutimer__hw_8h" startline="52">XSCUTIMER_CONTROL_OFFSET</references>
+        <references refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" compoundref="xscutimer__hw_8h" startline="50">XSCUTIMER_LOAD_OFFSET</references>
+        <references refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" compoundref="xscutimer_8h" startline="193">XScuTimer_LoadTimer</references>
+        <references refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" compoundref="xscutimer__hw_8h" startline="233">XScuTimer_ReadReg</references>
+        <references refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" compoundref="xscutimer__hw_8h" startline="251">XScuTimer_WriteReg</references>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xscutimer_8h" kindref="compound">xscutimer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSCUTIMER_SELFTEST_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA55AF00FU</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" kindref="member">XScuTimer_SelfTest</ref>(<ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlOrig;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LoadOrig;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>to<sp/>ensure<sp/>the<sp/>inputs<sp/>are<sp/>valid<sp/>and<sp/>the<sp/>instance<sp/>has<sp/>been</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>initialized.</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>Control<sp/>Register<sp/>and<sp/>stop<sp/>the<sp/>timer.</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CtrlOrig<sp/>=<sp/><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" kindref="member">Config</ref>.<ref refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/>CtrlOrig<sp/>&amp;<sp/>(u32)(~<ref refid="group__scutimer_1ga242deea9cc62049619bdfd97e7a731f4" kindref="member">XSCUTIMER_CONTROL_ENABLE_MASK</ref>);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" kindref="member">Config</ref>.<ref refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,<sp/>Register);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Save<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>Load<sp/>Register.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Load<sp/>a<sp/>new<sp/>test<sp/>value<sp/>in<sp/>the<sp/>Load<sp/>Register,<sp/>read<sp/>it<sp/>back<sp/>and</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>compare<sp/>it<sp/>with<sp/>the<sp/>written<sp/>value.</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LoadOrig<sp/>=<sp/><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kindref="member">XScuTimer_LoadTimer</ref>(InstancePtr,<sp/>XSCUTIMER_SELFTEST_VALUE);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__scutimer_1gae4c784baaac425e11d6a1184ae44b349" kindref="member">XScuTimer_ReadReg</ref>((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1gae86109b8ee86ede103995c458720c743" kindref="member">XSCUTIMER_LOAD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>Load<sp/>Register<sp/>and<sp/>Control<sp/>Register.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga94fbce5d53f983ec5cf675cfc97f4f78" kindref="member">XScuTimer_LoadTimer</ref>(InstancePtr,<sp/>LoadOrig);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga6f29815a4f21529bfc3d009932d3c2fe" kindref="member">XScuTimer_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" kindref="member">Config</ref>.<ref refid="struct_x_scu_timer___config_1a53dc49c2ec07c2bc40cd0c0b29d49bc0" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__scutimer_1ga8f0a12cb3bfff490af76bc9a3ffca4be" kindref="member">XSCUTIMER_CONTROL_OFFSET</ref>,<sp/>CtrlOrig);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>a<sp/>Failure<sp/>if<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>Load<sp/>Register<sp/>do<sp/>not</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>match<sp/>with<sp/>the<sp/>value<sp/>written<sp/>to<sp/>it.</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Register<sp/>!=<sp/>XSCUTIMER_SELFTEST_VALUE)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer_selftest.c"/>
+  </compounddef>
+</doxygen>

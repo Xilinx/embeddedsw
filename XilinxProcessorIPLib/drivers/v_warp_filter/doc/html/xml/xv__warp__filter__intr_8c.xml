@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__filter__intr_8c" kind="file">
+    <compoundname>xv_warp_filter_intr.c</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes refid="xv__warp__filter__hw_8h" local="yes">xv_warp_filter_hw.h</includes>
+    <includes refid="xv__warp__filter_8h" local="yes">xv_warp_filter.h</includes>
+    <incdepgraph>
+      <node id="45">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="47">
+        <label>xil_io.h</label>
+      </node>
+      <node id="40">
+        <label>xv_warp_filter_intr.c</label>
+        <link refid="xv_warp_filter_intr.c"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xv_warp_filter_hw.h</label>
+        <link refid="xv__warp__filter__hw_8h"/>
+      </node>
+      <node id="43">
+        <label>xv_warp_filter.h</label>
+        <link refid="xv__warp__filter_8h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xstatus.h</label>
+      </node>
+      <node id="44">
+        <label>xil_types.h</label>
+      </node>
+      <node id="41">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_SetCallback</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVWarpFilter_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Installs an asynchronous callback function for frame done events. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function registers a callback function that will be invoked when a frame processing is complete. Invoking this function for a handler that has already been installed replaces it with the new handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="45" bodyend="55"/>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVWarpFilter_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the Warp Filter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determines if the source is the frame done signal. If yes, it calls the registered callback function. The application is responsible for connecting this function to the interrupt system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="75" bodyend="88"/>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__filter_1ad9fe6ba4241457cbbe61a7177d4878ca" compoundref="xv__warp__filter_8h" startline="87">XV_warp_filter::IsReady</references>
+        <references refid="xv__warp__filter_8c_1ae408cbf177a31cc30d8c568cc7bb7e3c" compoundref="xv__warp__filter_8c" startline="685" endline="690">XV_warp_filter_InterruptClear</references>
+        <references refid="xv__warp__filter_8c_1afde5613c56b4d80b872ff7a65e585ed2" compoundref="xv__warp__filter_8c" startline="727" endline="732">XV_warp_filter_InterruptGetStatus</references>
+        <references refid="xv__warp__filter__hw_8h_1ae7767ad314c1fd7edd4c0d659fda9cfa" compoundref="xv__warp__filter__hw_8h" startline="127">XV_WARP_FILTER_INTR_AP_DONE_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__filter__hw_8h" kindref="compound">xv_warp_filter_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__filter_8h" kindref="compound">xv_warp_filter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" kindref="member">XVWarpFilter_SetCallback</ref>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" kindref="member">FrameDoneCallback</ref><sp/>=<sp/>(<ref refid="xv__warp__filter_8h_1afd726d5319bac20d8358f7a46b5b5f44" kindref="member">XV_warp_filter_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" kindref="member">CallbackRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" kindref="member">XVWarpFilter_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*WarpPtr<sp/>=<sp/>(<ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(WarpPtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(WarpPtr-&gt;<ref refid="struct_x_v__warp__filter_1ad9fe6ba4241457cbbe61a7177d4878ca" kindref="member">IsReady</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xv__warp__filter_8c_1afde5613c56b4d80b872ff7a65e585ed2" kindref="member">XV_warp_filter_InterruptGetStatus</ref>(WarpPtr))<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__warp__filter_8c_1ae408cbf177a31cc30d8c568cc7bb7e3c" kindref="member">XV_warp_filter_InterruptClear</ref>(WarpPtr,<sp/><ref refid="xv__warp__filter__hw_8h_1ae7767ad314c1fd7edd4c0d659fda9cfa" kindref="member">XV_WARP_FILTER_INTR_AP_DONE_MASK</ref>);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(WarpPtr-&gt;<ref refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" kindref="member">FrameDoneCallback</ref>)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WarpPtr-&gt;<ref refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" kindref="member">FrameDoneCallback</ref>(WarpPtr-&gt;<ref refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" kindref="member">CallbackRef</ref>);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c"/>
+  </compounddef>
+</doxygen>

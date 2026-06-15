@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_mcm_mode_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMcmModeConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_mcm_mode_config__s_1a214e221617597c5c97825e57aa67a0c2" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa0ad14aca87c7d7a72a8ad7454245bcd" kindref="member">CamDeviceMcmPortId_t</ref></type>
+        <definition>CamDeviceMcmPortId_t CamDeviceMcmModeConfig_s::portId</definition>
+        <argsstring></argsstring>
+        <name>portId</name>
+        <briefdescription>
+<para>Port index of MCM which indicates the sensor hardware connect position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mcm_mode_config__s_1a605712fc019df77ab04051efe3c06fdc" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaac9e2280808e39565ef9293adf472495" kindref="member">CamDeviceMcmOperation_t</ref></type>
+        <definition>CamDeviceMcmOperation_t CamDeviceMcmModeConfig_s::mcmOp</definition>
+        <argsstring></argsstring>
+        <name>mcmOp</name>
+        <briefdescription>
+<para>MCM operation mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mcm_mode_config__s_1a8940351271b8103eb01c720d0b30e7ce" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaf489cf8a99a8f27b4e13859b7528a7a4" kindref="member">CamDeviceMcmSelection_t</ref></type>
+        <definition>CamDeviceMcmSelection_t CamDeviceMcmModeConfig_s::mcmSel</definition>
+        <argsstring></argsstring>
+        <name>mcmSel</name>
+        <briefdescription>
+<para>MCM selection mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_mcm_mode_config__s_1add69802873a9dce102f81178f6236610" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga85640bb8cc6332237723cbd1d08859fe" kindref="member">CamDeviceMcmRegCfgMode_t</ref></type>
+        <definition>CamDeviceMcmRegCfgMode_t CamDeviceMcmModeConfig_s::mcmRegCfg</definition>
+        <argsstring></argsstring>
+        <name>mcmRegCfg</name>
+        <briefdescription>
+<para>MCM register configuration mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure MCM mode parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="54" bodyend="59"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_mcm_mode_config__s_1a605712fc019df77ab04051efe3c06fdc" prot="public" virt="non-virtual"><scope>CamDeviceMcmModeConfig_s</scope><name>mcmOp</name></member>
+      <member refid="struct_cam_device_mcm_mode_config__s_1add69802873a9dce102f81178f6236610" prot="public" virt="non-virtual"><scope>CamDeviceMcmModeConfig_s</scope><name>mcmRegCfg</name></member>
+      <member refid="struct_cam_device_mcm_mode_config__s_1a8940351271b8103eb01c720d0b30e7ce" prot="public" virt="non-virtual"><scope>CamDeviceMcmModeConfig_s</scope><name>mcmSel</name></member>
+      <member refid="struct_cam_device_mcm_mode_config__s_1a214e221617597c5c97825e57aa67a0c2" prot="public" virt="non-virtual"><scope>CamDeviceMcmModeConfig_s</scope><name>portId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

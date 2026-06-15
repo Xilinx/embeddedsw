@@ -1,0 +1,697 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xqspips__options_8c" kind="file">
+    <compoundname>xqspips_options.c</compoundname>
+    <includes refid="xqspips_8h" local="yes">xqspips.h</includes>
+    <incdepgraph>
+      <node id="151">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="152">
+        <label>xil_io.h</label>
+      </node>
+      <node id="147">
+        <label>xqspips.h</label>
+        <link refid="xqspips_8h"/>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>string.h</label>
+      </node>
+      <node id="148">
+        <label>xstatus.h</label>
+      </node>
+      <node id="150">
+        <label>xil_types.h</label>
+      </node>
+      <node id="146">
+        <label>xqspips_options.c</label>
+        <link refid="xqspips_options.c"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>xparameters.h</label>
+      </node>
+      <node id="149">
+        <label>xqspips_hw.h</label>
+        <link refid="xqspips__hw_8h"/>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_options_map" prot="public">OptionsMap</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__qspips_1gabf2b39639d13c50c765fde28fc8fe342" prot="public" static="no">
+        <name>XQSPIPS_NUM_OPTIONS</name>
+        <initializer>(sizeof(OptionsTable) / sizeof(OptionsMap))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__qspips_1gabc5db3dcd7184b5e18386c2eec6c9140" prot="public" static="yes" mutable="no">
+        <type>OptionsMap</type>
+        <definition>OptionsMap OptionsTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OptionsTable</name>
+        <initializer>= {
+	{<ref refid="group__qspips_1gaa651de18bc7785d09cc9dc8ddcd984a4" kindref="member">XQSPIPS_CLK_ACTIVE_LOW_OPTION</ref>, <ref refid="group__qspips_1ga0d462dc931e6c9d1ed845190b1dd18a7" kindref="member">XQSPIPS_CR_CPOL_MASK</ref>},
+	{<ref refid="group__qspips_1ga6f4e0764b33cb1510ff564fc0f000520" kindref="member">XQSPIPS_CLK_PHASE_1_OPTION</ref>, <ref refid="group__qspips_1gae928c099fd4d1427d83309550464d589" kindref="member">XQSPIPS_CR_CPHA_MASK</ref>},
+	{<ref refid="group__qspips_1ga4c42b31270f32f0dbaecd9d582ed3287" kindref="member">XQSPIPS_FORCE_SSELECT_OPTION</ref>, <ref refid="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" kindref="member">XQSPIPS_CR_SSFORCE_MASK</ref>},
+	{<ref refid="group__qspips_1gab11b1e374c5ed9fbfc9ac9e81cad3e3e" kindref="member">XQSPIPS_MANUAL_START_OPTION</ref>, <ref refid="group__qspips_1gadc8a72b569bec261d09d0b503687f5c3" kindref="member">XQSPIPS_CR_MANSTRTEN_MASK</ref>},
+	{<ref refid="group__qspips_1ga272d8eb4928d9c3da9eaad379e7bd5a9" kindref="member">XQSPIPS_HOLD_B_DRIVE_OPTION</ref>, <ref refid="group__qspips_1ga8e37eb5b65d43582a068c281fcb33e44" kindref="member">XQSPIPS_CR_HOLD_B_MASK</ref>},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__qspips_1ga425ce03f19417a386c6882efb79641df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XQspiPs_SetOptions</definition>
+        <argsstring>(XQspiPs *InstancePtr, u32 Options)</argsstring>
+        <name>XQspiPs_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the options for the QSPI device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options control how the device behaves relative to the QSPI bus. The device must be idle rather than busy transferring data before setting these device options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specified options to be set. This is a bit mask where a 1 means to turn the option on, and a 0 means to turn the option off. One or more bit values may be contained in the mask. See the bit definitions named XQSPIPS_*_OPTIONS in the file <ref refid="xqspips_8h" kindref="compound">xqspips.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is not thread-safe. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="795" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="99" bodyend="162"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" compoundref="xqspips_8h" startline="524">XQspiPs::IsBusy</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1gafc4b03f8705c7c19693225d718546118" compoundref="xqspips__hw_8h" startline="277">XQSPIPS_LQSPI_CR_LINEAR_MASK</references>
+        <references refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" compoundref="xqspips__hw_8h" startline="83">XQSPIPS_LQSPI_CR_OFFSET</references>
+        <references refid="group__qspips_1ga6f187c067994aa193d43051cb5fef0db" compoundref="xqspips__hw_8h" startline="292">XQSPIPS_LQSPI_CR_RST_STATE</references>
+        <references refid="group__qspips_1ga0b0c2444343441f2bd006f8f0971369b" compoundref="xqspips_8h" startline="350">XQSPIPS_LQSPI_MODE_OPTION</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+        <references refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" compoundref="xqspips_8c" startline="1145" endline="1170">XQspiPs_SetSlaveSelect</references>
+        <references refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" compoundref="xqspips__hw_8h" startline="396">XQspiPs_WriteReg</references>
+        <referencedby refid="xqspips__dual__flash__stack__lqspi__example_8c_1a696e25af996b9d0106ac7529e9e72472" compoundref="xqspips__dual__flash__stack__lqspi__example_8c" startline="274" endline="463">DualStackExample</referencedby>
+        <referencedby refid="xqspips__dual__flash__lqspi__example_8c_1a57d62056b91d395bf496c958a423ad53" compoundref="xqspips__dual__flash__lqspi__example_8c" startline="269" endline="428">LinearQspiFlashExample</referencedby>
+        <referencedby refid="xqspips__flash__intr__example_8c_1a703f891e7456310dbd11f74005e2d2b4" compoundref="xqspips__flash__intr__example_8c" startline="294" endline="589">QspiFlashIntrExample</referencedby>
+        <referencedby refid="xqspips__flash__polled__example_8c_1a69d63032b37169995ad11d3c7591121c" compoundref="xqspips__flash__polled__example_8c" startline="255" endline="522">QspiFlashPolledExample</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a231588ab2ebd6c354ac94aca5820ed0f" compoundref="xqspips__g128__flash__example_8c" startline="487" endline="669">QspiG128FlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1ga589925a6983f4075992c431a0077cf48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XQspiPs_GetOptions</definition>
+        <argsstring>(XQspiPs *InstancePtr)</argsstring>
+        <name>XQspiPs_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the options for the QSPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options control how the device behaves relative to the QSPI bus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+Options contains the specified options currently set. This is a bit value where a 1 means the option is on, and a 0 means the option is off. See the bit definitions named XQSPIPS_*_OPTIONS in file <ref refid="xqspips_8h" kindref="compound">xqspips.h</ref>.</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="796" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="181" bodyend="216"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1gafc4b03f8705c7c19693225d718546118" compoundref="xqspips__hw_8h" startline="277">XQSPIPS_LQSPI_CR_LINEAR_MASK</references>
+        <references refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" compoundref="xqspips__hw_8h" startline="83">XQSPIPS_LQSPI_CR_OFFSET</references>
+        <references refid="group__qspips_1ga0b0c2444343441f2bd006f8f0971369b" compoundref="xqspips_8h" startline="350">XQSPIPS_LQSPI_MODE_OPTION</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XQspiPs_SetClkPrescaler</definition>
+        <argsstring>(XQspiPs *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XQspiPs_SetClkPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the clock prescaler for an QSPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device must be idle rather than busy transferring data before setting these device options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value that determine how much the clock should be divided by. Use the XQSPIPS_CLK_PRESCALE_* constants defined in <ref refid="xqspips_8h" kindref="compound">xqspips.h</ref> for this setting.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is not thread-safe. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="798" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="239" bodyend="272"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" compoundref="xqspips_8h" startline="524">XQspiPs::IsBusy</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" compoundref="xqspips__hw_8h" startline="108">XQSPIPS_CR_PRESC_MASK</references>
+        <references refid="group__qspips_1ga7efbd780e81bffc209d57e4124c95499" compoundref="xqspips__hw_8h" startline="110">XQSPIPS_CR_PRESC_MAXIMUM</references>
+        <references refid="group__qspips_1ga383bb44aa6dcae975de138577e837543" compoundref="xqspips__hw_8h" startline="109">XQSPIPS_CR_PRESC_SHIFT</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+        <references refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" compoundref="xqspips__hw_8h" startline="396">XQspiPs_WriteReg</references>
+        <referencedby refid="xqspips__dual__flash__stack__lqspi__example_8c_1a696e25af996b9d0106ac7529e9e72472" compoundref="xqspips__dual__flash__stack__lqspi__example_8c" startline="274" endline="463">DualStackExample</referencedby>
+        <referencedby refid="xqspips__dual__flash__lqspi__example_8c_1a57d62056b91d395bf496c958a423ad53" compoundref="xqspips__dual__flash__lqspi__example_8c" startline="269" endline="428">LinearQspiFlashExample</referencedby>
+        <referencedby refid="xqspips__flash__intr__example_8c_1a703f891e7456310dbd11f74005e2d2b4" compoundref="xqspips__flash__intr__example_8c" startline="294" endline="589">QspiFlashIntrExample</referencedby>
+        <referencedby refid="xqspips__flash__polled__example_8c_1a69d63032b37169995ad11d3c7591121c" compoundref="xqspips__flash__polled__example_8c" startline="255" endline="522">QspiFlashPolledExample</referencedby>
+        <referencedby refid="xqspips__g128__flash__example_8c_1a231588ab2ebd6c354ac94aca5820ed0f" compoundref="xqspips__g128__flash__example_8c" startline="487" endline="669">QspiG128FlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XQspiPs_GetClkPrescaler</definition>
+        <argsstring>(XQspiPs *InstancePtr)</argsstring>
+        <name>XQspiPs_GetClkPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the clock prescaler of an QSPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The prescaler value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="799" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="287" bodyend="300"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" compoundref="xqspips__hw_8h" startline="66">XQSPIPS_CR_OFFSET</references>
+        <references refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" compoundref="xqspips__hw_8h" startline="108">XQSPIPS_CR_PRESC_MASK</references>
+        <references refid="group__qspips_1ga383bb44aa6dcae975de138577e837543" compoundref="xqspips__hw_8h" startline="109">XQSPIPS_CR_PRESC_SHIFT</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1gadae4c3733183129463090187c54aaaa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XQspiPs_SetDelays</definition>
+        <argsstring>(XQspiPs *InstancePtr, u8 DelayNss, u8 DelayBtwn, u8 DelayAfter, u8 DelayInit)</argsstring>
+        <name>XQspiPs_SetDelays</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayNss</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayBtwn</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayAfter</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>DelayInit</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the delay register for the QSPI device driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The delay register controls the Delay Between Transfers, Delay After Transfers, and the Delay Initially. The default value is 0x0. The range of each delay value is 0-255.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayNss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay to de-assert slave select between two word transfers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayBtwn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay between one Slave Select being de-activated and the activation of another slave. The delay is the number of master clock periods given by DelayBtwn + 2. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayAfter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>define the delay between the last bit of the current byte transfer and the first bit of the next byte transfer. The delay in number of master clock periods is given as: CHPA=0:DelayInit+DelayAfter+3 CHPA=1:DelayAfter+1 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayInit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay between asserting the slave select signal and the first bit transfer. The delay int number of master clock periods is DelayInit+1.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if delays are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="801" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="333" bodyend="359"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" compoundref="xqspips_8h" startline="524">XQspiPs::IsBusy</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1ga75799fb67be08680e1111f9e0657051b" compoundref="xqspips__hw_8h" startline="217">XQSPIPS_DR_AFTER_SHIFT</references>
+        <references refid="group__qspips_1ga3f210c67ccbc40aca99fdeeefb6a456b" compoundref="xqspips__hw_8h" startline="215">XQSPIPS_DR_BTWN_SHIFT</references>
+        <references refid="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" compoundref="xqspips__hw_8h" startline="209">XQSPIPS_DR_NSS_SHIFT</references>
+        <references refid="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" compoundref="xqspips__hw_8h" startline="72">XQSPIPS_DR_OFFSET</references>
+        <references refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" compoundref="xqspips__hw_8h" startline="396">XQspiPs_WriteReg</references>
+        <referencedby refid="group__qspips_1ga0975016f42a8249235098408ab0c9da6" compoundref="xqspips__selftest_8c" startline="64" endline="113">XQspiPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XQspiPs_GetDelays</definition>
+        <argsstring>(XQspiPs *InstancePtr, u8 *DelayNss, u8 *DelayBtwn, u8 *DelayAfter, u8 *DelayInit)</argsstring>
+        <name>XQspiPs_GetDelays</name>
+        <param>
+          <type><ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayNss</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayBtwn</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayAfter</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DelayInit</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the delay settings for an QSPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The delay register controls the Delay Between Transfers, Delay After Transfers, and the Delay Initially. The default value is 0x0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayNss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Delay to de-assert slave select between two word transfers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayBtwn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Delay Between transfers value. This is a return parameter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayAfter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Delay After transfer value. This is a return parameter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DelayInit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Delay Initially value. This is a return parameter.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.h" line="803" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c" bodystart="383" bodyend="404"/>
+        <references refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" compoundref="xqspips_8h" startline="500">XQspiPs_Config::BaseAddress</references>
+        <references refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" compoundref="xqspips_8h" startline="517">XQspiPs::Config</references>
+        <references refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" compoundref="xqspips_8h" startline="518">XQspiPs::IsReady</references>
+        <references refid="group__qspips_1ga993b6ddfc938d8cc0addfa76e50fa20c" compoundref="xqspips__hw_8h" startline="216">XQSPIPS_DR_AFTER_MASK</references>
+        <references refid="group__qspips_1ga75799fb67be08680e1111f9e0657051b" compoundref="xqspips__hw_8h" startline="217">XQSPIPS_DR_AFTER_SHIFT</references>
+        <references refid="group__qspips_1ga13ae52f0fa79506212aae52080096177" compoundref="xqspips__hw_8h" startline="212">XQSPIPS_DR_BTWN_MASK</references>
+        <references refid="group__qspips_1ga3f210c67ccbc40aca99fdeeefb6a456b" compoundref="xqspips__hw_8h" startline="215">XQSPIPS_DR_BTWN_SHIFT</references>
+        <references refid="group__qspips_1ga5623dd8f755d70760b91137ee24f3116" compoundref="xqspips__hw_8h" startline="218">XQSPIPS_DR_INIT_MASK</references>
+        <references refid="group__qspips_1gabc227ea7c06b95d6f70c1f1b91674514" compoundref="xqspips__hw_8h" startline="206">XQSPIPS_DR_NSS_MASK</references>
+        <references refid="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" compoundref="xqspips__hw_8h" startline="209">XQSPIPS_DR_NSS_SHIFT</references>
+        <references refid="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" compoundref="xqspips__hw_8h" startline="72">XQSPIPS_DR_OFFSET</references>
+        <references refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" compoundref="xqspips__hw_8h" startline="377">XQspiPs_ReadReg</references>
+        <referencedby refid="group__qspips_1ga0975016f42a8249235098408ab0c9da6" compoundref="xqspips__selftest_8c" startline="64" endline="113">XQspiPs_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xqspips_8h" kindref="compound">xqspips.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>Create<sp/>the<sp/>table<sp/>of<sp/>options<sp/>which<sp/>are<sp/>processed<sp/>to<sp/>get/set<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>options.<sp/>These<sp/>options<sp/>are<sp/>table<sp/>driven<sp/>to<sp/>allow<sp/>easy<sp/>maintenance<sp/>and</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>expansion<sp/>of<sp/>the<sp/>options.</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Option;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}<sp/>OptionsMap;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>OptionsMap<sp/>OptionsTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__qspips_1gaa651de18bc7785d09cc9dc8ddcd984a4" kindref="member">XQSPIPS_CLK_ACTIVE_LOW_OPTION</ref>,<sp/><ref refid="group__qspips_1ga0d462dc931e6c9d1ed845190b1dd18a7" kindref="member">XQSPIPS_CR_CPOL_MASK</ref>},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__qspips_1ga6f4e0764b33cb1510ff564fc0f000520" kindref="member">XQSPIPS_CLK_PHASE_1_OPTION</ref>,<sp/><ref refid="group__qspips_1gae928c099fd4d1427d83309550464d589" kindref="member">XQSPIPS_CR_CPHA_MASK</ref>},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__qspips_1ga4c42b31270f32f0dbaecd9d582ed3287" kindref="member">XQSPIPS_FORCE_SSELECT_OPTION</ref>,<sp/><ref refid="group__qspips_1gab8c609b8289ed6b9b7fb337477bba0db" kindref="member">XQSPIPS_CR_SSFORCE_MASK</ref>},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__qspips_1gab11b1e374c5ed9fbfc9ac9e81cad3e3e" kindref="member">XQSPIPS_MANUAL_START_OPTION</ref>,<sp/><ref refid="group__qspips_1gadc8a72b569bec261d09d0b503687f5c3" kindref="member">XQSPIPS_CR_MANSTRTEN_MASK</ref>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__qspips_1ga272d8eb4928d9c3da9eaad379e7bd5a9" kindref="member">XQSPIPS_HOLD_B_DRIVE_OPTION</ref>,<sp/><ref refid="group__qspips_1ga8e37eb5b65d43582a068c281fcb33e44" kindref="member">XQSPIPS_CR_HOLD_B_MASK</ref>},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XQSPIPS_NUM_OPTIONS<sp/><sp/><sp/><sp/><sp/>(sizeof(OptionsTable)<sp/>/<sp/>sizeof(OptionsMap))</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__qspips_1ga425ce03f19417a386c6882efb79641df" kindref="member">XQspiPs_SetOptions</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QspiOptions;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>to<sp/>modify<sp/>the<sp/>Control<sp/>Register<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" kindref="member">IsBusy</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QspiOptions<sp/>=<sp/>Options<sp/>&amp;<sp/><ref refid="group__qspips_1ga0b0c2444343441f2bd006f8f0971369b" kindref="member">XQSPIPS_LQSPI_MODE_OPTION</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options<sp/>&amp;=<sp/>~XQSPIPS_LQSPI_MODE_OPTION;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table,<sp/>turning<sp/>the<sp/>option<sp/>on<sp/>or<sp/>off</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>depending<sp/>on<sp/>whether<sp/>the<sp/>bit<sp/>is<sp/>set<sp/>in<sp/>the<sp/>incoming<sp/>options<sp/>flag.</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XQSPIPS_NUM_OPTIONS;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/>OptionsTable[Index].Option)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>it<sp/>on<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>OptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>it<sp/>off<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~(OptionsTable[Index].Mask);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Now<sp/>write<sp/>the<sp/>control<sp/>register.<sp/>Leave<sp/>it<sp/>to<sp/>the<sp/>upper<sp/>layers</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>restart<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" kindref="member">XQspiPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>for<sp/>the<sp/>LQSPI<sp/>configuration<sp/>options.</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" kindref="member">XQSPIPS_LQSPI_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(QspiOptions<sp/>&amp;<sp/>XQSPIPS_LQSPI_MODE_OPTION)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" kindref="member">XQspiPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" kindref="member">XQSPIPS_LQSPI_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga6f187c067994aa193d43051cb5fef0db" kindref="member">XQSPIPS_LQSPI_CR_RST_STATE</ref>);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga8eb7e89e789b707718444125358167e9" kindref="member">XQspiPs_SetSlaveSelect</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~<ref refid="group__qspips_1gafc4b03f8705c7c19693225d718546118" kindref="member">XQSPIPS_LQSPI_CR_LINEAR_MASK</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" kindref="member">XQspiPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" kindref="member">XQSPIPS_LQSPI_CR_OFFSET</ref>,<sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="181" refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__qspips_1ga589925a6983f4075992c431a0077cf48" kindref="member">XQspiPs_GetOptions</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionsFlag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>current<sp/>options<sp/>from<sp/>QSPI<sp/>configuration<sp/>register.</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table<sp/>to<sp/>grab<sp/>options</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XQSPIPS_NUM_OPTIONS;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigReg<sp/>&amp;<sp/>OptionsTable[Index].Mask)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionsFlag<sp/>|=<sp/>OptionsTable[Index].Option;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>for<sp/>the<sp/>LQSPI<sp/>configuration<sp/>options.</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga569d8bbdf1473234ab9d067d46c5a454" kindref="member">XQSPIPS_LQSPI_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ConfigReg<sp/>&amp;<sp/><ref refid="group__qspips_1gafc4b03f8705c7c19693225d718546118" kindref="member">XQSPIPS_LQSPI_CR_LINEAR_MASK</ref>)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionsFlag<sp/>|=<sp/><ref refid="group__qspips_1ga0b0c2444343441f2bd006f8f0971369b" kindref="member">XQSPIPS_LQSPI_MODE_OPTION</ref>;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OptionsFlag;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="239" refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__qspips_1gaafc1b751d17216ad037b7dd167f073f0" kindref="member">XQspiPs_SetClkPrescaler</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Prescaler)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Prescaler<sp/>&lt;=<sp/><ref refid="group__qspips_1ga7efbd780e81bffc209d57e4124c95499" kindref="member">XQSPIPS_CR_PRESC_MAXIMUM</ref>);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>the<sp/>slave<sp/>select<sp/>to<sp/>change<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" kindref="member">IsBusy</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>configuration<sp/>register,<sp/>mask<sp/>out<sp/>the<sp/>interesting<sp/>bits,<sp/>and<sp/>set</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>them<sp/>with<sp/>the<sp/>shifted<sp/>value<sp/>passed<sp/>into<sp/>the<sp/>function.<sp/>Write<sp/>the</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>results<sp/>back<sp/>to<sp/>the<sp/>configuration<sp/>register.</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~<ref refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" kindref="member">XQSPIPS_CR_PRESC_MASK</ref>;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>(u32)<sp/>(Prescaler<sp/>&amp;<sp/><ref refid="group__qspips_1ga7efbd780e81bffc209d57e4124c95499" kindref="member">XQSPIPS_CR_PRESC_MAXIMUM</ref>)<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga383bb44aa6dcae975de138577e837543" kindref="member">XQSPIPS_CR_PRESC_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" kindref="member">XQspiPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="287" refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__qspips_1ga6855fc350191a8273ed2363963af8f4d" kindref="member">XQspiPs_GetClkPrescaler</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="288"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1gad65b0a99e7acd5b73ef96245cabee22b" kindref="member">XQSPIPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/><ref refid="group__qspips_1gaada7d5e9fd8a0575f83c54d32155ccd2" kindref="member">XQSPIPS_CR_PRESC_MASK</ref>;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)(ConfigReg<sp/>&gt;&gt;<sp/><ref refid="group__qspips_1ga383bb44aa6dcae975de138577e837543" kindref="member">XQSPIPS_CR_PRESC_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="333" refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__qspips_1gadae4c3733183129463090187c54aaaa7" kindref="member">XQspiPs_SetDelays</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>DelayNss,<sp/>u8<sp/>DelayBtwn,</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DelayAfter,<sp/>u8<sp/>DelayInit)</highlight></codeline>
+<codeline lineno="335"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DelayRegister;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="342"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>the<sp/>delays<sp/>to<sp/>change<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="343"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="344"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a9dfe5fb087e4b9f41bd0f48d912ec41e" kindref="member">IsBusy</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Shift,<sp/>Mask<sp/>and<sp/>OR<sp/>the<sp/>values<sp/>to<sp/>build<sp/>the<sp/>register<sp/>settings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayRegister<sp/>=<sp/>(u32)<sp/>DelayNss<sp/>&lt;&lt;<sp/><ref refid="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" kindref="member">XQSPIPS_DR_NSS_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayRegister<sp/>|=<sp/>(u32)<sp/>DelayBtwn<sp/>&lt;&lt;<sp/><ref refid="group__qspips_1ga3f210c67ccbc40aca99fdeeefb6a456b" kindref="member">XQSPIPS_DR_BTWN_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayRegister<sp/>|=<sp/>(u32)<sp/>DelayAfter<sp/>&lt;&lt;<sp/><ref refid="group__qspips_1ga75799fb67be08680e1111f9e0657051b" kindref="member">XQSPIPS_DR_AFTER_SHIFT</ref>;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayRegister<sp/>|=<sp/>(u32)<sp/>DelayInit;</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga0d50616771e04824af465a0f078a7ebb" kindref="member">XQspiPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" kindref="member">XQSPIPS_DR_OFFSET</ref>,<sp/>DelayRegister);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="383" refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__qspips_1ga5f21bb46591dc0c4915f5f65cdf3a412" kindref="member">XQspiPs_GetDelays</ref>(<ref refid="struct_x_qspi_ps" kindref="compound">XQspiPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DelayNss,<sp/>u8<sp/>*DelayBtwn,</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*DelayAfter,<sp/>u8<sp/>*DelayInit)</highlight></codeline>
+<codeline lineno="385"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DelayRegister;</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1abc2bff3b8267a01d17d1c205ae84b075" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayRegister<sp/>=<sp/><ref refid="group__qspips_1ga816dc349df40d377cb0b08d93bee37d2" kindref="member">XQspiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_qspi_ps_1a2d62333af44caf7cd89779d6b2c2719a" kindref="member">Config</ref>.<ref refid="struct_x_qspi_ps___config_1a63e87c5d7d434dcbbb745e5d4d5bfa4c" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga108ac25b6c44eb9e0babd1a7948e18cc" kindref="member">XQSPIPS_DR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayInit<sp/>=<sp/>(u8)(DelayRegister<sp/>&amp;<sp/><ref refid="group__qspips_1ga5623dd8f755d70760b91137ee24f3116" kindref="member">XQSPIPS_DR_INIT_MASK</ref>);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayAfter<sp/>=<sp/>(u8)((DelayRegister<sp/>&amp;<sp/><ref refid="group__qspips_1ga993b6ddfc938d8cc0addfa76e50fa20c" kindref="member">XQSPIPS_DR_AFTER_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga75799fb67be08680e1111f9e0657051b" kindref="member">XQSPIPS_DR_AFTER_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayBtwn<sp/>=<sp/>(u8)((DelayRegister<sp/>&amp;<sp/><ref refid="group__qspips_1ga13ae52f0fa79506212aae52080096177" kindref="member">XQSPIPS_DR_BTWN_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga3f210c67ccbc40aca99fdeeefb6a456b" kindref="member">XQSPIPS_DR_BTWN_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*DelayNss<sp/>=<sp/>(u8)((DelayRegister<sp/>&amp;<sp/><ref refid="group__qspips_1gabc227ea7c06b95d6f70c1f1b91674514" kindref="member">XQSPIPS_DR_NSS_MASK</ref>)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__qspips_1ga5f8585aa21a78dbeeb3501b3a2be232f" kindref="member">XQSPIPS_DR_NSS_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips_options.c"/>
+  </compounddef>
+</doxygen>

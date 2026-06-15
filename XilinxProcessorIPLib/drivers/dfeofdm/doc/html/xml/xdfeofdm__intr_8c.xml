@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeofdm__intr_8c" kind="file">
+    <compoundname>xdfeofdm_intr.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeOfdm_GetEventStatus</definition>
+        <argsstring>(const XDfeOfdm *InstancePtr, XDfeOfdm_Status *Status)</argsstring>
+        <name>XDfeOfdm_GetEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ofdm___status" kindref="compound">XDfeOfdm_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OFDM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a returned event status. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="513" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="59" bodyend="91"/>
+        <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" compoundref="xdfeofdm_8h" startline="393">XDfeOfdm_Status::Overflow</references>
+        <references refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" compoundref="xdfeofdm_8h" startline="391">XDfeOfdm_Status::Saturation</references>
+        <references refid="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" compoundref="xdfeofdm_8h" startline="383">XDfeOfdm_Status::SaturationCCID</references>
+        <references refid="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" compoundref="xdfeofdm_8h" startline="385">XDfeOfdm_Status::SaturationCount</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeOfdm_ClearEventStatus</definition>
+        <argsstring>(const XDfeOfdm *InstancePtr, const XDfeOfdm_Status *Status)</argsstring>
+        <name>XDfeOfdm_ClearEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm___status" kindref="compound">XDfeOfdm_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Clears the event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OFDM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clear event status container.<itemizedlist>
+<listitem><para>0 - Does not clear the corresponding event status</para></listitem><listitem><para>1 - Clears the corresponding event status </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="104" bodyend="129"/>
+        <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" compoundref="xdfeofdm_8h" startline="393">XDfeOfdm_Status::Overflow</references>
+        <references refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" compoundref="xdfeofdm_8h" startline="391">XDfeOfdm_Status::Saturation</references>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeOfdm_SetInterruptMask</definition>
+        <argsstring>(const XDfeOfdm *InstancePtr, const XDfeOfdm_InterruptMask *Mask)</argsstring>
+        <name>XDfeOfdm_SetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm___interrupt_mask" kindref="compound">XDfeOfdm_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OFDM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value.<itemizedlist>
+<listitem><para>0 - Does not mask the corresponding interrupt</para></listitem><listitem><para>1 - Masks the corresponding interrupt </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="142" bodyend="180"/>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" compoundref="xdfeofdm_8h" startline="401">XDfeOfdm_InterruptMask::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" compoundref="xdfeofdm_8h" startline="402">XDfeOfdm_InterruptMask::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" compoundref="xdfeofdm_8h" startline="404">XDfeOfdm_InterruptMask::Overflow</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" compoundref="xdfeofdm_8h" startline="403">XDfeOfdm_InterruptMask::Saturation</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeOfdm_GetInterruptMask</definition>
+        <argsstring>(const XDfeOfdm *InstancePtr, XDfeOfdm_InterruptMask *Mask)</argsstring>
+        <name>XDfeOfdm_GetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_ofdm___interrupt_mask" kindref="compound">XDfeOfdm_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Gets interrupt masks. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the OFDM instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask value. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="519" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c" bodystart="192" bodyend="215"/>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" compoundref="xdfeofdm_8h" startline="401">XDfeOfdm_InterruptMask::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" compoundref="xdfeofdm_8h" startline="402">XDfeOfdm_InterruptMask::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" compoundref="xdfeofdm_8h" startline="404">XDfeOfdm_InterruptMask::Overflow</references>
+        <references refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" compoundref="xdfeofdm_8h" startline="403">XDfeOfdm_InterruptMask::Saturation</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeofdm_8h" kindref="compound">xdfeofdm.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeofdm__hw_8h" kindref="compound">xdfeofdm_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Macros<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeOfdm_RdBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeOfdm_WrBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" kindref="member">XDfeOfdm_GetEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ofdm___status" kindref="compound">XDfeOfdm_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_ReadReg(InstancePtr,<sp/>XDFEOFDM_STATUS_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" kindref="member">FTCCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" kindref="member">Saturation</ref><sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" kindref="member">Overflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_ReadReg(InstancePtr,<sp/>XDFEOFDM_STATUS_SATURATION_OFFSET);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" kindref="member">SaturationCCID</ref><sp/>=</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_SATURATION_CCID_WIDTH,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_SATURATION_CCID_OFFSET,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" kindref="member">SaturationCount</ref><sp/>=<sp/>XDfeOfdm_RdBitField(</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_SATURATION_SATURATION_COUNT_WIDTH,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_SATURATION_SATURATION_COUNT_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="104" refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" kindref="member">XDfeOfdm_ClearEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm___status" kindref="compound">XDfeOfdm_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" kindref="member">FTCCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" kindref="member">Saturation</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_WrBitField(XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val,<sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" kindref="member">CCUpdate</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_WrBitField(XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val,<sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" kindref="member">FTCCSequenceError</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_WrBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET,<sp/>Val,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" kindref="member">Saturation</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_WrBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET,<sp/>Val,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" kindref="member">Overflow</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_WriteReg(InstancePtr,<sp/>XDFEOFDM_STATUS_ISR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_ReadReg(InstancePtr,<sp/>XDFEOFDM_STATUS_SATURATION_OFFSET);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga500a580c416fd8a48cdce2b0844f7206" kindref="member">XDfeOfdm_SetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm___interrupt_mask" kindref="compound">XDfeOfdm_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIER<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIDR<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" kindref="member">FTCCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" kindref="member">Saturation</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" kindref="member">CCUpdate</ref><sp/>==<sp/>XDFEOFDM_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" kindref="member">FTCCSequenceError</ref><sp/>==<sp/>XDFEOFDM_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" kindref="member">Saturation</ref><sp/>==<sp/>XDFEOFDM_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" kindref="member">Overflow</ref><sp/>==<sp/>XDFEOFDM_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_WriteReg(InstancePtr,<sp/>XDFEOFDM_STATUS_IER_OFFSET,<sp/>ValIER);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_WriteReg(InstancePtr,<sp/>XDFEOFDM_STATUS_IDR_OFFSET,<sp/>ValIDR);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1gaa653cb59c46752bf69a87541679ce65f" kindref="member">XDfeOfdm_GetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_ofdm" kindref="compound">XDfeOfdm</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_ofdm___interrupt_mask" kindref="compound">XDfeOfdm_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeOfdm_ReadReg(InstancePtr,<sp/>XDFEOFDM_STATUS_IMR_OFFSET);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a5c15043f94d8d6fc50f2adace2b5cf6e" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_CC_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a8a4b6b0b25807e006b10f796f370f0d4" kindref="member">FTCCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_FT_CC_SEQUENCE_ERROR_OFFSET,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a3b2fae4f642b7c02b2a3605a69ff3e7d" kindref="member">Saturation</ref><sp/>=</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_SATURATION_WIDTH,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_SATURATION_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_ofdm___interrupt_mask_1a97ced32c8a8cd23f9ed64f321b9ee337" kindref="member">Overflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeOfdm_RdBitField(XDFEOFDM_STATUS_BF_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_STATUS_BF_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm_intr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,750 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="system__module_8h" kind="file">
+    <compoundname>system_module.h</compoundname>
+    <includes refid="types_8h" local="no">types.h</includes>
+    <includedby refid="cam__device__isp__system__api_8h" local="no">cam_device_isp_system_api.h</includedby>
+    <incdepgraph>
+      <node id="7800">
+        <label>system_module.h</label>
+        <link refid="system_module.h"/>
+        <childnode refid="7801" relation="include">
+        </childnode>
+      </node>
+      <node id="7804">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7806">
+        <label>stddef.h</label>
+      </node>
+      <node id="7805">
+        <label>limits.h</label>
+      </node>
+      <node id="7801">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7802" relation="include">
+        </childnode>
+        <childnode refid="7805" relation="include">
+        </childnode>
+        <childnode refid="7806" relation="include">
+        </childnode>
+      </node>
+      <node id="7803">
+        <label>stdio.h</label>
+      </node>
+      <node id="7802">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7803" relation="include">
+        </childnode>
+        <childnode refid="7804" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7838">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="7815">
+        <label>vvdevice_common.h</label>
+        <childnode refid="7816" relation="include">
+        </childnode>
+        <childnode refid="7819" relation="include">
+        </childnode>
+        <childnode refid="7821" relation="include">
+        </childnode>
+        <childnode refid="7823" relation="include">
+        </childnode>
+        <childnode refid="7825" relation="include">
+        </childnode>
+        <childnode refid="7827" relation="include">
+        </childnode>
+        <childnode refid="7829" relation="include">
+        </childnode>
+        <childnode refid="7831" relation="include">
+        </childnode>
+        <childnode refid="7833" relation="include">
+        </childnode>
+        <childnode refid="7835" relation="include">
+        </childnode>
+        <childnode refid="7837" relation="include">
+        </childnode>
+        <childnode refid="7839" relation="include">
+        </childnode>
+        <childnode refid="7841" relation="include">
+        </childnode>
+        <childnode refid="7843" relation="include">
+        </childnode>
+        <childnode refid="7845" relation="include">
+        </childnode>
+        <childnode refid="7847" relation="include">
+        </childnode>
+        <childnode refid="7849" relation="include">
+        </childnode>
+        <childnode refid="7851" relation="include">
+        </childnode>
+        <childnode refid="7853" relation="include">
+        </childnode>
+        <childnode refid="7855" relation="include">
+        </childnode>
+        <childnode refid="7857" relation="include">
+        </childnode>
+        <childnode refid="7859" relation="include">
+        </childnode>
+        <childnode refid="7861" relation="include">
+        </childnode>
+        <childnode refid="7863" relation="include">
+        </childnode>
+        <childnode refid="7865" relation="include">
+        </childnode>
+        <childnode refid="7867" relation="include">
+        </childnode>
+        <childnode refid="7869" relation="include">
+        </childnode>
+        <childnode refid="7871" relation="include">
+        </childnode>
+        <childnode refid="7873" relation="include">
+        </childnode>
+        <childnode refid="7875" relation="include">
+        </childnode>
+        <childnode refid="7877" relation="include">
+        </childnode>
+        <childnode refid="7879" relation="include">
+        </childnode>
+        <childnode refid="7881" relation="include">
+        </childnode>
+        <childnode refid="7883" relation="include">
+        </childnode>
+      </node>
+      <node id="7862">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="7860">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="7856">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="7866">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="7812">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="7843">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7844" relation="include">
+        </childnode>
+      </node>
+      <node id="7824">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="7837">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7838" relation="include">
+        </childnode>
+      </node>
+      <node id="7880">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="7863">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7864" relation="include">
+        </childnode>
+      </node>
+      <node id="7844">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="7807">
+        <label>system_module.h</label>
+        <link refid="system_module.h"/>
+        <childnode refid="7808" relation="include">
+        </childnode>
+      </node>
+      <node id="7884">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="7813">
+        <label>vvpath.c</label>
+      </node>
+      <node id="7874">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="7819">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7820" relation="include">
+        </childnode>
+      </node>
+      <node id="7854">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="7833">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7834" relation="include">
+        </childnode>
+      </node>
+      <node id="7817">
+        <label>submodule_def.h</label>
+        <childnode refid="7814" relation="include">
+        </childnode>
+        <childnode refid="7812" relation="include">
+        </childnode>
+      </node>
+      <node id="7881">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7882" relation="include">
+        </childnode>
+      </node>
+      <node id="7869">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7870" relation="include">
+        </childnode>
+      </node>
+      <node id="7848">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="7873">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7874" relation="include">
+        </childnode>
+      </node>
+      <node id="7864">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="7841">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7842" relation="include">
+        </childnode>
+      </node>
+      <node id="7851">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7822" relation="include">
+        </childnode>
+        <childnode refid="7852" relation="include">
+        </childnode>
+      </node>
+      <node id="7823">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7824" relation="include">
+        </childnode>
+      </node>
+      <node id="7867">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7868" relation="include">
+        </childnode>
+      </node>
+      <node id="7850">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="7883">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="7812" relation="include">
+        </childnode>
+      </node>
+      <node id="7829">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7830" relation="include">
+        </childnode>
+      </node>
+      <node id="7814">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="7840">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="7816">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7818" relation="include">
+        </childnode>
+      </node>
+      <node id="7852">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="7839">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7840" relation="include">
+        </childnode>
+      </node>
+      <node id="7853">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7854" relation="include">
+        </childnode>
+      </node>
+      <node id="7808">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="7809" relation="include">
+        </childnode>
+      </node>
+      <node id="7820">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="7826">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="7846">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="7849">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7850" relation="include">
+        </childnode>
+      </node>
+      <node id="7811">
+        <label>vvpath.h</label>
+        <childnode refid="7812" relation="include">
+        </childnode>
+        <childnode refid="7813" relation="include">
+        </childnode>
+      </node>
+      <node id="7857">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7858" relation="include">
+        </childnode>
+      </node>
+      <node id="7845">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7846" relation="include">
+        </childnode>
+      </node>
+      <node id="7847">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7848" relation="include">
+        </childnode>
+      </node>
+      <node id="7859">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7860" relation="include">
+        </childnode>
+      </node>
+      <node id="7834">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="7855">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7856" relation="include">
+        </childnode>
+      </node>
+      <node id="7879">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7880" relation="include">
+        </childnode>
+      </node>
+      <node id="7809">
+        <label>vvdevice.h</label>
+        <childnode refid="7810" relation="include">
+        </childnode>
+        <childnode refid="7815" relation="include">
+        </childnode>
+        <childnode refid="7811" relation="include">
+        </childnode>
+        <childnode refid="7812" relation="include">
+        </childnode>
+        <childnode refid="7884" relation="include">
+        </childnode>
+        <childnode refid="7813" relation="include">
+        </childnode>
+      </node>
+      <node id="7870">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="7877">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7878" relation="include">
+        </childnode>
+      </node>
+      <node id="7827">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7824" relation="include">
+        </childnode>
+        <childnode refid="7828" relation="include">
+        </childnode>
+      </node>
+      <node id="7835">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7836" relation="include">
+        </childnode>
+      </node>
+      <node id="7831">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7832" relation="include">
+        </childnode>
+      </node>
+      <node id="7842">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="7875">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7876" relation="include">
+        </childnode>
+      </node>
+      <node id="7832">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="7828">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="7825">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7824" relation="include">
+        </childnode>
+        <childnode refid="7826" relation="include">
+        </childnode>
+      </node>
+      <node id="7818">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7882">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7821">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7822" relation="include">
+        </childnode>
+      </node>
+      <node id="7878">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="7861">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7862" relation="include">
+        </childnode>
+      </node>
+      <node id="7876">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="7836">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="7865">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7866" relation="include">
+        </childnode>
+      </node>
+      <node id="7810">
+        <label>vvbparser.h</label>
+        <childnode refid="7811" relation="include">
+        </childnode>
+        <childnode refid="7814" relation="include">
+        </childnode>
+        <childnode refid="7812" relation="include">
+        </childnode>
+      </node>
+      <node id="7868">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="7872">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="7858">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="7822">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="7830">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="7871">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="7817" relation="include">
+        </childnode>
+        <childnode refid="7872" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_isp_system_port_info__s" prot="public">IspSystemPortInfo_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="system__module_8h_1a15d9c7fd72c8b04b541dac3adae56c5b" prot="public" static="no">
+        <name>IspSystemPortType_e</name>
+        <enumvalue id="system__module_8h_1a15d9c7fd72c8b04b541dac3adae56c5ba7c7569c605dd5802989b468442b11af9" prot="public">
+          <name>ISP_SYSTEM_PORT_TYPE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a15d9c7fd72c8b04b541dac3adae56c5ba0deb846399d351ff21fc2a839be56fc2" prot="public">
+          <name>ISP_SYSTEM_PORT_TYPE_INPUT</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a15d9c7fd72c8b04b541dac3adae56c5baf7338c0b9500af72936e5e6a2d4df497" prot="public">
+          <name>ISP_SYSTEM_PORT_TYPE_OUTPUT</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a15d9c7fd72c8b04b541dac3adae56c5ba05070590f8b78d71c1ba14fc95b438b2" prot="public">
+          <name>ISP_SYSTEM_PORT_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="33" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="enum" id="system__module_8h_1a71c181cfc4290f0c93e8f02e8517b096" prot="public" static="no">
+        <name>IspSystemBufferType_e</name>
+        <enumvalue id="system__module_8h_1a71c181cfc4290f0c93e8f02e8517b096af3247ec83167c42c5034821f2e5c2816" prot="public">
+          <name>ISP_SYSTEM_BUFFER_TYPE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a71c181cfc4290f0c93e8f02e8517b096a60328ab0877e54357750adff6a3978c2" prot="public">
+          <name>ISP_SYSTEM_BUFFER_TYPE_EMPTY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a71c181cfc4290f0c93e8f02e8517b096a642bf65617a68c2eb626744ab11c8a47" prot="public">
+          <name>ISP_SYSTEM_BUFFER_TYPE_FULL</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system__module_8h_1a71c181cfc4290f0c93e8f02e8517b096abf9005d879051d7b635e5cabb06b195a" prot="public">
+          <name>ISP_SYSTEM_BUFFER_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="40" bodyend="45"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="system__module_8h_1a5dfc75eae06e22e21f658ae56f40512e" prot="public" static="no">
+        <type>enum IspSystemPortType_e</type>
+        <definition>typedef enum IspSystemPortType_e  IspSystemPortType_t</definition>
+        <argsstring></argsstring>
+        <name>IspSystemPortType_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="system__module_8h_1a99edd7d4609c72f8172769964e7d6740" prot="public" static="no">
+        <type>enum IspSystemBufferType_e</type>
+        <definition>typedef enum IspSystemBufferType_e  IspSystemBufferType_t</definition>
+        <argsstring></argsstring>
+        <name>IspSystemBufferType_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="45" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="system__module_8h_1a2c527a25c66acf071f2a0f64ae94fc35" prot="public" static="no">
+        <type>struct IspSystemPortInfo_s</type>
+        <definition>typedef struct IspSystemPortInfo_s  IspSystemPortInfo_t</definition>
+        <argsstring></argsstring>
+        <name>IspSystemPortInfo_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="51" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="system__module_8h_1ade72ec2cabde06496504ba9c71b1c0d8" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(*  IspSystemEnqueueBuf_t)(void *pHandle, void *pModuleHandle, IspSystemPortInfo_t *pPortInfo, void *pMediaBuf)</definition>
+        <argsstring>)(void *pHandle, void *pModuleHandle, IspSystemPortInfo_t *pPortInfo, void *pMediaBuf)</argsstring>
+        <name>IspSystemEnqueueBuf_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="system__module_8h_1a4550e048da4719b3ca3f0845398a777b" prot="public" static="no">
+        <type>RESULT(*</type>
+        <definition>typedef RESULT(*  IspSystemDequeueBuf_t)(void *pHandle, void *pModuleHandle, IspSystemPortInfo_t *pPortInfo, void **pMediaBuf)</definition>
+        <argsstring>)(void *pHandle, void *pModuleHandle, IspSystemPortInfo_t *pPortInfo, void **pMediaBuf)</argsstring>
+        <name>IspSystemDequeueBuf_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__SYSTEM_MODULE_H__</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__SYSTEM_MODULE_H__</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>IspSystemPortType_e<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_PORT_TYPE_INVALID<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_PORT_TYPE_INPUT<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_PORT_TYPE_OUTPUT<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_PORT_TYPE_MAX</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}<sp/>IspSystemPortType_t;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>IspSystemBufferType_e<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_BUFFER_TYPE_INVALID<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_BUFFER_TYPE_EMPTY<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_BUFFER_TYPE_FULL<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ISP_SYSTEM_BUFFER_TYPE_MAX</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}<sp/>IspSystemBufferType_t;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IspSystemPortInfo_s<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IspSystemPortType_t<sp/>portType;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IspSystemBufferType_t<sp/>bufferType;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>portId;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}<sp/>IspSystemPortInfo_t;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*<sp/>IspSystemEnqueueBuf_t)</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pHandle,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pModuleHandle,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IspSystemPortInfo_t<sp/>*pPortInfo,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pMediaBuf</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>RESULT<sp/>(*<sp/>IspSystemDequeueBuf_t)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pHandle,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pModuleHandle,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IspSystemPortInfo_t<sp/>*pPortInfo,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>**pMediaBuf</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>__CAMERA_DEVICE_BUF_DEFS_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h"/>
+  </compounddef>
+</doxygen>

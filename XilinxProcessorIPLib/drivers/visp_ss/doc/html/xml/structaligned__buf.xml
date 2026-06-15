@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structaligned__buf" kind="struct" prot="public">
+    <compoundname>aligned_buf</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaligned__buf_1a9975131df480f44d8a47cf671c1c5e61" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void * aligned_buf::original_addr</definition>
+        <argsstring></argsstring>
+        <name>original_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="11" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaligned__buf_1a7822ab75bfc6abe43fbdac4152a66dbc" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void * aligned_buf::aligned_addr</definition>
+        <argsstring></argsstring>
+        <name>aligned_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="12" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaligned__buf_1abcf2330f6f10f9c71ea6f8bf392f9973" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t aligned_buf::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="13" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaligned__buf_1a6be2403c3ab68c88254927d132b27e7b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t aligned_buf::alignment</definition>
+        <argsstring></argsstring>
+        <name>alignment</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="14" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" line="10" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/memory_manager.h" bodystart="10" bodyend="15"/>
+    <listofallmembers>
+      <member refid="structaligned__buf_1a7822ab75bfc6abe43fbdac4152a66dbc" prot="public" virt="non-virtual"><scope>aligned_buf</scope><name>aligned_addr</name></member>
+      <member refid="structaligned__buf_1a6be2403c3ab68c88254927d132b27e7b" prot="public" virt="non-virtual"><scope>aligned_buf</scope><name>alignment</name></member>
+      <member refid="structaligned__buf_1a9975131df480f44d8a47cf671c1c5e61" prot="public" virt="non-virtual"><scope>aligned_buf</scope><name>original_addr</name></member>
+      <member refid="structaligned__buf_1abcf2330f6f10f9c71ea6f8bf392f9973" prot="public" virt="non-virtual"><scope>aligned_buf</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

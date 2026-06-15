@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc___timing" kind="struct" prot="public">
+    <compoundname>XVtc_Timing</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a2827b65a3fadfd9d1e428589872cd65e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::HActiveVideo</definition>
+        <argsstring></argsstring>
+        <name>HActiveVideo</name>
+        <briefdescription>
+<para>Horizontal Active Video Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="489" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa8293ea90f04203f688a9c10ed728d76" compoundref="xvtc_8c" startline="2326" endline="2397">XVtc_ConvTiming2VideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a333eb1b6e59b464c6a9fb9e66178ea41" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::HFrontPorch</definition>
+        <argsstring></argsstring>
+        <name>HFrontPorch</name>
+        <briefdescription>
+<para>Horizontal Front Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="490" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a19440ff808edd961ea5812780cfb90bd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::HSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>HSyncWidth</name>
+        <briefdescription>
+<para>Horizontal Sync Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="491" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1adbb8ca73f7181bf8aeb4b69ee57b8a44" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::HBackPorch</definition>
+        <argsstring></argsstring>
+        <name>HBackPorch</name>
+        <briefdescription>
+<para>Horizontal Back Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="492" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a465f20ea64c1d83365618e663d27e577" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::HSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>HSyncPolarity</name>
+        <briefdescription>
+<para>Horizontal Sync Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="493" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a03dba62ad584280e42848f89e7610574" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::VActiveVideo</definition>
+        <argsstring></argsstring>
+        <name>VActiveVideo</name>
+        <briefdescription>
+<para>Vertical Active Video Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="496" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa8293ea90f04203f688a9c10ed728d76" compoundref="xvtc_8c" startline="2326" endline="2397">XVtc_ConvTiming2VideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1ad124b6c51bdfbe8d1898562937516031" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V0FrontPorch</definition>
+        <argsstring></argsstring>
+        <name>V0FrontPorch</name>
+        <briefdescription>
+<para>Vertical Front Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="497" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a684054ed76bc38ef0c4f7c20c6aa0f77" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V0SyncWidth</definition>
+        <argsstring></argsstring>
+        <name>V0SyncWidth</name>
+        <briefdescription>
+<para>Vertical Sync Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="498" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="498" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1ad7f39859ce65e6c3669c5c7efe2a69d7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V0BackPorch</definition>
+        <argsstring></argsstring>
+        <name>V0BackPorch</name>
+        <briefdescription>
+<para>Horizontal Back Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="499" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="499" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a9b37576b6c3f3b01c49ab3bbcf5befa7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V1FrontPorch</definition>
+        <argsstring></argsstring>
+        <name>V1FrontPorch</name>
+        <briefdescription>
+<para>Vertical Front Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a55ea18176ed3cf0651b7d6304e8c3a69" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V1SyncWidth</definition>
+        <argsstring></argsstring>
+        <name>V1SyncWidth</name>
+        <briefdescription>
+<para>Vertical Sync Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="502" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="502" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a6289e8ec08de116db7ae77bf92697bbf" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::V1BackPorch</definition>
+        <argsstring></argsstring>
+        <name>V1BackPorch</name>
+        <briefdescription>
+<para>Vertical Back Porch Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="503" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="503" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1aa73267bc6f90b6eba6342aa41c35d047" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Timing::VSyncPolarity</definition>
+        <argsstring></argsstring>
+        <name>VSyncPolarity</name>
+        <briefdescription>
+<para>Vertical Sync Polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="505" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___timing_1a3f549f5f346eeb3f090aa1de02b1c3f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVtc_Timing::Interlaced</definition>
+        <argsstring></argsstring>
+        <name>Interlaced</name>
+        <briefdescription>
+<para>Interlaced / Progressive video. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="507" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga307c8e4b44e9bd683417dafd2ed1bee3" compoundref="xvtc_8c" startline="2257" endline="2309">XVtc_ConvSignal2Timing</referencedby>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa8293ea90f04203f688a9c10ed728d76" compoundref="xvtc_8c" startline="2326" endline="2397">XVtc_ConvTiming2VideoMode</referencedby>
+        <referencedby refid="group__vtc_1ga8780c13efbb57b70fb1d2c56b41ea875" compoundref="xvtc_8c" startline="1839" endline="2110">XVtc_ConvVideoMode2Timing</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains Timing (typically in Display Timing) format configuration information for the VTC core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="487" bodyend="508"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc___timing_1a2827b65a3fadfd9d1e428589872cd65e" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>HActiveVideo</name></member>
+      <member refid="struct_x_vtc___timing_1adbb8ca73f7181bf8aeb4b69ee57b8a44" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>HBackPorch</name></member>
+      <member refid="struct_x_vtc___timing_1a333eb1b6e59b464c6a9fb9e66178ea41" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>HFrontPorch</name></member>
+      <member refid="struct_x_vtc___timing_1a465f20ea64c1d83365618e663d27e577" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>HSyncPolarity</name></member>
+      <member refid="struct_x_vtc___timing_1a19440ff808edd961ea5812780cfb90bd" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>HSyncWidth</name></member>
+      <member refid="struct_x_vtc___timing_1a3f549f5f346eeb3f090aa1de02b1c3f0" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>Interlaced</name></member>
+      <member refid="struct_x_vtc___timing_1ad7f39859ce65e6c3669c5c7efe2a69d7" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V0BackPorch</name></member>
+      <member refid="struct_x_vtc___timing_1ad124b6c51bdfbe8d1898562937516031" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V0FrontPorch</name></member>
+      <member refid="struct_x_vtc___timing_1a684054ed76bc38ef0c4f7c20c6aa0f77" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V0SyncWidth</name></member>
+      <member refid="struct_x_vtc___timing_1a6289e8ec08de116db7ae77bf92697bbf" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V1BackPorch</name></member>
+      <member refid="struct_x_vtc___timing_1a9b37576b6c3f3b01c49ab3bbcf5befa7" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V1FrontPorch</name></member>
+      <member refid="struct_x_vtc___timing_1a55ea18176ed3cf0651b7d6304e8c3a69" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>V1SyncWidth</name></member>
+      <member refid="struct_x_vtc___timing_1a03dba62ad584280e42848f89e7610574" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>VActiveVideo</name></member>
+      <member refid="struct_x_vtc___timing_1aa73267bc6f90b6eba6342aa41c35d047" prot="public" virt="non-virtual"><scope>XVtc_Timing</scope><name>VSyncPolarity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___threshold___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Threshold_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___threshold___settings_1a0d25ff71d9b6e58dc807f42b9c7ab5f4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Threshold_Settings::UpdateThreshold</definition>
+        <argsstring></argsstring>
+        <name>UpdateThreshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="505" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="505" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___threshold___settings_1a21c3d9eecc44a51b285faa80f3471755" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Threshold_Settings::ThresholdMode[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>ThresholdMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="506" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="506" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___threshold___settings_1a73735797f2b1908f6a2cc4eb11bec15d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Threshold_Settings::ThresholdAvgVal[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>ThresholdAvgVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="507" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___threshold___settings_1a39345f0ee2015baa95bff57f49680b36" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Threshold_Settings::ThresholdUnderVal[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>ThresholdUnderVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___threshold___settings_1acc8d67c17d8ebd8424a70a754b5e1ce5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_Threshold_Settings::ThresholdOverVal[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>ThresholdOverVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="509" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>ADC block Threshold settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="504" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="504" bodyend="510"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___threshold___settings_1a73735797f2b1908f6a2cc4eb11bec15d" prot="public" virt="non-virtual"><scope>XRFdc_Threshold_Settings</scope><name>ThresholdAvgVal</name></member>
+      <member refid="struct_x_r_fdc___threshold___settings_1a21c3d9eecc44a51b285faa80f3471755" prot="public" virt="non-virtual"><scope>XRFdc_Threshold_Settings</scope><name>ThresholdMode</name></member>
+      <member refid="struct_x_r_fdc___threshold___settings_1acc8d67c17d8ebd8424a70a754b5e1ce5" prot="public" virt="non-virtual"><scope>XRFdc_Threshold_Settings</scope><name>ThresholdOverVal</name></member>
+      <member refid="struct_x_r_fdc___threshold___settings_1a39345f0ee2015baa95bff57f49680b36" prot="public" virt="non-virtual"><scope>XRFdc_Threshold_Settings</scope><name>ThresholdUnderVal</name></member>
+      <member refid="struct_x_r_fdc___threshold___settings_1a0d25ff71d9b6e58dc807f42b9c7ab5f4" prot="public" virt="non-virtual"><scope>XRFdc_Threshold_Settings</scope><name>UpdateThreshold</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

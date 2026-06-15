@@ -1,0 +1,763 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__isp__system__api_8h" kind="file">
+    <compoundname>cam_device_isp_system_api.h</compoundname>
+    <includes refid="types_8h" local="yes">types.h</includes>
+    <includes refid="return__codes_8h" local="yes">return_codes.h</includes>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includes refid="system__module_8h" local="no">system_module.h</includes>
+    <includedby refid="vvdevice_8h" local="yes">vvdevice.h</includedby>
+    <incdepgraph>
+      <node id="3986">
+        <label>stdbool.h</label>
+      </node>
+      <node id="3979">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="3987">
+        <label>stdint.h</label>
+      </node>
+      <node id="3990">
+        <label>system_module.h</label>
+        <childnode refid="3973" relation="include">
+        </childnode>
+      </node>
+      <node id="3976">
+        <label>stdlib.h</label>
+      </node>
+      <node id="3984">
+        <label>sensor_cmd.h</label>
+        <childnode refid="3985" relation="include">
+        </childnode>
+        <childnode refid="3979" relation="include">
+        </childnode>
+      </node>
+      <node id="3978">
+        <label>stddef.h</label>
+      </node>
+      <node id="3977">
+        <label>limits.h</label>
+      </node>
+      <node id="3980">
+        <label>cam_device_common.h</label>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3979" relation="include">
+        </childnode>
+        <childnode refid="3981" relation="include">
+        </childnode>
+        <childnode refid="3983" relation="include">
+        </childnode>
+        <childnode refid="3984" relation="include">
+        </childnode>
+      </node>
+      <node id="3983">
+        <label>buf_defs.h</label>
+        <childnode refid="3973" relation="include">
+        </childnode>
+      </node>
+      <node id="3985">
+        <label>mbox_api.h</label>
+        <childnode refid="3986" relation="include">
+        </childnode>
+        <childnode refid="3987" relation="include">
+        </childnode>
+        <childnode refid="3988" relation="include">
+        </childnode>
+      </node>
+      <node id="3982">
+        <label>string.h</label>
+      </node>
+      <node id="3988">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="3986" relation="include">
+        </childnode>
+        <childnode refid="3989" relation="include">
+        </childnode>
+      </node>
+      <node id="3972">
+        <label>cam_device_isp_system_api.h</label>
+        <link refid="cam_device_isp_system_api.h"/>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3979" relation="include">
+        </childnode>
+        <childnode refid="3980" relation="include">
+        </childnode>
+        <childnode refid="3990" relation="include">
+        </childnode>
+      </node>
+      <node id="3989">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="3973">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3974" relation="include">
+        </childnode>
+        <childnode refid="3977" relation="include">
+        </childnode>
+        <childnode refid="3978" relation="include">
+        </childnode>
+      </node>
+      <node id="3981">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="3973" relation="include">
+        </childnode>
+        <childnode refid="3982" relation="include">
+        </childnode>
+      </node>
+      <node id="3975">
+        <label>stdio.h</label>
+      </node>
+      <node id="3974">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="3975" relation="include">
+        </childnode>
+        <childnode refid="3976" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4021">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="3998">
+        <label>vvdevice_common.h</label>
+        <childnode refid="3999" relation="include">
+        </childnode>
+        <childnode refid="4002" relation="include">
+        </childnode>
+        <childnode refid="4004" relation="include">
+        </childnode>
+        <childnode refid="4006" relation="include">
+        </childnode>
+        <childnode refid="4008" relation="include">
+        </childnode>
+        <childnode refid="4010" relation="include">
+        </childnode>
+        <childnode refid="4012" relation="include">
+        </childnode>
+        <childnode refid="4014" relation="include">
+        </childnode>
+        <childnode refid="4016" relation="include">
+        </childnode>
+        <childnode refid="4018" relation="include">
+        </childnode>
+        <childnode refid="4020" relation="include">
+        </childnode>
+        <childnode refid="4022" relation="include">
+        </childnode>
+        <childnode refid="4024" relation="include">
+        </childnode>
+        <childnode refid="4026" relation="include">
+        </childnode>
+        <childnode refid="4028" relation="include">
+        </childnode>
+        <childnode refid="4030" relation="include">
+        </childnode>
+        <childnode refid="4032" relation="include">
+        </childnode>
+        <childnode refid="4034" relation="include">
+        </childnode>
+        <childnode refid="4036" relation="include">
+        </childnode>
+        <childnode refid="4038" relation="include">
+        </childnode>
+        <childnode refid="4040" relation="include">
+        </childnode>
+        <childnode refid="4042" relation="include">
+        </childnode>
+        <childnode refid="4044" relation="include">
+        </childnode>
+        <childnode refid="4046" relation="include">
+        </childnode>
+        <childnode refid="4048" relation="include">
+        </childnode>
+        <childnode refid="4050" relation="include">
+        </childnode>
+        <childnode refid="4052" relation="include">
+        </childnode>
+        <childnode refid="4054" relation="include">
+        </childnode>
+        <childnode refid="4056" relation="include">
+        </childnode>
+        <childnode refid="4058" relation="include">
+        </childnode>
+        <childnode refid="4060" relation="include">
+        </childnode>
+        <childnode refid="4062" relation="include">
+        </childnode>
+        <childnode refid="4064" relation="include">
+        </childnode>
+        <childnode refid="4066" relation="include">
+        </childnode>
+      </node>
+      <node id="4045">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="4043">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="4039">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="4049">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="3995">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="4026">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4027" relation="include">
+        </childnode>
+      </node>
+      <node id="4007">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="4020">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4021" relation="include">
+        </childnode>
+      </node>
+      <node id="4063">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="4046">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4047" relation="include">
+        </childnode>
+      </node>
+      <node id="4027">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="4067">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="3996">
+        <label>vvpath.c</label>
+      </node>
+      <node id="4057">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="4002">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4003" relation="include">
+        </childnode>
+      </node>
+      <node id="4037">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="4016">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4017" relation="include">
+        </childnode>
+      </node>
+      <node id="4000">
+        <label>submodule_def.h</label>
+        <childnode refid="3997" relation="include">
+        </childnode>
+        <childnode refid="3995" relation="include">
+        </childnode>
+      </node>
+      <node id="4064">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4065" relation="include">
+        </childnode>
+      </node>
+      <node id="4052">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4053" relation="include">
+        </childnode>
+      </node>
+      <node id="4031">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="4056">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4057" relation="include">
+        </childnode>
+      </node>
+      <node id="4047">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="4024">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4025" relation="include">
+        </childnode>
+      </node>
+      <node id="4034">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4005" relation="include">
+        </childnode>
+        <childnode refid="4035" relation="include">
+        </childnode>
+      </node>
+      <node id="4006">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4007" relation="include">
+        </childnode>
+      </node>
+      <node id="4050">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4051" relation="include">
+        </childnode>
+      </node>
+      <node id="4033">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="4066">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="3995" relation="include">
+        </childnode>
+      </node>
+      <node id="4012">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4013" relation="include">
+        </childnode>
+      </node>
+      <node id="3997">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="4023">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="3999">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4001" relation="include">
+        </childnode>
+      </node>
+      <node id="4035">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="4022">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4023" relation="include">
+        </childnode>
+      </node>
+      <node id="4036">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4037" relation="include">
+        </childnode>
+      </node>
+      <node id="3991">
+        <label>cam_device_isp_system_api.h</label>
+        <link refid="cam_device_isp_system_api.h"/>
+        <childnode refid="3992" relation="include">
+        </childnode>
+      </node>
+      <node id="4003">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="4009">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="4029">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="4032">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4033" relation="include">
+        </childnode>
+      </node>
+      <node id="3994">
+        <label>vvpath.h</label>
+        <childnode refid="3995" relation="include">
+        </childnode>
+        <childnode refid="3996" relation="include">
+        </childnode>
+      </node>
+      <node id="4040">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4041" relation="include">
+        </childnode>
+      </node>
+      <node id="4028">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4029" relation="include">
+        </childnode>
+      </node>
+      <node id="4030">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4031" relation="include">
+        </childnode>
+      </node>
+      <node id="4042">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4043" relation="include">
+        </childnode>
+      </node>
+      <node id="4017">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="4038">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4039" relation="include">
+        </childnode>
+      </node>
+      <node id="4062">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4063" relation="include">
+        </childnode>
+      </node>
+      <node id="3992">
+        <label>vvdevice.h</label>
+        <childnode refid="3993" relation="include">
+        </childnode>
+        <childnode refid="3998" relation="include">
+        </childnode>
+        <childnode refid="3994" relation="include">
+        </childnode>
+        <childnode refid="3995" relation="include">
+        </childnode>
+        <childnode refid="4067" relation="include">
+        </childnode>
+        <childnode refid="3996" relation="include">
+        </childnode>
+      </node>
+      <node id="4053">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="4060">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4061" relation="include">
+        </childnode>
+      </node>
+      <node id="4010">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4007" relation="include">
+        </childnode>
+        <childnode refid="4011" relation="include">
+        </childnode>
+      </node>
+      <node id="4018">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4019" relation="include">
+        </childnode>
+      </node>
+      <node id="4014">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4015" relation="include">
+        </childnode>
+      </node>
+      <node id="4025">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="4058">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4059" relation="include">
+        </childnode>
+      </node>
+      <node id="4015">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="4011">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="4008">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4007" relation="include">
+        </childnode>
+        <childnode refid="4009" relation="include">
+        </childnode>
+      </node>
+      <node id="4001">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="4065">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4004">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4005" relation="include">
+        </childnode>
+      </node>
+      <node id="4061">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="4044">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4045" relation="include">
+        </childnode>
+      </node>
+      <node id="4059">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="4019">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="4048">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4049" relation="include">
+        </childnode>
+      </node>
+      <node id="3993">
+        <label>vvbparser.h</label>
+        <childnode refid="3994" relation="include">
+        </childnode>
+        <childnode refid="3997" relation="include">
+        </childnode>
+        <childnode refid="3995" relation="include">
+        </childnode>
+      </node>
+      <node id="4051">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="4055">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="4041">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="4005">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="4013">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="4054">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="4000" relation="include">
+        </childnode>
+        <childnode refid="4055" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__general_1ga065210cd62540b4ede2aedb508010894" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSetEnqueueBufCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, IspSystemEnqueueBuf_t func, void *pUserContext)</argsstring>
+        <name>VsiCamDeviceSetEnqueueBufCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>IspSystemEnqueueBuf_t</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_isp_system_api.h" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__general_1ga05980efb4f3cf4da5c51c1a5d431b006" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSetDequeueBufCb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, IspSystemDequeueBuf_t func, void *pUserContext)</argsstring>
+        <name>VsiCamDeviceSetDequeueBufCb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>IspSystemDequeueBuf_t</type>
+          <declname>func</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pUserContext</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_isp_system_api.h" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__general_1ga07ad55d57d4f40db02c800b87bc976c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceStartStreaming</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, void *pConfig)</argsstring>
+        <name>VsiCamDeviceStartStreaming</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_isp_system_api.h" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__general_1gaf097dd5d9b92ce1b57828b8db816c782" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceStopStreaming</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, void *pConfig)</argsstring>
+        <name>VsiCamDeviceStopStreaming</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_isp_system_api.h" line="147" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_ISP_SYSTEM_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_ISP_SYSTEM_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="return__codes_8h" kindref="compound">return_codes.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;system_module.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">RESULT<sp/>VsiCamDeviceSetEnqueueBufCb</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>IspSystemEnqueueBuf_t<sp/>func,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">RESULT<sp/>VsiCamDeviceSetDequeueBufCb</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>IspSystemDequeueBuf_t<sp/>func,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pUserContext</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">RESULT<sp/>VsiCamDeviceStartStreaming</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pConfig</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">RESULT<sp/>VsiCamDeviceStopStreaming</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pConfig</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/>//<sp/>__ISP_CAMDEV_ISP_SYSTEM_H__</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_isp_system_api.h"/>
+  </compounddef>
+</doxygen>

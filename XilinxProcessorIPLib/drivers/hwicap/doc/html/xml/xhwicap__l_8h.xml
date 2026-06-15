@@ -1,0 +1,676 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhwicap__l_8h" kind="file">
+    <compoundname>xhwicap_l.h</compoundname>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xhwicap_8h" local="yes">xhwicap.h</includedby>
+    <includedby refid="xhwicap__low__level__example_8c" local="no">xhwicap_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="108">
+        <label>xil_io.h</label>
+      </node>
+      <node id="105">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap_l.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="113">
+        <label>xhwicap_device_write_frame.c</label>
+        <link refid="xhwicap__device__write__frame_8c"/>
+      </node>
+      <node id="111">
+        <label>xhwicap.c</label>
+        <link refid="xhwicap_8c"/>
+      </node>
+      <node id="110">
+        <label>xhwicap.h</label>
+        <link refid="xhwicap_8h"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>xhwicap_selftest.c</label>
+        <link refid="xhwicap__selftest_8c"/>
+      </node>
+      <node id="112">
+        <label>xhwicap_device_read_frame.c</label>
+        <link refid="xhwicap__device__read__frame_8c"/>
+      </node>
+      <node id="109">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap_l.h"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xhwicap_intr_example.c</label>
+        <link refid="xhwicap__intr__example_8c"/>
+      </node>
+      <node id="117">
+        <label>xhwicap_sinit.c</label>
+        <link refid="xhwicap__sinit_8c"/>
+      </node>
+      <node id="120">
+        <label>xhwicap_read_config_reg_example.c</label>
+        <link refid="xhwicap__read__config__reg__example_8c"/>
+      </node>
+      <node id="122">
+        <label>xhwicap_testapp_example.c</label>
+        <link refid="xhwicap__testapp__example_8c"/>
+      </node>
+      <node id="114">
+        <label>xhwicap_g.c</label>
+        <link refid="xhwicap__g_8c"/>
+      </node>
+      <node id="115">
+        <label>xhwicap_intr.c</label>
+        <link refid="xhwicap__intr_8c"/>
+      </node>
+      <node id="123">
+        <label>xhwicap_low_level_example.c</label>
+        <link refid="xhwicap__low__level__example_8c"/>
+      </node>
+      <node id="121">
+        <label>xhwicap_read_frame_polled_example.c</label>
+        <link refid="xhwicap__read__frame__polled__example_8c"/>
+      </node>
+      <node id="118">
+        <label>xhwicap_srp.c</label>
+        <link refid="xhwicap__srp_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets for the <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> device. </para></description>
+      <memberdef kind="define" id="group__hwicap_1gacc55662e7438a63d17100c391701bca0" prot="public" static="no">
+        <name>XHI_GIER_OFFSET</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+<para>Device Global Interrupt Enable Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga4ff2b0721655b2764bff81449b368478" prot="public" static="no">
+        <name>XHI_IPISR_OFFSET</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga8723cf72ecf20356371e6f6d2ce55543" prot="public" static="no">
+        <name>XHI_IPIER_OFFSET</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga9f823f835a5a4cc52bb93dd31f88c62c" prot="public" static="no">
+        <name>XHI_WF_OFFSET</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+<para>Write FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga880c301214287dc0231e142662bba24c" prot="public" static="no">
+        <name>XHI_RF_OFFSET</name>
+        <initializer>0x104</initializer>
+        <briefdescription>
+<para>Read FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga61e8525d9e209cad45122af264f276f0" prot="public" static="no">
+        <name>XHI_SZ_OFFSET</name>
+        <initializer>0x108</initializer>
+        <briefdescription>
+<para>Size Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gad7d94ec59e14347684d309b0b6406ab2" prot="public" static="no">
+        <name>XHI_CR_OFFSET</name>
+        <initializer>0x10C</initializer>
+        <briefdescription>
+<para>Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gad582c2c3fe5aa1d83b43dc7a0d243da8" prot="public" static="no">
+        <name>XHI_SR_OFFSET</name>
+        <initializer>0x110</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga2d5e8341edaacfbd2e50e6d348ad8131" prot="public" static="no">
+        <name>XHI_WFV_OFFSET</name>
+        <initializer>0x114</initializer>
+        <briefdescription>
+<para>Write FIFO Vacancy Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga9bc6d60763a4589772fbab9611444a76" prot="public" static="no">
+        <name>XHI_RFO_OFFSET</name>
+        <initializer>0x118</initializer>
+        <briefdescription>
+<para>Read FIFO Occupancy Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Device Global Interrupt Enable Register (GIER) bit definitions</header>
+      <memberdef kind="define" id="group__hwicap_1ga312f920dfd13871dfc397bb734e81542" prot="public" static="no">
+        <name>XHI_GIER_GIE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Global Interrupt enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>HwIcap Device Interrupt Status/Enable Registers</header>
+      <description><para><bold> Interrupt Status Register (IPISR) </bold></para><para>This register holds the interrupt status flags for the device. These bits are toggle on write.</para><para><bold> Interrupt Enable Register (IPIER) </bold></para><para>This register is used to enable interrupt sources for the device. Writing a &apos;1&apos; to a bit in this register enables the corresponding Interrupt. Writing a &apos;0&apos; to a bit in this register disables the corresponding Interrupt.</para><para>IPISR/IPIER registers have the same bit definitions and are only defined once. </para></description>
+      <memberdef kind="define" id="group__hwicap_1gae940123f31edca885cce128466074fbd" prot="public" static="no">
+        <name>XHI_IPIXR_RFULL_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Read FIFO Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga47f9b5b4f4e16c810064acf5ce674575" prot="public" static="no">
+        <name>XHI_IPIXR_WEMPTY_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Write FIFO Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gae64834b12bee384ff441cf4ca68b060b" prot="public" static="no">
+        <name>XHI_IPIXR_RDP_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Read FIFO half full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga3d51a2ca2954770e68e8304c6d45a797" prot="public" static="no">
+        <name>XHI_IPIXR_WRP_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Write FIFO half full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="xhwicap__intr__example_8c_1ad30f00094bfccf190e8f4400fc5842c1" compoundref="xhwicap__intr__example_8c" startline="205" endline="306">HwIcapIntrExample</referencedby>
+        <referencedby refid="group__hwicap_1ga9cf1ff1dd1056a11f65a903c47492842" compoundref="xhwicap__intr_8c" startline="105" endline="170">XHwIcap_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga796c30e8bebadbe5c18ce0af9b10d30a" prot="public" static="no">
+        <name>XHI_IPIXR_ALL_MASK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+<para>Mask of all interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Register (CR)</header>
+      <memberdef kind="define" id="group__hwicap_1ga776ac9dc4020f86bab9c5b1fd9221dd1" prot="public" static="no">
+        <name>XHI_CR_SW_ABORT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Abort current ICAP Read/Write. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga50e289c4313fa405cf086df7ce901a1b" prot="public" static="no">
+        <name>XHI_CR_SW_RESET_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>SW Reset Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gafd19f105fe87bc06e8970c46f2f23508" prot="public" static="no">
+        <name>XHI_CR_FIFO_CLR_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>FIFO Clear Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga5f79a1af0d4909378342da1723568653" prot="public" static="no">
+        <name>XHI_CR_READ_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Read from ICAP to FIFO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gaef1da3487a4b5b56304445dd5892855b" prot="public" static="no">
+        <name>XHI_CR_WRITE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Write from FIFO to ICAP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register (SR)</header>
+      <memberdef kind="define" id="group__hwicap_1ga70dd605f5c61f0d4dca8f7d2c7818b96" prot="public" static="no">
+        <name>XHI_SR_CFGERR_N_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Config Error Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gab20344d8715b57430612cbee984dc22e" prot="public" static="no">
+        <name>XHI_SR_DALIGN_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Data Alignment Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gabd2efa3b995368421322945fcf4a0193" prot="public" static="no">
+        <name>XHI_SR_RIP_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Read back Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga4e0a65580d8d9e4ea6a0df1a65c5308c" prot="public" static="no">
+        <name>XHI_SR_IN_ABORT_N_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Select Map Abort Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga5f6dfed1a6cda2d244f7b58ccf734eb3" prot="public" static="no">
+        <name>XHI_SR_DONE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Done bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga4b189772fde4c6ca3bc0c20b7b1fc3af" prot="public" static="no">
+        <name>XHI_SR_EOS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>EOS bit Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hwicap_1ga8bd5296cc98d371f7e4f133b33bfc313" prot="public" static="no">
+        <name>XHWICAP_L_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga51de7b3fb1d06e1cec320cf550854beb" prot="public" static="no">
+        <name>XHwIcap_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga86698b383a584c465c8d93e38eafa34e" prot="public" static="no">
+        <name>XHwIcap_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga7061e53605486f268a5e2205828d5921" prot="public" static="no">
+        <name>XHwIcap_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XHwIcap_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read from the specified HwIcap device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group__hwicap_1ga7061e53605486f268a5e2205828d5921" kindref="member">XHwIcap_ReadReg(u32 BaseAddress, u32 RegOffset)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1ga8abfb8a13021622966d96781cb1a0f86" prot="public" static="no">
+        <name>XHwIcap_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer>XHwIcap_Out32((BaseAddress) + (RegOffset), (RegisterValue))</initializer>
+        <briefdescription>
+<para>Write to the specified HwIcap device register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the device to select the specific register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XHwIcap_WriteReg(u32 BaseAddress, u32 RegOffset, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="xhwicap__low__level__example_8c_1a8a02099406a7fcf25a097b2f45611263" compoundref="xhwicap__low__level__example_8c" startline="170" endline="251">HwIcapLowLevelExample</referencedby>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2007<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XHWICAP_L_H_<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHWICAP_L_H_<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************/</highlight></codeline>
+<codeline lineno="65" refid="group__hwicap_1gacc55662e7438a63d17100c391701bca0" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_GIER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1C<sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__hwicap_1ga4ff2b0721655b2764bff81449b368478" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__hwicap_1ga8723cf72ecf20356371e6f6d2ce55543" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28<sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__hwicap_1ga9f823f835a5a4cc52bb93dd31f88c62c" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_WF_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__hwicap_1ga880c301214287dc0231e142662bba24c" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_RF_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x104<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__hwicap_1ga61e8525d9e209cad45122af264f276f0" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SZ_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x108<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__hwicap_1gad7d94ec59e14347684d309b0b6406ab2" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10C<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__hwicap_1gad582c2c3fe5aa1d83b43dc7a0d243da8" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x110<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__hwicap_1ga2d5e8341edaacfbd2e50e6d348ad8131" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_WFV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x114<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__hwicap_1ga9bc6d60763a4589772fbab9611444a76" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_RFO_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x118<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="group__hwicap_1ga312f920dfd13871dfc397bb734e81542" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_GIER_GIE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="group__hwicap_1gae940123f31edca885cce128466074fbd" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIXR_RFULL_MASK<sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="105" refid="group__hwicap_1ga47f9b5b4f4e16c810064acf5ce674575" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIXR_WEMPTY_MASK<sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="106" refid="group__hwicap_1gae64834b12bee384ff441cf4ca68b060b" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIXR_RDP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="107" refid="group__hwicap_1ga3d51a2ca2954770e68e8304c6d45a797" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIXR_WRP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="108" refid="group__hwicap_1ga796c30e8bebadbe5c18ce0af9b10d30a" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_IPIXR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000F<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116" refid="group__hwicap_1ga776ac9dc4020f86bab9c5b1fd9221dd1" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_SW_ABORT_MASK<sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="117" refid="group__hwicap_1ga50e289c4313fa405cf086df7ce901a1b" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_SW_RESET_MASK<sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="118" refid="group__hwicap_1gafd19f105fe87bc06e8970c46f2f23508" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_FIFO_CLR_MASK<sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="119" refid="group__hwicap_1ga5f79a1af0d4909378342da1723568653" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_READ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="120" refid="group__hwicap_1gaef1da3487a4b5b56304445dd5892855b" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_CR_WRITE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="group__hwicap_1ga70dd605f5c61f0d4dca8f7d2c7818b96" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_CFGERR_N_MASK<sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="130" refid="group__hwicap_1gab20344d8715b57430612cbee984dc22e" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_DALIGN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="131" refid="group__hwicap_1gabd2efa3b995368421322945fcf4a0193" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_RIP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="132" refid="group__hwicap_1ga4e0a65580d8d9e4ea6a0df1a65c5308c" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_IN_ABORT_N_MASK<sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="133" refid="group__hwicap_1ga5f6dfed1a6cda2d244f7b58ccf734eb3" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="134" refid="group__hwicap_1ga4b189772fde4c6ca3bc0c20b7b1fc3af" refkind="member"><highlight class="preprocessor">#define<sp/>XHI_SR_EOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHwIcap_In32<sp/>Xil_In32</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHwIcap_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="161" refid="group__hwicap_1ga7061e53605486f268a5e2205828d5921" refkind="member"><highlight class="preprocessor">#define<sp/>XHwIcap_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHwIcap_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="180" refid="group__hwicap_1ga8abfb8a13021622966d96781cb1a0f86" refkind="member"><highlight class="preprocessor">#define<sp/>XHwIcap_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>RegisterValue)<sp/>\</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHwIcap_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_l.h"/>
+  </compounddef>
+</doxygen>

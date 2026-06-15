@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__eciesinfo_8h" kind="file">
+    <compoundname>xasu_eciesinfo.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xasu_bsp_config.h</includes>
+    <includedby refid="xasu__ecies_8h" local="yes">xasu_ecies.h</includedby>
+    <includedby refid="xasu__ecies__common_8h" local="yes">xasu_ecies_common.h</includedby>
+    <incdepgraph>
+      <node id="383">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="381">
+        <label>xasu_eciesinfo.h</label>
+        <link refid="xasu_eciesinfo.h"/>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="387">
+        <label>xasu_ecies_example.c</label>
+        <link refid="xasu__ecies__example_8c"/>
+      </node>
+      <node id="389">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="384">
+        <label>xasu_eciesinfo.h</label>
+        <link refid="xasu_eciesinfo.h"/>
+        <childnode refid="385" relation="include">
+        </childnode>
+        <childnode refid="388" relation="include">
+        </childnode>
+      </node>
+      <node id="391">
+        <label>xasu_ecies_common.c</label>
+        <link refid="xasu__ecies__common_8c"/>
+      </node>
+      <node id="388">
+        <label>xasu_ecies_common.h</label>
+        <link refid="xasu__ecies__common_8h"/>
+        <childnode refid="389" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="391" relation="include">
+        </childnode>
+      </node>
+      <node id="386">
+        <label>xasu_ecies.c</label>
+        <link refid="xasu__ecies_8c"/>
+      </node>
+      <node id="385">
+        <label>xasu_ecies.h</label>
+        <link refid="xasu__ecies_8h"/>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="387" relation="include">
+        </childnode>
+      </node>
+      <node id="390">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_asu___ecies_params" prot="public">XAsu_EciesParams</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__common__defs_1ga1bdc4ba96d28d4f26a449f37519d070b" prot="public" static="no">
+        <name>XASU_ECIES_ENCRYPT_SHA2_CMD_ID</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Command ID for ECIES encrypt command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga49d89cd6769856715391f2fd599f9de5" prot="public" static="no">
+        <name>XASU_ECIES_ENCRYPT_SHA3_CMD_ID</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Command ID for ECIES decrypt command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gab1fb206d626e3a467902cbe755df223e" prot="public" static="no">
+        <name>XASU_ECIES_DECRYPT_SHA2_CMD_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Command ID for ECIES encrypt command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga895523f017183f800fa61a4fdd900992" prot="public" static="no">
+        <name>XASU_ECIES_DECRYPT_SHA3_CMD_ID</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Command ID for ECIES decrypt command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1gac64cf219e8082c245747001d4fb3ecea" prot="public" static="no">
+        <name>XASU_ECIES_KAT_CMD_ID</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Command ID for ECIES KAT command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga632493276648e0bc48790642d1c29225" compoundref="xasu__ecies_8c" startline="183" endline="211">XAsu_EciesKat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__common__defs_1ga0e1d11f0ed2cab42e721549a5186322e" prot="public" static="no">
+        <name>XASU_ECIES_MAX_CMDS</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Maximum number of commands supported by ECIES module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ECIES definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date     Changes
+<hruler/>
+
+1.0   yog   02/21/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_ECIESINFO_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECIESINFO_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xasu_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ECIES<sp/>module<sp/>command<sp/>IDs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="group__xasu__common__defs_1ga1bdc4ba96d28d4f26a449f37519d070b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECIES_ENCRYPT_SHA2_CMD_ID<sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="44" refid="group__xasu__common__defs_1ga49d89cd6769856715391f2fd599f9de5" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_ENCRYPT_SHA3_CMD_ID<sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="45" refid="group__xasu__common__defs_1gab1fb206d626e3a467902cbe755df223e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_DECRYPT_SHA2_CMD_ID<sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xasu__common__defs_1ga895523f017183f800fa61a4fdd900992" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_DECRYPT_SHA3_CMD_ID<sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="47" refid="group__xasu__common__defs_1gac64cf219e8082c245747001d4fb3ecea" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_KAT_CMD_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xasu__common__defs_1ga0e1d11f0ed2cab42e721549a5186322e" refkind="member"><highlight class="preprocessor">#define<sp/>XASU_ECIES_MAX_CMDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53" refid="struct_x_asu___ecies_params" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54" refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" kindref="member">RxKeyAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" kindref="member">TxKeyAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" kindref="member">InDataAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" kindref="member">IvAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" kindref="member">OutDataAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" kindref="member">MacAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" kindref="member">ContextAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_asu___ecies_params_1a0a6141d2d913719a1449834eab52236f" kindref="member">SaltAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___ecies_params_1a7f5403c6f796150c6063a606be622ca6" kindref="member">SaltLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" kindref="member">ContextLen</ref>;<sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" kindref="member">DataLength</ref>;<sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" kindref="member">EccCurveType</ref>;<sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" kindref="member">ShaType</ref>;<sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" kindref="member">ShaMode</ref>;<sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_asu___ecies_params_1a23d473003a0761f64ff3d1bec22a7ce5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a23d473003a0761f64ff3d1bec22a7ce5" kindref="member">Reserved</ref>;<sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" kindref="member">AesKeySize</ref>;<sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" kindref="member">EccKeyLength</ref>;<sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" kindref="member">IvLength</ref>;<sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" kindref="member">MacLength</ref>;<sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_x_asu___ecies_params_1ab7864818d89b245a4d09d8ab82aa86f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Reserved2[4];<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/><ref refid="struct_x_asu___ecies_params" kindref="compound">XAsu_EciesParams</ref>;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_ECIESINFO_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_eciesinfo.h"/>
+  </compounddef>
+</doxygen>

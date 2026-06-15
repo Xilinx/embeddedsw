@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_exp_table__s" kind="struct" prot="public">
+    <compoundname>CamDeviceExpTable_s</compoundname>
+    <includes local="no">cam_device_ae_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_exp_table__s_1aa0912db06e5150530b276dc2858bfe78" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ae_1ga338b4b2104e7e75c050b94688723bcac" kindref="member">CamDeviceEsTable_t</ref></type>
+        <definition>CamDeviceEsTable_t CamDeviceExpTable_s::expTable[CAMDEV_AE_EXP_TABLE_NUM]</definition>
+        <argsstring>[CAMDEV_AE_EXP_TABLE_NUM]</argsstring>
+        <name>expTable</name>
+        <briefdescription>
+<para>Exposure table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_exp_table__s_1a640fc5bfa8caa5ac3fa4ff59c8bb9eb2" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceExpTable_s::expTableNum</definition>
+        <argsstring></argsstring>
+        <name>expTableNum</name>
+        <briefdescription>
+<para>The number of exposure table. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice exposure table. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="349">
+        <label>CamDeviceExpTable_s</label>
+        <link refid="struct_cam_device_exp_table__s"/>
+        <childnode refid="350" relation="usage">
+          <edgelabel>expTable</edgelabel>
+        </childnode>
+      </node>
+      <node id="350">
+        <label>CamDeviceEsTable_s</label>
+        <link refid="struct_cam_device_es_table__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="264" bodyend="267"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_exp_table__s_1aa0912db06e5150530b276dc2858bfe78" prot="public" virt="non-virtual"><scope>CamDeviceExpTable_s</scope><name>expTable</name></member>
+      <member refid="struct_cam_device_exp_table__s_1a640fc5bfa8caa5ac3fa4ff59c8bb9eb2" prot="public" virt="non-virtual"><scope>CamDeviceExpTable_s</scope><name>expTableNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

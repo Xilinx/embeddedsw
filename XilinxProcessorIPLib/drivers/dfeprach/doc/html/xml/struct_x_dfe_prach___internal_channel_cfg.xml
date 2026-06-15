@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___internal_channel_cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_InternalChannelCfg</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_channel_cfg_1a2611d8bfdd5d1a18f4799020c9a2ae8f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalChannelCfg::Enable</definition>
+        <argsstring></argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>[0,1] Indicates if this RCID is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_channel_cfg_1a9e62e953d3419bfb5d50a003c905c069" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalChannelCfg::RCId</definition>
+        <argsstring></argsstring>
+        <name>RCId</name>
+        <briefdescription>
+<para><verbatim>   [0-15] RCID number allocated to this RACH channel
+</verbatim> configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is the TID identifier on the RACH/FFT interface. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_channel_cfg_1a975f663f4dc35b01108704a62f8dcf21" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalChannelCfg::RachChannel</definition>
+        <argsstring></argsstring>
+        <name>RachChannel</name>
+        <briefdescription>
+<para><verbatim>          [0-15] The physical RACH channel used by this
+</verbatim> RCID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="527" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_channel_cfg_1a9727c240828802e4774e592cfee66a3a" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfePrach_InternalChannelCfg::CCID</definition>
+        <argsstring></argsstring>
+        <name>CCID</name>
+        <briefdescription>
+<para><verbatim>   [0-15] The carrier CCID (within the band defined in
+</verbatim> field BandId) from which this RACH channel is to be extracted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="529" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___internal_channel_cfg_1aa752cb22ca0186f5a19e3d5594a37475" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_InternalChannelCfg::BandId</definition>
+        <argsstring></argsstring>
+        <name>BandId</name>
+        <briefdescription>
+<para><verbatim>     [0-2] The Band from which this RACH channel is to be
+</verbatim> extracted. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="531" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="531" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Full RACH channel configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="522" bodyend="533"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___internal_channel_cfg_1aa752cb22ca0186f5a19e3d5594a37475" prot="public" virt="non-virtual"><scope>XDfePrach_InternalChannelCfg</scope><name>BandId</name></member>
+      <member refid="struct_x_dfe_prach___internal_channel_cfg_1a9727c240828802e4774e592cfee66a3a" prot="public" virt="non-virtual"><scope>XDfePrach_InternalChannelCfg</scope><name>CCID</name></member>
+      <member refid="struct_x_dfe_prach___internal_channel_cfg_1a2611d8bfdd5d1a18f4799020c9a2ae8f" prot="public" virt="non-virtual"><scope>XDfePrach_InternalChannelCfg</scope><name>Enable</name></member>
+      <member refid="struct_x_dfe_prach___internal_channel_cfg_1a975f663f4dc35b01108704a62f8dcf21" prot="public" virt="non-virtual"><scope>XDfePrach_InternalChannelCfg</scope><name>RachChannel</name></member>
+      <member refid="struct_x_dfe_prach___internal_channel_cfg_1a9e62e953d3419bfb5d50a003c905c069" prot="public" virt="non-virtual"><scope>XDfePrach_InternalChannelCfg</scope><name>RCId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

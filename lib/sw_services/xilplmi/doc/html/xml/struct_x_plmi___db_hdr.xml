@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___db_hdr" kind="struct" prot="public">
+    <compoundname>XPlmi_DbHdr</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___db_hdr_1a4ca1490db9a16b024c2c52f84e6389c7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_DbHdr::HdrVersion</definition>
+        <argsstring></argsstring>
+        <name>HdrVersion</name>
+        <briefdescription>
+<para>Database Header Version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___db_hdr_1ae3bedfd95622da6f21109c3895f714b5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_DbHdr::HdrSize</definition>
+        <argsstring></argsstring>
+        <name>HdrSize</name>
+        <briefdescription>
+<para>Database Header Size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___db_hdr_1a8735d01d596471f37aa1a86cd5ea2853" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XPlmi_DbHdr::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved Field. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___db_hdr_1a55890cb4e50fa15813be0f339da4cdd7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_DbHdr::DbSize</definition>
+        <argsstring></argsstring>
+        <name>DbSize</name>
+        <briefdescription>
+<para>Database Size in Words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_update.h" bodystart="89" bodyend="94"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___db_hdr_1a55890cb4e50fa15813be0f339da4cdd7" prot="public" virt="non-virtual"><scope>XPlmi_DbHdr</scope><name>DbSize</name></member>
+      <member refid="struct_x_plmi___db_hdr_1ae3bedfd95622da6f21109c3895f714b5" prot="public" virt="non-virtual"><scope>XPlmi_DbHdr</scope><name>HdrSize</name></member>
+      <member refid="struct_x_plmi___db_hdr_1a4ca1490db9a16b024c2c52f84e6389c7" prot="public" virt="non-virtual"><scope>XPlmi_DbHdr</scope><name>HdrVersion</name></member>
+      <member refid="struct_x_plmi___db_hdr_1a8735d01d596471f37aa1a86cd5ea2853" prot="public" virt="non-virtual"><scope>XPlmi_DbHdr</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

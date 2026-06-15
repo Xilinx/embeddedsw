@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpio__low__level__example_8c" kind="file">
+    <compoundname>xgpio_low_level_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xgpio__l_8h" local="yes">xgpio_l.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="109">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="110">
+        <label>xil_io.h</label>
+      </node>
+      <node id="107">
+        <label>xgpio_l.h</label>
+        <link refid="xgpio__l_8h"/>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xil_types.h</label>
+      </node>
+      <node id="106">
+        <label>xparameters.h</label>
+      </node>
+      <node id="111">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="105">
+        <label>xgpio_low_level_example.c</label>
+        <link refid="xgpio_low_level_example.c"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xgpio__low__level__example_8c_1aeb7a7ba1ab7e0406f1b5ab36d579f585" prot="public" static="no">
+        <name>LED</name>
+        <initializer>0x01 /* Assumes bit 0 of GPIO is connected to an LED */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xgpio__low__level__example_8c_1a292491de8641ec2d6f803fa4fd6463ab" prot="public" static="no">
+        <name>GPIO_REG_BASEADDR</name>
+        <initializer>XPAR_XGPIO_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xgpio__low__level__example_8c_1a12a46d6ff86950784521c2446d84b2fc" prot="public" static="no">
+        <name>LED_DELAY</name>
+        <initializer>1000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xgpio__low__level__example_8c_1a9e917f20402c4bc2dacf745cbdfdd14e" prot="public" static="no">
+        <name>LED_CHANNEL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>The purpose of this function is to illustrate how to use the GPIO low level driver to turn on and off an LED. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Always 0</para></simplesect>
+<simplesect kind="note"><para>The main function is returning an integer to prevent compiler warnings. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c" bodystart="97" bodyend="142"/>
+        <references refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" compoundref="xgpio__l_8h" startline="86">XGPIO_CHAN_OFFSET</references>
+        <references refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" compoundref="xgpio__l_8h" startline="72">XGPIO_DATA_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <references refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" compoundref="xgpio__l_8h" startline="73">XGPIO_TRI_OFFSET</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the General Purpose I/O (GPIO) low level driver and hardware device. </para>    </briefdescription>
+    <detaileddescription>
+<para>It only uses a channel 1 of a GPIO device.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date  Changes
+<hruler/>
+
+1.00b jhl  04/29/02 First release
+2.00a jhl  12/30/02 Addition of dual channel capability
+2.00a sv   04/18/05 Minor changes to comply to Doxygen and coding guidelines
+3.00a ktn  11/21/09 Removed the macros XGpio_mSetDataDirection,
+              XGpio_mGetDataReg and XGpio_mSetDataReg. Users
+              should use XGpio_WriteReg/XGpio_ReadReg to achieve the
+              same functionality.
+4.1   lks  11/18/15 Updated to use canonical xparameters and
+              clean up of the comments and code for CR 900381
+4.3   ms   01/23/17 Added xil_printf statement in main function to
+                    ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                    are available in all examples. This is a fix for
+                    CR-965028.
+4.5   sne  06/12/19 Fixed IAR compiler warning.
+4.10  gm   07/11/23 Added SDT support.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpio__l_8h" kindref="compound">xgpio_l.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LED<sp/>0x01<sp/></highlight><highlight class="comment">/*<sp/>Assumes<sp/>bit<sp/>0<sp/>of<sp/>GPIO<sp/>is<sp/>connected<sp/>to<sp/>an<sp/>LED<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_REG_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_GPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>GPIO_REG_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XGPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>is<sp/>used<sp/>to<sp/>wait<sp/>after<sp/>an<sp/>LED<sp/>is<sp/>turned<sp/>on<sp/>to<sp/>make</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>sure<sp/>that<sp/>it<sp/>is<sp/>visible<sp/>to<sp/>the<sp/>human<sp/>eye.<sp/><sp/>This<sp/>constant<sp/>might<sp/>need<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>tuned<sp/>for<sp/>faster<sp/>or<sp/>slower<sp/>processor<sp/>speeds.</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LED_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1000000</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>is<sp/>used<sp/>to<sp/>determine<sp/>which<sp/>channel<sp/>of<sp/>the<sp/>GPIO<sp/>is</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>used<sp/>for<sp/>the<sp/>LED<sp/>if<sp/>there<sp/>are<sp/>2<sp/>channels<sp/>supported.</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LED_CHANNEL<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="97" refid="xgpio__low__level__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xgpio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Delay;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>direction<sp/>for<sp/>all<sp/>signals<sp/>to<sp/>be<sp/>inputs<sp/>except<sp/>the<sp/>LED<sp/>output</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>((GPIO_REG_BASEADDR),</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((LED_CHANNEL<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" kindref="member">XGPIO_TRI_OFFSET</ref>,<sp/>(~LED));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Loop<sp/>forever<sp/>blinking<sp/>the<sp/>LED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>state<sp/>of<sp/>the<sp/>data<sp/>so<sp/>that<sp/>only<sp/>the<sp/>LED<sp/>state<sp/>can<sp/>be</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>modified</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(GPIO_REG_BASEADDR,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((LED_CHANNEL<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" kindref="member">XGPIO_DATA_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>LED<sp/>to<sp/>the<sp/>opposite<sp/>state<sp/>such<sp/>that<sp/>it<sp/>blinks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>LED)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>((GPIO_REG_BASEADDR),</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((LED_CHANNEL<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" kindref="member">XGPIO_DATA_OFFSET</ref>,<sp/>Data<sp/>&amp;<sp/>~LED);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>((GPIO_REG_BASEADDR),</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((LED_CHANNEL<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" kindref="member">XGPIO_DATA_OFFSET</ref>,<sp/>Data<sp/>|<sp/>LED);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>a<sp/>small<sp/>amount<sp/>of<sp/>time<sp/>so<sp/>that<sp/>the<sp/>LED<sp/>is<sp/>visible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Delay<sp/>=<sp/>0;<sp/>Delay<sp/>&lt;<sp/>LED_DELAY;<sp/>Delay++);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/examples/xgpio_low_level_example.c"/>
+  </compounddef>
+</doxygen>

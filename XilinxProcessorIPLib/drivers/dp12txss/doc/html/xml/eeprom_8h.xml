@@ -1,0 +1,593 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="eeprom_8h" kind="file">
+    <compoundname>eeprom.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes local="yes">xiic_l.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes refid="keymgmt_8h" local="yes">keymgmt.h</includes>
+    <includedby refid="eeprom_8c" local="yes">eeprom.c</includedby>
+    <includedby refid="keymgmt_8c" local="yes">keymgmt.c</includedby>
+    <includedby refid="keymgmt__keyfile_8c" local="yes">keymgmt_keyfile.c</includedby>
+    <incdepgraph>
+      <node id="230">
+        <label>keymgmt.h</label>
+        <link refid="keymgmt_8h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>stdint.h</label>
+      </node>
+      <node id="228">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="232">
+        <label>xstatus.h</label>
+      </node>
+      <node id="229">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="225">
+        <label>xil_types.h</label>
+      </node>
+      <node id="226">
+        <label>xparameters.h</label>
+      </node>
+      <node id="224">
+        <label>eeprom.h</label>
+        <link refid="eeprom.h"/>
+        <childnode refid="225" relation="include">
+        </childnode>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="230" relation="include">
+        </childnode>
+      </node>
+      <node id="227">
+        <label>xiic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="235">
+        <label>keymgmt.c</label>
+        <link refid="keymgmt_8c"/>
+      </node>
+      <node id="236">
+        <label>keymgmt_keyfile.c</label>
+      </node>
+      <node id="234">
+        <label>eeprom.c</label>
+      </node>
+      <node id="233">
+        <label>eeprom.h</label>
+        <link refid="eeprom.h"/>
+        <childnode refid="234" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="eeprom_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" prot="public" static="no">
+        <name>IIC_DEVICE_ID</name>
+        <initializer>XPAR_IIC_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1a90bc74590962865fc1ab7ee1be0f4b64" prot="public" static="no">
+        <name>INTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="64" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1aa8093f080084f33c32d5d94f75f0309b" prot="public" static="no">
+        <name>IIC_INTR_ID</name>
+        <initializer>XPAR_FABRIC_IIC_0_VEC_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="65" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1acbad0bcec47edfd40d1ca213be24408d" prot="public" static="no">
+        <name>INTC</name>
+        <initializer>XScuGic</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="66" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1a1774a555f3fbdee1c1a31fd1dfda655d" prot="public" static="no">
+        <name>INTC_HANDLER</name>
+        <initializer>XScuGic_InterruptHandler</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="67" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1aaa6cf79c8db30749fdc1022ee5f673e5" prot="public" static="no">
+        <name>EEPROM_ADDRESS</name>
+        <initializer>0x54	/* 0xA0 as an 8 bit number. */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1a8ad02ab61f37d20ecedd7acfbc5c42ed" prot="public" static="no">
+        <name>IIC_MUX_ADDRESS</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1affa1bfd6b7cfe07fd14c3d559519cd98" prot="public" static="no">
+        <name>IIC_EEPROM_CHANNEL</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1aca2c06eb8e2fb046f1eebf52436db999" prot="public" static="no">
+        <name>IIC_MUX_ENABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1a7d467c1d283fdfa1f2081ba1e0d01b6e" prot="public" static="no">
+        <name>PAGE_SIZE</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1af55149bc1f05cf18af067a302e31e3f9" prot="public" static="no">
+        <name>DATA_SIZE</name>
+        <initializer>754</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="eeprom_8h_1a3c5640ff6004aae96a9046d3d7c0619e" prot="public" static="no">
+        <name>EEPROM_TEST_START_ADDRESS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="eeprom_8h_1a9d1fe969ebbb8e1f148b165f2af4a17a" prot="public" static="no">
+        <type>u8</type>
+        <definition>typedef u8 AddressType</definition>
+        <argsstring></argsstring>
+        <name>AddressType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="eeprom_8h_1a301b988b2453fda0d2780ed4d82c8450" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[sizeof(AddressType)+PAGE_SIZE]</definition>
+        <argsstring>[sizeof(AddressType)+PAGE_SIZE]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1ac9f1e37be3ecae9166bcead02cd09300" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MasterWriteBuffer[1024]</definition>
+        <argsstring>[1024]</argsstring>
+        <name>MasterWriteBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1a55261a92cf00056c6f862f5f3cc3775a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MasterWriteBufIndex</definition>
+        <argsstring></argsstring>
+        <name>MasterWriteBufIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1af87b2a3712f19c0723e6b945b30cd2cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[PAGE_SIZE]</definition>
+        <argsstring>[PAGE_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1ab54133dd79ea7da7c11dfe4abc725ba2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 MasterReadBuffer[1024]</definition>
+        <argsstring>[1024]</argsstring>
+        <name>MasterReadBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1a7aa7887e7275ae0c1230bb34be10a0c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 MasterReadBufIndex</definition>
+        <argsstring></argsstring>
+        <name>MasterReadBufIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="eeprom_8h_1a628a6daf223f52f5bfb69f6ceabf7fa7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 EepromIicAddr</definition>
+        <argsstring></argsstring>
+        <name>EepromIicAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="eeprom_8h_1a8c66068fe4bc27172483e0172d877b64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IicSetHandler</definition>
+        <argsstring>()</argsstring>
+        <name>IicSetHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="108" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="eeprom_8h_1ace1105fee94ffb536395ff3746734819" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IicEepromReadWrite</definition>
+        <argsstring>(const u8 *DataToWrite, u32 data_size)</argsstring>
+        <name>IicEepromReadWrite</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>DataToWrite</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>data_size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="124" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="eeprom_8h_1a40d92867ead2dc8efe06207b8b0f3494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EepromWriteData</definition>
+        <argsstring>(u16 ByteCount)</argsstring>
+        <name>EepromWriteData</name>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a buffer of data to the IIC serial EEPROM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes in the buffer to be written.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>The Byte count should not exceed the page size of the EEPROM as noted by the constant PAGE_SIZE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="155" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="eeprom_8h_1a72f47aa22ac802f95eaec2691bf7ccb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EepromReadData</definition>
+        <argsstring>(u8 *BufferPtr, u16 ByteCount)</argsstring>
+        <name>EepromReadData</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <briefdescription>
+<para>This function reads data from the IIC serial EEPROM into a specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the address of the data buffer to be filled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ByteCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes in the buffer to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful else XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="243" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="eeprom_8h_1a3879abe3fc3ba5bf274394c467d5be57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int EepromReadDataOffset</definition>
+        <argsstring>(u8 *BufferPtr, u16 ByteCount, u32 offset)</argsstring>
+        <name>EepromReadDataOffset</name>
+        <param>
+          <type>u8 *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>ByteCount</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.c" bodystart="323" bodyend="413"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/><sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"></highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>eeprom.h</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/><sp/>Created<sp/>on:<sp/>May<sp/>5,<sp/>2015</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/>Author:<sp/>yashova</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>EEPROM_H_</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EEPROM_H_</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt_8h" kindref="compound">keymgmt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>The<sp/>AddressType<sp/>for<sp/>ML300/ML310/ML410/ML510<sp/>boards<sp/>should<sp/>be<sp/>u16</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/><sp/>as<sp/>the<sp/>address<sp/>pointer<sp/>in<sp/>the<sp/>on<sp/>board<sp/>EEPROM<sp/>is<sp/>2<sp/>bytes.</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>The<sp/>AddressType<sp/>for<sp/>ML403/ML501/ML505/ML507/ML605/SP601/SP605/KC705/ZC702</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>/ZC706<sp/>boards<sp/>should<sp/>be<sp/>u8<sp/>as<sp/>the<sp/>address<sp/>pointer<sp/>in<sp/>the<sp/>on<sp/>board<sp/>EEPROM<sp/>is</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>1<sp/>bytes.</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u8<sp/>AddressType;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/>XPAR_IIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC_DEVICE_ID<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>IIC_INTR_ID<sp/><sp/><sp/><sp/>XPAR_INTC_0_IIC_0_VEC_ID</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC_HANDLER<sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>IIC_INTR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_IIC_0_VEC_ID</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>INTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constant<sp/>defines<sp/>the<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>Slave<sp/>device<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>IIC<sp/>bus.<sp/>Note<sp/>that<sp/>since<sp/>the<sp/>address<sp/>is<sp/>only<sp/>7<sp/>bits,<sp/>this<sp/>constant<sp/>is<sp/>the</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>address<sp/>divided<sp/>by<sp/>2.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>The<sp/>7<sp/>bit<sp/>IIC<sp/>Slave<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>EEPROM<sp/>on<sp/>the<sp/>ML300/ML310/ML403/ML410/</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>ML501/ML505/ML507/ML510<sp/>boards<sp/>is<sp/>0x50.<sp/>The<sp/>7<sp/>bit<sp/>IIC<sp/>Slave<sp/>address<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>IIC<sp/>EEPROM<sp/>on<sp/>the<sp/>ML605/SP601/SP605/KC705/ZC702/ZC706<sp/>boards<sp/>is<sp/>0x54.</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/>Please<sp/>refer<sp/>the<sp/>User<sp/>Guide&apos;s<sp/>of<sp/>the<sp/>respective<sp/>boards<sp/>for<sp/>further</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>information<sp/>about<sp/>the<sp/>IIC<sp/>slave<sp/>address<sp/>of<sp/>IIC<sp/>EEPROM&apos;s.</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EEPROM_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x54<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0xA0<sp/>as<sp/>an<sp/>8<sp/>bit<sp/>number.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*<sp/>The<sp/>IIC_MUX_ADDRESS<sp/>defines<sp/>the<sp/>address<sp/>of<sp/>the<sp/>IIC<sp/>MUX<sp/>device<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*<sp/>IIC<sp/>bus.<sp/>Note<sp/>that<sp/>since<sp/>the<sp/>address<sp/>is<sp/>only<sp/>7<sp/>bits,<sp/>this<sp/>constant<sp/>is<sp/>the</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>address<sp/>divided<sp/>by<sp/>2.</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*<sp/>The<sp/>IIC<sp/>Slaves<sp/>on<sp/>the<sp/>KC705/ZC702/ZC706<sp/>boards<sp/>are<sp/>connected<sp/>to<sp/>an</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/>*<sp/>IIC<sp/>MUX.</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/>IIC_EEPROM_CHANNEL<sp/>is<sp/>the<sp/>Channel<sp/>number<sp/>of<sp/>EEPROM<sp/>for<sp/>IIC<sp/>Mux.<sp/>On<sp/>KC705<sp/>it</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>is<sp/>0x08<sp/>and<sp/>ZC702<sp/>is<sp/>0x04.Please<sp/>refer<sp/>the<sp/>User<sp/>Guide&apos;s<sp/>of<sp/>the<sp/>respective</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>boards<sp/>for<sp/>further<sp/>information<sp/>about<sp/>the<sp/>Channel<sp/>number<sp/>to<sp/>use<sp/>EEPROM.</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IIC_MUX_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_EEPROM_CHANNEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>This<sp/>define<sp/>should<sp/>be<sp/>uncommented<sp/>if<sp/>there<sp/>is<sp/>IIC<sp/>MUX<sp/>on<sp/>the<sp/>board<sp/>to<sp/>which</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*<sp/>this<sp/>EEPROM<sp/>is<sp/>connected.<sp/>The<sp/>boards<sp/>that<sp/>have<sp/>IIC<sp/>MUX<sp/>are<sp/>KC705/ZC702/ZC706.</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IIC_MUX_ENABLE</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>The<sp/>page<sp/>size<sp/>determines<sp/>how<sp/>much<sp/>data<sp/>should<sp/>be<sp/>written<sp/>at<sp/>a<sp/>time.</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>The<sp/>ML310/ML300<sp/>board<sp/>supports<sp/>a<sp/>page<sp/>size<sp/>of<sp/>32<sp/>and<sp/>16.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*<sp/>The<sp/>write<sp/>function<sp/>should<sp/>be<sp/>called<sp/>with<sp/>this<sp/>as<sp/>a<sp/>maximum<sp/>byte<sp/>count.</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PAGE_SIZE<sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DATA_SIZE<sp/><sp/><sp/>754</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>The<sp/>Starting<sp/>address<sp/>in<sp/>the<sp/>IIC<sp/>EEPROM<sp/>on<sp/>which<sp/>this<sp/>test<sp/>is<sp/>performed.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EEPROM_TEST_START_ADDRESS<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>WriteBuffer[</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(AddressType)<sp/>+<sp/>PAGE_SIZE];</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>MasterWriteBuffer[1024];</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>MasterWriteBufIndex;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>ReadBuffer[PAGE_SIZE];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>buffer<sp/>for<sp/>reading<sp/>a<sp/>page.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>MasterReadBuffer[1024];</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>MasterReadBufIndex;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u16<sp/>EepromIicAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Variable<sp/>for<sp/>storing<sp/>Eeprom<sp/>IIC<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IicSetHandler();</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IicEepromReadWrite(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*DataToWrite,<sp/>u32<sp/>data_size);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EepromWriteData(u16<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EepromReadData(u8<sp/>*BufferPtr,<sp/>u16<sp/>ByteCount);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EepromReadDataOffset(u8<sp/>*BufferPtr,<sp/>u16<sp/>ByteCount,<sp/>u32<sp/>offset);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>SetupInterruptSystem(XIic<sp/>*IicInstPtr);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EEPROM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/examples/src/key/eeprom.h"/>
+  </compounddef>
+</doxygen>

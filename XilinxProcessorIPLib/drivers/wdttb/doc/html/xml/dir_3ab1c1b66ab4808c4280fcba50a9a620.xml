@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3ab1c1b66ab4808c4280fcba50a9a620" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xwdttb__example_8c">xwdttb_example.c</innerfile>
+    <innerfile refid="xwdttb__gwdt__example_8c">xwdttb_gwdt_example.c</innerfile>
+    <innerfile refid="xwdttb__gwdt__intr__example_8c">xwdttb_gwdt_intr_example.c</innerfile>
+    <innerfile refid="xwdttb__gwdt__selftest__example_8c">xwdttb_gwdt_selftest_example.c</innerfile>
+    <innerfile refid="xwdttb__intr__example_8c">xwdttb_intr_example.c</innerfile>
+    <innerfile refid="xwdttb__low__level__example_8c">xwdttb_low_level_example.c</innerfile>
+    <innerfile refid="xwdttb__selftest__example_8c">xwdttb_selftest_example.c</innerfile>
+    <innerfile refid="xwdttb__winwdt__example_8c">xwdttb_winwdt_example.c</innerfile>
+    <innerfile refid="xwdttb__winwdt__intr__example_8c">xwdttb_winwdt_intr_example.c</innerfile>
+    <innerfile refid="xwdttb__winwdt__qamode__example_8c">xwdttb_winwdt_qamode_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/wdttb/examples/"/>
+  </compounddef>
+</doxygen>

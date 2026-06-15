@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_mbox_fifo_ctrl" kind="struct" prot="public">
+    <compoundname>MboxFifoCtrl</compoundname>
+    <includes local="no">mbox_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_mbox_fifo_ctrl_1aefc2254bf3e96fe7a5d166d155d9d034" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId MboxFifoCtrl::core_id</definition>
+        <argsstring></argsstring>
+        <name>core_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_fifo_ctrl_1a009dbf74e6f14ac644b1d038a95efeed" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId MboxFifoCtrl::sender_id</definition>
+        <argsstring></argsstring>
+        <name>sender_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_fifo_ctrl_1a323c521bb5bb351d8164d9fdf28de7e4" prot="public" static="no" mutable="no">
+        <type>MboxCoreId</type>
+        <definition>MboxCoreId MboxFifoCtrl::receiver_id</definition>
+        <argsstring></argsstring>
+        <name>receiver_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_fifo_ctrl_1a6aee3b78167346fc21c21427002f7649" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_fifo_control" kindref="compound">FifoControl</ref> *</type>
+        <definition>FifoControl* MboxFifoCtrl::fifo</definition>
+        <argsstring></argsstring>
+        <name>fifo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_fifo_ctrl_1af1c3515dbc6537af6250f17cd3d8da08" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* MboxFifoCtrl::buffer_addresses[MAX_MSGS_PER_BOX]</definition>
+        <argsstring>[MAX_MSGS_PER_BOX]</argsstring>
+        <name>buffer_addresses</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of Mbox Control. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="907">
+        <label>MboxFifoCtrl</label>
+        <link refid="struct_mbox_fifo_ctrl"/>
+        <childnode refid="908" relation="usage">
+          <edgelabel>fifo</edgelabel>
+        </childnode>
+      </node>
+      <node id="908">
+        <label>FifoControl</label>
+        <link refid="struct_fifo_control"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_api.h" bodystart="79" bodyend="85"/>
+    <listofallmembers>
+      <member refid="struct_mbox_fifo_ctrl_1af1c3515dbc6537af6250f17cd3d8da08" prot="public" virt="non-virtual"><scope>MboxFifoCtrl</scope><name>buffer_addresses</name></member>
+      <member refid="struct_mbox_fifo_ctrl_1aefc2254bf3e96fe7a5d166d155d9d034" prot="public" virt="non-virtual"><scope>MboxFifoCtrl</scope><name>core_id</name></member>
+      <member refid="struct_mbox_fifo_ctrl_1a6aee3b78167346fc21c21427002f7649" prot="public" virt="non-virtual"><scope>MboxFifoCtrl</scope><name>fifo</name></member>
+      <member refid="struct_mbox_fifo_ctrl_1a323c521bb5bb351d8164d9fdf28de7e4" prot="public" virt="non-virtual"><scope>MboxFifoCtrl</scope><name>receiver_id</name></member>
+      <member refid="struct_mbox_fifo_ctrl_1a009dbf74e6f14ac644b1d038a95efeed" prot="public" virt="non-virtual"><scope>MboxFifoCtrl</scope><name>sender_id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

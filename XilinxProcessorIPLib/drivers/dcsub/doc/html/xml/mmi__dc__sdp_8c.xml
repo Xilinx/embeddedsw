@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__sdp_8c" kind="file">
+    <compoundname>mmi_dc_sdp.c</compoundname>
+    <includes refid="mmi__dc__sdp_8h" local="yes">mmi_dc_sdp.h</includes>
+    <includes refid="mmi__dc__setup__frames_8h" local="yes">mmi_dc_setup_frames.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="212">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="220">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+      </node>
+      <node id="216">
+        <label>xil_io.h</label>
+      </node>
+      <node id="210">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="211" relation="include">
+        </childnode>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+      </node>
+      <node id="213">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="217" relation="include">
+        </childnode>
+      </node>
+      <node id="214">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+      </node>
+      <node id="211">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="219">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="215">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="216" relation="include">
+        </childnode>
+      </node>
+      <node id="222">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="210" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>xparameters.h</label>
+      </node>
+      <node id="223">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="208">
+        <label>mmi_dc_sdp.c</label>
+        <link refid="mmi_dc_sdp.c"/>
+        <childnode refid="209" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="218">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="216" relation="include">
+        </childnode>
+      </node>
+      <node id="209">
+        <label>mmi_dc_sdp.h</label>
+        <link refid="mmi__dc__sdp_8h"/>
+        <childnode refid="210" relation="include">
+        </childnode>
+      </node>
+      <node id="217">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="214" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dc__sdp_8c_1af05111f2e104aa934de7f4ed4e3438ef" prot="public" static="no">
+        <name>XDPDC_SDP_CHANNELS</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="19" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__sdp_8c_1a9f04e8d97856546ae891636ad16293dd" prot="public" static="no">
+        <name>XDPDC_SDP_CHANNEL_ALLOC</name>
+        <initializer>0x13U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="20" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__sdp_8c_1a8c9c7cfefd12c1ce71aefff836ef9d18" prot="public" static="no">
+        <name>XDPDC_SDP_SAMPLE_SIZE_16BIT</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dc__sdp_8c_1aec749fe388d6303e66132d0ec0d87ef9" prot="public" static="no">
+        <name>XDPDC_SDP_AUDIO_FREQ_48K</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__sdp_8c_1ac4d820ea95f52734bb803c61bc4ba6ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_InitSdpFrameBuffer</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitSdpFrameBuffer</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the SDP frame buffer metadata. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>SDP data is generated in memory at XDPDC_SDP_BUFFER_ADDR </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="36" bodyend="45"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" compoundref="mmi__dpdc__example_8h" startline="60">FrameInfo::LineSize</references>
+        <references refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" compoundref="mmi__dpdc__example_8h" startline="104">RunConfig::Sdp_FbInfo</references>
+        <references refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" compoundref="mmi__dpdc__example_8h" startline="58">FrameInfo::Size</references>
+        <references refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" compoundref="mmi__dpdc__example_8h" startline="59">FrameInfo::Stride</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__sdp_8c_1afb0504d4880dbd976198faca0d13154c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_FillSdpBuffer</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_FillSdpBuffer</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates SDP packets into the SDP memory buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>RunCfgPtr is unused and kept for API symmetry </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="59" bodyend="90"/>
+        <references refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" compoundref="xdc__hw_8h" startline="7007">XDc_WriteReg</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__sdp_8c_1a532d5abd02b3cf21940123f022cf3fbf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ConfigureSdp</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_ConfigureSdp</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures SDP controls in DC subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Must be called before <ref refid="xdcsub_8c_1a4e69f4103855f57e2eae9266a6c316b3" kindref="member">XDcSub_ConfigureDcVideo()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="104" bodyend="113"/>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="xdcsub_8c_1a617cbef68ae080bc196437188beaf31e" compoundref="xdcsub_8c" startline="1409" endline="1422">XDcSub_EnableSdp</references>
+        <references refid="xdcsub_8c_1a6b77fa0d921ddfa0ba990a37e72917ce" compoundref="xdcsub_8c" startline="1359" endline="1372">XDcSub_SetCursorSdpRdyInterval</references>
+        <references refid="xdcsub_8c_1a4ab89f9e27f89ecc8c434af9b9317f58" compoundref="xdcsub_8c" startline="793" endline="804">XDcSub_SetSdp</references>
+        <references refid="xdcsub_8c_1a11672ed8b0d3dde5b2dde4f9af28955f" compoundref="xdcsub_8c" startline="1383" endline="1398">XDcSub_SetSdpAckSel</references>
+        <references refid="xdcsub_8c_1ae36ce0ca74383d782e71e94b39bf867c" compoundref="xdcsub_8c" startline="843" endline="855">XDcSub_SetSdpCursorBuffers</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__sdp_8c_1a28b48cdbc4ab2b26acfcd928d511b14a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_SetupSdpDescriptor</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_SetupSdpDescriptor</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the SDP DMA descriptor (Desc7) and links it to the SDP packet buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Must be called after <ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="128" bodyend="133"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <references refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" compoundref="mmi__dpdc__example_8h" startline="104">RunConfig::Sdp_FbInfo</references>
+        <references refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__sdp_8c_1a240b6c0f914f3d9d2b36cac409c9e195" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ConfigureSdpDMA</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_ConfigureSdpDMA</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures SDP DMA channel trigger state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Desc7 must be initialized before calling this API </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c" bodystart="147" bodyend="155"/>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains SDP packet generation and DMA configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__sdp_8h" kindref="compound">mmi_dc_sdp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__setup__frames_8h" kindref="compound">mmi_dc_setup_frames.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_SDP_CHANNELS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8U</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_SDP_CHANNEL_ALLOC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x13U</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_SDP_SAMPLE_SIZE_16BIT<sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPDC_SDP_AUDIO_FREQ_48K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36" refid="mmi__dc__sdp_8h_1ac4d820ea95f52734bb803c61bc4ba6ba" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__sdp_8c_1ac4d820ea95f52734bb803c61bc4ba6ba" kindref="member">XDpDc_InitSdpFrameBuffer</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Sdp_FbInfo;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sdp_FbInfo<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" kindref="member">Sdp_FbInfo</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sdp_FbInfo-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>XDPDC_SDP_BUFFER_ADDR;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sdp_FbInfo-&gt;<ref refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" kindref="member">Size</ref><sp/>=<sp/>XDPDC_SDP_TOTAL_BYTES;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sdp_FbInfo-&gt;<ref refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" kindref="member">LineSize</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Sdp_FbInfo-&gt;<ref refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" kindref="member">Stride</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="mmi__dc__sdp_8h_1afb0504d4880dbd976198faca0d13154c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__sdp_8c_1afb0504d4880dbd976198faca0d13154c" kindref="member">XDpDc_FillSdpBuffer</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BufAddr<sp/>=<sp/>XDPDC_SDP_BUFFER_ADDR;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Channel<sp/>=<sp/>XDPDC_SDP_CHANNELS;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>CA<sp/>=<sp/>XDPDC_SDP_CHANNEL_ALLOC;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SampleSize<sp/>=<sp/>XDPDC_SDP_SAMPLE_SIZE_16BIT;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AudFreqSel<sp/>=<sp/>XDPDC_SDP_AUDIO_FREQ_48K;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)RunCfgPtr;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XDPDC_SDP_PACKET_COUNT;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x0,<sp/>0x4B1B8400);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x4,<sp/>(0x00000010U<sp/>|</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)CA<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)AudFreqSel<sp/>&lt;&lt;<sp/>10)<sp/>|</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)SampleSize<sp/>&lt;&lt;<sp/>8)<sp/>|</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)Channel<sp/>-<sp/>1U)));</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x8,<sp/>0x0);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0xc,<sp/>0x0);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x10,<sp/>0x0);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x14,<sp/>0x0);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x18,<sp/>0x0);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x1c,<sp/>0x0);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(BufAddr,<sp/>0x20,<sp/>0x0);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufAddr<sp/>+=<sp/>XDPDC_SDP_BUFFER_OFFSET;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>SDP<sp/>packet<sp/>buffer<sp/>generated<sp/>(%d<sp/>packets)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPDC_SDP_PACKET_COUNT);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="104" refid="mmi__dc__sdp_8h_1a532d5abd02b3cf21940123f022cf3fbf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__sdp_8c_1a532d5abd02b3cf21940123f022cf3fbf" kindref="member">XDpDc_ConfigureSdp</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a617cbef68ae080bc196437188beaf31e" kindref="member">XDcSub_EnableSdp</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a4ab89f9e27f89ecc8c434af9b9317f58" kindref="member">XDcSub_SetSdp</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>SDP_DMA);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1ae36ce0ca74383d782e71e94b39bf867c" kindref="member">XDcSub_SetSdpCursorBuffers</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>1,<sp/>15);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a11672ed8b0d3dde5b2dde4f9af28955f" kindref="member">XDcSub_SetSdpAckSel</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>XDC_SDP_DP_ACK);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdcsub_8c_1a6b77fa0d921ddfa0ba990a37e72917ce" kindref="member">XDcSub_SetCursorSdpRdyInterval</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>4);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>SDP<sp/>configured:<sp/>source=DMA,<sp/>ack=DP_ACK,<sp/>interval=4\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="128" refid="mmi__dc__sdp_8h_1a28b48cdbc4ab2b26acfcd928d511b14a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__sdp_8c_1a28b48cdbc4ab2b26acfcd928d511b14a" kindref="member">XDpDc_SetupSdpDescriptor</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1acd2ed76d014f99adc3fcd14ca3b378b1" kindref="member">XDpDc_CreateDescriptors</ref>(RunCfgPtr,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" kindref="member">Sdp_FbInfo</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;[DESC]<sp/>SDP:<sp/>Desc7<sp/>@<sp/>0x%08x<sp/>-&gt;<sp/>SDP<sp/>buf<sp/>0x%08x\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(UINTPTR)RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>,<sp/>(u32)RunCfgPtr-&gt;<ref refid="struct_run_config_1ad388d8e099bafebffe2988b8b680ced8" kindref="member">Sdp_FbInfo</ref>-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="147" refid="mmi__dc__sdp_8h_1a240b6c0f914f3d9d2b36cac409c9e195" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__sdp_8c_1a240b6c0f914f3d9d2b36cac409c9e195" kindref="member">XDpDc_ConfigureSdpDMA</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DmaPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;SDP.Channel.Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;SDP.SDP_TriggerStatus<sp/>=<sp/>XDCDMA_TRIGGER_EN;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>SDP<sp/>DMA<sp/>configured\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_sdp.c"/>
+  </compounddef>
+</doxygen>

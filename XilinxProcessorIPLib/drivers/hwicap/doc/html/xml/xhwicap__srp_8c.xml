@@ -1,0 +1,386 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhwicap__srp_8c" kind="file">
+    <compoundname>xhwicap_srp.c</compoundname>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xil_assert.h</includes>
+    <includes refid="xhwicap_8h" local="yes">xhwicap.h</includes>
+    <incdepgraph>
+      <node id="180">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="182">
+        <label>xhwicap_i.h</label>
+        <link refid="xhwicap__i_8h"/>
+      </node>
+      <node id="181">
+        <label>xhwicap.h</label>
+        <link refid="xhwicap_8h"/>
+        <childnode refid="182" relation="include">
+        </childnode>
+        <childnode refid="183" relation="include">
+        </childnode>
+        <childnode refid="185" relation="include">
+        </childnode>
+        <childnode refid="186" relation="include">
+        </childnode>
+      </node>
+      <node id="184">
+        <label>xil_io.h</label>
+      </node>
+      <node id="183">
+        <label>xhwicap_l.h</label>
+        <link refid="xhwicap__l_8h"/>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="184" relation="include">
+        </childnode>
+      </node>
+      <node id="185">
+        <label>xstatus.h</label>
+      </node>
+      <node id="179">
+        <label>xil_types.h</label>
+      </node>
+      <node id="186">
+        <label>xparameters.h</label>
+      </node>
+      <node id="178">
+        <label>xhwicap_srp.c</label>
+        <link refid="xhwicap_srp.c"/>
+        <childnode refid="179" relation="include">
+        </childnode>
+        <childnode refid="180" relation="include">
+        </childnode>
+        <childnode refid="181" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hwicap_1gaa66afddd82bff4b8c8b5c9b1b27dfeee" prot="public" static="no">
+        <name>DESYNC_COMMAND_SIZE</name>
+        <initializer>7 /* Number of words in the Desync command */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gadcf02f68805c34f20c3b154bb81f4d6a" prot="public" static="no">
+        <name>CAPTURE_COMMAND_SIZE</name>
+        <initializer>7 /* Number of words in the Capture command */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hwicap_1gafac8d8976920a43f29e74411e977b931" prot="public" static="no">
+        <name>READ_CFG_REG_COMMAND_SIZE</name>
+        <initializer>7 /* Num of words in Read Config command */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hwicap_1ga7c4b2410acc62af539dac03005668754" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHwIcap_CommandDesync</definition>
+        <argsstring>(XHwIcap *InstancePtr)</argsstring>
+        <name>XHwIcap_CommandDesync</name>
+        <param>
+          <type><ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sends a DESYNC command to the ICAP port. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- a pointer to the <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="85" bodyend="113"/>
+        <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
+        <references refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</references>
+        <references refid="group__hwicap_1ga3b59b1dac14d84654658e66206861848" compoundref="xhwicap__i_8h" startline="284">XHwIcap_Type1Write</references>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1gafdb7b9947a1e1610a214814c1b19a0a1" compoundref="xhwicap__device__read__frame_8c" startline="81" endline="205">XHwIcap_DeviceReadFrame</referencedby>
+        <referencedby refid="group__hwicap_1ga7b2b996ebb5c5268a07d39e9add552dc" compoundref="xhwicap__device__write__frame_8c" startline="86" endline="246">XHwIcap_DeviceWriteFrame</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hwicap_1gaff2a2db509296264ad44270798b4bed2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHwIcap_CommandCapture</definition>
+        <argsstring>(XHwIcap *InstancePtr)</argsstring>
+        <name>XHwIcap_CommandCapture</name>
+        <param>
+          <type><ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Sends a CAPTURE command to the ICAP port. </para>        </briefdescription>
+        <detaileddescription>
+<para>This command captures all of the flip flop states so they will be available during readback. One can use this command instead of enabling the CAPTURE block in the design.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="130" bodyend="160"/>
+        <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
+        <references refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</references>
+        <references refid="group__hwicap_1ga3b59b1dac14d84654658e66206861848" compoundref="xhwicap__i_8h" startline="284">XHwIcap_Type1Write</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHwIcap_GetConfigReg</definition>
+        <argsstring>(XHwIcap *InstancePtr, u32 ConfigReg, u32 *RegData)</argsstring>
+        <name>XHwIcap_GetConfigReg</name>
+        <param>
+          <type><ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigReg</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RegData</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the value of the specified configuration register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigReg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a constant which represents the configuration register value to be returned. Constants specified in <ref refid="xhwicap__i_8h" kindref="compound">xhwicap_i.h</ref>. Examples: XHI_IDCODE, XHI_FLR. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value of the specified configuration register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>This is a blocking call. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="658" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c" bodystart="180" bodyend="239"/>
+        <references refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" compoundref="xhwicap_8h" startline="236">XHwIcap_Config::BaseAddress</references>
+        <references refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" compoundref="xhwicap_8h" startline="255">XHwIcap::HwIcapConfig</references>
+        <references refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" compoundref="xhwicap_8h" startline="256">XHwIcap::IsReady</references>
+        <references refid="group__hwicap_1gad7d94ec59e14347684d309b0b6406ab2" compoundref="xhwicap__l_8h" startline="71">XHI_CR_OFFSET</references>
+        <references refid="group__hwicap_1gaef1da3487a4b5b56304445dd5892855b" compoundref="xhwicap__l_8h" startline="120">XHI_CR_WRITE_MASK</references>
+        <references refid="group__hwicap_1ga4b189772fde4c6ca3bc0c20b7b1fc3af" compoundref="xhwicap__l_8h" startline="134">XHI_SR_EOS_MASK</references>
+        <references refid="group__hwicap_1gad582c2c3fe5aa1d83b43dc7a0d243da8" compoundref="xhwicap__l_8h" startline="72">XHI_SR_OFFSET</references>
+        <references refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</references>
+        <references refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</references>
+        <references refid="group__hwicap_1gac1d1213b70d3c503aa0ccd27c0a57857" compoundref="xhwicap_8h" startline="443">XHwIcap_IsDeviceBusy</references>
+        <references refid="group__hwicap_1ga7061e53605486f268a5e2205828d5921" compoundref="xhwicap__l_8h" startline="161">XHwIcap_ReadReg</references>
+        <references refid="group__hwicap_1ga4306e4bf6223f5f27a2d971657028f47" compoundref="xhwicap__i_8h" startline="251">XHwIcap_Type1Read</references>
+        <referencedby refid="xhwicap__read__config__reg__example_8c_1a0e29c54ec6e9cfd604c5c2551391fca6" compoundref="xhwicap__read__config__reg__example_8c" startline="152" endline="288">HwIcapReadConfigRegExample</referencedby>
+        <referencedby refid="xhwicap__testapp__example_8c_1adf45f08c1057b62d7e994a60e3e32303" compoundref="xhwicap__testapp__example_8c" startline="137" endline="183">HwIcapTestAppExample</referencedby>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2003<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhwicap_8h" kindref="compound">xhwicap.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DESYNC_COMMAND_SIZE<sp/><sp/><sp/><sp/><sp/>7<sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>words<sp/>in<sp/>the<sp/>Desync<sp/>command<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAPTURE_COMMAND_SIZE<sp/><sp/><sp/><sp/>7<sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>words<sp/>in<sp/>the<sp/>Capture<sp/>command<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>READ_CFG_REG_COMMAND_SIZE<sp/>7<sp/></highlight><highlight class="comment">/*<sp/>Num<sp/>of<sp/>words<sp/>in<sp/>Read<sp/>Config<sp/>command<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="group__hwicap_1ga7c4b2410acc62af539dac03005668754" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hwicap_1ga7c4b2410acc62af539dac03005668754" kindref="member">XHwIcap_CommandDesync</ref>(<ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameBuffer[DESYNC_COMMAND_SIZE];</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Create<sp/>the<sp/>data<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>ICAP.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>(<ref refid="group__hwicap_1ga3b59b1dac14d84654658e66206861848" kindref="member">XHwIcap_Type1Write</ref>(XHI_CMD)<sp/>|<sp/>1);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_CMD_DESYNCH;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>data<sp/>to<sp/>the<sp/>FIFO<sp/>and<sp/>intiate<sp/>the<sp/>transfer<sp/>of<sp/>data<sp/>present</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>FIFO<sp/>to<sp/>the<sp/>ICAP<sp/>device.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" kindref="member">XHwIcap_DeviceWrite</ref>(InstancePtr,<sp/>&amp;FrameBuffer[0],<sp/>Index);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="130" refid="group__hwicap_1gaff2a2db509296264ad44270798b4bed2" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hwicap_1gaff2a2db509296264ad44270798b4bed2" kindref="member">XHwIcap_CommandCapture</ref>(<ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameBuffer[CAPTURE_COMMAND_SIZE];</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Create<sp/>the<sp/>data<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>ICAP.</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_SYNC_PACKET;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_NOOP_PACKET;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>(<ref refid="group__hwicap_1ga3b59b1dac14d84654658e66206861848" kindref="member">XHwIcap_Type1Write</ref>(XHI_CMD)<sp/>|<sp/>1);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_CMD_GCAPTURE;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/><sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/><sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>data<sp/>to<sp/>the<sp/>FIFO<sp/>and<sp/>intiate<sp/>the<sp/>transfer<sp/>of<sp/>data<sp/>present</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>FIFO<sp/>to<sp/>the<sp/>ICAP<sp/>device.</highlight></codeline>
+<codeline lineno="153"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" kindref="member">XHwIcap_DeviceWrite</ref>(InstancePtr,<sp/>&amp;FrameBuffer[0],<sp/>Index);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/><sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="180" refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" kindref="member">XHwIcap_GetConfigReg</ref>(<ref refid="struct_x_hw_icap" kindref="compound">XHwIcap</ref><sp/>*InstancePtr,<sp/>u32<sp/>ConfigReg,<sp/>u32<sp/>*RegData)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>EosRetries<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">/*<sp/>Counter<sp/>for<sp/>checking<sp/>EOS<sp/>to<sp/>become<sp/>high<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FrameBuffer[READ_CFG_REG_COMMAND_SIZE];</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_hw_icap_1a7e038eb9c938aaedaf156b772fc4de0c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="191"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Create<sp/>the<sp/>data<sp/>to<sp/>be<sp/>written<sp/>to<sp/>the<sp/>ICAP.</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_DUMMY_PACKET;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_SYNC_PACKET;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_NOOP_PACKET;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_NOOP_PACKET;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/><ref refid="group__hwicap_1ga4306e4bf6223f5f27a2d971657028f47" kindref="member">XHwIcap_Type1Read</ref>(ConfigReg)<sp/>|<sp/>0x1;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_NOOP_PACKET;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrameBuffer[Index++]<sp/>=<sp/>XHI_NOOP_PACKET;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>for<sp/>EOS<sp/>bit<sp/>of<sp/>Status<sp/>Register.<sp/>EOS<sp/>bit<sp/>becomes<sp/>high<sp/>after</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ICAP<sp/>completes<sp/>Start<sp/>up<sp/>sequence.<sp/>Access<sp/>to<sp/>ICAP<sp/>should<sp/>start</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>only<sp/>after<sp/>EOS<sp/>bit<sp/>becomes<sp/>high.</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((!(<ref refid="group__hwicap_1ga7061e53605486f268a5e2205828d5921" kindref="member">XHwIcap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" kindref="member">HwIcapConfig</ref>.<ref refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hwicap_1gad582c2c3fe5aa1d83b43dc7a0d243da8" kindref="member">XHI_SR_OFFSET</ref>)&amp;<sp/><ref refid="group__hwicap_1ga4b189772fde4c6ca3bc0c20b7b1fc3af" kindref="member">XHI_SR_EOS_MASK</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(EosRetries<sp/>&lt;<sp/>XHI_MAX_RETRIES)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EosRetries++;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>data<sp/>to<sp/>the<sp/>FIFO<sp/>and<sp/>intiate<sp/>the<sp/>transfer<sp/>of<sp/>data<sp/>present</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>FIFO<sp/>to<sp/>the<sp/>ICAP<sp/>device.</highlight></codeline>
+<codeline lineno="221"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" kindref="member">XHwIcap_DeviceWrite</ref>(InstancePtr,<sp/>&amp;FrameBuffer[0],<sp/>Index);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__hwicap_1gac1d1213b70d3c503aa0ccd27c0a57857" kindref="member">XHwIcap_IsDeviceBusy</ref>(InstancePtr)<sp/>!=<sp/>FALSE);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="group__hwicap_1ga7061e53605486f268a5e2205828d5921" kindref="member">XHwIcap_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_hw_icap_1aab0ffe813aa173907a53fbdfe62de599" kindref="member">HwIcapConfig</ref>.<ref refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hwicap_1gad7d94ec59e14347684d309b0b6406ab2" kindref="member">XHI_CR_OFFSET</ref>))<sp/>&amp;<sp/><ref refid="group__hwicap_1gaef1da3487a4b5b56304445dd5892855b" kindref="member">XHI_CR_WRITE_MASK</ref>);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Config<sp/>Register<sp/>using<sp/>DeviceRead<sp/>since</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>DeviceRead<sp/>reads<sp/>depending<sp/>on<sp/>ICAP<sp/>Width<sp/>for<sp/>V6</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>7<sp/>series<sp/>devices</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" kindref="member">XHwIcap_DeviceRead</ref>(InstancePtr,<sp/>RegData,<sp/>1);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap_srp.c"/>
+  </compounddef>
+</doxygen>

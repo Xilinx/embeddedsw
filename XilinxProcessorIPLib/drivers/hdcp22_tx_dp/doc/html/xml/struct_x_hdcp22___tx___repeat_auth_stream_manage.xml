@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___repeat_auth_stream_manage" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_RepeatAuthStreamManage</compoundname>
+    <includes local="no">xhdcp22_tx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___repeat_auth_stream_manage_1afb02ee85face0d1f9ea2561d5cc761f9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_RepeatAuthStreamManage::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___repeat_auth_stream_manage_1ad08b6edb9bc593d37b2ff1ea437ac76f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_RepeatAuthStreamManage::SeqNum_M[XHDCP22_TX_SEQ_NUM_M_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_SEQ_NUM_M_SIZE]</argsstring>
+        <name>SeqNum_M</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___repeat_auth_stream_manage_1a4424dfb364fa2985d8325d984c219704" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_RepeatAuthStreamManage::K[XHDCP22_TX_K_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_K_SIZE]</argsstring>
+        <name>K</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="418" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___repeat_auth_stream_manage_1aa74b620be9343695c4a29af036050a17" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_RepeatAuthStreamManage::StreamID_Type[XHDCP22_TX_STREAMID_TYPE_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_STREAMID_TYPE_SIZE]</argsstring>
+        <name>StreamID_Type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the RepeaterAuth_Stream_Manage message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="413" bodyend="420"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___repeat_auth_stream_manage_1a4424dfb364fa2985d8325d984c219704" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamManage</scope><name>K</name></member>
+      <member refid="struct_x_hdcp22___tx___repeat_auth_stream_manage_1afb02ee85face0d1f9ea2561d5cc761f9" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamManage</scope><name>MsgId</name></member>
+      <member refid="struct_x_hdcp22___tx___repeat_auth_stream_manage_1ad08b6edb9bc593d37b2ff1ea437ac76f" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamManage</scope><name>SeqNum_M</name></member>
+      <member refid="struct_x_hdcp22___tx___repeat_auth_stream_manage_1aa74b620be9343695c4a29af036050a17" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_RepeatAuthStreamManage</scope><name>StreamID_Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

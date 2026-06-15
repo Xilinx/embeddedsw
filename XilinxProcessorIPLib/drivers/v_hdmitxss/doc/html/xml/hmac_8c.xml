@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="hmac_8c" kind="file">
+    <compoundname>hmac.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">string.h</includes>
+    <includes refid="xhdcp22__common_8h" local="yes">xhdcp22_common.h</includes>
+    <incdepgraph>
+      <node id="173">
+        <label>stdlib.h</label>
+      </node>
+      <node id="175">
+        <label>stddef.h</label>
+      </node>
+      <node id="174">
+        <label>bigdtypes.h</label>
+        <childnode refid="175" relation="include">
+        </childnode>
+        <childnode refid="168" relation="include">
+        </childnode>
+      </node>
+      <node id="170">
+        <label>string.h</label>
+      </node>
+      <node id="172">
+        <label>bigdigits.h</label>
+        <link refid="bigdigits_8h"/>
+        <childnode refid="173" relation="include">
+        </childnode>
+        <childnode refid="174" relation="include">
+        </childnode>
+      </node>
+      <node id="169">
+        <label>xstatus.h</label>
+      </node>
+      <node id="168">
+        <label>xil_types.h</label>
+      </node>
+      <node id="167">
+        <label>hmac.c</label>
+        <link refid="hmac.c"/>
+        <childnode refid="168" relation="include">
+        </childnode>
+        <childnode refid="169" relation="include">
+        </childnode>
+        <childnode refid="170" relation="include">
+        </childnode>
+        <childnode refid="171" relation="include">
+        </childnode>
+      </node>
+      <node id="171">
+        <label>xhdcp22_common.h</label>
+        <link refid="xhdcp22__common_8h"/>
+        <childnode refid="172" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" prot="public" static="no">
+        <name>SHA256_SIZE</name>
+        <initializer>256/8</initializer>
+        <briefdescription>
+<para>SHA256 Hash size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/hmac.c" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/hmac.c" bodystart="31" bodyend="-1"/>
+        <referencedby refid="xhdcp22__common_8h_1a71ef3e6e62d58ef753a01bdb118b04c3" compoundref="hmac_8c" startline="65" endline="114">XHdcp22Cmn_HmacSha256Hash</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="hmac_8c_1a71ef3e6e62d58ef753a01bdb118b04c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22Cmn_HmacSha256Hash</definition>
+        <argsstring>(const u8 *Data, int DataSize, const u8 *Key, int KeySize, u8 *HashedData)</argsstring>
+        <name>XHdcp22Cmn_HmacSha256Hash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>DataSize</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>KeySize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HashedData</declname>
+        </param>
+        <briefdescription>
+<para>This function does a HMAC_SHA256 transform: SHA256(K XOR opad, SHA256(K XOR ipad, text)) </para>        </briefdescription>
+        <detaileddescription>
+<para>ipad is the byte 0x36 repeated 64 times opad is the byte 0x5c repeated 64 times and text is the data being protected</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the data buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the hash-key to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the hash key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashedData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output of this function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if no errors occurred<itemizedlist>
+<listitem><para>XST_FAILURE if the datasize exceeds the size of the local buffer.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/hmac.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/hmac.c" bodystart="65" bodyend="114"/>
+        <references refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" compoundref="hmac_8c" startline="31">SHA256_SIZE</references>
+        <references refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" compoundref="sha2_8c" startline="83" endline="91">XHdcp22Cmn_Sha256Hash</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the HMAC Hash Message Authentication Code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00  MH   10/30/15 First Release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;string.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp22__common_8h" kindref="compound">xhdcp22_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHA256_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256/8<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="65" refid="xhdcp22__common_8h_1a71ef3e6e62d58ef753a01bdb118b04c3" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hmac_8c_1a71ef3e6e62d58ef753a01bdb118b04c3" kindref="member">XHdcp22Cmn_HmacSha256Hash</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DataSize,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Key,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>KeySize,<sp/>u8<sp/><sp/>*HashedData)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ipad[65];<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>inner<sp/>padding-key<sp/>XORd<sp/>with<sp/>ipad<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Opad[65];<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>outer<sp/>padding-key<sp/>XORd<sp/>with<sp/>opad<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ktemp[<ref refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" kindref="member">SHA256_SIZE</ref>];</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Ktemp2[<ref refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" kindref="member">SHA256_SIZE</ref>];</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BufferIn[256];</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>BufferOut[256];</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(BufferIn,<sp/>0x00,<sp/>256);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(BufferOut,<sp/>0x00,<sp/>256);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>input<sp/>size<sp/>exceeds<sp/>the<sp/>local<sp/>buffers,<sp/>return<sp/>an<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(DataSize<sp/>+<sp/>64<sp/>&gt;<sp/><sp/>256)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>key<sp/>is<sp/>longer<sp/>than<sp/>64<sp/>bytes<sp/>reset<sp/>it<sp/>to<sp/>Key=sha256(Key)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(KeySize<sp/>&gt;<sp/>64)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" kindref="member">XHdcp22Cmn_Sha256Hash</ref>(Key,<sp/>KeySize,<sp/>Ktemp<sp/>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Key<sp/><sp/><sp/><sp/><sp/>=<sp/>Ktemp;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KeySize<sp/>=<sp/><ref refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" kindref="member">SHA256_SIZE</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>start<sp/>out<sp/>by<sp/>storing<sp/>Key<sp/>in<sp/>pads<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Ipad,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>Ipad<sp/>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(Opad,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal"><sp/>Opad<sp/>);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Ipad,<sp/>Key,<sp/>KeySize<sp/>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(Opad,<sp/>Key,<sp/>KeySize<sp/>);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XOR<sp/>Key<sp/>with<sp/>Ipad<sp/>and<sp/>Opad<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>64;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ipad[i]<sp/>^=<sp/>0x36;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Opad[i]<sp/>^=<sp/>0x5c;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Execute<sp/>inner<sp/>SHA256<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(BufferIn,<sp/>Ipad,<sp/>64<sp/>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(BufferIn<sp/>+<sp/>64,<sp/>Data,<sp/>DataSize<sp/>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" kindref="member">XHdcp22Cmn_Sha256Hash</ref>(BufferIn,<sp/>64<sp/>+<sp/>DataSize,<sp/>Ktemp2<sp/>);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Execute<sp/>outer<sp/>SHA256<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(BufferOut,<sp/>Opad,<sp/>64);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(BufferOut<sp/>+<sp/>64,<sp/>Ktemp2,<sp/><ref refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" kindref="member">SHA256_SIZE</ref><sp/>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" kindref="member">XHdcp22Cmn_Sha256Hash</ref>(BufferOut,<sp/>64<sp/>+<sp/><ref refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" kindref="member">SHA256_SIZE</ref>,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)HashedData<sp/>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/hdcp_key_utility/hmac.c"/>
+  </compounddef>
+</doxygen>

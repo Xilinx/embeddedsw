@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ttc_ps___config" kind="struct" prot="public">
+    <compoundname>XTtcPs_Config</compoundname>
+    <includes local="no">xttcps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ttc_ps___config_1a1af393c58338cae692f4dfb7dd4dba48" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XTtcPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTtcPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address for device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" compoundref="xttcps__options_8c" startline="176" endline="206">XTtcPs_GetOptions</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" compoundref="xttcps_8c" startline="670" endline="704">XTtcPs_InterruptHandler</referencedby>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga8fb59113e183b65dabff6e2c34bbf7e2" compoundref="xttcps_8c" startline="729" endline="742">XTtcPs_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps___config_1aebf20560d3d23cb9b2ebcceb105916ee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTtcPs_Config::InputClockHz</definition>
+        <argsstring></argsstring>
+        <name>InputClockHz</name>
+        <briefdescription>
+<para>Input clock frequency. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga40d86f052a231f2cd35d7e5136163039" compoundref="xttcps_8c" startline="586" endline="653">XTtcPs_CalcIntervalFromFreq</referencedby>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps___config_1aae30000245a95cdc06777f9b378f057e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTtcPs_Config::IntrId[XTTCPS_NUM_COUNTERS]</definition>
+        <argsstring>[XTTCPS_NUM_COUNTERS]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps___config_1a25938aa3cbc65457b998a0cc7f19e4ef" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XTtcPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="228" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="215" bodyend="230"/>
+    <listofallmembers>
+      <member refid="struct_x_ttc_ps___config_1ae6953c208634412c4282d3f4841287ef" prot="public" virt="non-virtual"><scope>XTtcPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_ttc_ps___config_1aebf20560d3d23cb9b2ebcceb105916ee" prot="public" virt="non-virtual"><scope>XTtcPs_Config</scope><name>InputClockHz</name></member>
+      <member refid="struct_x_ttc_ps___config_1aae30000245a95cdc06777f9b378f057e" prot="public" virt="non-virtual"><scope>XTtcPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_ttc_ps___config_1a25938aa3cbc65457b998a0cc7f19e4ef" prot="public" virt="non-virtual"><scope>XTtcPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_ttc_ps___config_1a1af393c58338cae692f4dfb7dd4dba48" prot="public" virt="non-virtual"><scope>XTtcPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

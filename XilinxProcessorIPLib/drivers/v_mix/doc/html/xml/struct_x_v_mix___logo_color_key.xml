@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_mix___logo_color_key" kind="struct" prot="public">
+    <compoundname>XVMix_LogoColorKey</compoundname>
+    <includes local="no">xv_mix_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_mix___logo_color_key_1acbc335e8ad9a91f0d5adf106f298dd9a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LogoColorKey::RGB_Min[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>RGB_Min</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___logo_color_key_1a7e9c091e88673750e1cfceb0380747b3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LogoColorKey::RGB_Max[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>RGB_Max</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for Logo Color Key. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix_l2.h" bodystart="262" bodyend="265"/>
+    <listofallmembers>
+      <member refid="struct_x_v_mix___logo_color_key_1a7e9c091e88673750e1cfceb0380747b3" prot="public" virt="non-virtual"><scope>XVMix_LogoColorKey</scope><name>RGB_Max</name></member>
+      <member refid="struct_x_v_mix___logo_color_key_1acbc335e8ad9a91f0d5adf106f298dd9a" prot="public" virt="non-virtual"><scope>XVMix_LogoColorKey</scope><name>RGB_Min</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__plat__client_8h" kind="file">
+    <compoundname>xsecure_plat_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includedby refid="xsecure__plat__client_8c" local="yes">xsecure_plat_client.c</includedby>
+    <includedby refid="xilsecure__versal__net__keyunwrap__client__example_8c" local="yes">xilsecure_versal_net_keyunwrap_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__net__rsa__client__example_8c" local="yes">xilsecure_versal_net_rsa_client_example.c</includedby>
+    <incdepgraph>
+      <node id="2532">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2525">
+        <label>xsecure_plat_client.h</label>
+        <link refid="xsecure_plat_client.h"/>
+        <childnode refid="2526" relation="include">
+        </childnode>
+        <childnode refid="2527" relation="include">
+        </childnode>
+        <childnode refid="2530" relation="include">
+        </childnode>
+      </node>
+      <node id="2533">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2528">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2530">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2531" relation="include">
+        </childnode>
+        <childnode refid="2526" relation="include">
+        </childnode>
+        <childnode refid="2532" relation="include">
+        </childnode>
+        <childnode refid="2533" relation="include">
+        </childnode>
+        <childnode refid="2534" relation="include">
+        </childnode>
+      </node>
+      <node id="2534">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2526">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2529">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2531">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2527">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="2528" relation="include">
+        </childnode>
+        <childnode refid="2529" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2536">
+        <label>xsecure_plat_client.c</label>
+        <link refid="xsecure__plat__client_8c"/>
+      </node>
+      <node id="2535">
+        <label>xsecure_plat_client.h</label>
+        <link refid="xsecure_plat_client.h"/>
+        <childnode refid="2536" relation="include">
+        </childnode>
+        <childnode refid="2537" relation="include">
+        </childnode>
+        <childnode refid="2538" relation="include">
+        </childnode>
+      </node>
+      <node id="2538">
+        <label>xilsecure_versal_net_rsa_client_example.c</label>
+        <link refid="xilsecure__versal__net__rsa__client__example_8c"/>
+      </node>
+      <node id="2537">
+        <label>xilsecure_versal_net_keyunwrap_client_example.c</label>
+        <link refid="xilsecure__versal__net__keyunwrap__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__helper__client__apis_1ga1eb29d664fde12ed80f9c89c37345a5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdateHnicCryptoStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp, u32 CryptoMask)</argsstring>
+        <name>XSecure_UpdateHnicCryptoStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref></type>
+          <declname>CryptoStatusOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CryptoMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to set crypto status bit of HNIC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoStatusOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear crypto status bit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to set or clear crypto status bit</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="64" bodyend="69"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" compoundref="net_2xsecure__plat__defs_8h" startline="115">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__client__apis_1gae1c3a0850bbe7d480db69b6c18d57d01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdateCpm5NCryptoStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp, u32 CryptoMask)</argsstring>
+        <name>XSecure_UpdateCpm5NCryptoStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref></type>
+          <declname>CryptoStatusOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CryptoMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to set crypto status bit of of CPM 5N. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoStatusOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear crypto status bit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to set or clear crypto status bit</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="85" bodyend="90"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" compoundref="net_2xsecure__plat__defs_8h" startline="116">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__client__apis_1gae60f390422826e0edcd5c4aada5a8953" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdatePkiCryptoStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp, u32 CryptoMask)</argsstring>
+        <name>XSecure_UpdatePkiCryptoStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref></type>
+          <declname>CryptoStatusOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CryptoMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to set crypto status bit of PKI. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoStatusOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear crypto status bit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to set or clear crypto status bit</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="127" bodyend="132"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" compoundref="net_2xsecure__plat__defs_8h" startline="118">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__helper__client__apis_1gaf7393da6128bf378cf635d7f851e18ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_UpdatePcideCryptoStatus</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, XSecure_CryptoStatusOp CryptoStatusOp, u32 CryptoMask)</argsstring>
+        <name>XSecure_UpdatePcideCryptoStatus</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref></type>
+          <declname>CryptoStatusOp</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CryptoMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to set crypto status bit of PCIDE. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoStatusOp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation to set or clear crypto status bit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CryptoMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask to set or clear crypto status bit</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On Success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.c" bodystart="106" bodyend="111"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" compoundref="net_2xsecure__plat__defs_8h" startline="117">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the platform specific client APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.1   kpt  01/14/23 Initial release
+5.2   vns  07/07/23 Added separate IPI commands for Crypto Status update
+      kpt  07/09/23 Added APIs related to Key wrap and unwrap
+5.3   kpt  12/13/23 Added RSA quiet mode support
+5.4   yog  04/29/24 Fixed doxygen grouping.
+      kpt  06/13/24 Added XSecure_ReleaseRsaKey</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_CLIENT_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1ga1eb29d664fde12ed80f9c89c37345a5d" kindref="member">XSecure_UpdateHnicCryptoStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref><sp/>CryptoStatusOp,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CryptoMask);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1gae1c3a0850bbe7d480db69b6c18d57d01" kindref="member">XSecure_UpdateCpm5NCryptoStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref><sp/>CryptoStatusOp,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CryptoMask);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1gae60f390422826e0edcd5c4aada5a8953" kindref="member">XSecure_UpdatePkiCryptoStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref><sp/>CryptoStatusOp,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CryptoMask);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1gaf7393da6128bf378cf635d7f851e18ef" kindref="member">XSecure_UpdatePcideCryptoStatus</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__common__apis_1gaf98e2daceaa40abe4137731873618bd0" kindref="member">XSecure_CryptoStatusOp</ref><sp/>CryptoStatusOp,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CryptoMask);</highlight></codeline>
+<codeline lineno="65"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" kindref="member">XSecure_KeyUnwrap</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref><sp/>*KeyWrapData);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1ga9ab0a956262afa96bfebba076415aa8b" kindref="member">XSecure_ReleaseRsaKey</ref>(XSecure_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_PLAT_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/versal_net/xsecure_plat_client.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,203 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__scheduler_8h" kind="file">
+    <compoundname>xplmi_scheduler.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xplmi__task_8h" local="yes">xplmi_task.h</includes>
+    <includes local="yes">xplmi_config.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includedby refid="xplmi__proc_8c" local="yes">xplmi_proc.c</includedby>
+    <includedby refid="xplmi__scheduler_8c" local="yes">xplmi_scheduler.c</includedby>
+    <includedby refid="xplmi__asu__update_8c" local="yes">xplmi_asu_update.c</includedby>
+    <includedby refid="xplmi__update_8c" local="yes">xplmi_update.c</includedby>
+    <incdepgraph>
+      <node id="2595">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2592">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi_scheduler.h"/>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2594" relation="include">
+        </childnode>
+        <childnode refid="2600" relation="include">
+        </childnode>
+        <childnode refid="2601" relation="include">
+        </childnode>
+      </node>
+      <node id="2599">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2594">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="2595" relation="include">
+        </childnode>
+        <childnode refid="2596" relation="include">
+        </childnode>
+        <childnode refid="2593" relation="include">
+        </childnode>
+        <childnode refid="2597" relation="include">
+        </childnode>
+        <childnode refid="2598" relation="include">
+        </childnode>
+      </node>
+      <node id="2596">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="2597">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2600">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="2593">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2598">
+        <label>list.h</label>
+        <childnode refid="2599" relation="include">
+        </childnode>
+      </node>
+      <node id="2601">
+        <label>xplmi_hw.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2603">
+        <label>xplmi_proc.c</label>
+        <link refid="xplmi__proc_8c"/>
+      </node>
+      <node id="2604">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
+      </node>
+      <node id="2602">
+        <label>xplmi_scheduler.h</label>
+        <link refid="xplmi_scheduler.h"/>
+        <childnode refid="2603" relation="include">
+        </childnode>
+        <childnode refid="2604" relation="include">
+        </childnode>
+        <childnode refid="2605" relation="include">
+        </childnode>
+        <childnode refid="2606" relation="include">
+        </childnode>
+      </node>
+      <node id="2605">
+        <label>xplmi_asu_update.c</label>
+        <link refid="xplmi__asu__update_8c"/>
+      </node>
+      <node id="2606">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This header file contains declarations related to scheduler. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  rm   06/02/2019 Initial release
+1.01  kc   02/10/2020 Updated scheduler to add/remove tasks
+      kc   02/17/2020 Added configurable priority for scheduler tasks
+      bsv  04/04/2020 Code clean up
+      td   08/19/2020 Fixed MISRA C violations Rule 10.3
+      td   10/19/2020 MISRA C Fixes
+1.02  bm   04/03/2021 Move task creation out of interrupt context
+      bm   04/10/2021 Updated scheduler to support private data pointer and
+                      also delay in non-periodic tasks
+1.03  ma   07/12/2021 Added support to register Error Handler for scheduler
+                      task
+      bsv  07/16/2021 Fix doxygen warnings
+      bsv  08/15/2021 Removed redundant element in structure
+1.04  bm   07/06/2022 Refactor versal and versal_net code
+1.05  nb   06/28/2023 Move XPLMI_SCHED_TICK here from .c file
+      pre  03/02/2025 Added timeout handling for AES and SHA resources
+      pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
+2.3   vss  09/30/2025 Updated AES/SHA queueing macro checks.
+      sd   11/10/2025 Added support for VERSAL_2VP_P devices.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#ifndef<sp/>XPLMI_SCHEDULER_H</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SCHEDULER_H</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__task_8h" kindref="compound">xplmi_task.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SCHED_MAX_TASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PERIODIC_TASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_NON_PERIODIC_TASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SCHED_TICK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)<sp/>&amp;&amp;<sp/>defined(XPLMI_IPI_DEVICE_ID))</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_FREE_RESOURCE_TASK_ID<sp/><sp/>(0x121U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>int<sp/>(*XPlmi_Callback_t)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XPlmi_ErrorFunc_t)(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SHA3_CORE<sp/>=<sp/>0,<sp/></highlight><highlight class="comment">/*<sp/>SHA3<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P))</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_SHA2_CORE,<sp/></highlight><highlight class="comment">/*<sp/>SHA2<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_AES_CORE,<sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MAX_CORE,<sp/></highlight><highlight class="comment">/*<sp/>Maximum<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}<sp/>XPlmi_CoreType;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPlmi_Task_t{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Interval;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OwnerId;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TriggerTime;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Callback_t<sp/>CustomerFunc;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_ErrorFunc_t<sp/>ErrorFunc;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_TaskNode<sp/>*Task;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Type;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">XPlmi_Task_t<sp/>TaskList[XPLMI_SCHED_MAX_TASK];</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>LastTimerTick;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TaskCount;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Tick;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}<sp/>XPlmi_Scheduler_t<sp/>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga60b1ab6a37c63ae05e12619b0ec7f708" kindref="member">XPlmi_SchedulerInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" kindref="member">XPlmi_SchedulerHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaaf71b7fae794dae768a2e08bf2c032e2" kindref="member">XPlmi_SchedulerAddTask</ref>(u32<sp/>OwnerId,<sp/>XPlmi_Callback_t<sp/>CallbackFn,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_ErrorFunc_t<sp/>ErrorFunc,<sp/>u32<sp/>MilliSeconds,<sp/>TaskPriority_t<sp/>Priority,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data,<sp/><sp/><sp/><sp/><sp/>u8<sp/>TaskType);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac8483b0e4e094965c6e8f5be1417a624" kindref="member">XPlmi_SchedulerRemoveTask</ref>(u32<sp/>OwnerId,<sp/>XPlmi_Callback_t<sp/>CallbackFn,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MilliSeconds,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Data);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)<sp/>&amp;&amp;<sp/>defined(XPLMI_IPI_DEVICE_ID))</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XPlmi_LoadResourceTimeout(XPlmi_CoreType<sp/>Core,<sp/>u32<sp/>TimeoutVal);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPLMI_SCHEDULER_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_scheduler.h"/>
+  </compounddef>
+</doxygen>

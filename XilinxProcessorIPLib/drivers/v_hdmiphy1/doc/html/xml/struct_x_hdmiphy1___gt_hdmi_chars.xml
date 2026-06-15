@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmiphy1___gt_hdmi_chars" kind="struct" prot="public">
+    <compoundname>XHdmiphy1_GtHdmiChars</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a4787cba743a95ba8c541b1c5d14ce124" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_GtHdmiChars::DruLineRate</definition>
+        <argsstring></argsstring>
+        <name>DruLineRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a77a2d3f70a3245c2e5e4a74225019acd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_GtHdmiChars::PllScale</definition>
+        <argsstring></argsstring>
+        <name>PllScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a6da8c65a274cd9ccd3a6c3832c1f5f2f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1_GtHdmiChars::Qpll0RefClkMin</definition>
+        <argsstring></argsstring>
+        <name>Qpll0RefClkMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a8dc1635f39a3c1c97edb8e89d09bb22e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1_GtHdmiChars::Qpll1RefClkMin</definition>
+        <argsstring></argsstring>
+        <name>Qpll1RefClkMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1ae845ef57dcd0e5a3b194968d30163818" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1_GtHdmiChars::CpllRefClkMin</definition>
+        <argsstring></argsstring>
+        <name>CpllRefClkMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1aec7f506becab7fcbd26e348986787def" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_GtHdmiChars::TxMmcmScale</definition>
+        <argsstring></argsstring>
+        <name>TxMmcmScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1abfda044cca5f3c37a624218f14c7193f" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_GtHdmiChars::TxMmcmFvcoMin</definition>
+        <argsstring></argsstring>
+        <name>TxMmcmFvcoMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1ab4dee2cf94c948cd226d10eb9d290118" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_GtHdmiChars::TxMmcmFvcoMax</definition>
+        <argsstring></argsstring>
+        <name>TxMmcmFvcoMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1aa8cffee45a18e951dc53b21652a9b482" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHdmiphy1_GtHdmiChars::RxMmcmScale</definition>
+        <argsstring></argsstring>
+        <name>RxMmcmScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a6e2fa2408034a493169788076d4bbfa1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_GtHdmiChars::RxMmcmFvcoMin</definition>
+        <argsstring></argsstring>
+        <name>RxMmcmFvcoMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmiphy1___gt_hdmi_chars_1a4fec90e0f8266cf84b831e633e5337f8" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XHdmiphy1_GtHdmiChars::RxMmcmFvcoMax</definition>
+        <argsstring></argsstring>
+        <name>RxMmcmFvcoMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_hdmi.c" bodystart="42" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ae845ef57dcd0e5a3b194968d30163818" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>CpllRefClkMin</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a4787cba743a95ba8c541b1c5d14ce124" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>DruLineRate</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a77a2d3f70a3245c2e5e4a74225019acd" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>PllScale</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a6da8c65a274cd9ccd3a6c3832c1f5f2f" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>Qpll0RefClkMin</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a8dc1635f39a3c1c97edb8e89d09bb22e" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>Qpll1RefClkMin</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a4fec90e0f8266cf84b831e633e5337f8" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>RxMmcmFvcoMax</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1a6e2fa2408034a493169788076d4bbfa1" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>RxMmcmFvcoMin</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1aa8cffee45a18e951dc53b21652a9b482" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>RxMmcmScale</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1ab4dee2cf94c948cd226d10eb9d290118" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>TxMmcmFvcoMax</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1abfda044cca5f3c37a624218f14c7193f" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>TxMmcmFvcoMin</name></member>
+      <member refid="struct_x_hdmiphy1___gt_hdmi_chars_1aec7f506becab7fcbd26e348986787def" prot="public" virt="non-virtual"><scope>XHdmiphy1_GtHdmiChars</scope><name>TxMmcmScale</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

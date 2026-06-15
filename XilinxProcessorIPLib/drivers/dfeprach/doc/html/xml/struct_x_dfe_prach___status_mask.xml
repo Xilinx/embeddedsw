@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___status_mask" kind="struct" prot="public">
+    <compoundname>XDfePrach_StatusMask</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::DecimatorOverflow</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverflow</name>
+        <briefdescription>
+<para>[0,1] Mask overflow in Decimator </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="634" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::MixerOverflow</definition>
+        <argsstring></argsstring>
+        <name>MixerOverflow</name>
+        <briefdescription>
+<para>[0,1] Mask overflow in mixer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="635" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="635" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::DecimatorOverrun</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverrun</name>
+        <briefdescription>
+<para>[0,1] Mask overrun in the decimator </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="636" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="636" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::SelectorOverrun</definition>
+        <argsstring></argsstring>
+        <name>SelectorOverrun</name>
+        <briefdescription>
+<para>[0,1] Mask overrun in the selector </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="637" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::RachUpdate</definition>
+        <argsstring></argsstring>
+        <name>RachUpdate</name>
+        <briefdescription>
+<para>[0,1] Mask RACH configuration update </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="638" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::CCSequenceError[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>CCSequenceError</name>
+        <briefdescription>
+<para>[0,1] Mask CC sequence error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="639" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="640" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::FrameInitTrigger[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>FrameInitTrigger</name>
+        <briefdescription>
+<para>[0,1] Mask Frame initialisation Trigger </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="641" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="642" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_StatusMask::FrameError[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>FrameError</name>
+        <briefdescription>
+<para>[0,1] Mask Frame error </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="643" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" compoundref="xdfeprach__intr_8c" startline="244" endline="291">XDfePrach_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" compoundref="xdfeprach__intr_8c" startline="194" endline="231">XDfePrach_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" compoundref="xdfeprach__intr_8c" startline="58" endline="95">XDfePrach_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" compoundref="xdfeprach__intr_8c" startline="107" endline="183">XDfePrach_SetInterruptMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Event status and interrupt mask. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>The structure for XDfePrach_InterruptMask is the same as that of <ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_StatusMask</ref> </para></simplesect>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="633" bodyend="644"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>CCSequenceError</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>DecimatorOverflow</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>DecimatorOverrun</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>FrameError</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>FrameInitTrigger</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>MixerOverflow</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>RachUpdate</name></member>
+      <member refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" prot="public" virt="non-virtual"><scope>XDfePrach_StatusMask</scope><name>SelectorOverrun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

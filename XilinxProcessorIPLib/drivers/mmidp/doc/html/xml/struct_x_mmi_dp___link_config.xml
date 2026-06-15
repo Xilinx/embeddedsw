@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___link_config" kind="struct" prot="public">
+    <compoundname>XMmiDp_LinkConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1ab8661d598d5271a0af2e2c9cb4b19304" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::VsLevel[XMMIDP_MAX_LANES]</definition>
+        <argsstring>[XMMIDP_MAX_LANES]</argsstring>
+        <name>VsLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1ad5d8ed9bc526182b5e65279a020c17f3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::PeLevel[XMMIDP_MAX_LANES]</definition>
+        <argsstring>[XMMIDP_MAX_LANES]</argsstring>
+        <name>PeLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1ad5c36c97f20ff896fb18c2121d3ae4fc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a929667adcdbd0e73152dfd18bc12f473" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::NumLanes</definition>
+        <argsstring></argsstring>
+        <name>NumLanes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1ad7a6ae99cd5ac3f8ea8926c126881f81" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_LinkConfig::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a42da6d009cf60e5135dc2d5bcb6b8d90" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::LinkBW</definition>
+        <argsstring></argsstring>
+        <name>LinkBW</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a71f7b24bbc4307c9a7e469ebe3d34be1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::FastLinkTrainEn</definition>
+        <argsstring></argsstring>
+        <name>FastLinkTrainEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1acd554194a3407b0a38f501df273900ec" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::SpreadAmp</definition>
+        <argsstring></argsstring>
+        <name>SpreadAmp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a2f74674ac91f0fa67dc4497e1fb90eef" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::ChannelCodingSet</definition>
+        <argsstring></argsstring>
+        <name>ChannelCodingSet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a487ea7c67abf651464765d4d38281cfb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::CrDoneCnt</definition>
+        <argsstring></argsstring>
+        <name>CrDoneCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a4e96ace4ee69de519bf987c672b07235" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::CrDoneOldState</definition>
+        <argsstring></argsstring>
+        <name>CrDoneOldState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a6a8f74a0e2151e73ce7260cc1de9a275" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::ScrambleEn</definition>
+        <argsstring></argsstring>
+        <name>ScrambleEn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a5e3252f5361402b272beec7969dd6f41" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::VsLevelUpdated</definition>
+        <argsstring></argsstring>
+        <name>VsLevelUpdated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1a2c4aecc2eefc3f7db827e4045f6c1f79" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::PeLevelUpdated</definition>
+        <argsstring></argsstring>
+        <name>PeLevelUpdated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___link_config_1aa7d34dcb02eae49632f84a7d3556b4e9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_LinkConfig::LinkTrained</definition>
+        <argsstring></argsstring>
+        <name>LinkTrained</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="273" bodyend="289"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___link_config_1a2f74674ac91f0fa67dc4497e1fb90eef" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>ChannelCodingSet</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a487ea7c67abf651464765d4d38281cfb" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>CrDoneCnt</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a4e96ace4ee69de519bf987c672b07235" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>CrDoneOldState</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a71f7b24bbc4307c9a7e469ebe3d34be1" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>FastLinkTrainEn</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1ad5c36c97f20ff896fb18c2121d3ae4fc" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>LaneCount</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a42da6d009cf60e5135dc2d5bcb6b8d90" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>LinkBW</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1ad7a6ae99cd5ac3f8ea8926c126881f81" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>LinkRate</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1aa7d34dcb02eae49632f84a7d3556b4e9" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>LinkTrained</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a929667adcdbd0e73152dfd18bc12f473" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>NumLanes</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1ad5d8ed9bc526182b5e65279a020c17f3" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>PeLevel</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a2c4aecc2eefc3f7db827e4045f6c1f79" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>PeLevelUpdated</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a6a8f74a0e2151e73ce7260cc1de9a275" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>ScrambleEn</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1acd554194a3407b0a38f501df273900ec" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>SpreadAmp</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1ab8661d598d5271a0af2e2c9cb4b19304" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>VsLevel</name></member>
+      <member refid="struct_x_mmi_dp___link_config_1a5e3252f5361402b272beec7969dd6f41" prot="public" virt="non-virtual"><scope>XMmiDp_LinkConfig</scope><name>VsLevelUpdated</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

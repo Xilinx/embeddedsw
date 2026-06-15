@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_z_dma___dscr_config" kind="struct" prot="public">
+    <compoundname>XZDma_DscrConfig</compoundname>
+    <includes local="no">xzdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_z_dma___dscr_config_1abf4ec728c1ad271759ed0b4ecc82caae" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DscrConfig::AxCoherent</definition>
+        <argsstring></argsstring>
+        <name>AxCoherent</name>
+        <briefdescription>
+<para>AXI transactions are coherent or non-coherent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="267" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga595ab84007b44249fe04571d18856158" compoundref="xzdma_8c" startline="570" endline="581">XZDma_GetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___dscr_config_1ad38367e530b5b2331cb1d487e41f11a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DscrConfig::AXCache</definition>
+        <argsstring></argsstring>
+        <name>AXCache</name>
+        <briefdescription>
+<para>AXI cache for DSCR fetch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga595ab84007b44249fe04571d18856158" compoundref="xzdma_8c" startline="570" endline="581">XZDma_GetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___dscr_config_1af63f7a189b00292faa23b6d11c7a3903" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XZDma_DscrConfig::AXQos</definition>
+        <argsstring></argsstring>
+        <name>AXQos</name>
+        <briefdescription>
+<para>Qos bit for DSCR fetch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__zdma_1ga595ab84007b44249fe04571d18856158" compoundref="xzdma_8c" startline="570" endline="581">XZDma_GetChDscrConfig</referencedby>
+        <referencedby refid="group__zdma_1ga860cde1482bc78429ea5c6f1d3da9014" compoundref="xzdma_8c" startline="512" endline="546">XZDma_SetChDscrConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the descriptor configurations of ZDMA core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="266" bodyend="270"/>
+    <listofallmembers>
+      <member refid="struct_x_z_dma___dscr_config_1ad38367e530b5b2331cb1d487e41f11a8" prot="public" virt="non-virtual"><scope>XZDma_DscrConfig</scope><name>AXCache</name></member>
+      <member refid="struct_x_z_dma___dscr_config_1abf4ec728c1ad271759ed0b4ecc82caae" prot="public" virt="non-virtual"><scope>XZDma_DscrConfig</scope><name>AxCoherent</name></member>
+      <member refid="struct_x_z_dma___dscr_config_1af63f7a189b00292faa23b6d11c7a3903" prot="public" virt="non-virtual"><scope>XZDma_DscrConfig</scope><name>AXQos</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

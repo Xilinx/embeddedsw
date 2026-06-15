@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="keymgmt__loader_8h" kind="file">
+    <compoundname>keymgmt_loader.h</compoundname>
+    <includes refid="keymgmt_8h" local="yes">keymgmt.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="keymgmt_8c" local="yes">keymgmt.c</includedby>
+    <includedby refid="keymgmt__loader_8c" local="yes">keymgmt_loader.c</includedby>
+    <incdepgraph>
+      <node id="230">
+        <label>keymgmt.h</label>
+        <link refid="keymgmt_8h"/>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="231">
+        <label>stdint.h</label>
+      </node>
+      <node id="233">
+        <label>xstatus.h</label>
+      </node>
+      <node id="229">
+        <label>keymgmt_loader.h</label>
+        <link refid="keymgmt_loader.h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="235">
+        <label>keymgmt.c</label>
+        <link refid="keymgmt_8c"/>
+      </node>
+      <node id="236">
+        <label>keymgmt_loader.c</label>
+        <link refid="keymgmt__loader_8c"/>
+      </node>
+      <node id="234">
+        <label>keymgmt_loader.h</label>
+        <link refid="keymgmt_loader.h"/>
+        <childnode refid="235" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="keymgmt__loader_8h_1a789911b3e5d1c945c63aada5622b56b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>KEYMGMT_tError</type>
+        <definition>KEYMGMT_tError KEYMGMTLDR_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>KEYMGMTLDR_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the module. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>KEYMGMT_ERROR_NONE if successful.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.c" bodystart="257" bodyend="307"/>
+        <referencedby refid="keymgmt_8h_1aeccd65b8f83557db781505f8ed86f31b" compoundref="keymgmt_8c" startline="41" endline="92">KEYMGMT_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt__loader_8h_1a09e35cf611284401fdb00770c33b3f9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void KEYMGMTLDR_Poll</definition>
+        <argsstring>(uint32_t theUpTime)</argsstring>
+        <name>KEYMGMTLDR_Poll</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>theUpTime</declname>
+        </param>
+        <briefdescription>
+<para>This function polls the module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>theUptime</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the system up time in seconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>void</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.c" bodystart="325" bodyend="333"/>
+        <referencedby refid="keymgmt_8h_1af0ef671a754d0cc159ed5aa96f318c4c" compoundref="keymgmt_8c" startline="110" endline="119">KEYMGMT_Poll</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="keymgmt__loader_8h_1a6a13c9ff93ec80c4b740c7c710a4b8da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int KEYMGMTLDR_Debug</definition>
+        <argsstring>(int argc, const char *argv[])</argsstring>
+        <name>KEYMGMTLDR_Debug</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function implements the &quot;keymgmt loader&quot; debug command. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of command line arguments </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the list of the command line arguments</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Always returns zero (0)</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.c" bodystart="352" bodyend="386"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the interface for the key management loader module. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#ifndef<sp/>KEYMGMT_LOADER_H</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KEYMGMT_LOADER_H</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Include<sp/>Files<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="keymgmt_8h" kindref="compound">keymgmt.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Constant<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Type<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">KEYMGMT_tError</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><ref refid="keymgmt__loader_8c_1a789911b3e5d1c945c63aada5622b56b7" kindref="member">KEYMGMTLDR_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><ref refid="keymgmt__loader_8c_1a09e35cf611284401fdb00770c33b3f9c" kindref="member">KEYMGMTLDR_Poll</ref>(uint32_t<sp/>theUpTime);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><ref refid="keymgmt__loader_8c_1a6a13c9ff93ec80c4b740c7c710a4b8da" kindref="member">KEYMGMTLDR_Debug</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>argv[]);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>KEYMGMT_LOADER_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/keymgmt_loader.h"/>
+  </compounddef>
+</doxygen>

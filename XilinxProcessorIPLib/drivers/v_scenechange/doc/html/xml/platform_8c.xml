@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="platform_8c" kind="file">
+    <compoundname>platform.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes refid="platform__config_8h" local="yes">platform_config.h</includes>
+    <incdepgraph>
+      <node id="4">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2">
+        <label>platform.c</label>
+        <link refid="platform.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xparameters.h</label>
+      </node>
+      <node id="5">
+        <label>platform_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void enable_caches</definition>
+        <argsstring>()</argsstring>
+        <name>enable_caches</name>
+        <briefdescription>
+<para>Enable instruction and data caches for the platform. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the instruction and data caches based on the processor architecture. For PowerPC, it enables both I-cache and D-cache using region masks. For MicroBlaze, it enables caches if they are configured in the hardware design.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function uses conditional compilation to handle different processor architectures (PowerPC, MicroBlaze). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="51" bodyend="64"/>
+        <referencedby refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" compoundref="platform_8c" startline="134" endline="147">init_platform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void disable_caches</definition>
+        <argsstring>()</argsstring>
+        <name>disable_caches</name>
+        <briefdescription>
+<para>Disable instruction and data caches for the platform. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the instruction and data caches for MicroBlaze architecture if they are configured in the hardware design. This is typically called during platform cleanup.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function only affects MicroBlaze processors. PowerPC cache disabling is not implemented in this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="81" bodyend="91"/>
+        <referencedby refid="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" compoundref="platform_8c" startline="164" endline="167">cleanup_platform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="platform_8c_1a7c8ab9435f095e55019fe880192c3537" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_uart</definition>
+        <argsstring>()</argsstring>
+        <name>init_uart</name>
+        <briefdescription>
+<para>Initialize the UART for the platform. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the UART based on the platform configuration. For 16550 UART (when STDOUT_IS_16550 is defined), it configures the baud rate and line control register for 8 data bits. For PS7/PSU UART, the bootrom/BSP configures it to 115200 bps by default.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>For 16550 UART, the baud rate is set to UART_BAUD (9600). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="108" bodyend="115"/>
+        <referencedby refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" compoundref="platform_8c" startline="134" endline="147">init_platform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_platform</definition>
+        <argsstring>()</argsstring>
+        <name>init_platform</name>
+        <briefdescription>
+<para>Initialize the platform. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function performs platform initialization including enabling caches and initializing UART. If running outside of SDK, it can also call ps7_init() or psu_init() for Zynq-7000 or Zynq UltraScale+ respectively (requires uncommenting and including appropriate header files).</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>For Zynq platforms running outside SDK, uncomment ps7_init() or psu_init() calls and include the corresponding header files and source files in the compilation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="134" bodyend="147"/>
+        <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="51" endline="64">enable_caches</references>
+        <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="108" endline="115">init_uart</references>
+        <referencedby refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__memory__mode__ex_8c" startline="356" endline="416">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="platform_8c_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cleanup_platform</definition>
+        <argsstring>()</argsstring>
+        <name>cleanup_platform</name>
+        <briefdescription>
+<para>Cleanup the platform. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function performs platform cleanup by disabling the instruction and data caches. It should be called before exiting the application to ensure proper system state.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This function is typically called at the end of the application execution. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c" bodystart="164" bodyend="167"/>
+        <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="81" endline="91">disable_caches</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/><sp/><sp/><sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;platform_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>Uncomment<sp/>one<sp/>of<sp/>the<sp/>following<sp/>two<sp/>lines,<sp/>depending<sp/>on<sp/>the<sp/>target,</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>if<sp/>ps7/psu<sp/>init<sp/>source<sp/>files<sp/>are<sp/>added<sp/>in<sp/>the<sp/>source<sp/>directory<sp/>for</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>compiling<sp/>example<sp/>outside<sp/>of<sp/>SDK.</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">/*#include<sp/>&quot;ps7_init.h&quot;*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*#include<sp/>&quot;psu_init.h&quot;*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_IS_16550</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#include<sp/>&quot;xuartns550_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_IS_16550</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>UART_BAUD<sp/>9600<sp/><sp/></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" refkind="member"><highlight class="normal"><ref refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" kindref="member">enable_caches</ref>()</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__PPC__</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_ICacheEnableRegion(CACHEABLE_REGION_MASK);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_DCacheEnableRegion(CACHEABLE_REGION_MASK);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_MICROBLAZE_USE_ICACHE</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_ICacheEnable();</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_MICROBLAZE_USE_DCACHE</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_DCacheEnable();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="80"><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" refkind="member"><highlight class="normal"><ref refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" kindref="member">disable_caches</ref>()</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__MICROBLAZE__</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_MICROBLAZE_USE_DCACHE</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_MICROBLAZE_USE_ICACHE</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_ICacheDisable();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="107"><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" refkind="member"><highlight class="normal"><ref refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" kindref="member">init_uart</ref>()</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_IS_16550</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>XUartNs550_SetBaud(STDOUT_BASEADDR,<sp/>XPAR_XUARTNS550_CLOCK_HZ,<sp/>UART_BAUD);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>XUartNs550_SetLineControlReg(STDOUT_BASEADDR,<sp/>XUN_LCR_8_DATA_BITS);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bootrom/BSP<sp/>configures<sp/>PS7/PSU<sp/>UART<sp/>to<sp/>115200<sp/>bps<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="133"><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" refkind="member"><highlight class="normal"><ref refid="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" kindref="member">init_platform</ref>()</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>you<sp/>want<sp/>to<sp/>run<sp/>this<sp/>example<sp/>outside<sp/>of<sp/>SDK,</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>uncomment<sp/>one<sp/>of<sp/>the<sp/>following<sp/>two<sp/>lines<sp/>and<sp/>also<sp/>#include<sp/>&quot;ps7_init.h&quot;</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>or<sp/>#include<sp/>&quot;ps7_init.h&quot;<sp/>at<sp/>the<sp/>top,<sp/>depending<sp/>on<sp/>the<sp/>target.</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Make<sp/>sure<sp/>that<sp/>the<sp/>ps7/psu_init.c<sp/>and<sp/>ps7/psu_init.h<sp/>files<sp/>are<sp/>included</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>along<sp/>with<sp/>this<sp/>example<sp/>source<sp/>files<sp/>for<sp/>compilation.</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ps7_init();*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>psu_init();*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" kindref="member">enable_caches</ref>();</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" kindref="member">init_uart</ref>();</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163"><highlight class="keywordtype">void</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" refkind="member"><highlight class="normal"><ref refid="platform_8c_1a074e46b818accd4588b2fdf6dee7ec00" kindref="member">cleanup_platform</ref>()</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" kindref="member">disable_caches</ref>();</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/platform.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp__tx__example__common_8h" kind="file">
+    <compoundname>xdp_tx_example_common.h</compoundname>
+    <includes refid="xdp_8h" local="yes">xdp.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xdp__tx__audio__example_8c" local="yes">xdp_tx_audio_example.c</includedby>
+    <includedby refid="xdp__tx__example__common_8c" local="yes">xdp_tx_example_common.c</includedby>
+    <includedby refid="xdp__tx__intr__example_8c" local="yes">xdp_tx_intr_example.c</includedby>
+    <includedby refid="xdp__tx__mst__example_8c" local="yes">xdp_tx_mst_example.c</includedby>
+    <includedby refid="xdp__tx__poll__example_8c" local="yes">xdp_tx_poll_example.c</includedby>
+    <includedby refid="xdp__tx__timer__example_8c" local="yes">xdp_tx_timer_example.c</includedby>
+    <incdepgraph>
+      <node id="191">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="194">
+        <label>xil_io.h</label>
+      </node>
+      <node id="193">
+        <label>xdp_hw.h</label>
+        <link refid="xdp__hw_8h"/>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
+      <node id="195">
+        <label>xstatus.h</label>
+      </node>
+      <node id="196">
+        <label>xvidc.h</label>
+      </node>
+      <node id="192">
+        <label>xil_types.h</label>
+      </node>
+      <node id="188">
+        <label>xdp_tx_example_common.h</label>
+        <link refid="xdp_tx_example_common.h"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+      </node>
+      <node id="190">
+        <label>xparameters.h</label>
+      </node>
+      <node id="189">
+        <label>xdp.h</label>
+        <link refid="xdp_8h"/>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="202">
+        <label>xdp_tx_mst_example.c</label>
+        <link refid="xdp__tx__mst__example_8c"/>
+      </node>
+      <node id="199">
+        <label>xdp_tx_audio_example.c</label>
+        <link refid="xdp__tx__audio__example_8c"/>
+      </node>
+      <node id="201">
+        <label>xdp_tx_intr_example.c</label>
+        <link refid="xdp__tx__intr__example_8c"/>
+      </node>
+      <node id="204">
+        <label>xdp_tx_timer_example.c</label>
+        <link refid="xdp__tx__timer__example_8c"/>
+      </node>
+      <node id="203">
+        <label>xdp_tx_poll_example.c</label>
+        <link refid="xdp__tx__poll__example_8c"/>
+      </node>
+      <node id="200">
+        <label>xdp_tx_example_common.c</label>
+        <link refid="xdp__tx__example__common_8c"/>
+      </node>
+      <node id="198">
+        <label>xdp_tx_example_common.h</label>
+        <link refid="xdp_tx_example_common.h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1a881bdbd59dcb8bd786c79a51aa96bd11" prot="public" static="no">
+        <name>DPTX_DEVICE_ID</name>
+        <initializer>XPAR_DISPLAYPORT_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1aee584f62d0711abe5aada08f07664b44" prot="public" static="no">
+        <name>TRAIN_ADAPTIVE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1a55fcf286d7734a2849ce6df156015a33" prot="public" static="no">
+        <name>TRAIN_HAS_REDRIVER</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1a8c116f0c77b7cab84e572a9dad412394" prot="public" static="no">
+        <name>TRAIN_USE_LINK_RATE</name>
+        <initializer>XDP_TX_LINK_BW_SET_540GBPS</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1ad110fc73dcd0444efeadebed42d528a4" prot="public" static="no">
+        <name>TRAIN_USE_LANE_COUNT</name>
+        <initializer>XDP_TX_LANE_COUNT_SET_4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__tx__example__common_8h_1a40aad80e2a1afd1fdb8b5a9ac04f7414" prot="public" static="no">
+        <name>TRAIN_USE_MAX_LINK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdp__tx__example__common_8h_1a4b64cdce837f50140eb73f3d7052a63f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp" kindref="compound">XDp</ref></type>
+        <definition>XDp DpInstance</definition>
+        <argsstring></argsstring>
+        <name>DpInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1a101b33c5de6400345cff4629f4809c3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_PlatformInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dptx_PlatformInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="100" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1a9123905017b6666c922f1434eb460746" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_StreamSrcSync</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StreamSrcSync</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1a3e837d04fafcaa0889a53e6d0c65f003" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_StreamSrcSetup</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StreamSrcSetup</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1afd40160a35785825d8d36461b541b605" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_StreamSrcConfigure</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StreamSrcConfigure</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1a7890171f707168d57a1ee86a34eede68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_SetupExample</definition>
+        <argsstring>(XDp *InstancePtr, u16 DeviceId)</argsstring>
+        <name>Dptx_SetupExample</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function will setup and initialize the DisplayPort TX core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The core&apos;s configuration parameters will be retrieved based on the configuration to the DisplayPort TX core instance with the specified device ID.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device configuration was found and obtained and if the main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="101" bodyend="122"/>
+        <references refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" compoundref="xdp_8h" startline="515">XDp_Config::BaseAddr</references>
+        <references refid="group__dp_1ga99e89fe4b5550c32cef410fffab99318" compoundref="xdp_8c" startline="164" endline="200">XDp_CfgInitialize</references>
+        <references refid="group__dp_1ga85f185599e63935fa41e46ca249d4a3a" compoundref="xdp_8c" startline="217" endline="240">XDp_Initialize</references>
+        <references refid="group__dp_1ga3b19afc9bd46c30641f6c0b43bba8fe2" compoundref="xdp__sinit_8c" startline="74" endline="88">XDp_LookupConfig</references>
+        <referencedby refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" compoundref="xdp__tx__audio__example_8c" startline="111" endline="143">Dptx_AudioExample</referencedby>
+        <referencedby refid="xdp__tx__intr__example_8c_1aa5cf97e952b9d7bad78ef1e92c269ed2" compoundref="xdp__tx__intr__example_8c" startline="153" endline="187">Dptx_IntrExample</referencedby>
+        <referencedby refid="xdp__tx__mst__example_8c_1ae95f017cde2207801a80bdb8fd27ef12" compoundref="xdp__tx__mst__example_8c" startline="124" endline="163">Dptx_MstExample</referencedby>
+        <referencedby refid="xdp__tx__poll__example_8c_1a6eb91db0f5c6fa82fddb124c5716aae8" compoundref="xdp__tx__poll__example_8c" startline="97" endline="120">Dptx_PollExample</referencedby>
+        <referencedby refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" compoundref="xdp__tx__timer__example_8c" startline="111" endline="148">Dptx_TimerExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1a6700facd123226784319febf7189c092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_StartLink</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_StartLink</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS the if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="137" bodyend="223"/>
+        <references refid="struct_x_dp___config_1a26db9b137de6560d3b2690f0d4acaed0" compoundref="xdp_8h" startline="515">XDp_Config::BaseAddr</references>
+        <references refid="struct_x_dp_1aa45ebd510e1e83bc9ebdcd1178b33290" compoundref="xdp_8h" startline="1439">XDp::Config</references>
+        <references refid="struct_x_dp___tx_link_config_1a86b3dae5f9896de8c18734aadbf3d23b" compoundref="xdp_8h" startline="571">XDp_TxLinkConfig::LaneCount</references>
+        <references refid="struct_x_dp___tx_1ae63e057dfdae91215b4361fe98e0600d" compoundref="xdp_8h" startline="955">XDp_Tx::LinkConfig</references>
+        <references refid="struct_x_dp___tx_link_config_1ad18e2c135b9a5e26d39d7322d5a0d575" compoundref="xdp_8h" startline="573">XDp_TxLinkConfig::LinkRate</references>
+        <references refid="struct_x_dp___tx_link_config_1aa7ce05bdbb77f099987f327918c92e5a" compoundref="xdp_8h" startline="581">XDp_TxLinkConfig::MaxLaneCount</references>
+        <references refid="struct_x_dp___tx_link_config_1a1cb767e2205df48354b391fbf205fe40" compoundref="xdp_8h" startline="583">XDp_TxLinkConfig::MaxLinkRate</references>
+        <references refid="struct_x_dp___tx_link_config_1ad339d9961828fbb419a0f39c47e16351" compoundref="xdp_8h" startline="591">XDp_TxLinkConfig::PeLevel</references>
+        <references refid="struct_x_dp___tx_link_config_1aa3d917e88adb041f86fb32ea448c9a97" compoundref="xdp_8h" startline="589">XDp_TxLinkConfig::VsLevel</references>
+        <references refid="group__dp_1gaddf35ab387f5403190bd36a30f64f8ee" compoundref="xdp__hw_8h" startline="3156">XDp_ReadReg</references>
+        <referencedby refid="xdp__tx__mst__example_8c_1a02657a34bba30ff571b25e0b8992f081" compoundref="xdp__tx__mst__example_8c" startline="181" endline="367">Dptx_MstExampleRun</referencedby>
+        <referencedby refid="xdp__tx__example__common_8h_1aa048b03b5dc7408a4dd444f631eb6f30" compoundref="xdp__tx__example__common_8c" startline="65" endline="81">Dptx_Run</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdp__tx__example__common_8h_1aa048b03b5dc7408a4dd444f631eb6f30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dptx_Run</definition>
+        <argsstring>(XDp *InstancePtr)</argsstring>
+        <name>Dptx_Run</name>
+        <param>
+          <type><ref refid="struct_x_dp" kindref="compound">XDp</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will configure and establish a link with the receiver device, afterwards, a video stream will start to be sent over the main link. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp" kindref="compound">XDp</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LaneCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of lanes to use over the main link. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LinkRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the link rate to use over the main link.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.c" bodystart="65" bodyend="81"/>
+        <references refid="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" compoundref="xdp__tx__example__common_8c" startline="137" endline="223">Dptx_StartLink</references>
+        <referencedby refid="xdp__tx__audio__example_8c_1aed37a94e3e46be308096977d47387cd9" compoundref="xdp__tx__audio__example_8c" startline="111" endline="143">Dptx_AudioExample</referencedby>
+        <referencedby refid="xdp__tx__timer__example_8c_1a9a7742f5011d10d33ee87f85ca43ec47" compoundref="xdp__tx__timer__example_8c" startline="111" endline="148">Dptx_TimerExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver (operating in TX mode). </para>    </briefdescription>
+    <detaileddescription>
+<para>It performs a self test on the DisplayPort TX core by training the main link at the maximum common capabilities between the TX and RX and checking the lane status.</para><para><simplesect kind="note"><para>The DisplayPort TX core does not work alone - video/audio sources need to be set up in the system correctly, as well as setting up the output path (for example, configuring the hardware system with the DisplayPort TX core output to an FMC card with DisplayPort output capabilities. Some platform initialization will need to happen prior to calling <ref refid="struct_x_dp" kindref="compound">XDp</ref> driver functions. See XAPP1178 as a reference.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  01/20/15 Initial creation.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XDP_TX_EXAMPLE_COMMON_H_</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDP_TX_EXAMPLE_COMMON_H_</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdp_8h" kindref="compound">xdp.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>instance<sp/>to<sp/>be<sp/>used<sp/>with<sp/>the</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/>examples.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPTX_DEVICE_ID<sp/>XPAR_DISPLAYPORT_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>If<sp/>set<sp/>to<sp/>1,<sp/>the<sp/>link<sp/>training<sp/>process<sp/>will<sp/>continue<sp/>training<sp/>despite<sp/>failing</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*<sp/>by<sp/>attempting<sp/>training<sp/>at<sp/>a<sp/>reduced<sp/>link<sp/>rate.<sp/>It<sp/>will<sp/>also<sp/>continue</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>attempting<sp/>to<sp/>train<sp/>the<sp/>link<sp/>at<sp/>a<sp/>reduced<sp/>lane<sp/>count<sp/>if<sp/>needed.<sp/>With<sp/>this</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>option<sp/>enabled,<sp/>link<sp/>training<sp/>will<sp/>return<sp/>failure<sp/>only<sp/>when<sp/>all<sp/>link<sp/>rate<sp/>and</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>lane<sp/>count<sp/>combinations<sp/>have<sp/>been<sp/>exhausted<sp/>-<sp/>that<sp/>is,<sp/>training<sp/>fails<sp/>using</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>1-lane<sp/>and<sp/>a<sp/>1.62Gbps<sp/>link<sp/>rate.</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>If<sp/>set<sp/>to<sp/>0,<sp/>link<sp/>training<sp/>will<sp/>return<sp/>failure<sp/>if<sp/>the<sp/>training<sp/>failed<sp/>using</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>the<sp/>current<sp/>lane<sp/>count<sp/>and<sp/>link<sp/>rate<sp/>settings.</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>TRAIN_ADAPTIVE<sp/>is<sp/>used<sp/>by<sp/>the<sp/>examples<sp/>as<sp/>input<sp/>to<sp/>the</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*<sp/>XDp_TxEnableTrainAdaptive<sp/>driver<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_ADAPTIVE<sp/>1</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>A<sp/>value<sp/>of<sp/>1<sp/>is<sp/>used<sp/>to<sp/>indicate<sp/>that<sp/>the<sp/>DisplayPort<sp/>output<sp/>path<sp/>has<sp/>a</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>redriver<sp/>on<sp/>the<sp/>board<sp/>that<sp/>adjusts<sp/>the<sp/>voltage<sp/>swing<sp/>and<sp/>pre-emphasis<sp/>levels</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>that<sp/>are<sp/>outputted<sp/>from<sp/>the<sp/>FPGA.<sp/>If<sp/>this<sp/>is<sp/>the<sp/>case,<sp/>the<sp/>voltage<sp/>swing<sp/>and</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>pre-emphasis<sp/>values<sp/>supplied<sp/>to<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>will<sp/>be<sp/>evenly</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>distributed<sp/>among<sp/>the<sp/>available<sp/>levels<sp/>as<sp/>specified<sp/>in<sp/>the<sp/>IP<sp/>documentation.</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>Otherwise,<sp/>a<sp/>value<sp/>of<sp/>0<sp/>is<sp/>used<sp/>to<sp/>indicate<sp/>that<sp/>no<sp/>redriver<sp/>is<sp/>present.<sp/>In</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>order<sp/>to<sp/>meet<sp/>the<sp/>necessary<sp/>voltage<sp/>swing<sp/>and<sp/>pre-emphasis<sp/>levels<sp/>required<sp/>by</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>a<sp/>DisplayPort<sp/>RX<sp/>device,<sp/>the<sp/>level<sp/>values<sp/>specified<sp/>to<sp/>the<sp/>DisplayPort<sp/>TX</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>core<sp/>will<sp/>require<sp/>some<sp/>compensation.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>TRAIN_HAS_REDRIVER<sp/>is<sp/>used<sp/>by<sp/>the<sp/>examples<sp/>as<sp/>input<sp/>to<sp/>the</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>XDp_TxSetHasRedriverInPath<sp/>driver<sp/>function.</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>Note:<sp/>There<sp/>are<sp/>16<sp/>possible<sp/>voltage<sp/>swing<sp/>levels<sp/>and<sp/>32<sp/>possible<sp/>pre-emphasis</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>levels<sp/>in<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core<sp/>that<sp/>will<sp/>be<sp/>mapped<sp/>to<sp/>4<sp/>possible</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/>voltage<sp/>swing<sp/>and<sp/>4<sp/>possible<sp/>pre-emphasis<sp/>levels<sp/>in<sp/>the<sp/>RX<sp/>device.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_HAS_REDRIVER<sp/>1</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>link<sp/>rate<sp/>setting<sp/>to<sp/>begin<sp/>link<sp/>training<sp/>with.<sp/>Valid<sp/>values<sp/>are:</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>XDP_TX_LINK_BW_SET_540GBPS,<sp/>XDP_TX_LINK_BW_SET_270GBPS,<sp/>and</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/>XDP_TX_LINK_BW_SET_162GBPS.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_LINK_RATE<sp/>XDP_TX_LINK_BW_SET_540GBPS</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>lane<sp/>count<sp/>setting<sp/>to<sp/>begin<sp/>link<sp/>training<sp/>with.<sp/>Valid<sp/>values<sp/>are:</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/>*<sp/>XDP_TX_LANE_COUNT_SET_4,<sp/>XDP_TX_LANE_COUNT_SET_2,<sp/>and</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/>*<sp/>XDP_TX_LANE_COUNT_SET_1.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_LANE_COUNT<sp/>XDP_TX_LANE_COUNT_SET_4</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>If<sp/>set<sp/>to<sp/>1,<sp/>TRAIN_USE_LINK_RATE<sp/>and<sp/>TRAIN_USE_LANE_COUNT<sp/>will<sp/>be<sp/>ignored.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>Instead,<sp/>the<sp/>maximum<sp/>common<sp/>link<sp/>capabilities<sp/>between<sp/>the<sp/>DisplayPort<sp/>TX<sp/>core</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>and<sp/>the<sp/>RX<sp/>device<sp/>will<sp/>be<sp/>used<sp/>when<sp/>establishing<sp/>a<sp/>link.</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*<sp/>If<sp/>set<sp/>to<sp/>0,<sp/>TRAIN_USE_LINK_RATE<sp/>and<sp/>TRAIN_USE_LANE_COUNT<sp/>will<sp/>determine<sp/>the</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/>*<sp/>link<sp/>rate<sp/>and<sp/>lane<sp/>count<sp/>settings<sp/>that<sp/>the<sp/>link<sp/>training<sp/>process<sp/>will<sp/>begin</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>with.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRAIN_USE_MAX_LINK<sp/>1</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Dptx_PlatformInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Dptx_StreamSrcSync(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Dptx_StreamSrcSetup(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>Dptx_StreamSrcConfigure(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1a7890171f707168d57a1ee86a34eede68" kindref="member">Dptx_SetupExample</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1a6700facd123226784319febf7189c092" kindref="member">Dptx_StartLink</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">u32<sp/><ref refid="xdp__tx__example__common_8c_1aa048b03b5dc7408a4dd444f631eb6f30" kindref="member">Dptx_Run</ref>(<ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><ref refid="struct_x_dp" kindref="compound">XDp</ref><sp/>DpInstance;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDP_TX_EXAMPLE_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14/examples/xdp_tx_example_common.h"/>
+  </compounddef>
+</doxygen>

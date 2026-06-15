@@ -1,0 +1,185 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___hmac_params" kind="struct" prot="public">
+    <compoundname>XAsu_HmacParams</compoundname>
+    <includes local="no">xasu_hmacinfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___kdf_hmac_key_object" kindref="compound">XAsu_KdfHmacKeyObject</ref></type>
+        <definition>XAsu_KdfHmacKeyObject XAsu_HmacParams::KeyObject</definition>
+        <argsstring></argsstring>
+        <name>KeyObject</name>
+        <briefdescription>
+<para>Key object for input key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8651415dc1db7c9bdbbc0f328a379d67" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_HmacParams::MsgBufferAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgBufferAddr</name>
+        <briefdescription>
+<para>Address of the message buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAsu_HmacParams::HmacAddr</definition>
+        <argsstring></argsstring>
+        <name>HmacAddr</name>
+        <briefdescription>
+<para>Address of the output buffer to store the generated HMAC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1af7c9b754f239713e21a41d6f61b1e61b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_HmacParams::MsgLen</definition>
+        <argsstring></argsstring>
+        <name>MsgLen</name>
+        <briefdescription>
+<para>Length of the message to be processed. </para>        </briefdescription>
+        <detaileddescription>
+<para>MsgLen can be 0 &lt;= MsgLen &lt; ((2^B)-8B). Where B is the block length of the selected SHA type and SHA mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_HmacParams::HmacLen</definition>
+        <argsstring></argsstring>
+        <name>HmacLen</name>
+        <briefdescription>
+<para>Length of the HMAC to be generated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HmacParams::ShaType</definition>
+        <argsstring></argsstring>
+        <name>ShaType</name>
+        <briefdescription>
+<para>Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a1ac844d8a769624d98bbd4a1403d60f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HmacParams::ShaMode</definition>
+        <argsstring></argsstring>
+        <name>ShaMode</name>
+        <briefdescription>
+<para><verbatim>   SHA Mode, where XASU_SHA_MODE_SHAKE256 is valid only for SHA3 Type
+</verbatim> (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 / XASU_SHA_MODE_SHAKE256) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a8ed434b3d836170df4b69125ed09f29a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HmacParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Indicates whether it is the last update of data to HMAC. </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>FALSE: Not Last update.</para></listitem><listitem><para>TRUE: Last update. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HmacParams::OperationFlags</definition>
+        <argsstring></argsstring>
+        <name>OperationFlags</name>
+        <briefdescription>
+<para>Flags that determine the operation type. </para>        </briefdescription>
+        <detaileddescription>
+<para>These can be a combination of XASU_INIT, XASU_UPDATE and XASU_FINISH </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga4a51b82f829ed68f456efc5d0fb30a8c" compoundref="xasu__hmac_8c" startline="105" endline="168">XAsu_HmacCompute</referencedby>
+        <referencedby refid="group__xasu__hmac__client__apis_1ga6dece0ea2e001f9096c462d3a730b5ae" compoundref="xasu__hmac_8c" startline="242" endline="301">XAsu_HmacSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___hmac_params_1a40e46c297195191a432795b2912af9ee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_HmacParams::Reserved[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved for 8-byte alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains HMAC params info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="68">
+        <label>XAsu_HmacParams</label>
+        <link refid="struct_x_asu___hmac_params"/>
+        <childnode refid="69" relation="usage">
+          <edgelabel>KeyObject</edgelabel>
+        </childnode>
+      </node>
+      <node id="69">
+        <label>XAsu_KdfHmacKeyObject</label>
+        <link refid="struct_x_asu___kdf_hmac_key_object"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_hmacinfo.h" bodystart="60" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___hmac_params_1a852eebbd400e71ec9f3e384bf4258151" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>HmacAddr</name></member>
+      <member refid="struct_x_asu___hmac_params_1a8b51dbfd52ff462a642848d0d2150c14" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>HmacLen</name></member>
+      <member refid="struct_x_asu___hmac_params_1a8ed434b3d836170df4b69125ed09f29a" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_asu___hmac_params_1a8283775aca99141cf13a9cf47117706b" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>KeyObject</name></member>
+      <member refid="struct_x_asu___hmac_params_1a8651415dc1db7c9bdbbc0f328a379d67" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>MsgBufferAddr</name></member>
+      <member refid="struct_x_asu___hmac_params_1af7c9b754f239713e21a41d6f61b1e61b" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>MsgLen</name></member>
+      <member refid="struct_x_asu___hmac_params_1af681757f8d870f564596fbcaccc1de81" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>OperationFlags</name></member>
+      <member refid="struct_x_asu___hmac_params_1a40e46c297195191a432795b2912af9ee" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___hmac_params_1a1ac844d8a769624d98bbd4a1403d60f2" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>ShaMode</name></member>
+      <member refid="struct_x_asu___hmac_params_1a88cff332a0caa94bdd7f7951243b8235" prot="public" virt="non-virtual"><scope>XAsu_HmacParams</scope><name>ShaType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

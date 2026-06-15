@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_347dd2e059d898d227183cda50664df7" kind="dir">
+    <compoundname>avb</compoundname>
+    <innerfile refid="xavb_8c">xavb.c</innerfile>
+    <innerfile refid="xavb_8h">xavb.h</innerfile>
+    <innerfile refid="xavb__example_8c">xavb_example.c</innerfile>
+    <innerfile refid="xavb__hw_8c">xavb_hw.c</innerfile>
+    <innerfile refid="xavb__hw_8h">xavb_hw.h</innerfile>
+    <innerfile refid="xavb__ptp__bmca_8c">xavb_ptp_bmca.c</innerfile>
+    <innerfile refid="xavb__ptp__packets_8c">xavb_ptp_packets.c</innerfile>
+    <innerfile refid="xavb__rtc__sync_8c">xavb_rtc_sync.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/"/>
+  </compounddef>
+</doxygen>

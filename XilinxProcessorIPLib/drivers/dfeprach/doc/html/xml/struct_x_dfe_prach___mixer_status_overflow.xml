@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___mixer_status_overflow" kind="struct" prot="public">
+    <compoundname>XDfePrach_MixerStatusOverflow</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overflow_1afa325d67bcb56296cb3c6656dee49df0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverflow::MixerOverflow</definition>
+        <argsstring></argsstring>
+        <name>MixerOverflow</name>
+        <briefdescription>
+<para><verbatim>            [0-1] MixerOverflow=1 when an overflow has
+</verbatim> occurred in the mixer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="568" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overflow_1a55c7aa57abed28d911f81364125312ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverflow::FirstAntennaOverflowing</definition>
+        <argsstring></argsstring>
+        <name>FirstAntennaOverflowing</name>
+        <briefdescription>
+<para><verbatim>                      [0-7] Lowest antenna number on
+</verbatim> which first mixer overflow occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="570" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="570" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___mixer_status_overflow_1ad4a7c40a4b480b612286176b83d73b27" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_MixerStatusOverflow::FirstRCIdOverflowing</definition>
+        <argsstring></argsstring>
+        <name>FirstRCIdOverflowing</name>
+        <briefdescription>
+<para><verbatim>                   [0-15] Lowest physical mixer number on
+</verbatim> which the first mixer overflow occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each mixer handles 4 RACH channels, and the overflow indicator is aggregated, so an overflow on physical channel 0-3 will indicate as an overflow on Channel 0, 4-7 on channel 1, etc. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="572" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="567" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="567" bodyend="577"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___mixer_status_overflow_1a55c7aa57abed28d911f81364125312ba" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverflow</scope><name>FirstAntennaOverflowing</name></member>
+      <member refid="struct_x_dfe_prach___mixer_status_overflow_1ad4a7c40a4b480b612286176b83d73b27" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverflow</scope><name>FirstRCIdOverflowing</name></member>
+      <member refid="struct_x_dfe_prach___mixer_status_overflow_1afa325d67bcb56296cb3c6656dee49df0" prot="public" virt="non-virtual"><scope>XDfePrach_MixerStatusOverflow</scope><name>MixerOverflow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

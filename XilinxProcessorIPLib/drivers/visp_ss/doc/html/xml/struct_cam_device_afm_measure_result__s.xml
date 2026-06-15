@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_afm_measure_result__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAfmMeasureResult_s</compoundname>
+    <includes local="no">cam_device_afm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a306991202852b08b52224fe48f99f355" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::sharpnessA</definition>
+        <argsstring></argsstring>
+        <name>sharpnessA</name>
+        <briefdescription>
+<para>Sharpness of window A. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a8941f3fc68d5ccf349350a3be7be7608" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::sharpnessB</definition>
+        <argsstring></argsstring>
+        <name>sharpnessB</name>
+        <briefdescription>
+<para>Sharpness of window B. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a6ce337a4ed363cd3888e1984e081aec8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::sharpnessC</definition>
+        <argsstring></argsstring>
+        <name>sharpnessC</name>
+        <briefdescription>
+<para>Sharpness of window C. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1aebbd753b4abfa23d394b9135311b4aa0" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::luminanceA</definition>
+        <argsstring></argsstring>
+        <name>luminanceA</name>
+        <briefdescription>
+<para>Luminance of window A. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a7fa87bc94193410ec7f668dba8775976" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::luminanceB</definition>
+        <argsstring></argsstring>
+        <name>luminanceB</name>
+        <briefdescription>
+<para>Luminance of window B. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a70c3277778c83ea3202fd2800e5fb5fa" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::luminanceC</definition>
+        <argsstring></argsstring>
+        <name>luminanceC</name>
+        <briefdescription>
+<para>Luminance of window C. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1af7aa33e8f9847d2a1fce9b19baedc337" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::pixelCntA</definition>
+        <argsstring></argsstring>
+        <name>pixelCntA</name>
+        <briefdescription>
+<para>Pixel counts of window A. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1a0a0366ea4a9bb3d530052fa9d2575832" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::pixelCntB</definition>
+        <argsstring></argsstring>
+        <name>pixelCntB</name>
+        <briefdescription>
+<para>Pixel counts of window B. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_afm_measure_result__s_1ae57c52b92260cb9927334c737fca2bdd" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceAfmMeasureResult_s::pixelCntC</definition>
+        <argsstring></argsstring>
+        <name>pixelCntC</name>
+        <briefdescription>
+<para>Pixel counts of window C. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AFM measure results structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_afm_api.h" bodystart="64" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_afm_measure_result__s_1aebbd753b4abfa23d394b9135311b4aa0" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>luminanceA</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a7fa87bc94193410ec7f668dba8775976" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>luminanceB</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a70c3277778c83ea3202fd2800e5fb5fa" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>luminanceC</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1af7aa33e8f9847d2a1fce9b19baedc337" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>pixelCntA</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a0a0366ea4a9bb3d530052fa9d2575832" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>pixelCntB</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1ae57c52b92260cb9927334c737fca2bdd" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>pixelCntC</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a306991202852b08b52224fe48f99f355" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>sharpnessA</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a8941f3fc68d5ccf349350a3be7be7608" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>sharpnessB</name></member>
+      <member refid="struct_cam_device_afm_measure_result__s_1a6ce337a4ed363cd3888e1984e081aec8" prot="public" virt="non-virtual"><scope>CamDeviceAfmMeasureResult_s</scope><name>sharpnessC</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

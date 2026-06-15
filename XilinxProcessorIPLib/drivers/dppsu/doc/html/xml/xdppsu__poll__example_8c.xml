@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__poll__example_8c" kind="file">
+    <compoundname>xdppsu_poll_example.c</compoundname>
+    <includes refid="xdppsu__common__example_8h" local="yes">xdppsu_common_example.h</includes>
+    <incdepgraph>
+      <node id="117">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>xdppsu_poll_example.c</label>
+        <link refid="xdppsu_poll_example.c"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xil_io.h</label>
+      </node>
+      <node id="118">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+      </node>
+      <node id="124">
+        <label>xstatus.h</label>
+      </node>
+      <node id="116">
+        <label>xdppsu_common_example.h</label>
+        <link refid="xdppsu__common__example_8h"/>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>xvidc.h</label>
+      </node>
+      <node id="120">
+        <label>xil_types.h</label>
+      </node>
+      <node id="123">
+        <label>xparameters.h</label>
+      </node>
+      <node id="122">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpPsu_PollExample</definition>
+        <argsstring>(XDpPsu *InstancePtr, u32 BaseAddress)</argsstring>
+        <name>DpPsu_PollExample</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>The main entry point for the polling example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function will set up the system. If this is successful, this example will begin polling the Hot-Plug-Detect (HPD) status registers for HPD events. Once a connection event or a pulse is detected, link training will commence (if needed) and a video stream will start being sent over the main link.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort TX core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the system setup failed.</para></listitem><listitem><para>XST_SUCCESS should never return since this function, if setup was successful, is blocking.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>If system setup was successful, this function is blocking in order to illustrate polling taking place for HPD events. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" bodystart="103" bodyend="127"/>
+        <references refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" compoundref="xdppsu__common__example_8c" startline="89" endline="115">DpPsu_SetupExample</references>
+        <referencedby refid="xdppsu__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdppsu__poll__example_8c" startline="66" endline="77">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__poll__example_8c_1a87036d046ef161e672bac936232c0711" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void DpPsu_HpdPoll</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>DpPsu_HpdPoll</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function polls the XDPPSU_INTERRUPT_SIG_STATE and XDPPSU_INTERRUPT_STATUS registers for Hot-Plug-Detect (HPD) events and handles them accordingly. </para>        </briefdescription>
+        <detaileddescription>
+<para>If a connection or pulse event is detected, link training will begin (if required) and a video stream will be initiated.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" bodystart="143" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="xdppsu__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is the main function of the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> polling example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the polling example was unsuccessful - system setup failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Unless setup failed, main will never return since DpPsu_PollExample is blocking (it is continuously polling for Hot-Plug-Detect (HPD) events. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c" bodystart="66" bodyend="77"/>
+        <references refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" compoundref="xdppsu__poll__example_8c" startline="103" endline="127">DpPsu_PollExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains a design example using the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver with polling. </para>    </briefdescription>
+    <detaileddescription>
+<para>Once the polling detects a Hot-Plug-Detect event (HPD - DisplayPort cable is plugged/ unplugged or the monitor is turned on/off), the main link will be trained.</para><para><simplesect kind="note"><para>For this example to display output, the user will need to implement initialization of the system (DpPsu_PlatformInit) and, after training is complete, implement configuration of the video stream source in order to provide the DisplayPort core with input (DpPsu_StreamSrc* - called in <ref refid="xdppsu__common__example_8c" kindref="compound">xdppsu_common_example.c</ref>).</para><simplesectsep/><para>The functions DpPsu_PlatformInit and DpPsu_StreamSrc* are declared extern in <ref refid="xdppsu__common__example_8h" kindref="compound">xdppsu_common_example.h</ref> and are left up to the user to implement.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  14/10/17 Initial creation.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu__common__example_8h" kindref="compound">xdppsu_common_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdPoll(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="xdppsu__poll__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdppsu__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>DpPsuInstance;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>the<sp/>XDpPsu<sp/>polling<sp/>example.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(&amp;DpPsuInstance,<sp/>DPPSU_DEVICE_ID);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(&amp;DpPsuInstance,<sp/>DPPSU_BASEADDR);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="103" refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdppsu__poll__example_8c_1ad78dc9982ab43622fc66f25b16eb6b6b" kindref="member">DpPsu_PollExample</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>platform<sp/>initialization<sp/>here.<sp/>This<sp/>is<sp/>hardware<sp/>system<sp/>specific<sp/>-</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_PlatformInit();</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(InstancePtr,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdppsu__common__example_8c_1a31ed0302fb945e5748d9e7c182533786" kindref="member">DpPsu_SetupExample</ref>(InstancePtr,<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Continuously<sp/>poll<sp/>for<sp/>HPD<sp/>events.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(1)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpPsu_HpdPoll(InstancePtr);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPsu_HpdPoll(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InterruptSignalState;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>InterruptStatus;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdState;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdEvent;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdPulseDetected;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HpdDuration;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>interrupt<sp/>registers.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptSignalState<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a3f100eb641ca948e3ae71bb33b5e6512" kindref="member">XDPPSU_INTERRUPT_SIG_STATE</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InterruptStatus<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a66cf1bc6e98aa546ba11f8a8091b1f8e" kindref="member">XDPPSU_INTR_STATUS</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>HPD<sp/>events.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdState<sp/>=<sp/>InterruptSignalState<sp/>&amp;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1abe45f09e082e6ceecb66597575dac0e7" kindref="member">XDPPSU_INTERRUPT_SIG_STATE_HPD_STATE_MASK</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdEvent<sp/>=<sp/>InterruptStatus<sp/>&amp;<sp/><ref refid="xdppsu__hw_8h_1a3c97c07d18d9c5a39382fb8f8f7518b6" kindref="member">XDPPSU_INTR_HPD_EVENT_MASK</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdPulseDetected<sp/>=<sp/>InterruptStatus<sp/>&amp;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a63c73ef7b94ee2b16928d5423226e636" kindref="member">XDPPSU_INTR_HPD_PULSE_DETECTED_MASK</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdPulseDetected)<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HpdDuration<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__hw_8h_1a728bb80efc84e6cb161e3f04103bf6ed" kindref="member">XDPPSU_HPD_DURATION</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HPD<sp/>event<sp/>handling.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdState<sp/>&amp;&amp;<sp/>HpdEvent)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;+===&gt;<sp/>HPD<sp/>connection<sp/>event<sp/>detected.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initiate<sp/>link<sp/>training.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HpdState<sp/>&amp;&amp;<sp/>HpdPulseDetected<sp/>&amp;&amp;<sp/>(HpdDuration<sp/>&gt;=<sp/>250))<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;===&gt;<sp/>HPD<sp/>pulse<sp/>detected.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Re-train<sp/>if<sp/>needed.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__common__example_8c_1a05b560a8593f7a81eee6df4151d8ba4f" kindref="member">DpPsu_Run</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!HpdState<sp/>&amp;&amp;<sp/>HpdEvent)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;+===&gt;<sp/>HPD<sp/>disconnection<sp/>event<sp/>detected.\n\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>main<sp/>link.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu_8c_1ad113ed848850849d07fae7ce163a8a62" kindref="member">XDpPsu_EnableMainLink</ref>(InstancePtr,<sp/>0);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/examples/xdppsu_poll_example.c"/>
+  </compounddef>
+</doxygen>

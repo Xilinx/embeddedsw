@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d20a6451a31f7ff0279023c7fb348540" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="xloader_8c">xloader.c</innerfile>
+    <innerfile refid="xloader__auth__enc_8c">xloader_auth_enc.c</innerfile>
+    <innerfile refid="xloader__auth__enc_8h">xloader_auth_enc.h</innerfile>
+    <innerfile refid="xloader__auth__jtag_8c">xloader_auth_jtag.c</innerfile>
+    <innerfile refid="xloader__auth__jtag_8h">xloader_auth_jtag.h</innerfile>
+    <innerfile refid="xloader__cfi_8c">xloader_cfi.c</innerfile>
+    <innerfile refid="xloader__cmd_8c">xloader_cmd.c</innerfile>
+    <innerfile refid="xloader__ddr_8c">xloader_ddr.c</innerfile>
+    <innerfile refid="xloader__ddr_8h">xloader_ddr.h</innerfile>
+    <innerfile refid="xloader__ddr__init_8c">xloader_ddr_init.c</innerfile>
+    <innerfile refid="xloader__dfu__util_8c">xloader_dfu_util.c</innerfile>
+    <innerfile refid="xloader__dfu__util_8h">xloader_dfu_util.h</innerfile>
+    <innerfile refid="xloader__intr_8c">xloader_intr.c</innerfile>
+    <innerfile refid="xloader__kat_8c">xloader_kat.c</innerfile>
+    <innerfile refid="xloader__kat_8h">xloader_kat.h</innerfile>
+    <innerfile refid="xloader__ospi_8c">xloader_ospi.c</innerfile>
+    <innerfile refid="xloader__ospi_8h">xloader_ospi.h</innerfile>
+    <innerfile refid="xloader__prtn__load_8c">xloader_prtn_load.c</innerfile>
+    <innerfile refid="xloader__qspi_8c">xloader_qspi.c</innerfile>
+    <innerfile refid="xloader__qspi_8h">xloader_qspi.h</innerfile>
+    <innerfile refid="xloader__sbi_8c">xloader_sbi.c</innerfile>
+    <innerfile refid="xloader__sbi_8h">xloader_sbi.h</innerfile>
+    <innerfile refid="xloader__sd_8c">xloader_sd.c</innerfile>
+    <innerfile refid="xloader__sd_8h">xloader_sd.h</innerfile>
+    <innerfile refid="xloader__secure_8c">xloader_secure.c</innerfile>
+    <innerfile refid="xloader__secure_8h">xloader_secure.h</innerfile>
+    <innerfile refid="xloader__usb_8c">xloader_usb.c</innerfile>
+    <innerfile refid="xloader__usb_8h">xloader_usb.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/"/>
+  </compounddef>
+</doxygen>

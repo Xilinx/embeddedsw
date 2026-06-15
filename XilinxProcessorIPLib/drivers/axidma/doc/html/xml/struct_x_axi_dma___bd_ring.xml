@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_dma___bd_ring" kind="struct" prot="public">
+    <compoundname>XAxiDma_BdRing</compoundname>
+    <includes local="no">xaxidma_bdring.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma_BdRing::ChanBase</definition>
+        <argsstring></argsstring>
+        <name>ChanBase</name>
+        <briefdescription>
+<para>physical base address </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" compoundref="xaxidma__bdring_8c" startline="1557" endline="1585">XAxiDma_BdRingDumpRegs</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga0d3794bbccf028da8e94407d061dfc68" compoundref="xaxidma__bdring_8c" startline="738" endline="747">XAxiDma_BdRingGetCoalesce</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaaebba5c661e04485582e887e74dbeb94" compoundref="xaxidma__bdring_8c" startline="685" endline="719">XAxiDma_BdRingSetCoalesce</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="509" endline="561">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaf73e1329e40c8ac1ae47a7d9c104af75" compoundref="xaxidma_8c" startline="355" endline="393">XAxiDma_ResetIsDone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga32ca6099d7926297a4c17cdb4a19511b" compoundref="xaxidma_8c" startline="825" endline="962">XAxiDma_SimpleTransfer</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::IsRxChannel</definition>
+        <argsstring></argsstring>
+        <name>IsRxChannel</name>
+        <briefdescription>
+<para>Is this a receive channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int XAxiDma_BdRing::RunState</definition>
+        <argsstring></argsstring>
+        <name>RunState</name>
+        <briefdescription>
+<para>Whether channel is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" compoundref="xaxidma__bdring_8c" startline="476" endline="529">XAxiDma_BdRingClone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gadb572b623215a7df62b1e0468e3bd68c" compoundref="xaxidma_8c" startline="509" endline="561">XAxiDma_Pause</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5b7d1248ef065915fd8c9e8d5e00640f" compoundref="xaxidma_8c" startline="287" endline="338">XAxiDma_Reset</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga847cd9a0255fcb444bce58b945de8574" compoundref="xaxidma_8c" startline="578" endline="644">XAxiDma_Resume</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::HasStsCntrlStrm</definition>
+        <argsstring></argsstring>
+        <name>HasStsCntrlStrm</name>
+        <briefdescription>
+<para>Whether has stscntrl stream. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a94a5b88b2590ff521039bf5b172052dc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::HasDRE</definition>
+        <argsstring></argsstring>
+        <name>HasDRE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1ad15134c06d259b49daa14f8ffd72fb70" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::DataWidth</definition>
+        <argsstring></argsstring>
+        <name>DataWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a6d2be6dce1f46a955b7a408b1ae7a5c0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::Addr_ext</definition>
+        <argsstring></argsstring>
+        <name>Addr_ext</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1af7d20b177c57b8466e64b74c6c959273" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiDma_BdRing::MaxTransferLen</definition>
+        <argsstring></argsstring>
+        <name>MaxTransferLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma_BdRing::FirstBdPhysAddr</definition>
+        <argsstring></argsstring>
+        <name>FirstBdPhysAddr</name>
+        <briefdescription>
+<para>Physical address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma_BdRing::FirstBdAddr</definition>
+        <argsstring></argsstring>
+        <name>FirstBdAddr</name>
+        <briefdescription>
+<para>Virtual address of 1st BD in list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" compoundref="xaxidma__bdring_8c" startline="476" endline="529">XAxiDma_BdRingClone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma_BdRing::LastBdAddr</definition>
+        <argsstring></argsstring>
+        <name>LastBdAddr</name>
+        <briefdescription>
+<para>Virtual address of last BD in the list. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1af0b3fe5c9b9123209b3000e0d95193ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAxiDma_BdRing::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Total size of ring in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiDma_BdRing::Separation</definition>
+        <argsstring></argsstring>
+        <name>Separation</name>
+        <briefdescription>
+<para><verbatim>    Number of bytes between the starting
+</verbatim> address of adjacent BDs </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" compoundref="xaxidma__bdring_8c" startline="476" endline="529">XAxiDma_BdRingClone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::FreeHead</definition>
+        <argsstring></argsstring>
+        <name>FreeHead</name>
+        <briefdescription>
+<para>First BD in the free group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" compoundref="xaxidma__bdring_8c" startline="825" endline="851">XAxiDma_BdRingAlloc</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" compoundref="xaxidma__bdring_8c" startline="917" endline="958">XAxiDma_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::PreHead</definition>
+        <argsstring></argsstring>
+        <name>PreHead</name>
+        <briefdescription>
+<para>First BD in the pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::HwHead</definition>
+        <argsstring></argsstring>
+        <name>HwHead</name>
+        <briefdescription>
+<para>First BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::HwTail</definition>
+        <argsstring></argsstring>
+        <name>HwTail</name>
+        <briefdescription>
+<para>Last BD in the work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::PostHead</definition>
+        <argsstring></argsstring>
+        <name>PostHead</name>
+        <briefdescription>
+<para>First BD in the post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" compoundref="xaxidma__bdring_8c" startline="1339" endline="1374">XAxiDma_BdRingFree</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::BdaRestart</definition>
+        <argsstring></argsstring>
+        <name>BdaRestart</name>
+        <briefdescription>
+<para>BD to load when channel is started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" prot="public" static="no" mutable="no">
+        <type><ref refid="group___a_x_i_d_m_a_1ga5faf4d844b10fc577f3a75a170f11867" kindref="member">XAxiDma_Bd</ref> *</type>
+        <definition>XAxiDma_Bd* XAxiDma_BdRing::CyclicBd</definition>
+        <argsstring></argsstring>
+        <name>CyclicBd</name>
+        <briefdescription>
+<para>Useful for Cyclic DMA operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::FreeCnt</definition>
+        <argsstring></argsstring>
+        <name>FreeCnt</name>
+        <briefdescription>
+<para>Number of allocatable BDs in free group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" compoundref="xaxidma__bdring_8c" startline="825" endline="851">XAxiDma_BdRingAlloc</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" compoundref="xaxidma__bdring_8c" startline="476" endline="529">XAxiDma_BdRingClone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" compoundref="xaxidma__bdring_8c" startline="1339" endline="1374">XAxiDma_BdRingFree</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" compoundref="xaxidma__bdring_8c" startline="917" endline="958">XAxiDma_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::PreCnt</definition>
+        <argsstring></argsstring>
+        <name>PreCnt</name>
+        <briefdescription>
+<para>Number of BDs in pre-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga44003cd704b7d4868d1dc00bb433a91f" compoundref="xaxidma__bdring_8c" startline="825" endline="851">XAxiDma_BdRingAlloc</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gac58b1ab7a89890142baf67211772d3ce" compoundref="xaxidma__bdring_8c" startline="917" endline="958">XAxiDma_BdRingUnAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::HwCnt</definition>
+        <argsstring></argsstring>
+        <name>HwCnt</name>
+        <briefdescription>
+<para>Number of BDs in work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::PostCnt</definition>
+        <argsstring></argsstring>
+        <name>PostCnt</name>
+        <briefdescription>
+<para>Number of BDs in post-work group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad2ac76e5a39486896cd484e51d2898c7" compoundref="xaxidma__bdring_8c" startline="1339" endline="1374">XAxiDma_BdRingFree</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::AllCnt</definition>
+        <argsstring></argsstring>
+        <name>AllCnt</name>
+        <briefdescription>
+<para>Total Number of BDs for channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga64cf3c732bc803da742c256ab6372e0e" compoundref="xaxidma__bdring_8c" startline="1402" endline="1545">XAxiDma_BdRingCheck</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gad044df5bd676a71226411ba7f78ef20b" compoundref="xaxidma__bdring_8c" startline="476" endline="529">XAxiDma_BdRingClone</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::RingIndex</definition>
+        <argsstring></argsstring>
+        <name>RingIndex</name>
+        <briefdescription>
+<para>Ring Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1gaffa661a9a2467c1e274842c147531cea" compoundref="xaxidma__bdring_8c" startline="1557" endline="1585">XAxiDma_BdRingDumpRegs</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga8026e76c90d891d21c9c355ff776cb77" compoundref="xaxidma_8c" startline="114" endline="265">XAxiDma_CfgInitialize</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga39ee7d89e4453276d615849acad27fde" compoundref="xaxidma__bdring_8c" startline="164" endline="275">XAxiDma_UpdateBdRingCDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiDma_BdRing::Cyclic</definition>
+        <argsstring></argsstring>
+        <name>Cyclic</name>
+        <briefdescription>
+<para>Check for cyclic DMA Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group___a_x_i_d_m_a_1ga5c6d6f492642dd355478c3a853556d6b" compoundref="xaxidma__bdring_8c" startline="317" endline="450">XAxiDma_BdRingCreate</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga1e5d328b4d4a247d1530fac3efe4c59c" compoundref="xaxidma__bdring_8c" startline="1213" endline="1314">XAxiDma_BdRingFromHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1gaac81111b373e373be7dd3989fffffe7b" compoundref="xaxidma__bdring_8c" startline="992" endline="1139">XAxiDma_BdRingToHw</referencedby>
+        <referencedby refid="group___a_x_i_d_m_a_1ga7b38bc9220c391823219937580bd816f" compoundref="xaxidma__bdring_8c" startline="550" endline="620">XAxiDma_StartBdRingHw</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Container structure for descriptor storage control. </para>    </briefdescription>
+    <detaileddescription>
+<para>If address translation is enabled, then all addresses and pointers excluding FirstBdPhysAddr are expressed in terms of the virtual address. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axidma/src/xaxidma_bdring.h" bodystart="83" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_dma___bd_ring_1a6d2be6dce1f46a955b7a408b1ae7a5c0" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>Addr_ext</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a3c928d2f36e8daf845a70afdae2573a4" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>AllCnt</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a2519fd626856e7ab0d822adc46aab7d8" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>BdaRestart</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a203421a70ece72a3757fb690dd4ee75a" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>ChanBase</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a369f1add66b35ca594404126f3cb55be" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>Cyclic</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a7a6a7d28a2416f896e51ce7a80334911" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>CyclicBd</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1ad15134c06d259b49daa14f8ffd72fb70" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>DataWidth</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a6d41078607d5a8165e67d6483e40e9ab" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>FirstBdAddr</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1add2c7d765c8d95eeb9d0f94a54775528" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>FirstBdPhysAddr</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a51ec0929002582a900d404502e9a1622" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>FreeCnt</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a3e067ffdf2820a816f2d6dda6e3f9114" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>FreeHead</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a94a5b88b2590ff521039bf5b172052dc" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>HasDRE</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a7d35cb00bb50fff2e24c15f7d7d8dae0" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>HasStsCntrlStrm</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1ab49406dd2d9ec65e3f38d1cc3c880391" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>HwCnt</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1af097be199cf9d1d62cf32f775309a4f3" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>HwHead</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a7abe8351de43377407c579cd158f2448" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>HwTail</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a912bf38e61c8b03995ece842426b3ccf" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>IsRxChannel</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a3743d05f930d7c04abb0693f2ef0b271" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>LastBdAddr</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1af0b3fe5c9b9123209b3000e0d95193ed" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>Length</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1af7d20b177c57b8466e64b74c6c959273" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>MaxTransferLen</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1afd4e1620895f91a829354e131432d2b3" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>PostCnt</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a92668e60e10a940428e68f816c64eab6" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>PostHead</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a68e8042d227f7a40821a478deb063215" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>PreCnt</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a8a2958fb6be370d3cc29972f57203952" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>PreHead</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1ac14f09fcd00f1869c8194d790f73d791" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>RingIndex</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1a443e5c48e677e9a1a4e85a383eefc2be" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>RunState</name></member>
+      <member refid="struct_x_axi_dma___bd_ring_1aafd8e01bf65c7950235d8f21cf225e12" prot="public" virt="non-virtual"><scope>XAxiDma_BdRing</scope><name>Separation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

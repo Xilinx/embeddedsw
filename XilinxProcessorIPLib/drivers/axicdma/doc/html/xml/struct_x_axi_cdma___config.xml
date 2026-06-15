@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_axi_cdma___config" kind="struct" prot="public">
+    <compoundname>XAxiCdma_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a98570c3ae3141d909262db916aa71d3f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAxiCdma_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a9a87a843efcf47bd5ea2428217288b73" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Physical address of this instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="412" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a9f9196114cd86ea29b9a9951b16ebdd0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma_Config::HasDRE</definition>
+        <argsstring></argsstring>
+        <name>HasDRE</name>
+        <briefdescription>
+<para>Whether support unaligned transfers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma_Config::IsLite</definition>
+        <argsstring></argsstring>
+        <name>IsLite</name>
+        <briefdescription>
+<para>Whether hardware build is lite mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a5150381b84e79c7859aa4d70851a98bf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma_Config::DataWidth</definition>
+        <argsstring></argsstring>
+        <name>DataWidth</name>
+        <briefdescription>
+<para>Length of a word in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma_Config::BurstLen</definition>
+        <argsstring></argsstring>
+        <name>BurstLen</name>
+        <briefdescription>
+<para>Burst length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XAxiCdma_Config::AddrWidth</definition>
+        <argsstring></argsstring>
+        <name>AddrWidth</name>
+        <briefdescription>
+<para>Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1acac3926c83d02a8ffe1a82e69fd0431a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAxiCdma_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="419" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_axi_cdma___config_1a136f7c2279ce73e454c783f1f6c20b90" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAxiCdma_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axicdma/src/xaxicdma.h" bodystart="406" bodyend="422"/>
+    <listofallmembers>
+      <member refid="struct_x_axi_cdma___config_1a0958aa1063664113fc68a0acd1907a26" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>AddrWidth</name></member>
+      <member refid="struct_x_axi_cdma___config_1a9a87a843efcf47bd5ea2428217288b73" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_axi_cdma___config_1ad0a29ae084a111047ffcdc7dda3417e0" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>BurstLen</name></member>
+      <member refid="struct_x_axi_cdma___config_1a5150381b84e79c7859aa4d70851a98bf" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>DataWidth</name></member>
+      <member refid="struct_x_axi_cdma___config_1a9f9196114cd86ea29b9a9951b16ebdd0" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>HasDRE</name></member>
+      <member refid="struct_x_axi_cdma___config_1acac3926c83d02a8ffe1a82e69fd0431a" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_axi_cdma___config_1a136f7c2279ce73e454c783f1f6c20b90" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_axi_cdma___config_1a1bdfd01d492fb5e46bfd12bb18ac5f44" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>IsLite</name></member>
+      <member refid="struct_x_axi_cdma___config_1a98570c3ae3141d909262db916aa71d3f" prot="public" virt="non-virtual"><scope>XAxiCdma_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

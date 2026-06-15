@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspips__selftest_8c" kind="file">
+    <compoundname>xspips_selftest.c</compoundname>
+    <includes refid="xspips_8h" local="yes">xspips.h</includes>
+    <incdepgraph>
+      <node id="138">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="136">
+        <label>xspips_hw.h</label>
+        <link refid="xspips__hw_8h"/>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+      </node>
+      <node id="139">
+        <label>xil_io.h</label>
+      </node>
+      <node id="132">
+        <label>xspips_selftest.c</label>
+        <link refid="xspips_selftest.c"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="133">
+        <label>xspips.h</label>
+        <link refid="xspips_8h"/>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="134">
+        <label>xstatus.h</label>
+      </node>
+      <node id="137">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSpiPs_SelfTest</definition>
+        <argsstring>(XSpiPs *InstancePtr)</argsstring>
+        <name>XSpiPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The self-test is destructive in that a reset of the device is performed in order to check the reset values of the registers and to get the device into a known state.</para><para>Upon successful return from the self-test, the device is reset.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_REGISTER_ERROR indicates a register did not read or write correctly.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips.h" line="695" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_selftest.c" bodystart="72" bodyend="144"/>
+        <references refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" compoundref="xspips_8h" startline="399">XSpiPs_Config::BaseAddress</references>
+        <references refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" compoundref="xspips_8h" startline="416">XSpiPs::Config</references>
+        <references refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" compoundref="xspips_8h" startline="417">XSpiPs::IsReady</references>
+        <references refid="group__spips_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="58">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips_1gaec8a40193324debd139e5f47fbb2c943" compoundref="xspips__hw_8h" startline="99">XSPIPS_CR_RESET_STATE</references>
+        <references refid="group__spips_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="86">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" compoundref="xspips__options_8c" startline="386" endline="408">XSpiPs_GetDelays</references>
+        <references refid="group__spips_1gad01d887bc3e3b00c6a25ed26b3f71c4a" compoundref="xspips__hw_8h" startline="151">XSPIPS_ISR_RESET_STATE</references>
+        <references refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="266">XSpiPs_ReadReg</references>
+        <references refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" compoundref="xspips_8c" startline="229" endline="247">XSpiPs_Reset</references>
+        <references refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" compoundref="xspips__options_8c" startline="333" endline="362">XSpiPs_SetDelays</references>
+        <references refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="59">XSPIPS_SR_OFFSET</references>
+        <referencedby refid="xspips__eeprom__intr__example_8c_1add210e3892dd3e73c55e1f40e3a2b63f" compoundref="xspips__eeprom__intr__example_8c" startline="259" endline="381">SpiPsEepromIntrExample</referencedby>
+        <referencedby refid="xspips__eeprom__polled__example_8c_1af156542e10fb69ebb3a0760a22f77fbb" compoundref="xspips__eeprom__polled__example_8c" startline="224" endline="306">SpiPsEepromPolledExample</referencedby>
+        <referencedby refid="xspips__flash__intr__example_8c_1ab495f3b6de9f82f475f5c2b8508ae0c1" compoundref="xspips__flash__intr__example_8c" startline="273" endline="478">SpiPsFlashIntrExample</referencedby>
+        <referencedby refid="xspips__flash__polled__example_8c_1aa6648812b68cd9317398312d369bbfd8" compoundref="xspips__flash__polled__example_8c" startline="237" endline="411">SpiPsFlashPolledExample</referencedby>
+        <referencedby refid="xspips__selftest__example_8c_1a78ca9c2607cd3ea29c908634e0877a8c" compoundref="xspips__selftest__example_8c" startline="129" endline="161">SpiPsSelfTestExample</referencedby>
+        <referencedby refid="xspips__tpm__polled__example_8c_1ac767f7e806810800729193c6fb892db2" compoundref="xspips__tpm__polled__example_8c" startline="235" endline="469">SpiPsTpmPolledExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspips_8h" kindref="compound">xspips.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__spips_1gaaa797b9b8184e6f39b0c0038553e48d8" kindref="member">XSpiPs_SelfTest</ref>(<ref refid="struct_x_spi_ps" kindref="compound">XSpiPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DelayTestNss;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DelayTestBtwn;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DelayTestAfter;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DelayTestInit;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_spi_ps_1a2b4bc94dfb1fa4b10dd398b6e2632d05" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>SPI<sp/>device<sp/>to<sp/>leave<sp/>it<sp/>in<sp/>a<sp/>known<sp/>good<sp/>state</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" kindref="member">XSpiPs_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>All<sp/>the<sp/>SPI<sp/>registers<sp/>should<sp/>be<sp/>in<sp/>their<sp/>default<sp/>state<sp/>right<sp/>now.</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" kindref="member">Config</ref>.<ref refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1gab5bbcb1636123949d0fb41c76d7f77bd" kindref="member">XSPIPS_CR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;=<sp/>~<ref refid="group__spips_1ga0a2016ac5799028970f07ff16749e135" kindref="member">XSPIPS_CR_SSCTRL_MASK</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Register<sp/>!=<sp/><ref refid="group__spips_1gaec8a40193324debd139e5f47fbb2c943" kindref="member">XSPIPS_CR_RESET_STATE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_REGISTER_ERROR;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_spi_ps_1a2f23279c800d3c5e2d91622b1fa64aeb" kindref="member">Config</ref>.<ref refid="struct_x_spi_ps___config_1af265320ef6d6282e194b6234780c2e6e" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" kindref="member">XSPIPS_SR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Register<sp/>!=<sp/><ref refid="group__spips_1gad01d887bc3e3b00c6a25ed26b3f71c4a" kindref="member">XSPIPS_ISR_RESET_STATE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_REGISTER_ERROR;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayTestNss<sp/>=<sp/>0x5AU;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayTestBtwn<sp/>=<sp/>0xA5U;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayTestAfter<sp/>=<sp/>0xAAU;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayTestInit<sp/>=<sp/>0x55U;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>and<sp/>read<sp/>the<sp/>delay<sp/>register,<sp/>just<sp/>to<sp/>be<sp/>sure<sp/>there<sp/>is<sp/>some</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>hardware<sp/>out<sp/>there.</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" kindref="member">XSpiPs_SetDelays</ref>(InstancePtr,<sp/>DelayTestNss,<sp/>DelayTestBtwn,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DelayTestAfter,<sp/>DelayTestInit);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga06003e6ce763f2e61922a985e40abb2d" kindref="member">XSpiPs_GetDelays</ref>(InstancePtr,<sp/>&amp;DelayTestNss,<sp/>&amp;DelayTestBtwn,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;DelayTestAfter,<sp/>&amp;DelayTestInit);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((0x5AU<sp/>!=<sp/>DelayTestNss)<sp/>||<sp/>(0xA5U<sp/>!=<sp/>DelayTestBtwn)<sp/>||</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xAAU<sp/>!=<sp/>DelayTestAfter)<sp/>||<sp/>(0x55U<sp/>!=<sp/>DelayTestInit))<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_REGISTER_ERROR;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__spips_1ga18d5dbc4eeeac171a1c2795f898b8a83" kindref="member">XSpiPs_SetDelays</ref>(InstancePtr,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>the<sp/>SPI<sp/>device<sp/>to<sp/>leave<sp/>it<sp/>in<sp/>a<sp/>known<sp/>good<sp/>state</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1gad3abd2456cfa67bc8d24dd255ba7de51" kindref="member">XSpiPs_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>END:</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_selftest.c"/>
+  </compounddef>
+</doxygen>

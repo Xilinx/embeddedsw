@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__lmsalginfo_8c" kind="file">
+    <compoundname>xsecure_lmsalginfo.c</compoundname>
+    <includes refid="client_2core_2lms__hss_2xsecure__lmsalginfo_8h" local="yes">xsecure_lmsalginfo.h</includes>
+    <includes refid="xsecure__alghelper_8h" local="yes">xsecure_alghelper.h</includes>
+    <includes local="yes">xsecure_plat_defs.h</includes>
+    <incdepgraph>
+      <node id="2040">
+        <label>xsecure_lmsalginfo.c</label>
+        <link refid="xsecure_lmsalginfo.c"/>
+        <childnode refid="2041" relation="include">
+        </childnode>
+        <childnode refid="2044" relation="include">
+        </childnode>
+        <childnode refid="2046" relation="include">
+        </childnode>
+      </node>
+      <node id="2041">
+        <label>xsecure_lmsalginfo.h</label>
+        <link refid="client_2core_2lms__hss_2xsecure__lmsalginfo_8h"/>
+        <childnode refid="2042" relation="include">
+        </childnode>
+        <childnode refid="2043" relation="include">
+        </childnode>
+      </node>
+      <node id="2043">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2046">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2042">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="2045">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2044">
+        <label>xsecure_alghelper.h</label>
+        <link refid="xsecure__alghelper_8h"/>
+        <childnode refid="2042" relation="include">
+        </childnode>
+        <childnode refid="2045" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__lms__client__apis_1gae1c8c19400f2618054e970fda16e66cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_LmsGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_LmsGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the LMS crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c" bodystart="50" bodyend="53"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="162">XSECURE_API_LMS_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.7   tvp     04/29/26 Initial Release - Moved function implementation from header file</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">/******************************************<sp/>Include<sp/>Files<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="client_2core_2lms__hss_2xsecure__lmsalginfo_8h" kindref="compound">xsecure_lmsalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__alghelper_8h" kindref="compound">xsecure_alghelper.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Constant<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Type<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Function<sp/>Prototypes<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__lms__client__apis_1gae1c8c19400f2618054e970fda16e66cc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__lms__client__apis_1gae1c8c19400f2618054e970fda16e66cc" kindref="member">XSecure_LmsGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" kindref="member">XSecure_GetAlgInfo</ref>(AlgInfo,<sp/>(u32)<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0a4505d6ab4bea1e64042d888ddc21c9" kindref="member">XSECURE_API_LMS_SIGN_VERIFY</ref>);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/lms_hss/xsecure_lmsalginfo.c"/>
+  </compounddef>
+</doxygen>

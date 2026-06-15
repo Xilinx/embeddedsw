@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_gpio" kind="struct" prot="public">
+    <compoundname>XGpio</compoundname>
+    <includes local="no">xgpio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XGpio::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" compoundref="xgpio__intr_8c" startline="227" endline="234">XGpio_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" compoundref="xgpio__intr_8c" startline="255" endline="263">XGpio_InterruptGetStatus</referencedby>
+        <referencedby refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" compoundref="xgpio__intr_8c" startline="95" endline="104">XGpio_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XGpio::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1ga5b6948513889f043a40494dba1904828" compoundref="xgpio__sinit_8c" startline="143" endline="170">XGpio_Initialize</referencedby>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" compoundref="xgpio__intr_8c" startline="227" endline="234">XGpio_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" compoundref="xgpio__intr_8c" startline="255" endline="263">XGpio_InterruptGetStatus</referencedby>
+        <referencedby refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" compoundref="xgpio__intr_8c" startline="95" endline="104">XGpio_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+        <referencedby refid="group__gpio__api_1gaf01e2f4d8e75fa4922a5d92798be7b25" compoundref="xgpio__selftest_8c" startline="66" endline="80">XGpio_SelfTest</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XGpio::InterruptPresent</definition>
+        <argsstring></argsstring>
+        <name>InterruptPresent</name>
+        <briefdescription>
+<para>Are interrupts supported in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+        <referencedby refid="group__gpio__api_1ga5138b55159f8b2387f5cf16079b40bbe" compoundref="xgpio__intr_8c" startline="191" endline="210">XGpio_InterruptClear</referencedby>
+        <referencedby refid="group__gpio__api_1ga21c295f935fdc4e37c9f958b3652fbf6" compoundref="xgpio__intr_8c" startline="157" endline="173">XGpio_InterruptDisable</referencedby>
+        <referencedby refid="group__gpio__api_1gaa5b62394f65ecbb6566d91412616509c" compoundref="xgpio__intr_8c" startline="122" endline="139">XGpio_InterruptEnable</referencedby>
+        <referencedby refid="group__gpio__api_1ga1e5e23001aa3d35febe4859270ede71e" compoundref="xgpio__intr_8c" startline="227" endline="234">XGpio_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__gpio__api_1ga95b0fa50ff962243ea284a4a767fe01e" compoundref="xgpio__intr_8c" startline="255" endline="263">XGpio_InterruptGetStatus</referencedby>
+        <referencedby refid="group__gpio__api_1ga6241d0ae28815c258bb89a61ce0a6366" compoundref="xgpio__intr_8c" startline="95" endline="104">XGpio_InterruptGlobalDisable</referencedby>
+        <referencedby refid="group__gpio__api_1ga116bf1509220aa688f76f80501eb0d9e" compoundref="xgpio__intr_8c" startline="69" endline="77">XGpio_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XGpio::IsDual</definition>
+        <argsstring></argsstring>
+        <name>IsDual</name>
+        <briefdescription>
+<para>Are 2 channels supported in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+        <referencedby refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" compoundref="xgpio__extra_8c" startline="118" endline="138">XGpio_DiscreteClear</referencedby>
+        <referencedby refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" compoundref="xgpio_8c" startline="189" endline="199">XGpio_DiscreteRead</referencedby>
+        <referencedby refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" compoundref="xgpio__extra_8c" startline="75" endline="95">XGpio_DiscreteSet</referencedby>
+        <referencedby refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" compoundref="xgpio_8c" startline="217" endline="227">XGpio_DiscreteWrite</referencedby>
+        <referencedby refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" compoundref="xgpio_8c" startline="163" endline="173">XGpio_GetDataDirection</referencedby>
+        <referencedby refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" compoundref="xgpio_8c" startline="132" endline="143">XGpio_SetDataDirection</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every GPIO device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="109" bodyend="114"/>
+    <listofallmembers>
+      <member refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" prot="public" virt="non-virtual"><scope>XGpio</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" prot="public" virt="non-virtual"><scope>XGpio</scope><name>InterruptPresent</name></member>
+      <member refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" prot="public" virt="non-virtual"><scope>XGpio</scope><name>IsDual</name></member>
+      <member refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" prot="public" virt="non-virtual"><scope>XGpio</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

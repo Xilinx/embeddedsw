@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use hwicap driver.</para><sect1 id="example_1ex1">
+<title>xhwicap_intr_example.c</title>
+<para>Contains an example on how to use the XHwicap driver directly. This example shows the usage of the driver in interrupt mode.</para><para>For details, see <ref refid="xhwicap__intr__example_8c" kindref="compound">xhwicap_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xhwicap_low_level_example.c</title>
+<para>Contains an example on how to use the XHwicap driver directly. This example shows the usage of the low-level macros and functions of the hwicap driver.</para><para>For details, see <ref refid="xhwicap__low__level__example_8c" kindref="compound">xhwicap_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xhwicap_read_config_reg.c</title>
+<para>Contains an example on how to use the XHwicap driver directly. This example prints out the values of all the configuration registers in the FPGA.</para><para>For details, see xhwicap_read_config_reg.c.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xhwicap_read_frame_polled_example.c</title>
+<para>Contains an example on how to use the XHwicap driver directly. This example shows the usage of the driver to read one frame from the device using the polled mode.</para><para>For details, see <ref refid="xhwicap__read__frame__polled__example_8c" kindref="compound">xhwicap_read_frame_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xhwicap_testapp_example.c</title>
+<para>Contains an example on how to use the XHwicap driver directly. This example shows the usage of the hwicap driver.</para><para>For details, see <ref refid="xhwicap__testapp__example_8c" kindref="compound">xhwicap_testapp_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

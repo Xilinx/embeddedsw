@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device2_dnr_curve_config__s" kind="struct" prot="public">
+    <compoundname>CamDevice2DnrCurveConfig_s</compoundname>
+    <includes local="no">cam_device_2dnr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device2_dnr_curve_config__s_1a0cfef40e49aa1daf5ebc144ae9f2976d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice2DnrCurveConfig_s::lumaCurveX[CAMDEV_DNR_LUMA_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_DNR_LUMA_CURVE_SIZE]</argsstring>
+        <name>lumaCurveX</name>
+        <briefdescription>
+<para>Luma curve on X axis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device2_dnr_curve_config__s_1a8471e2f2182146e20f3fd31b264c0b1b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice2DnrCurveConfig_s::lumaCurveY[CAMDEV_DNR_LUMA_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_DNR_LUMA_CURVE_SIZE]</argsstring>
+        <name>lumaCurveY</name>
+        <briefdescription>
+<para>Luma curve on Y axis. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice 2DNR curve configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/2dnr_v5_2/cam_device_2dnr_api.h" bodystart="53" bodyend="57"/>
+    <listofallmembers>
+      <member refid="struct_cam_device2_dnr_curve_config__s_1a0cfef40e49aa1daf5ebc144ae9f2976d" prot="public" virt="non-virtual"><scope>CamDevice2DnrCurveConfig_s</scope><name>lumaCurveX</name></member>
+      <member refid="struct_cam_device2_dnr_curve_config__s_1a8471e2f2182146e20f3fd31b264c0b1b" prot="public" virt="non-virtual"><scope>CamDevice2DnrCurveConfig_s</scope><name>lumaCurveY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

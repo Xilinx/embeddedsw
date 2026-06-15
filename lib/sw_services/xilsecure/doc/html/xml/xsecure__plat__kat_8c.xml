@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__plat__kat_8c" kind="file">
+    <compoundname>xsecure_plat_kat.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="versal_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
+    <includes local="yes">xsecure_rsa.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes refid="xsecure__kat_8h" local="yes">xsecure_kat.h</includes>
+    <includes refid="xsecure__plat__kat_8h" local="yes">xsecure_plat_kat.h</includes>
+    <incdepgraph>
+      <node id="2887">
+        <label>xsecure_error.h</label>
+        <link refid="versal_2xsecure__error_8h"/>
+      </node>
+      <node id="2888">
+        <label>xsecure_rsa.h</label>
+      </node>
+      <node id="2890">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="2886" relation="include">
+        </childnode>
+        <childnode refid="2891" relation="include">
+        </childnode>
+        <childnode refid="2892" relation="include">
+        </childnode>
+        <childnode refid="2893" relation="include">
+        </childnode>
+      </node>
+      <node id="2889">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="2892">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="2899">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2893">
+        <label>xsecure_elliptic.h</label>
+        <link refid="xsecure__elliptic_8h"/>
+        <childnode refid="2886" relation="include">
+        </childnode>
+        <childnode refid="2894" relation="include">
+        </childnode>
+        <childnode refid="2895" relation="include">
+        </childnode>
+      </node>
+      <node id="2896">
+        <label>Ecdsa.h</label>
+      </node>
+      <node id="2900">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2897">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2898" relation="include">
+        </childnode>
+        <childnode refid="2894" relation="include">
+        </childnode>
+        <childnode refid="2899" relation="include">
+        </childnode>
+        <childnode refid="2900" relation="include">
+        </childnode>
+        <childnode refid="2901" relation="include">
+        </childnode>
+      </node>
+      <node id="2891">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="2895">
+        <label>xsecure_ellipticcrvs.h</label>
+        <link refid="xsecure__ellipticcrvs_8h"/>
+        <childnode refid="2886" relation="include">
+        </childnode>
+        <childnode refid="2894" relation="include">
+        </childnode>
+        <childnode refid="2896" relation="include">
+        </childnode>
+        <childnode refid="2897" relation="include">
+        </childnode>
+      </node>
+      <node id="2901">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2894">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2886">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2898">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2885">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure_plat_kat.c"/>
+        <childnode refid="2886" relation="include">
+        </childnode>
+        <childnode refid="2887" relation="include">
+        </childnode>
+        <childnode refid="2888" relation="include">
+        </childnode>
+        <childnode refid="2889" relation="include">
+        </childnode>
+        <childnode refid="2890" relation="include">
+        </childnode>
+        <childnode refid="2902" relation="include">
+        </childnode>
+      </node>
+      <node id="2902">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="xsecure__plat__kat_8h"/>
+        <childnode refid="2886" relation="include">
+        </childnode>
+        <childnode refid="2894" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecryptKat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_RsaPrivateDecryptKat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs private decrypt KAT on RSA core. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_RSA_KAT_INIT_ERROR When RSA initialization fails</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR When RSA KAT fails</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR - Error when RSA data not matched with expected data</para></listitem><listitem><para>XST_FAILURE - On failure</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XSECURE_RSA_KAT_INIT_ERROR When RSA initialization fails.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR When RSA KAT fails.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success.</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data.</para></listitem><listitem><para>XST_FAILURE On failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR Error when RSA data not matched with expected data</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize RSA</para></listitem><listitem><para>Perform RSA private decrypt operation</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the decrypted data with the expected data provided</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Initialize RSA</para></listitem><listitem><para>Perform RSA private decrypt operation</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Validate the decrypted data with the expected data provided</para></listitem><listitem><para>Initialized to error</para></listitem><listitem><para>Initialized to error </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c" bodystart="55" bodyend="107"/>
+        <references refid="group__xsecure__kat__server__apis_1gafd22599a22bb980e1a40ce887009f4ae" compoundref="xsecure__kat_8c" startline="461" endline="463">XSecure_GetKatRsaCtData</references>
+        <references refid="group__xsecure__kat__server__apis_1gaaa0efb9c372ffa755b176a70542185b7" compoundref="xsecure__kat_8c" startline="449" endline="451">XSecure_GetKatRsaData</references>
+        <references refid="group__xsecure__kat__server__apis_1gaf2687288c96705bea3af82209403ad60" compoundref="xsecure__kat_8c" startline="437" endline="439">XSecure_GetKatRsaModExt</references>
+        <references refid="group__xsecure__kat__server__apis_1gaad1c6cd684bcf2c3dc968a1faf83ae9a" compoundref="xsecure__kat_8c" startline="424" endline="426">XSecure_GetKatRsaModulus</references>
+        <references refid="group__xsecure__kat__server__apis_1gacd534322345d34248772d23a4ab90c7f" compoundref="xsecure__kat_8c" startline="473" endline="494">XSecure_GetKatRsaPrivateExp</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="75">XSECURE_RSA_2048_KEY_SIZE</references>
+        <references refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" compoundref="core_2rsa_2xsecure__rsa__core_8h" startline="80">XSECURE_RSA_2048_SIZE_WORDS</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a41e6a9e86d996466ce74d60731391667" compoundref="versal_2xsecure__error_8h" startline="155">XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a5eef968db9a687f91dcf03b3537b80b5" compoundref="versal_2xsecure__error_8h" startline="154">XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aa13a02cf9d65a08b8ec52bd4c5cb2b64" compoundref="versal_2xsecure__error_8h" startline="148">XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR</references>
+        <references refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ab87a3fd0817231d03954d02329f3a570" compoundref="versal_2xsecure__error_8h" startline="144">XSECURE_RSA_KAT_INIT_ERROR</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" compoundref="core_2rsa_2xsecure__rsa_8c" startline="165" endline="170">XSecure_RsaInitialize</references>
+        <references refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" compoundref="xsecure__rsaclient_8c" startline="65" endline="114">XSecure_RsaPrivateDecrypt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains versal specific code for KAT. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.3   kpt   03/12/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal_2xsecure__error_8h" kindref="compound">xsecure_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_rsa.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__kat_8h" kindref="compound">xsecure_kat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__plat__kat_8h" kindref="compound">xsecure_plat_kat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal">\</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="55" refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" kindref="member">XSecure_RsaPrivateDecryptKat</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>XSecureRsaInstance;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaModulusPtr<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaad1c6cd684bcf2c3dc968a1faf83ae9a" kindref="member">XSecure_GetKatRsaModulus</ref>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaModExtPtr<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaf2687288c96705bea3af82209403ad60" kindref="member">XSecure_GetKatRsaModExt</ref>();</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaExpCtDataPtr<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gafd22599a22bb980e1a40ce887009f4ae" kindref="member">XSecure_GetKatRsaCtData</ref>();</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaDataPtr<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gaaa0efb9c372ffa755b176a70542185b7" kindref="member">XSecure_GetKatRsaData</ref>();</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RsaPrivateExpPtr<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1gacd534322345d34248772d23a4ab90c7f" kindref="member">XSecure_GetKatRsaPrivateExp</ref>();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RsaOutput[<ref refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" kindref="member">XSECURE_RSA_2048_SIZE_WORDS</ref>];</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga097e8ed2f4933286ea5ef93210572b6b" kindref="member">XSecure_RsaInitialize</ref>(&amp;XSecureRsaInstance,<sp/>(u8<sp/>*)RsaModulusPtr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8<sp/>*)RsaModExtPtr,<sp/>(u8<sp/>*)RsaPrivateExpPtr);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600ab87a3fd0817231d03954d02329f3a570" kindref="member">XSECURE_RSA_KAT_INIT_ERROR</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" kindref="member">XSecure_RsaPrivateDecrypt</ref>(&amp;XSecureRsaInstance,<sp/>(u8<sp/>*)RsaExpCtDataPtr,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>,<sp/>(u8<sp/>*)RsaOutput);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a5eef968db9a687f91dcf03b3537b80b5" kindref="member">XSECURE_RSA_KAT_DECRYPT_FAILED_ERROR</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600aa13a02cf9d65a08b8ec52bd4c5cb2b64" kindref="member">XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__rsa__server__apis_1gab5e03185e5083dafd48c34ec3860f13b" kindref="member">XSECURE_RSA_2048_SIZE_WORDS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaOutput[Index]<sp/>!=<sp/>RsaDataPtr[Index])<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)<ref refid="versal_2xsecure__error_8h_1abed82baf7f470b522273a3e37c24c600a41e6a9e86d996466ce74d60731391667" kindref="member">XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR</ref>;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END_CLR;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Index<sp/>==<sp/>XSECURE_RSA_2048_SIZE_WORDS)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal">END_CLR:</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>=<sp/>Xil_SecureZeroize((u8*)RsaOutput,<sp/><ref refid="group__xsecure__rsa__server__apis_1ga07736a55ec2f9d8242a46ee20fc9f7b6" kindref="member">XSECURE_RSA_2048_KEY_SIZE</ref>);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SStatus<sp/>|=<sp/>Xil_SecureZeroize((u8*)&amp;XSecureRsaInstance,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref>));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Status<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SStatus;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_plat_kat.c"/>
+  </compounddef>
+</doxygen>

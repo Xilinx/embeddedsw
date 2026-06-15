@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use trafgen driver.</para><sect1 id="example_1ex1">
+<title>xtrafgen_interrupt_example.c</title>
+<para>Contains an example on how to use the XTrafgen driver directly. This example shows the usage of the driver in interrupt mode.</para><para>For details, see <ref refid="xtrafgen__interrupt__example_8c" kindref="compound">xtrafgen_interrupt_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xtrafgen_master_streaming_example.c</title>
+<para>Contains an example on how to use the XTrafgen driver directly. This example demonstrates how to use Streaming mode in this driver When Configured in Master only mode.In this mode the core generates Streaming Traffic based on the transfer length and transfer count configured.</para><para>For details, see <ref refid="xtrafgen__master__streaming__example_8c" kindref="compound">xtrafgen_master_streaming_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xtrafgen_polling_example.c</title>
+<para>Contains an example on how to use the XTrafgen driver directly. This example shows the usage of the driver in polled mode.</para><para>For details, see <ref refid="xtrafgen__polling__example_8c" kindref="compound">xtrafgen_polling_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xtrafgen_static_mode_example.c</title>
+<para>Contains an example on how to use the XTrafgen driver directly. This example demonstrates how to use the Static mode in this driver. In Static mode the core continuously generates fixed address and fixed INCR type read and write transfers based on the burst length configured.</para><para>For details, see <ref refid="xtrafgen__static__mode__example_8c" kindref="compound">xtrafgen_static_mode_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

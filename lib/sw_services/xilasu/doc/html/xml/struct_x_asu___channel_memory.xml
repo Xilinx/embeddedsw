@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___channel_memory" kind="struct" prot="public">
+    <compoundname>XAsu_ChannelMemory</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___channel_memory_1aaf6376417de1b8d560be3a50a8d7215c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_ChannelMemory::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Structure version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_memory_1affb9ba7641154236dea39a3f149fd085" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_ChannelMemory::Reserved[XASU_CHANNEL_RESERVED_MEM]</definition>
+        <argsstring>[XASU_CHANNEL_RESERVED_MEM]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_memory_1afd4759a142307b85ac6351e74241a21a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___channel_queue" kindref="compound">XAsu_ChannelQueue</ref></type>
+        <definition>XAsu_ChannelQueue XAsu_ChannelMemory::P0ChannelQueue</definition>
+        <argsstring></argsstring>
+        <name>P0ChannelQueue</name>
+        <briefdescription>
+<para>P0 channel queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___channel_memory_1af53279664e7fb3ae5cf60061f680c266" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___channel_queue" kindref="compound">XAsu_ChannelQueue</ref></type>
+        <definition>XAsu_ChannelQueue XAsu_ChannelMemory::P1ChannelQueue</definition>
+        <argsstring></argsstring>
+        <name>P1ChannelQueue</name>
+        <briefdescription>
+<para>P1 channel queue. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is the channel&apos;s memory. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="24">
+        <label>XAsu_ReqBuf</label>
+        <link refid="struct_x_asu___req_buf"/>
+      </node>
+      <node id="23">
+        <label>XAsu_ChannelQueueBuf</label>
+        <link refid="struct_x_asu___channel_queue_buf"/>
+        <childnode refid="24" relation="usage">
+          <edgelabel>ReqBuf</edgelabel>
+        </childnode>
+        <childnode refid="25" relation="usage">
+          <edgelabel>RespBuf</edgelabel>
+        </childnode>
+      </node>
+      <node id="21">
+        <label>XAsu_ChannelMemory</label>
+        <link refid="struct_x_asu___channel_memory"/>
+        <childnode refid="22" relation="usage">
+          <edgelabel>P1ChannelQueue</edgelabel>
+          <edgelabel>P0ChannelQueue</edgelabel>
+        </childnode>
+      </node>
+      <node id="25">
+        <label>XAsu_RespBuf</label>
+        <link refid="struct_x_asu___resp_buf"/>
+      </node>
+      <node id="22">
+        <label>XAsu_ChannelQueue</label>
+        <link refid="struct_x_asu___channel_queue"/>
+        <childnode refid="23" relation="usage">
+          <edgelabel>ChannelQueueBufs</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="156" bodyend="161"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___channel_memory_1afd4759a142307b85ac6351e74241a21a" prot="public" virt="non-virtual"><scope>XAsu_ChannelMemory</scope><name>P0ChannelQueue</name></member>
+      <member refid="struct_x_asu___channel_memory_1af53279664e7fb3ae5cf60061f680c266" prot="public" virt="non-virtual"><scope>XAsu_ChannelMemory</scope><name>P1ChannelQueue</name></member>
+      <member refid="struct_x_asu___channel_memory_1affb9ba7641154236dea39a3f149fd085" prot="public" virt="non-virtual"><scope>XAsu_ChannelMemory</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___channel_memory_1aaf6376417de1b8d560be3a50a8d7215c" prot="public" virt="non-virtual"><scope>XAsu_ChannelMemory</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

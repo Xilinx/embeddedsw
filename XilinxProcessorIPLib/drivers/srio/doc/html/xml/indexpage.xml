@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>srio</title>
+    <detaileddescription>
+<para>This file contains the implementation of the SRIO Gen2 driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para>The SRIO Gen2 Core supports RapidIO Interconnect Specification rev. 2.2 The SRIO Gen2 Endpoint comprises of the phy ,logical and transport and buffer layers. Using the SRIO Gen2 Endpoint Core we can generate I/O transactions Read(NREAD), Write(NWRITE), Read with response (NREAD_R), Stream write(SWRITE) atomic operations(atomic set,clear,test and swap etc...). It also supports Messaging Transactions Message (MESSAGE), Doorbell(DOORBELL)and 8-bit/16-bit device ID&apos;s.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_srio___config" kindref="compound">XSrio_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XSrio_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in <ref refid="xsrio__g_8c" kindref="compound">xsrio_g.c</ref>. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para>XSrio_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold> There are no interrupts available for the SRIO Gen2 Core.</para><para><bold> Examples </bold></para><para>There is an example provided to show the usage of the APIs<itemizedlist>
+<listitem><para>SRIO Dma loopback example (<ref refid="xsrio__dma__loopback__example_8c" kindref="compound">xsrio_dma_loopback_example.c</ref>)</para></listitem></itemizedlist>
+</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   adk  16/04/14 Initial release.
+1.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XSrio_CfgInitialize API.
+      ms   01/23/17 Modified xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+      ms   04/05/17 Added tabspace for return statements in functions of
+                    srio examples for proper documentation while
+                    generating doxygen.
+1.2   adk  30/07/19 Fix portwidth handling in the <ref refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" kindref="member">XSrio_CfgInitialize()</ref> API.
+1.4   mus  09/02/20 Updated makefile to support parallel make and
+                    incremental builds. It would help to reduce compilation
+                    time
+1.6   adk  06/02/24 Added support for system device-tree flow.
+1.8   ml   03/02/26 Fix codespell warnings
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

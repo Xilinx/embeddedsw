@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xintc__intr_8c" kind="file">
+    <compoundname>xintc_intr.c</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes refid="xintc_8h" local="yes">xintc.h</includes>
+    <incdepgraph>
+      <node id="75">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="73">
+        <label>xintc_intr.c</label>
+        <link refid="xintc_intr.c"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="79">
+        <label>xintc_l.h</label>
+        <link refid="xintc__l_8h"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+      <node id="80">
+        <label>xil_io.h</label>
+      </node>
+      <node id="78">
+        <label>xintc_drv_config.h</label>
+      </node>
+      <node id="77">
+        <label>xstatus.h</label>
+      </node>
+      <node id="81">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+      <node id="76">
+        <label>xintc.h</label>
+        <link refid="xintc_8h"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIntc_InterruptHandler</definition>
+        <argsstring>(XIntc *InstancePtr)</argsstring>
+        <name>XIntc_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_intc" kindref="compound">XIntc</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the driver used when there can be no argument passed to the handler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is provided mostly for backward compatibility. The user should use <ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref>, defined in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref>, if possible.</para><para>The user must connect this function to the interrupt system such that it is called whenever the devices which are connected to it cause an interrupt.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The constant XPAR_INTC_SINGLE_DEVICE_ID must be defined for this handler to be included in the driver compilation.</para><para>The interrupt handler for the driver. This function is provided mostly for backward compatibility. The user should use <ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler()</ref>, defined in <ref refid="xintc__l_8c" kindref="compound">xintc_l.c</ref> when possible and pass the device ID of the interrupt controller device as its argument.</para><para>The user must connect this function to the interrupt system such that it is called whenever the devices which are connected to it cause an interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_intc" kindref="compound">XIntc</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_intr.c" bodystart="143" bodyend="159"/>
+        <references refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" compoundref="xintc_8h" startline="324">XIntc_Config::BaseAddress</references>
+        <references refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" compoundref="xintc_8h" startline="361">XIntc::CfgPtr</references>
+        <references refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</references>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="73"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xintc_8h" kindref="compound">xintc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XIntc_VoidInterruptHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>the<sp/>single<sp/>instance<sp/>to<sp/>call<sp/>the<sp/>main<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler</ref>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/>XPAR_INTC_SINGLE_DEVICE_ID);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" kindref="member">XIntc_InterruptHandler</ref>(<ref refid="struct_x_intc" kindref="compound">XIntc</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>that<sp/>the<sp/>pointer<sp/>to<sp/>the<sp/>instance<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>the<sp/>instance&apos;s<sp/>device<sp/>ID<sp/>to<sp/>call<sp/>the<sp/>main<sp/>interrupt<sp/>handler.</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(the<sp/>casts<sp/>are<sp/>to<sp/>avoid<sp/>a<sp/>compiler<sp/>warning)</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler</ref>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((UINTPTR)<sp/>(InstancePtr-&gt;<ref refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" kindref="member">CfgPtr</ref>-&gt;DeviceId)));</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" kindref="member">XIntc_DeviceInterruptHandler</ref>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((UINTPTR)<sp/>(InstancePtr-&gt;<ref refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_intc___config_1a7fb04e1e5139ccfcd9475847c67c35af" kindref="member">BaseAddress</ref>)));</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_intr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,2073 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdcdma_8h" kind="file">
+    <compoundname>xdcdma.h</compoundname>
+    <includes refid="xdcdma__hw_8h" local="yes">xdcdma_hw.h</includes>
+    <includes refid="xdc_8h" local="yes">xdc.h</includes>
+    <includedby refid="xdcdma_8c" local="yes">xdcdma.c</includedby>
+    <includedby refid="xdcsub_8h" local="yes">xdcsub.h</includedby>
+    <includedby refid="mmi__dpdc__example_8h" local="yes">mmi_dpdc_example.h</includedby>
+    <includedby refid="mmi__dc__live__test_8c" local="no">mmi_dc_live_test.c</includedby>
+    <incdepgraph>
+      <node id="620">
+        <label>xil_io.h</label>
+      </node>
+      <node id="621">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="622" relation="include">
+        </childnode>
+      </node>
+      <node id="622">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="620" relation="include">
+        </childnode>
+      </node>
+      <node id="619">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="620" relation="include">
+        </childnode>
+      </node>
+      <node id="618">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma.h"/>
+        <childnode refid="619" relation="include">
+        </childnode>
+        <childnode refid="621" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="637">
+        <label>mmi_dc_generate_frames.c</label>
+        <link refid="mmi__dc__generate__frames_8c"/>
+      </node>
+      <node id="636">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi__dc__generate__frames_8h"/>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+      </node>
+      <node id="641">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="648">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+      </node>
+      <node id="631">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="628">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+        <childnode refid="636" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="644" relation="include">
+        </childnode>
+        <childnode refid="646" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="647" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>mmi_dc_cursor.c</label>
+        <link refid="mmi__dc__cursor_8c"/>
+      </node>
+      <node id="629">
+        <label>mmi_dc_cursor.h</label>
+        <link refid="mmi__dc__cursor_8h"/>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="643">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="651">
+        <label>mmi_dpdc_menus.h</label>
+        <link refid="mmi__dpdc__menus_8h"/>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+      </node>
+      <node id="645">
+        <label>mmi_dc_partial_plane.c</label>
+        <link refid="mmi__dc__partial__plane_8c"/>
+      </node>
+      <node id="644">
+        <label>mmi_dc_partial_plane.h</label>
+        <link refid="mmi__dc__partial__plane_8h"/>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="645" relation="include">
+        </childnode>
+      </node>
+      <node id="626">
+        <label>xdcsub.c</label>
+        <link refid="xdcsub_8c"/>
+      </node>
+      <node id="625">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="626" relation="include">
+        </childnode>
+        <childnode refid="627" relation="include">
+        </childnode>
+        <childnode refid="628" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="642" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="627">
+        <label>xdcsub_g.c</label>
+        <link refid="xdcsub__g_8c"/>
+      </node>
+      <node id="632">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi__dc__setup__frames_8c"/>
+      </node>
+      <node id="634">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="640">
+        <label>mmi_dp_intr.c</label>
+        <link refid="mmi__dp__intr_8c"/>
+      </node>
+      <node id="647">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi__dp__intr_8h"/>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="653">
+        <label>xavpg.c</label>
+        <link refid="xavpg_8c"/>
+      </node>
+      <node id="652">
+        <label>xavpg.h</label>
+        <link refid="xavpg_8h"/>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+      </node>
+      <node id="650">
+        <label>mmi_dc_mixed_test.h</label>
+        <link refid="mmi__dc__mixed__test_8h"/>
+      </node>
+      <node id="633">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="642">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi__dpdc__platform_8h"/>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="643" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="639">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+      <node id="638">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi__dp__init_8h"/>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+        <childnode refid="641" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="635">
+        <label>mmi_dc_sdp.c</label>
+        <link refid="mmi__dc__sdp_8c"/>
+      </node>
+      <node id="646">
+        <label>mmi_dc_sdp.h</label>
+        <link refid="mmi__dc__sdp_8h"/>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="635" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+      </node>
+      <node id="624">
+        <label>xdcdma.c</label>
+        <link refid="xdcdma_8c"/>
+      </node>
+      <node id="623">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma.h"/>
+        <childnode refid="624" relation="include">
+        </childnode>
+        <childnode refid="625" relation="include">
+        </childnode>
+        <childnode refid="648" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+      </node>
+      <node id="654">
+        <label>mmi_dc_live_test.c</label>
+        <link refid="mmi__dc__live__test_8c"/>
+      </node>
+      <node id="649">
+        <label>mmi_dc_live_test.h</label>
+        <link refid="mmi__dc__live__test_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_dc_dma___descriptor" prot="public">XDcDma_Descriptor</innerclass>
+    <innerclass refid="struct_x_dc_dma___config" prot="public">XDcDma_Config</innerclass>
+    <innerclass refid="struct_x_dc_dma___frame_buffer" prot="public">XDcDma_FrameBuffer</innerclass>
+    <innerclass refid="struct_x_dc_dma___audio_buffer" prot="public">XDcDma_AudioBuffer</innerclass>
+    <innerclass refid="struct_x_dc_dma___s_d_p_buffer" prot="public">XDcDma_SDPBuffer</innerclass>
+    <innerclass refid="struct_x_dc_dma___channel___dscr" prot="public">XDcDma_Channel_Dscr</innerclass>
+    <innerclass refid="struct_x_dc_dma___channel" prot="public">XDcDma_Channel</innerclass>
+    <innerclass refid="struct_x_dc_dma___audio_channel" prot="public">XDcDma_AudioChannel</innerclass>
+    <innerclass refid="struct_x_dc_dma___s_d_p_channel" prot="public">XDcDma_SDPChannel</innerclass>
+    <innerclass refid="struct_x_dc_dma" prot="public">XDcDma</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdcdma_8h_1ad5ab6ca71de5f5fa1a060d81a26e2ade" prot="public" static="no">
+        <name>XDCDMA_DESC_ALIGN</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a90fa6834d3ca267d6d3e557141915a0d" prot="public" static="no">
+        <name>XDCDMA_DESC_PREAMBLE</name>
+        <initializer>(0xA5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1ae08ee9c0a6f07478368d99f2f6d5c160" prot="public" static="no">
+        <name>XDCDMA_VIDEO_CHANNEL0</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1aab1a1412ee94c3b6757784a2320649eb" prot="public" static="no">
+        <name>XDCDMA_VIDEO_CHANNEL1</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1ab879f0de1dfd12b83c4fef3d73161021" prot="public" static="no">
+        <name>XDCDMA_VIDEO_CHANNEL2</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a8e3a80f5de89fb8d10494b93e0ece354" prot="public" static="no">
+        <name>XDCDMA_GRAPHICS_CHANNEL3</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a2c467a6db3bb3d085ab41d26bf408b56" prot="public" static="no">
+        <name>XDCDMA_GRAPHICS_CHANNEL4</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1afc90272d9221a1092fa8ad307fa19a68" prot="public" static="no">
+        <name>XDCDMA_GRAPHICS_CHANNEL5</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a8ca79c8d1cf4007cc98af5d589e45b55" prot="public" static="no">
+        <name>XDCDMA_AUDIO_CHANNEL</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a4ba2fc4ce0033918721f41615797bf95" prot="public" static="no">
+        <name>XDCDMA_SDP_CHANNEL</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a5971b8f5dbc894eae06c57fe9df1b86e" prot="public" static="no">
+        <name>XDCDMA_TRIGGER_DONE</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a0152db23968ff0b81562b66b8a45f054" prot="public" static="no">
+        <name>XDCDMA_RETRIGGER_DONE</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1a7d0c6f5edb0855b190154b1798d19473" prot="public" static="no">
+        <name>XDCDMA_TRIGGER_EN</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdcdma_8h_1aab781e2601604bcf91657a8d6ae9b37b" prot="public" static="no">
+        <name>XDCDMA_RETRIGGER_EN</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acf" prot="public" static="no">
+        <name>XDcDma_ChannelId</name>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfab2036a063f43e847f9e1cfd94d7e1662" prot="public">
+          <name>XDCDMA_CH0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfade65f8514b3f20deb7bb6976206323a5" prot="public">
+          <name>XDCDMA_CH1</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfaad01899c5b9707f71d1fd10b11078871" prot="public">
+          <name>XDCDMA_CH2</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfac89fb38eb0e7925cae1ad4718bdb7774" prot="public">
+          <name>XDCDMA_CH3</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfad2b2de324f2447b5cde79df8192ff1f6" prot="public">
+          <name>XDCDMA_CH4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfa2c5e05fdd5a879f91dcec61ce2b39be0" prot="public">
+          <name>XDCDMA_CH5</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfa399d941e30c6bc75c726b1586a90b7ec" prot="public">
+          <name>XDCDMA_CH6</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a88a64f8a8f5577e70512274c84c75acfa11a5df19371f3161277b81e4ea1772d7" prot="public">
+          <name>XDCDMA_CH7</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="108" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="enum" id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543a" prot="public" static="no">
+        <name>XDcDma_IntHandlerType</name>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa3a0015dfc71962e5accfa085876540d8" prot="public">
+          <name>XDCDMA_HANDLER_VSYNC</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa6738b75d7941e4ea25182e01935b361a" prot="public">
+          <name>XDCDMA_HANDLER_DSCR_ERR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa2f0b3dbe78d9c0aa07e45d9baebdd66a" prot="public">
+          <name>XDCDMA_HANDLER_AXI_ERR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa620440106d76737b562a411238e1b1f2" prot="public">
+          <name>XDCDMA_HANDLER_NO_OSTAND_ERR</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa24c55c84c374068d7dc2e8635ec3c059" prot="public">
+          <name>XDCDMA_HANDLER_DSCR_DONE</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa9ee61a8e989d207a8d5b2f37af4262f7" prot="public">
+          <name>XDCDMA_HANDLER_AXI_RD_4K_ERR</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa9e1ffc669d54ab230bd6551c38a047b5" prot="public">
+          <name>XDCDMA_HANDLER_ADDR_DECODE_ERR</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa3394b92ff65549e99e0c62989fe7ef53" prot="public">
+          <name>XDCDMA_HANDLER_DSCR_RD_WR_ERR</name>
+          <initializer>= 7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa5996944f2ddf7d13625ab69cd68e5342" prot="public">
+          <name>XDCDMA_HANDLER_CRC_ERR</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aac9817f65535c52ced1714b3ad926e1a7" prot="public">
+          <name>XDCDMA_HANDLER_PREAMBLE_ERR</name>
+          <initializer>= 9</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a7041cdaca74134ffef0195ec236b543aa278b018bb0f6f50ab11d9247e27aafba" prot="public">
+          <name>XDCDMA_HANDLER_CHAN_OVR_FLOW_ERR</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="123" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="enum" id="xdcdma_8h_1a60e9abdf802e273ee32efada9cb08478" prot="public" static="no">
+        <name>XDcDma_State</name>
+        <enumvalue id="xdcdma_8h_1a60e9abdf802e273ee32efada9cb08478a2b2353f792ae3a1ac5922870c7f2c6ad" prot="public">
+          <name>XDCDMA_STATE_IDLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a60e9abdf802e273ee32efada9cb08478aa0dc6b3ce15afa93af7b7ec1fc17dfae" prot="public">
+          <name>XDCDMA_STATE_ENABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a60e9abdf802e273ee32efada9cb08478a7c7ebf2ffac733242f0ad37e59201539" prot="public">
+          <name>XDCDMA_STATE_DISABLE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a60e9abdf802e273ee32efada9cb08478adf513283f1971bdcf55fcecc4226d252" prot="public">
+          <name>XDCDMA_STATE_PAUSE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="137" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="enum" id="xdcdma_8h_1a3d18351fa011a0166735074335fecb3b" prot="public" static="no">
+        <name>XDcDma_VideoModes</name>
+        <enumvalue id="xdcdma_8h_1a3d18351fa011a0166735074335fecb3baf59ecbbe3f314395e0ffa01b0f1f4e56" prot="public">
+          <name>INTERLEAVED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a3d18351fa011a0166735074335fecb3badef9955b5abb784cd8a2d47b64008045" prot="public">
+          <name>SEMIPLANAR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a3d18351fa011a0166735074335fecb3ba50babda0470ecef96fd4d586825f0c7c" prot="public">
+          <name>PLANAR</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This data structure describes video planes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="147" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="enum" id="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" prot="public" static="no">
+        <name>XDcDma_ChannelType</name>
+        <enumvalue id="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307a32b503c86177bafda76cbdadb3bba2d9" prot="public">
+          <name>VideoChan</name>
+          <initializer>= 0x0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307a667cec44511a103dfe5dab296fb3523a" prot="public">
+          <name>GraphicsChan</name>
+          <initializer>= 0x3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307a4fe800b6d5a83d62d3b1175a560a3f2e" prot="public">
+          <name>AudioChan</name>
+          <initializer>= 0x6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307a4adefe6d7c04c9a936a15ec963bdce4b" prot="public">
+          <name>CursorSDPChan</name>
+          <initializer>= 0x7</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines the Channel types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="223" bodyend="228"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xdcdma_8h_1aa6ddc2ce64c2ace861cbc2034f6564a6" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_VSyncIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_VSyncIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a7c61745faef77006ed9c46a6b9523b0a" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_DscrDoneIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_DscrDoneIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a3a5bd996c26bad509ffc8ea221411b68" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_DscrErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_DscrErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a51e97a0ae3af97a46d79ca7b576f9487" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_AxiErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_AxiErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1ad49a4c15b94dc9377ea71e002ddcac0e" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_NoOStandErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_NoOStandErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1ab69bf3af64aa82314d1fe6acd5d76988" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_AxiRd4kErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_AxiRd4kErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a2bf96c596e5b8b683ae4a914b5fd66cb" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_AddrDecodeErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_AddrDecodeErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1ae29cb1a85aac96b6f9814afbfef627fc" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_DscrRdWrErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_DscrRdWrErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1af9c5039d926f411fd2cbd46d2504b8e4" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_CrcErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_CrcErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a40516b1454b10961aadc5be981b469b9" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_PreambleErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_PreambleErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xdcdma_8h_1a8a8c6fe3f608f0a107a5857857129b57" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XDcDma_ChanOvrFlowErrIntHandler)(void *InstancePtr)</definition>
+        <argsstring>)(void *InstancePtr)</argsstring>
+        <name>XDcDma_ChanOvrFlowErrIntHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdcdma_8h_1a38499d048dda5fdcbabb3bf52a536650" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XDcDma_Config *</type>
+        <definition>XDcDma_Config* XDcDma_LookupConfig</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XDcDma_LookupConfig</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="266" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_CfgInitialize</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 EffectiveAddr)</argsstring>
+        <name>XDcDma_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddr</declname>
+          <defname>BaseAddr</defname>
+        </param>
+        <briefdescription>
+<para>This function initializes the configuration for the DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the base address of the DcDma instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Base address and DeviceId is same as the Dc Timing driver. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="60" bodyend="85"/>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga406539d327e2a84079b1105fc64465ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_WriteProtEnable</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_WriteProtEnable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the write protection for DCDMA registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="96" bodyend="107"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga5d173da16718d01d9ef53fc5d424678a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_WriteProtDisable</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_WriteProtDisable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the write protection for DCDMA registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="118" bodyend="131"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga91f1b1f6e28e522f43cd33bb8a17a4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDCDma_GetWriteProt</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDCDma_GetWriteProt</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="142" bodyend="156"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a601798789882440402a8ae218b59c442" compoundref="xdcdma__hw_8h" startline="54">XDCDMA_WPROTS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga153e5abe962b93c6ee19741da7f150ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_SetCallBack</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_IntHandlerType HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDcDma_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_IntHandlerType</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the callback for different interrupt handlers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="515" bodyend="586"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_ConfigChannelState</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, XDcDma_State Enable)</argsstring>
+        <name>XDcDma_ConfigChannelState</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>XDcDma_State</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the channel state as enable, disable or idle. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel to configure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets the channel state.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="359" bodyend="418"/>
+        <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
+        <references refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" compoundref="xdcdma_8c" startline="430" endline="450">XDcDma_WaitPendingTransaction</references>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+        <referencedby refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</referencedby>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetupChannel</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_SetupChannel</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the descriptor address for each video stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="955" bodyend="998"/>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_Trigger</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_Trigger</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="597" bodyend="656"/>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_ReTrigger</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel)</argsstring>
+        <name>XDcDma_ReTrigger</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with retrigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="667" bodyend="724"/>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
+        <referencedby refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gac128f4e7ac7421d2dfafe00c784d5990" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDataQoS</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel, u8 Val)</argsstring>
+        <name>XDcDma_SetDataQoS</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the data QoS for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="192" bodyend="239"/>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga292c45343371203644273eb47c9fbd4d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDescQoS</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelType Channel, u8 Val)</argsstring>
+        <name>XDcDma_SetDescQoS</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref></type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="251" bodyend="300"/>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga08fe48548a67b91d7eeadea4ae85b908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAxCache</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u8 Val)</argsstring>
+        <name>XDcDma_SetAxCache</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the Ax Cache register for specific channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="312" bodyend="322"/>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gad05901557988e38b788efcb691a179a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAxProt</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u8 Val)</argsstring>
+        <name>XDcDma_SetAxProt</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the AxProt register for specific channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChannelId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is channel number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="335" bodyend="346"/>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gabc7c14d891e4136ce8c504151deeda69" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetDescDelay</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id, u16 Val)</argsstring>
+        <name>XDcDma_SetDescDelay</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Val</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the Desc Delay for required channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ID </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies desc delay</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="169" bodyend="179"/>
+        <references refid="xdcdma__hw_8h_1aa9645c91ffb6f0f4bb04755715512e58" compoundref="xdcdma__hw_8h" startline="2846">XDcDma_ReadModifyWrite</references>
+        <references refid="xdcdma__hw_8h_1a44349300579652c75823207d428b6824" compoundref="xdcdma__hw_8h" startline="2123">XDCDMA_CH0_CNTL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDCDma_GetOutstandingTxn</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id)</argsstring>
+        <name>XDCDma_GetOutstandingTxn</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the DPDMA_GLBL register with trigger channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id is channel number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="462" bodyend="472"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1a8a10fd4606e24d0e3131f1bffa2eb231" compoundref="xdcdma__hw_8h" startline="2128">XDCDMA_CH0_STATUS</references>
+        <referencedby refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" compoundref="xdcdma_8c" startline="430" endline="450">XDcDma_WaitPendingTransaction</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_WaitPendingTransaction</definition>
+        <argsstring>(XDcDma *InstancePtr, XDcDma_ChannelId Id)</argsstring>
+        <name>XDcDma_WaitPendingTransaction</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XDcDma_ChannelId</type>
+          <declname>Id</declname>
+        </param>
+        <briefdescription>
+<para>This function checks for any pending transactions for a given channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Id is channel number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="430" bodyend="450"/>
+        <references refid="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" compoundref="xdcdma_8c" startline="462" endline="472">XDCDma_GetOutstandingTxn</references>
+        <referencedby refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdcdma_8h_1a98280710e27cb6fbd7fb9fcc136bba07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_GenerateChecksum</definition>
+        <argsstring>(XDcDma_Descriptor *DescPtr)</argsstring>
+        <name>XDcDma_GenerateChecksum</name>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>DescPtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="284" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga178425efb51b5e613b27cdd6eac15a59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptEnable</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcDma_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is interrupt to unmask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="484" bodyend="490"/>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <references refid="xdcdma__hw_8h_1a4ab30311a6a69d413c2f7507e5e8cc9f" compoundref="xdcdma__hw_8h" startline="788">XDCDMA_MISC_IER</references>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a2efea0d32fd034fe7ec8bd0710d0d8c3" compoundref="mmi__dpdc__platform_8c" startline="312" endline="323">XDpDc_SetupInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga00a98d41f9767c53fab0a3284f005e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptDisable</definition>
+        <argsstring>(XDcDma *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcDma_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="501" bodyend="504"/>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <references refid="xdcdma__hw_8h_1a9d215a90fc7e95562adb843c7936a2ba" compoundref="xdcdma__hw_8h" startline="809">XDCDMA_MISC_IDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga34970edec008b2d87dfb528dc57ff180" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_InterruptHandler</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function calls the VsyncInterrupt Handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="735" bodyend="748"/>
+        <references refid="xdcdma__hw_8h_1a6bca22d1b884f430c95c6755fdc9ff59" compoundref="xdcdma__hw_8h" startline="2810">XDcDma_ReadReg</references>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <references refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" compoundref="xdcdma_8c" startline="759" endline="862">XDcDma_VSyncHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_VSyncHandler</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_VSyncHandler</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function services the VsyncInterrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="759" bodyend="862"/>
+        <references refid="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" compoundref="xdcdma_8c" startline="955" endline="998">XDcDma_SetupChannel</references>
+        <references refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" compoundref="xdcdma_8c" startline="359" endline="418">XDcDma_ConfigChannelState</references>
+        <references refid="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" compoundref="xdcdma_8c" startline="597" endline="656">XDcDma_Trigger</references>
+        <references refid="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" compoundref="xdcdma_8c" startline="667" endline="724">XDcDma_ReTrigger</references>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <references refid="xdcdma__hw_8h_1a13fb2099da9eb0e145e4551f03572908" compoundref="xdcdma__hw_8h" startline="1891">XDCDMA_GBL</references>
+        <references refid="xdcdma__hw_8h_1aed9a4e3d3ce6f317f5530521096ca061" compoundref="xdcdma__hw_8h" startline="750">XDCDMA_MISC_ISR</references>
+        <referencedby refid="group__mmi__dcdma_1ga34970edec008b2d87dfb528dc57ff180" compoundref="xdcdma_8c" startline="735" endline="748">XDcDma_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_DescInit</definition>
+        <argsstring>(XDcDma_Descriptor *XDesc)</argsstring>
+        <name>XDcDma_DescInit</name>
+        <param>
+          <type>XDcDma_Descriptor *</type>
+          <declname>XDesc</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the descriptor for the DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1009" bodyend="1016"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcDma_GetNewDescId</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_GetNewDescId</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function increments the LastDescId of DcDma Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Updated LastDescId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1027" bodyend="1035"/>
+        <references refid="struct_x_dc_dma_1a43095e622f6bb0153c07149129ec6633" compoundref="xdcdma_8h" startline="235">XDcDma::LastDescId</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mmi__dcdma_1ga74f4612f706aaf02b9f780c0046c99e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcDma_SetAudioChCtrl</definition>
+        <argsstring>(XDcDma *InstancePtr)</argsstring>
+        <name>XDcDma_SetAudioChCtrl</name>
+        <param>
+          <type><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets DcDma Audio Channel Control. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.c" bodystart="1046" bodyend="1057"/>
+        <references refid="xdcdma__hw_8h_1a14cc73efebb537d35586569e9f64fd24" compoundref="xdcdma__hw_8h" startline="2827">XDcDma_WriteReg</references>
+        <references refid="xdcdma__hw_8h_1a9a6e190e3d9a169d6202601553bec00a" compoundref="xdcdma__hw_8h" startline="72">XDCDMA_AUD_CTRL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ck   03/14/25 Initial Release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor">#ifndef<sp/>__XDCDMA_H__</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__XDCDMA_H__</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdcdma__hw_8h" kindref="compound">xdcdma_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdc_8h" kindref="compound">xdc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_DESC_ALIGN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(256U)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_DESC_PREAMBLE<sp/><sp/><sp/><sp/>(0xA5)</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_VIDEO_CHANNEL0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_VIDEO_CHANNEL1<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_VIDEO_CHANNEL2<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_GRAPHICS_CHANNEL3<sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_GRAPHICS_CHANNEL4<sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_GRAPHICS_CHANNEL5<sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_AUDIO_CHANNEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_SDP_CHANNEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7U</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_TRIGGER_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_RETRIGGER_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_TRIGGER_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDCDMA_RETRIGGER_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>descriptor<sp/>definition<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Id<sp/>:<sp/>16;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Control_Lo<sp/>:<sp/>16;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[15:0]<sp/>control<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Control_Hi<sp/>:<sp/>16;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[23:16]<sp/>control<sp/>bits<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data_Size_Lo<sp/>:<sp/>16;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data_Size_Hi<sp/>:<sp/>16;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Src_Addr_Lo<sp/>:<sp/>16;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Src_Addr_Hi;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Next_Desc_Addr_Lo;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Next_Desc_Addr_Hi<sp/>:<sp/>16;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TLB_prefetch_en<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TLB_prefetch_blk_size<sp/>:<sp/>14;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TLB_prefetch_blk_off_lo<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TL_prefetch_blk_off_hi<sp/>:<sp/>13;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Line_Tile<sp/>:<sp/>1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Line_Size<sp/>:<sp/>18;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Line_Stride<sp/>:<sp/>14;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Tile_Type<sp/>:<sp/>1;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Tile_Pitch<sp/>:<sp/>14;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Target_Addr<sp/>:<sp/>1;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Intr_Enable<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved_1<sp/>:<sp/>1;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Presentation_TS_Lo;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Presentation_TS_Hi;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved_2;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Checksum;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}<sp/>XDcDma_Descriptor<sp/>__attribute__<sp/>((aligned(XDCDMA_DESC_ALIGN)));</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddr;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntId;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/>XDcDma_Config;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_VSyncIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_DscrDoneIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_DscrErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_AxiErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_NoOStandErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_AxiRd4kErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_AddrDecodeErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_DscrRdWrErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_CrcErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_PreambleErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*XDcDma_ChanOvrFlowErrIntHandler)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>0<sp/>-<sp/>2<sp/>are<sp/>Video<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH1<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH2<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>3<sp/>-<sp/>5<sp/>are<sp/>Graphics<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH3<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH4<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH5<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>6<sp/>is<sp/>audio<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH6<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>7<sp/>is<sp/>SDP<sp/>/<sp/>Cursor<sp/>RAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_CH7<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}<sp/>XDcDma_ChannelId;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_VSYNC<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_DSCR_ERR<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_AXI_ERR<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_NO_OSTAND_ERR<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_DSCR_DONE<sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_AXI_RD_4K_ERR<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_ADDR_DECODE_ERR<sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_DSCR_RD_WR_ERR<sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_CRC_ERR<sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_PREAMBLE_ERR<sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_HANDLER_CHAN_OVR_FLOW_ERR<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<sp/>XDcDma_IntHandlerType;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_STATE_IDLE,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_STATE_ENABLE,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_STATE_DISABLE,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDCDMA_STATE_PAUSE</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}<sp/>XDcDma_State;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="xdcdma_8h_1a3d18351fa011a0166735074335fecb3b" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INTERLEAVED<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SEMIPLANAR<sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PLANAR<sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}<sp/><ref refid="xdcdma_8h_1a3d18351fa011a0166735074335fecb3b" kindref="member">XDcDma_VideoModes</ref>;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="struct_x_dc_dma___frame_buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Stride<sp/><sp/>__attribute__<sp/>((aligned<sp/>(256)));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LineSize;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___frame_buffer" kindref="compound">XDcDma_FrameBuffer</ref>;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166" refid="struct_x_dc_dma___audio_buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___audio_buffer" kindref="compound">XDcDma_AudioBuffer</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174" refid="struct_x_dc_dma___s_d_p_buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Address;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___s_d_p_buffer" kindref="compound">XDcDma_SDPBuffer</ref>;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182" refid="struct_x_dc_dma___channel___dscr" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Descriptor<sp/>*Current;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189" refid="struct_x_dc_dma___channel" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref><sp/>Channel[3];</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XDc_VideoAttribute<sp/>*VideoInfo;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___frame_buffer" kindref="compound">XDcDma_FrameBuffer</ref><sp/>*FrameBuffer[3];</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Video_TriggerStatus;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Graphics_TriggerStatus;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_State<sp/>State;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___channel" kindref="compound">XDcDma_Channel</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="struct_x_dc_dma___audio_channel" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref><sp/>Channel;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___audio_buffer" kindref="compound">XDcDma_AudioBuffer</ref><sp/>*Buffer;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Audio_TriggerStatus;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_State<sp/>State;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DscrErrDis;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>VidActvFetchEn;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___audio_channel" kindref="compound">XDcDma_AudioChannel</ref>;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213" refid="struct_x_dc_dma___s_d_p_channel" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref><sp/>Channel;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___s_d_p_buffer" kindref="compound">XDcDma_SDPBuffer</ref><sp/>*Buffer;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SDP_TriggerStatus;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_State<sp/>State;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma___s_d_p_channel" kindref="compound">XDcDma_SDPChannel</ref>;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223" refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VideoChan<sp/>=<sp/>0x0,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GraphicsChan<sp/>=<sp/>0x3,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AudioChan<sp/>=<sp/>0x6,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorSDPChan<sp/>=<sp/>0x7,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233" refid="struct_x_dc_dma" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_Config<sp/>Config;</highlight></codeline>
+<codeline lineno="235" refid="struct_x_dc_dma_1a43095e622f6bb0153c07149129ec6633" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_dc_dma_1a43095e622f6bb0153c07149129ec6633" kindref="member">LastDescId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChanTrigger;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___channel" kindref="compound">XDcDma_Channel</ref><sp/>Video;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___channel" kindref="compound">XDcDma_Channel</ref><sp/>Gfx;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___audio_channel" kindref="compound">XDcDma_AudioChannel</ref><sp/>Audio;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma___s_d_p_channel" kindref="compound">XDcDma_SDPChannel</ref><sp/>SDP;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_VSyncIntHandler<sp/><sp/>XDcDmaVsyncHandler;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaVsyncRef;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_DscrErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaDscrErrHandler;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaDscrErrRef;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_AxiErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaAxiErrHandler;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaAxiErrRef;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_NoOStandErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaNoOStandErrHandler;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaNoOStandErrRef;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_DscrDoneIntHandler<sp/><sp/><sp/>XDcDmaDscrDoneHandler;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaDscrDoneRef;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_AxiRd4kErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaAxiRd4kErrHandler;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaAxiRd4kErrRef;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_AddrDecodeErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaAddrDecodeErrHandler;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaAddrDecodeErrRef;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_DscrRdWrErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaDscrRdWrErrHandler;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaDscrRdWrErrRef;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_CrcErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaCrcErrHandler;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaCrcErrRef;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_PreambleErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaPreambleErrHandler;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaPreambleErrRef;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDcDma_ChanOvrFlowErrIntHandler<sp/><sp/><sp/><sp/>XDcDmaChanOvrFlowErrHandler;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XDcDmaChanOvrFlowErrRef;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}<sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref>;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal">XDcDma_Config<sp/>*XDcDma_LookupConfig(u32<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga3416ce41bac7a473de1c1b9665019800" kindref="member">XDcDma_CfgInitialize</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>u32<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga406539d327e2a84079b1105fc64465ba" kindref="member">XDcDma_WriteProtEnable</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga5d173da16718d01d9ef53fc5d424678a" kindref="member">XDcDma_WriteProtDisable</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1ga91f1b1f6e28e522f43cd33bb8a17a4f9" kindref="member">XDCDma_GetWriteProt</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1ga153e5abe962b93c6ee19741da7f150ed" kindref="member">XDcDma_SetCallBack</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_IntHandlerType<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1ga93387eeab9e483b1dd0c30c890d6e501" kindref="member">XDcDma_ConfigChannelState</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id,<sp/>XDcDma_State<sp/>Enable);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga60e5ca11878233ce1128eb6dd13c0ee3" kindref="member">XDcDma_SetupChannel</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref><sp/>Channel);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1gab566cabb8dd713e5aa4c1e41e82d9c35" kindref="member">XDcDma_Trigger</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref><sp/>Channel);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1gad0608c2fb88769d23b5e9d8d40a260e3" kindref="member">XDcDma_ReTrigger</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref><sp/>Channel);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1gac128f4e7ac7421d2dfafe00c784d5990" kindref="member">XDcDma_SetDataQoS</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref><sp/>Channel,<sp/>u8<sp/>Val);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga292c45343371203644273eb47c9fbd4d" kindref="member">XDcDma_SetDescQoS</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/><ref refid="xdcdma_8h_1a2dd49d46f9f7bb0d7ed7afc817d68307" kindref="member">XDcDma_ChannelType</ref><sp/>Channel,<sp/>u8<sp/>Val);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga08fe48548a67b91d7eeadea4ae85b908" kindref="member">XDcDma_SetAxCache</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id,<sp/>u8<sp/>Val);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1gad05901557988e38b788efcb691a179a2" kindref="member">XDcDma_SetAxProt</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id,<sp/>u8<sp/>Val);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1gabc7c14d891e4136ce8c504151deeda69" kindref="member">XDcDma_SetDescDelay</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id,<sp/>u16<sp/>Val);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1ga4349a3332fbf75d1be2ce9accb7082f6" kindref="member">XDCDma_GetOutstandingTxn</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1gabbe395a1ddd2a306a4afd940b6acfdda" kindref="member">XDcDma_WaitPendingTransaction</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>XDcDma_ChannelId<sp/>Id);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">u32<sp/>XDcDma_GenerateChecksum(XDcDma_Descriptor<sp/>*DescPtr);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga178425efb51b5e613b27cdd6eac15a59" kindref="member">XDcDma_InterruptEnable</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga00a98d41f9767c53fab0a3284f005e49" kindref="member">XDcDma_InterruptDisable</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga34970edec008b2d87dfb528dc57ff180" kindref="member">XDcDma_InterruptHandler</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga731efbd7eed1559de335f1e93dd6ac1c" kindref="member">XDcDma_VSyncHandler</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga83715748f55fe649eefc6d6a7e091dfd" kindref="member">XDcDma_DescInit</ref>(XDcDma_Descriptor<sp/>*XDesc);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">u32<sp/><ref refid="group__mmi__dcdma_1gaba2c3b0d2480b34ccad95c9fdd7f5478" kindref="member">XDcDma_GetNewDescId</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__mmi__dcdma_1ga74f4612f706aaf02b9f780c0046c99e1" kindref="member">XDcDma_SetAudioChCtrl</ref>(<ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__XDCDMA_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h"/>
+  </compounddef>
+</doxygen>

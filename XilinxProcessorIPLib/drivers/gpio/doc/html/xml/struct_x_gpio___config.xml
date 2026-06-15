@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_gpio___config" kind="struct" prot="public">
+    <compoundname>XGpio_Config</compoundname>
+    <includes local="no">xgpio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_gpio___config_1a0bae601335615a9093f7ea696f70adfa" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XGpio_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga5f931df205651784cd60091a3775fb4c" compoundref="xgpio__sinit_8c" startline="93" endline="108">XGpio_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1a1012177ae3dec7c2961d5f756596ddf6" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XGpio_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1ga5b6948513889f043a40494dba1904828" compoundref="xgpio__sinit_8c" startline="143" endline="170">XGpio_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1a4bfad8c3bd5b9a07f83dd2d0c2b5c1f0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XGpio_Config::InterruptPresent</definition>
+        <argsstring></argsstring>
+        <name>InterruptPresent</name>
+        <briefdescription>
+<para>Are interrupts supported in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1ac733fc2e0f1df9cb827be23a0ef9a1ba" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XGpio_Config::IsDual</definition>
+        <argsstring></argsstring>
+        <name>IsDual</name>
+        <briefdescription>
+<para>Are 2 channels supported in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" compoundref="xgpio_8c" startline="94" endline="111">XGpio_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1a3fca210d0a79fa33320a911b840d3a77" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XGpio_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="xgpio__intr__tapp__example_8c_1aaede834b6dfed995921f6bc52359f157" compoundref="xgpio__intr__tapp__example_8c" startline="252" endline="304">GpioIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1ae96332e4fd8e4d7e91a4a48463096bd0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XGpio_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xgpio__intr__tapp__example_8c_1aaede834b6dfed995921f6bc52359f157" compoundref="xgpio__intr__tapp__example_8c" startline="252" endline="304">GpioIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_gpio___config_1a6fd25adf6d551bad15a195952e37ce92" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XGpio_Config::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Gpio width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xgpio__tapp__example_8c_1a0cd49ca5f68b75a19570222fa1e68e98" compoundref="xgpio__tapp__example_8c" startline="185" endline="254">GpioOutputExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.h" bodystart="88" bodyend="102"/>
+    <listofallmembers>
+      <member refid="struct_x_gpio___config_1a1012177ae3dec7c2961d5f756596ddf6" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_gpio___config_1a4bfad8c3bd5b9a07f83dd2d0c2b5c1f0" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>InterruptPresent</name></member>
+      <member refid="struct_x_gpio___config_1a3fca210d0a79fa33320a911b840d3a77" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_gpio___config_1ae96332e4fd8e4d7e91a4a48463096bd0" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_gpio___config_1ac733fc2e0f1df9cb827be23a0ef9a1ba" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>IsDual</name></member>
+      <member refid="struct_x_gpio___config_1a0bae601335615a9093f7ea696f70adfa" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>Name</name></member>
+      <member refid="struct_x_gpio___config_1a6fd25adf6d551bad15a195952e37ce92" prot="public" virt="non-virtual"><scope>XGpio_Config</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartps__hw_8c" kind="file">
+    <compoundname>xuartps_hw.c</compoundname>
+    <includes refid="xuartps__hw_8h" local="yes">xuartps_hw.h</includes>
+    <incdepgraph>
+      <node id="61">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="62">
+        <label>xil_io.h</label>
+      </node>
+      <node id="58">
+        <label>xuartps_hw.c</label>
+        <link refid="xuartps_hw.c"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xuartps_hw.h</label>
+        <link refid="xuartps__hw_8h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xstatus.h</label>
+      </node>
+      <node id="60">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartps_1ga4bae0ee4df836a8c3e7748c9ae28ebee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_SendByte</definition>
+        <argsstring>(u32 BaseAddress, u8 Data)</argsstring>
+        <name>XUartPs_SendByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sends one byte using the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function operates in polled mode and blocks until the data has been put into the TX FIFO register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the byte to be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" bodystart="57" bodyend="66"/>
+        <references refid="group__uartps_1ga12e256a5c0dd76b4c3ce5952382a0400" compoundref="xuartps__hw_8h" startline="74">XUARTPS_FIFO_OFFSET</references>
+        <references refid="group__uartps_1gaf1507e8d7b12983484a0ab5436a51970" compoundref="xuartps__hw_8h" startline="410">XUartPs_IsTransmitFull</references>
+        <references refid="group__uartps_1gab541297d822b163193a2e47305987ab6" compoundref="xuartps__hw_8h" startline="378">XUartPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga60240486c69f6167ab13194ced5e8bb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUartPs_RecvByte</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XUartPs_RecvByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a byte from the device. </para>        </briefdescription>
+        <detaileddescription>
+<para>It operates in polled mode and blocks until a byte has received.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The data byte received.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" bodystart="81" bodyend="91"/>
+        <references refid="group__uartps_1ga12e256a5c0dd76b4c3ce5952382a0400" compoundref="xuartps__hw_8h" startline="74">XUARTPS_FIFO_OFFSET</references>
+        <references refid="group__uartps_1gac8b8f06d10cf178227ce88c140d78eb4" compoundref="xuartps__hw_8h" startline="393">XUartPs_IsReceiveData</references>
+        <references refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" compoundref="xuartps__hw_8h" startline="359">XUartPs_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1ga157cf5966738452bc13639746f4b8d97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_ResetHw</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XUartPs_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function resets UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" bodystart="105" bodyend="156"/>
+        <references refid="group__uartps_1ga18d29d65e26d6c7c192464dbf88aeb55" compoundref="xuartps__hw_8h" startline="75">XUARTPS_BAUDDIV_OFFSET</references>
+        <references refid="group__uartps_1gaae81b813494b51dffc97f265ccc8bc1b" compoundref="xuartps__hw_8h" startline="195">XUARTPS_BAUDDIV_RESET_VAL</references>
+        <references refid="group__uartps_1ga77bb5a0dfa2f1e62cf75c0972e889e92" compoundref="xuartps__hw_8h" startline="68">XUARTPS_BAUDGEN_OFFSET</references>
+        <references refid="group__uartps_1ga0df74dbc1f99f853eac534c58465c67c" compoundref="xuartps__hw_8h" startline="182">XUARTPS_BAUDGEN_RESET_VAL</references>
+        <references refid="group__uartps_1ga90a3cb2c33dba6a5b888f7324d1c5135" compoundref="xuartps__hw_8h" startline="62">XUARTPS_CR_OFFSET</references>
+        <references refid="group__uartps_1gaffa7bb80501ee66683ce853436190ea9" compoundref="xuartps__hw_8h" startline="93">XUARTPS_CR_RX_DIS</references>
+        <references refid="group__uartps_1ga659be76f18f938134bbe4e8c0e26159b" compoundref="xuartps__hw_8h" startline="97">XUARTPS_CR_RXRST</references>
+        <references refid="group__uartps_1ga997014ffed40da258769e496544cad9f" compoundref="xuartps__hw_8h" startline="88">XUARTPS_CR_STOPBRK</references>
+        <references refid="group__uartps_1ga4831dbafe987c3286b022f3ab937bc9a" compoundref="xuartps__hw_8h" startline="91">XUARTPS_CR_TX_DIS</references>
+        <references refid="group__uartps_1ga1859f5cbbdbf0a83eff49960ccc342e2" compoundref="xuartps__hw_8h" startline="96">XUARTPS_CR_TXRST</references>
+        <references refid="group__uartps_1ga7e39d2ae49038a4ce4087bbee2bfdab7" compoundref="xuartps__hw_8h" startline="65">XUARTPS_IDR_OFFSET</references>
+        <references refid="group__uartps_1ga7e96d23606d96a7d9816bc2ff777cbf8" compoundref="xuartps__hw_8h" startline="67">XUARTPS_ISR_OFFSET</references>
+        <references refid="group__uartps_1ga73b78b2490f8a0aa402867987c765df0" compoundref="xuartps__hw_8h" startline="166">XUARTPS_IXR_MASK</references>
+        <references refid="group__uartps_1gab9c582f58d3628334fa95502f7532c81" compoundref="xuartps__hw_8h" startline="114">XUARTPS_MR_CHMODE_NORM</references>
+        <references refid="group__uartps_1gad4932468a404b116c0e56b496b906716" compoundref="xuartps__hw_8h" startline="63">XUARTPS_MR_OFFSET</references>
+        <references refid="group__uartps_1ga9940f0728fcd584c7805eed12531539e" compoundref="xuartps__hw_8h" startline="206">XUARTPS_RXTOUT_DISABLE</references>
+        <references refid="group__uartps_1ga3370f0abee2b4247e3c4aecda1fd63e7" compoundref="xuartps__hw_8h" startline="69">XUARTPS_RXTOUT_OFFSET</references>
+        <references refid="group__uartps_1gabc29194aeedab160158a6d44c647224e" compoundref="xuartps__hw_8h" startline="70">XUARTPS_RXWM_OFFSET</references>
+        <references refid="group__uartps_1gabf1d0d57b5ac837fc55dd128383dcafa" compoundref="xuartps__hw_8h" startline="218">XUARTPS_RXWM_RESET_VAL</references>
+        <references refid="group__uartps_1ga3a498a8321302dae35403f698056058d" compoundref="xuartps__hw_8h" startline="77">XUARTPS_TXWM_OFFSET</references>
+        <references refid="group__uartps_1gacd020d8ceafb59c1deffa8ad5b2f859e" compoundref="xuartps__hw_8h" startline="229">XUARTPS_TXWM_RESET_VAL</references>
+        <references refid="group__uartps_1gab541297d822b163193a2e47305987ab6" compoundref="xuartps__hw_8h" startline="378">XUartPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartps_1gaf789b78ee831825f3131f9a016e15044" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartPs_WaitTransmitDone</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XUartPs_WaitTransmitDone</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for transmission to complete. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c" bodystart="168" bodyend="178"/>
+        <references refid="group__uartps_1gaa34f1217cdc0b14977fbe3a22ec167ee" compoundref="xuartps__hw_8h" startline="439">XUartPs_IsTransmitActive</references>
+        <references refid="group__uartps_1ga8170a2befa118c8bd2ccc108163c4b7a" compoundref="xuartps__hw_8h" startline="424">XUartPs_IsTransmitFifoEmpty</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartps__hw_8h" kindref="compound">xuartps_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group__uartps_1ga4bae0ee4df836a8c3e7748c9ae28ebee" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1ga4bae0ee4df836a8c3e7748c9ae28ebee" kindref="member">XUartPs_SendByte</ref>(u32<sp/>BaseAddress,<sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>there<sp/>is<sp/>space<sp/>in<sp/>TX<sp/>FIFO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__uartps_1gaf1507e8d7b12983484a0ab5436a51970" kindref="member">XUartPs_IsTransmitFull</ref>(BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>the<sp/>byte<sp/>into<sp/>the<sp/>TX<sp/>FIFO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga12e256a5c0dd76b4c3ce5952382a0400" kindref="member">XUARTPS_FIFO_OFFSET</ref>,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="81" refid="group__uartps_1ga60240486c69f6167ab13194ced5e8bb7" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__uartps_1ga60240486c69f6167ab13194ced5e8bb7" kindref="member">XUartPs_RecvByte</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RecievedByte;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>there<sp/>is<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="group__uartps_1gac8b8f06d10cf178227ce88c140d78eb4" kindref="member">XUartPs_IsReceiveData</ref>(BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RecievedByte<sp/>=<sp/><ref refid="group__uartps_1ga16be7534dc3d678f8abcfeb87e6a4f7e" kindref="member">XUartPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga12e256a5c0dd76b4c3ce5952382a0400" kindref="member">XUARTPS_FIFO_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>the<sp/>byte<sp/>received<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)RecievedByte;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="105" refid="group__uartps_1ga157cf5966738452bc13639746f4b8d97" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1ga157cf5966738452bc13639746f4b8d97" kindref="member">XUartPs_ResetHw</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga7e39d2ae49038a4ce4087bbee2bfdab7" kindref="member">XUARTPS_IDR_OFFSET</ref>,<sp/><ref refid="group__uartps_1ga73b78b2490f8a0aa402867987c765df0" kindref="member">XUARTPS_IXR_MASK</ref>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>receive<sp/>and<sp/>transmit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga90a3cb2c33dba6a5b888f7324d1c5135" kindref="member">XUARTPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__uartps_1gaffa7bb80501ee66683ce853436190ea9" kindref="member">XUARTPS_CR_RX_DIS</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1ga4831dbafe987c3286b022f3ab937bc9a" kindref="member">XUARTPS_CR_TX_DIS</ref>));</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Software<sp/>reset<sp/>of<sp/>receive<sp/>and<sp/>transmit</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>clears<sp/>the<sp/>FIFO.</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga90a3cb2c33dba6a5b888f7324d1c5135" kindref="member">XUARTPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__uartps_1ga1859f5cbbdbf0a83eff49960ccc342e2" kindref="member">XUARTPS_CR_TXRST</ref><sp/>|<sp/>(u32)<ref refid="group__uartps_1ga659be76f18f938134bbe4e8c0e26159b" kindref="member">XUARTPS_CR_RXRST</ref>));</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>status<sp/>flags<sp/>-<sp/>SW<sp/>reset<sp/>won&apos;t<sp/>clear<sp/>sticky<sp/>flags.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga7e96d23606d96a7d9816bc2ff777cbf8" kindref="member">XUARTPS_ISR_OFFSET</ref>,<sp/><ref refid="group__uartps_1ga73b78b2490f8a0aa402867987c765df0" kindref="member">XUARTPS_IXR_MASK</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Mode<sp/>register<sp/>reset<sp/>value<sp/>:<sp/>All<sp/>zeroes</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Normal<sp/>mode,<sp/>even<sp/>parity,<sp/>1<sp/>stop<sp/>bit</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1gad4932468a404b116c0e56b496b906716" kindref="member">XUARTPS_MR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab9c582f58d3628334fa95502f7532c81" kindref="member">XUARTPS_MR_CHMODE_NORM</ref>);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rx<sp/>and<sp/>TX<sp/>trigger<sp/>register<sp/>reset<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1gabc29194aeedab160158a6d44c647224e" kindref="member">XUARTPS_RXWM_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gabf1d0d57b5ac837fc55dd128383dcafa" kindref="member">XUARTPS_RXWM_RESET_VAL</ref>);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga3a498a8321302dae35403f698056058d" kindref="member">XUARTPS_TXWM_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gacd020d8ceafb59c1deffa8ad5b2f859e" kindref="member">XUARTPS_TXWM_RESET_VAL</ref>);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rx<sp/>timeout<sp/>disabled<sp/>by<sp/>default<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga3370f0abee2b4247e3c4aecda1fd63e7" kindref="member">XUARTPS_RXTOUT_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga9940f0728fcd584c7805eed12531539e" kindref="member">XUARTPS_RXTOUT_DISABLE</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Baud<sp/>rate<sp/>generator<sp/>and<sp/>divider<sp/>reset<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga77bb5a0dfa2f1e62cf75c0972e889e92" kindref="member">XUARTPS_BAUDGEN_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga0df74dbc1f99f853eac534c58465c67c" kindref="member">XUARTPS_BAUDGEN_RESET_VAL</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga18d29d65e26d6c7c192464dbf88aeb55" kindref="member">XUARTPS_BAUDDIV_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gaae81b813494b51dffc97f265ccc8bc1b" kindref="member">XUARTPS_BAUDDIV_RESET_VAL</ref>);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Control<sp/>register<sp/>reset<sp/>value<sp/>-</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>RX<sp/>and<sp/>TX<sp/>are<sp/>disable<sp/>by<sp/>default</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1gab541297d822b163193a2e47305987ab6" kindref="member">XUartPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__uartps_1ga90a3cb2c33dba6a5b888f7324d1c5135" kindref="member">XUARTPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__uartps_1gaffa7bb80501ee66683ce853436190ea9" kindref="member">XUARTPS_CR_RX_DIS</ref><sp/>|<sp/>(u32)XUARTPS_CR_TX_DIS<sp/>|</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__uartps_1ga997014ffed40da258769e496544cad9f" kindref="member">XUARTPS_CR_STOPBRK</ref>));</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="168" refid="group__uartps_1gaf789b78ee831825f3131f9a016e15044" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1gaf789b78ee831825f3131f9a016e15044" kindref="member">XUartPs_WaitTransmitDone</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>Transmitter<sp/>FIFO<sp/>is<sp/>empty<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!<ref refid="group__uartps_1ga8170a2befa118c8bd2ccc108163c4b7a" kindref="member">XUartPs_IsTransmitFifoEmpty</ref>(BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>Transmitter<sp/>state<sp/>machine<sp/>is<sp/>In-Active<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__uartps_1gaa34f1217cdc0b14977fbe3a22ec167ee" kindref="member">XUartPs_IsTransmitActive</ref>(BaseAddress))<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_STDIN_IS_UARTPS</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>outbyte(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>c)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartps_1ga4bae0ee4df836a8c3e7748c9ae28ebee" kindref="member">XUartPs_SendByte</ref>(STDOUT_BASEADDRESS,<sp/>c);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>inbyte(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__uartps_1ga60240486c69f6167ab13194ced5e8bb7" kindref="member">XUartPs_RecvByte</ref>(STDIN_BASEADDRESS);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps_hw.c"/>
+  </compounddef>
+</doxygen>

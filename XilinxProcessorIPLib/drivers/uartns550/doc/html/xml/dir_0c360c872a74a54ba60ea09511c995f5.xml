@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0c360c872a74a54ba60ea09511c995f5" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xuartns550_8c">xuartns550.c</innerfile>
+    <innerfile refid="xuartns550_8h">xuartns550.h</innerfile>
+    <innerfile refid="xuartns550__format_8c">xuartns550_format.c</innerfile>
+    <innerfile refid="xuartns550__g_8c">xuartns550_g.c</innerfile>
+    <innerfile refid="xuartns550__i_8h">xuartns550_i.h</innerfile>
+    <innerfile refid="xuartns550__intr_8c">xuartns550_intr.c</innerfile>
+    <innerfile refid="xuartns550__l_8c">xuartns550_l.c</innerfile>
+    <innerfile refid="xuartns550__l_8h">xuartns550_l.h</innerfile>
+    <innerfile refid="xuartns550__options_8c">xuartns550_options.c</innerfile>
+    <innerfile refid="xuartns550__selftest_8c">xuartns550_selftest.c</innerfile>
+    <innerfile refid="xuartns550__sinit_8c">xuartns550_sinit.c</innerfile>
+    <innerfile refid="xuartns550__stats_8c">xuartns550_stats.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/"/>
+  </compounddef>
+</doxygen>

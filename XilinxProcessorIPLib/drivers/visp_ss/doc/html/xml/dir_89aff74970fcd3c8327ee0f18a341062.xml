@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_89aff74970fcd3c8327ee0f18a341062" kind="dir">
+    <compoundname>source</compoundname>
+    <innerdir refid="dir_cf09e925b4b6fbbedcd2d76aa144d0fa">submoduels</innerdir>
+    <innerfile refid="c_j_s_o_n_8c">cJSON.c</innerfile>
+    <innerfile refid="vvbench_8c">vvbench.c</innerfile>
+    <innerfile refid="vvbparser_8c">vvbparser.c</innerfile>
+    <innerfile refid="vvdevice_8c">vvdevice.c</innerfile>
+    <innerfile refid="vvformat_8c">vvformat.c</innerfile>
+    <innerfile refid="vv_metadata_8c">vvMetadata.c</innerfile>
+    <innerfile refid="vvpath_8c">vvpath.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/"/>
+  </compounddef>
+</doxygen>

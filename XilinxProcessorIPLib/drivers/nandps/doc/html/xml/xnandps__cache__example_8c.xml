@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnandps__cache__example_8c" kind="file">
+    <compoundname>xnandps_cache_example.c</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xparameters.h</includes>
+    <includes refid="xnandps_8h" local="no">xnandps.h</includes>
+    <includes refid="xnandps__bbm_8h" local="no">xnandps_bbm.h</includes>
+    <incdepgraph>
+      <node id="67">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="68">
+        <label>xil_io.h</label>
+      </node>
+      <node id="61">
+        <label>stdlib.h</label>
+      </node>
+      <node id="59">
+        <label>xnandps_cache_example.c</label>
+        <link refid="xnandps_cache_example.c"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>xnandps.h</label>
+        <link refid="xnandps_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xnandps_hw.h</label>
+        <link refid="xnandps__hw_8h"/>
+      </node>
+      <node id="66">
+        <label>string.h</label>
+      </node>
+      <node id="69">
+        <label>xstatus.h</label>
+      </node>
+      <node id="71">
+        <label>xnandps_bbm.h</label>
+        <link refid="xnandps__bbm_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xil_types.h</label>
+      </node>
+      <node id="64">
+        <label>xparameters.h</label>
+      </node>
+      <node id="63">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="60">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xnandps__cache__example_8c_1a7db05d815b66eacb631170259b85d4e0" prot="public" static="no">
+        <name>NAND_TEST_START_BLOCK</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Starting block to test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="55" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnandps__cache__example_8c_1af16e18758ac741c6c92311ae783d41a0" prot="public" static="no">
+        <name>NAND_TEST_NUM_BLOCKS</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Number of blocks to test. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="56" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" prot="public" static="no">
+        <name>NAND_TEST_BLOCK_SIZE</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>Test Block Size, must be same as the flash block size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="57" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xnandps__cache__example_8c_1ae0370985f5d5c0e2ea51a72937fd5266" prot="public" static="no" mutable="no">
+        <type><ref refid="group__nandps_1gaf0def4ad29325b821b3fd4127740dfbe" kindref="member">XNandPs</ref></type>
+        <definition>XNandPs NandInstance</definition>
+        <argsstring></argsstring>
+        <name>NandInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xnandps__cache__example_8c_1a2776ea286ffa275fdeb3139d0d61731a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__nandps_1gaf0def4ad29325b821b3fd4127740dfbe" kindref="member">XNandPs</ref> *</type>
+        <definition>XNandPs* NandInstPtr</definition>
+        <argsstring></argsstring>
+        <name>NandInstPtr</name>
+        <initializer>= &amp;NandInstance</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 ReadBuffer[NAND_TEST_BLOCK_SIZE]</definition>
+        <argsstring>[NAND_TEST_BLOCK_SIZE]</argsstring>
+        <name>ReadBuffer</name>
+        <briefdescription>
+<para>Block sized Read buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="79" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a6158814e804a85a1feb289f118cee23f" compoundref="xnandps__skip__example_8c" startline="157" endline="228">NandSkipBlockExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 WriteBuffer[NAND_TEST_BLOCK_SIZE]</definition>
+        <argsstring>[NAND_TEST_BLOCK_SIZE]</argsstring>
+        <name>WriteBuffer</name>
+        <briefdescription>
+<para>Block sized write buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="80" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a6158814e804a85a1feb289f118cee23f" compoundref="xnandps__skip__example_8c" startline="157" endline="228">NandSkipBlockExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int NandReadWriteCacheExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>NandReadWriteCacheExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a test on the NAND flash device using the basic driver functions. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function does the following tasks:<itemizedlist>
+<listitem><para>Initialize the driver.</para></listitem><listitem><para>Erase the blocks.</para></listitem><listitem><para>Write in to all the blocks.</para></listitem><listitem><para>Read back the data from the blocks.</para></listitem><listitem><para>Compare the data read against the data Written.</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>-In XSCT/classic flow, DeviceId is used to look up the device configuration. -When bad blocks are encountered, they are not erased and programmed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="153" bodyend="259"/>
+        <references refid="struct_x_nand_ps___geometry_1a27ad012d0279b497f04a927a6632a9ea" compoundref="xnandps_8h" startline="332">XNandPs_Geometry::BlockSize</references>
+        <references refid="struct_x_nand_ps___config_1a0a1930e4ef28ad9c5d05e7bebafb14e0" compoundref="xnandps_8h" startline="317">XNandPs_Config::FlashBase</references>
+        <references refid="struct_x_nand_ps_tag_1ae87fd6bcc9622ee7d41abdbdaad61c35" compoundref="xnandps_8h" startline="393">XNandPsTag::Geometry</references>
+        <references refid="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" compoundref="xnandps__cache__example_8c" startline="57">NAND_TEST_BLOCK_SIZE</references>
+        <references refid="xnandps__cache__example_8c_1af16e18758ac741c6c92311ae783d41a0" compoundref="xnandps__cache__example_8c" startline="56">NAND_TEST_NUM_BLOCKS</references>
+        <references refid="xnandps__cache__example_8c_1a7db05d815b66eacb631170259b85d4e0" compoundref="xnandps__cache__example_8c" startline="55">NAND_TEST_START_BLOCK</references>
+        <references refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" compoundref="xnandps__cache__example_8c" startline="79">ReadBuffer</references>
+        <references refid="struct_x_nand_ps___config_1a7fb228465433017747bbf8a9bd9601d7" compoundref="xnandps_8h" startline="316">XNandPs_Config::SmcBase</references>
+        <references refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" compoundref="xnandps__cache__example_8c" startline="80">WriteBuffer</references>
+        <references refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</references>
+        <references refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" compoundref="xnandps_8c" startline="1866" endline="1910">XNandPs_EraseBlock</references>
+        <references refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</references>
+        <references refid="group__nandps_1ga4cc633f2b5e313c11cf56b0b3b42626b" compoundref="xnandps__sinit_8c" startline="87" endline="100">XNandPs_LookupConfig</references>
+        <references refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</references>
+        <references refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</references>
+        <referencedby refid="xnandps__cache__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xnandps__cache__example_8c" startline="96" endline="119">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xnandps__cache__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to execute the Nand Flash read write example. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c" bodystart="96" bodyend="119"/>
+        <references refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the NAND driver (XNandPs). </para>    </briefdescription>
+    <detaileddescription>
+<para>This example tests NAND page cache read and write commands. The page cache commands are not supported by OnDie ECC flash since ECC is enabled by default. Tested Spansion S34ML04G100TFI00 flash with this example.</para><para>This example tests the block erase, block read and block write features. The flash blocks are erased and written. The data is read back and compared with the data written for correctness. The bad blocks are not erased/programmed.</para><para><simplesect kind="note"><para></para></simplesect>
+None.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  nm   04/25/2013  First release.
+      ms   04/10/17    Modified Comment lines to follow doxygen rules
+2.8  akm   07/06/23    Add support for system device-tree flow.
+2.11 vlt   12/14/25    Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xparameters.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="xnandps_8h" kindref="compound">xnandps.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="xnandps__bbm_8h" kindref="compound">xnandps_bbm.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>NAND_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XNANDPS_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Test<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="xnandps__cache__example_8c_1a7db05d815b66eacb631170259b85d4e0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NAND_TEST_START_BLOCK<sp/><sp/><sp/>64<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="xnandps__cache__example_8c_1af16e18758ac741c6c92311ae783d41a0" refkind="member"><highlight class="preprocessor">#define<sp/>NAND_TEST_NUM_BLOCKS<sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" refkind="member"><highlight class="preprocessor">#define<sp/>NAND_TEST_BLOCK_SIZE<sp/><sp/><sp/><sp/>0x20000<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(u32<sp/>NandDeviceId);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><ref refid="struct_x_nand_ps_tag" kindref="compound">XNandPs</ref><sp/>NandInstance;<sp/></highlight><highlight class="comment">/*<sp/>XNand<sp/>Instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><ref refid="struct_x_nand_ps_tag" kindref="compound">XNandPs</ref><sp/>*NandInstPtr<sp/>=<sp/>&amp;NandInstance;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>Buffers<sp/>used<sp/>during<sp/>read<sp/>and<sp/>write<sp/>transactions.</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">u8<sp/><ref refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kindref="member">ReadBuffer</ref>[<ref refid="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" kindref="member">NAND_TEST_BLOCK_SIZE</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" refkind="member"><highlight class="normal">u8<sp/><ref refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" kindref="member">WriteBuffer</ref>[<ref refid="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" kindref="member">NAND_TEST_BLOCK_SIZE</ref>];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" refkind="member"><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="95"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xnandps__cache__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="96" refid="xnandps__cache__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Nand<sp/>Flash<sp/>Read<sp/>Write<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>NAND<sp/>read<sp/>write<sp/>example,<sp/>specify<sp/>the<sp/>Base<sp/>Address<sp/>that</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>generated<sp/>in<sp/>xparameters.h<sp/>.</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(NAND_DEVICE_ID);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(XPAR_XNANDPS_0_BASEADDR);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Nand<sp/>Flash<sp/>Read<sp/>Write<sp/>Example<sp/>Test<sp/>Failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Nand<sp/>Flash<sp/>Read<sp/>Write<sp/>Example<sp/>Test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(u32<sp/>NandDeviceId)</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" kindref="member">NandReadWriteCacheExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="153" refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BlockIndex;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_nand_ps___config" kindref="compound">XNandPs_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Offset;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Length;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>StartBlock;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EndBlock;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>flash<sp/>driver.</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__nandps_1ga4cc633f2b5e313c11cf56b0b3b42626b" kindref="member">XNandPs_LookupConfig</ref>(NandDeviceId);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__nandps_1ga4cc633f2b5e313c11cf56b0b3b42626b" kindref="member">XNandPs_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" kindref="member">XNandPs_CfgInitialize</ref>(NandInstPtr,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_nand_ps___config_1a7fb228465433017747bbf8a9bd9601d7" kindref="member">SmcBase</ref>,ConfigPtr-&gt;<ref refid="struct_x_nand_ps___config_1a0a1930e4ef28ad9c5d05e7bebafb14e0" kindref="member">FlashBase</ref>);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StartBlock<sp/>=<sp/><ref refid="xnandps__cache__example_8c_1a7db05d815b66eacb631170259b85d4e0" kindref="member">NAND_TEST_START_BLOCK</ref>;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EndBlock<sp/>=<sp/><ref refid="xnandps__cache__example_8c_1a7db05d815b66eacb631170259b85d4e0" kindref="member">NAND_TEST_START_BLOCK</ref><sp/>+<sp/><ref refid="xnandps__cache__example_8c_1af16e18758ac741c6c92311ae783d41a0" kindref="member">NAND_TEST_NUM_BLOCKS</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Length<sp/>=<sp/><ref refid="xnandps__cache__example_8c_1aceb54e188b945273e687c4972994d58b" kindref="member">NAND_TEST_BLOCK_SIZE</ref>;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Prepare<sp/>the<sp/>write<sp/>buffer.<sp/>Fill<sp/>in<sp/>the<sp/>data<sp/>need<sp/>to<sp/>be<sp/>written<sp/>into</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Flash<sp/>Device.</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>Length;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" kindref="member">WriteBuffer</ref>[Index]<sp/>=<sp/>Index<sp/>%<sp/>256;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Erase<sp/>the<sp/>blocks<sp/>in<sp/>the<sp/>flash</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(BlockIndex<sp/>=<sp/>StartBlock;<sp/>BlockIndex<sp/>&lt;<sp/>EndBlock;<sp/>BlockIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Don&apos;t<sp/>erase<sp/>bad<sp/>blocks.</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" kindref="member">XNandPs_IsBlockBad</ref>(NandInstPtr,<sp/>BlockIndex)<sp/>==<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="205"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>erase<sp/>operation.</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" kindref="member">XNandPs_EraseBlock</ref>(NandInstPtr,<sp/>BlockIndex);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>the<sp/>read/write<sp/>operation</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(BlockIndex<sp/>=<sp/>StartBlock;<sp/>BlockIndex<sp/>&lt;<sp/>EndBlock;<sp/>BlockIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Don&apos;t<sp/>program<sp/>bad<sp/>blocks.</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" kindref="member">XNandPs_IsBlockBad</ref>(NandInstPtr,<sp/>BlockIndex)<sp/>==<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>BlockIndex<sp/>*<sp/>NandInstPtr-&gt;<ref refid="struct_x_nand_ps_tag_1ae87fd6bcc9622ee7d41abdbdaad61c35" kindref="member">Geometry</ref>.<ref refid="struct_x_nand_ps___geometry_1a27ad012d0279b497f04a927a6632a9ea" kindref="member">BlockSize</ref>;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>the<sp/>write<sp/>operation.</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" kindref="member">XNandPs_WriteCache</ref>(NandInstPtr,<sp/>Offset,<sp/>Length,<sp/><ref refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" kindref="member">WriteBuffer</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Perform<sp/>the<sp/>read<sp/>operation.</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" kindref="member">XNandPs_ReadCache</ref>(NandInstPtr,<sp/>Offset,<sp/>Length,<sp/><ref refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kindref="member">ReadBuffer</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Compare<sp/>the<sp/>data<sp/>read<sp/>against<sp/>the<sp/>data<sp/>Written.</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>Length;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kindref="member">ReadBuffer</ref>[Index]<sp/>!=<sp/><ref refid="xnandps__cache__example_8c_1a61d7712760b0620e08f131bb16df45cd" kindref="member">WriteBuffer</ref>[Index])<sp/>{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>Receive<sp/>buffer<sp/>for<sp/>next<sp/>iteration</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(<ref refid="xnandps__cache__example_8c_1aaa747f224cb3f776fb6ecafded15e090" kindref="member">ReadBuffer</ref>,<sp/>0,<sp/>Length);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/examples/xnandps_cache_example.c"/>
+  </compounddef>
+</doxygen>

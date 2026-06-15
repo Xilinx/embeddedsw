@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>resetps</title>
+    <detaileddescription>
+<para>The Xilinx Reset Controller driver supports the following features:<itemizedlist>
+<listitem><para>Assert reset for specific peripheral.</para></listitem><listitem><para>Deassert reset for specific peripheral.</para></listitem><listitem><para>Pulse reset for specific peripheral.</para></listitem><listitem><para>Get reset status for specific peripheral.</para></listitem></itemizedlist>
+</para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:
+Ver   Who    Date     Changes
+<hruler/>
+
+1.00  cjp    09/05/17 First release
+1.1   Nava   04/20/18 Fixed compilation warnings.
+1.2   cjp    04/27/18 Updated for clockps interdependency
+1.2   sd     07/20/18 Fixed Doxygen Reported warnings.
+1.4   sk     09/01/20 Updated the Makefile to support parallel make
+                      execution.
+1.5   sk     11/30/21 Fix compilation warnings reported with &quot;-Wundef&quot; flag.
+1.6   sd     07/07/23 Added SDT support.
+1.7   sd     11/07/23 Remove the unused pss ref frequency
+1.8   vlt    12/30/25 Update Doxygen comments to include SDT flow details.
+1.8   vlt    03/14/26 Updated BaseAddress type from u32 to UINTPTR
+                      to support 64-bit addressing.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

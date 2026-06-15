@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_e_n_v___t_i_m_e___s_t_a_m_p" kind="struct" prot="public">
+    <compoundname>XENV_TIME_STAMP</compoundname>
+    <includes local="no">xenv_vxworks.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_e_n_v___t_i_m_e___s_t_a_m_p_1ad6d1a2a0d570b2cd1530f2c93a7081a3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XENV_TIME_STAMP::TimeBaseUpper</definition>
+        <argsstring></argsstring>
+        <name>TimeBaseUpper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_e_n_v___t_i_m_e___s_t_a_m_p_1a7f6846a86f35061be39770ab647440d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XENV_TIME_STAMP::TimeBaseLower</definition>
+        <argsstring></argsstring>
+        <name>TimeBaseLower</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A structure that contains a time stamp used by other time stamp macros defined below. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure is processor dependent. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="107" bodyend="111"/>
+    <listofallmembers>
+      <member refid="struct_x_e_n_v___t_i_m_e___s_t_a_m_p_1a7f6846a86f35061be39770ab647440d1" prot="public" virt="non-virtual"><scope>XENV_TIME_STAMP</scope><name>TimeBaseLower</name></member>
+      <member refid="struct_x_e_n_v___t_i_m_e___s_t_a_m_p_1ad6d1a2a0d570b2cd1530f2c93a7081a3" prot="public" virt="non-virtual"><scope>XENV_TIME_STAMP</scope><name>TimeBaseUpper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

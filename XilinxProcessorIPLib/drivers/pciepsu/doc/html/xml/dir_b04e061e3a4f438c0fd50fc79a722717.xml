@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b04e061e3a4f438c0fd50fc79a722717" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xpciepsu_8c">xpciepsu.c</innerfile>
+    <innerfile refid="xpciepsu_8h">xpciepsu.h</innerfile>
+    <innerfile refid="xpciepsu__caps_8c">xpciepsu_caps.c</innerfile>
+    <innerfile refid="xpciepsu__common_8h">xpciepsu_common.h</innerfile>
+    <innerfile refid="xpciepsu__ep_8c">xpciepsu_ep.c</innerfile>
+    <innerfile refid="xpciepsu__ep_8h">xpciepsu_ep.h</innerfile>
+    <innerfile refid="xpciepsu__g_8c">xpciepsu_g.c</innerfile>
+    <innerfile refid="xpciepsu__hw_8h">xpciepsu_hw.h</innerfile>
+    <innerfile refid="xpciepsu__sinit_8c">xpciepsu_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/"/>
+  </compounddef>
+</doxygen>

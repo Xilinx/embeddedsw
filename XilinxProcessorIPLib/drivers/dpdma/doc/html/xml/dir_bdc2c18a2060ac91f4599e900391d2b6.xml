@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_bdc2c18a2060ac91f4599e900391d2b6" kind="dir">
+    <compoundname>dpdma</compoundname>
+    <innerdir refid="dir_9d9d498b6252413f3f8ac28a8d3acbee">examples</innerdir>
+    <innerdir refid="dir_f16979851c70302e2036584ee8253714">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/"/>
+  </compounddef>
+</doxygen>

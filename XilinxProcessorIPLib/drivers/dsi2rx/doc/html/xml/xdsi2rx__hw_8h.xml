@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdsi2rx__hw_8h" kind="file">
+    <compoundname>xdsi2rx_hw.h</compoundname>
+    <includedby refid="xdsi2rx_8h" local="yes">xdsi2rx.h</includedby>
+    <includedby refid="xdsi2rx__intr_8c" local="yes">xdsi2rx_intr.c</includedby>
+    <invincdepgraph>
+      <node id="40">
+        <label>xdsi2rx.c</label>
+        <link refid="xdsi2rx_8c"/>
+      </node>
+      <node id="39">
+        <label>xdsi2rx.h</label>
+        <link refid="xdsi2rx_8h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xdsi2rx_selftest.c</label>
+        <link refid="xdsi2rx__selftest_8c"/>
+      </node>
+      <node id="44">
+        <label>xdsi2rx_sinit.c</label>
+        <link refid="xdsi2rx__sinit_8c"/>
+      </node>
+      <node id="45">
+        <label>xdsi2_example_selftest.c</label>
+      </node>
+      <node id="41">
+        <label>xdsi2rx_g.c</label>
+      </node>
+      <node id="42">
+        <label>xdsi2rx_intr.c</label>
+        <link refid="xdsi2rx__intr_8c"/>
+      </node>
+      <node id="38">
+        <label>xdsi2rx_hw.h</label>
+        <link refid="xdsi2rx_hw.h"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dsi2rx_1ga7ba58d753aa6b2de88f5f8fd3d0fdd2a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XDsi2Rx_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XDsi2Rx_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Inline function to read DSI2RX controller register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of DSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Value of the register.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="306" bodyend="309"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi2rx_1gabb9fb3b5b8c42255668a1dcf30a2bdcd" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDsi2Rx_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XDsi2Rx_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Inline Function to write to DSI2RX controller register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of DSI </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h" bodystart="324" bodyend="327"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">******************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XDSI2RX_HW_H_<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_HW_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Register<sp/>accesses<sp/>are<sp/>32-bit.</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XDSI2RX_VER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000024<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000030<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000034<sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_INIT_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_CRREADY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_SOFTRESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_COREENB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_INIT_DONE_SHIFT<sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_CRREADY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_SOFTRESET_SHIFT<sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XDSI2RX_CCR_COREENB_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_MAXLANES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000C0000<sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_ERRDATA_TYPE_MASK<sp/><sp/><sp/>0x0003F000<sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELFORMAT_MASK<sp/><sp/><sp/><sp/>0x000007E0<sp/><sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000001C<sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_MAXLANES_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_ERRDATA_TYPE_SHIFT<sp/><sp/>12<sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELFORMAT_SHIFT<sp/><sp/><sp/>5<sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XDSI2RX_PCR_PIXELMODE_SHIFT<sp/><sp/><sp/><sp/><sp/>2<sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_GIE_MASK<sp/><sp/><sp/>0x00000001<sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_GIE_SHIFT<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_ENABLE<sp/><sp/><sp/>1<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XDSI2RX_GIER_DISABLE<sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_FRAME_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_NE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STOP_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC2_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC1_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_CRC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_UN_DATA_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00275FFF<sp/></highlight><highlight class="comment">/*<sp/>ALL<sp/>intr<sp/>Mask*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_FRAME_START_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_FULL_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_GSP_FIFO_NE_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_LM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>14<sp/></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_STOP_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/>10<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_SOT_SYNC_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC2_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_ECC1_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_CRC_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XDSI2RX_ISR_UN_DATA_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_FRAME_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_FULL_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00040000<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_NE_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00020000<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00010000<sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_MASK<sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STOP_STATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000<sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC2_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC1_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_CRC_ERR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_UN_DATA_TYPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ALLINTR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00275FFF<sp/></highlight><highlight class="comment">/*<sp/>ALL<sp/>intr<sp/>Mask*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_FRAME_START_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_FULL_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>18<sp/></highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_GSP_FIFO_NE_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STREAM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_LM_ASYNC_FIFO_FULL_ERR_SHIFT<sp/>14<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_STOP_STATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/></highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE4_SHIFT<sp/><sp/><sp/><sp/><sp/>10<sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE3_SHIFT<sp/><sp/><sp/><sp/><sp/>8<sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE2_SHIFT<sp/><sp/><sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_SOT_SYNC_ERR_LANE1_SHIFT<sp/><sp/><sp/><sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC2_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_ECC1_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/></highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_CRC_ERR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor">#define<sp/>XDSI2RX_IER_UN_DATA_TYPE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_MASK<sp/><sp/>0x00FFFF00<sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_VC_MASK<sp/><sp/><sp/><sp/>0x000000C0<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_TYPE_MASK<sp/>0x0000003F<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_SHIFT<sp/>8<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_VC_SHIFT<sp/><sp/><sp/>6<sp/></highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>XDSI2RX_GSPR_DATA_TYPE_SHIFT<sp/>0<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_FRM_RCVD_MASK<sp/>0xFFFF0000<sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_HLINE_MASK<sp/><sp/>0x0000FFFF<sp/></highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_FRM_RCVD_SHIFT<sp/>16<sp/></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#define<sp/>XDSI2RX_DCR_HLINE_SHIFT<sp/><sp/>0<sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDSI2RX_MAX_LANES<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/****************************Function<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="306"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XDsi2Rx_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="307"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Xil_In32(BaseAddress<sp/>+<sp/>(u32)RegOffset));</highlight></codeline>
+<codeline lineno="309"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDsi2Rx_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="325"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>(u32)RegOffset,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___config" kind="struct" prot="public">
+    <compoundname>XDfeEqu_Config</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1a32e0a9c98a29c9e17c60dee205dba149" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDfeEqu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1a1eb0de436aa7c1c54190ee98a3f7bb0a" prot="public" static="no" mutable="no">
+        <type>metal_phys_addr_t</type>
+        <definition>metal_phys_addr_t XDfeEqu_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Instance base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1ad83cbc14bfe3ef770d37b826afd77cd0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Config::NumChannels</definition>
+        <argsstring></argsstring>
+        <name>NumChannels</name>
+        <briefdescription>
+<para>Number of channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1ae9304aeb64ad10270c43865a6a33995c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Config::SampleWidth</definition>
+        <argsstring></argsstring>
+        <name>SampleWidth</name>
+        <briefdescription>
+<para>Sample width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1a042b2447f6a9ca446237eebaa6421ba8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Config::ComplexModel</definition>
+        <argsstring></argsstring>
+        <name>ComplexModel</name>
+        <briefdescription>
+<para>Complex mode flag. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___config_1a1df6ade4c754eac98b8929e85d34d5c0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Config::TuserWidth</definition>
+        <argsstring></argsstring>
+        <name>TuserWidth</name>
+        <briefdescription>
+<para>Tuser width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="327" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Equalizer Config Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="317" bodyend="328"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___config_1a1eb0de436aa7c1c54190ee98a3f7bb0a" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dfe_equ___config_1a042b2447f6a9ca446237eebaa6421ba8" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>ComplexModel</name></member>
+      <member refid="struct_x_dfe_equ___config_1a32e0a9c98a29c9e17c60dee205dba149" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dfe_equ___config_1ad83cbc14bfe3ef770d37b826afd77cd0" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>NumChannels</name></member>
+      <member refid="struct_x_dfe_equ___config_1ae9304aeb64ad10270c43865a6a33995c" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>SampleWidth</name></member>
+      <member refid="struct_x_dfe_equ___config_1a1df6ade4c754eac98b8929e85d34d5c0" prot="public" virt="non-virtual"><scope>XDfeEqu_Config</scope><name>TuserWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

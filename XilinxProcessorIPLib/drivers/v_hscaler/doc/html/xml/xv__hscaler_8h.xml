@@ -1,0 +1,2063 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hscaler_8h" kind="file">
+    <compoundname>xv_hscaler.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xv__hscaler__hw_8h" local="yes">xv_hscaler_hw.h</includes>
+    <includedby refid="xv__hscaler_8c" local="yes">xv_hscaler.c</includedby>
+    <includedby refid="xv__hscaler__l2_8h" local="yes">xv_hscaler_l2.h</includedby>
+    <includedby refid="xv__hscaler__g_8c" local="yes">xv_hscaler_g.c</includedby>
+    <includedby refid="xv__hscaler__sinit_8c" local="yes">xv_hscaler_sinit.c</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
+      <node id="13">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xv_hscaler_hw.h</label>
+        <link refid="xv__hscaler__hw_8h"/>
+      </node>
+      <node id="10">
+        <label>xv_hscaler.h</label>
+        <link refid="xv_hscaler.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="20">
+        <label>xv_hscaler_l2.c</label>
+        <link refid="xv__hscaler__l2_8c"/>
+      </node>
+      <node id="18">
+        <label>xv_hscaler_l2.h</label>
+        <link refid="xv__hscaler__l2_8h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xv_hscaler_g.c</label>
+        <link refid="xv__hscaler__g_8c"/>
+      </node>
+      <node id="22">
+        <label>xv_hscaler_sinit.c</label>
+        <link refid="xv__hscaler__sinit_8c"/>
+      </node>
+      <node id="17">
+        <label>xv_hscaler.c</label>
+        <link refid="xv__hscaler_8c"/>
+      </node>
+      <node id="16">
+        <label>xv_hscaler.h</label>
+        <link refid="xv_hscaler.h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xv_hscaler_coeff.c</label>
+        <link refid="xv__hscaler__coeff_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v__hscaler___config" prot="public">XV_hscaler_Config</innerclass>
+    <innerclass refid="struct_x_v__hscaler" prot="public">XV_hscaler</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hscaler_8h_1a3dd90a50c560a9d7dd6203497dc845cc" prot="public" static="no">
+        <name>XV_hscaler_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__hscaler_8h_1a87c6325bbbdedd8e0cb2329cfc774500" prot="public" static="no">
+        <name>XV_hscaler_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_hscaler_Initialize</definition>
+        <argsstring>(XV_hscaler *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_hscaler_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Initialize - Initializes an instance of the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the configuration for a given device using the specified base address, and then initializes the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance with the found configuration. If the configuration cannot be found, the function sets the instance as not ready and returns an error code.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device configuration could not be found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>The caller must ensure that the InstancePtr is not NULL.</para></listitem><listitem><para>This function must be called before using the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" bodystart="137" bodyend="151"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler_8c_1a878705caed628a1ea0b1392e59d5110c" compoundref="xv__hscaler_8c" startline="54" endline="69">XV_hscaler_CfgInitialize</references>
+        <references refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" compoundref="xv__hscaler__sinit_8c" startline="102" endline="116">XV_hscaler_LookupConfig</references>
+        <referencedby refid="group__v__hscaler_1gaa56de9b8cf6d41a05c7fec3ce6d5adf2" compoundref="xv__hscaler__l2_8c" startline="92" endline="102">XV_HScalerInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref> *</type>
+        <definition>XV_hscaler_Config* XV_hscaler_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_hscaler_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_LookupConfig - Looks up the configuration for a V_HScaler device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the XV_hscaler_ConfigTable for a configuration entry that matches the specified BaseAddress. If a matching entry is found, a pointer to its configuration structure is returned. If BaseAddress is zero or NULL, the function returns the first entry in the table.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device instance to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration structure if found, or NULL if no matching entry exists. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" bodystart="102" bodyend="116"/>
+        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a878705caed628a1ea0b1392e59d5110c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_hscaler_CfgInitialize</definition>
+        <argsstring>(XV_hscaler *InstancePtr, XV_hscaler_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XV_hscaler_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_CfgInitialize - Initializes an <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. XV_hscaler_CfgInitialize - Initialize an <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></simplesect>
+This function initializes an <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance using the provided configuration structure and effective base address. It copies the configuration, sets the base address, and marks the instance as ready for use.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure for the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Physical base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+Preconditions:<itemizedlist>
+<listitem><para>InstancePtr must not be NULL.</para></listitem><listitem><para>ConfigPtr must not be NULL.</para></listitem><listitem><para>EffectiveAddr must not be NULL. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="54" bodyend="69"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a8c6d07fe34c3f3c7c54806a69b1c76a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Start</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Start - Start the HScaler hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function sets the ap_start bit in the control register to start the hardware. It preserves the auto-restart bit. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="82" bodyend="94"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga6b1d1d8a20f69d2cee85e6897e9e9224" compoundref="xv__hscaler__l2_8c" startline="113" endline="119">XV_HScalerStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a9952f215099f3805314cb81b8681aa01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_IsDone</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_IsDone - Check if the HScaler operation is done. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the control register and checks the ap_done bit (bit 1) to determine if the hardware has finished processing.</para><para><simplesect kind="return"><para>1 if done, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="106" bodyend="116"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a10e8034f617beb44377a8e7d0a9419c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_IsIdle</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_IsIdle - Check if the HScaler hardware is idle. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the control register and checks the ap_idle bit (bit 2) to determine if the hardware is idle.</para><para><simplesect kind="return"><para>1 if idle, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="129" bodyend="139"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a9c646387ef49b919ff45e3d6972a9d44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_IsReady</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_IsReady - Check if HScaler is ready for next input. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the control register and checks the ap_start bit (bit 0) to determine if the hardware is ready for the next input. Returns 1 if ready, 0 otherwise.</para><para><simplesect kind="return"><para>1 if ready, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="153" bodyend="164"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1ae0d2437aa5d0f104aa9f8ea08d3e6211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_EnableAutoRestart</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_EnableAutoRestart - Enable auto-restart mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+This function sets the auto-restart bit (bit 7) in the control register, enabling the hardware to automatically restart after completing an operation. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="177" bodyend="184"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga6b1d1d8a20f69d2cee85e6897e9e9224" compoundref="xv__hscaler__l2_8c" startline="113" endline="119">XV_HScalerStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a0e12a42bfc0aa099330be45c38d31247" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_DisableAutoRestart</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_DisableAutoRestart - Disable auto-restart mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+This function clears the auto-restart bit (bit 7) in the control register, disabling the hardware from automatically restarting after completing an operation. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="197" bodyend="204"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <referencedby refid="group__v__hscaler_1ga6af3378b35ee6e260a553a47debb1231" compoundref="xv__hscaler__l2_8c" startline="130" endline="135">XV_HScalerStop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1aefbc1e5012fd62aeed4c3385acafda5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_Height</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_Height</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Set_HwReg_Height - Set the HWREG_HEIGHT register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to HWREG_HEIGHT register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function writes the specified value to the HWREG_HEIGHT register of the HScaler hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="217" bodyend="224"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1ac190df8dce38c64114270927fdac8f7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_Height</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_Height</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Get_HwReg_Height - Get HWREG_HEIGHT register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the HWREG_HEIGHT register from the HScaler hardware and returns its value.</para><para><simplesect kind="return"><para>Value of HWREG_HEIGHT register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="237" bodyend="249"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a612846a6bdddf446da065874f5686bec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_WidthIn</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_WidthIn</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Set_HwReg_WidthIn - Set HWREG_WIDTHIN register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to HWREG_WIDTHIN register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function writes the specified value to the HWREG_WIDTHIN register of the HScaler hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="262" bodyend="271"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_WidthIn</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_WidthIn</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Get_HwReg_WidthIn - Get HWREG_WIDTHIN register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the HWREG_WIDTHIN register from the HScaler hardware and returns its value.</para><para><simplesect kind="return"><para>Value of HWREG_WIDTHIN register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="283" bodyend="295"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a06e278f308d4923c8859d8a2679fdeb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_WidthOut</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_WidthOut</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Set_HwReg_WidthOut - Set HWREG_WIDTHOUT register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to HWREG_WIDTHOUT register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function writes the specified value to the HWREG_WIDTHOUT register of the HScaler hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="308" bodyend="317"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a47d66f0357445ffe3752f78d302a2b39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_WidthOut</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_WidthOut</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Get_HwReg_WidthOut - Get HWREG_WIDTHOUT register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the HWREG_WIDTHOUT register from the HScaler hardware and returns its value.</para><para><simplesect kind="return"><para>Value of HWREG_WIDTHOUT register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="330" bodyend="342"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a715cce4654d3329eb225723337022bda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_ColorMode</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_ColorMode</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Set_HwReg_ColorMode - Set HWREG_COLORMODE register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to HWREG_COLORMODE register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function writes the specified value to the HWREG_COLORMODE register of the HScaler hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="355" bodyend="364"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a79190851fa4145de7d1c29ab857cac57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_ColorMode</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_ColorMode</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Get_HwReg_ColorMode - Get HWREG_COLORMODE register value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the HWREG_COLORMODE register from the HScaler hardware and returns its value.</para><para><simplesect kind="return"><para>Value of HWREG_COLORMODE register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="377" bodyend="389"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a9b136b4250b89f0ab859b80ed8b08054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_ColorModeOut</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_ColorModeOut</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Set_HwReg_ColorModeOut - Set HWREG_COLORMODEOUT reg. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to HWREG_COLORMODEOUT reg.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None This function writes the specified value to the HWREG_COLORMODEOUT register of the HScaler hardware. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="402" bodyend="411"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a08c9bcc7a731476d88da89f2deb936d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_ColorModeOut</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_ColorModeOut</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Get_HwReg_ColorModeOut - Get HWREG_COLORMODEOUT reg value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This function reads the HWREG_COLORMODEOUT register from the HScaler hardware and returns its value.</para><para><simplesect kind="return"><para>Value of HWREG_COLORMODEOUT register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="423" bodyend="435"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1adc83c87e2c16e1e2109c13caa6a50bd3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_Set_HwReg_PixelRate</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Data)</argsstring>
+        <name>XV_hscaler_Set_HwReg_PixelRate</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the hardware register pixel rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The value to set in the hardware register pixel rate. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="444" bodyend="449"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1adab95db7c44af21bf6a75d2c9ba775f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_PixelRate</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_PixelRate</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the hardware register pixel rate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value of the hardware register pixel rate. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="457" bodyend="465"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a67bc579c834cf0a9c8ec4b91798ed277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the base address of the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The base address of the hardware register hfltCoeff. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="473" bodyend="478"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <referencedby refid="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" compoundref="xv__hscaler__l2_8c" startline="667" endline="750">XV_HScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a9dd38d3ec68c6a24373e2258bb230801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_hscaler_Get_HwReg_hfltCoeff_HighAddress</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_hfltCoeff_HighAddress</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the high address of the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The high address of the hardware register hfltCoeff. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="486" bodyend="491"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a90f47d3afdcb958c1f7082f12f099f1c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_hfltCoeff_TotalBytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_hfltCoeff_TotalBytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the total bytes of the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The total bytes of the hardware register hfltCoeff. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="499" bodyend="504"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a20194c817d458ecc451c979aba353cd7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_hfltCoeff_BitWidth</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_hfltCoeff_BitWidth</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the bit width of the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit width of the hardware register hfltCoeff. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="512" bodyend="517"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1abc51de334949b8964b3366833061931d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_hfltCoeff_Depth</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_hfltCoeff_Depth</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the depth of the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The depth of the hardware register hfltCoeff. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="525" bodyend="530"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1aa290c0d38d0e82b944b38cf9f81a1f60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Write_HwReg_hfltCoeff_Words</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XV_hscaler_Write_HwReg_hfltCoeff_Words</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function writes words to the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start writing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of words to write. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of words written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="541" bodyend="554"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a76df144d2c4bbf3ebc583cc8e22ee087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Read_HwReg_hfltCoeff_Words</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XV_hscaler_Read_HwReg_hfltCoeff_Words</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function reads words from the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start reading. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to store the read data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of words to read. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of words read. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="565" bodyend="578"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1ae874af417c8808478e58e61442bac5c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Write_HwReg_hfltCoeff_Bytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XV_hscaler_Write_HwReg_hfltCoeff_Bytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function writes bytes to the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start writing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="589" bodyend="602"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a05e8fd58fafd88170c2dc8003670e3db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Read_HwReg_hfltCoeff_Bytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XV_hscaler_Read_HwReg_hfltCoeff_Bytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function reads bytes from the hardware register hfltCoeff. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start reading. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to store the read data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to read. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes read. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="613" bodyend="626"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a36eb6b3dd64414ce9d68d00112df8172" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_hscaler_Get_HwReg_phasesH_V_BaseAddress</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_phasesH_V_BaseAddress</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the base address of the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The base address of the hardware register phasesH_V. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="633" bodyend="638"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a605973db41319b380b0041c3c0d5a107" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_hscaler_Get_HwReg_phasesH_V_HighAddress</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_phasesH_V_HighAddress</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>function gets the high address of the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The high address of the hardware register phasesH_V. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="646" bodyend="651"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1aa83934864e6c11c891b51d14fbe8576f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_phasesH_V_TotalBytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_phasesH_V_TotalBytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the total bytes of the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The total bytes of the hardware register phasesH_V. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="659" bodyend="664"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a8208826091c04cbac03e9f5f889874e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_phasesH_V_BitWidth</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_phasesH_V_BitWidth</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the bit width of the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit width of the hardware register phasesH_V. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="672" bodyend="677"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a577a9f7144f10f16463b47854ea4eb1a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Get_HwReg_phasesH_V_Depth</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_Get_HwReg_phasesH_V_Depth</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the depth of the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The depth of the hardware register phasesH_V. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="685" bodyend="690"/>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1af65f59bef917becda7af8812e260a9e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Write_HwReg_phasesH_V_Words</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XV_hscaler_Write_HwReg_phasesH_V_Words</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function writes words to the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start writing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of words to write. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of words written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="701" bodyend="714"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1aa0ad3a0a80c4c4c48c7ad3afa83d92b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Read_HwReg_phasesH_V_Words</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XV_hscaler_Read_HwReg_phasesH_V_Words</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function reads words from the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start reading. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to store the read data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of words to read. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of words read. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="725" bodyend="738"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a0a7a5d85bddc374983b20b66d9d0e1f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Write_HwReg_phasesH_V_Bytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XV_hscaler_Write_HwReg_phasesH_V_Bytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function writes bytes to the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start writing. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to write. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes written. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="749" bodyend="762"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a5e035c5e7c7b4ccbc4071374ef70fb1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_Read_HwReg_phasesH_V_Bytes</definition>
+        <argsstring>(XV_hscaler *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XV_hscaler_Read_HwReg_phasesH_V_Bytes</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+<para>This function reads bytes from the hardware register phasesH_V. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The offset to start reading. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer to store the read data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of bytes to read. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes read. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="773" bodyend="786"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a0c1461ec110c3848ebd17e3f522b1a8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_InterruptGlobalEnable</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="794" bodyend="799"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1abaf7bf955ac699e839aba79c662b5797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_InterruptGlobalDisable</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="807" bodyend="812"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a47a48f9ec15578d32aa409fe06fea3a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_InterruptEnable</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_hscaler_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mask of interrupts to enable. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="821" bodyend="829"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1ae522d137b8398bfc2c9706319c821747" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_InterruptDisable</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_hscaler_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mask of interrupts to disable. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="838" bodyend="846"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a2c492d985fc6df4cb4ce858dd35617a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_hscaler_InterruptClear</definition>
+        <argsstring>(XV_hscaler *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_hscaler_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mask of interrupts to clear. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="855" bodyend="860"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a36467e08c522877a0f4a1d521ec3543f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_InterruptGetEnabled</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the enabled interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The mask of enabled interrupts. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="868" bodyend="873"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler_8h_1a5def33610cf1c5899547cf03cef0dc25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_hscaler_InterruptGetStatus</definition>
+        <argsstring>(XV_hscaler *InstancePtr)</argsstring>
+        <name>XV_hscaler_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The mask of interrupt status. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.c" bodystart="881" bodyend="886"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_HSCALER_H</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_HSCALER_H</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hscaler__hw_8h" kindref="compound">xv_hscaler_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="struct_x_v__hscaler___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56" refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" kindref="member">BaseAddress</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_x_v__hscaler___config_1a074a3b3e53bcbdc9510a82418d5df552" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1a074a3b3e53bcbdc9510a82418d5df552" kindref="member">PixPerClk</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_v__hscaler___config_1ac06976661b222bda823357a505bfee26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1ac06976661b222bda823357a505bfee26" kindref="member">NumVidComponents</ref>;<sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_v__hscaler___config_1ae80c47f460d609a5352fbcfffcea56e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1ae80c47f460d609a5352fbcfffcea56e6" kindref="member">MaxWidth</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_v__hscaler___config_1af96fd96ba119352fbfd0e4ae9540ac3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1af96fd96ba119352fbfd0e4ae9540ac3e" kindref="member">MaxHeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_v__hscaler___config_1a687526045452f3f9501e56ba28cbc2af" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1a687526045452f3f9501e56ba28cbc2af" kindref="member">MaxDataWidth</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_v__hscaler___config_1a4282b794e8c469aa0c50cb28b3e282cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1a4282b794e8c469aa0c50cb28b3e282cd" kindref="member">PhaseShift</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_v__hscaler___config_1a9b8f1147b245bb2a6af561ce87b161aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1a9b8f1147b245bb2a6af561ce87b161aa" kindref="member">ScalerType</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_v__hscaler___config_1aa46e23594ec1f8647bed471bc8d5fa98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1aa46e23594ec1f8647bed471bc8d5fa98" kindref="member">NumTaps</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_v__hscaler___config_1ae58222fe1c7766de9ef4a5014952a280" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1ae58222fe1c7766de9ef4a5014952a280" kindref="member">Is422Enabled</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_v__hscaler___config_1aaaa2f76baabbd10e8a1fbf426997812f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1aaaa2f76baabbd10e8a1fbf426997812f" kindref="member">Is420Enabled</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_v__hscaler___config_1ac59b4927d6504a2380cfdd200a98bc9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__hscaler___config_1ac59b4927d6504a2380cfdd200a98bc9a" kindref="member">IsCscEnabled</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="struct_x_v__hscaler" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="75" refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/><ref refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" kindref="member">Config</ref>;<sp/></highlight></codeline>
+<codeline lineno="76" refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_hscaler_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_hscaler_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_hscaler_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_hscaler_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref>*<sp/><ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref>*<sp/><ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a878705caed628a1ea0b1392e59d5110c" kindref="member">XV_hscaler_CfgInitialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_hscaler_Release(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a8c6d07fe34c3f3c7c54806a69b1c76a7" kindref="member">XV_hscaler_Start</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a9952f215099f3805314cb81b8681aa01" kindref="member">XV_hscaler_IsDone</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a10e8034f617beb44377a8e7d0a9419c8" kindref="member">XV_hscaler_IsIdle</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a9c646387ef49b919ff45e3d6972a9d44" kindref="member">XV_hscaler_IsReady</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1ae0d2437aa5d0f104aa9f8ea08d3e6211" kindref="member">XV_hscaler_EnableAutoRestart</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a0e12a42bfc0aa099330be45c38d31247" kindref="member">XV_hscaler_DisableAutoRestart</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1aefbc1e5012fd62aeed4c3385acafda5f" kindref="member">XV_hscaler_Set_HwReg_Height</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1ac190df8dce38c64114270927fdac8f7b" kindref="member">XV_hscaler_Get_HwReg_Height</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a612846a6bdddf446da065874f5686bec" kindref="member">XV_hscaler_Set_HwReg_WidthIn</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" kindref="member">XV_hscaler_Get_HwReg_WidthIn</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a06e278f308d4923c8859d8a2679fdeb6" kindref="member">XV_hscaler_Set_HwReg_WidthOut</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a47d66f0357445ffe3752f78d302a2b39" kindref="member">XV_hscaler_Get_HwReg_WidthOut</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a715cce4654d3329eb225723337022bda" kindref="member">XV_hscaler_Set_HwReg_ColorMode</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a79190851fa4145de7d1c29ab857cac57" kindref="member">XV_hscaler_Get_HwReg_ColorMode</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a9b136b4250b89f0ab859b80ed8b08054" kindref="member">XV_hscaler_Set_HwReg_ColorModeOut</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a08c9bcc7a731476d88da89f2deb936d8" kindref="member">XV_hscaler_Get_HwReg_ColorModeOut</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1adc83c87e2c16e1e2109c13caa6a50bd3" kindref="member">XV_hscaler_Set_HwReg_PixelRate</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1adab95db7c44af21bf6a75d2c9ba775f8" kindref="member">XV_hscaler_Get_HwReg_PixelRate</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">UINTPTR<sp/><ref refid="xv__hscaler_8c_1a67bc579c834cf0a9c8ec4b91798ed277" kindref="member">XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">UINTPTR<sp/><ref refid="xv__hscaler_8c_1a9dd38d3ec68c6a24373e2258bb230801" kindref="member">XV_hscaler_Get_HwReg_hfltCoeff_HighAddress</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a90f47d3afdcb958c1f7082f12f099f1c" kindref="member">XV_hscaler_Get_HwReg_hfltCoeff_TotalBytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a20194c817d458ecc451c979aba353cd7" kindref="member">XV_hscaler_Get_HwReg_hfltCoeff_BitWidth</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1abc51de334949b8964b3366833061931d" kindref="member">XV_hscaler_Get_HwReg_hfltCoeff_Depth</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1aa290c0d38d0e82b944b38cf9f81a1f60" kindref="member">XV_hscaler_Write_HwReg_hfltCoeff_Words</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a76df144d2c4bbf3ebc583cc8e22ee087" kindref="member">XV_hscaler_Read_HwReg_hfltCoeff_Words</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1ae874af417c8808478e58e61442bac5c0" kindref="member">XV_hscaler_Write_HwReg_hfltCoeff_Bytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a05e8fd58fafd88170c2dc8003670e3db" kindref="member">XV_hscaler_Read_HwReg_hfltCoeff_Bytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">UINTPTR<sp/><ref refid="xv__hscaler_8c_1a36eb6b3dd64414ce9d68d00112df8172" kindref="member">XV_hscaler_Get_HwReg_phasesH_V_BaseAddress</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">UINTPTR<sp/><ref refid="xv__hscaler_8c_1a605973db41319b380b0041c3c0d5a107" kindref="member">XV_hscaler_Get_HwReg_phasesH_V_HighAddress</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1aa83934864e6c11c891b51d14fbe8576f" kindref="member">XV_hscaler_Get_HwReg_phasesH_V_TotalBytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a8208826091c04cbac03e9f5f889874e7" kindref="member">XV_hscaler_Get_HwReg_phasesH_V_BitWidth</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a577a9f7144f10f16463b47854ea4eb1a" kindref="member">XV_hscaler_Get_HwReg_phasesH_V_Depth</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1af65f59bef917becda7af8812e260a9e8" kindref="member">XV_hscaler_Write_HwReg_phasesH_V_Words</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1aa0ad3a0a80c4c4c48c7ad3afa83d92b9" kindref="member">XV_hscaler_Read_HwReg_phasesH_V_Words</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a0a7a5d85bddc374983b20b66d9d0e1f7" kindref="member">XV_hscaler_Write_HwReg_phasesH_V_Bytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a5e035c5e7c7b4ccbc4071374ef70fb1f" kindref="member">XV_hscaler_Read_HwReg_phasesH_V_Bytes</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a0c1461ec110c3848ebd17e3f522b1a8a" kindref="member">XV_hscaler_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1abaf7bf955ac699e839aba79c662b5797" kindref="member">XV_hscaler_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a47a48f9ec15578d32aa409fe06fea3a4" kindref="member">XV_hscaler_InterruptEnable</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1ae522d137b8398bfc2c9706319c821747" kindref="member">XV_hscaler_InterruptDisable</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a2c492d985fc6df4cb4ce858dd35617a2" kindref="member">XV_hscaler_InterruptClear</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a36467e08c522877a0f4a1d521ec3543f" kindref="member">XV_hscaler_InterruptGetEnabled</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">u32<sp/><ref refid="xv__hscaler_8c_1a5def33610cf1c5899547cf03cef0dc25" kindref="member">XV_hscaler_InterruptGetStatus</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler.h"/>
+  </compounddef>
+</doxygen>

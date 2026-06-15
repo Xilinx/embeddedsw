@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_secure___lms_ots_hash_per_digit__" kind="union" prot="public">
+    <compoundname>XSecure_LmsOtsHashPerDigit_</compoundname>
+    <includes local="no">xsecure_lms_ots.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1abbe1376e8d1d932a13f554ffaf423b92" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsHashPerDigit_::Buff[1U+XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]</definition>
+        <argsstring>[1U+XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]</argsstring>
+        <name>Buff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a5e7624a580f45248dcd50cbd949b71ea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsHashPerDigit_::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1acb224024375d780b5335b018ac7b3b87" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsHashPerDigit_::I[XSECURE_LMS_I_FIELD_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_I_FIELD_SIZE]</argsstring>
+        <name>I</name>
+        <briefdescription>
+<para>I - Merkle Tree&apos;s unique identifier (uniformly random 16-byte string) Size - 16 bytes, 1 to 16 bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a72751c7bb4635b03d2d00231a473372e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsOtsHashPerDigit_::q</definition>
+        <argsstring></argsstring>
+        <name>q</name>
+        <briefdescription>
+<para>q - The leaf number q, goes from 0 on left most leaf to right most (2^h -1), in a single tree Size - 4 bytes, 17 to 20 bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a21b1507e776e1a17bd991dcf4e218242" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSecure_LmsOtsHashPerDigit_::i</definition>
+        <argsstring></argsstring>
+        <name>i</name>
+        <briefdescription>
+<para>i - Digit position in (Digest || Checksum), 0 to (p-1) digits. </para>        </briefdescription>
+        <detaileddescription>
+<para>Size - 2 Bytes, 21 to 22 bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a216f0fe82c04e6a91f424ac52f326898" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsHashPerDigit_::j</definition>
+        <argsstring></argsstring>
+        <name>j</name>
+        <briefdescription>
+<para>j - Index for inner loop during signature verification, starts at digit value in (Digest || Checksum) ends at (2^w - 1). </para>        </briefdescription>
+        <detaileddescription>
+<para>Size - 1 Byte, 23nd byte </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a774daf8bda328b21e78fc1ff42348f2e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_LmsOtsHashPerDigit_::y[XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE]</argsstring>
+        <name>y</name>
+        <briefdescription>
+<para>y[] - &apos;n&apos; bytes picked from LMS OTS signatures. </para>        </briefdescription>
+        <detaileddescription>
+<para>y[0] to y[p-1], each &apos;n&apos; sized bytes will be copied here and passed into HASH engine along with other fields. Size - 32 Bytes, 24 to 55 bytes </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="381" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_secure___lms_ots_hash_per_digit___1a9a45ee09c5ec9528261b01cc336727c3" prot="public" static="no" mutable="no">
+        <type>struct XSecure_LmsOtsHashPerDigit_::@3</type>
+        <definition>struct XSecure_LmsOtsHashPerDigit_::@3  XSecure_LmsOtsHashPerDigit_::Fields</definition>
+        <argsstring></argsstring>
+        <name>Fields</name>
+        <briefdescription>
+<para>Fields of LMS OTS hash per digit structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="382" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Temporary buffer, used in LMS OTS signature verification, used in hash chain to arrive at values which will be concatenated and hashed to get public value. </para>    </briefdescription>
+    <detaileddescription>
+<para>Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h" bodystart="349" bodyend="383"/>
+    <listofallmembers>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1abbe1376e8d1d932a13f554ffaf423b92" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>Buff</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a9a45ee09c5ec9528261b01cc336727c3" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>Fields</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a21b1507e776e1a17bd991dcf4e218242" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>i</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1acb224024375d780b5335b018ac7b3b87" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>I</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a216f0fe82c04e6a91f424ac52f326898" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>j</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a72751c7bb4635b03d2d00231a473372e" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>q</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a5e7624a580f45248dcd50cbd949b71ea" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>Reserved</name></member>
+      <member refid="union_x_secure___lms_ots_hash_per_digit___1a774daf8bda328b21e78fc1ff42348f2e" prot="public" virt="non-virtual"><scope>XSecure_LmsOtsHashPerDigit_</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

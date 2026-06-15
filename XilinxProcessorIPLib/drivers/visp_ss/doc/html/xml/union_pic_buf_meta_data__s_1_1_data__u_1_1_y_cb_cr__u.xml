@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u" kind="union" prot="public">
+    <compoundname>PicBufMetaData_s::Data_u::YCbCr_u</compoundname>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1planar___y_u_v__s" prot="public">PicBufMetaData_s::Data_u::YCbCr_u::planar_YUV_s</innerclass>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1_1semiplanar__s" prot="public">PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</innerclass>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1a1714b439b2f2876d9c496d24018ba2d1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_pic_buf_plane__s" kindref="compound">PicBufPlane_t</ref></type>
+        <definition>PicBufPlane_t PicBufMetaData_s::Data_u::YCbCr_u::combined</definition>
+        <argsstring></argsstring>
+        <name>combined</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1ae8cf923e4cdb949850e8071ccd4f7ed7" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s</type>
+        <definition>struct PicBufMetaData_s::Data_u::YCbCr_u::semiplanar_s  PicBufMetaData_s::Data_u::YCbCr_u::semiplanar</definition>
+        <argsstring></argsstring>
+        <name>semiplanar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="628" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1a2b9d3c9bba6ab4fb6053902584be88db" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::YCbCr_u::planar_YUV_s</type>
+        <definition>struct PicBufMetaData_s::Data_u::YCbCr_u::planar_YUV_s  PicBufMetaData_s::Data_u::YCbCr_u::planar</definition>
+        <argsstring></argsstring>
+        <name>planar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="633" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1122">
+        <label>PicBufMetaData_s::Data_u::YCbCr_u</label>
+        <childnode refid="1123" relation="usage">
+          <edgelabel>combined</edgelabel>
+        </childnode>
+      </node>
+      <node id="1123">
+        <label>PicBufPlane_s</label>
+        <link refid="struct_pic_buf_plane__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="623" bodyend="634"/>
+    <listofallmembers>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1a1714b439b2f2876d9c496d24018ba2d1" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::YCbCr_u</scope><name>combined</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1a2b9d3c9bba6ab4fb6053902584be88db" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::YCbCr_u</scope><name>planar</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u_1ae8cf923e4cdb949850e8071ccd4f7ed7" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u::YCbCr_u</scope><name>semiplanar</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

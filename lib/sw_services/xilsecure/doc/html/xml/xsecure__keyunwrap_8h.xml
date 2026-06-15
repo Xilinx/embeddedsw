@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__keyunwrap_8h" kind="file">
+    <compoundname>xsecure_keyunwrap.h</compoundname>
+    <includes local="yes">xpmcdma.h</includes>
+    <includes local="yes">xsecure_plat_defs.h</includes>
+    <includedby refid="xsecure__keyunwrap_8c" local="yes">xsecure_keyunwrap.c</includedby>
+    <includedby refid="net_2xsecure__plat__ipihandler_8c" local="yes">xsecure_plat_ipihandler.c</includedby>
+    <incdepgraph>
+      <node id="1910">
+        <label>xsecure_keyunwrap.h</label>
+        <link refid="xsecure_keyunwrap.h"/>
+        <childnode refid="1911" relation="include">
+        </childnode>
+        <childnode refid="1912" relation="include">
+        </childnode>
+      </node>
+      <node id="1912">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1911">
+        <label>xpmcdma.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1914">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="1913">
+        <label>xsecure_keyunwrap.h</label>
+        <link refid="xsecure_keyunwrap.h"/>
+        <childnode refid="1914" relation="include">
+        </childnode>
+        <childnode refid="1915" relation="include">
+        </childnode>
+      </node>
+      <node id="1915">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__keyunwrap__server__apis_1ga246507e2a1fe8390725754ef5bcc70b0" prot="public" static="no">
+        <name>XSECURE_KEY_STORE_ADDR</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Key store address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_KeyUnwrap</definition>
+        <argsstring>(XSecure_KeyWrapData *KeyWrapData)</argsstring>
+        <name>XSecure_KeyUnwrap</name>
+        <param>
+          <type><ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref> *</type>
+          <declname>KeyWrapData</declname>
+        </param>
+        <briefdescription>
+<para>This function unwraps the given wrapped key and stores it along with metadata in Shared address between PMC and secure shell. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KeyWrapData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XST_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH - If wrapped key size is invalid.</para></listitem><listitem><para>XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED - If AES key size is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for free key slot and update Key slot status address</para></listitem><listitem><para>Get destination key slot address by using free key slot value</para></listitem><listitem><para>Copy wrapped rsa key to local buffer</para></listitem><listitem><para>Update the key slot with metadata</para></listitem><listitem><para>Clear the ephemeral AES key after the usage</para></listitem><listitem><para>Clear the ephemeral AES key after the usage </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.c" bodystart="185" bodyend="283"/>
+        <references refid="struct_x_secure___rsa_oaep_param_1aec83801a64f9afa4244ceb8900611946" compoundref="xsecure__plat__rsa_8h" startline="109">XSecure_RsaOaepParam::InputDataAddr</references>
+        <references refid="struct_x_secure___key_wrap_data_1a0a05d1878b7e0de78a277e45d387849f" compoundref="net_2xsecure__plat__defs_8h" startline="325">XSecure_KeyWrapData::KeyMetaData</references>
+        <references refid="struct_x_secure___key_wrap_data_1a857f11d7fff5dfda00d6720ca658fdd4" compoundref="net_2xsecure__plat__defs_8h" startline="326">XSecure_KeyWrapData::KeyWrapAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1aa512ea4ccd203ba5598c4de743b12d79" compoundref="xsecure__plat__rsa_8h" startline="110">XSecure_RsaOaepParam::OutputDataAddr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1abc732af71d66ec9a66a84abf44c52749" compoundref="xsecure__plat__rsa_8h" startline="113">XSecure_RsaOaepParam::OutputDataSize</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1af3ada34163356c6f6dabaf1217119829" compoundref="xsecure__plat__rsa_8h" startline="115">XSecure_RsaOaepParam::ShaInstancePtr</references>
+        <references refid="struct_x_secure___rsa_oaep_param_1a08d92ae0a9bc81faf738335de219ee13" compoundref="xsecure__plat__rsa_8h" startline="116">XSecure_RsaOaepParam::ShaType</references>
+        <references refid="struct_x_secure___key_wrap_data_1ae0859090b231e6cdb8541514ace52cff" compoundref="net_2xsecure__plat__defs_8h" startline="327">XSecure_KeyWrapData::TotalWrappedKeySize</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1gaaa701b146b5ca0fcc10c4540285282dd" compoundref="xsecure__keyunwrap_8c" startline="65">XSECURE_AES_128BIT_KEY_BLOCK_SIZE</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga7a1499e52c8b2b547996df177d08dad4" compoundref="xsecure__keyunwrap_8c" startline="64">XSECURE_AES_256BIT_KEY_BLOCK_SIZE</references>
+        <references refid="group__xsecure__aes__server__apis_1gaa26b61acf33b45fed961e0e3a59f7baa" compoundref="xsecure__plat__aes_8h" startline="44">XSECURE_AES_64BIT_BLOCK_SIZE</references>
+        <references refid="group__xsecure__aes__server__apis_1gga55cd9d64e04cce6a57d729b67a5f0c47a2e5b9343d2f9cc0e355b413d6a3848e3" compoundref="xsecure__aesclient_8h" startline="82">XSECURE_AES_KEY_SIZE_128</references>
+        <references refid="group__xsecure__aes__server__apis_1ga4da9ead453ef1dbeebefeebb377eb94d" compoundref="xsecure__plat__aes_8c" startline="211" endline="345">XSecure_AesKeyUnwrap</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57af10eedc347b4d363632e86345fcde6c5" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="353">XSECURE_ERR_AES_KEY_SIZE_NOT_SUPPORTED</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57ae88263cbf5cdde15b1c36b2a6b4f069c" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="351">XSECURE_ERR_KEY_WRAP_SIZE_MISMATCH</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" compoundref="xsecure__plat__rsa_8c" startline="542" endline="551">XSecure_GetRsaKeyInUseIdx</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga76632037ef8961e99b8b9b210d5f75f1" compoundref="xsecure__plat__rsa_8c" startline="731" endline="741">XSecure_GetRsaPrivateKey</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga2efa8fafebaafb641f8472d5b840b032" compoundref="xsecure__keyunwrap_8c" startline="70">XSECURE_KEY_SLOT_KEY_ADDR</references>
+        <references refid="group__xsecure__keyunwrap__server__apis_1ga6a82817e5b3bf270ed1e31200603742f" compoundref="xsecure__keyunwrap_8c" startline="63">XSECURE_KEY_STORE_KEY_OFFSET</references>
+        <references refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" compoundref="spartanup_2xsecure__utils_8c" startline="74" endline="95">XSecure_MemCpy64</references>
+        <references refid="group__xsecure__helper__server__apis_1ga53fe2b16231ce29ca1d943967d122925" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="684" endline="699">XSecure_MemCpyAndChangeEndianness</references>
+        <references refid="group__xsecure__rsa__server__apis_1gaef98b03d932368574ec1123184b9a9e4" compoundref="xsecure__plat__rsa_8h" startline="68">XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES</references>
+        <references refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains APIs related to key unwrap. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+5.2   kpt  06/30/23 Initial release
+5.4   yog  04/29/24 Fixed doxygen grouping.
+      kpt  06/13/24 Added AES key unwrap with padding support.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XSECURE_KEY_UNWRAP_H_</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KEY_UNWRAP_H_</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpmcdma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_defs.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XSECURE_KEY_SLOT_ADDR</highlight></codeline>
+<codeline lineno="47" refid="group__xsecure__keyunwrap__server__apis_1ga246507e2a1fe8390725754ef5bcc70b0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KEY_STORE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_KEY_STORE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_KEY_SLOT_ADDR)<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__client__apis_1ga34fb190dff4e61e8f39544f732a94edf" kindref="member">XSecure_KeyUnwrap</ref>(<ref refid="struct_x_secure___key_wrap_data" kindref="compound">XSecure_KeyWrapData</ref><sp/>*KeyWrapData);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_KEY_UNWRAP_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_keyunwrap.h"/>
+  </compounddef>
+</doxygen>

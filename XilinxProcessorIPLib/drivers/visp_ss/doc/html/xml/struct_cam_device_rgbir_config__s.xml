@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_rgbir_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceRgbirConfig_s</compoundname>
+    <includes local="no">cam_device_rgbir_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_rgbir_config__s_1a536f2a7ed338ebf7daca771e2b3cbcc0" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceRgbirConfig_s::ccMatrix[CAMDEV_RGBIR_CC_MATRIX_SIZE]</definition>
+        <argsstring>[CAMDEV_RGBIR_CC_MATRIX_SIZE]</argsstring>
+        <name>ccMatrix</name>
+        <briefdescription>
+<para>IR coefficient 3x4 matrix: 03 is the first row of the matrix, 47 is the second row, and 811 is the third row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_config__s_1af5d9fc5608a01f8c83a16911aa40f928" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceRgbirConfig_s::dpccMidTh[CAMDEV_RGBIR_CHANNEL_NUM]</definition>
+        <argsstring>[CAMDEV_RGBIR_CHANNEL_NUM]</argsstring>
+        <name>dpccMidTh</name>
+        <briefdescription>
+<para>Median bad point threshold of the four channels:<linebreak/>
+ Position 0 corresponds to the IR channel<linebreak/>
+ Position 1 corresponds to the Red channel<linebreak/>
+. </para>        </briefdescription>
+        <detaileddescription>
+<para>Position 2 corresponds to the Green channel<linebreak/>
+ Position 3 corresponds to the Blue channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_config__s_1aac438c32661f3910a8cd74a6ccb778a3" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceRgbirConfig_s::dpccTh[CAMDEV_RGBIR_CHANNEL_NUM]</definition>
+        <argsstring>[CAMDEV_RGBIR_CHANNEL_NUM]</argsstring>
+        <name>dpccTh</name>
+        <briefdescription>
+<para>Bad point detection threshold of four channels:<linebreak/>
+ Position 0 corresponds to the IR channel<linebreak/>
+ Position 1 corresponds to the Red channel<linebreak/>
+. </para>        </briefdescription>
+        <detaileddescription>
+<para>Position 2 corresponds to the Green channel<linebreak/>
+ Position 3 corresponds to the Blue channel </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_config__s_1a8af6770f2c6c0dd55b61803bf3046c6b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceRgbirConfig_s::irThreshold</definition>
+        <argsstring></argsstring>
+        <name>irThreshold</name>
+        <briefdescription>
+<para>RGBIR IR threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_rgbir_config__s_1afe4eeba7a18c14f629452079c8636061" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceRgbirConfig_s::lThreshold</definition>
+        <argsstring></argsstring>
+        <name>lThreshold</name>
+        <briefdescription>
+<para>RGBIR L threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice RGBIR status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/rgbir_v2_1/cam_device_rgbir_api.h" bodystart="76" bodyend="84"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_rgbir_config__s_1a536f2a7ed338ebf7daca771e2b3cbcc0" prot="public" virt="non-virtual"><scope>CamDeviceRgbirConfig_s</scope><name>ccMatrix</name></member>
+      <member refid="struct_cam_device_rgbir_config__s_1af5d9fc5608a01f8c83a16911aa40f928" prot="public" virt="non-virtual"><scope>CamDeviceRgbirConfig_s</scope><name>dpccMidTh</name></member>
+      <member refid="struct_cam_device_rgbir_config__s_1aac438c32661f3910a8cd74a6ccb778a3" prot="public" virt="non-virtual"><scope>CamDeviceRgbirConfig_s</scope><name>dpccTh</name></member>
+      <member refid="struct_cam_device_rgbir_config__s_1a8af6770f2c6c0dd55b61803bf3046c6b" prot="public" virt="non-virtual"><scope>CamDeviceRgbirConfig_s</scope><name>irThreshold</name></member>
+      <member refid="struct_cam_device_rgbir_config__s_1afe4eeba7a18c14f629452079c8636061" prot="public" virt="non-virtual"><scope>CamDeviceRgbirConfig_s</scope><name>lThreshold</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

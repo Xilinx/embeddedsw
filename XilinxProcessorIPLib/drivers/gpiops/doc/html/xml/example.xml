@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use gpiops driver.</para><sect1 id="example_1ex1">
+<title>xgpiops_intr_example.c</title>
+<para>Contains an example on how to use the XGpiops driver directly. This example shows the usage of the driver in interrupt mode. and uses the interrupt capability of the GPIO to detect push button events, set the output LEDs based on the input . The user needs to press all the switches SW1-SW5 on the evaluation board to exit from this example.</para><para>For details, see <ref refid="xgpiops__intr__example_8c" kindref="compound">xgpiops_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xgpiops_polled_example.c</title>
+<para>Contains an example on how to use the XGpiops driver directly. This example provides the usage of APIs for reading/writing to the individual pins.Same example we are using in versal for execution of pmc gpio &amp; Ps gpio with configuring Gpio.PmcGpio value.if Gpio.PmcGpio =1 it will work for pmc gpio else it works for ps gpio.</para><para>For details, see <ref refid="xgpiops__polled__example_8c" kindref="compound">xgpiops_polled_example.c</ref>.</para><para>Note: GPIO pin number has to be changes based on the board design. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

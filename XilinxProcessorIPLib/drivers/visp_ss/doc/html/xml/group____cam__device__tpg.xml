@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__tpg" kind="group">
+    <compoundname>_cam_device_tpg</compoundname>
+    <title>VsCamDevice E01C10 Device_TPG Definitions</title>
+    <innerclass refid="struct_cam_device_tpg_config__s" prot="public">CamDeviceTpgConfig_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__tpg_1gaa862124678886b5b278326840f9772b6" prot="public" static="no">
+        <name>CamDeviceISPTpgImageType_e</name>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6a952bc46b15b92a22bab8fee93a6bf5a4" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_3X3COLORBLOCK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>3 x 3 color block </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6a1c2c35457784a0fcea36082b4c4d415c" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_COLORBAR</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Color bar. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6ae9b420b766d16dbd07a3f27cf79452be" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_GRAYBAR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Gray bar. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6a01c94a918e86489eab6619d1b380a350" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_GRID</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Highlighted grid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6abcb425083b80171633a37d2e82b77a8f" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_RANDOM</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>Random data. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1ggaa862124678886b5b278326840f9772b6a605fb87cbce7ce32707c51359954836c" prot="public">
+          <name>CAMDEV_ISP_TPG_IMAGE_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration of TPG picture type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="51" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__tpg_1ga983abf5fbd74cfe98fae7ad93c714abb" prot="public" static="no">
+        <name>CamDeviceIspTpgResolution_e</name>
+        <enumvalue id="group____cam__device__tpg_1gga983abf5fbd74cfe98fae7ad93c714abbaeeb5fd03770a038b9a9f2f20383875a4" prot="public">
+          <name>CAMDEV_ISP_TPG_1080P</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>1920 x 1080 resolution </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1gga983abf5fbd74cfe98fae7ad93c714abbaf2c22dfa419775c50b4f73fa1bd75cd6" prot="public">
+          <name>CAMDEV_ISP_TPG_720P</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>1280 x 720 resolution </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__tpg_1gga983abf5fbd74cfe98fae7ad93c714abba01499f033cafc5fe4c8d603bfcae65d7" prot="public">
+          <name>CAMDEV_ISP_TPG_4K</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>3840 x 2160 resolution </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration of TPG resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="66" bodyend="71"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__tpg_1gaa393ab7b124c543d2c2d560f6e5fd1b5" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__tpg_1gaa862124678886b5b278326840f9772b6" kindref="member">CamDeviceISPTpgImageType_e</ref></type>
+        <definition>typedef enum CamDeviceISPTpgImageType_e  CamDeviceISPTpgImageType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceISPTpgImageType_t</name>
+        <briefdescription>
+<para>Enumeration of TPG picture type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__tpg_1ga0d9bede6f3023ae67c80cbb9a7d200bd" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__tpg_1ga983abf5fbd74cfe98fae7ad93c714abb" kindref="member">CamDeviceIspTpgResolution_e</ref></type>
+        <definition>typedef enum CamDeviceIspTpgResolution_e  CamDeviceIspTpgResolution_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceIspTpgResolution_t</name>
+        <briefdescription>
+<para>Enumeration of TPG resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="71" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__tpg_1ga5c833c953aa050d607165d802b30464c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_tpg_config__s" kindref="compound">CamDeviceTpgConfig_s</ref></type>
+        <definition>typedef struct CamDeviceTpgConfig_s  CamDeviceTpgConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceTpgConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice TPG configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="90" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__tpg_1ga8e58d74953af0058f31da217dc05d846" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceTpgSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceTpgConfig_t *pTpgCfg)</argsstring>
+        <name>VsiCamDeviceTpgSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__tpg_1ga5c833c953aa050d607165d802b30464c" kindref="member">CamDeviceTpgConfig_t</ref> *</type>
+          <declname>pTpgCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/tpg/cam_device_tpg_api.c" bodystart="33" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__tpg_1gae25cfcf16ccd44e7e244266a8a9879a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceTpgEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceTpgEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/tpg/cam_device_tpg_api.c" bodystart="120" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__tpg_1ga275ac6599d0221005a13faf5a4530a42" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceTpgDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceTpgDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/tpg/cam_device_tpg_api.c" bodystart="158" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__tpg_1gae87f8b21e325b016d2b15f96f907eb91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceTpgGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceTpgGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/tpg/cam_device_tpg_api.c" bodystart="233" bodyend="272"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the test pattern generator module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

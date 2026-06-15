@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_a2a9064599dc232bc5e3a54682a2e330" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="xsysmonpsv__common_8c">xsysmonpsv_common.c</innerfile>
+    <innerfile refid="xsysmonpsv__common_8h">xsysmonpsv_common.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/common/"/>
+  </compounddef>
+</doxygen>

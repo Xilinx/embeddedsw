@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_metadata_mean_luma__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMetadataMeanLuma_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1a04844cce3ea9db5c3185815c232393a0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceMetadataMeanLuma_s::meanWinNum</definition>
+        <argsstring></argsstring>
+        <name>meanWinNum</name>
+        <briefdescription>
+<para>The number of mean windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1a2fb41408452de975e1cac27c97a627a7" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref></type>
+        <definition>CamDeviceWindow_t CamDeviceMetadataMeanLuma_s::meanRoiWin[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>meanRoiWin</name>
+        <briefdescription>
+<para>Mean ROI window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1a366d0d603f60dec2eb140fad6cdc1eb6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataMeanLuma_s::redChannelMean[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>redChannelMean</name>
+        <briefdescription>
+<para>Red channel mean value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1aac5285f1d98479f8606852817faf5bc3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataMeanLuma_s::grChannelMean[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>grChannelMean</name>
+        <briefdescription>
+<para>Green red channel mean value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1a51b2c7a4cccc0066113d5143e9053923" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataMeanLuma_s::gbChannelMean[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>gbChannelMean</name>
+        <briefdescription>
+<para>Green blue channel mean value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1ad6a7f5472af5aa1adacf0b99b7221945" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataMeanLuma_s::blueChannelMean[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>blueChannelMean</name>
+        <briefdescription>
+<para>Blue channel mean value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_mean_luma__s_1a4ca68226698b243a74b296d6f6c25e04" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceMetadataMeanLuma_s::totalMean[CAM_DEVICE_ROI_WINDOWS_MAX]</definition>
+        <argsstring>[CAM_DEVICE_ROI_WINDOWS_MAX]</argsstring>
+        <name>totalMean</name>
+        <briefdescription>
+<para>The total mean value of the four channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mean luminance metadata information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="502">
+        <label>CamDeviceMetadataMeanLuma_s</label>
+        <link refid="struct_cam_device_metadata_mean_luma__s"/>
+        <childnode refid="503" relation="usage">
+          <edgelabel>meanRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="503">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="273" bodyend="283"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1ad6a7f5472af5aa1adacf0b99b7221945" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>blueChannelMean</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1a51b2c7a4cccc0066113d5143e9053923" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>gbChannelMean</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1aac5285f1d98479f8606852817faf5bc3" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>grChannelMean</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1a2fb41408452de975e1cac27c97a627a7" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>meanRoiWin</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1a04844cce3ea9db5c3185815c232393a0" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>meanWinNum</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1a366d0d603f60dec2eb140fad6cdc1eb6" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>redChannelMean</name></member>
+      <member refid="struct_cam_device_metadata_mean_luma__s_1a4ca68226698b243a74b296d6f6c25e04" prot="public" virt="non-virtual"><scope>CamDeviceMetadataMeanLuma_s</scope><name>totalMean</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

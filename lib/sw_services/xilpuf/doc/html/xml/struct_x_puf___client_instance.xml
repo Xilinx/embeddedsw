@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_puf___client_instance" kind="struct" prot="public">
+    <compoundname>XPuf_ClientInstance</compoundname>
+    <includes local="no">xpuf_mailbox.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" prot="public" static="no" mutable="no">
+        <type>XMailbox *</type>
+        <definition>XMailbox* XPuf_ClientInstance::MailboxPtr</definition>
+        <argsstring></argsstring>
+        <name>MailboxPtr</name>
+        <briefdescription>
+<para>Pointer to the mailbox instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" compoundref="xpuf__client_8c" startline="76" endline="94">XPuf_ClientInit</referencedby>
+        <referencedby refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPuf_ClientInstance::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>SLR index for the PUF client. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" compoundref="xpuf__client_8c" startline="76" endline="94">XPuf_ClientInit</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PUF client instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_mailbox.h" bodystart="87" bodyend="92"/>
+    <listofallmembers>
+      <member refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" prot="public" virt="non-virtual"><scope>XPuf_ClientInstance</scope><name>MailboxPtr</name></member>
+      <member refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" prot="public" virt="non-virtual"><scope>XPuf_ClientInstance</scope><name>SlrIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

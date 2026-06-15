@@ -1,0 +1,764 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xllfifo__hw_8h" kind="file">
+    <compoundname>xllfifo_hw.h</compoundname>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xllfifo_8h" local="yes">xllfifo.h</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_io.h</label>
+      </node>
+      <node id="41">
+        <label>xdebug.h</label>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+      <node id="40">
+        <label>xllfifo_hw.h</label>
+        <link refid="xllfifo_hw.h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="46">
+        <label>xllfifo.c</label>
+        <link refid="xllfifo_8c"/>
+      </node>
+      <node id="45">
+        <label>xllfifo.h</label>
+        <link refid="xllfifo_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xllfifo_g.c</label>
+        <link refid="xllfifo__g_8c"/>
+      </node>
+      <node id="48">
+        <label>xllfifo_sinit.c</label>
+        <link refid="xllfifo__sinit_8c"/>
+      </node>
+      <node id="50">
+        <label>xllfifo_polling_example.c</label>
+      </node>
+      <node id="49">
+        <label>xllfifo_interrupt_example.c</label>
+        <link refid="xllfifo__interrupt__example_8c"/>
+      </node>
+      <node id="44">
+        <label>xllfifo_hw.h</label>
+        <link refid="xllfifo_hw.h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers</header>
+      <memberdef kind="define" id="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" prot="public" static="no">
+        <name>XLLF_ISR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Interrupt Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" prot="public" static="no">
+        <name>XLLF_IER_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" prot="public" static="no">
+        <name>XLLF_TDFR_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Transmit Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" prot="public" static="no">
+        <name>XLLF_TDFV_OFFSET</name>
+        <initializer>0x0000000c</initializer>
+        <briefdescription>
+<para>Transmit Vacancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" prot="public" static="no">
+        <name>XLLF_TDFD_OFFSET</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Transmit Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" prot="public" static="no">
+        <name>XLLF_AXI4_TDFD_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Axi4 Transmit Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" prot="public" static="no">
+        <name>XLLF_TLF_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+<para>Transmit Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" prot="public" static="no">
+        <name>XLLF_RDFR_OFFSET</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+<para>Receive Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" prot="public" static="no">
+        <name>XLLF_RDFO_OFFSET</name>
+        <initializer>0x0000001c</initializer>
+        <briefdescription>
+<para>Receive Occupancy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" prot="public" static="no">
+        <name>XLLF_RDFD_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Receive Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" prot="public" static="no">
+        <name>XLLF_AXI4_RDFD_OFFSET</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+<para>Axi4 Receive Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga267285e6015808291ef6671038cba888" prot="public" static="no">
+        <name>XLLF_RLF_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Receive Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" prot="public" static="no">
+        <name>XLLF_LLR_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Local Link Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga5c691ac1237fb77b8e356a7d2b0b8b54" prot="public" static="no">
+        <name>XLLF_TDR_OFFSET</name>
+        <initializer>0x0000002C</initializer>
+        <briefdescription>
+<para>Transmit Destination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf0240fc89cce2e27e1943d2e23a5af25" prot="public" static="no">
+        <name>XLLF_RDR_OFFSET</name>
+        <initializer>0x00000030</initializer>
+        <briefdescription>
+<para>Receive Destination. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt bits</header>
+      <description><para>These bits are associated with the XLLF_IER_OFFSET and XLLF_ISR_OFFSET registers. </para></description>
+      <memberdef kind="define" id="group__llfifo_1gab34174dc4dc0d42aa610f51bcf2cb492" prot="public" static="no">
+        <name>XLLF_INT_RPURE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Receive under-read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga98ccef60e66cffea379deead95c3084e" prot="public" static="no">
+        <name>XLLF_INT_RPORE_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+<para>Receive over-read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga2c30251a44596328ec255b652e20f15a" prot="public" static="no">
+        <name>XLLF_INT_RPUE_MASK</name>
+        <initializer>0x20000000</initializer>
+        <briefdescription>
+<para>Receive underrun (empty) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga44becb1eedec6a7d02293d1f088d30c7" prot="public" static="no">
+        <name>XLLF_INT_TPOE_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+<para>Transmit overrun. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabca5de4c7fc02bcad56912a2919319ae" prot="public" static="no">
+        <name>XLLF_INT_TC_MASK</name>
+        <initializer>0x08000000</initializer>
+        <briefdescription>
+<para>Transmit complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga838f0b2d56bffea01160c141b0c1de67" prot="public" static="no">
+        <name>XLLF_INT_RC_MASK</name>
+        <initializer>0x04000000</initializer>
+        <briefdescription>
+<para>Receive complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga77c2faac5f93834b0a6f7b9da529c5ad" prot="public" static="no">
+        <name>XLLF_INT_TSE_MASK</name>
+        <initializer>0x02000000</initializer>
+        <briefdescription>
+<para>Transmit length mismatch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga08cda800d1468726a65844d40100b9cb" prot="public" static="no">
+        <name>XLLF_INT_TRC_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Transmit reset complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaaa9d308d7b3224c47b619467c2384754" prot="public" static="no">
+        <name>XLLF_INT_RRC_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>Receive reset complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga8b6dae752508cc137eb13b88561f88a5" prot="public" static="no">
+        <name>XLLF_INT_TFPF_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+<para>Tx FIFO Programmable Full, AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7e06f24d66d729c445ebb72dde652aad" prot="public" static="no">
+        <name>XLLF_INT_TFPE_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+<para>Tx FIFO Programmable Empty AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gacb37ede3ec3b10522a8bf3c597747331" prot="public" static="no">
+        <name>XLLF_INT_RFPF_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Rx FIFO Programmable Full AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gabeef1be2532662b2b6aa865057e30b48" prot="public" static="no">
+        <name>XLLF_INT_RFPE_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Rx FIFO Programmable Empty AXI FIFO MM2S Only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gae3bfcad24428233d9e2a8a861e2d9eed" prot="public" static="no">
+        <name>XLLF_INT_ALL_MASK</name>
+        <initializer>0xfff80000</initializer>
+        <briefdescription>
+<para>All the ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="xllfifo__interrupt__example_8c_1ad6e0b8d034840adde059c0f167cc04ef" compoundref="xllfifo__interrupt__example_8c" startline="227" endline="331">XLlFifoInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga97d0964de7c5721e6856a9d7ccb22ebd" prot="public" static="no">
+        <name>XLLF_INT_ERROR_MASK</name>
+        <initializer>0xf2000000</initializer>
+        <briefdescription>
+<para>Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga2e6b02f445993c00ec77914e3696fd9a" prot="public" static="no">
+        <name>XLLF_INT_RXERROR_MASK</name>
+        <initializer>0xe0000000</initializer>
+        <briefdescription>
+<para>Receive Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga417b7cfe9d44e8154311f8d7c5cef577" prot="public" static="no">
+        <name>XLLF_INT_TXERROR_MASK</name>
+        <initializer>0x12000000</initializer>
+        <briefdescription>
+<para>Transmit Error status ints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset register values</header>
+      <description><para>These bits are associated with the XLLF_TDFR_OFFSET and XLLF_RDFR_OFFSET reset registers. </para></description>
+      <memberdef kind="define" id="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" prot="public" static="no">
+        <name>XLLF_RDFR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>receive reset value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf7b4bcf41280c1fb01684b6706603420" prot="public" static="no">
+        <name>XLLF_TDFR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>Transmit reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gad8b59856939038963e68acf4e2e2c47c" prot="public" static="no">
+        <name>XLLF_LLR_RESET_MASK</name>
+        <initializer>0x000000a5</initializer>
+        <briefdescription>
+<para>Local Link reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__llfifo_1ga21ece87fb4445617bfa12ac6396cff9d" prot="public" static="no">
+        <name>XLLFIFO_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaf61ed2e41013c8f487f5337e3731014c" prot="public" static="no">
+        <name>XLlFifo_reg_name</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(((RegOffset) == <ref refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" kindref="member">XLLF_ISR_OFFSET</ref>) ? &quot;ISR&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" kindref="member">XLLF_IER_OFFSET</ref>) ? &quot;IER&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" kindref="member">XLLF_TDFR_OFFSET</ref>) ? &quot;TDFR {tx reset}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" kindref="member">XLLF_TDFV_OFFSET</ref>) ? &quot;TDFV {tx vacancy}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" kindref="member">XLLF_TDFD_OFFSET</ref>) ? &quot;TDFD {tx data}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" kindref="member">XLLF_TLF_OFFSET</ref>) ? &quot;TLF {tx length}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" kindref="member">XLLF_RDFR_OFFSET</ref>) ? &quot;RDFR {rx reset}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" kindref="member">XLLF_RDFO_OFFSET</ref>) ? &quot;RDFO {rx occupancy}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" kindref="member">XLLF_RDFD_OFFSET</ref>) ? &quot;RDFD {rx data}&quot;: \
+	((RegOffset) == <ref refid="group__llfifo_1ga267285e6015808291ef6671038cba888" kindref="member">XLLF_RLF_OFFSET</ref>) ? &quot;RLF {rx length}&quot;: \
+	&quot;unknown&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gaccd84dea11dd4d1e8b267efed7c17a0c" prot="public" static="no">
+        <name>XLlFifo_print_reg_o</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_FIFO_REG, &quot;0x%08x -&gt; %s(0x%08x)\n&quot;, (Value), \
+			  XLlFifo_reg_name(RegOffset), \
+			 (RegOffset) + (BaseAddress))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga01a5e222565f9ccbd6d4d560ffac13b3" prot="public" static="no">
+        <name>XLlFifo_print_reg_i</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_FIFO_REG, &quot;%s(0x%08x) -&gt; 0x%08x\n&quot;, \
+			 XLlFifo_reg_name(RegOffset), \
+			(RegOffset) + (BaseAddress), (Value))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" prot="public" static="no">
+        <name>XLlFifo_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32((BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+<para>XLlFifo_ReadReg returns the value of the register at the offset, <emphasis>RegOffset</emphasis>, from the memory mapped base address, <emphasis>BaseAddress</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the base address of the device.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the offset from BaseAddress.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XLlFifo_ReadReg returns the value of the specified register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" kindref="member">XLlFifo_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="178" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1gaad292ddf2a2c9dde261b93da802c8080" compoundref="xllfifo_8c" startline="122" endline="128">XLlFifo_iRxGetLen</referencedby>
+        <referencedby refid="group__llfifo_1gae2da9fa947a6e50edd41375ddc4c9964" compoundref="xllfifo_8c" startline="99" endline="105">XLlFifo_iRxOccupancy</referencedby>
+        <referencedby refid="group__llfifo_1gac02405b23499d780e7bc1dfe371281a6" compoundref="xllfifo_8c" startline="197" endline="203">XLlFifo_iTxVacancy</referencedby>
+        <referencedby refid="group__llfifo_1gaed3ae31c8c24f46139fbd709027329ec" compoundref="xllfifo_8c" startline="389" endline="397">XLlFifo_RxGetWord</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" prot="public" static="no">
+        <name>XLlFifo_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>((Xil_Out32((BaseAddress) + (RegOffset), (Value))))</initializer>
+        <briefdescription>
+<para>XLlFifo_WriteReg writes the value, <emphasis>Value</emphasis>, to the register at the offset, <emphasis>RegOffset</emphasis>, from the memory mapped base address, <emphasis>BaseAddress</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the base address of the device.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the offset from BaseAddress.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>N/A</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" kindref="member">XLlFifo_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Value)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" line="210" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__llfifo_1ga874c22807476dc0ffec670c38f452443" compoundref="xllfifo_8c" startline="314" endline="368">XLlFifo_CfgInitialize</referencedby>
+        <referencedby refid="group__llfifo_1ga3debde0a34325b3f314d15fe6f43a7ee" compoundref="xllfifo_8c" startline="441" endline="479">XLlFifo_Initialize</referencedby>
+        <referencedby refid="group__llfifo_1gaa49ecc1529434fd932d8a65d63a1a04d" compoundref="xllfifo_8c" startline="223" endline="229">XLlFifo_iTxSetLen</referencedby>
+        <referencedby refid="group__llfifo_1ga29654d755dce84b861022179c99ca7a3" compoundref="xllfifo_8c" startline="415" endline="424">XLlFifo_TxPutWord</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2005<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XLLFIFO_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLLFIFO_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Unless<sp/>otherwise<sp/>noted,<sp/>register<sp/>access<sp/>is</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>32<sp/>bit.</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="group__llfifo_1ga90a5fafb06870a7ff8043d3a34bf54cc" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_ISR_OFFSET<sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__llfifo_1gac34e090e52a9ef5cdf4337cae6ca717c" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_IER_OFFSET<sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__llfifo_1gaa55be9e9452783cde92cd70a33e31e56" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_TDFR_OFFSET<sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__llfifo_1gab77ae26c2fe9b0ac15ebdbf0c6c30960" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_TDFV_OFFSET<sp/>0x0000000c<sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__llfifo_1gaeca8c86badc0df67426442f9bb6a5195" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_TDFD_OFFSET<sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__llfifo_1ga7a72ef43b9e2ca7e28a9e939012f1044" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_AXI4_TDFD_OFFSET<sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__llfifo_1gac14e6d7e1116f9a43c0adfbe93422fa7" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_TLF_OFFSET<sp/><sp/>0x00000014<sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__llfifo_1gae1533e466df30729597a1b44ed1059ed" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_RDFR_OFFSET<sp/>0x00000018<sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__llfifo_1ga9c4bbf51bc4b0410b61ef3933776a63c" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_RDFO_OFFSET<sp/>0x0000001c<sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__llfifo_1ga93e049a21e43548bf03161b4a4394440" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_RDFD_OFFSET<sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__llfifo_1ga256c51f97ca57cc89c9b51449f3601e1" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_AXI4_RDFD_OFFSET<sp/><sp/><sp/>0x00001000<sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="group__llfifo_1ga267285e6015808291ef6671038cba888" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_RLF_OFFSET<sp/><sp/>0x00000024<sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__llfifo_1ga5331d2736e9b1b516b4262d8e3f11690" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_LLR_OFFSET<sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__llfifo_1ga5c691ac1237fb77b8e356a7d2b0b8b54" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_TDR_OFFSET<sp/><sp/>0x0000002C<sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__llfifo_1gaf0240fc89cce2e27e1943d2e23a5af25" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_RDR_OFFSET<sp/><sp/>0x00000030<sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Register<sp/>masks.<sp/>The<sp/>following<sp/>constants<sp/>define<sp/>bit<sp/>locations<sp/>of<sp/>various</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>control<sp/>bits<sp/>in<sp/>the<sp/>registers.<sp/>Constants<sp/>are<sp/>not<sp/>defined<sp/>for<sp/>those<sp/>registers</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*<sp/>that<sp/>have<sp/>a<sp/>single<sp/>bit<sp/>field<sp/>representing<sp/>all<sp/>32<sp/>bits.<sp/>For<sp/>further</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/>*<sp/>information<sp/>on<sp/>the<sp/>meaning<sp/>of<sp/>the<sp/>various<sp/>bit<sp/>masks,<sp/>refer<sp/>to<sp/>the<sp/>HW<sp/>spec.</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="group__llfifo_1gab34174dc4dc0d42aa610f51bcf2cb492" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RPURE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__llfifo_1ga98ccef60e66cffea379deead95c3084e" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RPORE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__llfifo_1ga2c30251a44596328ec255b652e20f15a" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RPUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000000<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__llfifo_1ga44becb1eedec6a7d02293d1f088d30c7" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_TPOE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__llfifo_1gabca5de4c7fc02bcad56912a2919319ae" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_TC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__llfifo_1ga838f0b2d56bffea01160c141b0c1de67" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__llfifo_1ga77c2faac5f93834b0a6f7b9da529c5ad" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_TSE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__llfifo_1ga08cda800d1468726a65844d40100b9cb" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_TRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__llfifo_1gaaa9d308d7b3224c47b619467c2384754" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__llfifo_1ga8b6dae752508cc137eb13b88561f88a5" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_TFPF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00400000<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XLLF_INT_TFPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00200000<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XLLF_INT_RFPF_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/></highlight></codeline>
+<codeline lineno="104" refid="group__llfifo_1gacb37ede3ec3b10522a8bf3c597747331" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_RFPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00080000<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XLLF_INT_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xfff80000<sp/></highlight></codeline>
+<codeline lineno="107" refid="group__llfifo_1gabeef1be2532662b2b6aa865057e30b48" refkind="member"><highlight class="preprocessor">#define<sp/>XLLF_INT_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xf2000000<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XLLF_INT_RXERROR_MASK<sp/><sp/><sp/><sp/><sp/>0xe0000000<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XLLF_INT_TXERROR_MASK<sp/><sp/><sp/><sp/><sp/>0x12000000<sp/></highlight></codeline>
+<codeline lineno="111" refid="group__llfifo_1ga97d0964de7c5721e6856a9d7ccb22ebd" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112" refid="group__llfifo_1ga2e6b02f445993c00ec77914e3696fd9a" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XLLF_RDFR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000a5<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XLLF_TDFR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000a5<sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor">#define<sp/>XLLF_LLR_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000a5<sp/></highlight></codeline>
+<codeline lineno="121" refid="group__llfifo_1ga11c4da53ae9b166832186f9a817fba6d" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="group__llfifo_1gaf7b4bcf41280c1fb01684b6706603420" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="group__llfifo_1gad8b59856939038963e68acf4e2e2c47c" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/****<sp/>debug<sp/>macros<sp/>****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_reg_name(RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((RegOffset)<sp/>==<sp/>XLLF_ISR_OFFSET)<sp/>?<sp/>&quot;ISR&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_IER_OFFSET)<sp/>?<sp/>&quot;IER&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_TDFR_OFFSET)<sp/>?<sp/>&quot;TDFR<sp/>{tx<sp/>reset}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_TDFV_OFFSET)<sp/>?<sp/>&quot;TDFV<sp/>{tx<sp/>vacancy}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_TDFD_OFFSET)<sp/>?<sp/>&quot;TDFD<sp/>{tx<sp/>data}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_TLF_OFFSET)<sp/>?<sp/>&quot;TLF<sp/>{tx<sp/>length}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_RDFR_OFFSET)<sp/>?<sp/>&quot;RDFR<sp/>{rx<sp/>reset}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_RDFO_OFFSET)<sp/>?<sp/>&quot;RDFO<sp/>{rx<sp/>occupancy}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_RDFD_OFFSET)<sp/>?<sp/>&quot;RDFD<sp/>{rx<sp/>data}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XLLF_RLF_OFFSET)<sp/>?<sp/>&quot;RLF<sp/>{rx<sp/>length}&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;unknown&quot;)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_print_reg_o(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_REG,<sp/>&quot;0x%08x<sp/>-&gt;<sp/>%s(0x%08x)\n&quot;,<sp/>(Value),<sp/>\</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLlFifo_reg_name(RegOffset),<sp/>\</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset)<sp/>+<sp/>(BaseAddress))</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_print_reg_i(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_FIFO_REG,<sp/>&quot;%s(0x%08x)<sp/>-&gt;<sp/>0x%08x\n&quot;,<sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLlFifo_reg_name(RegOffset),<sp/>\</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset)<sp/>+<sp/>(BaseAddress),<sp/>(Value))</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="comment">/****<sp/>end<sp/>debug<sp/>macros<sp/>****/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>_xllfifo_rr_value;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((((RegOffset)<sp/>&gt;<sp/>0x24)<sp/>?<sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/>\</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;XLlFifo_WriteReg:<sp/>Woah!<sp/>wrong<sp/>reg<sp/>addr:<sp/>0x%08x\n&quot;,<sp/>\</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset))<sp/>:<sp/>0),<sp/>\</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_xllfifo_rr_value<sp/>=<sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>\</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLlFifo_print_reg_i((BaseAddress),<sp/>(RegOffset),<sp/>_xllfifo_rr_value),<sp/>\</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_xllfifo_rr_value)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182" refid="group__llfifo_1ga7526eab563fa4e0fe8b60474e96afe55" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((RegOffset)<sp/>&gt;<sp/>0x24)<sp/>?<sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;XLlFifo_WriteReg:<sp/>Woah!<sp/>wrong<sp/>reg<sp/>addr:<sp/>0x%08x\n&quot;,<sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset))<sp/>:<sp/>0),<sp/>\</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XLlFifo_print_reg_o((BaseAddress),<sp/>(RegOffset),<sp/>(Value)),<sp/>\</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Value)))</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLlFifo_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Value))))</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="group__llfifo_1gacd283ce73981f7f9eab94f8bb421bc78" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>XLLFIFO_HW_H<sp/><sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/llfifo/src/xllfifo_hw.h"/>
+  </compounddef>
+</doxygen>

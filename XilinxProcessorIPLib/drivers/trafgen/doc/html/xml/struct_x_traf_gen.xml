@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_traf_gen" kind="struct" prot="public">
+    <compoundname>XTrafGen</compoundname>
+    <includes local="no">xtrafgen.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_traf_gen_1a201c38f1c1aee1167972954d71b2e013" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_traf_gen___config" kindref="compound">XTrafGen_Config</ref></type>
+        <definition>XTrafGen_Config XTrafGen::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1gaaea625b89454268bbbe7f93e309141c4" compoundref="xtrafgen_8c" startline="379" endline="403">XTrafGen_AccessMasterRam</referencedby>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+        <referencedby refid="xtrafgen__interrupt__example_8c_1a75a5cad222d5705d42542e2e8922350f" compoundref="xtrafgen__interrupt__example_8c" startline="255" endline="450">XTrafGenInterruptExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen_1af67f6122abede0916eb19b1fcbb33794" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen::OperatingMode</definition>
+        <argsstring></argsstring>
+        <name>OperatingMode</name>
+        <briefdescription>
+<para>Operating mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+        <referencedby refid="xtrafgen__static__mode__example_8c_1aaa266c48b0dc3b136af1735a77e77bcb" compoundref="xtrafgen__static__mode__example_8c" startline="161" endline="267">XTrafGenStaticModeExample</referencedby>
+        <referencedby refid="xtrafgen__master__streaming__example_8c_1a32230b891fe6361bfa9c41865a2949c3" compoundref="xtrafgen__master__streaming__example_8c" startline="197" endline="312">XTrafGenStremingModeMasterExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen_1ad63beb04ce3dcb61eb0757381e24164f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen::MasterWidth</definition>
+        <argsstring></argsstring>
+        <name>MasterWidth</name>
+        <briefdescription>
+<para>Master Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen_1a60c7caaa1b4c37932baa882d39bac5af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTrafGen::SlaveWidth</definition>
+        <argsstring></argsstring>
+        <name>SlaveWidth</name>
+        <briefdescription>
+<para>Slave Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen_1a402442f79d61e7de11b82b94ebbb068a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_traf_gen___cmd_info" kindref="compound">XTrafGen_CmdInfo</ref></type>
+        <definition>XTrafGen_CmdInfo XTrafGen::CmdInfo</definition>
+        <argsstring></argsstring>
+        <name>CmdInfo</name>
+        <briefdescription>
+<para>Command Info structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen_1a3c208f88458f6d848f13d433ac13b63c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XTrafGen::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_traf_gen" kindref="compound">XTrafGen</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each Traffic Generator device in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>XTrafGen_CmdEntry</label>
+        <link refid="struct_x_traf_gen___cmd_entry"/>
+      </node>
+      <node id="4">
+        <label>XTrafGen_Config</label>
+        <link refid="struct_x_traf_gen___config"/>
+      </node>
+      <node id="1">
+        <label>XTrafGen</label>
+        <link refid="struct_x_traf_gen"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>CmdInfo</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XTrafGen_CmdInfo</label>
+        <link refid="struct_x_traf_gen___cmd_info"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>CmdEntry</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="352" bodyend="362"/>
+    <listofallmembers>
+      <member refid="struct_x_traf_gen_1a402442f79d61e7de11b82b94ebbb068a" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>CmdInfo</name></member>
+      <member refid="struct_x_traf_gen_1a201c38f1c1aee1167972954d71b2e013" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>Config</name></member>
+      <member refid="struct_x_traf_gen_1a3c208f88458f6d848f13d433ac13b63c" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>IsReady</name></member>
+      <member refid="struct_x_traf_gen_1ad63beb04ce3dcb61eb0757381e24164f" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>MasterWidth</name></member>
+      <member refid="struct_x_traf_gen_1af67f6122abede0916eb19b1fcbb33794" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>OperatingMode</name></member>
+      <member refid="struct_x_traf_gen_1a60c7caaa1b4c37932baa882d39bac5af" prot="public" virt="non-virtual"><scope>XTrafGen</scope><name>SlaveWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

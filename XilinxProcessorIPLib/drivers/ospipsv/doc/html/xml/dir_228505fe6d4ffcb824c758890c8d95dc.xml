@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_228505fe6d4ffcb824c758890c8d95dc" kind="dir">
+    <compoundname>ospipsv</compoundname>
+    <innerdir refid="dir_c6670acd17112b2be9363ce85845d40b">examples</innerdir>
+    <innerdir refid="dir_fef6730629f77ecf3af1c93150c6bdd9">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/"/>
+  </compounddef>
+</doxygen>

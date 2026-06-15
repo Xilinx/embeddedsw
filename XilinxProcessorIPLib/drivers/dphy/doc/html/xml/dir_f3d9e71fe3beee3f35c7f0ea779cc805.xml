@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f3d9e71fe3beee3f35c7f0ea779cc805" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdphy_8c">xdphy.c</innerfile>
+    <innerfile refid="xdphy_8h">xdphy.h</innerfile>
+    <innerfile refid="xdphy__g_8c">xdphy_g.c</innerfile>
+    <innerfile refid="xdphy__hw_8h">xdphy_hw.h</innerfile>
+    <innerfile refid="xdphy__selftest_8c">xdphy_selftest.c</innerfile>
+    <innerfile refid="xdphy__sinit_8c">xdphy_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dphy/src/"/>
+  </compounddef>
+</doxygen>

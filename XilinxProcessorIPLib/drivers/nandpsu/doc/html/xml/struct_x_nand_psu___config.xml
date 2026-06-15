@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_psu___config" kind="struct" prot="public">
+    <compoundname>XNandPsu_Config</compoundname>
+    <includes local="no">xnandpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_psu___config_1a2c251513222d924042afca72156548fd" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XNandPsu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group___overview_1gab80327280ff56f9211b02cfb9fd62975" compoundref="xnandpsu__sinit_8c" startline="84" endline="98">XNandPsu_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___config_1a3075f3fe58b40e695dd829d3feb0a278" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XNandPsu_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of NAND flash controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="xnandpsu__example_8c_1a0c1e522624d1136adbaad719e207a90f" compoundref="xnandpsu__example_8c" startline="159" endline="245">NandReadWriteExample</referencedby>
+        <referencedby refid="group___overview_1ga8268e05a9d1a0339dc2ec672d7dd8c79" compoundref="xnandpsu_8c" startline="231" endline="291">XNandPsu_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga22080a2813ff692c0b64e0bbd9715f91" compoundref="xnandpsu_8c" startline="2370" endline="2497">XNandPsu_ChangeTimingMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsu_Config::IsCacheCoherent</definition>
+        <argsstring></argsstring>
+        <name>IsCacheCoherent</name>
+        <briefdescription>
+<para>Describes whether Cache Coherent or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga8268e05a9d1a0339dc2ec672d7dd8c79" compoundref="xnandpsu_8c" startline="231" endline="291">XNandPsu_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gad7e291db556ad9d33fbd06aa6ab79cb6" compoundref="xnandpsu_8c" startline="1535" endline="1631">XNandPsu_Read</referencedby>
+        <referencedby refid="group___overview_1ga1a3f550f53d5c1d7ffead626cf0dd7c3" compoundref="xnandpsu_8c" startline="2100" endline="2153">XNandPsu_ReadSpareBytes</referencedby>
+        <referencedby refid="group___overview_1ga7c4f4816209d1d66b9de152735046b0f" compoundref="xnandpsu_8c" startline="1827" endline="1952">XNandPsu_WriteSpareBytes</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_nand_psu___config" kindref="compound">XNandPsu_Config</ref> structure contains configuration information for NAND controller. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="229" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_psu___config_1a3075f3fe58b40e695dd829d3feb0a278" prot="public" virt="non-virtual"><scope>XNandPsu_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_nand_psu___config_1a860b3b4c0c735750f0092bbb36385803" prot="public" virt="non-virtual"><scope>XNandPsu_Config</scope><name>IsCacheCoherent</name></member>
+      <member refid="struct_x_nand_psu___config_1a2c251513222d924042afca72156548fd" prot="public" virt="non-virtual"><scope>XNandPsu_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vproc_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XVprocSs_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a57bf5f75c7884cd33f225bd20f87c3e1" prot="public" static="no" mutable="no">
+        <type>XAxis_Switch</type>
+        <definition>XAxis_Switch XVprocSs_SubCores::Router</definition>
+        <argsstring></argsstring>
+        <name>Router</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1af5a159abc8063aa86d2e33559d903334" prot="public" static="no" mutable="no">
+        <type>XGpio</type>
+        <definition>XGpio XVprocSs_SubCores::RstAxis</definition>
+        <argsstring></argsstring>
+        <name>RstAxis</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a9c0d9a631c551871d8bc15d3f2cbd472" prot="public" static="no" mutable="no">
+        <type>XGpio</type>
+        <definition>XGpio XVprocSs_SubCores::RstAximm</definition>
+        <argsstring></argsstring>
+        <name>RstAximm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a295c14f9de58b74dcfc0d3c8fef8c0bd" prot="public" static="no" mutable="no">
+        <type>XV_Hcresampler_l2</type>
+        <definition>XV_Hcresampler_l2 XVprocSs_SubCores::Hcrsmplr</definition>
+        <argsstring></argsstring>
+        <name>Hcrsmplr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a4af9c83bab4e9091b3e9837e8a90e399" prot="public" static="no" mutable="no">
+        <type>XV_Vcresampler_l2</type>
+        <definition>XV_Vcresampler_l2 XVprocSs_SubCores::VcrsmplrIn</definition>
+        <argsstring></argsstring>
+        <name>VcrsmplrIn</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1ac13f803b1ea47ecc56a6cf738736ed7b" prot="public" static="no" mutable="no">
+        <type>XV_Vcresampler_l2</type>
+        <definition>XV_Vcresampler_l2 XVprocSs_SubCores::VcrsmplrOut</definition>
+        <argsstring></argsstring>
+        <name>VcrsmplrOut</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a1f7d0262690e2d44d573ba07f8bb7008" prot="public" static="no" mutable="no">
+        <type>XV_Vscaler_l2</type>
+        <definition>XV_Vscaler_l2 XVprocSs_SubCores::Vscaler</definition>
+        <argsstring></argsstring>
+        <name>Vscaler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a6dd4b30795b15a3eac09afaced043110" prot="public" static="no" mutable="no">
+        <type>XV_Hscaler_l2</type>
+        <definition>XV_Hscaler_l2 XVprocSs_SubCores::Hscaler</definition>
+        <argsstring></argsstring>
+        <name>Hscaler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a5c70eab36114dd5d511aad548447c276" prot="public" static="no" mutable="no">
+        <type>XAxiVdma</type>
+        <definition>XAxiVdma XVprocSs_SubCores::Vdma</definition>
+        <argsstring></argsstring>
+        <name>Vdma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1af74ca504a2fcfb2082a34823d3c13846" prot="public" static="no" mutable="no">
+        <type>XV_Lbox_l2</type>
+        <definition>XV_Lbox_l2 XVprocSs_SubCores::Lbox</definition>
+        <argsstring></argsstring>
+        <name>Lbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a19ea38e877b7b943c56353942257e2f7" prot="public" static="no" mutable="no">
+        <type>XV_Csc_l2</type>
+        <definition>XV_Csc_l2 XVprocSs_SubCores::Csc</definition>
+        <argsstring></argsstring>
+        <name>Csc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vproc_ss___sub_cores_1a9a496f93cc02008e029550888ce462ac" prot="public" static="no" mutable="no">
+        <type>XV_Deint_l2</type>
+        <definition>XV_Deint_l2 XVprocSs_SubCores::Deint</definition>
+        <argsstring></argsstring>
+        <name>Deint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef declares the driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/src/xvprocss.c" bodystart="76" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_x_vproc_ss___sub_cores_1a19ea38e877b7b943c56353942257e2f7" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Csc</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a9a496f93cc02008e029550888ce462ac" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Deint</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a295c14f9de58b74dcfc0d3c8fef8c0bd" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Hcrsmplr</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a6dd4b30795b15a3eac09afaced043110" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Hscaler</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1af74ca504a2fcfb2082a34823d3c13846" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Lbox</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a57bf5f75c7884cd33f225bd20f87c3e1" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Router</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a9c0d9a631c551871d8bc15d3f2cbd472" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>RstAximm</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1af5a159abc8063aa86d2e33559d903334" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>RstAxis</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a4af9c83bab4e9091b3e9837e8a90e399" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>VcrsmplrIn</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1ac13f803b1ea47ecc56a6cf738736ed7b" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>VcrsmplrOut</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a5c70eab36114dd5d511aad548447c276" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Vdma</name></member>
+      <member refid="struct_x_vproc_ss___sub_cores_1a1f7d0262690e2d44d573ba07f8bb7008" prot="public" virt="non-virtual"><scope>XVprocSs_SubCores</scope><name>Vscaler</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

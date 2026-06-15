@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___comm_channel" kind="struct" prot="public">
+    <compoundname>XAsu_CommChannel</compoundname>
+    <includes local="no">xasu_sharedmem.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1a7fca8a7588843f342892028aef85639f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_CommChannel::P0QueuePriority</definition>
+        <argsstring></argsstring>
+        <name>P0QueuePriority</name>
+        <briefdescription>
+<para>P0 Queue Priority of the channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1a6e2a450b707f61d78a43d964091db41b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_CommChannel::P1QueuePriority</definition>
+        <argsstring></argsstring>
+        <name>P1QueuePriority</name>
+        <briefdescription>
+<para>P1 Queue Priority of the channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAsu_CommChannel::IpiBitMask</definition>
+        <argsstring></argsstring>
+        <name>IpiBitMask</name>
+        <briefdescription>
+<para>Bit mask of the IPI channel to enable interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" compoundref="xasu__sharedmem_8c" startline="58" endline="69">XAsu_GetIpiMask</referencedby>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1aaeb060ef5c85aeccdf2e3de7d78ab0bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CommChannel::SmId</definition>
+        <argsstring></argsstring>
+        <name>SmId</name>
+        <briefdescription>
+<para>SmId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CommChannel::SubsystemId</definition>
+        <argsstring></argsstring>
+        <name>SubsystemId</name>
+        <briefdescription>
+<para>SubsystemId. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___comm_channel_1a6081988462132a390396a19261a29dfd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_CommChannel::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains information of each communication channel. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.h" bodystart="164" bodyend="171"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>IpiBitMask</name></member>
+      <member refid="struct_x_asu___comm_channel_1a7fca8a7588843f342892028aef85639f" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>P0QueuePriority</name></member>
+      <member refid="struct_x_asu___comm_channel_1a6e2a450b707f61d78a43d964091db41b" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>P1QueuePriority</name></member>
+      <member refid="struct_x_asu___comm_channel_1a6081988462132a390396a19261a29dfd" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>Reserved</name></member>
+      <member refid="struct_x_asu___comm_channel_1aaeb060ef5c85aeccdf2e3de7d78ab0bf" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>SmId</name></member>
+      <member refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" prot="public" virt="non-virtual"><scope>XAsu_CommChannel</scope><name>SubsystemId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

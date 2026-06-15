@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structsensor_port_info__s" kind="struct" prot="public">
+    <compoundname>sensorPortInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structsensor_port_info__s_1ae1390c6893601099cc29108a4c2ccf22" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t sensorPortInfo_s::chipId</definition>
+        <argsstring></argsstring>
+        <name>chipId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structsensor_port_info__s_1a59ed213fb6a34fbf4bd47e4931290053" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char sensorPortInfo_s::name[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/sensor_drv.h" bodystart="55" bodyend="59"/>
+    <listofallmembers>
+      <member refid="structsensor_port_info__s_1ae1390c6893601099cc29108a4c2ccf22" prot="public" virt="non-virtual"><scope>sensorPortInfo_s</scope><name>chipId</name></member>
+      <member refid="structsensor_port_info__s_1a59ed213fb6a34fbf4bd47e4931290053" prot="public" virt="non-virtual"><scope>sensorPortInfo_s</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

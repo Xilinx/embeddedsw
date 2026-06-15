@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_dma___channel" kind="struct" prot="public">
+    <compoundname>XDcDma_Channel</compoundname>
+    <includes local="no">xdcdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1a80a4db968d2be6928cc6856c8b5ac43e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___channel___dscr" kindref="compound">XDcDma_Channel_Dscr</ref></type>
+        <definition>XDcDma_Channel_Dscr XDcDma_Channel::Channel[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>Channel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1a98f52c93b9a2bb350e394276c6452419" prot="public" static="no" mutable="no">
+        <type>const XDc_VideoAttribute *</type>
+        <definition>const XDc_VideoAttribute* XDcDma_Channel::VideoInfo</definition>
+        <argsstring></argsstring>
+        <name>VideoInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1ae225e4b9a8ed71bef23594e1489e0478" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc_dma___frame_buffer" kindref="compound">XDcDma_FrameBuffer</ref> *</type>
+        <definition>XDcDma_FrameBuffer* XDcDma_Channel::FrameBuffer[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>FrameBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1af4b35e9c0327c8ee7cdc16ced8246c31" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_Channel::Video_TriggerStatus</definition>
+        <argsstring></argsstring>
+        <name>Video_TriggerStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1afa55c37a6ba15595a7b747c8dbd0c569" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDcDma_Channel::Graphics_TriggerStatus</definition>
+        <argsstring></argsstring>
+        <name>Graphics_TriggerStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_dma___channel_1ac08877c0fc3f21bf76fe23d33a9ec031" prot="public" static="no" mutable="no">
+        <type>XDcDma_State</type>
+        <definition>XDcDma_State XDcDma_Channel::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the Video/Graphics Channel attributes. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="61">
+        <label>XDcDma_Channel</label>
+        <link refid="struct_x_dc_dma___channel"/>
+        <childnode refid="62" relation="usage">
+          <edgelabel>FrameBuffer</edgelabel>
+        </childnode>
+        <childnode refid="63" relation="usage">
+          <edgelabel>Channel</edgelabel>
+        </childnode>
+      </node>
+      <node id="62">
+        <label>XDcDma_FrameBuffer</label>
+        <link refid="struct_x_dc_dma___frame_buffer"/>
+      </node>
+      <node id="63">
+        <label>XDcDma_Channel_Dscr</label>
+        <link refid="struct_x_dc_dma___channel___dscr"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcdma.h" bodystart="189" bodyend="196"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_dma___channel_1a80a4db968d2be6928cc6856c8b5ac43e" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>Channel</name></member>
+      <member refid="struct_x_dc_dma___channel_1ae225e4b9a8ed71bef23594e1489e0478" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>FrameBuffer</name></member>
+      <member refid="struct_x_dc_dma___channel_1afa55c37a6ba15595a7b747c8dbd0c569" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>Graphics_TriggerStatus</name></member>
+      <member refid="struct_x_dc_dma___channel_1ac08877c0fc3f21bf76fe23d33a9ec031" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>State</name></member>
+      <member refid="struct_x_dc_dma___channel_1af4b35e9c0327c8ee7cdc16ced8246c31" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>Video_TriggerStatus</name></member>
+      <member refid="struct_x_dc_dma___channel_1a98f52c93b9a2bb350e394276c6452419" prot="public" virt="non-virtual"><scope>XDcDma_Channel</scope><name>VideoInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

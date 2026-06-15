@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___tx_stats" kind="struct" prot="public">
+    <compoundname>XHdcp1x_TxStats</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1a3525721564be4f40c49527d3c4819d93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::AuthFailed</definition>
+        <argsstring></argsstring>
+        <name>AuthFailed</name>
+        <briefdescription>
+<para>Num of failed authentication attempts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="982" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="982" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1ad10ad43ee79a9bd6920a50ce02225f60" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::AuthPassed</definition>
+        <argsstring></argsstring>
+        <name>AuthPassed</name>
+        <briefdescription>
+<para>Num of passed authentication attempts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="983" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="983" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1a580dab1b002765c851ead593af8c3c98" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::ReauthRequested</definition>
+        <argsstring></argsstring>
+        <name>ReauthRequested</name>
+        <briefdescription>
+<para>Num of rxd re-authentication requests. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="984" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="984" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1aac1925f5af13ab1e81df715b06394c06" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::ReadFailures</definition>
+        <argsstring></argsstring>
+        <name>ReadFailures</name>
+        <briefdescription>
+<para>Num of remote read failures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="985" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="985" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1addbf1a011f13ce22d5118c661a332b44" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::LinkCheckPassed</definition>
+        <argsstring></argsstring>
+        <name>LinkCheckPassed</name>
+        <briefdescription>
+<para>Num of link verifications that passed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="986" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="986" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___tx_stats_1ab1b6f9d07408de0e2b7b14c641d6fc61" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_TxStats::LinkCheckFailed</definition>
+        <argsstring></argsstring>
+        <name>LinkCheckFailed</name>
+        <briefdescription>
+<para>Num of link verifications that failed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="987" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="987" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the statistics collected transmit port instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="981" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="981" bodyend="988"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___tx_stats_1a3525721564be4f40c49527d3c4819d93" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>AuthFailed</name></member>
+      <member refid="struct_x_hdcp1x___tx_stats_1ad10ad43ee79a9bd6920a50ce02225f60" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>AuthPassed</name></member>
+      <member refid="struct_x_hdcp1x___tx_stats_1ab1b6f9d07408de0e2b7b14c641d6fc61" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>LinkCheckFailed</name></member>
+      <member refid="struct_x_hdcp1x___tx_stats_1addbf1a011f13ce22d5118c661a332b44" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>LinkCheckPassed</name></member>
+      <member refid="struct_x_hdcp1x___tx_stats_1aac1925f5af13ab1e81df715b06394c06" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>ReadFailures</name></member>
+      <member refid="struct_x_hdcp1x___tx_stats_1a580dab1b002765c851ead593af8c3c98" prot="public" virt="non-virtual"><scope>XHdcp1x_TxStats</scope><name>ReauthRequested</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

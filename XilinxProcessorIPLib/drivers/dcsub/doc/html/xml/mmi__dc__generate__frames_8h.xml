@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__generate__frames_8h" kind="file">
+    <compoundname>mmi_dc_generate_frames.h</compoundname>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dc__generate__frames_8c" local="yes">mmi_dc_generate_frames.c</includedby>
+    <includedby refid="mmi__dc__setup__frames_8c" local="yes">mmi_dc_setup_frames.c</includedby>
+    <incdepgraph>
+      <node id="53">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi_dc_generate_frames.h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="64">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="63">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="59">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>xparameters.h</label>
+      </node>
+      <node id="62">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="67">
+        <label>mmi_dc_generate_frames.c</label>
+        <link refid="mmi__dc__generate__frames_8c"/>
+      </node>
+      <node id="66">
+        <label>mmi_dc_generate_frames.h</label>
+        <link refid="mmi_dc_generate_frames.h"/>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>mmi_dc_setup_frames.c</label>
+        <link refid="mmi__dc__setup__frames_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__generate__frames_8h_1ab05cca9b31f824de34720ae09717ee3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_GenerateFrames</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_GenerateFrames</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function generates frame buffer data based on video format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Generates pixel data according to DMA pixel data format spec</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Generates pixel data according to DMA pixel data format spec <verbatim>      V1 buffer (Stream1): SMPTE vertical bars (left-to-right)
+      V4 buffer (Stream2): SMPTE horizontal bars (top-to-bottom)
+      All 80 non-live video formats supported</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_generate_frames.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_generate_frames.c" bodystart="85" bodyend="1808"/>
+        <references refid="struct_run_config_1a1de272367d1566536f14a14cc4b50a4f" compoundref="mmi__dpdc__example_8h" startline="107">RunConfig::Height</references>
+        <references refid="struct_run_config_1a9983481d9e3ae8274b831da8fc715586" compoundref="mmi__dpdc__example_8h" startline="136">RunConfig::presentationmode</references>
+        <references refid="struct_run_config_1a9dcb790be7d6e267162fe3c907e25cec" compoundref="mmi__dpdc__example_8h" startline="113">RunConfig::Stream1Format</references>
+        <references refid="struct_run_config_1a1e5f0a1088d8afeee086f4bcc163a2bb" compoundref="mmi__dpdc__example_8h" startline="106">RunConfig::Width</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="xdc__hw_8h_1ab8fc0fb136aefe0f7056feef8a0d8f0d" compoundref="xdc__hw_8h" startline="6990">XDc_ReadReg</references>
+        <references refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" compoundref="xdc__hw_8h" startline="7007">XDc_WriteReg</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains declarations for frame buffer generation functions. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#ifndef<sp/>MMI_DC_GENERATE_FRAMES_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MMI_DC_GENERATE_FRAMES_H_</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__generate__frames_8c_1ab05cca9b31f824de34720ae09717ee3e" kindref="member">XDpDc_GenerateFrames</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MMI_DC_GENERATE_FRAMES_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_generate_frames.h"/>
+  </compounddef>
+</doxygen>

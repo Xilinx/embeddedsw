@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___sink___a_v___capabilities" kind="struct" prot="public">
+    <compoundname>XDpTxSs_Sink_AV_Capabilities</compoundname>
+    <includes local="no">xdptxss_edid_parser.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1ac5d0ce74b9b8d64ffdda04fcfd4e868e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_tx_ss___sink_audio_cfg" kindref="compound">XDpTxSs_SinkAudioCfg</ref></type>
+        <definition>XDpTxSs_SinkAudioCfg XDpTxSs_Sink_AV_Capabilities::SinkAudioCfg</definition>
+        <argsstring></argsstring>
+        <name>SinkAudioCfg</name>
+        <briefdescription>
+<para>Audio configuration with all SADs from all CTA-861 blocks. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1ade4c1ac768603256a94481518f4a007e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_Sink_AV_Capabilities::MaxBpc</definition>
+        <argsstring></argsstring>
+        <name>MaxBpc</name>
+        <briefdescription>
+<para>Maximum bits per color supported (6/8/10/12/14/16) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="190" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_Sink_AV_Capabilities::SupportedColorFormats</definition>
+        <argsstring></argsstring>
+        <name>SupportedColorFormats</name>
+        <briefdescription>
+<para><verbatim>Bitmap of supported color formats:
+</verbatim> Bit 0: RGB 4:4:4 (always 1) Bit 1: YCbCr 4:4:4 Bit 2: YCbCr 4:2:2 Bit 3: YCbCr 4:2:0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="191" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1a5b6cd37c1a24b9a5d51ec8955844d127" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_tx_ss___video_timing_param" kindref="compound">XDpTxSs_VideoTimingParam</ref></type>
+        <definition>XDpTxSs_VideoTimingParam XDpTxSs_Sink_AV_Capabilities::TimingList[EDID_MAX_TIMINGS]</definition>
+        <argsstring>[EDID_MAX_TIMINGS]</argsstring>
+        <name>TimingList</name>
+        <briefdescription>
+<para>Array of video timings (max 15) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_Sink_AV_Capabilities::TimingCount</definition>
+        <argsstring></argsstring>
+        <name>TimingCount</name>
+        <briefdescription>
+<para>Number of valid timings in TimingList (0 to EDID_MAX_TIMINGS) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_Sink_AV_Capabilities::EdidBuffer[128 *MAX_EXTENSIONS_SUPPORTED]</definition>
+        <argsstring>[128 *MAX_EXTENSIONS_SUPPORTED]</argsstring>
+        <name>EdidBuffer</name>
+        <briefdescription>
+<para>EDID buffer: base block + extensions (2048 bytes max) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" compoundref="xdptxss__edid__parser_8c" startline="66" endline="134">XDpTxSs_get_full_edid</referencedby>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+        <referencedby refid="group__dptxss_1ga777459cf549cd849fdcdb30db54d4dd8" compoundref="xdptxss__edid__parser_8c" startline="723" endline="883">XDpTxSs_GetVideoTimingsFromEdid</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_Sink_AV_Capabilities::extensions_count</definition>
+        <argsstring></argsstring>
+        <name>extensions_count</name>
+        <briefdescription>
+<para>Actual number of extensions read (0 to MAX_EXTENSIONS_SUPPORTED-1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga61e5bdde3bfbfba45b186b4e3b48e6bf" compoundref="xdptxss__edid__parser_8c" startline="66" endline="134">XDpTxSs_get_full_edid</referencedby>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_Sink_AV_Capabilities::checksum_failures</definition>
+        <argsstring></argsstring>
+        <name>checksum_failures</name>
+        <briefdescription>
+<para>Number of extension blocks with checksum failures (0 to extensions_count) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store complete sink Audio/Video capabilities Parsed from EDID base block, all CTA-861 extensions, and DisplayID blocks. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="44">
+        <label>XDpTxSs_VideoTimingParam</label>
+        <link refid="struct_x_dp_tx_ss___video_timing_param"/>
+      </node>
+      <node id="46">
+        <label>XDpTxSs_AudioSAD</label>
+        <link refid="struct_x_dp_tx_ss___audio_s_a_d"/>
+      </node>
+      <node id="43">
+        <label>XDpTxSs_Sink_AV_Capabilities</label>
+        <link refid="struct_x_dp_tx_ss___sink___a_v___capabilities"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>TimingList</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>SinkAudioCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="45">
+        <label>XDpTxSs_SinkAudioCfg</label>
+        <link refid="struct_x_dp_tx_ss___sink_audio_cfg"/>
+        <childnode refid="46" relation="usage">
+          <edgelabel>SAD_array</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="187" bodyend="202"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a00e86bd0622a9a65ed21d333a16088d4" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>checksum_failures</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ad5839f76fc1e2c51e1a4b44016e98cbf" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>EdidBuffer</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a702d252a84b71391efe04a36896ecda1" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>extensions_count</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ade4c1ac768603256a94481518f4a007e" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>MaxBpc</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1ac5d0ce74b9b8d64ffdda04fcfd4e868e" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>SinkAudioCfg</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a0ee20a3beb20c2c62f19201f8923c3df" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>SupportedColorFormats</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a418ccf99952de1de6e2a6cd4bfcdc3f2" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>TimingCount</name></member>
+      <member refid="struct_x_dp_tx_ss___sink___a_v___capabilities_1a5b6cd37c1a24b9a5d51ec8955844d127" prot="public" virt="non-virtual"><scope>XDpTxSs_Sink_AV_Capabilities</scope><name>TimingList</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

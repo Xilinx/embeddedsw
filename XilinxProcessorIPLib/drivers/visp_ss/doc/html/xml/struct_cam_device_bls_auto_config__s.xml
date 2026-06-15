@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_bls_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceBlsAutoConfig_s</compoundname>
+    <includes local="no">cam_device_bls_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_bls_auto_config__s_1a945ccf585a709e70a9b8321eecf4b2ff" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceBlsAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>The auto configuration level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_bls_auto_config__s_1a73b50456de099800ddc3e6ab1fbe5090" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceBlsAutoConfig_s::gains[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gains</name>
+        <briefdescription>
+<para>BLS gains. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_bls_auto_config__s_1a2b0b3ed00e84cf0a6b8ab5873bbaac2a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceBlsAutoConfig_s::bls[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_RAW_CHANNEL_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_RAW_CHANNEL_NUM]</argsstring>
+        <name>bls</name>
+        <briefdescription>
+<para>BLS values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice BLS auto configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/bls/cam_device_bls_api.h" bodystart="51" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_bls_auto_config__s_1a945ccf585a709e70a9b8321eecf4b2ff" prot="public" virt="non-virtual"><scope>CamDeviceBlsAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device_bls_auto_config__s_1a2b0b3ed00e84cf0a6b8ab5873bbaac2a" prot="public" virt="non-virtual"><scope>CamDeviceBlsAutoConfig_s</scope><name>bls</name></member>
+      <member refid="struct_cam_device_bls_auto_config__s_1a73b50456de099800ddc3e6ab1fbe5090" prot="public" virt="non-virtual"><scope>CamDeviceBlsAutoConfig_s</scope><name>gains</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

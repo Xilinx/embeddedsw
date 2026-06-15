@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ae_flicker_mode__s" kind="struct" prot="public">
+    <compoundname>CamDeviceAeFlickerMode_s</compoundname>
+    <includes local="no">cam_device_ae_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ae_flicker_mode__s_1afaef980429f04e84a3287fbbdf138894" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ae_1ga92fa8a1adba1c566ab9c171e41e4380a" kindref="member">CamDeviceAeFlickerPeriod_t</ref></type>
+        <definition>CamDeviceAeFlickerPeriod_t CamDeviceAeFlickerMode_s::flickerPeriod</definition>
+        <argsstring></argsstring>
+        <name>flickerPeriod</name>
+        <briefdescription>
+<para>Flicker period instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ae_flicker_mode__s_1ab9dbe0f8513b3b2cf187ed442f1993d2" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceAeFlickerMode_s::userDefinedPeriodus</definition>
+        <argsstring></argsstring>
+        <name>userDefinedPeriodus</name>
+        <briefdescription>
+<para>User defined period which is only valid in user define mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice AE Flicker Mode parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ae_v4/cam_device_ae_api.h" bodystart="121" bodyend="124"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ae_flicker_mode__s_1afaef980429f04e84a3287fbbdf138894" prot="public" virt="non-virtual"><scope>CamDeviceAeFlickerMode_s</scope><name>flickerPeriod</name></member>
+      <member refid="struct_cam_device_ae_flicker_mode__s_1ab9dbe0f8513b3b2cf187ed442f1993d2" prot="public" virt="non-virtual"><scope>CamDeviceAeFlickerMode_s</scope><name>userDefinedPeriodus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

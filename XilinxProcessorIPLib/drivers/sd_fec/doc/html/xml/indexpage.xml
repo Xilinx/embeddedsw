@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>sd_fec</title>
+    <detaileddescription>
+<para>SD-FEC standalone driver software API summary </para><sect1 id="index_1sec_init">
+<title>Initialization and Configuration</title>
+<para>The <ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref> structure is used by the driver to configure the FEC mode and interface parameters defined for each SD-FEC device. The configuration structure is created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of two ways:<itemizedlist>
+<listitem><para>XSdFecInitialize(InstancePtr, DeviceId) - The driver looks up its own configuration structure created by the tool-chain based on an ID (for XSCT build flow) or Base Address (for SDT flow) provided by the tool-chain.</para></listitem><listitem><para>XSdFecCfgInitialize(InstancePtr, CfgPtr) - Uses a configuration structure provided by the caller.</para></listitem></itemizedlist>
+</para></sect1>
+<sect1 id="index_1sec_data">
+<title>Data Structures</title>
+<para>One or more device specific headers are produced during the generation of the board support package, defining further device specific configuration parameters:<itemizedlist>
+<listitem><para>When the device is configured for Turbo Decode, the header x&lt;ipinst_name&gt;_turbo_params.h, contains an XSdFecturbo_parameters structure which is populated to match the corresponding IP GUI configuration.</para></listitem><listitem><para>When the device is configured for LDPC a header is generated per LDPC code specified on the corresponding IP GUI; x&lt;ipinst_name &gt;_&lt;code_id&gt;_params.h. Each header defines an XSdFecldpc_parameters structure populated with the configuration data required for the corresponding LDPC code.</para></listitem></itemizedlist>
+</para></sect1>
+<sect1 id="index_1sec_api">
+<title>API</title>
+<para>The driver provides the following functions:<itemizedlist>
+<listitem><para>XSdFecSetTurboParams(InstancePtr, ParamsPtr) - Set Turbo parameters on a device</para></listitem><listitem><para>XSdFecadd_ldpc_params(InstancePtr, CodeId, SCOffset, LAOffset, QCOffset, ParamsPtr) - Add LDPC parameters to a device</para></listitem><listitem><para>XSdFecShareTableSize(ParamsPtr, SCSizePtr, LASizePtr, QCSizePtr) - Calculate share table size for a LDPC code</para></listitem><listitem><para>XSdFecInterruptClassifier(InstancePtr) - Classify interrupts</para></listitem></itemizedlist>
+</para><para>In addition, the driver provides set and get functions for all the individual registers defined for the SD-FEC.</para></sect1>
+<sect1 id="index_1sec_ex">
+<title>Example</title>
+<para>The processor based example design output by the SD-FEC IP instance also includes an example application demonstrating a basic use case of the software driver. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

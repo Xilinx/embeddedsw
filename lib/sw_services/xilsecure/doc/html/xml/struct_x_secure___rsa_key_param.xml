@@ -1,0 +1,268 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_key_param" kind="struct" prot="public">
+    <compoundname>XSecure_RsaKeyParam</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a441a49245a0bc7ee6ddf86069c900d86" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::ExpAddr</definition>
+        <argsstring></argsstring>
+        <name>ExpAddr</name>
+        <briefdescription>
+<para>Exponent address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a5f3a7d4b5502fa96c286ae362282f8ab" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::ModAddr</definition>
+        <argsstring></argsstring>
+        <name>ModAddr</name>
+        <briefdescription>
+<para>Modulus address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a8b8b12cc9a48c8da8428d5d3d142ba1e" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::PAddr</definition>
+        <argsstring></argsstring>
+        <name>PAddr</name>
+        <briefdescription>
+<para>First factor address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a0fd6370dd4563498462a45c9032f110b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::QAddr</definition>
+        <argsstring></argsstring>
+        <name>QAddr</name>
+        <briefdescription>
+<para>Second factor address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a20acfcaa47104ac654dec2a9008dcefc" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::DPAddr</definition>
+        <argsstring></argsstring>
+        <name>DPAddr</name>
+        <briefdescription>
+<para>Private exponent 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a9adc1a772f4b4e838d4715b92b03db43" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::DQAddr</definition>
+        <argsstring></argsstring>
+        <name>DQAddr</name>
+        <briefdescription>
+<para>Private exponent 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1ad7e456c306bfae931f365ccc9ac940b6" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::QInvAddr</definition>
+        <argsstring></argsstring>
+        <name>QInvAddr</name>
+        <briefdescription>
+<para>Q inverse address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1abda0b62377ff4fd55920b5161c0fdd72" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::TotAddr</definition>
+        <argsstring></argsstring>
+        <name>TotAddr</name>
+        <briefdescription>
+<para>Totient address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a613758fc9ccd1e3a0c453ef2a9686680" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::RNAddr</definition>
+        <argsstring></argsstring>
+        <name>RNAddr</name>
+        <briefdescription>
+<para>R address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a48f5397cb0fa0fbfdb28de7d760ba663" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_RsaKeyParam::RRNAddr</definition>
+        <argsstring></argsstring>
+        <name>RRNAddr</name>
+        <briefdescription>
+<para>RR address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::PSize</definition>
+        <argsstring></argsstring>
+        <name>PSize</name>
+        <briefdescription>
+<para>Size of first factor(P) in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::QSize</definition>
+        <argsstring></argsstring>
+        <name>QSize</name>
+        <briefdescription>
+<para>Size of first factor(Q) in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::PubExp</definition>
+        <argsstring></argsstring>
+        <name>PubExp</name>
+        <briefdescription>
+<para>Public exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a5e745e78567de2a23d041fe7f1a0767a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::IsPrimeAvail</definition>
+        <argsstring></argsstring>
+        <name>IsPrimeAvail</name>
+        <briefdescription>
+<para>Prime number available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1ab5aa724489b39b0a4005fe6e60ae32f8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::IsPrivExpAvail</definition>
+        <argsstring></argsstring>
+        <name>IsPrivExpAvail</name>
+        <briefdescription>
+<para>Private exponent available i.e. </para>        </briefdescription>
+        <detaileddescription>
+<para>DP and DQ </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1adb55050eed36eae709e13ad6fa6c594f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::IsTotAvail</definition>
+        <argsstring></argsstring>
+        <name>IsTotAvail</name>
+        <briefdescription>
+<para>Totient Available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1a081b55726c3eb90a3fcff6409dedc5d8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyParam::IsPubExpAvail</definition>
+        <argsstring></argsstring>
+        <name>IsPubExpAvail</name>
+        <briefdescription>
+<para>Public exponent available. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xsecure__common__apis_1ga5b1d1d5cfad67445a88f0bab32bfd998" kindref="member">XSecure_RsaOperationMode</ref></type>
+        <definition>XSecure_RsaOperationMode XSecure_RsaKeyParam::OpMode</definition>
+        <argsstring></argsstring>
+        <name>OpMode</name>
+        <briefdescription>
+<para>RSA operation mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>RSA key parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="68" bodyend="87"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_key_param_1a20acfcaa47104ac654dec2a9008dcefc" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>DPAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a9adc1a772f4b4e838d4715b92b03db43" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>DQAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a441a49245a0bc7ee6ddf86069c900d86" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>ExpAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a5e745e78567de2a23d041fe7f1a0767a" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>IsPrimeAvail</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1ab5aa724489b39b0a4005fe6e60ae32f8" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>IsPrivExpAvail</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a081b55726c3eb90a3fcff6409dedc5d8" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>IsPubExpAvail</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1adb55050eed36eae709e13ad6fa6c594f" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>IsTotAvail</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a5f3a7d4b5502fa96c286ae362282f8ab" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>ModAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1acabf1aa920f944a30d4b5dcd5a8551a6" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>OpMode</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a8b8b12cc9a48c8da8428d5d3d142ba1e" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>PAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a7115bd6e35019d398e0aec8113410dbf" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>PSize</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1adae3863c6fab5863314c638a57a0e2bf" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>PubExp</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a0fd6370dd4563498462a45c9032f110b" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>QAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1ad7e456c306bfae931f365ccc9ac940b6" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>QInvAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a1962a5ba6c55237b8a0cafa52bc14294" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>QSize</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a613758fc9ccd1e3a0c453ef2a9686680" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>RNAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1a48f5397cb0fa0fbfdb28de7d760ba663" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>RRNAddr</name></member>
+      <member refid="struct_x_secure___rsa_key_param_1abda0b62377ff4fd55920b5161c0fdd72" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyParam</scope><name>TotAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

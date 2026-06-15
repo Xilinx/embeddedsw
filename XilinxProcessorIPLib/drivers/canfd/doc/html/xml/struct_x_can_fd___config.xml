@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_can_fd___config" kind="struct" prot="public">
+    <compoundname>XCanFd_Config</compoundname>
+    <includes local="no">xcanfd.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_can_fd___config_1acec99d267c618cc4f2b993e43faa4d06" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XCanFd_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</referencedby>
+        <referencedby refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" compoundref="xcanfd__sinit_8c" startline="90" endline="104">XCanFd_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCanFd_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+        <referencedby refid="group__canfd_1ga065604ddf0525f05cd46ad81ccb4cd12" compoundref="xcanfd_8c" startline="1227" endline="1243">XCanFd_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canfd_1gaf03fb5fddc1f4f5ff4c3307dfbe2094a" compoundref="xcanfd_8c" startline="1191" endline="1207">XCanFd_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canfd_1ga533f5313a1d83e1f7baf951a6772f0ed" compoundref="xcanfd_8c" startline="1329" endline="1344">XCanFd_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canfd_1gaf9f32033a2315425471d98af1f5496ae" compoundref="xcanfd_8c" startline="245" endline="255">XCanFd_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__canfd_1ga53597704089c4530175ea92fec18a6b2" compoundref="xcanfd_8c" startline="1276" endline="1304">XCanFd_AcceptFilterSet</referencedby>
+        <referencedby refid="group__canfd_1ga786ce457feaacaa6e7e076d8dd6f8931" compoundref="xcanfd_8c" startline="635" endline="715">XCanFd_Addto_Queue</referencedby>
+        <referencedby refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</referencedby>
+        <referencedby refid="group__canfd_1ga2bffa196d476a85715ca9644ba53b471" compoundref="xcanfd_8c" startline="1794" endline="1806">XCanFd_Disable_Tranceiver_Delay_Compensation</referencedby>
+        <referencedby refid="group__canfd_1ga1559296a8c1bd8620fdaf05996666c83" compoundref="xcanfd_8c" startline="1729" endline="1742">XCanFd_Enable_Tranceiver_Delay_Compensation</referencedby>
+        <referencedby refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" compoundref="xcanfd_8c" startline="340" endline="471">XCanFd_EnterMode</referencedby>
+        <referencedby refid="group__canfd_1gab34e6273828db6f9f5ef1b88ce094b02" compoundref="xcanfd__config_8c" startline="106" endline="117">XCanFd_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canfd_1ga64393737bf5924aa748fc2bd22604396" compoundref="xcanfd__config_8c" startline="199" endline="215">XCanFd_GetBitTiming</referencedby>
+        <referencedby refid="group__canfd_1ga2d148a32889636871fd043c4664bb3c5" compoundref="xcanfd_8c" startline="489" endline="502">XCanFd_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__canfd_1gacedd51c2e06c3be7d4b6908c6e235acb" compoundref="xcanfd__config_8c" startline="279" endline="290">XCanFd_GetFBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canfd_1gadef0243731e4a4f2d83016445fb8dcb3" compoundref="xcanfd__config_8c" startline="371" endline="389">XCanFd_GetFBitTiming</referencedby>
+        <referencedby refid="group__canfd_1gab41b6198a5a28b106e241e7c785fbcae" compoundref="xcanfd_8c" startline="1536" endline="1555">XCanFd_GetFreeBuffer</referencedby>
+        <referencedby refid="group__canfd_1gaa11e9ba6544fba86d648f1517d79350e" compoundref="xcanfd_8c" startline="1652" endline="1679">XCanFd_GetNofMessages_Stored_Rx_Fifo</referencedby>
+        <referencedby refid="group__canfd_1ga20c7a729f071bb7eabe893ed97002468" compoundref="xcanfd_8c" startline="1697" endline="1714">XCanFd_GetNofMessages_Stored_TXE_FIFO</referencedby>
+        <referencedby refid="group__canfd_1gaea5de9be2f71f3c862c55d640a086122" compoundref="xcanfd__intr_8c" startline="348" endline="361">XCanFd_InterruptClear</referencedby>
+        <referencedby refid="group__canfd_1ga397f519e750a6d43295cd30ef4be2871" compoundref="xcanfd__intr_8c" startline="316" endline="329">XCanFd_InterruptDisable</referencedby>
+        <referencedby refid="group__canfd_1ga6f1ea050df6192589666e4ad2135a389" compoundref="xcanfd__intr_8c" startline="192" endline="204">XCanFd_InterruptDisable_CancelRqt</referencedby>
+        <referencedby refid="group__canfd_1ga10d72b0fbf5baa598bd12853520c6635" compoundref="xcanfd__intr_8c" startline="162" endline="174">XCanFd_InterruptDisable_ReadyRqt</referencedby>
+        <referencedby refid="group__canfd_1gacce0f487607f85fd398f4f5c6b76326c" compoundref="xcanfd__intr_8c" startline="271" endline="297">XCanFd_InterruptDisable_RxBuffFull</referencedby>
+        <referencedby refid="group__canfd_1ga92339dc5f53af37742643e2fc39d6288" compoundref="xcanfd__intr_8c" startline="72" endline="85">XCanFd_InterruptEnable</referencedby>
+        <referencedby refid="group__canfd_1ga30c8a2c07427426d69ca414db8f1c395" compoundref="xcanfd__intr_8c" startline="132" endline="144">XCanFd_InterruptEnable_CancelRqt</referencedby>
+        <referencedby refid="group__canfd_1ga79511bed82a06dbbcda537df26ec2f17" compoundref="xcanfd__intr_8c" startline="102" endline="114">XCanFd_InterruptEnable_ReadyRqt</referencedby>
+        <referencedby refid="group__canfd_1ga36c239d6fbf456680364f2e6f018722a" compoundref="xcanfd__intr_8c" startline="225" endline="249">XCanFd_InterruptEnable_RxBuffFull</referencedby>
+        <referencedby refid="group__canfd_1ga527b0275aefd9d0b6095a34aa0ad7039" compoundref="xcanfd_8c" startline="1949" endline="1968">XCanFd_Pee_BusOff_Handler</referencedby>
+        <referencedby refid="group__canfd_1gae93c2c9dd933e4258b9d4118c4bf6220" compoundref="xcanfd_8c" startline="866" endline="942">XCanFd_Recv_Mailbox</referencedby>
+        <referencedby refid="group__canfd_1gaf5ac1e7ce4a9c7eabfd07a41e77b0cdb" compoundref="xcanfd_8c" startline="740" endline="777">XCanFd_Recv_Sequential</referencedby>
+        <referencedby refid="group__canfd_1gaff2a550f254dc0898fd491d090323253" compoundref="xcanfd_8c" startline="802" endline="842">XCanFd_Recv_TXEvents_Sequential</referencedby>
+        <referencedby refid="group__canfd_1ga6aecf5e7b51a04d10ff8db6a87095fe0" compoundref="xcanfd_8c" startline="961" endline="988">XCanFd_RxBuff_MailBox_Active</referencedby>
+        <referencedby refid="group__canfd_1ga1118faee933e64e921cf0bbc38f9a1dd" compoundref="xcanfd_8c" startline="1064" endline="1091">XCanFd_RxBuff_MailBox_DeActive</referencedby>
+        <referencedby refid="group__canfd_1gabbf9d9534ce5602afb24a30b5ad2b8d4" compoundref="xcanfd_8c" startline="527" endline="612">XCanFd_Send</referencedby>
+        <referencedby refid="group__canfd_1gadf9d0eebaa9263e44f4d384a778f0d7d" compoundref="xcanfd_8c" startline="1571" endline="1594">XCanFd_Send_Queue</referencedby>
+        <referencedby refid="group__canfd_1ga79f6caa236d0d46a4ec82664b3ff2da1" compoundref="xcanfd_8c" startline="1008" endline="1044">XCanFd_Set_MailBox_IdMask</referencedby>
+        <referencedby refid="group__canfd_1ga9f4be15afb5c90abbde9ad4c0d4a6708" compoundref="xcanfd_8c" startline="1759" endline="1780">XCanFd_Set_Tranceiver_Delay_Compensation</referencedby>
+        <referencedby refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" compoundref="xcanfd__config_8c" startline="71" endline="88">XCanFd_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" compoundref="xcanfd__config_8c" startline="440" endline="454">XCanFd_SetBitRateSwitch_DisableNominal</referencedby>
+        <referencedby refid="group__canfd_1ga2807c709f44b3d761733d3f4ee0013cb" compoundref="xcanfd__config_8c" startline="406" endline="421">XCanFd_SetBitRateSwitch_EnableNominal</referencedby>
+        <referencedby refid="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" compoundref="xcanfd__config_8c" startline="147" endline="176">XCanFd_SetBitTiming</referencedby>
+        <referencedby refid="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" compoundref="xcanfd__config_8c" startline="239" endline="261">XCanFd_SetFBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" compoundref="xcanfd__config_8c" startline="320" endline="348">XCanFd_SetFBitTiming</referencedby>
+        <referencedby refid="group__canfd_1ga1499d5291ac1f2c71b31f79b96cfcae5" compoundref="xcanfd__config_8c" startline="606" endline="632">XCanFd_SetRxFilterPartition</referencedby>
+        <referencedby refid="group__canfd_1ga30a1745f0967ac96948b137a8adaf15c" compoundref="xcanfd__config_8c" startline="473" endline="498">XCanFd_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canfd_1gaa0f9930ac4d2eadeead51c66825c78e7" compoundref="xcanfd__config_8c" startline="518" endline="542">XCanFd_SetRxIntrWatermarkFifo1</referencedby>
+        <referencedby refid="group__canfd_1gada4f8e428b96e82d87ed30cf397cfb5e" compoundref="xcanfd__config_8c" startline="563" endline="586">XCanFd_SetTxEventIntrWatermark</referencedby>
+        <referencedby refid="group__canfd_1gadb3b0ba459b2c4dd17bc9ae471f766ad" compoundref="xcanfd_8c" startline="211" endline="226">XCanFd_stop</referencedby>
+        <referencedby refid="group__canfd_1ga1fe72efb3ab8437545ac8df29dff89f5" compoundref="xcanfd_8c" startline="1115" endline="1170">XCanFd_TxBuffer_Cancel_Request</referencedby>
+        <referencedby refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1ae5803768c8d32243b8be95aef3f3f228" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCanFd_Config::Rx_Mode</definition>
+        <argsstring></argsstring>
+        <name>Rx_Mode</name>
+        <briefdescription>
+<para>1-Mailbox 0-sequential </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1a03b7b6857deec7e0df5a42f175577c9e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCanFd_Config::NumofRxMbBuf</definition>
+        <argsstring></argsstring>
+        <name>NumofRxMbBuf</name>
+        <briefdescription>
+<para>Number of RxBuffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1a30aa92670048ef51762c2b46695eb208" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCanFd_Config::NumofTxBuf</definition>
+        <argsstring></argsstring>
+        <name>NumofTxBuf</name>
+        <briefdescription>
+<para>Number of TxBuffers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1a60b71208626648211396c1ddcb855907" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCanFd_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_fd___config_1a42d61e0eb3f996b0e39f090a61cb2c3c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCanFd_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__intr__example_8c" startline="203" endline="216">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/src/xcanfd.h" bodystart="345" bodyend="361"/>
+    <listofallmembers>
+      <member refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_can_fd___config_1a60b71208626648211396c1ddcb855907" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_can_fd___config_1a42d61e0eb3f996b0e39f090a61cb2c3c" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_can_fd___config_1acec99d267c618cc4f2b993e43faa4d06" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>Name</name></member>
+      <member refid="struct_x_can_fd___config_1a03b7b6857deec7e0df5a42f175577c9e" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>NumofRxMbBuf</name></member>
+      <member refid="struct_x_can_fd___config_1a30aa92670048ef51762c2b46695eb208" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>NumofTxBuf</name></member>
+      <member refid="struct_x_can_fd___config_1ae5803768c8d32243b8be95aef3f3f228" prot="public" virt="non-virtual"><scope>XCanFd_Config</scope><name>Rx_Mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

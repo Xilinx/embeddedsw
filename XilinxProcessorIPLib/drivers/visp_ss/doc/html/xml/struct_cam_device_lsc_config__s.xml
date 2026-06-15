@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_lsc_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceLscConfig_s</compoundname>
+    <includes local="no">cam_device_lsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_lsc_config__s_1a15372fc0e139fa62d732758735531408" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceLscConfig_s::configMode</definition>
+        <argsstring></argsstring>
+        <name>configMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_config__s_1a0704f9ce5d2aa161000b95aa16a50d75" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__lsc_1ga42f73802b5ec060e60bcf54bc98e266b" kindref="member">CamDeviceLscManualConfig_t</ref></type>
+        <definition>CamDeviceLscManualConfig_t CamDeviceLscConfig_s::manualCfg</definition>
+        <argsstring></argsstring>
+        <name>manualCfg</name>
+        <briefdescription>
+<para>LSC V3 manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_lsc_config__s_1a1bb8df7e69d3729f7ae2802faeff8647" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__lsc_1ga6ed93883e741b76a58d8a45c77ca609f" kindref="member">CamDeviceLscAutoConfig_t</ref></type>
+        <definition>CamDeviceLscAutoConfig_t CamDeviceLscConfig_s::autoCfg</definition>
+        <argsstring></argsstring>
+        <name>autoCfg</name>
+        <briefdescription>
+<para>LSC V3 auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice LSC V3 configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="464">
+        <label>CamDeviceLscAutoConfig_s</label>
+        <link refid="struct_cam_device_lsc_auto_config__s"/>
+      </node>
+      <node id="463">
+        <label>CamDeviceLscManualConfig_s</label>
+        <link refid="struct_cam_device_lsc_manual_config__s"/>
+      </node>
+      <node id="462">
+        <label>CamDeviceLscConfig_s</label>
+        <link refid="struct_cam_device_lsc_config__s"/>
+        <childnode refid="463" relation="usage">
+          <edgelabel>manualCfg</edgelabel>
+        </childnode>
+        <childnode refid="464" relation="usage">
+          <edgelabel>autoCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="94" bodyend="98"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_lsc_config__s_1a1bb8df7e69d3729f7ae2802faeff8647" prot="public" virt="non-virtual"><scope>CamDeviceLscConfig_s</scope><name>autoCfg</name></member>
+      <member refid="struct_cam_device_lsc_config__s_1a15372fc0e139fa62d732758735531408" prot="public" virt="non-virtual"><scope>CamDeviceLscConfig_s</scope><name>configMode</name></member>
+      <member refid="struct_cam_device_lsc_config__s_1a0704f9ce5d2aa161000b95aa16a50d75" prot="public" virt="non-virtual"><scope>CamDeviceLscConfig_s</scope><name>manualCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

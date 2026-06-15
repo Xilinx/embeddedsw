@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_flash_command_set" kind="struct"><name>XFlashCommandSet</name>
+    <member refid="struct_x_flash_command_set_1af46cab5abe7f7407fee3240fe6b46634" kind="variable"><name>WriteBufferCommand</name></member>
+    <member refid="struct_x_flash_command_set_1a77e5ff5d2fee3818bec520b51c73dfe4" kind="variable"><name>ProgramCommand</name></member>
+  </compound>
+  <compound refid="struct_x_flash_part_i_d" kind="struct"><name>XFlashPartID</name>
+    <member refid="struct_x_flash_part_i_d_1ab0f45c7ea118386ed374a6e871a9a625" kind="variable"><name>ManufacturerID</name></member>
+    <member refid="struct_x_flash_part_i_d_1a336905689f86d82302db0a0520f6c962" kind="variable"><name>DeviceID</name></member>
+    <member refid="struct_x_flash_part_i_d_1a16f684e9202c161f2c84e220107f04d6" kind="variable"><name>CommandSet</name></member>
+  </compound>
+  <compound refid="struct_x_flash_prog_cap" kind="struct"><name>XFlashProgCap</name>
+    <member refid="struct_x_flash_prog_cap_1aeb0b9b7bc3384993a876ba5d9e318f70" kind="variable"><name>WriteBufferSize</name></member>
+    <member refid="struct_x_flash_prog_cap_1af7555f0df244d8825062bc9526a82c93" kind="variable"><name>WriteBufferAlignmentMask</name></member>
+    <member refid="struct_x_flash_prog_cap_1add074dc9a8025851bcf5cb22337d90a6" kind="variable"><name>EraseQueueSize</name></member>
+  </compound>
+  <compound refid="struct_x_flash_properties" kind="struct"><name>XFlashProperties</name>
+    <member refid="struct_x_flash_properties_1ab4349ddb8d4f7d7268ff7c0d4a736c89" kind="variable"><name>PartID</name></member>
+    <member refid="struct_x_flash_properties_1af9139346cd39ce597cdf8992a82c8bc7" kind="variable"><name>TimeTypical</name></member>
+    <member refid="struct_x_flash_properties_1a6a5946e05e746bdbca1f03fa6a53cadd" kind="variable"><name>TimeMax</name></member>
+    <member refid="struct_x_flash_properties_1a24de0e7e02af0a46862c4a83b2dc09ce" kind="variable"><name>ProgCap</name></member>
+  </compound>
+  <compound refid="struct_x_flash_timing" kind="struct"><name>XFlashTiming</name>
+    <member refid="struct_x_flash_timing_1a0f2c22ebb8c8dea20df70fcbc752a703" kind="variable"><name>WriteSingle_Us</name></member>
+    <member refid="struct_x_flash_timing_1a57e945e9b72a597a700cc961b22b4362" kind="variable"><name>WriteBuffer_Us</name></member>
+    <member refid="struct_x_flash_timing_1ad4b8713386c554cade817237f17e8b11" kind="variable"><name>EraseBlock_Ms</name></member>
+    <member refid="struct_x_flash_timing_1a8cd3df65b4b581ce7885124066c81e6b" kind="variable"><name>EraseChip_Ms</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="src_2include_2_c_make_lists_8txt" kind="file"><name>src/include/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="xilflash_8c" kind="file"><name>xilflash.c</name>
+    <member refid="xilflash_8c_1a1aa7e4255e9fe158543af9c9aa7a8e77" kind="function"><name>SetVTable</name></member>
+    <member refid="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" kind="function"><name>XFlash_Initialize</name></member>
+    <member refid="group__xilflash__apis_1ga2b079c7388012f6bdbda754ea0d62641" kind="function"><name>XFlash_Read</name></member>
+    <member refid="group__xilflash__apis_1gadeef4a4805428c7a14578bc0790d6bdc" kind="function"><name>XFlash_Write</name></member>
+    <member refid="group__xilflash__apis_1ga13e5d44757867a2f424f885ac51890c2" kind="function"><name>XFlash_Erase</name></member>
+    <member refid="group__xilflash__apis_1ga61597f564c68519fd4449b9fe6c50339" kind="function"><name>XFlash_Lock</name></member>
+    <member refid="group__xilflash__apis_1gad42077db3972cee5f052a5a5063fe538" kind="function"><name>XFlash_Unlock</name></member>
+    <member refid="group__xilflash__apis_1gacef8005e70142f8113fa163cb5a187f5" kind="function"><name>XFlash_Reset</name></member>
+    <member refid="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" kind="function"><name>XFlash_DeviceControl</name></member>
+    <member refid="group__xilflash__apis_1ga58e08e78cda5a44e67a7ec99fab303d0" kind="function"><name>XFlash_IsReady</name></member>
+    <member refid="xilflash_8c_1a970076e466d58e0fb4ce774f976c5235" kind="function"><name>XFlashGeometry_ToAbsolute</name></member>
+    <member refid="xilflash_8c_1a92e6868ccf4e790626f9ebbe4421f534" kind="function"><name>XFlashGeometry_ToBlock</name></member>
+  </compound>
+  <compound refid="xilflash_8h" kind="file"><name>xilflash.h</name>
+    <member refid="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" kind="function"><name>XFlash_Initialize</name></member>
+    <member refid="group__xilflash__apis_1gacef8005e70142f8113fa163cb5a187f5" kind="function"><name>XFlash_Reset</name></member>
+    <member refid="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" kind="function"><name>XFlash_DeviceControl</name></member>
+    <member refid="group__xilflash__apis_1ga2b079c7388012f6bdbda754ea0d62641" kind="function"><name>XFlash_Read</name></member>
+    <member refid="group__xilflash__apis_1gadeef4a4805428c7a14578bc0790d6bdc" kind="function"><name>XFlash_Write</name></member>
+    <member refid="group__xilflash__apis_1ga13e5d44757867a2f424f885ac51890c2" kind="function"><name>XFlash_Erase</name></member>
+    <member refid="group__xilflash__apis_1ga61597f564c68519fd4449b9fe6c50339" kind="function"><name>XFlash_Lock</name></member>
+    <member refid="group__xilflash__apis_1gad42077db3972cee5f052a5a5063fe538" kind="function"><name>XFlash_Unlock</name></member>
+    <member refid="group__xilflash__apis_1ga58e08e78cda5a44e67a7ec99fab303d0" kind="function"><name>XFlash_IsReady</name></member>
+  </compound>
+  <compound refid="xilflash__amd_8c" kind="file"><name>xilflash_amd.c</name>
+  </compound>
+  <compound refid="xilflash__amd_8h" kind="file"><name>xilflash_amd.h</name>
+    <member refid="xilflash__amd_8h_1abb9dd75969f2a66305f26ec02cb05a07" kind="define"><name>XFLASH_AMD_H</name></member>
+  </compound>
+  <compound refid="xilflash__cfi_8c" kind="file"><name>xilflash_cfi.c</name>
+    <member refid="xilflash__cfi_8c_1a025ba2cd783a06301dc7caa4fb537d95" kind="function"><name>XFlashCFI_ReadCommon</name></member>
+    <member refid="xilflash__cfi_8c_1ad868fe5f733b6042f9ee8b6adb59652c" kind="function"><name>XFlashCFI_Read8</name></member>
+    <member refid="xilflash__cfi_8c_1a25c9cc3b842a35592e8b009f64b3df1f" kind="function"><name>XFlashCFI_Read16</name></member>
+  </compound>
+  <compound refid="xilflash__cfi_8h" kind="file"><name>xilflash_cfi.h</name>
+    <member refid="xilflash__cfi_8h_1a5f6c51f2f7f22d4a83dd5fb20cea6812" kind="define"><name>XFL_LAYOUT_NUM_PARTS_MASK</name></member>
+    <member refid="xilflash__cfi_8h_1af6b3f8e8b48c63755f9ea145c7f38acd" kind="define"><name>XFL_LAYOUT_PART_MODE_MASK</name></member>
+    <member refid="xilflash__cfi_8h_1ac01b8c2bf3859ac0e1a44044368d0382" kind="define"><name>XFL_LAYOUT_PART_WIDTH_MASK</name></member>
+    <member refid="xilflash__cfi_8h_1a736f5a863edb22e78c84a74662dbb2b8" kind="define"><name>XFL_LAYOUT_CFI_INTERL_MASK</name></member>
+    <member refid="xilflash__cfi_8h_1a652af384d5f6e590922362df47ecea46" kind="define"><name>XFL_LAYOUT_NUM_PARTS_1</name></member>
+    <member refid="xilflash__cfi_8h_1aa5ba160038c186769a1778c32f084cb2" kind="define"><name>XFL_LAYOUT_NUM_PARTS_2</name></member>
+    <member refid="xilflash__cfi_8h_1a9e597e4605703e0a1aae1b4202949b8f" kind="define"><name>XFL_LAYOUT_NUM_PARTS_4</name></member>
+    <member refid="xilflash__cfi_8h_1a7ab02e3f79423815dbfdb7a11dfcfadf" kind="define"><name>XFL_LAYOUT_PART_MODE_8</name></member>
+    <member refid="xilflash__cfi_8h_1aa64aa76c7afa8853905ed7cb28b00894" kind="define"><name>XFL_LAYOUT_PART_MODE_16</name></member>
+    <member refid="xilflash__cfi_8h_1ad35edd42f6c0220d9e0d6ec3ce94241d" kind="define"><name>XFL_LAYOUT_PART_WIDTH_8</name></member>
+    <member refid="xilflash__cfi_8h_1a51ea0dbfb650b39b8ee19705c944c050" kind="define"><name>XFL_LAYOUT_PART_WIDTH_16</name></member>
+    <member refid="xilflash__cfi_8h_1ac1ac439ba26f75ac0c5a386e69d8c5e2" kind="define"><name>XFL_LAYOUT_CFI_INTERL_1</name></member>
+    <member refid="xilflash__cfi_8h_1a520acc900657f9a7bdeb320539d0c495" kind="define"><name>XFL_LAYOUT_CFI_INTERL_2</name></member>
+    <member refid="xilflash__cfi_8h_1a98a4906acc2683a6b07af3c594d88e5b" kind="define"><name>XFL_LAYOUT_CFI_INTERL_4</name></member>
+    <member refid="xilflash__cfi_8h_1aaf7e09b41712c8dc6ec2e2d8bc0cd568" kind="define"><name>XFL_LAYOUT_CFI_INTERL_8</name></member>
+    <member refid="xilflash__cfi_8h_1a86ebd4f16fd21a6e7e557d0bd00e9cb3" kind="define"><name>XFLASH_CFI_H</name></member>
+    <member refid="xilflash__cfi_8h_1a12bd0c89aecceb6ce7e6449d0a76137a" kind="define"><name>XFL_CFI_POSITION_PTR</name></member>
+    <member refid="xilflash__cfi_8h_1abee73d45fcdf7098f5b2daf57b27698a" kind="define"><name>XFL_CFI_ADVANCE_PTR8</name></member>
+    <member refid="xilflash__cfi_8h_1a2e6f76db4955297ab8edfd917acf4e40" kind="define"><name>XFL_CFI_ADVANCE_PTR16</name></member>
+    <member refid="xilflash__cfi_8h_1a025ba2cd783a06301dc7caa4fb537d95" kind="function"><name>XFlashCFI_ReadCommon</name></member>
+    <member refid="xilflash__cfi_8h_1ad868fe5f733b6042f9ee8b6adb59652c" kind="function"><name>XFlashCFI_Read8</name></member>
+    <member refid="xilflash__cfi_8h_1a25c9cc3b842a35592e8b009f64b3df1f" kind="function"><name>XFlashCFI_Read16</name></member>
+  </compound>
+  <compound refid="xilflash__devicecontrol__example_8c" kind="file"><name>xilflash_devicecontrol_example.c</name>
+    <member refid="xilflash__devicecontrol__example_8c_1abf7e9f0f2ffa9fb65654d7c8b072d1d4" kind="define"><name>FLASH_BASE_ADDRESS</name></member>
+    <member refid="xilflash__devicecontrol__example_8c_1a1dd346aac8d1fd3bf588a406a56b85d9" kind="define"><name>FLASH_MEM_WIDTH</name></member>
+    <member refid="xilflash__devicecontrol__example_8c_1a5f574aab681d208efb22c085fc7c766f" kind="variable"><name>FlashInstance</name></member>
+    <member refid="xilflash__devicecontrol__example_8c_1a5fa72d691594e1137b534052172c88c8" kind="function"><name>FlashDeviceControlExample</name></member>
+    <member refid="xilflash__devicecontrol__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilflash__intel_8c" kind="file"><name>xilflash_intel.c</name>
+  </compound>
+  <compound refid="xilflash__intel_8h" kind="file"><name>xilflash_intel.h</name>
+    <member refid="xilflash__intel_8h_1a3e39347a64a46036322f0a7eff8c14b8" kind="define"><name>XFLASH_INTEL_H</name></member>
+  </compound>
+  <compound refid="xilflash__platform__flash__example_8c" kind="file"><name>xilflash_platform_flash_example.c</name>
+    <member refid="xilflash__platform__flash__example_8c_1abf7e9f0f2ffa9fb65654d7c8b072d1d4" kind="define"><name>FLASH_BASE_ADDRESS</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a1dd346aac8d1fd3bf588a406a56b85d9" kind="define"><name>FLASH_MEM_WIDTH</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1aade5f053d5f6755dae0043e512f7bfbc" kind="define"><name>FLASH_TEST_SIZE</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1ad0db2fa7d0c61fadd68de06d7ea2489d" kind="define"><name>START_ADDRESS</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a5f781322fdb3400311c5f35159526176" kind="define"><name>ASYNC_ADDR</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a757b83b529029a883d2198fbebfff24a" kind="define"><name>SYNC_ADDR</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a5f574aab681d208efb22c085fc7c766f" kind="variable"><name>FlashInstance</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1ad98ca0f9264cb2e7ca6aa7a020fbdd07" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a1a49abfe15aca48ed41ceb8d1750115c" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a94e3273884a3c3c563cbc6c1c597e38f" kind="function"><name>PlatformFlashReadWriteExample</name></member>
+    <member refid="xilflash__platform__flash__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilflash__properties_8h" kind="file"><name>xilflash_properties.h</name>
+    <member refid="xilflash__properties_8h_1a2a54c5fcc4ffaad67fd72d2b179fb47b" kind="define"><name>XFLASH_PROPERTIES_H</name></member>
+  </compound>
+  <compound refid="xilflash__protection__example_8c" kind="file"><name>xilflash_protection_example.c</name>
+    <member refid="xilflash__protection__example_8c_1abf7e9f0f2ffa9fb65654d7c8b072d1d4" kind="define"><name>FLASH_BASE_ADDRESS</name></member>
+    <member refid="xilflash__protection__example_8c_1a1dd346aac8d1fd3bf588a406a56b85d9" kind="define"><name>FLASH_MEM_WIDTH</name></member>
+    <member refid="xilflash__protection__example_8c_1aade5f053d5f6755dae0043e512f7bfbc" kind="define"><name>FLASH_TEST_SIZE</name></member>
+    <member refid="xilflash__protection__example_8c_1ad0db2fa7d0c61fadd68de06d7ea2489d" kind="define"><name>START_ADDRESS</name></member>
+    <member refid="xilflash__protection__example_8c_1ab23ba7349469d9f4da10702e166ce4ce" kind="define"><name>BLOCK_OFFSET_ADDR</name></member>
+    <member refid="xilflash__protection__example_8c_1a5f574aab681d208efb22c085fc7c766f" kind="variable"><name>FlashInstance</name></member>
+    <member refid="xilflash__protection__example_8c_1ad98ca0f9264cb2e7ca6aa7a020fbdd07" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="xilflash__protection__example_8c_1a1a49abfe15aca48ed41ceb8d1750115c" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="xilflash__protection__example_8c_1ad7728df460c41edfb9f3de817c6c0987" kind="function"><name>FlashProtectionExample</name></member>
+    <member refid="xilflash__protection__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xilflash__readwrite__example_8c" kind="file"><name>xilflash_readwrite_example.c</name>
+    <member refid="xilflash__readwrite__example_8c_1abf7e9f0f2ffa9fb65654d7c8b072d1d4" kind="define"><name>FLASH_BASE_ADDRESS</name></member>
+    <member refid="xilflash__readwrite__example_8c_1a1dd346aac8d1fd3bf588a406a56b85d9" kind="define"><name>FLASH_MEM_WIDTH</name></member>
+    <member refid="xilflash__readwrite__example_8c_1aade5f053d5f6755dae0043e512f7bfbc" kind="define"><name>FLASH_TEST_SIZE</name></member>
+    <member refid="xilflash__readwrite__example_8c_1ad0db2fa7d0c61fadd68de06d7ea2489d" kind="define"><name>START_ADDRESS</name></member>
+    <member refid="xilflash__readwrite__example_8c_1ab23ba7349469d9f4da10702e166ce4ce" kind="define"><name>BLOCK_OFFSET_ADDR</name></member>
+    <member refid="xilflash__readwrite__example_8c_1a5f574aab681d208efb22c085fc7c766f" kind="variable"><name>FlashInstance</name></member>
+    <member refid="xilflash__readwrite__example_8c_1ad98ca0f9264cb2e7ca6aa7a020fbdd07" kind="variable"><name>ReadBuffer</name></member>
+    <member refid="xilflash__readwrite__example_8c_1a1a49abfe15aca48ed41ceb8d1750115c" kind="variable"><name>WriteBuffer</name></member>
+    <member refid="xilflash__readwrite__example_8c_1a69bd7230f7feb6b13978ff0cd4cd0888" kind="function"><name>FlashReadWriteExample</name></member>
+    <member refid="xilflash__readwrite__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="group__xilflash__apis" kind="group"><name>xilflash_apis</name>
+    <member refid="group__xilflash__apis_1gab4c908ad78f6ded9407d0dc7ed611370" kind="function"><name>XFlash_Initialize</name></member>
+    <member refid="group__xilflash__apis_1gacef8005e70142f8113fa163cb5a187f5" kind="function"><name>XFlash_Reset</name></member>
+    <member refid="group__xilflash__apis_1gaee7e52b5702a9d346c97ceb56fd4829c" kind="function"><name>XFlash_DeviceControl</name></member>
+    <member refid="group__xilflash__apis_1ga2b079c7388012f6bdbda754ea0d62641" kind="function"><name>XFlash_Read</name></member>
+    <member refid="group__xilflash__apis_1gadeef4a4805428c7a14578bc0790d6bdc" kind="function"><name>XFlash_Write</name></member>
+    <member refid="group__xilflash__apis_1ga13e5d44757867a2f424f885ac51890c2" kind="function"><name>XFlash_Erase</name></member>
+    <member refid="group__xilflash__apis_1ga61597f564c68519fd4449b9fe6c50339" kind="function"><name>XFlash_Lock</name></member>
+    <member refid="group__xilflash__apis_1gad42077db3972cee5f052a5a5063fe538" kind="function"><name>XFlash_Unlock</name></member>
+    <member refid="group__xilflash__apis_1ga58e08e78cda5a44e67a7ec99fab303d0" kind="function"><name>XFlash_IsReady</name></member>
+  </compound>
+  <compound refid="dir_d70f9e8d265868014b2e38c84fdffdef" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_a96362d5cbff438542cb1b8020092f0b" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_1e1ff47a1fd729a8343301dd88d1077f" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_77d280cf9b9b2ffe72a5d2e6c4b7b8d0" kind="dir"><name>xilflash</name>
+  </compound>
+</doxygenindex>

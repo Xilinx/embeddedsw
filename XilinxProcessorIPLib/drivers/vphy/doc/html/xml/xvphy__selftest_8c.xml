@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvphy__selftest_8c" kind="file">
+    <compoundname>xvphy_selftest.c</compoundname>
+    <includes refid="xvphy_8h" local="yes">xvphy.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="303">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="306">
+        <label>xil_io.h</label>
+      </node>
+      <node id="302">
+        <label>xvphy.h</label>
+        <childnode refid="303" relation="include">
+        </childnode>
+        <childnode refid="304" relation="include">
+        </childnode>
+        <childnode refid="305" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+      <node id="305">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+      </node>
+      <node id="309">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="310">
+        <label>xstatus.h</label>
+      </node>
+      <node id="308">
+        <label>xvidc.h</label>
+      </node>
+      <node id="307">
+        <label>xil_types.h</label>
+      </node>
+      <node id="304">
+        <label>xparameters.h</label>
+      </node>
+      <node id="301">
+        <label>xvphy_selftest.c</label>
+        <link refid="xvphy_selftest.c"/>
+        <childnode refid="302" relation="include">
+        </childnode>
+        <childnode refid="310" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xvphy__selftest_8c_1a6d1396f1ec8e1bc2bdc4b306d4e2e94f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetValues[1][2]</definition>
+        <argsstring>[1][2]</argsstring>
+        <name>ResetValues</name>
+        <initializer>=
+{
+	{<ref refid="group__vphy_1ga21c4c9d09deff9e3de491e6a2ba44bb6" kindref="member">XVPHY_VERSION_REG</ref>, 0}
+}</initializer>
+        <briefdescription>
+<para>This table contains the default values for the Video PHY core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_selftest.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_selftest.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xvphy__selftest_8c_1a772c4c6e8f106de408926972cb2443f2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_SelfTest</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The sanity test checks whether or not all tested registers hold their default reset values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed - all tested registers hold their default reset values.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_selftest.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_selftest.c" bodystart="60" bodyend="77"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a diagnostic self-test function for the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>It will check many of the Video PHY&apos;s register values against the default reset values as a sanity-check that the core is ready to be used.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   als  10/19/15 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>ResetValues[1][2]<sp/>=</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__vphy_1ga21c4c9d09deff9e3de491e6a2ba44bb6" kindref="member">XVPHY_VERSION_REG</ref>,<sp/>0}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="xvphy__selftest_8c_1a772c4c6e8f106de408926972cb2443f2" refkind="member"><highlight class="normal">u32<sp/><ref refid="xvphy__selftest_8c_1a772c4c6e8f106de408926972cb2443f2" kindref="member">XVphy_SelfTest</ref>(<ref refid="struct_x_vphy" kindref="compound">XVphy</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>general<sp/>usage<sp/>registers<sp/>with<sp/>their<sp/>default<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>1;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" kindref="member">XVphy_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" kindref="member">Config</ref>.<ref refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResetValues[Index][0]);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fail<sp/>if<sp/>register<sp/>does<sp/>not<sp/>hold<sp/>default<sp/>value.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Val<sp/>!=<sp/>ResetValues[Index][1])<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>All<sp/>tested<sp/>registers<sp/>hold<sp/>their<sp/>default<sp/>reset<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_selftest.c"/>
+  </compounddef>
+</doxygen>

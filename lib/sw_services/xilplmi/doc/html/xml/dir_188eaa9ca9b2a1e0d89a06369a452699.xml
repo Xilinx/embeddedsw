@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_188eaa9ca9b2a1e0d89a06369a452699" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="list_8h">list.h</innerfile>
+    <innerfile refid="xplmi_8c">xplmi.c</innerfile>
+    <innerfile refid="xplmi_8h">xplmi.h</innerfile>
+    <innerfile refid="xplmi__cdo_8c">xplmi_cdo.c</innerfile>
+    <innerfile refid="xplmi__cdo_8h">xplmi_cdo.h</innerfile>
+    <innerfile refid="xplmi__cmd_8c">xplmi_cmd.c</innerfile>
+    <innerfile refid="xplmi__cmd_8h">xplmi_cmd.h</innerfile>
+    <innerfile refid="xplmi__debug_8c">xplmi_debug.c</innerfile>
+    <innerfile refid="xplmi__debug_8h">xplmi_debug.h</innerfile>
+    <innerfile refid="xplmi__dma_8c">xplmi_dma.c</innerfile>
+    <innerfile refid="xplmi__dma_8h">xplmi_dma.h</innerfile>
+    <innerfile refid="xplmi__err__cmd_8c">xplmi_err_cmd.c</innerfile>
+    <innerfile refid="xplmi__err__common_8c">xplmi_err_common.c</innerfile>
+    <innerfile refid="xplmi__err__common_8h">xplmi_err_common.h</innerfile>
+    <innerfile refid="xplmi__err__psm_8c">xplmi_err_psm.c</innerfile>
+    <innerfile refid="xplmi__event__logging_8c">xplmi_event_logging.c</innerfile>
+    <innerfile refid="xplmi__event__logging_8h">xplmi_event_logging.h</innerfile>
+    <innerfile refid="server_2xplmi__generic_8c">server/xplmi_generic.c</innerfile>
+    <innerfile refid="server_2xplmi__generic_8h">server/xplmi_generic.h</innerfile>
+    <innerfile refid="xplmi__gic__interrupts_8c">xplmi_gic_interrupts.c</innerfile>
+    <innerfile refid="xplmi__gic__interrupts_8h">xplmi_gic_interrupts.h</innerfile>
+    <innerfile refid="xplmi__ipi_8c">xplmi_ipi.c</innerfile>
+    <innerfile refid="xplmi__ipi_8h">xplmi_ipi.h</innerfile>
+    <innerfile refid="xplmi__modules_8c">xplmi_modules.c</innerfile>
+    <innerfile refid="xplmi__modules_8h">xplmi_modules.h</innerfile>
+    <innerfile refid="xplmi__proc_8c">xplmi_proc.c</innerfile>
+    <innerfile refid="xplmi__proc_8h">xplmi_proc.h</innerfile>
+    <innerfile refid="xplmi__scheduler_8c">xplmi_scheduler.c</innerfile>
+    <innerfile refid="xplmi__scheduler_8h">xplmi_scheduler.h</innerfile>
+    <innerfile refid="xplmi__sysmon_8c">xplmi_sysmon.c</innerfile>
+    <innerfile refid="xplmi__sysmon_8h">xplmi_sysmon.h</innerfile>
+    <innerfile refid="xplmi__tamper_8c">xplmi_tamper.c</innerfile>
+    <innerfile refid="xplmi__tamper_8h">xplmi_tamper.h</innerfile>
+    <innerfile refid="xplmi__task_8c">xplmi_task.c</innerfile>
+    <innerfile refid="xplmi__task_8h">xplmi_task.h</innerfile>
+    <innerfile refid="xplmi__util_8c">xplmi_util.c</innerfile>
+    <innerfile refid="xplmi__util_8h">xplmi_util.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/"/>
+  </compounddef>
+</doxygen>

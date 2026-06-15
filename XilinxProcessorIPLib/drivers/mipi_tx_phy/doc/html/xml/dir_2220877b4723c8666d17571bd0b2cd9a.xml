@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2220877b4723c8666d17571bd0b2cd9a" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xmipi__tx__phy__example__selftest_8c">xmipi_tx_phy_example_selftest.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/examples/"/>
+  </compounddef>
+</doxygen>

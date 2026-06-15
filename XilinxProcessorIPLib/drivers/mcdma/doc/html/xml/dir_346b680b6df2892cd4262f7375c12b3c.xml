@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_346b680b6df2892cd4262f7375c12b3c" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xmcdma_8c">xmcdma.c</innerfile>
+    <innerfile refid="xmcdma_8h">xmcdma.h</innerfile>
+    <innerfile refid="xmcdma__bd_8c">xmcdma_bd.c</innerfile>
+    <innerfile refid="xmcdma__bd_8h">xmcdma_bd.h</innerfile>
+    <innerfile refid="xmcdma__g_8c">xmcdma_g.c</innerfile>
+    <innerfile refid="xmcdma__hw_8h">xmcdma_hw.h</innerfile>
+    <innerfile refid="xmcdma__intr_8c">xmcdma_intr.c</innerfile>
+    <innerfile refid="xmcdma__selftest_8c">xmcdma_selftest.c</innerfile>
+    <innerfile refid="xmcdma__sinit_8c">xmcdma_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/"/>
+  </compounddef>
+</doxygen>

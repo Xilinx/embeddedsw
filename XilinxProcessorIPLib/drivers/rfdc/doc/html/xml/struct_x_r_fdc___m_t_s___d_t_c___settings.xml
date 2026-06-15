@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___m_t_s___d_t_c___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_MTS_DTC_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a205da479b1d0abc374c8c8f0b8fd0e2c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_MTS_DTC_Settings::RefTile</definition>
+        <argsstring></argsstring>
+        <name>RefTile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="421" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a6b1ded7b87eceff117474a565f7c1b05" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_MTS_DTC_Settings::IsPLL</definition>
+        <argsstring></argsstring>
+        <name>IsPLL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="422" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a00917da9606bb5241ee9db05beb96751" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Target[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Target</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1adadce3ae2d349733d25a5934172e174e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Scan_Mode</definition>
+        <argsstring></argsstring>
+        <name>Scan_Mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="424" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="424" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1aff6add993bf113220975293d07db7d09" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::DTC_Code[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>DTC_Code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="425" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a15397d8da3efca31281e155d9a4570de" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Num_Windows[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Num_Windows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="426" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a54f9f1c4f1c48410b59bc975e3c894d0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Max_Gap[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Max_Gap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="427" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="427" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a69fd50081ae276acb5d3d235328dd707" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Min_Gap[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Min_Gap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___m_t_s___d_t_c___settings_1a99e24414cb09bc34a25d9dabe9e38fc7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XRFdc_MTS_DTC_Settings::Max_Overlap[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Max_Overlap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>MTS DTC Settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="420" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="420" bodyend="430"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1aff6add993bf113220975293d07db7d09" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>DTC_Code</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a6b1ded7b87eceff117474a565f7c1b05" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>IsPLL</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a54f9f1c4f1c48410b59bc975e3c894d0" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Max_Gap</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a99e24414cb09bc34a25d9dabe9e38fc7" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Max_Overlap</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a69fd50081ae276acb5d3d235328dd707" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Min_Gap</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a15397d8da3efca31281e155d9a4570de" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Num_Windows</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a205da479b1d0abc374c8c8f0b8fd0e2c" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>RefTile</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1adadce3ae2d349733d25a5934172e174e" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Scan_Mode</name></member>
+      <member refid="struct_x_r_fdc___m_t_s___d_t_c___settings_1a00917da9606bb5241ee9db05beb96751" prot="public" virt="non-virtual"><scope>XRFdc_MTS_DTC_Settings</scope><name>Target</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

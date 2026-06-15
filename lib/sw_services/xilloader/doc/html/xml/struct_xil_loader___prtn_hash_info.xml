@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_loader___prtn_hash_info" kind="struct" prot="public">
+    <compoundname>XilLoader_PrtnHashInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_loader___prtn_hash_info_1a9a162033c04a72dcaa28654d74d3d04c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_PrtnHashInfo::PrtnNum</definition>
+        <argsstring></argsstring>
+        <name>PrtnNum</name>
+        <briefdescription>
+<para>Partition Number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___prtn_hash_info_1a300c3d3c9bea500a2ec66af94f60963c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilLoader_PrtnHashInfo::PrtnHash[XLOADER_SHA3_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[XLOADER_SHA3_HASH_LEN_IN_BYTES]</argsstring>
+        <name>PrtnHash</name>
+        <briefdescription>
+<para>Partition hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Partition hash entry information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="180" bodyend="183"/>
+    <listofallmembers>
+      <member refid="struct_xil_loader___prtn_hash_info_1a300c3d3c9bea500a2ec66af94f60963c" prot="public" virt="non-virtual"><scope>XilLoader_PrtnHashInfo</scope><name>PrtnHash</name></member>
+      <member refid="struct_xil_loader___prtn_hash_info_1a9a162033c04a72dcaa28654d74d3d04c" prot="public" virt="non-virtual"><scope>XilLoader_PrtnHashInfo</scope><name>PrtnNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

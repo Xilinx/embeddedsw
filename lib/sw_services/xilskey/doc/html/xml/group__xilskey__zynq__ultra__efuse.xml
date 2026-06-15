@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__zynq__ultra__efuse" kind="group">
+    <compoundname>xilskey_zynq_ultra_efuse</compoundname>
+    <title>EFUSE PL</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1gab832f8fd82a6f4797eff212ff27fc3eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_SystemInit</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_SystemInit</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes PL eFUSE with input data given. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Input data to be written to PL eFUSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>Updates the global variable ErrorCode with error code(if any). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Start using the Jtag server to read the JTAG ID and compare with the stored ID, if it not matches return with unique error code. By reading the Jtag ID we will be sure that the JTAG related stuff is working as expected.</para><para>If everything is ok then return PASS.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="551" bodyend="613"/>
+        <references refid="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a8c019d98249e4139bac40e76d50fc624" compoundref="xilskey__utils_8h" startline="642">XSK_EFUSEPL_ERROR_PL_STRUCT_NULL</references>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1gaf56f656aaae5bb0ebc9a3fee806fe202" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_Program</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_Program</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Programs PL eFUSE with input data given through InstancePtr. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to PL eFUSE instance which holds the input data to be written to PL eFUSE.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE - In case of failure</para></listitem><listitem><para>XST_SUCCESS - In case of Success</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When this API is called: Initializes the timer, XADC/xsysmon and JTAG server subsystems. Returns an error in the following cases, if the reference clock frequency is not in the range or if the PL DAP ID is not identified, if the system is not in a position to write the requested PL eFUSE bits (because the bits are already written or not allowed to write) if the temperature and voltage are not within range. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Start using the Jtag server to read the JTAG ID and compare with the stored ID, if it not matches return with unique error code. By reading the Jtag ID we will be sure that the JTAG related stuff is working as expected.</para><para>If everything is ok then return PASS.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="636" bodyend="713"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1ga088a4e3919caebf725f3fdfaa1fecc41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_ReadStatus</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr, u32 *StatusBits)</argsstring>
+        <name>XilSKey_EfusePl_ReadStatus</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>StatusBits</declname>
+        </param>
+        <briefdescription>
+<para>Reads the PL efuse status bits and gets all secure and control bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PL eFUSE instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store the status bits read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="1416" bodyend="1527"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1ga9e00ec217ec5fce9cf298e92050c41db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_ReadKey</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_ReadKey</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the PL efuse keys and stores them in the corresponding arrays in instance structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PL eFUSE instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>This function initializes the timer, XADC and JTAG server subsystems, if not already done so. In Zynq - Reads AES key and User keys. In Ultrascale - Reads 32 bit and 128 bit User keys and RSA hash But AES key cannot be read directly it can be verified with CRC check (for that we need to update the instance with 32 bit CRC value, API updates whether provided CRC value is matched with actuals or not). To calculate the CRC of expected AES key one can use any of the following APIs <ref refid="group__xilskey__cmn__crc_1gaf973666d5d2787e571a17f6c12d6cd29" kindref="member">XilSKey_CrcCalculation()</ref> or <ref refid="group__xilskey__cmn__crc_1ga0552daa4e1f376eaac1360aba6d23930" kindref="member">XilSkey_CrcCalculation_AesKey()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="1557" bodyend="1617"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

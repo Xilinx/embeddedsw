@@ -1,0 +1,1396 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__sensor" kind="group">
+    <compoundname>_cam_device_sensor</compoundname>
+    <title>VsCamDevice E01C28 Device_SensorCtrl Definitions</title>
+    <innerclass refid="struct_cam_device_sensor_compand_curve__s" prot="public">CamDeviceSensorCompandCurve_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_test_pattern__s" prot="public">CamDeviceSensorTestPattern_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_resolution__s" prot="public">CamDeviceSensorResolution_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_resolution_collection__s" prot="public">CamDeviceSensorResolutionCollection_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_register__s" prot="public">CamDeviceSensorRegister_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_size__s" prot="public">CamDeviceSensorSize_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_compress__s" prot="public">CamDeviceSensorCompress_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_mode_info__s" prot="public">CamDeviceSensorModeInfo_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_query__s" prot="public">CamDeviceSensorQuery_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_range__s" prot="public">CamDeviceSensorRange_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_integer_range__s" prot="public">CamDeviceSensorIntegerRange_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_focus_pos__s" prot="public">CamDeviceSensorFocusPos_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_gain__s" prot="public">CamDeviceSensorGain_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_status__s" prot="public">CamDeviceSensorStatus_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_exposure_control__s" prot="public">CamDeviceSensorExposureControl_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_bls__s" prot="public">CamDeviceSensorBls_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_wb__s" prot="public">CamDeviceSensorWb_s</innerclass>
+    <innerclass refid="union_cam_device_sensor_metadata_attr__s" prot="public">CamDeviceSensorMetadataAttr_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_metadata_win__s" prot="public">CamDeviceSensorMetadataWin_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_metadata_parser_info__s" prot="public">CamDeviceSensorMetadataParserInfo_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_metadata__s" prot="public">CamDeviceSensorMetadata_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_info__s" prot="public">CamDeviceSensorInfo_s</innerclass>
+    <innerclass refid="struct_cam_device_sensor_otp_module_info__s" prot="public">CamDeviceSensorOtpModuleInfo_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__sensor_1ga56ef1818a8259f04718181fa54e0c55f" prot="public" static="no">
+        <name>CamDeviceSensorType_e</name>
+        <enumvalue id="group____cam__device__sensor_1gga56ef1818a8259f04718181fa54e0c55fa373c0f1f5150b92726bf7bd45de08114" prot="public">
+          <name>CAMDEV_SENSOR_TYPE_LINEAR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Sensor type linear. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga56ef1818a8259f04718181fa54e0c55fada87d50f3042a3b231b8aa458842acb2" prot="public">
+          <name>CAMDEV_SENSOR_TYPE_STITCHING_HDR</name>
+          <briefdescription>
+<para>Sensor type stitching HDR. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga56ef1818a8259f04718181fa54e0c55fa83b3544246b6741d9edfd2a024374c8e" prot="public">
+          <name>CAMDEV_SENSOR_TYPE_NATIVE_HDR</name>
+          <briefdescription>
+<para>Sensor type native HDR. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration type of sensor type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="59" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__sensor_1gaab8790583326414f8c2bfa59193fc857" prot="public" static="no">
+        <name>CamDeviceSensorNativeMode_e</name>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857a8f3247bbf5cfd7ee078c30586b92b792" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_DCG</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>HCG and LCG combined in sensor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857a00c8478f7a2c028dd5dd4a73a59cac35" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_L_AND_S</name>
+          <briefdescription>
+<para>L+S combined in sensor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857af115522019933ba20d138f4efedc7a26" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_3DOL</name>
+          <briefdescription>
+<para>3DOL combined in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857a94261ced034bbe26d9c4d61f74853f82" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_4DOL</name>
+          <briefdescription>
+<para>4DOL combined in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857ac50b0a0cc7405b78fb2c01530cf6db50" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_DCG_SPD_VS</name>
+          <briefdescription>
+<para>4DOL combined in sensor </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggaab8790583326414f8c2bfa59193fc857a1458d6a4b35e9eb956acedd3a218f418" prot="public">
+          <name>CAMDEV_SENSOR_NATIVE_MODE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration type of sensor native HDR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__sensor_1ga68033773897b10249b5cb11de7ccc638" prot="public" static="no">
+        <name>CamDeviceSensorAutoFocusMode_s</name>
+        <enumvalue id="group____cam__device__sensor_1gga68033773897b10249b5cb11de7ccc638acc252aa3008d757404d4f2aa5d6e8188" prot="public">
+          <name>CAMDEV_SENSOR_AF_NOTSUPP</name>
+          <briefdescription>
+<para>AF not support. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga68033773897b10249b5cb11de7ccc638afbcf28dbc1df358c8e3fcf749ff04e07" prot="public">
+          <name>CAMDEV_SENSOR_AF_MODE_CDAF</name>
+          <briefdescription>
+<para>CDAF mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga68033773897b10249b5cb11de7ccc638a2f4fe0d1b100ddb7f411597383fdd911" prot="public">
+          <name>CAMDEV_SENSOR_AF_MODE_PDAF</name>
+          <briefdescription>
+<para>PDAF mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration type of sensor AF mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__sensor_1gacb3709c0354e170be97d9912ae8a6dbf" prot="public" static="no">
+        <name>CamDeviceSensorFocusPosMode_e</name>
+        <enumvalue id="group____cam__device__sensor_1ggacb3709c0354e170be97d9912ae8a6dbfa13cb8b1c83fccbb72bacfbe9a93b35ed" prot="public">
+          <name>CAMDEV_SENSOR_FOCUS_POS_ABSOLUTE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Absolute focusing mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggacb3709c0354e170be97d9912ae8a6dbfa11954a2097e924a0fc489ce84bab39cd" prot="public">
+          <name>CAMDEV_SENSOR_FOCUS_POS_RELATIVE</name>
+          <briefdescription>
+<para>Relative focusing mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1ggacb3709c0354e170be97d9912ae8a6dbfa6c1e3ca9d898135d37a4ceb5486f8770" prot="public">
+          <name>CAMDEV_SENSOR_FOCUS_POS_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Enumeration type of sensor focusing position mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="95" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__sensor_1ga79b25a0a47483e2eca9de86d50673128" prot="public" static="no">
+        <name>CamDeviceSensorDataType_e</name>
+        <enumvalue id="group____cam__device__sensor_1gga79b25a0a47483e2eca9de86d50673128a837989ff75257c16ad2f8d7b1c5279f0" prot="public">
+          <name>CAMDEV_SENSOR_DATA_TYPE_BAYER</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Bayer pattern data type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga79b25a0a47483e2eca9de86d50673128af68beb98a0fcd72ef0682ff8949a5a65" prot="public">
+          <name>CAMDEV_SENSOR_DATA_TYPE_YUV</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>YUV data type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga79b25a0a47483e2eca9de86d50673128a5f25901a0be7becf26e32199fa04675a" prot="public">
+          <name>CAMDEV_SENSOR_DATA_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Cam Device sensor output data type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="106" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__sensor_1ga7dc528451fdfdd43446b2170996929d2" prot="public" static="no">
+        <name>CamDeviceSensorItfType_e</name>
+        <enumvalue id="group____cam__device__sensor_1gga7dc528451fdfdd43446b2170996929d2ad265d0518430b088f9c0dc7f3ada4851" prot="public">
+          <name>CAMDEV_SENSOR_ITF_TYPE_MIPI_1LANES</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>1 lane mipi mode </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga7dc528451fdfdd43446b2170996929d2a3864ac11392c00455432b9a2fce32213" prot="public">
+          <name>CAMDEV_SENSOR_ITF_TYPE_MIPI_2LANES</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>2 lane mipi mode </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga7dc528451fdfdd43446b2170996929d2ab014187ee9b85a9c356eea15746e8005" prot="public">
+          <name>CAMDEV_SENSOR_ITF_TYPE_MIPI_4LANES</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>4 lane mipi mode </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga7dc528451fdfdd43446b2170996929d2ad25a541f97a84102c6a0fe842b9b1738" prot="public">
+          <name>CAMDEV_SENSOR_ITF_TYPE_BT601</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>BT.601 type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__sensor_1gga7dc528451fdfdd43446b2170996929d2a43fe3e23c20557e2e819a61dfa196d96" prot="public">
+          <name>CAMDEV_SENSOR_ITF_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Cam Device sensor interface type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="118" bodyend="125"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gaa2adcad0d9e99f047c2c14ec961557bf" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1ga56ef1818a8259f04718181fa54e0c55f" kindref="member">CamDeviceSensorType_e</ref></type>
+        <definition>typedef enum CamDeviceSensorType_e CamDeviceSensorType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorType_t</name>
+        <briefdescription>
+<para>Enumeration type of sensor type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="63" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gaa7b351073636fb84a645fe1e3f7c2987" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1gaab8790583326414f8c2bfa59193fc857" kindref="member">CamDeviceSensorNativeMode_e</ref></type>
+        <definition>typedef enum CamDeviceSensorNativeMode_e CamDeviceSensorNativeMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorNativeMode_t</name>
+        <briefdescription>
+<para>Enumeration type of sensor native HDR mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga904388bb84e937ebe185ae643f3d3976" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1ga68033773897b10249b5cb11de7ccc638" kindref="member">CamDeviceSensorAutoFocusMode_s</ref></type>
+        <definition>typedef enum CamDeviceSensorAutoFocusMode_s CamDeviceSensorAutoFocusMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorAutoFocusMode_t</name>
+        <briefdescription>
+<para>Enumeration type of sensor AF mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="88" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga6018d3b61d75186ea0342ad1d21c36ee" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1gacb3709c0354e170be97d9912ae8a6dbf" kindref="member">CamDeviceSensorFocusPosMode_e</ref></type>
+        <definition>typedef enum CamDeviceSensorFocusPosMode_e  CamDeviceSensorFocusPosMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorFocusPosMode_t</name>
+        <briefdescription>
+<para>Enumeration type of sensor focusing position mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gab24a7960c4e506140b2d14b4799b17c5" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1ga79b25a0a47483e2eca9de86d50673128" kindref="member">CamDeviceSensorDataType_e</ref></type>
+        <definition>typedef enum CamDeviceSensorDataType_e  CamDeviceSensorDataType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorDataType_t</name>
+        <briefdescription>
+<para>Cam Device sensor output data type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga9376045721027149b25af79613eed3c1" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__sensor_1ga7dc528451fdfdd43446b2170996929d2" kindref="member">CamDeviceSensorItfType_e</ref></type>
+        <definition>typedef enum CamDeviceSensorItfType_e  CamDeviceSensorItfType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorItfType_t</name>
+        <briefdescription>
+<para>Cam Device sensor interface type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="125" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga2f830a5e504fcd4dc1a2d1a6bae84ffe" prot="public" static="no">
+        <type>void *</type>
+        <definition>typedef void* CamDeviceSensorDrvHandle_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorDrvHandle_t</name>
+        <briefdescription>
+<para>VsCamDevice isi sensor driver configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gacfb94cac00048730052e2fff05ed915e" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_compand_curve__s" kindref="compound">CamDeviceSensorCompandCurve_s</ref></type>
+        <definition>typedef struct CamDeviceSensorCompandCurve_s CamDeviceSensorCompandCurve_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorCompandCurve_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor compand configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="146" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga8f65a1b1f6ea26cda0c41e5a8c2bb8bf" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_test_pattern__s" kindref="compound">CamDeviceSensorTestPattern_s</ref></type>
+        <definition>typedef struct CamDeviceSensorTestPattern_s CamDeviceSensorTestPattern_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorTestPattern_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor test pattern configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="156" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga4003878e2ac8bfb03a12b64326ef1e3c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_resolution__s" kindref="compound">CamDeviceSensorResolution_s</ref></type>
+        <definition>typedef struct CamDeviceSensorResolution_s CamDeviceSensorResolution_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorResolution_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor resolution structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="166" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga1b83a4033eb1c3eab8581fbae3ac734c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_resolution_collection__s" kindref="compound">CamDeviceSensorResolutionCollection_s</ref></type>
+        <definition>typedef struct CamDeviceSensorResolutionCollection_s CamDeviceSensorResolutionCollection_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorResolutionCollection_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor resolution collection information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga28bc5a83745f1e63f3a82dd9e587faf1" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_register__s" kindref="compound">CamDeviceSensorRegister_s</ref></type>
+        <definition>typedef struct CamDeviceSensorRegister_s CamDeviceSensorRegister_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorRegister_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor register configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="186" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gafa8b60b84ee4796b8d16a54d39fe0e8a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_size__s" kindref="compound">CamDeviceSensorSize_s</ref></type>
+        <definition>typedef struct CamDeviceSensorSize_s CamDeviceSensorSize_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorSize_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor size information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="200" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gaa391867d5447b8feffcd6295078d48f9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_compress__s" kindref="compound">CamDeviceSensorCompress_s</ref></type>
+        <definition>typedef struct CamDeviceSensorCompress_s CamDeviceSensorCompress_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorCompress_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor compress information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="211" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga1d1a2b386d6e2dd9d02ee97bf4a74002" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_mode_info__s" kindref="compound">CamDeviceSensorModeInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorModeInfo_s CamDeviceSensorModeInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorModeInfo_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor mode information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="229" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga44401f28dd863409141114eaf91b2a80" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_query__s" kindref="compound">CamDeviceSensorQuery_s</ref></type>
+        <definition>typedef struct CamDeviceSensorQuery_s CamDeviceSensorQuery_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorQuery_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor query information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="239" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gaa50bfb44c45d273968fb76481cb29756" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_range__s" kindref="compound">CamDeviceSensorRange_s</ref></type>
+        <definition>typedef struct CamDeviceSensorRange_s CamDeviceSensorRange_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorRange_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor range information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="250" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga00ee13a5613c53739d2ad6d643ba912f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_integer_range__s" kindref="compound">CamDeviceSensorIntegerRange_s</ref></type>
+        <definition>typedef struct CamDeviceSensorIntegerRange_s CamDeviceSensorIntegerRange_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorIntegerRange_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor integer range information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="261" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gabe9932c526bb70add58f3b660b0477fa" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_focus_pos__s" kindref="compound">CamDeviceSensorFocusPos_s</ref></type>
+        <definition>typedef struct CamDeviceSensorFocusPos_s CamDeviceSensorFocusPos_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorFocusPos_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor motor position structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="271" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gab40659e2b00f8503bb771df6d134ec0a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_gain__s" kindref="compound">CamDeviceSensorGain_s</ref></type>
+        <definition>typedef struct CamDeviceSensorGain_s CamDeviceSensorGain_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorGain_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor gain configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="281" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga25d3f85b0ac24ffaed1d0f578a07bc82" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_status__s" kindref="compound">CamDeviceSensorStatus_s</ref></type>
+        <definition>typedef struct CamDeviceSensorStatus_s CamDeviceSensorStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor status information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="294" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga18c494d5de3d6fda054aa2032bcd5e32" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_exposure_control__s" kindref="compound">CamDeviceSensorExposureControl_s</ref></type>
+        <definition>typedef struct CamDeviceSensorExposureControl_s CamDeviceSensorExposureControl_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorExposureControl_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor exposure time configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="303" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gaf679c61e5bec428426daca6795c093ac" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_bls__s" kindref="compound">CamDeviceSensorBls_s</ref></type>
+        <definition>typedef struct CamDeviceSensorBls_s CamDeviceSensorBls_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorBls_t</name>
+        <briefdescription>
+<para>Cam Device sensor bls configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="314" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gae7a3995dde6a90db1a8b3b338c2a1145" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_wb__s" kindref="compound">CamDeviceSensorWb_s</ref></type>
+        <definition>typedef struct CamDeviceSensorWb_s CamDeviceSensorWb_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorWb_t</name>
+        <briefdescription>
+<para>Cam Device sensor bls configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="323" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga7fd2331d3a0dfaa3c25857c257adef66" prot="public" static="no">
+        <type>union <ref refid="union_cam_device_sensor_metadata_attr__s" kindref="compound">CamDeviceSensorMetadataAttr_s</ref></type>
+        <definition>typedef union CamDeviceSensorMetadataAttr_s CamDeviceSensorMetadataAttr_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorMetadataAttr_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor exposure time configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="346" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga2a428c68a3107fbc7fef5a98089fd5a0" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_metadata_win__s" kindref="compound">CamDeviceSensorMetadataWin_s</ref></type>
+        <definition>typedef struct CamDeviceSensorMetadataWin_s CamDeviceSensorMetadataWin_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorMetadataWin_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor meatdata window information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="357" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga02b6ff5dcbf8968cec3a3aa888618848" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_metadata_parser_info__s" kindref="compound">CamDeviceSensorMetadataParserInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorMetadataParserInfo_s  CamDeviceSensorMetadataParserInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorMetadataParserInfo_t</name>
+        <briefdescription>
+<para>CamDevice sensor meatdata parser information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="381" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga865d37533dc7096bff0c36526a80fd91" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_metadata__s" kindref="compound">CamDeviceSensorMetadata_s</ref></type>
+        <definition>typedef struct CamDeviceSensorMetadata_s CamDeviceSensorMetadata_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorMetadata_t</name>
+        <briefdescription>
+<para>CamDevice sensor meatdata information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="393" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1gafb2d32b86e52d81513fca693d8ca8d81" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_info__s" kindref="compound">CamDeviceSensorInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorInfo_s CamDeviceSensorInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorInfo_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="413" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__sensor_1ga5db07676c94fa6d2f059a7ce9ce20039" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_sensor_otp_module_info__s" kindref="compound">CamDeviceSensorOtpModuleInfo_s</ref></type>
+        <definition>typedef struct CamDeviceSensorOtpModuleInfo_s CamDeviceSensorOtpModuleInfo_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceSensorOtpModuleInfo_t</name>
+        <briefdescription>
+<para>VsCamDevice sensor one time program information structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="440" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__sensor_1ga67d138dd904c7beb7a8d8539e58bbe8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetInfo</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorInfo_t *pSensorInfo)</argsstring>
+        <name>VsiCamDeviceSensorGetInfo</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gafb2d32b86e52d81513fca693d8ca8d81" kindref="member">CamDeviceSensorInfo_t</ref> *</type>
+          <declname>pSensorInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="254" bodyend="293"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga60a4bbbacc3dbc2298c48ab7d08c61c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorOpen</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t modeIndex)</argsstring>
+        <name>VsiCamDeviceSensorOpen</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>modeIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function opens a sensor device with the specified mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hCamDevice</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Handle to the CamDevice instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>modeIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index of the sensor mode to open</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>RET_SUCCESS</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Operation succeeded </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_WRONG_HANDLE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Invalid CamDevice handle </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_OUTOFRANGE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Payload size exceeds maximum limit </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RET_FAILURE</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Failed to send command </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="38" bodyend="75"/>
+        <references refid="return__codes_8h_1a98c7ef8d3f2437e62bce09dcb19a26fc" compoundref="return__codes_8h" startline="43">RET_FAILURE</references>
+        <references refid="return__codes_8h_1aac3ed5b1f552a86e3bad252351e09a84" compoundref="return__codes_8h" startline="48">RET_OUTOFRANGE</references>
+        <references refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" compoundref="return__codes_8h" startline="42">RET_SUCCESS</references>
+        <references refid="return__codes_8h_1a8e89d97d979954d728353f8971928d35" compoundref="return__codes_8h" startline="50">RET_WRONG_HANDLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga86c65f913419822dc8b40fecdb358802" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorClose</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceSensorClose</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="173" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gae44f61c3cdf70a6d15bd04143877fd8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorDrvHandleRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorDrvHandle_t sensorDrvHandle)</argsstring>
+        <name>VsiCamDeviceSensorDrvHandleRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga2f830a5e504fcd4dc1a2d1a6bae84ffe" kindref="member">CamDeviceSensorDrvHandle_t</ref></type>
+          <declname>sensorDrvHandle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="538" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="79" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga2de0b229b01452cfa52d7c93f66cbefb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorDrvHandleUnRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceSensorDrvHandleUnRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="565" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="135" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gaee370e2f6c672ea03ef8810004d7f8a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetTestPattern</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceSensorTestPattern_t *pTestPattern)</argsstring>
+        <name>VsiCamDeviceSensorSetTestPattern</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__sensor_1ga8f65a1b1f6ea26cda0c41e5a8c2bb8bf" kindref="member">CamDeviceSensorTestPattern_t</ref> *</type>
+          <declname>pTestPattern</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="590" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="297" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga30154a3d4f9911e1830a26df9cfd968a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorRegister_t *pRegister)</argsstring>
+        <name>VsiCamDeviceSensorSetRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga28bc5a83745f1e63f3a82dd9e587faf1" kindref="member">CamDeviceSensorRegister_t</ref> *</type>
+          <declname>pRegister</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="340" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga5f7addfb2bb8fad03b34594c67ad8f20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetRegister</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorRegister_t *pRegister)</argsstring>
+        <name>VsiCamDeviceSensorGetRegister</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga28bc5a83745f1e63f3a82dd9e587faf1" kindref="member">CamDeviceSensorRegister_t</ref> *</type>
+          <declname>pRegister</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="644" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="383" bodyend="422"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gafd0e135e42b23524b043cfd3a20c930c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetFrameRate</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, float32_t *pFps)</argsstring>
+        <name>VsiCamDeviceSensorSetFrameRate</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>float32_t *</type>
+          <declname>pFps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="426" bodyend="465"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gaa35bfb3d4f4a2b558fd5cf2e0745dc77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetFrameRate</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, float32_t *pFps)</argsstring>
+        <name>VsiCamDeviceSensorGetFrameRate</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>float32_t *</type>
+          <declname>pFps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="698" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="469" bodyend="508"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gae8bfe752d8cad8719e54a80b3470df76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetModeInfo</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorModeInfo_t *pMode)</argsstring>
+        <name>VsiCamDeviceSensorGetModeInfo</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga1d1a2b386d6e2dd9d02ee97bf4a74002" kindref="member">CamDeviceSensorModeInfo_t</ref> *</type>
+          <declname>pMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="726" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="512" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga62d9f936848c9dd0126464b98e175cc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorQuery</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorQuery_t *pQuery)</argsstring>
+        <name>VsiCamDeviceSensorQuery</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga44401f28dd863409141114eaf91b2a80" kindref="member">CamDeviceSensorQuery_t</ref> *</type>
+          <declname>pQuery</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="757" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="211" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga450a80220d7fb50647a7d10012c0b6cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceSensorGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga25d3f85b0ac24ffaed1d0f578a07bc82" kindref="member">CamDeviceSensorStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="554" bodyend="593"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga533e2bed9470ca92f4b2c8df503e22c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetGain</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorGain_t *pGain)</argsstring>
+        <name>VsiCamDeviceSensorSetGain</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gab40659e2b00f8503bb771df6d134ec0a" kindref="member">CamDeviceSensorGain_t</ref> *</type>
+          <declname>pGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="811" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="597" bodyend="636"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga7219827409724931210768ccd81cb4e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetGain</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorGain_t *pGain)</argsstring>
+        <name>VsiCamDeviceSensorGetGain</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gab40659e2b00f8503bb771df6d134ec0a" kindref="member">CamDeviceSensorGain_t</ref> *</type>
+          <declname>pGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="838" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="640" bodyend="679"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga892349d12c04f920c1dc5d6c68d06c95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetExposureControl</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorExposureControl_t *pExpCtrl)</argsstring>
+        <name>VsiCamDeviceSensorSetExposureControl</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga18c494d5de3d6fda054aa2032bcd5e32" kindref="member">CamDeviceSensorExposureControl_t</ref> *</type>
+          <declname>pExpCtrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="865" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="683" bodyend="722"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga30c36364c976eba740e789e667f1fb79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetExposureControl</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorExposureControl_t *pExpCtrl)</argsstring>
+        <name>VsiCamDeviceSensorGetExposureControl</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga18c494d5de3d6fda054aa2032bcd5e32" kindref="member">CamDeviceSensorExposureControl_t</ref> *</type>
+          <declname>pExpCtrl</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="892" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="725" bodyend="765"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gaa7256040e9a67bf10e9293c6694f1f03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetFocusPositon</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorFocusPos_t *pFocusPos)</argsstring>
+        <name>VsiCamDeviceSensorSetFocusPositon</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gabe9932c526bb70add58f3b660b0477fa" kindref="member">CamDeviceSensorFocusPos_t</ref> *</type>
+          <declname>pFocusPos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="920" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="769" bodyend="809"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gaa230c31f74beef0ae9b70df028c77ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetFocusPositon</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorFocusPos_t *pFocusPos, CamDeviceSensorIntegerRange_t *pRangeLimit)</argsstring>
+        <name>VsiCamDeviceSensorGetFocusPositon</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gabe9932c526bb70add58f3b660b0477fa" kindref="member">CamDeviceSensorFocusPos_t</ref> *</type>
+          <declname>pFocusPos</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga00ee13a5613c53739d2ad6d643ba912f" kindref="member">CamDeviceSensorIntegerRange_t</ref> *</type>
+          <declname>pRangeLimit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="951" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="812" bodyend="861"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga339e736c91a9f26180a62965ec8d4882" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetStreaming</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, bool_t isEnable)</argsstring>
+        <name>VsiCamDeviceSensorSetStreaming</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>bool_t</type>
+          <declname>isEnable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="978" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="865" bodyend="902"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga2c61c5a4ae891c92475cc0da40d0e231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetOtpInfo</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorOtpModuleInfo_t *pOtpModuleInfo)</argsstring>
+        <name>VsiCamDeviceSensorGetOtpInfo</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga5db07676c94fa6d2f059a7ce9ce20039" kindref="member">CamDeviceSensorOtpModuleInfo_t</ref> *</type>
+          <declname>pOtpModuleInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1005" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="906" bodyend="945"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gaa2df58ef8b07a3e7e7615b373f038754" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetMetadataAttr</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorMetadataAttr_t *pMetaAttr)</argsstring>
+        <name>VsiCamDeviceSensorGetMetadataAttr</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga7fd2331d3a0dfaa3c25857c257adef66" kindref="member">CamDeviceSensorMetadataAttr_t</ref> *</type>
+          <declname>pMetaAttr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1032" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="948" bodyend="987"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga36ee085626c0ef699d473f5ced8ead32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetMetadataAttr</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorMetadataAttr_t metaAttr)</argsstring>
+        <name>VsiCamDeviceSensorSetMetadataAttr</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga7fd2331d3a0dfaa3c25857c257adef66" kindref="member">CamDeviceSensorMetadataAttr_t</ref></type>
+          <declname>metaAttr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1059" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="991" bodyend="1028"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga6c9f02c020f395b64dc662a8bfe299ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetMetadataWin</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorMetadataWin_t *pMetaWin)</argsstring>
+        <name>VsiCamDeviceSensorGetMetadataWin</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga2a428c68a3107fbc7fef5a98089fd5a0" kindref="member">CamDeviceSensorMetadataWin_t</ref> *</type>
+          <declname>pMetaWin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1086" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="1031" bodyend="1070"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga96185cbba3191261892558f44f8bb76e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorParaserMetadata</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const MetadataBufInfo_t *pMetaBuf, CamDeviceSensorMetadata_t *pMetaInfo)</argsstring>
+        <name>VsiCamDeviceSensorParaserMetadata</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_metadata_buf_info__s" kindref="compound">MetadataBufInfo_t</ref> *</type>
+          <declname>pMetaBuf</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1ga865d37533dc7096bff0c36526a80fd91" kindref="member">CamDeviceSensorMetadata_t</ref> *</type>
+          <declname>pMetaInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1114" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga6cb49ef649f610675595348392f6638b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetBls</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorBls_t *pBls)</argsstring>
+        <name>VsiCamDeviceSensorSetBls</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gaf679c61e5bec428426daca6795c093ac" kindref="member">CamDeviceSensorBls_t</ref> *</type>
+          <declname>pBls</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="1073" bodyend="1112"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga62656c15df3ce8a03e3532ad01391a63" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetBls</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorBls_t *pBls)</argsstring>
+        <name>VsiCamDeviceSensorGetBls</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gaf679c61e5bec428426daca6795c093ac" kindref="member">CamDeviceSensorBls_t</ref> *</type>
+          <declname>pBls</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="1116" bodyend="1155"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1ga6629ae01a2c139bc07d58dfe9c3ca23f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorSetWb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorWb_t *pWb)</argsstring>
+        <name>VsiCamDeviceSensorSetWb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gae7a3995dde6a90db1a8b3b338c2a1145" kindref="member">CamDeviceSensorWb_t</ref> *</type>
+          <declname>pWb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="1159" bodyend="1198"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__sensor_1gadaa7982d1a46a38e629aa0af8b87eb89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceSensorGetWb</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceSensorWb_t *pWb)</argsstring>
+        <name>VsiCamDeviceSensorGetWb</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__sensor_1gae7a3995dde6a90db1a8b3b338c2a1145" kindref="member">CamDeviceSensorWb_t</ref> *</type>
+          <declname>pWb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="1223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/control/cam_device_sensor_api.c" bodystart="1202" bodyend="1241"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__sensor_1ga8ee9f73047ad7c2bf1aa4bc1ab97f7a6" prot="public" static="no">
+        <name>SENSOR_QUERY_NUM</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+<para>Sensor query number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1gafddfc0468a0fb0d80c116b5e16b9be17" prot="public" static="no">
+        <name>FILE_NAME_LEN</name>
+        <initializer>30</initializer>
+        <briefdescription>
+<para>Sensor file name length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1ga89888ac2dac1469bc14547b60f87a3e2" prot="public" static="no">
+        <name>COMPAND_CURVE_LEN</name>
+        <initializer>65</initializer>
+        <briefdescription>
+<para>Sensor compand curve length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1gad4795abb0b0e4a8b4769fec682e64dc5" prot="public" static="no">
+        <name>SENSOR_ID_LEN</name>
+        <initializer>11</initializer>
+        <briefdescription>
+<para>Image sensor ID length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1ga7f8a07c8e3d8002718e8487fd8a4a70c" prot="public" static="no">
+        <name>MODULE_SN_LEN</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Barcode-Module SN length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1ga6a917bd2c305537bca8aca6f255522d7" prot="public" static="no">
+        <name>CAMDEV_SENSOR_EXP_NUM_MAX</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Maximum exposure number of sensor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__sensor_1gad83e882f66cf33b6b8d4bcedc61cfe97" prot="public" static="no">
+        <name>CAMDEV_SENSOR_METADATA_WIN_NUM_MAX</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Maximum sensor metedata window number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The sensor control API provides a top-level interface for controlling sensors, mainly encapsulating some functions of the ISI layer and combining them with the current working state to control sensors. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

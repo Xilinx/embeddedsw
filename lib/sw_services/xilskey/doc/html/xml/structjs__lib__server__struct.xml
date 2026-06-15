@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__lib__server__struct" kind="struct" prot="public">
+    <compoundname>js_lib_server_struct</compoundname>
+    <includes local="no">xilskey_jslib.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__lib__server__struct_1a3cd9cc1c5daefb198a7db069baf79262" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref></type>
+        <definition>js_server_t js_lib_server_struct::base</definition>
+        <argsstring></argsstring>
+        <name>base</name>
+        <briefdescription>
+<para>Public part of object. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1a4303ea32671ab608d25123c7f70159ae" compoundref="xilskey__jscmd_8c" startline="1149" endline="1208">open_port</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__server__struct_1a755ceaa5883c61e67365160aaf4d9706" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* js_lib_server_struct::get_port_descr_list)(js_lib_server_t *server, js_port_descr_t **port_listp)</definition>
+        <argsstring>)(js_lib_server_t *server, js_port_descr_t **port_listp)</argsstring>
+        <name>get_port_descr_list</name>
+        <briefdescription>
+<para>See js_get_port_descr_list() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__server__struct_1ac3a6eded16f1b63359cdb28abb79d6ae" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* js_lib_server_struct::open_port)(js_lib_server_t *server, js_port_descr_t *port_descr, js_lib_port_t **port)</definition>
+        <argsstring>)(js_lib_server_t *server, js_port_descr_t *port_descr, js_lib_port_t **port)</argsstring>
+        <name>open_port</name>
+        <briefdescription>
+<para>See js_open_port() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__server__struct_1aa7583a3c24f957b233e53ae67ebb9077" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* js_lib_server_struct::deinit_server)(js_lib_server_t *server)</definition>
+        <argsstring>)(js_lib_server_t *server)</argsstring>
+        <name>deinit_server</name>
+        <briefdescription>
+<para>See js_deinit_server() </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__lib__server__struct_1a132cdfd8be0c15c3f9d9d6600bd1ff67" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char js_lib_server_struct::last_error[100]</definition>
+        <argsstring>[100]</argsstring>
+        <name>last_error</name>
+        <briefdescription>
+<para>Error of last command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG server library object. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="26">
+        <label>js_server_struct</label>
+        <link refid="structjs__server__struct"/>
+      </node>
+      <node id="25">
+        <label>js_lib_server_struct</label>
+        <link refid="structjs__lib__server__struct"/>
+        <childnode refid="26" relation="usage">
+          <edgelabel>base</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jslib.h" bodystart="48" bodyend="69"/>
+    <listofallmembers>
+      <member refid="structjs__lib__server__struct_1a3cd9cc1c5daefb198a7db069baf79262" prot="public" virt="non-virtual"><scope>js_lib_server_struct</scope><name>base</name></member>
+      <member refid="structjs__lib__server__struct_1aa7583a3c24f957b233e53ae67ebb9077" prot="public" virt="non-virtual"><scope>js_lib_server_struct</scope><name>deinit_server</name></member>
+      <member refid="structjs__lib__server__struct_1a755ceaa5883c61e67365160aaf4d9706" prot="public" virt="non-virtual"><scope>js_lib_server_struct</scope><name>get_port_descr_list</name></member>
+      <member refid="structjs__lib__server__struct_1a132cdfd8be0c15c3f9d9d6600bd1ff67" prot="public" virt="non-virtual"><scope>js_lib_server_struct</scope><name>last_error</name></member>
+      <member refid="structjs__lib__server__struct_1ac3a6eded16f1b63359cdb28abb79d6ae" prot="public" virt="non-virtual"><scope>js_lib_server_struct</scope><name>open_port</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

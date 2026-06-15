@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use spips driver.</para><sect1 id="example_1ex1">
+<title>xspips_selftest_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example performs the basic selftest using the driver.</para><para>For details, see <ref refid="xspips__selftest__example_8c" kindref="compound">xspips_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xspips_eeprom_intr_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI driver(XSpiPs) in interrupt mode and hardware device with a serial EEPROM device.</para><para>For details, see <ref refid="xspips__eeprom__intr__example_8c" kindref="compound">xspips_eeprom_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xspips_eeprom_polled_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI driver(XSpiPs) in polled mode and hardware device with a serial EEPROM device.</para><para>For details, see <ref refid="xspips__eeprom__polled__example_8c" kindref="compound">xspips_eeprom_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xspips_flash_intr_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI driver(XSpiPs) in interrupt mode with a serial flash device. This examples performs transfers in Manual start mode using interrupts.</para><para>For details, see <ref refid="xspips__flash__intr__example_8c" kindref="compound">xspips_flash_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>xspips_flash_polled_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI driver(XSpiPs) in polled mode with a Serial Flash device. This examples performs transfers in polled mode.</para><para>For details, see <ref refid="xspips__flash__polled__example_8c" kindref="compound">xspips_flash_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>xspips_slave_polled_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI controller in slave mode. This examples performs transfers in polled mode and has been tested with Aardvark Analyzer as Master.</para><para>For details, see <ref refid="xspips__slave__polled__example_8c" kindref="compound">xspips_slave_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex7">
+<title>xspips_tpm_polled_example.c</title>
+<para>Contains an example on how to use the XSpips driver directly. This example shows the usage of the SPI driver(XSpiPs) in polled mode with Trusted Platform module device. This examples performs set of TPM commands in manual start using polling mode.</para><para>For details, see <ref refid="xspips__tpm__polled__example_8c" kindref="compound">xspips_tpm_polled_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

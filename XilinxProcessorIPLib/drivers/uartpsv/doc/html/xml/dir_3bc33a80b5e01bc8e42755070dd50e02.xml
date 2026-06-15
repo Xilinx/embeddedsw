@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3bc33a80b5e01bc8e42755070dd50e02" kind="dir">
+    <compoundname>uartpsv</compoundname>
+    <innerdir refid="dir_56833ba6bd6ac3d397c5c56daee9a5f5">examples</innerdir>
+    <innerdir refid="dir_22a21abd0eaf61e66e2954331df2902d">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/"/>
+  </compounddef>
+</doxygen>

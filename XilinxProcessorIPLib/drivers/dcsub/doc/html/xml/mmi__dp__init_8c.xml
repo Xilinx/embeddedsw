@@ -1,0 +1,1343 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dp__init_8c" kind="file">
+    <compoundname>mmi_dp_init.c</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">xil_exception.h</includes>
+    <includes local="no">xil_cache.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">sleep.h</includes>
+    <includes refid="mmi__dpdc__platform_8h" local="yes">mmi_dpdc_platform.h</includes>
+    <includes local="yes">xmmidp.h</includes>
+    <includes refid="mmi__dp__init_8h" local="yes">mmi_dp_init.h</includes>
+    <includes refid="mmi__dp__intr_8h" local="yes">mmi_dp_intr.h</includes>
+    <incdepgraph>
+      <node id="297">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="299">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="293" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="300" relation="include">
+        </childnode>
+      </node>
+      <node id="292">
+        <label>xil_io.h</label>
+      </node>
+      <node id="295">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="296" relation="include">
+        </childnode>
+        <childnode refid="297" relation="include">
+        </childnode>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="299" relation="include">
+        </childnode>
+      </node>
+      <node id="287">
+        <label>sleep.h</label>
+      </node>
+      <node id="285">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="289">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="290" relation="include">
+        </childnode>
+        <childnode refid="293" relation="include">
+        </childnode>
+      </node>
+      <node id="290">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="291" relation="include">
+        </childnode>
+      </node>
+      <node id="296">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="298">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="291">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="292" relation="include">
+        </childnode>
+      </node>
+      <node id="302">
+        <label>mmi_dp_intr.h</label>
+        <link refid="mmi__dp__intr_8h"/>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="284">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="300">
+        <label>xparameters.h</label>
+      </node>
+      <node id="288">
+        <label>mmi_dpdc_platform.h</label>
+        <link refid="mmi__dpdc__platform_8h"/>
+        <childnode refid="289" relation="include">
+        </childnode>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="286">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="282">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi_dp_init.c"/>
+        <childnode refid="283" relation="include">
+        </childnode>
+        <childnode refid="284" relation="include">
+        </childnode>
+        <childnode refid="285" relation="include">
+        </childnode>
+        <childnode refid="286" relation="include">
+        </childnode>
+        <childnode refid="287" relation="include">
+        </childnode>
+        <childnode refid="288" relation="include">
+        </childnode>
+        <childnode refid="298" relation="include">
+        </childnode>
+        <childnode refid="301" relation="include">
+        </childnode>
+        <childnode refid="302" relation="include">
+        </childnode>
+      </node>
+      <node id="301">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi__dp__init_8h"/>
+        <childnode refid="295" relation="include">
+        </childnode>
+      </node>
+      <node id="294">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="292" relation="include">
+        </childnode>
+      </node>
+      <node id="283">
+        <label>stdio.h</label>
+      </node>
+      <node id="293">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="294" relation="include">
+        </childnode>
+        <childnode refid="290" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dp__init_8c_1aa754244560d41f9452ea5a8ed909ebc7" prot="public" static="no">
+        <name>XMMIDP_AUX_250US_LIMIT</name>
+        <initializer>0xF5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a218dc8003e412fc1cef7a3cd4953fe4e" prot="public" static="no">
+        <name>XMMIDP_AUX_2000US_LIMIT</name>
+        <initializer>0x7A8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1ab89d4332268fa0baf90c9bee055db563" prot="public" static="no">
+        <name>XMMIDP_AUX_100000US_LIMIT</name>
+        <initializer>0x17ED0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1aa5e112ae4051e734fcb0cd14111a86ff" prot="public" static="no">
+        <name>XMMIDP_PM_CONFIG1_DEFAULT</name>
+        <initializer>0x00400008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a47ac97e5fb24b8fc74a571f8a541ee76" prot="public" static="no">
+        <name>XMMIDP_PM_CONFIG2_DEFAULT</name>
+        <initializer>0x00050000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1afc372231db564dbf472ae1a91181e879" prot="public" static="no">
+        <name>XMMIDP_GEN_INT_EN_DEFAULT</name>
+        <initializer>(XMMIDP_GEN_INT_HPD_EVENT_EN_MASK | \
+					 XMMIDP_GEN_INT_AUX_REPLY_EVENT_EN_MASK | \
+					 XMMIDP_GEN_INT_AUX_CMD_INVALID_EN_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a37674648b39523a2c548cf98aa68b7da" prot="public" static="no">
+        <name>XMMIDP_HPD_INT_EN_DEFAULT</name>
+        <initializer>(XMMIDP_HPD_IRQ_EN_MASK | \
+					 XMMIDP_HPD_PLUG_EN_MASK | \
+					 XMMIDP_HPD_UNPLUG_EN_MASK | \
+					 XMMIDP_HPD_UNPLUG_ERR_EN_MASK)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1ac2e6bc938a6637881561b0d3f2592925" prot="public" static="no">
+        <name>XMMIDP_SINK_POWER_DOWN</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1afb703a21a2bf09946709f285c337c749" prot="public" static="no">
+        <name>XMMIDP_SINK_POWER_UP</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1ab9ce17b994d3b022848c0e1fd51569b7" prot="public" static="no">
+        <name>XMMIDP_SINK_POWERDOWN_DELAY</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1af1c58d9c62bcffbdc11570b14c928f8b" prot="public" static="no">
+        <name>XMMIDP_SINK_POWERUP_DELAY</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a7f18e38530a8cc7f61418341d05cd4d2" prot="public" static="no">
+        <name>XMMIDP_DEFAULT_BPC</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1abe501cdbbb86fab817c0dbfa98de4625" prot="public" static="no">
+        <name>XMMIDP_PIX_MODE_SINGLE</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1ac17e1483ee5add51706a04a5f396a82b" prot="public" static="no">
+        <name>XMMIDP_VID_STREAM_ENABLE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a49a9e524527cbdb53a43f3bae9fdfc1e" prot="public" static="no">
+        <name>XMMIDP_AUD_CH_PER_DATA_INPUT</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a5d9bd6985a4c3e6cac10461788835d32" prot="public" static="no">
+        <name>XMMIDP_AUD_DATA_INPUT_LSB</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1ad94aac937ac3350ec539fb731297218a" prot="public" static="no">
+        <name>XMMIDP_AUD_DATA_INPUT_ALL</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a752b35dc80f5731fefd720529ee69212" prot="public" static="no">
+        <name>XMMIDP_AUD_HBR_MODE_DISABLE</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a348b2d7ddb862362a47278e8f145cd5f" prot="public" static="no">
+        <name>XMMIDP_AUD_TIMESTAMP_VER</name>
+        <initializer>0x12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mmi__dp__init_8c_1a8bc66cda2efe317047273eb5ced68399" prot="public" static="no">
+        <name>XMMIDP_SDP_STREAM_ENABLE</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dp__init_8c_1a3de1ed4f4faf4234e138589a5ff7f905" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerCycle</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerCycle</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function power cycles the sink by powering it down and then back up with appropriate delays to allow the monitor to transition states. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="78" bodyend="88"/>
+        <references refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" compoundref="mmi__dp__init_8c" startline="102" endline="110">XMmiDp_SinkPowerDown</references>
+        <references refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" compoundref="mmi__dp__init_8c" startline="124" endline="132">XMmiDp_SinkPowerUp</references>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerDown</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerDown</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function puts the sink into power saving mode by writing 0x0 to the DPCD SET_POWER register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="102" bodyend="110"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" compoundref="mmi__dp__init_8c" startline="78" endline="88">XMmiDp_SinkPowerCycle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerUp</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerUp</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function wakes the sink from power saving mode by writing 0x1 to the DPCD SET_POWER register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="124" bodyend="132"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" compoundref="mmi__dp__init_8c" startline="78" endline="88">XMmiDp_SinkPowerCycle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a20c47719bdcdcadfbf43d5ef1a6ef384" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDpDc_PrintVideoConfigRegs</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 Stream)</argsstring>
+        <name>XDpDc_PrintVideoConfigRegs</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="134" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a11051e1275b7c53ce3c92ec5e74f4ab3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDpDc_PrintVideoStreamConfig</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 Stream)</argsstring>
+        <name>XDpDc_PrintVideoStreamConfig</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the video stream, MSA, link, and TU configuration from InstancePtr after XMmiDp_SetVidControllerUseStdVidMode has populated all the fields. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stream</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the stream ID (XMMIDP_STREAM_ID1..ID4).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="266" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetupVideoStream</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XMmiDp_SetupVideoStream</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up the video stream by clearing the video controller, configuring MSA bits per color, pixel mode, video mapping, and applying the standard 640x480 video mode timing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="310" bodyend="337"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" compoundref="mmi__dpdc__example_8h" startline="108">RunConfig::VideoMode</references>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetupAudioStream</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XMmiDp_SetupAudioStream</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the audio stream by setting the audio interface, data input, data width, channel count, mute flag, timestamp, clock multiplier, and enabling SDP vertical/horizontal audio streams. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="352" bodyend="388"/>
+        <references refid="struct_run_config_1ad7e69b12358de7a878851be16bb2aeaa" compoundref="mmi__dpdc__example_8h" startline="118">RunConfig::AudioChannels</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a1eae9f1eb5bc23cc743633c9b1b8b78f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>static const char* XDpDc_LinkBwToStr</definition>
+        <argsstring>(u8 LinkBW, u32 *RateMbps)</argsstring>
+        <name>XDpDc_LinkBwToStr</name>
+        <param>
+          <type>u8</type>
+          <declname>LinkBW</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RateMbps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="390" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a219c242a59df1b98fea96cdaa86a5190" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDpDc_ApplyUserCaps</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 UserMaxLanes, u8 UserMaxLinkBW)</argsstring>
+        <name>XDpDc_ApplyUserCaps</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLanes</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLinkBW</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="406" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="406" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a42120e20d01b271c7c097e63216559b1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDpDc_PrintSinkCapabilities</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XDpDc_PrintSinkCapabilities</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="428" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="428" bodyend="455"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1a41b2a3f07c1e3e123bc1408905b97a99" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XDpDc_PrintLinkTrainingResult</definition>
+        <argsstring>(XMmiDp *InstancePtr, u32 TrainingStatus)</argsstring>
+        <name>XDpDc_PrintLinkTrainingResult</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TrainingStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="457" bodyend="492"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_StartFullLinkTrainingCapped</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 UserMaxLanes, u8 UserMaxLinkBW)</argsstring>
+        <name>XMmiDp_StartFullLinkTrainingCapped</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLanes</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLinkBW</declname>
+        </param>
+        <briefdescription>
+<para>This function prepares for link training. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads receiver capabilities, applies user-configured lane/bandwidth caps, checks current link status, configures link parameters, and runs the clock recovery and channel equalization training sequence.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserMaxLanes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User-configured max lane count (0=auto, 1, 2, or 4). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserMaxLinkBW</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User-configured max link BW in DPCD format (0=auto, 0x06=RBR, 0x0A=HBR, 0x14=HBR2, 0x1E=HBR3).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the training process succeeded.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="515" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="515" bodyend="593"/>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_InitDpCore</definition>
+        <argsstring>(XMmiDp *InstancePtr)</argsstring>
+        <name>XMmiDp_InitDpCore</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the DP core by performing a PHY soft reset, powering on the PHY, configuring AUX timer limits, PM configuration, disabling SSC, and enabling general/HPD interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="609" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="609" bodyend="630"/>
+        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_InitDpPsuSubsystem</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitDpPsuSubsystem</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the DisplayPort subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>It configures the DP core, polls for HPD, power cycles the sink, runs link training, and sets up the video and audio streams.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" line="646" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="646" bodyend="670"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="mmi__dpdc__platform_8h_1a349f03f1e2239c2b388f2448f6799ad5" compoundref="mmi__dpdc__platform_8h" startline="42">DP_BASEADDR</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
+        <references refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" compoundref="mmi__dp__init_8c" startline="609" endline="630">XMmiDp_InitDpCore</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" compoundref="mmi__dpdc__platform_8c" startline="337" endline="368">XDpDc_InitPlatform</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements DisplayPort initialization, sink control, and training setup. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_exception.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_cache.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sleep.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dpdc__platform_8h" kindref="compound">mmi_dpdc_platform.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xmmidp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dp__init_8h" kindref="compound">mmi_dp_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dp__intr_8h" kindref="compound">mmi_dp_intr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AUX<sp/>timer<sp/>limits<sp/>(counts<sp/>at<sp/>core<sp/>clock<sp/>rate)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUX_250US_LIMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF5</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUX_2000US_LIMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7A8</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUX_100000US_LIMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x17ED0</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Power<sp/>Management<sp/>configuration<sp/>defaults<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_PM_CONFIG1_DEFAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00400008</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_PM_CONFIG2_DEFAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00050000</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>General<sp/>interrupt<sp/>enable:<sp/>HPD<sp/>event<sp/>+<sp/>AUX<sp/>reply<sp/>+<sp/>AUX<sp/>cmd<sp/>invalid<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_GEN_INT_EN_DEFAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMMIDP_GEN_INT_HPD_EVENT_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_GEN_INT_AUX_REPLY_EVENT_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_GEN_INT_AUX_CMD_INVALID_EN_MASK)</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HPD<sp/>interrupt<sp/>enable:<sp/>IRQ<sp/>+<sp/>plug<sp/>+<sp/>unplug<sp/>+<sp/>unplug<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_HPD_INT_EN_DEFAULT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMMIDP_HPD_IRQ_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_PLUG_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_UNPLUG_EN_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_HPD_UNPLUG_ERR_EN_MASK)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sink<sp/>DPCD<sp/>SET_POWER<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_SINK_POWER_DOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_SINK_POWER_UP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Sink<sp/>power<sp/>cycle<sp/>delays<sp/>(seconds)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_SINK_POWERDOWN_DELAY<sp/><sp/><sp/><sp/><sp/>10</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_SINK_POWERUP_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>video<sp/>stream<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_DEFAULT_BPC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_PIX_MODE_SINGLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_VID_STREAM_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Default<sp/>audio<sp/>stream<sp/>parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUD_CH_PER_DATA_INPUT<sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUD_DATA_INPUT_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUD_DATA_INPUT_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUD_HBR_MODE_DISABLE<sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_AUD_TIMESTAMP_VER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMMIDP_SDP_STREAM_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a3de1ed4f4faf4234e138589a5ff7f905" kindref="member">XMmiDp_SinkPowerCycle</ref>(XMmiDp<sp/>*DpPsuPtr)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" kindref="member">XMmiDp_SinkPowerDown</ref>(DpPsuPtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Putting<sp/>monitor<sp/>in<sp/>power<sp/>saving<sp/>mode...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(XMMIDP_SINK_POWERDOWN_DELAY);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" kindref="member">XMmiDp_SinkPowerUp</ref>(DpPsuPtr);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Waking<sp/>up<sp/>monitor...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(XMMIDP_SINK_POWERUP_DELAY);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="102" refid="mmi__dp__init_8h_1a2a6aa99004f16d903a339a6326c51a5c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" kindref="member">XMmiDp_SinkPowerDown</ref>(XMmiDp<sp/>*DpPsuPtr)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data[8];</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data[0]<sp/>=<sp/>XMMIDP_SINK_POWER_DOWN;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_AuxWrite(DpPsuPtr,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE,<sp/>1,<sp/>Data);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="mmi__dp__init_8h_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" kindref="member">XMmiDp_SinkPowerUp</ref>(XMmiDp<sp/>*DpPsuPtr)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data[8];</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data[0]<sp/>=<sp/>XMMIDP_SINK_POWER_UP;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_AuxWrite(DpPsuPtr,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_DPCD_SET_POWER_DP_PWR_VOLTAGE,<sp/>1,<sp/>Data);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_PrintVideoConfigRegs(XMmiDp<sp/>*InstancePtr,<sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>Base<sp/>=<sp/>InstancePtr-&gt;Config.BaseAddr;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Off<sp/>=<sp/>(Stream<sp/>-<sp/>1)<sp/>*<sp/>0x10000;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n--------------------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>DP<sp/>Video<sp/>Config<sp/>Registers<sp/><sp/>(Stream<sp/>%d)\r\n&quot;</highlight><highlight class="normal">,<sp/>Stream);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;--------------------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VSAMPLE_CTRL<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VSAMPLE_CTRL<sp/><sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VSAMPLE_CTRL<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>PixModeSel<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VSAMPLE_CTRL_PIXEL_MODE_SELECT_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VSAMPLE_CTRL_PIXEL_MODE_SELECT_SHIFT);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VideoMapping<sp/><sp/><sp/><sp/>:<sp/>0x%X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VSAMPLE_CTRL_VIDEO_MAPPING_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VSAMPLE_CTRL_VIDEO_MAPPING_SHIFT);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>StreamEn<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VSAMPLE_CTRL_VIDEO_STREAM_EN_SHIFT);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VINPUT_POLARITY_CTRL<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>POLARITY_CTRL<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VINPUT_POLARITY_CTRL<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_CONFIG1<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_CONFIG1<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG1<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HActive<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG1_HACTIVE_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG1_HACTIVE_SHIFT);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HBlank<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG1_HBLANK_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG1_HBLANK_SHIFT);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>I/P<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG1_I_P_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG1_I_P_SHIFT);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_CONFIG2<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_CONFIG2<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG2<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VBlank<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG2_VBLANK_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG2_VBLANK_SHIFT);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VActive(cfg2)<sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG2_HACTIVE_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG2_HACTIVE_SHIFT);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_CONFIG3<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_CONFIG3<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG3<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HSyncWidth<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG3_HSYNC_WIDTH_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG3_HSYNC_WIDTH_SHIFT);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_CONFIG4<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_CONFIG4<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG4<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VSyncWidth<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG4_VSYNC_WIDTH_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG4_VSYNC_WIDTH_SHIFT);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_CONFIG5<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_CONFIG5<sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG5<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>AvgBytesPerTU<sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG5_AVG_BYTES_PER_TU_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG5_AVG_BYTES_PER_TU_SHIFT);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>AvgBytesFrac<sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG5_AVG_BYTES_PER_TU_FRAC_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG5_AVG_BYTES_PER_TU_FRAC_SHIFT);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>InitThreshold<sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_SHIFT);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>InitThresholdHi<sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_HI_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_CONFIG5_INIT_THRESHOLD_HI_SHIFT);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_MSA1<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_MSA1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA1<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VStart<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA1_VSTART_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA1_VSTART_SHIFT);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HStart<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA1_HSTART_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA1_HSTART_SHIFT);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_MSA2<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_MSA2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA2<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Misc0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA2_MISC0_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA2_MISC0_SHIFT);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>MVid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA2_MVID_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA2_MVID_SHIFT);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_MSA3<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>VIDEO_MSA3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA3<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Misc1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA3_MISC1_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA3_MISC1_SHIFT);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>NVid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_MSA3_NVID_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_MSA3_NVID_SHIFT);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/>XMmiDp_ReadReg(Base,<sp/>XMMIDP_VIDEO_HBLANK_INTERVAL<sp/>+<sp/>Off);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>HBLANK_INTERVAL<sp/><sp/><sp/>[0x%03X]<sp/>=<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_HBLANK_INTERVAL<sp/>+<sp/>Off,<sp/>Reg);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HBlankInterval<sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Reg<sp/>&amp;<sp/>XMMIDP_VIDEO_HBLANK_INTERVAL_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_VIDEO_HBLANK_INTERVAL_SHIFT);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;--------------------------------------------------\r\n\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="266"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_PrintVideoStreamConfig(XMmiDp<sp/>*InstancePtr,<sp/>u8<sp/>Stream)</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_VideoConfig<sp/>*Vc<sp/>=<sp/>&amp;InstancePtr-&gt;VideoConfig[Stream<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_MainStreamAttributes<sp/>*Msa<sp/>=<sp/>&amp;InstancePtr-&gt;MsaConfig[Stream<sp/>-<sp/>1];</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_LinkConfig<sp/>*Lc<sp/>=<sp/>&amp;InstancePtr-&gt;LinkConfig;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/><sp/>Video<sp/>Stream<sp/>Config<sp/>(Stream<sp/>%d):\r\n&quot;</highlight><highlight class="normal">,<sp/>Stream);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Resolution<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%dx%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vc-&gt;HActive,<sp/>Vc-&gt;VActive);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Pixel<sp/>Clock<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%llu<sp/>Hz\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;PixelClockHz);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>BitsPerColor<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;BitsPerColor);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HBlank<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;HBlank);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VBlank<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;VBlank);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HStart<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;HStart);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VStart<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;VStart);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HSyncWidth<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;HSyncWidth);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>VSyncWidth<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;VSyncWidth);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Link<sp/>Lanes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d<sp/>(LaneCount<sp/>reg=%d)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Lc-&gt;NumLanes,<sp/>Lc-&gt;LaneCount);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Link<sp/>Rate<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>LinkBW=0x%02X\r\n&quot;</highlight><highlight class="normal">,<sp/>Lc-&gt;LinkBW);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Misc0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;Misc0);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Misc1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;Misc1);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>MVid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d<sp/>(async)\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;MVid);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>NVid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%04X\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;NVid);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>HBlankInterval<sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Msa-&gt;HBlankInterval);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>AvgBytesPerTu<sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;AvgBytesPerTu);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>AvgBytesPerTuFrac<sp/>:<sp/>%d/64\r\n&quot;</highlight><highlight class="normal">,<sp/>Vc-&gt;AvgBytesPerTuFrac);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>InitThreshold<sp/><sp/><sp/><sp/><sp/>:<sp/>lo=%d<sp/><sp/>hi=%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Vc-&gt;InitThreshold,<sp/>Vc-&gt;InitThresholdHi);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="310" refid="mmi__dp__init_8h_1a71d704d64c98127c07711223063b8a1f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" kindref="member">XMmiDp_SetupVideoStream</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="311"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp<sp/>*InstancePtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" kindref="member">DpPsuPtr</ref>;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>video<sp/>stream<sp/>before<sp/>reconfiguring<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_DisableVideoStream(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_ClearVideoController(InstancePtr);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetMsaBpc(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_DEFAULT_BPC);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPixModeSel(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_PIX_MODE_SINGLE);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetVideoMapping(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_RGB_8BPC);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetVidControllerUseStdVidMode(InstancePtr,</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" kindref="member">VideoMode</ref>,</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_STREAM_ID1,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CSF_RGB);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_PrintVideoStreamConfig(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_ConfigureVideoController(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>video<sp/>stream<sp/>after<sp/>all<sp/>config<sp/>registers<sp/>are<sp/>written<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_EnableVideoStream(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_PrintVideoConfigRegs(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="352" refid="mmi__dp__init_8h_1a04602a40acdc79b6203e0add5c7774d5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" kindref="member">XMmiDp_SetupAudioStream</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp<sp/>*InstancePtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" kindref="member">DpPsuPtr</ref>;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ActiveDataInput;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>EnabledDataInputs;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>NumChannels;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NumChannels<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad7e69b12358de7a878851be16bb2aeaa" kindref="member">AudioChannels</ref>;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="362"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>one<sp/>I2S<sp/>data<sp/>input<sp/>per<sp/>stereo<sp/>pair<sp/>and<sp/>expand<sp/>to<sp/>contiguous<sp/>mask.</highlight></codeline>
+<codeline lineno="363"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Example:<sp/>1<sp/>input<sp/>-&gt;<sp/>0x1,<sp/>2<sp/>inputs<sp/>-&gt;<sp/>0x3,<sp/>3<sp/>inputs<sp/>-&gt;<sp/>0x7,<sp/>4<sp/>inputs<sp/>-&gt;<sp/>0xF.</highlight></codeline>
+<codeline lineno="364"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnabledDataInputs<sp/>=<sp/>(NumChannels<sp/>+<sp/>(XMMIDP_AUD_CH_PER_DATA_INPUT<sp/>-<sp/>1U))<sp/>/</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_AUD_CH_PER_DATA_INPUT;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveDataInput<sp/>=<sp/>(u8)((XMMIDP_AUD_DATA_INPUT_LSB<sp/>&lt;&lt;<sp/>EnabledDataInputs)<sp/>-</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMMIDP_AUD_DATA_INPUT_LSB);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ActiveDataInput<sp/>&gt;<sp/>XMMIDP_AUD_DATA_INPUT_ALL)</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveDataInput<sp/>=<sp/>XMMIDP_AUD_DATA_INPUT_ALL;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudStreamInterfaceSel(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_AUD_INF_I2S);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudDataInputEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>ActiveDataInput);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudDataWidth(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_AUDIO_INPUT_16_BIT);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudHbrModeEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_AUD_HBR_MODE_DISABLE);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudNumChannels(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>NumChannels<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudMuteFlag(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_CLEAR_AUDIOMUTE);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudTimeStampVerNum(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_AUD_TIMESTAMP_VER);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAudClkMultFs(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_AUDIO_CLK_512FS);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetSdpVertAudStreamEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_SDP_STREAM_ENABLE);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetSdpVertAudTimeStampEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_SDP_STREAM_ENABLE);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetSdpHorAudStreamEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_SDP_STREAM_ENABLE);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetSdpHorAudTimeStampEn(InstancePtr,<sp/>XMMIDP_STREAM_ID1,<sp/>XMMIDP_SDP_STREAM_ENABLE);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_ConfigureAudioController(InstancePtr,<sp/>XMMIDP_STREAM_ID1);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*XDpDc_LinkBwToStr(u8<sp/>LinkBW,<sp/>u32<sp/>*RateMbps)</highlight></codeline>
+<codeline lineno="391"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(LinkBW)<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XMMIDP_DPCD_LINK_BW_SET_162GBPS:</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RateMbps<sp/>=<sp/>162;<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;RBR<sp/>(1.62<sp/>Gbps)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XMMIDP_DPCD_LINK_BW_SET_270GBPS:</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RateMbps<sp/>=<sp/>270;<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;HBR<sp/>(2.70<sp/>Gbps)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XMMIDP_DPCD_LINK_BW_SET_540GBPS:</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RateMbps<sp/>=<sp/>540;<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;HBR2<sp/>(5.40<sp/>Gbps)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XMMIDP_DPCD_LINK_BW_SET_810GBPS:</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RateMbps<sp/>=<sp/>810;<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;HBR3<sp/>(8.10<sp/>Gbps)&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*RateMbps<sp/>=<sp/>0;<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;Unknown&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="404"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_ApplyUserCaps(XMmiDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserMaxLanes,<sp/>u8<sp/>UserMaxLinkBW)</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UserMaxLanes<sp/>!=<sp/>0<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UserMaxLanes<sp/>&lt;<sp/>InstancePtr-&gt;RxConfig.MaxNumLanes)<sp/>{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>User<sp/>cap:<sp/>limiting<sp/>lanes<sp/>from<sp/>%d<sp/>to<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxNumLanes,<sp/>UserMaxLanes);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxNumLanes<sp/>=<sp/>UserMaxLanes;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxLaneCount<sp/>=</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_GetLaneCount(InstancePtr,<sp/>UserMaxLanes);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UserMaxLinkBW<sp/>!=<sp/>0<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UserMaxLinkBW<sp/>&lt;<sp/>InstancePtr-&gt;RxConfig.MaxLinkBW)<sp/>{</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>User<sp/>cap:<sp/>limiting<sp/>link<sp/>BW<sp/>from<sp/>0x%02X<sp/>to<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxLinkBW,<sp/>UserMaxLinkBW);</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxLinkBW<sp/>=<sp/>UserMaxLinkBW;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxLinkRate<sp/>=</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_GetLinkRate(InstancePtr,<sp/>UserMaxLinkBW);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_PrintSinkCapabilities(XMmiDp<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="429"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RateMbps;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*RateStr;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateStr<sp/>=<sp/>XDpDc_LinkBwToStr(InstancePtr-&gt;RxConfig.MaxLinkBW,<sp/>&amp;RateMbps);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Sink<sp/>Capabilities<sp/>(DPCD):\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>DPCD<sp/>Rev<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d.%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.DpcdRev<sp/>&gt;&gt;<sp/>4,</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.DpcdRev<sp/>&amp;<sp/>0xF);</highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Max<sp/>Lane<sp/>Count<sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxNumLanes);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Max<sp/>Link<sp/>Rate<sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X<sp/><sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxLinkBW,<sp/>RateStr);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Enhanced<sp/>Frame<sp/><sp/><sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.EnhancedFrameCap<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;Yes&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;No&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>TPS3<sp/>Supported<sp/><sp/><sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.Tps3Supported<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;Yes&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;No&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>TPS4<sp/>Supported<sp/><sp/><sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.Tps4Supported<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;Yes&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;No&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Max<sp/>Downspread<sp/><sp/><sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MaxDownspread<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;0.5%%&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;None&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>MST<sp/>Capable<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.MstCap<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;Yes&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;No&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Ext<sp/>Receiver<sp/>Cap<sp/><sp/>:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RxConfig.ExtendedReceiverCap<sp/>?<sp/></highlight><highlight class="stringliteral">&quot;Yes&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;No&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XDpDc_PrintLinkTrainingResult(XMmiDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TrainingStatus)</highlight></codeline>
+<codeline lineno="459"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*RateStr;</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RateMbps;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateStr<sp/>=<sp/>XDpDc_LinkBwToStr(InstancePtr-&gt;LinkConfig.LinkBW,<sp/>&amp;RateMbps);</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TrainingStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Link<sp/>training<sp/>FAILED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Final<sp/>Lanes<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Final<sp/>Link<sp/>BW<sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkBW);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/><sp/>Link<sp/>Training<sp/>SUCCESSFUL\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>--------------------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Trained<sp/>Lanes<sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Trained<sp/>Link<sp/>Rate<sp/>:<sp/>0x%02X<sp/><sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkBW,<sp/>RateStr);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Total<sp/>BW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d<sp/>x<sp/>%d<sp/>=<sp/>%d<sp/>Mbps\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes,<sp/>RateMbps,</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes<sp/>*<sp/>RateMbps);</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;LinkConfig.NumLanes;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Lane<sp/>%d<sp/><sp/>VS=%d<sp/><sp/>PE=%d\r\n&quot;</highlight><highlight class="normal">,<sp/>i,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.VsLevel[i],</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.PeLevel[i]);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TrainingStatus<sp/>==<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>--------------------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="515" refid="mmi__dp__init_8h_1ad5774015fbf8628ffdbb3746da70b28b" refkind="member"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" kindref="member">XMmiDp_StartFullLinkTrainingCapped</ref>(XMmiDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserMaxLanes,<sp/>u8<sp/>UserMaxLinkBW)</highlight></codeline>
+<codeline lineno="517"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*RateStr;</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RateMbps;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n==================================================\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Link<sp/>Training\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;==================================================\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_GetRxCapabilities(InstancePtr);</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Failed<sp/>to<sp/>read<sp/>monitor<sp/>capabilities\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_ApplyUserCaps(InstancePtr,<sp/>UserMaxLanes,<sp/>UserMaxLinkBW);</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateStr<sp/>=<sp/>XDpDc_LinkBwToStr(InstancePtr-&gt;RxConfig.MaxLinkBW,<sp/>&amp;RateMbps);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_PrintSinkCapabilities(InstancePtr);</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LaneCount<sp/>=<sp/>InstancePtr-&gt;RxConfig.MaxLaneCount;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes<sp/>=<sp/>InstancePtr-&gt;RxConfig.MaxNumLanes;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkRate<sp/>=<sp/>InstancePtr-&gt;RxConfig.MaxLinkRate;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkBW<sp/>=<sp/>InstancePtr-&gt;RxConfig.MaxLinkBW;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Training<sp/>Parameters:\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Lanes<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.NumLanes);</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Link<sp/>BW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>0x%02X<sp/><sp/>%s\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkBW,<sp/>RateStr);</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>PHY<sp/>Rate<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkRate);</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr-&gt;LinkConfig.VsLevel,<sp/>0,<sp/>4);</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr-&gt;LinkConfig.PeLevel,<sp/>0,<sp/>4);</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"></highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_FastLinkTrainDisable(InstancePtr);</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>Fast<sp/>Link<sp/>Train<sp/><sp/><sp/>:<sp/>Disabled\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_SetSinkDpcdLinkCfgField(InstancePtr);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Failed<sp/>to<sp/>set<sp/>sink<sp/>DPCD<sp/>link<sp/>config:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Sink<sp/>DPCD<sp/>link<sp/>config<sp/>set\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;RxConfig.EnhancedFrameCap)<sp/>{</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpPSu14_EnableCctlEnhanceFraming(InstancePtr);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Enhanced<sp/>framing<sp/>enabled<sp/>on<sp/>TX\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_StartLinkXmit(InstancePtr);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>ERROR:<sp/>Failed<sp/>to<sp/>start<sp/>link<sp/>transmission:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(1);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>Link<sp/>transmission<sp/>started<sp/>--<sp/>running<sp/>CR<sp/>+<sp/>EQ...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMmiDp_RunTraining(InstancePtr);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_PrintLinkTrainingResult(InstancePtr,<sp/>Status);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPhyTrainingPattern(InstancePtr,<sp/>XMMIDP_PHY_NO_TRAIN);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetDpcdTrainingPattern(InstancePtr,<sp/>XMMIDP_PHY_NO_TRAIN);</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDpDc_PrintLinkTrainingResult(InstancePtr,<sp/>XST_SUCCESS);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"></highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkTrained<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"></highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"></highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="609" refid="mmi__dp__init_8h_1aae88d76ed85f867bd89c174962276b9f" refkind="member"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" kindref="member">XMmiDp_InitDpCore</ref>(XMmiDp<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="610"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_CoreSoftResetAll(InstancePtr);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_PhySoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPhyPowerdown(InstancePtr,<sp/>XMMIDP_PHY_POWER_DOWN);</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(1);</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPhyPowerdown(InstancePtr,<sp/>XMMIDP_PHY_INTER_P2_POWER);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(1);</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPhyPowerdown(InstancePtr,<sp/>XMMIDP_PHY_POWER_ON);</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAux_250Us_Cnt_Limit(InstancePtr,<sp/>XMMIDP_AUX_250US_LIMIT);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAux_2000Us_Cnt_Limit(InstancePtr,<sp/>XMMIDP_AUX_2000US_LIMIT);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetAux_100000Us_Cnt_Limit(InstancePtr,<sp/>XMMIDP_AUX_100000US_LIMIT);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPmConfig1(InstancePtr,<sp/>XMMIDP_PM_CONFIG1_DEFAULT);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_SetPmConfig2(InstancePtr,<sp/>XMMIDP_PM_CONFIG2_DEFAULT);</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_PhySSCDisable(InstancePtr);</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"></highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_GeneralInterruptEnable(InstancePtr,<sp/>XMMIDP_GEN_INT_EN_DEFAULT);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_HpdInterruptEnable(InstancePtr,<sp/>XMMIDP_HPD_INT_EN_DEFAULT);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="646" refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" refkind="member"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" kindref="member">XDpDc_InitDpPsuSubsystem</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="647"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp<sp/>*InstancePtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" kindref="member">DpPsuPtr</ref>;</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;Config.BaseAddr<sp/>=<sp/><ref refid="mmi__dpdc__platform_8h_1a349f03f1e2239c2b388f2448f6799ad5" kindref="member">DP_BASEADDR</ref>;</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"></highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_CfgInitialize(InstancePtr,<sp/>InstancePtr-&gt;Config.BaseAddr);</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMmiDp_Initialize(InstancePtr);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" kindref="member">XMmiDp_InitDpCore</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="658"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>DP<sp/>audio<sp/>SDP/timestamp<sp/>streams<sp/>only<sp/>when<sp/>neither<sp/>audio<sp/>nor</highlight></codeline>
+<codeline lineno="659"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>custom<sp/>SDP<sp/>mode<sp/>is<sp/>enabled.<sp/>In<sp/>SDP<sp/>test<sp/>mode,<sp/>avoid<sp/>touching<sp/>this</highlight></codeline>
+<codeline lineno="660"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>path<sp/>because<sp/>it<sp/>can<sp/>suppress<sp/>custom<sp/>SDP<sp/>emission.</highlight></codeline>
+<codeline lineno="661"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RunCfgPtr-&gt;<ref refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" kindref="member">AudioEnable</ref><sp/>==<sp/>XDC_AUD_DISABLE)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" kindref="member">SdpEnable</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" kindref="member">XDpDc_DisableDpAudioSdpStreams</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;LinkConfig.LinkTrained<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="670"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c"/>
+  </compounddef>
+</doxygen>

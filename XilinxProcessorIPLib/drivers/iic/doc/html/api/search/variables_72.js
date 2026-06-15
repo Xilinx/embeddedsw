@@ -1,0 +1,13 @@
+var searchData=
+[
+  ['readbuffer',['ReadBuffer',['../xiic__low__level__dynamic__eeprom__example_8c.html#af87b2a3712f19c0723e6b945b30cd2cc',1,'ReadBuffer():&#160;xiic_low_level_dynamic_eeprom_example.c'],['../xiic__low__level__eeprom__example_8c.html#af87b2a3712f19c0723e6b945b30cd2cc',1,'ReadBuffer():&#160;xiic_low_level_eeprom_example.c'],['../xiic__pmbus__polled__example_8c.html#ab4c3dc0a686a17bcb61c1a454588f62b',1,'ReadBuffer():&#160;xiic_pmbus_polled_example.c'],['../xiic__repeated__start__example_8c.html#a08605013ff3f9e894880b2222996b04f',1,'ReadBuffer():&#160;xiic_repeated_start_example.c'],['../xiic__slave__example_8c.html#a08605013ff3f9e894880b2222996b04f',1,'ReadBuffer():&#160;xiic_slave_example.c'],['../xiic__tenbitaddr__example_8c.html#a08605013ff3f9e894880b2222996b04f',1,'ReadBuffer():&#160;xiic_tenbitaddr_example.c']]],
+  ['readbufferall',['ReadBufferAll',['../xiic__low__level__eeprom__example_8c.html#a0c5379de75c1e96d09d4dcfa9a0f858e',1,'xiic_low_level_eeprom_example.c']]],
+  ['receivecomplete',['ReceiveComplete',['../xiic__dynamic__eeprom__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_dynamic_eeprom_example.c'],['../xiic__eeprom__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_eeprom_example.c'],['../xiic__multi__master__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_multi_master_example.c'],['../xiic__pmbus__intr__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_pmbus_intr_example.c'],['../xiic__repeated__start__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_repeated_start_example.c'],['../xiic__slave__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_slave_example.c'],['../xiic__tenbitaddr__example_8c.html#a9f1fae969d865449aacad8208e70ce16',1,'ReceiveComplete():&#160;xiic_tenbitaddr_example.c']]],
+  ['recvbufferptr',['RecvBufferPtr',['../struct_x_iic.html#aa962aaf40d5fb305ae9cca9bb00ac4ca',1,'XIic']]],
+  ['recvbytecount',['RecvByteCount',['../struct_x_iic.html#ad2cc469bc553fdedcf67a71e36baecb6',1,'XIic']]],
+  ['recvbytes',['RecvBytes',['../struct_x_iic_stats.html#a21b0999db98a32cb1aa18317c9f74aa4',1,'XIicStats']]],
+  ['recvcallbackref',['RecvCallBackRef',['../struct_x_iic.html#a089dc79200a64984f2fc5dca2b3a0ab5',1,'XIic']]],
+  ['recvhandler',['RecvHandler',['../struct_x_iic.html#a6459379a9289a7db0f29ded8c4696e7e',1,'XIic']]],
+  ['recvinterrupts',['RecvInterrupts',['../struct_x_iic_stats.html#a1e4c261ba880898121d01fef25272640',1,'XIicStats']]],
+  ['repeatedstarts',['RepeatedStarts',['../struct_x_iic_stats.html#a883cabf0999ea6eb384a5ead3b02477c',1,'XIicStats']]]
+];

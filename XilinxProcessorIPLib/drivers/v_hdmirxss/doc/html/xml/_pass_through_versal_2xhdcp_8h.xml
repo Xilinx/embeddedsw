@@ -1,0 +1,403 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_pass_through_versal_2xhdcp_8h" kind="file">
+    <compoundname>PassThroughVersal/xhdcp.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="_pass_through_versal_2xhdcp_8c" local="yes">xhdcp.c</includedby>
+    <includedby refid="_pass_through_versal_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="_pass_through_versal_2xhdmi__menu_8c" local="yes">xhdmi_menu.c</includedby>
+    <incdepgraph>
+      <node id="540">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="538">
+        <label>xhdcp.h</label>
+        <link refid="PassThroughVersal/xhdcp.h"/>
+        <childnode refid="539" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="541" relation="include">
+        </childnode>
+      </node>
+      <node id="539">
+        <label>xil_types.h</label>
+      </node>
+      <node id="541">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="546">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="544">
+        <label>xhdmi_example.h</label>
+        <childnode refid="543" relation="include">
+        </childnode>
+        <childnode refid="545" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="543">
+        <label>xhdcp.c</label>
+      </node>
+      <node id="542">
+        <label>xhdcp.h</label>
+        <link refid="PassThroughVersal/xhdcp.h"/>
+        <childnode refid="543" relation="include">
+        </childnode>
+        <childnode refid="544" relation="include">
+        </childnode>
+        <childnode refid="547" relation="include">
+        </childnode>
+      </node>
+      <node id="547">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="545">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="544" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+        <childnode refid="547" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdcp___topology" prot="public">XHdcp_Topology</innerclass>
+    <innerclass refid="struct_x_hdcp___repeater" prot="public">XHdcp_Repeater</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a9e17e5c2544c08ef9b2c61a9ce460c1e" prot="public" static="no">
+        <name>_XHDCP_H_</name>
+        <briefdescription>
+<para>prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a4a2574955587585808cf5639097be074" prot="public" static="no">
+        <name>XHDCP_DEVICE_ID_SIZE</name>
+        <initializer>5    /*&lt; Size in bytes of ReceiverID for HDCP 2.2 or KSV for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a32731b78a925f6d26235cff32dc2d078" prot="public" static="no">
+        <name>XHDCP_MAX_DOWNSTREAM_INTERFACES</name>
+        <initializer>32   /*&lt; Maximum number of HDCP downstream interfaces allowed */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a4a8f1d1a3ddfdf9d32e21e18933c65b7" prot="public" static="no">
+        <name>XHDCP_MAX_DEVICE_CNT_HDCP14</name>
+        <initializer>127  /*&lt; Maximum repeater topology device count for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a0a2359d05aeaf88cfdf607a5ec546626" prot="public" static="no">
+        <name>XHDCP_MAX_DEPTH_HDCP14</name>
+        <initializer>7    /*&lt; Maximum repeater topology depth for HDCP 1.4 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a3d25b813153073899737255069def999" prot="public" static="no">
+        <name>XHDCP_MAX_DEVICE_CNT_HDCP22</name>
+        <initializer>31   /*&lt; Maximum repeater topology device count for HDCP 2.2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_pass_through_versal_2xhdcp_8h_1a273db92cfd343af564aba8e47638dcce" prot="public" static="no">
+        <name>XHDCP_MAX_DEPTH_HDCP22</name>
+        <initializer>4    /*&lt; Maximum repeater topology depth for HDCP 2.2 */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1a3548031a868245ab7d048101e7df34ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp_Initialize</definition>
+        <argsstring>(XHdcp_Repeater *InstancePtr)</argsstring>
+        <name>XHdcp_Initialize</name>
+        <param>
+          <type>XHdcp_Repeater *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1ae1eef6db66303adc060ff28f913dc797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_StreamUpCallback</definition>
+        <argsstring>(void *HdcpInstancePtr)</argsstring>
+        <name>XHdcp_StreamUpCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>HdcpInstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1a804b36e4be621e02f19c97bed7de9d7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_StreamDownCallback</definition>
+        <argsstring>(void *HdcpInstancePtr)</argsstring>
+        <name>XHdcp_StreamDownCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>HdcpInstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1ac687e251348921d0a0994681e1567fcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_StreamConnectCallback</definition>
+        <argsstring>(void *HdcpInstancePtr)</argsstring>
+        <name>XHdcp_StreamConnectCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>HdcpInstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1a95c28bb7c7c286848802213d921146ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_StreamDisconnectCallback</definition>
+        <argsstring>(void *HdcpInstancePtr)</argsstring>
+        <name>XHdcp_StreamDisconnectCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>HdcpInstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1abcd3857341b2afb1f86bb02b4f24d088" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_Poll</definition>
+        <argsstring>(XHdcp_Repeater *InstancePtr)</argsstring>
+        <name>XHdcp_Poll</name>
+        <param>
+          <type>XHdcp_Repeater *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_pass_through_versal_2xhdcp_8h_1ad80fc56ab19998111e5eafc4d18d0a3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp_DisplayInfo</definition>
+        <argsstring>(XHdcp_Repeater *InstancePtr, u8 Verbose)</argsstring>
+        <name>XHdcp_DisplayInfo</name>
+        <param>
+          <type>XHdcp_Repeater *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Verbose</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h" line="127" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>_XHDCP_H_</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#define<sp/>_XHDCP_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmitxss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirxss_8h" kindref="compound">xv_hdmirxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_DEVICE_ID_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Size<sp/>in<sp/>bytes<sp/>of<sp/>ReceiverID<sp/>for<sp/>HDCP<sp/>2.2<sp/>or<sp/>KSV<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DOWNSTREAM_INTERFACES<sp/><sp/><sp/><sp/>32<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>number<sp/>of<sp/>HDCP<sp/>downstream<sp/>interfaces<sp/>allowed<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEVICE_CNT_HDCP14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>127<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>device<sp/>count<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEPTH_HDCP14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>depth<sp/>for<sp/>HDCP<sp/>1.4<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEVICE_CNT_HDCP22<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>31<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>device<sp/>count<sp/>for<sp/>HDCP<sp/>2.2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP_MAX_DEPTH_HDCP22<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>Maximum<sp/>repeater<sp/>topology<sp/>depth<sp/>for<sp/>HDCP<sp/>2.2<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declaration<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DeviceCnt;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Depth;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>DeviceList[XHDCP_MAX_DEVICE_CNT_HDCP14][XHDCP_DEVICE_ID_SIZE];</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>MaxDevsExceeded;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>MaxCascadeExceeded;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>Hdcp2LegacyDeviceDownstream;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>Hdcp1DeviceDownstream;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}<sp/>XHdcp_Topology;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v___hdmi_rx_ss" kindref="compound">XV_HdmiRxSs</ref><sp/>*UpstreamInstancePtr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceBinded;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceConnected;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/>u8<sp/>UpstreamInstanceStreamUp;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/>XV_HdmiTxSs<sp/>*DownstreamInstancePtr[XHDCP_MAX_DOWNSTREAM_INTERFACES];</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/>u8<sp/>DownstreamInstanceBinded;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/>u32<sp/>DownstreamInstanceConnected;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/>u32<sp/>DownstreamInstanceStreamUp;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XV_HDMITXSS_NUM_INSTANCES)<sp/>&amp;&amp;<sp/>defined<sp/>(XPAR_XV_HDMIRXSS_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>XHdcp_Topology<sp/>Topology;</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/>u8<sp/>EnforceBlocking;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>u8<sp/>StreamType;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>u32<sp/>IsReady;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/>XHdcp_Repeater;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Functions<sp/>used<sp/>for<sp/>initialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>XHdcp_Initialize(XHdcp_Repeater<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>XHdcp_SetUpstream(XHdcp_Repeater<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_rx_ss" kindref="compound">XV_HdmiRxSs</ref><sp/>*UpstreamInstancePtr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/>XHdcp_SetDownstream(XHdcp_Repeater<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_HdmiTxSs<sp/>*DownstreamInstancePtr);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES<sp/>&amp;&amp;<sp/>defined<sp/>XPAR_XV_HDMIRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_SetRepeater(XHdcp_Repeater<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Functions<sp/>used<sp/>to<sp/>process<sp/>callback<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_StreamUpCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HdcpInstancePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_StreamDownCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HdcpInstancePtr);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_StreamConnectCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HdcpInstancePtr);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_StreamDisconnectCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*HdcpInstancePtr);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Other<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_Poll(XHdcp_Repeater<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_DisplayInfo(XHdcp_Repeater<sp/>*InstancePtr,<sp/>u8<sp/>Verbose);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_Authenticate(XHdcp_Repeater<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_EnableEncryption(XHdcp_Repeater<sp/>*InstancePtr,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_SetDownstreamCapability(XHdcp_Repeater<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Protocol);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp_SetUpstreamCapability(XHdcp_Repeater<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Protocol);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDCP_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/PassThroughVersal/xhdcp.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___config" kind="struct" prot="public">
+    <compoundname>XAvb_Config</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___config_1a7ad0d29a0a15fb4d3214c2e42e9af553" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_Config::DeviceId</definition>
+        <argsstring></argsstring>
+        <name>DeviceId</name>
+        <briefdescription>
+<para>Unique ID of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="274" bodyend="-1"/>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAvb_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="xavb__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xavb__example_8c" startline="157" endline="283">main</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb_8h_1af8ddc8d42f610c49547f6cf4778629d1" compoundref="xavb_8c" startline="78" endline="116">XAvb_CfgInitialize</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aaefe66ad0ca9e6af05129765cca4c3df" compoundref="xavb__ptp__packets_8c" startline="953" endline="986">XAvb_IsRxFramePTP</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1a888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="705" endline="717">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="xavb_8h_1a4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="630" endline="647">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="xavb_8h_1afb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="669" endline="686">XAvb_SetupRxFilterControlVid</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="311" endline="324">XAvb_WaitOnTxPtpQueue</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="273" bodyend="276"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___config_1a8f161e4fe6ff1843746adbd93a173241" prot="public" virt="non-virtual"><scope>XAvb_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_avb___config_1a7ad0d29a0a15fb4d3214c2e42e9af553" prot="public" virt="non-virtual"><scope>XAvb_Config</scope><name>DeviceId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

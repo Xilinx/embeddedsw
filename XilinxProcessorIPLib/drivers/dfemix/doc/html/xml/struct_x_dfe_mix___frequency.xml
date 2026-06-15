@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___frequency" kind="struct" prot="public">
+    <compoundname>XDfeMix_Frequency</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___frequency_1a7a1488c7bb977b513f5b38036d6a7674" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Frequency::FrequencyControlWord</definition>
+        <argsstring></argsstring>
+        <name>FrequencyControlWord</name>
+        <briefdescription>
+<para>[0-2^32-1] Phase increment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="331" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___frequency_1ac9f5fc8fac195931701b6ebb1c47aa9c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Frequency::SingleModCount</definition>
+        <argsstring></argsstring>
+        <name>SingleModCount</name>
+        <briefdescription>
+<para>[0-2^32-1] Single modulus cycle count (S) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___frequency_1a7aab37313c238045577596bc35d135e3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Frequency::DualModCount</definition>
+        <argsstring></argsstring>
+        <name>DualModCount</name>
+        <briefdescription>
+<para>[0-2^32-1] Dual modulus cycle count (T-S) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___frequency_1acfa9943f40526d4724b095a0f322a322" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_mix___phase_offset" kindref="compound">XDfeMix_PhaseOffset</ref></type>
+        <definition>XDfeMix_PhaseOffset XDfeMix_Frequency::PhaseOffset</definition>
+        <argsstring></argsstring>
+        <name>PhaseOffset</name>
+        <briefdescription>
+<para>[0-2^17-1] Phase offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___frequency_1ae609c50c31c270e9b4aee65d53d40b0f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_Frequency::TriggerUpdateFlag</definition>
+        <argsstring></argsstring>
+        <name>TriggerUpdateFlag</name>
+        <briefdescription>
+<para><verbatim>                Update the associated accumulator from
+</verbatim> the FREQUENCY registers: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>0 = NO_UPDATE: Do not update</para></listitem><listitem><para>1 = IMMEDIATE_UPDATE: Apply an immediate update</para></listitem><listitem><para>2 = TRIGGER_UPDATE: Apply an update on the next CC_UPDATE trigger. Note: This flag acts as a command and is self-clearing. Once the update condition is met, the value automatically reverts to 0 (NO_UPDATE), which will be reflected in subsequent XDfeMix_GetCurrentCCCfg calls. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Defines frequency for single CC&apos;s NCO. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="33">
+        <label>XDfeMix_Frequency</label>
+        <link refid="struct_x_dfe_mix___frequency"/>
+        <childnode refid="34" relation="usage">
+          <edgelabel>PhaseOffset</edgelabel>
+        </childnode>
+      </node>
+      <node id="34">
+        <label>XDfeMix_PhaseOffset</label>
+        <link refid="struct_x_dfe_mix___phase_offset"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="330" bodyend="345"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___frequency_1a7aab37313c238045577596bc35d135e3" prot="public" virt="non-virtual"><scope>XDfeMix_Frequency</scope><name>DualModCount</name></member>
+      <member refid="struct_x_dfe_mix___frequency_1a7a1488c7bb977b513f5b38036d6a7674" prot="public" virt="non-virtual"><scope>XDfeMix_Frequency</scope><name>FrequencyControlWord</name></member>
+      <member refid="struct_x_dfe_mix___frequency_1acfa9943f40526d4724b095a0f322a322" prot="public" virt="non-virtual"><scope>XDfeMix_Frequency</scope><name>PhaseOffset</name></member>
+      <member refid="struct_x_dfe_mix___frequency_1ac9f5fc8fac195931701b6ebb1c47aa9c" prot="public" virt="non-virtual"><scope>XDfeMix_Frequency</scope><name>SingleModCount</name></member>
+      <member refid="struct_x_dfe_mix___frequency_1ae609c50c31c270e9b4aee65d53d40b0f" prot="public" virt="non-virtual"><scope>XDfeMix_Frequency</scope><name>TriggerUpdateFlag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

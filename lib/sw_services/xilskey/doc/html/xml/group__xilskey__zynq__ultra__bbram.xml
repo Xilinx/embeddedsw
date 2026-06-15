@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilskey__zynq__ultra__bbram" kind="group">
+    <compoundname>xilskey_zynq_ultra_bbram</compoundname>
+    <title>BBRAM PL</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__bbram_1gac7bc27c2933ca2ed403fb3487beee6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilSKey_Bbram_Program</definition>
+        <argsstring>(XilSKey_Bbram *InstancePtr)</argsstring>
+        <name>XilSKey_Bbram_Program</name>
+        <param>
+          <type>XilSKey_Bbram *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function implements the BBRAM algorithm for programming and verifying key. </para>        </briefdescription>
+        <detaileddescription>
+<para>The program and verify will only work together in and in that order.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilSKey_Bbram</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>This function will program BBRAM of Ultrascale and Zynq as well. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="230" bodyend="261"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1a4084b23203ebac05b1367e2e59f424d1" compoundref="xilskey__bbram__ultrascale__example_8c" startline="323" endline="341">XilSKey_Bbram_ProgramSLR</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__bbram_1ga4a6efa27285760c27b787dfa7a7f54a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilSKey_Bbram_JTAGServerInit</definition>
+        <argsstring>(XilSKey_Bbram *InstancePtr)</argsstring>
+        <name>XilSKey_Bbram_JTAGServerInit</name>
+        <param>
+          <type>XilSKey_Bbram *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes JTAG server. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilSKey_Bbram</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="192" bodyend="210"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,675 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="main_8c" kind="file">
+    <compoundname>main.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="xv__demosaic_8h" local="yes">xv_demosaic.h</includes>
+    <includes local="yes">xv_tpg.h</includes>
+    <includes local="yes">xvtc.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="9">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4">
+        <label>sleep.h</label>
+      </node>
+      <node id="5">
+        <label>xv_demosaic.h</label>
+        <link refid="xv__demosaic_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xstatus.h</label>
+      </node>
+      <node id="13">
+        <label>xvidc.h</label>
+      </node>
+      <node id="6">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3">
+        <label>xparameters.h</label>
+      </node>
+      <node id="10">
+        <label>xv_demosaic_hw.h</label>
+        <link refid="xv__demosaic__hw_8h"/>
+      </node>
+      <node id="12">
+        <label>xvtc.h</label>
+      </node>
+      <node id="2">
+        <label>main.c</label>
+        <link refid="main.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>xv_tpg.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" prot="public" static="no">
+        <name>VideoClockGen_WriteReg</name>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Macro to write to video clock generator register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="21" bodyend="-1"/>
+        <referencedby refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="186" endline="262">videoClockConfig</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="main_8c_1a3cccdb9ffe3631f721c680ffd067cdf9" prot="public" static="no">
+        <name>VideoClockGen_ReadReg</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Macro to read from video clock generator register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="24" bodyend="-1"/>
+        <referencedby refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="186" endline="262">videoClockConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="main_8c_1ab80c0ba5dc3dbdbd4c3924ea83cc7fa5" prot="public" static="no" mutable="no">
+        <type>XV_tpg_Config *</type>
+        <definition>XV_tpg_Config* tpg_Config</definition>
+        <argsstring></argsstring>
+        <name>tpg_Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1a4678fd1fe8a87fa97570804653b35302" prot="public" static="no" mutable="no">
+        <type>XV_tpg</type>
+        <definition>XV_tpg tpg</definition>
+        <argsstring></argsstring>
+        <name>tpg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1ad66743a5dee1aa4fceb6d1619df58036" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref> *</type>
+        <definition>XV_demosaic_Config* demosaic_Config</definition>
+        <argsstring></argsstring>
+        <name>demosaic_Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1ac8e8e0f6fddb1e9319a05f84467a2710" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref></type>
+        <definition>XV_demosaic demosaic</definition>
+        <argsstring></argsstring>
+        <name>demosaic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1a3f3e1fbc0cb84b5b89611adcae5e7ade" prot="public" static="no" mutable="no">
+        <type>XVtc</type>
+        <definition>XVtc vtc</definition>
+        <argsstring></argsstring>
+        <name>vtc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1af2fbfc7362bf4f1f90b4bdf022ab0e2d" prot="public" static="no" mutable="no">
+        <type>XVtc_Config *</type>
+        <definition>XVtc_Config* vtc_Config</definition>
+        <argsstring></argsstring>
+        <name>vtc_Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1af0cb2805d5743c309aa0bab1cb1bf397" prot="public" static="no" mutable="no">
+        <type>XVtc_Timing</type>
+        <definition>XVtc_Timing vtc_timing</definition>
+        <argsstring></argsstring>
+        <name>vtc_timing</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1aca56cb368e0c735cb6cb4119ee83426f" prot="public" static="no" mutable="no">
+        <type>u32 volatile *</type>
+        <definition>u32 volatile* gpio_hlsIpReset</definition>
+        <argsstring></argsstring>
+        <name>gpio_hlsIpReset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8c_1a3778f055b628cfec8258a338fba49a30" prot="public" static="no" mutable="no">
+        <type>u32 volatile *</type>
+        <definition>u32 volatile* gpio_videoLockMonitor</definition>
+        <argsstring></argsstring>
+        <name>gpio_videoLockMonitor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int driverInit</definition>
+        <argsstring>()</argsstring>
+        <name>driverInit</name>
+        <briefdescription>
+<para>Initializes the video pipeline drivers. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up and initializes the Video Timing Controller (VTC), Test Pattern Generator (TPG), and Demosaic IP cores.</para><para><simplesect kind="return"><para>XST_SUCCESS if all drivers initialized successfully. </para><simplesectsep/><para>XST_DEVICE_NOT_FOUND if any device is not found. </para><simplesectsep/><para>XST_FAILURE if any initialization fails.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="62" bodyend="118"/>
+        <references refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" compoundref="xv__demosaic_8h" startline="80">XV_demosaic_Config::BaseAddress</references>
+        <references refid="xv__demosaic_8c_1a602f8a7aadb48c2e10b3748a9d33de06" compoundref="xv__demosaic_8c" startline="35" endline="50">XV_demosaic_CfgInitialize</references>
+        <references refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" compoundref="xv__demosaic__sinit_8c" startline="117" endline="131">XV_demosaic_LookupConfig</references>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="302" endline="394">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void videoIpConfig</definition>
+        <argsstring>(XVidC_VideoMode videoMode)</argsstring>
+        <name>videoIpConfig</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>videoMode</declname>
+        </param>
+        <briefdescription>
+<para>Configures video IP cores for the specified video mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the Test Pattern Generator (TPG), Demosaic core, and Video Timing Controller (VTC) for the specified video mode and timing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>videoMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Video mode enumeration specifying resolution and frame rate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="134" bodyend="168"/>
+        <references refid="xv__demosaic_8c_1a5f0761b2c3d98c221e6b3d1a3153bd23" compoundref="xv__demosaic_8c" startline="166" endline="171">XV_demosaic_EnableAutoRestart</references>
+        <references refid="xv__demosaic_8c_1adfe6297757130862d4d2fd25ff4c413f" compoundref="xv__demosaic_8c" startline="303" endline="308">XV_demosaic_Set_HwReg_bayer_phase</references>
+        <references refid="xv__demosaic_8c_1aa40e36caefa57c07fe9b9e068f9c8493" compoundref="xv__demosaic_8c" startline="256" endline="261">XV_demosaic_Set_HwReg_height</references>
+        <references refid="xv__demosaic_8c_1ac238328090e6c339df7e342215984be8" compoundref="xv__demosaic_8c" startline="210" endline="215">XV_demosaic_Set_HwReg_width</references>
+        <references refid="xv__demosaic_8c_1a41dc5cdfde882e8bed16965d5f5f5f86" compoundref="xv__demosaic_8c" startline="67" endline="75">XV_demosaic_Start</references>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="302" endline="394">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8c_1aac2df9e08924d4dadbc4684d516a0002" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int videoClockConfig</definition>
+        <argsstring>(XVidC_VideoMode videoMode)</argsstring>
+        <name>videoClockConfig</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>videoMode</declname>
+        </param>
+        <briefdescription>
+<para>Configures the video clock generator for the specified video mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function programs the clock wizard to generate the appropriate pixel clock frequency for the specified video mode based on the TPG pixels per clock configuration. Supports 1080p60, 4K30, and 4K60 video modes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>videoMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Video mode enumeration specifying resolution and frame rate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if clock configuration is successful and locked. </para><simplesectsep/><para>XST_FAILURE if video mode is not supported or clock fails to lock.</para></simplesect>
+<simplesect kind="note"><para>Only supports XVIDC_VM_1080_60_P, XVIDC_VM_UHD_30_P, and XVIDC_VM_UHD_60_P. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="186" bodyend="262"/>
+        <references refid="main_8c_1a3cccdb9ffe3631f721c680ffd067cdf9" compoundref="main_8c" startline="24">VideoClockGen_ReadReg</references>
+        <references refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" compoundref="main_8c" startline="21">VideoClockGen_WriteReg</references>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="302" endline="394">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8c_1a1404ec37649e5775142431036025c57a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void resetIp</definition>
+        <argsstring>(void)</argsstring>
+        <name>resetIp</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Resets the HLS IP cores in the video pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function asserts and then releases the reset signal to all HLS IP cores through the GPIO reset controller.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Includes appropriate delays for reset assertion and de-assertion. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="276" bodyend="286"/>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="302" endline="394">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Main function to test the Demosaic video pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the video pipeline, then tests multiple video modes (1080p60, 4K30, and optionally 4K60) by configuring the clock generator, IP cores, and verifying video lock status.</para><para><simplesect kind="return"><para>0 if all tests pass successfully. </para><simplesectsep/><para>XST_FAILURE if any test fails.</para></simplesect>
+<simplesect kind="note"><para>4K60 test only runs if TPG is configured for 2, 4, or 8 pixels per clock. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c" bodystart="302" bodyend="394"/>
+        <references refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="62" endline="118">driverInit</references>
+        <references refid="main_8c_1a1404ec37649e5775142431036025c57a" compoundref="main_8c" startline="276" endline="286">resetIp</references>
+        <references refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="186" endline="262">videoClockConfig</references>
+        <references refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="134" endline="168">videoIpConfig</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__demosaic_8h" kindref="compound">xv_demosaic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_tpg.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvtc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight></codeline>
+<codeline lineno="21" refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" refkind="member"><highlight class="preprocessor">#define<sp/>VideoClockGen_WriteReg(RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((XPAR_VIDEO_CLK_WIZ_BASEADDR)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24" refid="main_8c_1a3cccdb9ffe3631f721c680ffd067cdf9" refkind="member"><highlight class="preprocessor">#define<sp/>VideoClockGen_ReadReg(RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((XPAR_VIDEO_CLK_WIZ_BASEADDR)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" kindref="member">driverInit</ref>();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" kindref="member">videoIpConfig</ref>(XVidC_VideoMode<sp/>videoMode);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" kindref="member">videoClockConfig</ref>(XVidC_VideoMode<sp/>videoMode);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8c_1a1404ec37649e5775142431036025c57a" kindref="member">resetIp</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">XV_tpg_Config<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*tpg_Config;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">XV_tpg<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tpg;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><ref refid="struct_x_v__demosaic___config" kindref="compound">XV_demosaic_Config</ref><sp/><sp/>*demosaic_Config;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><ref refid="struct_x_v__demosaic" kindref="compound">XV_demosaic</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>demosaic;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal">XVtc<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vtc;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">XVtc_Config<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*vtc_Config;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">XVtc_Timing<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vtc_timing;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal">u32<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*gpio_hlsIpReset;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">u32<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*gpio_videoLockMonitor;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" kindref="member">driverInit</ref>()</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_Config<sp/>=<sp/>XVtc_LookupConfig(XPAR_V_TC_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_Config<sp/>=<sp/>XVtc_LookupConfig(XPAR_XVTC_0_BASEADDR);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(vtc_Config<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>VTC<sp/>device<sp/>not<sp/>found\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XVtc_CfgInitialize(&amp;vtc,<sp/>vtc_Config,<sp/>vtc_Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>VTC<sp/>Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>status);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>tpg_Config<sp/>=<sp/>XV_tpg_LookupConfig(XPAR_V_TPG_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>tpg_Config<sp/>=<sp/>XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(tpg_Config<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>TPG<sp/>device<sp/>not<sp/>found\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/>XV_tpg_CfgInitialize(&amp;tpg,<sp/>tpg_Config,<sp/>tpg_Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>TPG<sp/>Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>status);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>demosaic_Config<sp/>=<sp/><ref refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" kindref="member">XV_demosaic_LookupConfig</ref>(XPAR_V_DEMOSAIC_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>demosaic_Config<sp/>=<sp/><ref refid="xv__demosaic_8h_1a357663e2a0c965194d856bfda50d4291" kindref="member">XV_demosaic_LookupConfig</ref>(XPAR_XV_DEMOSAIC_0_BASEADDR);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(demosaic_Config<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Demosaic<sp/>device<sp/>not<sp/>found\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/><ref refid="xv__demosaic_8c_1a602f8a7aadb48c2e10b3748a9d33de06" kindref="member">XV_demosaic_CfgInitialize</ref>(&amp;demosaic,<sp/>demosaic_Config,<sp/>demosaic_Config-&gt;<ref refid="struct_x_v__demosaic___config_1a552a3c3ab27e41a917981bc46484a7d9" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Demosaic<sp/>Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>status);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" kindref="member">videoIpConfig</ref>(XVidC_VideoMode<sp/>videoMode)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>XVidC_VideoTiming<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>*timing<sp/>=<sp/>XVidC_GetTimingInfo(videoMode);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>PixelsPerClk;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_Set_height(&amp;tpg,<sp/>timing-&gt;VActive);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_Set_width(&amp;tpg,<sp/>timing-&gt;HActive);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_Set_colorFormat(&amp;tpg,<sp/>0);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_Set_bckgndId(&amp;tpg,<sp/>XTPG_BKGND_COLOR_BARS);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_Set_ovrlayId(&amp;tpg,<sp/>0);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_tpg_WriteReg(tpg_Config-&gt;BaseAddress,<sp/>XV_TPG_CTRL_ADDR_AP_CTRL,<sp/>0x81);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8c_1ac238328090e6c339df7e342215984be8" kindref="member">XV_demosaic_Set_HwReg_width</ref>(&amp;demosaic,<sp/>timing-&gt;HActive);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8c_1aa40e36caefa57c07fe9b9e068f9c8493" kindref="member">XV_demosaic_Set_HwReg_height</ref>(&amp;demosaic,<sp/>timing-&gt;VActive);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8c_1adfe6297757130862d4d2fd25ff4c413f" kindref="member">XV_demosaic_Set_HwReg_bayer_phase</ref>(&amp;demosaic,<sp/>0);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8c_1a5f0761b2c3d98c221e6b3d1a3153bd23" kindref="member">XV_demosaic_EnableAutoRestart</ref>(&amp;demosaic);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__demosaic_8c_1a41dc5cdfde882e8bed16965d5f5f5f86" kindref="member">XV_demosaic_Start</ref>(&amp;demosaic);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>PixelsPerClk<sp/>=<sp/>tpg.Config.PixPerClk;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.HActiveVideo<sp/><sp/>=<sp/>timing-&gt;HActive/PixelsPerClk;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.HFrontPorch<sp/><sp/><sp/>=<sp/>timing-&gt;HFrontPorch/PixelsPerClk;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.HSyncWidth<sp/><sp/><sp/><sp/>=<sp/>timing-&gt;HSyncWidth/PixelsPerClk;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.HBackPorch<sp/><sp/><sp/><sp/>=<sp/>timing-&gt;HBackPorch/PixelsPerClk;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.HSyncPolarity<sp/>=<sp/>timing-&gt;HSyncPolarity;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.VActiveVideo<sp/><sp/>=<sp/>timing-&gt;VActive;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.V0FrontPorch<sp/><sp/>=<sp/>timing-&gt;F0PVFrontPorch;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.V0SyncWidth<sp/><sp/><sp/>=<sp/>timing-&gt;F0PVSyncWidth;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.V0BackPorch<sp/><sp/><sp/>=<sp/>timing-&gt;F0PVBackPorch;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>vtc_timing.VSyncPolarity<sp/>=<sp/>timing-&gt;VSyncPolarity;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>XVtc_SetGeneratorTiming(&amp;vtc,<sp/>&amp;vtc_timing);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>XVtc_Enable(&amp;vtc);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>XVtc_EnableGenerator(&amp;vtc);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>XVtc_RegUpdateEnable(&amp;vtc);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="186" refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" kindref="member">videoClockConfig</ref>(XVidC_VideoMode<sp/>videoMode)</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>DIVCLK_DIVIDE<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CLKFBOUT_MULT<sp/>=<sp/>37;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CLKFBOUT_FRAC<sp/>=<sp/>125;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CLKOUT0_DIVIDE;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CLKOUT0_FRAC;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>clock_config_reg_0;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>clock_config_reg_2;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>timeout;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>lock;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>PixelsPerClk,<sp/>mode_index;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ClkOut_Frac[3][XVIDC_PPC_NUM_SUPPORTED]<sp/>=</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>{250,<sp/>500,<sp/>0<sp/><sp/>,<sp/>0},<sp/></highlight><highlight class="comment">//1080p</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{125,<sp/>250,<sp/>500,<sp/>0},<sp/></highlight><highlight class="comment">//4K30</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0,<sp/><sp/><sp/>125,<sp/>250,<sp/>500}<sp/><sp/></highlight><highlight class="comment">//4K60</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ClkOut_Div[3][XVIDC_PPC_NUM_SUPPORTED]<sp/>=</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>{<sp/>{6,<sp/>12,<sp/>25,<sp/>50},<sp/></highlight><highlight class="comment">//1080p</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{3,<sp/>6<sp/>,<sp/>12,<sp/>25},<sp/></highlight><highlight class="comment">//4K30</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{0,<sp/>3<sp/>,<sp/>6<sp/>,<sp/>12}<sp/><sp/></highlight><highlight class="comment">//4K60</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>TPG<sp/>Parameters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_1)<sp/>||</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_2)<sp/>||</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_4)<sp/>||</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_8));</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>mode_index<sp/>=<sp/>((videoMode<sp/>==<sp/><sp/>XVIDC_VM_1080_60_P)<sp/>?<sp/>0<sp/>:</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(videoMode<sp/>==<sp/><sp/>XVIDC_VM_UHD_30_P)<sp/><sp/>?<sp/>1<sp/>:</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(videoMode<sp/>==<sp/><sp/>XVIDC_VM_UHD_60_P)<sp/><sp/>?<sp/>2<sp/>:<sp/>3);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(mode_index<sp/>&gt;<sp/>2)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>Mode<sp/>%s<sp/>not<sp/>supported\r\n&quot;</highlight><highlight class="normal">,<sp/>XVidC_GetVideoModeStr(videoMode));</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//map<sp/>PPC<sp/>to<sp/>array<sp/>index</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/>PixelsPerClk<sp/>=<sp/>((tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_8)?<sp/>3<sp/>:<sp/>tpg.Config.PixPerClk&gt;&gt;1);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>CLKOUT0_FRAC<sp/><sp/><sp/>=<sp/><sp/>ClkOut_Frac[mode_index][PixelsPerClk];</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/>CLKOUT0_DIVIDE<sp/>=<sp/><sp/>ClkOut_Div[mode_index][PixelsPerClk];</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>clock_config_reg_0<sp/>=<sp/>(1&lt;&lt;26)<sp/>|<sp/>(CLKFBOUT_FRAC&lt;&lt;16)<sp/>|<sp/>(CLKFBOUT_MULT&lt;&lt;8)<sp/>|<sp/>DIVCLK_DIVIDE;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/>clock_config_reg_2<sp/>=<sp/>(1&lt;&lt;18)<sp/>|<sp/>(CLKOUT0_FRAC&lt;&lt;8)<sp/>|<sp/>CLKOUT0_DIVIDE;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" kindref="member">VideoClockGen_WriteReg</ref>(0x200,<sp/>clock_config_reg_0);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" kindref="member">VideoClockGen_WriteReg</ref>(0x208,<sp/>clock_config_reg_2);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/>lock<sp/>=<sp/><ref refid="main_8c_1a3cccdb9ffe3631f721c680ffd067cdf9" kindref="member">VideoClockGen_ReadReg</ref>(0x4)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!lock)<sp/></highlight><highlight class="comment">//check<sp/>for<sp/>lock</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Video<sp/>Clock<sp/>Generator<sp/>not<sp/>locked</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" kindref="member">VideoClockGen_WriteReg</ref>(0x25C,<sp/>0x7);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8c_1ad172d82e05ece0631cd7cf14a46dc18b" kindref="member">VideoClockGen_WriteReg</ref>(0x25C,<sp/>0x2);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>timeout<sp/>=<sp/>100000;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!lock)</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lock<sp/>=<sp/><ref refid="main_8c_1a3cccdb9ffe3631f721c680ffd067cdf9" kindref="member">VideoClockGen_ReadReg</ref>(0x4)<sp/>&amp;<sp/>0x1;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>--timeout;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!timeout)</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>Clock<sp/>Generator<sp/>failed<sp/>lock\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;Video<sp/>Clock<sp/>Generator<sp/>locked\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="276" refid="main_8c_1a1404ec37649e5775142431036025c57a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="main_8c_1a1404ec37649e5775142431036025c57a" kindref="member">resetIp</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>*gpio_hlsIpReset<sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//reset<sp/>IPs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/>*gpio_hlsIpReset<sp/>=<sp/>1;<sp/></highlight><highlight class="comment">//<sp/>release<sp/>reset</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="302" refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>status;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>TestMode;</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;Start<sp/>test\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/>gpio_hlsIpReset<sp/>=<sp/>(u32*)XPAR_HLS_IP_RESET_BASEADDR;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>gpio_videoLockMonitor<sp/>=<sp/>(u32*)XPAR_VIDEO_LOCK_MONITOR_BASEADDR;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/><ref refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" kindref="member">driverInit</ref>();</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1a1404ec37649e5775142431036025c57a" kindref="member">resetIp</ref>();</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(*gpio_videoLockMonitor)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>should<sp/>not<sp/>be<sp/>locked\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/>TestMode<sp/>=<sp/>XVIDC_VM_1080_60_P;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nTest:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,<sp/>XVidC_GetVideoModeStr(TestMode));</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/><ref refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" kindref="member">videoClockConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" kindref="member">videoIpConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!(*gpio_videoLockMonitor))<sp/>{</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>Lock<sp/>failed<sp/>for<sp/>1080P60\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;1080P60<sp/>passed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1a1404ec37649e5775142431036025c57a" kindref="member">resetIp</ref>();</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/>TestMode<sp/>=<sp/>XVIDC_VM_UHD_30_P;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nTest:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,<sp/>XVidC_GetVideoModeStr(TestMode));</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>status<sp/>=<sp/><ref refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" kindref="member">videoClockConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS){</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" kindref="member">videoIpConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!(*gpio_videoLockMonitor))<sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>Lock<sp/>failed<sp/>for<sp/>4KP30\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;4KP30<sp/>passed\r\n\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>4k60<sp/>Test<sp/>if<sp/>supported<sp/>by<sp/>HW</highlight></codeline>
+<codeline lineno="364"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>TPG<sp/>is<sp/>configured<sp/>for<sp/>2/4/8<sp/>Pixels/Clock</highlight></codeline>
+<codeline lineno="365"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Required<sp/>to<sp/>support<sp/>4K60</highlight></codeline>
+<codeline lineno="366"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_2)<sp/>||</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_4)<sp/>||</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(tpg.Config.PixPerClk<sp/>==<sp/>XVIDC_PPC_8))<sp/>{</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8c_1a1404ec37649e5775142431036025c57a" kindref="member">resetIp</ref>();</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>TestMode<sp/>=<sp/>XVIDC_VM_UHD_60_P;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nTest:<sp/>%s\r\n&quot;</highlight><highlight class="normal">,<sp/>XVidC_GetVideoModeStr(TestMode));</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>=<sp/><ref refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" kindref="member">videoClockConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" kindref="member">videoIpConfig</ref>(TestMode);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>usleep(300000);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!(*gpio_videoLockMonitor))<sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;ERROR::<sp/>Video<sp/>Lock<sp/>failed<sp/>for<sp/>4KP60\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(XST_FAILURE);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;4KP60<sp/>passed\r\n\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&quot;Test<sp/>Completed<sp/>Successfully\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_demosaic/examples/src/main.c"/>
+  </compounddef>
+</doxygen>

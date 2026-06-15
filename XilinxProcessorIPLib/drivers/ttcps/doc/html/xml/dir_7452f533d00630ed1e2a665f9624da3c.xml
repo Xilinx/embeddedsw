@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7452f533d00630ed1e2a665f9624da3c" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xttcps_8c">xttcps.c</innerfile>
+    <innerfile refid="xttcps_8h">xttcps.h</innerfile>
+    <innerfile refid="xttcps__g_8c">xttcps_g.c</innerfile>
+    <innerfile refid="xttcps__hw_8h">xttcps_hw.h</innerfile>
+    <innerfile refid="xttcps__options_8c">xttcps_options.c</innerfile>
+    <innerfile refid="xttcps__selftest_8c">xttcps_selftest.c</innerfile>
+    <innerfile refid="xttcps__sinit_8c">xttcps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/"/>
+  </compounddef>
+</doxygen>

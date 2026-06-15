@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_rx__3_d___meta_data" kind="struct" prot="public">
+    <compoundname>XV_HdmiRx_3D_MetaData</compoundname>
+    <includes local="no">xv_hdmirx_vsif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx__3_d___meta_data_1adefc112e5889e501e152eeb7d495fb5e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx_3D_MetaData::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Indicates 3D metadata presence. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" bodystart="133" bodyend="-1"/>
+        <referencedby refid="xv__hdmirx__vsif_8c_1a5a55c2e6ac024e6c5e2e164b7d8eb0f0" compoundref="xv__hdmirx__vsif_8c" startline="426" endline="460">XV_HdmiRx_VSIF_DisplayInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx__3_d___meta_data_1ae85113847fa0d3516e8abf2936f3c716" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__hdmirx__vsif_8h_1a1c87b8479d072f57087285fb5e15b7e3" kindref="member">XV_HdmiRx_3D_MetaData_Type</ref></type>
+        <definition>XV_HdmiRx_3D_MetaData_Type XV_HdmiRx_3D_MetaData::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+<para>Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx__3_d___meta_data_1ae5721679700f53cb01d0bffafe413f7e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx_3D_MetaData::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+<para>Length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_rx__3_d___meta_data_1a87bd77d04f84f03db862057e8de9699b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiRx_3D_MetaData::Data[XV_HDMIRX_3D_META_MAX_SIZE]</definition>
+        <argsstring>[XV_HDMIRX_3D_META_MAX_SIZE]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for 3D meta data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_vsif.h" bodystart="132" bodyend="137"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_rx__3_d___meta_data_1a87bd77d04f84f03db862057e8de9699b" prot="public" virt="non-virtual"><scope>XV_HdmiRx_3D_MetaData</scope><name>Data</name></member>
+      <member refid="struct_x_v___hdmi_rx__3_d___meta_data_1adefc112e5889e501e152eeb7d495fb5e" prot="public" virt="non-virtual"><scope>XV_HdmiRx_3D_MetaData</scope><name>IsPresent</name></member>
+      <member refid="struct_x_v___hdmi_rx__3_d___meta_data_1ae5721679700f53cb01d0bffafe413f7e" prot="public" virt="non-virtual"><scope>XV_HdmiRx_3D_MetaData</scope><name>Length</name></member>
+      <member refid="struct_x_v___hdmi_rx__3_d___meta_data_1ae85113847fa0d3516e8abf2936f3c716" prot="public" virt="non-virtual"><scope>XV_HdmiRx_3D_MetaData</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

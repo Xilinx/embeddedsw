@@ -1,0 +1,316 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilplmi__in__place__plm__update__client__example_8c" kind="file">
+    <compoundname>xilplmi_in_place_plm_update_client_example.c</compoundname>
+    <includes local="yes">xplmi_bsp_config.h</includes>
+    <includes refid="xplmi__plat__cmd__client_8h" local="yes">xplmi_plat_cmd_client.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
+    <incdepgraph>
+      <node id="118">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="117">
+        <label>xil_util.h</label>
+      </node>
+      <node id="113">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="110">
+        <label>xplmi_plat_cmd_client.h</label>
+        <link refid="xplmi__plat__cmd__client_8h"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="112">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+      <node id="111">
+        <label>xil_types.h</label>
+      </node>
+      <node id="114">
+        <label>xparameters.h</label>
+      </node>
+      <node id="116">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="108">
+        <label>xilplmi_in_place_plm_update_client_example.c</label>
+        <link refid="xilplmi_in_place_plm_update_client_example.c"/>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi__defs_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" prot="public" static="no">
+        <name>IMG_STORE_SRC</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Source for Image store. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" prot="public" static="no">
+        <name>PDI_ID</name>
+        <initializer>(0x5)</initializer>
+        <briefdescription>
+<para>Image store address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="56" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" prot="public" static="no">
+        <name>DDR_SRC</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Source for DDR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" prot="public" static="no">
+        <name>DDR_ADDR</name>
+        <initializer>(0x1000000U)</initializer>
+        <briefdescription>
+<para>DDR address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="58" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xplmi__client__example__apis_1gad185ec2f4a9e54dfd23a9ed05425ad9b" prot="public" static="no">
+        <name>XLoader_PlmUpdate_Src</name>
+        <enumvalue id="group__xplmi__client__example__apis_1ggad185ec2f4a9e54dfd23a9ed05425ad9bac41c9287ad0f6f79b0c54b14c7de9bce" prot="public">
+          <name>XLOADER_DDR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xplmi__client__example__apis_1ggad185ec2f4a9e54dfd23a9ed05425ad9ba95095fc0943fd8b66e18eb0e7a0b85f9" prot="public">
+          <name>XLOADER_IMAGE_STORE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="62" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1gaf504568f4e0e90a3d6ec7e2f711c1d62" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int InPlacePlmUpdate</definition>
+        <argsstring>(XPlmi_ClientInstance *InstancePtr, XLoader_PlmUpdate_Src PdiSrc)</argsstring>
+        <name>InPlacePlmUpdate</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XLoader_PlmUpdate_Src</type>
+          <declname>PdiSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function provides In Place PLM Update support. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_UPDATE_IN_PROGRESS if a task cannot be executed as the update is in progress.</para></listitem><listitem><para>XPLMI_ERR_PLM_UPDATE_DISABLED if PLM Update is disabled in ROM_RSV efuse.</para></listitem><listitem><para>XPLMI_ERR_PLM_UPDATE_SHUTDOWN_INIT if failed to shutdown initiate of modules during InPlace PLM Update.</para></listitem><listitem><para>XPLMI_ERR_UPDATE_TASK_NOT_FOUND if PLM Update task is not found.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_INVALID_PAYLOAD_LEN if Invalid Payload Len.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_INVALID_SOURCE if Invalid Source.</para></listitem><listitem><para>XPLMI_ERR_INPLACE_UPDATE_FROM_IMAGE_STORE error during update from IS. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c" bodystart="142" bodyend="157"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>u32 main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This main function to call the In-Place ASU Update example function to perform ASU firmware update. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the user module example functions.</para><para>Main function to call the Load DDR Copy Image example function.</para><para>Main function to call the config secure communication function.</para><para>Main function to call the ExtractMetaheader example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if example is run successfully.</para></listitem><listitem><para>XST_FAILURE, in case of failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Error code on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure.</para></listitem></itemizedlist>
+</para><simplesectsep/><para><itemizedlist>
+<listitem><para>Handoff to the ROM on success.</para></listitem><listitem><para>Error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance.</para><para>Initialize the PLMI client instance.</para><para>Perform In-Place ASU Update based on configured source.</para><para>Invoke Generate for IV, SharedMem contains random data from this call. Only 12 bytes will be used for each IV</para><para>To generate glitch using test mode, configure glitch detectors with default values. To configure glitch detector to detect glitch of at least 5% depth, 1ns width with 0.7V reference voltage, provide Depth = 0x0E, Width = 0x01, RefVoltage = 0x04.To select the register values instead of efuse values, provide UserRegVal = 0x01</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_asu_update_client_example.c" bodystart="118" bodyend="170"/>
+        <references refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="94">DDR_ADDR</references>
+        <references refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="91">PDI_ID</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="67">XLOADER_DDR</references>
+        <references refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" compoundref="xilplmi__in__place__asu__update__client__example_8c" startline="68">XLOADER_IMAGE_STORE</references>
+        <references refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" compoundref="xplmi__mailbox_8c" startline="101" endline="116">XPlmi_ClientInit</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file illustrates In_place PLM update based on user data. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilplmi library must be in client mode</para><para>This example is supported for Versal Net devices.</para><para><heading level="2">Procedure to run the example. </heading>
+</para><para>Load the Pdi. Download the pdi into ddr. Select the target. Download the example elf into the target.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   02/13/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__plat__cmd__client_8h" kindref="compound">xplmi_plat_cmd_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__defs_8h" kindref="compound">xplmi_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>-<sp/>Example<sp/>defines<sp/>below,<sp/>update<sp/>with<sp/>required<sp/>values*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IMG_STORE_SRC<sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PDI_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5)<sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DDR_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" refkind="member"><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DDR_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1000000U)<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" kindref="member">XLOADER_IMAGE_STORE</ref>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}<sp/>XLoader_PlmUpdate_Src;<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>InPlacePlmUpdate(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>XLoader_PlmUpdate_Src<sp/>PdiSrc);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="84"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ga692d91756ee3c4ab68f1aecccab79643" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>PlmiClientInstance;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIn_Place<sp/>Plm<sp/>Update<sp/>client<sp/>example&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>XPLMI_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>0U);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" kindref="member">XPlmi_ClientInit</ref>(&amp;PlmiClientInstance,<sp/>&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>InPlacePlmUpdate(&amp;PlmiClientInstance,<sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nSuccessfully<sp/>ran<sp/>In_Place<sp/>Plm<sp/>Update<sp/>client<sp/>example....&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\nIn_Place<sp/>Plm<sp/>Update<sp/>failed<sp/>with<sp/>error<sp/>code<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="142"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>InPlacePlmUpdate(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*InstancePtr,<sp/>XLoader_PlmUpdate_Src<sp/>PdiSrc)</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(PdiSrc)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21bac41c9287ad0f6f79b0c54b14c7de9bce" kindref="member">XLOADER_DDR</ref>:</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga312e47feb0264d1df52b0505eef675eb" kindref="member">XPlmi_InPlacePlmUpdate_DDR</ref>(InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gae7b812ba4543afb8805f75f8ba93ddb0" kindref="member">DDR_SRC</ref>,<sp/><ref refid="group__xplmi__client__example__apis_1ga4018ec3ba4d63ff7eaacf4e8697e5845" kindref="member">DDR_ADDR</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xplmi__client__example__apis_1ggafcbaaa8f0d6004614004c4332659d21ba95095fc0943fd8b66e18eb0e7a0b85f9" kindref="member">XLOADER_IMAGE_STORE</ref>:</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__client__apis_1ga5b26ec2d046651d51851eef8149c511d" kindref="member">XPlmi_InPlacePlmUpdate_ImageStore</ref>(InstancePtr,<sp/><ref refid="group__xplmi__client__example__apis_1gaea7146263ccd4ebba8e2f1ce94b3de42" kindref="member">IMG_STORE_SRC</ref>,<sp/><ref refid="group__xplmi__client__example__apis_1ga26c3bbc23f659d18e5ad594d43639efd" kindref="member">PDI_ID</ref>);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/examples/xilplmi_in_place_plm_update_client_example.c"/>
+  </compounddef>
+</doxygen>

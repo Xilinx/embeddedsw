@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_c_make_lists_8txt" kind="file">
+    <compoundname>CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.14.7)</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(v_hdmirxss)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">collector_create<sp/>(PROJECT_LIB_SOURCES<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss.c)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xv_hdmirxss_coreinit.h)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xv_hdmirxss.h)</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss_log.c)</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss_coreinit.c)</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss_g.c)</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss_hdcp.c)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xv_hdmirxss_sinit.c)</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral">collector_list<sp/>(_sources<sp/>PROJECT_LIB_SOURCES)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral">add_library(v_hdmirxss<sp/>STATIC<sp/>${_sources})</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral">set_target_properties(v_hdmirxss<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

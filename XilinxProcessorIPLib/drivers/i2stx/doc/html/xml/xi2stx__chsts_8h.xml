@@ -1,0 +1,824 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2stx__chsts_8h" kind="file">
+    <compoundname>xi2stx_chsts.h</compoundname>
+    <includes refid="xi2stx_8h" local="yes">xi2stx.h</includes>
+    <includedby refid="xi2stx_8h" local="yes">xi2stx.h</includedby>
+    <includedby refid="xi2stx_8c" local="yes">xi2stx.c</includedby>
+    <includedby refid="xi2stx__chsts_8c" local="yes">xi2stx_chsts.c</includedby>
+    <includedby refid="xi2stx__debug_8c" local="yes">xi2stx_debug.c</includedby>
+    <incdepgraph>
+      <node id="46">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="44">
+        <label>xil_io.h</label>
+      </node>
+      <node id="42">
+        <label>xi2stx.h</label>
+        <link refid="xi2stx_8h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xstatus.h</label>
+      </node>
+      <node id="41">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx_chsts.h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xil_types.h</label>
+      </node>
+      <node id="43">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="54">
+        <label>xi2stx_g.c</label>
+      </node>
+      <node id="58">
+        <label>xi2stx_intr_example.c</label>
+        <link refid="xi2stx__intr__example_8c"/>
+      </node>
+      <node id="51">
+        <label>xi2stx.c</label>
+        <link refid="xi2stx_8c"/>
+      </node>
+      <node id="50">
+        <label>xi2stx.h</label>
+        <link refid="xi2stx_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xi2stx_debug.c</label>
+        <link refid="xi2stx__debug_8c"/>
+      </node>
+      <node id="56">
+        <label>xi2stx_selftest.c</label>
+        <link refid="xi2stx__selftest_8c"/>
+      </node>
+      <node id="59">
+        <label>xi2stx_selftest_example.c</label>
+        <link refid="xi2stx__selftest__example_8c"/>
+      </node>
+      <node id="55">
+        <label>xi2stx_intr.c</label>
+        <link refid="xi2stx__intr_8c"/>
+      </node>
+      <node id="52">
+        <label>xi2stx_chsts.c</label>
+        <link refid="xi2stx__chsts_8c"/>
+      </node>
+      <node id="49">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx_chsts.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xi2stx_sinit.c</label>
+        <link refid="xi2stx__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>AES Status and Register Masks and Shifts.For formats/line protocols</header>
+      <description><para>check the AES Standard specifications document. </para></description>
+      <memberdef kind="define" id="group__i2stx_1gacc72d75920ade372109d305286e1c5fb" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Use of Channel Status Block bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1gacc72d75920ade372109d305286e1c5fb" kindref="member">XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Use of Channel Status Block mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+<para>Linear PCM Identification bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga61af06e74f87b278b69a501a972e68e8" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_LINEAR_PCM_ID_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" kindref="member">XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Linear PCM Identification mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Audio signal pre- emphasis bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</name>
+        <initializer>(0x7 &lt;&lt; XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT)</initializer>
+        <briefdescription>
+<para>Audio signal pre-emphasis mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>lock indication bit shift </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga6ad2f825b0dda934666fd0c8e66de95f" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_LOCK_INDICATION_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" kindref="member">XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Lock indication mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Sampling Frequency 0 bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_E_MASK</name>
+        <initializer>(0x3 &lt;&lt; XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT)</initializer>
+        <briefdescription>
+<para>Sampling Frequency 0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga3e5272ba1cc19696a062a2261c7811d3" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_MODE_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Channel mode bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_MODE_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_TX_AES_STS_CH_MODE_SHIFT)</initializer>
+        <briefdescription>
+<para>Channel mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>User Bits Management bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga4425bdbc5e0d0d757fb94635c60a6279" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USR_BITS_MGMT_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT)</initializer>
+        <briefdescription>
+<para>User Bits Management mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga7a09ffa618e6590c9e82f91a49b4f68c" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Use of auxiliary sample bits bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga2792e6c77cf3427d9ba40ecafc84781c" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK</name>
+        <initializer>(0x7 &lt;&lt; XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_SHIFT)</initializer>
+        <briefdescription>
+<para>Use of Auxiliary sample bits mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Source word length bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SRC_WORD_LENGTH_MASK</name>
+        <initializer>(0x7 &lt;&lt; XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT)</initializer>
+        <briefdescription>
+<para>Source word length mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Indication of Alignment level bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga00224a5937919a23e18bac70be453341" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_MASK</name>
+        <initializer>(0x3 &lt;&lt; XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT)</initializer>
+        <briefdescription>
+<para>Indication of Alignment level mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga6ea48d72e9607d6d8d8056421054ee85" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_NUM0_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Channel Number (0) bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_NUM0_MASK</name>
+        <initializer>(0x7F &lt;&lt; XI2S_TX_AES_STS_CH_NUM0_SHIFT)</initializer>
+        <briefdescription>
+<para>Channel Number (0) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_MC_CH_MODE_SHIFT</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>Multichannel mode bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_MC_CH_MODE_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" kindref="member">XI2S_TX_AES_STS_MC_CH_MODE_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Multichannel mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga2119679a117b6557a57553bafb66fa8b" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_NUM1_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Channel Number (1) bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga0b92225913f1d1397643d294b96a3e79" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CH_NUM1_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_TX_AES_STS_CH_NUM1_SHIFT)</initializer>
+        <briefdescription>
+<para>Channel Number (1) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="134" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gabc365c9d82d007f429dbc2c3175ba469" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT</name>
+        <initializer>(4)</initializer>
+        <briefdescription>
+<para>Multichannel mode number bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga60bdf4661314ff81890dd36a51203c1b" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_MC_CH_MODE_NUM_MASK</name>
+        <initializer>(0x7 &lt;&lt; XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT)</initializer>
+        <briefdescription>
+<para>Multichannel mode number mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Digital Reference Audio signal bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</name>
+        <initializer>(0x3 &lt;&lt; XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT)</initializer>
+        <briefdescription>
+<para>Digital Reference Audio signal mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+<para>Reserved but undefined (0) bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="157" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" kindref="member">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Reserved but undefined (0) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gab1548ab3982c777016c42ae4a5666fd6" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT</name>
+        <initializer>(3)</initializer>
+        <briefdescription>
+<para>Sampling Frequency (1) bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_Q_MASK</name>
+        <initializer>(0xF &lt;&lt; XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT)</initializer>
+        <briefdescription>
+<para>Sampling Frequency (1) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gafa41e86e16999bcb460a58866386e054" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</name>
+        <initializer>(7)</initializer>
+        <briefdescription>
+<para>Sampling Frequency scaling flag bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gac50f0435d41fd0b486bb02013ece9bd1" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</name>
+        <initializer>(1 &lt;&lt; <ref refid="group__i2stx_1gafa41e86e16999bcb460a58866386e054" kindref="member">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Sampling Frequency scaling flag mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga60f5065e192f127698ebd215693532d2" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_SHIFT</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>Reserved but undefined (1) bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga2417522499255b6d277cf54940eb5873" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK</name>
+        <initializer>(0xFF &lt;&lt; XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_SHIFT)</initializer>
+        <briefdescription>
+<para>Reserved but undefined (1) mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="188" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gadd0c030f77a5fcb8c4a947a095bebff3" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_ALPHANUM_CH_ORG_DATA_OFFSET</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Alphanumeric channel origin data register(s) offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gac420217f8cd0d4a9970399ae81cf01c1" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_ALPHANUM_CH_DEST_DATA_OFFSET</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+<para>Alphanumeric channel destination data bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga77f91a5fe07d9b303b311f3c578b4f72" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_LOCAL_SAMPLE_ADDRCODE_OFFSET</name>
+        <initializer>(14)</initializer>
+        <briefdescription>
+<para>Local sample address code register(s) offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga20282a1477a1bd5c341d125779741b53" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_TIMEOFDAY_SAMPLE_ADDRCODE_OFFSET</name>
+        <initializer>(18)</initializer>
+        <briefdescription>
+<para>Time-of-day sample address code register(s) offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1ga1424825d020d189367c1d66634b3c704" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET</name>
+        <initializer>(22)</initializer>
+        <briefdescription>
+<para>Reliability flags bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__i2stx_1gae5dd63d1443d92e1002b3a67cc6a1a84" prot="public" static="no">
+        <name>XI2S_TX_AES_STS_CRC_CHAR_OFFSET</name>
+        <initializer>(23)</initializer>
+        <briefdescription>
+<para>Cyclic redundancy check character bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" compoundref="xi2stx__chsts_8c" startline="57" endline="238">XI2s_Tx_ReslveAesChStat</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Tx_ReslveAesChStat</definition>
+        <argsstring>(u8 I2stx_SrcBuf[])</argsstring>
+        <name>XI2s_Tx_ReslveAesChStat</name>
+        <param>
+          <type>u8</type>
+          <declname>I2stx_SrcBuf</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+<para>This function reads the array I2stx_SrcBuf which has the values of all the I2S Transmitter AES status registers, extracts the required bits and prints them. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before calling this API, Call API XI2s_Tx_GetAesChStatus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2stx_SrcBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an array that contains the values of all the the AES Status registers. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; use of channel status block</para><para>&lt; linear PCM identification</para><para>&lt; audio signal Pre-emphasis</para><para>&lt; lock indication</para><para>&lt; sampling frequency</para><para>&lt; channel mode</para><para>&lt; user bits management</para><para>&lt; use of auxiliary sample bits</para><para>&lt; source word length</para><para>&lt; indication of alignment level</para><para>&lt; channel mode</para><para>&lt; Channel number 0</para><para>&lt; Channel number 1</para><para>&lt; multi channel1 mode number</para><para>&lt; digital audio reference signal</para><para>&lt; reserved but undefined</para><para>&lt; sampling frequency</para><para>&lt; sampling frequency scaling flag</para><para>&lt; reserved but undefined</para><para>&lt; Alphanumeric channel origin data</para><para>&lt; Alphanumeric channel destination data</para><para>&lt; Local sample address code</para><para>&lt; Time-of-day sample address code</para><para>&lt; Reliability flags</para><para>&lt; Cyclic redundancy check character </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.c" bodystart="57" bodyend="238"/>
+        <references refid="group__i2stx_1ga36f5fabf2bf95db8602835cc95861fa5" compoundref="xi2stx__chsts_8h" startline="62">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK</references>
+        <references refid="group__i2stx_1ga78cc8bc6611969180c83c93f6a495896" compoundref="xi2stx__chsts_8h" startline="59">XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT</references>
+        <references refid="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" compoundref="xi2stx__chsts_8h" startline="82">XI2S_TX_AES_STS_CH_MODE_MASK</references>
+        <references refid="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" compoundref="xi2stx__chsts_8h" startline="126">XI2S_TX_AES_STS_CH_NUM0_MASK</references>
+        <references refid="group__i2stx_1ga0b92225913f1d1397643d294b96a3e79" compoundref="xi2stx__chsts_8h" startline="134">XI2S_TX_AES_STS_CH_NUM1_MASK</references>
+        <references refid="group__i2stx_1gae5dd63d1443d92e1002b3a67cc6a1a84" compoundref="xi2stx__chsts_8h" startline="223">XI2S_TX_AES_STS_CRC_CHAR_OFFSET</references>
+        <references refid="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" compoundref="xi2stx__chsts_8h" startline="150">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK</references>
+        <references refid="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" compoundref="xi2stx__chsts_8h" startline="145">XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT</references>
+        <references refid="group__i2stx_1ga00224a5937919a23e18bac70be453341" compoundref="xi2stx__chsts_8h" startline="118">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_MASK</references>
+        <references refid="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" compoundref="xi2stx__chsts_8h" startline="113">XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT</references>
+        <references refid="group__i2stx_1ga61af06e74f87b278b69a501a972e68e8" compoundref="xi2stx__chsts_8h" startline="54">XI2S_TX_AES_STS_LINEAR_PCM_ID_MASK</references>
+        <references refid="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" compoundref="xi2stx__chsts_8h" startline="51">XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT</references>
+        <references refid="group__i2stx_1ga6ad2f825b0dda934666fd0c8e66de95f" compoundref="xi2stx__chsts_8h" startline="70">XI2S_TX_AES_STS_LOCK_INDICATION_MASK</references>
+        <references refid="group__i2stx_1gafa5b86b6aa7c49e9edc95ee095e99ae1" compoundref="xi2stx__chsts_8h" startline="67">XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT</references>
+        <references refid="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" compoundref="xi2stx__chsts_8h" startline="130">XI2S_TX_AES_STS_MC_CH_MODE_MASK</references>
+        <references refid="group__i2stx_1ga60bdf4661314ff81890dd36a51203c1b" compoundref="xi2stx__chsts_8h" startline="140">XI2S_TX_AES_STS_MC_CH_MODE_NUM_MASK</references>
+        <references refid="group__i2stx_1gabc365c9d82d007f429dbc2c3175ba469" compoundref="xi2stx__chsts_8h" startline="137">XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT</references>
+        <references refid="group__i2stx_1gaa6c85a34557271fafd80989c4d16c3fa" compoundref="xi2stx__chsts_8h" startline="129">XI2S_TX_AES_STS_MC_CH_MODE_SHIFT</references>
+        <references refid="group__i2stx_1ga1424825d020d189367c1d66634b3c704" compoundref="xi2stx__chsts_8h" startline="219">XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET</references>
+        <references refid="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" compoundref="xi2stx__chsts_8h" startline="160">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_MASK</references>
+        <references refid="group__i2stx_1ga32a5c5c380f0add139e9973ca5509ea2" compoundref="xi2stx__chsts_8h" startline="157">XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT</references>
+        <references refid="group__i2stx_1ga2417522499255b6d277cf54940eb5873" compoundref="xi2stx__chsts_8h" startline="188">XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK</references>
+        <references refid="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" compoundref="xi2stx__chsts_8h" startline="76">XI2S_TX_AES_STS_SAMPLING_FREQ_E_MASK</references>
+        <references refid="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" compoundref="xi2stx__chsts_8h" startline="73">XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT</references>
+        <references refid="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" compoundref="xi2stx__chsts_8h" startline="168">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_MASK</references>
+        <references refid="group__i2stx_1gab1548ab3982c777016c42ae4a5666fd6" compoundref="xi2stx__chsts_8h" startline="165">XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT</references>
+        <references refid="group__i2stx_1gac50f0435d41fd0b486bb02013ece9bd1" compoundref="xi2stx__chsts_8h" startline="178">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK</references>
+        <references refid="group__i2stx_1gafa41e86e16999bcb460a58866386e054" compoundref="xi2stx__chsts_8h" startline="173">XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT</references>
+        <references refid="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" compoundref="xi2stx__chsts_8h" startline="108">XI2S_TX_AES_STS_SRC_WORD_LENGTH_MASK</references>
+        <references refid="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" compoundref="xi2stx__chsts_8h" startline="105">XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT</references>
+        <references refid="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" compoundref="xi2stx__chsts_8h" startline="46">XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK</references>
+        <references refid="group__i2stx_1ga2792e6c77cf3427d9ba40ecafc84781c" compoundref="xi2stx__chsts_8h" startline="98">XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK</references>
+        <references refid="group__i2stx_1ga4425bdbc5e0d0d757fb94635c60a6279" compoundref="xi2stx__chsts_8h" startline="88">XI2S_TX_AES_STS_USR_BITS_MGMT_MASK</references>
+        <references refid="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" compoundref="xi2stx__chsts_8h" startline="85">XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XI2STX_CHSTS_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XI2STX_CHSTS_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx_8h" kindref="compound">xi2stx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="43" refid="group__i2stx_1gacc72d75920ade372109d305286e1c5fb" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_MASK<sp/>\</highlight></codeline>
+<codeline lineno="46" refid="group__i2stx_1gaffd31964c7785f76f3c1e443e6f306dd" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_USE_OF_CH_STS_BLK_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT<sp/>(1)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__i2stx_1gaed277941e701357e05662d27cf26f8e4" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_LINEAR_PCM_ID_MASK<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_LINEAR_PCM_ID_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT<sp/>(2)<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_MASK<sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_AUDIO_SIG_PRE_EMPH_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT<sp/>(5)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_LOCK_INDICATION_MASK<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_LOCK_INDICATION_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT<sp/>(6)<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_E_MASK<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_E_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_MODE_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__i2stx_1gaab03ab7ac0cf37ff3a8f57008ff6c8b3" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_MODE_MASK<sp/>\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_CH_MODE_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__i2stx_1ga7938a13abaa67d6d136feabbd6014b1d" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT<sp/>(4)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USR_BITS_MGMT_MASK<sp/>\</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_USR_BITS_MGMT_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__i2stx_1gaa8d727003a8e7cc47d0a7e45f506518e" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__i2stx_1gabb8e06582adcf37c20a9db80d9d22881" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_MASK<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_USEOF_AUX_SMPL_BITS_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT<sp/>(3)<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SRC_WORD_LENGTH_MASK<sp/>\</highlight></codeline>
+<codeline lineno="93" refid="group__i2stx_1ga7a09ffa618e6590c9e82f91a49b4f68c" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_SRC_WORD_LENGTH_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT<sp/>(6)<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_MASK<sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_INDICATE_ALIGN_LEVEL_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_NUM0_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="105" refid="group__i2stx_1ga16fae1ae006e75519d45a4dc31e2aca1" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_NUM0_MASK<sp/>\</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7F<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_CH_NUM0_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="108" refid="group__i2stx_1gaeadd56e1eb2fe7f16e64d20f4cc658a2" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_MC_CH_MODE_SHIFT<sp/>(7)<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_MC_CH_MODE_MASK<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_MC_CH_MODE_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_NUM1_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__i2stx_1ga2d1071669dd6047ca5c4ed69c9dc78a4" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CH_NUM1_MASK<sp/>\</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_CH_NUM1_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT<sp/>(4)<sp/></highlight></codeline>
+<codeline lineno="118" refid="group__i2stx_1ga00224a5937919a23e18bac70be453341" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_MC_CH_MODE_NUM_MASK<sp/>\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_MC_CH_MODE_NUM_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="125" refid="group__i2stx_1ga6ea48d72e9607d6d8d8056421054ee85" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_MASK<sp/>\</highlight></codeline>
+<codeline lineno="126" refid="group__i2stx_1gaa34fe37e7fabe3dbe32d1cb3978a7ab3" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_DIGITAL_AUDIO_REF_SIG_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="130" refid="group__i2stx_1ga7444409e9557cb8d2fba5d04791cc90f" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT<sp/>(2)<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_MASK<sp/>\</highlight></codeline>
+<codeline lineno="133" refid="group__i2stx_1ga2119679a117b6557a57553bafb66fa8b" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF0_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT<sp/>(3)<sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_Q_MASK<sp/>\</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_Q_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT<sp/>(7)<sp/></highlight></codeline>
+<codeline lineno="145" refid="group__i2stx_1gac59f23705e781eb6d2375f7793e05847" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_MASK<sp/>\</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_SAMPLING_FREQ_SCALE_FLAG_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__i2stx_1gac284c05fb5e7d7ad0f7c571cceb92c44" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_SHIFT<sp/>(0)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_MASK<sp/>\</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFF<sp/>&lt;&lt;<sp/>XI2S_TX_AES_STS_RSVD_BUT_UNDEF1_SHIFT)<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_ALPHANUM_CH_ORG_DATA_OFFSET<sp/>(6)<sp/></highlight></codeline>
+<codeline lineno="160" refid="group__i2stx_1gab54c4d024eec7747b7fdf2a90082ab54" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_ALPHANUM_CH_DEST_DATA_OFFSET<sp/>(10)<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_LOCAL_SAMPLE_ADDRCODE_OFFSET<sp/>(14)<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__i2stx_1ga06846f7b8d66403d152212ba43f193d1" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_TIMEOFDAY_SAMPLE_ADDRCODE_OFFSET<sp/>(18)<sp/></highlight></codeline>
+<codeline lineno="173" refid="group__i2stx_1gafa41e86e16999bcb460a58866386e054" refkind="member"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_RELIABLE_FLAGS_OFFSET<sp/>(22)<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XI2S_TX_AES_STS_CRC_CHAR_OFFSET<sp/>(23)<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="group__i2stx_1ga60f5065e192f127698ebd215693532d2" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga408ca1dccbd6c8c87103ec3d2e97c5bc" kindref="member">XI2s_Tx_ReslveAesChStat</ref>(u8<sp/>I2stx_SrcBuf[]);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="group__i2stx_1ga2417522499255b6d277cf54940eb5873" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="193" refid="group__i2stx_1gadd0c030f77a5fcb8c4a947a095bebff3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XI2STX_CHSTS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_chsts.h"/>
+  </compounddef>
+</doxygen>

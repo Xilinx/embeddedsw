@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8a946152ee900da83a5205d302e4040a" kind="dir">
+    <compoundname>slhdsa</compoundname>
+    <innerfile refid="xsecure__slhdsaclient_8c">xsecure_slhdsaclient.c</innerfile>
+    <innerfile refid="xsecure__slhdsaclient_8h">xsecure_slhdsaclient.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/slhdsa/"/>
+  </compounddef>
+</doxygen>

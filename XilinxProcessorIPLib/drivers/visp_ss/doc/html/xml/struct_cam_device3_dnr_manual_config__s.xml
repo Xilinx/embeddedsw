@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device3_dnr_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDevice3DnrManualConfig_s</compoundname>
+    <includes local="no">cam_device_3dnr_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device3_dnr_manual_config__s_1a49bb8517258c84d0594a7f78c14488b8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevice3DnrManualConfig_s::strength</definition>
+        <argsstring></argsstring>
+        <name>strength</name>
+        <briefdescription>
+<para>General strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_manual_config__s_1a6edb4274d29b66b435bc3a7c167fbb7a" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDevice3DnrManualConfig_s::motionInv</definition>
+        <argsstring></argsstring>
+        <name>motionInv</name>
+        <briefdescription>
+<para>Motion factor. </para>        </briefdescription>
+        <detaileddescription>
+<para>Smaller values mean larger motion image weight </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_manual_config__s_1ae4ba6a7577f6d29b82b15e2842b9f2ff" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDevice3DnrManualConfig_s::delta</definition>
+        <argsstring></argsstring>
+        <name>delta</name>
+        <briefdescription>
+<para>Temporal delta. </para>        </briefdescription>
+        <detaileddescription>
+<para>Smaller values mean more merged ref image </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device3_dnr_manual_config__s_1a2d53d7a43c500214f53d1200f3312acf" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__3dnr_1ga4648ab0d2faba1673c4e8d28164d8b1f" kindref="member">CamDevice3DnrTemporalManualConfig_t</ref></type>
+        <definition>CamDevice3DnrTemporalManualConfig_t CamDevice3DnrManualConfig_s::temporalCfg</definition>
+        <argsstring></argsstring>
+        <name>temporalCfg</name>
+        <briefdescription>
+<para>Manual temporal configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice 3DNR V2.1 current configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="47">
+        <label>CamDevice3DnrTemporalManualConfig_s</label>
+        <link refid="struct_cam_device3_dnr_temporal_manual_config__s"/>
+      </node>
+      <node id="46">
+        <label>CamDevice3DnrManualConfig_s</label>
+        <link refid="struct_cam_device3_dnr_manual_config__s"/>
+        <childnode refid="47" relation="usage">
+          <edgelabel>temporalCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dummy/cam_device_3dnr_api.h" bodystart="95" bodyend="102"/>
+    <listofallmembers>
+      <member refid="struct_cam_device3_dnr_manual_config__s_1ae4ba6a7577f6d29b82b15e2842b9f2ff" prot="public" virt="non-virtual"><scope>CamDevice3DnrManualConfig_s</scope><name>delta</name></member>
+      <member refid="struct_cam_device3_dnr_manual_config__s_1a6edb4274d29b66b435bc3a7c167fbb7a" prot="public" virt="non-virtual"><scope>CamDevice3DnrManualConfig_s</scope><name>motionInv</name></member>
+      <member refid="struct_cam_device3_dnr_manual_config__s_1a49bb8517258c84d0594a7f78c14488b8" prot="public" virt="non-virtual"><scope>CamDevice3DnrManualConfig_s</scope><name>strength</name></member>
+      <member refid="struct_cam_device3_dnr_manual_config__s_1a2d53d7a43c500214f53d1200f3312acf" prot="public" virt="non-virtual"><scope>CamDevice3DnrManualConfig_s</scope><name>temporalCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

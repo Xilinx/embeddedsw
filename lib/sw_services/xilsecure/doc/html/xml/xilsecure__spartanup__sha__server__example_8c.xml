@@ -1,0 +1,469 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsecure__spartanup__sha__server__example_8c" kind="file">
+    <compoundname>xilsecure_spartanup_sha_server_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xsecure_sha.h</includes>
+    <includes local="yes">xsecure_plat.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xpmcdma.h</includes>
+    <incdepgraph>
+      <node id="260">
+        <label>xsecure_plat.h</label>
+      </node>
+      <node id="259">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="261">
+        <label>xil_util.h</label>
+      </node>
+      <node id="262">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="258">
+        <label>xparameters.h</label>
+      </node>
+      <node id="257">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure_spartanup_sha_server_example.c"/>
+        <childnode refid="258" relation="include">
+        </childnode>
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" prot="public" static="no">
+        <name>XSECURE_SHA3_384</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>SHA3-384 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mgf__server__apis_1ga3528d2ff2183bb3aab43e4d408ee6760" compoundref="xsecure__mgf_8c" startline="203" endline="212">XSecure_GetHashInstance</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga19b58a827d01b838233e4b98fb95b0f7" compoundref="xsecure__hmac_8c" startline="190" endline="251">XSecure_HmacFinal</referencedby>
+        <referencedby refid="group__xsecure__hmac__apis_1ga326185e9709790ef9dc6d0eb61da6ab9" compoundref="xsecure__hmac_8c" startline="75" endline="128">XSecure_HmacInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga56962fc3f5090340f69a4fa56ef264ad" compoundref="xsecure__kat_8c" startline="1026" endline="1095">XSecure_Sha3Kat</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" prot="public" static="no">
+        <name>XSECURE_SHAKE_256</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>SHAKE256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga75f8f635a7d2a99f8b2011b8365a7c46" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1718" endline="1751">XSecure_HssShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga292e1e3bc9bd3759b76c98cfd8196deb" compoundref="xsecure__lms_8c" startline="58" endline="216">XSecure_LmsLookupParamSet</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga8e446a6cf529f6a697035b0643c22c1b" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1592" endline="1658">XSecure_ShakeKat</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga2ff07fcdbe3cb7ae4dbb53308394c080" compoundref="xsecure__slhdsa__hash_8c" startline="131" endline="178">XSecure_SlhdsaShake256sHashF</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gad836abaf83f14c844a4b30fcca05992b" compoundref="xsecure__slhdsa__hash_8c" startline="341" endline="395">XSecure_SlhdsaShake256sHashH</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga4f9fb47928190c4aaf68df51efac1382" compoundref="xsecure__slhdsa__hash_8c" startline="53" endline="114">XSecure_SlhdsaShake256sHashMsg</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" prot="public" static="no">
+        <name>XSECURE_SHA3_256</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>SHA3-256 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xsecure__apis_1ga0204d6babc12872e9be472c0d4645901" compoundref="core_2sha_2sha__pmxc_2xsecure__sha_8c" startline="301" endline="335">XSecure_ShaGetBlockLen</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gaf4fe7931a3c30dedeb0b314ae921b2dd" compoundref="spartanup_2xsecure__plat_8c" startline="418" endline="454">XSecure_ShaValidateModeAndCfgInstance</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga0c53d1151bdfe8162b00de54316b016c" prot="public" static="no">
+        <name>SHA_MODE</name>
+        <initializer>(<ref refid="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" kindref="member">XSECURE_SHA3_256</ref>)</initializer>
+        <briefdescription>
+<para>User configurable SHA mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" prot="public" static="no">
+        <name>SHA_INPUT_DATA_LEN</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Input data length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" prot="public" static="no">
+        <name>SHA_HASH_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="group__xsecure__helper__server__apis_1gac46301e6ca1664825a2ceb3a44a484cd" kindref="member">XSECURE_SHA3_256_HASH_LEN</ref>)</initializer>
+        <briefdescription>
+<para>SHA3-256 hash length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga3c82a89a9ab66585db83da2d1a73473b" prot="public" static="yes" mutable="no">
+        <type>XSecure_Sha</type>
+        <definition>XSecure_Sha Secure_Sha</definition>
+        <argsstring></argsstring>
+        <name>Secure_Sha</name>
+        <initializer>= {0U}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga0903830edda2fda26b8ff58dfde3f088" prot="public" static="yes" mutable="no">
+        <type>XPmcDma</type>
+        <definition>XPmcDma PmcDma</definition>
+        <argsstring></argsstring>
+        <name>PmcDma</name>
+        <initializer>= {0U}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga8227114f1927e51be097514357a7e5d3" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char Data[SHA_INPUT_DATA_LEN+1U]</definition>
+        <argsstring>[SHA_INPUT_DATA_LEN+1U]</argsstring>
+        <name>Data</name>
+        <initializer>= &quot;SHA3_256&quot;</initializer>
+        <briefdescription>
+<para>Input data should be word aligned. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__sha__example__apis_1ga637ee243fd8a9d5fa1a4ca05a9a4b04f" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 ExpHash[SHA_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[SHA_HASH_LEN_IN_BYTES]</argsstring>
+        <name>ExpHash</name>
+        <initializer>= {
+	0x88U, 0x8FU, 0xBDU, 0x5BU, 0x0EU, 0xB9U, 0xD7U, 0x7EU,
+	0x15U, 0x1BU, 0xD3U, 0x83U, 0xD9U, 0x3BU, 0x16U, 0xEAU,
+	0xF2U, 0xF1U, 0x4FU, 0xC7U, 0x06U, 0x8CU, 0x61U, 0x23U,
+	0x09U, 0x57U, 0x9BU, 0x4BU, 0x79U, 0x91U, 0x6CU, 0xE2U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gaff145eea4302d3b700dee2619aeea46e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureShaExample</definition>
+        <argsstring>()</argsstring>
+        <name>SecureShaExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sends string to SHA module for hashing. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of this function is to illustrate how to use the SHA driver.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - hash successfully generated for given input data string.</para></listitem><listitem><para>XST_FAILURE - if the hash generation failed.//! [SHA example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="178" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga641c2baa9d8628b51216463a4bd59cfb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureShaCompareHash</definition>
+        <argsstring>(u8 *Hash, u8 *ExpectedHash)</argsstring>
+        <name>SecureShaCompareHash</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ExpectedHash</declname>
+        </param>
+        <briefdescription>
+<para>This function compares the given hash with the expected Hash. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - if the expected hash is equal to the given hash</para></listitem><listitem><para>XST_FAILURE - if the comparison fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="241" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1gabb9f5ab870e6af28ca1a24076d329fde" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SecureShaPrintHash</definition>
+        <argsstring>(u8 *Hash)</argsstring>
+        <name>SecureShaPrintHash</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given hash on the console. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="261" bodyend="269"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sha__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the SecureShaExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the SHA calculation is successful.</para></listitem><listitem><para>XST_FAILURE if the SHA calculation failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the SHA calculation failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c" bodystart="151" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="57"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpmcdma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__sha__example__apis_1gab861d4c865c5fd4a955a54426cce4522" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_384<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__sha__example__apis_1gad83e90d954ca31ac3d9cc687321cdb2d" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHAKE_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__sha__example__apis_1ga05aab58840d59876dbb5766b285514ec" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SHA3_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xsecure__sha__example__apis_1ga0c53d1151bdfe8162b00de54316b016c" refkind="member"><highlight class="preprocessor">#define<sp/>SHA_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_256)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" refkind="member"><highlight class="preprocessor">#define<sp/>SHA_INPUT_DATA_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#if<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHA3_256)</highlight></codeline>
+<codeline lineno="78" refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_HASH_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_256_HASH_LEN)<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#elif<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHAKE_256)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_HASH_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHAKE_256_HASH_LEN)<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#elif<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHA3_384)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SHA_HASH_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_SHA3_384_HASH_LEN)<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>&quot;Invalid<sp/>SHA<sp/>mode<sp/>selected&quot;</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SecureShaExample(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SecureShaCompareHash(u8<sp/>*Hash,<sp/>u8<sp/>*ExpectedHash);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SecureShaPrintHash(u8<sp/>*Hash);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>Secure_Sha<sp/>holds<sp/>PartialData[]<sp/>which<sp/>is<sp/>read<sp/>by<sp/>PMC-DMA<sp/>when<sp/>SW<sp/>NIST</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>padding<sp/>is<sp/>performed<sp/>(zero-/short-data-length<sp/>case<sp/>in<sp/>XSecure_ShaFinish).</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*<sp/>It<sp/>must<sp/>live<sp/>in<sp/>shared_mem<sp/>so<sp/>PMC-DMA<sp/>can<sp/>fetch<sp/>from<sp/>it;<sp/>therefore<sp/>it<sp/>is</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/>*<sp/>placed<sp/>in<sp/>.data.SecureSha<sp/>which<sp/>the<sp/>linker<sp/>script<sp/>maps<sp/>to<sp/>shared_mem.</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSecure_Sha<sp/>Secure_Sha<sp/>__attribute__<sp/>((aligned<sp/>(64)))</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((section<sp/>(&quot;.data.SecureSha&quot;)))<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/>*<sp/>XPmcDma<sp/>instance<sp/>is<sp/>read<sp/>by<sp/>the<sp/>CPU<sp/>only<sp/>(it<sp/>holds<sp/>register<sp/>base</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/>*<sp/>addresses<sp/>+<sp/>small<sp/>state),<sp/>but<sp/>is<sp/>kept<sp/>in<sp/>shared_mem<sp/>for<sp/>symmetry.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPmcDma<sp/>PmcDma<sp/>__attribute__<sp/>((aligned<sp/>(64)))</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((section<sp/>(&quot;.data.PmcDma&quot;)))<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>Data[<ref refid="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" kindref="member">SHA_INPUT_DATA_LEN</ref><sp/>+<sp/>1U]<sp/>__attribute__<sp/>((aligned<sp/>(64)))</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__<sp/>((section<sp/>(&quot;.data.Data&quot;)))<sp/>=<sp/>&quot;SHA3_256&quot;;</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor">#if<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHA3_256)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>ExpHash[<ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x88U,<sp/>0x8FU,<sp/>0xBDU,<sp/>0x5BU,<sp/>0x0EU,<sp/>0xB9U,<sp/>0xD7U,<sp/>0x7EU,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15U,<sp/>0x1BU,<sp/>0xD3U,<sp/>0x83U,<sp/>0xD9U,<sp/>0x3BU,<sp/>0x16U,<sp/>0xEAU,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF2U,<sp/>0xF1U,<sp/>0x4FU,<sp/>0xC7U,<sp/>0x06U,<sp/>0x8CU,<sp/>0x61U,<sp/>0x23U,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x09U,<sp/>0x57U,<sp/>0x9BU,<sp/>0x4BU,<sp/>0x79U,<sp/>0x91U,<sp/>0x6CU,<sp/>0xE2U</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHAKE_256)</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>ExpHash[<ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x12U,<sp/>0x80U,<sp/>0x23U,<sp/>0x88U,<sp/>0xF9U,<sp/>0xE0U,<sp/>0x26U,<sp/>0xF1U,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1AU,<sp/>0xFFU,<sp/>0xA7U,<sp/>0xF8U,<sp/>0xDCU,<sp/>0xE1U,<sp/>0xA3U,<sp/>0xECU,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x79U,<sp/>0x91U,<sp/>0xB6U,<sp/>0xBCU,<sp/>0xD0U,<sp/>0x86U,<sp/>0x23U,<sp/>0x8BU,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB4U,<sp/>0x18U,<sp/>0x6BU,<sp/>0x04U,<sp/>0x45U,<sp/>0x56U,<sp/>0xBDU,<sp/>0xA1U</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(SHA_MODE<sp/>==<sp/>XSECURE_SHA3_384)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>ExpHash[<ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4CU,<sp/>0x5CU,<sp/>0x24U,<sp/>0xD0U,<sp/>0x8FU,<sp/>0xECU,<sp/>0xDDU,<sp/>0xA6U,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x94U,<sp/>0x19U,<sp/>0x38U,<sp/>0x1FU,<sp/>0x81U,<sp/>0x83U,<sp/>0xE1U,<sp/>0x4CU,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8CU,<sp/>0xCCU,<sp/>0xBEU,<sp/>0x69U,<sp/>0x45U,<sp/>0x0AU,<sp/>0x7AU,<sp/>0x36U,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFBU,<sp/>0xCFU,<sp/>0xECU,<sp/>0xFDU,<sp/>0xC0U,<sp/>0x39U,<sp/>0x50U,<sp/>0xCAU,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA0U,<sp/>0x1CU,<sp/>0x65U,<sp/>0x2AU,<sp/>0xC8U,<sp/>0x3AU,<sp/>0xB6U,<sp/>0xECU,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1DU,<sp/>0x5FU,<sp/>0xBCU,<sp/>0xA0U,<sp/>0x20U,<sp/>0x8AU,<sp/>0x92U,<sp/>0x54U</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>&quot;Invalid<sp/>SHA<sp/>mode<sp/>selected&quot;</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="151" refid="group__xsecure__sha__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SecureShaExample();</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>SHA<sp/>example&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SHA<sp/>Example<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="178"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SecureShaExample()</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma_Config<sp/>*Config;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Out[<ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Size<sp/>=<sp/>Xil_Strnlen(Data,<sp/><ref refid="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" kindref="member">SHA_INPUT_DATA_LEN</ref>);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Size<sp/>!=<sp/><ref refid="group__xsecure__sha__example__apis_1ga0a3b36e7cfa872fe275c5b05c09e54ba" kindref="member">SHA_INPUT_DATA_LEN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Provided<sp/>data<sp/>length<sp/>is<sp/>Invalid\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XPmcDma_LookupConfig(0U);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;config<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPmcDma_CfgInitialize(&amp;PmcDma,<sp/>Config,<sp/>Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Initialize<sp/>the<sp/>SHA<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to<sp/>use</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" kindref="member">XSecure_ShaInitialize</ref>(&amp;Secure_Sha,<sp/>&amp;PmcDma);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SHA<sp/>Initialization<sp/>failed,<sp/>Status<sp/>=<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1gacbd073de84e1cdf375ea6d140db14c6e" kindref="member">XSecure_ShaDigest</ref>(&amp;Secure_Sha,<sp/><ref refid="group__xsecure__sha__example__apis_1ga0c53d1151bdfe8162b00de54316b016c" kindref="member">SHA_MODE</ref>,<sp/>(UINTPTR)Data,<sp/>Size,<sp/>(u64)(UINTPTR)Out,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SHA<sp/>digest<sp/>failed,<sp/>Status<sp/>=<sp/>0x%x<sp/>\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>Calculated<sp/>Hash<sp/>\r\n<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureShaPrintHash(Out);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SecureShaCompareHash(Out,<sp/>ExpHash);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="241"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SecureShaCompareHash(u8<sp/>*Hash,<sp/>u8<sp/>*ExpectedHash)</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp(Hash,<sp/><ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>,<sp/>ExpectedHash,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>,<sp/><ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Expected<sp/>Hash<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SecureShaPrintHash(ExpectedHash);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SHA<sp/>Example<sp/>Failed<sp/>at<sp/>Hash<sp/>Comparison<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="261"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SecureShaPrintHash(u8<sp/>*Hash)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xsecure__sha__example__apis_1gaf67c791ae203a535584a31b9493e0261" kindref="member">SHA_HASH_LEN_IN_BYTES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>%0x<sp/>&quot;</highlight><highlight class="normal">,<sp/>Hash[Index]);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_sha_server_example.c"/>
+  </compounddef>
+</doxygen>

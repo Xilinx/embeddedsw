@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___module_op" kind="struct" prot="public">
+    <compoundname>XPlmi_ModuleOp</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___module_op_1a4baa7278454adff6d34bd165eb010d38" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_ModuleOp::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+<para>Operation information mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="325" bodyend="327"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___module_op_1a4baa7278454adff6d34bd165eb010d38" prot="public" virt="non-virtual"><scope>XPlmi_ModuleOp</scope><name>Mode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

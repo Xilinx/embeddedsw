@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_d_f_u___u_s_b___c_o_n_f_i_g" kind="struct" prot="public">
+    <compoundname>DFU_USB_CONFIG</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a611311ba4f85267c0159ef9e0c1b1b15" prot="public" static="no" mutable="no">
+        <type>USB_STD_CFG_DESC</type>
+        <definition>USB_STD_CFG_DESC DFU_USB_CONFIG::stdCfg</definition>
+        <argsstring></argsstring>
+        <name>stdCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="522" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="522" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a315ff5e73a63926a5e3f8562cc57e2ae" prot="public" static="no" mutable="no">
+        <type>USB_STD_IF_DESC</type>
+        <definition>USB_STD_IF_DESC DFU_USB_CONFIG::ifCfg_alt_dfu</definition>
+        <argsstring></argsstring>
+        <name>ifCfg_alt_dfu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="523" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a3deb2c9c95677196f106e5b9d93f24d6" prot="public" static="no" mutable="no">
+        <type>USB_DFU_FUNC_DESC</type>
+        <definition>USB_DFU_FUNC_DESC DFU_USB_CONFIG::dfu_func_desc</definition>
+        <argsstring></argsstring>
+        <name>dfu_func_desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="521" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="521" bodyend="529"/>
+    <listofallmembers>
+      <member refid="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a3deb2c9c95677196f106e5b9d93f24d6" prot="public" virt="non-virtual"><scope>DFU_USB_CONFIG</scope><name>dfu_func_desc</name></member>
+      <member refid="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a315ff5e73a63926a5e3f8562cc57e2ae" prot="public" virt="non-virtual"><scope>DFU_USB_CONFIG</scope><name>ifCfg_alt_dfu</name></member>
+      <member refid="struct_d_f_u___u_s_b___c_o_n_f_i_g_1a611311ba4f85267c0159ef9e0c1b1b15" prot="public" virt="non-virtual"><scope>DFU_USB_CONFIG</scope><name>stdCfg</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

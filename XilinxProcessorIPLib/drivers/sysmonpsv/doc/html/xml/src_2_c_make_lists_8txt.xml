@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.15)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">project(sysmonpsv)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">find_package(common)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">set(SYSMONPSV_DIR<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral">find_package(SYSMONPSV)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#ifndef<sp/>XSYSMONPSV_SUPPLYLIST\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XSYSMONPSV_SUPPLYLIST\n\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral">if<sp/>(&quot;</highlight><highlight class="normal">${DRIVER_OPTPROP_0_LIST}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">#define<sp/>XPAR_XSYSMONPSV_0_NO_MEAS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>255\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\n</highlight><highlight class="comment">/*\n*<sp/>The<sp/>supply<sp/>configuration<sp/>table<sp/>for<sp/>sysmon\n*/</highlight><highlight class="normal">\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral">if<sp/>(DRIVER_OPTPROP_0_LIST)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>foreach(PROP<sp/>${DRIVER_OPTPROP_0_LIST})</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>string(TOUPPER<sp/>${PROP}<sp/>PROP_UPPER)</highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\t${PROP_UPPER},\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>endforeach()</highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\tEndList,\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral">else()</highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\tEndList,\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\tNO_SUPPLIES_CONFIGURED<sp/>=<sp/>XPAR_XSYSMONPSV_0_NO_MEAS,\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">}<sp/>XSysMonPsv_Supply;\\</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral">list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\n\n#endif</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral">file(WRITE<sp/>${CMAKE_CURRENT_SOURCE_DIR}/xsysmonpsv_supplylist.h<sp/>${defs})</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral">file(READ<sp/>${CMAKE_CURRENT_SOURCE_DIR}/xsysmonpsv_g.c<sp/>defs)</highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral">string(FIND<sp/>&quot;</highlight><highlight class="normal">${defs}</highlight><highlight class="stringliteral">&quot;<sp/>&quot;</highlight><highlight class="normal"><ref refid="xsysmonpsv_8h_1a0b6adba4156901193b4901075da2b32e" kindref="member">XSysMonPsv_Supply_Arr</ref></highlight><highlight class="stringliteral">&quot;<sp/>_index)</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral">if<sp/>(${_index}<sp/>EQUAL<sp/>-1)</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">;\\</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\n\nconst<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="xsysmonpsv_8h_1a0b6adba4156901193b4901075da2b32e" kindref="member">XSysMonPsv_Supply_Arr</ref>[]<sp/>=<sp/>{\n</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>if<sp/>(DRIVER_OPTPROP_0_LIST)</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>foreach(PROP<sp/>${DRIVER_OPTPROP_0_LIST})</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>string(TOUPPER<sp/>${PROP}<sp/>PROP_UPPER)</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;</highlight><highlight class="normal">\t\</highlight><highlight class="stringliteral">&quot;${PROP_UPPER}\&quot;,\n&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>endforeach()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;};\\&quot;)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>list(APPEND<sp/>defs<sp/>&quot;\n&quot;)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>file(WRITE<sp/>${CMAKE_CURRENT_SOURCE_DIR}/xsysmonpsv_g.c<sp/>${defs})</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">endif()</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">collector_create<sp/>(PROJECT_LIB_HEADERS<sp/>&quot;${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral">collector_create<sp/>(PROJECT_LIB_SOURCES<sp/>&quot;</highlight><highlight class="normal">${CMAKE_CURRENT_SOURCE_DIR}</highlight><highlight class="stringliteral">&quot;)</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral">include_directories(${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsysmonpsv_sinit.c)</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsysmonpsv_g.c)</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsysmonpsv.c)</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsysmonpsv.h)</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsysmonpsv_supplylist.h)</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral">#collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsysmonpsv_hw.h)</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xsysmonpsv_intr.c)</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral">add_subdirectory(common)</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral">add_subdirectory(lowlevel)</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral">add_subdirectory(services)</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral">collector_list<sp/>(_sources<sp/>PROJECT_LIB_SOURCES)</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral">collector_list<sp/>(_headers<sp/>PROJECT_LIB_HEADERS)</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral">file(COPY<sp/>${_headers}<sp/>DESTINATION<sp/>${CMAKE_BINARY_DIR}/include)</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral">add_library(sysmonpsv<sp/>STATIC<sp/>${_sources})</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral">set_target_properties(sysmonpsv<sp/>PROPERTIES<sp/>LINKER_LANGUAGE<sp/>C)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

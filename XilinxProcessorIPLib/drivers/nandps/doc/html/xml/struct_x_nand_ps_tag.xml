@@ -1,0 +1,401 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_ps_tag" kind="struct" prot="public">
+    <compoundname>XNandPsTag</compoundname>
+    <includes local="no">xnandps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1aad4084a7b6b1ea6b1ec350dd22203e50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsTag::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="390" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" compoundref="xnandps_8c" startline="1866" endline="1910">XNandPs_EraseBlock</referencedby>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1ga454c0738c0ffe28c49ba8fced47e8d9c" compoundref="xnandps__bbm_8c" startline="239" endline="280">XNandPs_ScanBbt</referencedby>
+        <referencedby refid="group__nandps_1gaebab330d0fd9efef74c26a50b5829d9f" compoundref="xnandps_8c" startline="809" endline="889">XNandPs_Write</referencedby>
+        <referencedby refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1ab1b1e7e123f5de23692bb7f7f757061a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___config" kindref="compound">XNandPs_Config</ref></type>
+        <definition>XNandPs_Config XNandPsTag::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para><ref refid="struct_x_nand_ps___config" kindref="compound">XNandPs_Config</ref> of current device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga7f3a46694f4b3c4baffca71e6fcfebab" compoundref="xnandps__onfi_8c" startline="199" endline="213">Onfi_CmdReadStatus</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" compoundref="xnandps_8c" startline="1866" endline="1910">XNandPs_EraseBlock</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <referencedby refid="group__nandps_1gaa987d756af43c965a6439f077a4ce158" compoundref="xnandps_8c" startline="1262" endline="1329">XNandPs_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1ae87fd6bcc9622ee7d41abdbdaad61c35" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___geometry" kindref="compound">XNandPs_Geometry</ref></type>
+        <definition>XNandPs_Geometry XNandPsTag::Geometry</definition>
+        <argsstring></argsstring>
+        <name>Geometry</name>
+        <briefdescription>
+<para>Part geometry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="xnandps__cache__example_8c_1ae6f3c64c1865aa547205974e226ef6ea" compoundref="xnandps__cache__example_8c" startline="153" endline="259">NandReadWriteCacheExample</referencedby>
+        <referencedby refid="xnandps__example_8c_1a6167b15359b8a941a3701b9ff1f3d218" compoundref="xnandps__example_8c" startline="150" endline="256">NandReadWriteExample</referencedby>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="488" endline="664">Onfi_NandInit</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a007e1cf863dd10df6ba60491d5a65d91" compoundref="xnandps__skip__example_8c" startline="246" endline="275">XNandPs_CalculateLength</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga22b4e2bc1af7e4bfecd4428c25a77bb8" compoundref="xnandps_8c" startline="1866" endline="1910">XNandPs_EraseBlock</referencedby>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a306e1266e543ed16dd48ace99decf338" compoundref="xnandps__skip__example_8c" startline="455" endline="514">XNandPs_SkipErase</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1aec7794d74a6cc5fc91517214704f0e1d" compoundref="xnandps__skip__example_8c" startline="295" endline="354">XNandPs_SkipRead</referencedby>
+        <referencedby refid="xnandps__skip__example_8c_1a8fc271bb953ab1f471ed1c9c577c45cf" compoundref="xnandps__skip__example_8c" startline="374" endline="436">XNandPs_SkipWrite</referencedby>
+        <referencedby refid="group__nandps_1gaebab330d0fd9efef74c26a50b5829d9f" compoundref="xnandps_8c" startline="809" endline="889">XNandPs_Write</referencedby>
+        <referencedby refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</referencedby>
+        <referencedby refid="group__nandps_1gaa987d756af43c965a6439f077a4ce158" compoundref="xnandps_8c" startline="1262" endline="1329">XNandPs_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1aaef39c1b3d681967d9097bdae9069a27" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___features" kindref="compound">XNandPs_Features</ref></type>
+        <definition>XNandPs_Features XNandPsTag::Features</definition>
+        <argsstring></argsstring>
+        <name>Features</name>
+        <briefdescription>
+<para>Features and Optional commands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="488" endline="664">Onfi_NandInit</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a6d919091ec87fbd2ff032ba5650ec51a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsTag::CommandPhaseAddr</definition>
+        <argsstring></argsstring>
+        <name>CommandPhaseAddr</name>
+        <briefdescription>
+<para>NAND command phase address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a4be19061947af26c314f86e19aa2b45c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsTag::DataPhaseAddr</definition>
+        <argsstring></argsstring>
+        <name>DataPhaseAddr</name>
+        <briefdescription>
+<para>NAND Data phase address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga7f3a46694f4b3c4baffca71e6fcfebab" compoundref="xnandps__onfi_8c" startline="199" endline="213">Onfi_CmdReadStatus</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gae2862ccd7e9180b843d9e73e2a8c7e7b" compoundref="xnandps_8c" startline="1045" endline="1142">XNandPs_SendCommand</referencedby>
+        <referencedby refid="group__nandps_1gaa987d756af43c965a6439f077a4ce158" compoundref="xnandps_8c" startline="1262" endline="1329">XNandPs_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a84179f6ef408a639b0486c2df7561728" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___ecc_config" kindref="compound">XNandPs_EccConfig</ref></type>
+        <definition>XNandPs_EccConfig XNandPsTag::EccConfig</definition>
+        <argsstring></argsstring>
+        <name>EccConfig</name>
+        <briefdescription>
+<para>ECC configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1abcecaf1e47f62b9c985a6078cf4d5fc7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___bbt_desc" kindref="compound">XNandPs_BbtDesc</ref></type>
+        <definition>XNandPs_BbtDesc XNandPsTag::BbtDesc</definition>
+        <argsstring></argsstring>
+        <name>BbtDesc</name>
+        <briefdescription>
+<para>Bad block table descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandps_1ga454c0738c0ffe28c49ba8fced47e8d9c" compoundref="xnandps__bbm_8c" startline="239" endline="280">XNandPs_ScanBbt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a83046030135b11b8c13c98f1c39ef2e6" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___bbt_desc" kindref="compound">XNandPs_BbtDesc</ref></type>
+        <definition>XNandPs_BbtDesc XNandPsTag::BbtMirrorDesc</definition>
+        <argsstring></argsstring>
+        <name>BbtMirrorDesc</name>
+        <briefdescription>
+<para>Mirror BBT descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="400" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandps_1ga454c0738c0ffe28c49ba8fced47e8d9c" compoundref="xnandps__bbm_8c" startline="239" endline="280">XNandPs_ScanBbt</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a00c4968d1371e52d8236782c50e36452" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_nand_ps___bad_block_pattern" kindref="compound">XNandPs_BadBlockPattern</ref></type>
+        <definition>XNandPs_BadBlockPattern XNandPsTag::BbPattern</definition>
+        <argsstring></argsstring>
+        <name>BbPattern</name>
+        <briefdescription>
+<para>Bad block pattern to search. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a29ecaa7b4ab49c591e0a52fa425d1ff3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsTag::Bbt[XNANDPS_MAX_BLOCKS &gt;&gt; 2]</definition>
+        <argsstring>[XNANDPS_MAX_BLOCKS &gt;&gt; 2]</argsstring>
+        <name>Bbt</name>
+        <briefdescription>
+<para>Bad block table array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="group__nandps_1ga5744d2e6e03eb2b815771cf660ab2e11" compoundref="xnandps__bbm_8c" startline="775" endline="796">XNandPs_IsBlockBad</referencedby>
+        <referencedby refid="group__nandps_1ga65ec4f2496ae641d1306089dff5416b2" compoundref="xnandps__bbm_8c" startline="811" endline="847">XNandPs_MarkBlockBad</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a4e5782e2042c2ae489e1a267bce79d12" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsTag::FlashBbt[XNANDPS_MAX_BLOCKS &gt;&gt; 2]</definition>
+        <argsstring>[XNANDPS_MAX_BLOCKS &gt;&gt; 2]</argsstring>
+        <name>FlashBbt</name>
+        <briefdescription>
+<para>BBT buffer for partial read/writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1aba2da858e8dc13045862f0da98bd0c0b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsTag::DataBuf[XNANDPS_MAX_PAGE_SIZE+XNANDPS_MAX_SPARE_SIZE]</definition>
+        <argsstring>[XNANDPS_MAX_PAGE_SIZE+XNANDPS_MAX_SPARE_SIZE]</argsstring>
+        <name>DataBuf</name>
+        <briefdescription>
+<para>Data buffer for partial read/writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1gaebab330d0fd9efef74c26a50b5829d9f" compoundref="xnandps_8c" startline="809" endline="889">XNandPs_Write</referencedby>
+        <referencedby refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a25507ef0fe95e9b0b871e03e65731cba" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XNandPsTag::SpareBufPtr</definition>
+        <argsstring></argsstring>
+        <name>SpareBufPtr</name>
+        <briefdescription>
+<para>Pointer to store spare buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="407" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+        <referencedby refid="group__nandps_1gaebab330d0fd9efef74c26a50b5829d9f" compoundref="xnandps_8c" startline="809" endline="889">XNandPs_Write</referencedby>
+        <referencedby refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a64b4c86a9f973a2fa02aea87fc972ce2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsTag::EccCalc[XNANDPS_MAX_SPARE_SIZE]</definition>
+        <argsstring>[XNANDPS_MAX_SPARE_SIZE]</argsstring>
+        <name>EccCalc</name>
+        <briefdescription>
+<para>Buffer for calculated ECC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a6dd8c8d225c09d0527bc751571494686" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNandPsTag::EccCode[XNANDPS_MAX_SPARE_SIZE]</definition>
+        <argsstring>[XNANDPS_MAX_SPARE_SIZE]</argsstring>
+        <name>EccCode</name>
+        <briefdescription>
+<para>Buffer for stored ECC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="410" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a91ba66b90e531f68b393e22dc1e6fab5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__nandps_1ga2318d7b320b74ae18f3b2b34beddd39e" kindref="member">XNandPs_EccMode</ref></type>
+        <definition>XNandPs_EccMode XNandPsTag::EccMode</definition>
+        <argsstring></argsstring>
+        <name>EccMode</name>
+        <briefdescription>
+<para>ECC Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="411" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="411" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gacb42515d1fa541b8ac5e785d1fb7eefd" compoundref="xnandps__onfi_8c" startline="488" endline="664">Onfi_NandInit</referencedby>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga92acb0aedbfa7e76759062d70a2c4a67" compoundref="xnandps__bbm_8c" startline="76" endline="137">XNandPs_InitBbtDesc</referencedby>
+        <referencedby refid="group__nandps_1gaf9857df5e1359875e429f66e46ca5a86" compoundref="xnandps_8c" startline="1160" endline="1244">XNandPs_ReadSpareBytes</referencedby>
+        <referencedby refid="group__nandps_1gaa987d756af43c965a6439f077a4ce158" compoundref="xnandps_8c" startline="1262" endline="1329">XNandPs_WriteSpareBytes</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1aa589f70667fa1b52e24e2384e421aa01" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XNandPsTag::ReadPage)(struct XNandPsTag *InstancePtr, u8 *DstPtr)</definition>
+        <argsstring>)(struct XNandPsTag *InstancePtr, u8 *DstPtr)</argsstring>
+        <name>ReadPage</name>
+        <briefdescription>
+<para>Read Page routine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="412" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1ga8e72425d265074f1c2f8c66edfd22857" compoundref="xnandps_8c" startline="489" endline="583">XNandPs_Read</referencedby>
+        <referencedby refid="group__nandps_1ga605bd783f065806f1d1f602f88128f9b" compoundref="xnandps_8c" startline="607" endline="782">XNandPs_ReadCache</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_ps_tag_1a8d00d94fd28aadf317edc5fa9e4e0e38" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XNandPsTag::WritePage)(struct XNandPsTag *InstancePtr, u8 *SrcPtr)</definition>
+        <argsstring>)(struct XNandPsTag *InstancePtr, u8 *SrcPtr)</argsstring>
+        <name>WritePage</name>
+        <briefdescription>
+<para>Write Page routine. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="414" bodyend="-1"/>
+        <referencedby refid="group__nandps_1gaddb9f847fae34f6d137f591375a7c962" compoundref="xnandps_8c" startline="147" endline="244">XNandPs_CfgInitialize</referencedby>
+        <referencedby refid="group__nandps_1gaebab330d0fd9efef74c26a50b5829d9f" compoundref="xnandps_8c" startline="809" endline="889">XNandPs_Write</referencedby>
+        <referencedby refid="group__nandps_1ga8ecd5bb0fc73b3011ee0ba500e0161fe" compoundref="xnandps_8c" startline="917" endline="1028">XNandPs_WriteCache</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XNandPs driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every flash device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="23">
+        <label>XNandPs_BbtDesc</label>
+        <link refid="struct_x_nand_ps___bbt_desc"/>
+      </node>
+      <node id="19">
+        <label>XNandPs_BadBlockPattern</label>
+        <link refid="struct_x_nand_ps___bad_block_pattern"/>
+      </node>
+      <node id="17">
+        <label>XNandPsTag</label>
+        <link refid="struct_x_nand_ps_tag"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>Geometry</edgelabel>
+        </childnode>
+        <childnode refid="19" relation="usage">
+          <edgelabel>BbPattern</edgelabel>
+        </childnode>
+        <childnode refid="20" relation="usage">
+          <edgelabel>EccConfig</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
+          <edgelabel>Features</edgelabel>
+        </childnode>
+        <childnode refid="22" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="23" relation="usage">
+          <edgelabel>BbtMirrorDesc</edgelabel>
+          <edgelabel>BbtDesc</edgelabel>
+        </childnode>
+      </node>
+      <node id="20">
+        <label>XNandPs_EccConfig</label>
+        <link refid="struct_x_nand_ps___ecc_config"/>
+      </node>
+      <node id="18">
+        <label>XNandPs_Geometry</label>
+        <link refid="struct_x_nand_ps___geometry"/>
+      </node>
+      <node id="22">
+        <label>XNandPs_Config</label>
+        <link refid="struct_x_nand_ps___config"/>
+      </node>
+      <node id="21">
+        <label>XNandPs_Features</label>
+        <link refid="struct_x_nand_ps___features"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandps/src/xnandps.h" bodystart="389" bodyend="416"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_ps_tag_1a00c4968d1371e52d8236782c50e36452" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>BbPattern</name></member>
+      <member refid="struct_x_nand_ps_tag_1a29ecaa7b4ab49c591e0a52fa425d1ff3" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>Bbt</name></member>
+      <member refid="struct_x_nand_ps_tag_1abcecaf1e47f62b9c985a6078cf4d5fc7" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>BbtDesc</name></member>
+      <member refid="struct_x_nand_ps_tag_1a83046030135b11b8c13c98f1c39ef2e6" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>BbtMirrorDesc</name></member>
+      <member refid="struct_x_nand_ps_tag_1a6d919091ec87fbd2ff032ba5650ec51a" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>CommandPhaseAddr</name></member>
+      <member refid="struct_x_nand_ps_tag_1ab1b1e7e123f5de23692bb7f7f757061a" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>Config</name></member>
+      <member refid="struct_x_nand_ps_tag_1aba2da858e8dc13045862f0da98bd0c0b" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>DataBuf</name></member>
+      <member refid="struct_x_nand_ps_tag_1a4be19061947af26c314f86e19aa2b45c" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>DataPhaseAddr</name></member>
+      <member refid="struct_x_nand_ps_tag_1a64b4c86a9f973a2fa02aea87fc972ce2" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>EccCalc</name></member>
+      <member refid="struct_x_nand_ps_tag_1a6dd8c8d225c09d0527bc751571494686" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>EccCode</name></member>
+      <member refid="struct_x_nand_ps_tag_1a84179f6ef408a639b0486c2df7561728" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>EccConfig</name></member>
+      <member refid="struct_x_nand_ps_tag_1a91ba66b90e531f68b393e22dc1e6fab5" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>EccMode</name></member>
+      <member refid="struct_x_nand_ps_tag_1aaef39c1b3d681967d9097bdae9069a27" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>Features</name></member>
+      <member refid="struct_x_nand_ps_tag_1a4e5782e2042c2ae489e1a267bce79d12" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>FlashBbt</name></member>
+      <member refid="struct_x_nand_ps_tag_1ae87fd6bcc9622ee7d41abdbdaad61c35" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>Geometry</name></member>
+      <member refid="struct_x_nand_ps_tag_1aad4084a7b6b1ea6b1ec350dd22203e50" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>IsReady</name></member>
+      <member refid="struct_x_nand_ps_tag_1aa589f70667fa1b52e24e2384e421aa01" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>ReadPage</name></member>
+      <member refid="struct_x_nand_ps_tag_1a25507ef0fe95e9b0b871e03e65731cba" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>SpareBufPtr</name></member>
+      <member refid="struct_x_nand_ps_tag_1a8d00d94fd28aadf317edc5fa9e4e0e38" prot="public" virt="non-virtual"><scope>XNandPsTag</scope><name>WritePage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

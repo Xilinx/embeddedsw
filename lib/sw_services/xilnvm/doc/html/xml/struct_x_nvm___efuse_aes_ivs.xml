@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_aes_ivs" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseAesIvs</compoundname>
+    <includes local="no">xnvm_efuse.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_ivs_1a4cdbaa6b1fe13e14fef4d8f7a1547dca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesIvs::AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]</argsstring>
+        <name>AesIv</name>
+        <briefdescription>
+<para>AES IV value to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_ivs_1accd7e5b8195761e4afba29cdb3844ab8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesIvs::PrgmIv</definition>
+        <argsstring></argsstring>
+        <name>PrgmIv</name>
+        <briefdescription>
+<para>Flag to determine whether to program IV or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_ivs_1adada613fd3afe0f2fb45530594a22ea2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xnvm__spartan__ultrascaleplus__efuse__apis_1ga6615efa385d955cf1a35c58c8822bc85" kindref="member">XNvm_EfuseIvType</ref></type>
+        <definition>XNvm_EfuseIvType XNvm_EfuseAesIvs::IvType</definition>
+        <argsstring></argsstring>
+        <name>IvType</name>
+        <briefdescription>
+<para>IV type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse AES IV </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="243" bodyend="247"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_aes_ivs_1a4cdbaa6b1fe13e14fef4d8f7a1547dca" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesIvs</scope><name>AesIv</name></member>
+      <member refid="struct_x_nvm___efuse_aes_ivs_1adada613fd3afe0f2fb45530594a22ea2" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesIvs</scope><name>IvType</name></member>
+      <member refid="struct_x_nvm___efuse_aes_ivs_1accd7e5b8195761e4afba29cdb3844ab8" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesIvs</scope><name>PrgmIv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>vtc</title>
+    <detaileddescription>
+<para>This is the main header file of Xilinx MVI Video Timing Controller (VTC) device driver. The VTC device detects video signals, independently overrides any one of them, re-generates video signals with +/- delay and with polarity inversion, and generates up to 16 one cycle Frame Sync outputs.</para><para>The device has the following main features:<itemizedlist>
+<listitem><para>Detect video signals:<itemizedlist>
+<listitem><para>horizontal sync</para></listitem><listitem><para>horizontal blank</para></listitem><listitem><para>vertical sync</para></listitem><listitem><para>vertical blank</para></listitem><listitem><para>active video</para></listitem><listitem><para>field id</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Independently override any one signal.</para></listitem><listitem><para>Re-generate video signals with +/- delay and with polarity inversion.</para></listitem><listitem><para>Generate up to 16 one cycle Frame Sync outputs.</para></listitem></itemizedlist>
+</para><para>For a full description of VTC features, please see the hardware specification.</para><para><bold>Software Initialization &amp; Configuration</bold></para><para>The application needs to do following steps in order for preparing the VTC to be ready to process video signal handling.</para><para><itemizedlist>
+<listitem><para>Call XVtc_LookupConfig using a device ID to find the core configuration.</para></listitem><listitem><para>Call XVtc_CfgInitialize to initialize the device and the driver instance associated with it.</para></listitem><listitem><para>Call XVtc_SetGenerator to set up the video signals to generate, if desired.</para></listitem><listitem><para>Call XVtc_SetPolarity to set up the video signal polarity.</para></listitem><listitem><para>Call XVtc_SetSource for source selection</para></listitem><listitem><para>Call XVtc_SetGeneratorHoriOffset to set up the Generator VBlank/VSync horizontal offsets, if values other than the default are needed</para></listitem><listitem><para>Call XVtc_EnableSync, if generator needs to be synced to the detector</para></listitem><listitem><para>Call XVtc_Enable to enable/start the VTC device.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts </bold></para><para>The interrupt types supported are:<itemizedlist>
+<listitem><para>Frame Sync Interrupts 0 - 15</para></listitem><listitem><para>Generator interrupt:<itemizedlist>
+<listitem><para>Generator Active Video Interrupt</para></listitem><listitem><para>Generator VBLANK Interrupt</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Detector interrupt:<itemizedlist>
+<listitem><para>Detector Active Video Interrupt</para></listitem><listitem><para>Detector VBLANK Interrupt</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Signal Lock interrupt:<itemizedlist>
+<listitem><para>Active Chroma signal lock</para></listitem><listitem><para>Active Video Signal Lock</para></listitem><listitem><para>Field ID Signal Lock</para></listitem><listitem><para>Vertical Blank Signal Lock</para></listitem><listitem><para>Vertical Sync Signal Lock</para></listitem><listitem><para>Horizontal Blank Signal Lock</para></listitem><listitem><para>Horizontal Sync Signal Lock</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold> Building the driver </bold></para><para>The Vtc driver is composed of several source files. This allows the user to build and link only those parts of the driver that are necessary.</para><para><bold> Examples </bold></para><para>An example is provided with this driver to demonstrate the driver usage.</para><para><bold>Cache Coherency</bold></para><para><bold>Alignment</bold></para><para><bold>Limitations</bold></para><para><bold>BUS Interface</bold></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00a xd     08/05/08 First release
+1.01a xd     07/23/10 Added GIER Added more h/w generic info into
+                      xparameters.h Feed callbacks with pending
+                      interrupt info. Added Doxygen &amp; Version support
+2.00a xd     05/13/11 1. Renamed to &quot;Video Timing Controller&quot;
+                      2. Added Generator/Detector VBlank/VSync
+                         Horizontal offset setup/fetch support
+                      3. Renamed the IP to support to be axi_vtc
+                      4. Supported sync between generator and detector
+                         with addition of new XVtc_EnableSync and
+                         XVtc_DisableSync functions
+                      5. Renamed XVtc_SetSync to XVtc_SetFSync
+                      6. Renamed XVtc_GetSync to XVtc_GetFSync
+                      7. Removed unnecessary register write in
+                         XVtc_Reset
+                      8. Corrected driver name in .mdd file
+                      9. Updated register bit definition (a few fields grow
+                         from 12 to 13 bit wide)
+2.00a cm     05/25/11 1. Renamed XVtc_SetSkip to XVtc_SetSkipLine
+                      2. Renamed XVtc_GetSkip to XVtc_GetSkipLine
+                      3. Added XVtc_SetSkipPixel
+                      4. Added XVtc_GetSkipPixel
+2.00a cm     06/16/12 1. Added missing xil_assert.h include
+2.00a cm     07/25/12 1. Removed unused XVtc_IntrSetLockPolarity function
+3.00a cm     08/02/12 1. Added the XVtc_Sync_Reset frame sync&apos;ed SW
+                      reset function.
+3.00a cjm    08/02/12 Converted from xio.h to xil_io.h, translating
+                      basic types, MB cache functions, exceptions and
+                      assertions to xil_io format.
+                      Replaced the following
+                      &quot;XExc_Init&quot; -&gt; &quot;Xil_ExceptionInit&quot;
+                      &quot;XExc_RegisterHandler&quot; -&gt; &quot;Xil_ExceptionRegister
+                                                                Handler&quot;
+                      &quot;XEXC_ID_NON_CRITICAL_INT&quot; -&gt; &quot;XIL_EXCEPTION_ID_INT&quot;
+                      &quot;XExceptionHandler&quot; -&gt; &quot;Xil_ExceptionHandler&quot;
+                      &quot;XExc_mEnableExceptions&quot; -&gt; &quot;Xil_ExceptionEnable&quot;
+                      &quot;XEXC_NON_CRITICAL&quot; -&gt; &quot;XIL_EXCEPTION_NON_CRITICAL&quot;
+                      &quot;XExc_DisableExceptions&quot; -&gt; &quot;Xil_ExceptionDisable&quot;
+                      &quot;XExc_RemoveHandler&quot; -&gt; &quot;Xil_ExceptionRemoveHandler&quot;
+                      &quot;microblaze_enable_interrupts&quot; -&gt; &quot;Xil_ExceptionEnable&quot;
+                      &quot;microblaze_disable_interrupts&quot; -&gt; &quot;Xil_Exception
+                                                              Disable&quot;</preformatted></para><para><preformatted>                      &quot;XCOMPONENT_IS_STARTED&quot; -&gt; &quot;XIL_COMPONENT_IS_STARTED&quot;
+                      &quot;XCOMPONENT_IS_READY&quot; -&gt; &quot;XIL_COMPONENT_IS_READY&quot;</preformatted></para><para><preformatted>                      &quot;XASSERT_NONVOID&quot; -&gt; &quot;Xil_AssertNonvoid&quot;
+                      &quot;XASSERT_VOID_ALWAYS&quot; -&gt; &quot;Xil_AssertVoidAlways&quot;
+                      &quot;XASSERT_VOID&quot; -&gt; &quot;Xil_AssertVoid&quot;
+                      &quot;Xil_AssertVoid_ALWAYS&quot; -&gt; &quot;Xil_AssertVoidAlways&quot;
+                      &quot;XAssertStatus&quot; -&gt; &quot;Xil_AssertStatus&quot;
+                      &quot;XAssertSetCallback&quot; -&gt; &quot;Xil_AssertCallback&quot;</preformatted></para><para><preformatted>                      &quot;XASSERT_OCCURRED&quot; -&gt; &quot;XIL_ASSERT_OCCURRED&quot;
+                      &quot;XASSERT_NONE&quot; -&gt; &quot;XIL_ASSERT_NONE&quot;</preformatted></para><para><preformatted>                      &quot;microblaze_disable_dcache&quot; -&gt; &quot;Xil_DCacheDisable&quot;
+                      &quot;microblaze_enable_dcache&quot; -&gt; &quot;Xil_DCacheEnable&quot;
+                      &quot;microblaze_enable_icache&quot; -&gt; &quot;Xil_ICacheEnable&quot;
+                      &quot;microblaze_disable_icache&quot; -&gt; &quot;Xil_ICacheDisable&quot;
+                      &quot;microblaze_init_dcache_range&quot; -&gt; &quot;Xil_DCacheInvalidate
+                                                                      Range&quot;</preformatted></para><para><preformatted>                      &quot;XCache_DisableDCache&quot; -&gt; &quot;Xil_DCacheDisable&quot;
+                      &quot;XCache_DisableICache&quot; -&gt; &quot;Xil_ICacheDisable&quot;
+                      &quot;XCache_EnableDCache&quot; -&gt; &quot;Xil_DCacheEnableRegion&quot;
+                      &quot;XCache_EnableICache&quot; -&gt; &quot;Xil_ICacheEnableRegion&quot;
+                      &quot;XCache_InvalidateDCacheLine&quot; -&gt; &quot;Xil_DCacheInvalidate
+                                                                      Range&quot;</preformatted></para><para><preformatted>                      &quot;XUtil_MemoryTest32&quot; -&gt; &quot;Xil_TestMem32&quot;
+                      &quot;XUtil_MemoryTest16&quot; -&gt; &quot;Xil_TestMem16&quot;
+                      &quot;XUtil_MemoryTest8&quot; -&gt; &quot;Xil_TestMem8&quot;</preformatted></para><para><preformatted>                      &quot;xutil.h&quot; -&gt; &quot;xil_testmem.h&quot;</preformatted></para><para><preformatted>                      &quot;xbasic_types.h&quot; -&gt; &quot;xil_types.h&quot;
+                      &quot;xio.h&quot; -&gt; &quot;xil_io.h&quot;</preformatted></para><para><preformatted>                      &quot;XIo_In32&quot; -&gt; &quot;Xil_In32&quot;
+                      &quot;XIo_Out32&quot; -&gt; &quot;Xil_Out32&quot;</preformatted></para><para><preformatted>                      &quot;XTRUE&quot; -&gt; &quot;TRUE&quot;
+                      &quot;XFALSE&quot; -&gt; &quot;FALSE&quot;
+                      &quot;XNULL&quot; -&gt; &quot;NULL&quot;</preformatted></para><para><preformatted>                      &quot;Xuint8&quot; -&gt; &quot;u8&quot;
+                      &quot;Xuint16&quot; -&gt; &quot;u16&quot;
+                      &quot;Xuint32&quot; -&gt; &quot;u32&quot;
+                      &quot;Xint8&quot; -&gt; &quot;char&quot;
+                      &quot;Xint16&quot; -&gt; &quot;short&quot;
+                      &quot;Xint32&quot; -&gt; &quot;long&quot;
+                      &quot;Xfloat32&quot; -&gt; &quot;float&quot;
+                      &quot;Xfloat64&quot; -&gt; &quot;double&quot;
+                      &quot;Xboolean&quot; -&gt; &quot;int&quot;
+                      &quot;XTEST_FAILED&quot; -&gt; &quot;XST_FAILURE&quot;
+                      &quot;XTEST_PASSED&quot; -&gt; &quot;XST_SUCCESS&quot;
+4.00a cjm    02/07/13 Removed Unused Functions
+                      XVtc_IntrEnableGlobal
+                      XVtc_IntrDisableGlobal
+5.00a cjm    08/07/13 Replaced XVTC_RESET with (XVTC_CTL)
+                      Replaced XVTC_RESET_RESET_MASK with
+                      (XVTC_CTL_RESET_MASK)
+                      Replaced XVTC_SYNC_RESET_MASK with (XVTC_CTL_SRST_MASK)
+5.00a cjm    10/30/13 Replaced XVtc_RegUpdate with XVtc_RegUpdateEnable
+                      Added XVtc_RegUpdateDisable
+                      Removed type parameter from XVtc_Enable
+                      Added XVtc_EnableGenerator to enable only the Generator
+                      Added XVtc_EnableDetector to enable only the Detector
+5.00a cjm    11/01/13 Added Timing, VideoMode and Signal Conversion
+                      Functions:
+                      XVtc_ConvVideoMode2Timing
+                      XVtc_ConvTiming2Signal
+                      XVtc_ConvSignal2Timing
+                      XVtc_ConvTiming2VideoMode
+                      Added Timing and Video Mode Set/Get Functions:
+                      XVtc_SetGeneratorTiming
+                      XVtc_SetGeneratorVideoMode
+                      XVtc_GetGeneratorTiming
+                      XVtc_GetGeneratorVideoMode
+                      XVtc_GetDetectorTiming
+                      XVtc_GetDetectorVideoMode
+6.0   adk    19/12/13 Updated as per the New Tcl API&apos;s.
+6.1   adk    23/08/14 Implemented XVtc_SelfTest in
+                      <ref refid="xvtc__selftest_8c" kindref="compound">xvtc_selftest.c</ref>.
+                      Modified prototype of XVtc_GetVersion API.
+7.0   vns    02/25/15 Added Interlaced field to <ref refid="struct_x_vtc___signal" kindref="compound">XVtc_Signal</ref> structure,
+                      Removed XVtc_RegUpdate as there are is one more API,
+                      XVtc_RegUpdateEnable with same functionality but
+                      provided backward compatibility.</preformatted></para><para><preformatted>                      Modifications from <ref refid="xvtc_8c" kindref="compound">xvtc.c</ref> file are:
+                      Modified HActiveVideo value to 1920 for
+                      XVTC_VMODE_1080I mode.
+                      Removed Major, Minor and Revision parameters from
+                      XVtc_GetVersion.
+                      Modified return type of XVtc_GetVersion from
+                      void to u32.
+                      Added progressive and interlaced mode switching feature.
+                      Modified XVtc_SetGenerator, XVtc_GetGenerator,
+                      XVtc_GetDetector, XVtc_ConvTiming2Signal and
+                      XVtc_ConvSignal2Timing APIs</preformatted></para><para><preformatted>                      Modifications from <ref refid="xvtc__hw_8h" kindref="compound">xvtc_hw.h</ref> file are:
+                      Removed XVTC_ERR_FIL_MASK macro because it is  not
+                      present in latest product guide.
+                      Modified register offsets from XVTC_* to XVTC_*_OFFSET
+                      for consistency.
+                      Added backward compatibility macros.</preformatted></para><para><preformatted>                      Modifications from <ref refid="xvtc__intr_8c" kindref="compound">xvtc_intr.c</ref> and <ref refid="xvtc__sinit_8c" kindref="compound">xvtc_sinit.c</ref> files
+                      are:
+                      updated doxygen tags.</preformatted></para><para><preformatted>                      Modifications from <ref refid="xvtc__selftest_8c" kindref="compound">xvtc_selftest.c</ref> file are:
+                      First Release.
+                      Implemented following function:
+                      XVtc_SelfTest.
+7.1   vns    10/14/15 Added InterlacedMode field to <ref refid="struct_x_vtc___source_select" kindref="compound">XVtc_SourceSelect</ref>
+                      structure
+7.2   sk     08/16/16 Used UINTPTR instead of u32 for Baseaddress as part of
+                      adding 64 bit support. CR# 867425.
+                      Changed the prototype of XVtc_CfgInitialize API.
+      ms     03/17/17 Added readme.txt file in examples folder for doxygen
+                      generation.
+8.2     rg     08/12/20 Implemented XVtc_SetAdaptiveSyncMode,
+                                    XVtc_DisableAdaptiveSync and
+                                    XVtc_SetVfpStretchLimit API&apos;s.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

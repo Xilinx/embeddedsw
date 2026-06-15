@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___image_info" kind="struct" prot="public">
+    <compoundname>XLoader_ImageInfo</compoundname>
+    <includes local="no">xloader_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___image_info_1aa4c8bf28a4fead4fde475250a08697c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageInfo::ImgID</definition>
+        <argsstring></argsstring>
+        <name>ImgID</name>
+        <briefdescription>
+<para>Image ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga1174525d720931317820d083d51efdd7" compoundref="xloader_8c" startline="1385" endline="1409">XLoader_GetImageInfoEntry</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" compoundref="xloader_8c" startline="1424" endline="1483">XLoader_StoreImageInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_info_1a24424adf798e7660c138eda532397b7d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageInfo::UID</definition>
+        <argsstring></argsstring>
+        <name>UID</name>
+        <briefdescription>
+<para>Unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7d21b5aaf9fbe5d87bfc45e84e5eb634" compoundref="xloader_8c" startline="1424" endline="1483">XLoader_StoreImageInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_info_1a38b817f7c4b1e0f88c6d0e88d03a18eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageInfo::PUID</definition>
+        <argsstring></argsstring>
+        <name>PUID</name>
+        <briefdescription>
+<para>Parent UID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___image_info_1ad037c834d77ba07cbd0b20938616cfa8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_ImageInfo::FuncID</definition>
+        <argsstring></argsstring>
+        <name>FuncID</name>
+        <briefdescription>
+<para>Function ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold Image information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader_defs.h" bodystart="116" bodyend="121"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___image_info_1ad037c834d77ba07cbd0b20938616cfa8" prot="public" virt="non-virtual"><scope>XLoader_ImageInfo</scope><name>FuncID</name></member>
+      <member refid="struct_x_loader___image_info_1aa4c8bf28a4fead4fde475250a08697c4" prot="public" virt="non-virtual"><scope>XLoader_ImageInfo</scope><name>ImgID</name></member>
+      <member refid="struct_x_loader___image_info_1a38b817f7c4b1e0f88c6d0e88d03a18eb" prot="public" virt="non-virtual"><scope>XLoader_ImageInfo</scope><name>PUID</name></member>
+      <member refid="struct_x_loader___image_info_1a24424adf798e7660c138eda532397b7d" prot="public" virt="non-virtual"><scope>XLoader_ImageInfo</scope><name>UID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

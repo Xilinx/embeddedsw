@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__bbram_8h" kind="file">
+    <compoundname>xilskey_bbram.h</compoundname>
+    <includedby refid="xilskey__bbram_8c" local="yes">xilskey_bbram.c</includedby>
+    <includedby refid="xilskey__bbramps__zynqmp__hw_8h" local="yes">xilskey_bbramps_zynqmp_hw.h</includedby>
+    <includedby refid="xilskey__jscmd_8c" local="yes">xilskey_jscmd.c</includedby>
+    <includedby refid="xilskey__bbram__example_8c" local="yes">xilskey_bbram_example.c</includedby>
+    <includedby refid="xilskey__bbram__ultrascale__example_8c" local="yes">xilskey_bbram_ultrascale_example.c</includedby>
+    <includedby refid="xilskey__bbramps__zynqmp__example_8c" local="yes">xilskey_bbramps_zynqmp_example.c</includedby>
+    <invincdepgraph>
+      <node id="20">
+        <label>xilskey_bbram_example.c</label>
+        <link refid="xilskey__bbram__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xilskey_bbramps_zynqmp_example.c</label>
+        <link refid="xilskey__bbramps__zynqmp__example_8c"/>
+      </node>
+      <node id="18">
+        <label>xilskey_bbramps_zynqmp.c</label>
+        <link refid="xilskey__bbramps__zynqmp_8c"/>
+      </node>
+      <node id="17">
+        <label>xilskey_bbramps_zynqmp_hw.h</label>
+        <link refid="xilskey__bbramps__zynqmp__hw_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xilskey_bbram.c</label>
+        <link refid="xilskey__bbram_8c"/>
+      </node>
+      <node id="15">
+        <label>xilskey_bbram.h</label>
+        <link refid="xilskey_bbram.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xilskey_bbram_ultrascale_example.c</label>
+        <link refid="xilskey__bbram__ultrascale__example_8c"/>
+      </node>
+      <node id="19">
+        <label>xilskey_jscmd.c</label>
+        <link refid="xilskey__jscmd_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__bbram_1gac7bc27c2933ca2ed403fb3487beee6f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilSKey_Bbram_Program</definition>
+        <argsstring>(XilSKey_Bbram *InstancePtr)</argsstring>
+        <name>XilSKey_Bbram_Program</name>
+        <param>
+          <type>XilSKey_Bbram *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function implements the BBRAM algorithm for programming and verifying key. </para>        </briefdescription>
+        <detaileddescription>
+<para>The program and verify will only work together in and in that order.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilSKey_Bbram</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>This function will program BBRAM of Ultrascale and Zynq as well. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="230" bodyend="261"/>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1a4084b23203ebac05b1367e2e59f424d1" compoundref="xilskey__bbram__ultrascale__example_8c" startline="323" endline="341">XilSKey_Bbram_ProgramSLR</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__bbram_1ga4a6efa27285760c27b787dfa7a7f54a2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilSKey_Bbram_JTAGServerInit</definition>
+        <argsstring>(XilSKey_Bbram *InstancePtr)</argsstring>
+        <name>XilSKey_Bbram_JTAGServerInit</name>
+        <param>
+          <type>XilSKey_Bbram *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes JTAG server. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XilSKey_Bbram</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbram.c" bodystart="192" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_Bbram_Program</definition>
+        <argsstring>(const u32 *AesKey)</argsstring>
+        <name>XilSKey_ZynqMp_Bbram_Program</name>
+        <param>
+          <type>const u32 *</type>
+          <declname>AesKey</declname>
+        </param>
+        <briefdescription>
+<para>This function implements the BBRAM programming and verifying the key written. </para>        </briefdescription>
+        <detaileddescription>
+<para>Program and verification of AES will work only together. CRC of the provided key will be calculated internally and verified after programming.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AesKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the key which has to be programmed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Error code from XskZynqMp_Ps_Bbram_ErrorCodes enum if it fails</para></listitem><listitem><para>XST_SUCCESS if programming is done. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="80" bodyend="140"/>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ac621f36f217dcc74ee918df67cebaa5d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="149">XSK_ZYNQMP_BBRAM_AES_CRC_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_BBRAM_BASEADDR</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad4d9fa44c9d798cf462ce82cdddcd913" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="78">XSK_ZYNQMP_BBRAM_STS_AES_CRC_DONE_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a908f302a42c8b8c7333259b183e043c9" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="65">XSK_ZYNQMP_BBRAM_STS_AES_CRC_PASS_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="54">XSK_ZYNQMP_BBRAM_STS_OFFSET</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a903e134a762730cccfe345331d94c28e" compoundref="xilskey__utils_8h" startline="1061">XSK_ZYNQMP_BBRAMPS_ERROR_IN_CRC_CHECK</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a1a75b454a6c9327b9d801727f45779fa" compoundref="xilskey__utils_8h" startline="1066">XSK_ZYNQMP_BBRAMPS_ERROR_IN_PRGRMG</references>
+        <references refid="group__xilskey__zmpsoc__ps__error__codes_1gga43029ac3b786e9f57cc8674f065a53e6a7bb31a479b446803f07ae3d69b093e77" compoundref="xilskey__utils_8h" startline="1069">XSK_ZYNQMP_BBRAMPS_ERROR_IN_WRITE_CRC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_ZynqMp_Bbram_Zeroise</definition>
+        <argsstring>(void)</argsstring>
+        <name>XilSKey_ZynqMp_Bbram_Zeroise</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function zeroize&apos;s Bbram Key. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>BBRAM key will be zeroized. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_bbramps_zynqmp.c" bodystart="150" bodyend="195"/>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1ad460c32a4f02c48d7c3cb6ea7f3e4a48" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="166">XSK_ZYNQMP_BBRAM_0_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a104c26f1c18fe3998ea71013bc2c0d0c" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="249">XSK_ZYNQMP_BBRAM_7_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7fd7c9a4f6f4012f7e4581608d9be7d4" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="48">XSK_ZYNQMP_BBRAM_BASEADDR</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a7a4d3e383cfd97b8eedcd6c5203fd51f" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="115">XSK_ZYNQMP_BBRAM_CTRL_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1afd1d1dd32d28ba076e06ff0bcc58e2a1" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="123">XSK_ZYNQMP_BBRAM_CTRL_ZEROIZE_MASK</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a194a83c890440a26af4abfbb73dcea7d" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="54">XSK_ZYNQMP_BBRAM_STS_OFFSET</references>
+        <references refid="xilskey__bbramps__zynqmp__hw_8h_1a725e7bf31bc0af974326c225d9b78669" compoundref="xilskey__bbramps__zynqmp__hw_8h" startline="91">XSK_ZYNQMP_BBRAM_STS_ZEROIZED_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_BBRAM_H</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_BBRAM_H</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKey[32];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDI;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDO;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTCK;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTMS;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioMuxSel;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>JtagMuxSelLineDefVal;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioID;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TDI<sp/>AXI<sp/>GPIO<sp/>pin<sp/>number<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDI;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TDO<sp/>AXI<sp/>GPIO<sp/>pin<sp/>number<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDO;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TMS<sp/>AXI<sp/>GPIO<sp/>pin<sp/>number<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTMS;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TCK<sp/>AXI<sp/>GPIO<sp/>pin<sp/>number<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTCK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AXI<sp/>GPIO<sp/>Channel<sp/>number<sp/>of<sp/>all<sp/>Inputs<sp/>TDO<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioInputCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AXI<sp/>GPIO<sp/>Channel<sp/>number<sp/>for<sp/>all<sp/>Outputs<sp/>TDI/TMS/TCK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioOutPutCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Is<sp/>BBRAM<sp/>key<sp/>is<sp/>obfuscated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>IsKeyObfuscated;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DPA<sp/>protection<sp/>enable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Enable_DpaProtect;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DPA<sp/>count<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Dpa_Count;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DPA<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Dpa_Mode;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BBRAM<sp/>control<sp/>word<sp/>to<sp/>be<sp/>programmed<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlWord;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stores<sp/>Fpga<sp/>series<sp/>of<sp/>BBRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSKEfusePl_Fpga<sp/>FpgaFlag;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Crc;<sp/></highlight><highlight class="comment">/*<sp/>Crc<sp/>of<sp/>AES<sp/>key<sp/>and<sp/>control<sp/>word<sp/>of<sp/>Ultrascale<sp/>BBRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>SLRs<sp/>to<sp/>iterate<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>NumSlr;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>SLR<sp/>to<sp/>iterate<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>MasterSlr;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>SlrConfigOrderIndex;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>SystemInitDone;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}XilSKey_Bbram;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/>*<sp/>Constant<sp/>definitions<sp/>for<sp/>instruction<sp/>used<sp/>in<sp/>BBRAM<sp/>key<sp/>program<sp/>and<sp/>verify</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>JPROGRAM<sp/>0x0B</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_NOOP<sp/>0x14</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_ENABLE<sp/>0x10</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_PROGRAM_KEY<sp/>0x12</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_PROGRAM<sp/>0x11</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_READ<sp/>0x15</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISC_DISABLE<sp/>0x16</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>BYPASS<sp/>0x3F</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/>*<sp/>Pre<sp/>and<sp/>post<sp/>pads</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IRTRAILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRHEADER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRTRAILER<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*<sp/>Pre<sp/>and<sp/>post<sp/>pads<sp/>for<sp/>BYPASS<sp/>in<sp/>de-init</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRHEADER_BYP<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IRTRAILER_BYP<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRHEADER_BYP<sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRTRAILER_BYP<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/>*<sp/>Instruction<sp/>load<sp/>length</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRLENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/>*<sp/>Data<sp/>register<sp/>lengths<sp/>for<sp/>program</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DRLENGTH_PROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/>*<sp/>Data<sp/>register<sp/>lengths<sp/>for<sp/>verify</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DRLENGTH_VERIFY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>37</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/>*<sp/>Data<sp/>register<sp/>lengths<sp/>for<sp/>data<sp/>load<sp/>after<sp/>ISC_ENABLE</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DRLENGTH_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="173"><highlight class="comment"><sp/>*<sp/>Data<sp/>register<sp/>load<sp/>after<sp/>ISC_ENABLE</highlight></codeline>
+<codeline lineno="174"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DR_EN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x15</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="178"><highlight class="comment"><sp/>*<sp/>Timer<sp/>function<sp/>load<sp/>for<sp/>100msec</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TIMER_100MS<sp/><sp/><sp/><sp/><sp/>1000000</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment"><sp/>*<sp/>IRCAPTURE<sp/>status<sp/>-<sp/>init<sp/>complete<sp/>mask</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INITCOMPLETEMASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/>*<sp/>Number<sp/>of<sp/>char&apos;s<sp/>in<sp/>a<sp/>KEY</highlight></codeline>
+<codeline lineno="189"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUMCHARINKEY<sp/><sp/><sp/><sp/>32</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/>*<sp/>Number<sp/>of<sp/>words<sp/>in<sp/>a<sp/>KEY</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUMWORDINKEY<sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*<sp/>Data<sp/>register<sp/>shift<sp/>before<sp/>key<sp/>verify</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DATAREGCLEAR<sp/><sp/><sp/><sp/>0x1FFFFFFFE0</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/>*<sp/>Number<sp/>of<sp/>LSB<sp/>status<sp/>bits<sp/>in<sp/>37<sp/>bit<sp/>read<sp/>to<sp/>shifted<sp/>out</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUMLSBSTATUSBITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/>*<sp/>Data<sp/>and<sp/>instruction<sp/>loads<sp/>in<sp/>de-init</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRDEINIT_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IRDEINIT_L<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRDEINIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/>*<sp/>Data<sp/>and<sp/>instruction<sp/>lengths<sp/>in<sp/>de-init</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRDEINITLEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DRDEINITLEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="220"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/>*<sp/>Function<sp/>for<sp/>BBRAM<sp/>program<sp/>and<sp/>verify<sp/>algorithm</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilskey__zynq__ultra__bbram_1gac7bc27c2933ca2ed403fb3487beee6f8" kindref="member">XilSKey_Bbram_Program</ref>(XilSKey_Bbram<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilskey__zynq__ultra__bbram_1ga4a6efa27285760c27b787dfa7a7f54a2" kindref="member">XilSKey_Bbram_JTAGServerInit</ref>(XilSKey_Bbram<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="231"><highlight class="comment">/*<sp/>Functions<sp/>to<sp/>program<sp/>AES<sp/>key<sp/>and<sp/>function<sp/>to<sp/>zeroise<sp/>AES<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq_m_p_1gaa1cc8606083a1c20933361fa4d7920c4" kindref="member">XilSKey_ZynqMp_Bbram_Program</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*AesKey);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq_m_p_1gab6c727d0448cd7281c282300b72f6152" kindref="member">XilSKey_ZynqMp_Bbram_Zeroise</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>XILSKEY_BBRAM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_bbram.h"/>
+  </compounddef>
+</doxygen>

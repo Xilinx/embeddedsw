@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0827201817d260eb158f4a6a84176193" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xemaclite__example_8h">xemaclite_example.h</innerfile>
+    <innerfile refid="xemaclite__example__util_8c">xemaclite_example_util.c</innerfile>
+    <innerfile refid="xemaclite__internal__loopback__example_8c">xemaclite_internal_loopback_example.c</innerfile>
+    <innerfile refid="xemaclite__intr__example_8c">xemaclite_intr_example.c</innerfile>
+    <innerfile refid="xemaclite__phy__loopback__example_8c">xemaclite_phy_loopback_example.c</innerfile>
+    <innerfile refid="xemaclite__ping__reply__example_8c">xemaclite_ping_reply_example.c</innerfile>
+    <innerfile refid="xemaclite__ping__req__example_8c">xemaclite_ping_req_example.c</innerfile>
+    <innerfile refid="xemaclite__polled__example_8c">xemaclite_polled_example.c</innerfile>
+    <innerfile refid="xemaclite__selftest__example_8c">xemaclite_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/examples/"/>
+  </compounddef>
+</doxygen>

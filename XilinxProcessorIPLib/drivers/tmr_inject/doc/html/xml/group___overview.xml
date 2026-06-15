@@ -1,0 +1,774 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group___overview" kind="group">
+    <compoundname>Overview</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_t_m_r___inject___config" prot="public">XTMR_Inject_Config</innerclass>
+    <innerclass refid="struct_x_t_m_r___inject" prot="public">XTMR_Inject</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___overview_1ga5c0a88c4c506220beeb310a143079fec" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR xtmr_inject_instr</definition>
+        <argsstring></argsstring>
+        <name>xtmr_inject_instr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="48" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga72d8aaf17d11276021633281d01dc459" prot="public" static="yes" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR xtmr_inject_addr</definition>
+        <argsstring></argsstring>
+        <name>xtmr_inject_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga4808f00f81c65e406651a8c6a1768333" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_t_m_r___inject___config" kindref="compound">XTMR_Inject_Config</ref></type>
+        <definition>XTMR_Inject_Config XTMR_Inject_ConfigTable[XPAR_XTMR_INJECT_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XTMR_INJECT_NUM_INSTANCES]</argsstring>
+        <name>XTMR_Inject_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_TMRINJECT_0_DEVICE_ID,
+		XPAR_TMRINJECT_0_BASEADDR,
+		XPAR_TMRINJECT_0_MAGIC,
+		XPAR_TMRINJECT_0_CPU_ID
+	},
+}</initializer>
+        <briefdescription>
+<para>The configuration table for TMR Inject devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group___overview_1ga52343722e17f9e94767d114f4e4e1904" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_t_m_r___inject___config" kindref="compound">XTMR_Inject_Config</ref></type>
+        <definition>XTMR_Inject_Config XTMR_Inject_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XTMR_Inject_ConfigTable</name>
+        <briefdescription>
+<para>The configuration table for TMR Inject devices. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_i.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_g.c" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga80b6a61a1a87d516a0e228cb4cb5ca1a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 injectmask</definition>
+        <argsstring>(u32 value, u32 mask)</argsstring>
+        <name>injectmask</name>
+        <param>
+          <type>u32</type>
+          <declname>value</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="83" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTMR_Inject_CfgInitialize</definition>
+        <argsstring>(XTMR_Inject *InstancePtr, XTMR_Inject_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XTMR_Inject_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject___config" kindref="compound">XTMR_Inject_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The receive and transmit FIFOs of the core are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the core interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific TMR Inject device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything starts up as expected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The Config pointer argument is not used by this function, but is provided to keep the function signature consistent with other drivers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="123" bodyend="166"/>
+        <references refid="struct_x_t_m_r___inject_1ac480a708bc6795061809b64df28786a0" compoundref="xtmr__inject_8h" startline="107">XTMR_Inject::Address</references>
+        <references refid="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" compoundref="xtmr__inject_8h" startline="110">XTMR_Inject::CpuId</references>
+        <references refid="struct_x_t_m_r___inject_1a5cd63a57c9e0fc660198ca908a80d59b" compoundref="xtmr__inject_8h" startline="111">XTMR_Inject::Inject</references>
+        <references refid="struct_x_t_m_r___inject_1ae93bf505a45cc2d41a5233e907804571" compoundref="xtmr__inject_8h" startline="108">XTMR_Inject::Instruction</references>
+        <references refid="struct_x_t_m_r___inject___config_1abcc4860b38bfd58a997575597aa04e41" compoundref="xtmr__inject_8h" startline="94">XTMR_Inject_Config::LMBAddrWidth</references>
+        <references refid="struct_x_t_m_r___inject_1a4ac160caf2b04cb7f6de36e4ec99d10a" compoundref="xtmr__inject_8h" startline="109">XTMR_Inject::Magic</references>
+        <references refid="struct_x_t_m_r___inject___config_1a7a515f723b124f04117e1193b2d965f3" compoundref="xtmr__inject_8h" startline="92">XTMR_Inject_Config::MagicByte</references>
+        <references refid="struct_x_t_m_r___inject_1a82839ec096fef02e029775a31ea9595d" compoundref="xtmr__inject_8h" startline="105">XTMR_Inject::MagicByte</references>
+        <references refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" compoundref="xtmr__inject__l_8h" startline="90">XTMR_Inject_WriteReg</references>
+        <references refid="group___overview_1gaf7845ee5d1cb3710177457db62168fe0" compoundref="xtmr__inject__l_8h" startline="110">XTMR_Inject_WriteReg64</references>
+        <referencedby refid="group___overview_1gad6c9a7909d80ab972efd955cdfc9b30c" compoundref="xtmr__inject__sinit_8c" startline="117" endline="142">XTMR_Inject_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTMR_Inject_Enable</definition>
+        <argsstring>(XTMR_Inject *InstancePtr, u8 CpuId)</argsstring>
+        <name>XTMR_Inject_Enable</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>CpuId</declname>
+        </param>
+        <briefdescription>
+<para>This function enables fault injection for the indicated CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CpuId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the CPU ID of the CPU where faults are to be injected. Must be 1 to 3.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="180" bodyend="196"/>
+        <references refid="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" compoundref="xtmr__inject_8h" startline="110">XTMR_Inject::CpuId</references>
+        <references refid="struct_x_t_m_r___inject_1a5cd63a57c9e0fc660198ca908a80d59b" compoundref="xtmr__inject_8h" startline="111">XTMR_Inject::Inject</references>
+        <references refid="struct_x_t_m_r___inject_1a4ac160caf2b04cb7f6de36e4ec99d10a" compoundref="xtmr__inject_8h" startline="109">XTMR_Inject::Magic</references>
+        <references refid="struct_x_t_m_r___inject_1a82839ec096fef02e029775a31ea9595d" compoundref="xtmr__inject_8h" startline="105">XTMR_Inject::MagicByte</references>
+        <references refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" compoundref="xtmr__inject__l_8h" startline="90">XTMR_Inject_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTMR_Inject_Disable</definition>
+        <argsstring>(XTMR_Inject *InstancePtr)</argsstring>
+        <name>XTMR_Inject_Disable</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables fault injection. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="209" bodyend="222"/>
+        <references refid="struct_x_t_m_r___inject_1a2dbe75583ee09a3dee528087cf378066" compoundref="xtmr__inject_8h" startline="110">XTMR_Inject::CpuId</references>
+        <references refid="struct_x_t_m_r___inject_1a5cd63a57c9e0fc660198ca908a80d59b" compoundref="xtmr__inject_8h" startline="111">XTMR_Inject::Inject</references>
+        <references refid="struct_x_t_m_r___inject_1a4ac160caf2b04cb7f6de36e4ec99d10a" compoundref="xtmr__inject_8h" startline="109">XTMR_Inject::Magic</references>
+        <references refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" compoundref="xtmr__inject__l_8h" startline="90">XTMR_Inject_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gaa8c496ccf948ca1b3ed359f6f6be485c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTMR_Inject_InjectBit</definition>
+        <argsstring>(XTMR_Inject *InstancePtr, u32 Value, u8 Bit)</argsstring>
+        <name>XTMR_Inject_InjectBit</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bit</declname>
+        </param>
+        <briefdescription>
+<para>This function can be used to inject a fault in either: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem>
+<para>An address bit of a memory or memory mapped register address for any read or write access on AXI or LMB. </para></listitem>
+<listitem>
+<para>A data bit written to memory or a memory mapped register on AXI or LMB, as well as output on an AXI Stream. &lt; </para></listitem>
+</itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the memory or register address, oro the data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit where the fault is injected. Must be 0 to 31.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Either the unchanged value, or value with the fault injected for the CPU set up for fault injection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="245" bodyend="256"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga0459573a53d4807b01ee65ed3709b547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XTMR_Inject_InjectMask</definition>
+        <argsstring>(XTMR_Inject *InstancePtr, u32 Value, u32 Mask)</argsstring>
+        <name>XTMR_Inject_InjectMask</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function can be used to inject any number of faults defined by the Mask parameter in either: </para>        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem>
+<para>Any address bits of a memory or memory mapped register address for any read or write access on AXI or LMB. </para></listitem>
+<listitem>
+<para>Any data bits written to memory or a memory mapped register on AXI or LMB, as well as output on an AXI Stream. &lt; </para></listitem>
+</itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the memory or register address, oro the data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>defines the bits where faults are injected. A fault is injected for every bit in the mask set to 1.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Either the unchanged value, or value with the faults injected for the CPU set up for fault injection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="280" bodyend="290"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gad6c9a7909d80ab972efd955cdfc9b30c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTMR_Inject_Initialize</definition>
+        <argsstring>(XTMR_Inject *InstancePtr, UINTPTR BaseAddr)</argsstring>
+        <name>XTMR_Inject_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique id of the device controlled by this <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance. Passing in a device id associates the generic <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance to a specific device, as chosen by the caller or application developer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything starts up as expected.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device is not found in the configuration table.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_sinit.c" bodystart="117" bodyend="142"/>
+        <references refid="struct_x_t_m_r___inject___config_1aed18981142dedd48d7dc99d5926dcbba" compoundref="xtmr__inject_8h" startline="91">XTMR_Inject_Config::RegBaseAddr</references>
+        <references refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</references>
+        <referencedby refid="xtmr__inject__selftest__example_8c_1ac8dde83b81e536ee959b50d2f3f432e4" compoundref="xtmr__inject__selftest__example_8c" startline="118" endline="144">TMR_InjectSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga4f7e4a45f3942aa7527a1a86c3cad0ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_t_m_r___inject___config" kindref="compound">XTMR_Inject_Config</ref> *</type>
+        <definition>XTMR_Inject_Config * XTMR_Inject_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XTMR_Inject_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_sinit.c" bodystart="79" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1gae03f2de24906f2660c4ab03a869e50cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTMR_Inject_SelfTest</definition>
+        <argsstring>(XTMR_Inject *InstancePtr)</argsstring>
+        <name>XTMR_Inject_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the device hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>Since there is no way to perform a loopback in the hardware, this test can only check the state of the status register to verify it is correct. This test assumes that the hardware device is still in its reset state, but has been initialized with the Initialize function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test was successful.</para></listitem><listitem><para>XST_FAILURE if the self-test failed, the status register value was not correct</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_selftest.c" bodystart="69" bodyend="79"/>
+        <referencedby refid="xtmr__inject__selftest__example_8c_1ac8dde83b81e536ee959b50d2f3f432e4" compoundref="xtmr__inject__selftest__example_8c" startline="118" endline="144">TMR_InjectSelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1ga4f6e672819e304a484435c1a8b9af5c3" prot="public" static="no">
+        <name>xor</name>
+        <param><defname>data</defname></param>
+        <param><defname>mask</defname></param>
+        <initializer>({		\
+  u32 _rval;				\
+  __asm__ __volatile__ (		\
+    &quot;\t.global xtmr_inject_instr\n&quot;	\
+    &quot;\tnop\n&quot;				\
+    &quot;xtmr_inject_instr:\n&quot;		\
+    &quot;\txor\t%0,%1,%2\n&quot;			\
+    : &quot;=d&quot;(_rval) : &quot;d&quot; (data), &quot;d&quot; (mask) \
+  ); \
+  _rval; \
+})</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" line="67" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2246fac454dbe7db381337c1b7a8ffd5" prot="public" static="no">
+        <name>XTMR_INJECT_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga3bfaf6042a32c5ee78cd0f34fc9df133" prot="public" static="no">
+        <name>XTI_STANDARD_LMB_WIDTH</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga73a08d23f17a53d6b930f90c50b39746" prot="public" static="no">
+        <name>XTMR_INJECT_I_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_i.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_i.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab1f098e2a15532cec9a9690ea2ecf90a" prot="public" static="no">
+        <name>XTMR_INJECT_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga36f23c7a7edb9b90e3fb197fd59da57d" prot="public" static="no">
+        <name>XTI_CR_OFFSET</name>
+        <initializer>0	/* control register, write only */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0df0aa8627dc3fdfa5124f47667795e6" prot="public" static="no">
+        <name>XTI_AIR_OFFSET</name>
+        <initializer>4	/* address register, write only */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2412fb2a50a5bdb7953322c05e970156" prot="public" static="no">
+        <name>XTI_IIR_OFFSET</name>
+        <initializer>8	/* instruction register, write only */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad44138b54e7a9ed50809fca5eb2f61e2" prot="public" static="no">
+        <name>XTI_EAIR_OFFSET</name>
+        <initializer>0x10	/* address register, write only */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga10e859b00942355347a6a5704cb58b40" prot="public" static="no">
+        <name>XTI_CR_MAGIC</name>
+        <initializer>0	/* magic byte */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9fd3d0619f42a9a4a442362a90ec39f2" prot="public" static="no">
+        <name>XTI_CR_CPU</name>
+        <initializer>8	/* cpu id */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9e25e2a148ed55e5fdb907e82122e9e2" prot="public" static="no">
+        <name>XTI_CR_INJ</name>
+        <initializer>10	/* fault inject enabled */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae608ecc8ba39206858dcc21c992ad9b1" prot="public" static="no">
+        <name>XTI_CR_MAGIC_MASK</name>
+        <initializer>0x0ff	/* magic byte mask */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacf00e0f513ca3344f3b7e0225ee46edb" prot="public" static="no">
+        <name>XTI_CR_CPU_MASK</name>
+        <initializer>0x300	/* cpu id mask */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacdb0fa19cb9b757355bd0e7d426c1718" prot="public" static="no">
+        <name>XTI_IIR_MASK</name>
+        <initializer>0xffff0000 /* Instruction Inject address mask */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga4e16ec799cb1cc0eaa48c3ed13c900d8" prot="public" static="no">
+        <name>XTMR_Inject_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae29f886309b947dfa2e7b075395f00f6" prot="public" static="no">
+        <name>XTMR_Inject_Out64</name>
+        <initializer>Xil_Out64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" prot="public" static="no">
+        <name>XTMR_Inject_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XTMR_Inject_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write a value to a TMRInject register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the TMRInject device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XTMR_Inject_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1gaa8895543796c01ea108b2fe355c13d3a" compoundref="xtmr__inject_8c" startline="209" endline="222">XTMR_Inject_Disable</referencedby>
+        <referencedby refid="group___overview_1ga6ee64c2bc63c5959641f76a24d56b58b" compoundref="xtmr__inject_8c" startline="180" endline="196">XTMR_Inject_Enable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf7845ee5d1cb3710177457db62168fe0" prot="public" static="no">
+        <name>XTMR_Inject_WriteReg64</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XTMR_Inject_Out64((BaseAddress) + (RegOffset), (UINTPTR)(Data))</initializer>
+        <briefdescription>
+<para>Write a value to a TMRInject register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 64 bit write is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the TMRInject device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XTMR_Inject_WriteReg64(UINTPTR BaseAddress, u32 RegOffset, u64 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga5283360c0584dfb4cd8c7be8a8fcb312" compoundref="xtmr__inject_8c" startline="123" endline="166">XTMR_Inject_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga01af287ad77f7c44c914e70dd8028b85" prot="public" static="no">
+        <name>XTMR_Inject_SetControlReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Mask</defname></param>
+        <initializer><ref refid="group___overview_1ga9ffe2a65461b512f2a92edd9aeb121b4" kindref="member">XTMR_Inject_WriteReg</ref>((BaseAddress), XTI_CONTROL_REG_OFFSET, (Mask))</initializer>
+        <briefdescription>
+<para>Set the contents of the control register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XUL_CR_* constants defined above to create the bit-mask to be written to the register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the control register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style Signature: void <ref refid="group___overview_1ga01af287ad77f7c44c914e70dd8028b85" kindref="member">XTMR_Inject_SetControlReg(u32 BaseAddress, u32 Mask)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmr_inject/src/xtmr_inject_l.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains required functions for the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>The implementation of the XTMRInject component&apos;s static initialization functionality.</para><para>This file contains the self-test functions for the TMR Inject component (<ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref>).</para><para>This header file contains identifiers and low-level driver functions (or macros) that can be used to access the device.</para><para>Contains data which is shared between the files of the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> component.</para><para>This file contains a configuration table that specifies the configuration of TMR Inject devices in the system.</para><para>}</para><para>See the <ref refid="xtmr__inject_8h" kindref="compound">xtmr_inject.h</ref> header file for more details on this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+1.1   mus  10/25/18 Updated XTMR_Inject_CfgInitialize to support
+                    64 bit fault address.
+1.4   adk  02/24/22 While updating the IIR offset apply the mask.
+1.6   sa   01/05/23 Added support for Microblaze RISC-V.
+1.6   asa  07/27/23 Updated to fix compilation error while
+                    initializing xtmr_inject_addr.</preformatted></para><para><preformatted></preformatted></para><para>Each device in the system should have an entry in the table.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+</preformatted></para><para>It is intended for internal use only.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+</preformatted></para><para>High-level driver functions are defined in <ref refid="xtmr__inject_8h" kindref="compound">xtmr_inject.h</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

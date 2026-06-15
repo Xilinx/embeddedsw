@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structfzetta__fmc__reg" kind="struct" prot="public">
+    <compoundname>fzetta_fmc_reg</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfzetta__fmc__reg_1aab965022ee6ff1cd26fe7e5d6413dc81" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR fzetta_fmc_reg::gpio_dev_baseaddress</definition>
+        <argsstring></argsstring>
+        <name>gpio_dev_baseaddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfzetta__fmc__reg_1a3d8f8b6884c383d53a4e5bf67d3b11bc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR fzetta_fmc_reg::iic_dev_baseaddress</definition>
+        <argsstring></argsstring>
+        <name>iic_dev_baseaddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfzetta__fmc__reg_1a57413bf31c4fd6152caa3810e743a2b2" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR fzetta_fmc_reg::spi_dev_baseaddress</definition>
+        <argsstring></argsstring>
+        <name>spi_dev_baseaddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfzetta__fmc__reg_1a2386f2aaf5a712d8467105786dc2b60d" prot="public" static="no" mutable="no">
+        <type>fzetta_fmc_reglist</type>
+        <definition>fzetta_fmc_reglist fzetta_fmc_reg::reglist</definition>
+        <argsstring>[REGLIST_SIZE]</argsstring>
+        <name>reglist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_init_table.h" bodystart="47" bodyend="58"/>
+    <listofallmembers>
+      <member refid="structfzetta__fmc__reg_1aab965022ee6ff1cd26fe7e5d6413dc81" prot="public" virt="non-virtual"><scope>fzetta_fmc_reg</scope><name>gpio_dev_baseaddress</name></member>
+      <member refid="structfzetta__fmc__reg_1a3d8f8b6884c383d53a4e5bf67d3b11bc" prot="public" virt="non-virtual"><scope>fzetta_fmc_reg</scope><name>iic_dev_baseaddress</name></member>
+      <member refid="structfzetta__fmc__reg_1a2386f2aaf5a712d8467105786dc2b60d" prot="public" virt="non-virtual"><scope>fzetta_fmc_reg</scope><name>reglist</name></member>
+      <member refid="structfzetta__fmc__reg_1a57413bf31c4fd6152caa3810e743a2b2" prot="public" virt="non-virtual"><scope>fzetta_fmc_reg</scope><name>spi_dev_baseaddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___query_upiu" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_QueryUpiu</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___query_upiu_1a238abfb5f77d1d52582dfb5e3378faef" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___trans_spec_flds" kindref="compound">XUfsPsxc_TransSpecFlds</ref></type>
+        <definition>XUfsPsxc_TransSpecFlds XUfsPsxc_QueryUpiu::Tsf</definition>
+        <argsstring></argsstring>
+        <name>Tsf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___query_upiu_1a0387248187655b5a410dca328bc6b086" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUfsPsxc_QueryUpiu::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___query_upiu_1a5681292a7e4dbb23e38a3451dff4800a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUfsPsxc_QueryUpiu::Data[256U]</definition>
+        <argsstring>[256U]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Query UPIU Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="24">
+        <label>XUfsPsxc_TransSpecFlds</label>
+        <link refid="struct_x_ufs_psxc___trans_spec_flds"/>
+      </node>
+      <node id="23">
+        <label>XUfsPsxc_QueryUpiu</label>
+        <link refid="struct_x_ufs_psxc___query_upiu"/>
+        <childnode refid="24" relation="usage">
+          <edgelabel>Tsf</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="117" bodyend="121"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___query_upiu_1a5681292a7e4dbb23e38a3451dff4800a" prot="public" virt="non-virtual"><scope>XUfsPsxc_QueryUpiu</scope><name>Data</name></member>
+      <member refid="struct_x_ufs_psxc___query_upiu_1a0387248187655b5a410dca328bc6b086" prot="public" virt="non-virtual"><scope>XUfsPsxc_QueryUpiu</scope><name>Reserved</name></member>
+      <member refid="struct_x_ufs_psxc___query_upiu_1a238abfb5f77d1d52582dfb5e3378faef" prot="public" virt="non-virtual"><scope>XUfsPsxc_QueryUpiu</scope><name>Tsf</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

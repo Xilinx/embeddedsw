@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_cframe" kind="struct" prot="public">
+    <compoundname>XCframe</compoundname>
+    <includes local="no">xcframe.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_cframe___config" kindref="compound">XCframe_Config</ref></type>
+        <definition>XCframe_Config XCframe::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_cframe_1a4255c03da2812c3c90357df63cd5f2dc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCframe::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_cframe" kindref="compound">XCframe</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XCframe_Config</label>
+        <link refid="struct_x_cframe___config"/>
+      </node>
+      <node id="1">
+        <label>XCframe</label>
+        <link refid="struct_x_cframe"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/cframe/src/xcframe.h" bodystart="135" bodyend="139"/>
+    <listofallmembers>
+      <member refid="struct_x_cframe_1a486c412ee6a68a6ee6d78075d3236f32" prot="public" virt="non-virtual"><scope>XCframe</scope><name>Config</name></member>
+      <member refid="struct_x_cframe_1a4255c03da2812c3c90357df63cd5f2dc" prot="public" virt="non-virtual"><scope>XCframe</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

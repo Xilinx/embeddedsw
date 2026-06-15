@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_mbox_post_msg" kind="struct" prot="public">
+    <compoundname>MboxPostMsg</compoundname>
+    <includes local="no">mbox_fifo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_mbox_post_msg_1aa12b067c21166ab3d2f2aa8a80e97b55" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MboxPostMsg::media_server_flags</definition>
+        <argsstring></argsstring>
+        <name>media_server_flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_post_msg_1ac66723ccd9647417ae0e2b9a20e56920" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MboxPostMsg::reserved[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_post_msg_1ab4086eb5659e8f6bb881d35bb9b53805" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MboxPostMsg::msg_id</definition>
+        <argsstring></argsstring>
+        <name>msg_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_post_msg_1a37aea90be8625947c3135cf7e425e810" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MboxPostMsg::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_mbox_post_msg_1aff77f7a8534da869735116c1802ba009" prot="public" static="no" mutable="no">
+        <type><ref refid="mbox__fifo_8h_1afbb21034653fa377acc38d088c0d8704" kindref="member">Payload_packet</ref></type>
+        <definition>Payload_packet MboxPostMsg::payload</definition>
+        <argsstring></argsstring>
+        <name>payload</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of Mbox post message - must match NEW_RPU binary layout. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="913">
+        <label>payload_template</label>
+        <link refid="structpayload__template"/>
+        <childnode refid="914" relation="usage">
+          <edgelabel>resp_field</edgelabel>
+        </childnode>
+      </node>
+      <node id="912">
+        <label>MboxPostMsg</label>
+        <link refid="struct_mbox_post_msg"/>
+        <childnode refid="913" relation="usage">
+          <edgelabel>payload</edgelabel>
+        </childnode>
+      </node>
+      <node id="914">
+        <label>response_field</label>
+        <link refid="structresponse__field"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="80" bodyend="86"/>
+    <listofallmembers>
+      <member refid="struct_mbox_post_msg_1aa12b067c21166ab3d2f2aa8a80e97b55" prot="public" virt="non-virtual"><scope>MboxPostMsg</scope><name>media_server_flags</name></member>
+      <member refid="struct_mbox_post_msg_1ab4086eb5659e8f6bb881d35bb9b53805" prot="public" virt="non-virtual"><scope>MboxPostMsg</scope><name>msg_id</name></member>
+      <member refid="struct_mbox_post_msg_1aff77f7a8534da869735116c1802ba009" prot="public" virt="non-virtual"><scope>MboxPostMsg</scope><name>payload</name></member>
+      <member refid="struct_mbox_post_msg_1ac66723ccd9647417ae0e2b9a20e56920" prot="public" virt="non-virtual"><scope>MboxPostMsg</scope><name>reserved</name></member>
+      <member refid="struct_mbox_post_msg_1a37aea90be8625947c3135cf7e425e810" prot="public" virt="non-virtual"><scope>MboxPostMsg</scope><name>size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

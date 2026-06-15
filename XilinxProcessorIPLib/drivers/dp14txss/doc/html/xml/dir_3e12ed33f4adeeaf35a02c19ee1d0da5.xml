@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3e12ed33f4adeeaf35a02c19ee1d0da5" kind="dir">
+    <compoundname>eeprom_utility</compoundname>
+    <innerfile refid="aes_8c">aes.c</innerfile>
+    <innerfile refid="eeprom__utility_2aes256_8c">eeprom_utility/aes256.c</innerfile>
+    <innerfile refid="eeprom__utility_2aes256_8h">eeprom_utility/aes256.h</innerfile>
+    <innerfile refid="bigdigits_8c">bigdigits.c</innerfile>
+    <innerfile refid="bigdigits_8h">bigdigits.h</innerfile>
+    <innerfile refid="bigdtypes_8h">bigdtypes.h</innerfile>
+    <innerfile refid="hdcp__key__utility_8c">hdcp_key_utility.c</innerfile>
+    <innerfile refid="hmac_8c">hmac.c</innerfile>
+    <innerfile refid="platform_8c">platform.c</innerfile>
+    <innerfile refid="platform_8h">platform.h</innerfile>
+    <innerfile refid="platform__config_8h">platform_config.h</innerfile>
+    <innerfile refid="sha2_8c">sha2.c</innerfile>
+    <innerfile refid="xhdcp22__common_8h">xhdcp22_common.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/eeprom_utility/"/>
+  </compounddef>
+</doxygen>

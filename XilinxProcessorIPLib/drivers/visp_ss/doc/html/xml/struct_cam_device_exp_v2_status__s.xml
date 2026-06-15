@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_exp_v2_status__s" kind="struct" prot="public">
+    <compoundname>CamDeviceExpV2Status_s</compoundname>
+    <includes local="no">cam_device_exp_api_v2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_exp_v2_status__s_1acc946ac03098232d5519eabfb88df84f" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceExpV2Status_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+<para>EXP enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice EXP status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="103" bodyend="106"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_exp_v2_status__s_1acc946ac03098232d5519eabfb88df84f" prot="public" virt="non-virtual"><scope>CamDeviceExpV2Status_s</scope><name>enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

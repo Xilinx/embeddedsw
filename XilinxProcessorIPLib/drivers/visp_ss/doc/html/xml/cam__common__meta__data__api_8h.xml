@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__common__meta__data__api_8h" kind="file">
+    <compoundname>cam_common_meta_data_api.h</compoundname>
+    <includes refid="cam__common__api_8h" local="yes">cam_common_api.h</includes>
+    <includedby refid="vvbparser_8c" local="yes">vvbparser.c</includedby>
+    <incdepgraph>
+      <node id="562">
+        <label>stdbool.h</label>
+      </node>
+      <node id="561">
+        <label>stdint.h</label>
+      </node>
+      <node id="560">
+        <label>cam_common_api.h</label>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="562" relation="include">
+        </childnode>
+      </node>
+      <node id="559">
+        <label>cam_common_meta_data_api.h</label>
+        <link refid="cam_common_meta_data_api.h"/>
+        <childnode refid="560" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="564">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="563">
+        <label>cam_common_meta_data_api.h</label>
+        <link refid="cam_common_meta_data_api.h"/>
+        <childnode refid="564" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cam__common__meta__data__api_8h_1a30f29f4bdc40e6936ac1ea78ed4ca058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamCommonQueryMetaDataInfo</definition>
+        <argsstring>(CamCommonHandle_t hCamCommon, char *pMetaListName)</argsstring>
+        <name>VsiCamCommonQueryMetaDataInfo</name>
+        <param>
+          <type>CamCommonHandle_t</type>
+          <declname>hCamCommon</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>pMetaListName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_meta_data_api.h" line="11" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Stub<sp/>header<sp/>-<sp/>function<sp/>implementations<sp/>provided<sp/>by<sp/>libvisp.a<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAM_COMMON_META_DATA_API_H</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAM_COMMON_META_DATA_API_H</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_common_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal">RESULT<sp/>VsiCamCommonQueryMetaDataInfo(CamCommonHandle_t<sp/>hCamCommon,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*pMetaListName);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>CAM_COMMON_META_DATA_API_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/submodules/cam_common_meta_data_api.h"/>
+  </compounddef>
+</doxygen>

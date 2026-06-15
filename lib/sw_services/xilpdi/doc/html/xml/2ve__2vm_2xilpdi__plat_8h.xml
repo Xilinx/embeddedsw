@@ -1,0 +1,1242 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2ve__2vm_2xilpdi__plat_8h" kind="file">
+    <compoundname>2ve_2vm/xilpdi_plat.h</compoundname>
+    <innerclass refid="struct_xil_pdi___boot_hdr_fw_rsvd" prot="public">XilPdi_BootHdrFwRsvd</innerclass>
+    <innerclass refid="struct_xil_pdi___boot_hdr" prot="public">XilPdi_BootHdr</innerclass>
+    <innerclass refid="struct_xil_pdi___img_hdr_tbl" prot="public">XilPdi_ImgHdrTbl</innerclass>
+    <innerclass refid="struct_xil_pdi___prtn_hdr" prot="public">XilPdi_PrtnHdr</innerclass>
+      <sectiondef kind="user-defined">
+      <header>XilPdi Definitions</header>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a20549f45008255d3f437889e03adb476" prot="public" static="no">
+        <name>XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK</name>
+        <initializer>(0xC0000U)</initializer>
+        <briefdescription>
+<para>Boot header Attr fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1adae11760fd620c00d55e3c11c65721cc" prot="public" static="no">
+        <name>XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a5ac7c90bf7c23d1da3016e1d23b374ef" prot="public" static="no">
+        <name>XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad1dabcc51048e8c2c771ea0020a7160e" prot="public" static="no">
+        <name>XIH_MAX_PRTNS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a49f37605afc7282af9f0b5694c2f3a11" prot="public" static="no">
+        <name>XIH_MAX_IMGS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ab8370747cfc069f91966249547566495" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_MASK</name>
+        <initializer>(0xFC0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a258ac860eec21997dadad867187e5439" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SHIFT</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a64e11b52217a1fdf3dc4caceabaa471d" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SAME</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a749cb703a2f73790b62defa1a4299be8" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_QSPI32</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a5f19c09a4c4cf419c9a6c814c60e6ed2" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_QSPI24</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a9b445c3b07d787d0c38068ea1a6676b6" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SDLS_B0</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aa742676fd181e97a489b50818a1ebf3d" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SD_B1</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a883baac990f957560b22293617c99e2f" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SDLS_B1</name>
+        <initializer>(0x6U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a18b02385c027ea4f03055dd4a28a3b93" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_EMMC</name>
+        <initializer>(0x7U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a4dce094203cfba0c1b336ff72b471d18" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_USB</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1afdd6a894caf34bd8101806b49ab33df2" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_PCIE</name>
+        <initializer>(0xAU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad6e975c0112ff0949350b3a0ca1efa5b" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_OSPI</name>
+        <initializer>(0xCU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ae540bd03f91284179ab22d6caabdbe40" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SMAP</name>
+        <initializer>(0xDU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ab84bbe41503a52b8cb297d99c0bb86ee" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_JTAG</name>
+        <initializer>(0xEU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a72ac8e20fb2617ea7d7d4e89021ff248" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SDLS_B0_RAW</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a5337da4b7e09a697d250323a6a34683f" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SD_B1_RAW</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a1ccccdfb66078b5aa1af97bad3faaee5" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_SDLS_B1_RAW</name>
+        <initializer>(0x11U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a4832d2dfefa66d1d43a87cc26a468ce5" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_EMMC_RAW</name>
+        <initializer>(0x12U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a7931b33bcedbbe5ceb58d2be580751bb" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_EMMC_0</name>
+        <initializer>(0x13U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a74d210777836a0511abd04ba28ce7683" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_EMMC_0_RAW</name>
+        <initializer>(0x14U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad892adfe9c2f06beebd802c6679b5764" prot="public" static="no">
+        <name>XIH_IHT_ATTR_IMAGE_STORE</name>
+        <initializer>(0x15U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a2e35fd33fbcc5fb9ca4712dc9b9cc711" prot="public" static="no">
+        <name>XIH_IHT_ATTR_SBD_UFS</name>
+        <initializer>(0x16U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a1c23aa3bfeb4a296c35a73b9c1b79b08" prot="public" static="no">
+        <name>XIH_PH_ATTRB_HIVEC_MASK</name>
+        <initializer>(0x800000U)</initializer>
+        <briefdescription>
+<para>Prtn Attribute fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a068bc32606e7a770cb187d2b047fa788" prot="public" static="no">
+        <name>XIH_PH_ATTRB_ENDIAN_MASK</name>
+        <initializer>(0x40000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a57fcf7292e57ca3ab28013d7aa2aead2" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_MASK</name>
+        <initializer>(0xE0000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a9e63d964e9455689e7d6f77caf4c7d71" prot="public" static="no">
+        <name>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK</name>
+        <initializer>(0x0030U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a69dd2d370f8d380fb2da32890d41d755" prot="public" static="no">
+        <name>XIH_PH_ATTRB_A78_EXEC_ST_MASK</name>
+        <initializer>(0x0008U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a3e3bb09567627f3a0f0b8d329040beda" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1abb4e56461afc7bf358d01682cb4105ad" prot="public" static="no">
+        <name>XIH_PH_ATTRB_TCM_BOOT_MASK</name>
+        <initializer>(0x180000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad2b34f8a94535a70a9cf14898261181f" prot="public" static="no">
+        <name>XIH_PH_ATTRB_PRTN_TYPE_RSVD</name>
+        <initializer>(0x0000000U)</initializer>
+        <briefdescription>
+<para>Prtn Attribute Values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1af34246e5a3d9d462a83b3677a8defb63" prot="public" static="no">
+        <name>XIH_PH_ATTRB_PRTN_TYPE_ELF</name>
+        <initializer>(0x1000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a4eecaad1480a70584baef454ddba8cf6" prot="public" static="no">
+        <name>XIH_PH_ATTRB_PRTN_TYPE_CDO</name>
+        <initializer>(0x2000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aabacf40da5795b93b64f865838a583a2" prot="public" static="no">
+        <name>XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK</name>
+        <initializer>(0x7000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a32873589c2f891a5ed3a90e6430e0c70" prot="public" static="no">
+        <name>XIH_PH_ATTRB_PRTN_OWNER_PLM</name>
+        <initializer>(0x00000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a0a8867e50938d82f439df9604712b766" prot="public" static="no">
+        <name>XIH_PH_ATTRB_HASH_SHA3</name>
+        <initializer>(0x3000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a6cb0de066113ff6b3c062be497e84479" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_NONE</name>
+        <initializer>(0x0000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a3634d74605c294857cab3df126158123" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_0</name>
+        <initializer>(0x000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aff79ee1865bd93d98828a3a8a867053d" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_1</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ab9e7c2996fab75e0eba706aebf7538e0" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_2</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a9e21b295ad12237ee0c47b994ef4a295" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_3</name>
+        <initializer>(0x60000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a31099ecc0cdd3f87ca3af3de3c5f9781" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CLUSTER_4</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a4d2c2e91694ecc83793c32a1a9621d4b" prot="public" static="no">
+        <name>XIH_ATTRB_DSTN_CLUSTER_0</name>
+        <initializer>(0x000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aaf829aa35222c2cc8ded7e0ddb6b992f" prot="public" static="no">
+        <name>XIH_ATTRB_DSTN_CLUSTER_1</name>
+        <initializer>(0x001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a5677b8094420172499858f0c0b998d08" prot="public" static="no">
+        <name>XIH_ATTRB_DSTN_CLUSTER_2</name>
+        <initializer>(0x002U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad4ff03848810421bd47298152253fd6f" prot="public" static="no">
+        <name>XIH_ATTRB_DSTN_CLUSTER_3</name>
+        <initializer>(0x003U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a8d7a012800eafdb10a916ef1820b6148" prot="public" static="no">
+        <name>XIH_ATTRB_DSTN_CLUSTER_4</name>
+        <initializer>(0x004U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a452b51382ea4145f8e798f58d607180b" prot="public" static="no">
+        <name>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_ENABLED</name>
+        <initializer>(0x030U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a687fb8533305e16370711a45f9446b48" prot="public" static="no">
+        <name>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED</name>
+        <initializer>(0x000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a8c44a84fbef12552230cb5d5b046dedc" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_A78_0</name>
+        <initializer>(0x100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a546f1c518f2cfdce4f3ecdea73a13c6e" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_A78_1</name>
+        <initializer>(0x200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a3a5821e50916a0e03526630f7b34d237" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_A78_2</name>
+        <initializer>(0x300U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a50d979df0fd0162fa3276cb3e0611dc7" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_A78_3</name>
+        <initializer>(0x400U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a1cae5715ca987bb018e00220b6d77b92" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_R52_0</name>
+        <initializer>(0x500U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ac8be8a1c333700ee2eb5864fad9cc5bd" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_R52_1</name>
+        <initializer>(0x600U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1afcadadab85951819852e89343c38d1d5" prot="public" static="no">
+        <name>XIH_PH_ATTRB_DSTN_CPU_ASU</name>
+        <initializer>(0x800U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aee26331073f509c2b65a9eb26d91b1cf" prot="public" static="no">
+        <name>XIH_PH_ATTRB_TCM_BOOT_ENABLED</name>
+        <initializer>(0x180000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a40b2c1e61725ae3bc034f8d15f3edf60" prot="public" static="no">
+        <name>XIH_ATTRB_A78_EXEC_ST_SHIFT_DIFF</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Below is the bit mapping of fields in the ATF Handoff parameters with that of Prtn header. </para>        </briefdescription>
+        <detaileddescription>
+<para>The number of bits shifted is is based on the difference between these two offsets <verbatim>              ATFHandoffParams     PrtnHdr              Shift
+</verbatim> <heading level="2">Parameter PrtnFlags PrtnAttrb difference </heading>
+</para><para>Exec State 0 3 3 right ENDIAN 1 18 17 right SECURE 2 0 2 left EL 3:4 1:2 2 left CPU_A78 5:6 8:11 Cluster# 11:12 29:31 18 right Reserved 13:16 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a3a6d398e62c5c09f937fc889df4b9188" prot="public" static="no">
+        <name>XIH_ATTRB_ENDIAN_SHIFT_DIFF</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a15d176990fac32cf8374da7f01984b2c" prot="public" static="no">
+        <name>XIH_ATTRB_TR_SECURE_SHIFT_DIFF</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aaac5d8c16ae9c8ca0cbac041125bed8b" prot="public" static="no">
+        <name>XIH_ATTRB_TARGET_EL_SHIFT_DIFF</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1afe3513e829a8dec911924607a98f1b61" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1afb13cbd7e5e007d2eb39a180ff8534d7" prot="public" static="no">
+        <name>XIH_ATTRB_EL_MASK</name>
+        <initializer>(0x18U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a97e5ba36bf33dd1415b46b674a3f1cf7" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_EL_2</name>
+        <initializer>(0x10U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a15bdcfb0d1638257518b7950d49e3bd1" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_EL_3</name>
+        <initializer>(0x18U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1acdbf54149226104f4519948dfd5ec7c8" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_DSTN_CPU_A78_0</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a4af7525e929fda4fa71c5370e90234b2" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_DSTN_CPU_A78_1</name>
+        <initializer>(0x20U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aace9094d8279ff77be02b0c93f52ea54" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_DSTN_CPU_A78_2</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a8a3a0f8a98f6043308222a8d4a7a6b4b" prot="public" static="no">
+        <name>XIH_PRTN_FLAGS_DSTN_CPU_A78_3</name>
+        <initializer>(0x60U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a351bff832c12cc8b15dc7dfc48466dfe" prot="public" static="no">
+        <name>XIH_OPTIONAL_DATA_LEN_OFFSET</name>
+        <initializer>(0x58U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a7aff05bfefb04b4412302f9f1c40e571" prot="public" static="no">
+        <name>XIH_OPT_DATA_NON_DATA_LEN</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1aee6cc0a34ff814c9516e3d510f1e0b94" prot="public" static="no">
+        <name>XIH_OPT_DATA_STRUCT_INFO_ID</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1abe0eb8b87843a088c0ec15d589f47ade" prot="public" static="no">
+        <name>XIH_BH_META_HDR_OFFSET</name>
+        <initializer>(0x2D0U)</initializer>
+        <briefdescription>
+<para>Offset to the metaheader offset field present in boot header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" prot="public" static="no">
+        <name>XIH_BH_PRAM_ADDR</name>
+        <initializer>(0xF201EEC0U)</initializer>
+        <briefdescription>
+<para>Boot header address in PRAM copied by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a1585788135e348a94b7ed1ab644f1b9a" prot="public" static="no">
+        <name>XIH_HASH_BLOCK_1_HASH_OFFSET</name>
+        <initializer>(0xF201ED60U)</initializer>
+        <briefdescription>
+<para>MetaHeader HashBlock address in PRAM copied by ROM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1afed5d9eda2658b7622bd5f2c8da260aa" prot="public" static="no">
+        <name>XIH_BH_PUF_HD_OFFSET</name>
+        <initializer>(0xB24U)</initializer>
+        <briefdescription>
+<para>Boot header PUF fields. </para>        </briefdescription>
+        <detaileddescription>
+<para>BootHeader PUF HD offset. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1a254f57817c8e9540de61c680ea8cc5ca" prot="public" static="no">
+        <name>XIH_BH_PUF_CHASH_OFFSET</name>
+        <initializer>(0x1124U)</initializer>
+        <briefdescription>
+<para>BootHeader PUF CHASH offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="2ve__2vm_2xilpdi__plat_8h_1ab22fd434f45031b985604716b4eafa4e" prot="public" static="no">
+        <name>XIH_BH_PUF_AUX_OFFSET</name>
+        <initializer>(0x1128U)</initializer>
+        <briefdescription>
+<para>BootHeader PUF auxiliary offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="function" id="2ve__2vm_2xilpdi__plat_8h_1aeb0aa7f57abe18beffc49f30b2a26745" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XilPdi_GetDstnCluster</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr)</argsstring>
+        <name>XilPdi_GetDstnCluster</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref> *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <briefdescription>
+<para>This function will return the value of Destination Cluster field. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the Partition Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Destination Cluster </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="300" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="2ve__2vm_2xilpdi__plat_8h_1a87331ae93b74bf1368044704e794c40c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XilPdi_GetClusterLockstep</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr)</argsstring>
+        <name>XilPdi_GetClusterLockstep</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref> *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <briefdescription>
+<para>This function will return the value of Cluster lockstep field. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the Partition Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Cluster Lockstep Value </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="314" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="2ve__2vm_2xilpdi__plat_8h_1a5b48103242fbf2973af7f666a2ab4519" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XilPdi_GetA78ExecState</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr)</argsstring>
+        <name>XilPdi_GetA78ExecState</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref> *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <briefdescription>
+<para>This function will return the value of A78 Execution State field. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the Partition Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A78 Execution State </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h" bodystart="328" bodyend="331"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file which contains versal_2ve_2vm specific definitions for the PDI. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.10  kal  24/07/2024 Initial release
+1.11  sk   03/05/2025 Added ASU destination CPU attribute
+      sk   03/17/2025 Updated Header attributes for RPU clusters</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2025,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XILPDI_PLAT_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPDI_PLAT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="47" refid="2ve__2vm_2xilpdi__plat_8h_1a20549f45008255d3f437889e03adb476" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_IMG_ATTRB_SIGNED_IMG_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC0000U)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_BH_IMG_ATTRB_SIGNED_IMG_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_BH_IMG_ATTRB_SIGNED_IMG_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_MAX_PRTNS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_MAX_IMGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Secondary<sp/>Boot<sp/>Device<sp/>(SBD)<sp/>in<sp/>IHT<sp/>Attributes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFC0U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SAME<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_QSPI32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_QSPI24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SDLS_B0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SD_B1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SDLS_B1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x6U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_EMMC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_USB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_PCIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xAU)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_OSPI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xCU)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SMAP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xDU)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_JTAG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEU)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SDLS_B0_RAW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SD_B1_RAW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_SDLS_B1_RAW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x11U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_EMMC_RAW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x12U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_EMMC_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x13U)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_EMMC_0_RAW<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_IMAGE_STORE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x15U)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_IHT_ATTR_SBD_UFS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x16U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="2ve__2vm_2xilpdi__plat_8h_1a1c23aa3bfeb4a296c35a73b9c1b79b08" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_HIVEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x800000U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_ENDIAN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40000U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xE0000000U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x0030U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_A78_EXEC_ST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0008U)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_TCM_BOOT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x180000U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="2ve__2vm_2xilpdi__plat_8h_1ad2b34f8a94535a70a9cf14898261181f" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_PRTN_TYPE_RSVD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000U)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_PRTN_TYPE_ELF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1000000U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_PRTN_TYPE_CDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2000000U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_PRTN_TYPE_CFI_GSC_UNMASK<sp/><sp/><sp/>(0x7000000U)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_PRTN_OWNER_PLM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_HASH_SHA3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3000U)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000U)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000U)</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40000000U)</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x60000000U)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_DSTN_CLUSTER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000U)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_DSTN_CLUSTER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x001U)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_DSTN_CLUSTER_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x002U)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_DSTN_CLUSTER_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x003U)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_DSTN_CLUSTER_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x004U)</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x030U)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_DISABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000U)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_A78_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x100U)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_A78_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_A78_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x300U)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_A78_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x400U)</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_R52_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x500U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_R52_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x600U)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_DSTN_CPU_ASU<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x800U)</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PH_ATTRB_TCM_BOOT_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x180000U)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="138" refid="2ve__2vm_2xilpdi__plat_8h_1a40b2c1e61725ae3bc034f8d15f3edf60" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_ATTRB_A78_EXEC_ST_SHIFT_DIFF<sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_ENDIAN_SHIFT_DIFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_TR_SECURE_SHIFT_DIFF<sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_TARGET_EL_SHIFT_DIFF<sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_DSTN_CLUSTER_SHIFT_DIFF<sp/><sp/><sp/>(18U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_ATTRB_EL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_EL_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10U)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_EL_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x18U)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_DSTN_CPU_A78_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_DSTN_CPU_A78_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20U)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_DSTN_CPU_A78_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40U)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_PRTN_FLAGS_DSTN_CPU_A78_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x60U)</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Optional<sp/>Data<sp/>related<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_OPTIONAL_DATA_LEN_OFFSET<sp/><sp/><sp/><sp/>(0x58U)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIH_OPT_DATA_NON_DATA_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIH_OPT_DATA_STRUCT_INFO_ID<sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161" refid="2ve__2vm_2xilpdi__plat_8h_1abe0eb8b87843a088c0ec15d589f47ade" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_META_HDR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2D0U)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166" refid="2ve__2vm_2xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_PRAM_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF201EEC0U)</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171" refid="2ve__2vm_2xilpdi__plat_8h_1a1585788135e348a94b7ed1ab644f1b9a" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_HASH_BLOCK_1_HASH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF201ED60U)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176" refid="2ve__2vm_2xilpdi__plat_8h_1afed5d9eda2658b7622bd5f2c8da260aa" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_PUF_HD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xB24U)<sp/></highlight></codeline>
+<codeline lineno="177" refid="2ve__2vm_2xilpdi__plat_8h_1a254f57817c8e9540de61c680ea8cc5ca" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_PUF_CHASH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1124U)</highlight></codeline>
+<codeline lineno="178" refid="2ve__2vm_2xilpdi__plat_8h_1ab22fd434f45031b985604716b4eafa4e" refkind="member"><highlight class="preprocessor">#define<sp/>XIH_BH_PUF_AUX_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1128U)</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MetaHdrOfst;<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FwRsvd[24U];<sp/></highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}<sp/><ref refid="struct_xil_pdi___boot_hdr_fw_rsvd" kindref="compound">XilPdi_BootHdrFwRsvd</ref>;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WidthDetection;<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImgIden;<sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncStatus;<sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DpiSrcOfst;<sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_xil_pdi___boot_hdr_1a971c4ebb55ada304fc1f2decb340feb1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1a971c4ebb55ada304fc1f2decb340feb1" kindref="member">DataPrtnOfst</ref>;<sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataPrtnLen;<sp/></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalDataPrtnLen;<sp/><sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PlmLen;<sp/><sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalPlmLen;<sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImgAttrb;<sp/><sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Kek[8U];<sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KekIv[3U];<sp/><sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecureHdrIv[3U];<sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufShutterVal;<sp/></highlight></codeline>
+<codeline lineno="208" refid="struct_xil_pdi___boot_hdr_1acde090aa08dc229e0af23a902cde05e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1acde090aa08dc229e0af23a902cde05e9" kindref="member">PufRingOscConfig</ref>;<sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_xil_pdi___boot_hdr_1aab2059c836cdc0cd45d3e97e24c48468" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1aab2059c836cdc0cd45d3e97e24c48468" kindref="member">EncRevokeId</ref>;<sp/></highlight></codeline>
+<codeline lineno="210" refid="struct_xil_pdi___boot_hdr_1ac749b82ba473d576d9d8f295f83f55f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserData[129U];<sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_xil_pdi___boot_hdr_1abebb5beb5990b14535748067d21d2867" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1abebb5beb5990b14535748067d21d2867" kindref="member">AuthenticationHdr</ref>;<sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_xil_pdi___boot_hdr_1a70ad20f92734cf090612a118af2ff35a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1a70ad20f92734cf090612a118af2ff35a" kindref="member">HashBlockSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_xil_pdi___boot_hdr_1a614617df2487927071e757d341f1aca8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1a614617df2487927071e757d341f1aca8" kindref="member">TotalPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_xil_pdi___boot_hdr_1a7c024818b320a870dcc4fedd33729841" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1a7c024818b320a870dcc4fedd33729841" kindref="member">ActualPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_xil_pdi___boot_hdr_1a2ad4ba9bb3ca3f99e01bd6246ab2d1e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1a2ad4ba9bb3ca3f99e01bd6246ab2d1e3" kindref="member">TotalHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="216" refid="struct_xil_pdi___boot_hdr_1ae74bda03a004f9bf2270045e1c69bf04" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___boot_hdr_1ae74bda03a004f9bf2270045e1c69bf04" kindref="member">ActualHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RomRsvd[14U];<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_xil_pdi___boot_hdr_fw_rsvd" kindref="compound">XilPdi_BootHdrFwRsvd</ref><sp/>BootHdrFwRsvd;<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}<sp/><ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref><sp/>__attribute__<sp/>((aligned(16U)));</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Version;<sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NoOfImgs;<sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ImgHdrAddr;<sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NoOfPrtns;<sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnHdrAddr;<sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SBDAddr;<sp/></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idcode;<sp/></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Attr;<sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiId;<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Rsrvd[3U];<sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalHdrLen;<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IvMetaHdr[3U];<sp/></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncKeySrc;<sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ExtIdCode;<sp/><sp/></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AcOffset;<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KekIv[3U];<sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionalDataLen;<sp/></highlight></codeline>
+<codeline lineno="243" refid="struct_xil_pdi___img_hdr_tbl_1a3adf47a1d47371d194903be93ed7de73" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1a3adf47a1d47371d194903be93ed7de73" kindref="member">AuthenticationHdr</ref>;<sp/></highlight></codeline>
+<codeline lineno="244" refid="struct_xil_pdi___img_hdr_tbl_1af42824eeb4fb2cd801f9056958a1d286" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1af42824eeb4fb2cd801f9056958a1d286" kindref="member">HashBlockSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="245" refid="struct_xil_pdi___img_hdr_tbl_1a7228f1ae192085150164934c9c2442e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1a7228f1ae192085150164934c9c2442e3" kindref="member">HashBlockOffset</ref>;<sp/></highlight></codeline>
+<codeline lineno="246" refid="struct_xil_pdi___img_hdr_tbl_1a96d12f14ccb0aec3f7b259bac1cba636" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1a96d12f14ccb0aec3f7b259bac1cba636" kindref="member">TotalPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="247" refid="struct_xil_pdi___img_hdr_tbl_1ad7d0f7d578db6a66ee280ddea7920eca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1ad7d0f7d578db6a66ee280ddea7920eca" kindref="member">ActualPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="248" refid="struct_xil_pdi___img_hdr_tbl_1a4063cf6fad5fcfec2159fa824f6eb526" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1a4063cf6fad5fcfec2159fa824f6eb526" kindref="member">TotalHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="249" refid="struct_xil_pdi___img_hdr_tbl_1a036f8177e4bbbde3d7cab856312c2941" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___img_hdr_tbl_1a036f8177e4bbbde3d7cab856312c2941" kindref="member">ActualHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Rsvd;<sp/></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Checksum;<sp/></highlight></codeline>
+<codeline lineno="252"><highlight class="normal">}<sp/><ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref><sp/>__attribute__<sp/>((aligned(16U)));</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncDataWordLen;<sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UnEncDataWordLen;<sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalDataWordLen;<sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NextPrtnOfst;<sp/></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstnExecutionAddr;<sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DstnLoadAddr;<sp/></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DataWordOfst;<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnAttrb;<sp/></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SectionCount;<sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChecksumWordOfst;<sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnId;<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AuthCertificateOfst;<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PrtnIv[3U];<sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncStatus;<sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KekIv[3U];<sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncRevokeID;<sp/></highlight></codeline>
+<codeline lineno="277" refid="struct_xil_pdi___prtn_hdr_1a82cacb6324c398686a19f32c3b36a1f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a82cacb6324c398686a19f32c3b36a1f7" kindref="member">MeasuredBootAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="278" refid="struct_xil_pdi___prtn_hdr_1a5be7fcd63fb54dcc5343ae41c31dca89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a5be7fcd63fb54dcc5343ae41c31dca89" kindref="member">AuthenticationHdr</ref>;<sp/></highlight></codeline>
+<codeline lineno="279" refid="struct_xil_pdi___prtn_hdr_1a3000e9d4ed8b937d8c9bb83f72a78556" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a3000e9d4ed8b937d8c9bb83f72a78556" kindref="member">HashBlockSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="280" refid="struct_xil_pdi___prtn_hdr_1ab50da54f84ee60707d2a21fd79fc2c13" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1ab50da54f84ee60707d2a21fd79fc2c13" kindref="member">HashBlockOffset</ref>;<sp/></highlight></codeline>
+<codeline lineno="281" refid="struct_xil_pdi___prtn_hdr_1a570a6e92f84d9229d1f0badaf54f412a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a570a6e92f84d9229d1f0badaf54f412a" kindref="member">TotalPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="282" refid="struct_xil_pdi___prtn_hdr_1a9878e8dd997d0556d264e5b43be98f5b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a9878e8dd997d0556d264e5b43be98f5b" kindref="member">ActualPpkSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="283" refid="struct_xil_pdi___prtn_hdr_1a6a7193709f05d00dec4f0e1cfff37813" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a6a7193709f05d00dec4f0e1cfff37813" kindref="member">TotalHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="284" refid="struct_xil_pdi___prtn_hdr_1a5babc77477c587b9ae1a9b4f0de8735a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_xil_pdi___prtn_hdr_1a5babc77477c587b9ae1a9b4f0de8735a" kindref="member">ActualHBSignSize</ref>;<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reserved;<sp/></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Checksum;<sp/></highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}<sp/><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref><sp/>__attribute__<sp/>((aligned(16U)));</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="300"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XilPdi_GetDstnCluster(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref><sp/>*PrtnHdr)</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1aae89de186db19b9994dbd44ddce7dea4" kindref="member">PrtnAttrb</ref><sp/>&amp;<sp/>XIH_PH_ATTRB_DSTN_CLUSTER_MASK);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="314"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XilPdi_GetClusterLockstep(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref><sp/>*PrtnHdr)</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1aae89de186db19b9994dbd44ddce7dea4" kindref="member">PrtnAttrb</ref><sp/>&amp;<sp/>XIH_PH_ATTRB_CLUSTER_LOCKSTEP_MASK);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="328"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XilPdi_GetA78ExecState(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref><sp/>*PrtnHdr)</highlight></codeline>
+<codeline lineno="329"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(PrtnHdr-&gt;<ref refid="struct_xil_pdi___prtn_hdr_1aae89de186db19b9994dbd44ddce7dea4" kindref="member">PrtnAttrb</ref><sp/>&amp;<sp/>XIH_PH_ATTRB_A78_EXEC_ST_MASK);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="337"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILPDI_PLAT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/versal_2ve_2vm/xilpdi_plat.h"/>
+  </compounddef>
+</doxygen>

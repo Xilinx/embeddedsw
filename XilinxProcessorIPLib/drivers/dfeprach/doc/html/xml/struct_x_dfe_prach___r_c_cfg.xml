@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___r_c_cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_RCCfg</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___r_c_cfg_1a60e84d976387387b66fc71177010bb20" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___internal_channel_cfg" kindref="compound">XDfePrach_InternalChannelCfg</ref></type>
+        <definition>XDfePrach_InternalChannelCfg XDfePrach_RCCfg::InternalRCCfg[XDFEPRACH_RC_NUM_MAX]</definition>
+        <argsstring>[XDFEPRACH_RC_NUM_MAX]</argsstring>
+        <name>InternalRCCfg</name>
+        <briefdescription>
+<para>Internal RACH configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___r_c_cfg_1aa74cf789a3ba8d2ef93df4df0a54ab1c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___n_c_o" kindref="compound">XDfePrach_NCO</ref></type>
+        <definition>XDfePrach_NCO XDfePrach_RCCfg::NcoCfg[XDFEPRACH_NCO_NUM_MAX]</definition>
+        <argsstring>[XDFEPRACH_NCO_NUM_MAX]</argsstring>
+        <name>NcoCfg</name>
+        <briefdescription>
+<para>NCO configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="558" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___r_c_cfg_1a234059ab568d4dbcb8ee52279af94297" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___d_d_c_cfg" kindref="compound">XDfePrach_DDCCfg</ref></type>
+        <definition>XDfePrach_DDCCfg XDfePrach_RCCfg::DdcCfg[XDFEPRACH_RC_NUM_MAX]</definition>
+        <argsstring>[XDFEPRACH_RC_NUM_MAX]</argsstring>
+        <name>DdcCfg</name>
+        <briefdescription>
+<para>DDC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="559" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="559" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___r_c_cfg_1a1ffe2218a69f842c79096deb6845bf3c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___schedule" kindref="compound">XDfePrach_Schedule</ref></type>
+        <definition>XDfePrach_Schedule XDfePrach_RCCfg::StaticSchedule[XDFEPRACH_RC_NUM_MAX]</definition>
+        <argsstring>[XDFEPRACH_RC_NUM_MAX]</argsstring>
+        <name>StaticSchedule</name>
+        <briefdescription>
+<para>Static Schedule configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="560" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="561" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="45">
+        <label>XDfePrach_Schedule</label>
+        <link refid="struct_x_dfe_prach___schedule"/>
+      </node>
+      <node id="43">
+        <label>XDfePrach_InternalChannelCfg</label>
+        <link refid="struct_x_dfe_prach___internal_channel_cfg"/>
+      </node>
+      <node id="41">
+        <label>XDfePrach_RCCfg</label>
+        <childnode refid="42" relation="usage">
+          <edgelabel>DdcCfg</edgelabel>
+        </childnode>
+        <childnode refid="43" relation="usage">
+          <edgelabel>InternalRCCfg</edgelabel>
+        </childnode>
+        <childnode refid="44" relation="usage">
+          <edgelabel>NcoCfg</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>StaticSchedule</edgelabel>
+        </childnode>
+      </node>
+      <node id="42">
+        <label>XDfePrach_DDCCfg</label>
+        <link refid="struct_x_dfe_prach___d_d_c_cfg"/>
+      </node>
+      <node id="44">
+        <label>XDfePrach_NCO</label>
+        <link refid="struct_x_dfe_prach___n_c_o"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="555" bodyend="562"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___r_c_cfg_1a234059ab568d4dbcb8ee52279af94297" prot="public" virt="non-virtual"><scope>XDfePrach_RCCfg</scope><name>DdcCfg</name></member>
+      <member refid="struct_x_dfe_prach___r_c_cfg_1a60e84d976387387b66fc71177010bb20" prot="public" virt="non-virtual"><scope>XDfePrach_RCCfg</scope><name>InternalRCCfg</name></member>
+      <member refid="struct_x_dfe_prach___r_c_cfg_1aa74cf789a3ba8d2ef93df4df0a54ab1c" prot="public" virt="non-virtual"><scope>XDfePrach_RCCfg</scope><name>NcoCfg</name></member>
+      <member refid="struct_x_dfe_prach___r_c_cfg_1a1ffe2218a69f842c79096deb6845bf3c" prot="public" virt="non-virtual"><scope>XDfePrach_RCCfg</scope><name>StaticSchedule</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

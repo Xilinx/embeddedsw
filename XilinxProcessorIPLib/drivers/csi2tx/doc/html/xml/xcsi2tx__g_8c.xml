@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsi2tx__g_8c" kind="file">
+    <compoundname>xcsi2tx_g.c</compoundname>
+    <includes refid="xcsi2tx_8h" local="yes">xcsi2tx.h</includes>
+    <incdepgraph>
+      <node id="34">
+        <label>xcsi2tx.h</label>
+        <link refid="xcsi2tx_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xil_io.h</label>
+      </node>
+      <node id="33">
+        <label>xcsi2tx_g.c</label>
+        <link refid="xcsi2tx_g.c"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xstatus.h</label>
+      </node>
+      <node id="35">
+        <label>xil_types.h</label>
+      </node>
+      <node id="37">
+        <label>xcsi2tx_hw.h</label>
+        <link refid="xcsi2tx__hw_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xcsi2tx__g_8c_1ac0d3cf59e0de0a55d085bb6dcd9d00b4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_csi2_tx___config" kindref="compound">XCsi2Tx_Config</ref></type>
+        <definition>XCsi2Tx_Config XCsi2Tx_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XCsi2Tx_ConfigTable</name>
+        <initializer>= {
+
+	{
+		&quot;xlnx,mipi-csi2-tx-ctrl-1.0&quot;,
+		0x0,
+		0x4,
+		0x0,
+		0x0
+	},
+	 {
+		 NULL
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" line="8" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">###############################################################################</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#</highlight></codeline>
+<codeline lineno="5"><highlight class="preprocessor"></highlight><highlight class="preprocessor">##############################################################################</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsi2tx_8h" kindref="compound">xcsi2tx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><ref refid="struct_x_csi2_tx___config" kindref="compound">XCsi2Tx_Config</ref><sp/>XCsi2Tx_ConfigTable[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.drvcfg_sec&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;xlnx,mipi-csi2-tx-ctrl-1.0&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="comment">/*<sp/>compatible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0,<sp/></highlight><highlight class="comment">/*<sp/>reg<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,csi-lanes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0,<sp/></highlight><highlight class="comment">/*<sp/>xlnx,csi-en-activelanes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/></highlight><highlight class="comment">/*<sp/>xlnx,en-reg-based-fe-gen<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2tx/src/xcsi2tx_g.c"/>
+  </compounddef>
+</doxygen>

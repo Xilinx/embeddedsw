@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e5f2d5a82f69c49fb8e40f3b815ff478" kind="dir">
+    <compoundname>common</compoundname>
+    <innerfile refid="hal__api_8h">hal_api.h</innerfile>
+    <innerfile refid="visp__common_8c">visp_common.c</innerfile>
+    <innerfile refid="visp__common_8h">visp_common.h</innerfile>
+    <innerfile refid="src_2visp__ss_2common_2vlog_8h">src/visp_ss/common/vlog.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/"/>
+  </compounddef>
+</doxygen>

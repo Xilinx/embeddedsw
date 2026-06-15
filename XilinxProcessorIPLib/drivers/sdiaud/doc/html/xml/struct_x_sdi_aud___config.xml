@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sdi_aud___config" kind="struct" prot="public">
+    <compoundname>XSdiAud_Config</compoundname>
+    <includes local="no">xsdiaud.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1a3cf20089eaa4603a6705ea48b7e527f2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XSdiAud_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSdiAud_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress of the XSdiaud. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="296" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga53f9af7b762897e63bd54ee426c936c5" compoundref="xsdiaud_8c" startline="86" endline="110">XSdiAud_CfgInitialize</referencedby>
+        <referencedby refid="group__sdiaud_1ga532907f495640ca09b27fd5f85ab5f5b" compoundref="xsdiaud_8c" startline="568" endline="580">XSdiAud_ConfigReset</referencedby>
+        <referencedby refid="group__sdiaud_1ga299c4252e92583a5f6d3258d36319e25" compoundref="xsdiaud_8c" startline="592" endline="611">XSdiAud_CoreReset</referencedby>
+        <referencedby refid="group__sdiaud_1gabcb02d498819226b22e4da1862f71ccd" compoundref="xsdiaud_8c" startline="360" endline="371">XSdiAud_Emb_EnExtrnLine</referencedby>
+        <referencedby refid="group__sdiaud_1gaca24393d60284ac66101dacdb90df60c" compoundref="xsdiaud_8c" startline="268" endline="282">XSdiAud_Emb_SetAsx</referencedby>
+        <referencedby refid="group__sdiaud_1gadd6dab74039c2618226942aa8bf7bb41" compoundref="xsdiaud_8c" startline="216" endline="228">XSdiAud_Emb_SetSmpRate</referencedby>
+        <referencedby refid="group__sdiaud_1gad46c468eb0c036b1393060a6e5913426" compoundref="xsdiaud_8c" startline="242" endline="255">XSdiAud_Emb_SetSmpSize</referencedby>
+        <referencedby refid="group__sdiaud_1ga2e6fdf2a0ae109374f59cf3a3dea1ac8" compoundref="xsdiaud_8c" startline="318" endline="350">XSdiAud_Emb_SetVidProps</referencedby>
+        <referencedby refid="group__sdiaud_1gac73f97119062624890969aa0c926cd51" compoundref="xsdiaud_8c" startline="122" endline="139">XSdiAud_Enable</referencedby>
+        <referencedby refid="group__sdiaud_1ga0a3c6462665eba31e7e323b9d57aeb5c" compoundref="xsdiaud_8c" startline="382" endline="393">XSdiAud_Ext_DisableClkPhase</referencedby>
+        <referencedby refid="group__sdiaud_1gabed8886b7dfe0f70d74d6defdcc6e7fa" compoundref="xsdiaud_8c" startline="492" endline="506">XSdiAud_Ext_GetAcChStatus</referencedby>
+        <referencedby refid="group__sdiaud_1gae3757b1303567b4ba771ebcb948085aa" compoundref="xsdiaud_8c" startline="545" endline="558">XSdiAud_Ext_GetAsxStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga4abd5f9c2cacb3808a4751da71942eae" compoundref="xsdiaud_8c" startline="469" endline="480">XSdiAud_Ext_GetFIFOOvFlwStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga9028d81da56317ad520d1563ea523ece" compoundref="xsdiaud_8c" startline="518" endline="531">XSdiAud_Ext_GetSRStatus</referencedby>
+        <referencedby refid="group__sdiaud_1ga8747ab428cfbcbc34013f7dbf8674440" compoundref="xsdiaud_8c" startline="406" endline="420">XSdiAud_GetActGrpStatus</referencedby>
+        <referencedby refid="group__sdiaud_1gaf8025951709cb94880cf3a5daf08af2d" compoundref="xsdiaud_8c" startline="149" endline="164">XSdiAud_GetChStat</referencedby>
+        <referencedby refid="group__sdiaud_1gaa95d3e8ae24010498edb963aefe1944b" compoundref="xsdiaud_8c" startline="175" endline="183">XSdiAud_GetCoreVersion</referencedby>
+        <referencedby refid="group__sdiaud_1ga3d3823e317c0d235d0a455bf60e47525" compoundref="xsdiaud_8c" startline="194" endline="202">XSdiAud_GetIntStat</referencedby>
+        <referencedby refid="group__sdiaud_1ga4d88f80aaac70751a7a303b8d3e6ded5" compoundref="xsdiaud__sinit_8c" startline="174" endline="191">XSdiAud_Initialize</referencedby>
+        <referencedby refid="group__sdiaud_1ga6f81c22001df336d7ada4ade71ba41a4" compoundref="xsdiaud__intr_8c" startline="58" endline="197">XSdiAud_IntrHandler</referencedby>
+        <referencedby refid="group__sdiaud_1gad3bc0d473b0bb0a4277d9c8f27069e19" compoundref="xsdiaud_8c" startline="449" endline="456">XSdiAud_MuteCh</referencedby>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+        <referencedby refid="group__sdiaud_1ga8c138d7bae2ff7770ac0f407e7e8d44c" compoundref="xsdiaud_8c" startline="293" endline="306">XSdiAud_SetAesChPair</referencedby>
+        <referencedby refid="group__sdiaud_1ga9abe19eaf798717fe47a41cd05ccf663" compoundref="xsdiaud_8c" startline="432" endline="439">XSdiAud_SetCh</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1a06c47d57ba2544cbe4496611ec6972e5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiAud_Config::IsEmbed</definition>
+        <argsstring></argsstring>
+        <name>IsEmbed</name>
+        <briefdescription>
+<para>Is Audio Embed or Extract. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1a12e95da18749336235594923404f279d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiAud_Config::LineRate</definition>
+        <argsstring></argsstring>
+        <name>LineRate</name>
+        <briefdescription>
+<para>UHD SDI standard. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="299" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1ab587af156366f6389abe5d4a6362d104" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSdiAud_Config::MaxNumChannels</definition>
+        <argsstring></argsstring>
+        <name>MaxNumChannels</name>
+        <briefdescription>
+<para>Indicates the max number of channels supported by the core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="300" bodyend="-1"/>
+        <referencedby refid="group__sdiaud_1ga3c03ed1e987b52e378a370ca98b3295b" compoundref="xsdiaud__selftest_8c" startline="161" endline="285">XSdiAud_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1ab82159c2356cfb821dc16af37ee16f19" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XSdiAud_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sdi_aud___config_1ab1e3eda4e2855173ca8cbd7c3a066a14" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XSdiAud_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the <ref refid="struct_x_sdi_aud" kindref="compound">XSdiAud</ref>. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdiaud/src/xsdiaud.h" bodystart="289" bodyend="306"/>
+    <listofallmembers>
+      <member refid="struct_x_sdi_aud___config_1ad1745c0a44bdc13637eb04e034ae14c3" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_sdi_aud___config_1ab82159c2356cfb821dc16af37ee16f19" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_sdi_aud___config_1ab1e3eda4e2855173ca8cbd7c3a066a14" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_sdi_aud___config_1a06c47d57ba2544cbe4496611ec6972e5" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>IsEmbed</name></member>
+      <member refid="struct_x_sdi_aud___config_1a12e95da18749336235594923404f279d" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>LineRate</name></member>
+      <member refid="struct_x_sdi_aud___config_1ab587af156366f6389abe5d4a6362d104" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>MaxNumChannels</name></member>
+      <member refid="struct_x_sdi_aud___config_1a3cf20089eaa4603a6705ea48b7e527f2" prot="public" virt="non-virtual"><scope>XSdiAud_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

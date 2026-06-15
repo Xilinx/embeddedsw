@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___user_config" kind="struct" prot="public">
+    <compoundname>XDpRxSs_UserConfig</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___user_config_1a9b6913348be5002fdbea99c272f5e7c7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpRxSs_UserConfig::BsIdleTimeout</definition>
+        <argsstring></argsstring>
+        <name>BsIdleTimeout</name>
+        <briefdescription>
+<para>Blank screen idle timeout value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___user_config_1a5256846d531feaf1199be0546eeaafc3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UserConfig::AuxClkDeferCount</definition>
+        <argsstring></argsstring>
+        <name>AuxClkDeferCount</name>
+        <briefdescription>
+<para>AUX clock defer count for link status reads. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___user_config_1a299136c7a9efde633c407d24b4f9224f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UserConfig::CrcEnable</definition>
+        <argsstring></argsstring>
+        <name>CrcEnable</name>
+        <briefdescription>
+<para>CRC enable flag (1=enabled, 0=disabled) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___user_config_1a9ce6dcb99e8dfe119097c91c16598357" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_UserConfig::ChannelCoding</definition>
+        <argsstring></argsstring>
+        <name>ChannelCoding</name>
+        <briefdescription>
+<para>Channel coding: 8b/10b or 128b/132b. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="370" bodyend="375"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___user_config_1a5256846d531feaf1199be0546eeaafc3" prot="public" virt="non-virtual"><scope>XDpRxSs_UserConfig</scope><name>AuxClkDeferCount</name></member>
+      <member refid="struct_x_dp_rx_ss___user_config_1a9b6913348be5002fdbea99c272f5e7c7" prot="public" virt="non-virtual"><scope>XDpRxSs_UserConfig</scope><name>BsIdleTimeout</name></member>
+      <member refid="struct_x_dp_rx_ss___user_config_1a9ce6dcb99e8dfe119097c91c16598357" prot="public" virt="non-virtual"><scope>XDpRxSs_UserConfig</scope><name>ChannelCoding</name></member>
+      <member refid="struct_x_dp_rx_ss___user_config_1a299136c7a9efde633c407d24b4f9224f" prot="public" virt="non-virtual"><scope>XDpRxSs_UserConfig</scope><name>CrcEnable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

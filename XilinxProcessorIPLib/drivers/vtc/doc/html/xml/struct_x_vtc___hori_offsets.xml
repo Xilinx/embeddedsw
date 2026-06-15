@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc___hori_offsets" kind="struct" prot="public">
+    <compoundname>XVtc_HoriOffsets</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1adcf5e6d5ea927eb17b6af5af8f4a2d44" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V0BlankHoriStart</definition>
+        <argsstring></argsstring>
+        <name>V0BlankHoriStart</name>
+        <briefdescription>
+<para>Vertical Blank Hori Offset Start (field 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1a98e8b08af4545debe7ed36aabc48ddd0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V0BlankHoriEnd</definition>
+        <argsstring></argsstring>
+        <name>V0BlankHoriEnd</name>
+        <briefdescription>
+<para>Vertical Blank Hori Offset End (field 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="467" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="467" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1a1ed565e114c72f143a5211a9512104d7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V0SyncHoriStart</definition>
+        <argsstring></argsstring>
+        <name>V0SyncHoriStart</name>
+        <briefdescription>
+<para>Vertical Sync Hori Offset Start (field 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="469" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1a1d578fd9c28c031e3e6d4daa2ad1a8fa" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V0SyncHoriEnd</definition>
+        <argsstring></argsstring>
+        <name>V0SyncHoriEnd</name>
+        <briefdescription>
+<para>Vertical Sync Hori Offset End (field 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="471" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1a3a9041f272ca0c88a564ba5f7f72a25f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V1BlankHoriStart</definition>
+        <argsstring></argsstring>
+        <name>V1BlankHoriStart</name>
+        <briefdescription>
+<para>Vertical Blank Hori Offset Start (field 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="473" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1af88e16bbbabd6f560f5911cd9de18890" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V1BlankHoriEnd</definition>
+        <argsstring></argsstring>
+        <name>V1BlankHoriEnd</name>
+        <briefdescription>
+<para>Vertical Blank Hori Offset End (field 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="475" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1a46d96a71e3f4cfe1ee97993dc577163e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V1SyncHoriStart</definition>
+        <argsstring></argsstring>
+        <name>V1SyncHoriStart</name>
+        <briefdescription>
+<para>Vertical Sync Hori Offset Start (field 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="477" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___hori_offsets_1af9b6ddb6b36a1befd8c20e51eb637bd1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_HoriOffsets::V1SyncHoriEnd</definition>
+        <argsstring></argsstring>
+        <name>V1SyncHoriEnd</name>
+        <briefdescription>
+<para>Vertical Sync Hori Offset End (field 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="479" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga6910114e5f29cce64d2f8b28680f7a34" compoundref="xvtc_8c" startline="2133" endline="2234">XVtc_ConvTiming2Signal</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains Detector/Generator VBlank/VSync Horizontal Offset configuration information for a VTC device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="464" bodyend="481"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc___hori_offsets_1a98e8b08af4545debe7ed36aabc48ddd0" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V0BlankHoriEnd</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1adcf5e6d5ea927eb17b6af5af8f4a2d44" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V0BlankHoriStart</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1a1d578fd9c28c031e3e6d4daa2ad1a8fa" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V0SyncHoriEnd</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1a1ed565e114c72f143a5211a9512104d7" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V0SyncHoriStart</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1af88e16bbbabd6f560f5911cd9de18890" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V1BlankHoriEnd</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1a3a9041f272ca0c88a564ba5f7f72a25f" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V1BlankHoriStart</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1af9b6ddb6b36a1befd8c20e51eb637bd1" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V1SyncHoriEnd</name></member>
+      <member refid="struct_x_vtc___hori_offsets_1a46d96a71e3f4cfe1ee97993dc577163e" prot="public" virt="non-virtual"><scope>XVtc_HoriOffsets</scope><name>V1SyncHoriStart</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

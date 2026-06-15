@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xfpga__load__bitstream__example_8c" kind="file">
+    <compoundname>xfpga_load_bitstream_example.c</compoundname>
+    <includes refid="xilfpga_8h" local="yes">xilfpga.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="16">
+        <label>xfpga_config.h</label>
+      </node>
+      <node id="14">
+        <label>xil_util.h</label>
+      </node>
+      <node id="8">
+        <label>xfpga_load_bitstream_example.c</label>
+        <link refid="xfpga_load_bitstream_example.c"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xparameters.h</label>
+      </node>
+      <node id="13">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="9">
+        <label>xilfpga.h</label>
+        <link refid="xilfpga_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" prot="public" static="no">
+        <name>BITSTREAM_SIZE</name>
+        <initializer>0x1A00000U</initializer>
+        <briefdescription>
+<para>Bin or bit or PDI image size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/examples/xfpga_load_bitstream_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/examples/xfpga_load_bitstream_example.c" bodystart="80" bodyend="-1"/>
+        <referencedby refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xfpga__load__bitstream__example_8c" startline="93" endline="128">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to load bitstream. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function demonstrates loading a bitstream from DDR into the PL</para><para><simplesect kind="return"><para>XST_SUCCESS on success, XST_FAILURE otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/examples/xfpga_load_bitstream_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/examples/xfpga_load_bitstream_example.c" bodystart="93" bodyend="128"/>
+        <references refid="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" compoundref="xfpga__load__bitstream__example_8c" startline="80">BITSTREAM_SIZE</references>
+        <references refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</references>
+        <references refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" compoundref="xilfpga__versal_8c" startline="108" endline="130">XFpga_Initialize</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the example using Xilfpga library to transfer the user provided Bitstream into zynqmp pl region. </para>    </briefdescription>
+    <detaileddescription>
+<para><heading level="2">Procedure to link and compile the example </heading>
+</para><para>This example involves DMA operations, which requires memory from DDR or OCM. So, for this example to work, bss and stack should be placed in OCM/DDR as shown below, <verbatim>.bss (NOLOAD) : {
+. = ALIGN(4);
+__bss_start__ = .;
+*(.bss)
+*(.bss.*)
+*(.gnu.linkonce.b.*)
+*(COMMON)
+. = ALIGN(4);
+__bss_end__ = .;
+} &gt; psu_ddr_0_MEM_0
+</verbatim></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   Nava    06/08/16  First release
+4.0   Nava       02/21/18  Updated the example relevant to src code changes.
+4.2   Nava    05/30/18  Refactor the xilfpga library to support
+                        different PL programming Interfaces.
+4.2      adk     08/23/18  Added bitstream size define.
+5.0   Nava       02/06/19  Updated the example to sync with 5.0 version API&apos;s
+5.0      Nava    03/16/19  Typical bitstream size of zcu102 board is 26MB.So
+                   updated the bitstream size macro value for the same.
+5.2   Nava       02/14/20  Removed unwanted header file inclusion.
+5.3   Nava    06/16/20  Modified the date format from dd/mm to mm/dd.
+5.3   Nava    06/16/20  Added support for Versal Platform.
+6.0   Nava    12/14/20  In XFpga_PL_BitStream_Load() API the argument
+                        AddrPtr_Size is being used for multiple purposes.
+                        Use of the same variable for multiple purposes can
+                        make it more difficult for a person to read (or)
+                        understand the code and also it leads to a safety
+                        violation. fixes this  issue by adding a separate
+                        function arguments to read KeyAddr and
+                        Size(Bitstream size).
+6.1   Nava    09/13/21  Fixed compilation warning.
+6.9   Arvd    08/12/25  Fixed GCC warning
+      tvp     12/11/25  Add procedure to link and compile the example
+6.10  Arvd    02/04/26  Fixed codespell errors
+6.10  Arvd    02/11/26  Fixed Doxygen warnings
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2016<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilfpga_8h" kindref="compound">xilfpga.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Xilfpga<sp/>library<sp/>supports<sp/>vivado<sp/>generated<sp/>Bitstream(*.bit,<sp/>*.bin)<sp/>and<sp/>bootgen</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>generated<sp/>Bitstream(*.bin),<sp/>Passing<sp/>below<sp/>definition<sp/>is<sp/>mandatory<sp/>for<sp/>vivado</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>generated<sp/>Bitstream,<sp/>For<sp/>bootgen<sp/>generated<sp/>Bitstreams<sp/>Xilfpga<sp/>will<sp/>take</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>Bitstream<sp/>size<sp/>from<sp/>Bitstream<sp/>Header.</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Below<sp/>definition<sp/>is<sp/>for<sp/>typical<sp/>bitstream<sp/>size<sp/>of<sp/>zcu102<sp/>board</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>User<sp/>should<sp/>replace<sp/>the<sp/>below<sp/>definition<sp/>value<sp/>with<sp/>the<sp/>actual<sp/>bitstream<sp/>size.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>Versal<sp/>platform<sp/>Passing<sp/>the<sp/>below<sp/>definition<sp/>is<sp/>Optional<sp/>*/</highlight></codeline>
+<codeline lineno="80" refid="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" refkind="member"><highlight class="preprocessor">#define<sp/>BITSTREAM_SIZE<sp/>0x1A00000U</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PDI_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="93" refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xfpga__load__bitstream__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>addr<sp/>=<sp/>XFPGA_BASE_ADDRESS;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Empty<sp/>brace<sp/>initializer<sp/>initializes<sp/>all<sp/>members<sp/>of<sp/>a<sp/>structure</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>zero<sp/>(for<sp/>numeric<sp/>types)<sp/>or<sp/>NULL<sp/>(for<sp/>pointers)</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_fpgatag" kindref="compound">XFpga</ref><sp/>XFpgaInstance<sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>KeyAddr<sp/>=<sp/>(UINTPTR)NULL;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Loading<sp/>Bitstream<sp/>for<sp/>DDR<sp/>location<sp/>:0x%x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFPGA_BASE_ADDRESS);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Trying<sp/>to<sp/>configure<sp/>the<sp/>PL<sp/>......\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilfpga__versal_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" kindref="member">XFpga_Initialize</ref>(&amp;XFpgaInstance);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>done;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kindref="member">XFpga_BitStream_Load</ref>(&amp;XFpgaInstance,<sp/>addr,<sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" kindref="member">BITSTREAM_SIZE</ref>,<sp/>PDI_LOAD);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" kindref="member">XFpga_BitStream_Load</ref>(&amp;XFpgaInstance,<sp/>addr,<sp/>KeyAddr,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xfpga__load__bitstream__example_8c_1a0b529249c076e68ac115f9d1b0dae028" kindref="member">BITSTREAM_SIZE</ref>,<sp/>XFPGA_FULLBIT_EN);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/>done:</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XFPGA_SUCCESS)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PL<sp/>Configuration<sp/>done<sp/>successfully&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PL<sp/>configuration<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/examples/xfpga_load_bitstream_example.c"/>
+  </compounddef>
+</doxygen>

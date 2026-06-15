@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___config" kind="struct" prot="public">
+    <compoundname>XDfePrach_Config</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1accd3f2406703ba6a395fb591303c1e2f" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDfePrach_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="654" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="654" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1adc5fbf155a2b48fbaca6f92714875571" prot="public" static="no" mutable="no">
+        <type>metal_phys_addr_t</type>
+        <definition>metal_phys_addr_t XDfePrach_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Instance base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="656" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="656" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1afd4d255f310794af1bc1264f4aa7ec88" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumAntenna[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>NumAntenna</name>
+        <briefdescription>
+<para>[1-8] Number of antennas for each band. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="657" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="658" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1ae427e06376fc7b1eaf4c89994a46edff" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumCCPerAntenna[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>NumCCPerAntenna</name>
+        <briefdescription>
+<para><verbatim>  [1-16] Maximum number of usable CCs per
+</verbatim> antenna for each band. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="659" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="660" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1a2a023450d84be955fc49c7162d20d4c7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumAntennaChannels[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>NumAntennaChannels</name>
+        <briefdescription>
+<para><verbatim>   [1-4] Number of Antenna lanes for each
+</verbatim> band (number of antennas divided by the antenna interleave factor). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="662" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="663" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1a0f47a6f7ea926ce198a1f35f80d3c283" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumAntennaSlots[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>NumAntennaSlots</name>
+        <briefdescription>
+<para><verbatim>   [1-8] Antenna Interleave factor for each
+</verbatim> band </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="665" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="666" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1a0e9df6fd5885667f02700d302a3463bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumRachLanes</definition>
+        <argsstring></argsstring>
+        <name>NumRachLanes</name>
+        <briefdescription>
+<para>[1-2] Number of RACH output lanes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="668" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="668" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1ad3df7398ad15f400416c34c7eb944883" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumRachChannels</definition>
+        <argsstring></argsstring>
+        <name>NumRachChannels</name>
+        <briefdescription>
+<para>[1-16] Number of RACH channels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="669" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="669" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1a227cca8522f031786fa3b993a1deb0a9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::HasAxisCtrl</definition>
+        <argsstring></argsstring>
+        <name>HasAxisCtrl</name>
+        <briefdescription>
+<para>[0,1] Dynamic scheduling activation (if set to 1). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="670" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="670" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga33f53d844fcfc45cfaa452a4de1cf026" compoundref="xdfeprach_8c" startline="2787" endline="2815">XDfePrach_AddRCtoRCCfgDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga8b13eaf1a6ab7c829bd4d203edd5064a" compoundref="xdfeprach_8c" startline="2659" endline="2710">XDfePrach_AddRCtoRCCfgMBDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1ab0e5055767539ed61c50cafe3dcdf7e6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::HasIrq</definition>
+        <argsstring></argsstring>
+        <name>HasIrq</name>
+        <briefdescription>
+<para>[0,1] IRQ output activation (if set to 1). </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="671" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="671" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1a9bde70f27819c1fd765beeec0e1b999d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::NumBands</definition>
+        <argsstring></argsstring>
+        <name>NumBands</name>
+        <briefdescription>
+<para>[1-3] Number of bands. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="672" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga1dcc5ea59a80a27798b2935e5fa83473" compoundref="xdfeprach_8c" startline="2590" endline="2635">XDfePrach_AddRCtoRCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga8b13eaf1a6ab7c829bd4d203edd5064a" compoundref="xdfeprach_8c" startline="2659" endline="2710">XDfePrach_AddRCtoRCCfgMBDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+        <referencedby refid="group__dfeprach_1ga07ea3a4239457b89c7c99fb1a6e35672" compoundref="xdfeprach_8c" startline="2104" endline="2114">XDfePrach_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga5da17d2168e7d61dc25b4e377226b207" compoundref="xdfeprach_8c" startline="2127" endline="2147">XDfePrach_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+        <referencedby refid="group__dfeprach_1ga6d425cd9949a65526ff83c0a5403f53a" compoundref="xdfeprach_8c" startline="2467" endline="2498">XDfePrach_SetNextCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___config_1af2084b18da662eb8c08ed53221ec9e02" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_Config::HasContinuousSched</definition>
+        <argsstring></argsstring>
+        <name>HasContinuousSched</name>
+        <briefdescription>
+<para><verbatim>                 [0,1] Removal of internal scheduling (&quot;Always On&quot;
+</verbatim> mode) if set to 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="673" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH IP Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="650" bodyend="675"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___config_1adc5fbf155a2b48fbaca6f92714875571" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dfe_prach___config_1a227cca8522f031786fa3b993a1deb0a9" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>HasAxisCtrl</name></member>
+      <member refid="struct_x_dfe_prach___config_1af2084b18da662eb8c08ed53221ec9e02" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>HasContinuousSched</name></member>
+      <member refid="struct_x_dfe_prach___config_1ab0e5055767539ed61c50cafe3dcdf7e6" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>HasIrq</name></member>
+      <member refid="struct_x_dfe_prach___config_1accd3f2406703ba6a395fb591303c1e2f" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>Name</name></member>
+      <member refid="struct_x_dfe_prach___config_1afd4d255f310794af1bc1264f4aa7ec88" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumAntenna</name></member>
+      <member refid="struct_x_dfe_prach___config_1a2a023450d84be955fc49c7162d20d4c7" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumAntennaChannels</name></member>
+      <member refid="struct_x_dfe_prach___config_1a0f47a6f7ea926ce198a1f35f80d3c283" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumAntennaSlots</name></member>
+      <member refid="struct_x_dfe_prach___config_1a9bde70f27819c1fd765beeec0e1b999d" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumBands</name></member>
+      <member refid="struct_x_dfe_prach___config_1ae427e06376fc7b1eaf4c89994a46edff" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumCCPerAntenna</name></member>
+      <member refid="struct_x_dfe_prach___config_1ad3df7398ad15f400416c34c7eb944883" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumRachChannels</name></member>
+      <member refid="struct_x_dfe_prach___config_1a0e9df6fd5885667f02700d302a3463bf" prot="public" virt="non-virtual"><scope>XDfePrach_Config</scope><name>NumRachLanes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

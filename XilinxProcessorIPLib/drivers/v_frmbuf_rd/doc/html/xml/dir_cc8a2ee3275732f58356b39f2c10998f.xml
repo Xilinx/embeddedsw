@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_cc8a2ee3275732f58356b39f2c10998f" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="platform_8c">platform.c</innerfile>
+    <innerfile refid="platform_8h">platform.h</innerfile>
+    <innerfile refid="xv__frmbufrd__example_8c">xv_frmbufrd_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_rd/examples/src/"/>
+  </compounddef>
+</doxygen>

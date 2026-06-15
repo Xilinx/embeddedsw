@@ -1,0 +1,578 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__wdr" kind="group">
+    <compoundname>_cam_device_wdr</compoundname>
+    <title>VsCamDevice E01C14 Device_WDR Definitions</title>
+    <innerclass refid="struct_cam_device_wdr_strength_config__s" prot="public">CamDeviceWdrStrengthConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_ltm_weight_config__s" prot="public">CamDeviceWdrLtmWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_ltm_config__s" prot="public">CamDeviceWdrLtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gtm_weight_config__s" prot="public">CamDeviceWdrGtmWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gamma_up_config__s" prot="public">CamDeviceWdrGammaUpConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gtm_config__s" prot="public">CamDeviceWdrGtmConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_degamma_config__s" prot="public">CamDeviceWdrDegammaConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_gain_limitation_config__s" prot="public">CamDeviceWdrGainLimitationConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_defringe_config__s" prot="public">CamDeviceWdrDefringeConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_saturation_adjustment_config__s" prot="public">CamDeviceWdrSaturationAdjustmentConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_halo_color_fading_config__s" prot="public">CamDeviceWdrHaloColorFadingConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_high_light_config__s" prot="public">CamDeviceWdrHighLightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_damp_config__s" prot="public">CamDeviceWdrDampConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_color_weight_config__s" prot="public">CamDeviceWdrColorWeightConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_auto_config__s" prot="public">CamDeviceWdrAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_manual_config__s" prot="public">CamDeviceWdrManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_config__s" prot="public">CamDeviceWdrConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_wdr_status__s" prot="public">CamDeviceWdrStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga68700125b01f01fd95d90d9674bc5e21" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_strength_config__s" kindref="compound">CamDeviceWdrStrengthConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrStrengthConfig_s  CamDeviceWdrStrengthConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrStrengthConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR strength configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="64" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga9ece6995663c1f15ead85f8650da41fb" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_ltm_weight_config__s" kindref="compound">CamDeviceWdrLtmWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrLtmWeightConfig_s  CamDeviceWdrLtmWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrLtmWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR LTM weight configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="78" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga36558e2925a43b6b15c82b0c1109fdc6" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_ltm_config__s" kindref="compound">CamDeviceWdrLtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrLtmConfig_s  CamDeviceWdrLtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrLtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR LTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="91" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga4d09d2baff333b210741a723d08b0f28" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gtm_weight_config__s" kindref="compound">CamDeviceWdrGtmWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGtmWeightConfig_s  CamDeviceWdrGtmWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGtmWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gamma_up_config__s" kindref="compound">CamDeviceWdrGammaUpConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGammaUpConfig_s  CamDeviceWdrGammaUpConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGammaUpConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR gammaUp configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="112" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3644a434ed24556df9f91fea0465815d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gtm_config__s" kindref="compound">CamDeviceWdrGtmConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGtmConfig_s  CamDeviceWdrGtmConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGtmConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR GTM configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gade713c80a8aa4f0ec98a2ccf73e3f33a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_degamma_config__s" kindref="compound">CamDeviceWdrDegammaConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDegammaConfig_s  CamDeviceWdrDegammaConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDegammaConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR degamma configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga7dc1b09add5763581a82d413cd54b269" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_gain_limitation_config__s" kindref="compound">CamDeviceWdrGainLimitationConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrGainLimitationConfig_s  CamDeviceWdrGainLimitationConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrGainLimitationConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR gain limitation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="152" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3744b372259314cb8724be7ab7f6267a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_defringe_config__s" kindref="compound">CamDeviceWdrDefringeConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDefringeConfig_s  CamDeviceWdrDefringeConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDefringeConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR defringe configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="163" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga98675e4c7367e2e65df8b2f4a1af3b5d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_saturation_adjustment_config__s" kindref="compound">CamDeviceWdrSaturationAdjustmentConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrSaturationAdjustmentConfig_s  CamDeviceWdrSaturationAdjustmentConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrSaturationAdjustmentConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR saturation adjustment configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="175" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga250622d4e96d6be3b441fe42630d3d21" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_halo_color_fading_config__s" kindref="compound">CamDeviceWdrHaloColorFadingConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrHaloColorFadingConfig_s  CamDeviceWdrHaloColorFadingConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrHaloColorFadingConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR halo color fading configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga145e9d2493642c2f68f635e5a7b97696" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_high_light_config__s" kindref="compound">CamDeviceWdrHighLightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrHighLightConfig_s  CamDeviceWdrHighLightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrHighLightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR high light configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="203" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga3fae2926d243b702ef10595acdcce7a0" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_damp_config__s" kindref="compound">CamDeviceWdrDampConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrDampConfig_s  CamDeviceWdrDampConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrDampConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR dump configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="224" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gad3bc93bc5ee8d921a42f58ca9c0cd6ab" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_color_weight_config__s" kindref="compound">CamDeviceWdrColorWeightConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrColorWeightConfig_s  CamDeviceWdrColorWeightConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrColorWeightConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR color weight configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="236" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga5f226d263276077f3b8405e378a8d36a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_auto_config__s" kindref="compound">CamDeviceWdrAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrAutoConfig_s CamDeviceWdrAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="280" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga6cf97a71e5ba8a3bc23a4cd1b3c9ed64" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_manual_config__s" kindref="compound">CamDeviceWdrManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrManualConfig_s CamDeviceWdrManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="302" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_config__s" kindref="compound">CamDeviceWdrConfig_s</ref></type>
+        <definition>typedef struct CamDeviceWdrConfig_s CamDeviceWdrConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="313" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_wdr_status__s" kindref="compound">CamDeviceWdrStatus_s</ref></type>
+        <definition>typedef struct CamDeviceWdrStatus_s CamDeviceWdrStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceWdrStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice WDR status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="324" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__wdr_1ga52c9991e5b7a48fb0df6d38b5482cc8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" kindref="member">CamDeviceWdrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="19" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga667f196bf8c3e4b59958bd73c49ecc0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1gac1bc658680ee779b992be0143be4e60d" kindref="member">CamDeviceWdrConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga777c66ead3e321df402fa3e154b72f90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrSetGammaUpConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrSetGammaUpConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="373" bodyend="410"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gacc348a3d8b62abec72c729b322c6594b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetGammaUpConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceWdrGetGammaUpConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="414" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gae0264d925dd0034877c5f1581d489224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetGammaUpStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrGammaUpConfig_t *pStatus)</argsstring>
+        <name>VsiCamDeviceWdrGetGammaUpStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga684a2ee3012861a406318504011ab7ef" kindref="member">CamDeviceWdrGammaUpConfig_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="457" bodyend="496"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga98e7afd6166e74dd933e8f24a64909c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="104" bodyend="138"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga8a6836d247f381966172518fe825d9eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="508" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="141" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga5f7f5b9a4acea550b6d23d345d7eba0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrHaloColorFadingEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrHaloColorFadingEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="529" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="178" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga0f4179d183c60b5e91fd9bfa5025737e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrHaloColorFadingDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrHaloColorFadingDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="215" bodyend="249"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga139bef7b1bbc73358f2514dfc0bcd279" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceWdrStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceWdrGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__wdr_1ga694e2093f16fa7a4337bfeb8d7619b7c" kindref="member">CamDeviceWdrStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="252" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1ga540523769fb55c85de80b3f8712cb5c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceWdrGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="294" bodyend="333"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__wdr_1gaf9ca2901f02a8c1e672463d3d6285416" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceWdrReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceWdrReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="627" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/wdr/cam_device_wdr_api_v5_2.c" bodystart="336" bodyend="370"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__wdr_1gadbdb15510f458be727039b9f7bad05c8" prot="public" static="no">
+        <name>CAMDEV_WDR_LIGHT_THR_LOG_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>bin number of light threshold log size </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1gad6efca8f5c3898fe90b4e984fc0847ca" prot="public" static="no">
+        <name>CAMDEV_WDR_FLAT_LEVEL_CHANNAL_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bin number of flat level channal size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1gadefab54555dd27b5cfac5872545a200f" prot="public" static="no">
+        <name>CAMDEV_WDR_FLAT_LEVEL_INC_SIZE</name>
+        <initializer>17</initializer>
+        <briefdescription>
+<para>Bin number of flat level size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga44188b23463d4121a4b7a300d863fb26" prot="public" static="no">
+        <name>CAMDEV_WDR_COLOR_WEIGHT_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bin number of color weight size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga44470005c97bbaa5b276cc2d6614b4f6" prot="public" static="no">
+        <name>CAMDEV_WDR_RGB_COEF_SIZE</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bin number of RGB coefficient size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga122389a3fbe76256da92c8cc1b94c44b" prot="public" static="no">
+        <name>CAMDEV_WDR_LEVEL_MAX</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>MAX WDR LEVEL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__wdr_1ga126b5dc6687f439ef7ffa54cc1aefdfc" prot="public" static="no">
+        <name>CAMDEV_WDR_GAMMA_UP_BIN</name>
+        <initializer>65 /** &lt;Bin number of gammaUp Curve */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/wdr_v5_2/cam_device_wdr_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the wide dynamic range module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

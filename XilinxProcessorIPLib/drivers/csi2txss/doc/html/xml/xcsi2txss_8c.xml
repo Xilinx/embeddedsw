@@ -1,0 +1,1249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcsi2txss_8c" kind="file">
+    <compoundname>xcsi2txss.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xcsi2tx.h</includes>
+    <includes refid="xcsi2txss_8h" local="yes">xcsi2txss.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>xil_io.h</label>
+      </node>
+      <node id="6">
+        <label>xdebug.h</label>
+      </node>
+      <node id="10">
+        <label>xcsi2txss_hw.h</label>
+        <link refid="xcsi2txss__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xcsi2tx.h</label>
+      </node>
+      <node id="5">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4">
+        <label>xcsi2txss.c</label>
+        <link refid="xcsi2txss.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xcsi2txss.h</label>
+        <link refid="xcsi2txss_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_csi2_tx_ss___sub_cores" prot="public">XCsi2TxSs_SubCores</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__csi2txss_1ga0a6b94b75ef141bbd5c00263a5bc2a33" prot="public" static="no" mutable="no">
+        <type>XCsi2TxSs_SubCores</type>
+        <definition>XCsi2TxSs_SubCores Csi2TxSsSubCores[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Csi2TxSsSubCores</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__csi2txss_1gae5c0290d5d523b452f968e95975ffcc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Csi2TxSs_GetIncludedSubCores</definition>
+        <argsstring>(XCsi2TxSs *Csi2TxSsPtr)</argsstring>
+        <name>Csi2TxSs_GetIncludedSubCores</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>Csi2TxSsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function queries the subsystem instance configuration to determine the included sub-cores. </para>        </briefdescription>
+        <detaileddescription>
+<para>For each sub-core that is present in the design the sub-core driver instance is binded with the subsystem sub-core driver handle</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CsiSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="155" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1gaca3e06ebaa43e3f839de620bf24ff1c5" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 Csi2TxSs_SubCoreInitCsi</definition>
+        <argsstring>(XCsi2TxSs *CsiSsPtr)</argsstring>
+        <name>Csi2TxSs_SubCoreInitCsi</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>Csi2TxSsPtr</declname>
+          <defname>CsiSsPtr</defname>
+        </param>
+        <briefdescription>
+<para>This function initializes the included sub-core to it&apos;s static configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CsiSsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If CSI sub core is initialised successfully</para></listitem><listitem><para>XST_FAILURE If CSI sub core inititlization fails</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="372" bodyend="415"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga24360c041fd3f49f3e6bdb70bc566787" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 Csi2TxSs_ComputeSubCoreAbsAddr</definition>
+        <argsstring>(UINTPTR SsBaseAddr, UINTPTR SsHighAddr, u32 Offset, UINTPTR *BaseAddr)</argsstring>
+        <name>Csi2TxSs_ComputeSubCoreAbsAddr</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>SsBaseAddr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>SsHighAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>UINTPTR *</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function computes the subcore absolute address on axi-lite interface Subsystem is mapped at an absolute address and all included sub-cores are at pre-defined offset from the subsystem base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>To access the subcore register map from host CPU an absolute address is required. The subsystem is aligned to 4K address and has address range of max 8K (0x00000-0x2000). By default, CSI is at offset 0x0_0000, and DPHY is at offset 0x0_1000. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SsBaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the the Subsystem instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SsHighAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the max address of the Subsystem instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the specified core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the computed absolute base address of the subcore</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if base address computation is successful and within subsystem address range</para></listitem><listitem><para>XST_FAILURE Otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="503" bodyend="522"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_CfgInitialize</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, XCsi2TxSs_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XCsi2TxSs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the MIPI CSI subsystem and included sub-cores. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the subsystem. Initialization includes setting up the instance data for top level as well as all included sub-core therein, and ensuring the hardware is in a known stable state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the configuration structure associated with the subsystem instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization is successful</para></listitem><listitem><para>XST_FAILURE, otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="104" bodyend="139"/>
+        <references refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" compoundref="xcsi2txss_8h" startline="218">XCsi2TxSs_Config::BaseAddr</references>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <references refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" compoundref="xcsi2txss_8h" startline="250">XCsi2TxSs::IsReady</references>
+        <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
+        <referencedby refid="group__csi2txss_1ga1e0a474f9469d041cee3f863c5a6de97" compoundref="xcsi2txss__selftest__example_8c" startline="124" endline="147">Csi2TxSs_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_Configure</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u8 ActiveLanes, u32 IntrMask)</argsstring>
+        <name>XCsi2TxSs_Configure</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>ActiveLanes</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrMask</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to configure the CSI lanes and interrupts that are to be handled by the application. </para>        </briefdescription>
+        <detaileddescription>
+<para>Refer to XCsi2Tx.h for interrupt masks.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ActiveLanes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is no of active lanes to be configure. This value ranges between 1 and 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates Mask for enable interrupts.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful configuration of parameters<itemizedlist>
+<listitem><para>XST_FAILURE otherwise</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When EnableActiveLanes is 0, then the ActiveLanes parameter passed should be equal to Max Lanes of design. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="198" bodyend="229"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+        <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_Activate</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u8 Flag)</argsstring>
+        <name>XCsi2TxSs_Activate</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to activate the CSI Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Internally it activates the DPHY and CSI.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is used to denote whether to enable or disable the subsystem</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful operation</para></listitem><listitem><para>XST_FAILURE on failed operation</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="248" bodyend="266"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga9933630512ea21627aae263ff1833372" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_Reset</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_Reset</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to reset the CSI Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>Internally it resets the DPHY and CSI</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if all the sub core IP resets occur correctly</para></listitem><listitem><para>XST_FAILURE if reset fails for any sub core IP fails</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="283" bodyend="297"/>
+        <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_ReportCoreInfo</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_ReportCoreInfo</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reports list of cores included. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="311" bodyend="337"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" compoundref="xcsi2txss_8h" startline="231">XCsi2TxSs_Config::IsDphyRegIntfcPresent</references>
+        <referencedby refid="group__csi2txss_1ga4f003f0f154d0a6f6d7c06498ff3c655" compoundref="xcsi2txss__intr__example_8c" startline="211" endline="294">Csi2TxSs_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga066c927aebc1b2c199e33350662e4fd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_GetShortPacket</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_GetShortPacket</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the short packets. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="351" bodyend="357"/>
+        <references refid="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" compoundref="xcsi2txss_8h" startline="253">XCsi2TxSs::SpktData</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga7e993c82c56bef5ed7a768a71705630b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_LineGen</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u32 Value)</argsstring>
+        <name>XCsi2TxSs_LineGen</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is to set the Line Synchronization packet Generation status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2 TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 : DISABLE 1 : ENABLE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="541" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="541" bodyend="543"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga533565da7643edb6132a77e5443a2f2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_SetGSPEntry</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u32 Value)</argsstring>
+        <name>XCsi2TxSs_SetGSPEntry</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is to set Generic Short Packet Entries. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2 TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GSP 32 bit Entry</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="561" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="561" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga5f102cce59805525a6129df5c4d7feb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_GetPixelMode</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_GetPixelMode</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the Pixel Mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0x0 - Single Pixel Mode 0x1 - Dual Pixel Mode 0x3 - Quad Pixel Mode</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="580" bodyend="582"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga9f75eac00e365efaa38c8c3b9f98ec0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_GetMaxLaneCount</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_GetMaxLaneCount</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the number of lanes configured in the IP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Max number of lanes available in u32 format</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="598" bodyend="600"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga886d9a156806e822b1912fdfbdf66529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_IsUlps</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_IsUlps</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to check if lanes are in ulps mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 - ulps mode enter</para></listitem><listitem><para>0 - ulps mode exit</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="617" bodyend="624"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga292c264c19f272a7b985ca641535be5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_SetUlps</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u32 Value)</argsstring>
+        <name>XCsi2TxSs_SetUlps</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set lanes in ulps mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the CSI2TX SS Instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><itemizedlist>
+<listitem><para>1 - ulps mode enter</para></listitem><listitem><para>0 - ulps mode exit</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="643" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="643" bodyend="650"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga2da520a569957fe9fde9177404ee574f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCsi2TxSs_SetClkMode</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u8 Mode)</argsstring>
+        <name>XCsi2TxSs_SetClkMode</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>for Continuous Mode (0) or Non-continuous Mode (1)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="667" bodyend="674"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga9322b8aa53d1f0f7ba52a8ddea493942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_GetClkMode</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr)</argsstring>
+        <name>XCsi2TxSs_GetClkMode</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the CSI2 Tx Subsystem Clock Mode as either Continuous (0) or Non-Continuous (1) mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 - Continuous Clock Mode 1 - Non-continuous Clock Mode</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="690" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="690" bodyend="697"/>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_SetLineCountForVC</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u8 VC, u16 LineCount)</argsstring>
+        <name>XCsi2TxSs_SetLineCountForVC</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VC</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>LineCount</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the Line Count for virtual Channel if Frame End Generation feature is enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is to be called before starting the core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is which Virtual channel to be configured for (0-3). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is valid line count for the Virtual channel.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to 3 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_FAILURE in case the core is already running.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="720" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="720" bodyend="730"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XCsi2TxSs_GetLineCountForVC</definition>
+        <argsstring>(XCsi2TxSs *InstancePtr, u8 VC, u16 *LineCount)</argsstring>
+        <name>XCsi2TxSs_GetLineCountForVC</name>
+        <param>
+          <type><ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VC</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>LineCount</declname>
+        </param>
+        <briefdescription>
+<para>This function gets the Line Count for virtual Channel if Frame End Generation feature is enabled. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Subsystem instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is which Virtual channel to be configured for (0-3). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to variable to be filled with line count for the Virtual channel</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_NO_FEATURE if Frame End generation is not enabled</para></listitem><listitem><para>XST_INVALID_PARAM if any param is invalid e.g. VC is always 0 to 3 and Line Count is 0 to 0xFFFF.</para></listitem><listitem><para>XST_SUCCESS otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" line="752" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c" bodystart="752" bodyend="762"/>
+        <references refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" compoundref="xcsi2txss_8h" startline="249">XCsi2TxSs::Config</references>
+        <references refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" compoundref="xcsi2txss_8h" startline="233">XCsi2TxSs_Config::FEGenEnabled</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcsi2tx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcsi2txss_8h" kindref="compound">xcsi2txss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx<sp/>CsiInst;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy<sp/>DphyInst;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>XCsi2TxSs_SubCores;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Local<sp/>Global<sp/>***********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>Driver<sp/>instance<sp/>of<sp/>all<sp/>sub-core<sp/>included<sp/>in<sp/>the<sp/>design<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal">XCsi2TxSs_SubCores<sp/>Csi2TxSsSubCores[XPAR_XCSI2TXSS_NUM_INSTANCES];</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal">XCsi2TxSs_SubCores<sp/>Csi2TxSsSubCores[];</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Csi2TxSs_GetIncludedSubCores(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*Csi2TxSsPtr);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_SubCoreInitCsi(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*Csi2TxSsPtr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_SubCoreInitDphy(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*Csi2TxSsPtr);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR<sp/>SsBaseAddr,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>SsHighAddr,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset,<sp/>UINTPTR<sp/>*BaseAddr);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="104" refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga05a335318d3ee341c8288279cf4d8683" kindref="member">XCsi2TxSs_CfgInitialize</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_csi2_tx_ss___config" kindref="compound">XCsi2TxSs_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Determine<sp/>sub-cores<sp/>included<sp/>in<sp/>provided<sp/>instance<sp/>of<sp/>subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csi2TxSs_GetIncludedSubCores(InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>all<sp/>included<sp/>sub_cores<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;CsiPtr)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Csi2TxSs_SubCoreInitCsi(InstancePtr);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" kindref="member">IsDphyRegIntfcPresent</ref><sp/>&amp;&amp;<sp/>InstancePtr-&gt;DphyPtr)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Csi2TxSs_SubCoreInitDphy(InstancePtr);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1af575bf5693648774b6b55c36dc2acc25" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="155"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Csi2TxSs_GetIncludedSubCores(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*Csi2TxSsPtr)</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csi2TxSsPtr-&gt;CsiPtr<sp/>=<sp/>((Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kindref="member">CsiInfo</ref>.<ref refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" kindref="member">IsPresent</ref>)<sp/>?</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;Csi2TxSsSubCores[Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.DeviceId].CsiInst)<sp/>:<sp/>NULL);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csi2TxSsPtr-&gt;DphyPtr<sp/>=<sp/>((Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kindref="member">DphyInfo</ref>.<ref refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" kindref="member">IsPresent</ref>)<sp/>?</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;Csi2TxSsSubCores[Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.DeviceId].DphyInst)<sp/>:<sp/>NULL);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index<sp/>=<sp/><ref refid="group__csi2txss_1ga27c89281844aeddd73fec0e30044013e" kindref="member">XCsi2TxSs_GetDrvIndex</ref>(Csi2TxSsPtr,<sp/>Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" kindref="member">BaseAddr</ref>);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csi2TxSsPtr-&gt;CsiPtr<sp/>=<sp/>((Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kindref="member">CsiInfo</ref>.<ref refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" kindref="member">IsPresent</ref>)<sp/>?</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;Csi2TxSsSubCores[Index].CsiInst)<sp/>:<sp/>NULL);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csi2TxSsPtr-&gt;DphyPtr<sp/>=<sp/>((Csi2TxSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kindref="member">DphyInfo</ref>.<ref refid="struct_sub_core_csi2_tx_1abc02d9ffedadf7ebdc709f69c773c767" kindref="member">IsPresent</ref>)<sp/>?</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&amp;Csi2TxSsSubCores[Index].DphyInst)<sp/>:<sp/>NULL);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198" refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga20a5a3fc9695ca1ac7fdbea4300da836" kindref="member">XCsi2TxSs_Configure</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>ActiveLanes,<sp/>u32<sp/>IntrMask)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx<sp/>*CsiPtr;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;CsiPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(XCsi2Tx_IsActiveLaneCountValid(InstancePtr-&gt;CsiPtr,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveLanes));</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiPtr<sp/>=<sp/>InstancePtr-&gt;CsiPtr;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" kindref="member">FEGenEnabled</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrMask<sp/>&amp;=<sp/>(XCSI2TX_ISR_ALLINTR_MASK<sp/>|</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSITX_LCSTAT_VC0_IER_MASK<sp/>|</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSITX_LCSTAT_VC1_IER_MASK<sp/>|</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSITX_LCSTAT_VC2_IER_MASK<sp/>|</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCSITX_LCSTAT_VC3_IER_MASK);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrMask<sp/>&amp;=<sp/>XCSI2TX_ISR_ALLINTR_MASK;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_IntrEnable(CsiPtr,<sp/>IntrMask);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiPtr-&gt;ActiveLanes<sp/>=<sp/>ActiveLanes;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi2Tx_Configure(CsiPtr);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="248" refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1gac74b7b2f7be7e695c3034f45d681c8ed" kindref="member">XCsi2TxSs_Activate</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Flag)</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Flag<sp/>&lt;=<sp/>XCSI2TX_ENABLE);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi2Tx_Activate(InstancePtr-&gt;CsiPtr,<sp/>Flag);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" kindref="member">IsDphyRegIntfcPresent</ref><sp/>&amp;&amp;<sp/>InstancePtr-&gt;DphyPtr)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_Activate(InstancePtr-&gt;DphyPtr,<sp/>Flag);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="283" refid="group__csi2txss_1ga9933630512ea21627aae263ff1833372" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga9933630512ea21627aae263ff1833372" kindref="member">XCsi2TxSs_Reset</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi2Tx_Reset(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSI2TX<sp/>SubSys<sp/>Reset<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="311" refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1gad5067597d1a3f39b5be158ce026e3f8c" kindref="member">XCsi2TxSs_ReportCoreInfo</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;\n\r<sp/>-&gt;MIPI<sp/>CSI2<sp/>TX<sp/>Subsystem<sp/>Cores\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Report<sp/>all<sp/>the<sp/>included<sp/>cores<sp/>in<sp/>the<sp/>subsystem<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;CsiPtr)<sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>:<sp/>CSI2<sp/>Tx<sp/>Controller<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;DphyPtr)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/>:<sp/>DPhy<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a8364cfcd48d9087a1657c96241dad16e" kindref="member">IsDphyRegIntfcPresent</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;with<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;without<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight><highlight class="stringliteral">&quot;register<sp/>interface<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="351" refid="group__csi2txss_1ga066c927aebc1b2c199e33350662e4fd9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1ga066c927aebc1b2c199e33350662e4fd9" kindref="member">XCsi2TxSs_GetShortPacket</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="352"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_GetShortPacket(InstancePtr-&gt;CsiPtr,<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a69db6382dd247f145f9685994e790b3a" kindref="member">SpktData</ref>);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="372"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_SubCoreInitCsi(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*CsiSsPtr)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>AbsAddr;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_Config<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;-&gt;Initializing<sp/>CSI2<sp/>Tx<sp/>Controller.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XCsi2Tx_LookupConfig(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kindref="member">CsiInfo</ref>.DeviceId);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="383"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XCsi2Tx_LookupConfig(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kindref="member">CsiInfo</ref>.AddrOffset);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>CSI<sp/>not<sp/>found\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>absolute<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbsAddr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a7e3d185b3246a66d9fa0c87be4d76170" kindref="member">HighAddr</ref>,</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ac1f1614d0982366c88534f12b5676b52" kindref="member">CsiInfo</ref>.AddrOffset,</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;AbsAddr);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>CSI<sp/>core&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;base<sp/>address<sp/>(0x%x)<sp/>invalid<sp/>%d\n\r&quot;</highlight><highlight class="normal">,<sp/>AbsAddr);</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="404"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbsAddr<sp/>=<sp/>ConfigPtr-&gt;BaseAddr;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XCsi2Tx_CfgInitialize(CsiSsPtr-&gt;CsiPtr,<sp/>ConfigPtr,<sp/>AbsAddr);</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>CSI<sp/>core<sp/>Initialization<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XDPHY_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="433"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_SubCoreInitDphy(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*CsiSsPtr)</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>AbsAddr;</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDphy_Config<sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>core<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;-&gt;Initializing<sp/>DPHY<sp/>...\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="442"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XDphy_LookupConfig(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kindref="member">DphyInfo</ref>.DeviceId);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="444"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>XDphy_LookupConfig(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kindref="member">DphyInfo</ref>.AddrOffset);</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="446"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>DPHY<sp/>not<sp/>found\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="453"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compute<sp/>absolute<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbsAddr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Csi2TxSs_ComputeSubCoreAbsAddr(CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a81d81ca026f814b36aaa4f640886fb9b" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a7e3d185b3246a66d9fa0c87be4d76170" kindref="member">HighAddr</ref>,</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CsiSsPtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1a5d7815d15cd570324a809f44db56f550" kindref="member">DphyInfo</ref>.AddrOffset,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;AbsAddr);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>DPHY<sp/>core<sp/>base&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;address<sp/>(0x%x)<sp/>invalid<sp/>%d\n\r&quot;</highlight><highlight class="normal">,<sp/>AbsAddr);</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="465"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbsAddr<sp/>=<sp/>ConfigPtr-&gt;BaseAddr;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>core<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XDphy_CfgInitialize(CsiSsPtr-&gt;DphyPtr,<sp/>ConfigPtr,<sp/>AbsAddr);</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,<sp/></highlight><highlight class="stringliteral">&quot;CSISS2TX<sp/>ERR::<sp/>Dphy<sp/>core&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Initialization<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="479"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="503"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>Csi2TxSs_ComputeSubCoreAbsAddr(UINTPTR<sp/>SsBaseAddr,</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>SsHighAddr,</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset,<sp/>UINTPTR<sp/>*BaseAddr)</highlight></codeline>
+<codeline lineno="506"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>AbsAddr;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AbsAddr<sp/>=<sp/>SsBaseAddr<sp/>+<sp/>Offset;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((AbsAddr<sp/>&gt;=<sp/>SsBaseAddr)<sp/>&amp;&amp;<sp/>(AbsAddr<sp/>&lt;<sp/>SsHighAddr))<sp/>{</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BaseAddr<sp/>=<sp/>AbsAddr;</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BaseAddr<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="522"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"></highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="541" refid="group__csi2txss_1ga7e993c82c56bef5ed7a768a71705630b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1ga7e993c82c56bef5ed7a768a71705630b" kindref="member">XCsi2TxSs_LineGen</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value)<sp/>{</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_SetLineGen(InstancePtr-&gt;CsiPtr,<sp/>Value);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight></codeline>
+<codeline lineno="545"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="561" refid="group__csi2txss_1ga533565da7643edb6132a77e5443a2f2d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1ga533565da7643edb6132a77e5443a2f2d" kindref="member">XCsi2TxSs_SetGSPEntry</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value)<sp/>{</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_SetGSPEntry(InstancePtr-&gt;CsiPtr,<sp/>Value);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"></highlight></codeline>
+<codeline lineno="565"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="580" refid="group__csi2txss_1ga5f102cce59805525a6129df5c4d7feb8" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga5f102cce59805525a6129df5c4d7feb8" kindref="member">XCsi2TxSs_GetPixelMode</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCsi2Tx_GetPixelMode(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="598" refid="group__csi2txss_1ga9f75eac00e365efaa38c8c3b9f98ec0e" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga9f75eac00e365efaa38c8c3b9f98ec0e" kindref="member">XCsi2TxSs_GetMaxLaneCount</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCsi2Tx_GetMaxLaneCount(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="600"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="617" refid="group__csi2txss_1ga886d9a156806e822b1912fdfbdf66529" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga886d9a156806e822b1912fdfbdf66529" kindref="member">XCsi2TxSs_IsUlps</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="618"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCsi2Tx_IsUlps(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="624"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"></highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="643" refid="group__csi2txss_1ga292c264c19f272a7b985ca641535be5b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1ga292c264c19f272a7b985ca641535be5b" kindref="member">XCsi2TxSs_SetUlps</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Value)</highlight></codeline>
+<codeline lineno="644"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr);</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"></highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_SetUlps(InstancePtr-&gt;CsiPtr,<sp/>Value);</highlight></codeline>
+<codeline lineno="650"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="667" refid="group__csi2txss_1ga2da520a569957fe9fde9177404ee574f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__csi2txss_1ga2da520a569957fe9fde9177404ee574f" kindref="member">XCsi2TxSs_SetClkMode</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Mode)</highlight></codeline>
+<codeline lineno="668"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr);</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsi2Tx_SetClkMode(InstancePtr-&gt;CsiPtr,<sp/>Mode);</highlight></codeline>
+<codeline lineno="674"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="690" refid="group__csi2txss_1ga9322b8aa53d1f0f7ba52a8ddea493942" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga9322b8aa53d1f0f7ba52a8ddea493942" kindref="member">XCsi2TxSs_GetClkMode</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="691"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr);</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;CsiPtr);</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"></highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XCsi2Tx_GetClkMode(InstancePtr-&gt;CsiPtr));</highlight></codeline>
+<codeline lineno="697"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="720" refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga66c4f55bd50f54c8712fd8b2c2d70c0b" kindref="member">XCsi2TxSs_SetLineCountForVC</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>VC,<sp/>u16<sp/>LineCount)</highlight></codeline>
+<codeline lineno="721"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Is<sp/>Frame<sp/>End<sp/>generation<sp/>feature<sp/>enabled?<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" kindref="member">FEGenEnabled</ref>)</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_FEATURE;</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"></highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCsi2Tx_SetLineCountForVC(InstancePtr-&gt;CsiPtr,<sp/>VC,<sp/>LineCount);</highlight></codeline>
+<codeline lineno="730"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"></highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="752" refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__csi2txss_1ga655b4f5658f8e8dc4ebc550fc4c6e8f0" kindref="member">XCsi2TxSs_GetLineCountForVC</ref>(<ref refid="struct_x_csi2_tx_ss" kindref="compound">XCsi2TxSs</ref><sp/>*InstancePtr,<sp/>u8<sp/>VC,<sp/>u16<sp/>*LineCount)</highlight></codeline>
+<codeline lineno="753"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"></highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Is<sp/>Frame<sp/>End<sp/>generation<sp/>feature<sp/>enabled?<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!InstancePtr-&gt;<ref refid="struct_x_csi2_tx_ss_1a625d8009f4967ee151402f9d794cf21f" kindref="member">Config</ref>.<ref refid="struct_x_csi2_tx_ss___config_1ad372aabbf5a19e00a4add55dcf18c455" kindref="member">FEGenEnabled</ref>)</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_FEATURE;</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"></highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XCsi2Tx_GetLineCountForVC(InstancePtr-&gt;CsiPtr,<sp/>VC,<sp/>LineCount);</highlight></codeline>
+<codeline lineno="762"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi2txss/src/xcsi2txss.c"/>
+  </compounddef>
+</doxygen>

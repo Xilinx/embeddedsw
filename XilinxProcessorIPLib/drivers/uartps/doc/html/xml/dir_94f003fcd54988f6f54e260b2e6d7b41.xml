@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_94f003fcd54988f6f54e260b2e6d7b41" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xuartps_8c">xuartps.c</innerfile>
+    <innerfile refid="xuartps_8h">xuartps.h</innerfile>
+    <innerfile refid="xuartps__g_8c">xuartps_g.c</innerfile>
+    <innerfile refid="xuartps__hw_8c">xuartps_hw.c</innerfile>
+    <innerfile refid="xuartps__hw_8h">xuartps_hw.h</innerfile>
+    <innerfile refid="xuartps__intr_8c">xuartps_intr.c</innerfile>
+    <innerfile refid="xuartps__options_8c">xuartps_options.c</innerfile>
+    <innerfile refid="xuartps__selftest_8c">xuartps_selftest.c</innerfile>
+    <innerfile refid="xuartps__sinit_8c">xuartps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/"/>
+  </compounddef>
+</doxygen>

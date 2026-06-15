@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___sink_audio_cfg" kind="struct" prot="public">
+    <compoundname>XDpTxSs_SinkAudioCfg</compoundname>
+    <includes local="no">xdptxss_edid_parser.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink_audio_cfg_1adb46dc37d9d8bb26fb2276980ba3ed40" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_tx_ss___audio_s_a_d" kindref="compound">XDpTxSs_AudioSAD</ref></type>
+        <definition>XDpTxSs_AudioSAD XDpTxSs_SinkAudioCfg::SAD_array[MAX_SAD_COUNT]</definition>
+        <argsstring>[MAX_SAD_COUNT]</argsstring>
+        <name>SAD_array</name>
+        <briefdescription>
+<para>Fixed array of SADs (no dynamic allocation) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink_audio_cfg_1ac27831f793da8850d471c700641421cd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_SinkAudioCfg::Speaker_channel_allocation</definition>
+        <argsstring></argsstring>
+        <name>Speaker_channel_allocation</name>
+        <briefdescription>
+<para>Speaker allocation from CTA-861 Speaker Allocation Data Block. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___sink_audio_cfg_1acb713f8bafd998bf58246352ac94a1a2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_SinkAudioCfg::SAD_count</definition>
+        <argsstring></argsstring>
+        <name>SAD_count</name>
+        <briefdescription>
+<para>Number of valid SADs in array (0 to MAX_SAD_COUNT) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1ga56d2a2ce73869b11ef8e1111b2de884c" compoundref="xdptxss__edid__parser_8c" startline="164" endline="367">XDpTxSs_get_sink_AV_Capabilities</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store complete sink audio configuration including SADs and speaker allocation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="49">
+        <label>XDpTxSs_AudioSAD</label>
+        <link refid="struct_x_dp_tx_ss___audio_s_a_d"/>
+      </node>
+      <node id="48">
+        <label>XDpTxSs_SinkAudioCfg</label>
+        <link refid="struct_x_dp_tx_ss___sink_audio_cfg"/>
+        <childnode refid="49" relation="usage">
+          <edgelabel>SAD_array</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/xdptxss_edid_parser.h" bodystart="176" bodyend="181"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___sink_audio_cfg_1adb46dc37d9d8bb26fb2276980ba3ed40" prot="public" virt="non-virtual"><scope>XDpTxSs_SinkAudioCfg</scope><name>SAD_array</name></member>
+      <member refid="struct_x_dp_tx_ss___sink_audio_cfg_1acb713f8bafd998bf58246352ac94a1a2" prot="public" virt="non-virtual"><scope>XDpTxSs_SinkAudioCfg</scope><name>SAD_count</name></member>
+      <member refid="struct_x_dp_tx_ss___sink_audio_cfg_1ac27831f793da8850d471c700641421cd" prot="public" virt="non-virtual"><scope>XDpTxSs_SinkAudioCfg</scope><name>Speaker_channel_allocation</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

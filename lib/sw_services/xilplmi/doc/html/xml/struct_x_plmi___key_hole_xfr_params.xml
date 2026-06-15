@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___key_hole_xfr_params" kind="struct" prot="public">
+    <compoundname>XPlmi_KeyHoleXfrParams</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a94ee5157dd75fa7c7e778c7c64c4f976" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_KeyHoleXfrParams::SrcAddr</definition>
+        <argsstring></argsstring>
+        <name>SrcAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a8cec20d856a93cbc187e50b5ee65a726" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_KeyHoleXfrParams::DestAddr</definition>
+        <argsstring></argsstring>
+        <name>DestAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a8be2e161903619f82c946e11cc97e993" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_KeyHoleXfrParams::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a2568311663da9f28bd366df731910f79" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_KeyHoleXfrParams::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1abf04a551c9e20fa0fa8fb2b35f88b90b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_KeyHoleXfrParams::Keyholesize</definition>
+        <argsstring></argsstring>
+        <name>Keyholesize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a3389ab98adc9db8e9a0601eeeb13f17f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_KeyHoleXfrParams::Flags</definition>
+        <argsstring></argsstring>
+        <name>Flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___key_hole_xfr_params_1a04a5cf92275e3974951fd8dfd65af945" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XPlmi_KeyHoleXfrParams::Func)(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)</definition>
+        <argsstring>)(u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags)</argsstring>
+        <name>Func</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_generic.h" bodystart="93" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a8be2e161903619f82c946e11cc97e993" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a8cec20d856a93cbc187e50b5ee65a726" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>DestAddr</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a3389ab98adc9db8e9a0601eeeb13f17f" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>Flags</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a04a5cf92275e3974951fd8dfd65af945" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>Func</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1abf04a551c9e20fa0fa8fb2b35f88b90b" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>Keyholesize</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a2568311663da9f28bd366df731910f79" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>Len</name></member>
+      <member refid="struct_x_plmi___key_hole_xfr_params_1a94ee5157dd75fa7c7e778c7c64c4f976" prot="public" virt="non-virtual"><scope>XPlmi_KeyHoleXfrParams</scope><name>SrcAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

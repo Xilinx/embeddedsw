@@ -1,0 +1,1427 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__awb__api_8h" kind="file">
+    <compoundname>cam_device_awb_api.h</compoundname>
+    <includes refid="cam__device__common_8h" local="yes">cam_device_common.h</includes>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="cam__device__module__api_8h" local="yes">cam_device_module_api.h</includedby>
+    <includedby refid="vvbench__awb__api_8h" local="yes">vvbench_awb_api.h</includedby>
+    <incdepgraph>
+      <node id="1509">
+        <label>stdbool.h</label>
+      </node>
+      <node id="1503">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="1510">
+        <label>stdint.h</label>
+      </node>
+      <node id="1500">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1507">
+        <label>sensor_cmd.h</label>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+      </node>
+      <node id="1502">
+        <label>stddef.h</label>
+      </node>
+      <node id="1501">
+        <label>limits.h</label>
+      </node>
+      <node id="1496">
+        <label>cam_device_common.h</label>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1503" relation="include">
+        </childnode>
+        <childnode refid="1504" relation="include">
+        </childnode>
+        <childnode refid="1506" relation="include">
+        </childnode>
+        <childnode refid="1507" relation="include">
+        </childnode>
+      </node>
+      <node id="1506">
+        <label>buf_defs.h</label>
+        <childnode refid="1497" relation="include">
+        </childnode>
+      </node>
+      <node id="1508">
+        <label>mbox_api.h</label>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+      </node>
+      <node id="1505">
+        <label>string.h</label>
+      </node>
+      <node id="1511">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+      </node>
+      <node id="1512">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="1497">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="1498" relation="include">
+        </childnode>
+        <childnode refid="1501" relation="include">
+        </childnode>
+        <childnode refid="1502" relation="include">
+        </childnode>
+      </node>
+      <node id="1495">
+        <label>cam_device_awb_api.h</label>
+        <link refid="cam_device_awb_api.h"/>
+        <childnode refid="1496" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+      </node>
+      <node id="1504">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="1497" relation="include">
+        </childnode>
+        <childnode refid="1505" relation="include">
+        </childnode>
+      </node>
+      <node id="1499">
+        <label>stdio.h</label>
+      </node>
+      <node id="1498">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="1499" relation="include">
+        </childnode>
+        <childnode refid="1500" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1547">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="1545">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="1544">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="1548">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="1514">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="1515" relation="include">
+        </childnode>
+      </node>
+      <node id="1552">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="1516">
+        <label>control.h</label>
+        <childnode refid="1517" relation="include">
+        </childnode>
+      </node>
+      <node id="1542">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="1550">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="1528">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="1536">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="1530">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="1534">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="1556">
+        <label>submodule_def.h</label>
+        <childnode refid="1557" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+      </node>
+      <node id="1526">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="1522">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="1521">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="1555">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="1556" relation="include">
+        </childnode>
+        <childnode refid="1558" relation="include">
+        </childnode>
+      </node>
+      <node id="1557">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="1537">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="1529">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="1532">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="1535">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="1519">
+        <label>cam_device.c</label>
+      </node>
+      <node id="1527">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="1525">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="1515">
+        <label>cam_device_app.h</label>
+        <childnode refid="1516" relation="include">
+        </childnode>
+        <childnode refid="1517" relation="include">
+        </childnode>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1522" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1525" relation="include">
+        </childnode>
+        <childnode refid="1526" relation="include">
+        </childnode>
+        <childnode refid="1527" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1529" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1531" relation="include">
+        </childnode>
+        <childnode refid="1532" relation="include">
+        </childnode>
+        <childnode refid="1533" relation="include">
+        </childnode>
+        <childnode refid="1534" relation="include">
+        </childnode>
+        <childnode refid="1535" relation="include">
+        </childnode>
+        <childnode refid="1536" relation="include">
+        </childnode>
+        <childnode refid="1537" relation="include">
+        </childnode>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1539" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1544" relation="include">
+        </childnode>
+        <childnode refid="1545" relation="include">
+        </childnode>
+        <childnode refid="1546" relation="include">
+        </childnode>
+        <childnode refid="1547" relation="include">
+        </childnode>
+        <childnode refid="1548" relation="include">
+        </childnode>
+        <childnode refid="1549" relation="include">
+        </childnode>
+        <childnode refid="1550" relation="include">
+        </childnode>
+        <childnode refid="1551" relation="include">
+        </childnode>
+        <childnode refid="1552" relation="include">
+        </childnode>
+        <childnode refid="1553" relation="include">
+        </childnode>
+      </node>
+      <node id="1517">
+        <label>control.c</label>
+      </node>
+      <node id="1549">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="1546">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="1538">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="1539">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="1540">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="1551">
+        <label>oba.c</label>
+      </node>
+      <node id="1520">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="1541">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="1543">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="1513">
+        <label>cam_device_awb_api.h</label>
+        <link refid="cam_device_awb_api.h"/>
+        <childnode refid="1514" relation="include">
+        </childnode>
+        <childnode refid="1555" relation="include">
+        </childnode>
+      </node>
+      <node id="1518">
+        <label>iba.c</label>
+      </node>
+      <node id="1531">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="1523">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="1533">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="1558">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="1554">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="1553">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="1554" relation="include">
+        </childnode>
+      </node>
+      <node id="1524">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_awb_tem_preference_weight__s" prot="public">CamDeviceAwbTemPreferenceWeight_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_confound_position__s" prot="public">CamDeviceAwbConfoundPosition_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_confound_position_custom__s" prot="public">CamDeviceAwbConfoundPositionCustom_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_calib_point__s" prot="public">CamDeviceAwbCalibPoint_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_light_weight_level__s" prot="public">CamDeviceAwbLightWeightLevel_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_preference_gain__s" prot="public">CamDeviceAwbPreferenceGain_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_damping__s" prot="public">CamDeviceAwbDamping_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_config__s" prot="public">CamDeviceAwbConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_result__s" prot="public">CamDeviceAwbResult_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_calib_data__s" prot="public">CamDeviceAwbCalibData_s</innerclass>
+    <innerclass refid="struct_cam_device_awb_front_ground_config__s" prot="public">CamDeviceAwbFrontGroundConfig_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__awb_1ga37c48f1c0ff8fd80ff416d785e82cf32" prot="public" static="no">
+        <name>CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>The number of AWB color temperature weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" prot="public" static="no">
+        <name>CAMDEV_AWB_LIGHT_LEVEL</name>
+        <initializer>18U</initializer>
+        <briefdescription>
+<para>AWB light level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" prot="public" static="no">
+        <name>CAMDEV_ILLUPROFILE_NUM</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>The number of illumination profiles. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gaa0d78683a90279be9a1f7098f2b670e9" prot="public" static="no">
+        <name>CAMDEV_AWB_CONFOUND_POINTS_NUM</name>
+        <initializer>25U</initializer>
+        <briefdescription>
+<para>The AWB new confound function parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga8d4ce2bb07a938f48e257f5c045e4722" prot="public" static="no">
+        <name>AWB_DEVICE_RETENTION_VALUE_MAX</name>
+        <initializer>500U</initializer>
+        <briefdescription>
+<para>The AWB maximum device retention value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1ga3b0730d6d53671c1f00a0ba1ae7834f7" prot="public" static="no">
+        <name>CAMDEV_AWB_FADE_NUM</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__awb_1gaf033df112d82a8afbcb444f38a145f1c" prot="public" static="no">
+        <name>CAMDEV_AWB_GAINDIST_NUM</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" prot="public" static="no">
+        <name>CamDeviceAwbState_e</name>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa72550ed5b80af4a89a7d3784047c9843" prot="public">
+          <name>CAMDEV_AWB_STATE_INVALID</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Invalid status. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa199d30df570e9ba79f783fbb5f11c0d5" prot="public">
+          <name>CAMDEV_AWB_STATE_INITIALIZED</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>AWB initialized. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aaf57fe74fa63f4bb47099520a112d6bce" prot="public">
+          <name>CAMDEV_AWB_STATE_STOPPED</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>AWB stopped. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aad29d24598774ba7bc6760fd3f837eab1" prot="public">
+          <name>CAMDEV_AWB_STATE_RUNNING</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>AWB running. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa74ef908fa4b61eb8a9da8ee16c0d6121" prot="public">
+          <name>CAMDEV_AWB_STATE_LOCKED</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>AWB locked. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa393d4548c9a1ad8a94bff1ed2c5ebdf7" prot="public">
+          <name>CAMDEV_AWB_STATE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="70" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" prot="public" static="no">
+        <name>CamDeviceAwbMode_e</name>
+        <enumvalue id="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa61fec5f3ec2c7e7c7ad3e8c6d995bb33" prot="public">
+          <name>CAMDEV_AWB_MODE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>AWB mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa1ebb63212d18aa44eace244bf0dc0c5d" prot="public">
+          <name>CAMDEV_AWB_METEDATA_MODE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>AWB METADATA MODE. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" prot="public" static="no">
+        <name>CamDeviceAwbPerformanceOptiMode_s</name>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daa88b81e426923775dd74fb1f74c2304b" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_NO_OPTIMIZATION</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daee4a22ae7b5f56e7e5fe0b4ec417593b" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_GENERAL_OPTIMIZATION</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>General optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659dad498eb67dd047564b2e0ffa6c4f91014" prot="public">
+          <name>CAMDEV_AWB_PERFORMANCE_FAST_OPTIMIZATION</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Fast optimization mode. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice AWB performance optimizationon mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="94" bodyend="99"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" prot="public" static="no">
+        <type>float32_t</type>
+        <definition>typedef float32_t CamDeviceAwbTemWeight_t[CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM]</definition>
+        <argsstring>[CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM]</argsstring>
+        <name>CamDeviceAwbTemWeight_t</name>
+        <briefdescription>
+<para>AWB color temperature weight of every lighting. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" kindref="member">CamDeviceAwbState_e</ref></type>
+        <definition>typedef enum CamDeviceAwbState_e  CamDeviceAwbState_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbState_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="77" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" kindref="member">CamDeviceAwbMode_e</ref></type>
+        <definition>typedef enum CamDeviceAwbMode_e  CamDeviceAwbMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbMode_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB mode parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gacb3999d24043d63198c8e39602625100" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" kindref="member">CamDeviceAwbPerformanceOptiMode_s</ref></type>
+        <definition>typedef enum CamDeviceAwbPerformanceOptiMode_s  CamDeviceAwbPerformanceOptiMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbPerformanceOptiMode_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB performance optimizationon mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="99" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gaf4b6539be6845d6ec0266f45f2162c40" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_tem_preference_weight__s" kindref="compound">CamDeviceAwbTemPreferenceWeight_s</ref></type>
+        <definition>typedef struct CamDeviceAwbTemPreferenceWeight_s  CamDeviceAwbTemPreferenceWeight_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbTemPreferenceWeight_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB temperature preference weight parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="111" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga17a62e806fc7a1bdb367dc33306407d8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfoundPosition_s  CamDeviceAwbConfoundPosition_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfoundPosition_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB confidence found position parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga9b14710e5df671d82402b88604c21566" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_confound_position_custom__s" kindref="compound">CamDeviceAwbConfoundPositionCustom_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfoundPositionCustom_s  CamDeviceAwbConfoundPositionCustom_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfoundPositionCustom_t</name>
+        <briefdescription>
+<para>CamDeviceAwbConfoundPositionCustom_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>awb button function cutomer function parameters </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="141" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga80623346b60656bd4017277782f3f40c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_calib_point__s" kindref="compound">CamDeviceAwbCalibPoint_s</ref></type>
+        <definition>typedef struct CamDeviceAwbCalibPoint_s  CamDeviceAwbCalibPoint_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbCalibPoint_t</name>
+        <briefdescription>
+<para>CamDeviceAwbCalibPoint_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>awb new calibration area </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="157" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga474c60f27af802c358729c4d85375bc8" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_light_weight_level__s" kindref="compound">CamDeviceAwbLightWeightLevel_s</ref></type>
+        <definition>typedef struct CamDeviceAwbLightWeightLevel_s  CamDeviceAwbLightWeightLevel_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbLightWeightLevel_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB light weight level parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="168" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga1ebd63c7a189e7e689f21b4df0e9eb8d" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_preference_gain__s" kindref="compound">CamDeviceAwbPreferenceGain_s</ref></type>
+        <definition>typedef struct CamDeviceAwbPreferenceGain_s  CamDeviceAwbPreferenceGain_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbPreferenceGain_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB preference gain parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="180" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga868fb2708c37b6aa86c162ccee037ab3" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_damping__s" kindref="compound">CamDeviceAwbDamping_s</ref></type>
+        <definition>typedef struct CamDeviceAwbDamping_s  CamDeviceAwbDamping_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbDamping_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB damping parameters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="192" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_config__s" kindref="compound">CamDeviceAwbConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAwbConfig_s  CamDeviceAwbConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice AWB control configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="221" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga7563a4b851f2d4ee88ba49997c753978" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_result__s" kindref="compound">CamDeviceAwbResult_s</ref></type>
+        <definition>typedef struct CamDeviceAwbResult_s  CamDeviceAwbResult_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbResult_t</name>
+        <briefdescription>
+<para>Cam Device AWB result. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="230" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_calib_data__s" kindref="compound">CamDeviceAwbCalibData_s</ref></type>
+        <definition>typedef struct CamDeviceAwbCalibData_s  CamDeviceAwbCalibData_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbCalibData_t</name>
+        <briefdescription>
+<para>CamDeviceAwbCalibData_t. </para>        </briefdescription>
+        <detaileddescription>
+<para>VsCamDevice AWB calibration configuration which lib calculation need </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__awb_1ga1ecc340073c86fe16ea003647cf54a62" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_awb_front_ground_config__s" kindref="compound">CamDeviceAwbFrontGroundConfig_s</ref></type>
+        <definition>typedef struct CamDeviceAwbFrontGroundConfig_s  CamDeviceAwbFrontGroundConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceAwbFrontGroundConfig_t</name>
+        <briefdescription>
+<para>Cam Device AWB front ground configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="275" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__awb_1ga1d014c176856c6482b8dba8c87ce9c6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceRegisterAwbLib</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, void *pAwbLibHandle)</argsstring>
+        <name>VsiCamDeviceRegisterAwbLib</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pAwbLibHandle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga2395a8ff9cd3aa505ee9408ef5afec75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceUnRegisterAwbLib</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceUnRegisterAwbLib</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="62" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga65d07709a9b2600528207ff934ccd12c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAwbSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" kindref="member">CamDeviceAwbConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="101" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gae578bde7bda15a39b2a871522c37d5a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbConfig_t *pConfig)</argsstring>
+        <name>VsiCamDeviceAwbGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" kindref="member">CamDeviceAwbConfig_t</ref> *</type>
+          <declname>pConfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="150" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga6052db48f1eef76630bd1fdadc8cf3ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceAwbMode_t *pAwbMode)</argsstring>
+        <name>VsiCamDeviceAwbSetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref> *</type>
+          <declname>pAwbMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="194" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga2a4e891cae5079c274c77be061ec454b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetMode</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbMode_t *pAwbMode)</argsstring>
+        <name>VsiCamDeviceAwbGetMode</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref> *</type>
+          <declname>pAwbMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="423" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="239" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga608e1a07a9f90f04d0db668bbc964997" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetCalibData</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceAwbCalibData_t *pAwbCalib)</argsstring>
+        <name>VsiCamDeviceAwbSetCalibData</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" kindref="member">CamDeviceAwbCalibData_t</ref> *</type>
+          <declname>pAwbCalib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="448" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="662" bodyend="703"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga799494ad96ad5fb3815047a11f2c41b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetCalibData</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbCalibData_t *pAwbCalib)</argsstring>
+        <name>VsiCamDeviceAwbGetCalibData</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" kindref="member">CamDeviceAwbCalibData_t</ref> *</type>
+          <declname>pAwbCalib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="707" bodyend="747"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gae4b2648e0784613d99914b8bef8d3542" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbSetRoi</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, const CamDeviceRoi_t *pRoi)</argsstring>
+        <name>VsiCamDeviceAwbSetRoi</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group____cam__device__general_1gaaac58837e9a4bb1ce746a2194f463314" kindref="member">CamDeviceRoi_t</ref> *</type>
+          <declname>pRoi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="283" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gab6a66a73afa6bf108107352205833b67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetRoi</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceRoi_t *pRoi)</argsstring>
+        <name>VsiCamDeviceAwbGetRoi</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__general_1gaaac58837e9a4bb1ce746a2194f463314" kindref="member">CamDeviceRoi_t</ref> *</type>
+          <declname>pRoi</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="527" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="328" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga4d3a4b97e0419a7118f3724c792bc21a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetColorTempWeight</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbTemWeight_t *pAwbTemWeight)</argsstring>
+        <name>VsiCamDeviceAwbGetColorTempWeight</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" kindref="member">CamDeviceAwbTemWeight_t</ref> *</type>
+          <declname>pAwbTemWeight</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="371" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gaea2973cb11cd6553b52734bcc74a62a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="415" bodyend="450"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gab93d69b7ccb906162be4d99d06770198" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="454" bodyend="489"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga646519d335686a35fe062f57e5a89f51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetResult</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbResult_t *pCamDeviceAwbResult)</argsstring>
+        <name>VsiCamDeviceAwbGetResult</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga7563a4b851f2d4ee88ba49997c753978" kindref="member">CamDeviceAwbResult_t</ref> *</type>
+          <declname>pCamDeviceAwbResult</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="619" bodyend="659"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga626887705da7f0d95dff0f5226fe6dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceAwbState_t *pAwbStatus)</argsstring>
+        <name>VsiCamDeviceAwbGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" kindref="member">CamDeviceAwbState_t</ref> *</type>
+          <declname>pAwbStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="650" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="493" bodyend="533"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1gaf8f01574855726a564a4a7b1c738ac7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceAwbReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="676" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="581" bodyend="616"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__awb_1ga4aab5b52be35fe3ff8d481167606d07a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceAwbGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceAwbGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h" line="697" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/awb/cam_device_awb_api.c" bodystart="537" bodyend="577"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2023<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_AWB_API_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_API_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VIV:<sp/>TODO:<sp/>#include<sp/>&quot;vsi_3alib_interface.h&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cam_device_common.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="group____cam__device__awb_1ga37c48f1c0ff8fd80ff416d785e82cf32" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM<sp/><sp/><sp/><sp/><sp/>10U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_LIGHT_LEVEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>18U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_ILLUPROFILE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group____cam__device__awb_1gaa0d78683a90279be9a1f7098f2b670e9" refkind="member"><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_CONFOUND_POINTS_NUM<sp/><sp/><sp/><sp/><sp/><sp/>25U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group____cam__device__awb_1ga8d4ce2bb07a938f48e257f5c045e4722" refkind="member"><highlight class="preprocessor">#define<sp/>AWB_DEVICE_RETENTION_VALUE_MAX<sp/><sp/><sp/><sp/><sp/><sp/>500U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_FADE_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_AWB_GAINDIST_NUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>float32_t<sp/><ref refid="group____cam__device__awb_1ga64df5d22a3a640ad9b64a0b00253737f" kindref="member">CamDeviceAwbTemWeight_t</ref>[<ref refid="group____cam__device__awb_1ga37c48f1c0ff8fd80ff416d785e82cf32" kindref="member">CAMDEV_AWB_COLOR_TEM_WEIGHT_NUM</ref>];</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__awb_1gacd03de6843998f7b9ff77738567aa47a" kindref="member">CamDeviceAwbState_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="71" refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa72550ed5b80af4a89a7d3784047c9843" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa72550ed5b80af4a89a7d3784047c9843" kindref="member">CAMDEV_AWB_STATE_INVALID</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa199d30df570e9ba79f783fbb5f11c0d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa199d30df570e9ba79f783fbb5f11c0d5" kindref="member">CAMDEV_AWB_STATE_INITIALIZED</ref><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aaf57fe74fa63f4bb47099520a112d6bce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aaf57fe74fa63f4bb47099520a112d6bce" kindref="member">CAMDEV_AWB_STATE_STOPPED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aad29d24598774ba7bc6760fd3f837eab1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aad29d24598774ba7bc6760fd3f837eab1" kindref="member">CAMDEV_AWB_STATE_RUNNING</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>3,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa74ef908fa4b61eb8a9da8ee16c0d6121" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ggacd03de6843998f7b9ff77738567aa47aa74ef908fa4b61eb8a9da8ee16c0d6121" kindref="member">CAMDEV_AWB_STATE_LOCKED</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_AWB_STATE_MAX</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" kindref="member">CamDeviceAwbState_t</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__awb_1ga5e306defc5e33cdc7c8993c413f6f1ea" kindref="member">CamDeviceAwbMode_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="85" refid="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa61fec5f3ec2c7e7c7ad3e8c6d995bb33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa61fec5f3ec2c7e7c7ad3e8c6d995bb33" kindref="member">CAMDEV_AWB_MODE</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa1ebb63212d18aa44eace244bf0dc0c5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gga5e306defc5e33cdc7c8993c413f6f1eaa1ebb63212d18aa44eace244bf0dc0c5d" kindref="member">CAMDEV_AWB_METEDATA_MODE</ref><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__awb_1ga2215310598f6154b315db7e6bba1659d" kindref="member">CamDeviceAwbPerformanceOptiMode_s</ref></highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96" refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daa88b81e426923775dd74fb1f74c2304b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daa88b81e426923775dd74fb1f74c2304b" kindref="member">CAMDEV_AWB_PERFORMANCE_NO_OPTIMIZATION</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daee4a22ae7b5f56e7e5fe0b4ec417593b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659daee4a22ae7b5f56e7e5fe0b4ec417593b" kindref="member">CAMDEV_AWB_PERFORMANCE_GENERAL_OPTIMIZATION</ref><sp/><sp/><sp/><sp/>=<sp/>1,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659dad498eb67dd047564b2e0ffa6c4f91014" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gga2215310598f6154b315db7e6bba1659dad498eb67dd047564b2e0ffa6c4f91014" kindref="member">CAMDEV_AWB_PERFORMANCE_FAST_OPTIMIZATION</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1gacb3999d24043d63198c8e39602625100" kindref="member">CamDeviceAwbPerformanceOptiMode_t</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="106" refid="struct_cam_device_awb_tem_preference_weight__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_tem_preference_weight__s" kindref="compound">CamDeviceAwbTemPreferenceWeight_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="107" refid="struct_cam_device_awb_tem_preference_weight__s_1a6bd00cbd9af4fc9f47d5116a703eef90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_tem_preference_weight__s_1a6bd00cbd9af4fc9f47d5116a703eef90" kindref="member">temptureEnbale</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_awb_tem_preference_weight__s_1acc5f56048516bb4d121389d7ca4ddc03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_awb_tem_preference_weight__s_1acc5f56048516bb4d121389d7ca4ddc03" kindref="member">preferenceD65</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_cam_device_awb_tem_preference_weight__s_1ae297753d4658d8cfc19d55f4d64a9b3c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_awb_tem_preference_weight__s_1ae297753d4658d8cfc19d55f4d64a9b3c" kindref="member">preferenceCwf</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_cam_device_awb_tem_preference_weight__s_1a656abd0c396a799b5a00c91da8ffc221" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_awb_tem_preference_weight__s_1a656abd0c396a799b5a00c91da8ffc221" kindref="member">preferenceA</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1gaf4b6539be6845d6ec0266f45f2162c40" kindref="member">CamDeviceAwbTemPreferenceWeight_t</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="struct_cam_device_awb_confound_position__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="119" refid="struct_cam_device_awb_confound_position__s_1a7e37081b597a13a725edb590883d0b9c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><ref refid="struct_cam_device_awb_confound_position__s_1a7e37081b597a13a725edb590883d0b9c" kindref="member">customPositionEnable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_cam_device_awb_confound_position__s_1acda82cfbafaeaea4fdb850bd0ec13648" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_awb_confound_position__s_1acda82cfbafaeaea4fdb850bd0ec13648" kindref="member">rg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_awb_confound_position__s_1a0bfb03cd3b22c15e7d34f770bc993101" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_awb_confound_position__s_1a0bfb03cd3b22c15e7d34f770bc993101" kindref="member">bg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_awb_confound_position__s_1aeaea356b27268a84f2f397ac85267f71" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_awb_confound_position__s_1aeaea356b27268a84f2f397ac85267f71" kindref="member">threshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga17a62e806fc7a1bdb367dc33306407d8" kindref="member">CamDeviceAwbConfoundPosition_t</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="132"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="struct_cam_device_awb_confound_position_custom__s" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_confound_position_custom__s" kindref="compound">CamDeviceAwbConfoundPositionCustom_s</ref></highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>customPositionEnable;<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>button<sp/>function<sp/>enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/>rg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>rg<sp/>button</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/>bg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>bg<sp/>button</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/>threshold;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>threshold</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/>weight;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Misleading<sp/>color<sp/>point&apos;s<sp/>weight.<sp/>when<sp/>weight=1,<sp/>the<sp/>effect<sp/>equals<sp/>to<sp/>customPositionEnable=0.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Setting<sp/>weight<sp/>to<sp/>0<sp/>means<sp/>totally<sp/>remove<sp/>this<sp/>misleading<sp/>color<sp/>region.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga9b14710e5df671d82402b88604c21566" kindref="member">CamDeviceAwbConfoundPositionCustom_t</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="149"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="struct_cam_device_awb_calib_point__s" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_calib_point__s" kindref="compound">CamDeviceAwbCalibPoint_s</ref></highlight></codeline>
+<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/>customPositionEnable;<sp/><sp/></highlight><highlight class="comment">//<sp/>button<sp/>function<sp/>enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>rg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>rg<sp/>button</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>bg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>bg<sp/>button</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>threshold;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>The<sp/>threshold</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>weight;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga80623346b60656bd4017277782f3f40c" kindref="member">CamDeviceAwbCalibPoint_t</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="164" refid="struct_cam_device_awb_light_weight_level__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_light_weight_level__s" kindref="compound">CamDeviceAwbLightWeightLevel_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="165" refid="struct_cam_device_awb_light_weight_level__s_1a6e602c19a096fea927f47b55d35d772c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><ref refid="struct_cam_device_awb_light_weight_level__s_1a6e602c19a096fea927f47b55d35d772c" kindref="member">lightWeightLevelEnable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_cam_device_awb_light_weight_level__s_1ac3d2910715c771c18f53a648032d1f94" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_awb_light_weight_level__s_1ac3d2910715c771c18f53a648032d1f94" kindref="member">brightnessLevel</ref>[<ref refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" kindref="member">CAMDEV_AWB_LIGHT_LEVEL</ref>];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="struct_cam_device_awb_light_weight_level__s_1a93f7375d1affffc4bf3ef30e508b9e1d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><ref refid="struct_cam_device_awb_light_weight_level__s_1a93f7375d1affffc4bf3ef30e508b9e1d" kindref="member">weight</ref>[<ref refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" kindref="member">CAMDEV_AWB_LIGHT_LEVEL</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga474c60f27af802c358729c4d85375bc8" kindref="member">CamDeviceAwbLightWeightLevel_t</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="175" refid="struct_cam_device_awb_preference_gain__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_preference_gain__s" kindref="compound">CamDeviceAwbPreferenceGain_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="176" refid="struct_cam_device_awb_preference_gain__s_1a50c00b67085f6d92b6669868b3fe76eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_preference_gain__s_1a50c00b67085f6d92b6669868b3fe76eb" kindref="member">preferenceGainEnable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_cam_device_awb_preference_gain__s_1a9ec15e9425488495658dcdb3996f261e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_preference_gain__s_1a9ec15e9425488495658dcdb3996f261e" kindref="member">brightnessLevel</ref>[<ref refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" kindref="member">CAMDEV_AWB_LIGHT_LEVEL</ref>];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="struct_cam_device_awb_preference_gain__s_1a0bc932e820d97ee86d5741c766b122da" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_awb_preference_gain__s_1a0bc932e820d97ee86d5741c766b122da" kindref="member">grayRgain</ref>[<ref refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" kindref="member">CAMDEV_AWB_LIGHT_LEVEL</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="struct_cam_device_awb_preference_gain__s_1a19f11bd6148c3fdf1cf600728852a45d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_awb_preference_gain__s_1a19f11bd6148c3fdf1cf600728852a45d" kindref="member">grayBgain</ref>[<ref refid="group____cam__device__awb_1gad5155efec593b2db9b63a40d2b7151c5" kindref="member">CAMDEV_AWB_LIGHT_LEVEL</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga1ebd63c7a189e7e689f21b4df0e9eb8d" kindref="member">CamDeviceAwbPreferenceGain_t</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="187" refid="struct_cam_device_awb_damping__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_damping__s" kindref="compound">CamDeviceAwbDamping_s</ref></highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189" refid="struct_cam_device_awb_damping__s_1a6ad302e4756eee7b2612a4640ef7e362" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_damping__s_1a6ad302e4756eee7b2612a4640ef7e362" kindref="member">useDamping</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="struct_cam_device_awb_damping__s_1ac40ef47dada6aaea404909f48ec7347b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_damping__s_1ac40ef47dada6aaea404909f48ec7347b" kindref="member">useManualDampCoff</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="struct_cam_device_awb_damping__s_1a8889cff55ded0306783798792e12bf31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><ref refid="struct_cam_device_awb_damping__s_1a8889cff55ded0306783798792e12bf31" kindref="member">manualDampCoff</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga868fb2708c37b6aa86c162ccee037ab3" kindref="member">CamDeviceAwbDamping_t</ref>;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="199" refid="struct_cam_device_awb_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_config__s" kindref="compound">CamDeviceAwbConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="200" refid="struct_cam_device_awb_config__s_1a23bfb076eeab36a577cdb2fb1da336fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a23bfb076eeab36a577cdb2fb1da336fe" kindref="member">confidenceThreshold</ref>[<ref refid="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" kindref="member">CAMDEV_ILLUPROFILE_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201" refid="struct_cam_device_awb_config__s_1ab78c74f9e62900dae3347c6ef68f990a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_tem_preference_weight__s" kindref="compound">CamDeviceAwbTemPreferenceWeight_t</ref><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1ab78c74f9e62900dae3347c6ef68f990a" kindref="member">temPreference</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="struct_cam_device_awb_config__s_1a50d778043e915dea4543ba0967a10cb9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a50d778043e915dea4543ba0967a10cb9" kindref="member">confoundPointCwf</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203" refid="struct_cam_device_awb_config__s_1ab07792a254f399d933a1cf3efb63cd15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1ab07792a254f399d933a1cf3efb63cd15" kindref="member">confoundPointTl84</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="struct_cam_device_awb_config__s_1aefa96a907d2f4dd26fa70be5ccd5d380" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_confound_position__s" kindref="compound">CamDeviceAwbConfoundPosition_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1aefa96a907d2f4dd26fa70be5ccd5d380" kindref="member">confoundPointD65</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>confoundPointCustomEnable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>button<sp/>function<sp/>enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="struct_cam_device_awb_config__s_1a8a5a0d96611c31259c5c048038a758a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a8a5a0d96611c31259c5c048038a758a7" kindref="member">confoundPointNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_confound_position_custom__s" kindref="compound">CamDeviceAwbConfoundPositionCustom_t</ref><sp/><sp/>confoundPointCustom[<ref refid="group____cam__device__awb_1gaa0d78683a90279be9a1f7098f2b670e9" kindref="member">CAMDEV_AWB_CONFOUND_POINTS_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>button<sp/>function<sp/>in<sp/>customer<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="struct_cam_device_awb_config__s_1a1f8a4dd07c0ee1533b49cc80175a7561" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_light_weight_level__s" kindref="compound">CamDeviceAwbLightWeightLevel_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a1f8a4dd07c0ee1533b49cc80175a7561" kindref="member">lightWeightLevel</ref>[<ref refid="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" kindref="member">CAMDEV_ILLUPROFILE_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209" refid="struct_cam_device_awb_config__s_1a615de4eb2407adf771f1490b96be54f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_preference_gain__s" kindref="compound">CamDeviceAwbPreferenceGain_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a615de4eb2407adf771f1490b96be54f4" kindref="member">grayPreference</ref>[<ref refid="group____cam__device__awb_1ga2e46fba7b9fc23a6e82051ea46319750" kindref="member">CAMDEV_ILLUPROFILE_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1gacb3999d24043d63198c8e39602625100" kindref="member">CamDeviceAwbPerformanceOptiMode_t</ref><sp/><sp/><sp/><sp/><sp/>performanceOptiMode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212" refid="struct_cam_device_awb_config__s_1a0ddd8fbafad600bd9c5c9ddef54671d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a0ddd8fbafad600bd9c5c9ddef54671d5" kindref="member">awbEnterLockThreshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213" refid="struct_cam_device_awb_config__s_1ab926071924e603cc569de3ff4c71c4c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1ab926071924e603cc569de3ff4c71c4c0" kindref="member">awbEnterUnlockThreshold</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_cam_device_awb_config__s_1a33dce9ec063ef7899c477231fb6b2085" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_damping__s" kindref="compound">CamDeviceAwbDamping_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a33dce9ec063ef7899c477231fb6b2085" kindref="member">awbDampingCfg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215" refid="struct_cam_device_awb_config__s_1a2298f58c1435c787934998f51c79aada" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a2298f58c1435c787934998f51c79aada" kindref="member">awbFrameCal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="216" refid="struct_cam_device_awb_config__s_1ab23a98c08d6c261cedd5a6737bf34a1e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1ab23a98c08d6c261cedd5a6737bf34a1e" kindref="member">nonLinearThd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="struct_cam_device_awb_config__s_1a61c2f1b9a24b0d9e787f9317902f8194" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1a61c2f1b9a24b0d9e787f9317902f8194" kindref="member">calibPointCustomEnable</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="struct_cam_device_awb_config__s_1af59a054ce4a899a3d8296a71364abab9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1af59a054ce4a899a3d8296a71364abab9" kindref="member">calibPointNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="struct_cam_device_awb_config__s_1aabed241f1736a4f3aadd202fa0427ae4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_calib_point__s" kindref="compound">CamDeviceAwbCalibPoint_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s_1aabed241f1736a4f3aadd202fa0427ae4" kindref="member">calibPoint</ref>[<ref refid="group____cam__device__awb_1gaa0d78683a90279be9a1f7098f2b670e9" kindref="member">CAMDEV_AWB_CONFOUND_POINTS_NUM</ref>];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1gabb00ccdf23895233d2546b48caf918ef" kindref="member">CamDeviceAwbConfig_t</ref>;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="struct_cam_device_awb_result__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_result__s" kindref="compound">CamDeviceAwbResult_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><sp/><sp/><sp/>awbCCT;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga7563a4b851f2d4ee88ba49997c753978" kindref="member">CamDeviceAwbResult_t</ref>;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="239"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240" refid="struct_cam_device_awb_calib_data__s" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_calib_data__s" kindref="compound">CamDeviceAwbCalibData_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>useManualCalib;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>rgProjIndoorMin;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>rgProjMax;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>kFactor;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>centerLineRg;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>centerLineBg;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>centerLineD;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fade1[CAMDEV_AWB_FADE_NUM];</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fade1GainDist[CAMDEV_AWB_GAINDIST_NUM];</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fade2[CAMDEV_AWB_FADE_NUM];</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fade2GainDist[CAMDEV_AWB_GAINDIST_NUM];</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampCoefAdd;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampCoefSub;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampFilterThreshold;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampingCoefMin;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampingCoefMax;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/>fIIRDampingCoefInit;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><sp/><sp/><sp/><sp/><sp/>expPriorFilterSizeMax;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1gaec71b1e28b5d0eee78d8731886291895" kindref="member">CamDeviceAwbCalibData_t</ref>;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="269" refid="struct_cam_device_awb_front_ground_config__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_awb_front_ground_config__s" kindref="compound">CamDeviceAwbFrontGroundConfig_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="270" refid="struct_cam_device_awb_front_ground_config__s_1a0b600ca3bc7bfaf9b4d45d9b1c32784b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>bool_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_front_ground_config__s_1a0b600ca3bc7bfaf9b4d45d9b1c32784b" kindref="member">faceAwbEnable</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271" refid="struct_cam_device_awb_front_ground_config__s_1afdd3dbd900285c194b514a2194f39823" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_front_ground_config__s_1afdd3dbd900285c194b514a2194f39823" kindref="member">roiNum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="272" refid="struct_cam_device_awb_front_ground_config__s_1a3e827b84b9ffc9aef4f8b018272463ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_front_ground_config__s_1a3e827b84b9ffc9aef4f8b018272463ea" kindref="member">faceWeight</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273" refid="struct_cam_device_awb_front_ground_config__s_1a16b66cd0e7b135309aa080740ac8bfc9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_front_ground_config__s_1a16b66cd0e7b135309aa080740ac8bfc9" kindref="member">rg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274" refid="struct_cam_device_awb_front_ground_config__s_1a3db04c72c3b6330f535b3533a35b7d63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>float32_t<sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_front_ground_config__s_1a3db04c72c3b6330f535b3533a35b7d63" kindref="member">bg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}<sp/><ref refid="group____cam__device__awb_1ga1ecc340073c86fe16ea003647cf54a62" kindref="member">CamDeviceAwbFrontGroundConfig_t</ref>;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="296"><highlight class="normal">RESULT<sp/>VsiCamDeviceRegisterAwbLib</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pAwbLibHandle</highlight></codeline>
+<codeline lineno="300"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">RESULT<sp/>VsiCamDeviceUnRegisterAwbLib</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbSetConfig</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s" kindref="compound">CamDeviceAwbConfig_t</ref><sp/><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetConfig</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_config__s" kindref="compound">CamDeviceAwbConfig_t</ref><sp/><sp/><sp/>*pConfig</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbSetMode</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref><sp/><sp/><sp/><sp/><sp/>*pAwbMode</highlight></codeline>
+<codeline lineno="402"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="423"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetMode</highlight></codeline>
+<codeline lineno="424"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ga786edca477934b009ce65b4398da9d18" kindref="member">CamDeviceAwbMode_t</ref><sp/><sp/>*pAwbMode</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="448"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbSetCalibData</highlight></codeline>
+<codeline lineno="449"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_awb_calib_data__s" kindref="compound">CamDeviceAwbCalibData_t</ref><sp/><sp/><sp/>*pAwbCalib</highlight></codeline>
+<codeline lineno="452"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="473"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetCalibData</highlight></codeline>
+<codeline lineno="474"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_calib_data__s" kindref="compound">CamDeviceAwbCalibData_t</ref><sp/><sp/><sp/>*pAwbCalib</highlight></codeline>
+<codeline lineno="477"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="500"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbSetRoi</highlight></codeline>
+<codeline lineno="501"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_roi__s" kindref="compound">CamDeviceRoi_t</ref><sp/><sp/><sp/>*pRoi</highlight></codeline>
+<codeline lineno="504"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="527"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetRoi</highlight></codeline>
+<codeline lineno="528"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_roi__s" kindref="compound">CamDeviceRoi_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pRoi</highlight></codeline>
+<codeline lineno="531"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="554"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetColorTempWeight</highlight></codeline>
+<codeline lineno="555"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceAwbTemWeight_t<sp/><sp/>*pAwbTemWeight</highlight></codeline>
+<codeline lineno="558"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight></codeline>
+<codeline lineno="560"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="576"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbEnable</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice</highlight></codeline>
+<codeline lineno="579"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="597"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbDisable</highlight></codeline>
+<codeline lineno="598"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="600"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="623"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetResult</highlight></codeline>
+<codeline lineno="624"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_awb_result__s" kindref="compound">CamDeviceAwbResult_t</ref><sp/><sp/>*pCamDeviceAwbResult</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="650"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetStatus</highlight></codeline>
+<codeline lineno="651"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__awb_1ga76d00afd58834df8895723db5b05da94" kindref="member">CamDeviceAwbState_t</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pAwbStatus</highlight></codeline>
+<codeline lineno="654"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="676"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbReset</highlight></codeline>
+<codeline lineno="677"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="679"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="697"><highlight class="normal">RESULT<sp/>VsiCamDeviceAwbGetVersion</highlight></codeline>
+<codeline lineno="698"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>*pVersion</highlight></codeline>
+<codeline lineno="701"><highlight class="normal">);</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"></highlight></codeline>
+<codeline lineno="705"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="706"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="708"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/>//<sp/>CAMDEV_AWB_API_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/awb_v4/cam_device_awb_api.h"/>
+  </compounddef>
+</doxygen>

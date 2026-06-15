@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ecdsa_sign" kind="struct" prot="public">
+    <compoundname>EcdsaSign</compoundname>
+    <includes local="no">Ecdsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ecdsa_sign_1a91f6bfd019f5ce77bacded74ce8fab2c" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* EcdsaSign::r</definition>
+        <argsstring></argsstring>
+        <name>r</name>
+        <briefdescription>
+<para>The signature component r. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_sign_1ac6abcce66bc383a3db2c873a49cc40be" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* EcdsaSign::s</definition>
+        <argsstring></argsstring>
+        <name>s</name>
+        <briefdescription>
+<para>The signature component s. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_ecdsa_sign" kindref="compound">EcdsaSign</ref> is instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every ECDSA digital signature operation. A pointer to a variable of this type is then passed to the ECDSA signature API functions. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/server/Ecdsa.h" bodystart="38" bodyend="41"/>
+    <listofallmembers>
+      <member refid="struct_ecdsa_sign_1a91f6bfd019f5ce77bacded74ce8fab2c" prot="public" virt="non-virtual"><scope>EcdsaSign</scope><name>r</name></member>
+      <member refid="struct_ecdsa_sign_1ac6abcce66bc383a3db2c873a49cc40be" prot="public" virt="non-virtual"><scope>EcdsaSign</scope><name>s</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

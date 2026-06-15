@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_fmc_instance_config__s" kind="struct" prot="public">
+    <compoundname>IsiFmcInstanceConfig_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_fmc_instance_config__s_1abdb1b0f20207a86c6ae1e4ad38ee673b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsiFmcInstanceConfig_s::num_of_serailizer</definition>
+        <argsstring></argsstring>
+        <name>num_of_serailizer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc_instance_config__s_1ad107c394fe1f3f2bd064e2f105860a59" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsiFmcInstanceConfig_s::num_of_deserializer</definition>
+        <argsstring></argsstring>
+        <name>num_of_deserializer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc_instance_config__s_1a928020eabcedcecf02078e27ca1fe7ec" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsiFmcInstanceConfig_s::SlaveAddr</definition>
+        <argsstring></argsstring>
+        <name>SlaveAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_fmc_instance_config__s_1aab664e640d56e4fb4dfdef635457ad1c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsiFmcInstanceConfig_s::deserializer_slave_address</definition>
+        <argsstring></argsstring>
+        <name>deserializer_slave_address</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="48" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_isi_fmc_instance_config__s_1aab664e640d56e4fb4dfdef635457ad1c" prot="public" virt="non-virtual"><scope>IsiFmcInstanceConfig_s</scope><name>deserializer_slave_address</name></member>
+      <member refid="struct_isi_fmc_instance_config__s_1ad107c394fe1f3f2bd064e2f105860a59" prot="public" virt="non-virtual"><scope>IsiFmcInstanceConfig_s</scope><name>num_of_deserializer</name></member>
+      <member refid="struct_isi_fmc_instance_config__s_1abdb1b0f20207a86c6ae1e4ad38ee673b" prot="public" virt="non-virtual"><scope>IsiFmcInstanceConfig_s</scope><name>num_of_serailizer</name></member>
+      <member refid="struct_isi_fmc_instance_config__s_1a928020eabcedcecf02078e27ca1fe7ec" prot="public" virt="non-virtual"><scope>IsiFmcInstanceConfig_s</scope><name>SlaveAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

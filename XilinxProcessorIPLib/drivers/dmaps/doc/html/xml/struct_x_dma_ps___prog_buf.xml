@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_ps___prog_buf" kind="struct" prot="public">
+    <compoundname>XDmaPs_ProgBuf</compoundname>
+    <includes local="no">xdmaps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_ps___prog_buf_1a68fd6aee514b3371fd726b3ff4289212" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XDmaPs_ProgBuf::Buf[XDMAPS_CHAN_BUF_LEN]</definition>
+        <argsstring>[XDMAPS_CHAN_BUF_LEN]</argsstring>
+        <name>Buf</name>
+        <briefdescription>
+<para>The actual buffer the holds the content. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___prog_buf_1a0610666507cbd43e9341044becf949b5" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned XDmaPs_ProgBuf::Len</definition>
+        <argsstring></argsstring>
+        <name>Len</name>
+        <briefdescription>
+<para>The actual length of the DMA program in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___prog_buf_1a121e5c1a7c2fd3c4877717858450d49f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XDmaPs_ProgBuf::Allocated</definition>
+        <argsstring></argsstring>
+        <name>Allocated</name>
+        <briefdescription>
+<para>A tag indicating whether the buffer is allocated or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dma_ps___prog_buf" kindref="compound">XDmaPs_ProgBuf</ref> is the struct for a DMA program buffer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="201" bodyend="208"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_ps___prog_buf_1a121e5c1a7c2fd3c4877717858450d49f" prot="public" virt="non-virtual"><scope>XDmaPs_ProgBuf</scope><name>Allocated</name></member>
+      <member refid="struct_x_dma_ps___prog_buf_1a68fd6aee514b3371fd726b3ff4289212" prot="public" virt="non-virtual"><scope>XDmaPs_ProgBuf</scope><name>Buf</name></member>
+      <member refid="struct_x_dma_ps___prog_buf_1a0610666507cbd43e9341044becf949b5" prot="public" virt="non-virtual"><scope>XDmaPs_ProgBuf</scope><name>Len</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

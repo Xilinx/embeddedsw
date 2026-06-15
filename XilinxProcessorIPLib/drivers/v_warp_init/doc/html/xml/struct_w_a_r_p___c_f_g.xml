@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_w_a_r_p___c_f_g" kind="struct" prot="public">
+    <compoundname>WARP_CFG</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ab4239c249e47a8b479e59e147789a3ca" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::frame_width</definition>
+        <argsstring></argsstring>
+        <name>frame_width</name>
+        <briefdescription>
+<para>Frame width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a9d51777d3f53c1d7333f8cf7b1e74b41" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::frame_height</definition>
+        <argsstring></argsstring>
+        <name>frame_height</name>
+        <briefdescription>
+<para>Frame height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ad8c5de51420ebb662a53037607636bef" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::warp_type</definition>
+        <argsstring></argsstring>
+        <name>warp_type</name>
+        <briefdescription>
+<para>Warp type (0=L+H, 1=Arbitrary) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a30e15f45f75b60e8ffee3ba004f090b3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::pre_fisheye</definition>
+        <argsstring></argsstring>
+        <name>pre_fisheye</name>
+        <briefdescription>
+<para>Pre-fisheye distortion coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a80fa488d7588e677909886f75d7cf4b5" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::post_fisheye</definition>
+        <argsstring></argsstring>
+        <name>post_fisheye</name>
+        <briefdescription>
+<para>Post-fisheye distortion coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ad63163209554cf2aaf1d5e4283c95ec2" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::left_top_x</definition>
+        <argsstring></argsstring>
+        <name>left_top_x</name>
+        <briefdescription>
+<para>Left top corner X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1af1c907db480697f7ce023c4e18448d91" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::left_top_y</definition>
+        <argsstring></argsstring>
+        <name>left_top_y</name>
+        <briefdescription>
+<para>Left top corner Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a82a309c21217a06dd76092c5c3cc98e5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::right_top_x</definition>
+        <argsstring></argsstring>
+        <name>right_top_x</name>
+        <briefdescription>
+<para>Right top corner X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1aa86ad5f5f8de80fee11b76f922dc474b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::right_top_y</definition>
+        <argsstring></argsstring>
+        <name>right_top_y</name>
+        <briefdescription>
+<para>Right top corner Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ab09435015efe72646fc3eaf622661719" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::left_bottom_x</definition>
+        <argsstring></argsstring>
+        <name>left_bottom_x</name>
+        <briefdescription>
+<para>Left bottom corner X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a2f32e71015672fe6a4db03af3d348c81" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::left_bottom_y</definition>
+        <argsstring></argsstring>
+        <name>left_bottom_y</name>
+        <briefdescription>
+<para>Left bottom corner Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a39fa671844a799f2595033769431b820" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::right_bottom_x</definition>
+        <argsstring></argsstring>
+        <name>right_bottom_x</name>
+        <briefdescription>
+<para>Right bottom corner X coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ad377f0afc309f84664d7866ae21b69dc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::right_bottom_y</definition>
+        <argsstring></argsstring>
+        <name>right_bottom_y</name>
+        <briefdescription>
+<para>Right bottom corner Y coordinate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a887cb8fe3e714434d1cf3af9f2dc3dfb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::scale_x</definition>
+        <argsstring></argsstring>
+        <name>scale_x</name>
+        <briefdescription>
+<para>Scale factor in X direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="217" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a44aeef20a2574c63cac5a3aa5f3c3896" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::scale_y</definition>
+        <argsstring></argsstring>
+        <name>scale_y</name>
+        <briefdescription>
+<para>Scale factor in Y direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a47a3e69feb1e63a6168510c3dc4a30eb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::rotation</definition>
+        <argsstring></argsstring>
+        <name>rotation</name>
+        <briefdescription>
+<para>Rotation angle in degrees. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1acca13ebab45dbf363a31ade1d21a916e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::trans_x</definition>
+        <argsstring></argsstring>
+        <name>trans_x</name>
+        <briefdescription>
+<para>Translation offset in X direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a218e440969b5e5e788059b05bf77704a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::trans_y</definition>
+        <argsstring></argsstring>
+        <name>trans_y</name>
+        <briefdescription>
+<para>Translation offset in Y direction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="221" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a79c1cf2964498cb5323d2e84e2380b28" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float WARP_CFG::zoom</definition>
+        <argsstring></argsstring>
+        <name>zoom</name>
+        <briefdescription>
+<para>Zoom factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="222" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1ab8dc5a0bb81f769ed569e46176ad6013" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int WARP_CFG::num_ctrl_pts</definition>
+        <argsstring></argsstring>
+        <name>num_ctrl_pts</name>
+        <briefdescription>
+<para>Number of control points for arbitrary warp. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="223" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_w_a_r_p___c_f_g_1a0a000b38be5c2aaa0a7f862e246f8216" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v_warp_init___arb_param___mesh_info" kindref="compound">XVWarpInit_ArbParam_MeshInfo</ref> *</type>
+        <definition>XVWarpInit_ArbParam_MeshInfo* WARP_CFG::ctrl_pts</definition>
+        <argsstring></argsstring>
+        <name>ctrl_pts</name>
+        <briefdescription>
+<para>Pointer to control point mesh information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="224" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Warp configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains user-specified warp configuration parameters including frame dimensions, lens distortion, keystone correction, affine transformations, and arbitrary mesh control points. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="22">
+        <label>XVWarpInit_ArbParam_MeshInfo</label>
+        <link refid="struct_x_v_warp_init___arb_param___mesh_info"/>
+      </node>
+      <node id="21">
+        <label>WARP_CFG</label>
+        <link refid="struct_w_a_r_p___c_f_g"/>
+        <childnode refid="22" relation="usage">
+          <edgelabel>ctrl_pts</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="203" bodyend="225"/>
+    <listofallmembers>
+      <member refid="struct_w_a_r_p___c_f_g_1a0a000b38be5c2aaa0a7f862e246f8216" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>ctrl_pts</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a9d51777d3f53c1d7333f8cf7b1e74b41" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>frame_height</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ab4239c249e47a8b479e59e147789a3ca" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>frame_width</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ab09435015efe72646fc3eaf622661719" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>left_bottom_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a2f32e71015672fe6a4db03af3d348c81" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>left_bottom_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ad63163209554cf2aaf1d5e4283c95ec2" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>left_top_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1af1c907db480697f7ce023c4e18448d91" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>left_top_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ab8dc5a0bb81f769ed569e46176ad6013" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>num_ctrl_pts</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a80fa488d7588e677909886f75d7cf4b5" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>post_fisheye</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a30e15f45f75b60e8ffee3ba004f090b3" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>pre_fisheye</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a39fa671844a799f2595033769431b820" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>right_bottom_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ad377f0afc309f84664d7866ae21b69dc" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>right_bottom_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a82a309c21217a06dd76092c5c3cc98e5" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>right_top_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1aa86ad5f5f8de80fee11b76f922dc474b" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>right_top_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a47a3e69feb1e63a6168510c3dc4a30eb" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>rotation</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a887cb8fe3e714434d1cf3af9f2dc3dfb" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>scale_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a44aeef20a2574c63cac5a3aa5f3c3896" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>scale_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1acca13ebab45dbf363a31ade1d21a916e" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>trans_x</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a218e440969b5e5e788059b05bf77704a" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>trans_y</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1ad8c5de51420ebb662a53037607636bef" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>warp_type</name></member>
+      <member refid="struct_w_a_r_p___c_f_g_1a79c1cf2964498cb5323d2e84e2380b28" prot="public" virt="non-virtual"><scope>WARP_CFG</scope><name>zoom</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5507966f400a3609691e32a399fec7c4" kind="dir">
+    <compoundname>xilocp</compoundname>
+    <innerdir refid="dir_1790410cc2299ff5bc0b8456d5142a75">examples</innerdir>
+    <innerdir refid="dir_c9342ddea83ebc1f6f636f2558524c3c">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/"/>
+  </compounddef>
+</doxygen>

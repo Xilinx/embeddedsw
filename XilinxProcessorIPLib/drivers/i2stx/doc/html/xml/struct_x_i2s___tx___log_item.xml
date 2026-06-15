@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i2s___tx___log_item" kind="struct" prot="public">
+    <compoundname>XI2s_Tx_LogItem</compoundname>
+    <includes local="no">xi2stx_debug.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" prot="public" static="no" mutable="no">
+        <type><ref refid="group__i2stx_1ga6aae04d874f9b352d54806ffba47b000" kindref="member">XI2s_Tx_LogEvt</ref></type>
+        <definition>XI2s_Tx_LogEvt XI2s_Tx_LogItem::Event</definition>
+        <argsstring></argsstring>
+        <name>Event</name>
+        <briefdescription>
+<para>Log Event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga6ecb01665e82e3373ad2de2085a8dc87" compoundref="xi2stx__debug_8c" startline="155" endline="218">XI2s_Tx_LogDisplay</referencedby>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i2s___tx___log_item_1a9c5069bf23673203a835dedfd62a319b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI2s_Tx_LogItem::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Optional Data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure is used to store log events. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_debug.h" bodystart="70" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_x_i2s___tx___log_item_1a9c5069bf23673203a835dedfd62a319b" prot="public" virt="non-virtual"><scope>XI2s_Tx_LogItem</scope><name>Data</name></member>
+      <member refid="struct_x_i2s___tx___log_item_1a33c4f8732bfee9f467439c89af42043e" prot="public" virt="non-virtual"><scope>XI2s_Tx_LogItem</scope><name>Event</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

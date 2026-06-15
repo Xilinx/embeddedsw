@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___aes_init_ops" kind="struct" prot="public">
+    <compoundname>XSecure_AesInitOps</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___aes_init_ops_1a601c93bf12d62fa21c69509eaf5c886b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesInitOps::IvAddr</definition>
+        <argsstring></argsstring>
+        <name>IvAddr</name>
+        <briefdescription>
+<para>IV address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_init_ops_1ab5bbcccd49561a9c352329a7f60f4646" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesInitOps::OperationId</definition>
+        <argsstring></argsstring>
+        <name>OperationId</name>
+        <briefdescription>
+<para>Operation type - Encrypt or decrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_init_ops_1a935f46f79e073e4f43c779d6fadd77a7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesInitOps::KeySrc</definition>
+        <argsstring></argsstring>
+        <name>KeySrc</name>
+        <briefdescription>
+<para>AES Key source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_init_ops_1a1e9f80314c80c92abcf050a9811b3357" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesInitOps::KeySize</definition>
+        <argsstring></argsstring>
+        <name>KeySize</name>
+        <briefdescription>
+<para>Size of AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for Initialisation of AES Encryption and Decryption. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="171" bodyend="176"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___aes_init_ops_1a601c93bf12d62fa21c69509eaf5c886b" prot="public" virt="non-virtual"><scope>XSecure_AesInitOps</scope><name>IvAddr</name></member>
+      <member refid="struct_x_secure___aes_init_ops_1a1e9f80314c80c92abcf050a9811b3357" prot="public" virt="non-virtual"><scope>XSecure_AesInitOps</scope><name>KeySize</name></member>
+      <member refid="struct_x_secure___aes_init_ops_1a935f46f79e073e4f43c779d6fadd77a7" prot="public" virt="non-virtual"><scope>XSecure_AesInitOps</scope><name>KeySrc</name></member>
+      <member refid="struct_x_secure___aes_init_ops_1ab5bbcccd49561a9c352329a7f60f4646" prot="public" virt="non-virtual"><scope>XSecure_AesInitOps</scope><name>OperationId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

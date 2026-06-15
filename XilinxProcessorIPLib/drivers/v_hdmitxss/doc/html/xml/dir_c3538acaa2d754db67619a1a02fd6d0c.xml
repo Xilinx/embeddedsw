@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c3538acaa2d754db67619a1a02fd6d0c" kind="dir">
+    <compoundname>I2S</compoundname>
+    <innerfile refid="_i2_s_2audiogen__drv_8c">I2S/audiogen_drv.c</innerfile>
+    <innerfile refid="_i2_s_2audiogen__drv_8h">I2S/audiogen_drv.h</innerfile>
+    <innerfile refid="_i2_s_2xhdmi__example_8c">I2S/xhdmi_example.c</innerfile>
+    <innerfile refid="_i2_s_2xhdmi__example_8h">I2S/xhdmi_example.h</innerfile>
+    <innerfile refid="xhdmi__i2s__audio_8c">xhdmi_i2s_audio.c</innerfile>
+    <innerfile refid="_i2_s_2xhdmi__menu_8c">I2S/xhdmi_menu.c</innerfile>
+    <innerfile refid="_i2_s_2xhdmi__menu_8h">I2S/xhdmi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss/examples/xhdmi_example/I2S/"/>
+  </compounddef>
+</doxygen>

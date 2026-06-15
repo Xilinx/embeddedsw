@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_524ba9fd29cedeb348dc3fc4c612d7a9" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xdsitxss_8c">xdsitxss.c</innerfile>
+    <innerfile refid="xdsitxss_8h">xdsitxss.h</innerfile>
+    <innerfile refid="xdsitxss__g_8c">xdsitxss_g.c</innerfile>
+    <innerfile refid="xdsitxss__hw_8h">xdsitxss_hw.h</innerfile>
+    <innerfile refid="xdsitxss__intr_8c">xdsitxss_intr.c</innerfile>
+    <innerfile refid="xdsitxss__selftest_8c">xdsitxss_selftest.c</innerfile>
+    <innerfile refid="xdsitxss__sinit_8c">xdsitxss_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsitxss/src/"/>
+  </compounddef>
+</doxygen>

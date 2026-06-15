@@ -1,0 +1,408 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2visp__ss_2common_2vlog_8h" kind="file">
+    <compoundname>src/visp_ss/common/vlog.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes refid="oslayer_8h" local="no">oslayer.h</includes>
+    <includedby refid="visp__common_8h" local="yes">visp_common.h</includedby>
+    <incdepgraph>
+      <node id="8248">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8249" relation="include">
+        </childnode>
+        <childnode refid="8255" relation="include">
+        </childnode>
+      </node>
+      <node id="8247">
+        <label>stdlib.h</label>
+      </node>
+      <node id="8245">
+        <label>vlog.h</label>
+        <link refid="src/visp_ss/common/vlog.h"/>
+        <childnode refid="8246" relation="include">
+        </childnode>
+        <childnode refid="8247" relation="include">
+        </childnode>
+        <childnode refid="8248" relation="include">
+        </childnode>
+      </node>
+      <node id="8253">
+        <label>stddef.h</label>
+      </node>
+      <node id="8252">
+        <label>limits.h</label>
+      </node>
+      <node id="8254">
+        <label>string.h</label>
+      </node>
+      <node id="8255">
+        <label>ff.h</label>
+      </node>
+      <node id="8250">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8251" relation="include">
+        </childnode>
+        <childnode refid="8252" relation="include">
+        </childnode>
+        <childnode refid="8253" relation="include">
+        </childnode>
+      </node>
+      <node id="8249">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="8250" relation="include">
+        </childnode>
+        <childnode refid="8254" relation="include">
+        </childnode>
+      </node>
+      <node id="8246">
+        <label>stdio.h</label>
+      </node>
+      <node id="8251">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="8246" relation="include">
+        </childnode>
+        <childnode refid="8247" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8256">
+        <label>vlog.h</label>
+        <link refid="src/visp_ss/common/vlog.h"/>
+        <childnode refid="8257" relation="include">
+        </childnode>
+      </node>
+      <node id="8258">
+        <label>visp_common.c</label>
+      </node>
+      <node id="8257">
+        <label>visp_common.h</label>
+        <childnode refid="8258" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1a707d9f505d4c978c977f78ec6fd5bea7" prot="public" static="no">
+        <name>VLOG_COLOR_RESET</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="57" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1ab307cc692494ee05c256680a1c670dab" prot="public" static="no">
+        <name>VLOG_COLOR_DEBUG</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1af579085a9b603c6a73d0a96c8313d31a" prot="public" static="no">
+        <name>VLOG_COLOR_INFO</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1abb727e82031cf5d1c167abc91daae866" prot="public" static="no">
+        <name>VLOG_COLOR_WARN</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1a8d122bd979f92204dc1c9df9122a8987" prot="public" static="no">
+        <name>VLOG_COLOR_ERROR</name>
+        <initializer>&quot;&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1a1414676cb492bf985bbb76d90ffd7f4f" prot="public" static="no">
+        <name>__VLOG_INT</name>
+        <param><defname>format</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>&quot;[%s] &quot; format VLOG_COLOR_RESET &quot;%s&quot;, LOGTAG, __VA_ARGS__</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1aa839997a58e14061861cd634fdb7664d" prot="public" static="no">
+        <name>LOGD</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_DEBUG) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(VLOG_COLOR_DEBUG &quot;DEBUG  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1a5512e59d578a380a441a70256af997d0" prot="public" static="no">
+        <name>LOGI</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_INFO) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(VLOG_COLOR_INFO &quot;INFO  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1a07f1b0d507acedeb7550353eba4f6e66" prot="public" static="no">
+        <name>LOGW</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_WARNING) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(VLOG_COLOR_WARN &quot;WARN  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="src_2visp__ss_2common_2vlog_8h_1ae02538a80ad5fc009caec73487d11a8d" prot="public" static="no">
+        <name>LOGE</name>
+        <param><defname>...</defname></param>
+        <initializer>if (VsiVvbenchGetLogLevel() &lt;= VVLOG_LEVEL_ERROR) { \
+		printf(&quot;[%.6lf]&quot;,timeStampGet()); \
+		printf(VLOG_COLOR_ERROR &quot;ERROR  : &quot; __VLOG_INT(__VA_ARGS__, &quot;\n&quot;)); \
+	}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55b" prot="public" static="no">
+        <name>@0</name>
+        <enumvalue id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55baf3dd46e0aa5764bc56f4c239a8d91309" prot="public">
+          <name>VVLOG_LEVEL_VERBOSE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55ba60cdcc21416c9413d225fb9be645df1e" prot="public">
+          <name>VVLOG_LEVEL_DEBUG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55ba888415f52cc723a8399c26fad79184e3" prot="public">
+          <name>VVLOG_LEVEL_INFO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55baf293b0a74b5bad7c5ab3f6fc979c9719" prot="public">
+          <name>VVLOG_LEVEL_WARNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="src_2visp__ss_2common_2vlog_8h_1a06fc87d81c62e9abb8790b6e5713c55ba68c588cb2269a31a3c1c0232ac6e1f0b" prot="public">
+          <name>VVLOG_LEVEL_ERROR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="21" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="21" bodyend="27"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="src_2visp__ss_2common_2vlog_8h_1a543be2208bf11ba0ce425b55500934eb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int vvbenchLogLevel</definition>
+        <argsstring></argsstring>
+        <name>vvbenchLogLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvbench.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="src_2visp__ss_2common_2vlog_8h_1a8ada187eba62a59ff5d475d76a115b09" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int VsiVvbenchGetLogLevel</definition>
+        <argsstring>()</argsstring>
+        <name>VsiVvbenchGetLogLevel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="31" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="src_2visp__ss_2common_2vlog_8h_1afd879d4f5a8df248c75bdc59e86abe2b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>float32_t</type>
+        <definition>static float32_t timeStampGet</definition>
+        <argsstring>()</argsstring>
+        <name>timeStampGet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h" bodystart="40" bodyend="47"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************\</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">|*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>by<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.<sp/>(&quot;VeriSilicon&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">|*<sp/>All<sp/>Rights<sp/>Reserved.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">|*<sp/>The<sp/>material<sp/>in<sp/>this<sp/>file<sp/>is<sp/>confidential<sp/>and<sp/>contains<sp/>trade<sp/>secrets<sp/>of<sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">|*<sp/>of<sp/>VeriSilicon.<sp/><sp/>This<sp/>is<sp/>proprietary<sp/>information<sp/>owned<sp/>or<sp/>licensed<sp/>by<sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">|*<sp/>VeriSilicon.<sp/><sp/>No<sp/>part<sp/>of<sp/>this<sp/>work<sp/>may<sp/>be<sp/>disclosed,<sp/>reproduced,<sp/>copied,<sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">|*<sp/>transmitted,<sp/>or<sp/>used<sp/>in<sp/>any<sp/>way<sp/>for<sp/>any<sp/>purpose,<sp/>without<sp/>the<sp/>express<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">|*<sp/>written<sp/>permission<sp/>of<sp/>VeriSilicon.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">\******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_VLOG_H_</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_VLOG_H_</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="oslayer_8h" kindref="compound">oslayer.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_VERBOSE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_DEBUG,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_INFO,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_WARNING,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VVLOG_LEVEL_ERROR,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchGetLogLevel()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(vvbenchLogLevel<sp/>!=<sp/>-1)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vvbenchLogLevel<sp/>=<sp/>VVLOG_LEVEL_DEBUG;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>vvbenchLogLevel;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>float32_t<sp/>timeStampGet()</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>float32_t<sp/>timeStamp;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="oslayer_8h_1a5d47f198ef4e8d3adf5dfdb9e17d1310" kindref="member">osTimeStampNs</ref>(&amp;timeStamp);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>timeStamp;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>c++11<sp/>workaround<sp/>empty<sp/>variadic<sp/>macro</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VLOG_ENABLE_ANSI_COLORS</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_RESET<sp/>&quot;\033[0m&quot;</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_DEBUG<sp/>&quot;\033[1;30;37m&quot;</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_INFO<sp/><sp/>&quot;\033[1;30;32m&quot;</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_WARN<sp/><sp/>&quot;\033[1;30;33m&quot;</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_ERROR<sp/>&quot;\033[1;30;31m&quot;</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_RESET<sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_DEBUG<sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_INFO<sp/><sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_WARN<sp/><sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VLOG_COLOR_ERROR<sp/>&quot;&quot;</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__VLOG_INT(format,<sp/>...)<sp/>&quot;[%s]<sp/>&quot;<sp/>format<sp/>VLOG_COLOR_RESET<sp/>&quot;%s&quot;,<sp/>LOGTAG,<sp/>__VA_ARGS__</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGD(...)\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_DEBUG)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(VLOG_COLOR_DEBUG<sp/>&quot;DEBUG<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>white</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGI(...)\</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_INFO)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(VLOG_COLOR_INFO<sp/>&quot;INFO<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>green</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGW(...)\</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_WARNING)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(VLOG_COLOR_WARN<sp/>&quot;WARN<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>yellow</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGE(...)\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(VsiVvbenchGetLogLevel()<sp/>&lt;=<sp/>VVLOG_LEVEL_ERROR)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(&quot;[%.6lf]&quot;,timeStampGet());<sp/>\</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(VLOG_COLOR_ERROR<sp/>&quot;ERROR<sp/><sp/>:<sp/>&quot;<sp/>__VLOG_INT(__VA_ARGS__,<sp/>&quot;\n&quot;));<sp/>\</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>//<sp/>red</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/>//<sp/>_VLOG_H_</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/common/vlog.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>bram</title>
+    <detaileddescription>
+<para>If ECC is not enabled, this driver exists only to allow the tools to create a memory test application and to populate xparameters.h with memory range constants. In this case there is no source code.</para><para>If ECC is enabled, this file contains the software API definition of the Xilinx BRAM Interface Controller (<ref refid="struct_x_bram" kindref="compound">XBram</ref>) device driver.</para><para>The Xilinx BRAM controller is a soft IP core designed for Xilinx FPGAs and contains the following general features:<itemizedlist>
+<listitem><para>LMB v2.0 bus interfaces with byte enable support</para></listitem><listitem><para>Used in conjunction with bram_block peripheral to provide fast BRAM memory solution for MicroBlaze ILMB and DLMB ports</para></listitem><listitem><para>Supports byte, half-word, and word transfers</para></listitem><listitem><para>Supports optional BRAM error correction and detection.</para></listitem></itemizedlist>
+</para><para>The driver provides interrupt management functions. Implementation of interrupt handlers is left to the user. Refer to the provided interrupt example in the examples directory for details.</para><para>This driver is intended to be RTOS and processor independent. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_bram___config" kindref="compound">XBram_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized as follows:</para><para><itemizedlist>
+<listitem><para>XBram_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para></para></simplesect>
+This API utilizes 32 bit I/O to the BRAM registers. With less than 32 bits, the unused bits from registers are read as zero and written as don&apos;t cares.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+3.00a sa  05/11/10 Added ECC support
+3.01a sa  01/13/12  Changed Selftest API from
+              XBram_SelfTest(XBram *InstancePtr) to
+              <ref refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" kindref="member">XBram_SelfTest(XBram *InstancePtr, u8 IntMask)</ref> and
+              fixed a problem with interrupt generation for CR 639274
+              Modified Selftest example to return XST_SUCCESS when
+              ECC is not enabled and return XST_FAILURE when ECC is
+              enabled and Control Base Address is zero (CR 636581)
+              Modified Selftest to use correct CorrectableCounterBits
+              for CR 635655
+              Updated to check CorrectableFailingDataRegs in the case
+              of LMB BRAM.
+                      Added CorrectableFailingDataRegs and
+              UncorrectableFailingDataRegs to the config structure to
+              distinguish between AXI BRAM and LMB BRAM.
+              These registers are not present in the current version of
+              the AXI BRAM Controller.
+3.02a sa 04/16/12   Added test of byte and halfword read-modify-write
+3.02a sa 04/16/12   Modified driver tcl to sort the address parameters
+                      to support both xps and vivado designs.
+3.02a adk 24/4/13   Modified the tcl file to avoid warnings
+                      when ecc is disabled cr:705002.
+3.03a bss 05/22/13  Added Xil_DCacheFlushRange in <ref refid="xbram__selftest_8c" kindref="compound">xbram_selftest.c</ref> to
+              flush the Cache after writing to BRAM in InjectErrors
+              API(CR #719011)
+4.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XBram_CfgInitialize API.
+      ms  01/23/17 Modified xil_printf statement in main function for all
+                   examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                   strings are available in all examples. This is a fix
+                   for CR-965028.
+      ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                   generation.
+4.2   ms  04/18/17 Modified tcl file to add suffix U for all macro
+                   definitions of bram in xparameters.h
+      ms  08/07/17 Fixed compilation warnings in <ref refid="xbram__sinit_8c" kindref="compound">xbram_sinit.c</ref>
+4.6     sk  02/18/21 Use UINTPTR instead of u32 for MemBaseAddress and
+                     MemHighAddress variables.
+4.8   adk 04/11/22 Modified driver tcl fix lmb_bram_if_cntlr canonical
+                     redefinition warnings when multiple lmb_bram_if_cntlr
+                     instances are present.
+4.9   sd  07/07/23 Added SDT support.
+4.14  vlt 12/30/25 Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

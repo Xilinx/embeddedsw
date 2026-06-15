@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___sdp_vertical_ctrl" kind="struct" prot="public">
+    <compoundname>XMmiDp_SdpVerticalCtrl</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a050442ce08a8ff2f979728f66e052cdc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMmiDp_SdpVerticalCtrl::EnVerticalSdp</definition>
+        <argsstring></argsstring>
+        <name>EnVerticalSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a4ba47020adfd0743995b356a8141313e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::FixedPriorityArb</definition>
+        <argsstring></argsstring>
+        <name>FixedPriorityArb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a680774fddc627076b9bafc63430b5050" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::DisableExtSdp</definition>
+        <argsstring></argsstring>
+        <name>DisableExtSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="366" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a2ac21b8b288f2529908c4bab7a4e5999" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::En128Bytes</definition>
+        <argsstring></argsstring>
+        <name>En128Bytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a7d369731be5015f4968b1cdc5d006350" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::EnAudioStreamSdp</definition>
+        <argsstring></argsstring>
+        <name>EnAudioStreamSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a07969597bc7273e9f44051a1db6dc9b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::EnAudioTimeStampSdp</definition>
+        <argsstring></argsstring>
+        <name>EnAudioTimeStampSdp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___sdp_vertical_ctrl_1a640694419096b0660ab959917907c865" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_SdpVerticalCtrl::Reserved[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="363" bodyend="371"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a680774fddc627076b9bafc63430b5050" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>DisableExtSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a2ac21b8b288f2529908c4bab7a4e5999" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>En128Bytes</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a7d369731be5015f4968b1cdc5d006350" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>EnAudioStreamSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a07969597bc7273e9f44051a1db6dc9b0" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>EnAudioTimeStampSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a050442ce08a8ff2f979728f66e052cdc" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>EnVerticalSdp</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a4ba47020adfd0743995b356a8141313e" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>FixedPriorityArb</name></member>
+      <member refid="struct_x_mmi_dp___sdp_vertical_ctrl_1a640694419096b0660ab959917907c865" prot="public" virt="non-virtual"><scope>XMmiDp_SdpVerticalCtrl</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

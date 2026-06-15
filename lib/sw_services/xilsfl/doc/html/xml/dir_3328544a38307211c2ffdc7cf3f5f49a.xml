@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3328544a38307211c2ffdc7cf3f5f49a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_7934e0071af5acc05e5d2ba16f3abb9e">include</innerdir>
+    <innerfile refid="xilsfl_8c">xilsfl.c</innerfile>
+    <innerfile refid="xilsfl__control_8c">xilsfl_control.c</innerfile>
+    <innerfile refid="xilsfl__flashconfig_8c">xilsfl_flashconfig.c</innerfile>
+    <innerfile refid="xilsfl__interface_8c">xilsfl_interface.c</innerfile>
+    <innerfile refid="xilsfl__ospi_8c">xilsfl_ospi.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/"/>
+  </compounddef>
+</doxygen>

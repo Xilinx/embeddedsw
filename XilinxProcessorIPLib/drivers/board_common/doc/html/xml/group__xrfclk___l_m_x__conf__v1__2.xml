@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xrfclk___l_m_x__conf__v1__2" kind="group">
+    <compoundname>xrfclk_LMX_conf_v1_2</compoundname>
+    <title>Xrfclk_LMX_conf_v1_2</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xrfclk___l_m_x__conf__v1__2_1ga2d162c646ec4d353ba5d200c18316265" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ADC_FREQ_LIST[LMX_ADC_NUM][FREQ_LIST_STR_SIZE]</definition>
+        <argsstring>[LMX_ADC_NUM][FREQ_LIST_STR_SIZE]</argsstring>
+        <name>ADC_FREQ_LIST</name>
+        <initializer>= {
+	&quot;LMX2594_REF-245M76__491M52&quot;,  &quot;LMX2594_REF-245M76__614M4&quot;,
+	&quot;LMX2594_REF-245M76__737M28&quot;,  &quot;LMX2594_REF-245M76__983M04&quot;,
+	&quot;LMX2594_REF-245M76__1966M08&quot;, &quot;LMX2594_REF-245M76__2211M84&quot;,
+	&quot;LMX2594_REF-245M76__2457M6&quot;,  &quot;LMX2594_REF-250M__2500M&quot;,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="587" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xrfclk___l_m_x__conf__v1__2_1gad53b987d5bd0179851c6c943d8d4ac33" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 DAC_FREQ_LIST[LMX_DAC_NUM][FREQ_LIST_STR_SIZE]</definition>
+        <argsstring>[LMX_DAC_NUM][FREQ_LIST_STR_SIZE]</argsstring>
+        <name>DAC_FREQ_LIST</name>
+        <initializer>= {
+	&quot;LMX2594_REF-245M76__491M52&quot;,  &quot;LMX2594_REF-245M76__614M4&quot;,
+	&quot;LMX2594_REF-245M76__737M28&quot;,  &quot;LMX2594_REF-245M76__983M04&quot;,
+	&quot;LMX2594_REF-245M76__1966M08&quot;, &quot;LMX2594_REF-245M76__2211M84&quot;,
+	&quot;LMX2594_REF-245M76__2457M6&quot;,  &quot;LMX2594_REF-250M__2500M&quot;,
+	&quot;LMX2594_REF-250M__3000M&quot;,     &quot;LMX2594_REF-245M76__3072M&quot;,
+	&quot;LMX2594_REF-245M76__3932M16&quot;, &quot;LMX2594_REF-245M76__4915M2&quot;,
+	&quot;LMX2594_REF-250M__5000M&quot;,     &quot;LMX2594_REF-245M76__5898M24&quot;,
+	&quot;LMX2594_REF-250M__6000M&quot;,     &quot;LMX2594_REF-245M76__6144M&quot;,
+	&quot;LMX2594_REF-245M76__6881M28&quot;, &quot;LMX2594_REF-250M__7000M&quot;,
+	&quot;LMX2594_REF-245M76__7372M8&quot;,  &quot;LMX2594_REF-245M76__7864M32&quot;,
+	&quot;LMX2594_REF-250M__8000M&quot;,     &quot;LMX2594_REF-245M76__8847M36&quot;,
+	&quot;LMX2594_REF-245M76__9830M4&quot;,  &quot;LMX2594_REF-250M__10000M&quot;,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="595" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="595" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xrfclk___l_m_x__conf__v1__2_1gad26311ca77d6e42ed6ab9b247da44183" prot="public" static="no" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 LMX2594[][LMX2594_COUNT]</definition>
+        <argsstring>[][LMX2594_COUNT]</argsstring>
+        <name>LMX2594</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk_LMX_conf.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the configuration data for LMX. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     08/28/19 Initial version
+1.1   dc     11/21/19 Remove xil dependencies from linux build
+      dc     11/25/19 update LMX and LMK configs
+      dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+1.3   dc     03/10/20 update LMK/LMX config for MTS
+1.4   dc     03/30/20 new LMX config suppressing RF noise on dual output
+1.5   dc     13/05/21 Make clear LMK/LMX configuration comments
+2.1   dc     02/18/26 Correct spelling errors</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

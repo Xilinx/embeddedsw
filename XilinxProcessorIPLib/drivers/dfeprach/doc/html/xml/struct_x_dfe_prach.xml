@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach" kind="struct" prot="public">
+    <compoundname>XDfePrach</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach_1a56d255b7ad1d309033438bbaee6b0a3f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___config" kindref="compound">XDfePrach_Config</ref></type>
+        <definition>XDfePrach_Config XDfePrach::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration data storage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="681" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="681" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga33f53d844fcfc45cfaa452a4de1cf026" compoundref="xdfeprach_8c" startline="2787" endline="2815">XDfePrach_AddRCtoRCCfgDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga1dcc5ea59a80a27798b2935e5fa83473" compoundref="xdfeprach_8c" startline="2590" endline="2635">XDfePrach_AddRCtoRCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga8b13eaf1a6ab7c829bd4d203edd5064a" compoundref="xdfeprach_8c" startline="2659" endline="2710">XDfePrach_AddRCtoRCCfgMBDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+        <referencedby refid="group__dfeprach_1ga07ea3a4239457b89c7c99fb1a6e35672" compoundref="xdfeprach_8c" startline="2104" endline="2114">XDfePrach_GetCurrentCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga5da17d2168e7d61dc25b4e377226b207" compoundref="xdfeprach_8c" startline="2127" endline="2147">XDfePrach_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+        <referencedby refid="group__dfeprach_1ga6d425cd9949a65526ff83c0a5403f53a" compoundref="xdfeprach_8c" startline="2467" endline="2498">XDfePrach_SetNextCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1a2db7298e87cae5a18a2bef99857a6db1" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dfeprach_1ga2a0c2ae57514875896de5f061cbe5a50" kindref="member">XDfePrach_StateId</ref></type>
+        <definition>XDfePrach_StateId XDfePrach::StateId</definition>
+        <argsstring></argsstring>
+        <name>StateId</name>
+        <briefdescription>
+<para>State machine state Id. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="682" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="682" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga230d29f371235de8b4beed0a92f6c7b2" compoundref="xdfeprach_8c" startline="1952" endline="1977">XDfePrach_Activate</referencedby>
+        <referencedby refid="group__dfeprach_1gabc97efd9664beb2c7bb2a7dd2795deb2" compoundref="xdfeprach_8c" startline="2313" endline="2326">XDfePrach_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga845bf47ab36b74fa4de75447b7436740" compoundref="xdfeprach_8c" startline="2246" endline="2282">XDfePrach_AddCCtoCCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1gaf76b8fc9f6e3b779f2592d3404cc8582" compoundref="xdfeprach_8c" startline="2739" endline="2763">XDfePrach_AddRCtoRCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga33f53d844fcfc45cfaa452a4de1cf026" compoundref="xdfeprach_8c" startline="2787" endline="2815">XDfePrach_AddRCtoRCCfgDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga1dcc5ea59a80a27798b2935e5fa83473" compoundref="xdfeprach_8c" startline="2590" endline="2635">XDfePrach_AddRCtoRCCfgMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga8b13eaf1a6ab7c829bd4d203edd5064a" compoundref="xdfeprach_8c" startline="2659" endline="2710">XDfePrach_AddRCtoRCCfgMBDynamic</referencedby>
+        <referencedby refid="group__dfeprach_1ga342d626ad373f102b0b57ad2f66a386b" compoundref="xdfeprach_8c" startline="3340" endline="3366">XDfePrach_ClearStatus</referencedby>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+        <referencedby refid="group__dfeprach_1gade52553d7a214b9b9bf77d85be30d712" compoundref="xdfeprach_8c" startline="1987" endline="2011">XDfePrach_Deactivate</referencedby>
+        <referencedby refid="group__dfeprach_1gac9bb69d15debd85611f2097a975fc9bc" compoundref="xdfeprach_8c" startline="2023" endline="2027">XDfePrach_GetStateID</referencedby>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+        <referencedby refid="group__dfeprach_1gae8df2b839d0a62a982e434edbe18555f" compoundref="xdfeprach_8c" startline="2944" endline="3046">XDfePrach_GetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1ga6bbc110a7b51393ac8641b5ef44883aa" compoundref="xdfeprach_8c" startline="3563" endline="3590">XDfePrach_GetVersions</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+        <referencedby refid="group__dfeprach_1gadd78606d53d3fdfbd06043ed400347eb" compoundref="xdfeprach_8c" startline="1658" endline="1677">XDfePrach_InstanceClose</referencedby>
+        <referencedby refid="group__dfeprach_1ga0469995710f4c55a0769c1c0cac8b1ea" compoundref="xdfeprach_8c" startline="1544" endline="1647">XDfePrach_InstanceInit</referencedby>
+        <referencedby refid="group__dfeprach_1ga23d3e2b70270c352134fa0ff075869c3" compoundref="xdfeprach_8c" startline="2831" endline="2842">XDfePrach_RemoveRCfromRCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gaafc590b46cd95b8399f798461073a4dc" compoundref="xdfeprach_8c" startline="1687" endline="1699">XDfePrach_Reset</referencedby>
+        <referencedby refid="group__dfeprach_1ga257e7ce648bbb961d54028759c595a0e" compoundref="xdfeprach_8c" startline="3057" endline="3186">XDfePrach_SetTriggersCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae0c656822a558e3a227afa689e1a4874" compoundref="xdfeprach_8c" startline="3429" endline="3436">XDfePrach_SetTUserDelay</referencedby>
+        <referencedby refid="group__dfeprach_1ga695c2ce59310b770ad624085c2b311db" compoundref="xdfeprach_8c" startline="3449" endline="3460">XDfePrach_SetTUserDelayMB</referencedby>
+        <referencedby refid="group__dfeprach_1ga3bb2cfd7166cbee2d702cb1682b55868" compoundref="xdfeprach_8c" startline="2912" endline="2933">XDfePrach_UpdateRCinRCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gaebfe67fa5c7d8b79ea15e1d965235483" compoundref="xdfeprach_8c" startline="2866" endline="2889">XDfePrach_UpdateRCinRCCfgMB</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1ab197fcb67600a1dcc9bf04b565a26d91" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XDfePrach::NotUsedCCID[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>NotUsedCCID</name>
+        <briefdescription>
+<para>Storage for &apos;Not used CCID&apos; value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="683" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="684" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1a3727c1746718f92e21706948703d3ab0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach::SequenceLength[XDFEPRACH_BAND_ID_MAX]</definition>
+        <argsstring>[XDFEPRACH_BAND_ID_MAX]</argsstring>
+        <name>SequenceLength</name>
+        <briefdescription>
+<para>Sequence length &apos;storage&apos;. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="685" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="685" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga5da17d2168e7d61dc25b4e377226b207" compoundref="xdfeprach_8c" startline="2127" endline="2147">XDfePrach_GetEmptyCCCfg</referencedby>
+        <referencedby refid="group__dfeprach_1gae381973dcaf014664d8df4f8b95f456b" compoundref="xdfeprach_8c" startline="1914" endline="1941">XDfePrach_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1a60b5ed6d5fd1273a15c3a5841b1c13f8" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XDfePrach::NodeName[XDFEPRACH_NODE_NAME_MAX_LENGTH]</definition>
+        <argsstring>[XDFEPRACH_NODE_NAME_MAX_LENGTH]</argsstring>
+        <name>NodeName</name>
+        <briefdescription>
+<para>Node name storage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="686" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="686" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gadd78606d53d3fdfbd06043ed400347eb" compoundref="xdfeprach_8c" startline="1658" endline="1677">XDfePrach_InstanceClose</referencedby>
+        <referencedby refid="group__dfeprach_1ga0469995710f4c55a0769c1c0cac8b1ea" compoundref="xdfeprach_8c" startline="1544" endline="1647">XDfePrach_InstanceInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1a1511f0b487867ecd308496bab3c85c51" prot="public" static="no" mutable="no">
+        <type>struct metal_io_region *</type>
+        <definition>struct metal_io_region* XDfePrach::Io</definition>
+        <argsstring></argsstring>
+        <name>Io</name>
+        <briefdescription>
+<para>Libmetal IO structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="687" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="687" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach_1afcacf424d1ded2d176e1381fb40b4417" prot="public" static="no" mutable="no">
+        <type>struct metal_device *</type>
+        <definition>struct metal_device* XDfePrach::Device</definition>
+        <argsstring></argsstring>
+        <name>Device</name>
+        <briefdescription>
+<para>Libmetal device structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="688" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="688" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1gadd78606d53d3fdfbd06043ed400347eb" compoundref="xdfeprach_8c" startline="1658" endline="1677">XDfePrach_InstanceClose</referencedby>
+        <referencedby refid="group__dfeprach_1ga0469995710f4c55a0769c1c0cac8b1ea" compoundref="xdfeprach_8c" startline="1544" endline="1647">XDfePrach_InstanceInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH driver object - global data storage. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XDfePrach</label>
+        <link refid="struct_x_dfe_prach"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XDfePrach_Config</label>
+        <link refid="struct_x_dfe_prach___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="680" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="680" bodyend="689"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach_1a56d255b7ad1d309033438bbaee6b0a3f" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>Config</name></member>
+      <member refid="struct_x_dfe_prach_1afcacf424d1ded2d176e1381fb40b4417" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>Device</name></member>
+      <member refid="struct_x_dfe_prach_1a1511f0b487867ecd308496bab3c85c51" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>Io</name></member>
+      <member refid="struct_x_dfe_prach_1a60b5ed6d5fd1273a15c3a5841b1c13f8" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>NodeName</name></member>
+      <member refid="struct_x_dfe_prach_1ab197fcb67600a1dcc9bf04b565a26d91" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>NotUsedCCID</name></member>
+      <member refid="struct_x_dfe_prach_1a3727c1746718f92e21706948703d3ab0" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>SequenceLength</name></member>
+      <member refid="struct_x_dfe_prach_1a2db7298e87cae5a18a2bef99857a6db1" prot="public" virt="non-virtual"><scope>XDfePrach</scope><name>StateId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isp_system_port_info__s" kind="struct" prot="public">
+    <compoundname>IspSystemPortInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isp_system_port_info__s_1a0be0d10f91b89a1de37368ba9b670532" prot="public" static="no" mutable="no">
+        <type>IspSystemPortType_t</type>
+        <definition>IspSystemPortType_t IspSystemPortInfo_s::portType</definition>
+        <argsstring></argsstring>
+        <name>portType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isp_system_port_info__s_1abefc2688cb513b6636370f7e09632000" prot="public" static="no" mutable="no">
+        <type>IspSystemBufferType_t</type>
+        <definition>IspSystemBufferType_t IspSystemPortInfo_s::bufferType</definition>
+        <argsstring></argsstring>
+        <name>bufferType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isp_system_port_info__s_1ac6f9a65935fd1b10be48fce720b77f5d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IspSystemPortInfo_s::portId</definition>
+        <argsstring></argsstring>
+        <name>portId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/system_module.h" bodystart="47" bodyend="51"/>
+    <listofallmembers>
+      <member refid="struct_isp_system_port_info__s_1abefc2688cb513b6636370f7e09632000" prot="public" virt="non-virtual"><scope>IspSystemPortInfo_s</scope><name>bufferType</name></member>
+      <member refid="struct_isp_system_port_info__s_1ac6f9a65935fd1b10be48fce720b77f5d" prot="public" virt="non-virtual"><scope>IspSystemPortInfo_s</scope><name>portId</name></member>
+      <member refid="struct_isp_system_port_info__s_1a0be0d10f91b89a1de37368ba9b670532" prot="public" virt="non-virtual"><scope>IspSystemPortInfo_s</scope><name>portType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

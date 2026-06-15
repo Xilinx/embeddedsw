@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___status" kind="struct" prot="public">
+    <compoundname>XDfePrach_Status</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_1a65a3bd9fd150327c7b1c26ac5910f993" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___mixer_status_overflow" kindref="compound">XDfePrach_MixerStatusOverflow</ref></type>
+        <definition>XDfePrach_MixerStatusOverflow XDfePrach_Status::MixerOverflow</definition>
+        <argsstring></argsstring>
+        <name>MixerOverflow</name>
+        <briefdescription>
+<para>Mixer Overflow Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="619" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_1a58265557600892dca9a701c54fb20f99" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___decimator_status_overflow" kindref="compound">XDfePrach_DecimatorStatusOverflow</ref></type>
+        <definition>XDfePrach_DecimatorStatusOverflow XDfePrach_Status::DecimatorOverflow</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverflow</name>
+        <briefdescription>
+<para>Decimator Overflow Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="621" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_1af750fa1575e1d97cccfab66a588f9a2b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___mixer_status_overrun" kindref="compound">XDfePrach_MixerStatusOverrun</ref></type>
+        <definition>XDfePrach_MixerStatusOverrun XDfePrach_Status::MixerOverrun</definition>
+        <argsstring></argsstring>
+        <name>MixerOverrun</name>
+        <briefdescription>
+<para>Mixer Overrun Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="622" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___status_1a0020aaed796bab833a26771d3126c3d0" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___decimator_status_overrun" kindref="compound">XDfePrach_DecimatorStatusOverrun</ref></type>
+        <definition>XDfePrach_DecimatorStatusOverrun XDfePrach_Status::DecimatorOverrun</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverrun</name>
+        <briefdescription>
+<para>Decimator Overrun Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="624" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH mixer overrun status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="53">
+        <label>XDfePrach_DecimatorStatusOverflow</label>
+        <link refid="struct_x_dfe_prach___decimator_status_overflow"/>
+      </node>
+      <node id="51">
+        <label>XDfePrach_MixerStatusOverrun</label>
+        <link refid="struct_x_dfe_prach___mixer_status_overrun"/>
+      </node>
+      <node id="52">
+        <label>XDfePrach_MixerStatusOverflow</label>
+        <link refid="struct_x_dfe_prach___mixer_status_overflow"/>
+      </node>
+      <node id="50">
+        <label>XDfePrach_DecimatorStatusOverrun</label>
+        <link refid="struct_x_dfe_prach___decimator_status_overrun"/>
+      </node>
+      <node id="49">
+        <label>XDfePrach_Status</label>
+        <link refid="struct_x_dfe_prach___status"/>
+        <childnode refid="50" relation="usage">
+          <edgelabel>DecimatorOverrun</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
+          <edgelabel>MixerOverrun</edgelabel>
+        </childnode>
+        <childnode refid="52" relation="usage">
+          <edgelabel>MixerOverflow</edgelabel>
+        </childnode>
+        <childnode refid="53" relation="usage">
+          <edgelabel>DecimatorOverflow</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="618" bodyend="625"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___status_1a58265557600892dca9a701c54fb20f99" prot="public" virt="non-virtual"><scope>XDfePrach_Status</scope><name>DecimatorOverflow</name></member>
+      <member refid="struct_x_dfe_prach___status_1a0020aaed796bab833a26771d3126c3d0" prot="public" virt="non-virtual"><scope>XDfePrach_Status</scope><name>DecimatorOverrun</name></member>
+      <member refid="struct_x_dfe_prach___status_1a65a3bd9fd150327c7b1c26ac5910f993" prot="public" virt="non-virtual"><scope>XDfePrach_Status</scope><name>MixerOverflow</name></member>
+      <member refid="struct_x_dfe_prach___status_1af750fa1575e1d97cccfab66a588f9a2b" prot="public" virt="non-virtual"><scope>XDfePrach_Status</scope><name>MixerOverrun</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

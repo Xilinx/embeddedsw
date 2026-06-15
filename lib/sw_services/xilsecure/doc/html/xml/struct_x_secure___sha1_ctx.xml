@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___sha1_ctx" kind="struct" prot="public">
+    <compoundname>XSecure_Sha1Ctx</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___sha1_ctx_1a36da7293c89b26d145ca1c40c07a1de3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_Sha1Ctx::State[XSECURE_SHA_TOTAL_NUM_OF_STATES]</definition>
+        <argsstring>[XSECURE_SHA_TOTAL_NUM_OF_STATES]</argsstring>
+        <name>State</name>
+        <briefdescription>
+<para>SHA1 context state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___sha1_ctx_1a9492464c314aaad7db375d4ab5fe8462" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_Sha1Ctx::Buffer[XSECURE_SHA1_HASH_BLK_SIZE/sizeof(u32)]</definition>
+        <argsstring>[XSECURE_SHA1_HASH_BLK_SIZE/sizeof(u32)]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+<para>SHA1 context buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>SHA1 Context. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/softsha1/xsecure_sha1.c" bodystart="59" bodyend="62"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___sha1_ctx_1a9492464c314aaad7db375d4ab5fe8462" prot="public" virt="non-virtual"><scope>XSecure_Sha1Ctx</scope><name>Buffer</name></member>
+      <member refid="struct_x_secure___sha1_ctx_1a36da7293c89b26d145ca1c40c07a1de3" prot="public" virt="non-virtual"><scope>XSecure_Sha1Ctx</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

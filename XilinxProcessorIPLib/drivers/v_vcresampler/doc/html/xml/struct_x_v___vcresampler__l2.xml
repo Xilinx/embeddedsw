@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___vcresampler__l2" kind="struct" prot="public">
+    <compoundname>XV_Vcresampler_l2</compoundname>
+    <includes local="no">xv_vcresampler_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___vcresampler__l2_1a6af41e9bc1073befbd4ed9b2d1cf776a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref></type>
+        <definition>XV_vcresampler XV_Vcresampler_l2::Vcr</definition>
+        <argsstring></argsstring>
+        <name>Vcr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___vcresampler__l2_1a51b9fc8067b4b75634c0986d930613d2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_Vcresampler_l2::UseExtCoeff</definition>
+        <argsstring></argsstring>
+        <name>UseExtCoeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___vcresampler__l2_1a4d717c6720d88a38e910ab2ec38172f2" prot="public" static="no" mutable="no">
+        <type>short</type>
+        <definition>short XV_Vcresampler_l2::coeff[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_MAX_TAPS]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_MAX_TAPS]</argsstring>
+        <name>coeff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>V Chroma Resampler Layer 2 data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every V chroma resampler device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XV_Vcresampler_l2</label>
+        <link refid="struct_x_v___vcresampler__l2"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Vcr</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XV_vcresampler_Config</label>
+        <link refid="struct_x_v__vcresampler___config"/>
+      </node>
+      <node id="7">
+        <label>XV_vcresampler</label>
+        <link refid="struct_x_v__vcresampler"/>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="131" bodyend="136"/>
+    <listofallmembers>
+      <member refid="struct_x_v___vcresampler__l2_1a4d717c6720d88a38e910ab2ec38172f2" prot="public" virt="non-virtual"><scope>XV_Vcresampler_l2</scope><name>coeff</name></member>
+      <member refid="struct_x_v___vcresampler__l2_1a51b9fc8067b4b75634c0986d930613d2" prot="public" virt="non-virtual"><scope>XV_Vcresampler_l2</scope><name>UseExtCoeff</name></member>
+      <member refid="struct_x_v___vcresampler__l2_1a6af41e9bc1073befbd4ed9b2d1cf776a" prot="public" virt="non-virtual"><scope>XV_Vcresampler_l2</scope><name>Vcr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d704ab3e5d4004a58b19cbcebb0641fa" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xprc_8c">xprc.c</innerfile>
+    <innerfile refid="xprc_8h">xprc.h</innerfile>
+    <innerfile refid="xprc__g_8c">xprc_g.c</innerfile>
+    <innerfile refid="xprc__hw_8h">xprc_hw.h</innerfile>
+    <innerfile refid="xprc__selftest_8c">xprc_selftest.c</innerfile>
+    <innerfile refid="xprc__sinit_8c">xprc_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prc/src/"/>
+  </compounddef>
+</doxygen>

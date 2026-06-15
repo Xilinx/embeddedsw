@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdmiphy1__selftest_8c" kind="file">
+    <compoundname>xhdmiphy1_selftest.c</compoundname>
+    <includes refid="xhdmiphy1_8h" local="yes">xhdmiphy1.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="260">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="263">
+        <label>xil_io.h</label>
+      </node>
+      <node id="259">
+        <label>xhdmiphy1.h</label>
+        <link refid="xhdmiphy1_8h"/>
+        <childnode refid="260" relation="include">
+        </childnode>
+        <childnode refid="261" relation="include">
+        </childnode>
+        <childnode refid="262" relation="include">
+        </childnode>
+        <childnode refid="265" relation="include">
+        </childnode>
+      </node>
+      <node id="266">
+        <label>xstatus.h</label>
+      </node>
+      <node id="265">
+        <label>xvidc.h</label>
+      </node>
+      <node id="264">
+        <label>xil_types.h</label>
+      </node>
+      <node id="261">
+        <label>xparameters.h</label>
+      </node>
+      <node id="258">
+        <label>xhdmiphy1_selftest.c</label>
+        <link refid="xhdmiphy1_selftest.c"/>
+        <childnode refid="259" relation="include">
+        </childnode>
+        <childnode refid="266" relation="include">
+        </childnode>
+      </node>
+      <node id="262">
+        <label>xhdmiphy1_hw.h</label>
+        <link refid="xhdmiphy1__hw_8h"/>
+        <childnode refid="263" relation="include">
+        </childnode>
+        <childnode refid="264" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xhdmiphy1__selftest_8c_1a6d1396f1ec8e1bc2bdc4b306d4e2e94f" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetValues[1][2]</definition>
+        <argsstring>[1][2]</argsstring>
+        <name>ResetValues</name>
+        <initializer>=
+{
+	{<ref refid="group__xhdmiphy1_1ga189af8d011b364b664a7b0645e73a51a" kindref="member">XHDMIPHY1_VERSION_REG</ref>, 0}
+}</initializer>
+        <briefdescription>
+<para>This table contains the default values for the Video PHY core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xhdmiphy1_1ga08947cfedb541b7f95242c82ee60a8c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdmiphy1_SelfTest</definition>
+        <argsstring>(XHdmiphy1 *InstancePtr)</argsstring>
+        <name>XHdmiphy1_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The sanity test checks whether or not all tested registers hold their default reset values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed - all tested registers hold their default reset values.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c" bodystart="62" bodyend="79"/>
+        <references refid="xhdmiphy1__hw_8h_1a962d997981e2e284c3c9dd0e8a9a5752" compoundref="xhdmiphy1__hw_8h" startline="1419">XHdmiphy1_ReadReg</references>
+        <references refid="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" compoundref="xhdmiphy1_8h" startline="736">XHdmiphy1::Config</references>
+        <references refid="struct_x_hdmiphy1___config_1a2bbcc590627355bad185ca417e839a6e" compoundref="xhdmiphy1_8h" startline="689">XHdmiphy1_Config::BaseAddr</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a diagnostic self-test function for the <ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>It will check many of the Video PHY&apos;s register values against the default reset values as a sanity-check that the core is ready to be used.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+           dd/mm/yy
+<hruler/>
+
+1.0   gm   10/12/18 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdmiphy1_8h" kindref="compound">xhdmiphy1.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>ResetValues[1][2]<sp/>=</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__xhdmiphy1_1ga189af8d011b364b664a7b0645e73a51a" kindref="member">XHDMIPHY1_VERSION_REG</ref>,<sp/>0}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group__xhdmiphy1_1ga08947cfedb541b7f95242c82ee60a8c5" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xhdmiphy1_1ga08947cfedb541b7f95242c82ee60a8c5" kindref="member">XHdmiphy1_SelfTest</ref>(<ref refid="struct_x_hdmiphy1" kindref="compound">XHdmiphy1</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>general<sp/>usage<sp/>registers<sp/>with<sp/>their<sp/>default<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>1;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xhdmiphy1__hw_8h_1a962d997981e2e284c3c9dd0e8a9a5752" kindref="member">XHdmiphy1_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_hdmiphy1_1ae19e95b6e84e21a988ba6910ceb3f35a" kindref="member">Config</ref>.<ref refid="struct_x_hdmiphy1___config_1a2bbcc590627355bad185ca417e839a6e" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ResetValues[Index][0]);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fail<sp/>if<sp/>register<sp/>does<sp/>not<sp/>hold<sp/>default<sp/>value.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Val<sp/>!=<sp/>ResetValues[Index][1])<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>All<sp/>tested<sp/>registers<sp/>hold<sp/>their<sp/>default<sp/>reset<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmiphy1/src/xhdmiphy1_selftest.c"/>
+  </compounddef>
+</doxygen>

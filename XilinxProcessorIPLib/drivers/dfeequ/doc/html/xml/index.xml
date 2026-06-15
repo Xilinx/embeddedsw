@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_dfe_equ" kind="struct"><name>XDfeEqu</name>
+    <member refid="struct_x_dfe_equ_1aa12922012ff7c9f59660b8e3e4133297" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_dfe_equ_1acc9e6897596d510348bef4268f8d947d" kind="variable"><name>StateId</name></member>
+    <member refid="struct_x_dfe_equ_1a44f0527f3c63afbafd641cd1d24b9639" kind="variable"><name>NodeName</name></member>
+    <member refid="struct_x_dfe_equ_1a4bd94282772fb67f15359792e8e6270e" kind="variable"><name>Io</name></member>
+    <member refid="struct_x_dfe_equ_1a1a92c641f9441ce29ef319fbff91c635" kind="variable"><name>Device</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___cfg" kind="struct"><name>XDfeEqu_Cfg</name>
+    <member refid="struct_x_dfe_equ___cfg_1af99ac4bfb75af7a83882d0d94a62fa15" kind="variable"><name>Version</name></member>
+    <member refid="struct_x_dfe_equ___cfg_1a608d93d466e7878d7b12b69cdcf260a8" kind="variable"><name>ModelParams</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___coefficients" kind="struct"><name>XDfeEqu_Coefficients</name>
+    <member refid="struct_x_dfe_equ___coefficients_1a5c1ce3a36ca91fb9db6deabde173370f" kind="variable"><name>Num</name></member>
+    <member refid="struct_x_dfe_equ___coefficients_1a174eddf9c08b56d291c361744e4a40f8" kind="variable"><name>Set</name></member>
+    <member refid="struct_x_dfe_equ___coefficients_1af55285beee6b7c9cf8bfcdf8b9435158" kind="variable"><name>Coefficients</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___config" kind="struct"><name>XDfeEqu_Config</name>
+    <member refid="struct_x_dfe_equ___config_1a32e0a9c98a29c9e17c60dee205dba149" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_dfe_equ___config_1a1eb0de436aa7c1c54190ee98a3f7bb0a" kind="variable"><name>BaseAddr</name></member>
+    <member refid="struct_x_dfe_equ___config_1ad83cbc14bfe3ef770d37b826afd77cd0" kind="variable"><name>NumChannels</name></member>
+    <member refid="struct_x_dfe_equ___config_1ae9304aeb64ad10270c43865a6a33995c" kind="variable"><name>SampleWidth</name></member>
+    <member refid="struct_x_dfe_equ___config_1a042b2447f6a9ca446237eebaa6421ba8" kind="variable"><name>ComplexModel</name></member>
+    <member refid="struct_x_dfe_equ___config_1a1df6ade4c754eac98b8929e85d34d5c0" kind="variable"><name>TuserWidth</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___eq_config" kind="struct"><name>XDfeEqu_EqConfig</name>
+    <member refid="struct_x_dfe_equ___eq_config_1a8b87735d2a2b4acc3438a365167c85cf" kind="variable"><name>Flush</name></member>
+    <member refid="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" kind="variable"><name>DatapathMode</name></member>
+    <member refid="struct_x_dfe_equ___eq_config_1af759999d7e1c6ca30d74d8b20de771eb" kind="variable"><name>RealDatapathSet</name></member>
+    <member refid="struct_x_dfe_equ___eq_config_1ab4f796d382674ed0dec3101676dd20de" kind="variable"><name>ImDatapathSet</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___interrupt_mask" kind="struct"><name>XDfeEqu_InterruptMask</name>
+    <member refid="struct_x_dfe_equ___interrupt_mask_1a8376166dc9792447d5fc1fe356467b40" kind="variable"><name>Mask</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___model_parameters" kind="struct"><name>XDfeEqu_ModelParameters</name>
+    <member refid="struct_x_dfe_equ___model_parameters_1a0652ecc80ab80f350324c281b901bf30" kind="variable"><name>NumChannels</name></member>
+    <member refid="struct_x_dfe_equ___model_parameters_1a79e2cad977a6e7e0653dba2700c5b4ef" kind="variable"><name>SampleWidth</name></member>
+    <member refid="struct_x_dfe_equ___model_parameters_1a5054d4a5bc277b277b7707576c6415dd" kind="variable"><name>ComplexModel</name></member>
+    <member refid="struct_x_dfe_equ___model_parameters_1a3bb4a5bbdd7bd90b8a5b2d273858c57a" kind="variable"><name>TuserWidth</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___status" kind="struct"><name>XDfeEqu_Status</name>
+    <member refid="struct_x_dfe_equ___status_1aac90a3055325556a5a182f0ab95eda04" kind="variable"><name>IStatus</name></member>
+    <member refid="struct_x_dfe_equ___status_1a2f0e6d4693e3e6e0a2493e5c88036087" kind="variable"><name>QStatus</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___trigger" kind="struct"><name>XDfeEqu_Trigger</name>
+    <member refid="struct_x_dfe_equ___trigger_1ad512e3c3c32193fe84c0efd50a3ec10e" kind="variable"><name>TriggerEnable</name></member>
+    <member refid="struct_x_dfe_equ___trigger_1abb1f689a1d09550f6a3a4d0e1405a94a" kind="variable"><name>Mode</name></member>
+    <member refid="struct_x_dfe_equ___trigger_1a3a6122fa78ba07460a2bdcd3950d93dd" kind="variable"><name>TuserEdgeLevel</name></member>
+    <member refid="struct_x_dfe_equ___trigger_1ad35b66f6f839d6a076f6ab788301f668" kind="variable"><name>StateOutput</name></member>
+    <member refid="struct_x_dfe_equ___trigger_1a74b3104cbdfe7ddfd92b12718a97aa60" kind="variable"><name>TUSERBit</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___trigger_cfg" kind="struct"><name>XDfeEqu_TriggerCfg</name>
+    <member refid="struct_x_dfe_equ___trigger_cfg_1a4bb27d0c97a24ba4f73ee2b0aa7e94f7" kind="variable"><name>Activate</name></member>
+    <member refid="struct_x_dfe_equ___trigger_cfg_1a06852548f52f277fdb53f58b25ef9ab5" kind="variable"><name>LowPower</name></member>
+    <member refid="struct_x_dfe_equ___trigger_cfg_1ad01f760efe2299ef40a630964e36b0fe" kind="variable"><name>Update</name></member>
+  </compound>
+  <compound refid="struct_x_dfe_equ___version" kind="struct"><name>XDfeEqu_Version</name>
+    <member refid="struct_x_dfe_equ___version_1a3c30dc13799220be1b6e67d5b6b7a20f" kind="variable"><name>Major</name></member>
+    <member refid="struct_x_dfe_equ___version_1a9cb8895049b445403caa7eb4db644a0d" kind="variable"><name>Minor</name></member>
+    <member refid="struct_x_dfe_equ___version_1a4536bb52d5a8f7f1837e6c1c66fd220a" kind="variable"><name>Revision</name></member>
+    <member refid="struct_x_dfe_equ___version_1a7baa2749b782aeef17e8b0804135de37" kind="variable"><name>Patch</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xdfeequ_8c" kind="file"><name>xdfeequ.c</name>
+    <member refid="group__dfeequ_1ga17ee416036c9dbea48b203ba2cf8f00f" kind="define"><name>XDFEEQU_TAP_MAX</name></member>
+    <member refid="group__dfeequ_1ga7660f2beb6a13a91282b6e2319701616" kind="define"><name>XDFEEQU_DRIVER_VERSION_MINOR</name></member>
+    <member refid="group__dfeequ_1gac4d18ecc912ace6457c7fbe891e0cbd7" kind="define"><name>XDFEEQU_DRIVER_VERSION_MAJOR</name></member>
+    <member refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" kind="function"><name>XDfeEqu_InstanceInit</name></member>
+    <member refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" kind="function"><name>XDfeEqu_InstanceClose</name></member>
+    <member refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" kind="function"><name>XDfeEqu_Reset</name></member>
+    <member refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" kind="function"><name>XDfeEqu_Configure</name></member>
+    <member refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" kind="function"><name>XDfeEqu_Initialize</name></member>
+    <member refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" kind="function"><name>XDfeEqu_Activate</name></member>
+    <member refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" kind="function"><name>XDfeEqu_Deactivate</name></member>
+    <member refid="group__dfeequ_1ga7343bc5dbb0c15974f3c15184955ad89" kind="function"><name>XDfeEqu_GetStateID</name></member>
+    <member refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" kind="function"><name>XDfeEqu_Update</name></member>
+    <member refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" kind="function"><name>XDfeEqu_GetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" kind="function"><name>XDfeEqu_SetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" kind="function"><name>XDfeEqu_LoadCoefficients</name></member>
+    <member refid="group__dfeequ_1ga0223057a4cb6242c44ddf078d49bb509" kind="function"><name>XDfeEqu_GetActiveSets</name></member>
+    <member refid="group__dfeequ_1ga4996ddd3d1b3e4a372ece433df9a5766" kind="function"><name>XDfeEqu_SetTUserDelay</name></member>
+    <member refid="group__dfeequ_1ga5bf51f632644d52094760f6560d399dc" kind="function"><name>XDfeEqu_GetTUserDelay</name></member>
+    <member refid="group__dfeequ_1gaec6fe6a5dad5653305058c1f3b72111a" kind="function"><name>XDfeEqu_GetTDataDelay</name></member>
+    <member refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" kind="function"><name>XDfeEqu_GetVersions</name></member>
+  </compound>
+  <compound refid="xdfeequ_8h" kind="file"><name>xdfeequ.h</name>
+    <member refid="group__dfeequ_1gafa958a022563aa0b6dfa7c714793b91d" kind="define"><name>XDFEEQU_MAX_NUM_INSTANCES</name></member>
+    <member refid="group__dfeequ_1ga7bf8c1ca44844d1aa92e906e9ab2c959" kind="define"><name>XDFEEQU_INSTANCE_EXISTS</name></member>
+    <member refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" kind="define"><name>XST_SUCCESS</name></member>
+    <member refid="group__dfeequ_1ga9478d2b97aa40e09052dee2571940ef9" kind="define"><name>XST_FAILURE</name></member>
+    <member refid="group__dfeequ_1ga0554c517156fd8a4ba486fd05303ecc5" kind="define"><name>XDFEEQU_NODE_NAME_MAX_LENGTH</name></member>
+    <member refid="group__dfeequ_1ga99a39fd91f592f1b752b984392872ecd" kind="define"><name>XDFEEQU_ANT_NUM_MAX</name></member>
+    <member refid="group__dfeequ_1gaadf9be0bc4827eaac4d5008b9faa9456" kind="define"><name>XDFEEQU_CHANNEL_NUM</name></member>
+    <member refid="group__dfeequ_1ga4d60c6f305213213dfd6e74958db6488" kind="define"><name>XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX</name></member>
+    <member refid="group__dfeequ_1gacff5bea44d61c3c275a962ce79ab7c6e" kind="define"><name>XDFEEQU_MAX_NUMBER_OF_UNITS_REAL</name></member>
+    <member refid="group__dfeequ_1gae6ce8af571e21eb59ae21ec998164642" kind="define"><name>XDFEEQU_NUM_COEFF</name></member>
+    <member refid="group__dfeequ_1ga82ddb44f51cd9e5acfdc6ece541dd788" kind="define"><name>XDFEEQU_DATAPATH_MODE_REAL</name></member>
+    <member refid="group__dfeequ_1ga76e23380bb8727b7a0911033d89acd58" kind="define"><name>XDFEEQU_DATAPATH_MODE_COMPLEX</name></member>
+    <member refid="group__dfeequ_1ga023ff98141bd1c5721ba461a697a109f" kind="enum"><name>XDfeEqu_StateId</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa20b5a3ffc1c22a1f9d0bae0db1c6fe77" kind="enumvalue"><name>XDFEEQU_STATE_NOT_READY</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa3be0bb48ca98583d5c9ea76534cf9825" kind="enumvalue"><name>XDFEEQU_STATE_READY</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa6af779270f7014e3f99a4c7a9e3d1a45" kind="enumvalue"><name>XDFEEQU_STATE_RESET</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fabd0e710ed73a1c8ea158301ddf96e4a8" kind="enumvalue"><name>XDFEEQU_STATE_CONFIGURED</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa49ec4868109b8f1c3e286e92070d5e61" kind="enumvalue"><name>XDFEEQU_STATE_INITIALISED</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa765d8176e3699b911928f667e5708057" kind="enumvalue"><name>XDFEEQU_STATE_OPERATIONAL</name></member>
+    <member refid="group__dfeequ_1ga4b24553f052bbb6aae7623e647e703c9" kind="typedef"><name>u32</name></member>
+    <member refid="group__dfeequ_1ga511bb645f13930f9dfb7378323c18d8c" kind="typedef"><name>u16</name></member>
+    <member refid="group__dfeequ_1ga10801722996ad842da66f2e8410abbfd" kind="typedef"><name>u8</name></member>
+    <member refid="group__dfeequ_1ga11ec34ef758da01f2b58048ee9f341a4" kind="typedef"><name>s32</name></member>
+    <member refid="group__dfeequ_1ga16625962bdbeef4eeed1ca29afaf9315" kind="typedef"><name>s16</name></member>
+    <member refid="group__dfeequ_1ga188d2e643418d2823898e7886eb9450a" kind="typedef"><name>u64</name></member>
+    <member refid="group__dfeequ_1ga5e4313b611ec4cd604fa6ce89384919e" kind="typedef"><name>s64</name></member>
+    <member refid="group__dfeequ_1gaead5279be31a82e3bf411e4dcb051668" kind="typedef"><name>s8</name></member>
+    <member refid="group__dfeequ_1gad8c54b25ec7b33426b580746cc703e67" kind="typedef"><name>XDfeEqu_StateId</name></member>
+    <member refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" kind="function"><name>XDfeEqu_InstanceInit</name></member>
+    <member refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" kind="function"><name>XDfeEqu_InstanceClose</name></member>
+    <member refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" kind="function"><name>XDfeEqu_Reset</name></member>
+    <member refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" kind="function"><name>XDfeEqu_Configure</name></member>
+    <member refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" kind="function"><name>XDfeEqu_Initialize</name></member>
+    <member refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" kind="function"><name>XDfeEqu_Activate</name></member>
+    <member refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" kind="function"><name>XDfeEqu_Deactivate</name></member>
+    <member refid="group__dfeequ_1ga7343bc5dbb0c15974f3c15184955ad89" kind="function"><name>XDfeEqu_GetStateID</name></member>
+    <member refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" kind="function"><name>XDfeEqu_Update</name></member>
+    <member refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" kind="function"><name>XDfeEqu_GetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" kind="function"><name>XDfeEqu_SetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" kind="function"><name>XDfeEqu_LoadCoefficients</name></member>
+    <member refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" kind="function"><name>XDfeEqu_GetEventStatus</name></member>
+    <member refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" kind="function"><name>XDfeEqu_ClearEventStatus</name></member>
+    <member refid="group__dfeequ_1ga532bd09f9d28805fb487f0d2f8e00679" kind="function"><name>XDfeEqu_SetInterruptMask</name></member>
+    <member refid="group__dfeequ_1gabe7873b94d13d47c80bf23035136e326" kind="function"><name>XDfeEqu_GetInterruptMask</name></member>
+    <member refid="group__dfeequ_1ga0223057a4cb6242c44ddf078d49bb509" kind="function"><name>XDfeEqu_GetActiveSets</name></member>
+    <member refid="group__dfeequ_1ga4996ddd3d1b3e4a372ece433df9a5766" kind="function"><name>XDfeEqu_SetTUserDelay</name></member>
+    <member refid="group__dfeequ_1ga5bf51f632644d52094760f6560d399dc" kind="function"><name>XDfeEqu_GetTUserDelay</name></member>
+    <member refid="group__dfeequ_1gaec6fe6a5dad5653305058c1f3b72111a" kind="function"><name>XDfeEqu_GetTDataDelay</name></member>
+    <member refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" kind="function"><name>XDfeEqu_GetVersions</name></member>
+  </compound>
+  <compound refid="xdfeequ__examples_8c" kind="file"><name>xdfeequ_examples.c</name>
+    <member refid="xdfeequ__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" kind="function"><name>XDfeSi570_SetMgtOscillator</name></member>
+    <member refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" kind="function"><name>XDfeEqu_SelfExample</name></member>
+    <member refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" kind="function"><name>XDfeEqu_PassThroughExample</name></member>
+    <member refid="xdfeequ__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xdfeequ__examples_8h" kind="file"><name>xdfeequ_examples.h</name>
+    <member refid="xdfeequ__examples_8h_1a771abf96c9d02c44c866f14ef6116236" kind="define"><name>XDFEEQU_NODE_NAME</name></member>
+    <member refid="xdfeequ__examples_8h_1a30155680a8ff27b3dd1b14b28e65d9a4" kind="define"><name>XDFESI570_CURRENT_FREQUENCY</name></member>
+    <member refid="xdfeequ__examples_8h_1a5599898d6dff2449f73d0407823f6a8e" kind="define"><name>XDFESI570_NEW_FREQUENCY</name></member>
+  </compound>
+  <compound refid="xdfeequ__hw_8h" kind="file"><name>xdfeequ_hw.h</name>
+  </compound>
+  <compound refid="xdfeequ__intr_8c" kind="file"><name>xdfeequ_intr.c</name>
+    <member refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" kind="function"><name>XDfeEqu_GetEventStatus</name></member>
+    <member refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" kind="function"><name>XDfeEqu_ClearEventStatus</name></member>
+    <member refid="group__dfeequ_1ga532bd09f9d28805fb487f0d2f8e00679" kind="function"><name>XDfeEqu_SetInterruptMask</name></member>
+    <member refid="group__dfeequ_1gabe7873b94d13d47c80bf23035136e326" kind="function"><name>XDfeEqu_GetInterruptMask</name></member>
+  </compound>
+  <compound refid="xdfeequ__one__instance__initialization__example_8c" kind="file"><name>xdfeequ_one_instance_initialization_example.c</name>
+    <member refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" kind="function"><name>XDfeEqu_SelfExample</name></member>
+  </compound>
+  <compound refid="xdfeequ__pass__through__example_8c" kind="file"><name>xdfeequ_pass_through_example.c</name>
+    <member refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" kind="function"><name>XDfeEqu_PassThroughExample</name></member>
+  </compound>
+  <compound refid="xdfeequ__sinit_8c" kind="file"><name>xdfeequ_sinit.c</name>
+    <member refid="group__dfeequ_1ga5ed9f5e4fa700245288efdeed3644b8f" kind="define"><name>XDFEEQU_COMPATIBLE_STRING</name></member>
+    <member refid="group__dfeequ_1gacc51abc0975cf17991386a5526bca352" kind="define"><name>XDFEEQU_PLATFORM_DEVICE_DIR</name></member>
+    <member refid="group__dfeequ_1ga5c3d71fc9c73825829596aaa9b4875a3" kind="define"><name>XDFEEQU_COMPATIBLE_PROPERTY</name></member>
+    <member refid="group__dfeequ_1ga745a257ca28b2c0fdfb58d734d73b395" kind="define"><name>XDFEEQU_BUS_NAME</name></member>
+    <member refid="group__dfeequ_1ga4d534f202c2701c40746965fc1ef3604" kind="define"><name>XDFEEQU_BASEADDR_PROPERTY</name></member>
+    <member refid="group__dfeequ_1ga2f4a8487c457ff65881cd429833e953a" kind="define"><name>XDFEEQU_BASEADDR_SIZE</name></member>
+    <member refid="group__dfeequ_1gab9fad612ba3d9e7a0c3386372a2ef4ff" kind="define"><name>XDFEEQU_COMPLEX_MODE_CFG</name></member>
+    <member refid="group__dfeequ_1ga39ebbf5887c63099292bf84a82f5cb87" kind="define"><name>XDFEEQU_COMPONENT_NAME_CFG</name></member>
+    <member refid="group__dfeequ_1ga8657b0656414a601136013c93cf26c9c" kind="define"><name>XDFEEQU_DATA_IWIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga8ac77a64cf081d7ca9964d27fa65c481" kind="define"><name>XDFEEQU_DATA_OWIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga3b16976ef0df0de5465af7e6ae1468cd" kind="define"><name>XDFEEQU_MAX_SAMPLE_RATE_CFG</name></member>
+    <member refid="group__dfeequ_1ga81d7ba1ee961aa54fafc2d02f8958e0b" kind="define"><name>XDFEEQU_NUM_CHANNELS_CFG</name></member>
+    <member refid="group__dfeequ_1gaeeb5afb3302ab8e41cbb4123d41188cf" kind="define"><name>XDFEEQU_TUSER_WIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga6ca4f1819ef8fd10f55e6663714f48b2" kind="define"><name>XDFEEQU_USE_EMULATION_CFG</name></member>
+  </compound>
+  <compound refid="xdfesi570__mgt_8c" kind="file"><name>xdfesi570_mgt.c</name>
+    <member refid="xdfesi570__mgt_8c_1a959ffc15251ddc9b3a883a30f97b7715" kind="define"><name>XST_SUCCESS</name></member>
+    <member refid="xdfesi570__mgt_8c_1a9478d2b97aa40e09052dee2571940ef9" kind="define"><name>XST_FAILURE</name></member>
+    <member refid="xdfesi570__mgt_8c_1a7515860142f6a9f05514087ab30f2142" kind="define"><name>Xil_AssertNonvoid</name></member>
+    <member refid="xdfesi570__mgt_8c_1a9395713dc287b6f0a3f615922c073c28" kind="define"><name>Xil_AssertVoid</name></member>
+    <member refid="xdfesi570__mgt_8c_1a91af76edc81fb5b92caeac7d721d81b6" kind="define"><name>XDFESI570_I2C1_DEVICE</name></member>
+    <member refid="xdfesi570__mgt_8c_1a8ee9ca05816969e9e87a50f4807e01c5" kind="define"><name>XDFESI570_I2C1_MGT_DEVICE</name></member>
+    <member refid="xdfesi570__mgt_8c_1a7bd9d3e07a8678e0c28e6ddb0b683364" kind="define"><name>FD_DEVICE</name></member>
+    <member refid="xdfesi570__mgt_8c_1a522c15c84f7693d74468d9acfb622674" kind="define"><name>FD_I2C1</name></member>
+    <member refid="xdfesi570__mgt_8c_1ae650092dd9e6c887c70dd101e1c50ea4" kind="define"><name>LOG</name></member>
+    <member refid="xdfesi570__mgt_8c_1a2249249f336230523efb8f581095b276" kind="define"><name>RF_DATA_READ_BIT</name></member>
+    <member refid="xdfesi570__mgt_8c_1a2e7da5d749ce70ca99d5e8e9c9289618" kind="define"><name>I2C_ADDR_BUS_SWITCH</name></member>
+    <member refid="xdfesi570__mgt_8c_1a8f1d7774fcbae9c941b1b1682edb249d" kind="define"><name>I2C_DATA_LENGTH_BUS_SWITCH</name></member>
+    <member refid="xdfesi570__mgt_8c_1aa0a5647ebbd48ef62efefec87d16f4ff" kind="define"><name>I2C_ADDR_I2C_MGT_SI570</name></member>
+    <member refid="xdfesi570__mgt_8c_1a3f6839ffe80223d0e661473c73c3c54f" kind="define"><name>NUM_IIC_RETRIES</name></member>
+    <member refid="xdfesi570__mgt_8c_1afb88bf12d8a1611b7cc40a6fe0c35140" kind="define"><name>DELAY_100uS</name></member>
+    <member refid="xdfesi570__mgt_8c_1ac7ee8c24b5519939e69fe73d669a2fde" kind="define"><name>XDFESI570_NOT_USED</name></member>
+    <member refid="xdfesi570__mgt_8c_1a42a776488cbc47d2afd796c7ff1061ef" kind="define"><name>XDFESI570_HS_DIV_MAX_ID</name></member>
+    <member refid="xdfesi570__mgt_8c_1ab48d67da037461d2a803e407ffcc1e8a" kind="define"><name>XDFESI570_DCO_MAX</name></member>
+    <member refid="xdfesi570__mgt_8c_1a5a2154ce3fc399e8dd267afa8cd1eb45" kind="define"><name>XDFESI570_DCO_MIN</name></member>
+    <member refid="xdfesi570__mgt_8c_1a1fff13d68983e93263fb092142d4f6c9" kind="define"><name>XDFESI570_N1_HS_DIV_REG</name></member>
+    <member refid="xdfesi570__mgt_8c_1a752d09b1e03fa2050c69f2a343dcc681" kind="define"><name>XDFESI570_RFREQ_LSB_REG</name></member>
+    <member refid="xdfesi570__mgt_8c_1a79905a8451714e71a878e5216f749869" kind="define"><name>XDFESI570_CLKOUT_DIVIDER_MAX</name></member>
+    <member refid="xdfesi570__mgt_8c_1a56bcb1904afc1d6d70568343c5c8945b" kind="define"><name>XDFESI570_CONTROL_REG</name></member>
+    <member refid="xdfesi570__mgt_8c_1a07639a84e3a67ae34e82494ad6772001" kind="define"><name>XDFESI570_CONTROL_APPLY_FREQ</name></member>
+    <member refid="xdfesi570__mgt_8c_1a07b7d76a5ec52293fe786d6c9f4ec67e" kind="define"><name>XDFESI570_FREEZE_DCO_REG</name></member>
+    <member refid="xdfesi570__mgt_8c_1a5c046cd196e6b81a136af1a43a0acba8" kind="define"><name>XDFESI570_FREEZE_DCO</name></member>
+    <member refid="xdfesi570__mgt_8c_1a23dbcd29019a5614787b26005bcc85e8" kind="define"><name>XDFESI570_UNFREEZE_DCO</name></member>
+    <member refid="xdfesi570__mgt_8c_1aed742c436da53c1080638ce6ef7d13de" kind="typedef"><name>u8</name></member>
+    <member refid="xdfesi570__mgt_8c_1a10e94b422ef0c20dcdec20d31a1f5049" kind="typedef"><name>u32</name></member>
+    <member refid="xdfesi570__mgt_8c_1a43587df2891df6fbc5d25bff6a210c10" kind="typedef"><name>u64</name></member>
+    <member refid="xdfesi570__mgt_8c_1aa62c75d314a0d1f37f79c4b73b2292e2" kind="typedef"><name>s32</name></member>
+    <member refid="xdfesi570__mgt_8c_1af8dda98018d9b1ee23c4c1260ff479ca" kind="variable"><name>fd_i2c1</name></member>
+    <member refid="xdfesi570__mgt_8c_1ad3e356880eecc1ddb8c84feecf46314c" kind="variable"><name>fd_device</name></member>
+    <member refid="xdfesi570__mgt_8c_1a59c17d25ab4dff817912bed78249e947" kind="function"><name>XDfeSi570_InitI2C</name></member>
+    <member refid="xdfesi570__mgt_8c_1a2e88d95cb407da4c95e79fb78e7e1f13" kind="function"><name>XDfeSi570_I2CRdData_sub</name></member>
+    <member refid="xdfesi570__mgt_8c_1ae9109ed0b303346497102202670a3855" kind="function"><name>XDfeSi570_I2CWrData_sub</name></member>
+    <member refid="xdfesi570__mgt_8c_1a1b6a63953778a2d66f6a0fb94d88e20c" kind="function"><name>XDfeSi570_GetBusSwitchI2C1</name></member>
+    <member refid="xdfesi570__mgt_8c_1a33340197d4e862d7d5bcf09301e07328" kind="function"><name>XDfeSi570_SetBusSwitchI2C1</name></member>
+    <member refid="xdfesi570__mgt_8c_1af8c4512ce18c0f5f1d636ac89a485378" kind="function"><name>XDfeSi570_I2CRdData</name></member>
+    <member refid="xdfesi570__mgt_8c_1afc0d1840aaa23641c0d81a8130172d3f" kind="function"><name>XDfeSi570_I2CWrData</name></member>
+    <member refid="xdfesi570__mgt_8c_1a7fe5e3ac3147b03fa92fd3d29617093a" kind="function"><name>XDfeSi570_SetFrequency</name></member>
+    <member refid="xdfesi570__mgt_8c_1a8d6260ec4e9c87f1d509d69c971b12c8" kind="function"><name>XDfeSi570_SetPL</name></member>
+    <member refid="xdfesi570__mgt_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" kind="function"><name>XDfeSi570_SetMgtOscillator</name></member>
+  </compound>
+  <compound refid="group__dfeequ" kind="group"><name>dfeequ</name>
+    <member refid="group__dfeequ_1ga023ff98141bd1c5721ba461a697a109f" kind="enum"><name>XDfeEqu_StateId</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa20b5a3ffc1c22a1f9d0bae0db1c6fe77" kind="enumvalue"><name>XDFEEQU_STATE_NOT_READY</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa3be0bb48ca98583d5c9ea76534cf9825" kind="enumvalue"><name>XDFEEQU_STATE_READY</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa6af779270f7014e3f99a4c7a9e3d1a45" kind="enumvalue"><name>XDFEEQU_STATE_RESET</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fabd0e710ed73a1c8ea158301ddf96e4a8" kind="enumvalue"><name>XDFEEQU_STATE_CONFIGURED</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa49ec4868109b8f1c3e286e92070d5e61" kind="enumvalue"><name>XDFEEQU_STATE_INITIALISED</name></member>
+    <member refid="group__dfeequ_1gga023ff98141bd1c5721ba461a697a109fa765d8176e3699b911928f667e5708057" kind="enumvalue"><name>XDFEEQU_STATE_OPERATIONAL</name></member>
+    <member refid="group__dfeequ_1ga4b24553f052bbb6aae7623e647e703c9" kind="typedef"><name>u32</name></member>
+    <member refid="group__dfeequ_1ga511bb645f13930f9dfb7378323c18d8c" kind="typedef"><name>u16</name></member>
+    <member refid="group__dfeequ_1ga10801722996ad842da66f2e8410abbfd" kind="typedef"><name>u8</name></member>
+    <member refid="group__dfeequ_1ga11ec34ef758da01f2b58048ee9f341a4" kind="typedef"><name>s32</name></member>
+    <member refid="group__dfeequ_1ga16625962bdbeef4eeed1ca29afaf9315" kind="typedef"><name>s16</name></member>
+    <member refid="group__dfeequ_1ga188d2e643418d2823898e7886eb9450a" kind="typedef"><name>u64</name></member>
+    <member refid="group__dfeequ_1ga5e4313b611ec4cd604fa6ce89384919e" kind="typedef"><name>s64</name></member>
+    <member refid="group__dfeequ_1gaead5279be31a82e3bf411e4dcb051668" kind="typedef"><name>s8</name></member>
+    <member refid="group__dfeequ_1gad8c54b25ec7b33426b580746cc703e67" kind="typedef"><name>XDfeEqu_StateId</name></member>
+    <member refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" kind="function"><name>XDfeEqu_InstanceInit</name></member>
+    <member refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" kind="function"><name>XDfeEqu_InstanceClose</name></member>
+    <member refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" kind="function"><name>XDfeEqu_Reset</name></member>
+    <member refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" kind="function"><name>XDfeEqu_Configure</name></member>
+    <member refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" kind="function"><name>XDfeEqu_Initialize</name></member>
+    <member refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" kind="function"><name>XDfeEqu_Activate</name></member>
+    <member refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" kind="function"><name>XDfeEqu_Deactivate</name></member>
+    <member refid="group__dfeequ_1ga7343bc5dbb0c15974f3c15184955ad89" kind="function"><name>XDfeEqu_GetStateID</name></member>
+    <member refid="group__dfeequ_1ga493536b08c0b66462836a39423895aae" kind="function"><name>XDfeEqu_Update</name></member>
+    <member refid="group__dfeequ_1ga6007e4c4495f0ce8cd9c4ec9ec2a94a4" kind="function"><name>XDfeEqu_GetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1ga8397193c8752e178b30f4161ebf24617" kind="function"><name>XDfeEqu_SetTriggersCfg</name></member>
+    <member refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" kind="function"><name>XDfeEqu_LoadCoefficients</name></member>
+    <member refid="group__dfeequ_1ga0223057a4cb6242c44ddf078d49bb509" kind="function"><name>XDfeEqu_GetActiveSets</name></member>
+    <member refid="group__dfeequ_1ga4996ddd3d1b3e4a372ece433df9a5766" kind="function"><name>XDfeEqu_SetTUserDelay</name></member>
+    <member refid="group__dfeequ_1ga5bf51f632644d52094760f6560d399dc" kind="function"><name>XDfeEqu_GetTUserDelay</name></member>
+    <member refid="group__dfeequ_1gaec6fe6a5dad5653305058c1f3b72111a" kind="function"><name>XDfeEqu_GetTDataDelay</name></member>
+    <member refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" kind="function"><name>XDfeEqu_GetVersions</name></member>
+    <member refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" kind="function"><name>XDfeEqu_GetEventStatus</name></member>
+    <member refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" kind="function"><name>XDfeEqu_ClearEventStatus</name></member>
+    <member refid="group__dfeequ_1ga532bd09f9d28805fb487f0d2f8e00679" kind="function"><name>XDfeEqu_SetInterruptMask</name></member>
+    <member refid="group__dfeequ_1gabe7873b94d13d47c80bf23035136e326" kind="function"><name>XDfeEqu_GetInterruptMask</name></member>
+    <member refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" kind="function"><name>XDfeEqu_SelfExample</name></member>
+    <member refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" kind="function"><name>XDfeEqu_PassThroughExample</name></member>
+    <member refid="group__dfeequ_1ga17ee416036c9dbea48b203ba2cf8f00f" kind="define"><name>XDFEEQU_TAP_MAX</name></member>
+    <member refid="group__dfeequ_1ga7660f2beb6a13a91282b6e2319701616" kind="define"><name>XDFEEQU_DRIVER_VERSION_MINOR</name></member>
+    <member refid="group__dfeequ_1gac4d18ecc912ace6457c7fbe891e0cbd7" kind="define"><name>XDFEEQU_DRIVER_VERSION_MAJOR</name></member>
+    <member refid="group__dfeequ_1gafa958a022563aa0b6dfa7c714793b91d" kind="define"><name>XDFEEQU_MAX_NUM_INSTANCES</name></member>
+    <member refid="group__dfeequ_1ga7bf8c1ca44844d1aa92e906e9ab2c959" kind="define"><name>XDFEEQU_INSTANCE_EXISTS</name></member>
+    <member refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" kind="define"><name>XST_SUCCESS</name></member>
+    <member refid="group__dfeequ_1ga9478d2b97aa40e09052dee2571940ef9" kind="define"><name>XST_FAILURE</name></member>
+    <member refid="group__dfeequ_1ga0554c517156fd8a4ba486fd05303ecc5" kind="define"><name>XDFEEQU_NODE_NAME_MAX_LENGTH</name></member>
+    <member refid="group__dfeequ_1ga99a39fd91f592f1b752b984392872ecd" kind="define"><name>XDFEEQU_ANT_NUM_MAX</name></member>
+    <member refid="group__dfeequ_1gaadf9be0bc4827eaac4d5008b9faa9456" kind="define"><name>XDFEEQU_CHANNEL_NUM</name></member>
+    <member refid="group__dfeequ_1ga4d60c6f305213213dfd6e74958db6488" kind="define"><name>XDFEEQU_MAX_NUMBER_OF_UNITS_COMPLEX</name></member>
+    <member refid="group__dfeequ_1gacff5bea44d61c3c275a962ce79ab7c6e" kind="define"><name>XDFEEQU_MAX_NUMBER_OF_UNITS_REAL</name></member>
+    <member refid="group__dfeequ_1gae6ce8af571e21eb59ae21ec998164642" kind="define"><name>XDFEEQU_NUM_COEFF</name></member>
+    <member refid="group__dfeequ_1ga82ddb44f51cd9e5acfdc6ece541dd788" kind="define"><name>XDFEEQU_DATAPATH_MODE_REAL</name></member>
+    <member refid="group__dfeequ_1ga76e23380bb8727b7a0911033d89acd58" kind="define"><name>XDFEEQU_DATAPATH_MODE_COMPLEX</name></member>
+    <member refid="group__dfeequ_1ga5ed9f5e4fa700245288efdeed3644b8f" kind="define"><name>XDFEEQU_COMPATIBLE_STRING</name></member>
+    <member refid="group__dfeequ_1gacc51abc0975cf17991386a5526bca352" kind="define"><name>XDFEEQU_PLATFORM_DEVICE_DIR</name></member>
+    <member refid="group__dfeequ_1ga5c3d71fc9c73825829596aaa9b4875a3" kind="define"><name>XDFEEQU_COMPATIBLE_PROPERTY</name></member>
+    <member refid="group__dfeequ_1ga745a257ca28b2c0fdfb58d734d73b395" kind="define"><name>XDFEEQU_BUS_NAME</name></member>
+    <member refid="group__dfeequ_1ga4d534f202c2701c40746965fc1ef3604" kind="define"><name>XDFEEQU_BASEADDR_PROPERTY</name></member>
+    <member refid="group__dfeequ_1ga2f4a8487c457ff65881cd429833e953a" kind="define"><name>XDFEEQU_BASEADDR_SIZE</name></member>
+    <member refid="group__dfeequ_1gab9fad612ba3d9e7a0c3386372a2ef4ff" kind="define"><name>XDFEEQU_COMPLEX_MODE_CFG</name></member>
+    <member refid="group__dfeequ_1ga39ebbf5887c63099292bf84a82f5cb87" kind="define"><name>XDFEEQU_COMPONENT_NAME_CFG</name></member>
+    <member refid="group__dfeequ_1ga8657b0656414a601136013c93cf26c9c" kind="define"><name>XDFEEQU_DATA_IWIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga8ac77a64cf081d7ca9964d27fa65c481" kind="define"><name>XDFEEQU_DATA_OWIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga3b16976ef0df0de5465af7e6ae1468cd" kind="define"><name>XDFEEQU_MAX_SAMPLE_RATE_CFG</name></member>
+    <member refid="group__dfeequ_1ga81d7ba1ee961aa54fafc2d02f8958e0b" kind="define"><name>XDFEEQU_NUM_CHANNELS_CFG</name></member>
+    <member refid="group__dfeequ_1gaeeb5afb3302ab8e41cbb4123d41188cf" kind="define"><name>XDFEEQU_TUSER_WIDTH_CFG</name></member>
+    <member refid="group__dfeequ_1ga6ca4f1819ef8fd10f55e6663714f48b2" kind="define"><name>XDFEEQU_USE_EMULATION_CFG</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_79db6a9669176cbcad64647693ce6cda" kind="dir"><name>dfeequ</name>
+  </compound>
+  <compound refid="dir_c001b1df6c6794449810458ebe42a53a" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_e89b2f9a702741db72c45b9d5a43a369" kind="dir"><name>src</name>
+  </compound>
+</doxygenindex>

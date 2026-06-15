@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_uart_ps_buffer" kind="struct" prot="public">
+    <compoundname>XUartPsBuffer</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a3f4db132461c120c7327c8aef37a1a1c" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XUartPsBuffer::NextBytePtr</definition>
+        <argsstring></argsstring>
+        <name>NextBytePtr</name>
+        <briefdescription>
+<para>Pointer to next byte for transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a4bbca311e5d38c200af1cc97369f8f64" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsBuffer::RequestedBytes</definition>
+        <argsstring></argsstring>
+        <name>RequestedBytes</name>
+        <briefdescription>
+<para>Total bytes requested. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_uart_ps_buffer_1a4541056d01b0c7024e35b653b8ef61fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUartPsBuffer::RemainingBytes</definition>
+        <argsstring></argsstring>
+        <name>RemainingBytes</name>
+        <briefdescription>
+<para>Bytes remaining to transfer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartps/src/xuartps.h" bodystart="300" bodyend="304"/>
+    <listofallmembers>
+      <member refid="struct_x_uart_ps_buffer_1a3f4db132461c120c7327c8aef37a1a1c" prot="public" virt="non-virtual"><scope>XUartPsBuffer</scope><name>NextBytePtr</name></member>
+      <member refid="struct_x_uart_ps_buffer_1a4541056d01b0c7024e35b653b8ef61fe" prot="public" virt="non-virtual"><scope>XUartPsBuffer</scope><name>RemainingBytes</name></member>
+      <member refid="struct_x_uart_ps_buffer_1a4bbca311e5d38c200af1cc97369f8f64" prot="public" virt="non-virtual"><scope>XUartPsBuffer</scope><name>RequestedBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

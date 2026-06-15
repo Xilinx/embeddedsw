@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_b9794e0d2b1365328f652c6c8bcb0429" kind="dir">
+    <compoundname>dp12rxss</compoundname>
+    <innerdir refid="dir_1dfe27474b43c2474282f6d52e92eb80">examples</innerdir>
+    <innerdir refid="dir_9b41ca2c44f4b1d8e9da24f2941cd45a">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/"/>
+  </compounddef>
+</doxygen>

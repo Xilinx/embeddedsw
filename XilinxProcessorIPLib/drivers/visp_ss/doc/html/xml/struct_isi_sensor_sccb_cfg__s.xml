@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_sccb_cfg__s" kind="struct" prot="public">
+    <compoundname>IsiSensorSccbCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__isi__vvsensor_1gaa4d4498989a710c34f7a67a1564d1dcd" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiSensorSccbCfg_s::slaveAddr</definition>
+        <argsstring></argsstring>
+        <name>slaveAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1ga420d5ace47425d85420757d47a2e0114" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiSensorSccbCfg_s::addrByte</definition>
+        <argsstring></argsstring>
+        <name>addrByte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__vvsensor_1ga57e727c45e262c36b4e2a3d6b7d0b41b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiSensorSccbCfg_s::dataByte</definition>
+        <argsstring></argsstring>
+        <name>dataByte</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_vvsensor.h" bodystart="97" bodyend="101"/>
+    <listofallmembers>
+      <member refid="group__isi__vvsensor_1ga420d5ace47425d85420757d47a2e0114" prot="public" virt="non-virtual"><scope>IsiSensorSccbCfg_s</scope><name>addrByte</name></member>
+      <member refid="group__isi__vvsensor_1ga57e727c45e262c36b4e2a3d6b7d0b41b" prot="public" virt="non-virtual"><scope>IsiSensorSccbCfg_s</scope><name>dataByte</name></member>
+      <member refid="group__isi__vvsensor_1gaa4d4498989a710c34f7a67a1564d1dcd" prot="public" virt="non-virtual"><scope>IsiSensorSccbCfg_s</scope><name>slaveAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

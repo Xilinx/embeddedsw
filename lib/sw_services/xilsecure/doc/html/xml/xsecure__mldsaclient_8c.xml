@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__mldsaclient_8c" kind="file">
+    <compoundname>xsecure_mldsaclient.c</compoundname>
+    <includes refid="xsecure__mldsaclient_8h" local="yes">xsecure_mldsaclient.h</includes>
+    <incdepgraph>
+      <node id="2221">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2222">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2217">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2213">
+        <label>xsecure_mldsaclient.c</label>
+        <link refid="xsecure_mldsaclient.c"/>
+        <childnode refid="2214" relation="include">
+        </childnode>
+      </node>
+      <node id="2214">
+        <label>xsecure_mldsaclient.h</label>
+        <link refid="xsecure__mldsaclient_8h"/>
+        <childnode refid="2215" relation="include">
+        </childnode>
+        <childnode refid="2216" relation="include">
+        </childnode>
+        <childnode refid="2219" relation="include">
+        </childnode>
+      </node>
+      <node id="2219">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2220" relation="include">
+        </childnode>
+        <childnode refid="2215" relation="include">
+        </childnode>
+        <childnode refid="2221" relation="include">
+        </childnode>
+        <childnode refid="2222" relation="include">
+        </childnode>
+        <childnode refid="2223" relation="include">
+        </childnode>
+      </node>
+      <node id="2223">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2215">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2218">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2220">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2216">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="2217" relation="include">
+        </childnode>
+        <childnode refid="2218" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__mldsa__client__apis_1gafbec3393033ad7b82ae44b8b8f31aab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_MldsaSignVerifyClient</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u64 MldsaParamAddr)</argsstring>
+        <name>XSecure_MldsaSignVerifyClient</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MldsaParamAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to verify MLDSA signature for a given data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MldsaParamAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of <ref refid="struct_x_secure___mldsa_sign_verify_params" kindref="compound">XSecure_MldsaSignVerifyParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignVerify API and returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/mldsa/xsecure_mldsaclient.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/mldsa/xsecure_mldsaclient.c" bodystart="42" bodyend="69"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acae7aac48a1aa0f61534e840a3b737b23d" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="124">XSECURE_API_MLDSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__mldsa__client__apis_1ga6459e0032debbbfe8536196083c5748e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_MldsaSignGenerateClient</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u64 MldsaParamAddr)</argsstring>
+        <name>XSecure_MldsaSignGenerateClient</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MldsaParamAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to generate MLDSA signature for a given data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MldsaParamAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of <ref refid="struct_x_secure___mldsa_sign_gen_params" kindref="compound">XSecure_MldsaSignGenParams</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On success</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignGenerate API and returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/mldsa/xsecure_mldsaclient.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/mldsa/xsecure_mldsaclient.c" bodystart="83" bodyend="110"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5cd9b1622e532c4e713eefd055a7b708" compoundref="2vp__p_2xsecure__plat__defs_8h" startline="125">XSECURE_API_MLDSA_SIGN_GENERATE</references>
+        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the client interface functions for MLDSA driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  03/03/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/****************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mldsaclient_8h" kindref="compound">xsecure_mldsaclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="42" refid="group__xsecure__mldsa__client__apis_1gafbec3393033ad7b82ae44b8b8f31aab7" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__mldsa__client__apis_1gafbec3393033ad7b82ae44b8b8f31aab7" kindref="member">XSecure_MldsaSignVerifyClient</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>MldsaParamAddr)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acae7aac48a1aa0f61534e840a3b737b23d" kindref="member">XSECURE_API_MLDSA_SIGN_VERIFY</ref>),</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MldsaParamAddr,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MldsaParamAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" kindref="member">XSecure_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>(u32<sp/>*)Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="83" refid="group__xsecure__mldsa__client__apis_1ga6459e0032debbbfe8536196083c5748e" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__mldsa__client__apis_1ga6459e0032debbbfe8536196083c5748e" kindref="member">XSecure_MldsaSignGenerateClient</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/>u64<sp/>MldsaParamAddr)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Payload[PAYLOAD_ARG_CNT]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;MailboxPtr<sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_PACK_PAYLOAD2(Payload,<sp/>((InstancePtr-&gt;SlrIndex<sp/>&lt;&lt;<sp/><ref refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" kindref="member">XSECURE_SLR_INDEX_SHIFT</ref>)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/><ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5cd9b1622e532c4e713eefd055a7b708" kindref="member">XSECURE_API_MLDSA_SIGN_GENERATE</ref>),</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MldsaParamAddr,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(MldsaParamAddr<sp/>&gt;&gt;<sp/><ref refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" kindref="member">XSECURE_ADDR_HIGH_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" kindref="member">XSecure_ProcessMailbox</ref>(InstancePtr-&gt;MailboxPtr,<sp/>Payload,<sp/>PAYLOAD_ARG_CNT);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/mldsa/xsecure_mldsaclient.c"/>
+  </compounddef>
+</doxygen>

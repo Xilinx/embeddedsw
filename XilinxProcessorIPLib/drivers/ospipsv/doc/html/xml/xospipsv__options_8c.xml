@@ -1,0 +1,733 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xospipsv__options_8c" kind="file">
+    <compoundname>xospipsv_options.c</compoundname>
+    <includes refid="xospipsv_8h" local="yes">xospipsv.h</includes>
+    <includes refid="xospipsv__control_8h" local="yes">xospipsv_control.h</includes>
+    <incdepgraph>
+      <node id="132">
+        <label>xospipsv.h</label>
+        <link refid="xospipsv_8h"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="134">
+        <label>xospipsv_hw.h</label>
+        <link refid="xospipsv__hw_8h"/>
+      </node>
+      <node id="138">
+        <label>xil_util.h</label>
+      </node>
+      <node id="136">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="133">
+        <label>xstatus.h</label>
+      </node>
+      <node id="137">
+        <label>xospipsv_control.h</label>
+        <link refid="xospipsv__control_8h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+      <node id="131">
+        <label>xospipsv_options.c</label>
+        <link refid="xospipsv_options.c"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_options_map" prot="public">OptionsMap</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" prot="public" static="no">
+        <name>XOSPIPSV_NUM_OPTIONS</name>
+        <initializer>(sizeof(OptionsTable) / sizeof(OptionsMap))</initializer>
+        <briefdescription>
+<para>Total number of configuration options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" compoundref="xospipsv__options_8c" startline="228" endline="250">XOspiPsv_GetOptions</referencedby>
+        <referencedby refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" compoundref="xospipsv__options_8c" startline="99" endline="212">XOspiPsv_SetOptions</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__ospipsv__api_1gabc5db3dcd7184b5e18386c2eec6c9140" prot="public" static="yes" mutable="no">
+        <type>OptionsMap</type>
+        <definition>OptionsMap OptionsTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>OptionsTable</name>
+        <initializer>= {
+	{XOSPIPSV_CLK_POL_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_POL_FLD_MASK)},
+	{XOSPIPSV_CLK_PHASE_OPTION, (XOSPIPSV_CONFIG_REG_SEL_CLK_PHASE_FLD_MASK)},
+	{<ref refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" kindref="member">XOSPIPSV_DAC_EN_OPTION</ref>, (((u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK) |
+			(u32)XOSPIPSV_CONFIG_REG_ENB_AHB_ADDR_REMAP_FLD_MASK)},
+	{XOSPIPSV_IDAC_EN_OPTION, (XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK)},
+	{XOSPIPSV_CRC_EN_OPTION, (XOSPIPSV_CONFIG_REG_CRC_ENABLE_FLD_MASK)},
+	{XOSPIPSV_DB_OP_EN_OPTION, (XOSPIPSV_CONFIG_REG_DUAL_BYTE_OPCODE_EN_FLD_MASK)},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_SetOptions</definition>
+        <argsstring>(XOspiPsv *InstancePtr, u32 Options)</argsstring>
+        <name>XOspiPsv_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>Sets the options for the OSPIPSV device driver.The options control how the device behaves relative to the OSPIPSV bus. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device must be idle rather than busy transferring data before setting these device options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the specified options to be set. This is a bit mask where a 1 indicates the option should be turned ON and a 0 indicates no action. One or more bit Values may be contained in the mask. See the bit definitions named XOSPIPSV_*_OPTIONS in the file <ref refid="xospipsv_8h" kindref="compound">xospipsv.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if options are successfully set.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. The transfer must complete or be aborted before setting options.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is not thread-safe. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="435" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="99" bodyend="212"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a9b9e338c1d571e790ff16645246952f1" compoundref="xospipsv_8h" startline="159">XOspiPsv::IsBusy</references>
+        <references refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" compoundref="xospipsv_8h" startline="154">XOspiPsv::IsReady</references>
+        <references refid="struct_x_ospi_psv_1abb16a8f44c9ec93487044060e9fb522e" compoundref="xospipsv_8h" startline="160">XOspiPsv::OpMode</references>
+        <references refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" compoundref="xospipsv_8h" startline="195">XOSPIPSV_DAC_EN_OPTION</references>
+        <references refid="group__ospipsv__api_1gad90cde53aa1c59a7a9a8450c8b109782" compoundref="xospipsv_8h" startline="226">XOSPIPSV_IDAC_MODE</references>
+        <references refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" compoundref="xospipsv__options_8c" startline="74">XOSPIPSV_NUM_OPTIONS</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_GetOptions</definition>
+        <argsstring>(const XOspiPsv *InstancePtr)</argsstring>
+        <name>XOspiPsv_GetOptions</name>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets the options for the OSPIPSV device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The options control how the device behaves relative to the OSPIPSV bus.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Options contains the specified options currently set. This is a bit Value where a 1 means the option is on, and a 0 means the option is off. See the bit definitions named XOSPIPSV_*_OPTIONS in file <ref refid="xospipsv_8h" kindref="compound">xospipsv.h</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="436" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="228" bodyend="250"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" compoundref="xospipsv_8h" startline="154">XOspiPsv::IsReady</references>
+        <references refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" compoundref="xospipsv__options_8c" startline="74">XOSPIPSV_NUM_OPTIONS</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a0a18f01d96728256fb8c63b4916039c0" compoundref="xospipsv__flash__polled__example_8c" startline="1767" endline="1832">MicronBlockProtectTest</referencedby>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_SetClkPrescaler</definition>
+        <argsstring>(XOspiPsv *InstancePtr, u8 Prescaler)</argsstring>
+        <name>XOspiPsv_SetClkPrescaler</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Prescaler</declname>
+        </param>
+        <briefdescription>
+<para>Configures the clock according to the prescaler passed. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Prescaler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock prescaler to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE if failed to set prescaler.<itemizedlist>
+<listitem><para>XST_DEVICE_IS_STARTED if the device is already started.</para></listitem><listitem><para>XST_DEVICE_BUSY if the device is currently transferring data. It must be stopped to re-initialize. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="433" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="268" bodyend="310"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a9b9e338c1d571e790ff16645246952f1" compoundref="xospipsv_8h" startline="159">XOspiPsv::IsBusy</references>
+        <references refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" compoundref="xospipsv_8h" startline="154">XOspiPsv::IsReady</references>
+        <references refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" compoundref="xospipsv_8h" startline="161">XOspiPsv::SdrDdrMode</references>
+        <references refid="group__ospipsv__api_1gafa87a0dae28a8b2927c5c8885f7306ff" compoundref="xospipsv_8h" startline="291">XOSPIPSV_CLK_PRESCALE_2</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <references refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</references>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_SetSdrDdrMode</definition>
+        <argsstring>(XOspiPsv *InstancePtr, u32 Mode)</argsstring>
+        <name>XOspiPsv_SetSdrDdrMode</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Configures the edge mode (SDR or DDR). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail to set. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="325" bodyend="396"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" compoundref="xospipsv_8h" startline="161">XOspiPsv::SdrDdrMode</references>
+        <references refid="group__ospipsv__api_1gaaeb2c46391be17bb6ad395bf2953a63a" compoundref="xospipsv_8h" startline="343">XOSPIPSV_EDGE_MODE_SDR_PHY</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <references refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" compoundref="xospipsv_8c" startline="820" endline="944">XOspiPsv_SetDllDelay</references>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+        <referencedby refid="group__ospipsv__api_1gae5a31f79cc2df46027e4b9f26cad97ad" compoundref="xospipsv_8c" startline="106" endline="201">XOspiPsv_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XOspiPsv_SelectFlash</definition>
+        <argsstring>(XOspiPsv *InstancePtr, u8 chip_select)</argsstring>
+        <name>XOspiPsv_SelectFlash</name>
+        <param>
+          <type><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>chip_select</declname>
+        </param>
+        <briefdescription>
+<para>Used to signify the OSPIPSV driver that the Hardware flash configuration being used. </para>        </briefdescription>
+        <detaileddescription>
+<para>This API should be called at least once in the application. If desired, it can be called multiple times when switching between communicating to different flash devices/using different configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>chip_select</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Flash Chip Select.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started. It must be stopped to re-initialize.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>If this function is not called at least once in the application, the driver assumes there is a single flash connected to the lower bus and CS line. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="420" bodyend="436"/>
+        <references refid="struct_x_ospi_psv_1ab2b697261a3df6ef3dd35b87192de190" compoundref="xospipsv_8h" startline="162">XOspiPsv::ChipSelect</references>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a6d28e30d23e136e4af00a436d43c9923" compoundref="xospipsv__flash__intr__example_8c" startline="770" endline="997">FlashErase</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ae08db22955675661860c9008890b0138" compoundref="xospipsv__flash__intr__example_8c" startline="1974" endline="1988">GetRealAddr</referencedby>
+        <referencedby refid="xospipsv__flash__non__blocking__read__example_8c_1aeca8b1ed044f11310838d4e024ca3323" compoundref="xospipsv__flash__non__blocking__read__example_8c" startline="225" endline="407">OspiPsvFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1ad601c2031bc6aa962fda586ed44872a9" compoundref="xospipsv__flash__intr__example_8c" startline="256" endline="450">OspiPsvInterruptFlashExample</referencedby>
+        <referencedby refid="xospipsv__flash__polled__example_8c_1a1fd69bc7caf0af026a8b73f2d51ba479" compoundref="xospipsv__flash__polled__example_8c" startline="234" endline="424">OspiPsvPolledFlashExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XOspiPsv_ConfigureAutoPolling</definition>
+        <argsstring>(const XOspiPsv *InstancePtr, u32 FlashMode)</argsstring>
+        <name>XOspiPsv_ConfigureAutoPolling</name>
+        <param>
+          <type>const <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FlashMode</declname>
+        </param>
+        <briefdescription>
+<para>Configures how the controller will poll the device following a write transfer in DAC mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FlashMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Edge mode. XOSPIPSV_EDGE_MODE_* represents valid values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if fail to set. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c" bodystart="453" bodyend="482"/>
+        <references refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" compoundref="xospipsv_8h" startline="134">XOspiPsv_Config::BaseAddress</references>
+        <references refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" compoundref="xospipsv_8h" startline="153">XOspiPsv::Config</references>
+        <references refid="struct_x_ospi_psv_1a3262e9917d4a04314a8a469c390fdbd2" compoundref="xospipsv_8h" startline="168">XOspiPsv::Extra_DummyCycle</references>
+        <references refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" compoundref="xospipsv_8h" startline="214">XOspiPsv_ReadReg</references>
+        <referencedby refid="xospipsv__flash__intr__example_8c_1a92ee697864550c95e476b41c43c0764f" compoundref="xospipsv__flash__intr__example_8c" startline="1725" endline="1956">FlashSetSDRDDRMode</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xospipsv_8h" kindref="compound">xospipsv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xospipsv__control_8h" kindref="compound">xospipsv_control.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Option;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}<sp/>OptionsMap;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>OptionsMap<sp/>OptionsTable[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{XOSPIPSV_CLK_POL_OPTION,<sp/>(XOSPIPSV_CONFIG_REG_SEL_CLK_POL_FLD_MASK)},</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{XOSPIPSV_CLK_PHASE_OPTION,<sp/>(XOSPIPSV_CONFIG_REG_SEL_CLK_PHASE_FLD_MASK)},</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" kindref="member">XOSPIPSV_DAC_EN_OPTION</ref>,<sp/>(((u32)XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK)<sp/>|</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XOSPIPSV_CONFIG_REG_ENB_AHB_ADDR_REMAP_FLD_MASK)},</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{XOSPIPSV_IDAC_EN_OPTION,<sp/>(XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK)},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{XOSPIPSV_CRC_EN_OPTION,<sp/>(XOSPIPSV_CONFIG_REG_CRC_ENABLE_FLD_MASK)},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{XOSPIPSV_DB_OP_EN_OPTION,<sp/>(XOSPIPSV_CONFIG_REG_DUAL_BYTE_OPCODE_EN_FLD_MASK)},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" refkind="member"><highlight class="preprocessor">#define<sp/>XOSPIPSV_NUM_OPTIONS<sp/><sp/><sp/><sp/>(sizeof(OptionsTable)<sp/>/<sp/>sizeof(OptionsMap))</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1gab47df170b16816d4cc11dee6c3008e3c" kindref="member">XOspiPsv_SetOptions</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>to<sp/>modify<sp/>the<sp/>Control<sp/>Register<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a9b9e338c1d571e790ff16645246952f1" kindref="member">IsBusy</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" kindref="member">XOSPIPSV_NUM_OPTIONS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Options<sp/>&amp;<sp/>OptionsTable[Index].Option)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>OptionsTable[Index].Mask;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((OptionsTable[Index].Mask<sp/>&amp;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_REMAP_ADDR_REG,<sp/>XOSPIPSV_REMAP_ADDR_VAL);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1abb16a8f44c9ec93487044060e9fb522e" kindref="member">OpMode</ref><sp/>=<sp/>XOSPIPSV_DAC_MODE;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>IOU_SLCR<sp/>MUX<sp/>selection<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Execution<sp/>is<sp/>happening<sp/>in<sp/>non<sp/>secure<sp/>world,<sp/>configure<sp/>MUX</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>settings<sp/>through<sp/>SMC<sp/>calls</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Request<sp/>for<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>MUX<sp/>settings<sp/>to<sp/>select<sp/>LINEAR<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_IOCTL_SMC_FID,<sp/>(((u64)PM_IOCTL_OSPI_MUX_SELECT<sp/>&lt;&lt;<sp/>32)<sp/>|<sp/>OSPI_NODE_ID)<sp/>,<sp/>PM_OSPI_MUX_SEL_LINEAR,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Release<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#elif<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>OSPI_AXI_MODE_SEL,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL)<sp/>|</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_REMAP_ADDR_REG,<sp/>0x0U);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((OptionsTable[Index].Mask<sp/>&amp;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG_ENB_DMA_IF_FLD_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1abb16a8f44c9ec93487044060e9fb522e" kindref="member">OpMode</ref><sp/>=<sp/><ref refid="group__ospipsv__api_1gad90cde53aa1c59a7a9a8450c8b109782" kindref="member">XOSPIPSV_IDAC_MODE</ref>;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Request<sp/>for<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>MUX<sp/>settings<sp/>to<sp/>select<sp/>DMA<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_IOCTL_SMC_FID,<sp/>(((u64)PM_IOCTL_OSPI_MUX_SELECT<sp/>&lt;&lt;<sp/>32)<sp/>|<sp/>OSPI_NODE_ID),<sp/>PM_OSPI_MUX_SEL_DMA,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Release<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#elif<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>OSPI_AXI_MODE_SEL,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(u32)OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL)<sp/>&amp;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(OptionsTable[Index].Option<sp/>==<sp/><ref refid="group__ospipsv__api_1ga15c0973b6b32cee5484231f4b0964024" kindref="member">XOSPIPSV_DAC_EN_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ConfigReg<sp/>&amp;<sp/>XOSPIPSV_CONFIG_REG_ENB_DIR_ACC_CTLR_FLD_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Execution<sp/>is<sp/>happening<sp/>in<sp/>non<sp/>secure<sp/>world,<sp/>configure<sp/>MUX</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>settings<sp/>through<sp/>SMC<sp/>calls</highlight></codeline>
+<codeline lineno="182"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Request<sp/>for<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_REQUEST_DEVICE_SMC_FID,OSPI_NODE_ID,0,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>MUX<sp/>settings<sp/>to<sp/>select<sp/>DMA<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_IOCTL_SMC_FID,<sp/>(((u64)PM_IOCTL_OSPI_MUX_SELECT<sp/>&lt;&lt;<sp/>32)<sp/>|<sp/>OSPI_NODE_ID)<sp/>,<sp/>PM_OSPI_MUX_SEL_DMA,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Release<sp/>OSPI<sp/>node<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Smc(PM_RELEASE_DEVICE_SMC_FID,OSPI_NODE_ID,0,<sp/>0,0,0,0,0);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#elif<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>OSPI_AXI_MODE_SEL,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(u32)OSPI_AXI_MODE_SEL_AXIS_MODE_SEL_MASK);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(XPMC_IOU_SLCR_BASEADDR,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPMC_IOU_SLCR_OSPI_MUX_SEL)<sp/>&amp;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(u32)XPMC_IOU_SLCR_OSPI_MUX_SEL_DAC_MASK);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~(OptionsTable[Index].Mask);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>XOSPIPSV_CONFIG_REG,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga19324f8c6c1156b26c84cc9d413a4801" kindref="member">XOspiPsv_GetOptions</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>OptionsFlag<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Loop<sp/>through<sp/>the<sp/>options<sp/>table<sp/>to<sp/>grab<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__ospipsv__api_1ga2de4ead260c6796c2ba21dd9c936f55b" kindref="member">XOSPIPSV_NUM_OPTIONS</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>current<sp/>options<sp/>from<sp/>OSPIPSV<sp/>configuration<sp/>register.</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ConfigReg<sp/>&amp;<sp/>OptionsTable[Index].Mask)<sp/>!=<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OptionsFlag<sp/>|=<sp/>OptionsTable[Index].Option;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>OptionsFlag;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="268" refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga45c51bcfa1e2d996298847c2b7910ba6" kindref="member">XOspiPsv_SetClkPrescaler</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>Prescaler)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a486b1d77ef231104cdfb09d61972c74c" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Prescaler<sp/>&lt;=<sp/>XOSPIPSV_CR_PRESC_MAXIMUM);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Do<sp/>not<sp/>allow<sp/>the<sp/>slave<sp/>select<sp/>to<sp/>change<sp/>while<sp/>a<sp/>transfer<sp/>is<sp/>in</highlight></codeline>
+<codeline lineno="279"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>progress.<sp/>Not<sp/>thread-safe.</highlight></codeline>
+<codeline lineno="280"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a9b9e338c1d571e790ff16645246952f1" kindref="member">IsBusy</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_DEVICE_BUSY;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XOSPIPSV_EDGE_MODE_SDR_NON_PHY)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Prescaler<sp/>==<sp/><ref refid="group__ospipsv__api_1gafa87a0dae28a8b2927c5c8885f7306ff" kindref="member">XOSPIPSV_CLK_PRESCALE_2</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>configuration<sp/>register,<sp/>mask<sp/>out<sp/>the<sp/>relevant<sp/>bits,<sp/>and<sp/>set</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>them<sp/>with<sp/>the<sp/>shifted<sp/>Value<sp/>passed<sp/>into<sp/>the<sp/>function.<sp/>Write<sp/>the</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>results<sp/>back<sp/>to<sp/>the<sp/>configuration<sp/>register.</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>(u32)(~(XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_MASK));</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>(u32)<sp/>((u32)Prescaler<sp/>&amp;<sp/>XOSPIPSV_CR_PRESC_MAXIMUM)</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>(u32)XOSPIPSV_CONFIG_REG_MSTR_BAUD_DIV_FLD_SHIFT;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>XOSPIPSV_CONFIG_REG,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" kindref="member">XOspiPsv_SetDllDelay</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="325" refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga74efb98d92b16935c3ea41e4f77cecea" kindref="member">XOspiPsv_SetSdrDdrMode</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mode)</highlight></codeline>
+<codeline lineno="326"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ConfigReg;</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DlyCtrlReg;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Mode<sp/>!=<sp/>XOSPIPSV_EDGE_MODE_DDR_PHY)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mode<sp/>!=<sp/><ref refid="group__ospipsv__api_1gaaeb2c46391be17bb6ad395bf2953a63a" kindref="member">XOSPIPSV_EDGE_MODE_SDR_PHY</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Mode<sp/>!=<sp/>XOSPIPSV_EDGE_MODE_SDR_NON_PHY))<sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>=<sp/>Mode;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_CONFIG_REG);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_WRITE_COMPLETION_CTRL_REG);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>&amp;=<sp/>~XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>&amp;=<sp/>~XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_MASK;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>((u32)XOSPIPSV_POLL_CNT_FLD_NON_PHY<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XOSPIPSV_EDGE_MODE_DDR_PHY)<sp/>||</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/><ref refid="group__ospipsv__api_1gaaeb2c46391be17bb6ad395bf2953a63a" kindref="member">XOSPIPSV_EDGE_MODE_SDR_PHY</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>XOSPIPSV_CONFIG_REG_PHY_MODE_ENABLE_FLD_MASK;</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>((u32)XOSPIPSV_POLL_CNT_FLD_PHY<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_WRITE_COMPLETION_CTRL_REG_POLL_COUNT_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XOSPIPSV_EDGE_MODE_DDR_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg<sp/>|=<sp/>XOSPIPSV_CONFIG_REG_ENABLE_DTR_PROTOCOL_FLD_MASK;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>XOSPIPSV_CONFIG_REG,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigReg);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_WRITE_COMPLETION_CTRL_REG,<sp/>ReadReg);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_RD_DATA_CAPTURE_REG);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>&amp;=<sp/>~XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_MASK;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XOSPIPSV_EDGE_MODE_SDR_NON_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>(XOSPIPSV_NON_PHY_RD_DLY<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(SPARTANUP)</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>&amp;=<sp/>~(XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_MASK<sp/>|</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_RD_DATA_CAPTURE_REG_SAMPLE_EDGE_SEL_FLD_MASK);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1acf4693770163d8061cd9eb4bdaa32605" kindref="member">SdrDdrMode</ref><sp/>==<sp/>XOSPIPSV_EDGE_MODE_SDR_NON_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DlyCtrlReg<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>XOSPIPSV_RD_DATA_CAPTURE_REG_SAMPLE_EDGE_SEL_FLD_MASK<sp/>|</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XOSPIPSV_RD_DATA_CAPTURE_REG_4_CLK_CYCLES<sp/>&lt;&lt;<sp/>XOSPIPSV_RD_DATA_CAPTURE_REG_DELAY_FLD_SHIFT);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DlyCtrlReg<sp/>=<sp/>XOSPIPSV_REFCLK_DLY_DEFAULT_VAL;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,<sp/>XOSPIPSV_REFCLK_DLY_CTRL_REG,<sp/>DlyCtrlReg);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_RD_DATA_CAPTURE_REG,<sp/>ReadReg);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__ospipsv__api_1ga3946ea37da6d9ce478f29eca239b597b" kindref="member">XOspiPsv_SetDllDelay</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="420" refid="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__ospipsv__api_1ga2d17525a71d9df7268fcc4269f19270c" kindref="member">XOspiPsv_SelectFlash</ref>(<ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u8<sp/>chip_select)</highlight></codeline>
+<codeline lineno="421"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(chip_select<sp/>&gt;=<sp/>2U)<sp/>{</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>ERROR_PATH;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1ab2b697261a3df6ef3dd35b87192de190" kindref="member">ChipSelect</ref><sp/>=<sp/>chip_select;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(u32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">ERROR_PATH:</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="453" refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ospipsv__api_1gaec5aab7a4cee335804494e31429b53ec" kindref="member">XOspiPsv_ConfigureAutoPolling</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref><sp/>*InstancePtr,<sp/>u32<sp/>FlashMode)</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadReg;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dummy;</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>=<sp/><ref refid="group__ospipsv__api_1ga1101ef0b6b567210a26c9b95e3ef2de5" kindref="member">XOspiPsv_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>&amp;=<sp/>~XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK;</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dummy<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a3262e9917d4a04314a8a469c390fdbd2" kindref="member">Extra_DummyCycle</ref>;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FlashMode<sp/>==<sp/>XOSPIPSV_EDGE_MODE_DDR_PHY)<sp/>{</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dummy<sp/>+=<sp/>XOSPIPSV_DDR_STATS_REG_DUMMY;</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="469"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Limit<sp/>the<sp/>dummy<sp/>value<sp/>to<sp/>stay<sp/>within<sp/>the<sp/>range<sp/>of</highlight></codeline>
+<codeline lineno="470"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>device_status_nb_dummy<sp/>to<sp/>prevent<sp/>it<sp/>from<sp/>exceeding<sp/>the<sp/>allowed<sp/>range</highlight></codeline>
+<codeline lineno="471"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Dummy<sp/>&gt;=<sp/>(XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT))<sp/>{</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dummy<sp/>=<sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_MASK<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT;</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadReg<sp/>|=<sp/>((u32)Dummy<sp/>&lt;&lt;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG_DEVICE_STATUS_NB_DUMMY_SHIFT);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_WriteReg(InstancePtr-&gt;<ref refid="struct_x_ospi_psv_1a587249b499cdfc3e3da286143039006c" kindref="member">Config</ref>.<ref refid="struct_x_ospi_psv___config_1afae7c066f010841cb9a5214d9ff1e455" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOSPIPSV_POLLING_FLASH_STATUS_REG,<sp/>ReadReg);</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XOspiPsv_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="482"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/src/xospipsv_options.c"/>
+  </compounddef>
+</doxygen>

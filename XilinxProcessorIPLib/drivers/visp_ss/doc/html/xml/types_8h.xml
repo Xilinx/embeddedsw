@@ -1,0 +1,2143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="types_8h" kind="file">
+    <compoundname>types.h</compoundname>
+    <includes refid="linux__compat_8h" local="yes">linux_compat.h</includes>
+    <includes local="no">limits.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includedby refid="hal__i2c_8h" local="no">hal_i2c.h</includedby>
+    <includedby refid="ox03f10__priv_8h" local="no">ox03f10_priv.h</includedby>
+    <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
+    <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
+    <includedby refid="sensor__drv_8c" local="no">sensor_drv.c</includedby>
+    <includedby refid="cam__device__common_8h" local="yes">cam_device_common.h</includedby>
+    <includedby refid="cam__device__calibration_8h" local="yes">cam_device_calibration.h</includedby>
+    <includedby refid="cam__device__buffer__api_8h" local="yes">cam_device_buffer_api.h</includedby>
+    <includedby refid="cam__device__isp__system__api_8h" local="yes">cam_device_isp_system_api.h</includedby>
+    <includedby refid="cam__device__api_8c" local="no">cam_device_api.c</includedby>
+    <includedby refid="buf__defs_8h" local="no">buf_defs.h</includedby>
+    <includedby refid="fw__common_8h" local="no">fw_common.h</includedby>
+    <includedby refid="system__module_8h" local="no">system_module.h</includedby>
+    <includedby refid="trace_8h" local="yes">trace.h</includedby>
+    <includedby refid="builtins_8h" local="yes">builtins.h</includedby>
+    <includedby refid="dct__assert_8h" local="yes">dct_assert.h</includedby>
+    <includedby refid="offline__trace_8h" local="yes">offline_trace.h</includedby>
+    <includedby refid="isi_8h" local="no">isi.h</includedby>
+    <includedby refid="isi__iss_8h" local="no">isi_iss.h</includedby>
+    <includedby refid="isi__metadata_8h" local="no">isi_metadata.h</includedby>
+    <includedby refid="isi__otp_8h" local="no">isi_otp.h</includedby>
+    <includedby refid="isi__priv_8h" local="no">isi_priv.h</includedby>
+    <includedby refid="vvdevice__common_8h" local="no">vvdevice_common.h</includedby>
+    <incdepgraph>
+      <node id="7945">
+        <label>stdlib.h</label>
+      </node>
+      <node id="7947">
+        <label>stddef.h</label>
+      </node>
+      <node id="7946">
+        <label>limits.h</label>
+      </node>
+      <node id="7942">
+        <label>types.h</label>
+        <link refid="types.h"/>
+        <childnode refid="7943" relation="include">
+        </childnode>
+        <childnode refid="7946" relation="include">
+        </childnode>
+        <childnode refid="7947" relation="include">
+        </childnode>
+      </node>
+      <node id="7944">
+        <label>stdio.h</label>
+      </node>
+      <node id="7943">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="7944" relation="include">
+        </childnode>
+        <childnode refid="7945" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="8150">
+        <label>hal_api.h</label>
+        <childnode refid="7950" relation="include">
+        </childnode>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7964" relation="include">
+        </childnode>
+        <childnode refid="7965" relation="include">
+        </childnode>
+        <childnode refid="7966" relation="include">
+        </childnode>
+      </node>
+      <node id="8127">
+        <label>isi_iss.h</label>
+        <link refid="isi__iss_8h"/>
+        <childnode refid="8128" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+        <childnode refid="8058" relation="include">
+        </childnode>
+        <childnode refid="8129" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8009">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="8101">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8002" relation="include">
+        </childnode>
+        <childnode refid="8008" relation="include">
+        </childnode>
+      </node>
+      <node id="8137">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="7961">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="7986">
+        <label>vvdevice_common.h</label>
+        <childnode refid="7987" relation="include">
+        </childnode>
+        <childnode refid="7990" relation="include">
+        </childnode>
+        <childnode refid="7992" relation="include">
+        </childnode>
+        <childnode refid="7994" relation="include">
+        </childnode>
+        <childnode refid="7996" relation="include">
+        </childnode>
+        <childnode refid="7998" relation="include">
+        </childnode>
+        <childnode refid="8000" relation="include">
+        </childnode>
+        <childnode refid="8002" relation="include">
+        </childnode>
+        <childnode refid="8004" relation="include">
+        </childnode>
+        <childnode refid="8006" relation="include">
+        </childnode>
+        <childnode refid="8008" relation="include">
+        </childnode>
+        <childnode refid="8010" relation="include">
+        </childnode>
+        <childnode refid="8012" relation="include">
+        </childnode>
+        <childnode refid="8014" relation="include">
+        </childnode>
+        <childnode refid="8016" relation="include">
+        </childnode>
+        <childnode refid="8018" relation="include">
+        </childnode>
+        <childnode refid="8020" relation="include">
+        </childnode>
+        <childnode refid="8022" relation="include">
+        </childnode>
+        <childnode refid="8024" relation="include">
+        </childnode>
+        <childnode refid="8026" relation="include">
+        </childnode>
+        <childnode refid="8028" relation="include">
+        </childnode>
+        <childnode refid="8030" relation="include">
+        </childnode>
+        <childnode refid="8032" relation="include">
+        </childnode>
+        <childnode refid="8034" relation="include">
+        </childnode>
+        <childnode refid="8036" relation="include">
+        </childnode>
+        <childnode refid="8038" relation="include">
+        </childnode>
+        <childnode refid="8040" relation="include">
+        </childnode>
+        <childnode refid="8042" relation="include">
+        </childnode>
+        <childnode refid="8044" relation="include">
+        </childnode>
+        <childnode refid="8046" relation="include">
+        </childnode>
+        <childnode refid="8048" relation="include">
+        </childnode>
+        <childnode refid="8050" relation="include">
+        </childnode>
+        <childnode refid="8052" relation="include">
+        </childnode>
+        <childnode refid="8054" relation="include">
+        </childnode>
+      </node>
+      <node id="7952">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="7950" relation="include">
+        </childnode>
+        <childnode refid="7953" relation="include">
+        </childnode>
+      </node>
+      <node id="8033">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="8031">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="7964">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="7959" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+      </node>
+      <node id="8131">
+        <label>fw_common.h</label>
+        <childnode refid="8066" relation="include">
+        </childnode>
+      </node>
+      <node id="8117">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8038" relation="include">
+        </childnode>
+      </node>
+      <node id="8093">
+        <label>cam_device_rgbir_api_v2.c</label>
+      </node>
+      <node id="7965">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="7961" relation="include">
+        </childnode>
+      </node>
+      <node id="8091">
+        <label>cam_device_hist64_api.c</label>
+      </node>
+      <node id="8090">
+        <label>cam_device_hist256_api.c</label>
+      </node>
+      <node id="8027">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="8094">
+        <label>cam_device_tpg_api.c</label>
+      </node>
+      <node id="8064">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="8065" relation="include">
+        </childnode>
+      </node>
+      <node id="8147">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="8037">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="7954">
+        <label>max9296.h</label>
+        <childnode refid="7955" relation="include">
+        </childnode>
+      </node>
+      <node id="8104">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8014" relation="include">
+        </childnode>
+      </node>
+      <node id="7963">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="8105">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8016" relation="include">
+        </childnode>
+      </node>
+      <node id="8014">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8015" relation="include">
+        </childnode>
+      </node>
+      <node id="8136">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="8137" relation="include">
+        </childnode>
+        <childnode refid="8138" relation="include">
+        </childnode>
+        <childnode refid="8139" relation="include">
+        </childnode>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="8140" relation="include">
+        </childnode>
+        <childnode refid="7974" relation="include">
+        </childnode>
+        <childnode refid="8068" relation="include">
+        </childnode>
+        <childnode refid="7975" relation="include">
+        </childnode>
+        <childnode refid="8058" relation="include">
+        </childnode>
+        <childnode refid="8133" relation="include">
+        </childnode>
+        <childnode refid="8143" relation="include">
+        </childnode>
+        <childnode refid="8144" relation="include">
+        </childnode>
+        <childnode refid="8145" relation="include">
+        </childnode>
+        <childnode refid="8146" relation="include">
+        </childnode>
+        <childnode refid="8122" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="7995">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="8008">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8009" relation="include">
+        </childnode>
+      </node>
+      <node id="8066">
+        <label>control.h</label>
+        <childnode refid="8067" relation="include">
+        </childnode>
+      </node>
+      <node id="8051">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="8034">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8035" relation="include">
+        </childnode>
+      </node>
+      <node id="8118">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8002" relation="include">
+        </childnode>
+        <childnode refid="8044" relation="include">
+        </childnode>
+        <childnode refid="8050" relation="include">
+        </childnode>
+      </node>
+      <node id="8015">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="8132">
+        <label>system_module.h</label>
+        <childnode refid="8062" relation="include">
+        </childnode>
+      </node>
+      <node id="8063">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="7987" relation="include">
+        </childnode>
+      </node>
+      <node id="8099">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8002" relation="include">
+        </childnode>
+        <childnode refid="8008" relation="include">
+        </childnode>
+        <childnode refid="8044" relation="include">
+        </childnode>
+      </node>
+      <node id="8055">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="8088">
+        <label>cam_device_ge_api.c</label>
+      </node>
+      <node id="7973">
+        <label>cam_device_api.h</label>
+        <childnode refid="7974" relation="include">
+        </childnode>
+        <childnode refid="8057" relation="include">
+        </childnode>
+        <childnode refid="8059" relation="include">
+        </childnode>
+        <childnode refid="7975" relation="include">
+        </childnode>
+        <childnode refid="8058" relation="include">
+        </childnode>
+        <childnode refid="8060" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8061" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+        <childnode refid="8056" relation="include">
+        </childnode>
+      </node>
+      <node id="7951">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="7950" relation="include">
+        </childnode>
+      </node>
+      <node id="8124">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="7973" relation="include">
+        </childnode>
+      </node>
+      <node id="8096">
+        <label>cam_device_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7980">
+        <label>vvpath.c</label>
+      </node>
+      <node id="8045">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="8074">
+        <label>cam_device_cpd_api.c</label>
+      </node>
+      <node id="7969">
+        <label>isi_control.h</label>
+        <link refid="isi__control_8h"/>
+        <childnode refid="7970" relation="include">
+        </childnode>
+      </node>
+      <node id="7966">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="7962" relation="include">
+        </childnode>
+      </node>
+      <node id="8120">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8044" relation="include">
+        </childnode>
+        <childnode refid="8050" relation="include">
+        </childnode>
+      </node>
+      <node id="8082">
+        <label>cam_device_cnr_api.c</label>
+      </node>
+      <node id="7990">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+      </node>
+      <node id="8076">
+        <label>cam_device_dg_api.c</label>
+      </node>
+      <node id="8080">
+        <label>cam_device_af_api.c</label>
+      </node>
+      <node id="8140">
+        <label>vlog.h</label>
+        <childnode refid="8141" relation="include">
+        </childnode>
+      </node>
+      <node id="8025">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="8004">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8005" relation="include">
+        </childnode>
+      </node>
+      <node id="7988">
+        <label>submodule_def.h</label>
+        <childnode refid="7985" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="7958">
+        <label>max9295.c</label>
+      </node>
+      <node id="8052">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8053" relation="include">
+        </childnode>
+      </node>
+      <node id="8040">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8041" relation="include">
+        </childnode>
+      </node>
+      <node id="8019">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="8044">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8045" relation="include">
+        </childnode>
+      </node>
+      <node id="8072">
+        <label>cam_device_bls_api.c</label>
+      </node>
+      <node id="8035">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="8012">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8013" relation="include">
+        </childnode>
+      </node>
+      <node id="8022">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7993" relation="include">
+        </childnode>
+        <childnode refid="8023" relation="include">
+        </childnode>
+      </node>
+      <node id="8113">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8028" relation="include">
+        </childnode>
+      </node>
+      <node id="8134">
+        <label>trace.c</label>
+        <link refid="trace_8c"/>
+      </node>
+      <node id="8058">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="8151">
+        <label>dct_assert.c</label>
+        <link refid="dct__assert_8c"/>
+      </node>
+      <node id="7974">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="7975" relation="include">
+        </childnode>
+        <childnode refid="7976" relation="include">
+        </childnode>
+        <childnode refid="7978" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8056" relation="include">
+        </childnode>
+      </node>
+      <node id="8111">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8024" relation="include">
+        </childnode>
+      </node>
+      <node id="7994">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7995" relation="include">
+        </childnode>
+      </node>
+      <node id="8114">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8030" relation="include">
+        </childnode>
+      </node>
+      <node id="8038">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8039" relation="include">
+        </childnode>
+      </node>
+      <node id="8021">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="8122">
+        <label>vvformat.h</label>
+        <childnode refid="8123" relation="include">
+        </childnode>
+      </node>
+      <node id="8121">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8052" relation="include">
+        </childnode>
+      </node>
+      <node id="8130">
+        <label>isi_priv.h</label>
+        <link refid="isi__priv_8h"/>
+        <childnode refid="7964" relation="include">
+        </childnode>
+        <childnode refid="7965" relation="include">
+        </childnode>
+        <childnode refid="7966" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+        <childnode refid="8129" relation="include">
+        </childnode>
+      </node>
+      <node id="7975">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="8054">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8000">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8001" relation="include">
+        </childnode>
+      </node>
+      <node id="7985">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="8083">
+        <label>cam_device_hdr_api.c</label>
+      </node>
+      <node id="8075">
+        <label>cam_device_cproc_api.c</label>
+      </node>
+      <node id="8145">
+        <label>oslayer_APU.c</label>
+      </node>
+      <node id="7962">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="8011">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="7967">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="7950">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="7968">
+        <label>cam_device_common.h</label>
+        <childnode refid="7969" relation="include">
+        </childnode>
+        <childnode refid="7971" relation="include">
+        </childnode>
+        <childnode refid="7973" relation="include">
+        </childnode>
+        <childnode refid="8062" relation="include">
+        </childnode>
+        <childnode refid="8063" relation="include">
+        </childnode>
+        <childnode refid="8097" relation="include">
+        </childnode>
+        <childnode refid="8098" relation="include">
+        </childnode>
+        <childnode refid="8099" relation="include">
+        </childnode>
+        <childnode refid="8100" relation="include">
+        </childnode>
+        <childnode refid="8101" relation="include">
+        </childnode>
+        <childnode refid="8102" relation="include">
+        </childnode>
+        <childnode refid="8103" relation="include">
+        </childnode>
+        <childnode refid="8104" relation="include">
+        </childnode>
+        <childnode refid="8105" relation="include">
+        </childnode>
+        <childnode refid="8106" relation="include">
+        </childnode>
+        <childnode refid="8107" relation="include">
+        </childnode>
+        <childnode refid="8108" relation="include">
+        </childnode>
+        <childnode refid="8109" relation="include">
+        </childnode>
+        <childnode refid="8110" relation="include">
+        </childnode>
+        <childnode refid="8111" relation="include">
+        </childnode>
+        <childnode refid="8112" relation="include">
+        </childnode>
+        <childnode refid="8113" relation="include">
+        </childnode>
+        <childnode refid="8114" relation="include">
+        </childnode>
+        <childnode refid="8115" relation="include">
+        </childnode>
+        <childnode refid="8116" relation="include">
+        </childnode>
+        <childnode refid="8117" relation="include">
+        </childnode>
+        <childnode refid="8118" relation="include">
+        </childnode>
+        <childnode refid="8119" relation="include">
+        </childnode>
+        <childnode refid="8120" relation="include">
+        </childnode>
+        <childnode refid="8121" relation="include">
+        </childnode>
+        <childnode refid="8065" relation="include">
+        </childnode>
+        <childnode refid="7976" relation="include">
+        </childnode>
+        <childnode refid="7978" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8122" relation="include">
+        </childnode>
+        <childnode refid="8056" relation="include">
+        </childnode>
+      </node>
+      <node id="8078">
+        <label>cam_device_dpcc_api.c</label>
+      </node>
+      <node id="8081">
+        <label>cam_device_afm_api.c</label>
+      </node>
+      <node id="8107">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="7994" relation="include">
+        </childnode>
+      </node>
+      <node id="7955">
+        <label>max9296.c</label>
+      </node>
+      <node id="8068">
+        <label>cam_device.c</label>
+      </node>
+      <node id="7987">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7989" relation="include">
+        </childnode>
+      </node>
+      <node id="8125">
+        <label>buf_defs.h</label>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7968" relation="include">
+        </childnode>
+        <childnode refid="7974" relation="include">
+        </childnode>
+        <childnode refid="8126" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8122" relation="include">
+        </childnode>
+      </node>
+      <node id="8073">
+        <label>cam_device_ccm_api.c</label>
+      </node>
+      <node id="8071">
+        <label>cam_device_awb_api.c</label>
+      </node>
+      <node id="8023">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="8010">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8011" relation="include">
+        </childnode>
+      </node>
+      <node id="8065">
+        <label>cam_device_app.h</label>
+        <childnode refid="8066" relation="include">
+        </childnode>
+        <childnode refid="8067" relation="include">
+        </childnode>
+        <childnode refid="7972" relation="include">
+        </childnode>
+        <childnode refid="8068" relation="include">
+        </childnode>
+        <childnode refid="8059" relation="include">
+        </childnode>
+        <childnode refid="7975" relation="include">
+        </childnode>
+        <childnode refid="8058" relation="include">
+        </childnode>
+        <childnode refid="8069" relation="include">
+        </childnode>
+        <childnode refid="8070" relation="include">
+        </childnode>
+        <childnode refid="8071" relation="include">
+        </childnode>
+        <childnode refid="8072" relation="include">
+        </childnode>
+        <childnode refid="8073" relation="include">
+        </childnode>
+        <childnode refid="8074" relation="include">
+        </childnode>
+        <childnode refid="8075" relation="include">
+        </childnode>
+        <childnode refid="8076" relation="include">
+        </childnode>
+        <childnode refid="8077" relation="include">
+        </childnode>
+        <childnode refid="8078" relation="include">
+        </childnode>
+        <childnode refid="8079" relation="include">
+        </childnode>
+        <childnode refid="8080" relation="include">
+        </childnode>
+        <childnode refid="8081" relation="include">
+        </childnode>
+        <childnode refid="8082" relation="include">
+        </childnode>
+        <childnode refid="8083" relation="include">
+        </childnode>
+        <childnode refid="8084" relation="include">
+        </childnode>
+        <childnode refid="8085" relation="include">
+        </childnode>
+        <childnode refid="8086" relation="include">
+        </childnode>
+        <childnode refid="8087" relation="include">
+        </childnode>
+        <childnode refid="8088" relation="include">
+        </childnode>
+        <childnode refid="8089" relation="include">
+        </childnode>
+        <childnode refid="8090" relation="include">
+        </childnode>
+        <childnode refid="8091" relation="include">
+        </childnode>
+        <childnode refid="8092" relation="include">
+        </childnode>
+        <childnode refid="8093" relation="include">
+        </childnode>
+        <childnode refid="8094" relation="include">
+        </childnode>
+        <childnode refid="8095" relation="include">
+        </childnode>
+        <childnode refid="8096" relation="include">
+        </childnode>
+        <childnode refid="7977" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="8056" relation="include">
+        </childnode>
+      </node>
+      <node id="8126">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="7970" relation="include">
+        </childnode>
+        <childnode refid="7959" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+        <childnode refid="8127" relation="include">
+        </childnode>
+        <childnode refid="8130" relation="include">
+        </childnode>
+        <childnode refid="8129" relation="include">
+        </childnode>
+      </node>
+      <node id="8067">
+        <label>control.c</label>
+      </node>
+      <node id="8024">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8025" relation="include">
+        </childnode>
+      </node>
+      <node id="8143">
+        <label>mempool_test.h</label>
+      </node>
+      <node id="8062">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="7982" relation="include">
+        </childnode>
+      </node>
+      <node id="7991">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="7997">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="8108">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="7996" relation="include">
+        </childnode>
+      </node>
+      <node id="8017">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="8060">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="7956">
+        <label>isi_fmc.h</label>
+        <childnode refid="7957" relation="include">
+        </childnode>
+        <childnode refid="7954" relation="include">
+        </childnode>
+        <childnode refid="7959" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+      </node>
+      <node id="8123">
+        <label>vvformat.c</label>
+      </node>
+      <node id="8020">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8021" relation="include">
+        </childnode>
+      </node>
+      <node id="8153">
+        <label>isi_metadata.h</label>
+        <childnode refid="8126" relation="include">
+        </childnode>
+      </node>
+      <node id="8057">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="8058" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+      </node>
+      <node id="8154">
+        <label>isi_otp.h</label>
+        <childnode refid="8126" relation="include">
+        </childnode>
+      </node>
+      <node id="7984">
+        <label>vvpath.h</label>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="7980" relation="include">
+        </childnode>
+      </node>
+      <node id="8112">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8026" relation="include">
+        </childnode>
+      </node>
+      <node id="8028">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8029" relation="include">
+        </childnode>
+      </node>
+      <node id="8148">
+        <label>vvbench.h</label>
+        <childnode refid="8061" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+      </node>
+      <node id="7970">
+        <label>isi_control.c</label>
+        <link refid="isi__control_8c"/>
+      </node>
+      <node id="8095">
+        <label>cam_device_wb_api.c</label>
+      </node>
+      <node id="8016">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8017" relation="include">
+        </childnode>
+      </node>
+      <node id="8110">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8020" relation="include">
+        </childnode>
+      </node>
+      <node id="8102">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8010" relation="include">
+        </childnode>
+      </node>
+      <node id="8092">
+        <label>cam_device_lsc_api_v3.c</label>
+      </node>
+      <node id="8139">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="8018">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8019" relation="include">
+        </childnode>
+      </node>
+      <node id="8030">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8031" relation="include">
+        </childnode>
+      </node>
+      <node id="8109">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8018" relation="include">
+        </childnode>
+      </node>
+      <node id="8005">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="8026">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8027" relation="include">
+        </childnode>
+      </node>
+      <node id="8084">
+        <label>cam_device_ee_api_v2.c</label>
+      </node>
+      <node id="8050">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8051" relation="include">
+        </childnode>
+      </node>
+      <node id="7982">
+        <label>vvdevice.h</label>
+        <childnode refid="7983" relation="include">
+        </childnode>
+        <childnode refid="7986" relation="include">
+        </childnode>
+        <childnode refid="7984" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="8055" relation="include">
+        </childnode>
+        <childnode refid="7980" relation="include">
+        </childnode>
+      </node>
+      <node id="8041">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="8048">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8049" relation="include">
+        </childnode>
+      </node>
+      <node id="7953">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="7998">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7995" relation="include">
+        </childnode>
+        <childnode refid="7999" relation="include">
+        </childnode>
+      </node>
+      <node id="7960">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="8006">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8007" relation="include">
+        </childnode>
+      </node>
+      <node id="8002">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8003" relation="include">
+        </childnode>
+      </node>
+      <node id="8013">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="8085">
+        <label>cam_device_exp_api_v2.c</label>
+      </node>
+      <node id="8119">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8046" relation="include">
+        </childnode>
+      </node>
+      <node id="8106">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="7990" relation="include">
+        </childnode>
+      </node>
+      <node id="8086">
+        <label>cam_device_fusa_api.c</label>
+      </node>
+      <node id="8061">
+        <label>vvbench.c</label>
+      </node>
+      <node id="8142">
+        <label>visp_common.c</label>
+      </node>
+      <node id="8141">
+        <label>visp_common.h</label>
+        <childnode refid="8142" relation="include">
+        </childnode>
+      </node>
+      <node id="8046">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8047" relation="include">
+        </childnode>
+      </node>
+      <node id="8003">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="7977">
+        <label>oba.c</label>
+      </node>
+      <node id="8133">
+        <label>trace.h</label>
+        <link refid="trace_8h"/>
+        <childnode refid="7950" relation="include">
+        </childnode>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+        <childnode refid="7967" relation="include">
+        </childnode>
+        <childnode refid="8134" relation="include">
+        </childnode>
+        <childnode refid="8129" relation="include">
+        </childnode>
+      </node>
+      <node id="7976">
+        <label>oba.h</label>
+        <childnode refid="7977" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8059">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="7999">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="7996">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7995" relation="include">
+        </childnode>
+        <childnode refid="7997" relation="include">
+        </childnode>
+      </node>
+      <node id="7989">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="8152">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="7973" relation="include">
+        </childnode>
+      </node>
+      <node id="8129">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="8128">
+        <label>sensor_drv.h</label>
+        <childnode refid="7970" relation="include">
+        </childnode>
+        <childnode refid="7967" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8087">
+        <label>cam_device_gc_api.c</label>
+      </node>
+      <node id="8053">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="7992">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="7993" relation="include">
+        </childnode>
+      </node>
+      <node id="7948">
+        <label>types.h</label>
+        <link refid="types.h"/>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7964" relation="include">
+        </childnode>
+        <childnode refid="7965" relation="include">
+        </childnode>
+        <childnode refid="7966" relation="include">
+        </childnode>
+        <childnode refid="7967" relation="include">
+        </childnode>
+        <childnode refid="7968" relation="include">
+        </childnode>
+        <childnode refid="8124" relation="include">
+        </childnode>
+        <childnode refid="7974" relation="include">
+        </childnode>
+        <childnode refid="8062" relation="include">
+        </childnode>
+        <childnode refid="8059" relation="include">
+        </childnode>
+        <childnode refid="8125" relation="include">
+        </childnode>
+        <childnode refid="8131" relation="include">
+        </childnode>
+        <childnode refid="8132" relation="include">
+        </childnode>
+        <childnode refid="8133" relation="include">
+        </childnode>
+        <childnode refid="8135" relation="include">
+        </childnode>
+        <childnode refid="8149" relation="include">
+        </childnode>
+        <childnode refid="8152" relation="include">
+        </childnode>
+        <childnode refid="8126" relation="include">
+        </childnode>
+        <childnode refid="8127" relation="include">
+        </childnode>
+        <childnode refid="8153" relation="include">
+        </childnode>
+        <childnode refid="8154" relation="include">
+        </childnode>
+        <childnode refid="8130" relation="include">
+        </childnode>
+        <childnode refid="7986" relation="include">
+        </childnode>
+      </node>
+      <node id="8097">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="7992" relation="include">
+        </childnode>
+      </node>
+      <node id="8049">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="8032">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8033" relation="include">
+        </childnode>
+      </node>
+      <node id="7979">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="7978">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="7979" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="7980" relation="include">
+        </childnode>
+        <childnode refid="7981" relation="include">
+        </childnode>
+      </node>
+      <node id="8047">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="8007">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="8089">
+        <label>cam_device_gtm_api_v1.c</label>
+      </node>
+      <node id="8098">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8000" relation="include">
+        </childnode>
+      </node>
+      <node id="7972">
+        <label>iba.c</label>
+      </node>
+      <node id="7971">
+        <label>iba.h</label>
+        <childnode refid="7972" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8036">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8037" relation="include">
+        </childnode>
+      </node>
+      <node id="7959">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="7957">
+        <label>max9295.h</label>
+        <childnode refid="7958" relation="include">
+        </childnode>
+      </node>
+      <node id="8077">
+        <label>cam_device_dmsc_api_v2.c</label>
+      </node>
+      <node id="8103">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8012" relation="include">
+        </childnode>
+      </node>
+      <node id="8100">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="7973" relation="include">
+        </childnode>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8004" relation="include">
+        </childnode>
+      </node>
+      <node id="7949">
+        <label>hal_i2c.h</label>
+        <childnode refid="7950" relation="include">
+        </childnode>
+        <childnode refid="7951" relation="include">
+        </childnode>
+        <childnode refid="7952" relation="include">
+        </childnode>
+        <childnode refid="7954" relation="include">
+        </childnode>
+        <childnode refid="7956" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="7983">
+        <label>vvbparser.h</label>
+        <childnode refid="7984" relation="include">
+        </childnode>
+        <childnode refid="7985" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8039">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="8069">
+        <label>cam_device_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="8115">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8036" relation="include">
+        </childnode>
+      </node>
+      <node id="8138">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="8144">
+        <label>mempool_test.c</label>
+      </node>
+      <node id="8043">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="8146">
+        <label>vlog.h</label>
+        <childnode refid="8147" relation="include">
+        </childnode>
+        <childnode refid="8137" relation="include">
+        </childnode>
+        <childnode refid="8138" relation="include">
+        </childnode>
+        <childnode refid="7972" relation="include">
+        </childnode>
+        <childnode refid="7977" relation="include">
+        </childnode>
+        <childnode refid="8148" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8122" relation="include">
+        </childnode>
+        <childnode refid="7989" relation="include">
+        </childnode>
+        <childnode refid="7991" relation="include">
+        </childnode>
+        <childnode refid="7993" relation="include">
+        </childnode>
+        <childnode refid="7995" relation="include">
+        </childnode>
+        <childnode refid="7997" relation="include">
+        </childnode>
+        <childnode refid="7999" relation="include">
+        </childnode>
+        <childnode refid="8001" relation="include">
+        </childnode>
+        <childnode refid="8003" relation="include">
+        </childnode>
+        <childnode refid="8005" relation="include">
+        </childnode>
+        <childnode refid="8007" relation="include">
+        </childnode>
+        <childnode refid="8009" relation="include">
+        </childnode>
+        <childnode refid="8011" relation="include">
+        </childnode>
+        <childnode refid="8013" relation="include">
+        </childnode>
+        <childnode refid="8015" relation="include">
+        </childnode>
+        <childnode refid="8017" relation="include">
+        </childnode>
+        <childnode refid="8019" relation="include">
+        </childnode>
+        <childnode refid="8021" relation="include">
+        </childnode>
+        <childnode refid="8023" relation="include">
+        </childnode>
+        <childnode refid="8025" relation="include">
+        </childnode>
+        <childnode refid="8027" relation="include">
+        </childnode>
+        <childnode refid="8029" relation="include">
+        </childnode>
+        <childnode refid="8031" relation="include">
+        </childnode>
+        <childnode refid="8033" relation="include">
+        </childnode>
+        <childnode refid="8037" relation="include">
+        </childnode>
+        <childnode refid="8035" relation="include">
+        </childnode>
+        <childnode refid="8039" relation="include">
+        </childnode>
+        <childnode refid="8041" relation="include">
+        </childnode>
+        <childnode refid="8043" relation="include">
+        </childnode>
+        <childnode refid="8045" relation="include">
+        </childnode>
+        <childnode refid="8047" relation="include">
+        </childnode>
+        <childnode refid="8049" relation="include">
+        </childnode>
+        <childnode refid="8051" relation="include">
+        </childnode>
+        <childnode refid="8053" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+        <childnode refid="7980" relation="include">
+        </childnode>
+      </node>
+      <node id="8135">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="7960" relation="include">
+        </childnode>
+        <childnode refid="7961" relation="include">
+        </childnode>
+        <childnode refid="7962" relation="include">
+        </childnode>
+        <childnode refid="7968" relation="include">
+        </childnode>
+        <childnode refid="8129" relation="include">
+        </childnode>
+        <childnode refid="8136" relation="include">
+        </childnode>
+        <childnode refid="7982" relation="include">
+        </childnode>
+        <childnode refid="8061" relation="include">
+        </childnode>
+        <childnode refid="7963" relation="include">
+        </childnode>
+      </node>
+      <node id="8079">
+        <label>cam_device_3dnr_api.c</label>
+      </node>
+      <node id="8029">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="8116">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="8064" relation="include">
+        </childnode>
+        <childnode refid="8034" relation="include">
+        </childnode>
+      </node>
+      <node id="8149">
+        <label>dct_assert.h</label>
+        <link refid="dct__assert_8h"/>
+        <childnode refid="7949" relation="include">
+        </childnode>
+        <childnode refid="7958" relation="include">
+        </childnode>
+        <childnode refid="7955" relation="include">
+        </childnode>
+        <childnode refid="7959" relation="include">
+        </childnode>
+        <childnode refid="8150" relation="include">
+        </childnode>
+        <childnode refid="8151" relation="include">
+        </childnode>
+        <childnode refid="8134" relation="include">
+        </childnode>
+      </node>
+      <node id="7993">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="8001">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="8042">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="7988" relation="include">
+        </childnode>
+        <childnode refid="8043" relation="include">
+        </childnode>
+      </node>
+      <node id="7981">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="8056">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="7981" relation="include">
+        </childnode>
+      </node>
+      <node id="8070">
+        <label>cam_device_ae_api.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="types_8h_1abb452686968e48b67397da5f97445f5b" prot="public" static="no">
+        <name>bool</name>
+        <initializer>unsigned int</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="47" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a41f9c5fb8b08eb5dc3edce4dcb37fee7" prot="public" static="no">
+        <name>true</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="48" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a65e9886d74aaee76545e83dd09011727" prot="public" static="no">
+        <name>false</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="49" column="11" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" prot="public" static="no">
+        <name>NULL</name>
+        <initializer>((void*)0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="101" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a3c2d61a83ac413b2a300aa89f911a4a5" prot="public" static="no">
+        <name>UNUSED_PARAM</name>
+        <param><defname>unref_param</defname></param>
+        <initializer>((void) (unref_param));</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a4b2ab2e12363c4ec8bb80d5c4f3cd5d0" prot="public" static="no">
+        <name>CAST_POINTER_TO_UINT32</name>
+        <param><defname>pointer</defname></param>
+        <initializer>((uint32_t) (pointer))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1a8fbae9bb329a49d34607421fede69200" prot="public" static="no">
+        <name>CAST_POINTER_TO_INT32</name>
+        <param><defname>pointer</defname></param>
+        <initializer>((int32_t) (pointer))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1aae5efc916f68c91bc1287a3a68e97cf2" prot="public" static="no">
+        <name>CAST_UINT32_TO_POINTER</name>
+        <param><defname>pointerType</defname></param>
+        <param><defname>value</defname></param>
+        <initializer>((pointerType)(value))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1ad9a0914712fc991a9f5400acfebc8826" prot="public" static="no">
+        <name>CAST_INT32_TO_POINTER</name>
+        <param><defname>value</defname></param>
+        <initializer>((int32_t*)(value))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1af86ec012be3c04d9975b68e2ce32a73f" prot="public" static="no">
+        <name>N_ELEMENTS</name>
+        <param><defname>s</defname></param>
+        <initializer>(sizeof(s) / sizeof ((s) [0]))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="types_8h_1ae2f08dc603ae93c402abd918ba4e23e1" prot="public" static="no">
+        <name>ABS</name>
+        <param><defname>a</defname></param>
+        <initializer>((a) &gt; 0 ? (a) : -(a))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="types_8h_1a04dd5074964518403bf944f2b240a5f8" prot="public" static="no">
+        <name>bool_t</name>
+        <enumvalue id="types_8h_1a04dd5074964518403bf944f2b240a5f8aaced7f53e0be47857c07ad25642579c2" prot="public">
+          <name>BOOL_FALSE</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8h_1a04dd5074964518403bf944f2b240a5f8a7149f32738efcef1bf4db3d635d804b0" prot="public">
+          <name>BOOL_TRUE</name>
+          <initializer>= (!BOOL_FALSE)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="types_8h_1a04dd5074964518403bf944f2b240a5f8a239bea686517ad6cf8c7046eb78ff504" prot="public">
+          <name>DUMMY_BOOL</name>
+          <initializer>= 0xDEADFEED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="111" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="types_8h_1aba7bc1797add20fe3efdf37ced1182c5" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char uint8_t</definition>
+        <argsstring></argsstring>
+        <name>uint8_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1aef44329758059c91c76d334e8fc09700" prot="public" static="no">
+        <type>signed char</type>
+        <definition>typedef signed char int8_t</definition>
+        <argsstring></argsstring>
+        <name>int8_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a273cf69d639a59973b6019625df33e30" prot="public" static="no">
+        <type>unsigned short</type>
+        <definition>typedef unsigned short uint16_t</definition>
+        <argsstring></argsstring>
+        <name>uint16_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1aa343fa3b3d06292b959ffdd4c4703b06" prot="public" static="no">
+        <type>short</type>
+        <definition>typedef short int16_t</definition>
+        <argsstring></argsstring>
+        <name>int16_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a435d1572bf3f880d55459d9805097f62" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int uint32_t</definition>
+        <argsstring></argsstring>
+        <name>uint32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a32f2e37ee053cf2ce8ca28d1f74630e5" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int int32_t</definition>
+        <argsstring></argsstring>
+        <name>int32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1adec1df1b8b51cb32b77e5b86fff46471" prot="public" static="no">
+        <type>signed long long</type>
+        <definition>typedef signed long long int64_t</definition>
+        <argsstring></argsstring>
+        <name>int64_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1aaa5d1cd013383c889537491c3cfd9aad" prot="public" static="no">
+        <type>unsigned long long</type>
+        <definition>typedef unsigned long long uint64_t</definition>
+        <argsstring></argsstring>
+        <name>uint64_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a9a3e3b9785e918fb2c7d964efebd2130" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int uint_least32_t</definition>
+        <argsstring></argsstring>
+        <name>uint_least32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a647e80cea1327d7b1ccf0b2e1ebb1b53" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int int_least32_t</definition>
+        <argsstring></argsstring>
+        <name>int_least32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a8c5c654c6e2ad4e3ab389792a42f7584" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int uint_least8_t</definition>
+        <argsstring></argsstring>
+        <name>uint_least8_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a91ad9478d81a7aaf2593e8d9c3d06a14" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int uint</definition>
+        <argsstring></argsstring>
+        <name>uint</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a65f85814a8290f9797005d3b28e7e5fc" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char uchar</definition>
+        <argsstring></argsstring>
+        <name>uchar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1aebb9e13210d88d43e32e735ada43a425" prot="public" static="no">
+        <type>char</type>
+        <definition>typedef char CHAR</definition>
+        <argsstring></argsstring>
+        <name>CHAR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a40bb5262bf908c328fbcfbe5d29d0201" prot="public" static="no">
+        <type>char</type>
+        <definition>typedef char char_t</definition>
+        <argsstring></argsstring>
+        <name>char_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1a4611b605e45ab401f02cab15c5e38715" prot="public" static="no">
+        <type>float</type>
+        <definition>typedef float float32_t</definition>
+        <argsstring></argsstring>
+        <name>float32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1ac55f3ae81b5bc9053760baacf57e47f4" prot="public" static="no">
+        <type>double</type>
+        <definition>typedef double float64_t</definition>
+        <argsstring></argsstring>
+        <name>float64_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="types_8h_1afb87b8ea4afa4244a3b050f6b521478b" prot="public" static="no">
+        <type>long double</type>
+        <definition>typedef long double float128_t</definition>
+        <argsstring></argsstring>
+        <name>float128_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file defines some basic type names like the int types. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>TYPES_H_</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TYPES_H_</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="linux__compat_8h" kindref="compound">linux_compat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;limits.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>C99<sp/>compilers<sp/>know<sp/>stdbool<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>(__STDC_VERSION__<sp/>&gt;=<sp/>199901L)<sp/>||<sp/>defined(CONFIG_HAVE_STDBOOL)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>bool<sp/><sp/><sp/><sp/>unsigned<sp/>int</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>true<sp/><sp/><sp/><sp/>(1)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>false<sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__GNUC__)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>!defined(INLINE)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>INLINE<sp/>static<sp/>inline</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(__cplusplus)<sp/>||<sp/>((__STDC_VERSION__<sp/>&gt;=<sp/>199901L))</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>We<sp/>only<sp/>check<sp/>for<sp/>__int8_t_defined<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>as<sp/>this<sp/>is<sp/>all<sp/>that<sp/>gcc<sp/>defines.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>!defined(__int8_t_defined)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>In<sp/>the<sp/>rare<sp/>cases<sp/>that<sp/>a<sp/>system<sp/>does<sp/>not<sp/>define</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>__int8_t_defined<sp/>(Android<sp/>p.e.)<sp/>we<sp/>check<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>include<sp/>guard<sp/>of<sp/>the<sp/>stdint<sp/>header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>!defined(_STDINT_H)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int8_t;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int16_t;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>!defined(_MSC_VER)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><sp/>int64_t;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><sp/>uint64_t;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">signed</highlight><highlight class="normal"><sp/><sp/><sp/>__int64<sp/><sp/><sp/><sp/>int64_t;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>__int64<sp/><sp/><sp/><sp/>uint64_t;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif<sp/></highlight><highlight class="comment">/*<sp/>#if<sp/>!defined(_MSC_VER)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>uint_least32_t;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>int_least32_t;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>uint_least8_t;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>uint;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/>uchar;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif<sp/></highlight><highlight class="comment">/*<sp/>#if<sp/>!defined(_STDINT_H)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif<sp/></highlight><highlight class="comment">/*<sp/>#if<sp/>!defined(__int8_t_defined)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>#if<sp/>defined(__cplusplus)<sp/>||<sp/>((__STDC_VERSION__<sp/>&gt;=<sp/>199901L))<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NULL</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>NULL<sp/>((void*)0)</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>make<sp/>lint<sp/>happy:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>CHAR;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>char_t;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>like<sp/>suggested<sp/>in<sp/><sp/>Misra<sp/>6.3<sp/>(P.<sp/>29)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>float32_t;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>float64_t;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>float128_t;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOL_FALSE<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BOOL_TRUE<sp/>=<sp/>(!BOOL_FALSE),</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DUMMY_BOOL<sp/>=<sp/>0xDEADFEED</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/>bool_t;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UNUSED_PARAM(unref_param)<sp/><sp/>((void)<sp/>(unref_param));</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAST_POINTER_TO_UINT32(<sp/>pointer<sp/>)<sp/>((uint32_t)<sp/>(pointer))</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAST_POINTER_TO_INT32(<sp/>pointer<sp/>)<sp/>((int32_t)<sp/>(pointer))</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAST_UINT32_TO_POINTER(<sp/>pointerType,<sp/>value<sp/>)<sp/>((pointerType)(value))</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAST_INT32_TO_POINTER(<sp/>value<sp/>)<sp/>((int32_t*)(value))</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>N_ELEMENTS(s)<sp/><sp/><sp/><sp/><sp/><sp/>(sizeof(s)<sp/>/<sp/>sizeof<sp/>((s)<sp/>[0]))</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ABS(a)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((a)<sp/>&gt;<sp/>0<sp/>?<sp/>(a)<sp/>:<sp/>-(a))</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*TYPES_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/types.h"/>
+  </compounddef>
+</doxygen>

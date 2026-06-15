@@ -1,0 +1,781 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__sditx__intr_8c" kind="file">
+    <compoundname>xv_sditx_intr.c</compoundname>
+    <includes refid="xv__sditx_8h" local="yes">xv_sditx.h</includes>
+    <incdepgraph>
+      <node id="67">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="63">
+        <label>xv_sditx_intr.c</label>
+        <link refid="xv_sditx_intr.c"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xil_io.h</label>
+      </node>
+      <node id="71">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="69">
+        <label>xdebug.h</label>
+      </node>
+      <node id="65">
+        <label>xv_sditx_hw.h</label>
+        <link refid="xv__sditx__hw_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xstatus.h</label>
+      </node>
+      <node id="70">
+        <label>xvidc.h</label>
+      </node>
+      <node id="64">
+        <label>xv_sditx.h</label>
+        <link refid="xv__sditx_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a9fcf44cf66f18a80e9f3d7f1f5a72a66" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SdiTx_GtTxRstDoneIntrHandler</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>SdiTx_GtTxRstDoneIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI Video Lock Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="375" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a40eed97b0fc379b21baebd4479466df8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SdiTx_OverFlowIntrHandler</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>SdiTx_OverFlowIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI Tx over flow Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="393" bodyend="399"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a1fbf90924c91e7d5f05cbf699d46863c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SdiTx_UnderFlowIntrHandler</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>SdiTx_UnderFlowIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI Tx under flow Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="411" bodyend="417"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a0fa9152efe4a2c9766466bac4946b6c0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SdiTx_CeAlignErrIntrHandler</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>SdiTx_CeAlignErrIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI Tx CE Align Error Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="430" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1acec3709bc825eee91fbbd8c7d6f874af" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void SdiTx_Axi4sVidLockIntrHandler</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>SdiTx_Axi4sVidLockIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI Axi4s bridge lock Event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="448" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a30aed08a4cb662a5dfff259fb1d19cac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_SdiTx_GetIntrEnable</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>XV_SdiTx_GetIntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the interrupt mask set (enabled) in the SDI Tx core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt enable register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="63" bodyend="73"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a8aa49027fc7d150a24c4745163a68459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_SdiTx_GetIntrStatus</definition>
+        <argsstring>(XV_SdiTx *InstancePtr)</argsstring>
+        <name>XV_SdiTx_GetIntrStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the list of interrupts pending in the Interrupt Status Register of the SDI Tx core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> instance to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Mask with bits set for corresponding interrupt in Interrupt Status register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="88" bodyend="98"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+        <referencedby refid="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" compoundref="xv__sditx__intr_8c" startline="148" endline="230">XV_SdiTx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a1d6e97e9d2156a5f642e79a61e7d739f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTx_InterruptClear</definition>
+        <argsstring>(XV_SdiTx *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_SdiTx_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function will clear the interrupts set in the Interrupt Status Register of the SDI Tx core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Interrupt Mask with bits set for corresponding interrupt to be cleared in the Interrupt Status register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="113" bodyend="125"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+        <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
+        <referencedby refid="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" compoundref="xv__sditx__intr_8c" startline="148" endline="230">XV_SdiTx_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTx_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XV_SdiTx_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the SDI TX driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt for GT reset done interrupt from Tx IP, determines the source of the interrupts, clears the interrupts and calls callbacks accordingly.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="xv__sditx_8h_1aa63fd99ec8bbdc967c397e4cee31fc64" kindref="member">XV_SdiTx_SetCallback()</ref> during initialization phase. An example delivered with this driver demonstrates how this could be done.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="148" bodyend="230"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" compoundref="xv__sditx_8h" startline="224">XV_SdiTx::IsReady</references>
+        <references refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" compoundref="xv__sditx__intr_8c" startline="88" endline="98">XV_SdiTx_GetIntrStatus</references>
+        <references refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" compoundref="xv__sditx__intr_8c" startline="113" endline="125">XV_SdiTx_InterruptClear</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1aa63fd99ec8bbdc967c397e4cee31fc64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_SdiTx_SetCallback</definition>
+        <argsstring>(XV_SdiTx *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XV_SdiTx_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                       Callback Function Type
+-------------------------         -------------------------------------------
+(XV_SDITX_HANDLER_GTRESET_DONE) GtRstDoneCallback
+(XV_SDITX_HANDLER_OVERFLOW)             OverFlowCallback
+(XV_SDITX_HANDLER_UNDERFLOW)            UnderFlowCallback
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the SDI TX core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="260" bodyend="313"/>
+        <references refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" compoundref="xv__sditx_8h" startline="237">XV_SdiTx::Axi4sVidLockCallback</references>
+        <references refid="struct_x_v___sdi_tx_1abf36537078035e585923379c2418ab3b" compoundref="xv__sditx_8h" startline="238">XV_SdiTx::Axi4sVidLockRef</references>
+        <references refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" compoundref="xv__sditx_8h" startline="234">XV_SdiTx::CeAlignErrCallback</references>
+        <references refid="struct_x_v___sdi_tx_1af36c4e02ba3fe1d781a8d778fb22c733" compoundref="xv__sditx_8h" startline="235">XV_SdiTx::CeAlignErrRef</references>
+        <references refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" compoundref="xv__sditx_8h" startline="225">XV_SdiTx::GtRstDoneCallback</references>
+        <references refid="struct_x_v___sdi_tx_1ad271cff3133b9ccd529a14df85d522aa" compoundref="xv__sditx_8h" startline="226">XV_SdiTx::GtRstDoneRef</references>
+        <references refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" compoundref="xv__sditx_8h" startline="228">XV_SdiTx::OverFlowCallback</references>
+        <references refid="struct_x_v___sdi_tx_1a391634fc9063a826840c4b0494bfdc83" compoundref="xv__sditx_8h" startline="229">XV_SdiTx::OverFlowRef</references>
+        <references refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" compoundref="xv__sditx_8h" startline="231">XV_SdiTx::UnderFlowCallback</references>
+        <references refid="struct_x_v___sdi_tx_1aa17adeda8a06c4dea3c6d1013a8e61a8" compoundref="xv__sditx_8h" startline="232">XV_SdiTx::UnderFlowRef</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1aa86b7cdd889edbe4395625a997b170ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTx_IntrEnable</definition>
+        <argsstring>(XV_SdiTx *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_SdiTx_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the selected interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="327" bodyend="339"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" compoundref="xv__sditx__hw_8h" startline="244">XV_SdiTx_ReadReg</references>
+        <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditx__intr_8c_1a3a6f57a2f45767bc0c0954adfe52c594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTx_IntrDisable</definition>
+        <argsstring>(XV_SdiTx *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_SdiTx_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the selected interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c" bodystart="352" bodyend="362"/>
+        <references refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" compoundref="xv__sditx_8h" startline="184">XV_SdiTx_Config::BaseAddress</references>
+        <references refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" compoundref="xv__sditx_8h" startline="223">XV_SdiTx::Config</references>
+        <references refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" compoundref="xv__sditx__hw_8h" startline="265">XV_SdiTx_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains interrupt related functions for Xilinx SDI TX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Please see <ref refid="xv__sditx_8h" kindref="compound">xv_sditx.h</ref> for more details of the driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   jsr    07/17/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sditx_8h" kindref="compound">xv_sditx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_GtTxRstDoneIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_OverFlowIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_UnderFlowIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_CeAlignErrIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_Axi4sVidLockIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="63" refid="xv__sditx__intr_8c_1a30aed08a4cb662a5dfff259fb1d19cac" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a30aed08a4cb662a5dfff259fb1d19cac" kindref="member">XV_SdiTx_GetIntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/><ref refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" kindref="member">XV_SdiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_IER_OFFSET);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="88" refid="xv__sditx__intr_8c_1a8aa49027fc7d150a24c4745163a68459" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" kindref="member">XV_SdiTx_GetIntrStatus</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/><ref refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" kindref="member">XV_SdiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Mask;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="113" refid="xv__sditx__intr_8c_1a1d6e97e9d2156a5f642e79a61e7d739f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(XV_SDITX_ISR_ALLINTR_MASK)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;=<sp/><ref refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" kindref="member">XV_SdiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_ISR_OFFSET);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" kindref="member">XV_SdiTx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_ISR_OFFSET,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;<sp/>XV_SDITX_ISR_ALLINTR_MASK);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="xv__sditx__intr_8c_1a4d14ab6a4bf9dfcdc623126a17ba5275" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a4d14ab6a4bf9dfcdc623126a17ba5275" kindref="member">XV_SdiTx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ActiveIntr;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*SdiTxPtr<sp/>=<sp/>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SdiTxPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SdiTxPtr-&gt;<ref refid="struct_x_v___sdi_tx_1a2a0526f675950b59123a845abe25a463" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Active<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ActiveIntr<sp/>=<sp/><ref refid="xv__sditx_8h_1a8aa49027fc7d150a24c4745163a68459" kindref="member">XV_SdiTx_GetIntrStatus</ref>(SdiTxPtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>ISR<sp/>register<sp/><sp/>for<sp/>Gtresetdone*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/>XV_SDITX_ISR_GTTX_RSTDONE_MASK;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>GTTX_RSTDONE<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>GT<sp/>reset<sp/>done<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" kindref="member">XV_SdiTx_ReadReg</ref>(SdiTxPtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SDITX_SB_TX_STS_TDATA_OFFSET)<sp/>&amp;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_SDITX_SB_TX_STS_TDATA_GT_TX_RESETDONE_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTx_GtTxRstDoneIntrHandler(SdiTxPtr);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(SdiTxPtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>ISR<sp/>register<sp/><sp/>for<sp/>OVERRFLOW*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/>XV_SDITX_ISR_OVERFLOW_MASK;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>OVERFLOW<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>OVERFLOW<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTx_OverFlowIntrHandler(SdiTxPtr);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(SdiTxPtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>ISR<sp/>register<sp/><sp/>for<sp/>UNDERFLOW*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/>XV_SDITX_ISR_UNDERFLOW_MASK;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>UNDERFLOW<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>UNDERFLOW<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTx_UnderFlowIntrHandler(SdiTxPtr);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(SdiTxPtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>ISR<sp/>register<sp/><sp/>for<sp/>CE_ALIGN_ERROR*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/>XV_SDITX_ISR_TX_CE_ALIGN_ERR_MASK;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>CE_ALIGN_ERROR<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>CE_ALIGN_ERROR<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTx_CeAlignErrIntrHandler(SdiTxPtr);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(SdiTxPtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>ISR<sp/>register<sp/><sp/>for<sp/>Axi4S<sp/>Video<sp/>lock*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>ActiveIntr<sp/>&amp;<sp/>XV_SDITX_ISR_AXI4S_VID_LOCK_MASK;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Axi4s<sp/>Video<sp/>lock<sp/>IRQ<sp/>flag<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask)<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Jump<sp/>to<sp/>Axi4s<sp/>video<sp/>lock<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SdiTx_Axi4sVidLockIntrHandler(SdiTxPtr);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>handled<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx_8h_1a1d6e97e9d2156a5f642e79a61e7d739f" kindref="member">XV_SdiTx_InterruptClear</ref>(SdiTxPtr,<sp/>Mask);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="260" refid="xv__sditx__intr_8c_1aa63fd99ec8bbdc967c397e4cee31fc64" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa63fd99ec8bbdc967c397e4cee31fc64" kindref="member">XV_SdiTx_SetCallback</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&gt;=<sp/>(XV_SDITX_HANDLER_GTRESET_DONE));</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stream<sp/>down<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITX_HANDLER_GTRESET_DONE):</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" kindref="member">GtRstDoneCallback</ref><sp/>=<sp/>(<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1ad271cff3133b9ccd529a14df85d522aa" kindref="member">GtRstDoneRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Overflow<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITX_HANDLER_OVERFLOW):</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" kindref="member">OverFlowCallback</ref><sp/>=<sp/>(<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a391634fc9063a826840c4b0494bfdc83" kindref="member">OverFlowRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>UnderFlow<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITX_HANDLER_UNDERFLOW):</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" kindref="member">UnderFlowCallback</ref><sp/>=<sp/>(<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1aa17adeda8a06c4dea3c6d1013a8e61a8" kindref="member">UnderFlowRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>CE<sp/>align<sp/>errors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITX_HANDLER_CEALIGN):</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" kindref="member">CeAlignErrCallback</ref><sp/>=<sp/>(<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1af36c4e02ba3fe1d781a8d778fb22c733" kindref="member">CeAlignErrRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Axi4s<sp/>video<sp/>lock<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITX_HANDLER_AXI4SVIDLOCK):</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" kindref="member">Axi4sVidLockCallback</ref><sp/>=<sp/>(<ref refid="xv__sditx_8h_1a40561804129c56295dfcc69282495ca6" kindref="member">XV_SdiTx_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1abf36537078035e585923379c2418ab3b" kindref="member">Axi4sVidLockRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_INVALID_PARAM);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="327" refid="xv__sditx__intr_8c_1aa86b7cdd889edbe4395625a997b170ad" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1aa86b7cdd889edbe4395625a997b170ad" kindref="member">XV_SdiTx_IntrEnable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="328"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(XV_SDITX_IER_ALLINTR_MASK)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>|=<sp/><ref refid="xv__sditx__hw_8h_1a473ff53a4f74d89a57e04a65c72416af" kindref="member">XV_SdiTx_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_IER_OFFSET);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" kindref="member">XV_SdiTx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_IER_OFFSET,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>&amp;<sp/>XV_SDITX_IER_ALLINTR_MASK);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="352" refid="xv__sditx__intr_8c_1a3a6f57a2f45767bc0c0954adfe52c594" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditx_8h_1a3a6f57a2f45767bc0c0954adfe52c594" kindref="member">XV_SdiTx_IntrDisable</ref>(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Checking<sp/>for<sp/>invalid<sp/>mask<sp/>bits<sp/>being<sp/>set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Mask<sp/>&amp;<sp/>(~(XV_SDITX_IER_ALLINTR_MASK)))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__sditx__hw_8h_1a97b4db43e94f9ed2d5ef407db6607d59" kindref="member">XV_SdiTx_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a3fe081b6dd8372f1128ccda2c2a1d825" kindref="member">Config</ref>.<ref refid="struct_x_v___sdi_tx___config_1a55bc404bba9a241e65bc618992c289a3" kindref="member">BaseAddress</ref>,<sp/>XV_SDITX_IER_OFFSET,</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~Mask<sp/>&amp;<sp/>XV_SDITX_IER_ALLINTR_MASK);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="375"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_GtTxRstDoneIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>stream<sp/>up<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" kindref="member">GtRstDoneCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a590e5c17de403e9912db56b428feb17d" kindref="member">GtRstDoneCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1ad271cff3133b9ccd529a14df85d522aa" kindref="member">GtRstDoneRef</ref>);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="393"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_OverFlowIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>OverFlow<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" kindref="member">OverFlowCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1abab1a9b8e47fd452546adbeac599d45c" kindref="member">OverFlowCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a391634fc9063a826840c4b0494bfdc83" kindref="member">OverFlowRef</ref>);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="411"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_UnderFlowIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>UnderFlow<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" kindref="member">UnderFlowCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1ae15d664d61e36b21325582cd83e78083" kindref="member">UnderFlowCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1aa17adeda8a06c4dea3c6d1013a8e61a8" kindref="member">UnderFlowRef</ref>);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="417"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="430"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_CeAlignErrIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="431"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>CE<sp/>Align<sp/>Error<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" kindref="member">CeAlignErrCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1a64fdd35bfea31fc793c9d29224772cdd" kindref="member">CeAlignErrCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1af36c4e02ba3fe1d781a8d778fb22c733" kindref="member">CeAlignErrRef</ref>);</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="436"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="448"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SdiTx_Axi4sVidLockIntrHandler(<ref refid="struct_x_v___sdi_tx" kindref="compound">XV_SdiTx</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="449"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>Axi4s<sp/>Video<sp/>lock<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" kindref="member">Axi4sVidLockCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1aed8cfe1133b6634062a812d071a0aa22" kindref="member">Axi4sVidLockCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_1abf36537078035e585923379c2418ab3b" kindref="member">Axi4sVidLockRef</ref>);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditx/src/xv_sditx_intr.c"/>
+  </compounddef>
+</doxygen>

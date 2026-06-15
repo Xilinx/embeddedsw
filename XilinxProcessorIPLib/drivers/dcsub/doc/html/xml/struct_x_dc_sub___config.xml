@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc_sub___config" kind="struct" prot="public">
+    <compoundname>XDcSub_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc_sub___config_1aaf38451b9ddbfc297869c85ccc62669c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dc___config" kindref="compound">XDc_Config</ref></type>
+        <definition>XDc_Config XDcSub_Config::DcConfig</definition>
+        <argsstring></argsstring>
+        <name>DcConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc_sub___config_1a0ea697fd0491ab3ea78f0bbc382aa49e" prot="public" static="no" mutable="no">
+        <type>XDcDma_Config</type>
+        <definition>XDcDma_Config XDcSub_Config::DmaConfig</definition>
+        <argsstring></argsstring>
+        <name>DmaConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="91">
+        <label>XDc_StreamConfig</label>
+        <link refid="struct_x_dc___stream_config"/>
+      </node>
+      <node id="89">
+        <label>XDcSub_Config</label>
+        <childnode refid="90" relation="usage">
+          <edgelabel>DcConfig</edgelabel>
+        </childnode>
+      </node>
+      <node id="90">
+        <label>XDc_Config</label>
+        <link refid="struct_x_dc___config"/>
+        <childnode refid="91" relation="usage">
+          <edgelabel>StreamConfig</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdcsub.h" bodystart="38" bodyend="43"/>
+    <listofallmembers>
+      <member refid="struct_x_dc_sub___config_1aaf38451b9ddbfc297869c85ccc62669c" prot="public" virt="non-virtual"><scope>XDcSub_Config</scope><name>DcConfig</name></member>
+      <member refid="struct_x_dc_sub___config_1a0ea697fd0491ab3ea78f0bbc382aa49e" prot="public" virt="non-virtual"><scope>XDcSub_Config</scope><name>DmaConfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

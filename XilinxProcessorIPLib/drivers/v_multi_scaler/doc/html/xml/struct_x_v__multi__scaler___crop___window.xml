@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__multi__scaler___crop___window" kind="struct" prot="public">
+    <compoundname>XV_multi_scaler_Crop_Window</compoundname>
+    <includes local="no">xv_multi_scaler_l2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___crop___window_1a04e794d6605f99662470193db3cd83bb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Crop_Window::Height</definition>
+        <argsstring></argsstring>
+        <name>Height</name>
+        <briefdescription>
+<para>Height of the crop region in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___crop___window_1a37117950830f268e6170313945564188" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Crop_Window::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Width of the crop region in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___crop___window_1ae7604d9d87e2abd1efc14e915ff14b6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Crop_Window::StartX</definition>
+        <argsstring></argsstring>
+        <name>StartX</name>
+        <briefdescription>
+<para>Horizontal start position of crop window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___crop___window_1ae8a644b1bc2488b0b10437864fc3c437" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_multi_scaler_Crop_Window::StartY</definition>
+        <argsstring></argsstring>
+        <name>StartY</name>
+        <briefdescription>
+<para>Vertical start position of crop window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="151" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__multi__scaler___crop___window_1a8bb39681061f01a37164ac5fdeee28a1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_multi_scaler_Crop_Window::Crop</definition>
+        <argsstring></argsstring>
+        <name>Crop</name>
+        <briefdescription>
+<para>Enable/disable cropping (1=enable, 0=disable) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__v__multi__scaler_1gadac93267b546f514b3311c1825fd832c" compoundref="xv__multi__scaler__l2_8c" startline="590" endline="735">XV_MultiScalerSetChannelConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Crop window configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_l2.h" bodystart="147" bodyend="153"/>
+    <listofallmembers>
+      <member refid="struct_x_v__multi__scaler___crop___window_1a8bb39681061f01a37164ac5fdeee28a1" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Crop_Window</scope><name>Crop</name></member>
+      <member refid="struct_x_v__multi__scaler___crop___window_1a04e794d6605f99662470193db3cd83bb" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Crop_Window</scope><name>Height</name></member>
+      <member refid="struct_x_v__multi__scaler___crop___window_1ae7604d9d87e2abd1efc14e915ff14b6e" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Crop_Window</scope><name>StartX</name></member>
+      <member refid="struct_x_v__multi__scaler___crop___window_1ae8a644b1bc2488b0b10437864fc3c437" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Crop_Window</scope><name>StartY</name></member>
+      <member refid="struct_x_v__multi__scaler___crop___window_1a37117950830f268e6170313945564188" prot="public" virt="non-virtual"><scope>XV_multi_scaler_Crop_Window</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

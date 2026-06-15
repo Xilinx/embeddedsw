@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpiops__selftest_8c" kind="file">
+    <compoundname>xgpiops_selftest.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xgpiops_8h" local="yes">xgpiops.h</includes>
+    <incdepgraph>
+      <node id="103">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="104">
+        <label>xil_io.h</label>
+      </node>
+      <node id="105">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="98">
+        <label>xgpiops_selftest.c</label>
+        <link refid="xgpiops_selftest.c"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>xgpiops_hw.h</label>
+        <link refid="xgpiops__hw_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xstatus.h</label>
+      </node>
+      <node id="100">
+        <label>xgpiops.h</label>
+        <link refid="xgpiops_8h"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XGpioPs_SelfTest</definition>
+        <argsstring>(XGpioPs *InstancePtr)</argsstring>
+        <name>XGpioPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the GPIO driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does a register read/write test on some of the Interrupt Registers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed.<itemizedlist>
+<listitem><para>XST_FAILURE otherwise. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_selftest.c" bodystart="64" bodyend="112"/>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" compoundref="xgpiops_8h" startline="169">XGPIOPS_BANK0</references>
+        <references refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</references>
+        <references refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</references>
+        <references refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</references>
+        <references refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</references>
+        <references refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" kindref="member">XGpioPs_SelfTest</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>(s32)0;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrEnabled;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrentIntrType<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrentIntrPolarity<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CurrentIntrOnAny<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrType<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrPolarity<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrOnAny<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrTestValue<sp/>=<sp/>0x22U;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>Interrupts<sp/>for<sp/>Bank<sp/>0<sp/>.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrEnabled<sp/>=<sp/><ref refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" kindref="member">XGpioPs_IntrGetEnabled</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" kindref="member">XGpioPs_IntrDisable</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>IntrEnabled);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>Current<sp/>Interrupt<sp/>properties<sp/>for<sp/>Bank<sp/>0.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>them<sp/>to<sp/>a<sp/>known<sp/>value,<sp/>read<sp/>it<sp/>back<sp/>and<sp/>compare.</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" kindref="member">XGpioPs_GetIntrType</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>&amp;CurrentIntrType,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;CurrentIntrPolarity,<sp/>&amp;CurrentIntrOnAny);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" kindref="member">XGpioPs_SetIntrType</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>IntrTestValue,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTestValue,<sp/>IntrTestValue);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" kindref="member">XGpioPs_GetIntrType</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>&amp;IntrType,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;IntrPolarity,<sp/>&amp;IntrOnAny);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((IntrType<sp/>!=<sp/>IntrTestValue)<sp/>&amp;&amp;<sp/>(IntrPolarity<sp/>!=<sp/>IntrTestValue)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IntrOnAny<sp/>!=<sp/>IntrTestValue))<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Restore<sp/>the<sp/>contents<sp/>of<sp/>all<sp/>the<sp/>interrupt<sp/>registers<sp/>modified<sp/>in<sp/>this</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>test.</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" kindref="member">XGpioPs_SetIntrType</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>CurrentIntrType,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentIntrPolarity,<sp/>CurrentIntrOnAny);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" kindref="member">XGpioPs_IntrEnable</ref>(InstancePtr,<sp/><ref refid="group__gpiops_1gac5c6fe277747f034cd30c3f3e770dc5b" kindref="member">XGPIOPS_BANK0</ref>,<sp/>IntrEnabled);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_selftest.c"/>
+  </compounddef>
+</doxygen>

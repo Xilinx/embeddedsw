@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nand_psu___features" kind="struct" prot="public">
+    <compoundname>XNandPsu_Features</compoundname>
+    <includes local="no">xnandpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nand_psu___features_1a534b1775620f5cecfda6fe31d3747556" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_Features::NvDdr</definition>
+        <argsstring></argsstring>
+        <name>NvDdr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="351" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___features_1a7984e002c8717a26d50a36728a0a1fcf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_Features::EzNand</definition>
+        <argsstring></argsstring>
+        <name>EzNand</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___features_1adad347c7947d04431e7e943834522db6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_Features::OnDie</definition>
+        <argsstring></argsstring>
+        <name>OnDie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nand_psu___features_1adece8dd9e5b159dd5abbdeba4b3c151f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNandPsu_Features::ExtPrmPage</definition>
+        <argsstring></argsstring>
+        <name>ExtPrmPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_nand_psu___features" kindref="compound">XNandPsu_Features</ref> structure contains the ONFI features information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/nandpsu/src/xnandpsu.h" bodystart="350" bodyend="355"/>
+    <listofallmembers>
+      <member refid="struct_x_nand_psu___features_1adece8dd9e5b159dd5abbdeba4b3c151f" prot="public" virt="non-virtual"><scope>XNandPsu_Features</scope><name>ExtPrmPage</name></member>
+      <member refid="struct_x_nand_psu___features_1a7984e002c8717a26d50a36728a0a1fcf" prot="public" virt="non-virtual"><scope>XNandPsu_Features</scope><name>EzNand</name></member>
+      <member refid="struct_x_nand_psu___features_1a534b1775620f5cecfda6fe31d3747556" prot="public" virt="non-virtual"><scope>XNandPsu_Features</scope><name>NvDdr</name></member>
+      <member refid="struct_x_nand_psu___features_1adad347c7947d04431e7e943834522db6" prot="public" virt="non-virtual"><scope>XNandPsu_Features</scope><name>OnDie</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

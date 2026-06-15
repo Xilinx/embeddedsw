@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___elliptc_private_key_gen" kind="struct" prot="public">
+    <compoundname>XSecure_ElliptcPrivateKeyGen</compoundname>
+    <includes local="no">xsecure_ellipticplat.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___elliptc_private_key_gen_1a98b763c33a4aacfda6714c4cccc506cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ElliptcPrivateKeyGen::SeedAddr</definition>
+        <argsstring></argsstring>
+        <name>SeedAddr</name>
+        <briefdescription>
+<para>Address to the seed buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptc_private_key_gen_1a97c99bbe053b33d57b196f9ef54e316e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ElliptcPrivateKeyGen::SeedLength</definition>
+        <argsstring></argsstring>
+        <name>SeedLength</name>
+        <briefdescription>
+<para>Seed length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptc_private_key_gen_1a822ceb194e0af5db1a3f428efee56557" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ElliptcPrivateKeyGen::PerStringAddr</definition>
+        <argsstring></argsstring>
+        <name>PerStringAddr</name>
+        <briefdescription>
+<para>Personalized string. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___elliptc_private_key_gen_1abf373a41e326c758ccd44e650f173135" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_ElliptcPrivateKeyGen::KeyOutPutAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyOutPutAddr</name>
+        <briefdescription>
+<para>Key output address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Ecc private key generation parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/ecc_keypair/xsecure_ellipticplat.h" bodystart="50" bodyend="55"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___elliptc_private_key_gen_1abf373a41e326c758ccd44e650f173135" prot="public" virt="non-virtual"><scope>XSecure_ElliptcPrivateKeyGen</scope><name>KeyOutPutAddr</name></member>
+      <member refid="struct_x_secure___elliptc_private_key_gen_1a822ceb194e0af5db1a3f428efee56557" prot="public" virt="non-virtual"><scope>XSecure_ElliptcPrivateKeyGen</scope><name>PerStringAddr</name></member>
+      <member refid="struct_x_secure___elliptc_private_key_gen_1a98b763c33a4aacfda6714c4cccc506cf" prot="public" virt="non-virtual"><scope>XSecure_ElliptcPrivateKeyGen</scope><name>SeedAddr</name></member>
+      <member refid="struct_x_secure___elliptc_private_key_gen_1a97c99bbe053b33d57b196f9ef54e316e" prot="public" virt="non-virtual"><scope>XSecure_ElliptcPrivateKeyGen</scope><name>SeedLength</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

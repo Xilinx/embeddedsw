@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__deinterlacer__l2_8c" kind="file">
+    <compoundname>xv_deinterlacer_l2.c</compoundname>
+    <includes local="no">string.h</includes>
+    <includes refid="xv__deinterlacer__l2_8h" local="yes">xv_deinterlacer_l2.h</includes>
+    <incdepgraph>
+      <node id="44">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="38">
+        <label>xv_deinterlacer_l2.c</label>
+        <link refid="xv_deinterlacer_l2.c"/>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xv_deinterlacer_l2.h</label>
+        <link refid="xv__deinterlacer__l2_8h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xil_io.h</label>
+      </node>
+      <node id="42">
+        <label>xv_deinterlacer.h</label>
+        <link refid="xv__deinterlacer_8h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xv_deinterlacer_hw.h</label>
+        <link refid="xv__deinterlacer__hw_8h"/>
+      </node>
+      <node id="39">
+        <label>string.h</label>
+      </node>
+      <node id="45">
+        <label>xstatus.h</label>
+      </node>
+      <node id="41">
+        <label>xvidc.h</label>
+      </node>
+      <node id="43">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__deinterlacer_1ga287fe7f449ccb8736bd4fcba0477eb97" prot="public" static="no">
+        <name>XVDEINT_IDLE_TIMEOUT</name>
+        <initializer>1000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__deinterlacer_1gaab20b239fc080f84e4b05f5e8c1a3ac4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_DeintInitialize</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_DeintInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="57" bodyend="67"/>
+        <references refid="xv__deinterlacer_8h_1acdc43fe44806621d066175e912f5432a" compoundref="xv__deinterlacer__sinit_8c" startline="133" endline="147">XV_deinterlacer_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__deinterlacer_1ga4515826a3b17b400f1b3d6453278d30b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DeintStart</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr)</argsstring>
+        <name>XV_DeintStart</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the deinterlacer core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="78" bodyend="84"/>
+        <references refid="xv__deinterlacer_8c_1aa92d622fc50414f543575970547d7b26" compoundref="xv__deinterlacer_8c" startline="159" endline="164">XV_deinterlacer_EnableAutoRestart</references>
+        <references refid="xv__deinterlacer_8c_1a2593a137e66fa7fa4e13263e2b8ba50c" compoundref="xv__deinterlacer_8c" startline="64" endline="72">XV_deinterlacer_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__deinterlacer_1ga951036b0eeb1cad7db9f36642d1a2ecb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DeintStop</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr)</argsstring>
+        <name>XV_DeintStop</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the deinterlacer core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="95" bodyend="100"/>
+        <references refid="xv__deinterlacer_8c_1a09a9f28fe1c7b560a8e50ab5874ee43a" compoundref="xv__deinterlacer_8c" startline="178" endline="183">XV_deinterlacer_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__deinterlacer_1gac85db4febc1c8c45d1a5d678866e6146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_DeintWaitForIdle</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr)</argsstring>
+        <name>XV_DeintWaitForIdle</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for the deinterlacer core to report &quot;idle&quot; status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device becomes idle XST_FAILURE if this routine times out before reading &quot;idle&quot; status</para></simplesect>
+<simplesect kind="note"><para>This is intended to be called after XV_DeintStop is called, to wait for all axis and aximm traffic to stop </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="115" bodyend="128"/>
+        <references refid="xv__deinterlacer_8c_1a8320b0d217c5ac7ea5e17080f61786aa" compoundref="xv__deinterlacer_8c" startline="110" endline="118">XV_deinterlacer_IsIdle</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__deinterlacer_1gaeaae347a5097c0000bae36d1ada725ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DeintSetFieldBuffers</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr, u64 memAddr, XVidC_ColorFormat cformat)</argsstring>
+        <name>XV_DeintSetFieldBuffers</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>memAddr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cformat</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the deinterlacer cores RD/WR field buffers addresses and color space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>memAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer address in DDR for RD/WR clients </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cformat</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream color format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="142" bodyend="151"/>
+        <references refid="xv__deinterlacer_8c_1a491f0136ebc5fd77f01c9d56739833e2" compoundref="xv__deinterlacer_8c" startline="360" endline="365">XV_deinterlacer_Set_colorFormat</references>
+        <references refid="xv__deinterlacer_8c_1afdb65796a78f33d8913f4c472c01efe9" compoundref="xv__deinterlacer_8c" startline="277" endline="283">XV_deinterlacer_Set_read_fb</references>
+        <references refid="xv__deinterlacer_8c_1a8562b421c0fdd85d6219f7f0ac4dc840" compoundref="xv__deinterlacer_8c" startline="319" endline="325">XV_deinterlacer_Set_write_fb</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_DeintDbgReportStatus</definition>
+        <argsstring>(XV_Deint_l2 *InstancePtr)</argsstring>
+        <name>XV_DeintDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints Deinterlacer status on console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer to the IP instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c" bodystart="163" bodyend="199"/>
+        <references refid="struct_x_v__deinterlacer___config_1aecc54bcb3dd13ef707f600f8eb1a75cc" compoundref="xv__deinterlacer_8h" startline="54">XV_deinterlacer_Config::BaseAddress</references>
+        <references refid="struct_x_v__deinterlacer_1a769b52e3f8636ce72d9cec39b4706daa" compoundref="xv__deinterlacer_8h" startline="64">XV_deinterlacer::Config</references>
+        <references refid="xv__deinterlacer__hw_8h_1aa24b3ae75f5c4db8dabd62b99adb27eb" compoundref="xv__deinterlacer__hw_8h" startline="64">XV_DEINTERLACER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__deinterlacer_8c_1a767bdf009b6ae631640624dfe9024ce3" compoundref="xv__deinterlacer_8c" startline="418" endline="426">XV_deinterlacer_Get_algo</references>
+        <references refid="xv__deinterlacer_8c_1adac6d3bbf44fc7233f8404b6613173dc" compoundref="xv__deinterlacer_8c" startline="377" endline="385">XV_deinterlacer_Get_colorFormat</references>
+        <references refid="xv__deinterlacer_8c_1aa063f8811616f76d8320c7b807aeb466" compoundref="xv__deinterlacer_8c" startline="252" endline="260">XV_deinterlacer_Get_height</references>
+        <references refid="xv__deinterlacer_8c_1a2ccd27a3ca7b565a789447fbc5a2f807" compoundref="xv__deinterlacer_8c" startline="295" endline="304">XV_deinterlacer_Get_read_fb</references>
+        <references refid="xv__deinterlacer_8c_1a89d22682aaceb56492dddd96a4c00af1" compoundref="xv__deinterlacer_8c" startline="214" endline="222">XV_deinterlacer_Get_width</references>
+        <references refid="xv__deinterlacer_8c_1a67258a4557d505336c185e682154c068" compoundref="xv__deinterlacer_8c" startline="337" endline="346">XV_deinterlacer_Get_write_fb</references>
+        <references refid="xv__deinterlacer_8c_1a6d5b0ce48fe965fc0aba39444dc79b03" compoundref="xv__deinterlacer_8c" startline="89" endline="97">XV_deinterlacer_IsDone</references>
+        <references refid="xv__deinterlacer_8c_1a8320b0d217c5ac7ea5e17080f61786aa" compoundref="xv__deinterlacer_8c" startline="110" endline="118">XV_deinterlacer_IsIdle</references>
+        <references refid="xv__deinterlacer_8c_1a0b324dfad81cc4e11b5c908dc02d3836" compoundref="xv__deinterlacer_8c" startline="132" endline="141">XV_deinterlacer_IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__deinterlacer__l2_8h" kindref="compound">xv_deinterlacer_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVDEINT_IDLE_TIMEOUT<sp/>1000000</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Local<sp/>Global<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group__v__deinterlacer_1gaab20b239fc080f84e4b05f5e8c1a3ac4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1gaab20b239fc080f84e4b05f5e8c1a3ac4" kindref="member">XV_DeintInitialize</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref>));</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__deinterlacer_8h_1acdc43fe44806621d066175e912f5432a" kindref="member">XV_deinterlacer_Initialize</ref>(&amp;InstancePtr-&gt;Deint,<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(Status);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="78" refid="group__v__deinterlacer_1ga4515826a3b17b400f1b3d6453278d30b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1ga4515826a3b17b400f1b3d6453278d30b" kindref="member">XV_DeintStart</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1aa92d622fc50414f543575970547d7b26" kindref="member">XV_deinterlacer_EnableAutoRestart</ref>(&amp;InstancePtr-&gt;Deint);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1a2593a137e66fa7fa4e13263e2b8ba50c" kindref="member">XV_deinterlacer_Start</ref>(&amp;InstancePtr-&gt;Deint);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="95" refid="group__v__deinterlacer_1ga951036b0eeb1cad7db9f36642d1a2ecb" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1ga951036b0eeb1cad7db9f36642d1a2ecb" kindref="member">XV_DeintStop</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1a09a9f28fe1c7b560a8e50ab5874ee43a" kindref="member">XV_deinterlacer_DisableAutoRestart</ref>(&amp;InstancePtr-&gt;Deint);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="115" refid="group__v__deinterlacer_1gac85db4febc1c8c45d1a5d678866e6146" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1gac85db4febc1c8c45d1a5d678866e6146" kindref="member">XV_DeintWaitForIdle</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>u32<sp/>isIdle;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/>u32<sp/>cnt<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>isIdle<sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a8320b0d217c5ac7ea5e17080f61786aa" kindref="member">XV_deinterlacer_IsIdle</ref>(&amp;InstancePtr-&gt;Deint);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cnt++;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">((isIdle!=1)<sp/>&amp;&amp;<sp/>(cnt<sp/>&lt;<sp/>XVDEINT_IDLE_TIMEOUT));</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(isIdle?<sp/>XST_SUCCESS<sp/>:<sp/>XST_FAILURE);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="142" refid="group__v__deinterlacer_1gaeaae347a5097c0000bae36d1ada725ac" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1gaeaae347a5097c0000bae36d1ada725ac" kindref="member">XV_DeintSetFieldBuffers</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/><sp/><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/>memAddr,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>cformat)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1afdb65796a78f33d8913f4c472c01efe9" kindref="member">XV_deinterlacer_Set_read_fb</ref>(&amp;InstancePtr-&gt;Deint,<sp/>memAddr);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1a8562b421c0fdd85d6219f7f0ac4dc840" kindref="member">XV_deinterlacer_Set_write_fb</ref>(&amp;InstancePtr-&gt;Deint,<sp/>memAddr);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><ref refid="xv__deinterlacer_8c_1a491f0136ebc5fd77f01c9d56739833e2" kindref="member">XV_deinterlacer_Set_colorFormat</ref>(&amp;InstancePtr-&gt;Deint,<sp/>cformat);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" kindref="member">XV_DeintDbgReportStatus</ref>(<ref refid="struct_x_v___deint__l2" kindref="compound">XV_Deint_l2</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v__deinterlacer" kindref="compound">XV_deinterlacer</ref><sp/>*pDeint<sp/>=<sp/>&amp;InstancePtr-&gt;Deint;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/>u32<sp/>done,<sp/>idle,<sp/>ready,<sp/>ctrl;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/>u32<sp/>rfb,<sp/>wfb,<sp/>colformat,<sp/>algo;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/>u32<sp/>width,<sp/>height;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n\r\n-----&gt;Deinterlacer<sp/>IP<sp/>STATUS&lt;----\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/>done<sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a6d5b0ce48fe965fc0aba39444dc79b03" kindref="member">XV_deinterlacer_IsDone</ref>(pDeint);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/>idle<sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a8320b0d217c5ac7ea5e17080f61786aa" kindref="member">XV_deinterlacer_IsIdle</ref>(pDeint);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>ready<sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a0b324dfad81cc4e11b5c908dc02d3836" kindref="member">XV_deinterlacer_IsReady</ref>(pDeint);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>ctrl<sp/><sp/>=<sp/>XV_deinterlacer_ReadReg(pDeint-&gt;<ref refid="struct_x_v__deinterlacer_1a769b52e3f8636ce72d9cec39b4706daa" kindref="member">Config</ref>.<ref refid="struct_x_v__deinterlacer___config_1aecc54bcb3dd13ef707f600f8eb1a75cc" kindref="member">BaseAddress</ref>,<sp/><ref refid="xv__deinterlacer__hw_8h_1aa24b3ae75f5c4db8dabd62b99adb27eb" kindref="member">XV_DEINTERLACER_CTRL_ADDR_AP_CTRL</ref>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/>rfb<sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a2ccd27a3ca7b565a789447fbc5a2f807" kindref="member">XV_deinterlacer_Get_read_fb</ref>(pDeint);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>wfb<sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a67258a4557d505336c185e682154c068" kindref="member">XV_deinterlacer_Get_write_fb</ref>(pDeint);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/>colformat<sp/>=<sp/><ref refid="xv__deinterlacer_8c_1adac6d3bbf44fc7233f8404b6613173dc" kindref="member">XV_deinterlacer_Get_colorFormat</ref>(pDeint);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/>algo<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a767bdf009b6ae631640624dfe9024ce3" kindref="member">XV_deinterlacer_Get_algo</ref>(pDeint);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/>width<sp/><sp/>=<sp/><ref refid="xv__deinterlacer_8c_1a89d22682aaceb56492dddd96a4c00af1" kindref="member">XV_deinterlacer_Get_width</ref>(pDeint);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/>height<sp/>=<sp/><ref refid="xv__deinterlacer_8c_1aa063f8811616f76d8320c7b807aeb466" kindref="member">XV_deinterlacer_Get_height</ref>(pDeint);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsDone:<sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>done);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsIdle:<sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>idle);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IsReady:<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/><sp/><sp/><sp/><sp/>ready);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Ctrl:<sp/><sp/><sp/><sp/>0x%x\r\n\r\n&quot;</highlight><highlight class="normal">,<sp/>ctrl);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Read<sp/>Frame<sp/>Buffer:<sp/><sp/>0x%x\r\n&quot;</highlight><highlight class="normal">,<sp/>rfb);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Write<sp/>Frame<sp/>Buffer:<sp/>0x%x\r\n&quot;</highlight><highlight class="normal">,<sp/>wfb);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Color<sp/>Format:<sp/><sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>colformat);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Algo<sp/>Selected:<sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>algo);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Width<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>width);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Height<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><sp/><sp/><sp/><sp/><sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>height);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_l2.c"/>
+  </compounddef>
+</doxygen>

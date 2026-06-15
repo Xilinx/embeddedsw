@@ -1,0 +1,813 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dpdc__menus_8h" kind="file">
+    <compoundname>mmi_dpdc_menus.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xmmidp.h</includes>
+    <includes refid="mmi__dpdc__example_8h" local="yes">mmi_dpdc_example.h</includes>
+    <includedby refid="mmi__dpdc__example_8c" local="yes">mmi_dpdc_example.c</includedby>
+    <includedby refid="mmi__dpdc__menus_8c" local="yes">mmi_dpdc_menus.c</includedby>
+    <incdepgraph>
+      <node id="440">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="444" relation="include">
+        </childnode>
+        <childnode refid="446" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+      </node>
+      <node id="443">
+        <label>xil_io.h</label>
+      </node>
+      <node id="436">
+        <label>mmi_dpdc_menus.h</label>
+        <link refid="mmi_dpdc_menus.h"/>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="438" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+      </node>
+      <node id="446">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="444" relation="include">
+        </childnode>
+      </node>
+      <node id="441">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="442" relation="include">
+        </childnode>
+      </node>
+      <node id="439">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="442">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+      </node>
+      <node id="438">
+        <label>xstatus.h</label>
+      </node>
+      <node id="437">
+        <label>xil_types.h</label>
+      </node>
+      <node id="447">
+        <label>xparameters.h</label>
+      </node>
+      <node id="445">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="443" relation="include">
+        </childnode>
+      </node>
+      <node id="444">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="445" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="449">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="450">
+        <label>mmi_dpdc_menus.c</label>
+        <link refid="mmi__dpdc__menus_8c"/>
+      </node>
+      <node id="448">
+        <label>mmi_dpdc_menus.h</label>
+        <link refid="mmi_dpdc_menus.h"/>
+        <childnode refid="449" relation="include">
+        </childnode>
+        <childnode refid="450" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_init_run_config" prot="public">InitRunConfig</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mmi__dpdc__menus_8h_1acf38c0fc04945c6ecf958409085a67c6" prot="public" static="no">
+        <name>MMI_DPDC_MENUS_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a0e5908c2b0abcc9c9da77fa1ac8d968b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ResolutionHelpMenu</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_ResolutionHelpMenu</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function displays the resolution help menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="223" bodyend="239"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a6228b23109a98eecfe60643b13a22d45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_FormatHelpMenu</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_FormatHelpMenu</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function displays the format help menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="251" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a1ed6edf16d317c1b2660d90f7211050c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_MainHelpMenu</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_MainHelpMenu</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function displays the main help menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="378" bodyend="429"/>
+        <references refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" compoundref="mmi__dpdc__menus_8h" startline="77">InitRunConfig::operatingmode</references>
+        <references refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" compoundref="mmi__dpdc__menus_8h" startline="78">InitRunConfig::presentationmode</references>
+        <references refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" compoundref="xdcsub_8h" startline="62">XDCSUB_OPMODE_FUNCTIONAL</references>
+        <references refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" compoundref="xdcsub_8h" startline="85">XDCSUB_PPTMODE_LIVE</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <references refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" compoundref="xdcsub_8h" startline="80">XDCSUB_PPTMODE_NONLIVE</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a8483d175bc0a001f960f827bd2dc9954" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ListNonliveFormats</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_ListNonliveFormats</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function displays all supported non-live input formats. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="288" bodyend="323"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1556d176379320be8336c7e4cd9eccb9" compoundref="mmi__dpdc__menus_8c" startline="967" endline="1030">XDpDc_ConfigureFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1ab26be72b44786c6adf68c7845b521052" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ListLiveFormats</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_ListLiveFormats</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function displays all supported live output formats. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="337" bodyend="364"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1556d176379320be8336c7e4cd9eccb9" compoundref="mmi__dpdc__menus_8c" startline="967" endline="1030">XDpDc_ConfigureFormat</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4209579dfac10289fe859f84eabdca60" compoundref="mmi__dpdc__menus_8c" startline="1045" endline="1089">XDpDc_ConfigureOutputFormat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a6ed49c1ca08ecf19af7bdd721bbaa33f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_DisplayConfig</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_DisplayConfig</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function displays the current configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="443" bodyend="517"/>
+        <references refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" compoundref="mmi__dpdc__menus_8h" startline="58">InitRunConfig::audio_channels</references>
+        <references refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" compoundref="mmi__dpdc__menus_8h" startline="57">InitRunConfig::audio_enable</references>
+        <references refid="struct_init_run_config_1a5565b2b3f735571d8fe97a92c228614d" compoundref="mmi__dpdc__menus_8h" startline="48">InitRunConfig::avpg</references>
+        <references refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" compoundref="mmi__dpdc__example_8h" startline="71">AvpgRunConfig::bpc</references>
+        <references refid="struct_avpg_run_config_1a9f05f549a896b4a4c9906122fae858bf" compoundref="mmi__dpdc__example_8h" startline="74">AvpgRunConfig::colorimetry</references>
+        <references refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" compoundref="mmi__dpdc__menus_8h" startline="62">InitRunConfig::cursor_coord_x</references>
+        <references refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" compoundref="mmi__dpdc__menus_8h" startline="63">InitRunConfig::cursor_coord_y</references>
+        <references refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" compoundref="mmi__dpdc__menus_8h" startline="56">InitRunConfig::cursor_enable</references>
+        <references refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" compoundref="mmi__dpdc__menus_8h" startline="64">InitRunConfig::cursor_size_x</references>
+        <references refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" compoundref="mmi__dpdc__menus_8h" startline="65">InitRunConfig::cursor_size_y</references>
+        <references refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" compoundref="mmi__dpdc__menus_8h" startline="52">InitRunConfig::frame_rate</references>
+        <references refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" compoundref="mmi__dpdc__menus_8h" startline="51">InitRunConfig::height</references>
+        <references refid="struct_init_run_config_1a4eb9d3421a5408252df9d7243f064bc1" compoundref="mmi__dpdc__menus_8h" startline="72">InitRunConfig::lane_count</references>
+        <references refid="struct_init_run_config_1a6ca86037cd56e4ddfb0bb6c950c0fc67" compoundref="mmi__dpdc__menus_8h" startline="73">InitRunConfig::link_rate</references>
+        <references refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" compoundref="mmi__dpdc__menus_8h" startline="77">InitRunConfig::operatingmode</references>
+        <references refid="struct_init_run_config_1afe38262491afe56063d3885187420957" compoundref="mmi__dpdc__menus_8h" startline="55">InitRunConfig::output_format</references>
+        <references refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" compoundref="mmi__dpdc__menus_8h" startline="60">InitRunConfig::partial_plane_blend_enable</references>
+        <references refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" compoundref="mmi__dpdc__example_8h" startline="72">AvpgRunConfig::pattern</references>
+        <references refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" compoundref="mmi__dpdc__example_8h" startline="73">AvpgRunConfig::pix_fmt</references>
+        <references refid="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" compoundref="mmi__dpdc__menus_8h" startline="66">InitRunConfig::ppb_coord_x</references>
+        <references refid="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" compoundref="mmi__dpdc__menus_8h" startline="67">InitRunConfig::ppb_coord_y</references>
+        <references refid="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" compoundref="mmi__dpdc__menus_8h" startline="70">InitRunConfig::ppb_offset_x</references>
+        <references refid="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" compoundref="mmi__dpdc__menus_8h" startline="71">InitRunConfig::ppb_offset_y</references>
+        <references refid="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" compoundref="mmi__dpdc__menus_8h" startline="68">InitRunConfig::ppb_size_x</references>
+        <references refid="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" compoundref="mmi__dpdc__menus_8h" startline="69">InitRunConfig::ppb_size_y</references>
+        <references refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" compoundref="mmi__dpdc__menus_8h" startline="61">InitRunConfig::ppb_stream_select</references>
+        <references refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" compoundref="mmi__dpdc__example_8h" startline="75">AvpgRunConfig::ppc</references>
+        <references refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" compoundref="mmi__dpdc__menus_8h" startline="78">InitRunConfig::presentationmode</references>
+        <references refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" compoundref="mmi__dpdc__menus_8h" startline="59">InitRunConfig::sdp_enable</references>
+        <references refid="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" compoundref="mmi__dpdc__menus_8h" startline="53">InitRunConfig::stream1_format</references>
+        <references refid="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" compoundref="mmi__dpdc__menus_8h" startline="54">InitRunConfig::stream2_format</references>
+        <references refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" compoundref="mmi__dpdc__menus_8h" startline="50">InitRunConfig::width</references>
+        <references refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" compoundref="xdcsub_8h" startline="62">XDCSUB_OPMODE_FUNCTIONAL</references>
+        <references refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" compoundref="xdcsub_8h" startline="85">XDCSUB_PPTMODE_LIVE</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <references refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" compoundref="xdcsub_8h" startline="80">XDCSUB_PPTMODE_NONLIVE</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1ae1a42b50dbb6036e34d6f274b84a5f70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_GetWidth</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_GetWidth</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function gets width from user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Width value</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="531" bodyend="543"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a486e14b1b3925dba0bd61acf08143e5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_GetHeight</definition>
+        <argsstring>(void)</argsstring>
+        <name>XDpDc_GetHeight</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function gets height from user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Height value</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="557" bodyend="569"/>
+        <referencedby refid="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a966b628e8e50ddba4369c08bdff05de2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_ConfigureResolution</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_ConfigureResolution</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function configures resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="583" bodyend="651"/>
+        <references refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" compoundref="mmi__dpdc__menus_8h" startline="52">InitRunConfig::frame_rate</references>
+        <references refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" compoundref="mmi__dpdc__menus_8h" startline="51">InitRunConfig::height</references>
+        <references refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" compoundref="mmi__dpdc__menus_8h" startline="50">InitRunConfig::width</references>
+        <references refid="mmi__dpdc__menus_8c_1a486e14b1b3925dba0bd61acf08143e5a" compoundref="mmi__dpdc__menus_8c" startline="557" endline="569">XDpDc_GetHeight</references>
+        <references refid="mmi__dpdc__menus_8c_1ae1a42b50dbb6036e34d6f274b84a5f70" compoundref="mmi__dpdc__menus_8c" startline="531" endline="543">XDpDc_GetWidth</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a1556d176379320be8336c7e4cd9eccb9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_ConfigureFormat</definition>
+        <argsstring>(u32 *format, const char *format_name)</argsstring>
+        <name>XDpDc_ConfigureFormat</name>
+        <param>
+          <type>u32 *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format_name</declname>
+        </param>
+        <briefdescription>
+<para>This function configures format. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to format variable </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>format_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Name of the format being configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="967" bodyend="1030"/>
+        <references refid="mmi__dpdc__menus_8c_1a1556d176379320be8336c7e4cd9eccb9" compoundref="mmi__dpdc__menus_8c" startline="967" endline="1030">XDpDc_ConfigureFormat</references>
+        <references refid="mmi__dpdc__menus_8c_1ab26be72b44786c6adf68c7845b521052" compoundref="mmi__dpdc__menus_8c" startline="337" endline="364">XDpDc_ListLiveFormats</references>
+        <references refid="mmi__dpdc__menus_8c_1a8483d175bc0a001f960f827bd2dc9954" compoundref="mmi__dpdc__menus_8c" startline="288" endline="323">XDpDc_ListNonliveFormats</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a1556d176379320be8336c7e4cd9eccb9" compoundref="mmi__dpdc__menus_8c" startline="967" endline="1030">XDpDc_ConfigureFormat</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a4209579dfac10289fe859f84eabdca60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_ConfigureOutputFormat</definition>
+        <argsstring>(u32 *format, const char *format_name)</argsstring>
+        <name>XDpDc_ConfigureOutputFormat</name>
+        <param>
+          <type>u32 *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format_name</declname>
+        </param>
+        <briefdescription>
+<para>This function configures output format (live stream) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to format variable </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>format_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Name of the format being configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>This is specialized for live output formats </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1045" bodyend="1089"/>
+        <references refid="mmi__dpdc__menus_8c_1a4209579dfac10289fe859f84eabdca60" compoundref="mmi__dpdc__menus_8c" startline="1045" endline="1089">XDpDc_ConfigureOutputFormat</references>
+        <references refid="mmi__dpdc__menus_8c_1ab26be72b44786c6adf68c7845b521052" compoundref="mmi__dpdc__menus_8c" startline="337" endline="364">XDpDc_ListLiveFormats</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4209579dfac10289fe859f84eabdca60" compoundref="mmi__dpdc__menus_8c" startline="1045" endline="1089">XDpDc_ConfigureOutputFormat</referencedby>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a4d1b2cc6794851c52db67e465eedcfa3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_ConfigureCursor</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_ConfigureCursor</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function configures cursor parameters (coordinates and size) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1103" bodyend="1128"/>
+        <references refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" compoundref="mmi__dpdc__menus_8h" startline="62">InitRunConfig::cursor_coord_x</references>
+        <references refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" compoundref="mmi__dpdc__menus_8h" startline="63">InitRunConfig::cursor_coord_y</references>
+        <references refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" compoundref="mmi__dpdc__menus_8h" startline="64">InitRunConfig::cursor_size_x</references>
+        <references refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" compoundref="mmi__dpdc__menus_8h" startline="65">InitRunConfig::cursor_size_y</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1ae4e5da3b3d7cac77758d6138c146385e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_ConfigurePartialPlane</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_ConfigurePartialPlane</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function configures partial plane blend parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1142" bodyend="1204"/>
+        <references refid="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" compoundref="mmi__dpdc__menus_8h" startline="66">InitRunConfig::ppb_coord_x</references>
+        <references refid="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" compoundref="mmi__dpdc__menus_8h" startline="67">InitRunConfig::ppb_coord_y</references>
+        <references refid="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" compoundref="mmi__dpdc__menus_8h" startline="70">InitRunConfig::ppb_offset_x</references>
+        <references refid="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" compoundref="mmi__dpdc__menus_8h" startline="71">InitRunConfig::ppb_offset_y</references>
+        <references refid="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" compoundref="mmi__dpdc__menus_8h" startline="68">InitRunConfig::ppb_size_x</references>
+        <references refid="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" compoundref="mmi__dpdc__menus_8h" startline="69">InitRunConfig::ppb_size_y</references>
+        <references refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" compoundref="mmi__dpdc__menus_8h" startline="61">InitRunConfig::ppb_stream_select</references>
+        <referencedby refid="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" compoundref="mmi__dpdc__menus_8c" startline="1396" endline="1578">XDpDc_MenuLoop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a4478f802d7e122a29e231d39d32c1147" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_MenuLoop</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_MenuLoop</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function runs the interactive menu loop. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1396" bodyend="1578"/>
+        <references refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" compoundref="mmi__dpdc__menus_8h" startline="58">InitRunConfig::audio_channels</references>
+        <references refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" compoundref="mmi__dpdc__menus_8h" startline="57">InitRunConfig::audio_enable</references>
+        <references refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" compoundref="mmi__dpdc__menus_8h" startline="62">InitRunConfig::cursor_coord_x</references>
+        <references refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" compoundref="mmi__dpdc__menus_8h" startline="63">InitRunConfig::cursor_coord_y</references>
+        <references refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" compoundref="mmi__dpdc__menus_8h" startline="56">InitRunConfig::cursor_enable</references>
+        <references refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" compoundref="mmi__dpdc__menus_8h" startline="64">InitRunConfig::cursor_size_x</references>
+        <references refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" compoundref="mmi__dpdc__menus_8h" startline="65">InitRunConfig::cursor_size_y</references>
+        <references refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" compoundref="mmi__dpdc__menus_8h" startline="77">InitRunConfig::operatingmode</references>
+        <references refid="struct_init_run_config_1afe38262491afe56063d3885187420957" compoundref="mmi__dpdc__menus_8h" startline="55">InitRunConfig::output_format</references>
+        <references refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" compoundref="mmi__dpdc__menus_8h" startline="60">InitRunConfig::partial_plane_blend_enable</references>
+        <references refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" compoundref="mmi__dpdc__menus_8h" startline="78">InitRunConfig::presentationmode</references>
+        <references refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" compoundref="mmi__dpdc__menus_8h" startline="59">InitRunConfig::sdp_enable</references>
+        <references refid="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" compoundref="mmi__dpdc__menus_8h" startline="53">InitRunConfig::stream1_format</references>
+        <references refid="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" compoundref="mmi__dpdc__menus_8h" startline="54">InitRunConfig::stream2_format</references>
+        <references refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" compoundref="xdcsub_8h" startline="62">XDCSUB_OPMODE_FUNCTIONAL</references>
+        <references refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" compoundref="xdcsub_8h" startline="85">XDCSUB_PPTMODE_LIVE</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <references refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" compoundref="xdcsub_8h" startline="80">XDCSUB_PPTMODE_NONLIVE</references>
+        <references refid="mmi__dpdc__menus_8c_1a4d1b2cc6794851c52db67e465eedcfa3" compoundref="mmi__dpdc__menus_8c" startline="1103" endline="1128">XDpDc_ConfigureCursor</references>
+        <references refid="mmi__dpdc__menus_8c_1a1556d176379320be8336c7e4cd9eccb9" compoundref="mmi__dpdc__menus_8c" startline="967" endline="1030">XDpDc_ConfigureFormat</references>
+        <references refid="mmi__dpdc__menus_8c_1a4209579dfac10289fe859f84eabdca60" compoundref="mmi__dpdc__menus_8c" startline="1045" endline="1089">XDpDc_ConfigureOutputFormat</references>
+        <references refid="mmi__dpdc__menus_8c_1ae4e5da3b3d7cac77758d6138c146385e" compoundref="mmi__dpdc__menus_8c" startline="1142" endline="1204">XDpDc_ConfigurePartialPlane</references>
+        <references refid="mmi__dpdc__menus_8c_1a966b628e8e50ddba4369c08bdff05de2" compoundref="mmi__dpdc__menus_8c" startline="583" endline="651">XDpDc_ConfigureResolution</references>
+        <references refid="mmi__dpdc__menus_8c_1a6ed49c1ca08ecf19af7bdd721bbaa33f" compoundref="mmi__dpdc__menus_8c" startline="443" endline="517">XDpDc_DisplayConfig</references>
+        <references refid="mmi__dpdc__menus_8c_1a1ed6edf16d317c1b2660d90f7211050c" compoundref="mmi__dpdc__menus_8c" startline="378" endline="429">XDpDc_MainHelpMenu</references>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a23e0f7f5b66aae7b68eab9d3c904657d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_InitConfigDefaults</definition>
+        <argsstring>(InitRunConfig *config)</argsstring>
+        <name>XDpDc_InitConfigDefaults</name>
+        <param>
+          <type><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> *</type>
+          <declname>config</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> with default values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1723" bodyend="1879"/>
+        <references refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" compoundref="mmi__dpdc__menus_8h" startline="58">InitRunConfig::audio_channels</references>
+        <references refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" compoundref="mmi__dpdc__menus_8h" startline="57">InitRunConfig::audio_enable</references>
+        <references refid="struct_init_run_config_1a5565b2b3f735571d8fe97a92c228614d" compoundref="mmi__dpdc__menus_8h" startline="48">InitRunConfig::avpg</references>
+        <references refid="struct_avpg_run_config_1acaedb0caa17ed5c9a3a6b295d8b53d3b" compoundref="mmi__dpdc__example_8h" startline="71">AvpgRunConfig::bpc</references>
+        <references refid="struct_init_run_config_1a4f3d1589f05df9935e632295f36f805a" compoundref="mmi__dpdc__menus_8h" startline="85">InitRunConfig::byp_stream_pix_mode</references>
+        <references refid="struct_init_run_config_1a152ad66bc2be12c608992ed02f6cf608" compoundref="mmi__dpdc__menus_8h" startline="86">InitRunConfig::byp_stream_sdp_en</references>
+        <references refid="struct_init_run_config_1a53f8cb88eda902b5cb4206beadfa3068" compoundref="mmi__dpdc__menus_8h" startline="87">InitRunConfig::byp_stream_vid_mode</references>
+        <references refid="struct_init_run_config_1a092ce200f234044b854428da4dff7ef7" compoundref="mmi__dpdc__menus_8h" startline="84">InitRunConfig::byp_streams</references>
+        <references refid="struct_avpg_run_config_1a9f05f549a896b4a4c9906122fae858bf" compoundref="mmi__dpdc__example_8h" startline="74">AvpgRunConfig::colorimetry</references>
+        <references refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" compoundref="mmi__dpdc__menus_8h" startline="62">InitRunConfig::cursor_coord_x</references>
+        <references refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" compoundref="mmi__dpdc__menus_8h" startline="63">InitRunConfig::cursor_coord_y</references>
+        <references refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" compoundref="mmi__dpdc__menus_8h" startline="56">InitRunConfig::cursor_enable</references>
+        <references refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" compoundref="mmi__dpdc__menus_8h" startline="64">InitRunConfig::cursor_size_x</references>
+        <references refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" compoundref="mmi__dpdc__menus_8h" startline="65">InitRunConfig::cursor_size_y</references>
+        <references refid="mmi__dpdc__platform_8h_1a820a9ffb482433d5bf150c41fb4b0cb3" compoundref="mmi__dpdc__platform_8h" startline="40">DC_BASEADDR</references>
+        <references refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" compoundref="mmi__dpdc__menus_8h" startline="52">InitRunConfig::frame_rate</references>
+        <references refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" compoundref="mmi__dpdc__menus_8h" startline="51">InitRunConfig::height</references>
+        <references refid="struct_init_run_config_1a4eb9d3421a5408252df9d7243f064bc1" compoundref="mmi__dpdc__menus_8h" startline="72">InitRunConfig::lane_count</references>
+        <references refid="struct_init_run_config_1a6ca86037cd56e4ddfb0bb6c950c0fc67" compoundref="mmi__dpdc__menus_8h" startline="73">InitRunConfig::link_rate</references>
+        <references refid="struct_init_run_config_1a98732579f2427fd13bdb53e4823c7728" compoundref="mmi__dpdc__menus_8h" startline="80">InitRunConfig::livevideo01mode</references>
+        <references refid="struct_init_run_config_1ae440bbab3ca3581daeb6d2719b54f757" compoundref="mmi__dpdc__menus_8h" startline="81">InitRunConfig::livevideo02mode</references>
+        <references refid="struct_init_run_config_1af51351f8d981f057c756db2b0924b6cf" compoundref="mmi__dpdc__menus_8h" startline="82">InitRunConfig::livevideoalphaen</references>
+        <references refid="struct_init_run_config_1a65a5aee25c3374792c80ea4fe0f8b22b" compoundref="mmi__dpdc__menus_8h" startline="83">InitRunConfig::livevideosdpen</references>
+        <references refid="struct_init_run_config_1ac83021a84d4f9533be6de2198bfcc98c" compoundref="mmi__dpdc__menus_8h" startline="79">InitRunConfig::livevidselect</references>
+        <references refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" compoundref="mmi__dpdc__menus_8h" startline="77">InitRunConfig::operatingmode</references>
+        <references refid="struct_init_run_config_1afe38262491afe56063d3885187420957" compoundref="mmi__dpdc__menus_8h" startline="55">InitRunConfig::output_format</references>
+        <references refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" compoundref="mmi__dpdc__menus_8h" startline="60">InitRunConfig::partial_plane_blend_enable</references>
+        <references refid="struct_avpg_run_config_1ac02c760c30561b2efd844c75862a9cd7" compoundref="mmi__dpdc__example_8h" startline="72">AvpgRunConfig::pattern</references>
+        <references refid="struct_avpg_run_config_1a9a79d968a2a5907ea10ad7ae4befe65d" compoundref="mmi__dpdc__example_8h" startline="73">AvpgRunConfig::pix_fmt</references>
+        <references refid="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" compoundref="mmi__dpdc__menus_8h" startline="66">InitRunConfig::ppb_coord_x</references>
+        <references refid="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" compoundref="mmi__dpdc__menus_8h" startline="67">InitRunConfig::ppb_coord_y</references>
+        <references refid="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" compoundref="mmi__dpdc__menus_8h" startline="70">InitRunConfig::ppb_offset_x</references>
+        <references refid="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" compoundref="mmi__dpdc__menus_8h" startline="71">InitRunConfig::ppb_offset_y</references>
+        <references refid="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" compoundref="mmi__dpdc__menus_8h" startline="68">InitRunConfig::ppb_size_x</references>
+        <references refid="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" compoundref="mmi__dpdc__menus_8h" startline="69">InitRunConfig::ppb_size_y</references>
+        <references refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" compoundref="mmi__dpdc__menus_8h" startline="61">InitRunConfig::ppb_stream_select</references>
+        <references refid="struct_avpg_run_config_1a7a66cbfbab8be0e62fbc9f8d881c5723" compoundref="mmi__dpdc__example_8h" startline="75">AvpgRunConfig::ppc</references>
+        <references refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" compoundref="mmi__dpdc__menus_8h" startline="78">InitRunConfig::presentationmode</references>
+        <references refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" compoundref="mmi__dpdc__menus_8h" startline="59">InitRunConfig::sdp_enable</references>
+        <references refid="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" compoundref="mmi__dpdc__menus_8h" startline="53">InitRunConfig::stream1_format</references>
+        <references refid="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" compoundref="mmi__dpdc__menus_8h" startline="54">InitRunConfig::stream2_format</references>
+        <references refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" compoundref="mmi__dpdc__menus_8h" startline="50">InitRunConfig::width</references>
+        <references refid="xdcsub_8h_1a4368c62ca68781dcae5df5037ccf892b" compoundref="xdcsub_8h" startline="113">XDCSUB_LIVVID_SEL_BOTH</references>
+        <references refid="xdcsub_8h_1a7958fb3ab0885091d527b3340cc865bc" compoundref="xdcsub_8h" startline="118">XDCSUB_LIVVID_SEL_NONE</references>
+        <references refid="xdcsub_8h_1a3facf4fc83a3470a80020f6c9d4e387f" compoundref="xdcsub_8h" startline="103">XDCSUB_LIVVID_SEL_V01</references>
+        <references refid="xdcsub_8h_1a0985ecaee82df349e4e55cc831764834" compoundref="xdcsub_8h" startline="108">XDCSUB_LIVVID_SEL_V02</references>
+        <references refid="xdcsub_8h_1aa9da509a0585433ac086053a1b260058" compoundref="xdcsub_8h" startline="67">XDCSUB_OPMODE_BYPASS</references>
+        <references refid="xdcsub_8h_1ae597de7272868cb833836a0ac24d526e" compoundref="xdcsub_8h" startline="62">XDCSUB_OPMODE_FUNCTIONAL</references>
+        <references refid="xdcsub_8h_1a6cb44f3425f061c17f2dd5337492806d" compoundref="xdcsub_8h" startline="85">XDCSUB_PPTMODE_LIVE</references>
+        <references refid="xdcsub_8h_1a108493c2d797aaed71f2875851b21826" compoundref="xdcsub_8h" startline="91">XDCSUB_PPTMODE_MIXED</references>
+        <references refid="xdcsub_8h_1ae409b0550fbe622ad94d01f552d285a3" compoundref="xdcsub_8h" startline="80">XDCSUB_PPTMODE_NONLIVE</references>
+        <references refid="xdcsub_8h_1a135c40111d127a090667f8d7fc05ef6a" compoundref="xdcsub_8h" startline="129">XDCSUB_VIDMODE_AV</references>
+        <references refid="xdcsub_8h_1a686739ddecc3e0d558ddd2cdc7041315" compoundref="xdcsub_8h" startline="139">XDCSUB_VIDMODE_NONE</references>
+        <references refid="xdcsub_8h_1a2eebae8e2dda476ddbffa09a6823fd0e" compoundref="xdcsub_8h" startline="134">XDCSUB_VIDMODE_VONLY</references>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dpdc__menus_8h_1a872719c7a59412e936c13022311fddac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_AuxMenu</definition>
+        <argsstring>(XMmiDp *DpPtr)</argsstring>
+        <name>XDpDc_AuxMenu</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPtr</declname>
+        </param>
+        <briefdescription>
+<para>AUX Read/Write submenu. </para>        </briefdescription>
+        <detaileddescription>
+<para>Allows the user to perform DPCD AUX read and write transactions with configurable address, data, and iteration count.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the initialized XMmiDp instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.c" bodystart="1630" bodyend="1709"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains declarations for menu functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who     Date      Changes
+<hruler/>
+
+1.00 arm     04/02/26  Initial version</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>MMI_DPDC_MENUS_H_</highlight></codeline>
+<codeline lineno="25" refid="mmi__dpdc__menus_8h_1acf38c0fc04945c6ecf958409085a67c6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MMI_DPDC_MENUS_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xmmidp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dpdc__example_8h" kindref="compound">mmi_dpdc_example.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/*<sp/>InitRunConfig<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46" refid="struct_init_run_config" refkind="compound"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_avpg_run_config" kindref="compound">AvpgRunConfig</ref><sp/>avpg[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>width;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="struct_init_run_config_1aba17442d43d7d59a4d281f065717b3ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>height;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="struct_init_run_config_1a97fd59cef2244825b167f75853a6c197" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>frame_rate;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="struct_init_run_config_1ac27f27452788d28f27a08d17eee3dbed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>stream1_format;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="struct_init_run_config_1a1dcc147c2027a2d38dbb963e49926196" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>stream2_format;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="struct_init_run_config_1af0ba989759f17a8da0dd99068b3c91aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>output_format;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="struct_init_run_config_1afe38262491afe56063d3885187420957" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>cursor_enable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_init_run_config_1acd8a594f012e1c5c4c2244cd11605a22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>audio_enable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_init_run_config_1abab4747bbd38f27e47af91c99123d5d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>audio_channels;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_init_run_config_1a836c630c2c5fc8ca15222b2b7541be32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>sdp_enable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_init_run_config_1a91187174f01da271fba2174bf84b5069" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>partial_plane_blend_enable;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_init_run_config_1a4a47f59bc1e496228cfdfedea34499a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>ppb_stream_select;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_init_run_config_1a0d9dad981dd504dd30778afa7aa479e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>cursor_coord_x;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_init_run_config_1a1f775c283ff2c8e0888e8f0f69ce4ef0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>cursor_coord_y;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_init_run_config_1a38b61e9c2250bdbd14abcf164101e45e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>cursor_size_x;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_init_run_config_1af5ddd069cd61bded1852755c04c325ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>cursor_size_y;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_init_run_config_1a5185922eca0badcc51e904e61ffeaab9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_coord_x;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_init_run_config_1a71603b6f22ac9006c4f2c02eeee717e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_coord_y;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_init_run_config_1a5a09ba3119a11846784fefbcc6b72288" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_size_x;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_init_run_config_1adc20f46f2387d4c46abacfcb749edc0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_size_y;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_init_run_config_1ab18d2f57601fedc6553aa5c016aaa703" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_offset_x;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_init_run_config_1a8245e9c4114e879804afaaa337a182b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>ppb_offset_y;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_init_run_config_1a9ed6fe0fbe5ae437314eece44884f5fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>lane_count;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_init_run_config_1a4eb9d3421a5408252df9d7243f064bc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>link_rate;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>power_cycle_on_start;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>operatingmode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_init_run_config_1af1eabcb156bac51f2fc7d59d111a0f98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>presentationmode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_init_run_config_1acf3f022de58d9725ec65c0e0ec216ccd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>livevidselect;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_init_run_config_1ac83021a84d4f9533be6de2198bfcc98c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>livevideo01mode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_init_run_config_1a98732579f2427fd13bdb53e4823c7728" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>livevideo02mode;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_init_run_config_1ae440bbab3ca3581daeb6d2719b54f757" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>livevideoalphaen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_init_run_config_1af51351f8d981f057c756db2b0924b6cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>livevideosdpen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_init_run_config_1a65a5aee25c3374792c80ea4fe0f8b22b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>byp_streams;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_init_run_config_1a092ce200f234044b854428da4dff7ef7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>byp_stream_pix_mode[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_init_run_config_1a4f3d1589f05df9935e632295f36f805a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>byp_stream_sdp_en[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_init_run_config_1a152ad66bc2be12c608992ed02f6cf608" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>byp_stream_vid_mode[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_init_run_config_1a53f8cb88eda902b5cb4206beadfa3068" refkind="member"><highlight class="normal">}<sp/><ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Function<sp/>prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a0e5908c2b0abcc9c9da77fa1ac8d968b" kindref="member">XDpDc_ResolutionHelpMenu</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a6228b23109a98eecfe60643b13a22d45" kindref="member">XDpDc_FormatHelpMenu</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a1ed6edf16d317c1b2660d90f7211050c" kindref="member">XDpDc_MainHelpMenu</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a8483d175bc0a001f960f827bd2dc9954" kindref="member">XDpDc_ListNonliveFormats</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1ab26be72b44786c6adf68c7845b521052" kindref="member">XDpDc_ListLiveFormats</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a6ed49c1ca08ecf19af7bdd721bbaa33f" kindref="member">XDpDc_DisplayConfig</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1ae1a42b50dbb6036e34d6f274b84a5f70" kindref="member">XDpDc_GetWidth</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1a486e14b1b3925dba0bd61acf08143e5a" kindref="member">XDpDc_GetHeight</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1a966b628e8e50ddba4369c08bdff05de2" kindref="member">XDpDc_ConfigureResolution</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1a1556d176379320be8336c7e4cd9eccb9" kindref="member">XDpDc_ConfigureFormat</ref>(u32<sp/>*format,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*format_name);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1a4209579dfac10289fe859f84eabdca60" kindref="member">XDpDc_ConfigureOutputFormat</ref>(u32<sp/>*format,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*format_name);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1a4d1b2cc6794851c52db67e465eedcfa3" kindref="member">XDpDc_ConfigureCursor</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">u32<sp/><ref refid="mmi__dpdc__menus_8c_1ae4e5da3b3d7cac77758d6138c146385e" kindref="member">XDpDc_ConfigurePartialPlane</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a4478f802d7e122a29e231d39d32c1147" kindref="member">XDpDc_MenuLoop</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a23e0f7f5b66aae7b68eab9d3c904657d" kindref="member">XDpDc_InitConfigDefaults</ref>(<ref refid="struct_init_run_config" kindref="compound">InitRunConfig</ref><sp/>*config);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dpdc__menus_8c_1a872719c7a59412e936c13022311fddac" kindref="member">XDpDc_AuxMenu</ref>(XMmiDp<sp/>*DpPtr);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>MMI_DPDC_MENUS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_menus.h"/>
+  </compounddef>
+</doxygen>

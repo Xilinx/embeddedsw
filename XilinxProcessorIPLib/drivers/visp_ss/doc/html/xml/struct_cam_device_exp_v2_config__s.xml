@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_exp_v2_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceExpV2Config_s</compoundname>
+    <includes local="no">cam_device_exp_api_v2.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_exp_v2_config__s_1a4b0abcf6e45077ea4169b75a1b99b738" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__exp_1ga6336e02254a0895d6b966f95b3817b35" kindref="member">CamDeviceExpV2Sel_t</ref></type>
+        <definition>CamDeviceExpV2Sel_t CamDeviceExpV2Config_s::inputSelect</definition>
+        <argsstring></argsstring>
+        <name>inputSelect</name>
+        <briefdescription>
+<para>EXP input select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_exp_v2_config__s_1a02352697d871e8cada35f3b97747800d" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceExpV2Config_s::windowSetCustomEnable</definition>
+        <argsstring></argsstring>
+        <name>windowSetCustomEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice EXP configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/exp_v2/cam_device_exp_api_v2.h" bodystart="92" bodyend="96"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_exp_v2_config__s_1a4b0abcf6e45077ea4169b75a1b99b738" prot="public" virt="non-virtual"><scope>CamDeviceExpV2Config_s</scope><name>inputSelect</name></member>
+      <member refid="struct_cam_device_exp_v2_config__s_1a02352697d871e8cada35f3b97747800d" prot="public" virt="non-virtual"><scope>CamDeviceExpV2Config_s</scope><name>windowSetCustomEnable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

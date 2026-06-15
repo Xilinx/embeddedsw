@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___cursor" kind="struct" prot="public">
+    <compoundname>XDc_Cursor</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___cursor_1af38617db9fbebe76dac5cf8d23a1ac68" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_Cursor::CoordY</definition>
+        <argsstring></argsstring>
+        <name>CoordY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="339" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1aceec90011f54b1a5e974dcda512ee05b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_Cursor::CoordX</definition>
+        <argsstring></argsstring>
+        <name>CoordX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1ab6643facad4554cc05391dc04a3cea4f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_Cursor::SizeY</definition>
+        <argsstring></argsstring>
+        <name>SizeY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1a92eab2d40b6f9e9ba372bfda24c321a1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDc_Cursor::SizeX</definition>
+        <argsstring></argsstring>
+        <name>SizeX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___cursor_1a9c989c47bcd227e98f273b2cfd0f5c8a" prot="public" static="no" mutable="no">
+        <type>XDc_VideoAttribute *</type>
+        <definition>XDc_VideoAttribute* XDc_Cursor::CursorAttribute</definition>
+        <argsstring></argsstring>
+        <name>CursorAttribute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes the cursor blend coords. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="337" bodyend="346"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___cursor_1aceec90011f54b1a5e974dcda512ee05b" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordX</name></member>
+      <member refid="struct_x_dc___cursor_1af38617db9fbebe76dac5cf8d23a1ac68" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CoordY</name></member>
+      <member refid="struct_x_dc___cursor_1a9c989c47bcd227e98f273b2cfd0f5c8a" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>CursorAttribute</name></member>
+      <member refid="struct_x_dc___cursor_1a92eab2d40b6f9e9ba372bfda24c321a1" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>SizeX</name></member>
+      <member refid="struct_x_dc___cursor_1ab6643facad4554cc05391dc04a3cea4f" prot="public" virt="non-virtual"><scope>XDc_Cursor</scope><name>SizeY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

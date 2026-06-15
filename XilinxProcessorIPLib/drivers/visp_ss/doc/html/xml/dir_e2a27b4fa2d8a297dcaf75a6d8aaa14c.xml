@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e2a27b4fa2d8a297dcaf75a6d8aaa14c" kind="dir">
+    <compoundname>fmc</compoundname>
+    <innerfile refid="max9295_8h">max9295.h</innerfile>
+    <innerfile refid="max9296_8h">max9296.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtmrctr__stats_8c" kind="file">
+    <compoundname>xtmrctr_stats.c</compoundname>
+    <includes refid="xtmrctr_8h" local="yes">xtmrctr.h</includes>
+    <incdepgraph>
+      <node id="190">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="192">
+        <label>xtmrctr_l.h</label>
+        <link refid="xtmrctr__l_8h"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+      </node>
+      <node id="193">
+        <label>xil_io.h</label>
+      </node>
+      <node id="191">
+        <label>xstatus.h</label>
+      </node>
+      <node id="189">
+        <label>xil_types.h</label>
+      </node>
+      <node id="187">
+        <label>xtmrctr_stats.c</label>
+        <link refid="xtmrctr_stats.c"/>
+        <childnode refid="188" relation="include">
+        </childnode>
+      </node>
+      <node id="188">
+        <label>xtmrctr.h</label>
+        <link refid="xtmrctr_8h"/>
+        <childnode refid="189" relation="include">
+        </childnode>
+        <childnode refid="190" relation="include">
+        </childnode>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___overview_1ga3c99744f99aef2a019616e712206f1b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTmrCtr_GetStats</definition>
+        <argsstring>(XTmrCtr *InstancePtr, XTmrCtrStats *StatsPtr)</argsstring>
+        <name>XTmrCtr_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Get a copy of the <ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref> structure, which contains the current statistics for this driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a <ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref> structure which will get a copy of current statistics.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_stats.c" bodystart="62" bodyend="69"/>
+        <references refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" compoundref="xtmrctr_8h" startline="251">XTmrCtrStats::Interrupts</references>
+        <references refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" compoundref="xtmrctr_8h" startline="264">XTmrCtr::IsReady</references>
+        <references refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" compoundref="xtmrctr_8h" startline="262">XTmrCtr::Stats</references>
+      </memberdef>
+      <memberdef kind="function" id="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTmrCtr_ClearStats</definition>
+        <argsstring>(XTmrCtr *InstancePtr)</argsstring>
+        <name>XTmrCtr_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clear the <ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref> structure for this driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_stats.c" bodystart="83" bodyend="89"/>
+        <references refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" compoundref="xtmrctr_8h" startline="251">XTmrCtrStats::Interrupts</references>
+        <references refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" compoundref="xtmrctr_8h" startline="264">XTmrCtr::IsReady</references>
+        <references refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" compoundref="xtmrctr_8h" startline="262">XTmrCtr::Stats</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xtmrctr_8h" kindref="compound">xtmrctr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62" refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga3c99744f99aef2a019616e712206f1b0" kindref="member">XTmrCtr_GetStats</ref>(<ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_tmr_ctr_stats" kindref="compound">XTmrCtrStats</ref><sp/>*StatsPtr)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" kindref="member">Interrupts</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" kindref="member">Stats</ref>.<ref refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" kindref="member">Interrupts</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="83" refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga6f51d8030e9d1a4edc588b0846e22e49" kindref="member">XTmrCtr_ClearStats</ref>(<ref refid="struct_x_tmr_ctr" kindref="compound">XTmrCtr</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1a6e340e798d785abfe551a776fd6f7bb9" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_tmr_ctr_1ad5cd023157ffa3ef8881bc88ae6ea26b" kindref="member">Stats</ref>.<ref refid="struct_x_tmr_ctr_stats_1a3e3996ef053ba44bc8720616f3f4c397" kindref="member">Interrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_stats.c"/>
+  </compounddef>
+</doxygen>

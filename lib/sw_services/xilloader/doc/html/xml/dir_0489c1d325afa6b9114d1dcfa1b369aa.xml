@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0489c1d325afa6b9114d1dcfa1b369aa" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="2vp_2server_2xloader__plat_8c">2vp/server/xloader_plat.c</innerfile>
+    <innerfile refid="2vp_2server_2xloader__plat_8h">2vp/server/xloader_plat.h</innerfile>
+    <innerfile refid="2vp_2server_2xloader__plat__secure_8c">2vp/server/xloader_plat_secure.c</innerfile>
+    <innerfile refid="2vp_2server_2xloader__plat__secure_8h">2vp/server/xloader_plat_secure.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2vp/server/"/>
+  </compounddef>
+</doxygen>

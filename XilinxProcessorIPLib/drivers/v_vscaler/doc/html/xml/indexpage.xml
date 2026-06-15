@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_vscaler</title>
+    <detaileddescription>
+<para>This file provides the default fixed coefficient sets for supported taps<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   rco   07/31/15   Initial Release
+3.0   rco   02/09/17   Fix c++ compilation warnings
+3.1   vsa   04/07/20   Improve quality with new coefficients
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

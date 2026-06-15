@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___auth_jtag_message" kind="struct" prot="public">
+    <compoundname>XLoader_AuthJtagMessage</compoundname>
+    <includes local="no">xloader_auth_enc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1aa9d68ed5c256db6935dd939f2e09a256" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::AuthHdr</definition>
+        <argsstring></argsstring>
+        <name>AuthHdr</name>
+        <briefdescription>
+<para>Authentication Header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="709" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="709" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3f29d3cad49bb5f8f75792c853e235bc" compoundref="xloader__auth__enc_8c" startline="3063" endline="3191">XLoader_AuthKat</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gabc232d3b5b2c07628059fb8a73927942" compoundref="xloader__auth__enc_8c" startline="1063" endline="1141">XLoader_VerifySignature</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1abe1d78a22eb72da4f312f3d9c16d9a63" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::RevocationIdMsgType</definition>
+        <argsstring></argsstring>
+        <name>RevocationIdMsgType</name>
+        <briefdescription>
+<para>Revocation ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="710" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="710" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1aa3b85ebccf922b4d55113eb3d018aba7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::Attrb</definition>
+        <argsstring></argsstring>
+        <name>Attrb</name>
+        <briefdescription>
+<para>Attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="711" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="711" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1a3f2d0f95576df195b76be21d01a45d44" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::Dna[XLOADER_EFUSE_DNA_NUM_ROWS]</definition>
+        <argsstring>[XLOADER_EFUSE_DNA_NUM_ROWS]</argsstring>
+        <name>Dna</name>
+        <briefdescription>
+<para>DNA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="712" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="712" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1a5f003a951dff02194012634b340205c9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::JtagEnableTimeout</definition>
+        <argsstring></argsstring>
+        <name>JtagEnableTimeout</name>
+        <briefdescription>
+<para>JTAG enable timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="713" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="713" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1a03271fdc42fcd408764f4cc272850d24" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::AuthJtagPadding[XLOADER_AUTH_JTAG_PADDING_SIZE]</definition>
+        <argsstring>[XLOADER_AUTH_JTAG_PADDING_SIZE]</argsstring>
+        <name>AuthJtagPadding</name>
+        <briefdescription>
+<para>SHA padding for Auth JTAG signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="714" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="714" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1aefb5c4f0ebe966f7170c438e3702e458" prot="public" static="no" mutable="no">
+        <type>XLoader_AuthKey</type>
+        <definition>XLoader_AuthKey XLoader_AuthJtagMessage::PpkData</definition>
+        <argsstring></argsstring>
+        <name>PpkData</name>
+        <briefdescription>
+<para>PPK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="716" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="716" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1a51bbf0cc1ef93b1f7c652babbcd64e2b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::AuthJtagPpkShaPadding[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE]</definition>
+        <argsstring>[XLOADER_AUTH_JTAG_SHA_PADDING_SIZE]</argsstring>
+        <name>AuthJtagPpkShaPadding</name>
+        <briefdescription>
+<para>SHA padding for PPK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="717" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="717" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___auth_jtag_message_1a54190903fb72f483f30111db99f6bde3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_AuthJtagMessage::EnableJtagSignature[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE]</definition>
+        <argsstring>[XLOADER_ENABLE_AUTH_JTAG_SIGNATURE_SIZE]</argsstring>
+        <name>EnableJtagSignature</name>
+        <briefdescription>
+<para>Auth JTAG signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="719" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="719" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Authenticated JTAG Message structure for Versal and Versal Net. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="708" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="708" bodyend="721"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___auth_jtag_message_1aa3b85ebccf922b4d55113eb3d018aba7" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>Attrb</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1aa9d68ed5c256db6935dd939f2e09a256" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>AuthHdr</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1a03271fdc42fcd408764f4cc272850d24" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>AuthJtagPadding</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1a51bbf0cc1ef93b1f7c652babbcd64e2b" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>AuthJtagPpkShaPadding</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1a3f2d0f95576df195b76be21d01a45d44" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>Dna</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1a54190903fb72f483f30111db99f6bde3" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>EnableJtagSignature</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1a5f003a951dff02194012634b340205c9" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>JtagEnableTimeout</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1aefb5c4f0ebe966f7170c438e3702e458" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>PpkData</name></member>
+      <member refid="struct_x_loader___auth_jtag_message_1abe1d78a22eb72da4f312f3d9c16d9a63" prot="public" virt="non-virtual"><scope>XLoader_AuthJtagMessage</scope><name>RevocationIdMsgType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

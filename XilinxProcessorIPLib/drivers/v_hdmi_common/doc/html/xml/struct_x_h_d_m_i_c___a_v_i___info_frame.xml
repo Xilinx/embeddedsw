@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_h_d_m_i_c___a_v_i___info_frame" kind="struct" prot="public">
+    <compoundname>XHDMIC_AVI_InfoFrame</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1ad8b6a284f50cf8f8ae143093c5b78c2b" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHDMIC_AVI_InfoFrame::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a57fef8566991c36f7e080da87f1636dc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHDMIC_AVI_InfoFrame::DataLength</definition>
+        <argsstring></argsstring>
+        <name>DataLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a3db9c08216b2460f1184496fc79e80fb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdmi__common_1gaa43dceac5eee488e35c57a5616f705db" kindref="member">XHdmiC_Colorspace</ref></type>
+        <definition>XHdmiC_Colorspace XHDMIC_AVI_InfoFrame::ColorSpace</definition>
+        <argsstring></argsstring>
+        <name>ColorSpace</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1ae5ff2d21291fb874449d315cb0925b2d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHDMIC_AVI_InfoFrame::ActiveFormatDataPresent</definition>
+        <argsstring></argsstring>
+        <name>ActiveFormatDataPresent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1abda781af77917d7d421bc654e5c1069c" prot="public" static="no" mutable="no">
+        <type>XHdmiC_BarInfo</type>
+        <definition>XHdmiC_BarInfo XHDMIC_AVI_InfoFrame::BarInfo</definition>
+        <argsstring></argsstring>
+        <name>BarInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="478" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="478" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a8f8d8498fa49dfd62a1ef1c9807a6862" prot="public" static="no" mutable="no">
+        <type>XHdmiC_ScanInfo</type>
+        <definition>XHdmiC_ScanInfo XHDMIC_AVI_InfoFrame::ScanInfo</definition>
+        <argsstring></argsstring>
+        <name>ScanInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="479" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a1afbe567ea0f9e487465ed86df9b170a" prot="public" static="no" mutable="no">
+        <type>XHdmiC_Colorimetry</type>
+        <definition>XHdmiC_Colorimetry XHDMIC_AVI_InfoFrame::Colorimetry</definition>
+        <argsstring></argsstring>
+        <name>Colorimetry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="480" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="480" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a82aa169e4161f485e5644de63082cfa4" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdmi__common_1ga364c90224725c9e995d2b4298619b24f" kindref="member">XHdmiC_PicAspectRatio</ref></type>
+        <definition>XHdmiC_PicAspectRatio XHDMIC_AVI_InfoFrame::PicAspectRatio</definition>
+        <argsstring></argsstring>
+        <name>PicAspectRatio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a5a876769fb46503e6b34f4683df2da59" prot="public" static="no" mutable="no">
+        <type>XHdmiC_ActiveAspectRatio</type>
+        <definition>XHdmiC_ActiveAspectRatio XHDMIC_AVI_InfoFrame::ActiveAspectRatio</definition>
+        <argsstring></argsstring>
+        <name>ActiveAspectRatio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="482" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a728d0c22e934c0172fac490191a59484" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHDMIC_AVI_InfoFrame::Itc</definition>
+        <argsstring></argsstring>
+        <name>Itc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="483" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1ab81c4b3ab43ffb4d7aff54db3f40afec" prot="public" static="no" mutable="no">
+        <type>XHdmiC_ExtendedColorimetry</type>
+        <definition>XHdmiC_ExtendedColorimetry XHDMIC_AVI_InfoFrame::ExtendedColorimetry</definition>
+        <argsstring></argsstring>
+        <name>ExtendedColorimetry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1ac488bc2413a26fe7f4b9c3ac7a8fbf77" prot="public" static="no" mutable="no">
+        <type>XHdmiC_RGBQuantizationRange</type>
+        <definition>XHdmiC_RGBQuantizationRange XHDMIC_AVI_InfoFrame::QuantizationRange</definition>
+        <argsstring></argsstring>
+        <name>QuantizationRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1aa45fd57cfdacb12c869f13d07f31e497" prot="public" static="no" mutable="no">
+        <type>XHdmiC_NonUniformPictureScaling</type>
+        <definition>XHdmiC_NonUniformPictureScaling XHDMIC_AVI_InfoFrame::NonUniformPictureScaling</definition>
+        <argsstring></argsstring>
+        <name>NonUniformPictureScaling</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a422e43f41ad34260e7f437db05ceebcb" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char XHDMIC_AVI_InfoFrame::VIC</definition>
+        <argsstring></argsstring>
+        <name>VIC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a47f4b17bd649eba5ea49f2fae3b2e46a" prot="public" static="no" mutable="no">
+        <type>XHdmiC_YccQuantizationRange</type>
+        <definition>XHdmiC_YccQuantizationRange XHDMIC_AVI_InfoFrame::YccQuantizationRange</definition>
+        <argsstring></argsstring>
+        <name>YccQuantizationRange</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="488" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a6033289b4dae891780e55146cb927b1f" prot="public" static="no" mutable="no">
+        <type>XHdmiC_ContentType</type>
+        <definition>XHdmiC_ContentType XHDMIC_AVI_InfoFrame::ContentType</definition>
+        <argsstring></argsstring>
+        <name>ContentType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="489" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="489" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a838890812e88b7c6f318605f0b581bd4" prot="public" static="no" mutable="no">
+        <type>XHdmiC_PixelRepetitionFactor</type>
+        <definition>XHdmiC_PixelRepetitionFactor XHDMIC_AVI_InfoFrame::PixelRepetition</definition>
+        <argsstring></argsstring>
+        <name>PixelRepetition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="490" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="490" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1afedad99d89ef32d4017e962563c494ff" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHDMIC_AVI_InfoFrame::TopBar</definition>
+        <argsstring></argsstring>
+        <name>TopBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="491" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="491" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a25370174c717c1d9b16861e06f5e17dd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHDMIC_AVI_InfoFrame::BottomBar</definition>
+        <argsstring></argsstring>
+        <name>BottomBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="492" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="492" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1af066fcab8648bfe1d88c3b38917f8b9e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHDMIC_AVI_InfoFrame::LeftBar</definition>
+        <argsstring></argsstring>
+        <name>LeftBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="493" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a6cb425655fba0ae6bb884bc64f333230" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XHDMIC_AVI_InfoFrame::RightBar</definition>
+        <argsstring></argsstring>
+        <name>RightBar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="494" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="494" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1a55b73d4a98d9f2ba81867de944f38762" prot="public" static="no" mutable="no">
+        <type>XHdmiC_AdditionalColorimetryExtension</type>
+        <definition>XHdmiC_AdditionalColorimetryExtension XHDMIC_AVI_InfoFrame::AdditionalColorimetryExtension</definition>
+        <argsstring></argsstring>
+        <name>AdditionalColorimetryExtension</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="495" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1af6669a6071126a3bee7601e58d92ae39" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdmi__common_1ga3c35d86d383b349827da726125764677" kindref="member">XHdmiC_FrameRateCode</ref></type>
+        <definition>XHdmiC_FrameRateCode XHDMIC_AVI_InfoFrame::FrameRateCode</definition>
+        <argsstring></argsstring>
+        <name>FrameRateCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="496" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i_c___a_v_i___info_frame_1ac8beaa4423ac5e2a8348bfe0544d9a90" prot="public" static="no" mutable="no">
+        <type><ref refid="group__hdmi__common_1gaa865ece14535d6c9327b7dd57b829ae1" kindref="member">XHdmiC_ResolutionID</ref></type>
+        <definition>XHdmiC_ResolutionID XHDMIC_AVI_InfoFrame::ResolutionID</definition>
+        <argsstring></argsstring>
+        <name>ResolutionID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="497" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="497" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the data structure for Auxiliary Video Information Info frame. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="473" bodyend="498"/>
+    <listofallmembers>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a5a876769fb46503e6b34f4683df2da59" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ActiveAspectRatio</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1ae5ff2d21291fb874449d315cb0925b2d" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ActiveFormatDataPresent</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a55b73d4a98d9f2ba81867de944f38762" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>AdditionalColorimetryExtension</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1abda781af77917d7d421bc654e5c1069c" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>BarInfo</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a25370174c717c1d9b16861e06f5e17dd" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>BottomBar</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a1afbe567ea0f9e487465ed86df9b170a" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>Colorimetry</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a3db9c08216b2460f1184496fc79e80fb" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ColorSpace</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a6033289b4dae891780e55146cb927b1f" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ContentType</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a57fef8566991c36f7e080da87f1636dc" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>DataLength</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1ab81c4b3ab43ffb4d7aff54db3f40afec" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ExtendedColorimetry</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1af6669a6071126a3bee7601e58d92ae39" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>FrameRateCode</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a728d0c22e934c0172fac490191a59484" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>Itc</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1af066fcab8648bfe1d88c3b38917f8b9e" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>LeftBar</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1aa45fd57cfdacb12c869f13d07f31e497" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>NonUniformPictureScaling</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a82aa169e4161f485e5644de63082cfa4" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>PicAspectRatio</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a838890812e88b7c6f318605f0b581bd4" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>PixelRepetition</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1ac488bc2413a26fe7f4b9c3ac7a8fbf77" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>QuantizationRange</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1ac8beaa4423ac5e2a8348bfe0544d9a90" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ResolutionID</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a6cb425655fba0ae6bb884bc64f333230" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>RightBar</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a8f8d8498fa49dfd62a1ef1c9807a6862" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>ScanInfo</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1afedad99d89ef32d4017e962563c494ff" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>TopBar</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1ad8b6a284f50cf8f8ae143093c5b78c2b" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>Version</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a422e43f41ad34260e7f437db05ceebcb" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>VIC</name></member>
+      <member refid="struct_x_h_d_m_i_c___a_v_i___info_frame_1a47f4b17bd649eba5ea49f2fae3b2e46a" prot="public" virt="non-virtual"><scope>XHDMIC_AVI_InfoFrame</scope><name>YccQuantizationRange</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

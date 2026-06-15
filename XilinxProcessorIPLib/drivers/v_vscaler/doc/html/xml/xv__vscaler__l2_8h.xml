@@ -1,0 +1,560 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vscaler__l2_8h" kind="file">
+    <compoundname>xv_vscaler_l2.h</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="xv__vscaler_8h" local="yes">xv_vscaler.h</includes>
+    <includedby refid="xv__vscaler__coeff_8c" local="yes">xv_vscaler_coeff.c</includedby>
+    <includedby refid="xv__vscaler__l2_8c" local="yes">xv_vscaler_l2.c</includedby>
+    <incdepgraph>
+      <node id="65">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="67">
+        <label>xil_io.h</label>
+      </node>
+      <node id="61">
+        <label>xv_vscaler_l2.h</label>
+        <link refid="xv_vscaler_l2.h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xv_vscaler.h</label>
+        <link refid="xv__vscaler_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xv_vscaler_hw.h</label>
+        <link refid="xv__vscaler__hw_8h"/>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="62">
+        <label>xvidc.h</label>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="71">
+        <label>xv_vscaler_l2.c</label>
+        <link refid="xv__vscaler__l2_8c"/>
+      </node>
+      <node id="69">
+        <label>xv_vscaler_l2.h</label>
+        <link refid="xv_vscaler_l2.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xv_vscaler_coeff.c</label>
+        <link refid="xv__vscaler__coeff_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v___vscaler__l2" prot="public">XV_Vscaler_l2</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Hw Configuration</header>
+      <description><para>The following constants define the scaler HW MAX configuration</para></description>
+      <memberdef kind="define" id="xv__vscaler__l2_8h_1ac559b6742ad8bfdeed2503456cb068f6" prot="public" static="no">
+        <name>XV_VSCALER_MAX_V_TAPS</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="92" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__l2_8h_1a6ecc9ea49eb85340b25fdd362cd46ea8" prot="public" static="no">
+        <name>XV_VSCALER_MAX_V_PHASES</name>
+        <initializer>(64)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="93" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__l2_8h_1a107d998fc1242f9c5a349d6c96351544" prot="public" static="no">
+        <name>XV_VscalerIs420Enabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Vsc.Config.Is420Enabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Vscaler instance is enabled for 4:2:0 processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Vscaler core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
+        <referencedby refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" compoundref="xv__vscaler__l2_8c" startline="374" endline="417">XV_VScalerSetup</referencedby>
+      </memberdef>
+      <memberdef kind="enum" id="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7" prot="public" static="no">
+        <name>XV_VSCALER_TYPE</name>
+        <enumvalue id="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7a2b0fee095a021933a24288c929862eea" prot="public">
+          <name>XV_VSCALER_BILINEAR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7a5e9ad75117f9d7e729a823da4d69a45e" prot="public">
+          <name>XV_VSCALER_BICUBIC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7acf9337d0adda8d262c092fd41a745713" prot="public">
+          <name>XV_VSCALER_POLYPHASE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef eumerates the Scaler Type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="99" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2d" prot="public" static="no">
+        <name>XV_VSCALER_TAPS</name>
+        <enumvalue id="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2daa34006515db181cf985fbe75f63d8ccb" prot="public">
+          <name>XV_VSCALER_TAPS_6</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2da0b334f8bc82cac65886f3fbbda34d340" prot="public">
+          <name>XV_VSCALER_TAPS_8</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2da2adc5f1a3b8299cfa64ff6fe89e66510" prot="public">
+          <name>XV_VSCALER_TAPS_10</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2da48e72025085bf8d0834718e87ff4c2fe" prot="public">
+          <name>XV_VSCALER_TAPS_12</name>
+          <initializer>= 12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef enumerates the supported taps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="109" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1ga6d77a50fbbe99bd1dd186ed1cf82deb3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_VScalerInitialize</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_VScalerInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="80" bodyend="90"/>
+        <references refid="xv__vscaler_8h_1a33adad267eecf9f4e3439c71d9b88faa" compoundref="xv__vscaler__sinit_8c" startline="131" endline="145">XV_vscaler_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1ga18b042a9e8363a391ea0003cc3161fdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VScalerStart</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_VScalerStart</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the vertical scaler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="101" bodyend="107"/>
+        <references refid="xv__vscaler_8c_1a4bee58a9aaeaf7de3f4393044f284445" compoundref="xv__vscaler_8c" startline="149" endline="155">XV_vscaler_EnableAutoRestart</references>
+        <references refid="xv__vscaler_8c_1ac93878549b2774a0067b7c9711c3e14c" compoundref="xv__vscaler_8c" startline="59" endline="69">XV_vscaler_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1ga3e8283da952231832e4e222ad6e5db87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VScalerStop</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_VScalerStop</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the vertical scaler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="118" bodyend="123"/>
+        <references refid="xv__vscaler_8c_1ab2c36dd3e88c5be95a8c1101cac4a111" compoundref="xv__vscaler_8c" startline="170" endline="175">XV_vscaler_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1ga225e5f5ea049a33007e01a0f3eed98f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VScalerLoadExtCoeff</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr, u16 num_phases, u16 num_taps, const short *Coeff)</argsstring>
+        <name>XV_VScalerLoadExtCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_phases</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_taps</declname>
+        </param>
+        <param>
+          <type>const short *</type>
+          <declname>Coeff</declname>
+        </param>
+        <briefdescription>
+<para>This function loads user defined filter coefficients in the scaler coefficient storage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_phases</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of phases in coefficient table </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_taps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of taps in coefficient table </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to user defined filter coefficients table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="259" bodyend="318"/>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler___config_1a84f5daf81cc174e2a20d3ea9a4ae057f" compoundref="xv__vscaler_8h" startline="62">XV_vscaler_Config::PhaseShift</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_VScalerSetup</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr, u32 WidthIn, u32 HeightIn, u32 HeightOut, u32 ColorFormat)</argsstring>
+        <name>XV_VScalerSetup</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HeightIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HeightOut</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColorFormat</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the scaler core registers with the specified configuration parameters of the AXI stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HeightIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream height. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HeightOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output stream height. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColorFormat</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color format of the stream.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_FAILURE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="374" bodyend="417"/>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler___config_1a4d7efc84f5dd8b881fcc5180065a9207" compoundref="xv__vscaler_8h" startline="57">XV_vscaler_Config::PixPerClk</references>
+        <references refid="xv__vscaler__l2_8h_1a107d998fc1242f9c5a349d6c96351544" compoundref="xv__vscaler__l2_8h" startline="140">XV_VscalerIs420Enabled</references>
+        <references refid="struct_x_v__vscaler___config_1a070117f0c68f5258af73fa0e6017e1a2" compoundref="xv__vscaler_8h" startline="63">XV_vscaler_Config::ScalerType</references>
+        <references refid="xv__vscaler_8c_1a30fe0f47ae9bc0f40c49eb01f1e06763" compoundref="xv__vscaler_8c" startline="191" endline="196">XV_vscaler_Set_HwReg_HeightIn</references>
+        <references refid="xv__vscaler_8c_1ad53d59dd268dd2c5a9dea1d89bcf5df8" compoundref="xv__vscaler_8c" startline="236" endline="242">XV_vscaler_Set_HwReg_Width</references>
+        <references refid="xv__vscaler_8c_1a8c73450043e36e471579a2d0fd272404" compoundref="xv__vscaler_8c" startline="281" endline="287">XV_vscaler_Set_HwReg_HeightOut</references>
+        <references refid="xv__vscaler_8c_1acee2c1ec52df88fdf5cc7b025e950674" compoundref="xv__vscaler_8c" startline="326" endline="332">XV_vscaler_Set_HwReg_LineRate</references>
+        <references refid="xv__vscaler_8c_1a0ba1db0e373347f763d1f72a6d3784e2" compoundref="xv__vscaler_8c" startline="370" endline="375">XV_vscaler_Set_HwReg_ColorMode</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VScalerDbgReportStatus</definition>
+        <argsstring>(XV_Vscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_VScalerDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints V Scaler status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer to the core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.c" bodystart="429" bodyend="506"/>
+        <references refid="xv__vscaler_8c_1a8df38322c966a4a17c09ae17c86b1f27" compoundref="xv__vscaler_8c" startline="82" endline="91">XV_vscaler_IsDone</references>
+        <references refid="xv__vscaler_8c_1a9037422243c74fa13b1f3dfdeb1e2db3" compoundref="xv__vscaler_8c" startline="104" endline="113">XV_vscaler_IsIdle</references>
+        <references refid="xv__vscaler_8c_1ac21858dd356b66d377bef6b3b7fa99e5" compoundref="xv__vscaler_8c" startline="126" endline="136">XV_vscaler_IsReady</references>
+        <references refid="struct_x_v__vscaler_1a1622ea62ff6931a74737c9252f6cd7c1" compoundref="xv__vscaler_8h" startline="73">XV_vscaler::Config</references>
+        <references refid="struct_x_v__vscaler___config_1af6e93f96db0d7fdb7859bfdca31cb9e7" compoundref="xv__vscaler_8h" startline="56">XV_vscaler_Config::BaseAddress</references>
+        <references refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" compoundref="xv__vscaler__hw_8h" startline="123">XV_VSCALER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__vscaler_8c_1a5ae4d3d419b09bddc9ddcbda73b77f35" compoundref="xv__vscaler_8c" startline="210" endline="219">XV_vscaler_Get_HwReg_HeightIn</references>
+        <references refid="xv__vscaler_8c_1ab61949acefe534a2488cef9a5abdeea9" compoundref="xv__vscaler_8c" startline="256" endline="265">XV_vscaler_Get_HwReg_Width</references>
+        <references refid="xv__vscaler_8c_1adf18f5ce31c7d60f4087cc55ec9b67f5" compoundref="xv__vscaler_8c" startline="301" endline="310">XV_vscaler_Get_HwReg_HeightOut</references>
+        <references refid="xv__vscaler_8c_1af008030d183c88142c8800ab282fe25e" compoundref="xv__vscaler_8c" startline="346" endline="355">XV_vscaler_Get_HwReg_LineRate</references>
+        <references refid="xv__vscaler_8c_1a968c2fdbffb0c931dcc00e698375db6e" compoundref="xv__vscaler_8c" startline="390" endline="398">XV_vscaler_Get_HwReg_ColorMode</references>
+        <references refid="xv__vscaler__l2_8h_1a107d998fc1242f9c5a349d6c96351544" compoundref="xv__vscaler__l2_8h" startline="140">XV_VscalerIs420Enabled</references>
+        <references refid="struct_x_v__vscaler___config_1a9c0520ce0ba587a6f02009e9d3ab5691" compoundref="xv__vscaler_8h" startline="64">XV_vscaler_Config::NumTaps</references>
+        <references refid="struct_x_v__vscaler___config_1a84f5daf81cc174e2a20d3ea9a4ae057f" compoundref="xv__vscaler_8h" startline="62">XV_vscaler_Config::PhaseShift</references>
+        <references refid="struct_x_v__vscaler___config_1a070117f0c68f5258af73fa0e6017e1a2" compoundref="xv__vscaler_8h" startline="63">XV_vscaler_Config::ScalerType</references>
+        <references refid="xv__vscaler_8c_1a70cd1e2d2b08d4d789673cc50020764e" compoundref="xv__vscaler_8c" startline="411" endline="416">XV_vscaler_Get_HwReg_vfltCoeff_BaseAddress</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__vscaler__l2_8h_1ae90169acc8cc0d2f3d0f3ca624e8add0" prot="public" static="no">
+        <name>XV_VSCALER_L2_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#ifndef<sp/>XV_VSCALER_L2_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_L2_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__vscaler_8h" kindref="compound">xv_vscaler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"><sp/>#define<sp/>XV_VSCALER_MAX_V_TAPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>XV_VSCALER_MAX_V_PHASES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="99" refid="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>XV_VSCALER_BILINEAR<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>XV_VSCALER_BICUBIC,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>XV_VSCALER_POLYPHASE</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}<ref refid="xv__vscaler__l2_8h_1a634308cd79520f1e01e0efd5d0be4af7" kindref="member">XV_VSCALER_TYPE</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>XV_VSCALER_TAPS_6<sp/><sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>XV_VSCALER_TAPS_8<sp/><sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>XV_VSCALER_TAPS_10<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>XV_VSCALER_TAPS_12<sp/>=<sp/>12</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<ref refid="xv__vscaler__l2_8h_1ab89f0150cb75c41d7a6841ebcdd80d2d" kindref="member">XV_VSCALER_TAPS</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="struct_x_v___vscaler__l2" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v__vscaler" kindref="compound">XV_vscaler</ref><sp/>Vsc;<sp/></highlight><highlight class="comment">/*&lt;&lt;<sp/>Layer<sp/>1<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/>u8<sp/>UseExtCoeff;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>coeff[XV_VSCALER_MAX_V_PHASES][XV_VSCALER_MAX_V_TAPS];</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140" refid="xv__vscaler__l2_8h_1a107d998fc1242f9c5a349d6c96351544" refkind="member"><highlight class="preprocessor">#define<sp/>XV_VscalerIs420Enabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"><sp/><sp/><sp/>((InstancePtr)-&gt;Vsc.Config.Is420Enabled)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1ga6d77a50fbbe99bd1dd186ed1cf82deb3" kindref="member">XV_VScalerInitialize</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1ga18b042a9e8363a391ea0003cc3161fdd" kindref="member">XV_VScalerStart</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1ga3e8283da952231832e4e222ad6e5db87" kindref="member">XV_VScalerStop</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1ga225e5f5ea049a33007e01a0f3eed98f1" kindref="member">XV_VScalerLoadExtCoeff</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>num_phases,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>num_taps,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*Coeff);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1gaa7b32a54f54e226389a3410ac2e3a669" kindref="member">XV_VScalerSetup</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>WidthIn,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HeightIn,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HeightOut,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ColorFormat);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" kindref="member">XV_VScalerDbgReportStatus</ref>(<ref refid="struct_x_v___vscaler__l2" kindref="compound">XV_Vscaler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_l2.h"/>
+  </compounddef>
+</doxygen>

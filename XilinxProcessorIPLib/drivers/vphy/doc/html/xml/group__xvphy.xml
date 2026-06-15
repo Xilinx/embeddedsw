@@ -1,0 +1,2027 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xvphy" kind="group">
+    <compoundname>xvphy</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_Ch2Ids</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_ChannelId ChId, u8 *Id0, u8 *Id1)</argsstring>
+        <name>XVphy_Ch2Ids</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Id0</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Id1</declname>
+        </param>
+        <briefdescription>
+<para>This function will set the channel IDs to correspond with the supplied channel ID based on the protocol. </para>        </briefdescription>
+        <detaileddescription>
+<para>HDMI uses 3 channels; DP uses 4. This ID translation is done to allow other functions to operate iteratively over multiple channels.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID used to determine the indices. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the start channel ID to set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the end channel ID to set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The contents of Id0 and Id1 will be set according to ChId. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="958" bodyend="1008"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1af7fdb76ac0ffc18275711ae874d309a1" compoundref="xvphy_8h" startline="686">XVphy_Config::RxChannels</references>
+        <references refid="struct_x_vphy___config_1a2b34afde69ce6733341003cde6aee506" compoundref="xvphy_8h" startline="685">XVphy_Config::TxChannels</references>
+        <references refid="struct_x_vphy___config_1a99ff7516bbf21301a9d10ca0faf725a2" compoundref="xvphy_8h" startline="706">XVphy_Config::UseGtAsTxTmdsClk</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
+        <referencedby refid="xvphy_8c_1ad5d2ef80f68b92db024b3e690d0c410e" compoundref="xvphy_8c" startline="385" endline="399">XVphy_CfgLineRate</referencedby>
+        <referencedby refid="group__xvphy_1ga76c375e68d3d82cba1c7d8a53c961eb7" compoundref="xvphy__i_8c" startline="133" endline="143">XVphy_CfgPllRefClkSel</referencedby>
+        <referencedby refid="group__xvphy_1ga3e41b30a437f2c8d8722c780b9cbc798" compoundref="xvphy__i_8c" startline="161" endline="173">XVphy_CfgSysClkDataSel</referencedby>
+        <referencedby refid="group__xvphy_1ga3221e83cfbd76a7616329bdff01d517b" compoundref="xvphy__i_8c" startline="191" endline="203">XVphy_CfgSysClkOutSel</referencedby>
+        <referencedby refid="group__xvphy_1ga918c7447d08e6af827ab03493348b706" compoundref="xvphy__i_8c" startline="754" endline="770">XVphy_ClkCalcParams</referencedby>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+        <referencedby refid="group__xvphy_1ga609475eec7171bd779b972e31496c717" compoundref="xvphy__i_8c" startline="831" endline="875">XVphy_DirReconfig</referencedby>
+        <referencedby refid="group__xvphy_1gacb53c60099495db88a9931980e278bc6" compoundref="xvphy__i_8c" startline="788" endline="813">XVphy_OutDivReconfig</referencedby>
+        <referencedby refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</referencedby>
+        <referencedby refid="group__xvphy_1ga1b82d1b302268e36126450121d948505" compoundref="xvphy__i_8c" startline="680" endline="726">XVphy_PowerDownGtPll</referencedby>
+        <referencedby refid="xvphy_8c_1a0b84e89a63bfed4a253be21d5c1d45d7" compoundref="xvphy_8c" startline="848" endline="897">XVphy_SetPrbsSel</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gaaabf7218a74a0949f88a34b0c4a10b34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVphy_SysClkDataSelType</type>
+        <definition>XVphy_SysClkDataSelType Pll2SysClkData</definition>
+        <argsstring>(XVphy_PllType PllSelect)</argsstring>
+        <name>Pll2SysClkData</name>
+        <param>
+          <type>XVphy_PllType</type>
+          <declname>PllSelect</declname>
+        </param>
+        <briefdescription>
+<para>This function will translate from XVphy_PllType to XVphy_SysClkDataSelType. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllSelect</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL type to translate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The reference clock type based on the PLL selection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1021" bodyend="1034"/>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga4d8c6a493924deb1f7d367bc3da8f437" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVphy_SysClkOutSelType</type>
+        <definition>XVphy_SysClkOutSelType Pll2SysClkOut</definition>
+        <argsstring>(XVphy_PllType PllSelect)</argsstring>
+        <name>Pll2SysClkOut</name>
+        <param>
+          <type>XVphy_PllType</type>
+          <declname>PllSelect</declname>
+        </param>
+        <briefdescription>
+<para>This function will translate from XVphy_PllType to XVphy_SysClkOutSelType. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PllSelect</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL type to translate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The reference clock type based on the PLL selection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1047" bodyend="1060"/>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_PllCalculator</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 PllClkInFreqHz)</argsstring>
+        <name>XVphy_PllCalculator</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PllClkInFreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function will try to find the necessary PLL divisor values to produce the configured line rate given the specified PLL input frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to calculate the PLL values for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID to calculate the PLL values for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PllClkInFreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL input frequency on which to base the calculations on. A value of 0 indicates to use the currently configured quad PLL reference clock. A non-zero value indicates to ignore what is currently configured in SW, and use a custom frequency instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if valid PLL values were found to satisfy the constraints.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>If successful, the channel&apos;s PllParams structure will be modified with the valid PLL parameters. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1086" bodyend="1171"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___channel_1a3fd1bb0f1355b276eb5ebad802dc0d3c" compoundref="xvphy_8h" startline="510">XVphy_Channel::LineRateHz</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="xvphy_8c_1a83265bb40529b7550588a1ee0216fe1f" compoundref="xvphy_8c" startline="511" endline="519">XVphy_GetLineRateHz</references>
+        <references refid="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" compoundref="xvphy__i_8c" startline="263" endline="274">XVphy_GetQuadRefClkFreq</references>
+        <referencedby refid="group__xvphy_1ga918c7447d08e6af827ab03493348b706" compoundref="xvphy__i_8c" startline="754" endline="770">XVphy_ClkCalcParams</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga5041cead7e1fe927d645c4e681e95837" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_WriteCfgRefClkSelReg</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId)</argsstring>
+        <name>XVphy_WriteCfgRefClkSelReg</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the current software configuration for the reference clock selections to hardware for the specified quad on all channels. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="64" bodyend="116"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___channel_1ab7b9e1486c525cab92eff049db5b2736" compoundref="xvphy_8h" startline="518">XVphy_Channel::CpllRefClkSel</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="struct_x_vphy___channel_1ada3cc8b765b058c1ba28cc333f88929b" compoundref="xvphy_8h" startline="554">XVphy_Channel::RxDataRefClkSel</references>
+        <references refid="struct_x_vphy___channel_1aec2b2686abaaff0248e78b59dfb5e933" compoundref="xvphy_8h" startline="567">XVphy_Channel::RxOutRefClkSel</references>
+        <references refid="struct_x_vphy___channel_1a53154b4333f2b5e8d59da3247d951725" compoundref="xvphy_8h" startline="558">XVphy_Channel::TxDataRefClkSel</references>
+        <references refid="struct_x_vphy___channel_1ab4b1b716be1ebf833f0c3719eb1fb91a" compoundref="xvphy_8h" startline="571">XVphy_Channel::TxOutRefClkSel</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="group__vphy_1gae55bddf7963259779b5bd6a24b1dae0e" compoundref="xvphy__hw_8h" startline="220">XVPHY_REF_CLK_SEL_CPLL_MASK</references>
+        <references refid="group__vphy_1gab4e5423a75488aa7af3b0326fcecf627" compoundref="xvphy__hw_8h" startline="221">XVPHY_REF_CLK_SEL_CPLL_SHIFT</references>
+        <references refid="group__vphy_1ga9317f3ce5601d5174843522ad0d99833" compoundref="xvphy__hw_8h" startline="219">XVPHY_REF_CLK_SEL_QPLL0_MASK</references>
+        <references refid="group__vphy_1ga80cd103c19c96a6a08af34df8e6bd8ff" compoundref="xvphy__hw_8h" startline="222">XVPHY_REF_CLK_SEL_QPLL1_MASK</references>
+        <references refid="group__vphy_1gab304b38d00d897fe23ea94fd29cdd412" compoundref="xvphy__hw_8h" startline="223">XVPHY_REF_CLK_SEL_QPLL1_SHIFT</references>
+        <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
+        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="258">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="278">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="248">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="268">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1gaf699b85ad50d83a9999d9b7efa1ee01f" compoundref="xvphy__hw_8h" startline="235">XVPHY_REF_CLK_SEL_SYSCLKSEL_MASK</references>
+        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="263">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="283">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="253">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="273">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga76c375e68d3d82cba1c7d8a53c961eb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_CfgPllRefClkSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_PllRefClkSelType RefClkSel)</argsstring>
+        <name>XVphy_CfgPllRefClkSel</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_PllRefClkSelType</type>
+          <declname>RefClkSel</declname>
+        </param>
+        <briefdescription>
+<para>Configure the PLL reference clock selection for the specified channel(s). </para>        </briefdescription>
+        <detaileddescription>
+<para>This is applied to both direction to the software configuration only.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RefClkSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference clock selection to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="133" bodyend="143"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga3e41b30a437f2c8d8722c780b9cbc798" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_CfgSysClkDataSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, XVphy_SysClkDataSelType SysClkDataSel)</argsstring>
+        <name>XVphy_CfgSysClkDataSel</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>XVphy_SysClkDataSelType</type>
+          <declname>SysClkDataSel</declname>
+        </param>
+        <briefdescription>
+<para>Configure the SYSCLKDATA reference clock selection for the direction. </para>        </briefdescription>
+        <detaileddescription>
+<para>Same configuration applies to all channels in the quad. This is applied to the software configuration only.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SysClkDataSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference clock selection to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="161" bodyend="173"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga3221e83cfbd76a7616329bdff01d517b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_CfgSysClkOutSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, XVphy_SysClkOutSelType SysClkOutSel)</argsstring>
+        <name>XVphy_CfgSysClkOutSel</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>XVphy_SysClkOutSelType</type>
+          <declname>SysClkOutSel</declname>
+        </param>
+        <briefdescription>
+<para>Configure the SYSCLKOUT reference clock selection for the direction. </para>        </briefdescription>
+        <detaileddescription>
+<para>Same configuration applies to all channels in the quad. This is applied to the software configuration only.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SysClkOutSel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the reference clock selection to configure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="191" bodyend="203"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <referencedby refid="xvphy_8c_1a01775c74632e81c26fb4b2dd8fa3e3ac" compoundref="xvphy_8c" startline="204" endline="239">XVphy_PllInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga918c7447d08e6af827ab03493348b706" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_ClkCalcParams</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 PllClkInFreqHz)</argsstring>
+        <name>XVphy_ClkCalcParams</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PllClkInFreqHz</declname>
+        </param>
+        <briefdescription>
+<para>This function will try to find the necessary PLL divisor values to produce the configured line rate given the specified PLL input frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para>This will be done for all channels specified by ChId. This function is a wrapper for XVphy_PllCalculator.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to calculate the PLL values for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID to calculate the PLL values for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PllClkInFreqHz</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL input frequency on which to base the calculations on. A value of 0 indicates to use the currently configured quad PLL reference clock. A non-zero value indicates to ignore what is currently configured in SW, and use a custom frequency instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if valid PLL values were found to satisfy the constraints.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>If successful, the channel&apos;s PllParams structure will be modified with the valid PLL parameters. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="754" bodyend="770"/>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gacb53c60099495db88a9931980e278bc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_OutDivReconfig</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_OutDivReconfig</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function will set the current output divider configuration over DRP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID for which to write the settings for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for RX or TX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the configuration was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="788" bodyend="813"/>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ad5bf29ae3737a33ccdbe8fc80f6a9be0" compoundref="xvphy_8h" startline="341">XVPHY_LOG_EVT_GT_RX_RECONFIG</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a564fa05841a99d8026e486f0ca8518c6" compoundref="xvphy_8h" startline="340">XVPHY_LOG_EVT_GT_TX_RECONFIG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga609475eec7171bd779b972e31496c717" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_DirReconfig</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_DirReconfig</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function will set the current RX/TX configuration over DRP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID for which to write the settings for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for RX or TX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the configuration was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="831" bodyend="875"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ad5bf29ae3737a33ccdbe8fc80f6a9be0" compoundref="xvphy_8h" startline="341">XVPHY_LOG_EVT_GT_RX_RECONFIG</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a564fa05841a99d8026e486f0ca8518c6" compoundref="xvphy_8h" startline="340">XVPHY_LOG_EVT_GT_TX_RECONFIG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_ClkReconfig</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)</argsstring>
+        <name>XVphy_ClkReconfig</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <briefdescription>
+<para>This function will set the current clocking settings for each channel to hardware based on the configuration stored in the driver&apos;s instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID for which to write the settings for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the configuration was successful.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="893" bodyend="939"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy_1af531211ea7310c5ca915087e3e149ba7" compoundref="xvphy_8h" startline="742">XVphy::HdmiIsQpllPresent</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="group__xvphy_1ga6955153625236c5779240d2aab90678e" compoundref="xvphy__intr_8c" startline="265" endline="284">XVphy_CfgErrIntr</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="group__vphy_1gga0c4928c07c1953d959717f3b336ceca4a072511027ffc971304ceaf36b905f3c9" compoundref="xvphy_8h" startline="391">XVPHY_ERR_NO_QPLL</references>
+        <references refid="group__xvphy_1ga73b006ef6011c416c0e582d546b192a5" compoundref="xvphy__i_8c" startline="1489" endline="1494">XVphy_ErrorHandler</references>
+        <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ac40104381761e9e75f7cd39b77604468" compoundref="xvphy_8h" startline="326">XVPHY_LOG_EVT_CPLL_RECONFIG</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a4b20089e51eaca42947a432468aa6a56" compoundref="xvphy_8h" startline="363">XVPHY_LOG_EVT_NO_QPLL_ERR</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862acd2a55ba7c91782029e40356154b66a2" compoundref="xvphy_8h" startline="318">XVPHY_LOG_EVT_PLL0_RECONFIG</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862ab201b87e897162791ec58380d04a984b" compoundref="xvphy_8h" startline="322">XVPHY_LOG_EVT_PLL1_RECONFIG</references>
+        <references refid="group__vphy_1gga850b903da34740657782f29d2f142862a786d40f0263293814d72536da3dc0f8c" compoundref="xvphy_8h" startline="306">XVPHY_LOG_EVT_QPLL_RECONFIG</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga742f461cf5a891acfd63d38ad99c068a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVphy_ChannelId</type>
+        <definition>XVphy_ChannelId XVphy_GetRcfgChId</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, XVphy_PllType PllType)</argsstring>
+        <name>XVphy_GetRcfgChId</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>XVphy_PllType</type>
+          <declname>PllType</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the reconfiguration channel ID for given PLL type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PllType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLL type being used by the channel.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The Channel ID to be used for reconfiguration</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="219" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_GetQuadRefClkFreq</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_PllRefClkSelType RefClkType)</argsstring>
+        <name>XVphy_GetQuadRefClkFreq</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_PllRefClkSelType</type>
+          <declname>RefClkType</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the current reference clock frequency for the quad based on the reference clock type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RefClkType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type to obtain the clock selection for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current reference clock frequency for the quad for the specified type selection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="263" bodyend="274"/>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <referencedby refid="group__xvphy_1gaee5af44d484a3efa16330f845a7dc65e" compoundref="xvphy__i_8c" startline="1187" endline="1233">XVphy_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="group__xvphy_1ga3bff8eaf5406aaf024690973700b8308" compoundref="xvphy__i_8c" startline="1086" endline="1171">XVphy_PllCalculator</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga8e1cf75cf2ecce4902aeb0faca3d0c7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVphy_SysClkDataSelType</type>
+        <definition>XVphy_SysClkDataSelType XVphy_GetSysClkDataSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, XVphy_ChannelId ChId)</argsstring>
+        <name>XVphy_GetSysClkDataSel</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the current [RT]XSYSCLKSEL[0] configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID which to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current [RT]XSYSCLKSEL[0] selection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="290" bodyend="319"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
+        <references refid="group__vphy_1ga2103412cb7d84b6c93fb9ae7029aab71" compoundref="xvphy__hw_8h" startline="258">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga08db208287395be362917a1bc343dce8" compoundref="xvphy__hw_8h" startline="278">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_DATA_SHIFT</references>
+        <references refid="group__vphy_1ga4b5afcf49f77590740122eb158b302e8" compoundref="xvphy__hw_8h" startline="263">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_MASK</references>
+        <references refid="group__vphy_1ga9f58aeaa25cf673b7b8f7d0303774c5d" compoundref="xvphy__hw_8h" startline="283">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_DATA_SHIFT</references>
+        <referencedby refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</referencedby>
+        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1694" endline="1720">XVphy_IsBonded</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gafa18f0da25042d12e577a5e16d950476" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XVphy_SysClkOutSelType</type>
+        <definition>XVphy_SysClkOutSelType XVphy_GetSysClkOutSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, XVphy_ChannelId ChId)</argsstring>
+        <name>XVphy_GetSysClkOutSel</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <briefdescription>
+<para>Obtain the current [RT]XSYSCLKSEL[1] configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID which to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The current [RT]XSYSCLKSEL[1] selection.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="335" bodyend="364"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a9bdda7f6198220dbf4e388402d94b93a" compoundref="xvphy_8h" startline="684">XVphy_Config::XcvrType</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="group__vphy_1gaa875c151dde8313a6906370b95bba604" compoundref="xvphy__hw_8h" startline="60">XVPHY_REF_CLK_SEL_REG</references>
+        <references refid="group__vphy_1gaf66776d46cc5fdfef8c051223b1c6ab1" compoundref="xvphy__hw_8h" startline="248">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga38d0e7bbe8a27e2b490f3ffeea8ca648" compoundref="xvphy__hw_8h" startline="268">XVPHY_REF_CLK_SEL_RXSYSCLKSEL_OUT_SHIFT</references>
+        <references refid="group__vphy_1ga025cb40967debdad13258f37a8ec09f0" compoundref="xvphy__hw_8h" startline="253">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_MASK</references>
+        <references refid="group__vphy_1ga3af3d66008068cd39cb902219d1b9f73" compoundref="xvphy__hw_8h" startline="273">XVPHY_REF_CLK_SEL_TXSYSCLKSEL_OUT_SHIFT</references>
+        <referencedby refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</referencedby>
+        <referencedby refid="xvphy_8c_1a7ac1ec33cd234c67df30471d148e77be" compoundref="xvphy_8c" startline="1694" endline="1720">XVphy_IsBonded</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gaef25e82d5f217655c1c3c3039c9e1dc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_IsPllLocked</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId)</argsstring>
+        <name>XVphy_IsPllLocked</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <briefdescription>
+<para>This function will check the status of a PLL lock on the specified channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID which to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the specified PLL is locked.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="381" bodyend="429"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="xvphy_8c_1acc589d8dad782b38e7da73526c30207b" compoundref="xvphy_8c" startline="447" endline="496">XVphy_GetPllType</references>
+        <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
+        <references refid="group__vphy_1ga503ab32adc84817ebd54f488de14fe0f" compoundref="xvphy__hw_8h" startline="306">XVPHY_PLL_LOCK_STATUS_CPLL_ALL_MASK</references>
+        <references refid="group__vphy_1ga598b853807e775702e06d90ae2028f15" compoundref="xvphy__hw_8h" startline="312">XVPHY_PLL_LOCK_STATUS_CPLL_HDMI_MASK</references>
+        <references refid="group__vphy_1ga82b799e34c08dc9d5701e9f2465083a5" compoundref="xvphy__hw_8h" startline="301">XVPHY_PLL_LOCK_STATUS_CPLL_MASK</references>
+        <references refid="group__vphy_1ga89e35d3be0b8d1942436152817321827" compoundref="xvphy__hw_8h" startline="303">XVPHY_PLL_LOCK_STATUS_QPLL0_MASK</references>
+        <references refid="group__vphy_1gade38a4cd6f631fb127241292b60482d0" compoundref="xvphy__hw_8h" startline="304">XVPHY_PLL_LOCK_STATUS_QPLL1_MASK</references>
+        <references refid="group__vphy_1gaee21fa50e60826e78bef611bcc2fe092" compoundref="xvphy__hw_8h" startline="62">XVPHY_PLL_LOCK_STATUS_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gae11d25f939879208256c3e8155f9873c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_GtUserRdyEnable</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir, u8 Hold)</argsstring>
+        <name>XVphy_GtUserRdyEnable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Hold</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset and enable the Video PHY&apos;s user core logic. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID which to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator whether to &quot;hold&quot; the reset if set to 1. If set to 0: reset, then enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="448" bodyend="490"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="group__vphy_1ga6ba1a933e773341388711b0f1b12ff1e" compoundref="xvphy__hw_8h" startline="65">XVPHY_RX_INIT_REG</references>
+        <references refid="group__vphy_1ga0830a06b34073f57c7caaa4a539000bd" compoundref="xvphy__hw_8h" startline="352">XVPHY_RX_INIT_USERRDY_ALL_MASK</references>
+        <references refid="group__vphy_1gabf685da805c452c0b6b7c27e0c4d4140" compoundref="xvphy__hw_8h" startline="334">XVPHY_RX_INIT_USERRDY_MASK</references>
+        <references refid="group__vphy_1gafa6b79b6ca3f8205d83c3f80f6544742" compoundref="xvphy__hw_8h" startline="63">XVPHY_TX_INIT_REG</references>
+        <references refid="group__vphy_1gaa2a8f5464bad44ae6bff5a39532e1fb9" compoundref="xvphy__hw_8h" startline="346">XVPHY_TX_INIT_USERRDY_ALL_MASK</references>
+        <references refid="group__vphy_1ga22d1b42fe983250a7ebe64acb7c26966" compoundref="xvphy__hw_8h" startline="331">XVPHY_TX_INIT_USERRDY_MASK</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga574b971167002a2a8006dda886698f8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_Gthe4CfgCpllCalPeriodandTol</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq)</argsstring>
+        <name>XVphy_Gthe4CfgCpllCalPeriodandTol</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FreeRunClkFreq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="100" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga4bb4a24018e4af36c8c8255456771836" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_Gtye4CfgCpllCalPeriodandTol</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir, u32 FreeRunClkFreq)</argsstring>
+        <name>XVphy_Gtye4CfgCpllCalPeriodandTol</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>FreeRunClkFreq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="102" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga77f665ad87bd1230ad6b9827a16e8f33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_MmcmWriteParameters</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_MmcmWriteParameters</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function will write the mixed-mode clock manager (MMCM) values currently stored in the driver&apos;s instance structure to hardware . </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the MMCM write was successful.</para></listitem><listitem><para>XST_FAILURE otherwise, if the configuration success bit did not go low.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_mmcme2.c" bodystart="395" bodyend="498"/>
+        <references refid="struct_x_vphy___quad_1ad474fa8b5c22b6116f0899ffa594e67f" compoundref="xvphy_8h" startline="633">XVphy_Quad::Mmcm</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="xvphy_8c_1a971063cd7765cd7e7814bca5dff6e607" compoundref="xvphy_8c" startline="1124" endline="1130">XVphy_DrpWr</references>
+        <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gadc182ff22a7ec230dc163f90ec5263a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_MmcmReset</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, u8 Hold)</argsstring>
+        <name>XVphy_MmcmReset</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Hold</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset the mixed-mode clock manager (MMCM) core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator whether to &quot;hold&quot; the reset if set to 1. If set to 0: reset, then enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="508" bodyend="536"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga096dbcd95256264a53fe8af27c8387fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_MmcmLockedMaskEnable</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir, u8 Enable)</argsstring>
+        <name>XVphy_MmcmLockedMaskEnable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset the mixed-mode clock manager (MMCM) core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Enable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator whether to &quot;Enable&quot; the locked mask if set to 1. If set to 0: reset, then disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="553" bodyend="580"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gac7160e541232b5a66b08df49d415acb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XVphy_MmcmLocked</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_MmcmLocked</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function will get the lock status of the mixed-mode clock manager (MMCM) core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if Locked else FALSE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="597" bodyend="617"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga27bd1bcb6405402adab24f346d483d72" compoundref="xvphy__hw_8h" startline="138">XVPHY_MMCM_RXUSRCLK_CTRL_REG</references>
+        <references refid="group__vphy_1gac0363d0bf698ae51da7b04a8875b51b3" compoundref="xvphy__hw_8h" startline="130">XVPHY_MMCM_TXUSRCLK_CTRL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga15c1341136ca5bde85ab447ba9e09c56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_SetBufgGtDiv</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_DirectionType Dir, u8 Div)</argsstring>
+        <name>XVphy_SetBufgGtDiv</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Div</declname>
+        </param>
+        <briefdescription>
+<para>This function obtains the divider value of the BUFG_GT peripheral. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Div</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3-bit divider value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="630" bodyend="662"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga8cf3e121bab45049367b3f75c45709fb" compoundref="xvphy__hw_8h" startline="143">XVPHY_BUFGGT_RXUSRCLK_REG</references>
+        <references refid="group__vphy_1gad67467b7c3b3679aaa2224fda0662e70" compoundref="xvphy__hw_8h" startline="135">XVPHY_BUFGGT_TXUSRCLK_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga1b82d1b302268e36126450121d948505" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XVphy_PowerDownGtPll</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, u8 Hold)</argsstring>
+        <name>XVphy_PowerDownGtPll</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Hold</declname>
+        </param>
+        <briefdescription>
+<para>This function will power down the specified GT PLL. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID to power down the PLL for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Hold</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator whether to &quot;hold&quot; the power down if set to 1. If set to 0: power down, then power back up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="680" bodyend="726"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</references>
+        <references refid="group__vphy_1ga6f29e8743378b2e9235c310e1c58ec21" compoundref="xvphy__hw_8h" startline="402">XVPHY_POWERDOWN_CONTROL_CPLLPD_MASK</references>
+        <references refid="group__vphy_1gacba7c208384732be9e8ffe356f7a6387" compoundref="xvphy__hw_8h" startline="405">XVPHY_POWERDOWN_CONTROL_QPLL0PD_MASK</references>
+        <references refid="group__vphy_1gae07be42f5af7ad6233488e47da9afdfc" compoundref="xvphy__hw_8h" startline="408">XVPHY_POWERDOWN_CONTROL_QPLL1PD_MASK</references>
+        <references refid="group__vphy_1gaf9b0bbdef2c107a07b5f1ef9c21b8de2" compoundref="xvphy__hw_8h" startline="68">XVPHY_POWERDOWN_CONTROL_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga56237326dcb3ef7cb3b346f7bf561486" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_SetIntrHandler</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType HandlerType, XVphy_IntrHandler CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVphy_SetIntrHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandler</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs a callback function for the specified handler type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVPhy instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt handler type which specifies which interrupt event to attach the callback for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="96" bodyend="174"/>
+        <references refid="struct_x_vphy_1a78f1447de2a15b155b4c37a4c48d18ef" compoundref="xvphy_8h" startline="745">XVphy::IntrCpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1aac25792acca694d5198b44057d468659" compoundref="xvphy_8h" startline="743">XVphy::IntrCpllLockHandler</references>
+        <references refid="struct_x_vphy_1ae35b9b8e21753a733fc6a64de937fab9" compoundref="xvphy_8h" startline="755">XVphy::IntrQpll1LockCallbackRef</references>
+        <references refid="struct_x_vphy_1a43d707dcd37c99e8f4a13779809edee5" compoundref="xvphy_8h" startline="753">XVphy::IntrQpll1LockHandler</references>
+        <references refid="struct_x_vphy_1a5d0d31870d751cc585d9a90c164f2d05" compoundref="xvphy_8h" startline="750">XVphy::IntrQpllLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a2a358f3a7cf0bbd672855ffb800e88a4" compoundref="xvphy_8h" startline="748">XVphy::IntrQpllLockHandler</references>
+        <references refid="struct_x_vphy_1a91765301698027208a5e14a289a19bd8" compoundref="xvphy_8h" startline="792">XVphy::IntrRxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a69217170e845bb0d704c8759f8688ab5" compoundref="xvphy_8h" startline="788">XVphy::IntrRxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a2101dc107cfbd5355a3036d6f66e9941" compoundref="xvphy_8h" startline="806">XVphy::IntrRxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1a912c03c778f2b9378afc1bb4e29f51e6" compoundref="xvphy_8h" startline="803">XVphy::IntrRxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1abda4548141cf7abc027a15218e115353" compoundref="xvphy_8h" startline="768">XVphy::IntrRxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a1d808488e0bf84f52d6eb206d54d829b" compoundref="xvphy_8h" startline="765">XVphy::IntrRxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a4f3c598dab04ba6e7d6755455c3b7903" compoundref="xvphy_8h" startline="819">XVphy::IntrRxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a61a97adc3d836e2f20afb8e64f249b11" compoundref="xvphy_8h" startline="816">XVphy::IntrRxTmrTimeoutHandler</references>
+        <references refid="struct_x_vphy_1a7998e37ae7d71fdb5d398550a6211305" compoundref="xvphy_8h" startline="775">XVphy::IntrTxAlignDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a0592d2a7a5360d294727c54491fa059d" compoundref="xvphy_8h" startline="772">XVphy::IntrTxAlignDoneHandler</references>
+        <references refid="struct_x_vphy_1aeef6168da79e23e5fca31e71cb9ae879" compoundref="xvphy_8h" startline="783">XVphy::IntrTxClkDetFreqChangeCallbackRef</references>
+        <references refid="struct_x_vphy_1a44b541b34c508c723906b26f8fbb4719" compoundref="xvphy_8h" startline="779">XVphy::IntrTxClkDetFreqChangeHandler</references>
+        <references refid="struct_x_vphy_1a32a951eab2545cb24fa6cb392574291e" compoundref="xvphy_8h" startline="800">XVphy::IntrTxMmcmLockCallbackRef</references>
+        <references refid="struct_x_vphy_1ae6312372d74d8da089b0f55e69b6bbdb" compoundref="xvphy_8h" startline="797">XVphy::IntrTxMmcmLockHandler</references>
+        <references refid="struct_x_vphy_1ab6884b1d31e8d33370b88e74c8c0674d" compoundref="xvphy_8h" startline="761">XVphy::IntrTxResetDoneCallbackRef</references>
+        <references refid="struct_x_vphy_1a21cbba76df25e8dfe4111d1222e14872" compoundref="xvphy_8h" startline="758">XVphy::IntrTxResetDoneHandler</references>
+        <references refid="struct_x_vphy_1a3018ebe77f98e3feb4535bf837571564" compoundref="xvphy_8h" startline="812">XVphy::IntrTxTmrTimeoutCallbackRef</references>
+        <references refid="struct_x_vphy_1a2c2b7c102aa0e9b5fe81b31a77174dbf" compoundref="xvphy_8h" startline="809">XVphy::IntrTxTmrTimeoutHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gab0c6c186dbb5142d23a6a3b76148c37b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_IntrEnable</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType Intr)</argsstring>
+        <name>XVphy_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>Intr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables interrupts associated with the specified interrupt type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Intr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt type/mask to enable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="47" bodyend="54"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga692902b883571eda757b9b655c5c83fb" compoundref="xvphy__hw_8h" startline="121">XVPHY_INTR_EN_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga854725cac309c3302a25dbc29927c9f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_IntrDisable</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_IntrHandlerType Intr)</argsstring>
+        <name>XVphy_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_IntrHandlerType</type>
+          <declname>Intr</declname>
+        </param>
+        <briefdescription>
+<para>This function disabled interrupts associated with the specified interrupt type. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Intr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt type/mask to disable.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="69" bodyend="78"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga0523c2fe675a15f92df8de41fc4cc8c7" compoundref="xvphy__hw_8h" startline="122">XVPHY_INTR_DIS_REG</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga6955153625236c5779240d2aab90678e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_CfgErrIntr</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_ErrType ErrIrq, u8 Set)</argsstring>
+        <name>XVphy_CfgErrIntr</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__vphy_1ga0c4928c07c1953d959717f3b336ceca4" kindref="member">XVphy_ErrType</ref></type>
+          <declname>ErrIrq</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Set</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the error IRQ register based on the condition to generate an ERR_IRQ event. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrIrq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the IRQ type as defined in XVphy_ErrType. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the flag to set or clear the ErrIrq param.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_intr.c" bodystart="265" bodyend="284"/>
+        <references refid="struct_x_vphy___config_1a37ebb950e78d0d9bedc29b27ad6619d3" compoundref="xvphy_8h" startline="682">XVphy_Config::BaseAddr</references>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="group__vphy_1ga16359077e0affbabc842d5a06f9c9cf6" compoundref="xvphy__hw_8h" startline="120">XVPHY_ERR_IRQ</references>
+        <references refid="xvphy__hw_8h_1a4efa6fb68e702bd91a3fb099d7ba0188" compoundref="xvphy__hw_8h" startline="688">XVphy_ReadReg</references>
+        <references refid="xvphy__hw_8h_1a03d7c5c126a6c25d1ed193dfaa7f4a2c" compoundref="xvphy__hw_8h" startline="705">XVphy_WriteReg</references>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gaee5af44d484a3efa16330f845a7dc65e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XVphy_GetPllVcoFreqHz</definition>
+        <argsstring>(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_GetPllVcoFreqHz</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>QuadId</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>ChId</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the PLL VCO operating frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QuadId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the GT quad ID to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ChId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel ID to calculate the VCO frequency for. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for TX or RX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>PLL VCO frequency in Hz</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1187" bodyend="1233"/>
+        <references refid="struct_x_vphy_1acc8c8add92ab924f374bab01a466f7ee" compoundref="xvphy_8h" startline="741">XVphy::HdmiRxDruIsEnabled</references>
+        <references refid="struct_x_vphy_1a77176131b002d4f0d72af27d855c0316" compoundref="xvphy_8h" startline="737">XVphy::HdmiRxRefClkHz</references>
+        <references refid="struct_x_vphy_1a0155c11fa9df81437618a87b5a3a3058" compoundref="xvphy_8h" startline="738">XVphy::HdmiTxRefClkHz</references>
+        <references refid="struct_x_vphy_1a2a6689916034622640568869fd0ce86b" compoundref="xvphy_8h" startline="735">XVphy::Quads</references>
+        <references refid="group__xvphy_1ga6e276d9949bad733adaf9cacb6e2d554" compoundref="xvphy__i_8c" startline="263" endline="274">XVphy_GetQuadRefClkFreq</references>
+        <references refid="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" compoundref="xvphy__i_8c" startline="1463" endline="1476">XVphy_IsHDMI</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gad7d51be62c760e14b013be39f4a02b23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XVphy_GetRefClkSourcesCount</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_GetRefClkSourcesCount</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the number of active reference clock sources based in the CFG. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_vphy" kindref="compound">XVphy</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>No of active REFCLK sources</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1247" bodyend="1294"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1af548321a00c7220627ee6a34d930f103" compoundref="xvphy_8h" startline="693">XVphy_Config::DruIsPresent</references>
+        <references refid="struct_x_vphy___config_1ae27a9635e2070126c83f132e3c885dd9" compoundref="xvphy_8h" startline="695">XVphy_Config::DruRefClkSel</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
+        <references refid="struct_x_vphy___config_1ae9a8b806d7a523628ca8b375836b1d73" compoundref="xvphy_8h" startline="690">XVphy_Config::RxRefClkSel</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
+        <references refid="struct_x_vphy___config_1a051aa77b41a00fb1fa60db838fb388e2" compoundref="xvphy_8h" startline="689">XVphy_Config::TxRefClkSel</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga0744715315ed3b60b87cd4bb9c6f445e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XVphy_IsHDMI</definition>
+        <argsstring>(XVphy *InstancePtr, XVphy_DirectionType Dir)</argsstring>
+        <name>XVphy_IsHDMI</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if Instance is HDMI 2.0 or HDMI 2.1. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the VPHY instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an indicator for RX or TX.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if HDMI 2.0 or 2.1 else FALSE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1463" bodyend="1476"/>
+        <references refid="struct_x_vphy_1a45ad21128fb62d2f120e92ae3488c32c" compoundref="xvphy_8h" startline="729">XVphy::Config</references>
+        <references refid="struct_x_vphy___config_1a7e92f3f0a07f8d22c381b32259a58846" compoundref="xvphy_8h" startline="688">XVphy_Config::RxProtocol</references>
+        <references refid="struct_x_vphy___config_1adbe118ccdd7e2f16d6ff2f0eb84e73fc" compoundref="xvphy_8h" startline="687">XVphy_Config::TxProtocol</references>
+        <referencedby refid="group__xvphy_1ga2d8b041a0730b041e28a4215d771cc04" compoundref="xvphy__i_8c" startline="958" endline="1008">XVphy_Ch2Ids</referencedby>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+        <referencedby refid="group__xvphy_1gaee5af44d484a3efa16330f845a7dc65e" compoundref="xvphy__i_8c" startline="1187" endline="1233">XVphy_GetPllVcoFreqHz</referencedby>
+        <referencedby refid="group__xvphy_1gaef25e82d5f217655c1c3c3039c9e1dc3" compoundref="xvphy__i_8c" startline="381" endline="429">XVphy_IsPllLocked</referencedby>
+        <referencedby refid="xvphy_8c_1a652a8b7de475a3a54ad9a5f6e40ee9d9" compoundref="xvphy_8c" startline="1224" endline="1287">XVphy_MmcmStart</referencedby>
+        <referencedby refid="group__xvphy_1ga77f665ad87bd1230ad6b9827a16e8f33" compoundref="xvphy__mmcme2_8c" startline="395" endline="498">XVphy_MmcmWriteParameters</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gaa0d8603249cf47b026958d23acc5ed7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_HdmiTxTimerTimeoutHandler</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_HdmiTxTimerTimeoutHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="130" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1gac6db7053df3c70a865717c47ba18eea3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_HdmiRxTimerTimeoutHandler</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_HdmiRxTimerTimeoutHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="131" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xvphy_1ga73b006ef6011c416c0e582d546b192a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVphy_ErrorHandler</definition>
+        <argsstring>(XVphy *InstancePtr)</argsstring>
+        <name>XVphy_ErrorHandler</name>
+        <param>
+          <type><ref refid="struct_x_vphy" kindref="compound">XVphy</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the error condition handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the VPHY instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_i.c" bodystart="1489" bodyend="1494"/>
+        <references refid="struct_x_vphy_1a5ae275f2f42007a128bac1b3c1a7ae2b" compoundref="xvphy_8h" startline="824">XVphy::ErrorCallback</references>
+        <references refid="struct_x_vphy_1a0b218971d2035f0bfde658179ed6dfc6" compoundref="xvphy_8h" startline="825">XVphy::ErrorRef</references>
+        <referencedby refid="group__xvphy_1gae2450ff392b3bdafa0b65b549af231a1" compoundref="xvphy__i_8c" startline="893" endline="939">XVphy_ClkReconfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,437 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dp__init_8h" kind="file">
+    <compoundname>mmi_dp_init.h</compoundname>
+    <includes refid="mmi__dc__nonlive__test_8h" local="yes">mmi_dc_nonlive_test.h</includes>
+    <includedby refid="mmi__dc__nonlive__test_8c" local="yes">mmi_dc_nonlive_test.c</includedby>
+    <includedby refid="mmi__dp__init_8c" local="yes">mmi_dp_init.c</includedby>
+    <includedby refid="mmi__dp__intr_8c" local="yes">mmi_dp_intr.c</includedby>
+    <includedby refid="mmi__dpdc__example_8c" local="yes">mmi_dpdc_example.c</includedby>
+    <includedby refid="mmi__dpdc__platform_8c" local="yes">mmi_dpdc_platform.c</includedby>
+    <incdepgraph>
+      <node id="307">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="315">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="309" relation="include">
+        </childnode>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+        <childnode refid="316" relation="include">
+        </childnode>
+      </node>
+      <node id="311">
+        <label>xil_io.h</label>
+      </node>
+      <node id="305">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="306" relation="include">
+        </childnode>
+        <childnode refid="307" relation="include">
+        </childnode>
+        <childnode refid="308" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+        <childnode refid="315" relation="include">
+        </childnode>
+      </node>
+      <node id="308">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="309" relation="include">
+        </childnode>
+        <childnode refid="312" relation="include">
+        </childnode>
+      </node>
+      <node id="309">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="310" relation="include">
+        </childnode>
+      </node>
+      <node id="306">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="314">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="310">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="311" relation="include">
+        </childnode>
+      </node>
+      <node id="316">
+        <label>xparameters.h</label>
+      </node>
+      <node id="304">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi_dp_init.h"/>
+        <childnode refid="305" relation="include">
+        </childnode>
+      </node>
+      <node id="313">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="311" relation="include">
+        </childnode>
+      </node>
+      <node id="312">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="313" relation="include">
+        </childnode>
+        <childnode refid="309" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="321">
+        <label>mmi_dpdc_example.c</label>
+        <link refid="mmi__dpdc__example_8c"/>
+      </node>
+      <node id="318">
+        <label>mmi_dc_nonlive_test.c</label>
+        <link refid="mmi__dc__nonlive__test_8c"/>
+      </node>
+      <node id="320">
+        <label>mmi_dp_intr.c</label>
+        <link refid="mmi__dp__intr_8c"/>
+      </node>
+      <node id="322">
+        <label>mmi_dpdc_platform.c</label>
+        <link refid="mmi__dpdc__platform_8c"/>
+      </node>
+      <node id="319">
+        <label>mmi_dp_init.c</label>
+        <link refid="mmi__dp__init_8c"/>
+      </node>
+      <node id="317">
+        <label>mmi_dp_init.h</label>
+        <link refid="mmi_dp_init.h"/>
+        <childnode refid="318" relation="include">
+        </childnode>
+        <childnode refid="319" relation="include">
+        </childnode>
+        <childnode refid="320" relation="include">
+        </childnode>
+        <childnode refid="321" relation="include">
+        </childnode>
+        <childnode refid="322" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dp__init_8h_1a2a6aa99004f16d903a339a6326c51a5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerDown</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerDown</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function puts the sink into power saving mode by writing 0x0 to the DPCD SET_POWER register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="23" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="102" bodyend="110"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" compoundref="mmi__dp__init_8c" startline="78" endline="88">XMmiDp_SinkPowerCycle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerUp</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerUp</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function wakes the sink from power saving mode by writing 0x1 to the DPCD SET_POWER register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="124" bodyend="132"/>
+        <referencedby refid="mmi__dpdc__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="mmi__dpdc__example_8c" startline="417" endline="624">main</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" compoundref="mmi__dp__init_8c" startline="78" endline="88">XMmiDp_SinkPowerCycle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1a3de1ed4f4faf4234e138589a5ff7f905" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SinkPowerCycle</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_SinkPowerCycle</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function power cycles the sink by powering it down and then back up with appropriate delays to allow the monitor to transition states. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DpPsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="25" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="78" bodyend="88"/>
+        <references refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" compoundref="mmi__dp__init_8c" startline="102" endline="110">XMmiDp_SinkPowerDown</references>
+        <references refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" compoundref="mmi__dp__init_8c" startline="124" endline="132">XMmiDp_SinkPowerUp</references>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1a71d704d64c98127c07711223063b8a1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetupVideoStream</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XMmiDp_SetupVideoStream</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up the video stream by clearing the video controller, configuring MSA bits per color, pixel mode, video mapping, and applying the standard 640x480 video mode timing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="26" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="310" bodyend="337"/>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a62b08df046623c6aeb7ca70c3926fec5" compoundref="mmi__dpdc__example_8h" startline="108">RunConfig::VideoMode</references>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1a04602a40acdc79b6203e0add5c7774d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMmiDp_SetupAudioStream</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XMmiDp_SetupAudioStream</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the audio stream by setting the audio interface, data input, data width, channel count, mute flag, timestamp, clock multiplier, and enabling SDP vertical/horizontal audio streams. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="352" bodyend="388"/>
+        <references refid="struct_run_config_1ad7e69b12358de7a878851be16bb2aeaa" compoundref="mmi__dpdc__example_8h" startline="118">RunConfig::AudioChannels</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpDc_InitDpPsuSubsystem</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitDpPsuSubsystem</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the DisplayPort subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para>It configures the DP core, polls for HPD, power cycles the sink, runs link training, and sets up the video and audio streams.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the application configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="28" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="646" bodyend="670"/>
+        <references refid="struct_run_config_1a0919eff7fd55f675afb7235c6c9936c0" compoundref="mmi__dpdc__example_8h" startline="117">RunConfig::AudioEnable</references>
+        <references refid="mmi__dpdc__platform_8h_1a349f03f1e2239c2b388f2448f6799ad5" compoundref="mmi__dpdc__platform_8h" startline="42">DP_BASEADDR</references>
+        <references refid="struct_run_config_1af9e1945098c92c6e03c086ac3d0c4a3c" compoundref="mmi__dpdc__example_8h" startline="85">RunConfig::DpPsuPtr</references>
+        <references refid="struct_run_config_1a032bc36376350b1ba5419e18d1f357ec" compoundref="mmi__dpdc__example_8h" startline="119">RunConfig::SdpEnable</references>
+        <references refid="mmi__dp__intr_8c_1a7087d4d5edd912c0fdb6e28038643536" compoundref="mmi__dp__intr_8c" startline="38" endline="45">XDpDc_DisableDpAudioSdpStreams</references>
+        <references refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" compoundref="mmi__dp__init_8c" startline="609" endline="630">XMmiDp_InitDpCore</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a6c8520e6ad77827c7068054bf7ef0a0c" compoundref="mmi__dpdc__platform_8c" startline="337" endline="368">XDpDc_InitPlatform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1aae88d76ed85f867bd89c174962276b9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_InitDpCore</definition>
+        <argsstring>(XMmiDp *DpPsuPtr)</argsstring>
+        <name>XMmiDp_InitDpCore</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>DpPsuPtr</declname>
+          <defname>InstancePtr</defname>
+        </param>
+        <briefdescription>
+<para>This function initializes the DP core by performing a PHY soft reset, powering on the PHY, configuring AUX timer limits, PM configuration, disabling SSC, and enabling general/HPD interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="29" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="609" bodyend="630"/>
+        <referencedby refid="mmi__dp__init_8h_1ad006bfc4aa600e15be560f77afbe3870" compoundref="mmi__dp__init_8c" startline="646" endline="670">XDpDc_InitDpPsuSubsystem</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dp__init_8h_1ad5774015fbf8628ffdbb3746da70b28b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMmiDp_StartFullLinkTrainingCapped</definition>
+        <argsstring>(XMmiDp *InstancePtr, u8 UserMaxLanes, u8 UserMaxLinkBW)</argsstring>
+        <name>XMmiDp_StartFullLinkTrainingCapped</name>
+        <param>
+          <type>XMmiDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLanes</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UserMaxLinkBW</declname>
+        </param>
+        <briefdescription>
+<para>This function prepares for link training. </para>        </briefdescription>
+        <detaileddescription>
+<para>It reads receiver capabilities, applies user-configured lane/bandwidth caps, checks current link status, configures link parameters, and runs the clock recovery and channel equalization training sequence.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMmiDp instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserMaxLanes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User-configured max lane count (0=auto, 1, 2, or 4). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UserMaxLinkBW</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User-configured max link BW in DPCD format (0=auto, 0x06=RBR, 0x0A=HBR, 0x14=HBR2, 0x1E=HBR3).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the training process succeeded.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.c" bodystart="515" bodyend="593"/>
+        <referencedby refid="mmi__dp__intr_8h_1a73abe61ea2c8dcfb0e0188cc2a072ca5" compoundref="mmi__dp__intr_8c" startline="59" endline="85">XDpDc_HpdHotplugHandler</referencedby>
+        <referencedby refid="mmi__dp__intr_8h_1a472e38536a80269b21c42c25c0a9f65a" compoundref="mmi__dp__intr_8c" startline="124" endline="190">XDpDc_HpdIrqHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Declares DisplayPort sink and core initialization interfaces. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor">#ifndef<sp/>__MMI_DP_INIT_H__</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__MMI_DP_INIT_H__</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__nonlive__test_8h" kindref="compound">mmi_dc_nonlive_test.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a2a6aa99004f16d903a339a6326c51a5c" kindref="member">XMmiDp_SinkPowerDown</ref>(XMmiDp<sp/>*DpPsuPtr);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a80c2b0a6ccdf64ae0b6bc60b7297ee07" kindref="member">XMmiDp_SinkPowerUp</ref>(XMmiDp<sp/>*DpPsuPtr);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a3de1ed4f4faf4234e138589a5ff7f905" kindref="member">XMmiDp_SinkPowerCycle</ref>(XMmiDp<sp/>*DpPsuPtr);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a71d704d64c98127c07711223063b8a1f" kindref="member">XMmiDp_SetupVideoStream</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dp__init_8c_1a04602a40acdc79b6203e0add5c7774d5" kindref="member">XMmiDp_SetupAudioStream</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad006bfc4aa600e15be560f77afbe3870" kindref="member">XDpDc_InitDpPsuSubsystem</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad297aee6e4477e15f95f31b53f0985de" kindref="member">XMmiDp_InitDpCore</ref>(XMmiDp<sp/>*DpPsuPtr);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">u32<sp/><ref refid="mmi__dp__init_8c_1ad5774015fbf8628ffdbb3746da70b28b" kindref="member">XMmiDp_StartFullLinkTrainingCapped</ref>(XMmiDp<sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserMaxLanes,<sp/>u8<sp/>UserMaxLinkBW);</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__MMI_DP_INIT_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dp_init.h"/>
+  </compounddef>
+</doxygen>

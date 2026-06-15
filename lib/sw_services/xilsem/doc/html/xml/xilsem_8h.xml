@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsem_8h" kind="file">
+    <compoundname>xilsem.h</compoundname>
+    <innerclass refid="struct_x_sem___xmpu_cfg" prot="public">XSem_XmpuCfg</innerclass>
+    <briefdescription>
+<para>This is the file which contains xilsem related interface code. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  rm   09/22/2019 Initial release
+1.01  rb   10/30/2020 Added XSem_Init declaration
+1.02  gm   11/30/2020 Added SEM Start and Stop API declaration
+1.03  rb   01/28/2021 Added SEM Pre Init API declaration
+1.04  rb   03/09/2021 Updates Sem Init API call, removed unused APIs
+1.05  rb   03/31/2021 Provided XMPU register update config and API
+1.06    hv   09/03/2021 Fix Doxygen warnings
+</preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifndef<sp/>XIL_SEM_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIL_SEM_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Global<sp/>variables<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="struct_x_sem___xmpu_cfg" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44" refid="struct_x_sem___xmpu_cfg_1ab4e6a11887b9040c92ecf9719d345159" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1ab4e6a11887b9040c92ecf9719d345159" kindref="member">DdrmcNocAddr</ref>;<sp/></highlight></codeline>
+<codeline lineno="45" refid="struct_x_sem___xmpu_cfg_1a392e0989d39e31fd5114d833ea89ae48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1a392e0989d39e31fd5114d833ea89ae48" kindref="member">XmpuRegionNum</ref>;<sp/></highlight></codeline>
+<codeline lineno="46" refid="struct_x_sem___xmpu_cfg_1a3a802b0f10d9f9559ba3a3abb34d9b49" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1a3a802b0f10d9f9559ba3a3abb34d9b49" kindref="member">XmpuConfig</ref>;<sp/></highlight></codeline>
+<codeline lineno="47" refid="struct_x_sem___xmpu_cfg_1af821df2a894d0814c566f09b8e07df52" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1af821df2a894d0814c566f09b8e07df52" kindref="member">XmpuStartAddrLo</ref>;<sp/></highlight></codeline>
+<codeline lineno="48" refid="struct_x_sem___xmpu_cfg_1ae1eb4aed09a5aac319fb2ba8162f47c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1ae1eb4aed09a5aac319fb2ba8162f47c3" kindref="member">XmpuStartAddrUp</ref>;<sp/></highlight></codeline>
+<codeline lineno="49" refid="struct_x_sem___xmpu_cfg_1a5469026a0bdfb14e20ece1ab7bb706bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1a5469026a0bdfb14e20ece1ab7bb706bf" kindref="member">XmpuEndAddrLo</ref>;<sp/></highlight></codeline>
+<codeline lineno="50" refid="struct_x_sem___xmpu_cfg_1a1d7fb9d29be4f9acd7993eccd6fd7181" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1a1d7fb9d29be4f9acd7993eccd6fd7181" kindref="member">XmpuEndAddrUp</ref>;<sp/></highlight></codeline>
+<codeline lineno="51" refid="struct_x_sem___xmpu_cfg_1a2b7f2016c9bc4bf621d1dccd85819861" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_sem___xmpu_cfg_1a2b7f2016c9bc4bf621d1dccd85819861" kindref="member">XmpuMaster</ref>;<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}<ref refid="struct_x_sem___xmpu_cfg" kindref="compound">XSem_XmpuCfg</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight></codeline>
+<codeline lineno="63"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSem_Init<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSem_InitScan<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSem_StartScan<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSem_StopScan<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSem_XmpuRegUpdate(<ref refid="struct_x_sem___xmpu_cfg" kindref="compound">XSem_XmpuCfg</ref><sp/>*XmpuCfg);</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XIL_SEM_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/server/xilsem.h"/>
+  </compounddef>
+</doxygen>

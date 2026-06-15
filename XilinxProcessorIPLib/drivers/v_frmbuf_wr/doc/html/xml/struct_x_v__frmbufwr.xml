@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__frmbufwr" kind="struct" prot="public">
+    <compoundname>XV_frmbufwr</compoundname>
+    <includes local="no">xv_frmbufwr.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__frmbufwr___config" kindref="compound">XV_frmbufwr_Config</ref></type>
+        <definition>XV_frmbufwr_Config XV_frmbufwr::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="805" endline="969">main</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1ffcda6d7c6abe158bc96a3b01efd174" compoundref="xv__frmbufwr_8c" startline="31" endline="50">XV_frmbufwr_CfgInitialize</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="170" endline="175">XV_frmbufwr_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac37a689a78739317839929d7cba96cff" compoundref="xv__frmbufwr_8c" startline="153" endline="158">XV_frmbufwr_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="213" endline="222">XV_frmbufwr_Get_FlushDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a89f7402d7cbb640a3c9c465d58625016" compoundref="xv__frmbufwr_8c" startline="526" endline="535">XV_frmbufwr_Get_HwReg_field_id</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a17047a6e2b84009f8732a0ffc6117234" compoundref="xv__frmbufwr_8c" startline="567" endline="575">XV_frmbufwr_Get_HwReg_force_eof</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="461" endline="470">XV_frmbufwr_Get_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="504" endline="511">XV_frmbufwr_Get_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="418" endline="427">XV_frmbufwr_Get_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8e1b6040c53f4a53fe8abe58e57f86bd" compoundref="xv__frmbufwr_8c" startline="289" endline="297">XV_frmbufwr_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a721346ceba05a8b2967a645b9d3f83cb" compoundref="xv__frmbufwr_8c" startline="607" endline="615">XV_frmbufwr_Get_HwReg_partial_frm_cnt</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a713dc15464e73f63f32ae6d2a102e60f" compoundref="xv__frmbufwr_8c" startline="334" endline="342">XV_frmbufwr_Get_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8b8c974ce85abb60f3cbd9d8d9da8e0e" compoundref="xv__frmbufwr_8c" startline="374" endline="382">XV_frmbufwr_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a52dd135d5e0ee9f1d8d4aa7470b453d7" compoundref="xv__frmbufwr_8c" startline="252" endline="260">XV_frmbufwr_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a0d5ef16a3e39045cf9170304fb67b96e" compoundref="xv__frmbufwr_8c" startline="705" endline="710">XV_frmbufwr_InterruptClear</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a4566cdad05f19ee21c92150343677c7b" compoundref="xv__frmbufwr_8c" startline="684" endline="692">XV_frmbufwr_InterruptDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a99d1cb6b86e24d84059be2d1a90fc9f4" compoundref="xv__frmbufwr_8c" startline="661" endline="669">XV_frmbufwr_InterruptEnable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1cbba8d3981e50c0421ede6b361da7ce" compoundref="xv__frmbufwr_8c" startline="723" endline="728">XV_frmbufwr_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a34eec22513f730be9a0740c7fffc9142" compoundref="xv__frmbufwr_8c" startline="741" endline="746">XV_frmbufwr_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8a20fdb5eda4f9e0776dbd061df04e19" compoundref="xv__frmbufwr_8c" startline="642" endline="647">XV_frmbufwr_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a54d671ea4a8f8f0b7643f122cc4d0206" compoundref="xv__frmbufwr_8c" startline="626" endline="631">XV_frmbufwr_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1a45172de1053c3dbd78eda7b85cfd86" compoundref="xv__frmbufwr_8c" startline="85" endline="93">XV_frmbufwr_IsDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1c126d44d62c2308a2c68a3b7a64046b" compoundref="xv__frmbufwr_8c" startline="108" endline="116">XV_frmbufwr_IsIdle</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a79c0154c54848e4215b04a297b684497" compoundref="xv__frmbufwr_8c" startline="130" endline="139">XV_frmbufwr_IsReady</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aaff3422d13e01740308050fd49f65cb9" compoundref="xv__frmbufwr_8c" startline="547" endline="552">XV_frmbufwr_Set_HwReg_force_eof</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a7dd03b1adcd69e1d316efe8404bd30dc" compoundref="xv__frmbufwr_8c" startline="443" endline="449">XV_frmbufwr_Set_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8cd85b1598a44028e8df3d35660516a0" compoundref="xv__frmbufwr_8c" startline="486" endline="491">XV_frmbufwr_Set_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aa8ac854d44f035497782ec71d7199c31" compoundref="xv__frmbufwr_8c" startline="398" endline="404">XV_frmbufwr_Set_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a223c96f00aeb45b5a4d6264f517fd54e" compoundref="xv__frmbufwr_8c" startline="273" endline="278">XV_frmbufwr_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac19a692596de64e0468c94bc957274ad" compoundref="xv__frmbufwr_8c" startline="587" endline="592">XV_frmbufwr_Set_HwReg_partial_frm_cnt</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a0895ffe348089ae1a845a3399326f775" compoundref="xv__frmbufwr_8c" startline="312" endline="317">XV_frmbufwr_Set_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a3979eb5235e31e4d611a2cbb2ab5a3a1" compoundref="xv__frmbufwr_8c" startline="354" endline="359">XV_frmbufwr_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a358b23884dce32646c0307ac9aab5ab2" compoundref="xv__frmbufwr_8c" startline="234" endline="239">XV_frmbufwr_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="189" endline="200">XV_frmbufwr_SetFlushbit</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1fa08ab807087c53eae5cda44cafd616" compoundref="xv__frmbufwr_8c" startline="64" endline="72">XV_frmbufwr_Start</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1ga7aa0fd061e4c759a245ec57b551d8d21" compoundref="xv__frmbufwr__l2_8c" startline="1029" endline="1105">XVFrmbufWr_DbgReportStatus</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1ga02ac61b5da119e29efb4fcb6bb0a8340" compoundref="xv__frmbufwr__l2_8c" startline="997" endline="1006">XVFrmbufWr_GetFieldID</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1ga65a4ff585ac85c574eb6111848e3b2c9" compoundref="xv__frmbufwr__l2_8c" startline="815" endline="839">XVFrmbufWr_SetBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1gae3ad3f1fa2f369041d8e9ab7683a05b0" compoundref="xv__frmbufwr__l2_8c" startline="883" endline="907">XVFrmbufWr_SetChromaBufferAddr</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1ga4951453d9f7373886327dbbcb8b3ada2" compoundref="xv__frmbufwr__l2_8c" startline="474" endline="780">XVFrmbufWr_SetMemFormat</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1gaf68f85db7571469e49626a9483567a50" compoundref="xv__frmbufwr__l2_8c" startline="947" endline="967">XVFrmbufWr_SetVChromaBufferAddr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__frmbufwr_1a0af44aae5b925aac2e6441f51ff132c7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_frmbufwr::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a1ffcda6d7c6abe158bc96a3b01efd174" compoundref="xv__frmbufwr_8c" startline="31" endline="50">XV_frmbufwr_CfgInitialize</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="170" endline="175">XV_frmbufwr_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac37a689a78739317839929d7cba96cff" compoundref="xv__frmbufwr_8c" startline="153" endline="158">XV_frmbufwr_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="213" endline="222">XV_frmbufwr_Get_FlushDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a89f7402d7cbb640a3c9c465d58625016" compoundref="xv__frmbufwr_8c" startline="526" endline="535">XV_frmbufwr_Get_HwReg_field_id</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a17047a6e2b84009f8732a0ffc6117234" compoundref="xv__frmbufwr_8c" startline="567" endline="575">XV_frmbufwr_Get_HwReg_force_eof</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="461" endline="470">XV_frmbufwr_Get_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="504" endline="511">XV_frmbufwr_Get_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="418" endline="427">XV_frmbufwr_Get_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8e1b6040c53f4a53fe8abe58e57f86bd" compoundref="xv__frmbufwr_8c" startline="289" endline="297">XV_frmbufwr_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a721346ceba05a8b2967a645b9d3f83cb" compoundref="xv__frmbufwr_8c" startline="607" endline="615">XV_frmbufwr_Get_HwReg_partial_frm_cnt</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a713dc15464e73f63f32ae6d2a102e60f" compoundref="xv__frmbufwr_8c" startline="334" endline="342">XV_frmbufwr_Get_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8b8c974ce85abb60f3cbd9d8d9da8e0e" compoundref="xv__frmbufwr_8c" startline="374" endline="382">XV_frmbufwr_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a52dd135d5e0ee9f1d8d4aa7470b453d7" compoundref="xv__frmbufwr_8c" startline="252" endline="260">XV_frmbufwr_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufwr__sinit_8c_1a49b9da16a2a97c7850ad631220a64efa" compoundref="xv__frmbufwr__sinit_8c" startline="125" endline="139">XV_frmbufwr_Initialize</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a0d5ef16a3e39045cf9170304fb67b96e" compoundref="xv__frmbufwr_8c" startline="705" endline="710">XV_frmbufwr_InterruptClear</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a4566cdad05f19ee21c92150343677c7b" compoundref="xv__frmbufwr_8c" startline="684" endline="692">XV_frmbufwr_InterruptDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a99d1cb6b86e24d84059be2d1a90fc9f4" compoundref="xv__frmbufwr_8c" startline="661" endline="669">XV_frmbufwr_InterruptEnable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1cbba8d3981e50c0421ede6b361da7ce" compoundref="xv__frmbufwr_8c" startline="723" endline="728">XV_frmbufwr_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a34eec22513f730be9a0740c7fffc9142" compoundref="xv__frmbufwr_8c" startline="741" endline="746">XV_frmbufwr_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8a20fdb5eda4f9e0776dbd061df04e19" compoundref="xv__frmbufwr_8c" startline="642" endline="647">XV_frmbufwr_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a54d671ea4a8f8f0b7643f122cc4d0206" compoundref="xv__frmbufwr_8c" startline="626" endline="631">XV_frmbufwr_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1a45172de1053c3dbd78eda7b85cfd86" compoundref="xv__frmbufwr_8c" startline="85" endline="93">XV_frmbufwr_IsDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1c126d44d62c2308a2c68a3b7a64046b" compoundref="xv__frmbufwr_8c" startline="108" endline="116">XV_frmbufwr_IsIdle</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a79c0154c54848e4215b04a297b684497" compoundref="xv__frmbufwr_8c" startline="130" endline="139">XV_frmbufwr_IsReady</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aaff3422d13e01740308050fd49f65cb9" compoundref="xv__frmbufwr_8c" startline="547" endline="552">XV_frmbufwr_Set_HwReg_force_eof</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a7dd03b1adcd69e1d316efe8404bd30dc" compoundref="xv__frmbufwr_8c" startline="443" endline="449">XV_frmbufwr_Set_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8cd85b1598a44028e8df3d35660516a0" compoundref="xv__frmbufwr_8c" startline="486" endline="491">XV_frmbufwr_Set_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aa8ac854d44f035497782ec71d7199c31" compoundref="xv__frmbufwr_8c" startline="398" endline="404">XV_frmbufwr_Set_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a223c96f00aeb45b5a4d6264f517fd54e" compoundref="xv__frmbufwr_8c" startline="273" endline="278">XV_frmbufwr_Set_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac19a692596de64e0468c94bc957274ad" compoundref="xv__frmbufwr_8c" startline="587" endline="592">XV_frmbufwr_Set_HwReg_partial_frm_cnt</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a0895ffe348089ae1a845a3399326f775" compoundref="xv__frmbufwr_8c" startline="312" endline="317">XV_frmbufwr_Set_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a3979eb5235e31e4d611a2cbb2ab5a3a1" compoundref="xv__frmbufwr_8c" startline="354" endline="359">XV_frmbufwr_Set_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a358b23884dce32646c0307ac9aab5ab2" compoundref="xv__frmbufwr_8c" startline="234" endline="239">XV_frmbufwr_Set_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="189" endline="200">XV_frmbufwr_SetFlushbit</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1fa08ab807087c53eae5cda44cafd616" compoundref="xv__frmbufwr_8c" startline="64" endline="72">XV_frmbufwr_Start</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1gadea6cdf3f0eca400d18bf3b31b87e9c7" compoundref="xv__frmbufwr__l2__intr_8c" startline="111" endline="142">XVFrmbufWr_InterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="4">
+        <label>XV_frmbufwr_Config</label>
+        <link refid="struct_x_v__frmbufwr___config"/>
+      </node>
+      <node id="3">
+        <label>XV_frmbufwr</label>
+        <link refid="struct_x_v__frmbufwr"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr.h" bodystart="126" bodyend="129"/>
+    <listofallmembers>
+      <member refid="struct_x_v__frmbufwr_1ac6a008e283f98889377df951199c4a5b" prot="public" virt="non-virtual"><scope>XV_frmbufwr</scope><name>Config</name></member>
+      <member refid="struct_x_v__frmbufwr_1a0af44aae5b925aac2e6441f51ff132c7" prot="public" virt="non-virtual"><scope>XV_frmbufwr</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

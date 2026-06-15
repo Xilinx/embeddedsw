@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpio_8c" kind="file">
+    <compoundname>xgpio.c</compoundname>
+    <includes refid="xgpio_8h" local="yes">xgpio.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="12">
+        <label>xil_io.h</label>
+      </node>
+      <node id="11">
+        <label>xgpio_l.h</label>
+        <link refid="xgpio__l_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xgpio.c</label>
+        <link refid="xgpio.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xgpio.h</label>
+        <link refid="xgpio_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xstatus.h</label>
+      </node>
+      <node id="8">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XGpio_CfgInitialize</definition>
+        <argsstring>(XGpio *InstancePtr, XGpio_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XGpio_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_gpio___config" kindref="compound">XGpio_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance provided by the caller based on the given configuration data. </para>        </briefdescription>
+        <detaileddescription>
+<para>Nothing is done except to initialize the InstancePtr.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance. The memory the pointer references must be pre-allocated by the caller. Further calls to manipulate the driver through the <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> API must be made with this pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific GPIO device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the initialization is successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" bodystart="94" bodyend="111"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio___config_1a4bfad8c3bd5b9a07f83dd2d0c2b5c1f0" compoundref="xgpio_8h" startline="95">XGpio_Config::InterruptPresent</references>
+        <references refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" compoundref="xgpio_8h" startline="112">XGpio::InterruptPresent</references>
+        <references refid="struct_x_gpio___config_1ac733fc2e0f1df9cb827be23a0ef9a1ba" compoundref="xgpio_8h" startline="96">XGpio_Config::IsDual</references>
+        <references refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" compoundref="xgpio_8h" startline="113">XGpio::IsDual</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <referencedby refid="group__gpio__api_1ga5b6948513889f043a40494dba1904828" compoundref="xgpio__sinit_8c" startline="143" endline="170">XGpio_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_SetDataDirection</definition>
+        <argsstring>(XGpio *InstancePtr, unsigned Channel, u32 DirectionMask)</argsstring>
+        <name>XGpio_SetDataDirection</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DirectionMask</declname>
+        </param>
+        <briefdescription>
+<para>Sets the input/output direction of all discrete signals for the specified GPIO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the channel of the GPIO (1 or 2) to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DirectionMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bitmask specifying which discretes are input and which are output. Bits set to 0 are output and bits set to 1 are input.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The hardware must be built for dual channels if this function is used with any channel other than 1. If it is not, this function will assert. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" bodystart="132" bodyend="143"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" compoundref="xgpio_8h" startline="113">XGpio::IsDual</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" compoundref="xgpio__l_8h" startline="86">XGPIO_CHAN_OFFSET</references>
+        <references refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" compoundref="xgpio__l_8h" startline="73">XGPIO_TRI_OFFSET</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+        <referencedby refid="xgpio__tapp__example_8c_1adae87cf82266222b55aa820b7cdbfecc" compoundref="xgpio__tapp__example_8c" startline="283" endline="309">GpioInputExample</referencedby>
+        <referencedby refid="xgpio__tapp__example_8c_1a0cd49ca5f68b75a19570222fa1e68e98" compoundref="xgpio__tapp__example_8c" startline="185" endline="254">GpioOutputExample</referencedby>
+        <referencedby refid="xgpio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__example_8c" startline="125" endline="160">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpio_GetDataDirection</definition>
+        <argsstring>(XGpio *InstancePtr, unsigned Channel)</argsstring>
+        <name>XGpio_GetDataDirection</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>Gets the input/output direction of all discrete signals for the specified GPIO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the channel of the GPIO (1 or 2) to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Bitmask specifying which discretes are input and which are output. Bits set to 0 are output and bits set to 1 are input.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The hardware must be built for dual channels if this function is used with any channel other than 1. If it is not, this function will assert. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" bodystart="163" bodyend="173"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" compoundref="xgpio_8h" startline="113">XGpio::IsDual</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" compoundref="xgpio__l_8h" startline="86">XGPIO_CHAN_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <references refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" compoundref="xgpio__l_8h" startline="73">XGPIO_TRI_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpio_DiscreteRead</definition>
+        <argsstring>(XGpio *InstancePtr, unsigned Channel)</argsstring>
+        <name>XGpio_DiscreteRead</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+<para>Reads state of discretes for the specified GPIO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the channel of the GPIO (1 or 2) to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current copy of the discretes register.</para></simplesect>
+<simplesect kind="note"><para>The hardware must be built for dual channels if this function is used with any channel other than 1. If it is not, this function will assert. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" bodystart="189" bodyend="199"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" compoundref="xgpio_8h" startline="113">XGpio::IsDual</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" compoundref="xgpio__l_8h" startline="86">XGPIO_CHAN_OFFSET</references>
+        <references refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" compoundref="xgpio__l_8h" startline="72">XGPIO_DATA_OFFSET</references>
+        <references refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" compoundref="xgpio__l_8h" startline="156">XGpio_ReadReg</references>
+        <referencedby refid="xgpio__tapp__example_8c_1adae87cf82266222b55aa820b7cdbfecc" compoundref="xgpio__tapp__example_8c" startline="283" endline="309">GpioInputExample</referencedby>
+        <referencedby refid="group__gpio__api_1gaf01e2f4d8e75fa4922a5d92798be7b25" compoundref="xgpio__selftest_8c" startline="66" endline="80">XGpio_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpio_DiscreteWrite</definition>
+        <argsstring>(XGpio *InstancePtr, unsigned Channel, u32 Mask)</argsstring>
+        <name>XGpio_DiscreteWrite</name>
+        <param>
+          <type><ref refid="struct_x_gpio" kindref="compound">XGpio</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Writes to discretes register for the specified GPIO channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to an <ref refid="struct_x_gpio" kindref="compound">XGpio</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Contains the channel of the GPIO (1 or 2) to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to be written to the discretes register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The hardware must be built for dual channels if this function is used with any channel other than 1. If it is not, this function will assert. See also <ref refid="group__gpio__api_1ga8f2cea7ef78412c03c7ebdba87b7cdd4" kindref="member">XGpio_DiscreteSet()</ref> and <ref refid="group__gpio__api_1gae430718af9f347c91be42aad580b216c" kindref="member">XGpio_DiscreteClear()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c" bodystart="217" bodyend="227"/>
+        <references refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" compoundref="xgpio_8h" startline="110">XGpio::BaseAddress</references>
+        <references refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" compoundref="xgpio_8h" startline="113">XGpio::IsDual</references>
+        <references refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" compoundref="xgpio_8h" startline="111">XGpio::IsReady</references>
+        <references refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" compoundref="xgpio__l_8h" startline="86">XGPIO_CHAN_OFFSET</references>
+        <references refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" compoundref="xgpio__l_8h" startline="72">XGPIO_DATA_OFFSET</references>
+        <references refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" compoundref="xgpio__l_8h" startline="136">XGpio_WriteReg</references>
+        <referencedby refid="xgpio__tapp__example_8c_1a0cd49ca5f68b75a19570222fa1e68e98" compoundref="xgpio__tapp__example_8c" startline="185" endline="254">GpioOutputExample</referencedby>
+        <referencedby refid="xgpio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xgpio__example_8c" startline="125" endline="160">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpio_8h" kindref="compound">xgpio.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1gaf76e70c9ddd0dc3966123c09646d880c" kindref="member">XGpio_CfgInitialize</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr,<sp/><ref refid="struct_x_gpio___config" kindref="compound">XGpio_Config</ref><sp/>*<sp/>Config,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>some<sp/>default<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_1acd2357402ecaeff664407202ce6d9a81" kindref="member">InterruptPresent</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_gpio___config_1a4bfad8c3bd5b9a07f83dd2d0c2b5c1f0" kindref="member">InterruptPresent</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" kindref="member">IsDual</ref><sp/>=<sp/>Config-&gt;<ref refid="struct_x_gpio___config_1ac733fc2e0f1df9cb827be23a0ef9a1ba" kindref="member">IsDual</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Indicate<sp/>the<sp/>instance<sp/>is<sp/>now<sp/>ready<sp/>to<sp/>use,<sp/>initialized<sp/>without<sp/>error</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="132" refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1gabee6bcad28382ef5ecd336887647c238" kindref="member">XGpio_SetDataDirection</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Channel,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DirectionMask)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>==<sp/>1)<sp/>||</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>==<sp/>2)<sp/>&amp;&amp;<sp/>(InstancePtr-&gt;<ref refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" kindref="member">IsDual</ref><sp/>==<sp/>TRUE)));</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+<sp/><ref refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" kindref="member">XGPIO_TRI_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DirectionMask);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpio__api_1ga77090853c15dc3d72e2bfbc66e635ada" kindref="member">XGpio_GetDataDirection</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Channel)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Channel<sp/>==<sp/>1)<sp/><sp/>||</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>==<sp/>2)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" kindref="member">IsDual</ref><sp/>==<sp/>TRUE)));</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+<sp/><ref refid="group__gpio__api_1gafcefd582c52e56dc7c438a72dfa95546" kindref="member">XGPIO_TRI_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="189" refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpio__api_1gaed95c58f21d567fca624f9f51cb25e20" kindref="member">XGpio_DiscreteRead</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Channel)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Channel<sp/>==<sp/>1)<sp/>||</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>==<sp/>2)<sp/>&amp;&amp;<sp/>(InstancePtr-&gt;<ref refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" kindref="member">IsDual</ref><sp/>==<sp/>TRUE)));</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1ga7199da4092b92413af00c613c8cffa57" kindref="member">XGpio_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" kindref="member">XGPIO_DATA_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="217" refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpio__api_1gae188a28725318c991ac45afb2452ad9b" kindref="member">XGpio_DiscreteWrite</ref>(<ref refid="struct_x_gpio" kindref="compound">XGpio</ref><sp/>*<sp/>InstancePtr,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>Channel,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_1a3652328c3d29797110949baaaff300fc" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Channel<sp/>==<sp/>1)<sp/>||</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>==<sp/>2)<sp/>&amp;&amp;<sp/>(InstancePtr-&gt;<ref refid="struct_x_gpio_1af688ddb928355a5f70748b97ec4aa593" kindref="member">IsDual</ref><sp/>==<sp/>TRUE)));</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpio__api_1ga2cd75ed11bd48af96704b073fa65ef22" kindref="member">XGpio_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_1ad4f1e3dea77b3d89d4c67b61516eabfe" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Channel<sp/>-<sp/>1)<sp/>*<sp/><ref refid="group__gpio__api_1ga8929998b33d1d66fe8eaa7f454a05ca6" kindref="member">XGPIO_CHAN_OFFSET</ref>)<sp/>+<sp/><ref refid="group__gpio__api_1ga1712704f3a009d03d0b3201c90259793" kindref="member">XGPIO_DATA_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpio/src/xgpio.c"/>
+  </compounddef>
+</doxygen>

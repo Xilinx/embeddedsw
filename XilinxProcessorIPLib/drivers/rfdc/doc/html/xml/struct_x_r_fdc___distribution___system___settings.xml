@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___distribution___system___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_Distribution_System_Settings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___distribution___system___settings_1a658eec4938655fb97827660347cbbd74" prot="public" static="no" mutable="no">
+        <type>XRFdc_Distribution_Settings</type>
+        <definition>XRFdc_Distribution_Settings XRFdc_Distribution_System_Settings::Distributions[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Distributions</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="413" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="413" bodyend="415"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___distribution___system___settings_1a658eec4938655fb97827660347cbbd74" prot="public" virt="non-virtual"><scope>XRFdc_Distribution_System_Settings</scope><name>Distributions</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

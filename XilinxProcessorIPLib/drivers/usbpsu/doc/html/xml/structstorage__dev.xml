@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structstorage__dev" kind="struct" prot="public">
+    <compoundname>storage_dev</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structstorage__dev_1a08eb94bb7cb7fdb7c12412463409b6cc" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* storage_dev::disk</definition>
+        <argsstring></argsstring>
+        <name>disk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1aa5c70924cb04ee918748074eb9ae0be0" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* storage_dev::diskptr</definition>
+        <argsstring></argsstring>
+        <name>diskptr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1a1aa2dcf13e19e47668bb47fd880ef982" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 storage_dev::disksize</definition>
+        <argsstring></argsstring>
+        <name>disksize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1a57d48cfe20125227a5a9a1844222cfc3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 storage_dev::bytesleft</definition>
+        <argsstring></argsstring>
+        <name>bytesleft</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1afa881a524bf9d7218b192a7fa4b41f82" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 storage_dev::phase</definition>
+        <argsstring></argsstring>
+        <name>phase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1ad94cb913710a142c45c7a3a9190086fb" prot="public" static="no" mutable="no">
+        <type>USB_CBW cbw</type>
+        <definition>USB_CBW cbw storage_dev::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1a583219e6c835a2673625a490366518cc" prot="public" static="no" mutable="no">
+        <type>USB_CSW csw</type>
+        <definition>USB_CSW csw storage_dev::ALIGNMENT_CACHELINE</definition>
+        <argsstring></argsstring>
+        <name>ALIGNMENT_CACHELINE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1a9cd38b8d9c7cefd255e7286735577ccf" prot="public" static="no" mutable="no">
+        <type>TaskHandle_t</type>
+        <definition>TaskHandle_t storage_dev::xSCSITask</definition>
+        <argsstring></argsstring>
+        <name>xSCSITask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1a52fb0e6da08066779b4617bf1be3194c" prot="public" static="no" mutable="no">
+        <type>xSemaphoreHandle</type>
+        <definition>xSemaphoreHandle storage_dev::xSemaphore</definition>
+        <argsstring></argsstring>
+        <name>xSemaphore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structstorage__dev_1ac108bde09441ba6b995800cbf9dd52f3" prot="public" static="no" mutable="no">
+        <type>struct transfer</type>
+        <definition>struct transfer storage_dev::currTrans</definition>
+        <argsstring></argsstring>
+        <name>currTrans</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_storage.h" bodystart="202" bodyend="227"/>
+    <listofallmembers>
+      <member refid="structstorage__dev_1ad94cb913710a142c45c7a3a9190086fb" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="structstorage__dev_1a583219e6c835a2673625a490366518cc" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>ALIGNMENT_CACHELINE</name></member>
+      <member refid="structstorage__dev_1a57d48cfe20125227a5a9a1844222cfc3" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>bytesleft</name></member>
+      <member refid="structstorage__dev_1ac108bde09441ba6b995800cbf9dd52f3" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>currTrans</name></member>
+      <member refid="structstorage__dev_1a08eb94bb7cb7fdb7c12412463409b6cc" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>disk</name></member>
+      <member refid="structstorage__dev_1aa5c70924cb04ee918748074eb9ae0be0" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>diskptr</name></member>
+      <member refid="structstorage__dev_1a1aa2dcf13e19e47668bb47fd880ef982" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>disksize</name></member>
+      <member refid="structstorage__dev_1afa881a524bf9d7218b192a7fa4b41f82" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>phase</name></member>
+      <member refid="structstorage__dev_1a9cd38b8d9c7cefd255e7286735577ccf" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>xSCSITask</name></member>
+      <member refid="structstorage__dev_1a52fb0e6da08066779b4617bf1be3194c" prot="public" virt="non-virtual"><scope>storage_dev</scope><name>xSemaphore</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

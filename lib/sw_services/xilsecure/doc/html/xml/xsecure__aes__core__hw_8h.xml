@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__aes__core__hw_8h" kind="file">
+    <compoundname>xsecure_aes_core_hw.h</compoundname>
+    <includedby refid="core_2aes_2xsecure__aes_8c" local="yes">xsecure_aes.c</includedby>
+    <includedby refid="xsecure__plat__aes_8c" local="yes">xsecure_plat_aes.c</includedby>
+    <includedby refid="spartanup_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__net_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <invincdepgraph>
+      <node id="604">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="615">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="598">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="599">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp_2xsecure__plat_8h"/>
+      </node>
+      <node id="595">
+        <label>xsecure_plat.h</label>
+        <link refid="spartanup_2xsecure__plat_8h"/>
+      </node>
+      <node id="607">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="603">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="606">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="613">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="594">
+        <label>xsecure_plat_aes.c</label>
+        <link refid="xsecure__plat__aes_8c"/>
+      </node>
+      <node id="602">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+        <childnode refid="611" relation="include">
+        </childnode>
+        <childnode refid="613" relation="include">
+        </childnode>
+        <childnode refid="614" relation="include">
+        </childnode>
+        <childnode refid="615" relation="include">
+        </childnode>
+        <childnode refid="616" relation="include">
+        </childnode>
+      </node>
+      <node id="605">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="601">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="610">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="600">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="608">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="609">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="593">
+        <label>xsecure_aes.c</label>
+        <link refid="core_2aes_2xsecure__aes_8c"/>
+      </node>
+      <node id="612">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="611">
+        <label>xsecure_sss.h</label>
+        <link refid="core_2util_2xsecure__sss_8h"/>
+        <childnode refid="612" relation="include">
+        </childnode>
+      </node>
+      <node id="614">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="592">
+        <label>xsecure_aes_core_hw.h</label>
+        <link refid="xsecure_aes_core_hw.h"/>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+      </node>
+      <node id="597">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
+        <childnode refid="598" relation="include">
+        </childnode>
+      </node>
+      <node id="596">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_2xsecure__plat_8h"/>
+      </node>
+      <node id="616">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This file contains AES core hardware definitions of versal. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+4.0   vns  03/21/19 Initial release
+4.2   vns  02/10/20 Added efuse cache DPA mask register address and mask
+4.3   ana  06/04/20 Added XSECURE_AES_MODE_DEC macro
+      kpt  08/06/20 Added XSECURE_AES_KEY_DEC_RESET_MASK macro
+      am   09/24/20 Resolved MISRA C violations
+      har  10/12/20 Addressed security review comments
+4.5   har  03/02/21 Added register offset for AAD
+4.6   har  07/14/21 Fixed doxygen warnings
+5.3   kpt  11/28/23 Added XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XSECURE_AES_CORE_HW_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_CORE_HW_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_CM_ENABLED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_CM_ENABLED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_BLK_KEY_DEC_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_KEY_INIT_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_GCM_TAG_PASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_STATUS_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_LOAD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_LOAD_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XSECURE_AES_START_MSG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000CU)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_START_MSG_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XSECURE_AES_SOFT_RST_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XSECURE_AES_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000018U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_MODE_ENC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_MODE_DEC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KUP_WR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000001CU)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KUP_WR_IV_SAVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KUP_WR_KEY_SAVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XSECURE_AES_IV_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XSECURE_AES_IV_3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000004CU)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SIZE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000050U)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000058U)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0X00000000U)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_TRIG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000005CU)</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000060U)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_ZEROED_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000064U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XSECURE_PUF_KEY_ZEROED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x200000U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor">#define<sp/>XSECURE_AES_AAD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000006CU)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XSECURE_AES_CM_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000007CU)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_CM_EN_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XSECURE_AES_SPLIT_CFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_SPLIT_CFG_KEY_SPLIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_SPLIT_CFG_DATA_SPLIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XSECURE_AES_DATA_SWAP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000084U)</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_DATA_SWAP_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_DATA_SWAP_VAL_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XSECURE_AES_BH_KEY_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000F0U)</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_0_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000110U)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_1_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000130U)</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_2_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000150U)</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_3_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000170U)</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_4_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000190U)</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_5_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001B0U)</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_6_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001D0U)</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XSECURE_AES_USER_KEY_7_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001F0U)</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor">#define<sp/>XSECURE_EFUSE_SECURITY_MISC1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF12500E8U)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_EFUSE_DPA_CM_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFF0000U)</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_AES_CORE_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/aes/xsecure_aes_core_hw.h"/>
+  </compounddef>
+</doxygen>

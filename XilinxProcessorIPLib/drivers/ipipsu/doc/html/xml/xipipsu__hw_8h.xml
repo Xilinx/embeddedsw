@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xipipsu__hw_8h" kind="file">
+    <compoundname>xipipsu_hw.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xipipsu_8h" local="yes">xipipsu.h</includedby>
+    <includedby refid="xipipsu_8c" local="yes">xipipsu.c</includedby>
+    <includedby refid="xipipsu__buf_8c" local="yes">xipipsu_buf.c</includedby>
+    <includedby refid="xipipsu__helper_8c" local="yes">xipipsu_helper.c</includedby>
+    <includedby refid="xipipsu__self__test__example_8c" local="yes">xipipsu_self_test_example.c</includedby>
+    <incdepgraph>
+      <node id="54">
+        <label>xipipsu_hw.h</label>
+        <link refid="xipipsu_hw.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="60">
+        <label>xipipsu_g.c</label>
+      </node>
+      <node id="62">
+        <label>xipipsu_sinit.c</label>
+        <link refid="xipipsu__sinit_8c"/>
+      </node>
+      <node id="56">
+        <label>xipipsu_hw.h</label>
+        <link refid="xipipsu_hw.h"/>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xipipsu.c</label>
+        <link refid="xipipsu_8c"/>
+      </node>
+      <node id="59">
+        <label>xipipsu_buf.c</label>
+        <link refid="xipipsu__buf_8c"/>
+      </node>
+      <node id="57">
+        <label>xipipsu.h</label>
+        <link refid="xipipsu_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xipipsu_helper.c</label>
+        <link refid="xipipsu__helper_8c"/>
+      </node>
+      <node id="63">
+        <label>xipipsu_self_test_example.c</label>
+        <link refid="xipipsu__self__test__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ipipsu__api_1gaf92686c675ebd6fe4efc7213c7f8f204" prot="public" static="no">
+        <name>XIPIPSU_HW_H_</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" prot="public" static="no">
+        <name>XIPIPSU_MSG_RAM_BASE</name>
+        <initializer>0xFF990000U</initializer>
+        <briefdescription>
+<para>IPI Message RAM base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga5989f697e24f79be32727d13ee3f4350" prot="public" static="no">
+        <name>XIPIPSU_MSG_BUF_SIZE</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Buffer size for up to 8 messages, each 4-bytes long. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="55" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" prot="public" static="no">
+        <name>XIPIPSU_MAX_BUFF_INDEX</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Maximum Buffer Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+        <referencedby refid="group__ipipsu__api_1ga7d429daed621ef6c33656d873e31d9b3" compoundref="xipipsu__helper_8c" startline="107" endline="125">XIpiPsu_GetBufferIndex</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gae0907003c35118f6135e65877227d15e" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_GROUP</name>
+        <initializer>(8U * 2U * 32U)</initializer>
+        <briefdescription>
+<para>Buffer offset for group. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga1b15715fa2640ed4fd66146d328bbbba" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_TARGET</name>
+        <initializer>(32U * 2U)</initializer>
+        <briefdescription>
+<para>Buffer offset for target. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gaf2361ea49ab17d6cc10e53ea607a9e9f" prot="public" static="no">
+        <name>XIPIPSU_BUFFER_OFFSET_RESPONSE</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Buffer offset for response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga47ff7fda69269789f8a32d6be7357712" prot="public" static="no">
+        <name>XIPIPSU_MAX_TARGETS</name>
+        <initializer>XPAR_XIPIPSU_0_IPI_TARGET_COUNT</initializer>
+        <briefdescription>
+<para>Maximum number of targets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="67" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" prot="public" static="no">
+        <name>XIPIPSU_TRIG_OFFSET</name>
+        <initializer>0x00U</initializer>
+        <briefdescription>
+<para>Offset for Trigger register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" compoundref="xipipsu_8c" startline="141" endline="152">XIpiPsu_TriggerIpi</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" prot="public" static="no">
+        <name>XIPIPSU_OBS_OFFSET</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Offset for Observation register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" compoundref="xipipsu_8c" startline="165" endline="191">XIpiPsu_PollForAck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" prot="public" static="no">
+        <name>XIPIPSU_ISR_OFFSET</name>
+        <initializer>0x10U</initializer>
+        <briefdescription>
+<para>Offset for ISR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga44ee4ca145f4adbe7584e6d9a08c4bdf" prot="public" static="no">
+        <name>XIPIPSU_IMR_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1gab20d7be8c5dd6ca941862eb1ff40289d" prot="public" static="no">
+        <name>XIPIPSU_IER_OFFSET</name>
+        <initializer>0x18U</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" prot="public" static="no">
+        <name>XIPIPSU_IDR_OFFSET</name>
+        <initializer>0x1CU</initializer>
+        <briefdescription>
+<para>Offset for Interrupt Disable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga6625ac1f3ce4297feacf81cd25acf53f" prot="public" static="no">
+        <name>XIPIPSU_ECC_UE_MASK</name>
+        <initializer>0x40U</initializer>
+        <briefdescription>
+<para>Uncorrecteble Error mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="85" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" prot="public" static="no">
+        <name>XIPIPSU_ALL_MASK</name>
+        <initializer>0x0F0F0301U</initializer>
+        <briefdescription>
+<para>All valid bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" line="93" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+        <referencedby refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" compoundref="xipipsu_8c" startline="113" endline="128">XIpiPsu_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>XIPIPSU_HW_H_<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36" refid="group__ipipsu__api_1gaf92686c675ebd6fe4efc7213c7f8f204" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_HW_H_<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Message<sp/>RAM<sp/>related<sp/>params<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)<sp/>||<sp/>defined<sp/>(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MSG_RAM_BASE<sp/>0xEB3F0000U<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#elif<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MSG_RAM_BASE<sp/>0xFF3F0000U<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="53" refid="group__ipipsu__api_1ga7c62207cd1bb028fe62103eee40477f2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MSG_RAM_BASE<sp/>0xFF990000U<sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55" refid="group__ipipsu__api_1ga5989f697e24f79be32727d13ee3f4350" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MSG_BUF_SIZE<sp/>8U<sp/></highlight></codeline>
+<codeline lineno="56" refid="group__ipipsu__api_1gad6677575d97c6c8df0a1776fdbd94b7e" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_MAX_BUFF_INDEX<sp/><sp/>7U<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>EIGHT<sp/>pairs<sp/>of<sp/>TWO<sp/>buffers(msg+resp)<sp/>of<sp/>THIRTY<sp/>TWO<sp/>bytes<sp/>each<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="group__ipipsu__api_1gae0907003c35118f6135e65877227d15e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_BUFFER_OFFSET_GROUP<sp/><sp/><sp/><sp/><sp/>(8U<sp/>*<sp/>2U<sp/>*<sp/>32U)<sp/></highlight></codeline>
+<codeline lineno="60" refid="group__ipipsu__api_1ga1b15715fa2640ed4fd66146d328bbbba" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_BUFFER_OFFSET_TARGET<sp/>(32U<sp/>*<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="61" refid="group__ipipsu__api_1gaf2361ea49ab17d6cc10e53ea607a9e9f" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_BUFFER_OFFSET_RESPONSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>IPI<sp/>slots<sp/>enabled<sp/>on<sp/>the<sp/>device<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MAX_TARGETS<sp/><sp/><sp/><sp/>XPAR_XIPIPSU_NUM_TARGETS<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="67" refid="group__ipipsu__api_1ga47ff7fda69269789f8a32d6be7357712" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_MAX_TARGETS<sp/><sp/><sp/><sp/>XPAR_XIPIPSU_0_IPI_TARGET_COUNT<sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>Offsets<sp/>for<sp/>each<sp/>member<sp/><sp/>of<sp/>IPI<sp/>Register<sp/>Set<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_TRIG_OFFSET<sp/>0x00U<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_OBS_OFFSET<sp/>0x04U<sp/><sp/></highlight></codeline>
+<codeline lineno="73" refid="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_ISR_OFFSET<sp/>0x10U<sp/><sp/></highlight></codeline>
+<codeline lineno="74" refid="group__ipipsu__api_1ga44ee4ca145f4adbe7584e6d9a08c4bdf" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_IMR_OFFSET<sp/>0x14U<sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__ipipsu__api_1gab20d7be8c5dd6ca941862eb1ff40289d" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_IER_OFFSET<sp/>0x18U<sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" refkind="member"><highlight class="preprocessor">#define<sp/>XIPIPSU_IDR_OFFSET<sp/>0x1CU<sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)<sp/>||<sp/>defined<sp/>(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEB300000U<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XIPIPSU_ISR_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEB300010U<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#elif<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF300000U<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XIPIPSU_ISR_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF300010U<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="85" refid="group__ipipsu__api_1ga6625ac1f3ce4297feacf81cd25acf53f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_ECC_UE_MASK<sp/><sp/><sp/><sp/><sp/>0x40U<sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>MASK<sp/>of<sp/>all<sp/>valid<sp/>IPI<sp/>bits<sp/>in<sp/>above<sp/>registers<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)<sp/>||<sp/>defined<sp/>(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_ALL_MASK<sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#elif<sp/>defined<sp/>(versal)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000003FFU<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="93" refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIPIPSU_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0F0F0301U<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XIPIPSU_HW_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu_hw.h"/>
+  </compounddef>
+</doxygen>

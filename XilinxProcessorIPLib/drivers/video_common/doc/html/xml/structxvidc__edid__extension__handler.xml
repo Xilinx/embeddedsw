@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structxvidc__edid__extension__handler" kind="struct" prot="public">
+    <compoundname>xvidc_edid_extension_handler</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structxvidc__edid__extension__handler_1a364ad9523716a75547c7456e8b7d1311" prot="public" static="no" mutable="no">
+        <type>void(*const</type>
+        <definition>void(* const xvidc_edid_extension_handler::inf_disp)(const struct xvidc_edid_extension *const, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)</definition>
+        <argsstring>)(const struct xvidc_edid_extension *const, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)</argsstring>
+        <name>inf_disp</name>
+        <briefdescription>
+<para>Pointer to EDID extension information display function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>arg1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to EDID extension structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EdidCtrlParam</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to EDID control parameters </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VerboseEn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Verbosity enable flag </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1857" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1857" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure parse parse EDID routines. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>API XV_VidC_parse_edid&apos;s checking needs to be updated to allow extra parsers. </para></simplesect>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" line="1852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/video_common/src/xvidc_parse_edid.c" bodystart="1852" bodyend="1859"/>
+    <listofallmembers>
+      <member refid="structxvidc__edid__extension__handler_1a364ad9523716a75547c7456e8b7d1311" prot="public" virt="non-virtual"><scope>xvidc_edid_extension_handler</scope><name>inf_disp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

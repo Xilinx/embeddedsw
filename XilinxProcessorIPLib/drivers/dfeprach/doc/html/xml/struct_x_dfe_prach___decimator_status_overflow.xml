@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___decimator_status_overflow" kind="struct" prot="public">
+    <compoundname>XDfePrach_DecimatorStatusOverflow</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overflow_1a2b55fe52f97e0aa0865526359845253a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverflow::DecimatorOverflow</definition>
+        <argsstring></argsstring>
+        <name>DecimatorOverflow</name>
+        <briefdescription>
+<para><verbatim>                [0-1] DecimatorOverflow=1 when an overflow
+</verbatim> has occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="583" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="583" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overflow_1a87cae76d2672e9614f97e5ebb2a15013" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverflow::FirstAntennaOverflowing</definition>
+        <argsstring></argsstring>
+        <name>FirstAntennaOverflowing</name>
+        <briefdescription>
+<para><verbatim>                      [0-7] Lowest antenna number on which
+</verbatim> first overflow occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="585" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___decimator_status_overflow_1a10bbd6773eb2911c6b003ba867d578d1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfePrach_DecimatorStatusOverflow::FirstRCIdOverflowing</definition>
+        <argsstring></argsstring>
+        <name>FirstRCIdOverflowing</name>
+        <briefdescription>
+<para><verbatim>                   [0-15] Lowest RACH channel RCId on which
+</verbatim> first overrun overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="587" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="587" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga67d87d838df3a1d518499c94716316fe" compoundref="xdfeprach_8c" startline="3260" endline="3329">XDfePrach_GetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH decimator overflow status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="582" bodyend="589"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___decimator_status_overflow_1a2b55fe52f97e0aa0865526359845253a" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverflow</scope><name>DecimatorOverflow</name></member>
+      <member refid="struct_x_dfe_prach___decimator_status_overflow_1a87cae76d2672e9614f97e5ebb2a15013" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverflow</scope><name>FirstAntennaOverflowing</name></member>
+      <member refid="struct_x_dfe_prach___decimator_status_overflow_1a10bbd6773eb2911c6b003ba867d578d1" prot="public" virt="non-virtual"><scope>XDfePrach_DecimatorStatusOverflow</scope><name>FirstRCIdOverflowing</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilflash__intel_8h" kind="file">
+    <compoundname>xilflash_intel.h</compoundname>
+    <includes local="yes">xilflash_config.h</includes>
+    <incdepgraph>
+      <node id="61">
+        <label>xilflash_config.h</label>
+      </node>
+      <node id="60">
+        <label>xilflash_intel.h</label>
+        <link refid="xilflash_intel.h"/>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilflash__intel_8h_1a3e39347a64a46036322f0a7eff8c14b8" prot="public" static="no">
+        <name>XFLASH_INTEL_H</name>
+        <briefdescription>
+<para>&lt; prevent circular inclusions </para>        </briefdescription>
+        <detaileddescription>
+<para>by using protection macros </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_intel.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_intel.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists definitions, Macros and structures specific to the Intel flash devices. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a rmm  10/25/07 First release
+1.00a mta  10/25/07 Updated to flash library
+1.01a ksu  04/10/08 Added support for AMD CFI Interface
+1.02a ksu  06/16/09 Added support for multiple banks in Intel flash.
+                    Added Reset Bank function.
+                    Added support for 0xF0 reset command.
+                    Added XFL_DEVCTL_SET_CONFIG_REG IOCTL to write to the
+                    Configuration Register of the Xilinx Platform Flash XL
+                    which can be used to set the Flash in Sync/Async mode.
+                    The Xilinx Platform Flash XL is set to Async mode during
+                    the initialization of the library.
+                    Added bank(s) reset function at the top of the read
+                    function.
+                    Updated Lock and Unlock operations for multiple blocks.
+3.01a srt  03/02/12 Added support for Micron G18 Flash device to fix
+              CRs 648372, 648282.
+3.02a srt  05/30/12 Changed Implementation for Micron G18 Flash, which
+              fixes the CR 662317.
+              CR 662317 Description - Xilinx Platform Flash on ML605
+              fails to work.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2007<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XFLASH_INTEL_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="xilflash__intel_8h_1a3e39347a64a46036322f0a7eff8c14b8" refkind="member"><highlight class="preprocessor">#define<sp/>XFLASH_INTEL_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilflash_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XFL_DEVICE_FAMILY_INTEL</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilflash_8h" kindref="compound">xilflash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XFL_MANUFACTURER_ID_INTEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x89</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XFL_INTEL_RYBY_PULSE_OFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>not<sp/>pulse<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_RYBY_PULSE_ON_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pulse<sp/>on<sp/>erase</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>complete<sp/>only<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_RYBY_PULSE_ON_PROG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pulse<sp/>on<sp/>program</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>complete<sp/>only<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_RYBY_PULSE_ON_ERASE_PROG<sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pulse<sp/>on<sp/>erase<sp/>&amp;</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>program<sp/>complete<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>Status<sp/>register<sp/>bit<sp/>definitions.<sp/>Use<sp/>these<sp/>bitmaps<sp/>to<sp/>decipher<sp/>the</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*<sp/>return<sp/>value<sp/>of<sp/>the<sp/>XFL_INTEL_DEVCTL_GET_LAST_ERROR<sp/>command.</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_WSM_READY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_ERASE_SUSPENDED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_ERASE_OR_UNLOCK_ERROR<sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_PROG_OR_LOCK_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_VOLTAGE_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_WRITE_SUSPENDED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SR_BLOCK_LOCKED_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************</highlight></codeline>
+<codeline lineno="95"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="96"><highlight class="comment">*<sp/>Extended<sp/>capabilities<sp/>list</highlight></codeline>
+<codeline lineno="97"><highlight class="comment">*<sp/>These<sp/>bits<sp/>can<sp/>be<sp/>read<sp/>with<sp/>the<sp/>XFL_INTEL_DEVCTL_GET_SUPPORT1<sp/>command.</highlight></codeline>
+<codeline lineno="98"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="99"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_CHIP_ERASE<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>the<sp/>chip<sp/>erase<sp/>command.</highlight></codeline>
+<codeline lineno="100"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_SUSPEND_ERASE<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>suspension<sp/>and</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">*<sp/><sp/><sp/>resumption<sp/>of<sp/>an<sp/>erase<sp/>operation.</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_SUSPEND_PROG<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>suspension<sp/>and</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">*<sp/><sp/><sp/>resumption<sp/>of<sp/>a<sp/>programming<sp/>operation.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_LEGACY_LOCK<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>legacy<sp/>lock/unlock.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_QUEUED_ERASE<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>the<sp/>queuing<sp/>up<sp/>of</highlight></codeline>
+<codeline lineno="110"><highlight class="comment">*<sp/><sp/><sp/>erase<sp/>blocks.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_INSTANT_LOCK<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>instant<sp/>individual</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">*<sp/><sp/><sp/>block<sp/>locking.</highlight></codeline>
+<codeline lineno="114"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="115"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_PROTECTION_BIT<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>protection<sp/>bits.</highlight></codeline>
+<codeline lineno="116"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="117"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_PAGE_MODE_READ<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>page-mode<sp/>reads.</highlight></codeline>
+<codeline lineno="118"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="119"><highlight class="comment">*<sp/>XFL_INTEL_SUPPORT1_SYNC_READ<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>synchronous<sp/>reads.</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_CHIP_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_SUSPEND_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_SUSPEND_PROG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000000</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_LEGACY_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_QUEUED_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08000000</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_INSTANT_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04000000</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_PROTECTION_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02000000</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_PAGE_MODE_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUPPORT1_SYNC_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/>*<sp/>Suspension<sp/>capabilities<sp/>list.</highlight></codeline>
+<codeline lineno="134"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="135"><highlight class="comment"><sp/>*<sp/>XFL_INTEL_PROG_AFTER_ERASE_SUSPEND<sp/>-<sp/>The<sp/>part<sp/>supports<sp/>programming</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/>*<sp/>after<sp/>suspending<sp/>an<sp/>erase<sp/>operation.</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_SUSPEND_SUPPORT_PROG_AFTER_ERASE<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*<sp/>Commands<sp/>written<sp/>to<sp/>the<sp/>devices<sp/>are<sp/>defined<sp/>by<sp/>the<sp/>CMD_*<sp/>constants<sp/>below.</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/>*<sp/>Each<sp/>Command<sp/>contains<sp/>8-bits<sp/>of<sp/>significant<sp/>data.<sp/>For<sp/>x16<sp/>or<sp/>greater<sp/>devices,</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/>*<sp/>the<sp/>command<sp/>data<sp/>should<sp/>appear<sp/>on<sp/>the<sp/>LSB.<sp/>Other<sp/>bytes<sp/>may<sp/>be<sp/>written<sp/>as</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/>*<sp/>don&apos;t<sp/>cares.<sp/>To<sp/>eliminate<sp/>the<sp/>need<sp/>to<sp/>know<sp/>the<sp/>bus<sp/>layout,<sp/>the<sp/>width<sp/>of</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/>*<sp/>individual<sp/>parts,<sp/>or<sp/>potential<sp/>byte-swapping<sp/>requirements,<sp/>the<sp/>CMD_*</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/>*<sp/>constants<sp/>are<sp/>defined<sp/>with<sp/>the<sp/>command<sp/>data<sp/>in<sp/>every<sp/>nibble.</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/>*<sp/>BCS/SCS<sp/>command<sp/>codes.</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_READ_ARRAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_READ_ID_CODES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90909090</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_READ_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70707070</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CLEAR_STATUS_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50505050</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_WRITE_BUFFER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE8E8E8E8</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_PROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40404040</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_BLOCK_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20202020</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIRM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD0D0D0D0</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_SUSPEND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB0B0B0B0</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_RESUME<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD0D0D0D0</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_RESET_0xF0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF0F0F0F0</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_STATUS_READY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800080</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/>*<sp/>SCS<sp/>command<sp/>codes.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_READ_QUERY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x98989898</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB8B8B8B8</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_LOCK_BLOCK_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60606060</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_LOCK_BLOCK_SET_CONFIRM<sp/><sp/><sp/><sp/>0x01010101</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_LOCK_BLOCK_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60606060</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_LOCK_BLOCK_CLEAR_CONFIRM<sp/><sp/>0xD0D0D0D0</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIG_REG_SETUP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60606060</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIG_REG_CONFIRM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03030303</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/>*<sp/>Other<sp/>command<sp/>codes.</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_PROTECTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC0C0C0C0</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/>*<sp/>Configuration<sp/>command<sp/>codes.</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CONFIG_RYBY_LEVEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CONFIG_RYBY_PULSE_ERASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01010101</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CONFIG_RYBY_PULSE_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02020202</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CONFIG_RYBY_PULSE_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03030303</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/>*<sp/>Configuration<sp/>register<sp/>value/address<sp/>for<sp/>setting<sp/>sync<sp/>and<sp/>async<sp/>mode<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/>*<sp/>platform<sp/>flash.</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/>*<sp/>To<sp/>put<sp/>the<sp/>memory<sp/>in<sp/>Asynchronous<sp/>Read<sp/>Mode,<sp/>the<sp/>CR15<sp/>bit<sp/>of<sp/>Configuration</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/>*<sp/>Register<sp/>is<sp/>set<sp/>to<sp/>1.<sp/>Rest<sp/>of<sp/>the<sp/>Configuration<sp/>Register<sp/>Bits<sp/>are<sp/>set<sp/>to</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/>*<sp/>default<sp/>values.<sp/>The<sp/>Synchronous<sp/>Read<sp/>Mode<sp/>is<sp/>set<sp/>by<sp/>default<sp/>with<sp/>CR15<sp/>=<sp/>0.</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*<sp/>The<sp/>commands<sp/>to<sp/>set<sp/>Configuration<sp/>register<sp/>are<sp/>&quot;Set<sp/>Configuration<sp/>Register</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*<sp/>SetUP&quot;<sp/>(BASE_ADDR<sp/>+<sp/>CONFIG_REG_ASYNC_ADDR<sp/>-&gt;<sp/>0x0060)<sp/>and<sp/>&quot;Set<sp/>Configuration</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/>*<sp/>Register<sp/>Confirm&quot;<sp/>(BASE_ADDR<sp/>+<sp/>CONFIG_REG_ASYNC_ADDR<sp/>-&gt;<sp/>0x0003).</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/>*<sp/>The<sp/>Platform<sp/>flash<sp/>is<sp/>16<sp/>bit<sp/>flash<sp/>so<sp/>the<sp/>flash<sp/>controller<sp/>drop<sp/>off<sp/>the<sp/>least</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/>*<sp/>significant<sp/>bit<sp/>of<sp/>the<sp/>address<sp/>bus.<sp/>So<sp/>the<sp/>Configuration<sp/>register<sp/>value<sp/>seen</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/>*<sp/>at<sp/>the<sp/>flash<sp/>device<sp/>should<sp/>be<sp/>left<sp/>shifted<sp/>by<sp/>1.</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIG_REG_ASYNC_ADDR<sp/><sp/><sp/><sp/><sp/>0x17BBE</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_CMD_CONFIG_REG_SYNC_ADDR<sp/><sp/><sp/><sp/><sp/><sp/>0x07BBE</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/>*<sp/>The<sp/>Platform<sp/>flash<sp/>Manufacture<sp/>ID<sp/>and<sp/>Device<sp/>ID.</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_PLATFORM_MANUFACTURE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0049</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_PLATFORM_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x506B</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/>*<sp/>Micron<sp/>StrataFlash<sp/>Memory<sp/>Device<sp/>G18</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/>*<sp/>(Partially<sp/>compatible<sp/>with<sp/>Intel<sp/>CFI)</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_G18_CMD_WRITE_BUFFER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE9E9E9E9</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XFL_INTEL_G18_CMD_PROGRAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x41414141</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFlashGeometry<sp/>Geometry;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Part<sp/>geometry<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_flash_properties" kindref="compound">XFlashProperties</ref><sp/>Properties;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Part<sp/>timing,<sp/>programming<sp/>and</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>identification<sp/>properties<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XFlashVendorData<sp/>VendorData;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Part<sp/>specific<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}<sp/>XFlashIntel_Device;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Initialize(XFlash<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Reset(XFlash<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_DeviceControl(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Command,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DeviceCtrlParam<sp/>*Parameters);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Read(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset,<sp/>u32<sp/>Bytes,</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*DestPtr);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Write(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset,<sp/>u32<sp/>Bytes,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*SrcPtr);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Erase(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset,<sp/>u32<sp/>Bytes);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Lock(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset,<sp/>u32<sp/>Bytes);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_Unlock(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset,<sp/>u32<sp/>Bytes);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XFlashIntel_GetStatus(XFlash<sp/>*InstancePtr,<sp/>u32<sp/>Offset);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XFL_DEVICE_FAMILY_INTEL<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_intel.h"/>
+  </compounddef>
+</doxygen>

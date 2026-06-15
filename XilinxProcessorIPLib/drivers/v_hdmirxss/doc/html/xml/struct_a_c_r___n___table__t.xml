@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_a_c_r___n___table__t" kind="struct" prot="public">
+    <compoundname>ACR_N_Table_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_a_c_r___n___table__t_1a7d9afbbf4c1b69c52fe8688ba80e146b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ACR_N_Table_t::TMDSCharRate</definition>
+        <argsstring></argsstring>
+        <name>TMDSCharRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_a_c_r___n___table__t_1a24e3a4b937a805f8dae3207e714cb4df" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ACR_N_Table_t::ACR_NVal[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>ACR_NVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss/examples/xhdmi_example/audiogen_drv.h" bodystart="47" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_a_c_r___n___table__t_1a24e3a4b937a805f8dae3207e714cb4df" prot="public" virt="non-virtual"><scope>ACR_N_Table_t</scope><name>ACR_NVal</name></member>
+      <member refid="struct_a_c_r___n___table__t_1a7d9afbbf4c1b69c52fe8688ba80e146b" prot="public" virt="non-virtual"><scope>ACR_N_Table_t</scope><name>TMDSCharRate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

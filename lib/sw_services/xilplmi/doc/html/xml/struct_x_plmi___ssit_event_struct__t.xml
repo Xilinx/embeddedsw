@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___ssit_event_struct__t" kind="struct" prot="public">
+    <compoundname>XPlmi_SsitEventStruct_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1aa80bc1243f0687c76d2c09130d5e4cd6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_SsitEventStruct_t::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>Slr index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1ad7a99bb8c59d5e636fe29d75e6d252a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPlmi_SsitEventStruct_t::IsIntrEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsIntrEnabled</name>
+        <briefdescription>
+<para>Interruput enable status check. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a1bf81f6416476f36f307c68bf1cc7a4b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_SsitEventStruct_t::SlavesMask</definition>
+        <argsstring></argsstring>
+        <name>SlavesMask</name>
+        <briefdescription>
+<para>Slaves mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a254ed570fd434f05f81b810349f1d592" prot="public" static="no" mutable="no">
+        <type>XPlmi_SsitEvents_t</type>
+        <definition>XPlmi_SsitEvents_t XPlmi_SsitEventStruct_t::Events[XPLMI_SSIT_MAX_EVENTS]</definition>
+        <argsstring>[XPLMI_SSIT_MAX_EVENTS]</argsstring>
+        <name>Events</name>
+        <briefdescription>
+<para>Array of SSIT maximum events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a17a730be6cee9cabcbf2686d6463d543" prot="public" static="no" mutable="no">
+        <type>XPlmi_TaskNode *</type>
+        <definition>XPlmi_TaskNode* XPlmi_SsitEventStruct_t::Task1</definition>
+        <argsstring></argsstring>
+        <name>Task1</name>
+        <briefdescription>
+<para>Task1 pointer to the TaskNode structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1a914cfb7bb11e85c2ee58482fcd8f68f6" prot="public" static="no" mutable="no">
+        <type>XPlmi_TaskNode *</type>
+        <definition>XPlmi_TaskNode* XPlmi_SsitEventStruct_t::Task2</definition>
+        <argsstring></argsstring>
+        <name>Task2</name>
+        <briefdescription>
+<para>Task2 pointer to the TaskNode structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___ssit_event_struct__t_1ac7e911f5d96e634fa2094792c130bf9a" prot="public" static="no" mutable="no">
+        <type>XPlmi_TaskNode *</type>
+        <definition>XPlmi_TaskNode* XPlmi_SsitEventStruct_t::Task3</definition>
+        <argsstring></argsstring>
+        <name>Task3</name>
+        <briefdescription>
+<para>Task3 pointer to the TaskNode structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_ssit.h" bodystart="186" bodyend="194"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1a254ed570fd434f05f81b810349f1d592" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>Events</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1ad7a99bb8c59d5e636fe29d75e6d252a9" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>IsIntrEnabled</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1a1bf81f6416476f36f307c68bf1cc7a4b" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>SlavesMask</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1aa80bc1243f0687c76d2c09130d5e4cd6" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>SlrIndex</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1a17a730be6cee9cabcbf2686d6463d543" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>Task1</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1a914cfb7bb11e85c2ee58482fcd8f68f6" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>Task2</name></member>
+      <member refid="struct_x_plmi___ssit_event_struct__t_1ac7e911f5d96e634fa2094792c130bf9a" prot="public" virt="non-virtual"><scope>XPlmi_SsitEventStruct_t</scope><name>Task3</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_h_d_m_i___sampling_freq___p_l_l_settings" kind="struct" prot="public">
+    <compoundname>XHDMI_SamplingFreq_PLLSettings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_h_d_m_i___sampling_freq___p_l_l_settings_1ac9a3b67b8db593ae0f211d4f1913a7e0" prot="public" static="no" mutable="no">
+        <type>AudioRate_t</type>
+        <definition>AudioRate_t XHDMI_SamplingFreq_PLLSettings::SampleRate</definition>
+        <argsstring></argsstring>
+        <name>SampleRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_h_d_m_i___sampling_freq___p_l_l_settings_1a966d7cc2176dd0e8ed870b529675e527" prot="public" static="no" mutable="no">
+        <type>XhdmiAudioGen_PLL_t</type>
+        <definition>XhdmiAudioGen_PLL_t XHDMI_SamplingFreq_PLLSettings::PLLSettings</definition>
+        <argsstring></argsstring>
+        <name>PLLSettings</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirxss1/examples/xhdmi_example/audiogen_drv.c" bodystart="37" bodyend="40"/>
+    <listofallmembers>
+      <member refid="struct_x_h_d_m_i___sampling_freq___p_l_l_settings_1a966d7cc2176dd0e8ed870b529675e527" prot="public" virt="non-virtual"><scope>XHDMI_SamplingFreq_PLLSettings</scope><name>PLLSettings</name></member>
+      <member refid="struct_x_h_d_m_i___sampling_freq___p_l_l_settings_1ac9a3b67b8db593ae0f211d4f1913a7e0" prot="public" virt="non-virtual"><scope>XHDMI_SamplingFreq_PLLSettings</scope><name>SampleRate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

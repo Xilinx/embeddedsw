@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_RepeaterAuthSendRxIdList</compoundname>
+    <includes local="no">xhdcp22_rx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1a4d23ce694dd153724218fc0e6d999417" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthSendRxIdList::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1af564fe2bd5df2f5ca5858310dda30044" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthSendRxIdList::RxInfo[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>RxInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1a19dc3fdfb28f289ae74df1e776301dd1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthSendRxIdList::SeqNumV[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>SeqNumV</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="387" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1afc1b0b655e2b88236432d5871de305c8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthSendRxIdList::VPrime[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>VPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1ac1fc297480712cbba467535c78ca3cb5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthSendRxIdList::ReceiverIdList[5 *31]</definition>
+        <argsstring>[5 *31]</argsstring>
+        <name>ReceiverIdList</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the RepeaterAuth_Send_RceiverID_List message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="383" bodyend="390"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1a4d23ce694dd153724218fc0e6d999417" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthSendRxIdList</scope><name>MsgId</name></member>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1ac1fc297480712cbba467535c78ca3cb5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthSendRxIdList</scope><name>ReceiverIdList</name></member>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1af564fe2bd5df2f5ca5858310dda30044" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthSendRxIdList</scope><name>RxInfo</name></member>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1a19dc3fdfb28f289ae74df1e776301dd1" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthSendRxIdList</scope><name>SeqNumV</name></member>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_send_rx_id_list_1afc1b0b655e2b88236432d5871de305c8" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthSendRxIdList</scope><name>VPrime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

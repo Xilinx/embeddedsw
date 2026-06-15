@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ofdm___status" kind="struct" prot="public">
+    <compoundname>XDfeOfdm_Status</compoundname>
+    <includes local="no">xdfeofdm.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::SaturationCCID</definition>
+        <argsstring></argsstring>
+        <name>SaturationCCID</name>
+        <briefdescription>
+<para><verbatim>             [0,15] CCID in which saturation event
+</verbatim> occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::SaturationCount</definition>
+        <argsstring></argsstring>
+        <name>SaturationCount</name>
+        <briefdescription>
+<para><verbatim>              [0,2**14-1] Saturation events count across
+</verbatim> real and imaginary components. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="385" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::CCUpdate</definition>
+        <argsstring></argsstring>
+        <name>CCUpdate</name>
+        <briefdescription>
+<para><verbatim>       [0,1] TRIGGER.CC_UPDATE has been
+</verbatim> triggered. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="387" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::FTCCSequenceError</definition>
+        <argsstring></argsstring>
+        <name>FTCCSequenceError</name>
+        <briefdescription>
+<para>[0,1] A difference between CC_CONFIGURATION. </para>        </briefdescription>
+        <detaileddescription>
+<para>SEQUENCE and DIN TID has been detected. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::Saturation</definition>
+        <argsstring></argsstring>
+        <name>Saturation</name>
+        <briefdescription>
+<para><verbatim>        [0,1] There has been an overflow or underflow in
+</verbatim> the OFDM IP for one or more of the antennas and CCIDs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</referencedby>
+        <referencedby refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeOfdm_Status::Overflow</definition>
+        <argsstring></argsstring>
+        <name>Overflow</name>
+        <briefdescription>
+<para><verbatim>       [0,1] UL OFDM receives tready low during packet
+</verbatim> transaction </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeofdm_1ga19ffdc5cb149de0d08af7b2489fb5a0e" compoundref="xdfeofdm__intr_8c" startline="59" endline="91">XDfeOfdm_GetEventStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>OFDM Status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/src/xdfeofdm.h" bodystart="382" bodyend="395"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>CCUpdate</name></member>
+      <member refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>FTCCSequenceError</name></member>
+      <member refid="struct_x_dfe_ofdm___status_1aa2c11c23eceeae6341234d06c19edce8" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>Overflow</name></member>
+      <member refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>Saturation</name></member>
+      <member refid="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>SaturationCCID</name></member>
+      <member refid="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" prot="public" virt="non-virtual"><scope>XDfeOfdm_Status</scope><name>SaturationCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

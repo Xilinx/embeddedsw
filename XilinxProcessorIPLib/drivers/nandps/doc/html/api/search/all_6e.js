@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['name',['Name',['../struct_x_nand_ps___config.html#adbe8bdd8367f1b9c6b7a710d646154c1',1,'XNandPs_Config']]],
+  ['nand_5ftest_5fblock_5fsize',['NAND_TEST_BLOCK_SIZE',['../xnandps__cache__example_8c.html#aceb54e188b945273e687c4972994d58b',1,'NAND_TEST_BLOCK_SIZE():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#aceb54e188b945273e687c4972994d58b',1,'NAND_TEST_BLOCK_SIZE():&#160;xnandps_example.c']]],
+  ['nand_5ftest_5flength',['NAND_TEST_LENGTH',['../xnandps__skip__example_8c.html#a63932a130b13e06fbdfeabb7e6db84ef',1,'xnandps_skip_example.c']]],
+  ['nand_5ftest_5fnum_5fblocks',['NAND_TEST_NUM_BLOCKS',['../xnandps__cache__example_8c.html#af16e18758ac741c6c92311ae783d41a0',1,'NAND_TEST_NUM_BLOCKS():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#af16e18758ac741c6c92311ae783d41a0',1,'NAND_TEST_NUM_BLOCKS():&#160;xnandps_example.c']]],
+  ['nand_5ftest_5foffset',['NAND_TEST_OFFSET',['../xnandps__skip__example_8c.html#a9d1b0fce8c1efde3f8879aeb0dfc3ac7',1,'xnandps_skip_example.c']]],
+  ['nand_5ftest_5fstart_5fblock',['NAND_TEST_START_BLOCK',['../xnandps__cache__example_8c.html#a7db05d815b66eacb631170259b85d4e0',1,'NAND_TEST_START_BLOCK():&#160;xnandps_cache_example.c'],['../xnandps__example_8c.html#a7db05d815b66eacb631170259b85d4e0',1,'NAND_TEST_START_BLOCK():&#160;xnandps_example.c']]],
+  ['nandoob16',['NandOob16',['../group__nandps.html#gae980af68044391bcf0c94bd2b35c910b',1,'xnandps.c']]],
+  ['nandoob32',['NandOob32',['../group__nandps.html#gad8d144dd94afdb026486d7b34e6c58f1',1,'xnandps.c']]],
+  ['nandoob64',['NandOob64',['../group__nandps.html#gaed173a3e7bda0d3a84e8f7d55aa4e81d',1,'xnandps.c']]],
+  ['nandreadwritecacheexample',['NandReadWriteCacheExample',['../xnandps__cache__example_8c.html#ae6f3c64c1865aa547205974e226ef6ea',1,'xnandps_cache_example.c']]],
+  ['nandreadwriteexample',['NandReadWriteExample',['../xnandps__example_8c.html#a6167b15359b8a941a3701b9ff1f3d218',1,'xnandps_example.c']]],
+  ['nandskipblockexample',['NandSkipBlockExample',['../xnandps__skip__example_8c.html#a6158814e804a85a1feb289f118cee23f',1,'xnandps_skip_example.c']]],
+  ['numblocks',['NumBlocks',['../struct_x_nand_ps___geometry.html#aba602d679c47c2a568b36b3c504dd440',1,'XNandPs_Geometry']]],
+  ['numlun',['NumLun',['../struct_x_nand_ps___geometry.html#a10b5fb603fa6bc1dfdace2bbca647519',1,'XNandPs_Geometry']]],
+  ['numluns',['NumLuns',['../struct_onfi_nand___geometry.html#a72dd963ee1d5f41292b180a4ede4c902',1,'OnfiNand_Geometry']]],
+  ['numofparampages',['NumOfParamPages',['../struct_onfi_nand___geometry.html#aa43c8b821eabf7b2fff015c05f69b86f',1,'OnfiNand_Geometry']]],
+  ['numpages',['NumPages',['../struct_x_nand_ps___geometry.html#aab479df67abfeb4be7403b429daf53bd',1,'XNandPs_Geometry']]],
+  ['numsteps',['NumSteps',['../struct_x_nand_ps___ecc_config.html#acd6a685e2cd2ded83e2492f419d2f02d',1,'XNandPs_EccConfig']]]
+];

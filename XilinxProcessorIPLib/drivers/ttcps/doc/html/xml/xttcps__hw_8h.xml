@@ -1,0 +1,760 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xttcps__hw_8h" kind="file">
+    <compoundname>xttcps_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xttcps_8h" local="yes">xttcps.h</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="43">
+        <label>xil_io.h</label>
+      </node>
+      <node id="40">
+        <label>xttcps_hw.h</label>
+        <link refid="xttcps_hw.h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="47">
+        <label>xttcps_g.c</label>
+        <link refid="xttcps__g_8c"/>
+      </node>
+      <node id="50">
+        <label>xttcps_sinit.c</label>
+        <link refid="xttcps__sinit_8c"/>
+      </node>
+      <node id="44">
+        <label>xttcps_hw.h</label>
+        <link refid="xttcps_hw.h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xttcps_low_level_example.c</label>
+        <link refid="xttcps__low__level__example_8c"/>
+      </node>
+      <node id="51">
+        <label>xttcps_intr_example.c</label>
+        <link refid="xttcps__intr__example_8c"/>
+      </node>
+      <node id="54">
+        <label>xttcps_tapp_example.c</label>
+        <link refid="xttcps__tapp__example_8c"/>
+      </node>
+      <node id="49">
+        <label>xttcps_selftest.c</label>
+        <link refid="xttcps__selftest_8c"/>
+      </node>
+      <node id="53">
+        <label>xttcps_rtc_example.c</label>
+        <link refid="xttcps__rtc__example_8c"/>
+      </node>
+      <node id="46">
+        <label>xttcps.c</label>
+        <link refid="xttcps_8c"/>
+      </node>
+      <node id="45">
+        <label>xttcps.h</label>
+        <link refid="xttcps_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xttcps_options.c</label>
+        <link refid="xttcps__options_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Map</header>
+      <description><para>Register offsets from the base address of the device. </para></description>
+      <memberdef kind="define" id="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Clock Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>Counter Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga5d75d0aff87c36aee0b898282dae8c24" prot="public" static="no">
+        <name>XTTCPS_COUNT_VALUE_OFFSET</name>
+        <initializer>0x00000018U</initializer>
+        <briefdescription>
+<para>Current Counter Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga3c55063adfc9bfeaf38a1712ab7345e6" prot="public" static="no">
+        <name>XTTCPS_INTERVAL_VAL_OFFSET</name>
+        <initializer>0x00000024U</initializer>
+        <briefdescription>
+<para>Interval Count Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga2f72db91933c04a01af506b070b51847" prot="public" static="no">
+        <name>XTTCPS_MATCH_0_OFFSET</name>
+        <initializer>0x00000030U</initializer>
+        <briefdescription>
+<para>Match 1 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gab73fbdbe507a47e44388793fc3411a31" prot="public" static="no">
+        <name>XTTCPS_MATCH_1_OFFSET</name>
+        <initializer>0x0000003CU</initializer>
+        <briefdescription>
+<para>Match 2 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga9a2228115d5fb78821c859ed72014224" prot="public" static="no">
+        <name>XTTCPS_MATCH_2_OFFSET</name>
+        <initializer>0x00000048U</initializer>
+        <briefdescription>
+<para>Match 3 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" prot="public" static="no">
+        <name>XTTCPS_ISR_OFFSET</name>
+        <initializer>0x00000054U</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" compoundref="xttcps_8c" startline="670" endline="704">XTtcPs_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" prot="public" static="no">
+        <name>XTTCPS_IER_OFFSET</name>
+        <initializer>0x00000060U</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Clock Control Register</header>
+      <description><para>Clock Control Register definitions </para></description>
+      <memberdef kind="define" id="group__ttcps_1gaf88edd6685cf410553a53f457aada794" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_PS_EN_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Prescale enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga96a6a02566f44a4a2cfc7df72df0b7f5" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_PS_VAL_MASK</name>
+        <initializer>0x0000001EU</initializer>
+        <briefdescription>
+<para>Prescale value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga07e8e493ecd0674215853210e2371a96" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_PS_VAL_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Prescale shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gadc32c3958d06e5b137993806c2637244" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_PS_DISABLE</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Prescale disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga40d86f052a231f2cd35d7e5136163039" compoundref="xttcps_8c" startline="586" endline="653">XTtcPs_CalcIntervalFromFreq</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga0ad0d2fc32052665beb38425b8355808" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_SRC_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Clock source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga29a848536966e6edb1a59971931eb6ef" prot="public" static="no">
+        <name>XTTCPS_CLK_CNTRL_EXT_EDGE_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>External Clock edge. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Counter Control Register</header>
+      <description><para>Counter Control Register definitions </para></description>
+      <memberdef kind="define" id="group__ttcps_1gaa6a24e2b904e40bf5e4f6cf184f94b1a" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_DIS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Disable the counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga47b98db0d18d856c81c04b0e5e49a875" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_INT_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga74e687181d1a3883c83b29bfaf501418" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_DECR_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Decrement mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga0fcc8d087e0c9f3241abc1af5fac18c5" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_MATCH_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Match mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga8a626958a0fe9e03e87b11dcc6fbd270" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_RST_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Reset counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gaf70f141431c9cc3c460f4eca42e8aefb" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_EN_WAVE_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Enable waveform. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga28cbcfa250bc16b43297a408903156c1" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_POL_WAVE_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Waveform polarity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gace44171924227dbc5056fbdef14e7ab0" prot="public" static="no">
+        <name>XTTCPS_CNT_CNTRL_RESET_VALUE</name>
+        <initializer>0x00000021U</initializer>
+        <briefdescription>
+<para>Reset value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Current Counter Value Register</header>
+      <description><para>Current Counter Value Register definitions </para></description>
+      <memberdef kind="define" id="group__ttcps_1gaa0257d9068c3a973050dbc4bc74d13bb" prot="public" static="no">
+        <name>XTTCPS_COUNT_VALUE_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>16-bit counter value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interval Value Register</header>
+      <description><para>Interval Value Register is the maximum value the counter will count up or down to. </para></description>
+      <memberdef kind="define" id="group__ttcps_1gadf5cbda1580ca50f6cbf1d5935c9462e" prot="public" static="no">
+        <name>XTTCPS_INTERVAL_VAL_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>16-bit Interval value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Match Registers</header>
+      <description><para>Definitions for Match registers, each timer counter has three match registers. </para></description>
+      <memberdef kind="define" id="group__ttcps_1ga20dd2f46682a5bb9c981ed460ab223e6" prot="public" static="no">
+        <name>XTTCPS_MATCH_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>16-bit Match value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga3bdd5da79d4f22d353877b2bd26cd812" prot="public" static="no">
+        <name>XTTCPS_NUM_MATCH_REG</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Num of Match reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="130" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Registers</header>
+      <description><para>Following register bit mask is for all interrupt registers. </para></description>
+      <memberdef kind="define" id="group__ttcps_1gad6a7f6c0d9e3102383bb507f039fc155" prot="public" static="no">
+        <name>XTTCPS_IXR_INTERVAL_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Interval Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga4eca7b067508c34c19d50d6ad3b49aae" prot="public" static="no">
+        <name>XTTCPS_IXR_MATCH_0_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Match 1 Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gaf4e6314712e430e9c137ec68025a57d7" prot="public" static="no">
+        <name>XTTCPS_IXR_MATCH_1_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Match 2 Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gab61357b4c938288f51da57d228ecbece" prot="public" static="no">
+        <name>XTTCPS_IXR_MATCH_2_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Match 3 Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga747415f67bf02a86b7c36d72a4ec3f2b" prot="public" static="no">
+        <name>XTTCPS_IXR_CNT_OVR_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Counter Overflow. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga5958a45b189301b731803a4368b2d799" prot="public" static="no">
+        <name>XTTCPS_IXR_ALL_MASK</name>
+        <initializer>0x0000001FU</initializer>
+        <briefdescription>
+<para>All valid Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ttcps_1ga3b66142479393f005ea6b6f5eb924ecd" prot="public" static="no">
+        <name>XTTCPS_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga3dde6ae31d569b01dc88903a5340d744" prot="public" static="no">
+        <name>ARMA9</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="51" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" prot="public" static="no">
+        <name>XTtcPs_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32((BaseAddress) + (u32)(RegOffset)))</initializer>
+        <briefdescription>
+<para>Read the given Timer Counter register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the timer counter device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" kindref="member">XTtcPs_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" compoundref="xttcps__options_8c" startline="176" endline="206">XTtcPs_GetOptions</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" prot="public" static="no">
+        <name>XTtcPs_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(Xil_Out32((BaseAddress) + (u32)(RegOffset), (u32)(Data)))</initializer>
+        <briefdescription>
+<para>Write the given Timer Counter register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the timer counter device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XTtcPs_WriteReg(<ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__ttcps_1ga85163a69a7f9df09f56528bee3a7a861" prot="public" static="no">
+        <name>XTtcPs_Match_N_Offset</name>
+        <param><defname>MatchIndex</defname></param>
+        <initializer>((u32)<ref refid="group__ttcps_1ga2f72db91933c04a01af506b070b51847" kindref="member">XTTCPS_MATCH_0_OFFSET</ref> + ((u32)(12U) * (u32)(MatchIndex)))</initializer>
+        <briefdescription>
+<para>Calculate a match register offset using the Match Register index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MatchIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 0-2 value of the match register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>MATCH_N_OFFSET.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__ttcps_1ga85163a69a7f9df09f56528bee3a7a861" kindref="member">XTtcPs_Match_N_Offset(u8 MatchIndex)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XTTCPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>Flag<sp/>for<sp/>a9<sp/>processor</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#if<sp/>!defined<sp/>(ARMR5)<sp/>&amp;&amp;<sp/>!defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>!defined<sp/>(ARMA53_32)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#define<sp/>ARMA9</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/>#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__ttcps_1ga3dcabe06c5c961d7613cd0d42a6b6e8e" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__ttcps_1ga5ffa2c9626e069f82893b9411e022744" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000CU<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__ttcps_1ga5d75d0aff87c36aee0b898282dae8c24" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_COUNT_VALUE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__ttcps_1ga3c55063adfc9bfeaf38a1712ab7345e6" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_INTERVAL_VAL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000024U<sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__ttcps_1ga2f72db91933c04a01af506b070b51847" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_MATCH_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000030U<sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__ttcps_1gab73fbdbe507a47e44388793fc3411a31" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_MATCH_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003CU<sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__ttcps_1ga9a2228115d5fb78821c859ed72014224" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_MATCH_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000048U<sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__ttcps_1gadeae55c98cafd198b2afa7d0175f1d15" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000054U<sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__ttcps_1ga9f30e22f168427395bfe9e6cfeacdce4" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000060U<sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75" refid="group__ttcps_1gaf88edd6685cf410553a53f457aada794" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_PS_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__ttcps_1ga96a6a02566f44a4a2cfc7df72df0b7f5" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_PS_VAL_MASK<sp/><sp/><sp/><sp/>0x0000001EU<sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group__ttcps_1ga07e8e493ecd0674215853210e2371a96" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_PS_VAL_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group__ttcps_1gadc32c3958d06e5b137993806c2637244" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_PS_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16U<sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group__ttcps_1ga0ad0d2fc32052665beb38425b8355808" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_SRC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="group__ttcps_1ga29a848536966e6edb1a59971931eb6ef" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CLK_CNTRL_EXT_EDGE_MASK<sp/><sp/>0x00000040U<sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__ttcps_1gaa6a24e2b904e40bf5e4f6cf184f94b1a" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__ttcps_1ga47b98db0d18d856c81c04b0e5e49a875" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="89" refid="group__ttcps_1ga74e687181d1a3883c83b29bfaf501418" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_DECR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__ttcps_1ga0fcc8d087e0c9f3241abc1af5fac18c5" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_MATCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__ttcps_1ga8a626958a0fe9e03e87b11dcc6fbd270" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_RST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__ttcps_1gaf70f141431c9cc3c460f4eca42e8aefb" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_EN_WAVE_MASK<sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__ttcps_1ga28cbcfa250bc16b43297a408903156c1" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_POL_WAVE_MASK<sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__ttcps_1gace44171924227dbc5056fbdef14e7ab0" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_CNT_CNTRL_RESET_VALUE<sp/><sp/><sp/><sp/>0x00000021U<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="102" refid="group__ttcps_1gaa0257d9068c3a973050dbc4bc74d13bb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_COUNT_VALUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_COUNT_VALUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFFU<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="114" refid="group__ttcps_1gadf5cbda1580ca50f6cbf1d5935c9462e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_INTERVAL_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_INTERVAL_VAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFFU<sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor">#if<sp/>defined(ARMA9)</highlight></codeline>
+<codeline lineno="126" refid="group__ttcps_1ga20dd2f46682a5bb9c981ed460ab223e6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_MATCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFFU<sp/></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_MATCH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFFU<sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130" refid="group__ttcps_1ga3bdd5da79d4f22d353877b2bd26cd812" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTTCPS_NUM_MATCH_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="138" refid="group__ttcps_1gad6a7f6c0d9e3102383bb507f039fc155" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_INTERVAL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group__ttcps_1ga4eca7b067508c34c19d50d6ad3b49aae" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_MATCH_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="group__ttcps_1gaf4e6314712e430e9c137ec68025a57d7" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_MATCH_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="group__ttcps_1gab61357b4c938288f51da57d228ecbece" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_MATCH_2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="group__ttcps_1ga747415f67bf02a86b7c36d72a4ec3f2b" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_CNT_OVR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="group__ttcps_1ga5958a45b189301b731803a4368b2d799" refkind="member"><highlight class="preprocessor">#define<sp/>XTTCPS_IXR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001FU<sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__ttcps_1ga43586f12a9aab60acf515b80f25bc0a6" refkind="member"><highlight class="preprocessor">#define<sp/>XTtcPs_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(Xil_In32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset)))</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="182" refid="group__ttcps_1gae272f5debb32f8d43e5df1e85df75922" refkind="member"><highlight class="preprocessor">#define<sp/>XTtcPs_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(Xil_Out32((BaseAddress)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data)))</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="198" refid="group__ttcps_1ga85163a69a7f9df09f56528bee3a7a861" refkind="member"><highlight class="preprocessor">#define<sp/>XTtcPs_Match_N_Offset(MatchIndex)<sp/>\</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XTTCPS_MATCH_0_OFFSET<sp/>+<sp/>((u32)(12U)<sp/>*<sp/>(u32)(MatchIndex)))</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps_hw.h"/>
+  </compounddef>
+</doxygen>

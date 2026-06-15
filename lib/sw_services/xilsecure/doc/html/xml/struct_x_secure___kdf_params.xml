@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___kdf_params" kind="struct" prot="public">
+    <compoundname>XSecure_KdfParams</compoundname>
+    <includes local="no">xsecure_kdf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___kdf_params_1a0ff6b6d4c1005ca38fccbe178c91e191" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_KdfParams::Context</definition>
+        <argsstring></argsstring>
+        <name>Context</name>
+        <briefdescription>
+<para>Is a pointer to the context for KDF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___kdf_params_1ad38bce1bc74ef8860f762791cfb2c17b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_KdfParams::ContextLen</definition>
+        <argsstring></argsstring>
+        <name>ContextLen</name>
+        <briefdescription>
+<para>Specifies the length of the context pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___kdf_params_1a9ca8f93ad9bce513d1e8fdfc4940ec06" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_KdfParams::Key</definition>
+        <argsstring></argsstring>
+        <name>Key</name>
+        <briefdescription>
+<para>Is a pointer to the key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___kdf_params_1a3fe9e4b9b80c44784c02548f2e384fca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_KdfParams::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>length of key pointer </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Stores the require parameter for the KDF. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/kdf/xsecure_kdf.h" bodystart="45" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___kdf_params_1a0ff6b6d4c1005ca38fccbe178c91e191" prot="public" virt="non-virtual"><scope>XSecure_KdfParams</scope><name>Context</name></member>
+      <member refid="struct_x_secure___kdf_params_1ad38bce1bc74ef8860f762791cfb2c17b" prot="public" virt="non-virtual"><scope>XSecure_KdfParams</scope><name>ContextLen</name></member>
+      <member refid="struct_x_secure___kdf_params_1a9ca8f93ad9bce513d1e8fdfc4940ec06" prot="public" virt="non-virtual"><scope>XSecure_KdfParams</scope><name>Key</name></member>
+      <member refid="struct_x_secure___kdf_params_1a3fe9e4b9b80c44784c02548f2e384fca" prot="public" virt="non-virtual"><scope>XSecure_KdfParams</scope><name>KeyLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

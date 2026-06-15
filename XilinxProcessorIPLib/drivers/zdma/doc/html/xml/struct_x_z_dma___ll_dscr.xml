@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_z_dma___ll_dscr" kind="struct" prot="public">
+    <compoundname>XZDma_LlDscr</compoundname>
+    <includes local="no">xzdma.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1ab9fe52f76f76855968a2e39c47b5dcd6" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XZDma_LlDscr::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1aafcc22c471d1e12d4c95236efa40aeeb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma_LlDscr::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Word2, Size of data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1a3efcb822d3fcefa6fbe0404dd9d6a7d4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XZDma_LlDscr::Cntl</definition>
+        <argsstring></argsstring>
+        <name>Cntl</name>
+        <briefdescription>
+<para>Word3 Control data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1ab0ca1a2e61ac8548577ade75235a15f0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XZDma_LlDscr::NextDscr</definition>
+        <argsstring></argsstring>
+        <name>NextDscr</name>
+        <briefdescription>
+<para>Address of next descriptor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_z_dma___ll_dscr_1aea55eef028df77b8584128b1163fb268" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XZDma_LlDscr::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains scatter gather descriptor fields for ZDMA core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/zdma/src/xzdma.h" bodystart="211" bodyend="221"/>
+    <listofallmembers>
+      <member refid="struct_x_z_dma___ll_dscr_1ab9fe52f76f76855968a2e39c47b5dcd6" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Address</name></member>
+      <member refid="struct_x_z_dma___ll_dscr_1a3efcb822d3fcefa6fbe0404dd9d6a7d4" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Cntl</name></member>
+      <member refid="struct_x_z_dma___ll_dscr_1ab0ca1a2e61ac8548577ade75235a15f0" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>NextDscr</name></member>
+      <member refid="struct_x_z_dma___ll_dscr_1aea55eef028df77b8584128b1163fb268" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Reserved</name></member>
+      <member refid="struct_x_z_dma___ll_dscr_1aafcc22c471d1e12d4c95236efa40aeeb" prot="public" virt="non-virtual"><scope>XZDma_LlDscr</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

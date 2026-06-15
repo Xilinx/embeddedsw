@@ -1,0 +1,1117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__tpg__hw_8h" kind="file">
+    <compoundname>xv_tpg_hw.h</compoundname>
+    <includedby refid="xv__tpg_8h" local="yes">xv_tpg.h</includedby>
+    <includedby refid="xv__tpg__intr_8c" local="yes">xv_tpg_intr.c</includedby>
+    <invincdepgraph>
+      <node id="51">
+        <label>xv_tpg_intr.c</label>
+        <link refid="xv__tpg__intr_8c"/>
+      </node>
+      <node id="53">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="52">
+        <label>xv_tpg_sinit.c</label>
+        <link refid="xv__tpg__sinit_8c"/>
+      </node>
+      <node id="49">
+        <label>xv_tpg.c</label>
+        <link refid="xv__tpg_8c"/>
+      </node>
+      <node id="48">
+        <label>xv_tpg.h</label>
+        <link refid="xv__tpg_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xv_tpg_hw.h</label>
+        <link refid="xv_tpg_hw.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xv_tpg_g.c</label>
+        <link refid="xv__tpg__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__tpg__hw_8h_1af2278458124b265a412398ddbbae1704" prot="public" static="no">
+        <name>XV_TPG_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a1308599be2b8bc018b51ac59392491e4" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Control register address for AP control signals (start, done, idle, ready, auto-restart) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="156" endline="196">videoIpConfig</referencedby>
+        <referencedby refid="xv__tpg_8h_1a0710d7b18784721813624cd13250ec82" compoundref="xv__tpg_8c" startline="188" endline="193">XV_tpg_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a53f4c200ddf20d449782114460d5e75b" compoundref="xv__tpg_8c" startline="168" endline="173">XV_tpg_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a737fe83d9fa19d5f595d80a47a32dda5" compoundref="xv__tpg_8c" startline="95" endline="103">XV_tpg_IsDone</referencedby>
+        <referencedby refid="xv__tpg_8h_1a407bc3c4e343d3c633a35f238e88af4b" compoundref="xv__tpg_8c" startline="119" endline="127">XV_tpg_IsIdle</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad5694119272643dde7c71ef6acf87a07" compoundref="xv__tpg_8c" startline="143" endline="152">XV_tpg_IsReady</referencedby>
+        <referencedby refid="xv__tpg_8h_1a98832a9d13c63339d9c6ea040e27ea23" compoundref="xv__tpg_8c" startline="71" endline="79">XV_tpg_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a3e8c088e1fe7878dbde4c9f598c786ad" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_GIE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ad04b6fd3929d98d0442e55f3bffb766d" compoundref="xv__tpg_8c" startline="1446" endline="1451">XV_tpg_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1aee1642ec2f3b5595bcb707c0a94ae53b" compoundref="xv__tpg_8c" startline="1427" endline="1432">XV_tpg_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1afb752ab64c3ce57dc8a9995254f25fb4" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_IER</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Interrupt Enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a1e09e90ae3da2793efbf9ea8066da231" compoundref="xv__tpg_8c" startline="1489" endline="1497">XV_tpg_InterruptDisable</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad538c750b5304b2d37810bdaac7f0c3f" compoundref="xv__tpg_8c" startline="1466" endline="1474">XV_tpg_InterruptEnable</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9ad0ab35ea9aff0480fdad5e3f37fdbc" compoundref="xv__tpg_8c" startline="1531" endline="1536">XV_tpg_InterruptGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a5f31c3a248df0ce33d01a56d26eb77da" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ISR</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+<para>Interrupt Status register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1512" endline="1517">XV_tpg_InterruptClear</referencedby>
+        <referencedby refid="xv__tpg_8h_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1550" endline="1555">XV_tpg_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a770e411e2f853c67d284d2859f495a19" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_HEIGHT_DATA</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Height data register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a739b182d1356f55b1f8bda0e7fe81a1d" compoundref="xv__tpg_8c" startline="229" endline="237">XV_tpg_Get_height</referencedby>
+        <referencedby refid="xv__tpg_8h_1a42e89a263dc07b42e934bb965ffd0f51" compoundref="xv__tpg_8c" startline="209" endline="214">XV_tpg_Set_height</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a1aa174da22395f326659676c1d64d8d4" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_HEIGHT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Height data bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a7b98f0fe0735b44110acbc124a403c31" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_WIDTH_DATA</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Width data register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a968ff052a46af4aa96ad16ab5163b065" compoundref="xv__tpg_8c" startline="273" endline="281">XV_tpg_Get_width</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad95dacaba16b6d51a477afbe9a0e6cd" compoundref="xv__tpg_8c" startline="253" endline="258">XV_tpg_Set_width</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a1b7b53e05f0491b16b5e4ac9feb95002" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_WIDTH_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Width data bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a72896724edde35d627a9f4ae1024e8f5" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BCKGNDID_DATA</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Background pattern ID register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1abbb6088dbc145371ec9165a1f8039052" compoundref="xv__tpg_8c" startline="317" endline="325">XV_tpg_Get_bckgndId</referencedby>
+        <referencedby refid="xv__tpg_8h_1aad885dc589ff60dd75ce0c2ac4d70aa3" compoundref="xv__tpg_8c" startline="297" endline="302">XV_tpg_Set_bckgndId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a52d5f02048c1dd5566c5f9ddf0963d74" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BCKGNDID_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Background pattern ID bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a3363a821d46e089cc801abe7fbd22ea5" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_OVRLAYID_DATA</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Overlay pattern ID register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="205" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a2703902445cd3532554bdc0c3dc6abf7" compoundref="xv__tpg_8c" startline="411" endline="419">XV_tpg_Get_ovrlayId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a991203bc922de754035b8c77625d8301" compoundref="xv__tpg_8c" startline="391" endline="396">XV_tpg_Set_ovrlayId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1acb187384269962f55e9d28ae1754f922" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_OVRLAYID_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Overlay pattern ID bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1af484099d8b39d59e8a7970a5ca18f270" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_MASKID_DATA</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Mask ID register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a7da99320e50c64a9e05506e22b333787" compoundref="xv__tpg_8c" startline="456" endline="464">XV_tpg_Get_maskId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a113802fe4bddb4f3e9f40061189dd343" compoundref="xv__tpg_8c" startline="436" endline="441">XV_tpg_Set_maskId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a6aac827f1bff6e0d0b54f21218de2266" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_MASKID_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Mask ID bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a94cc1423bf01819a53765d4459a4270a" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_MOTIONSPEED_DATA</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>Motion speed register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="225" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a3aff00d58c8a412d3bd6c8498930aaef" compoundref="xv__tpg_8c" startline="501" endline="509">XV_tpg_Get_motionSpeed</referencedby>
+        <referencedby refid="xv__tpg_8h_1a4f1373f1321fec30f38002291191a247" compoundref="xv__tpg_8c" startline="481" endline="486">XV_tpg_Set_motionSpeed</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a75c685737d8f1bea7d6e60132871f147" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_MOTIONSPEED_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Motion speed bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a279c22ff75e2b9b58d28d90242a08594" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_COLORFORMAT_DATA</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+<para>Color format register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="235" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a9a76a448c305b899e6c84700e24fdbb4" compoundref="xv__tpg_8c" startline="545" endline="553">XV_tpg_Get_colorFormat</referencedby>
+        <referencedby refid="xv__tpg_8h_1a9c318702b4faa413bbec6985b72cf779" compoundref="xv__tpg_8c" startline="525" endline="530">XV_tpg_Set_colorFormat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a62152d074e5c0f80e406b9f92d1086d4" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_COLORFORMAT_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Color format bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1aef8a72beb9fcd07733f205dc69384d30" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_CROSSHAIRX_DATA</name>
+        <initializer>0x48</initializer>
+        <briefdescription>
+<para>Crosshair X coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ac102ec896dac38f19bb2aefd359413fe" compoundref="xv__tpg_8c" startline="589" endline="597">XV_tpg_Get_crossHairX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a667f3ea3507cb79b22273cae49f4e3b1" compoundref="xv__tpg_8c" startline="569" endline="574">XV_tpg_Set_crossHairX</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1af476c10ecafc10db3200f64b459120b3" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_CROSSHAIRX_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Crosshair X coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a71c4e182755ff2c54f1338c3ecb41e6a" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_CROSSHAIRY_DATA</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+<para>Crosshair Y coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="255" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a68a4431c78d0cccf050ae3a36d6b093d" compoundref="xv__tpg_8c" startline="634" endline="642">XV_tpg_Get_crossHairY</referencedby>
+        <referencedby refid="xv__tpg_8h_1ad4e6c6a2c7461d52b3b83c92ea929071" compoundref="xv__tpg_8c" startline="614" endline="619">XV_tpg_Set_crossHairY</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a2ab5a89f20e3751e1a2e0368cbdf63ae" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_CROSSHAIRY_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Crosshair Y coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ada9dc51ce47364e064933790bdf31ab2" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ZPLATEHORCONTSTART_DATA</name>
+        <initializer>0x58</initializer>
+        <briefdescription>
+<para>Zone plate horizontal control start register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ac8ca072b7aca4fd064216aca460abe93" compoundref="xv__tpg_8c" startline="681" endline="689">XV_tpg_Get_ZplateHorContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a1b4f1f93e0f77e5e2f03a3f660b85fbb" compoundref="xv__tpg_8c" startline="660" endline="665">XV_tpg_Set_ZplateHorContStart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a69e1d492c067529ba75969816a189282" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_ZPLATEHORCONTSTART_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Zone plate horizontal control start bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a3d4e9ef65d5792701668db9e06ab47fd" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ZPLATEHORCONTDELTA_DATA</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+<para>Zone plate horizontal control delta register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="275" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a1001d39f912cf1d831fd3ea30aecc725" compoundref="xv__tpg_8c" startline="729" endline="737">XV_tpg_Get_ZplateHorContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a27a71108edc5092ea13102bdf7677306" compoundref="xv__tpg_8c" startline="708" endline="713">XV_tpg_Set_ZplateHorContDelta</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1acf41c87bca22a01948624d5ab7bbf8b7" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_ZPLATEHORCONTDELTA_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Zone plate horizontal control delta bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a30337c4c5c359760b6ce188d83d66733" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ZPLATEVERCONTSTART_DATA</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>Zone plate vertical control start register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="285" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a012fb925b3f0ed403f8fa057d512135b" compoundref="xv__tpg_8c" startline="777" endline="785">XV_tpg_Get_ZplateVerContStart</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5d704c9b4c730213f9931dda29de6b51" compoundref="xv__tpg_8c" startline="756" endline="761">XV_tpg_Set_ZplateVerContStart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1aae1073fc1ab5bdfbe44a8bf0aa4e9680" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_ZPLATEVERCONTSTART_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Zone plate vertical control start bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ac334a54f93b2a7460f8be4f610d03277" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ZPLATEVERCONTDELTA_DATA</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>Zone plate vertical control delta register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a90adb54f1ee8353eaddf6dc60bc67876" compoundref="xv__tpg_8c" startline="824" endline="832">XV_tpg_Get_ZplateVerContDelta</referencedby>
+        <referencedby refid="xv__tpg_8h_1a93f17c36c5931a709ea0c4d53f7c539d" compoundref="xv__tpg_8c" startline="803" endline="808">XV_tpg_Set_ZplateVerContDelta</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ada86688683dfe00a1f3832bd925dd473" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_ZPLATEVERCONTDELTA_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Zone plate vertical control delta bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a4ab1480f3adb94f9d8fdfb13b63d513c" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BOXSIZE_DATA</name>
+        <initializer>0x78</initializer>
+        <briefdescription>
+<para>Box size register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a4b2cd6a251cc59b1609f9d2ee7568eb5" compoundref="xv__tpg_8c" startline="870" endline="878">XV_tpg_Get_boxSize</referencedby>
+        <referencedby refid="xv__tpg_8h_1a402a6afc7158445679c7cbe4df7e8cfa" compoundref="xv__tpg_8c" startline="849" endline="854">XV_tpg_Set_boxSize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a88e8764f33a91a1d5278f45f544efec7" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BOXSIZE_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Box size bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a350e945c47847e3961c88ce89dc4ba91" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BOXCOLORR_DATA</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>Box color red component register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="315" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a3871bca7c41d923f2bbea0abb03022ca" compoundref="xv__tpg_8c" startline="916" endline="924">XV_tpg_Get_boxColorR</referencedby>
+        <referencedby refid="xv__tpg_8h_1adcf03960c66a74275f9551c667c16a8b" compoundref="xv__tpg_8c" startline="895" endline="900">XV_tpg_Set_boxColorR</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a4546c3a3d94a9f042fa39a60021d1e56" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BOXCOLORR_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Box color red component bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a0ea8db4d67f76898b8d7a2c2ee52518c" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BOXCOLORG_DATA</name>
+        <initializer>0x88</initializer>
+        <briefdescription>
+<para>Box color green component register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="325" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a4800acd329ec6e8e1c98ac3f85d59c25" compoundref="xv__tpg_8c" startline="962" endline="970">XV_tpg_Get_boxColorG</referencedby>
+        <referencedby refid="xv__tpg_8h_1acc6327ad5512a33627459a14f15902f3" compoundref="xv__tpg_8c" startline="941" endline="946">XV_tpg_Set_boxColorG</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a2e70ad345240ab7a4c0504bdf52e6439" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BOXCOLORG_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Box color green component bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="330" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a06db13b6fbcde15d6c91a1584edea3ee" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BOXCOLORB_DATA</name>
+        <initializer>0x90</initializer>
+        <briefdescription>
+<para>Box color blue component register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="335" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ab11c565f1957fba21107a7ba4247e74e" compoundref="xv__tpg_8c" startline="1008" endline="1016">XV_tpg_Get_boxColorB</referencedby>
+        <referencedby refid="xv__tpg_8h_1a5f5a03787377af65f128fe01497a9c6a" compoundref="xv__tpg_8c" startline="987" endline="992">XV_tpg_Set_boxColorB</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a38b0b6580010abc151856ca6d19afe1f" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BOXCOLORB_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Box color blue component bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a5ac16ec59f2fda5763a0cb462273720c" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_ENABLEINPUT_DATA</name>
+        <initializer>0x98</initializer>
+        <briefdescription>
+<para>Enable input register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="345" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ab4e2c2deebb2d27758e8d828b3c83baf" compoundref="xv__tpg_8c" startline="1064" endline="1072">XV_tpg_Get_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a13b9c06daac848c123e21c19421deb98" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_ENABLEINPUT_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Enable input bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="350" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a9a614124d234eda12e93363f3f0d753d" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_PASSTHRUSTARTX_DATA</name>
+        <initializer>0xa0</initializer>
+        <briefdescription>
+<para>Passthrough start X coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ab4241c27324c2aec639136e87bad221b" compoundref="xv__tpg_8c" startline="1109" endline="1117">XV_tpg_Get_passthruStartX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a549c38a347ae21dffb0207a5f8f58510" compoundref="xv__tpg_8c" startline="1088" endline="1093">XV_tpg_Set_passthruStartX</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a75ce78e0362b8ab3c26894363618dba2" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_PASSTHRUSTARTX_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Passthrough start X coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="360" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a55140a33c785502a6e166d8721230442" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_PASSTHRUSTARTY_DATA</name>
+        <initializer>0xa8</initializer>
+        <briefdescription>
+<para>Passthrough start Y coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="365" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a592bfaa2f67b8b53888fac69ae7b2fc0" compoundref="xv__tpg_8c" startline="1155" endline="1163">XV_tpg_Get_passthruStartY</referencedby>
+        <referencedby refid="xv__tpg_8h_1aae89a9eaded73af117f261249cfcce81" compoundref="xv__tpg_8c" startline="1134" endline="1139">XV_tpg_Set_passthruStartY</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a9d350bf6898ac549b85e6877f3254342" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_PASSTHRUSTARTY_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Passthrough start Y coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a790c4958f1e243e5cdacd7d86f344dcf" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_PASSTHRUENDX_DATA</name>
+        <initializer>0xb0</initializer>
+        <briefdescription>
+<para>Passthrough end X coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="375" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ab24cf3b6a9a95ee0f48575af5e5ca18d" compoundref="xv__tpg_8c" startline="1201" endline="1209">XV_tpg_Get_passthruEndX</referencedby>
+        <referencedby refid="xv__tpg_8h_1a50e71e4254ff1f09fe7742e375c29b18" compoundref="xv__tpg_8c" startline="1180" endline="1185">XV_tpg_Set_passthruEndX</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ad1157435d1223d941496d84df4e6fd7b" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_PASSTHRUENDX_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Passthrough end X coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="380" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a42d800018acfa1493a1509f33695a94c" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_PASSTHRUENDY_DATA</name>
+        <initializer>0xb8</initializer>
+        <briefdescription>
+<para>Passthrough end Y coordinate register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="385" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a815a3075ad35d41b1a8a13e32653f79c" compoundref="xv__tpg_8c" startline="1247" endline="1255">XV_tpg_Get_passthruEndY</referencedby>
+        <referencedby refid="xv__tpg_8h_1a234da76ca286967d289418a3590bc97c" compoundref="xv__tpg_8c" startline="1226" endline="1231">XV_tpg_Set_passthruEndY</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a995b4788bdc42bd51f8fc5bdc8ba0b71" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_PASSTHRUENDY_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Passthrough end Y coordinate bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="390" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1abf57596522627b2f3f2902ef4ddebad5" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_DPDYNAMICRANGE_DATA</name>
+        <initializer>0xc0</initializer>
+        <briefdescription>
+<para>DisplayPort dynamic range register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="395" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ae05b0e58a01e66dc595c4f70073a5b16" compoundref="xv__tpg_8c" startline="1289" endline="1297">XV_tpg_Get_dpDynamicRange</referencedby>
+        <referencedby refid="xv__tpg_8h_1a290ea26e8407150cb25ad5bea11d634c" compoundref="xv__tpg_8c" startline="1270" endline="1275">XV_tpg_Set_dpDynamicRange</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a8bc2718fa5bd7d2da0b6c88e5562f42a" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_DPDYNAMICRANGE_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>DisplayPort dynamic range bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="400" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1aa4200699e2135ca335a548eac11378bc" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA</name>
+        <initializer>0xc8</initializer>
+        <briefdescription>
+<para>DisplayPort YUV coefficient register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="405" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a30fb205197036c236a92b25685ad50e4" compoundref="xv__tpg_8c" startline="1331" endline="1339">XV_tpg_Get_dpYUVCoef</referencedby>
+        <referencedby refid="xv__tpg_8h_1adfc8208e8bfd7844cf2b28eed079250c" compoundref="xv__tpg_8c" startline="1312" endline="1317">XV_tpg_Set_dpYUVCoef</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a24ffbe4482e833dc76c80f55ad8f42f5" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_DPYUVCOEF_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>DisplayPort YUV coefficient bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="410" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1aae0a4361ad3ca1e22c849a4779305c42" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_DATA</name>
+        <initializer>0xd0</initializer>
+        <briefdescription>
+<para>Field ID register address for interlaced/progressive mode control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="415" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="415" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a59aed58e902be18c3e35c50a678cb14e" compoundref="xv__tpg_8c" startline="1404" endline="1413">XV_tpg_Get_fieldId</referencedby>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+        <referencedby refid="xv__tpg_8h_1a58bd0619f6505ad4277a52032044d45f" compoundref="xv__tpg_8c" startline="1354" endline="1365">XV_tpg_Set_Interlaced</referencedby>
+        <referencedby refid="xv__tpg_8h_1ac2caf6243e2bd84d1aaca7c0d5b6245d" compoundref="xv__tpg_8c" startline="1379" endline="1391">XV_tpg_Set_Polarity</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a2e8c5e096b98d1d77cf054526109c0a4" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_FIELDID_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Field ID bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="420" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ade156cbfe4718b4888869142654dc986" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_MOTION_EN_MASK</name>
+        <initializer>(1&lt;&lt;0)</initializer>
+        <briefdescription>
+<para>Motion enable mask bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="425" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="425" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a19280e192b6ac835111b214911d7f427" compoundref="xv__tpg_8c" startline="366" endline="376">XV_tpg_Get_motionEnStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a5784d74855d03b98df38bc3f5a1f414c" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_BCK_MOTION_EN_DATA</name>
+        <initializer>0xd8</initializer>
+        <briefdescription>
+<para>Background motion enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="430" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="430" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a19280e192b6ac835111b214911d7f427" compoundref="xv__tpg_8c" startline="366" endline="376">XV_tpg_Get_motionEnStatus</referencedby>
+        <referencedby refid="xv__tpg_8h_1aa73442c409283c381a174372bd5b0d43" compoundref="xv__tpg_8c" startline="341" endline="351">XV_tpg_Set_motionEn</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a5028b8fedea1d21fbff778a4784c7b71" prot="public" static="no">
+        <name>XV_TPG_CTRL_BITS_BCK_MOTION_EN_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Background motion enable bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="435" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a557637428685ded41d7701cb573279ae" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_MASK</name>
+        <initializer>(1&lt;&lt;0)</initializer>
+        <briefdescription>
+<para>Field ID interlaced mode bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="440" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="440" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a58bd0619f6505ad4277a52032044d45f" compoundref="xv__tpg_8c" startline="1354" endline="1365">XV_tpg_Set_Interlaced</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1af5d2644f1e21dbfa4371695ec02e0a74" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Field ID interlaced mode bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="445" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="445" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a58bd0619f6505ad4277a52032044d45f" compoundref="xv__tpg_8c" startline="1354" endline="1365">XV_tpg_Set_Interlaced</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1aae28eb572d2cf61b572b59915562e033" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_POLARITY_MASK</name>
+        <initializer>(1&lt;&lt;1)</initializer>
+        <briefdescription>
+<para>Field ID polarity bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="450" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="450" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ac2caf6243e2bd84d1aaca7c0d5b6245d" compoundref="xv__tpg_8c" startline="1379" endline="1391">XV_tpg_Set_Polarity</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a469f52bfd00ba6d8c34688239e2393c5" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_POLARITY_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Field ID polarity bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="455" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="455" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1ac2caf6243e2bd84d1aaca7c0d5b6245d" compoundref="xv__tpg_8c" startline="1379" endline="1391">XV_tpg_Set_Polarity</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1a38ba906ab48ac2416a372fa33abdbf8a" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_MASK</name>
+        <initializer>(1&lt;&lt;2)</initializer>
+        <briefdescription>
+<para>Field ID passthrough mode bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="460" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__tpg__hw_8h_1ae6e1572fb676407df83498fba9a32c8b" prot="public" static="no">
+        <name>XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Field ID passthrough mode bit shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" line="465" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h" bodystart="465" bodyend="-1"/>
+        <referencedby refid="xv__tpg_8h_1a51651c1fb260ef58ddeefc7a585aa6db" compoundref="xv__tpg_8c" startline="1032" endline="1049">XV_tpg_Set_enableInput</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_TPG_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_TPG_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x00<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x04<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x08<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x10<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>height[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x14<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x18<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>width[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x20<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>bckgndId</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>bckgndId[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x24<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x28<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ovrlayId</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>ovrlayId[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x2c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x30<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>maskId</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>maskId[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x34<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x38<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>motionSpeed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>motionSpeed[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x3c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x40<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>colorFormat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>colorFormat[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x44<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x48<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>crossHairX</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>crossHairX[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x4c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x50<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>crossHairY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>crossHairY[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x54<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x58<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ZplateHorContStart</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>ZplateHorContStart[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x5c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x60<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ZplateHorContDelta</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>ZplateHorContDelta[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x64<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x68<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ZplateVerContStart</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>ZplateVerContStart[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x6c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x70<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ZplateVerContDelta</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>ZplateVerContDelta[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x74<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x78<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>boxSize</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>boxSize[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x7c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x80<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>boxColorR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>boxColorR[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x84<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x88<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>boxColorG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>boxColorG[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x8c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x90<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>boxColorB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>boxColorB[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x94<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x98<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>enableInput</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>enableInput[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x9c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xa0<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>passthruStartX</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>passthruStartX[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xa4<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xa8<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>passthruStartY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>passthruStartY[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xac<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xb0<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>passthruEndX</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>passthruEndX[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xb4<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xb8<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>passthruEndY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>passthruEndY[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xbc<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xc0<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>dpDynamicRange</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>dpDynamicRange[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xc4<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xc8<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>dpYUVCoef</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>dpYUVCoef[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xcc<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0xd0<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>FieldId</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>progressive/interlaced<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>polarity<sp/>bit<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>fid<sp/>value<sp/>passthrough<sp/>enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>[2:0]<sp/>-</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0<sp/>-<sp/>Progressive<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/>-<sp/>Interlaced<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/>-<sp/>Progressive<sp/>mode<sp/>with<sp/>reverse<sp/>polarity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/>-<sp/>Interlaced<sp/>mode<sp/>with<sp/>reverse<sp/>polarity</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4<sp/>-<sp/>Passthrough<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Others<sp/>-<sp/>Progressive<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155" refid="xv__tpg__hw_8h_1a1308599be2b8bc018b51ac59392491e4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160" refid="xv__tpg__hw_8h_1a3e8c088e1fe7878dbde4c9f598c786ad" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165" refid="xv__tpg__hw_8h_1afb752ab64c3ce57dc8a9995254f25fb4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="170" refid="xv__tpg__hw_8h_1a5f31c3a248df0ce33d01a56d26eb77da" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0c</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175" refid="xv__tpg__hw_8h_1a770e411e2f853c67d284d2859f495a19" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="180" refid="xv__tpg__hw_8h_1a1aa174da22395f326659676c1d64d8d4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185" refid="xv__tpg__hw_8h_1a7b98f0fe0735b44110acbc124a403c31" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="190" refid="xv__tpg__hw_8h_1a1b7b53e05f0491b16b5e4ac9feb95002" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195" refid="xv__tpg__hw_8h_1a72896724edde35d627a9f4ae1024e8f5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BCKGNDID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="200" refid="xv__tpg__hw_8h_1a52d5f02048c1dd5566c5f9ddf0963d74" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BCKGNDID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205" refid="xv__tpg__hw_8h_1a3363a821d46e089cc801abe7fbd22ea5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_OVRLAYID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x28</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="210" refid="xv__tpg__hw_8h_1acb187384269962f55e9d28ae1754f922" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_OVRLAYID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="215" refid="xv__tpg__hw_8h_1af484099d8b39d59e8a7970a5ca18f270" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_MASKID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x30</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="220" refid="xv__tpg__hw_8h_1a6aac827f1bff6e0d0b54f21218de2266" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_MASKID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="225" refid="xv__tpg__hw_8h_1a94cc1423bf01819a53765d4459a4270a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_MOTIONSPEED_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x38</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="230" refid="xv__tpg__hw_8h_1a75c685737d8f1bea7d6e60132871f147" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_MOTIONSPEED_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="235" refid="xv__tpg__hw_8h_1a279c22ff75e2b9b58d28d90242a08594" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_COLORFORMAT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240" refid="xv__tpg__hw_8h_1a62152d074e5c0f80e406b9f92d1086d4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_COLORFORMAT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245" refid="xv__tpg__hw_8h_1aef8a72beb9fcd07733f205dc69384d30" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_CROSSHAIRX_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x48</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250" refid="xv__tpg__hw_8h_1af476c10ecafc10db3200f64b459120b3" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_CROSSHAIRX_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="255" refid="xv__tpg__hw_8h_1a71c4e182755ff2c54f1338c3ecb41e6a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_CROSSHAIRY_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x50</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="260" refid="xv__tpg__hw_8h_1a2ab5a89f20e3751e1a2e0368cbdf63ae" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_CROSSHAIRY_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="265" refid="xv__tpg__hw_8h_1ada9dc51ce47364e064933790bdf31ab2" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ZPLATEHORCONTSTART_DATA<sp/>0x58</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="270" refid="xv__tpg__hw_8h_1a69e1d492c067529ba75969816a189282" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_ZPLATEHORCONTSTART_DATA<sp/>16</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="275" refid="xv__tpg__hw_8h_1a3d4e9ef65d5792701668db9e06ab47fd" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ZPLATEHORCONTDELTA_DATA<sp/>0x60</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="280" refid="xv__tpg__hw_8h_1acf41c87bca22a01948624d5ab7bbf8b7" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_ZPLATEHORCONTDELTA_DATA<sp/>16</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="285" refid="xv__tpg__hw_8h_1a30337c4c5c359760b6ce188d83d66733" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ZPLATEVERCONTSTART_DATA<sp/>0x68</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="290" refid="xv__tpg__hw_8h_1aae1073fc1ab5bdfbe44a8bf0aa4e9680" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_ZPLATEVERCONTSTART_DATA<sp/>16</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="295" refid="xv__tpg__hw_8h_1ac334a54f93b2a7460f8be4f610d03277" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ZPLATEVERCONTDELTA_DATA<sp/>0x70</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="300" refid="xv__tpg__hw_8h_1ada86688683dfe00a1f3832bd925dd473" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_ZPLATEVERCONTDELTA_DATA<sp/>16</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="305" refid="xv__tpg__hw_8h_1a4ab1480f3adb94f9d8fdfb13b63d513c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BOXSIZE_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x78</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310" refid="xv__tpg__hw_8h_1a88e8764f33a91a1d5278f45f544efec7" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BOXSIZE_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="315" refid="xv__tpg__hw_8h_1a350e945c47847e3961c88ce89dc4ba91" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BOXCOLORR_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="320" refid="xv__tpg__hw_8h_1a4546c3a3d94a9f042fa39a60021d1e56" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BOXCOLORR_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="325" refid="xv__tpg__hw_8h_1a0ea8db4d67f76898b8d7a2c2ee52518c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BOXCOLORG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x88</highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="330" refid="xv__tpg__hw_8h_1a2e70ad345240ab7a4c0504bdf52e6439" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BOXCOLORG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335" refid="xv__tpg__hw_8h_1a06db13b6fbcde15d6c91a1584edea3ee" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BOXCOLORB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x90</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="340" refid="xv__tpg__hw_8h_1a38b0b6580010abc151856ca6d19afe1f" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BOXCOLORB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="345" refid="xv__tpg__hw_8h_1a5ac16ec59f2fda5763a0cb462273720c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_ENABLEINPUT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x98</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="350" refid="xv__tpg__hw_8h_1a13b9c06daac848c123e21c19421deb98" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_ENABLEINPUT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="355" refid="xv__tpg__hw_8h_1a9a614124d234eda12e93363f3f0d753d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_PASSTHRUSTARTX_DATA<sp/><sp/><sp/><sp/><sp/>0xa0</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="360" refid="xv__tpg__hw_8h_1a75ce78e0362b8ab3c26894363618dba2" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_PASSTHRUSTARTX_DATA<sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="361"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="365" refid="xv__tpg__hw_8h_1a55140a33c785502a6e166d8721230442" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_PASSTHRUSTARTY_DATA<sp/><sp/><sp/><sp/><sp/>0xa8</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="370" refid="xv__tpg__hw_8h_1a9d350bf6898ac549b85e6877f3254342" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_PASSTHRUSTARTY_DATA<sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="375" refid="xv__tpg__hw_8h_1a790c4958f1e243e5cdacd7d86f344dcf" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_PASSTHRUENDX_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xb0</highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="380" refid="xv__tpg__hw_8h_1ad1157435d1223d941496d84df4e6fd7b" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_PASSTHRUENDX_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="385" refid="xv__tpg__hw_8h_1a42d800018acfa1493a1509f33695a94c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_PASSTHRUENDY_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xb8</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="390" refid="xv__tpg__hw_8h_1a995b4788bdc42bd51f8fc5bdc8ba0b71" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_PASSTHRUENDY_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="395" refid="xv__tpg__hw_8h_1abf57596522627b2f3f2902ef4ddebad5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_DPDYNAMICRANGE_DATA<sp/><sp/><sp/><sp/><sp/>0xc0</highlight></codeline>
+<codeline lineno="396"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="400" refid="xv__tpg__hw_8h_1a8bc2718fa5bd7d2da0b6c88e5562f42a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_DPDYNAMICRANGE_DATA<sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="401"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="405" refid="xv__tpg__hw_8h_1aa4200699e2135ca335a548eac11378bc" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_DPYUVCOEF_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xc8</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="410" refid="xv__tpg__hw_8h_1a24ffbe4482e833dc76c80f55ad8f42f5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_DPYUVCOEF_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="411"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="415" refid="xv__tpg__hw_8h_1aae0a4361ad3ca1e22c849a4779305c42" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xd0</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="420" refid="xv__tpg__hw_8h_1a2e8c5e096b98d1d77cf054526109c0a4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_FIELDID_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="425" refid="xv__tpg__hw_8h_1ade156cbfe4718b4888869142654dc986" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_MOTION_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1&lt;&lt;0)</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="430" refid="xv__tpg__hw_8h_1a5784d74855d03b98df38bc3f5a1f414c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_BCK_MOTION_EN_DATA<sp/><sp/><sp/><sp/><sp/><sp/>0xd8</highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="435" refid="xv__tpg__hw_8h_1a5028b8fedea1d21fbff778a4784c7b71" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_BITS_BCK_MOTION_EN_DATA<sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="436"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="440" refid="xv__tpg__hw_8h_1a557637428685ded41d7701cb573279ae" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_MASK<sp/>(1&lt;&lt;0)</highlight></codeline>
+<codeline lineno="441"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="445" refid="xv__tpg__hw_8h_1af5d2644f1e21dbfa4371695ec02e0a74" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_INTERLACED_SHIFT<sp/>0</highlight></codeline>
+<codeline lineno="446"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="450" refid="xv__tpg__hw_8h_1aae28eb572d2cf61b572b59915562e033" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_POLARITY_MASK<sp/><sp/><sp/>(1&lt;&lt;1)</highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="455" refid="xv__tpg__hw_8h_1a469f52bfd00ba6d8c34688239e2393c5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_POLARITY_SHIFT<sp/><sp/>1</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="460" refid="xv__tpg__hw_8h_1a38ba906ab48ac2416a372fa33abdbf8a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_MASK<sp/><sp/><sp/><sp/>(1&lt;&lt;2)</highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="465" refid="xv__tpg__hw_8h_1ae6e1572fb676407df83498fba9a32c8b" refkind="member"><highlight class="preprocessor">#define<sp/>XV_TPG_CTRL_ADDR_FIELDID_PASSTHR_SHIFT<sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="466"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="468"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1966 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xnvm__efuseclient__hw_8h" kind="file">
+    <compoundname>xnvm_efuseclient_hw.h</compoundname>
+    <includedby refid="net_2client_2xnvm__efuseclient_8c" local="yes">xnvm_efuseclient.c</includedby>
+    <includedby refid="xilnvm__efuse__versal__net__client__example_8c" local="yes">xilnvm_efuse_versal_net_client_example.c</includedby>
+    <invincdepgraph>
+      <node id="498">
+        <label>xnvm_efuseclient_hw.h</label>
+        <link refid="xnvm_efuseclient_hw.h"/>
+        <childnode refid="499" relation="include">
+        </childnode>
+        <childnode refid="500" relation="include">
+        </childnode>
+      </node>
+      <node id="500">
+        <label>xilnvm_efuse_versal_net_client_example.c</label>
+        <link refid="xilnvm__efuse__versal__net__client__example_8c"/>
+      </node>
+      <node id="499">
+        <label>xnvm_efuseclient.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>eFUSE Cache Register Offsets</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a2bed27efcecfc1d0a6cce977bcd8d6a0" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET</name>
+        <initializer>(0x00000180U)</initializer>
+        <briefdescription>
+<para>eFUSE cache meta header IV range 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aecf79e9080344b2c2f0da75966d71240" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET</name>
+        <initializer>(0x000001D0U)</initializer>
+        <briefdescription>
+<para>eFUSE cache black IV 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ac9047ffd9cc61220bd83634016d354a2" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET</name>
+        <initializer>(0x000001DCU)</initializer>
+        <briefdescription>
+<para>eFUSE cache PLM IV range 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1abae9380440fbf08bee2c65652ed624c7" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET</name>
+        <initializer>(0x000001E8U)</initializer>
+        <briefdescription>
+<para>eFUSE cache data partition IV range 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ad5175837964d9aad8e96c6092bd67093" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET</name>
+        <initializer>(0x000000B0U)</initializer>
+        <briefdescription>
+<para>eFUSE cache revocation ID 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaba1d1f6b3110db2162dfbade9ddd0e0b" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1918" endline="1958">XNvm_EfuseReadRevocationId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1b571b0b1c1c340766f5bc9ed37284e4" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_USER_FUSE_OFFSET</name>
+        <initializer>(0x00000240U)</initializer>
+        <briefdescription>
+<para>eFUSE cache user fuse offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a373073870f74186082a505d40740ef45" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET</name>
+        <initializer>(0x000000A0U)</initializer>
+        <briefdescription>
+<para>eFUSE cache miscellaneous control offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae13d2c8332ab146e60f177d1d53c34cd" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET</name>
+        <initializer>(0x000000ACU)</initializer>
+        <briefdescription>
+<para>eFUSE cache security control offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a275f1866f06dba9d6ff96df3da143bf8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET</name>
+        <initializer>(0x00000160U)</initializer>
+        <briefdescription>
+<para>eFUSE cache off-chip revoke 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gace5819e71d300759eee7614e4a7f9ab5" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2713" endline="2753">XNvm_EfuseReadOffchipRevokeId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af0aeeb93ac74ffc8dff15e56fb4d2359" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PPK0 hash 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a15f9cea2f2b2e5b394c4176b0d22281f" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PPK0_HASH_1_OFFSET</name>
+        <initializer>(0x00000120U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PPK0 hash 1 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2770" endline="2822">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aabcf967bfb3dd8f6eabb0a27f7a6c785" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PPK0_HASH_2_OFFSET</name>
+        <initializer>(0x00000140U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PPK0 hash 2 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3e9fad7c29bb703abdad2844084da7f9" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2770" endline="2822">XNvm_EfuseReadPpkHash</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa5228f1438401ab91372449e98c1f317" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DEC_ONLY_OFFSET</name>
+        <initializer>(0x000000E4U)</initializer>
+        <briefdescription>
+<para>eFUSE cache decrypt only offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga3c6422fdd2090d7a3408337c5ab0e737" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2838" endline="2870">XNvm_EfuseReadDecOnly</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1c05067fee967180d8d43696e8070b2b" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC1_OFFSET</name>
+        <initializer>(0x000000E8U)</initializer>
+        <briefdescription>
+<para>eFUSE cache security misc 1 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gade0feaf32fbb8bb279b71be47e838870" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2272" endline="2337">XNvm_EfuseReadSecMisc1Bits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af8ec2135a5e932f384eb3e7f67c1cd8c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DNA_OFFSET</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>eFUSE cache DNA offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga565100f1268558cbededcebb9b29804d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2995" endline="3027">XNvm_EfuseReadDna</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3f11f3a3f44d8f36fead96b344b2c783" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET</name>
+        <initializer>(0x000000A4U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PUF ECC control offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1708" endline="1828">XNvm_EfuseReadPuf</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga72d33a554a48e21836973409c882919d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2610" endline="2696">XNvm_EfuseReadPufSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a68ee6af44e3de455ab5ef3f5e1ddc3d8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET</name>
+        <initializer>(0x000000A8U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PUF CHASH offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af7de740c7ffa663c0ee743c0f295fc96" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET</name>
+        <initializer>(0x00000300U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PUF syndrome data offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3de9bd8cfb6452a55e0a6dbda41403bd" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_RO_SWAP_OFFSET</name>
+        <initializer>(0x000000D0U)</initializer>
+        <briefdescription>
+<para>eFUSE cache PUF RO swap offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9b5fb7e19fefd6373484355119ac291d" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1708" endline="1828">XNvm_EfuseReadPuf</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a363f0a319fa00e353479713b914b9ee3" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET</name>
+        <initializer>(0x00000094U)</initializer>
+        <briefdescription>
+<para>eFUSE cache boot environment control offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3df7f22649fa40915482307f5de45492" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_FIPS_OFFSET</name>
+        <initializer>(0x00000234U)</initializer>
+        <briefdescription>
+<para>eFUSE cache DME FIPS offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaa5cc5a2ddb36b51e0f5b160844c262e6" compoundref="net_2client_2xnvm__efuseclient_8c" startline="703" endline="735">XNvm_EfuseReadDmeMode</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga989884994fda65f39b2f66ced494f83d" compoundref="xnvm__validate_8c" startline="528" endline="573">XNvm_EfuseValidateFipsInfo</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga05cd2825902d18394a7ba8c56c5342b6" compoundref="xnvm__validate_8c" startline="586" endline="608">XNvm_IsDmeModeEn</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a4594056452131608d7f534543abfe5c1" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_MODE_DIS_OFFSET</name>
+        <initializer>(0x00000238U)</initializer>
+        <briefdescription>
+<para>eFUSE cache boot mode disable offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9d3f76422408b4102f47ad332ebb3a8a" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2886" endline="2918">XNvm_EfuseReadBootModeDis</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a9625f2b30379b52fb12a55e236bcd05a" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET</name>
+        <initializer>(0x00000240U)</initializer>
+        <briefdescription>
+<para>eFUSE cache user fuse start offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gad7ec755ce9206a3cdb6263b452c71c29" compoundref="net_2client_2xnvm__efuseclient_8c" startline="1974" endline="2019">XNvm_EfuseReadUserFuses</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a86ed263a201954df6661d0637972a314" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET</name>
+        <initializer>(0x00000090U)</initializer>
+        <briefdescription>
+<para>eFUSE cache ROM reserved offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga128ed057d23449dc1229ae0371bdbfc7" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="3816" endline="3887">XNvm_EfuseWriteRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a48fe5695c817abd47b3618841c4627f3" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_IP_DISABLE_0_OFFSET</name>
+        <initializer>(0x00000018U)</initializer>
+        <briefdescription>
+<para>eFUSE cache IP disable 0 offset </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_DME_REVOKE_ID_REG</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3cd92df64547c7c8e35d20f94fba56e7" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_REVOKE_ID_0_MASK</name>
+        <initializer>(0x00000030U)</initializer>
+        <briefdescription>
+<para>Bit mask for DME revoke ID 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae6f252bb6aaf473f04c4035553b2d1ca" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_REVOKE_ID_1_MASK</name>
+        <initializer>(0x000000C0U)</initializer>
+        <briefdescription>
+<para>Bit mask for DME revoke ID 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1b3afedf76d938cd3925a0d49b229c68" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_REVOKE_ID_2_MASK</name>
+        <initializer>(0x00000300U)</initializer>
+        <briefdescription>
+<para>Bit mask for DME revoke ID 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a09c21f4cb8a0cf5911c689d4cef0ef0d" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_REVOKE_ID_3_MASK</name>
+        <initializer>(0x00000C00U)</initializer>
+        <briefdescription>
+<para>Bit mask for DME revoke ID 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga9662bb6904360667cbfd987a2a852655" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2934" endline="2979">XNvm_EfuseReadDmeRevokeId</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_SECURITY_CONTROL_REG</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab8eee934e5e4800d305536e4936b1073" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK</name>
+        <initializer>(0xc0000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for register init disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a007f2c78a0fc04ba4d94f4651b0893d9" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK</name>
+        <initializer>(0x10000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for boot environment write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a5a2ad5d91279e0e0a085c280df781c7c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_2_0_MASK</name>
+        <initializer>(0x03800000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PMC SC enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae66186739c2f3c3f14bb4e5880993f19" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_LOCK_DIS_MASK</name>
+        <initializer>(0x00600000U)</initializer>
+        <briefdescription>
+<para>Bit mask for authenticated JTAG lock disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a505fff6a381c222f15240a38281cb4ff" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_DIS_MASK</name>
+        <initializer>(0x00180000U)</initializer>
+        <briefdescription>
+<para>Bit mask for authenticated JTAG disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af02835ddfd95aa937c624cd15b98383b" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ad4ea62137eddb5d69887d8cff8f8efbf" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF test2 disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a044ba1b0dea32b42a370f34d5d11cc26" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF syndrome lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0e48311e0fe1579f3a6f21893a81082d" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Bit mask for user key 1 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a421cb3be73f98eecc8dbbca5e5e0ef94" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Bit mask for user key 1 CRC lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a052310ad7fc31aac396fcf2370c1ef43" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>Bit mask for user key 0 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a09d87dd016eee3bf5fdc342a238bdbdd" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>Bit mask for user key 0 CRC lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ad6f65d91245607bedc71f2eefab70f2b" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>Bit mask for AES write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1afec48162bb0c48c2ada3c6d34a57417d" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_MASK</name>
+        <initializer>(0x00000600U)</initializer>
+        <briefdescription>
+<para>Bit mask for AES CRC lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a6bc5916c733962703a686264bd39c224" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK2 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0da5426c0eadb3d322de191226d3b9fd" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK1 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3894c53903c9b455133f7291e38002b8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK0 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa1203639f37c7627d01cb99150eaafb3" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>Bit mask for UDS write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga9e5e2abc14f75b9dc43d03284af58ade" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="1358" endline="1504">XNvm_EfuseWriteUds</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a43e85b8bbbd7a3579ac68dfbc332c338" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_MASK</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>Bit mask for HW test bits disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a7d683c2494baa0864b195e154551cb97" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Bit mask for JTAG disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8cc6e661ddd8e1048c53ec8c61e0e822" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Bit mask for JTAG error out disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a54551e29680fbe1d6f961fc9439c8d23" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Bit mask for AES disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a087266b5614aff8b2bf63e324f55bd73" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>Bit shift for register init disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1e55b15a936f3bc73dea66dd2737c5e7" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_SHIFT</name>
+        <initializer>(28U)</initializer>
+        <briefdescription>
+<para>Bit shift for boot environment write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a91845353caa78a621728340b6d498c01" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_2_0_SHIFT</name>
+        <initializer>(23U)</initializer>
+        <briefdescription>
+<para>Bit shift for PMC SC enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a297ce898cb4c9b8f07d3e2334b0e4e8e" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_LOCK_DIS_1_0_SHIFT</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>Bit shift for authenticated JTAG lock disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1acd6baef35251b3e407ce08f32821cbe6" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_DIS_1_0_SHIFT</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>Bit shift for authenticated JTAG disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="167" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a7acae0137c46b76848cc49047ca02cf3" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_SHIFT</name>
+        <initializer>(18U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af3b387c333c2666e8a9f22490918737f" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_SHIFT</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF test2 disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a9a10b9be063d042e8678b5caecfb2979" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF syndrome lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ac6ac2500c9d1d7d95fb16c6f7ba5e61c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_SHIFT</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>Bit shift for user key 1 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af7b906683b439bd991111a5f62da38bb" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_0_SHIFT</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>Bit shift for user key 1 CRC lock bit 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae3c11a344489397ba58a6f9aa9d30946" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_SHIFT</name>
+        <initializer>(13U)</initializer>
+        <briefdescription>
+<para>Bit shift for user key 0 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a37d7f7f7b17c6cc2426ef85d1cb50c85" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_0_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Bit shift for user key 0 CRC lock bit 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ad5c0579db83f1650fc3ad4f1a2b805f9" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_SHIFT</name>
+        <initializer>(11U)</initializer>
+        <briefdescription>
+<para>Bit shift for AES write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab987402abfb78a5300530bc6aa37c689" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_SHIFT</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>Bit shift for AES CRC lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aaa3b7d3b47687f87f6b67db159b5baea" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK2 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a86bfff0be7fe8e8d8377e16f008a62ca" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_SHIFT</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK1 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1ab27f79efd3ca9dc286014febdbc50f" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK0 write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae28636bdd22729c5e45a6fc20a9c8f63" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Bit shift for UDS write lock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1ga898b27ad1395039d8a8e6f79c6f72fa1" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2136" endline="2256">XNvm_EfuseReadSecCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab9407338e376bcbbc3bebb38cb25f5fb" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_SHIFT</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Bit shift for HW test bits disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8e6b2937d10dc24ec7cb02697ddb000b" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_SHIFT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Bit shift for JTAG disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1abf127f68f9d13a47f16d9b115c4cb8f6" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROR_OUT_DIS_SHIFT</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Bit shift for JTAG error out disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_PUF_ECC_CTRL</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a99b0b516216240440e5bb4fbf3f05d78" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF regeneration disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0c970c419277d6daaa1e5f8a9e90222c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_HD_INVLD_MASK</name>
+        <initializer>(0x40000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF helper data invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8e676bb1e707ab22d6e4f4d7ee56c2e0" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK</name>
+        <initializer>(0x00ffffffU)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF ECC bits [23:0]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0e0219ffb3dfba7276be98305352aac1" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGIS_DIS_MASK</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for PUF registration disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a83f246af4111669249275fd956e82623" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_SHIFT</name>
+        <initializer>(31U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF regeneration disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1c59619c9119f4fbb446c7c9fb46a7ba" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF helper data invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a235d30bcc8f40d80bf6f36b1ef6ac8c5" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGIS_DIS_SHIFT</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>Bit shift for PUF registration disable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_SECURITY_MISC_0</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a88247ae52e7771b1040b0be80956e1be" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK</name>
+        <initializer>(0x0000ffffU)</initializer>
+        <briefdescription>
+<para>Bit mask for EFUSE cache decryption. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_MISC_CTRL</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa72c54dd6528414ea0e88155fd1dbb16" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_MASK</name>
+        <initializer>(0xc0000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for glitch detector halt boot enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1adb9848ea63221a7486695c246ce29b6f" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_MASK</name>
+        <initializer>(0x20000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for glitch detector ROM monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1afd698a5437618af78fb703d6c12bf0b7" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK</name>
+        <initializer>(0x00600000U)</initializer>
+        <briefdescription>
+<para>Bit mask for halt boot error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a90182069b85d11886ccefca93a11cda0" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_MASK</name>
+        <initializer>(0x00180000U)</initializer>
+        <briefdescription>
+<para>Bit mask for halt boot environment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aadae0b4fb4e57b4c1aa06120745bc471" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>Bit mask for crypto KAT enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a5a93c167954307b9b08cefc947ef8642" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>Bit mask for LBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a17f5dab8872b7097e2d0cc86735d8fd8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Bit mask for safety mission enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a626e1a4d07055f1f84a4cf8d081228fa" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK</name>
+        <initializer>(0x000000c0U)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK2 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a14f6643e92bbe6c8f09300bb8c31e623" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_MASK</name>
+        <initializer>(0x00000030U)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK1 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a61ead00e35bbeaf82e8832a580eea773" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK</name>
+        <initializer>(0x0000000cU)</initializer>
+        <briefdescription>
+<para>Bit mask for PPK0 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a238c5c5d810f5ef281fcea135ada076c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>Bit shift for glitch detector halt boot enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a333af5bd665ecd67c95a3a248f3435c3" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_SHIFT</name>
+        <initializer>(29U)</initializer>
+        <briefdescription>
+<para>Bit shift for glitch detector ROM monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1afeb4b1ee135736c84dd6a8c200a6bd08" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_SHIFT</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>Bit shift for halt boot error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab99dbed54a812e3cacd9876ff0ea9159" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_SHIFT</name>
+        <initializer>(19U)</initializer>
+        <briefdescription>
+<para>Bit shift for halt boot environment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a31457e8e7d5928be19033f99a4582701" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_SHIFT</name>
+        <initializer>(15U)</initializer>
+        <briefdescription>
+<para>Bit shift for crypto KAT enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af81a9b5f59b53f7c2c8628ec62115ec2" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_SHIFT</name>
+        <initializer>(14U)</initializer>
+        <briefdescription>
+<para>Bit shift for LBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1af422415612bed182bd97d4961c8c183e" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Bit shift for safety mission enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab64ab29baa84a8c93a3817cb254e8a11" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK2 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ace7e06b6eacbd9247d448c53d1d31309" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK1 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a7da582bd7f06d71930b2d63a299a651a" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_SHIFT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Bit shift for PPK0 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_SECURITY_MISC_1</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a4ca2f39e91a7754c18443b34c34f3b53" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_MASK</name>
+        <initializer>(0x00001c00U)</initializer>
+        <briefdescription>
+<para>Bit mask for LPD MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aac0d7b2a40cd8d00e1e654469b1b1f42" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_MASK</name>
+        <initializer>(0x00000380U)</initializer>
+        <briefdescription>
+<para>Bit mask for PMC MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa6a7315a15c7799487a65b1e8b875a8d" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_MASK</name>
+        <initializer>(0x00000070U)</initializer>
+        <briefdescription>
+<para>Bit mask for LPD NOC SC enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aff67ccec0b9dd3713d8c41f62a1c44e8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_MASK</name>
+        <initializer>(0x0000000cU)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon voltage monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa0eed59d44b0ad9a53c91a414a80a1bf" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_MASK</name>
+        <initializer>(0x00000003U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon temperature monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a4e8ffba63f9e4f04a9e7a497dbc8e334" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_SHIFT</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Bit shift for LPD MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aaa201ff6d6bc50e39839fc3732725945" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_SHIFT</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Bit shift for PMC MBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8f883c31ee941a1db9264444a0617b24" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_SHIFT</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Bit shift for LPD NOC SC enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a782e92c3b478d8206988034e1a737201" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_SHIFT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon voltage monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a31278db2f1db9697aad8aabe0f8515ff" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon temperature monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_BOOT_ENV_CTRL</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a5c7db11ff489c6723ab0d1f5dfa57a6c" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon temperature enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8e1c63f3a0767a6460de148c12c9f730" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon voltage enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a1fa9920bc4d4f372374fa75e89a8e0b2" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK</name>
+        <initializer>(0x00060000U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon temperature hot threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a086e1b14ceb24946d8a2c5ef7e7ca695" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK</name>
+        <initializer>(0x00003000U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon PMC voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a27c2475d619126faa3da3da8b0cef5c8" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK</name>
+        <initializer>(0x00000c00U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon PS low-power voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a93d6bda5fdd0190597001b37b8f3b5bf" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK</name>
+        <initializer>(0x00000300U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon SoC voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="320" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ac5e18f51e277653b74c0f25c21f7eb52" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK</name>
+        <initializer>(0x00000003U)</initializer>
+        <briefdescription>
+<para>Bit mask for sysmon temperature cold threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a2f993c72facb423b561fde7dcb09c27e" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_SHIFT</name>
+        <initializer>(21U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon temperature enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa3b8f433f5b47b6fca6c185b57396784" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_SHIFT</name>
+        <initializer>(20U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon voltage enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a28e1fa07ae588e3a09a1c877b6c351a7" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT</name>
+        <initializer>(17U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon temperature hot threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a4a96273ebdd573464cdfdb94571ff084" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT</name>
+        <initializer>(12U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon PMC voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ab31b0165b3ae586ed7f7d6db8fc14789" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon PS low-power voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a25ec8ac5bc499baaddde41cee857c9d5" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_SHIFT</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon SoC voltage threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a8027dc8c7af45df7794897d8c46653a4" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Bit shift for sysmon temperature cold threshold. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="337" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_ROM_RSVD</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a73cf0161e08f2ad93381a8e3ab45e04b" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_PLM_UPDATE_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>Bit mask for ROM reserved PLM update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="345" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="345" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0e5cee3171b3e9a4d4f7d781b73d5e77" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>Bit mask for ROM reserved auth keys to hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="347" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="347" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a31b0ebef6dd559065bb2450f697feaa1" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_IRO_SWAP_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>Bit mask for ROM reserved IRO swap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="349" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="349" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a556e115d934d8ec3b7421d3ca2f2c2cf" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_ROM_SWDT_USAGE_MASK</name>
+        <initializer>(0x000000C0U)</initializer>
+        <briefdescription>
+<para>Bit mask for ROM reserved SWDT usage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="351" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a3fe0cf7078ba5c86530efe739e6c52aa" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_PLM_UPDATE_SHIFT</name>
+        <initializer>(10U)</initializer>
+        <briefdescription>
+<para>Bit shift for ROM reserved PLM update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="354" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="354" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ae2df299231deb59f8059cf499cb7c753" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT</name>
+        <initializer>(9U)</initializer>
+        <briefdescription>
+<para>Bit shift for ROM reserved auth keys to hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="356" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="356" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a6ba634ab30468d684dbd469b1ee394ef" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_IRO_SWAP_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Bit shift for ROM reserved IRO swap. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="358" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a4ea1f3940a7e9b2a166dc3eb04458182" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ROM_RSVD_ROM_SWDT_USAGE_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Bit shift for ROM reserved SWDT usage. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="360" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="360" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gadf4cc0221b64537c48fd20e455ae0922" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2442" endline="2506">XNvm_EfuseReadRomRsvdBits</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_DME_FIPS</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a95479077afc08899f0e3f2fb1174eddf" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK</name>
+        <initializer>(0xFF000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for DME FIPS mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="368" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="368" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga989884994fda65f39b2f66ced494f83d" compoundref="xnvm__validate_8c" startline="528" endline="573">XNvm_EfuseValidateFipsInfo</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a891d33e70f2466b0d5ec4e1cb3c54149" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT</name>
+        <initializer>(24U)</initializer>
+        <briefdescription>
+<para>Bit shift for DME FIPS mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="370" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gaf63250e1f6043e6715870670a4fd1695" compoundref="net_2client_2xnvm__efuseclient_8c" startline="2522" endline="2594">XNvm_EfuseReadFipsInfoBits</referencedby>
+        <referencedby refid="group__xnvm__versal__net__validate__api__ids_1ga989884994fda65f39b2f66ced494f83d" compoundref="xnvm__validate_8c" startline="528" endline="573">XNvm_EfuseValidateFipsInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_IP_DISABLE_0</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0a4af0a32ef7829e22d32e9ae3206d44" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK</name>
+        <initializer>(0xC0000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for upper FIPS version bits in IP disable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="377" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1aa109fa2d16b6495e2cd31c44583926dc" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>Bit shift for upper FIPS version bits in IP disable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="379" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1ad6d9b5e9b71d6b0e8f4c2658b7c0f162" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>Bit mask for lower FIPS version bit in IP disable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="383" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0848a0bf05d30250ab5bfaf2eb279dd9" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_SHIFT</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Bit shift for lower FIPS version bit in IP disable register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="385" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register: EFUSE_CACHE_ANLG_TRIM_3</header>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a0dc7578cddd42b0bba20382d3f7cd6ef" prot="public" static="no">
+        <name>XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK</name>
+        <initializer>(0x7FFFFFFFU)</initializer>
+        <briefdescription>
+<para>Bit mask for glitch config data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="394" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga53da415156ffb127deaac7c1891a9a50" compoundref="versal__gen_2versal__net_2server_2xnvm__efuse_8c" startline="544" endline="633">XNvm_EfuseWriteGlitchConfigBits</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xnvm__efuseclient__hw_8h_1a72fae04446f03815bfb983a846144d06" prot="public" static="no">
+        <name>XNVM_EFUSE_CACHE_ANLG_TRIM_3_GLITCH_DET_WR_LK_MASK</name>
+        <initializer>(0x80000000U)</initializer>
+        <briefdescription>
+<para>Bit mask for glitch detection write lock in analog trim 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" line="396" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains register offsets for EFUSE_CACHE module and other related definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- ---------- --------------------------------------------------------
+3.0   har  07/06/22   Initial release</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XNVM_EFUSECLIENT_HW_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSECLIENT_HW_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="42" refid="xnvm__efuseclient__hw_8h_1a2bed27efcecfc1d0a6cce977bcd8d6a0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_METAHEADER_IV_RANGE_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000180U)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44" refid="xnvm__efuseclient__hw_8h_1aecf79e9080344b2c2f0da75966d71240" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BLACK_IV_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001D0U)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46" refid="xnvm__efuseclient__hw_8h_1ac9047ffd9cc61220bd83634016d354a2" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PLM_IV_RANGE_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001DCU)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="xnvm__efuseclient__hw_8h_1abae9380440fbf08bee2c65652ed624c7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DATA_PARTITION_IV_RANGE_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000001E8U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="xnvm__efuseclient__hw_8h_1ad5175837964d9aad8e96c6092bd67093" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_REVOCATION_ID_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000B0U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="xnvm__efuseclient__hw_8h_1a1b571b0b1c1c340766f5bc9ed37284e4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_USER_FUSE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000240U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="xnvm__efuseclient__hw_8h_1a373073870f74186082a505d40740ef45" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000A0U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="xnvm__efuseclient__hw_8h_1ae13d2c8332ab146e60f177d1d53c34cd" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000ACU)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58" refid="xnvm__efuseclient__hw_8h_1a275f1866f06dba9d6ff96df3da143bf8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_OFFCHIP_REVOKE_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000160U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="xnvm__efuseclient__hw_8h_1af0aeeb93ac74ffc8dff15e56fb4d2359" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PPK0_HASH_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="xnvm__efuseclient__hw_8h_1a15f9cea2f2b2e5b394c4176b0d22281f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PPK0_HASH_1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000120U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xnvm__efuseclient__hw_8h_1aabcf967bfb3dd8f6eabb0a27f7a6c785" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PPK0_HASH_2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000140U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="xnvm__efuseclient__hw_8h_1aa5228f1438401ab91372449e98c1f317" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DEC_ONLY_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000E4U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="xnvm__efuseclient__hw_8h_1a1c05067fee967180d8d43696e8070b2b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000E8U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xnvm__efuseclient__hw_8h_1af8ec2135a5e932f384eb3e7f67c1cd8c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DNA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="xnvm__efuseclient__hw_8h_1a3f11f3a3f44d8f36fead96b344b2c783" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000A4U)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="xnvm__efuseclient__hw_8h_1a68ee6af44e3de455ab5ef3f5e1ddc3d8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_CHASH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000A8U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76" refid="xnvm__efuseclient__hw_8h_1af7de740c7ffa663c0ee743c0f295fc96" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_SYN_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000300U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="xnvm__efuseclient__hw_8h_1a3de9bd8cfb6452a55e0a6dbda41403bd" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_RO_SWAP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000D0U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xnvm__efuseclient__hw_8h_1a363f0a319fa00e353479713b914b9ee3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000094U)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="xnvm__efuseclient__hw_8h_1a3df7f22649fa40915482307f5de45492" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_FIPS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000234U)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="xnvm__efuseclient__hw_8h_1a4594056452131608d7f534543abfe5c1" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_MODE_DIS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000238U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="xnvm__efuseclient__hw_8h_1a9625f2b30379b52fb12a55e236bcd05a" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000240U)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xnvm__efuseclient__hw_8h_1a86ed263a201954df6661d0637972a314" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000090U)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="xnvm__efuseclient__hw_8h_1a48fe5695c817abd47b3618841c4627f3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_IP_DISABLE_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000018U)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98" refid="xnvm__efuseclient__hw_8h_1a3cd92df64547c7c8e35d20f94fba56e7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_REVOKE_ID_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000030U)</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="xnvm__efuseclient__hw_8h_1ae6f252bb6aaf473f04c4035553b2d1ca" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_REVOKE_ID_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000C0U)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="xnvm__efuseclient__hw_8h_1a1b3afedf76d938cd3925a0d49b229c68" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_REVOKE_ID_2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000300U)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="105" refid="xnvm__efuseclient__hw_8h_1a09c21f4cb8a0cf5911c689d4cef0ef0d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_REVOKE_ID_3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000C00U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="xnvm__efuseclient__hw_8h_1ab8eee934e5e4800d305536e4936b1073" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xc0000000U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116" refid="xnvm__efuseclient__hw_8h_1a007f2c78a0fc04ba4d94f4651b0893d9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x10000000U)</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118" refid="xnvm__efuseclient__hw_8h_1a5a2ad5d91279e0e0a085c280df781c7c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_2_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03800000U)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="xnvm__efuseclient__hw_8h_1ae66186739c2f3c3f14bb4e5880993f19" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_LOCK_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00600000U)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="xnvm__efuseclient__hw_8h_1a505fff6a381c222f15240a38281cb4ff" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00180000U)</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124" refid="xnvm__efuseclient__hw_8h_1af02835ddfd95aa937c624cd15b98383b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00040000U)</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="xnvm__efuseclient__hw_8h_1ad4ea62137eddb5d69887d8cff8f8efbf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00020000U)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128" refid="xnvm__efuseclient__hw_8h_1a044ba1b0dea32b42a370f34d5d11cc26" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00010000U)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130" refid="xnvm__efuseclient__hw_8h_1a0e48311e0fe1579f3a6f21893a81082d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00008000U)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132" refid="xnvm__efuseclient__hw_8h_1a421cb3be73f98eecc8dbbca5e5e0ef94" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00004000U)</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="xnvm__efuseclient__hw_8h_1a052310ad7fc31aac396fcf2370c1ef43" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00002000U)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136" refid="xnvm__efuseclient__hw_8h_1a09d87dd016eee3bf5fdc342a238bdbdd" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="138" refid="xnvm__efuseclient__hw_8h_1ad6f65d91245607bedc71f2eefab70f2b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000800U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140" refid="xnvm__efuseclient__hw_8h_1afec48162bb0c48c2ada3c6d34a57417d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000600U)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142" refid="xnvm__efuseclient__hw_8h_1a6bc5916c733962703a686264bd39c224" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144" refid="xnvm__efuseclient__hw_8h_1a0da5426c0eadb3d322de191226d3b9fd" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146" refid="xnvm__efuseclient__hw_8h_1a3894c53903c9b455133f7291e38002b8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="148" refid="xnvm__efuseclient__hw_8h_1aa1203639f37c7627d01cb99150eaafb3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="150" refid="xnvm__efuseclient__hw_8h_1a43e85b8bbbd7a3579ac68dfbc332c338" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152" refid="xnvm__efuseclient__hw_8h_1a7d683c2494baa0864b195e154551cb97" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154" refid="xnvm__efuseclient__hw_8h_1a8cc6e661ddd8e1048c53ec8c61e0e822" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROUT_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="156" refid="xnvm__efuseclient__hw_8h_1a54551e29680fbe1d6f961fc9439c8d23" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159" refid="xnvm__efuseclient__hw_8h_1a087266b5614aff8b2bf63e324f55bd73" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_REG_INIT_DIS_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161" refid="xnvm__efuseclient__hw_8h_1a1e55b15a936f3bc73dea66dd2737c5e7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_BOOT_ENV_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28U)</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163" refid="xnvm__efuseclient__hw_8h_1a91845353caa78a621728340b6d498c01" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PMC_SC_EN_2_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(23U)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165" refid="xnvm__efuseclient__hw_8h_1a297ce898cb4c9b8f07d3e2334b0e4e8e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_LOCK_DIS_1_0_SHIFT<sp/><sp/>(21U)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="167" refid="xnvm__efuseclient__hw_8h_1acd6baef35251b3e407ce08f32821cbe6" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AUTH_JTAG_DIS_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(19U)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="169" refid="xnvm__efuseclient__hw_8h_1a7acae0137c46b76848cc49047ca02cf3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(18U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171" refid="xnvm__efuseclient__hw_8h_1af3b387c333c2666e8a9f22490918737f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_TEST2_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173" refid="xnvm__efuseclient__hw_8h_1a9a10b9be063d042e8678b5caecfb2979" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PUF_SYN_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175" refid="xnvm__efuseclient__hw_8h_1ac6ac2500c9d1d7d95fb16c6f7ba5e61c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="177" refid="xnvm__efuseclient__hw_8h_1af7b906683b439bd991111a5f62da38bb" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_1_CRC_LK_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(14U)</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="179" refid="xnvm__efuseclient__hw_8h_1ae3c11a344489397ba58a6f9aa9d30946" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(13U)</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181" refid="xnvm__efuseclient__hw_8h_1a37d7f7f7b17c6cc2426ef85d1cb50c85" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_USR_KEY_0_CRC_LK_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="183" refid="xnvm__efuseclient__hw_8h_1ad5c0579db83f1650fc3ad4f1a2b805f9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(11U)</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="185" refid="xnvm__efuseclient__hw_8h_1ab987402abfb78a5300530bc6aa37c689" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_AES_CRC_LK_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187" refid="xnvm__efuseclient__hw_8h_1aaa3b7d3b47687f87f6b67db159b5baea" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK2_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="189" refid="xnvm__efuseclient__hw_8h_1a86bfff0be7fe8e8d8377e16f008a62ca" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK1_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="191" refid="xnvm__efuseclient__hw_8h_1a1ab27f79efd3ca9dc286014febdbc50f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_PPK0_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="193" refid="xnvm__efuseclient__hw_8h_1ae28636bdd22729c5e45a6fc20a9c8f63" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_UDS_WR_LK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195" refid="xnvm__efuseclient__hw_8h_1ab9407338e376bcbbc3bebb38cb25f5fb" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_HWTSTBITS_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197" refid="xnvm__efuseclient__hw_8h_1a8e6b2937d10dc24ec7cb02697ddb000b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="199" refid="xnvm__efuseclient__hw_8h_1abf127f68f9d13a47f16d9b115c4cb8f6" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SECURITY_CONTROL_JTAG_ERROR_OUT_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="207" refid="xnvm__efuseclient__hw_8h_1a99b0b516216240440e5bb4fbf3f05d78" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGEN_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="209" refid="xnvm__efuseclient__hw_8h_1a0c970c419277d6daaa1e5f8a9e90222c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_HD_INVLD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x40000000U)</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211" refid="xnvm__efuseclient__hw_8h_1a8e676bb1e707ab22d6e4f4d7ee56c2e0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_ECC_23_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00ffffffU)</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="213" refid="xnvm__efuseclient__hw_8h_1a0e0219ffb3dfba7276be98305352aac1" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_REGIS_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="216" refid="xnvm__efuseclient__hw_8h_1a83f246af4111669249275fd956e82623" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGEN_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(31U)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="218" refid="xnvm__efuseclient__hw_8h_1a1c59619c9119f4fbb446c7c9fb46a7ba" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_HD_INVLD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="220" refid="xnvm__efuseclient__hw_8h_1a235d30bcc8f40d80bf6f36b1ef6ac8c5" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_PUF_ECC_PUF_CTRL_PUF_REGIS_DIS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(29U)</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="228" refid="xnvm__efuseclient__hw_8h_1a88247ae52e7771b1040b0be80956e1be" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000ffffU)</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="236" refid="xnvm__efuseclient__hw_8h_1aa72c54dd6528414ea0e88155fd1dbb16" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_MASK<sp/><sp/><sp/><sp/><sp/>(0xc0000000U)</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="238" refid="xnvm__efuseclient__hw_8h_1adb9848ea63221a7486695c246ce29b6f" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20000000U)</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240" refid="xnvm__efuseclient__hw_8h_1afd698a5437618af78fb703d6c12bf0b7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_MASK<sp/><sp/><sp/><sp/><sp/>(0x00600000U)</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="242" refid="xnvm__efuseclient__hw_8h_1a90182069b85d11886ccefca93a11cda0" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00180000U)</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="244" refid="xnvm__efuseclient__hw_8h_1aadae0b4fb4e57b4c1aa06120745bc471" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00008000U)</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="246" refid="xnvm__efuseclient__hw_8h_1a5a93c167954307b9b08cefc947ef8642" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00004000U)</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="248" refid="xnvm__efuseclient__hw_8h_1a17f5dab8872b7097e2d0cc86735d8fd8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250" refid="xnvm__efuseclient__hw_8h_1a626e1a4d07055f1f84a4cf8d081228fa" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000c0U)</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="252" refid="xnvm__efuseclient__hw_8h_1a14f6643e92bbe6c8f09300bb8c31e623" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000030U)</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="254" refid="xnvm__efuseclient__hw_8h_1a61ead00e35bbeaf82e8832a580eea773" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000cU)</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="257" refid="xnvm__efuseclient__hw_8h_1a238c5c5d810f5ef281fcea135ada076c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_GD_HALT_BOOT_EN_1_0_SHIFT<sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="259" refid="xnvm__efuseclient__hw_8h_1a333af5bd665ecd67c95a3a248f3435c3" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_GD_ROM_MONITOR_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(29U)</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="261" refid="xnvm__efuseclient__hw_8h_1afeb4b1ee135736c84dd6a8c200a6bd08" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ERROR_1_0_SHIFT<sp/><sp/><sp/><sp/>(21U)</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="263" refid="xnvm__efuseclient__hw_8h_1ab99dbed54a812e3cacd9876ff0ea9159" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_HALT_BOOT_ENV_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(19U)</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="265" refid="xnvm__efuseclient__hw_8h_1a31457e8e7d5928be19033f99a4582701" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_CRYPTO_KAT_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="267" refid="xnvm__efuseclient__hw_8h_1af81a9b5f59b53f7c2c8628ec62115ec2" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_LBIST_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(14U)</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="269" refid="xnvm__efuseclient__hw_8h_1af422415612bed182bd97d4961c8c183e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_SAFETY_MISSION_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="271" refid="xnvm__efuseclient__hw_8h_1ab64ab29baa84a8c93a3817cb254e8a11" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK2_INVLD_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="273" refid="xnvm__efuseclient__hw_8h_1ace7e06b6eacbd9247d448c53d1d31309" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK1_INVLD_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="275" refid="xnvm__efuseclient__hw_8h_1a7da582bd7f06d71930b2d63a299a651a" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_MISC_CTRL_PPK0_INVLD_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="283" refid="xnvm__efuseclient__hw_8h_1a4ca2f39e91a7754c18443b34c34f3b53" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001c00U)</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="285" refid="xnvm__efuseclient__hw_8h_1aac0d7b2a40cd8d00e1e654469b1b1f42" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000380U)</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="287" refid="xnvm__efuseclient__hw_8h_1aa6a7315a15c7799487a65b1e8b875a8d" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000070U)</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="289" refid="xnvm__efuseclient__hw_8h_1aff67ccec0b9dd3713d8c41f62a1c44e8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_MASK<sp/>(0x0000000cU)</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="291" refid="xnvm__efuseclient__hw_8h_1aa0eed59d44b0ad9a53c91a414a80a1bf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_MASK<sp/>(0x00000003U)</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="294" refid="xnvm__efuseclient__hw_8h_1a4e8ffba63f9e4f04a9e7a497dbc8e334" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_MBIST_EN_2_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="296" refid="xnvm__efuseclient__hw_8h_1aaa201ff6d6bc50e39839fc3732725945" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_PMC_MBIST_EN_2_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="298" refid="xnvm__efuseclient__hw_8h_1a8f883c31ee941a1db9264444a0617b24" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_LPD_NOC_SC_EN_2_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="300" refid="xnvm__efuseclient__hw_8h_1a782e92c3b478d8206988034e1a737201" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_VOLT_MON_EN_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="302" refid="xnvm__efuseclient__hw_8h_1a31278db2f1db9697aad8aabe0f8515ff" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_SEC_MISC_1_SYSMON_TEMP_MON_EN_1_0_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310" refid="xnvm__efuseclient__hw_8h_1a5c7db11ff489c6723ab0d1f5dfa57a6c" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00200000U)</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="312" refid="xnvm__efuseclient__hw_8h_1a8e1c63f3a0767a6460de148c12c9f730" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00100000U)</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="314" refid="xnvm__efuseclient__hw_8h_1a1fa9920bc4d4f372374fa75e89a8e0b2" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_MASK<sp/><sp/><sp/><sp/><sp/>(0x00060000U)</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="316" refid="xnvm__efuseclient__hw_8h_1a086e1b14ceb24946d8a2c5ef7e7ca695" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_MASK<sp/><sp/><sp/><sp/><sp/>(0x00003000U)</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="318" refid="xnvm__efuseclient__hw_8h_1a27c2475d619126faa3da3da8b0cef5c8" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_MASK<sp/><sp/><sp/><sp/>(0x00000c00U)</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="320" refid="xnvm__efuseclient__hw_8h_1a93d6bda5fdd0190597001b37b8f3b5bf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000300U)</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322" refid="xnvm__efuseclient__hw_8h_1ac5e18f51e277653b74c0f25c21f7eb52" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_MASK<sp/><sp/><sp/><sp/>(0x00000003U)</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="325" refid="xnvm__efuseclient__hw_8h_1a2f993c72facb423b561fde7dcb09c27e" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(21U)</highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="327" refid="xnvm__efuseclient__hw_8h_1aa3b8f433f5b47b6fca6c185b57396784" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(20U)</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="329" refid="xnvm__efuseclient__hw_8h_1a28e1fa07ae588e3a09a1c877b6c351a7" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_HOT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(17U)</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="331" refid="xnvm__efuseclient__hw_8h_1a4a96273ebdd573464cdfdb94571ff084" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PMC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(12U)</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="333" refid="xnvm__efuseclient__hw_8h_1ab31b0165b3ae586ed7f7d6db8fc14789" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_PSLP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="335" refid="xnvm__efuseclient__hw_8h_1a25ec8ac5bc499baaddde41cee857c9d5" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_VOLT_SOC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337" refid="xnvm__efuseclient__hw_8h_1a8027dc8c7af45df7794897d8c46653a4" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_BOOT_ENV_CTRL_SYSMON_TEMP_COLD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="345" refid="xnvm__efuseclient__hw_8h_1a73cf0161e08f2ad93381a8e3ab45e04b" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_PLM_UPDATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000400U)</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="347" refid="xnvm__efuseclient__hw_8h_1a0e5cee3171b3e9a4d4f7d781b73d5e77" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000200U)</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="349" refid="xnvm__efuseclient__hw_8h_1a31b0ebef6dd559065bb2450f697feaa1" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_IRO_SWAP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="351" refid="xnvm__efuseclient__hw_8h_1a556e115d934d8ec3b7421d3ca2f2c2cf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_ROM_SWDT_USAGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000000C0U)</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="354" refid="xnvm__efuseclient__hw_8h_1a3fe0cf7078ba5c86530efe739e6c52aa" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_PLM_UPDATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10U)</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="356" refid="xnvm__efuseclient__hw_8h_1ae2df299231deb59f8059cf499cb7c753" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(9U)</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="358" refid="xnvm__efuseclient__hw_8h_1a6ba634ab30468d684dbd469b1ee394ef" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_IRO_SWAP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="360" refid="xnvm__efuseclient__hw_8h_1a4ea1f3940a7e9b2a166dc3eb04458182" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ROM_RSVD_ROM_SWDT_USAGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)</highlight></codeline>
+<codeline lineno="361"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="368" refid="xnvm__efuseclient__hw_8h_1a95479077afc08899f0e3f2fb1174eddf" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFF000000U)</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="370" refid="xnvm__efuseclient__hw_8h_1a891d33e70f2466b0d5ec4e1cb3c54149" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(24U)</highlight></codeline>
+<codeline lineno="371"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="377" refid="xnvm__efuseclient__hw_8h_1a0a4af0a32ef7829e22d32e9ae3206d44" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC0000000U)</highlight></codeline>
+<codeline lineno="378"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="379" refid="xnvm__efuseclient__hw_8h_1aa109fa2d16b6495e2cd31c44583926dc" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="380"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="383" refid="xnvm__efuseclient__hw_8h_1ad6d9b5e9b71d6b0e8f4c2658b7c0f162" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="385" refid="xnvm__efuseclient__hw_8h_1a0848a0bf05d30250ab5bfaf2eb279dd9" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_SHIFT<sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="387"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="394" refid="xnvm__efuseclient__hw_8h_1a0dc7578cddd42b0bba20382d3f7cd6ef" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_GLITCH_CONFIG_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x7FFFFFFFU)</highlight></codeline>
+<codeline lineno="395"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="396" refid="xnvm__efuseclient__hw_8h_1a72fae04446f03815bfb983a846144d06" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_EFUSE_CACHE_ANLG_TRIM_3_GLITCH_DET_WR_LK_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x80000000U)</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="401"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="403"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XNVM_EFUSECLIENT_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/xnvm_efuseclient_hw.h"/>
+  </compounddef>
+</doxygen>

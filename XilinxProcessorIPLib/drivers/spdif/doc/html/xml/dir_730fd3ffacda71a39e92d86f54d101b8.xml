@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_730fd3ffacda71a39e92d86f54d101b8" kind="dir">
+    <compoundname>spdif</compoundname>
+    <innerdir refid="dir_e08b7927b4af1cdb995781f292b7f71e">examples</innerdir>
+    <innerdir refid="dir_5dcaed6be6f6f90369745cce663ee431">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/"/>
+  </compounddef>
+</doxygen>

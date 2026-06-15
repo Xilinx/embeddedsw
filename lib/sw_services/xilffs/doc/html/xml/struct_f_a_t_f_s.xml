@@ -1,0 +1,281 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_f_a_t_f_s" kind="struct" prot="public">
+    <compoundname>FATFS</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1add27d97babe807b573eac98a71dc4ae5" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::fs_type</definition>
+        <argsstring></argsstring>
+        <name>fs_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1acae426c920cd7f59e5883f948e1b3184" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::pdrv</definition>
+        <argsstring></argsstring>
+        <name>pdrv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1aaa678cb2c36f5e7d8157ae295f1fbb42" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::ldrv</definition>
+        <argsstring></argsstring>
+        <name>ldrv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a56716c7e7ac10cf46e73ffb2a2e9b545" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::n_fats</definition>
+        <argsstring></argsstring>
+        <name>n_fats</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a647e43c9ccae94b7274793d1909897de" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::wflag</definition>
+        <argsstring></argsstring>
+        <name>wflag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a84e9cdc5a6a8e33ea7ec192058abf161" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::fsi_flag</definition>
+        <argsstring></argsstring>
+        <name>fsi_flag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a417095d7c20d56d417dc0998e0dd5a5c" prot="public" static="no" mutable="no">
+        <type>WORD</type>
+        <definition>WORD FATFS::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a189a00aa038044ffad0fc7f7dcf2aae1" prot="public" static="no" mutable="no">
+        <type>WORD</type>
+        <definition>WORD FATFS::n_rootdir</definition>
+        <argsstring></argsstring>
+        <name>n_rootdir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1ad7fa7a509f8d097a9ab182d6c47be568" prot="public" static="no" mutable="no">
+        <type>WORD</type>
+        <definition>WORD FATFS::csize</definition>
+        <argsstring></argsstring>
+        <name>csize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1ac26e848817569fedc15a9a4e49ddedd1" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD FATFS::last_clst</definition>
+        <argsstring></argsstring>
+        <name>last_clst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1ac834248773bf338df807f0d7e6b6a579" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD FATFS::free_clst</definition>
+        <argsstring></argsstring>
+        <name>free_clst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a8da50eeba6469bc20d60ca0cf9a1307c" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD FATFS::n_fatent</definition>
+        <argsstring></argsstring>
+        <name>n_fatent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a53e9560659f14e66f306c2c444198bf3" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD FATFS::fsize</definition>
+        <argsstring></argsstring>
+        <name>fsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1aaf7eccaccdc9c4243230672d6b2f6566" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t FATFS::winsect</definition>
+        <argsstring></argsstring>
+        <name>winsect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a89358c0e7b2293254c9481dcd2984d30" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t FATFS::volbase</definition>
+        <argsstring></argsstring>
+        <name>volbase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a78b1024e7d7d086d132a58ee943b31df" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t FATFS::fatbase</definition>
+        <argsstring></argsstring>
+        <name>fatbase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1afc8c3d5d8408b70379f23382c6e28168" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t FATFS::dirbase</definition>
+        <argsstring></argsstring>
+        <name>dirbase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a4ce7c10569f45fae1c709c9ee41f69cb" prot="public" static="no" mutable="no">
+        <type>LBA_t</type>
+        <definition>LBA_t FATFS::database</definition>
+        <argsstring></argsstring>
+        <name>database</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_a_t_f_s_1a49e9c5c3ae9c13755242b6ce5748ecb1" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FATFS::win[FF_MAX_SS]</definition>
+        <argsstring>[FF_MAX_SS]</argsstring>
+        <name>win</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="152" bodyend="200"/>
+    <listofallmembers>
+      <member refid="struct_f_a_t_f_s_1ad7fa7a509f8d097a9ab182d6c47be568" prot="public" virt="non-virtual"><scope>FATFS</scope><name>csize</name></member>
+      <member refid="struct_f_a_t_f_s_1a4ce7c10569f45fae1c709c9ee41f69cb" prot="public" virt="non-virtual"><scope>FATFS</scope><name>database</name></member>
+      <member refid="struct_f_a_t_f_s_1afc8c3d5d8408b70379f23382c6e28168" prot="public" virt="non-virtual"><scope>FATFS</scope><name>dirbase</name></member>
+      <member refid="struct_f_a_t_f_s_1a78b1024e7d7d086d132a58ee943b31df" prot="public" virt="non-virtual"><scope>FATFS</scope><name>fatbase</name></member>
+      <member refid="struct_f_a_t_f_s_1ac834248773bf338df807f0d7e6b6a579" prot="public" virt="non-virtual"><scope>FATFS</scope><name>free_clst</name></member>
+      <member refid="struct_f_a_t_f_s_1add27d97babe807b573eac98a71dc4ae5" prot="public" virt="non-virtual"><scope>FATFS</scope><name>fs_type</name></member>
+      <member refid="struct_f_a_t_f_s_1a84e9cdc5a6a8e33ea7ec192058abf161" prot="public" virt="non-virtual"><scope>FATFS</scope><name>fsi_flag</name></member>
+      <member refid="struct_f_a_t_f_s_1a53e9560659f14e66f306c2c444198bf3" prot="public" virt="non-virtual"><scope>FATFS</scope><name>fsize</name></member>
+      <member refid="struct_f_a_t_f_s_1a417095d7c20d56d417dc0998e0dd5a5c" prot="public" virt="non-virtual"><scope>FATFS</scope><name>id</name></member>
+      <member refid="struct_f_a_t_f_s_1ac26e848817569fedc15a9a4e49ddedd1" prot="public" virt="non-virtual"><scope>FATFS</scope><name>last_clst</name></member>
+      <member refid="struct_f_a_t_f_s_1aaa678cb2c36f5e7d8157ae295f1fbb42" prot="public" virt="non-virtual"><scope>FATFS</scope><name>ldrv</name></member>
+      <member refid="struct_f_a_t_f_s_1a8da50eeba6469bc20d60ca0cf9a1307c" prot="public" virt="non-virtual"><scope>FATFS</scope><name>n_fatent</name></member>
+      <member refid="struct_f_a_t_f_s_1a56716c7e7ac10cf46e73ffb2a2e9b545" prot="public" virt="non-virtual"><scope>FATFS</scope><name>n_fats</name></member>
+      <member refid="struct_f_a_t_f_s_1a189a00aa038044ffad0fc7f7dcf2aae1" prot="public" virt="non-virtual"><scope>FATFS</scope><name>n_rootdir</name></member>
+      <member refid="struct_f_a_t_f_s_1acae426c920cd7f59e5883f948e1b3184" prot="public" virt="non-virtual"><scope>FATFS</scope><name>pdrv</name></member>
+      <member refid="struct_f_a_t_f_s_1a89358c0e7b2293254c9481dcd2984d30" prot="public" virt="non-virtual"><scope>FATFS</scope><name>volbase</name></member>
+      <member refid="struct_f_a_t_f_s_1a647e43c9ccae94b7274793d1909897de" prot="public" virt="non-virtual"><scope>FATFS</scope><name>wflag</name></member>
+      <member refid="struct_f_a_t_f_s_1a49e9c5c3ae9c13755242b6ce5748ecb1" prot="public" virt="non-virtual"><scope>FATFS</scope><name>win</name></member>
+      <member refid="struct_f_a_t_f_s_1aaf7eccaccdc9c4243230672d6b2f6566" prot="public" virt="non-virtual"><scope>FATFS</scope><name>winsect</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

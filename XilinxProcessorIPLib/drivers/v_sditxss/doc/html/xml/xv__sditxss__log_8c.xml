@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__sditxss__log_8c" kind="file">
+    <compoundname>xv_sditxss_log.c</compoundname>
+    <includes refid="xv__sditxss_8h" local="yes">xv_sditxss.h</includes>
+    <incdepgraph>
+      <node id="160">
+        <label>xv_sditx.h</label>
+      </node>
+      <node id="158">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="156">
+        <label>xv_sditxss.h</label>
+        <link refid="xv__sditxss_8h"/>
+        <childnode refid="157" relation="include">
+        </childnode>
+        <childnode refid="158" relation="include">
+        </childnode>
+        <childnode refid="159" relation="include">
+        </childnode>
+        <childnode refid="160" relation="include">
+        </childnode>
+        <childnode refid="161" relation="include">
+        </childnode>
+      </node>
+      <node id="157">
+        <label>xstatus.h</label>
+      </node>
+      <node id="159">
+        <label>xvidc.h</label>
+      </node>
+      <node id="161">
+        <label>xvtc.h</label>
+      </node>
+      <node id="155">
+        <label>xv_sditxss_log.c</label>
+        <link refid="xv_sditxss_log.c"/>
+        <childnode refid="156" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__sditxss__log_8c_1a6018ef35dec27977430d676e948371df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTxSs_LogReset</definition>
+        <argsstring>(XV_SdiTxSs *InstancePtr)</argsstring>
+        <name>XV_SdiTxSs_LogReset</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will reset the driver&apos;s logging mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the xv_sditxss core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" bodystart="43" bodyend="50"/>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" compoundref="xv__sditxss_8h" startline="101">XV_SdiTxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" compoundref="xv__sditxss_8h" startline="178">XV_SdiTxSs::Log</references>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" compoundref="xv__sditxss_8h" startline="103">XV_SdiTxSs_Log::TailIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditxss__log_8c_1a986a5881e775194f864ebaa1f055afa6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTxSs_LogWrite</definition>
+        <argsstring>(XV_SdiTxSs *InstancePtr, XV_SdiTxSs_LogEvent Evt, u8 Data)</argsstring>
+        <name>XV_SdiTxSs_LogWrite</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553" kindref="member">XV_SdiTxSs_LogEvent</ref></type>
+          <declname>Evt</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function will insert an event in the driver&apos;s logginc mechanism. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Evt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the event type to log. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the associated data for the event.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" bodystart="64" bodyend="97"/>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" compoundref="xv__sditxss_8h" startline="100">XV_SdiTxSs_Log::DataBuffer</references>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" compoundref="xv__sditxss_8h" startline="101">XV_SdiTxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" compoundref="xv__sditxss_8h" startline="178">XV_SdiTxSs::Log</references>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" compoundref="xv__sditxss_8h" startline="103">XV_SdiTxSs_Log::TailIndex</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224" compoundref="xv__sditxss_8h" startline="93">XV_SDITXSS_LOG_EVT_DUMMY</references>
+        <referencedby refid="xv__sditxss_8h_1aa665c8a153ad4e024a9b02d5fc4fb691" compoundref="xv__sditxss_8c" startline="519" endline="539">XV_SdiTxSs_Stop</referencedby>
+        <referencedby refid="xv__sditxss_8h_1ac527da1833b83b72a0bf989e4230c8ae" compoundref="xv__sditxss_8c" startline="864" endline="933">XV_SdiTxSs_StreamConfig</referencedby>
+        <referencedby refid="xv__sditxss_8h_1aaedc93d7d8d155ea9407b0627508e6b6" compoundref="xv__sditxss_8c" startline="821" endline="850">XV_SdiTxSs_StreamStart</referencedby>
+        <referencedby refid="group__v__sditxss_1ga947c864c39e22328573d30b2cd0f4ca3" compoundref="xv__sditxss__coreinit_8c" startline="51" endline="85">XV_SdiTxSs_SubcoreInitSdiTx</referencedby>
+        <referencedby refid="group__v__sditxss_1ga014e94de29a924cc95a2282fe8abf748" compoundref="xv__sditxss__coreinit_8c" startline="96" endline="128">XV_SdiTxSs_SubcoreInitVtc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditxss__log_8c_1a2e203857196f292dfad66248d204e2f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XV_SdiTxSs_LogRead</definition>
+        <argsstring>(XV_SdiTxSs *InstancePtr)</argsstring>
+        <name>XV_SdiTxSs_LogRead</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will read the last event from the log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The log data.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" bodystart="110" bodyend="133"/>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" compoundref="xv__sditxss_8h" startline="100">XV_SdiTxSs_Log::DataBuffer</references>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" compoundref="xv__sditxss_8h" startline="101">XV_SdiTxSs_Log::HeadIndex</references>
+        <references refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" compoundref="xv__sditxss_8h" startline="178">XV_SdiTxSs::Log</references>
+        <references refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" compoundref="xv__sditxss_8h" startline="103">XV_SdiTxSs_Log::TailIndex</references>
+        <referencedby refid="xv__sditxss__log_8c_1ad7c1a04ba9452c9ce929d7d4a54a34ed" compoundref="xv__sditxss__log_8c" startline="145" endline="219">XV_SdiTxSs_LogDisplay</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__sditxss__log_8c_1ad7c1a04ba9452c9ce929d7d4a54a34ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_SdiTxSs_LogDisplay</definition>
+        <argsstring>(XV_SdiTxSs *InstancePtr)</argsstring>
+        <name>XV_SdiTxSs_LogDisplay</name>
+        <param>
+          <type><ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will print the entire log. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c" bodystart="145" bodyend="219"/>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46" compoundref="xv__sditxss_8h" startline="90">XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c" compoundref="xv__sditxss_8h" startline="89">XV_SDITXSS_LOG_EVT_CEALIGN</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a70c37767e46297173c60928158b84041" compoundref="xv__sditxss_8h" startline="79">XV_SDITXSS_LOG_EVT_NONE</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a9bca7aaeaaba359457841df66108f549" compoundref="xv__sditxss_8h" startline="87">XV_SDITXSS_LOG_EVT_OVERFLOW</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a4f123e9b8fe60da8e0840471c809e4d9" compoundref="xv__sditxss_8h" startline="84">XV_SDITXSS_LOG_EVT_RESET</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28" compoundref="xv__sditxss_8h" startline="80">XV_SDITXSS_LOG_EVT_SDITX_INIT</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ab889ddf1b34b030579592b25437c2441" compoundref="xv__sditxss_8h" startline="82">XV_SDITXSS_LOG_EVT_START</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553aeac1a799ac1fe555cd20ff918aa62881" compoundref="xv__sditxss_8h" startline="83">XV_SDITXSS_LOG_EVT_STOP</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a33768bda2ad7a120398f40e165d1d61d" compoundref="xv__sditxss_8h" startline="86">XV_SDITXSS_LOG_EVT_STREAMDOWN</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94" compoundref="xv__sditxss_8h" startline="91">XV_SDITXSS_LOG_EVT_STREAMSTART</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a8d9f788e38c6a09a001b0334ac33aa5c" compoundref="xv__sditxss_8h" startline="85">XV_SDITXSS_LOG_EVT_STREAMUP</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553aaefd873e00cbcf42d8df28b0ca3def64" compoundref="xv__sditxss_8h" startline="88">XV_SDITXSS_LOG_EVT_UNDERFLOW</references>
+        <references refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c" compoundref="xv__sditxss_8h" startline="81">XV_SDITXSS_LOG_EVT_VTC_INIT</references>
+        <references refid="xv__sditxss_8h_1a2e203857196f292dfad66248d204e2f8" compoundref="xv__sditxss__log_8c" startline="110" endline="133">XV_SdiTxSs_LogRead</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   jsr  07/17/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sditxss_8h" kindref="compound">xv_sditxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="43" refid="xv__sditxss__log_8c_1a6018ef35dec27977430d676e948371df" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditxss_8h_1a6018ef35dec27977430d676e948371df" kindref="member">XV_SdiTxSs_LogReset</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="64" refid="xv__sditxss__log_8c_1a986a5881e775194f864ebaa1f055afa6" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditxss_8h_1a986a5881e775194f864ebaa1f055afa6" kindref="member">XV_SdiTxSs_LogWrite</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*InstancePtr,<sp/><ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553" kindref="member">XV_SdiTxSs_LogEvent</ref><sp/>Evt,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Evt<sp/>&lt;=<sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553abde742780ffd0391fac7379cc7052224" kindref="member">XV_SDITXSS_LOG_EVT_DUMMY</ref>));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Data<sp/>&lt;<sp/>0xFF);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>data<sp/>and<sp/>event<sp/>into<sp/>log<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>Evt;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>head<sp/>pointer<sp/>if<sp/>reached<sp/>to<sp/>end<sp/>of<sp/>the<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref>++;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>tail<sp/>pointer.<sp/>When<sp/>the<sp/>two<sp/>pointer<sp/>are<sp/>equal,<sp/>then<sp/>the<sp/>buffer</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>full.<sp/>In<sp/>this<sp/>case<sp/>then<sp/>increment<sp/>the<sp/>tail<sp/>pointer<sp/>as<sp/>well<sp/>to</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>remove<sp/>the<sp/>oldest<sp/>entry<sp/>from<sp/>the<sp/>buffer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="xv__sditxss__log_8c_1a2e203857196f292dfad66248d204e2f8" refkind="member"><highlight class="normal">u16<sp/><ref refid="xv__sditxss_8h_1a2e203857196f292dfad66248d204e2f8" kindref="member">XV_SdiTxSs_LogRead</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Log;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>there<sp/>is<sp/>any<sp/>data<sp/>in<sp/>the<sp/>log<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>==<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9195a8738123026919280b2386633ddb" kindref="member">HeadIndex</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" kindref="member">DataBuffer</ref>[InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref>];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Increment<sp/>tail<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>==</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a9837f18c49e51f4217f2a3f0fa140ed6" kindref="member">DataBuffer</ref>)<sp/>/<sp/>2)<sp/>-<sp/>1))<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v___sdi_tx_ss_1a310541f8343d83af656a6b8a313a3d4c" kindref="member">Log</ref>.<ref refid="struct_x_v___sdi_tx_ss___log_1a862a821dfbcb36684f083fa35415d657" kindref="member">TailIndex</ref>++;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Log;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="145" refid="xv__sditxss__log_8c_1ad7c1a04ba9452c9ce929d7d4a54a34ed" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__sditxss_8h_1ad7c1a04ba9452c9ce929d7d4a54a34ed" kindref="member">XV_SdiTxSs_LogDisplay</ref>(<ref refid="struct_x_v___sdi_tx_ss" kindref="compound">XV_SdiTxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Log;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Evt;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Data;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n\n\nSDI<sp/>TX<sp/>log\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__sditxss_8h_1a2e203857196f292dfad66248d204e2f8" kindref="member">XV_SdiTxSs_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Log<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Evt<sp/>=<sp/>Log<sp/>&amp;<sp/>0xff;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>(Log<sp/>&gt;&gt;<sp/>8)<sp/>&amp;<sp/>0xFF;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Data;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Evt)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a70c37767e46297173c60928158b84041" kindref="member">XV_SDITXSS_LOG_EVT_NONE</ref>):</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SDI<sp/>TXSS<sp/>log<sp/>end\r\n-------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ae22f2169dcf22ddb067ac470c4c3ea28" kindref="member">XV_SDITXSS_LOG_EVT_SDITX_INIT</ref>):</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>SDI<sp/>TX<sp/>core....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553afc8392e1e0ed781f3a833f6a2b292c3c" kindref="member">XV_SDITXSS_LOG_EVT_VTC_INIT</ref>):</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Initializing<sp/>VTC<sp/>core....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553ab889ddf1b34b030579592b25437c2441" kindref="member">XV_SDITXSS_LOG_EVT_START</ref>):</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Start<sp/>SDI<sp/>TX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553aeac1a799ac1fe555cd20ff918aa62881" kindref="member">XV_SDITXSS_LOG_EVT_STOP</ref>):</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Stop<sp/>SDI<sp/>TX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a4f123e9b8fe60da8e0840471c809e4d9" kindref="member">XV_SDITXSS_LOG_EVT_RESET</ref>):</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Reset<sp/>SDI<sp/>TX<sp/>Subsystem....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(XV_SDITXSS_LOG_EVT_STREAMCFG):</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Configure<sp/>SDI<sp/>TX<sp/>Core....\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a8d9f788e38c6a09a001b0334ac33aa5c" kindref="member">XV_SDITXSS_LOG_EVT_STREAMUP</ref>):</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>is<sp/>Up\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a33768bda2ad7a120398f40e165d1d61d" kindref="member">XV_SDITXSS_LOG_EVT_STREAMDOWN</ref>):</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>is<sp/>Down\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a9bca7aaeaaba359457841df66108f549" kindref="member">XV_SDITXSS_LOG_EVT_OVERFLOW</ref>):</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>is<sp/>Overflowed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553aaefd873e00cbcf42d8df28b0ca3def64" kindref="member">XV_SDITXSS_LOG_EVT_UNDERFLOW</ref>):</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>is<sp/>Underflowed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a1bbcbe23ea627a2ab2a96ed9f403666c" kindref="member">XV_SDITXSS_LOG_EVT_CEALIGN</ref>):</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>has<sp/>CE<sp/>align<sp/>errors\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a63589926dcc66160bc9d119c338ebc46" kindref="member">XV_SDITXSS_LOG_EVT_AXI4SVIDLOCK</ref>):</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>axi4s<sp/>bridge<sp/>locked\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__sditxss_8h_1afe1f5ed1c9022fbb0da8ddfbdf2d7553a9e58b21831ecfa79fd021ddb6eb92e94" kindref="member">XV_SDITXSS_LOG_EVT_STREAMSTART</ref>):</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TX<sp/>Stream<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Unknown<sp/>event\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>log<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Log<sp/>=<sp/><ref refid="xv__sditxss_8h_1a2e203857196f292dfad66248d204e2f8" kindref="member">XV_SdiTxSs_LogRead</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/src/xv_sditxss_log.c"/>
+  </compounddef>
+</doxygen>

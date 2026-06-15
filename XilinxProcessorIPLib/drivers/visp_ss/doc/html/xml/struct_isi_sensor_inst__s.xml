@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_sensor_inst__s" kind="struct" prot="public">
+    <compoundname>IsiSensorInst_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__isi_1gae539e08d0b0a45138e09d19b1b52576e" prot="public" static="no" mutable="no">
+        <type>IsiSensorHandle_t</type>
+        <definition>IsiSensorHandle_t IsiSensorInst_s::hIsiSensor[CAMDEV_INSTANCE_MAX]</definition>
+        <argsstring>[CAMDEV_INSTANCE_MAX]</argsstring>
+        <name>hIsiSensor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/control/include/isi_control.h" bodystart="54" bodyend="57"/>
+    <listofallmembers>
+      <member refid="group__isi_1gae539e08d0b0a45138e09d19b1b52576e" prot="public" virt="non-virtual"><scope>IsiSensorInst_s</scope><name>hIsiSensor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

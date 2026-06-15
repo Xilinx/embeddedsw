@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemacps__intr_8c" kind="file">
+    <compoundname>xemacps_intr.c</compoundname>
+    <includes refid="xemacps_8h" local="yes">xemacps.h</includes>
+    <incdepgraph>
+      <node id="202">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="205">
+        <label>xil_io.h</label>
+      </node>
+      <node id="206">
+        <label>xemacps_bd.h</label>
+        <link refid="xemacps__bd_8h"/>
+        <childnode refid="207" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+      </node>
+      <node id="208">
+        <label>xemacps_bdring.h</label>
+        <link refid="xemacps__bdring_8h"/>
+      </node>
+      <node id="204">
+        <label>xemacps_hw.h</label>
+        <link refid="xemacps__hw_8h"/>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+      </node>
+      <node id="207">
+        <label>string.h</label>
+      </node>
+      <node id="203">
+        <label>xstatus.h</label>
+      </node>
+      <node id="200">
+        <label>xemacps.h</label>
+        <link refid="xemacps_8h"/>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+        <childnode refid="208" relation="include">
+        </childnode>
+      </node>
+      <node id="201">
+        <label>xil_types.h</label>
+      </node>
+      <node id="199">
+        <label>xemacps_intr.c</label>
+        <link refid="xemacps_intr.c"/>
+        <childnode refid="200" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__emacps_1gafb0f1c4bf64ca85dd4aa6ef83998e73f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LONG</type>
+        <definition>LONG XEmacPs_SetHandler</definition>
+        <argsstring>(XEmacPs *InstancePtr, u32 HandlerType, void *FuncPointer, void *CallBackRef)</argsstring>
+        <name>XEmacPs_SetHandler</name>
+        <param>
+          <type><ref refid="group__emacps_1ga7510da8ed2cb292c5abdbcc18cc26c67" kindref="member">XEmacPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>FuncPointer</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Install an asynchronous handler function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates what interrupt handler type is. XEMACPS_HANDLER_DMASEND, XEMACPS_HANDLER_DMARECV and XEMACPS_HANDLER_ERROR. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+None.</para><para><simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="856" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_intr.c" bodystart="80" bodyend="109"/>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emacps_1ga7fc1d16432c05d4e773bed878f528184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacPs_IntrHandler</definition>
+        <argsstring>(void *XEmacPsPtr)</argsstring>
+        <name>XEmacPs_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>XEmacPsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Master interrupt handler for EMAC driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This routine will query the status of the device, bump statistics, and invoke user callbacks.</para><para>This routine must be connected to an interrupt controller using OS/BSP specific methods.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>XEmacPsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XEMACPS instance that has caused the interrupt. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps.h" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_intr.c" bodystart="123" bodyend="236"/>
+        <references refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" compoundref="xemacps_8h" startline="522">XEmacPs_Config::BaseAddress</references>
+        <references refid="group__emacps_1gad4398ed6e4d94d5f5249118f775f1e7f" compoundref="xemacps__hw_8c" startline="108" endline="129">XEmacPs_GetQxOffset</references>
+        <references refid="group__emacps_1ga79e6717cd2ea26ef74423ed6cfdc3d85" compoundref="xemacps__hw_8h" startline="132">XEMACPS_ISR_OFFSET</references>
+        <references refid="group__emacps_1gaa9e60e91d157283f0ea8f03755226020" compoundref="xemacps__hw_8h" startline="734">XEMACPS_IXR_RXUSED_MASK</references>
+        <references refid="group__emacps_1ga0e6164088971304c6c0c1280b8d9a857" compoundref="xemacps__hw_8h" startline="727">XEMACPS_IXR_TXCOMPL_MASK</references>
+        <references refid="group__emacps_1ga55357d16c369e1c0f59aa1783a607145" compoundref="xemacps__hw_8h" startline="435">XEMACPS_NWCTRL_FLUSH_DPRAM_MASK</references>
+        <references refid="group__emacps_1gae9bc110a6c627eb231938ebd4d89fecc" compoundref="xemacps__hw_8h" startline="122">XEMACPS_NWCTRL_OFFSET</references>
+        <references refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" compoundref="xemacps__hw_8h" startline="881">XEmacPs_ReadReg</references>
+        <references refid="group__emacps_1ga70ef56eede3eee5f94fdfcc5e07daddc" compoundref="xemacps__hw_8h" startline="91">XEMACPS_RECV</references>
+        <references refid="group__emacps_1gaa0f40fd4233638c0edb7d193f0dd9ebe" compoundref="xemacps__hw_8h" startline="589">XEMACPS_RXSR_BUFFNA_MASK</references>
+        <references refid="group__emacps_1gaa7c0eff340eece6d15635d0132db3769" compoundref="xemacps__hw_8h" startline="588">XEMACPS_RXSR_FRAMERX_MASK</references>
+        <references refid="group__emacps_1ga9d2ff614ea10f7448458a10f29a8b8e3" compoundref="xemacps__hw_8h" startline="130">XEMACPS_RXSR_OFFSET</references>
+        <references refid="group__emacps_1ga3bfee75b86c3c4b3cde11d1156c3d9bc" compoundref="xemacps__hw_8h" startline="90">XEMACPS_SEND</references>
+        <references refid="group__emacps_1ga8746c9de755fea06a624cc6938992074" compoundref="xemacps__hw_8h" startline="127">XEMACPS_TXSR_OFFSET</references>
+        <references refid="group__emacps_1ga7c2e1ca2fa55c9fa02ade59a1ccbbbd6" compoundref="xemacps__hw_8h" startline="565">XEMACPS_TXSR_TXCOMPL_MASK</references>
+        <references refid="group__emacps_1ga4ba2ce1e3be274d54c8eb51ad313c5a9" compoundref="xemacps__hw_8h" startline="572">XEMACPS_TXSR_USEDREAD_MASK</references>
+        <references refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" compoundref="xemacps__hw_8h" startline="902">XEmacPs_WriteReg</references>
+        <referencedby refid="xemacps__example__intr__dma_8c_1aa91855dbce2897b52a49dd1e100c4f38" compoundref="xemacps__example__intr__dma_8c" startline="407" endline="698">EmacPsDmaIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemacps_8h" kindref="compound">xemacps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="80" refid="group__emacps_1gafb0f1c4bf64ca85dd4aa6ef83998e73f" refkind="member"><highlight class="normal">LONG<sp/><ref refid="group__emacps_1gafb0f1c4bf64ca85dd4aa6ef83998e73f" kindref="member">XEmacPs_SetHandler</ref>(<ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*FuncPointer,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LONG<sp/>Status;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FuncPointer<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;IsReady<sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XEMACPS_HANDLER_DMASEND:</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(LONG)(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendHandler<sp/>=<sp/>((<ref refid="group__emacps_1ga51ed97693d607dd5d9e69884f61ec7d0" kindref="member">XEmacPs_Handler</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)FuncPointer);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XEMACPS_HANDLER_DMARECV:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(LONG)(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvHandler<sp/>=<sp/>((<ref refid="group__emacps_1ga51ed97693d607dd5d9e69884f61ec7d0" kindref="member">XEmacPs_Handler</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)FuncPointer);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>XEMACPS_HANDLER_ERROR:</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(LONG)(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ErrorHandler<sp/>=<sp/>((<ref refid="group__emacps_1ga389eeec67ead68d2abf5b05c244a6add" kindref="member">XEmacPs_ErrHandler</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)FuncPointer);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ErrorRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(LONG)(XST_INVALID_PARAM);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="123" refid="group__emacps_1ga7fc1d16432c05d4e773bed878f528184" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emacps_1ga7fc1d16432c05d4e773bed878f528184" kindref="member">XEmacPs_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*XEmacPsPtr)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegISR;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegSR;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegCtrl;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*InstancePtr<sp/>=<sp/>(<ref refid="struct_x_emac_ps___instance" kindref="compound">XEmacPs</ref><sp/>*)<sp/>XEmacPsPtr;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegQiISR[32]<sp/>=<sp/>{0};<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Max<sp/>queues<sp/>possible<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>i<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>(u32)XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>This<sp/>ISR<sp/>will<sp/>try<sp/>to<sp/>handle<sp/>as<sp/>many<sp/>interrupts<sp/>as<sp/>it<sp/>can<sp/>in<sp/>a<sp/>single</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>call.<sp/>However,<sp/>in<sp/>most<sp/>of<sp/>the<sp/>places<sp/>where<sp/>the<sp/>user&apos;s<sp/>error<sp/>handler</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>called,<sp/>this<sp/>ISR<sp/>exits<sp/>because<sp/>it<sp/>is<sp/>expected<sp/>that<sp/>the<sp/>user<sp/>will</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>reset<sp/>the<sp/>device<sp/>in<sp/>nearly<sp/>all<sp/>instances.</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegISR<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga79e6717cd2ea26ef74423ed6cfdc3d85" kindref="member">XEMACPS_ISR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>all<sp/>queues<sp/>ISR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Iterate<sp/>over<sp/>all<sp/>queues<sp/>and<sp/>get<sp/>status<sp/>in<sp/>array<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i=0;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;MaxQueues;<sp/>i++)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegQiISR[i]<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gad4398ed6e4d94d5f5249118f775f1e7f" kindref="member">XEmacPs_GetQxOffset</ref>(INTQI_STS,<sp/>i));</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__emacps_1ga79e6717cd2ea26ef74423ed6cfdc3d85" kindref="member">XEMACPS_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegQiISR[0]);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Rx<sp/>complete<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i=0;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;MaxQueues;<sp/><sp/>i++)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>RegQiISR[i]<sp/><sp/>&amp;<sp/>XEMACPS_INTQISR_RXCOMPL_MASK<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>RX<sp/>status<sp/>register<sp/>RX<sp/>complete<sp/>indication<sp/>but<sp/>preserve</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>bits<sp/>if<sp/>there<sp/>is<sp/>any<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gad4398ed6e4d94d5f5249118f775f1e7f" kindref="member">XEmacPs_GetQxOffset</ref>(INTQI_STS,<sp/>i),</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEMACPS_INTQISR_RXCOMPL_MASK);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga9d2ff614ea10f7448458a10f29a8b8e3" kindref="member">XEMACPS_RXSR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__emacps_1gaa7c0eff340eece6d15635d0132db3769" kindref="member">XEMACPS_RXSR_FRAMERX_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__emacps_1gaa0f40fd4233638c0edb7d193f0dd9ebe" kindref="member">XEMACPS_RXSR_BUFFNA_MASK</ref>));</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvHandler(InstancePtr-&gt;RecvRef);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>Q&apos;s<sp/>complete<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i=0;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;MaxQueues;<sp/><sp/>i++)</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<sp/>RegQiISR[i]<sp/><sp/>&amp;<sp/>XEMACPS_INTQISR_TXCOMPL_MASK<sp/>)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>TX<sp/>status<sp/>register<sp/>TX<sp/>complete<sp/>indication<sp/>but<sp/>preserve</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>error<sp/>bits<sp/>if<sp/>there<sp/>is<sp/>any<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gad4398ed6e4d94d5f5249118f775f1e7f" kindref="member">XEmacPs_GetQxOffset</ref>(INTQI_STS,<sp/>i),</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEMACPS_INTQISR_TXCOMPL_MASK);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga8746c9de755fea06a624cc6938992074" kindref="member">XEMACPS_TXSR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)<ref refid="group__emacps_1ga7c2e1ca2fa55c9fa02ade59a1ccbbbd6" kindref="member">XEMACPS_TXSR_TXCOMPL_MASK</ref><sp/>|</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__emacps_1ga4ba2ce1e3be274d54c8eb51ad313c5a9" kindref="member">XEMACPS_TXSR_USEDREAD_MASK</ref>));</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendHandler(InstancePtr-&gt;SendRef);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Receive<sp/>error<sp/>conditions<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegISR<sp/>&amp;<sp/>XEMACPS_IXR_RX_ERR_MASK)<sp/>!=<sp/>0x00000000U)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>RX<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegSR<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga9d2ff614ea10f7448458a10f29a8b8e3" kindref="member">XEMACPS_RXSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga9d2ff614ea10f7448458a10f29a8b8e3" kindref="member">XEMACPS_RXSR_OFFSET</ref>,<sp/>RegSR);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fix<sp/>for<sp/>CR<sp/>#<sp/>692702.<sp/>Write<sp/>to<sp/>bit<sp/>18<sp/>of<sp/>net_ctrl</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register<sp/>to<sp/>flush<sp/>a<sp/>packet<sp/>out<sp/>of<sp/>Rx<sp/>SRAM<sp/>upon</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>an<sp/>error<sp/>for<sp/>receive<sp/>buffer<sp/>not<sp/>available.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RegISR<sp/>&amp;<sp/><ref refid="group__emacps_1gaa9e60e91d157283f0ea8f03755226020" kindref="member">XEMACPS_IXR_RXUSED_MASK</ref>)<sp/>!=<sp/>0x00000000U)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegCtrl<sp/>=</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gae9bc110a6c627eb231938ebd4d89fecc" kindref="member">XEMACPS_NWCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegCtrl<sp/>|=<sp/>(u32)<ref refid="group__emacps_1ga55357d16c369e1c0f59aa1783a607145" kindref="member">XEMACPS_NWCTRL_FLUSH_DPRAM_MASK</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gae9bc110a6c627eb231938ebd4d89fecc" kindref="member">XEMACPS_NWCTRL_OFFSET</ref>,<sp/>RegCtrl);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(RegSR<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ErrorHandler(InstancePtr-&gt;ErrorRef,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga70ef56eede3eee5f94fdfcc5e07daddc" kindref="member">XEMACPS_RECV</ref>,<sp/>RegSR);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>When<sp/>XEMACPS_IXR_TXCOMPL_MASK<sp/>is<sp/>flagged,<sp/>XEMACPS_IXR_TXUSED_MASK</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>will<sp/>be<sp/>asserted<sp/>the<sp/>same<sp/>time.</highlight></codeline>
+<codeline lineno="211"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Have<sp/>to<sp/>distinguish<sp/>this<sp/>bit<sp/>to<sp/>handle<sp/>the<sp/>real<sp/>error<sp/>condition.</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>Q1,2,..<sp/>error<sp/>conditions<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i=1;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;MaxQueues;<sp/><sp/>i++)</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(((RegQiISR[i]<sp/>&amp;<sp/>XEMACPS_INTQSR_TXERR_MASK)<sp/>!=<sp/>0x00000000U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegQiISR[i]<sp/>&amp;<sp/>XEMACPS_INTQISR_TXCOMPL_MASK)<sp/>!=<sp/>0x00000000U))<sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>Interrupt<sp/>Q1<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1gad4398ed6e4d94d5f5249118f775f1e7f" kindref="member">XEmacPs_GetQxOffset</ref>(INTQI_STS,<sp/>i),<sp/>RegQiISR[i]);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ErrorHandler(InstancePtr-&gt;ErrorRef,<sp/><ref refid="group__emacps_1ga3bfee75b86c3c4b3cde11d1156c3d9bc" kindref="member">XEMACPS_SEND</ref>,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegQiISR[i]);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmit<sp/>error<sp/>conditions<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((RegISR<sp/>&amp;<sp/>XEMACPS_IXR_TX_ERR_MASK)<sp/>!=<sp/>0x00000000U)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((!(RegISR<sp/>&amp;<sp/><ref refid="group__emacps_1ga0e6164088971304c6c0c1280b8d9a857" kindref="member">XEMACPS_IXR_TXCOMPL_MASK</ref>))<sp/>!=<sp/>0x00000000U))<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>TX<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegSR<sp/>=<sp/><ref refid="group__emacps_1ga81a4d6db864dea35b8ddd690f7615539" kindref="member">XEmacPs_ReadReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga8746c9de755fea06a624cc6938992074" kindref="member">XEMACPS_TXSR_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga372948c9677f6859b62e87504fb2460e" kindref="member">XEmacPs_WriteReg</ref>(InstancePtr-&gt;Config.<ref refid="struct_x_emac_ps___config_1a96d8fef7452fcad2bb1831e39751bb96" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emacps_1ga8746c9de755fea06a624cc6938992074" kindref="member">XEMACPS_TXSR_OFFSET</ref>,<sp/>RegSR);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;ErrorHandler(InstancePtr-&gt;ErrorRef,<sp/><ref refid="group__emacps_1ga3bfee75b86c3c4b3cde11d1156c3d9bc" kindref="member">XEMACPS_SEND</ref>,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegSR);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emacps/src/xemacps_intr.c"/>
+  </compounddef>
+</doxygen>

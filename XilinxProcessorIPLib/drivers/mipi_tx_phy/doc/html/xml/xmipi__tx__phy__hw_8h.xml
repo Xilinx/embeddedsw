@@ -1,0 +1,953 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__tx__phy__hw_8h" kind="file">
+    <compoundname>xmipi_tx_phy_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xmipi__tx__phy_8h" local="yes">xmipi_tx_phy.h</includedby>
+    <incdepgraph>
+      <node id="38">
+        <label>xil_io.h</label>
+      </node>
+      <node id="37">
+        <label>xil_types.h</label>
+      </node>
+      <node id="36">
+        <label>xmipi_tx_phy_hw.h</label>
+        <link refid="xmipi_tx_phy_hw.h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="42">
+        <label>xmipi_tx_phy_g.c</label>
+      </node>
+      <node id="43">
+        <label>xmipi_tx_phy_selftest.c</label>
+        <link refid="xmipi__tx__phy__selftest_8c"/>
+      </node>
+      <node id="44">
+        <label>xmipi_tx_phy_sinit.c</label>
+        <link refid="xmipi__tx__phy__sinit_8c"/>
+      </node>
+      <node id="45">
+        <label>xmipi_tx_phy_example_selftest.c</label>
+        <link refid="xmipi__tx__phy__example__selftest_8c"/>
+      </node>
+      <node id="41">
+        <label>xmipi_tx_phy.c</label>
+        <link refid="xmipi__tx__phy_8c"/>
+      </node>
+      <node id="40">
+        <label>xmipi_tx_phy.h</label>
+        <link refid="xmipi__tx__phy_8h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xmipi_tx_phy_hw.h</label>
+        <link refid="xmipi_tx_phy_hw.h"/>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device registers</header>
+      <description><para>Register sets of MIPI_TX_PHY </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gabbf8c59ccf6c1abcef8dd1c7cb06473c" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CTRL_REG_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga6e16ded337e70f28b3ba7c3c791f736a" prot="public" static="no">
+        <name>XMIPI_TX_PHY_VERSION_REG_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Core Version Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga06d4f400a133fadb577204eb236d8b60" prot="public" static="no">
+        <name>XMIPI_TX_PHY_INIT_TIMER_REG_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Initialization Timer Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga38135baf5eb6b624dacae2760a87f276" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HSTIMEOUT_REG_OFFSET</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Watchdog timeout in HS mode Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga3dd41b223fba7f1f0c099f9444944b19" prot="public" static="no">
+        <name>XMIPI_TX_PHY_ESCTIMEOUT_REG_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+<para>Goto Stop state on timeout timer Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaee3555d2cc9dc91c2f13f39f246af4ac" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_OFFSET</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+<para>Clk lane PHY error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga77c981eb784b931ddee9637d03dfafa6" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DL0STATUS_REG_OFFSET</name>
+        <initializer>0x0000001C</initializer>
+        <briefdescription>
+<para>Data lane 0 PHY error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga16d4d03a4897453d51733d12036c3b02" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DL1STATUS_REG_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Data lane 1 PHY error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaf23b1a894f2241c14d64c555f90a7447" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DL2STATUS_REG_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+<para>Data lane 2 PHY error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga79aad6bfa8e6ae4383887cb10eeb7ef8" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DL3STATUS_REG_OFFSET</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+<para>Data lane 3 PHY error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga595261095922dacb175e9b163bd5f31b" prot="public" static="no">
+        <name>XMIPI_TX_PHY_PROG_SEQ_CTRL_OFFSET</name>
+        <initializer>0x00000038</initializer>
+        <briefdescription>
+<para>Prog Seq Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gab4e89fb7aee1d0061973313026d5e6cd" prot="public" static="no">
+        <name>XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET</name>
+        <initializer>0x0000003C</initializer>
+        <briefdescription>
+<para>Prog Seq Data Register 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga7de26ed0365215b08af78324dfb3550b" prot="public" static="no">
+        <name>XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Prog Seq Data Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XMIPI_TX_PHY_CTRL_REG_OFFSET register</header>
+      <description><para>This register is used for the enabling/disabling and resetting the MIPI_TX_PHY </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaff7758fee41117064aa8d27b5ee69de7" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Soft Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gae8340e846c67ddfc75a11bbd4ac5269d" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CTRL_REG_PHYEN_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Enable/Disable controller. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaab53fbae94c162e2810f2e8bc4d19130" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Soft Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaba9c09bed36f1c618981e53063651f68" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CTRL_REG_PHYEN_OFFSET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bit offset for PHY Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga1eb36a3a4dac7d8bb40282fc26f16f35" prot="public" static="no">
+        <name>XMIPI_TX_PHY_PROG_SEQ_EN_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Enable/Disable Prog Seq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XMIPI_TX_PHY_INIT_REG_OFFSET register</header>
+      <description><para>This register is used for lane Initialization.</para><para>Recommended to use 1ms or longer in for TX mode and 200us-500us for RX mode </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaf73370659b96757f31e43b0b82e6cc80" prot="public" static="no">
+        <name>XMIPI_TX_PHY_INIT_REG_VAL_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Init Timer value in ns. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga08167d1c5a8c66e26d2dbf0728f64be6" prot="public" static="no">
+        <name>XMIPI_TX_PHY_INIT_REG_VAL_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Init Timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask and offset of XMIPI_TX_PHY_HSTIMEOUT_REG_OFFSET register</header>
+      <description><para>This register is used to program watchdog timer in high speed mode.</para><para>Default value is 65541. Valid range 1000-65541. </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gad649853612197175df11883ab64abe41" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HSTIMEOUT_REG_TIMEOUT_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>HS_TX_TIMEOUT Received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga002f9c985356152a355bc1f44b021366" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HSTIMEOUT_REG_TIMEOUT_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask and offset of XMIPI_TX_PHY_ESCTIMEOUT_REG_OFFSET register</header>
+      <description><para>This register contains Rx Data Lanes timeout for watchdog timer in escape mode. </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga3b3542421ec553cab65cbdb1145b146a" prot="public" static="no">
+        <name>XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Escape Timeout Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaf1b47a9cfeecf567a00b6ae5e3b1ae55" prot="public" static="no">
+        <name>XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Escape Timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask and offset of XMIPI_TX_PHY_CLSTATUS_REG_OFFSET register</header>
+      <description><para>This register contains the clock lane status and state machine control. </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga89763534a7c4bbbb64696d34d35df25c" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Clock lane control error. </para>        </briefdescription>
+        <detaileddescription>
+<para>Only for RX </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga9bcfcbfc2bc59101377b603ee65b87ae" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Clock lane stop state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga2b1c1cac54af04e31c36599ed6e8062a" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Initialization done bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga6aece57daaccf4f982fddf764b15a868" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Set in ULPS mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaec485fecc0d01a6803f437395cc66f5b" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Low, High, Esc mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>Combined mask of all clock lane status bits including error control, stop state, initialization done, ULPS, and mode bits </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga0ec9bd18504fe7f5dacbc1bf777d1924" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_ALLMASK</name>
+        <initializer>(<ref refid="group__mipi__tx__phy_1ga89763534a7c4bbbb64696d34d35df25c" kindref="member">XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga9bcfcbfc2bc59101377b603ee65b87ae" kindref="member">XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga2b1c1cac54af04e31c36599ed6e8062a" kindref="member">XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga6aece57daaccf4f982fddf764b15a868" kindref="member">XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1gaec485fecc0d01a6803f437395cc66f5b" kindref="member">XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Combined mask of all clock lane status bits including error control, stop state, initialization done, ULPS, and mode bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga17528c58e673adc82f62fbeab06b22b8" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_OFFSET</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Bit offset for Control Error on Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga9f13683048291c23c8a62cb99de4159a" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bit offset for Stop State on Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gace4f962db90a3d55720867e7e0eb81cc" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bit offset for Initialization Done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga3ad7fcdb85bb50e61fccaa519274bd6f" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_ULPS_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Bit offset for ULPS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga8444ef3ccc6b6a472a6393fd5326027e" prot="public" static="no">
+        <name>XMIPI_TX_PHY_CLSTATUS_REG_MODE_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Mode bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmasks and offsets of XMIPI_TX_PHY_DLxSTATUS_REG_OFFSET register</header>
+      <description><para>This register contains the data lanes status </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga37f17efe16bf0d8be132b6e0619a341e" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_PACKETCOUNT_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Packet Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gac00ba9ecef3361a5bb9fcf0e20a9c6e6" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>Calib status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gabcf51a2a9b4602aa06828c55b7fef9d4" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Calib complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga6f65a8dea651af7702362ae7ef30e191" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_STOP_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Stop State on data lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gad128be776c9344fcec21c7ad7579a2c1" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Set on Data Lane Esc timeout occurs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga54d606cb5490a7e1dd6f2f123c028833" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>Set on Data Lane HS timeout. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga65aea4fb42069d3515c6667c03b90804" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Set after initialization. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaf9a2034abf3cea4fd0d702dc9d364ff0" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Set when MIPI_TX_PHY in ULPS mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gab5bf3d01103d08acc8bbb1cf2cb80ef4" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_MODE_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Control Mode (Esc, Low, High) of Data Lane. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga35fe51d4fe33d10564b2676597896aa5" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_ALLMASK</name>
+        <initializer>(<ref refid="group__mipi__tx__phy_1gab5bf3d01103d08acc8bbb1cf2cb80ef4" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_MODE_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1gaf9a2034abf3cea4fd0d702dc9d364ff0" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga65aea4fb42069d3515c6667c03b90804" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga54d606cb5490a7e1dd6f2f123c028833" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1gad128be776c9344fcec21c7ad7579a2c1" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1ga6f65a8dea651af7702362ae7ef30e191" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_STOP_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1gac00ba9ecef3361a5bb9fcf0e20a9c6e6" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK</ref> |\
+					<ref refid="group__mipi__tx__phy_1gabcf51a2a9b4602aa06828c55b7fef9d4" kindref="member">XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Combined mask for all data lane status bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>Combined mask of all data lane status bits including mode, ULPS, initialization done, HS abort, escape abort, stop state, calibration status, and calibration complete bits </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gabfa6f4bbcae507932db411474983c466" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit offset packet count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gaeb2c29072f2f4470428afb2b2fb66e28" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Bit offset calib status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga28466e4ed8a8e07b00371f6e6062189b" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_OFFSET</name>
+        <initializer>7</initializer>
+        <briefdescription>
+<para>Bit offset Calib complete. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga4802b5075a9ba293b4c0f3ba76d46905" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_STOP_OFFSET</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Bit offset for Stop State. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga78e9d7fe89467eb850509947b1695619" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_OFFSET</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>Bit offset for Escape Abort. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gacfe5c375a23a599452314f778b88cf94" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Bit offset for High Speed Abort. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gace1a0b197742830a78fb50293fdc557e" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_OFFSET</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Bit offset for Initialization done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga5c0a16f8b0feca7fe3f8cc6f54b1af2d" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_OFFSET</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Bit offset for ULPS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga4d4bf96f1ff599cf39682ae6f7733369" prot="public" static="no">
+        <name>XMIPI_TX_PHY_DLXSTATUS_REG_MODE_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for Modes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bitmask and offset of XMIPI_TX_PHY_HSSETTLE_REG_OFFSET register</header>
+      <description><para>This register is used to program the HS SETTLE register.</para><para>Default value is 135 + 10UI. </para></description>
+      <memberdef kind="define" id="group__mipi__tx__phy_1gadd2ac13ad244c63767708f50754e91eb" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_MASK</name>
+        <initializer>0x1FF</initializer>
+        <briefdescription>
+<para>HS_SETTLE value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga288b6d3f90fa63aa3d6ea45d19e12746" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Bit offset for HS_SETTLE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga6bd9c3f2f20cf79b7bd8a52a67b36467" prot="public" static="no">
+        <name>XMIPI_TX_PHY_HW_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mipi__tx__phy_1ga4dab676485278ae963ba2a5c4e5d0063" prot="public" static="no">
+        <name>DL_LANE_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Register offset between consecutive data lane status registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mipi__tx__phy_1gab5a430cb8c920184422c4f46a24cc58b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMipi_Tx_Phy_ReadReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset)</argsstring>
+        <name>XMipi_Tx_Phy_ReadReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a value from a MIPI_TX_PHY register space. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed. If the component is implemented in a smaller width, only the least significant data is read from the register. The most significant data will be read as 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the XCsiSs core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="268" bodyend="271"/>
+      </memberdef>
+      <memberdef kind="function" id="group__mipi__tx__phy_1gacd03651efa1584c1aa38787324e3f922" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XMipi_Tx_Phy_WriteReg</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XMipi_Tx_Phy_WriteReg</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a value to a MIPI_TX_PHY register space A 32 bit write is performed. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the component is implemented in a smaller width, only the least significant data is written.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the XCsiSs core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register (defined at the top of this file) to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write into the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h" bodystart="290" bodyend="293"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XMIPI_TX_PHY_HW_H_</highlight></codeline>
+<codeline lineno="25" refid="group__mipi__tx__phy_1ga6bd9c3f2f20cf79b7bd8a52a67b36467" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Register<sp/>accesses<sp/>are<sp/>32-bit.</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CTRL_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="group__mipi__tx__phy_1gabbf8c59ccf6c1abcef8dd1c7cb06473c" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_VERSION_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="group__mipi__tx__phy_1ga6e16ded337e70f28b3ba7c3c791f736a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_INIT_TIMER_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HSTIMEOUT_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group__mipi__tx__phy_1ga38135baf5eb6b624dacae2760a87f276" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_ESCTIMEOUT_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000014<sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DL0STATUS_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001C<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__mipi__tx__phy_1gaee3555d2cc9dc91c2f13f39f246af4ac" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DL1STATUS_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DL2STATUS_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000024<sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DL3STATUS_REG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__mipi__tx__phy_1ga16d4d03a4897453d51733d12036c3b02" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_PROG_SEQ_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000038<sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_PROG_SEQ_DATA0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x0000003C<sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_PROG_SEQ_DATA1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="group__mipi__tx__phy_1ga7de26ed0365215b08af78324dfb3550b" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_MASK<sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CTRL_REG_PHYEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CTRL_REG_SOFTRESET_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CTRL_REG_PHYEN_OFFSET<sp/>1<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_PROG_SEQ_EN_MASK<sp/>0x1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_INIT_REG_VAL_MASK<sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_INIT_REG_VAL_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="109" refid="group__mipi__tx__phy_1ga08167d1c5a8c66e26d2dbf0728f64be6" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HSTIMEOUT_REG_TIMEOUT_MASK<sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HSTIMEOUT_REG_TIMEOUT_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_MASK<sp/>0xFFFFFFFF<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_ESCTIMEOUT_REG_VAL_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_MASK<sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="132" refid="group__mipi__tx__phy_1ga3b3542421ec553cab65cbdb1145b146a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_MASK<sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_MASK<sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK<sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK<sp/>0x00000003<sp/></highlight></codeline>
+<codeline lineno="141" refid="group__mipi__tx__phy_1ga89763534a7c4bbbb64696d34d35df25c" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_ALLMASK<sp/><sp/><sp/><sp/>(XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="144" refid="group__mipi__tx__phy_1ga9bcfcbfc2bc59101377b603ee65b87ae" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_CLSTATUS_REG_ULPS_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_CLSTATUS_REG_MODE_MASK)<sp/></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_ERRCTRL_OFFSET<sp/>5<sp/></highlight></codeline>
+<codeline lineno="151" refid="group__mipi__tx__phy_1gaec485fecc0d01a6803f437395cc66f5b" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_STOPSTATE_OFFSET<sp/>4<sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_INITDONE_OFFSET<sp/>3<sp/></highlight></codeline>
+<codeline lineno="155" refid="group__mipi__tx__phy_1ga0ec9bd18504fe7f5dacbc1bf777d1924" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_ULPS_OFFSET<sp/>2<sp/></highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_CLSTATUS_REG_MODE_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_PACKETCOUNT_MASK<sp/>0xFFFF0000<sp/></highlight></codeline>
+<codeline lineno="165" refid="group__mipi__tx__phy_1ga17528c58e673adc82f62fbeab06b22b8" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK<sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK<sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_STOP_MASK<sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__mipi__tx__phy_1ga9f13683048291c23c8a62cb99de4159a" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_MASK<sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_MASK<sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_MASK<sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="174" refid="group__mipi__tx__phy_1ga3ad7fcdb85bb50e61fccaa519274bd6f" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_MASK<sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_MODE_MASK<sp/>0x00000003<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_ALLMASK<sp/><sp/>(XMIPI_TX_PHY_DLXSTATUS_REG_MODE_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="183" refid="group__mipi__tx__phy_1ga37f17efe16bf0d8be132b6e0619a341e" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="184" refid="group__mipi__tx__phy_1gac00ba9ecef3361a5bb9fcf0e20a9c6e6" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="185" refid="group__mipi__tx__phy_1gabcf51a2a9b4602aa06828c55b7fef9d4" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_STOP_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="186" refid="group__mipi__tx__phy_1ga6f65a8dea651af7702362ae7ef30e191" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_MASK<sp/>|\</highlight></codeline>
+<codeline lineno="187" refid="group__mipi__tx__phy_1gad128be776c9344fcec21c7ad7579a2c1" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_MASK)<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_PACKCOUNT_OFFSET<sp/>16<sp/></highlight></codeline>
+<codeline lineno="193" refid="group__mipi__tx__phy_1ga65aea4fb42069d3515c6667c03b90804" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_STATUS_OFFSET<sp/>8<sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_CALIB_COMPLETE_OFFSET<sp/>7<sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_STOP_OFFSET<sp/>6<sp/></highlight></codeline>
+<codeline lineno="196" refid="group__mipi__tx__phy_1gaf9a2034abf3cea4fd0d702dc9d364ff0" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ESCABRT_OFFSET<sp/>5<sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_HSABRT_OFFSET<sp/>4<sp/></highlight></codeline>
+<codeline lineno="199" refid="group__mipi__tx__phy_1gab5bf3d01103d08acc8bbb1cf2cb80ef4" refkind="member"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_INITDONE_OFFSET<sp/>3<sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_ULPS_OFFSET<sp/>2<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_DLXSTATUS_REG_MODE_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_MASK<sp/><sp/>0x1FF<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#define<sp/>XMIPI_TX_PHY_HSSETTLE_REG_TIMEOUT_OFFSET<sp/>0<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>DL_LANE_OFFSET<sp/><sp/>4<sp/></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="219" refid="group__mipi__tx__phy_1gabfa6f4bbcae507932db411474983c466" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="group__mipi__tx__phy_1gaeb2c29072f2f4470428afb2b2fb66e28" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="group__mipi__tx__phy_1ga28466e4ed8a8e07b00371f6e6062189b" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="group__mipi__tx__phy_1ga4802b5075a9ba293b4c0f3ba76d46905" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XMipi_Tx_Phy_ReadReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241" refid="group__mipi__tx__phy_1gadd2ac13ad244c63767708f50754e91eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Xil_In32(BaseAddress<sp/>+<sp/>(u32)RegOffset));</highlight></codeline>
+<codeline lineno="242" refid="group__mipi__tx__phy_1ga288b6d3f90fa63aa3d6ea45d19e12746" refkind="member"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="261"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XMipi_Tx_Phy_WriteReg(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>(u32)RegOffset,<sp/>(u32)Data);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipi_tx_phy/src/xmipi_tx_phy_hw.h"/>
+  </compounddef>
+</doxygen>

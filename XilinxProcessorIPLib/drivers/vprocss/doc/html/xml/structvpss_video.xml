@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structvpss_video" kind="struct" prot="public">
+    <compoundname>vpssVideo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvpss_video_1a967a39ffd3300512e454065b23092537" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::width_in</definition>
+        <argsstring></argsstring>
+        <name>width_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1a3d5054907a632649b0a3adcf4fc009dd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::height_in</definition>
+        <argsstring></argsstring>
+        <name>height_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1ac2972937285a7372f04b1c82252f09d1" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat vpssVideo::Cformat_in</definition>
+        <argsstring></argsstring>
+        <name>Cformat_in</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1a6884bcee97cf79f84114075e07c2330a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::Pattern</definition>
+        <argsstring></argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1a6b918a58291e3acd059e06bc82b1f6b8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::IsInterlaced</definition>
+        <argsstring></argsstring>
+        <name>IsInterlaced</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1a88e5ecc3b370f3675f3b81dc6b8bdf3d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::width_out</definition>
+        <argsstring></argsstring>
+        <name>width_out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1af0d329067692178061bdca08886b93a9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 vpssVideo::height_out</definition>
+        <argsstring></argsstring>
+        <name>height_out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvpss_video_1a164a6c915aa5f6067a55d2ff86d2b708" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorFormat</type>
+        <definition>XVidC_ColorFormat vpssVideo::Cformat_out</definition>
+        <argsstring></argsstring>
+        <name>Cformat_out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/xv_procss_example.c" bodystart="163" bodyend="173"/>
+    <listofallmembers>
+      <member refid="structvpss_video_1ac2972937285a7372f04b1c82252f09d1" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>Cformat_in</name></member>
+      <member refid="structvpss_video_1a164a6c915aa5f6067a55d2ff86d2b708" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>Cformat_out</name></member>
+      <member refid="structvpss_video_1a3d5054907a632649b0a3adcf4fc009dd" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>height_in</name></member>
+      <member refid="structvpss_video_1af0d329067692178061bdca08886b93a9" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>height_out</name></member>
+      <member refid="structvpss_video_1a6b918a58291e3acd059e06bc82b1f6b8" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>IsInterlaced</name></member>
+      <member refid="structvpss_video_1a6884bcee97cf79f84114075e07c2330a" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>Pattern</name></member>
+      <member refid="structvpss_video_1a967a39ffd3300512e454065b23092537" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>width_in</name></member>
+      <member refid="structvpss_video_1a88e5ecc3b370f3675f3b81dc6b8bdf3d" prot="public" virt="non-virtual"><scope>vpssVideo</scope><name>width_out</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilpki__ecdsa_8h" kind="file">
+    <compoundname>xilpki_ecdsa.h</compoundname>
+    <includes refid="xilpki_8h" local="yes">xilpki.h</includes>
+    <includedby refid="xilpki_8h" local="yes">xilpki.h</includedby>
+    <incdepgraph>
+      <node id="38">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="40">
+        <label>xil_io.h</label>
+      </node>
+      <node id="37">
+        <label>sleep.h</label>
+      </node>
+      <node id="39">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="43">
+        <label>xil_util.h</label>
+      </node>
+      <node id="45">
+        <label>xtrngpsx.h</label>
+      </node>
+      <node id="42">
+        <label>xil_types.h</label>
+      </node>
+      <node id="44">
+        <label>xparameters.h</label>
+      </node>
+      <node id="46">
+        <label>xil_mmu.h</label>
+      </node>
+      <node id="41">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="36">
+        <label>xilpki.h</label>
+        <link refid="xilpki_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>xilpki_ecdsa.h</label>
+        <link refid="xilpki_ecdsa.h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="50">
+        <label>xilpki_kat.c</label>
+        <link refid="xilpki__kat_8c"/>
+      </node>
+      <node id="52">
+        <label>Xilpki_ecdsa_keypair_example.c</label>
+      </node>
+      <node id="51">
+        <label>Xilpki_ecdsa_example.c</label>
+      </node>
+      <node id="49">
+        <label>xilpki.c</label>
+        <link refid="xilpki_8c"/>
+      </node>
+      <node id="48">
+        <label>xilpki.h</label>
+        <link refid="xilpki_8h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xilpki_ecdsa.h</label>
+        <link refid="xilpki_ecdsa.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pki___ecdsa_crv_info" prot="public">XPki_EcdsaCrvInfo</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_key" prot="public">XPki_EcdsaKey</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_sign" prot="public">XPki_EcdsaSign</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_gpoint" prot="public">XPki_EcdsaGpoint</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_sign_input_data" prot="public">XPki_EcdsaSignInputData</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_verify_input_data" prot="public">XPki_EcdsaVerifyInputData</innerclass>
+    <innerclass refid="struct_x_pki___ecdsa_point_multi_input_data" prot="public">XPki_EcdsaPointMultiInputData</innerclass>
+    <innerclass refid="struct_x_pki___mod_add_input_data" prot="public">XPki_ModAddInputData</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilpki-api_1ga3604e005dc68f5374bbb264ce4257136" prot="public" static="no">
+        <name>NIST_P192_LEN_BYTES</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga6bdf7f4be7098ca8985db64d7e354c06" prot="public" static="no">
+        <name>NIST_P384_LEN_BYTES</name>
+        <initializer>48U</initializer>
+        <briefdescription>
+<para>Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga99a95bd05cc5d2433b3b54f23242beff" prot="public" static="no">
+        <name>NIST_P256_LEN_BYTES</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga2aae30b7b035c8837226e2ca387093bd" prot="public" static="no">
+        <name>NIST_P521_LEN_BYTES</name>
+        <initializer>66U</initializer>
+        <briefdescription>
+<para>Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" prot="public" static="no">
+        <name>XPki_EcdsaCrvType</name>
+        <enumvalue id="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" prot="public">
+          <name>ECC_NIST_P192</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>NIST P-192 curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" prot="public">
+          <name>ECC_NIST_P256</name>
+          <briefdescription>
+<para>NIST P-256 curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" prot="public">
+          <name>ECC_NIST_P384</name>
+          <briefdescription>
+<para>NIST P-384 curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa5a2c0ed5cfaf7d65b68a34a1f5dc0d5c" prot="public">
+          <name>ECC_NIST_P521</name>
+          <briefdescription>
+<para>NIST P-251 curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="58" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xilpki-api_1gada33ab17ef6562cda9cf95e5c74773e7" prot="public" static="no">
+        <name>XPki_EcdsaCrv</name>
+        <enumvalue id="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7af3470f20be5b73c2f62b233ff3119558" prot="public">
+          <name>ECC_BINARY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>ECC Binary curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7a7a0c9adf45eaf35421b9f91889bc51e0" prot="public">
+          <name>ECC_PRIME</name>
+          <briefdescription>
+<para>ECC Prime curve. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="65" bodyend="68"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XILPKI_ECDSA_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPKI_ECDSA_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilpki_8h" kindref="compound">xilpki.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="group__xilpki-api_1ga3604e005dc68f5374bbb264ce4257136" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NIST_P192_LEN_BYTES<sp/><sp/><sp/><sp/><sp/>24U<sp/></highlight></codeline>
+<codeline lineno="41" refid="group__xilpki-api_1ga6bdf7f4be7098ca8985db64d7e354c06" refkind="member"><highlight class="preprocessor">#define<sp/>NIST_P384_LEN_BYTES<sp/><sp/><sp/><sp/><sp/>48U<sp/></highlight></codeline>
+<codeline lineno="42" refid="group__xilpki-api_1ga99a95bd05cc5d2433b3b54f23242beff" refkind="member"><highlight class="preprocessor">#define<sp/>NIST_P256_LEN_BYTES<sp/><sp/><sp/><sp/><sp/>32U<sp/></highlight></codeline>
+<codeline lineno="43" refid="group__xilpki-api_1ga2aae30b7b035c8837226e2ca387093bd" refkind="member"><highlight class="preprocessor">#define<sp/>NIST_P521_LEN_BYTES<sp/><sp/><sp/><sp/><sp/>66U<sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="46"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPKI_ECDSA_NON_SUPPORTED_CRV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>XPKI_ECDSA_INVALID_PARAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XPKI_ECDSA_SIGN_GEN_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XPKI_ECDSA_SIGN_VERIFY_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>XPKI_ECDSA_POINT_MULT_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>XPKI_MOD_ADD_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>XPKI_DONE_STATUS_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="59" refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" kindref="member">ECC_NIST_P192</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" kindref="member">ECC_NIST_P256</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" kindref="member">ECC_NIST_P384</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa5a2c0ed5cfaf7d65b68a34a1f5dc0d5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa5a2c0ed5cfaf7d65b68a34a1f5dc0d5c" kindref="member">ECC_NIST_P521</ref><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}<sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="group__xilpki-api_1gada33ab17ef6562cda9cf95e5c74773e7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="66" refid="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7af3470f20be5b73c2f62b233ff3119558" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7af3470f20be5b73c2f62b233ff3119558" kindref="member">ECC_BINARY</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7a7a0c9adf45eaf35421b9f91889bc51e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ggada33ab17ef6562cda9cf95e5c74773e7a7a0c9adf45eaf35421b9f91889bc51e0" kindref="member">ECC_PRIME</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/><ref refid="group__xilpki-api_1gada33ab17ef6562cda9cf95e5c74773e7" kindref="member">XPki_EcdsaCrv</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gada33ab17ef6562cda9cf95e5c74773e7" kindref="member">XPki_EcdsaCrv</ref><sp/>Crv;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>XPki_EcdsaCrvInfo;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Qx;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Qy;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/>XPki_EcdsaKey;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*SignR;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*SignS;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/>XPki_EcdsaSign;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Gx;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Gy;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Gxlen;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Gylen;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}<sp/>XPki_EcdsaGpoint;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType;<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hashlen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dlen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Klen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Hash;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*D;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*K;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}<sp/>XPki_EcdsaSignInputData;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_EcdsaKey<sp/>PubKey;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_EcdsaSign<sp/>Sign;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Hashlen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Hash;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}<sp/>XPki_EcdsaVerifyInputData;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_EcdsaGpoint<sp/>Gpoint;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dlen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*D;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}<sp/>XPki_EcdsaPointMultiInputData;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Order;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dlen;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*D;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}<sp/>XPki_ModAddInputData;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XILPKI_ECDSA_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___rsa_crt_key_comp" kind="struct" prot="public">
+    <compoundname>XAsu_RsaCrtKeyComp</compoundname>
+    <includes local="no">xasu_rsainfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1ab64253249dcabcd849e8af39d9755336" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___rsa_pub_key_comp" kindref="compound">XAsu_RsaPubKeyComp</ref></type>
+        <definition>XAsu_RsaPubKeyComp XAsu_RsaCrtKeyComp::PubKeyComp</definition>
+        <argsstring></argsstring>
+        <name>PubKeyComp</name>
+        <briefdescription>
+<para>Contains public key components. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1a20f6fb1389fefdaf5726f4917d8c86b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaCrtKeyComp::Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>Prime1</name>
+        <briefdescription>
+<para>Prime number 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1a2999db5f4143a2bb320eb52de6d037a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaCrtKeyComp::Prime2[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>Prime2</name>
+        <briefdescription>
+<para>Prime number 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1aa2955a2d6fe0580f87acbe6b1293a96e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaCrtKeyComp::DP[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>DP</name>
+        <briefdescription>
+<para>Derived component from Prime1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1a181dd793af144619ba9b103cd7594524" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaCrtKeyComp::DQ[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>DQ</name>
+        <briefdescription>
+<para>Derived component from Prime2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___rsa_crt_key_comp_1a81c2fed4904cf161334b754472f28882" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_RsaCrtKeyComp::QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XRSA_MAX_PRIME_SIZE_IN_WORDS]</argsstring>
+        <name>QInv</name>
+        <briefdescription>
+<para>Inverse of Q. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains RSA private key CRT parameters info. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="114">
+        <label>XAsu_RsaCrtKeyComp</label>
+        <link refid="struct_x_asu___rsa_crt_key_comp"/>
+        <childnode refid="115" relation="usage">
+          <edgelabel>PubKeyComp</edgelabel>
+        </childnode>
+      </node>
+      <node id="115">
+        <label>XAsu_RsaPubKeyComp</label>
+        <link refid="struct_x_asu___rsa_pub_key_comp"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsainfo.h" bodystart="120" bodyend="127"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1aa2955a2d6fe0580f87acbe6b1293a96e" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>DP</name></member>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1a181dd793af144619ba9b103cd7594524" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>DQ</name></member>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1a20f6fb1389fefdaf5726f4917d8c86b1" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>Prime1</name></member>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1a2999db5f4143a2bb320eb52de6d037a5" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>Prime2</name></member>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1ab64253249dcabcd849e8af39d9755336" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>PubKeyComp</name></member>
+      <member refid="struct_x_asu___rsa_crt_key_comp_1a81c2fed4904cf161334b754472f28882" prot="public" virt="non-virtual"><scope>XAsu_RsaCrtKeyComp</scope><name>QInv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

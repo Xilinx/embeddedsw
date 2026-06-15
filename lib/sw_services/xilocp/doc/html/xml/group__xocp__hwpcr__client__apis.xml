@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xocp__hwpcr__client__apis" kind="group">
+    <compoundname>xocp_hwpcr_client_apis</compoundname>
+    <title>XilOcp HwPcr Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ExtendHwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, XOcp_HwPcr PcrNum, u64 ExtHashAddr, u32 Size)</argsstring>
+        <name>XOcp_ExtendHwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xocp__definitions_1ga6d4b0b867435b21d30213387044b633c" kindref="member">XOcp_HwPcr</ref></type>
+          <declname>PcrNum</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>ExtHashAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to extend the PCR with provided hash by requesting ROM service. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Variable of XOcp_HwPcr enum to select the PCR to be extended </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ExtHashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of the buffer which holds the hash to be extended </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Size of extended hash</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR extend is success</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_EXTEND_HWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="63" bodyend="89"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" compoundref="xocp__def_8h" startline="104">XOCP_API_EXTEND_HWPCR</references>
+        <references refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633caf88c5559cd77e5b3b88e8f87294c48e5" compoundref="xocp__common_8h" startline="92">XOCP_PCR_1</references>
+        <references refid="group__xocp__definitions_1gga6d4b0b867435b21d30213387044b633ca20e6e5ced54f49d4001064c9fa4e58be" compoundref="xocp__common_8h" startline="98">XOCP_PCR_7</references>
+        <references refid="group__xocp__definitions_1ga5771509ef835b477f9a406226b3b5500" compoundref="xocp__common_8h" startline="54">XOCP_PCR_SIZE_BYTES</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetHwPcr</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u32 PcrMask, u64 PcrBufAddr, u32 PcrBufSize)</argsstring>
+        <name>XOcp_GetHwPcr</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrMask</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PcrBufAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PcrBufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the PCR value from requested PCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Mask that tells which PCR to be read based on the bits set (bit 0 corresponds to PCR 0)and how many PCRs to be read using the number of bits set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBufAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Address of the buffer to store the requested PCR contents </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PcrBufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Buffer size to read the PCR values</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_HWPCR command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="109" bodyend="134"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" compoundref="xocp__def_8h" startline="105">XOCP_API_GET_HWPCR</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GetHwPcrLog</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u64 HwPcrEventAddr, u64 HwPcrLogInfoAddr, u32 NumOfLogEntries)</argsstring>
+        <name>XOcp_GetHwPcrLog</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HwPcrEventAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>HwPcrLogInfoAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumOfLogEntries</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to get the log and status of HWPCR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HwPcrEventAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___hw_pcr_event" kindref="compound">XOcp_HwPcrEvent</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HwPcrLogInfoAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the <ref refid="struct_x_ocp___hw_pcr_log_info" kindref="compound">XOcp_HwPcrLogInfo</ref> structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumOfLogEntries</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Number of log entries to read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If PCR contents are copied</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GET_HWPCRLOG command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/hwpcr/xocp_hwpcr.c" bodystart="150" bodyend="176"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" compoundref="xocp__def_8h" startline="106">XOCP_API_GET_HWPCRLOG</references>
+        <references refid="group__xocp__definitions_1ga2bb2148bec5b9f32b6f5ff80d6d210a2" compoundref="xocp__common_8h" startline="69">XOCP_MAX_NUM_OF_HWPCR_EVENTS</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

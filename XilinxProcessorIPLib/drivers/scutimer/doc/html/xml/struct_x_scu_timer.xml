@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_timer" kind="struct" prot="public">
+    <compoundname>XScuTimer</compoundname>
+    <includes local="no">xscutimer.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_scu_timer___config" kindref="compound">XScuTimer_Config</ref></type>
+        <definition>XScuTimer_Config XScuTimer::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="130" bodyend="-1"/>
+        <referencedby refid="xscutimer__intr__example_8c_1a2dcd3e996abdecd4e3f09b92f23c061b" compoundref="xscutimer__intr__example_8c" startline="165" endline="266">ScuTimerIntrExample</referencedby>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuTimer::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1ga56d8c36e4aa28168de3ba5d7f87feb2d" compoundref="xscutimer_8c" startline="248" endline="266">XScuTimer_GetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gac3036b3f9f6e7735d3e6a6eb74a28e95" compoundref="xscutimer__selftest_8c" startline="60" endline="112">XScuTimer_SelfTest</referencedby>
+        <referencedby refid="group__scutimer_1gac6cd65141b00c0d1940d0b8f2a081faf" compoundref="xscutimer_8c" startline="204" endline="234">XScuTimer_SetPrescaler</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuTimer::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device timer is running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="132" bodyend="-1"/>
+        <referencedby refid="group__scutimer_1ga59badd651be237aab4099cedd96621d2" compoundref="xscutimer_8c" startline="62" endline="105">XScuTimer_CfgInitialize</referencedby>
+        <referencedby refid="group__scutimer_1gabf24fad576d3adab4b53eebdef424bde" compoundref="xscutimer_8c" startline="119" endline="147">XScuTimer_Start</referencedby>
+        <referencedby refid="group__scutimer_1gaac0376fbfeb5c29bb44403d6fefd0843" compoundref="xscutimer_8c" startline="161" endline="189">XScuTimer_Stop</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_scu_timer" kindref="compound">XScuTimer</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every timer device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XScuTimer_Config</label>
+        <link refid="struct_x_scu_timer___config"/>
+      </node>
+      <node id="1">
+        <label>XScuTimer</label>
+        <link refid="struct_x_scu_timer"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scutimer/src/xscutimer.h" bodystart="129" bodyend="133"/>
+    <listofallmembers>
+      <member refid="struct_x_scu_timer_1a6dfa00cf1df32f581332123902bd2e0e" prot="public" virt="non-virtual"><scope>XScuTimer</scope><name>Config</name></member>
+      <member refid="struct_x_scu_timer_1a348e1922cf71c91c233629655acaef32" prot="public" virt="non-virtual"><scope>XScuTimer</scope><name>IsReady</name></member>
+      <member refid="struct_x_scu_timer_1aa0f089c744abd0bbd2e9b86e494241a5" prot="public" virt="non-virtual"><scope>XScuTimer</scope><name>IsStarted</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

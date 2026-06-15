@@ -1,0 +1,1897 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xbram__hw_8h" kind="file">
+    <compoundname>xbram_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xbram_8h" local="yes">xbram.h</includedby>
+    <incdepgraph>
+      <node id="49">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="50">
+        <label>xil_io.h</label>
+      </node>
+      <node id="47">
+        <label>xbram_hw.h</label>
+        <link refid="xbram_hw.h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="48">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="58">
+        <label>xbram_example.c</label>
+        <link refid="xbram__example_8c"/>
+      </node>
+      <node id="51">
+        <label>xbram_hw.h</label>
+        <link refid="xbram_hw.h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xbram_intr.c</label>
+        <link refid="xbram__intr_8c"/>
+      </node>
+      <node id="56">
+        <label>xbram_selftest.c</label>
+        <link refid="xbram__selftest_8c"/>
+      </node>
+      <node id="57">
+        <label>xbram_sinit.c</label>
+        <link refid="xbram__sinit_8c"/>
+      </node>
+      <node id="59">
+        <label>xbram_intr_example.c</label>
+        <link refid="xbram__intr__example_8c"/>
+      </node>
+      <node id="53">
+        <label>xbram.c</label>
+        <link refid="xbram_8c"/>
+      </node>
+      <node id="52">
+        <label>xbram.h</label>
+        <link refid="xbram_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xbram_g.c</label>
+        <link refid="xbram__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Registers</header>
+      <description><para>Register offsets for this device. </para></description>
+      <memberdef kind="define" id="group__bram_1gab88ad395282af43eaf6890c73e1a767d" prot="public" static="no">
+        <name>XBRAM_ECC_STATUS_OFFSET</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>ECC status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="135" endline="156">XBram_InterruptClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" prot="public" static="no">
+        <name>XBRAM_ECC_EN_IRQ_OFFSET</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+<para>ECC interrupt enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="98" endline="115">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="62" endline="79">XBram_InterruptEnable</referencedby>
+        <referencedby refid="group__bram_1gafec7418ceae662672c03a938290da9dd" compoundref="xbram__intr_8c" startline="174" endline="182">XBram_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" compoundref="xbram__intr_8c" startline="204" endline="212">XBram_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5a60015301177917f16c852b91a804a8" prot="public" static="no">
+        <name>XBRAM_ECC_ON_OFF_OFFSET</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+<para>ECC on/off register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5984531e736eafd1a13193da61cba776" prot="public" static="no">
+        <name>XBRAM_CE_CNT_OFFSET</name>
+        <initializer>0xC</initializer>
+        <briefdescription>
+<para>Correctable error counter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad84de0d6fe7b326b75f3a204f09bcb6c" prot="public" static="no">
+        <name>XBRAM_CE_FFD_0_OFFSET</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga53c453716e72763bd19786d217fc3bbc" prot="public" static="no">
+        <name>XBRAM_CE_FFD_1_OFFSET</name>
+        <initializer>0x104</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga2a535c1b67c8a9a5269177d101e2c756" prot="public" static="no">
+        <name>XBRAM_CE_FFD_2_OFFSET</name>
+        <initializer>0x108</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaaca415ca0a5618f930cf32fd013297fc" prot="public" static="no">
+        <name>XBRAM_CE_FFD_3_OFFSET</name>
+        <initializer>0x10C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga2869a0061c7ff0ade8b507135f404b02" prot="public" static="no">
+        <name>XBRAM_CE_FFD_4_OFFSET</name>
+        <initializer>0x110</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga70ced7f84d7536867d282a9661229d58" prot="public" static="no">
+        <name>XBRAM_CE_FFD_5_OFFSET</name>
+        <initializer>0x114</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga8d2bc01b2692925c5843a33e1e78ab3c" prot="public" static="no">
+        <name>XBRAM_CE_FFD_6_OFFSET</name>
+        <initializer>0x118</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga8af82dcc00374f78cb3bc37f10647cae" prot="public" static="no">
+        <name>XBRAM_CE_FFD_7_OFFSET</name>
+        <initializer>0x11C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga20bd5998265b96d7c360adc99254b4bb" prot="public" static="no">
+        <name>XBRAM_CE_FFD_8_OFFSET</name>
+        <initializer>0x120</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 287-256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaf989dfcfdb9eab43c4b129f9eba174a5" prot="public" static="no">
+        <name>XBRAM_CE_FFD_9_OFFSET</name>
+        <initializer>0x124</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 319-288. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga00296613e6a8e8bd4c9909667fb3e676" prot="public" static="no">
+        <name>XBRAM_CE_FFD_10_OFFSET</name>
+        <initializer>0x128</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 351-320. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga3c2b4f9ea2b4a54b0c344e28e1f6b5e6" prot="public" static="no">
+        <name>XBRAM_CE_FFD_11_OFFSET</name>
+        <initializer>0x12C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 383-352. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga37f64a964cff8950a5a2e6218eb1862b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_12_OFFSET</name>
+        <initializer>0x130</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 415-384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga660100eb180ce92f5867c54e4b5aadc3" prot="public" static="no">
+        <name>XBRAM_CE_FFD_13_OFFSET</name>
+        <initializer>0x134</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 447-416. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga7b7b39f7a8bce2acd90325d9a64348a5" prot="public" static="no">
+        <name>XBRAM_CE_FFD_14_OFFSET</name>
+        <initializer>0x138</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 479-448. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga39196d0c535fd2154c7396fcb071da7b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_15_OFFSET</name>
+        <initializer>0x13C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 511-480. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga9b40093406a921feff2f6419c4e9c592" prot="public" static="no">
+        <name>XBRAM_CE_FFD_16_OFFSET</name>
+        <initializer>0x140</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 543-512. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5b1f1bb5835a7331a9ed62d1cb011c6b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_17_OFFSET</name>
+        <initializer>0x144</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 575-544. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad307a7a392ee15347020e84dc06145f2" prot="public" static="no">
+        <name>XBRAM_CE_FFD_18_OFFSET</name>
+        <initializer>0x148</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 607-576. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaa066298a3df7ae0cd1cded665037553b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_19_OFFSET</name>
+        <initializer>0x14C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 639-608. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga80b471a580edfdda8a91842ff6d1832b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_20_OFFSET</name>
+        <initializer>0x150</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 671-640. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4d2212a596f185087b0a6fcc259aad8d" prot="public" static="no">
+        <name>XBRAM_CE_FFD_21_OFFSET</name>
+        <initializer>0x154</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 703-672. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga22b9375c4c6979bf4b9ff0f46da20144" prot="public" static="no">
+        <name>XBRAM_CE_FFD_22_OFFSET</name>
+        <initializer>0x158</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 735-704. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga362cc644b2d14ce18e880ac7357409c5" prot="public" static="no">
+        <name>XBRAM_CE_FFD_23_OFFSET</name>
+        <initializer>0x15C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 767-736. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaeddcfb5854b88e4335db26dba0a6acd6" prot="public" static="no">
+        <name>XBRAM_CE_FFD_24_OFFSET</name>
+        <initializer>0x160</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 799-768. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga432d170d7c49d50b98d6cdeab18357c1" prot="public" static="no">
+        <name>XBRAM_CE_FFD_25_OFFSET</name>
+        <initializer>0x164</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 831-800. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga9a6769c89417b38c032900b5d27db888" prot="public" static="no">
+        <name>XBRAM_CE_FFD_26_OFFSET</name>
+        <initializer>0x168</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 863-832. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaa5f596746613deedf350c2a05fa83c41" prot="public" static="no">
+        <name>XBRAM_CE_FFD_27_OFFSET</name>
+        <initializer>0x16C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 895-864. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaa77a0f1427e291c95321811a2f0df97b" prot="public" static="no">
+        <name>XBRAM_CE_FFD_28_OFFSET</name>
+        <initializer>0x170</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 927-896. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab32289b47942c90cb79feb34cec01b91" prot="public" static="no">
+        <name>XBRAM_CE_FFD_29_OFFSET</name>
+        <initializer>0x174</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 959-928. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga0ddc18fca994ef2701ff7c5a85946f1a" prot="public" static="no">
+        <name>XBRAM_CE_FFD_30_OFFSET</name>
+        <initializer>0x178</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 991-960. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaac5b99e4d9e561ad68f834abc34e8374" prot="public" static="no">
+        <name>XBRAM_CE_FFD_31_OFFSET</name>
+        <initializer>0x17C</initializer>
+        <briefdescription>
+<para>Correctable error first failing data Register, 1023-992. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga80f2eea8b2d7528428940b32a65f4d62" prot="public" static="no">
+        <name>XBRAM_CE_FFE_0_OFFSET</name>
+        <initializer>0x180</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaff1d136a2dc08caa938225b04fef25d1" prot="public" static="no">
+        <name>XBRAM_CE_FFE_1_OFFSET</name>
+        <initializer>0x184</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaeb0dd722ff7c9322979747aaf8ffa86b" prot="public" static="no">
+        <name>XBRAM_CE_FFE_2_OFFSET</name>
+        <initializer>0x188</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gadabeed9529bc2962622ed92eaef3fa47" prot="public" static="no">
+        <name>XBRAM_CE_FFE_3_OFFSET</name>
+        <initializer>0x18C</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gac53b5b051994ba0dc8a93047e326d0f4" prot="public" static="no">
+        <name>XBRAM_CE_FFE_4_OFFSET</name>
+        <initializer>0x190</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaed34dd3c61cfd7ee159eacccee9d2b9b" prot="public" static="no">
+        <name>XBRAM_CE_FFE_5_OFFSET</name>
+        <initializer>0x194</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaf10601214d7b5cb9dd1ada50456c53ae" prot="public" static="no">
+        <name>XBRAM_CE_FFE_6_OFFSET</name>
+        <initializer>0x198</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga75dffd37d7d0c364d58f4c887953b83f" prot="public" static="no">
+        <name>XBRAM_CE_FFE_7_OFFSET</name>
+        <initializer>0x19C</initializer>
+        <briefdescription>
+<para>Correctable error first failing ECC Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gae96a0892360cfffc7fa3b3919d35af4a" prot="public" static="no">
+        <name>XBRAM_CE_FFA_0_OFFSET</name>
+        <initializer>0x1C0</initializer>
+        <briefdescription>
+<para>Correctable error first failing address Register 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gac43dab292efb11b1bd7a285552713bb7" prot="public" static="no">
+        <name>XBRAM_CE_FFA_1_OFFSET</name>
+        <initializer>0x1C4</initializer>
+        <briefdescription>
+<para>Correctable error first failing address Register 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gae3cd6bccc199556243b6e055c9e3bcb6" prot="public" static="no">
+        <name>XBRAM_UE_FFD_0_OFFSET</name>
+        <initializer>0x200</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga020822cb899b212488baa0b907a1e0ff" prot="public" static="no">
+        <name>XBRAM_UE_FFD_1_OFFSET</name>
+        <initializer>0x204</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gadc99002d47b36d4cdc6f3d497c836367" prot="public" static="no">
+        <name>XBRAM_UE_FFD_2_OFFSET</name>
+        <initializer>0x208</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaf277f72cc70d8588d491a07c89667c37" prot="public" static="no">
+        <name>XBRAM_UE_FFD_3_OFFSET</name>
+        <initializer>0x20C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga19934429ae7fa3d24018f6f518863329" prot="public" static="no">
+        <name>XBRAM_UE_FFD_4_OFFSET</name>
+        <initializer>0x210</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gace645c7df0709c482d1c4893948ea8fc" prot="public" static="no">
+        <name>XBRAM_UE_FFD_5_OFFSET</name>
+        <initializer>0x214</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga991c6cca9fdaa5741f900edad1eda0f9" prot="public" static="no">
+        <name>XBRAM_UE_FFD_6_OFFSET</name>
+        <initializer>0x218</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad5e650ca47f6d403cc0c23c7f35926c5" prot="public" static="no">
+        <name>XBRAM_UE_FFD_7_OFFSET</name>
+        <initializer>0x21C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gacfbd53de7823e3ca1281fda81bf0eee9" prot="public" static="no">
+        <name>XBRAM_UE_FFD_8_OFFSET</name>
+        <initializer>0x220</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 287-256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga064745425d89b3f03090e6eab65511e9" prot="public" static="no">
+        <name>XBRAM_UE_FFD_9_OFFSET</name>
+        <initializer>0x224</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 319-288. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga51a163c0ff81cd783f6ca5cee38578c6" prot="public" static="no">
+        <name>XBRAM_UE_FFD_10_OFFSET</name>
+        <initializer>0x228</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 351-320. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5fa6a1deabc09186bad48d3ce8de751d" prot="public" static="no">
+        <name>XBRAM_UE_FFD_11_OFFSET</name>
+        <initializer>0x22C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 383-352. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga340cc5cf5e2021cdb80f1b3dc8096b1a" prot="public" static="no">
+        <name>XBRAM_UE_FFD_12_OFFSET</name>
+        <initializer>0x230</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 415-384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga287a2aa0e47e06e0b3573e737645e87d" prot="public" static="no">
+        <name>XBRAM_UE_FFD_13_OFFSET</name>
+        <initializer>0x234</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 447-416. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5fab9920aa039d8c0f11d3c24dd2522c" prot="public" static="no">
+        <name>XBRAM_UE_FFD_14_OFFSET</name>
+        <initializer>0x238</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 479-448. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga3954b06a008318176f626efd83879d9b" prot="public" static="no">
+        <name>XBRAM_UE_FFD_15_OFFSET</name>
+        <initializer>0x23C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 511-480. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga3913509be0f7ba4a818d07da1a832737" prot="public" static="no">
+        <name>XBRAM_UE_FFD_16_OFFSET</name>
+        <initializer>0x240</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 543-512. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga8ac75eeb2a34e03a7a8520a8d639ed6d" prot="public" static="no">
+        <name>XBRAM_UE_FFD_17_OFFSET</name>
+        <initializer>0x244</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 575-544. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4c9813cc90627cd51a47773cbf95f52a" prot="public" static="no">
+        <name>XBRAM_UE_FFD_18_OFFSET</name>
+        <initializer>0x248</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 607-576. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gae3aabef99425370d418dafe230790e88" prot="public" static="no">
+        <name>XBRAM_UE_FFD_19_OFFSET</name>
+        <initializer>0x24C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 639-608. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga15ee9d19cf14b6fa4c85993906bba831" prot="public" static="no">
+        <name>XBRAM_UE_FFD_20_OFFSET</name>
+        <initializer>0x250</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 671-640. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga1dcdc21c8880d9aa3817070d834141ee" prot="public" static="no">
+        <name>XBRAM_UE_FFD_21_OFFSET</name>
+        <initializer>0x254</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 703-672. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaa44103fb2588cb618503fa85f6ee2cdd" prot="public" static="no">
+        <name>XBRAM_UE_FFD_22_OFFSET</name>
+        <initializer>0x258</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 735-704. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaf554747914f2c008c3f3bc88ae959f88" prot="public" static="no">
+        <name>XBRAM_UE_FFD_23_OFFSET</name>
+        <initializer>0x25C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 767-736. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga88054e126d45f0c5365d00dacf730851" prot="public" static="no">
+        <name>XBRAM_UE_FFD_24_OFFSET</name>
+        <initializer>0x260</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 799-768. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga682f4fa42e60f80eaad9699e6602f100" prot="public" static="no">
+        <name>XBRAM_UE_FFD_25_OFFSET</name>
+        <initializer>0x264</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 831-800. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaeb56686ebf310e2de8d393eb9b3b5d2b" prot="public" static="no">
+        <name>XBRAM_UE_FFD_26_OFFSET</name>
+        <initializer>0x268</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 863-832. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga1c2383b058df1f51f2d17a8490c297f6" prot="public" static="no">
+        <name>XBRAM_UE_FFD_27_OFFSET</name>
+        <initializer>0x26C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 895-864. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga06d2e06dfc0a89e37ae11798af6dc289" prot="public" static="no">
+        <name>XBRAM_UE_FFD_28_OFFSET</name>
+        <initializer>0x270</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 927-896. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga62f24e3b288b752071ebbaffb61b436c" prot="public" static="no">
+        <name>XBRAM_UE_FFD_29_OFFSET</name>
+        <initializer>0x274</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 959-928. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gac6b0c902d6e9f2f2ff1fc50fc103882f" prot="public" static="no">
+        <name>XBRAM_UE_FFD_30_OFFSET</name>
+        <initializer>0x278</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 991-960. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga93a70726c0f7980c86431bf3679280e2" prot="public" static="no">
+        <name>XBRAM_UE_FFD_31_OFFSET</name>
+        <initializer>0x27C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing data Register, 1023-992. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gace262620dce703d728892d4091962a92" prot="public" static="no">
+        <name>XBRAM_UE_FFE_0_OFFSET</name>
+        <initializer>0x280</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga24653240a4fb4e604c851da56e14ad5d" prot="public" static="no">
+        <name>XBRAM_UE_FFE_1_OFFSET</name>
+        <initializer>0x284</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad538dc3e048d58f1a740b820dd9435f1" prot="public" static="no">
+        <name>XBRAM_UE_FFE_2_OFFSET</name>
+        <initializer>0x288</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaaa71a742311aedc8025ad23ade124298" prot="public" static="no">
+        <name>XBRAM_UE_FFE_3_OFFSET</name>
+        <initializer>0x28C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5d745fd5f8a6af5f88e929be6a976d27" prot="public" static="no">
+        <name>XBRAM_UE_FFE_4_OFFSET</name>
+        <initializer>0x290</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga2036da79fe3041d68a87eeacb9752d21" prot="public" static="no">
+        <name>XBRAM_UE_FFE_5_OFFSET</name>
+        <initializer>0x294</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gacda7d9738f05d3e7d3287e7fa27ac2a3" prot="public" static="no">
+        <name>XBRAM_UE_FFE_6_OFFSET</name>
+        <initializer>0x298</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaeff9efbeedd055f223f53b215653d367" prot="public" static="no">
+        <name>XBRAM_UE_FFE_7_OFFSET</name>
+        <initializer>0x29C</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing ECC Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga2668f65a7a32f076244671b399e7e22a" prot="public" static="no">
+        <name>XBRAM_UE_FFA_0_OFFSET</name>
+        <initializer>0x2C0</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing address Register 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gace4bc70050f62d21da25858032b4dc09" prot="public" static="no">
+        <name>XBRAM_UE_FFA_1_OFFSET</name>
+        <initializer>0x2C4</initializer>
+        <briefdescription>
+<para>Uncorrectable error first failing address Register 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4327d8d346ed2ff2258df3897efcbcac" prot="public" static="no">
+        <name>XBRAM_FI_D_0_OFFSET</name>
+        <initializer>0x300</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga167bc4cbc6b7419cc695926fced4c81f" prot="public" static="no">
+        <name>XBRAM_FI_D_1_OFFSET</name>
+        <initializer>0x304</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga9f6cc6e12cfa98ec984c4cb3e098b788" prot="public" static="no">
+        <name>XBRAM_FI_D_2_OFFSET</name>
+        <initializer>0x308</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="232" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga3029a3c7c79f9f140ba14c96b38831a8" prot="public" static="no">
+        <name>XBRAM_FI_D_3_OFFSET</name>
+        <initializer>0x30C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gadc1261408bc53307c6115765559c20aa" prot="public" static="no">
+        <name>XBRAM_FI_D_4_OFFSET</name>
+        <initializer>0x310</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gadf7ec54c98166a66aaf97e6e3c6bb471" prot="public" static="no">
+        <name>XBRAM_FI_D_5_OFFSET</name>
+        <initializer>0x314</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga50539ee3694da7ffec33e702bae35b6c" prot="public" static="no">
+        <name>XBRAM_FI_D_6_OFFSET</name>
+        <initializer>0x318</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga6ba64bfd64c2ecb72658ad84dd8682c4" prot="public" static="no">
+        <name>XBRAM_FI_D_7_OFFSET</name>
+        <initializer>0x31C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga34276fc1ad44947d1545b3a60a42613c" prot="public" static="no">
+        <name>XBRAM_FI_D_8_OFFSET</name>
+        <initializer>0x320</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 287-256. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab3431301bd1dcbb1f1ef04509a278140" prot="public" static="no">
+        <name>XBRAM_FI_D_9_OFFSET</name>
+        <initializer>0x324</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 319-288. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="338" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gacf3ff9e2d2cb7d4f322c500d85627490" prot="public" static="no">
+        <name>XBRAM_FI_D_10_OFFSET</name>
+        <initializer>0x328</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 351-320. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gac771132cbf4274f62afe142bd7ff2ea2" prot="public" static="no">
+        <name>XBRAM_FI_D_11_OFFSET</name>
+        <initializer>0x32C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 383-352. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="344" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad2f25266372cc0e30e16b7d0db59225f" prot="public" static="no">
+        <name>XBRAM_FI_D_12_OFFSET</name>
+        <initializer>0x330</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 415-384. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gad0396bceb3bb788d56ccf185b85aa6a9" prot="public" static="no">
+        <name>XBRAM_FI_D_13_OFFSET</name>
+        <initializer>0x334</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 447-416. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaaca82f0ca4d7173cd674b954026108fb" prot="public" static="no">
+        <name>XBRAM_FI_D_14_OFFSET</name>
+        <initializer>0x338</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 479-448. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga213c6e8d33faa8e918b88f4132c3251c" prot="public" static="no">
+        <name>XBRAM_FI_D_15_OFFSET</name>
+        <initializer>0x33C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 511-480. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaf76da6dc3f5451299ed0cc1a514abd19" prot="public" static="no">
+        <name>XBRAM_FI_D_16_OFFSET</name>
+        <initializer>0x340</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 543-512. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga1fcd0a4e54ef5703186d022defd87d3a" prot="public" static="no">
+        <name>XBRAM_FI_D_17_OFFSET</name>
+        <initializer>0x344</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 575-544. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga878d7b4a4e7182fc5552b679089828e1" prot="public" static="no">
+        <name>XBRAM_FI_D_18_OFFSET</name>
+        <initializer>0x348</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 607-576. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="365" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga205e9bf1a66308b549f2122ebb6b347d" prot="public" static="no">
+        <name>XBRAM_FI_D_19_OFFSET</name>
+        <initializer>0x34C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 639-608. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga46cf5511cb6949ddec9ef23ddaf4bc0d" prot="public" static="no">
+        <name>XBRAM_FI_D_20_OFFSET</name>
+        <initializer>0x350</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 671-640. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="371" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab3a504a7e6e2e2f2a79d710c7d082939" prot="public" static="no">
+        <name>XBRAM_FI_D_21_OFFSET</name>
+        <initializer>0x354</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 703-672. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="374" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga0a9250291f63e7d27f7bbac3d30d66c5" prot="public" static="no">
+        <name>XBRAM_FI_D_22_OFFSET</name>
+        <initializer>0x358</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 735-704. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="377" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga17bc17dd12706c541ee4b32fb4d8c5ce" prot="public" static="no">
+        <name>XBRAM_FI_D_23_OFFSET</name>
+        <initializer>0x35C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 767-736. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga5292e1f3c0ff481c4a181520f963e5a0" prot="public" static="no">
+        <name>XBRAM_FI_D_24_OFFSET</name>
+        <initializer>0x360</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 799-768. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="383" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gabcd8cd94272a7fa34de7c4c28b407825" prot="public" static="no">
+        <name>XBRAM_FI_D_25_OFFSET</name>
+        <initializer>0x364</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 831-800. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4b1e60432d61c19d78666f716dcf7204" prot="public" static="no">
+        <name>XBRAM_FI_D_26_OFFSET</name>
+        <initializer>0x368</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 863-832. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="389" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga9ac5e4cdcdce0073e6ba27bab4bdb190" prot="public" static="no">
+        <name>XBRAM_FI_D_27_OFFSET</name>
+        <initializer>0x36C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 895-864. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga13b4e7320cd339df9a4dc634c5532e56" prot="public" static="no">
+        <name>XBRAM_FI_D_28_OFFSET</name>
+        <initializer>0x370</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 927-896. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga821ce4763c0423eb0464ad3f24f69f36" prot="public" static="no">
+        <name>XBRAM_FI_D_29_OFFSET</name>
+        <initializer>0x374</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 959-928. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4c50d9511de680aa9ab19173c0095a8e" prot="public" static="no">
+        <name>XBRAM_FI_D_30_OFFSET</name>
+        <initializer>0x378</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 991-960. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga6a322042e5de4e040a05afac619234e3" prot="public" static="no">
+        <name>XBRAM_FI_D_31_OFFSET</name>
+        <initializer>0x37C</initializer>
+        <briefdescription>
+<para>Fault injection Data Register, 1023-992. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="404" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga50aa03f49e4a6d7cfe7f463f8f7f07e1" prot="public" static="no">
+        <name>XBRAM_FI_ECC_0_OFFSET</name>
+        <initializer>0x380</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 31-0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga4ca449a3a5d6dc1367a8a1846c8412dc" prot="public" static="no">
+        <name>XBRAM_FI_ECC_1_OFFSET</name>
+        <initializer>0x384</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 63-32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab1a7c145c2051e173bd7a552079dde3c" prot="public" static="no">
+        <name>XBRAM_FI_ECC_2_OFFSET</name>
+        <initializer>0x388</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 95-64. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="414" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga242c5934b9a6d44f728d9f3e79273de7" prot="public" static="no">
+        <name>XBRAM_FI_ECC_3_OFFSET</name>
+        <initializer>0x38C</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 127-96. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga37e4b9036be2eb508976c48ddab45f81" prot="public" static="no">
+        <name>XBRAM_FI_ECC_4_OFFSET</name>
+        <initializer>0x390</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 159-128. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="420" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab00c62906a72e957204b8b53fb45518f" prot="public" static="no">
+        <name>XBRAM_FI_ECC_5_OFFSET</name>
+        <initializer>0x394</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 191-160. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="423" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga847d106f744e61162ef6788733623cb0" prot="public" static="no">
+        <name>XBRAM_FI_ECC_6_OFFSET</name>
+        <initializer>0x398</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 223-192. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gacbb201dcba8ad81f0b95680074718824" prot="public" static="no">
+        <name>XBRAM_FI_ECC_7_OFFSET</name>
+        <initializer>0x39C</initializer>
+        <briefdescription>
+<para>Fault injection ECC Register, 255-224. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="429" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status and Enable Register bitmaps and masks</header>
+      <description><para>Bit definitions for the ECC status register and ECC interrupt enable register. </para></description>
+      <memberdef kind="define" id="group__bram_1ga20bf7d2989ac1a6106bee563c75c236e" prot="public" static="no">
+        <name>XBRAM_IR_CE_MASK</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+<para>Mask for the correctable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="441" bodyend="-1"/>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga2802e1adab23086a18d40feaa21647ab" prot="public" static="no">
+        <name>XBRAM_IR_UE_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Mask for the uncorrectable error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="442" bodyend="-1"/>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga8b01c0b7cae31073a32887283a730adf" prot="public" static="no">
+        <name>XBRAM_IR_ALL_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Mask of all bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="443" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__bram_1ga37a12273ae704ac9e23bfe89ce53d492" prot="public" static="no">
+        <name>XBRAM_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab725a51eb27a5248a3ffa4650aa25e07" prot="public" static="no">
+        <name>XBram_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab76c2f1e7202bdf221a8cc09b51f8abb" prot="public" static="no">
+        <name>XBram_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga14aba3e96b949e4227f213067e79be2a" prot="public" static="no">
+        <name>XBram_In16</name>
+        <initializer>Xil_In16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="331" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="455" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gab5b11d6cd4455c7b160bfee616abb6af" prot="public" static="no">
+        <name>XBram_Out16</name>
+        <initializer>Xil_Out16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga034ea94a5823e55f60eb79cf26a3cd00" prot="public" static="no">
+        <name>XBram_In8</name>
+        <initializer>Xil_In8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="334" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga0892d0d529947ffa511a5ccc49661cb8" prot="public" static="no">
+        <name>XBram_Out8</name>
+        <initializer>Xil_Out8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="335" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="459" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" prot="public" static="no">
+        <name>XBram_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XBram_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write a value to a BRAM register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit write is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BRAM device register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__bram_1ga65c3e2f96ab713a71079e4597c3d4b3b" kindref="member">XBram_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="353" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="477" bodyend="-1"/>
+        <referencedby refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="135" endline="156">XBram_InterruptClear</referencedby>
+        <referencedby refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="98" endline="115">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="62" endline="79">XBram_InterruptEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__bram_1gaa1021011d8c25fa885737c6ca9695742" prot="public" static="no">
+        <name>XBram_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XBram_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read a value from a BRAM register. </para>        </briefdescription>
+        <detaileddescription>
+<para>A 32 bit read is performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BRAM device registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset from the base to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Data read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__bram_1gaa1021011d8c25fa885737c6ca9695742" kindref="member">XBram_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" line="370" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h" bodystart="494" bodyend="-1"/>
+        <referencedby refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="135" endline="156">XBram_InterruptClear</referencedby>
+        <referencedby refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="98" endline="115">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="62" endline="79">XBram_InterruptEnable</referencedby>
+        <referencedby refid="group__bram_1gafec7418ceae662672c03a938290da9dd" compoundref="xbram__intr_8c" startline="174" endline="182">XBram_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" compoundref="xbram__intr_8c" startline="204" endline="212">XBram_InterruptGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XBRAM_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XBRAM_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__bram_1gab88ad395282af43eaf6890c73e1a767d" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_ECC_STATUS_OFFSET<sp/>0x0<sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="group__bram_1ga1bd9b2cad381c89b81b18e4784b357d3" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_ECC_EN_IRQ_OFFSET<sp/>0x4<sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="group__bram_1ga5a60015301177917f16c852b91a804a8" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_ECC_ON_OFF_OFFSET<sp/>0x8<sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__bram_1ga5984531e736eafd1a13193da61cba776" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_CNT_OFFSET<sp/><sp/><sp/><sp/><sp/>0xC<sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__bram_1gad84de0d6fe7b326b75f3a204f09bcb6c" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_0_OFFSET<sp/><sp/><sp/>0x100<sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_1_OFFSET<sp/><sp/><sp/>0x104<sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_2_OFFSET<sp/><sp/><sp/>0x108<sp/></highlight></codeline>
+<codeline lineno="59" refid="group__bram_1ga2a535c1b67c8a9a5269177d101e2c756" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_3_OFFSET<sp/><sp/><sp/>0x10C<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_4_OFFSET<sp/><sp/><sp/>0x110<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_5_OFFSET<sp/><sp/><sp/>0x114<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__bram_1ga2869a0061c7ff0ade8b507135f404b02" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_6_OFFSET<sp/><sp/><sp/>0x118<sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_7_OFFSET<sp/><sp/><sp/>0x11C<sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_8_OFFSET<sp/><sp/><sp/>0x120<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__bram_1ga8d2bc01b2692925c5843a33e1e78ab3c" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_9_OFFSET<sp/><sp/><sp/>0x124<sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_10_OFFSET<sp/><sp/>0x128<sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_11_OFFSET<sp/><sp/>0x12C<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__bram_1ga20bd5998265b96d7c360adc99254b4bb" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_12_OFFSET<sp/><sp/>0x130<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_13_OFFSET<sp/><sp/>0x134<sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_14_OFFSET<sp/><sp/>0x138<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__bram_1ga00296613e6a8e8bd4c9909667fb3e676" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_15_OFFSET<sp/><sp/>0x13C<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_16_OFFSET<sp/><sp/>0x140<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_17_OFFSET<sp/><sp/>0x144<sp/></highlight></codeline>
+<codeline lineno="89" refid="group__bram_1ga37f64a964cff8950a5a2e6218eb1862b" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_18_OFFSET<sp/><sp/>0x148<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_19_OFFSET<sp/><sp/>0x14C<sp/></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_20_OFFSET<sp/><sp/>0x150<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__bram_1ga7b7b39f7a8bce2acd90325d9a64348a5" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_21_OFFSET<sp/><sp/>0x154<sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_22_OFFSET<sp/><sp/>0x158<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_23_OFFSET<sp/><sp/>0x15C<sp/></highlight></codeline>
+<codeline lineno="101" refid="group__bram_1ga9b40093406a921feff2f6419c4e9c592" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_24_OFFSET<sp/><sp/>0x160<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_25_OFFSET<sp/><sp/>0x164<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_26_OFFSET<sp/><sp/>0x168<sp/></highlight></codeline>
+<codeline lineno="107" refid="group__bram_1gad307a7a392ee15347020e84dc06145f2" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_27_OFFSET<sp/><sp/>0x16C<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_28_OFFSET<sp/><sp/>0x170<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_29_OFFSET<sp/><sp/>0x174<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__bram_1ga80b471a580edfdda8a91842ff6d1832b" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_30_OFFSET<sp/><sp/>0x178<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFD_31_OFFSET<sp/><sp/>0x17C<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_0_OFFSET<sp/><sp/><sp/>0x180<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_1_OFFSET<sp/><sp/><sp/>0x184<sp/></highlight></codeline>
+<codeline lineno="122" refid="group__bram_1ga362cc644b2d14ce18e880ac7357409c5" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_2_OFFSET<sp/><sp/><sp/>0x188<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_3_OFFSET<sp/><sp/><sp/>0x18C<sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_4_OFFSET<sp/><sp/><sp/>0x190<sp/></highlight></codeline>
+<codeline lineno="128" refid="group__bram_1ga432d170d7c49d50b98d6cdeab18357c1" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_5_OFFSET<sp/><sp/><sp/>0x194<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_6_OFFSET<sp/><sp/><sp/>0x198<sp/></highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFE_7_OFFSET<sp/><sp/><sp/>0x19C<sp/></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFA_0_OFFSET<sp/><sp/><sp/>0x1C0<sp/></highlight></codeline>
+<codeline lineno="137" refid="group__bram_1gaa77a0f1427e291c95321811a2f0df97b" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_CE_FFA_1_OFFSET<sp/><sp/><sp/>0x1C4<sp/></highlight></codeline>
+<codeline lineno="140" refid="group__bram_1gab32289b47942c90cb79feb34cec01b91" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_0_OFFSET<sp/><sp/><sp/>0x200<sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_1_OFFSET<sp/><sp/><sp/>0x204<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_2_OFFSET<sp/><sp/><sp/>0x208<sp/></highlight></codeline>
+<codeline lineno="146" refid="group__bram_1gaac5b99e4d9e561ad68f834abc34e8374" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_3_OFFSET<sp/><sp/><sp/>0x20C<sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_4_OFFSET<sp/><sp/><sp/>0x210<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__bram_1ga80f2eea8b2d7528428940b32a65f4d62" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_5_OFFSET<sp/><sp/><sp/>0x214<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_6_OFFSET<sp/><sp/><sp/>0x218<sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_7_OFFSET<sp/><sp/><sp/>0x21C<sp/></highlight></codeline>
+<codeline lineno="156" refid="group__bram_1gaeb0dd722ff7c9322979747aaf8ffa86b" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_8_OFFSET<sp/><sp/><sp/>0x220<sp/></highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_9_OFFSET<sp/><sp/><sp/>0x224<sp/></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_10_OFFSET<sp/><sp/>0x228<sp/></highlight></codeline>
+<codeline lineno="162" refid="group__bram_1gac53b5b051994ba0dc8a93047e326d0f4" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_11_OFFSET<sp/><sp/>0x22C<sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_12_OFFSET<sp/><sp/>0x230<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_13_OFFSET<sp/><sp/>0x234<sp/></highlight></codeline>
+<codeline lineno="168" refid="group__bram_1gaf10601214d7b5cb9dd1ada50456c53ae" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_14_OFFSET<sp/><sp/>0x238<sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_15_OFFSET<sp/><sp/>0x23C<sp/></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_16_OFFSET<sp/><sp/>0x240<sp/></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_17_OFFSET<sp/><sp/>0x244<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_18_OFFSET<sp/><sp/>0x248<sp/></highlight></codeline>
+<codeline lineno="178" refid="group__bram_1gac43dab292efb11b1bd7a285552713bb7" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_19_OFFSET<sp/><sp/>0x24C<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_20_OFFSET<sp/><sp/>0x250<sp/></highlight></codeline>
+<codeline lineno="182" refid="group__bram_1gae3cd6bccc199556243b6e055c9e3bcb6" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_21_OFFSET<sp/><sp/>0x254<sp/></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_22_OFFSET<sp/><sp/>0x258<sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_23_OFFSET<sp/><sp/>0x25C<sp/></highlight></codeline>
+<codeline lineno="188" refid="group__bram_1gadc99002d47b36d4cdc6f3d497c836367" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_24_OFFSET<sp/><sp/>0x260<sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_25_OFFSET<sp/><sp/>0x264<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_26_OFFSET<sp/><sp/>0x268<sp/></highlight></codeline>
+<codeline lineno="194" refid="group__bram_1ga19934429ae7fa3d24018f6f518863329" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_27_OFFSET<sp/><sp/>0x26C<sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_28_OFFSET<sp/><sp/>0x270<sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_29_OFFSET<sp/><sp/>0x274<sp/></highlight></codeline>
+<codeline lineno="200" refid="group__bram_1ga991c6cca9fdaa5741f900edad1eda0f9" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_30_OFFSET<sp/><sp/>0x278<sp/></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFD_31_OFFSET<sp/><sp/>0x27C<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_0_OFFSET<sp/><sp/><sp/>0x280<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_1_OFFSET<sp/><sp/><sp/>0x284<sp/></highlight></codeline>
+<codeline lineno="209" refid="group__bram_1ga064745425d89b3f03090e6eab65511e9" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_2_OFFSET<sp/><sp/><sp/>0x288<sp/></highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_3_OFFSET<sp/><sp/><sp/>0x28C<sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_4_OFFSET<sp/><sp/><sp/>0x290<sp/></highlight></codeline>
+<codeline lineno="215" refid="group__bram_1ga5fa6a1deabc09186bad48d3ce8de751d" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_5_OFFSET<sp/><sp/><sp/>0x294<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_6_OFFSET<sp/><sp/><sp/>0x298<sp/></highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFE_7_OFFSET<sp/><sp/><sp/>0x29C<sp/></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFA_0_OFFSET<sp/><sp/><sp/>0x2C0<sp/></highlight></codeline>
+<codeline lineno="224" refid="group__bram_1ga5fab9920aa039d8c0f11d3c24dd2522c" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_UE_FFA_1_OFFSET<sp/><sp/><sp/>0x2C4<sp/></highlight></codeline>
+<codeline lineno="227" refid="group__bram_1ga3954b06a008318176f626efd83879d9b" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_0_OFFSET<sp/><sp/><sp/><sp/><sp/>0x300<sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_1_OFFSET<sp/><sp/><sp/><sp/><sp/>0x304<sp/></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_2_OFFSET<sp/><sp/><sp/><sp/><sp/>0x308<sp/></highlight></codeline>
+<codeline lineno="233" refid="group__bram_1ga8ac75eeb2a34e03a7a8520a8d639ed6d" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_3_OFFSET<sp/><sp/><sp/><sp/><sp/>0x30C<sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_4_OFFSET<sp/><sp/><sp/><sp/><sp/>0x310<sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_5_OFFSET<sp/><sp/><sp/><sp/><sp/>0x314<sp/></highlight></codeline>
+<codeline lineno="239" refid="group__bram_1gae3aabef99425370d418dafe230790e88" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_6_OFFSET<sp/><sp/><sp/><sp/><sp/>0x318<sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_7_OFFSET<sp/><sp/><sp/><sp/><sp/>0x31C<sp/></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_8_OFFSET<sp/><sp/><sp/><sp/><sp/>0x320<sp/></highlight></codeline>
+<codeline lineno="245" refid="group__bram_1ga1dcdc21c8880d9aa3817070d834141ee" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_9_OFFSET<sp/><sp/><sp/><sp/><sp/>0x324<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_10_OFFSET<sp/><sp/><sp/><sp/>0x328<sp/></highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_11_OFFSET<sp/><sp/><sp/><sp/>0x32C<sp/></highlight></codeline>
+<codeline lineno="251" refid="group__bram_1gaf554747914f2c008c3f3bc88ae959f88" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_12_OFFSET<sp/><sp/><sp/><sp/>0x330<sp/></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_13_OFFSET<sp/><sp/><sp/><sp/>0x334<sp/></highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_14_OFFSET<sp/><sp/><sp/><sp/>0x338<sp/></highlight></codeline>
+<codeline lineno="257" refid="group__bram_1ga682f4fa42e60f80eaad9699e6602f100" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_15_OFFSET<sp/><sp/><sp/><sp/>0x33C<sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_16_OFFSET<sp/><sp/><sp/><sp/>0x340<sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_17_OFFSET<sp/><sp/><sp/><sp/>0x344<sp/></highlight></codeline>
+<codeline lineno="263" refid="group__bram_1ga1c2383b058df1f51f2d17a8490c297f6" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_18_OFFSET<sp/><sp/><sp/><sp/>0x348<sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_19_OFFSET<sp/><sp/><sp/><sp/>0x34C<sp/></highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_20_OFFSET<sp/><sp/><sp/><sp/>0x350<sp/></highlight></codeline>
+<codeline lineno="269" refid="group__bram_1ga62f24e3b288b752071ebbaffb61b436c" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_21_OFFSET<sp/><sp/><sp/><sp/>0x354<sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_22_OFFSET<sp/><sp/><sp/><sp/>0x358<sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_23_OFFSET<sp/><sp/><sp/><sp/>0x35C<sp/></highlight></codeline>
+<codeline lineno="275" refid="group__bram_1ga93a70726c0f7980c86431bf3679280e2" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_24_OFFSET<sp/><sp/><sp/><sp/>0x360<sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_25_OFFSET<sp/><sp/><sp/><sp/>0x364<sp/></highlight></codeline>
+<codeline lineno="279" refid="group__bram_1gace262620dce703d728892d4091962a92" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_26_OFFSET<sp/><sp/><sp/><sp/>0x368<sp/></highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_27_OFFSET<sp/><sp/><sp/><sp/>0x36C<sp/></highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_28_OFFSET<sp/><sp/><sp/><sp/>0x370<sp/></highlight></codeline>
+<codeline lineno="285" refid="group__bram_1gad538dc3e048d58f1a740b820dd9435f1" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_29_OFFSET<sp/><sp/><sp/><sp/>0x374<sp/></highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_30_OFFSET<sp/><sp/><sp/><sp/>0x378<sp/></highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor">#define<sp/>XBRAM_FI_D_31_OFFSET<sp/><sp/><sp/><sp/>0x37C<sp/></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_0_OFFSET<sp/><sp/><sp/>0x380<sp/></highlight></codeline>
+<codeline lineno="294" refid="group__bram_1ga2036da79fe3041d68a87eeacb9752d21" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_1_OFFSET<sp/><sp/><sp/>0x384<sp/></highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_2_OFFSET<sp/><sp/><sp/>0x388<sp/></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_3_OFFSET<sp/><sp/><sp/>0x38C<sp/></highlight></codeline>
+<codeline lineno="300" refid="group__bram_1gaeff9efbeedd055f223f53b215653d367" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_4_OFFSET<sp/><sp/><sp/>0x390<sp/></highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_5_OFFSET<sp/><sp/><sp/>0x394<sp/></highlight></codeline>
+<codeline lineno="304" refid="group__bram_1ga2668f65a7a32f076244671b399e7e22a" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_6_OFFSET<sp/><sp/><sp/>0x398<sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor">#define<sp/>XBRAM_FI_ECC_7_OFFSET<sp/><sp/><sp/>0x39C<sp/></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="311" refid="group__bram_1ga4327d8d346ed2ff2258df3897efcbcac" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="317" refid="group__bram_1ga9f6cc6e12cfa98ec984c4cb3e098b788" refkind="member"><highlight class="preprocessor">#define<sp/>XBRAM_IR_CE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2<sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor">#define<sp/>XBRAM_IR_UE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor">#define<sp/>XBRAM_IR_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323" refid="group__bram_1gadc1261408bc53307c6115765559c20aa" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326" refid="group__bram_1gadf7ec54c98166a66aaf97e6e3c6bb471" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XBram_In32<sp/><sp/>Xil_In32</highlight></codeline>
+<codeline lineno="329" refid="group__bram_1ga50539ee3694da7ffec33e702bae35b6c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XBram_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XBram_In16<sp/><sp/>Xil_In16</highlight></codeline>
+<codeline lineno="332" refid="group__bram_1ga6ba64bfd64c2ecb72658ad84dd8682c4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XBram_Out16<sp/>Xil_Out16</highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XBram_In8<sp/><sp/>Xil_In8</highlight></codeline>
+<codeline lineno="335" refid="group__bram_1ga34276fc1ad44947d1545b3a60a42613c" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XBram_Out8<sp/>Xil_Out8</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338" refid="group__bram_1gab3431301bd1dcbb1f1ef04509a278140" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="353" refid="group__bram_1gaaca82f0ca4d7173cd674b954026108fb" refkind="member"><highlight class="preprocessor">#define<sp/>XBram_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XBram_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="356" refid="group__bram_1ga213c6e8d33faa8e918b88f4132c3251c" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor">#define<sp/>XBram_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="371" refid="group__bram_1ga46cf5511cb6949ddec9ef23ddaf4bc0d" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XBram_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="372"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374" refid="group__bram_1gab3a504a7e6e2e2f2a79d710c7d082939" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377" refid="group__bram_1ga0a9250291f63e7d27f7bbac3d30d66c5" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="380" refid="group__bram_1ga17bc17dd12706c541ee4b32fb4d8c5ce" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383" refid="group__bram_1ga5292e1f3c0ff481c4a181520f963e5a0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram_hw.h"/>
+  </compounddef>
+</doxygen>

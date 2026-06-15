@@ -1,0 +1,2629 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__csc" kind="group">
+    <compoundname>v_csc</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_v___csc__l2" prot="public">XV_Csc_l2</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__v__csc_1ga68432f271ffd43e68f01d1463ae33efc" prot="public" static="no">
+        <name>XV_CSC_REG_UPDT_WIN</name>
+        <enumvalue id="group__v__csc_1gga68432f271ffd43e68f01d1463ae33efcaf831673131a568d02d3dc3641d66208f" prot="public">
+          <name>UPDT_REG_FULL_FRAME</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga68432f271ffd43e68f01d1463ae33efca248f164eecbeb140fb98419c45d229bb" prot="public">
+          <name>UPD_REG_DEMO_WIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef enumerates the window within which the csc core will have an impact. </para>        </briefdescription>
+        <detaileddescription>
+<para>Coordinates outside the window will be passed as-is to output </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="50" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__v__csc_1ga5727999afb7f47264f4cd625c8b56f8a" prot="public" static="no">
+        <name>XV_CSC_FW_REG_MMAP</name>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa38bd003d8f4a47a87dec8d9724013445" prot="public">
+          <name>CSC_FW_REG_ColStart</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa410afec614a45b8318a8644d5074c1fb" prot="public">
+          <name>CSC_FW_REG_ColEnd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0e9f8c26d5f0e1149d55086945599241" prot="public">
+          <name>CSC_FW_REG_RowStart</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aabecd9fbd3548a11b954f6859ba6bd53a" prot="public">
+          <name>CSC_FW_REG_RowEnd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaa59a67bbd2f0013443c3f4ed5a20c1f5" prot="public">
+          <name>CSC_FW_REG_K11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae5cd15b10d1d2a547b27c462e0697c13" prot="public">
+          <name>CSC_FW_REG_K12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa5f1558abfa6e3d08a517bc226b1bdda3" prot="public">
+          <name>CSC_FW_REG_K13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac36082c814e4ce27011fd96484b5a597" prot="public">
+          <name>CSC_FW_REG_K21</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa5d20cbe6621352abc535d279837c3c85" prot="public">
+          <name>CSC_FW_REG_K22</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa41061769737c98b37e045e46ce007e77" prot="public">
+          <name>CSC_FW_REG_K23</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa4099dad17196f1125e06dd85ff4e1eea" prot="public">
+          <name>CSC_FW_REG_K31</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac1eb6f1d6a4184271554ef3e235235af" prot="public">
+          <name>CSC_FW_REG_K32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0fc4fb20669cbeb80a94a65a3ea6d2e0" prot="public">
+          <name>CSC_FW_REG_K33</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa47b834e238702eb6ccae784a72003f75" prot="public">
+          <name>CSC_FW_REG_ROffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae0144eb22401fce0d8c3aaf06b859b99" prot="public">
+          <name>CSC_FW_REG_GOffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaca06858b6be530b497985504df81b10d" prot="public">
+          <name>CSC_FW_REG_BOffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa1cf8f7b07a7637ef9605f36fa877eefb" prot="public">
+          <name>CSC_FW_REG_ClampMin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae07af33a8cc86c2e314eef82888a76ae" prot="public">
+          <name>CSC_FW_REG_ClipMax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aafc83971dcde4121aa9dba9d917c651c9" prot="public">
+          <name>CSC_FW_REG_K11_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaefdb9182daca060446f852de9079a782" prot="public">
+          <name>CSC_FW_REG_K12_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa6d61328d876cab827c825c466c59cfb0" prot="public">
+          <name>CSC_FW_REG_K13_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0b0fbdaa2062705198c7c901e1b4e3ad" prot="public">
+          <name>CSC_FW_REG_K21_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac123ce8d7596341b8a4d23da843f4a87" prot="public">
+          <name>CSC_FW_REG_K22_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae32d7149c9c175b78356159526d51c47" prot="public">
+          <name>CSC_FW_REG_K23_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa15e427c3a1da4679637810675abdbbb9" prot="public">
+          <name>CSC_FW_REG_K31_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa2764a00b13826195e71aa61ade9fff8c" prot="public">
+          <name>CSC_FW_REG_K32_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaa3c896e28ebac88e79c38d4a11b8de08" prot="public">
+          <name>CSC_FW_REG_K33_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae2dcb174ef884df9eed73dfc4293a840" prot="public">
+          <name>CSC_FW_REG_ROffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa50b25251f08390b5843b79095bd1de3e" prot="public">
+          <name>CSC_FW_REG_GOffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aab03485ccd81af15d72ba7feb7e9c3b6d" prot="public">
+          <name>CSC_FW_REG_BOffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaf0b4d47412d7eb3b753a6f4cc92c26ba" prot="public">
+          <name>CSC_FW_REG_ClampMin_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa840f3cad188320e4a576a8cac5621c33" prot="public">
+          <name>CSC_FW_REG_ClipMax_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa54a193c1ac9b06b4acb7a39884871aad" prot="public">
+          <name>CSC_FW_NUM_REGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>CSC Layer 2 Register Map. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each instance of the csc core will have it&apos;s own register map </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="100" bodyend="135"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__csc_1ga002df9641db2a383bb74e0b125d36bc7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwYCbCrtoRGB</definition>
+        <argsstring>(s32 YCC2RGB[3][4], XVidC_ColorStd cstdIn, s32 pixPrec, s32 *ClampMin, s32 *ClipMax, XVidC_ColorRange cRangeOut)</argsstring>
+        <name>cscFwYCbCrtoRGB</name>
+        <param>
+          <type>s32</type>
+          <declname>K</declname>
+          <defname>YCC2RGB</defname>
+          <array>[3][4]</array>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdIn</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>pixPrec</declname>
+        </param>
+        <param>
+          <type>s32 *</type>
+          <declname>ClampMin</declname>
+        </param>
+        <param>
+          <type>s32 *</type>
+          <declname>ClipMax</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorRange</type>
+          <declname>cRangeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function sets coefficients for YCbCr to RGB conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>YCC2RGB</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the array to hold coefficients </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is input color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixPrec</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color depth </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClampMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is min value to clamp computed by the function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClipMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is max value to saturate computed by the function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Implicitly returns Clamp Min/Max values </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="423" bodyend="648"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga1701f0fe22b5e045ef60b3634b9e466c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwRGBtoYCbCr</definition>
+        <argsstring>(s32 RGB2YCC[3][4], XVidC_ColorStd cstdOut, s32 pixPrec, s32 *ClampMin, s32 *ClipMax, XVidC_ColorRange cRangeOut)</argsstring>
+        <name>cscFwRGBtoYCbCr</name>
+        <param>
+          <type>s32</type>
+          <declname>K</declname>
+          <defname>RGB2YCC</defname>
+          <array>[3][4]</array>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdOut</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>pixPrec</declname>
+        </param>
+        <param>
+          <type>s32 *</type>
+          <declname>ClampMin</declname>
+        </param>
+        <param>
+          <type>s32 *</type>
+          <declname>ClipMax</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorRange</type>
+          <declname>cRangeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function sets coefficients for RGB to YCbCr conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RGB2YCC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the array to hold coefficients </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is output color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pixPrec</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the color depth </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClampMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is min value to clamp computed by the function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClipMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is max value to saturate computed by the function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Implicitly returns Clamp Min/Max values </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="663" bodyend="888"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga6006adf150608bc163a34a4bc127739d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwSetCoefficients</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, s32 K[3][4], s32 ClampMin, s32 ClipMax)</argsstring>
+        <name>cscFwSetCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>K</declname>
+          <array>[3][4]</array>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ClampMin</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>ClipMax</declname>
+        </param>
+        <briefdescription>
+<para>This function writes demo window coefficients to layer 2 fw register bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to layer 2 fw register bank </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an array to hold coefficients </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClampMin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is min value to clamp </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ClipMax</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is max value to saturate</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="937" bodyend="956"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaa2eb7020279d83a9a5f5764e8bd18da6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwGetActiveCoefficients</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, s32 K[3][4])</argsstring>
+        <name>cscFwGetActiveCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>K</declname>
+          <array>[3][4]</array>
+        </param>
+        <briefdescription>
+<para>This function gets the current RGB coefficients for demo window. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to layer 2 fw register bank </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the array to hold coefficients</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="968" bodyend="979"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gafdddacfaa35b58180f13b479746f806b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwSetActiveCoefficients</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, s32 K[3][4])</argsstring>
+        <name>cscFwSetActiveCoefficients</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>K</declname>
+          <array>[3][4]</array>
+        </param>
+        <briefdescription>
+<para>This function sets the current RGB coefficients for demo window. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to layer 2 fw register bank </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the array to hold coefficients</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="991" bodyend="1002"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga37700f1f95dc5008c0a9fcff77f82318" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwMatrixMult</definition>
+        <argsstring>(s32 K1[3][4], s32 K2[3][4], s32 Kout[3][4])</argsstring>
+        <name>cscFwMatrixMult</name>
+        <param>
+          <type>s32</type>
+          <declname>K1</declname>
+          <array>[3][4]</array>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>K2</declname>
+          <array>[3][4]</array>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>Kout</declname>
+          <array>[3][4]</array>
+        </param>
+        <briefdescription>
+<para>This function multiplies Matrices. </para>        </briefdescription>
+        <detaileddescription>
+<para>(Utility function)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>K1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input matrix </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>input matrix </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Kout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output matrix (K1 * K2)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Matrix multiplication via Kout </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1425" bodyend="1451"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga9ff1f8313cf71bb69f3776954e71fe3c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFwComputeCoeff</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, s32 K2[3][4])</argsstring>
+        <name>cscFwComputeCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>K2</declname>
+          <array>[3][4]</array>
+        </param>
+        <briefdescription>
+<para>Compute the coefficients for the required color space and write to layer 2 fw register bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to layer 2 fw register bank </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>K2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active coefficients</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1374" bodyend="1412"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gac94bce9ea8745e3243b8e87538a8d135" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscUpdateIPReg</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, XV_CSC_REG_UPDT_WIN win)</argsstring>
+        <name>cscUpdateIPReg</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__v__csc_1ga68432f271ffd43e68f01d1463ae33efc" kindref="member">XV_CSC_REG_UPDT_WIN</ref></type>
+          <declname>win</declname>
+        </param>
+        <briefdescription>
+<para>Write computed coefficients to IP HW registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pCsc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to layer 2 fw register bank </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>win</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the window mode: Full Frame or Demo window</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1464" bodyend="1539"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga57725c230ce7184e8bcaf378fd494b31" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void cscFw_RegW</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, u32 offset, s32 val)</argsstring>
+        <name>cscFw_RegW</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the write interface for FW register bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to layer 2 of csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is register offset </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is data to write</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="101" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaafe6f3eaaf17198754e5006197cb0f47" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 cscFw_RegR</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr, u32 offset)</argsstring>
+        <name>cscFw_RegR</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the read interface for FW register bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to layer 2 of csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is register offset</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Register value at requested offset </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gac0589adf3f09f600265cebc7b07a36cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscInitialize</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_CscInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="133" bodyend="146"/>
+        <references refid="xv__csc_8h_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="136" endline="150">XV_csc_Initialize</references>
+        <references refid="group__v__csc_1ga7c7f84f16fce5fe23a6920bc79c5c95f" compoundref="xv__csc__l2_8c" startline="157" endline="190">XV_CscSetPowerOnDefaultState</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga7c7f84f16fce5fe23a6920bc79c5c95f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetPowerOnDefaultState</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr)</argsstring>
+        <name>XV_CscSetPowerOnDefaultState</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the CSC IP layer 2 fw registers to power on default state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="157" bodyend="190"/>
+        <referencedby refid="group__v__csc_1gac0589adf3f09f600265cebc7b07a36cd" compoundref="xv__csc__l2_8c" startline="133" endline="146">XV_CscInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga6530def7371f71788fa5de71a9d9b886" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscStart</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscStart</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the Color space converter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="201" bodyend="207"/>
+        <references refid="xv__csc_8c_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</references>
+        <references refid="xv__csc_8c_1a581de2fe3bbb051d654bd27413200a88" compoundref="xv__csc_8c" startline="77" endline="85">XV_csc_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga42801845038afafff53e9c6d993c289b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscStop</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscStop</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the Color space converter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="218" bodyend="223"/>
+        <references refid="xv__csc_8c_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaf292fda68307691c8eb707cef94a21e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetActiveSize</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, u32 width, u32 height)</argsstring>
+        <name>XV_CscSetActiveSize</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>This function set the frame resolution for the Color space converter This also will reset the demo window to full frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="237" bodyend="253"/>
+        <references refid="xv__csc_8c_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1a35c88ca527cee1ca2900237915b0c6e4" compoundref="xv__csc_8c" startline="343" endline="348">XV_csc_Set_HwReg_height</references>
+        <references refid="xv__csc_8c_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</references>
+        <references refid="xv__csc_8c_1a5a75fe188408191dcfabcccfa6d7368a" compoundref="xv__csc_8c" startline="304" endline="309">XV_csc_Set_HwReg_width</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga1acc886bb9176f51894cfdb8c86dbe52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscSetDemoWindow</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *DemoWindow)</argsstring>
+        <name>XV_CscSetDemoWindow</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_VideoWindow *</type>
+          <declname>DemoWindow</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the demo window for the Color space converter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any pixel outside the demo window will not be impacted and will be passed to output as-is</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DemoWindow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is structure that contains window coordinates and size</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if this core instance has the demo window enabled XST_FAILURE if this instance does not have the demo window enabled </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="268" bodyend="283"/>
+        <references refid="xv__csc_8c_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscSetColorspace</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, XVidC_ColorFormat cfmtIn, XVidC_ColorFormat cfmtOut, XVidC_ColorStd cstdIn, XVidC_ColorStd cstdOut, XVidC_ColorRange cRangeOut)</argsstring>
+        <name>XV_CscSetColorspace</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmtIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmtOut</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdOut</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorRange</type>
+          <declname>cRangeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Color space converter to user specified settings. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before any feature specific calls in layer-2 driver is made the csc core should have been configured via this call.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmtIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is input color space </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmtOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is output color space </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is input color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is output color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cRangeOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the selected output range</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the requested color format is allowed XST_FAILURE if YUV422/420 color format is requested but not allowed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="302" bodyend="408"/>
+        <references refid="xv__csc_8c_1a6ce5722b5dcca57855b376e22ca955b7" compoundref="xv__csc_8c" startline="221" endline="226">XV_csc_Set_HwReg_InVideoFormat</references>
+        <references refid="xv__csc_8c_1a27a1dc48278f8fe5174adcf6547d7750" compoundref="xv__csc_8c" startline="262" endline="267">XV_csc_Set_HwReg_OutVideoFormat</references>
+        <references refid="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" compoundref="xv__csc__l2_8h" startline="352">XV_CscIs420Enabled</references>
+        <references refid="group__v__csc_1gaf7d53698d5230e388a1250a060785643" compoundref="xv__csc__l2_8h" startline="340">XV_CscIs422Enabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga60cbe310415d9dcd5e6db00a23be089b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetBrightness</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetBrightness</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set brightness to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new brightness value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1015" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1015" bodyend="1051"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga39498f3e3098cdde5734507533279447" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetContrast</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetContrast</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set contrast to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new contrast value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1064" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1064" bodyend="1102"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga06171a7d42f91d7adb7142c36cec466e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetSaturation</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetSaturation</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set saturation to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new saturation value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1115" bodyend="1213"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaa3091d626dc4bcc874d0d0affbc6d1d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetRedGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetRedGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set red gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1226" bodyend="1262"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gab0c861550c14ab24e4c9169d0dabdd45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetGreenGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetGreenGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set green gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1275" bodyend="1311"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga4650c3c96038d35ba1f00e19ecdebede" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetBlueGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetBlueGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set blue gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1324" bodyend="1360"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscDbgReportStatus</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints CSC IP status on console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer to the CSC IP instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1550" bodyend="1665"/>
+        <references refid="struct_x_v__csc___config_1a1f297fa0ed983778047000e20bfacc2d" compoundref="xv__csc_8h" startline="55">XV_csc_Config::BaseAddress</references>
+        <references refid="struct_x_v__csc_1aa5c39284c336caccb3d700680b1f73ed" compoundref="xv__csc_8h" startline="70">XV_csc::Config</references>
+        <references refid="group__v__csc_1ga83b645a410a8dc7e5d4f9c27bb624816" compoundref="xv__csc__hw_8h" startline="237">XV_CSC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__csc_8c_1ae42005a17542d24272f720b3caed35f8" compoundref="xv__csc_8c" startline="1358" endline="1366">XV_csc_Get_HwReg_BOffset_2_V</references>
+        <references refid="xv__csc_8c_1ad98d76905b03c3db6a1cd8ed7a48596c" compoundref="xv__csc_8c" startline="938" endline="946">XV_csc_Get_HwReg_BOffset_V</references>
+        <references refid="xv__csc_8c_1ab90ed6c8a94b0e0e45d5f0703977ee54" compoundref="xv__csc_8c" startline="1388" endline="1396">XV_csc_Get_HwReg_ClampMin_2_V</references>
+        <references refid="xv__csc_8c_1a87a996c7449fe599b556001891398aa0" compoundref="xv__csc_8c" startline="968" endline="976">XV_csc_Get_HwReg_ClampMin_V</references>
+        <references refid="xv__csc_8c_1a65327fb05fce3c084015bba495bd0dce" compoundref="xv__csc_8c" startline="1418" endline="1426">XV_csc_Get_HwReg_ClipMax_2_V</references>
+        <references refid="xv__csc_8c_1a37a6fa57effd58b482af27beb0f70b52" compoundref="xv__csc_8c" startline="998" endline="1006">XV_csc_Get_HwReg_ClipMax_V</references>
+        <references refid="xv__csc_8c_1aae3fa4d2bc63ebd92a435b0e92ffdc40" compoundref="xv__csc_8c" startline="446" endline="454">XV_csc_Get_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1aed9a23dda1e8bd1f2df9505f8f2c4f5d" compoundref="xv__csc_8c" startline="404" endline="412">XV_csc_Get_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1a6bb1e97d755318c356aaa765963571df" compoundref="xv__csc_8c" startline="1328" endline="1336">XV_csc_Get_HwReg_GOffset_2_V</references>
+        <references refid="xv__csc_8c_1a4240e6c41352852e7149fedf18495f46" compoundref="xv__csc_8c" startline="908" endline="916">XV_csc_Get_HwReg_GOffset_V</references>
+        <references refid="xv__csc_8c_1a181bbd14d25d0a00fd0fa9a768617e21" compoundref="xv__csc_8c" startline="362" endline="370">XV_csc_Get_HwReg_height</references>
+        <references refid="xv__csc_8c_1a41c21697ba4370619266f107e2a564ab" compoundref="xv__csc_8c" startline="239" endline="247">XV_csc_Get_HwReg_InVideoFormat</references>
+        <references refid="xv__csc_8c_1a7216117d3f10d0b79f2ca05136222587" compoundref="xv__csc_8c" startline="561" endline="569">XV_csc_Get_HwReg_K11</references>
+        <references refid="xv__csc_8c_1a5850ebe7b62db9e9fa0f9ba5e5ad1282" compoundref="xv__csc_8c" startline="1028" endline="1036">XV_csc_Get_HwReg_K11_2</references>
+        <references refid="xv__csc_8c_1a970a5d8f1fc900355f5d9996530b3ea6" compoundref="xv__csc_8c" startline="599" endline="607">XV_csc_Get_HwReg_K12</references>
+        <references refid="xv__csc_8c_1a5df661bedc7bd2bfd49b00b2c1a0d3da" compoundref="xv__csc_8c" startline="1058" endline="1066">XV_csc_Get_HwReg_K12_2</references>
+        <references refid="xv__csc_8c_1a1b64e290be48fdbbd136961d8eaae8a8" compoundref="xv__csc_8c" startline="640" endline="648">XV_csc_Get_HwReg_K13</references>
+        <references refid="xv__csc_8c_1ab599dea538bb8d247b29a8ed21603e47" compoundref="xv__csc_8c" startline="1088" endline="1096">XV_csc_Get_HwReg_K13_2</references>
+        <references refid="xv__csc_8c_1a3e8ec952e8331025a362ef3d0acac8d0" compoundref="xv__csc_8c" startline="681" endline="689">XV_csc_Get_HwReg_K21</references>
+        <references refid="xv__csc_8c_1a97db008681e8e0c47cdfbbf98259ea66" compoundref="xv__csc_8c" startline="1118" endline="1126">XV_csc_Get_HwReg_K21_2</references>
+        <references refid="xv__csc_8c_1ac2e62bbe175cc4cfa8a9b46a3d9c24f1" compoundref="xv__csc_8c" startline="722" endline="730">XV_csc_Get_HwReg_K22</references>
+        <references refid="xv__csc_8c_1a2833b85659c94f15b3ca94458f854302" compoundref="xv__csc_8c" startline="1148" endline="1156">XV_csc_Get_HwReg_K22_2</references>
+        <references refid="xv__csc_8c_1aa65f1084f09f69546f15215da1548c56" compoundref="xv__csc_8c" startline="757" endline="765">XV_csc_Get_HwReg_K23</references>
+        <references refid="xv__csc_8c_1a578075406869631aad822139241f5d4a" compoundref="xv__csc_8c" startline="1178" endline="1186">XV_csc_Get_HwReg_K23_2</references>
+        <references refid="xv__csc_8c_1ac9b5e6422f7c22d0da3d587be6495d55" compoundref="xv__csc_8c" startline="787" endline="795">XV_csc_Get_HwReg_K31</references>
+        <references refid="xv__csc_8c_1ae20ccca45067096347713ac4798e9950" compoundref="xv__csc_8c" startline="1208" endline="1216">XV_csc_Get_HwReg_K31_2</references>
+        <references refid="xv__csc_8c_1ad8975ad96ac269ca8398e1ef0262d5d6" compoundref="xv__csc_8c" startline="817" endline="825">XV_csc_Get_HwReg_K32</references>
+        <references refid="xv__csc_8c_1a73c1e70493bcb6d56d4f8e92781dfadc" compoundref="xv__csc_8c" startline="1238" endline="1246">XV_csc_Get_HwReg_K32_2</references>
+        <references refid="xv__csc_8c_1a4b2079eb4a597a20a46f4162a62a865a" compoundref="xv__csc_8c" startline="847" endline="855">XV_csc_Get_HwReg_K33</references>
+        <references refid="xv__csc_8c_1ac56d6c355abd342e932230daca7dd7b2" compoundref="xv__csc_8c" startline="1268" endline="1276">XV_csc_Get_HwReg_K33_2</references>
+        <references refid="xv__csc_8c_1a61b1d34bc8b1e8f7deb2447328ed0323" compoundref="xv__csc_8c" startline="281" endline="289">XV_csc_Get_HwReg_OutVideoFormat</references>
+        <references refid="xv__csc_8c_1a48d62c832cb0318b86638dcf5873f465" compoundref="xv__csc_8c" startline="1298" endline="1306">XV_csc_Get_HwReg_ROffset_2_V</references>
+        <references refid="xv__csc_8c_1ac45c3e29178cd4b9f1ad4884606dea66" compoundref="xv__csc_8c" startline="878" endline="886">XV_csc_Get_HwReg_ROffset_V</references>
+        <references refid="xv__csc_8c_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</references>
+        <references refid="xv__csc_8c_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</references>
+        <references refid="xv__csc_8c_1a0a6d268b5f168e65c99376b2a052d44d" compoundref="xv__csc_8c" startline="99" endline="107">XV_csc_IsDone</references>
+        <references refid="xv__csc_8c_1a8dc1ebd5815055fe03ef358cc9e74a00" compoundref="xv__csc_8c" startline="123" endline="131">XV_csc_IsIdle</references>
+        <references refid="xv__csc_8c_1a719f8d4a659dac2ddeb418d894138d04" compoundref="xv__csc_8c" startline="148" endline="157">XV_csc_IsReady</references>
+        <references refid="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" compoundref="xv__csc__l2_8h" startline="352">XV_CscIs420Enabled</references>
+        <references refid="group__v__csc_1gaf7d53698d5230e388a1250a060785643" compoundref="xv__csc__l2_8h" startline="340">XV_CscIs422Enabled</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__csc_1ga02556c8441bf561fd11758cac21f06df" prot="public" static="no">
+        <name>XV_CSC_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga83b645a410a8dc7e5d4f9c27bb624816" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>XV_CSC Hardware Register Definitions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This header file defines the register addresses and bit widths for the XV_CSC hardware module. The XV_CSC module is typically used for color space conversion operations in embedded systems.</para><para>Register Address Map:<itemizedlist>
+<listitem><para>Control and Status Registers:<itemizedlist>
+<listitem><para>XV_CSC_CTRL_ADDR_AP_CTRL: Control register</para></listitem><listitem><para>XV_CSC_CTRL_ADDR_GIE: Global interrupt enable</para></listitem><listitem><para>XV_CSC_CTRL_ADDR_IER: Interrupt enable register</para></listitem><listitem><para>XV_CSC_CTRL_ADDR_ISR: Interrupt status register</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Configuration Registers:<itemizedlist>
+<listitem><para>HWREG_INVIDEOFORMAT_DATA: Input video format (8 bits)</para></listitem><listitem><para>HWREG_OUTVIDEOFORMAT_DATA: Output video format (8 bits)</para></listitem><listitem><para>HWREG_WIDTH_DATA: Frame width (16 bits)</para></listitem><listitem><para>HWREG_HEIGHT_DATA: Frame height (16 bits)</para></listitem><listitem><para>HWREG_COLSTART_DATA / HWREG_COLEND_DATA: Column start/end (16 bits)</para></listitem><listitem><para>HWREG_ROWSTART_DATA / HWREG_ROWEND_DATA: Row start/end (16 bits)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Color Space Conversion Coefficients:<itemizedlist>
+<listitem><para>HWREG_K11_DATA to HWREG_K33_DATA: 3x3 matrix coefficients (16 bits each)</para></listitem><listitem><para>HWREG_ROFFSET_V_DATA, HWREG_GOFFSET_V_DATA, HWREG_BOFFSET_V_DATA: RGB offsets (12 bits each)</para></listitem><listitem><para>HWREG_CLAMPMIN_V_DATA, HWREG_CLIPMAX_V_DATA: Clamp min/max values (10 bits each)</para></listitem></itemizedlist>
+</para></listitem><listitem><para>Secondary Coefficient Set:<itemizedlist>
+<listitem><para>HWREG_K11_2_DATA to HWREG_K33_2_DATA: Alternate 3x3 matrix coefficients (16 bits each)</para></listitem><listitem><para>HWREG_ROFFSET_2_V_DATA, HWREG_GOFFSET_2_V_DATA, HWREG_BOFFSET_2_V_DATA: Alternate RGB offsets (12 bits each)</para></listitem><listitem><para>HWREG_CLAMPMIN_2_V_DATA, HWREG_CLIPMAX_2_V_DATA: Alternate clamp min/max values (10 bits each)</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para><para>Each register address is defined as an offset from the base address of the XV_CSC hardware module. The corresponding bit width for each register is also defined for proper data handling. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="xv__csc_8h_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__csc_8h_1a0a6d268b5f168e65c99376b2a052d44d" compoundref="xv__csc_8c" startline="99" endline="107">XV_csc_IsDone</referencedby>
+        <referencedby refid="xv__csc_8h_1a8dc1ebd5815055fe03ef358cc9e74a00" compoundref="xv__csc_8c" startline="123" endline="131">XV_csc_IsIdle</referencedby>
+        <referencedby refid="xv__csc_8h_1a719f8d4a659dac2ddeb418d894138d04" compoundref="xv__csc_8c" startline="148" endline="157">XV_csc_IsReady</referencedby>
+        <referencedby refid="xv__csc_8h_1a581de2fe3bbb051d654bd27413200a88" compoundref="xv__csc_8c" startline="77" endline="85">XV_csc_Start</referencedby>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gacd9f316abf5bb14a0a4819c9e19afc49" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_GIE</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga0143ed6f87261a4c46701902065525cb" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_IER</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga851e132b4821cc561e6ab3cbe3bef43d" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_ISR</name>
+        <initializer>0x00c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga1c1fc802fd362a007181bb836cb975b9" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_INVIDEOFORMAT_DATA</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaae9131eb0cd83ac9447da5c72bb3169b" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_INVIDEOFORMAT_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gad2892ee540a5c6521c81e51e23aa6976" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_OUTVIDEOFORMAT_DATA</name>
+        <initializer>0x018</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaea1a60baddbddfc978e4d0b577c036b6" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_OUTVIDEOFORMAT_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga6c31f96936f1dcd16b5d3dc0c247de9c" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_WIDTH_DATA</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga279a8cb0f82505e1e48bafd2f2fe5381" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_WIDTH_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga09a42527411b21f20a8aac2ef353ed48" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_HEIGHT_DATA</name>
+        <initializer>0x028</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga3c6480368103f2365c6bddf00bb36072" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_HEIGHT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga4184fd66860eae024a6954933906b814" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_COLSTART_DATA</name>
+        <initializer>0x030</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaca49bb65c737c34c963e95a7094f808f" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_COLSTART_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga80768bab8c8f1a199cb8e3e36eb82f84" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_COLEND_DATA</name>
+        <initializer>0x038</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga0958ac45a8816f83cbeadd32b85b8fed" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_COLEND_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf7297e8a7b30e542c70be9c18ec9a1a4" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_ROWSTART_DATA</name>
+        <initializer>0x040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac5d6f22104068a9089eb5e6b1737aae7" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_ROWSTART_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga9a383a617a29c1041ec6bea98d9b5090" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_ROWEND_DATA</name>
+        <initializer>0x048</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga767f0b69ad398534055d54a4f262d517" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_ROWEND_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga0d242d6ef01365574601d4a74a81e3a7" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K11_DATA</name>
+        <initializer>0x050</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga1987dba4cf06aa0946a16dffc8c6c2d0" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K11_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5ff93494767ff73861861b6d766a54cd" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K12_DATA</name>
+        <initializer>0x058</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gace9c1e38b4705b03656e5f0c429082c5" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K12_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gad0bfe1c31103176f16f28d431864c103" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K13_DATA</name>
+        <initializer>0x060</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga2f1a5dd1f0197c2949667f86c9346d30" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K13_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5343ab2ae47bdacee7d0224079f842ab" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K21_DATA</name>
+        <initializer>0x068</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa46d48bae88bae6b79c05f3d92b68719" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K21_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gabeb5e5458dd061003f64dadc0323e107" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K22_DATA</name>
+        <initializer>0x070</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5ada87d2b6c740ca53b6b18e254b40b0" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K22_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gada631aaa72bf633ffc69ab8760c62d5c" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K23_DATA</name>
+        <initializer>0x078</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga88448d5cb9fcbbd196d6e0b55949082a" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K23_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac94247a8d61d8b4e6791f4fdb0d00b7c" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K31_DATA</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gadb8fa26b0864f699c6d312ea154aa3c8" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K31_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga9fc5b481d0f6424124def117a5a271ad" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K32_DATA</name>
+        <initializer>0x088</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf5890b2c3a3e8a3a9a9114f7e4a8d79e" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K32_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga2b93e56d419002ef6d80a8e6b00b6d32" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K33_DATA</name>
+        <initializer>0x090</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaaa7cfd4b5059a417da730bbc63b9a084" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K33_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gafe1f90e320d2541687fc67205457cb5e" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_ROFFSET_V_DATA</name>
+        <initializer>0x098</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga91e0014f2b1d27f1a1285dde5b41fa58" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_ROFFSET_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaafe0ef7a4542fa35b24631321eff6d37" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_GOFFSET_V_DATA</name>
+        <initializer>0x0a0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga857d64773f64d3ccddba4d8d4338dc2a" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_GOFFSET_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaac119aa573d8b1457cc1e31980fa0989" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_BOFFSET_V_DATA</name>
+        <initializer>0x0a8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga486abb6ae4f1f43896f712241c162ab1" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_BOFFSET_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac167bfd6f3e5bdfad7e4bb928779cd04" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_CLAMPMIN_V_DATA</name>
+        <initializer>0x0b0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga0bc8ba70e6a4f193d18e167a66e98fd3" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_CLAMPMIN_V_DATA</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gadeda0651a2b736689ade292d5f635247" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_CLIPMAX_V_DATA</name>
+        <initializer>0x0b8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga59bfe624472e84fe76f15f68fc60cc80" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_CLIPMAX_V_DATA</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga795f9c8a38bd8ca0b030271dbd1e2436" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K11_2_DATA</name>
+        <initializer>0x0c0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac53670b809f0b4d3a54ca2f92111c591" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K11_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga893260fe6ee31a61f712129edc6e6d2d" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K12_2_DATA</name>
+        <initializer>0x0c8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gadc0af2488e989c1097feda3eae71dc45" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K12_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga71c3be905fb0ebaedb3f13091cec113a" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K13_2_DATA</name>
+        <initializer>0x0d0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga3582209eeb2c23d216cdcc6070285e71" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K13_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa6b3b74ee6f8c04c68decf825607e130" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K21_2_DATA</name>
+        <initializer>0x0d8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga424d095cd2dc25bbaa968020b1f56701" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K21_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga422964da4ed9aaa95cace8fe28a47d18" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K22_2_DATA</name>
+        <initializer>0x0e0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga0bbd3b31caf7bd59cc91c3eb697be3d7" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K22_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="294" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac248bedf37416189beefecd607640478" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K23_2_DATA</name>
+        <initializer>0x0e8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gacfad69d353b5ee57391cf9697ae7f152" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K23_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="296" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac0c2fe05bf26c12b1226ad3e7f4836ab" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K31_2_DATA</name>
+        <initializer>0x0f0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga17c711f9448e25b31bb75ca72a0a01dc" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K31_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga94b60b58471dde88a628b69c77e832bd" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K32_2_DATA</name>
+        <initializer>0x0f8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga8f9e1d6916ef6c01b0ca979707914896" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K32_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gad71e416b5e33974fbf4ac2e4e85e67da" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_K33_2_DATA</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="301" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga2d10fd967bae735615521b6ade1c7904" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_K33_2_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac5f009368b69a96288df9aeaa1b4efb4" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_ROFFSET_2_V_DATA</name>
+        <initializer>0x108</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gad5b45157bfe847a6b04cbde504618962" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_ROFFSET_2_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga779307700517d02ed5eae8b81e7f1e3f" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_GOFFSET_2_V_DATA</name>
+        <initializer>0x110</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga6f243b8198f69156beaaff50c716d5ae" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_GOFFSET_2_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gad39622ef9e8d170102eab1754d57fff2" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_BOFFSET_2_V_DATA</name>
+        <initializer>0x118</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="307" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga202d628a2007e7c02cd34ae11d930b33" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_BOFFSET_2_V_DATA</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="308" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5e9fc1d89896690574054cc880bcdd20" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_CLAMPMIN_2_V_DATA</name>
+        <initializer>0x120</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf52c748af03d3918e3f0558697dc9f33" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_CLAMPMIN_2_V_DATA</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga936ff3ebcdf06e32dd0135a3f2e06375" prot="public" static="no">
+        <name>XV_CSC_CTRL_ADDR_HWREG_CLIPMAX_2_V_DATA</name>
+        <initializer>0x128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5246c7662472609153027c1048512b85" prot="public" static="no">
+        <name>XV_CSC_CTRL_BITS_HWREG_CLIPMAX_2_V_DATA</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga1643c757770f59da68fefc862ae0491a" prot="public" static="no">
+        <name>XV_CSC_COEFF_FRACTIONAL_BITS</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf833337764481ca5b97d889acfb90cee" prot="public" static="no">
+        <name>XV_CSC_L2_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga64197c10301089d2df889c814d682276" prot="public" static="no">
+        <name>XV_CscSetColorDepth</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorDepth = val)</initializer>
+        <briefdescription>
+<para>This macro sets color depth for CSC core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to csc layer 2 fw register map </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the requested color depth</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5c45599bf63494fa842fdfb46949f9db" prot="public" static="no">
+        <name>XV_CscGetBrightness</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Brightness-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current brightness setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga44247904cf7266b33bdfafe0b06056dc" prot="public" static="no">
+        <name>XV_CscGetContrast</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Contrast+200)/4)</initializer>
+        <briefdescription>
+<para>This macro returns current contrast setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga2c5f658989238bacea802495baacdcd5" prot="public" static="no">
+        <name>XV_CscGetSaturation</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Saturation/2))</initializer>
+        <briefdescription>
+<para>This macro returns current saturation setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa84271d02b17ffc948826a8f2b8f642d" prot="public" static="no">
+        <name>XV_CscGetRedGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;RedGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current red gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac7b104c7b9430aed10c28a8c54c507d8" prot="public" static="no">
+        <name>XV_CscGetGreenGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;GreenGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current green gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga09e0fb8bf2b17717b6e014d6b89a40a0" prot="public" static="no">
+        <name>XV_CscGetBlueGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;BlueGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current blue gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa7c01b92e88b643e2c8b58402a23cfde" prot="public" static="no">
+        <name>XV_CscGetColorFormatIn</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorFormatIn)</initializer>
+        <briefdescription>
+<para>This macro returns current set input color format by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set input color format<itemizedlist>
+<listitem><para>XVIDC_CSF_RGB</para></listitem><listitem><para>XVIDC_CSF_YCRCB_444</para></listitem><listitem><para>XVIDC_CSF_YCRCB_422</para></listitem><listitem><para>XVIDC_CSF_YCRCB_420 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf960cebc158ba892309bfb83af11d296" prot="public" static="no">
+        <name>XV_CscGetColorFormatOut</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorFormatOut)</initializer>
+        <briefdescription>
+<para>This macro returns current set output color format by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output color format<itemizedlist>
+<listitem><para>XVIDC_CSF_RGB</para></listitem><listitem><para>XVIDC_CSF_YCRCB_444</para></listitem><listitem><para>XVIDC_CSF_YCRCB_422</para></listitem><listitem><para>XVIDC_CSF_YCRCB_420 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga43a4458bb55d2fbc58b65cd72b49db48" prot="public" static="no">
+        <name>XV_CscGetColorStdIn</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;StandardIn)</initializer>
+        <briefdescription>
+<para>This macro returns current set input color standard by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set input color standard<itemizedlist>
+<listitem><para>XVIDC_BT_2020</para></listitem><listitem><para>XVIDC_BT_709</para></listitem><listitem><para>XVIDC_BT_601 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga99a8ce4a7905aae4ceae065f48cd5370" prot="public" static="no">
+        <name>XV_CscGetColorStdOut</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;StandardOut)</initializer>
+        <briefdescription>
+<para>This macro returns current set output color standard by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output color standard<itemizedlist>
+<listitem><para>XVIDC_BT_2020</para></listitem><listitem><para>XVIDC_BT_709</para></listitem><listitem><para>XVIDC_BT_601 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga61bba94ca1f8272cd447ba620028273b" prot="public" static="no">
+        <name>XV_CscGetOutputRange</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;OutputRange)</initializer>
+        <briefdescription>
+<para>This macro returns current set output range by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output range<itemizedlist>
+<listitem><para>XVIDC_CR_16_235</para></listitem><listitem><para>XVIDC_CR_16_240</para></listitem><listitem><para>XVIDC_CR_0_255 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf7d53698d5230e388a1250a060785643" prot="public" static="no">
+        <name>XV_CscIs422Enabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.Is422Enabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for 4:2:2 processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" compoundref="xv__csc__l2_8c" startline="302" endline="408">XV_CscSetColorspace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" prot="public" static="no">
+        <name>XV_CscIs420Enabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.Is420Enabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for 4:2:0 processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="352" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" compoundref="xv__csc__l2_8c" startline="302" endline="408">XV_CscSetColorspace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" prot="public" static="no">
+        <name>XV_CscIsDemoWindowEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.IsDemoWindowEnabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for the Demo Window. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gaf292fda68307691c8eb707cef94a21e4" compoundref="xv__csc__l2_8c" startline="237" endline="253">XV_CscSetActiveSize</referencedby>
+        <referencedby refid="group__v__csc_1ga1acc886bb9176f51894cfdb8c86dbe52" compoundref="xv__csc__l2_8c" startline="268" endline="283">XV_CscSetDemoWindow</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Hardware register definitions for the Xilinx Video Color Space Converter (CSC) core. </para>    </briefdescription>
+    <detaileddescription>
+<para>This header file contains layer 2 API&apos;s of the csc sub-core driver.</para><para>}</para><para>This header file defines the register offsets and bit widths for the control and configuration registers of the Xilinx Video Color Space Converter (CSC) hardware core. These macros are used to access and configure the CSC hardware via memory-mapped I/O. The CSC core performs color space conversion operations, such as RGB to YUV and vice versa, in video processing pipelines.</para><para>The register map includes:<itemizedlist>
+<listitem><para>Control and status registers (AP_CTRL, GIE, IER, ISR)</para></listitem><listitem><para>Video format configuration (input/output format)</para></listitem><listitem><para>Frame dimension and region selection (width, height, column/row start/end)</para></listitem><listitem><para>Color conversion matrix coefficients (K11-K33 and K11_2-K33_2)</para></listitem><listitem><para>Offset and clamp/clip parameters for each color channel</para></listitem></itemizedlist>
+</para><para>Each register is defined with its memory offset and the number of bits used for its data field. These definitions facilitate low-level driver development and hardware abstraction for the CSC core.</para><para>The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user</para><para><bold>Color Space Converter IP Features </bold></para><para>The CSC IP supports following features<itemizedlist>
+<listitem><para>Set a Demo Window (user can select a sub-frame where above features will have effect). This Demo Window is optionally included in the CSC IP.</para></listitem><listitem><para>Supports resolution up to 4k2k 60Hz</para></listitem><listitem><para>up to 16 bits color depth</para></listitem><listitem><para>1, 2 or 4 pixel per clock processing</para></listitem></itemizedlist>
+</para><para>The Layer 2 driver of Color Space Conversion core offers following features<itemizedlist>
+<listitem><para>Set/Get Brightness, contrast, saturation</para></listitem><listitem><para>Set/Get Gain for R/G/B channel</para></listitem><listitem><para>Set/Get Input/Output Color Standard (BT601, BT709, BT2020)</para></listitem><listitem><para>Set/Get Input/Output Color Format (RGB, YUV444, YUV422)</para></listitem><listitem><para>All settings are translated between user range (0-100) and IP supported range</para></listitem></itemizedlist>
+</para><para><bold>Dependency</bold></para><para>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the CSC core.</para><para>Before using the layer-2 API&apos;s user must initialize the core by calling Layer-1 API <ref refid="xv__csc_8h_1a84c5de6224bb013d089fb70e67940be9" kindref="member">XV_csc_Initialize()</ref>. This function will look for a configuration structure for the device and initialize it to defined HW settings. After initialization Layer-2 API&apos;s can be used to configure the core. It is recommended user always make use of Layer-2 API to interact with the core Advanced users always have the capability to directly interact with the core using Layer-1 API&apos;s that perform low level register peek/poke.</para><para><bold> Interrupts </bold></para><para>This driver does not have any interrupts</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2
+      dmc   12/17/15   Macros query Is422Enabled, IsDemoWindowEnabled flags
+                       that were added to the <ref refid="struct_x_v__csc___config" kindref="compound">XV_csc_Config</ref> structure
+2.20  vyc   10/04/17   Macro queries Is420Enabled flag that was added to the
+                       <ref refid="struct_x_v__csc___config" kindref="compound">XV_csc_Config</ref> structure
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

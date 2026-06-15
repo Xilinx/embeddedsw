@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_382cc6c14758058198258c2bf07e0a92" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xtpm__client_8c">xtpm_client.c</innerfile>
+    <innerfile refid="xtpm__client_8h">xtpm_client.h</innerfile>
+    <innerfile refid="xtpm__mailbox_8c">xtpm_mailbox.c</innerfile>
+    <innerfile refid="xtpm__mailbox_8h">xtpm_mailbox.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/"/>
+  </compounddef>
+</doxygen>

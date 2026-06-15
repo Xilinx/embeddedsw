@@ -1,0 +1,428 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xiltimer__api" kind="group">
+    <compoundname>xiltimer_api</compoundname>
+    <title>XilTimer APIs</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xiltimer__api_1gad566619236e065d2120ff35bf4069666" prot="public" static="no" mutable="no">
+        <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref></type>
+        <definition>XTimer TimerInst</definition>
+        <argsstring></argsstring>
+        <name>TimerInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xiltimer__api_1ga6abf0c162fa52c76c94d067a1baadd81" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XAxiTimer_Init</definition>
+        <argsstring>(XTimer *InstancePtr, UINTPTR BaseAddress, XTmrCtr *AxiTimerInstPtr)</argsstring>
+        <name>XAxiTimer_Init</name>
+        <param>
+          <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XTmrCtr *</type>
+          <declname>AxiTimerInstPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the Axi Timer Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Axi Timer Instance baseaddress to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/axi_timer/axi_timer.c" bodystart="105" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga2c391113ad85cc4d13b89397d9d77dc1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XTimer_ScutimerInit</definition>
+        <argsstring>(XTimer *InstancePtr, UINTPTR BaseAddress, XScuTimer *ScuTimerInstPtr)</argsstring>
+        <name>XTimer_ScutimerInit</name>
+        <param>
+          <type><ref refid="xiltimer_8h_1a7ba0892098f95e0c742e64b51e97319b" kindref="member">XTimer</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XScuTimer *</type>
+          <declname>ScuTimerInstPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the Scutimer Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Scutimer Instance baseaddress to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ScuTimerInstPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XScuTimer Instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="116" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gaffc16d6c4c44f42d4dad9d9a183f4098" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XTimer_TtcInit</definition>
+        <argsstring>(UINTPTR BaseAddress, XTtcPs *TtcPsInstPtr)</argsstring>
+        <name>XTimer_TtcInit</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>XTtcPs *</type>
+          <declname>TtcPsInstPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the TtcPs Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Scutimer Instance baseaddress to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="147" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilTimer_Sleep</definition>
+        <argsstring>(unsigned long delay, XTimer_DelayType DelayType)</argsstring>
+        <name>XilTimer_Sleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>delay</declname>
+        </param>
+        <param>
+          <type><ref refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adb" kindref="member">XTimer_DelayType</ref></type>
+          <declname>DelayType</declname>
+        </param>
+        <briefdescription>
+<para>This API contains common delay implementation using library API&apos;s. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="101" bodyend="108"/>
+        <references refid="struct_x_timer_tag_1a1596156ea70229b14ebdb8776e890fea" compoundref="xiltimer_8h" startline="103">XTimerTag::XTimer_ModifyInterval</references>
+        <referencedby refid="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" compoundref="xiltimer_8c" startline="71" endline="73">msleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" compoundref="xiltimer_8c" startline="55" endline="57">sleep</referencedby>
+        <referencedby refid="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" compoundref="xiltimer_8c" startline="87" endline="89">usleep</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gafc060fb73e66e0f4493f7417ef6e4047" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void sleep</definition>
+        <argsstring>(unsigned int seconds)</argsstring>
+        <name>sleep</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>seconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in sec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>seconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in seconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="55" bodyend="57"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba560abaa29cb456b69114f70412ecfb97" compoundref="xiltimer_8h" startline="77">XTIMER_DELAY_SEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga5b18907cf69292caad8910f3667e48fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void msleep</definition>
+        <argsstring>(unsigned long mseconds)</argsstring>
+        <name>msleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>mseconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in msec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>mseconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in milliseconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="71" bodyend="73"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adba4300457c5c502155d5683873c208873d" compoundref="xiltimer_8h" startline="78">XTIMER_DELAY_MSEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga068447b060a14715c07173bba411eb75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void usleep</definition>
+        <argsstring>(unsigned long useconds)</argsstring>
+        <name>usleep</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>useconds</declname>
+        </param>
+        <briefdescription>
+<para>This API gives delay in usec. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>useconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in microseconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="87" bodyend="89"/>
+        <references refid="group__xiltimer__api_1ga3bf4c88807bba962c75976fed3c217d9" compoundref="xiltimer_8c" startline="101" endline="108">XilTimer_Sleep</references>
+        <references refid="xiltimer_8h_1ac78bbfcf92781c4163433b9234ca5adbaf87fdb94b9c9f134efde527a38db6048" compoundref="xiltimer_8h" startline="79">XTIMER_DELAY_USEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gaf69e1968c5c23ab54bbe16685f28eec2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void xtimerinit</definition>
+        <argsstring>()</argsstring>
+        <name>xtimerinit</name>
+        <briefdescription>
+<para>This API initializes the xiltimer library through constructor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="118" bodyend="122"/>
+        <references refid="xiltimer_8h_1ae6ae23d2e575f47dcdd374cac14947ee">XilSleepTimer_Init</references>
+        <references refid="xiltimer_8h_1a261d2e800b7b82eb41e3b8f8043a5c52">XilTickTimer_Init</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetHandler</definition>
+        <argsstring>(XTimer_TickHandler FuncPtr, void *CallBackRef, u8 Priority)</argsstring>
+        <name>XTimer_SetHandler</name>
+        <param>
+          <type>XTimer_TickHandler</type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Priority</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given FuncPtr. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Priority</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Priority for the interrupt</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="138" bodyend="150"/>
+        <references refid="struct_x_timer_tag_1a5ba807967063169be63cde744354d0a8" compoundref="xiltimer_8h" startline="116">XTimerTag::CallBackRef</references>
+        <references refid="struct_x_timer_tag_1a3e4c875a87fc8e4158293010a729bb2f" compoundref="xiltimer_8h" startline="115">XTimerTag::Handler</references>
+        <references refid="struct_x_timer_tag_1a789426610fee231cacc16560c831bc42" compoundref="xiltimer_8h" startline="105">XTimerTag::XTimer_TickIntrHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1gac2d61518eafb79f1bad01cecb9503d6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_SetInterval</definition>
+        <argsstring>(unsigned long delay)</argsstring>
+        <name>XTimer_SetInterval</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>delay</declname>
+        </param>
+        <briefdescription>
+<para>This API sets the elapse interval for the timer instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Delay time in milliseconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="185" bodyend="192"/>
+        <references refid="struct_x_timer_tag_1aa0931e9c88867714880e5d22aeca89b0" compoundref="xiltimer_8h" startline="107">XTimerTag::XTimer_TickInterval</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xiltimer__api_1ga30d16ade92d9b5d61797f69f06bdd7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XTimer_ClearTickInterrupt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XTimer_ClearTickInterrupt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This API clears the interrupt status of the tick timer instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/xiltimer.c" bodystart="204" bodyend="211"/>
+        <references refid="struct_x_timer_tag_1a65213463c513915b2057907b0548a7a1" compoundref="xiltimer_8h" startline="113">XTimerTag::XTickTimer_ClearInterrupt</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xiltimer__api_1gae14eaaed1fe7cdf491da54a714c426b3" prot="public" static="no">
+        <name>MAX_COUNT</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>The ScuTimer typically operates with a 32-bit counter, and this value represents the maximum possible count that can be stored in that counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/scutimer/scutimer.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xiltimer__api_1gaca6f06685ab6904b49da2f41d3c7b46b" prot="public" static="no">
+        <name>REG_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>the shift amount used when concatenating two registers to form a 64-bit value. </para>        </briefdescription>
+        <detaileddescription>
+<para>the shift amount is 32, indicating a 16-bit register width. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xiltimer__api_1ga82aee0f8087831dfc46f2d5c884d1b0e" prot="public" static="no">
+        <name>XCntrVal</name>
+        <initializer>u16</initializer>
+        <briefdescription>
+<para>the type used to represent the value of a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Depending on the architecture being targeted, it is a 16-bit unsigned integer (u16). </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/ttcps/ttcps.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>} </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the sleep API&apos;s.</para><para>}</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date     Changes
+<hruler/>
+
+ 1.0  adk        24/11/21 Initial release.
+        adk      12/01/22 Fix compilation errors when cortexr5 internal pm
+                          counter selected as default timer.
+        adk      07/02/22 Integrate configuring of priority field into
+                          <ref refid="group__xiltimer__api_1ga6395671177518353e3ab5ded9609eb1e" kindref="member">XTimer_SetHandler()</ref> API instead of a new API.
+        adk      25/03/22 Fix compilation errors when cortexa72 global timer
+                          selected as default timer.
+ 1.1    adk      08/08/22 Added support for versal net.
+        adk      08/08/22 Added doxygen tags.
+ 1.2  adk        22/12/22 Fixed doxygen style and indentation issues.
+ 1.3  gm      21/07/23 Added Timer Release Callback function.
+ 1.4  ht      09/12/23 Added code for versioning of library.
+ 1.4  mus     15/02/24 Added correct APIs to set/get MB V frequency.
+ 2.0  ml      28/03/24 Added description to fix doxygen warnings.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

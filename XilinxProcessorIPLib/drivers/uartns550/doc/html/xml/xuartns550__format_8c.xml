@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartns550__format_8c" kind="file">
+    <compoundname>xuartns550_format.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xuartns550_8h" local="yes">xuartns550.h</includes>
+    <includes refid="xuartns550__i_8h" local="yes">xuartns550_i.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <incdepgraph>
+      <node id="39">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="35">
+        <label>xuartns550_format.c</label>
+        <link refid="xuartns550_format.c"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xil_io.h</label>
+      </node>
+      <node id="37">
+        <label>xuartns550.h</label>
+        <link refid="xuartns550_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xuartns550_l.h</label>
+        <link refid="xuartns550__l_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>xstatus.h</label>
+      </node>
+      <node id="38">
+        <label>xil_types.h</label>
+      </node>
+      <node id="42">
+        <label>xuartns550_i.h</label>
+        <link refid="xuartns550__i_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartNs550_SetDataFormat</definition>
+        <argsstring>(XUartNs550 *InstancePtr, XUartNs550Format *FormatPtr)</argsstring>
+        <name>XUartNs550_SetDataFormat</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_ns550_format" kindref="compound">XUartNs550Format</ref> *</type>
+          <declname>Format</declname>
+          <defname>FormatPtr</defname>
+        </param>
+        <briefdescription>
+<para>Sets the data format for the specified UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The data format includes the baud rate, number of data bits, number of stop bits, and parity. It is the caller&apos;s responsibility to ensure that the UART is not sending or receiving data when this function is called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance . </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FormatPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a format structure containing the data format to be set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>    - XST_SUCCESS if the data format was successfully set.
+    - XST_UART_BAUD_ERROR indicates the baud rate could not be set
+    because of the amount of error with the baud rate and the input
+    clock frequency.
+    - XST_INVALID_PARAM if one of the parameters was not valid.
+</verbatim></para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The data types in the format type, data bits and parity, are 32 bit fields to prevent a compiler warning that is a bug with the GNU PowerPC compiler. The asserts in this function will cause a warning if these fields are bytes. <linebreak/>
+<linebreak/>
+ The baud rates tested include: 1200, 2400, 4800, 9600, 19200, 38400, 57600 and 115200. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_format.c" bodystart="86" bodyend="165"/>
+        <references refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" compoundref="xuartns550_8h" startline="416">XUartNs550::BaseAddress</references>
+        <references refid="struct_x_uart_ns550_format_1a5e0a377a4464adc0e31fb6953e6db5ee" compoundref="xuartns550_8h" startline="367">XUartNs550Format::BaudRate</references>
+        <references refid="struct_x_uart_ns550_format_1abd1271766499c4ba190318b99bf1a0f5" compoundref="xuartns550_8h" startline="368">XUartNs550Format::DataBits</references>
+        <references refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" compoundref="xuartns550_8h" startline="369">XUartNs550Format::Parity</references>
+        <references refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" compoundref="xuartns550_8h" startline="370">XUartNs550Format::StopBits</references>
+        <references refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" compoundref="xuartns550__l_8h" startline="231">XUartNs550_GetLineControlReg</references>
+        <references refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" compoundref="xuartns550__l_8h" startline="248">XUartNs550_SetLineControlReg</references>
+        <references refid="group__uartns550_1gadde11ab1bed0554bf6863a425a9b6883" compoundref="xuartns550_8h" startline="226">XUN_FORMAT_1_STOP_BIT</references>
+        <references refid="group__uartns550_1ga87a29bbab99baca04a1b2f860000f45d" compoundref="xuartns550_8h" startline="225">XUN_FORMAT_2_STOP_BIT</references>
+        <references refid="group__uartns550_1ga7d074166a6d63f05a7f5b4d8600eef81" compoundref="xuartns550_8h" startline="216">XUN_FORMAT_8_BITS</references>
+        <references refid="group__uartns550_1ga3ceb996b058ef788676793d1da22b4fd" compoundref="xuartns550_8h" startline="221">XUN_FORMAT_EVEN_PARITY</references>
+        <references refid="group__uartns550_1ga12c4007e0384a40140cff2ccd42d20d6" compoundref="xuartns550_8h" startline="223">XUN_FORMAT_NO_PARITY</references>
+        <references refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" compoundref="xuartns550__l_8h" startline="125">XUN_LCR_2_STOP_BITS</references>
+        <references refid="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" compoundref="xuartns550__l_8h" startline="124">XUN_LCR_ENABLE_PARITY</references>
+        <references refid="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" compoundref="xuartns550__l_8h" startline="123">XUN_LCR_EVEN_PARITY</references>
+        <references refid="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" compoundref="xuartns550__l_8h" startline="129">XUN_LCR_LENGTH_MASK</references>
+        <references refid="group__uartns550_1gaa87780e1deb82b5068dc0d4f2c495098" compoundref="xuartns550__l_8h" startline="130">XUN_LCR_PARITY_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartNs550_GetDataFormat</definition>
+        <argsstring>(XUartNs550 *InstancePtr, XUartNs550Format *FormatPtr)</argsstring>
+        <name>XUartNs550_GetDataFormat</name>
+        <param>
+          <type><ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_ns550_format" kindref="compound">XUartNs550Format</ref> *</type>
+          <declname>Format</declname>
+          <defname>FormatPtr</defname>
+        </param>
+        <briefdescription>
+<para>Gets the data format for the specified UART. </para>        </briefdescription>
+        <detaileddescription>
+<para>The data format includes the baud rate, number of data bits, number of stop bits, and parity.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FormatPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a format structure that will contain the data format after this call completes.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_format.c" bodystart="186" bodyend="248"/>
+        <references refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" compoundref="xuartns550_8h" startline="416">XUartNs550::BaseAddress</references>
+        <references refid="struct_x_uart_ns550_format_1a5e0a377a4464adc0e31fb6953e6db5ee" compoundref="xuartns550_8h" startline="367">XUartNs550Format::BaudRate</references>
+        <references refid="struct_x_uart_ns550_1a483f1f7edada3366bac4dd02e19a5264" compoundref="xuartns550_8h" startline="419">XUartNs550::BaudRate</references>
+        <references refid="struct_x_uart_ns550_format_1abd1271766499c4ba190318b99bf1a0f5" compoundref="xuartns550_8h" startline="368">XUartNs550Format::DataBits</references>
+        <references refid="struct_x_uart_ns550_1a91623aea4128b71058dba19670cc4b42" compoundref="xuartns550_8h" startline="418">XUartNs550::IsReady</references>
+        <references refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" compoundref="xuartns550_8h" startline="369">XUartNs550Format::Parity</references>
+        <references refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" compoundref="xuartns550_8h" startline="370">XUartNs550Format::StopBits</references>
+        <references refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" compoundref="xuartns550__l_8h" startline="231">XUartNs550_GetLineControlReg</references>
+        <references refid="group__uartns550_1gadde11ab1bed0554bf6863a425a9b6883" compoundref="xuartns550_8h" startline="226">XUN_FORMAT_1_STOP_BIT</references>
+        <references refid="group__uartns550_1ga87a29bbab99baca04a1b2f860000f45d" compoundref="xuartns550_8h" startline="225">XUN_FORMAT_2_STOP_BIT</references>
+        <references refid="group__uartns550_1ga3ceb996b058ef788676793d1da22b4fd" compoundref="xuartns550_8h" startline="221">XUN_FORMAT_EVEN_PARITY</references>
+        <references refid="group__uartns550_1ga12c4007e0384a40140cff2ccd42d20d6" compoundref="xuartns550_8h" startline="223">XUN_FORMAT_NO_PARITY</references>
+        <references refid="group__uartns550_1gae820f584c1473ec1fcb8dcab5ff53752" compoundref="xuartns550_8h" startline="222">XUN_FORMAT_ODD_PARITY</references>
+        <references refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" compoundref="xuartns550__l_8h" startline="125">XUN_LCR_2_STOP_BITS</references>
+        <references refid="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" compoundref="xuartns550__l_8h" startline="124">XUN_LCR_ENABLE_PARITY</references>
+        <references refid="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" compoundref="xuartns550__l_8h" startline="123">XUN_LCR_EVEN_PARITY</references>
+        <references refid="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" compoundref="xuartns550__l_8h" startline="129">XUN_LCR_LENGTH_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550_8h" kindref="compound">xuartns550.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xuartns550__i_8h" kindref="compound">xuartns550_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="86" refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga4b3eb97421a6a66e7029e9afafd8a74b" kindref="member">XUartNs550_SetDataFormat</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550_format" kindref="compound">XUartNs550Format</ref><sp/>*FormatPtr)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LcrRegister;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FormatPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>the<sp/>inputs<sp/>specified<sp/>are<sp/>valid<sp/>and<sp/>return<sp/>an<sp/>error<sp/>if<sp/>any</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>are<sp/>not,<sp/>without<sp/>setting<sp/>the<sp/>data<sp/>format</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1abd1271766499c4ba190318b99bf1a0f5" kindref="member">DataBits</ref><sp/>&gt;<sp/><ref refid="group__uartns550_1ga7d074166a6d63f05a7f5b4d8600eef81" kindref="member">XUN_FORMAT_8_BITS</ref>)<sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>&gt;<sp/><ref refid="group__uartns550_1ga3ceb996b058ef788676793d1da22b4fd" kindref="member">XUN_FORMAT_EVEN_PARITY</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" kindref="member">StopBits</ref><sp/>!=<sp/><ref refid="group__uartns550_1ga87a29bbab99baca04a1b2f860000f45d" kindref="member">XUN_FORMAT_2_STOP_BIT</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" kindref="member">StopBits</ref><sp/>!=<sp/><ref refid="group__uartns550_1gadde11ab1bed0554bf6863a425a9b6883" kindref="member">XUN_FORMAT_1_STOP_BIT</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Try<sp/>to<sp/>set<sp/>the<sp/>baud<sp/>rate<sp/>and<sp/>if<sp/>it&apos;s<sp/>not<sp/>successful<sp/>then<sp/>don&apos;t</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>continue<sp/>altering<sp/>the<sp/>data<sp/>format,<sp/>this<sp/>is<sp/>done<sp/>first<sp/>to<sp/>avoid<sp/>the</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>format<sp/>from<sp/>being<sp/>altered<sp/>when<sp/>an<sp/>error<sp/>occurs</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUartNs550_SetBaudRate(InstancePtr,<sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1a5e0a377a4464adc0e31fb6953e6db5ee" kindref="member">BaudRate</ref>);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>line<sp/>control<sp/>register<sp/>which<sp/>contains<sp/>the<sp/>parity,<sp/>length<sp/>and</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>stop<sp/>bits<sp/>so<sp/>they<sp/>can<sp/>be<sp/>updated<sp/>without<sp/>affecting<sp/>any<sp/>other<sp/>bits</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>=<sp/><ref refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" kindref="member">XUartNs550_GetLineControlReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>length<sp/>of<sp/>data<sp/>(8,7,6,5)<sp/>by<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>control<sp/>it<sp/>in<sp/>the<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>length<sp/>in<sp/>the<sp/>register</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>&amp;=<sp/>~<ref refid="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" kindref="member">XUN_LCR_LENGTH_MASK</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>|=<sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1abd1271766499c4ba190318b99bf1a0f5" kindref="member">DataBits</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>in<sp/>the<sp/>line<sp/>control<sp/>register,<sp/>if<sp/>the</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>is<sp/>not<sp/>2,<sp/>then<sp/>it<sp/>must<sp/>be<sp/>one<sp/>which<sp/>is<sp/>the<sp/>bit</highlight></codeline>
+<codeline lineno="132"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>the<sp/>register<sp/>cleared</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" kindref="member">StopBits</ref><sp/>==<sp/><ref refid="group__uartns550_1ga87a29bbab99baca04a1b2f860000f45d" kindref="member">XUN_FORMAT_2_STOP_BIT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>|=<sp/><ref refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" kindref="member">XUN_LCR_2_STOP_BITS</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>&amp;=<sp/>~<ref refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" kindref="member">XUN_LCR_2_STOP_BITS</ref>;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>parity<sp/>by<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits<sp/>that<sp/>control<sp/>it<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>bits<sp/>in<sp/>the<sp/>register,<sp/>the<sp/>default<sp/>is<sp/>no<sp/>parity</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>after<sp/>clearing<sp/>the<sp/>register<sp/>bits</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>&amp;=<sp/>~<ref refid="group__uartns550_1gaa87780e1deb82b5068dc0d4f2c495098" kindref="member">XUN_LCR_PARITY_MASK</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>!=<sp/><ref refid="group__uartns550_1ga12c4007e0384a40140cff2ccd42d20d6" kindref="member">XUN_FORMAT_NO_PARITY</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Some<sp/>form<sp/>of<sp/>parity<sp/>is<sp/>specified,<sp/>set<sp/>the<sp/>bit<sp/>indicating<sp/>that</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>parity<sp/>is<sp/>enabled,<sp/>then<sp/>setup<sp/>even<sp/>or<sp/>odd,<sp/>the<sp/>default<sp/>is<sp/>odd</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>after<sp/>clearing<sp/>the<sp/>register<sp/>bits</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>|=<sp/><ref refid="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" kindref="member">XUN_LCR_ENABLE_PARITY</ref>;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>==<sp/><ref refid="group__uartns550_1ga3ceb996b058ef788676793d1da22b4fd" kindref="member">XUN_FORMAT_EVEN_PARITY</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>|=<sp/><ref refid="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" kindref="member">XUN_LCR_EVEN_PARITY</ref>;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="159"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>line<sp/>control<sp/>register<sp/>out<sp/>to<sp/>save<sp/>the<sp/>new<sp/>data<sp/>format</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>has<sp/>been<sp/>created</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartns550_1ga4f3ff99ca70dfe6c715cbbfdd9742230" kindref="member">XUartNs550_SetLineControlReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>,<sp/>LcrRegister);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="186" refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartns550_1ga7928b4629d2a36d5f771040176746f10" kindref="member">XUartNs550_GetDataFormat</ref>(<ref refid="struct_x_uart_ns550" kindref="compound">XUartNs550</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_ns550_format" kindref="compound">XUartNs550Format</ref><sp/>*FormatPtr)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>LcrRegister;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FormatPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="196"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a91623aea4128b71058dba19670cc4b42" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>baud<sp/>rate<sp/>from<sp/>the<sp/>instance,<sp/>this<sp/>is<sp/>not<sp/>retrieved<sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>hardware<sp/>because<sp/>it<sp/>is<sp/>only<sp/>kept<sp/>as<sp/>a<sp/>divisor<sp/>such<sp/>that<sp/>it<sp/>is<sp/>more</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>difficult<sp/>to<sp/>get<sp/>back<sp/>to<sp/>the<sp/>divisor</highlight></codeline>
+<codeline lineno="204"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1a5e0a377a4464adc0e31fb6953e6db5ee" kindref="member">BaudRate</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1a483f1f7edada3366bac4dd02e19a5264" kindref="member">BaudRate</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>line<sp/>control<sp/>register<sp/>which<sp/>contains<sp/>the<sp/>parity,<sp/>length<sp/>and</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>stop<sp/>bits<sp/>so<sp/>they<sp/>can<sp/>be<sp/>updated<sp/>without<sp/>affecting<sp/>any<sp/>other<sp/>bits</highlight></codeline>
+<codeline lineno="210"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LcrRegister<sp/>=<sp/><ref refid="group__uartns550_1gab9ba96c18cb50a8ab5873d781b4ee94e" kindref="member">XUartNs550_GetLineControlReg</ref>(InstancePtr-&gt;<ref refid="struct_x_uart_ns550_1accb5967cc8b50d37db493b436836c25c" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>length<sp/>of<sp/>data<sp/>(8,7,6,5)<sp/>by<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>that<sp/>control<sp/>it<sp/>in<sp/>the<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>length<sp/>in<sp/>the<sp/>register</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1abd1271766499c4ba190318b99bf1a0f5" kindref="member">DataBits</ref><sp/>=<sp/>LcrRegister<sp/>&amp;<sp/><ref refid="group__uartns550_1ga483bdd6c37b57123fdc2a3da8a74a39f" kindref="member">XUN_LCR_LENGTH_MASK</ref>;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="220"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>the<sp/>number<sp/>of<sp/>stop<sp/>bits<sp/>by<sp/>first<sp/>clearing<sp/>out<sp/>the<sp/>bits<sp/>in<sp/>that</highlight></codeline>
+<codeline lineno="221"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>control<sp/>it<sp/>in<sp/>the<sp/>register,<sp/>then<sp/>set<sp/>the<sp/>bits<sp/>in<sp/>the<sp/>register,<sp/>the</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>default<sp/>is<sp/>one<sp/>stop<sp/>bit<sp/>after<sp/>clearing<sp/>the<sp/>register<sp/>bits</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(LcrRegister<sp/>&amp;<sp/><ref refid="group__uartns550_1gac7f9d8d22514af63f22691f8b0aaee5c" kindref="member">XUN_LCR_2_STOP_BITS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" kindref="member">StopBits</ref><sp/>=<sp/><ref refid="group__uartns550_1ga87a29bbab99baca04a1b2f860000f45d" kindref="member">XUN_FORMAT_2_STOP_BIT</ref>;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1ad6039467add1a8ec200b25e45538c740" kindref="member">StopBits</ref><sp/>=<sp/><ref refid="group__uartns550_1gadde11ab1bed0554bf6863a425a9b6883" kindref="member">XUN_FORMAT_1_STOP_BIT</ref>;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="231"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Determine<sp/>what<sp/>parity<sp/>is<sp/>set<sp/>from<sp/>the<sp/>register<sp/>and<sp/>setup<sp/>the<sp/>format</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>correspond</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((LcrRegister<sp/>&amp;<sp/><ref refid="group__uartns550_1ga4a5273b5f25d43f994d23adcfaceb06f" kindref="member">XUN_LCR_ENABLE_PARITY</ref>)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>=<sp/><ref refid="group__uartns550_1ga12c4007e0384a40140cff2ccd42d20d6" kindref="member">XUN_FORMAT_NO_PARITY</ref>;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Parity<sp/>is<sp/>enables,<sp/>so<sp/>determine<sp/>if<sp/>it&apos;s<sp/>even<sp/>or<sp/>odd<sp/>and<sp/>set<sp/>the</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>format<sp/>to<sp/>correspond</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(LcrRegister<sp/>&amp;<sp/><ref refid="group__uartns550_1ga5a9981c3534734f46ae6a7761c272cd2" kindref="member">XUN_LCR_EVEN_PARITY</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>=<sp/><ref refid="group__uartns550_1ga3ceb996b058ef788676793d1da22b4fd" kindref="member">XUN_FORMAT_EVEN_PARITY</ref>;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FormatPtr-&gt;<ref refid="struct_x_uart_ns550_format_1aa3e59ccae311a6e3eb376805c92ffde3" kindref="member">Parity</ref><sp/>=<sp/><ref refid="group__uartns550_1gae820f584c1473ec1fcb8dcab5ff53752" kindref="member">XUN_FORMAT_ODD_PARITY</ref>;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartns550/src/xuartns550_format.c"/>
+  </compounddef>
+</doxygen>

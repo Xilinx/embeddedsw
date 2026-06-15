@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_metadata_integer_range__s" kind="struct" prot="public">
+    <compoundname>MetadataIntegerRange_s</compoundname>
+    <includes local="no">buf_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_metadata_integer_range__s_1a20ef9461d98e593e046798bb18dd5920" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataIntegerRange_s::max</definition>
+        <argsstring></argsstring>
+        <name>max</name>
+        <briefdescription>
+<para>Maximum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="470" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_integer_range__s_1a70b026469ed6546e9f448be9eeffe452" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataIntegerRange_s::min</definition>
+        <argsstring></argsstring>
+        <name>min</name>
+        <briefdescription>
+<para>Minimum value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="471" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_integer_range__s_1a01ea8e92768bccd2c80645f0bf91f234" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataIntegerRange_s::step</definition>
+        <argsstring></argsstring>
+        <name>step</name>
+        <briefdescription>
+<para>Step value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Cam Engine integer range information structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="469" bodyend="473"/>
+    <listofallmembers>
+      <member refid="struct_metadata_integer_range__s_1a20ef9461d98e593e046798bb18dd5920" prot="public" virt="non-virtual"><scope>MetadataIntegerRange_s</scope><name>max</name></member>
+      <member refid="struct_metadata_integer_range__s_1a70b026469ed6546e9f448be9eeffe452" prot="public" virt="non-virtual"><scope>MetadataIntegerRange_s</scope><name>min</name></member>
+      <member refid="struct_metadata_integer_range__s_1a01ea8e92768bccd2c80645f0bf91f234" prot="public" virt="non-virtual"><scope>MetadataIntegerRange_s</scope><name>step</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

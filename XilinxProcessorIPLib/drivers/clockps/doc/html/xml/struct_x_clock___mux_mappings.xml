@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___mux_mappings" kind="struct" prot="public">
+    <compoundname>XClock_MuxMappings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___mux_mappings_1af518863d1203dc326ec955e0c2098318" prot="public" static="no" mutable="no">
+        <type>XClock_OutputClks</type>
+        <definition>XClock_OutputClks XClock_MuxMappings::ClockId</definition>
+        <argsstring></argsstring>
+        <name>ClockId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___mux_mappings_1a2b776f26c22ebaa45e30632a74ee24f0" prot="public" static="no" mutable="no">
+        <type>XClock_MuxIndices</type>
+        <definition>XClock_MuxIndices XClock_MuxMappings::MuxIndex</definition>
+        <argsstring></argsstring>
+        <name>MuxIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_mux.c" bodystart="133" bodyend="136"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___mux_mappings_1af518863d1203dc326ec955e0c2098318" prot="public" virt="non-virtual"><scope>XClock_MuxMappings</scope><name>ClockId</name></member>
+      <member refid="struct_x_clock___mux_mappings_1a2b776f26c22ebaa45e30632a74ee24f0" prot="public" virt="non-virtual"><scope>XClock_MuxMappings</scope><name>MuxIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

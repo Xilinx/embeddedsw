@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdptxss__dptx_8h" kind="file">
+    <compoundname>xdptxss_dptx.h</compoundname>
+    <includes local="yes">xdp.h</includes>
+    <includedby refid="xdptxss__dptx_8c" local="yes">xdptxss_dptx.c</includedby>
+    <includedby refid="xdptxss_8h" local="yes">xdptxss.h</includedby>
+    <incdepgraph>
+      <node id="773">
+        <label>xdp.h</label>
+      </node>
+      <node id="772">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss_dptx.h"/>
+        <childnode refid="773" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="778">
+        <label>xdptxss_dbg.c</label>
+        <link refid="xdptxss__dbg_8c"/>
+      </node>
+      <node id="784">
+        <label>menus.c</label>
+      </node>
+      <node id="807">
+        <label>xdptxss_selftest_example.c</label>
+        <link refid="xdptxss__selftest__example_8c"/>
+      </node>
+      <node id="802">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="801">
+        <label>xdptxss_zcu102_tx.c</label>
+      </node>
+      <node id="799">
+        <label>xdptxss_zcu102_tx.h</label>
+        <childnode refid="800" relation="include">
+        </childnode>
+        <childnode refid="801" relation="include">
+        </childnode>
+      </node>
+      <node id="786">
+        <label>xedid_print_example.c</label>
+      </node>
+      <node id="788">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="787">
+        <label>xvid_pat_gen.h</label>
+        <childnode refid="783" relation="include">
+        </childnode>
+        <childnode refid="788" relation="include">
+        </childnode>
+      </node>
+      <node id="804">
+        <label>xdptxss_hdcp_example.c</label>
+        <link refid="xdptxss__hdcp__example_8c"/>
+      </node>
+      <node id="806">
+        <label>xdptxss_mst_example.c</label>
+        <link refid="xdptxss__mst__example_8c"/>
+      </node>
+      <node id="785">
+        <label>xdptxss_kc705.c</label>
+      </node>
+      <node id="796">
+        <label>menus.c</label>
+      </node>
+      <node id="790">
+        <label>menus.c</label>
+      </node>
+      <node id="797">
+        <label>xdptxss_zcu102_tx.c</label>
+      </node>
+      <node id="795">
+        <label>xdptxss_zcu102_tx.h</label>
+        <childnode refid="796" relation="include">
+        </childnode>
+        <childnode refid="797" relation="include">
+        </childnode>
+      </node>
+      <node id="794">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="793">
+        <label>xvid_pat_gen.h</label>
+        <childnode refid="789" relation="include">
+        </childnode>
+        <childnode refid="794" relation="include">
+        </childnode>
+      </node>
+      <node id="791">
+        <label>xdptxss_kcu105.c</label>
+      </node>
+      <node id="805">
+        <label>xdptxss_intr_example.c</label>
+        <link refid="xdptxss__intr__example_8c"/>
+      </node>
+      <node id="781">
+        <label>xdptxss_selftest.c</label>
+        <link refid="xdptxss__selftest_8c"/>
+      </node>
+      <node id="800">
+        <label>menus.c</label>
+      </node>
+      <node id="777">
+        <label>xdptxss.c</label>
+        <link refid="xdptxss_8c"/>
+      </node>
+      <node id="776">
+        <label>xdptxss.h</label>
+        <link refid="xdptxss_8h"/>
+        <childnode refid="777" relation="include">
+        </childnode>
+        <childnode refid="778" relation="include">
+        </childnode>
+        <childnode refid="779" relation="include">
+        </childnode>
+        <childnode refid="780" relation="include">
+        </childnode>
+        <childnode refid="781" relation="include">
+        </childnode>
+        <childnode refid="782" relation="include">
+        </childnode>
+        <childnode refid="783" relation="include">
+        </childnode>
+        <childnode refid="787" relation="include">
+        </childnode>
+        <childnode refid="789" relation="include">
+        </childnode>
+        <childnode refid="793" relation="include">
+        </childnode>
+        <childnode refid="795" relation="include">
+        </childnode>
+        <childnode refid="798" relation="include">
+        </childnode>
+        <childnode refid="799" relation="include">
+        </childnode>
+        <childnode refid="802" relation="include">
+        </childnode>
+        <childnode refid="803" relation="include">
+        </childnode>
+        <childnode refid="804" relation="include">
+        </childnode>
+        <childnode refid="805" relation="include">
+        </childnode>
+        <childnode refid="806" relation="include">
+        </childnode>
+        <childnode refid="807" relation="include">
+        </childnode>
+      </node>
+      <node id="789">
+        <label>dppt.h</label>
+        <childnode refid="790" relation="include">
+        </childnode>
+        <childnode refid="791" relation="include">
+        </childnode>
+        <childnode refid="792" relation="include">
+        </childnode>
+      </node>
+      <node id="803">
+        <label>xdptxss_debug_example.c</label>
+        <link refid="xdptxss__debug__example_8c"/>
+      </node>
+      <node id="782">
+        <label>xdptxss_sinit.c</label>
+        <link refid="xdptxss__sinit_8c"/>
+      </node>
+      <node id="792">
+        <label>xedid_print_example.c</label>
+      </node>
+      <node id="798">
+        <label>xvid_pat_gen.c</label>
+      </node>
+      <node id="780">
+        <label>xdptxss_intr.c</label>
+        <link refid="xdptxss__intr_8c"/>
+      </node>
+      <node id="783">
+        <label>dppt.h</label>
+        <childnode refid="784" relation="include">
+        </childnode>
+        <childnode refid="785" relation="include">
+        </childnode>
+        <childnode refid="786" relation="include">
+        </childnode>
+      </node>
+      <node id="779">
+        <label>xdptxss_g.c</label>
+      </node>
+      <node id="775">
+        <label>xdptxss_dptx.c</label>
+        <link refid="xdptxss__dptx_8c"/>
+      </node>
+      <node id="774">
+        <label>xdptxss_dptx.h</label>
+        <link refid="xdptxss_dptx.h"/>
+        <childnode refid="775" relation="include">
+        </childnode>
+        <childnode refid="776" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdptxss__dptx_8h_1adad4d510c1fc417549252879990486c1" prot="public" static="no">
+        <name>XDPTXSS_DPTX_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dptx_8h_1a2f557b79a4d7d8a046d331db3121f162" prot="public" static="no">
+        <name>XDPTXSS_DPTX_MST</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Multi-Stream Transport. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" bodystart="42" bodyend="-1"/>
+        <referencedby refid="xdptxss__dptx_8h_1aaa03d99159fd8797f71c448fd7bd20c9" compoundref="xdptxss__dptx_8c" startline="90" endline="665">XDpTxSs_DpTxStart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xdptxss__dptx_8h_1a02f2b280a1b516b73a501032ae4b68d4" prot="public" static="no">
+        <name>XDPTXSS_DPTX_SST</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Single Stream Transport. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" bodystart="43" bodyend="-1"/>
+        <referencedby refid="xdptxss__dptx_8h_1aaa03d99159fd8797f71c448fd7bd20c9" compoundref="xdptxss__dptx_8c" startline="90" endline="665">XDpTxSs_DpTxStart</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdptxss__dptx_8h_1aaa03d99159fd8797f71c448fd7bd20c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpTxSs_DpTxStart</definition>
+        <argsstring>(XDp *InstancePtr, u8 TransportMode, u8 Bpc, XVidC_VideoMode VidMode)</argsstring>
+        <name>XDpTxSs_DpTxStart</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TransportMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bpc</declname>
+        </param>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>VidMode</declname>
+        </param>
+        <briefdescription>
+<para>This function configures DisplayPort sub-core with preferred resolution read from sink or user set resolution, bits per color in SST/MST mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>In MST mode, if sinks are more than two, it re-orders the sinks if belongs to same tiled display topology. It trains the link and allocates stream payloads for single stream (SST) or multi-stream transport mode (MST). In MST mode, discovers the topology and finds the actual number of sinks to which associates streams.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TransportMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies whether multiple/single steam to be sent over the main link.<itemizedlist>
+<listitem><para>TransportMode = 1 (for Multi-Stream Transport)</para></listitem><listitem><para>TransportMode = 0 (for Single Stream Transport) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bpc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the new number of bits per color to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VidMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is one of the enumerated standard video modes defined in xvidc.h file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS DisplayPort configured successfully.</para></listitem><listitem><para>XST_FAILURE if DisplayPort configuration failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; The payload bandwidth number (PBN) associated with the sink connected to this port.</para><para>&lt; The available PBN of the sink connected to this port. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.c" bodystart="90" bodyend="665"/>
+        <references refid="xdptxss__dptx_8h_1a2f557b79a4d7d8a046d331db3121f162" compoundref="xdptxss__dptx_8h" startline="42">XDPTXSS_DPTX_MST</references>
+        <references refid="xdptxss__dptx_8h_1a02f2b280a1b516b73a501032ae4b68d4" compoundref="xdptxss__dptx_8h" startline="43">XDPTXSS_DPTX_SST</references>
+        <references refid="xdptxss__dptx_8c_1a15749657798c249a36a4c63991129c30" compoundref="xdptxss__dptx_8c" startline="687" endline="781">XDpTxSs_DpTxStartLink</references>
+        <referencedby refid="group__dptxss_1ga883ba3d77b48aaaee5858de1e5620c76" compoundref="xdptxss_8c" startline="425" endline="506">XDpTxSs_Start</referencedby>
+        <referencedby refid="group__dptxss_1ga51a71c98f5346be40c4c76e091e121f8" compoundref="xdptxss_8c" startline="527" endline="609">XDpTxSs_StartCustomMsa</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdptxss__dptx_8h_1a15749657798c249a36a4c63991129c30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpTxSs_DpTxStartLink</definition>
+        <argsstring>(XDp *InstancePtr, u8 TrainMaxCap)</argsstring>
+        <name>XDpTxSs_DpTxStartLink</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TrainMaxCap</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if the link needs training and runs the training sequence if training is required based on the flags, indicates to use maximum RX capabilities or user specified link rate, lane count during training. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TrainMaxCap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a flag indicates whether maximum capabilities to be used during link training.<itemizedlist>
+<listitem><para>TRUE - Use maximum RX capabilities.</para></listitem><listitem><para>FALSE - Use custom capabilities.</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS the if main link was successfully established.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.c" bodystart="687" bodyend="781"/>
+        <referencedby refid="xdptxss__dptx_8h_1aaa03d99159fd8797f71c448fd7bd20c9" compoundref="xdptxss__dptx_8c" startline="90" endline="665">XDpTxSs_DpTxStart</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file for Xilinx DisplayPort Transmitter Subsystem sub-core, is DisplayPort in TX mode of operation. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 01/29/15 Initial release.
+1.00 sha 07/21/15 Renamed file name with prefix xdptxss_*, function
+                  names with prefix XDpTxSs_* and macros with prefix
+                  XDPTXSS_*
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XDPTXSS_DPTX_H_</highlight></codeline>
+<codeline lineno="28" refid="xdptxss__dptx_8h_1adad4d510c1fc417549252879990486c1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_DPTX_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdp.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPTXSS_DPTX_MST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="xdptxss__dptx_8h_1a2f557b79a4d7d8a046d331db3121f162" refkind="member"><highlight class="preprocessor">#define<sp/>XDPTXSS_DPTX_SST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal">u32<sp/><ref refid="xdptxss__dptx_8c_1aaa03d99159fd8797f71c448fd7bd20c9" kindref="member">XDpTxSs_DpTxStart</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>TransportMode,<sp/>u8<sp/>Bpc,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>VidMode);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">u32<sp/><ref refid="xdptxss__dptx_8c_1a15749657798c249a36a4c63991129c30" kindref="member">XDpTxSs_DpTxStartLink</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>TrainMaxCap);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/dp/xdptxss_dptx.h"/>
+  </compounddef>
+</doxygen>

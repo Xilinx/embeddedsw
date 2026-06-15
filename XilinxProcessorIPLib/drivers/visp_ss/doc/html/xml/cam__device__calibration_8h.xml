@@ -1,0 +1,1325 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__calibration_8h" kind="file">
+    <compoundname>cam_device_calibration.h</compoundname>
+    <includes refid="types_8h" local="yes">types.h</includes>
+    <includedby refid="cam__device__api_8h" local="yes">cam_device_api.h</includedby>
+    <incdepgraph>
+      <node id="1845">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1841">
+        <label>cam_device_calibration.h</label>
+        <link refid="cam_device_calibration.h"/>
+        <childnode refid="1842" relation="include">
+        </childnode>
+      </node>
+      <node id="1847">
+        <label>stddef.h</label>
+      </node>
+      <node id="1846">
+        <label>limits.h</label>
+      </node>
+      <node id="1842">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="1843" relation="include">
+        </childnode>
+        <childnode refid="1846" relation="include">
+        </childnode>
+        <childnode refid="1847" relation="include">
+        </childnode>
+      </node>
+      <node id="1844">
+        <label>stdio.h</label>
+      </node>
+      <node id="1843">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="1844" relation="include">
+        </childnode>
+        <childnode refid="1845" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1886">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="1863">
+        <label>vvdevice_common.h</label>
+        <childnode refid="1864" relation="include">
+        </childnode>
+        <childnode refid="1867" relation="include">
+        </childnode>
+        <childnode refid="1869" relation="include">
+        </childnode>
+        <childnode refid="1871" relation="include">
+        </childnode>
+        <childnode refid="1873" relation="include">
+        </childnode>
+        <childnode refid="1875" relation="include">
+        </childnode>
+        <childnode refid="1877" relation="include">
+        </childnode>
+        <childnode refid="1879" relation="include">
+        </childnode>
+        <childnode refid="1881" relation="include">
+        </childnode>
+        <childnode refid="1883" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1887" relation="include">
+        </childnode>
+        <childnode refid="1889" relation="include">
+        </childnode>
+        <childnode refid="1891" relation="include">
+        </childnode>
+        <childnode refid="1893" relation="include">
+        </childnode>
+        <childnode refid="1895" relation="include">
+        </childnode>
+        <childnode refid="1897" relation="include">
+        </childnode>
+        <childnode refid="1899" relation="include">
+        </childnode>
+        <childnode refid="1901" relation="include">
+        </childnode>
+        <childnode refid="1903" relation="include">
+        </childnode>
+        <childnode refid="1905" relation="include">
+        </childnode>
+        <childnode refid="1907" relation="include">
+        </childnode>
+        <childnode refid="1909" relation="include">
+        </childnode>
+        <childnode refid="1911" relation="include">
+        </childnode>
+        <childnode refid="1913" relation="include">
+        </childnode>
+        <childnode refid="1915" relation="include">
+        </childnode>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1919" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1923" relation="include">
+        </childnode>
+        <childnode refid="1925" relation="include">
+        </childnode>
+        <childnode refid="1927" relation="include">
+        </childnode>
+        <childnode refid="1929" relation="include">
+        </childnode>
+        <childnode refid="1931" relation="include">
+        </childnode>
+      </node>
+      <node id="1910">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="1908">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="1904">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="1914">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="1854">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="1891">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1892" relation="include">
+        </childnode>
+      </node>
+      <node id="1872">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="1885">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1886" relation="include">
+        </childnode>
+      </node>
+      <node id="1928">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="1911">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1912" relation="include">
+        </childnode>
+      </node>
+      <node id="1892">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="1932">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="1849">
+        <label>cam_device_api.h</label>
+        <childnode refid="1850" relation="include">
+        </childnode>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1936" relation="include">
+        </childnode>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1935" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1938" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+      </node>
+      <node id="1848">
+        <label>cam_device_calibration.h</label>
+        <link refid="cam_device_calibration.h"/>
+        <childnode refid="1849" relation="include">
+        </childnode>
+      </node>
+      <node id="1857">
+        <label>vvpath.c</label>
+      </node>
+      <node id="1922">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="1867">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1868" relation="include">
+        </childnode>
+      </node>
+      <node id="1902">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="1881">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1882" relation="include">
+        </childnode>
+      </node>
+      <node id="1865">
+        <label>submodule_def.h</label>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1929">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1930" relation="include">
+        </childnode>
+      </node>
+      <node id="1917">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+      </node>
+      <node id="1896">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="1921">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1922" relation="include">
+        </childnode>
+      </node>
+      <node id="1912">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="1889">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1890" relation="include">
+        </childnode>
+      </node>
+      <node id="1899">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+        <childnode refid="1900" relation="include">
+        </childnode>
+      </node>
+      <node id="1935">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="1850">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="1851" relation="include">
+        </childnode>
+        <childnode refid="1852" relation="include">
+        </childnode>
+        <childnode refid="1855" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+      </node>
+      <node id="1871">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+      </node>
+      <node id="1915">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1916" relation="include">
+        </childnode>
+      </node>
+      <node id="1898">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="1851">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="1931">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1877">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1878" relation="include">
+        </childnode>
+      </node>
+      <node id="1862">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="1888">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="1864">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1866" relation="include">
+        </childnode>
+      </node>
+      <node id="1900">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="1887">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+      </node>
+      <node id="1901">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1902" relation="include">
+        </childnode>
+      </node>
+      <node id="1868">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="1874">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="1894">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="1937">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1897">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1898" relation="include">
+        </childnode>
+      </node>
+      <node id="1934">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="1935" relation="include">
+        </childnode>
+        <childnode refid="1859" relation="include">
+        </childnode>
+      </node>
+      <node id="1861">
+        <label>vvpath.h</label>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+      </node>
+      <node id="1905">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1906" relation="include">
+        </childnode>
+      </node>
+      <node id="1893">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1894" relation="include">
+        </childnode>
+      </node>
+      <node id="1895">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1896" relation="include">
+        </childnode>
+      </node>
+      <node id="1907">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1908" relation="include">
+        </childnode>
+      </node>
+      <node id="1882">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="1903">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1904" relation="include">
+        </childnode>
+      </node>
+      <node id="1927">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1928" relation="include">
+        </childnode>
+      </node>
+      <node id="1859">
+        <label>vvdevice.h</label>
+        <childnode refid="1860" relation="include">
+        </childnode>
+        <childnode refid="1863" relation="include">
+        </childnode>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1932" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+      </node>
+      <node id="1918">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="1925">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+      </node>
+      <node id="1875">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+        <childnode refid="1876" relation="include">
+        </childnode>
+      </node>
+      <node id="1883">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+      </node>
+      <node id="1879">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1880" relation="include">
+        </childnode>
+      </node>
+      <node id="1890">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="1938">
+        <label>vvbench.c</label>
+      </node>
+      <node id="1923">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+      </node>
+      <node id="1880">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="1853">
+        <label>oba.c</label>
+      </node>
+      <node id="1852">
+        <label>oba.h</label>
+        <childnode refid="1853" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1936">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="1876">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="1873">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1872" relation="include">
+        </childnode>
+        <childnode refid="1874" relation="include">
+        </childnode>
+      </node>
+      <node id="1866">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="1930">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="1869">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1870" relation="include">
+        </childnode>
+      </node>
+      <node id="1926">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="1909">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1910" relation="include">
+        </childnode>
+      </node>
+      <node id="1856">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="1855">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="1856" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+        <childnode refid="1857" relation="include">
+        </childnode>
+        <childnode refid="1858" relation="include">
+        </childnode>
+      </node>
+      <node id="1924">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="1884">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="1913">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1914" relation="include">
+        </childnode>
+      </node>
+      <node id="1860">
+        <label>vvbparser.h</label>
+        <childnode refid="1861" relation="include">
+        </childnode>
+        <childnode refid="1862" relation="include">
+        </childnode>
+        <childnode refid="1854" relation="include">
+        </childnode>
+      </node>
+      <node id="1916">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="1920">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="1906">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="1870">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="1878">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="1919">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="1865" relation="include">
+        </childnode>
+        <childnode refid="1920" relation="include">
+        </childnode>
+      </node>
+      <node id="1858">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="1933">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="1858" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_cam_device_calib_header_resolution_framerate__s" prot="public">CamDeviceCalibHeaderResolutionFramerate_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_header_resolution__s" prot="public">CamDeviceCalibHeaderResolution_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_header__s" prot="public">CamDeviceCalibHeader_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_i_i_r__s" prot="public">CamDeviceCalibSensorAwbIIR_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_global__s" prot="public">CamDeviceCalibSensorAwbGlobal_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s" prot="public">CamDeviceCalibSensorAwbIlluminationGmm_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s" prot="public">CamDeviceCalibSensorAwbIlluminationAlsc_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s" prot="public">CamDeviceCalibSensorAwbIlluminationSatCt_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s" prot="public">CamDeviceCalibSensorAwbIlluminationVigCt_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination_acc__s" prot="public">CamDeviceCalibSensorAwbIlluminationAcc_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb_illumination__s" prot="public">CamDeviceCalibSensorAwbIllumination_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_awb__s" prot="public">CamDeviceCalibSensorAwb_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_lsc__s" prot="public">CamDeviceCalibSensorLsc_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_cc__s" prot="public">CamDeviceCalibSensorCc_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor_bls__s" prot="public">CamDeviceCalibSensorBls_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_sensor__s" prot="public">CamDeviceCalibSensor_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_system__s" prot="public">CamDeviceCalibSystem_s</innerclass>
+    <innerclass refid="struct_cam_device_calib_cfg__s" prot="public">CamDeviceCalibCfg_s</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__general_1ga7e5055648f943216a4e572afc0e08d6f" prot="public" static="no">
+        <name>CAMDEV_CALIB_LENGTH</name>
+        <initializer>50U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__general_1ga16d5b94c33a3742476cf39815c0070b5" prot="public" static="no">
+        <name>CamDeviceDoorType_e</name>
+        <enumvalue id="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a8aa91460eb47f50c3b991c2bc314e0cd" prot="public">
+          <name>CAMDEV_DOOR_TYPE_OUTDOOR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Scene type, outdoor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a322f557ac473c2c3a5126d685f6c6dbd" prot="public">
+          <name>CAMDEV_DOOR_TYPE_INDOOR</name>
+          <briefdescription>
+<para>Scene type, indoor. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a24ba0a52e48ab521f15ece57ef922ae9" prot="public">
+          <name>CAMDEV_DOOR_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice Calibration doortype of an illumination profile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="52" bodyend="56"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__general_1ga28590da85270e628166a902a0247d653" prot="public" static="no">
+        <name>CamDeviceCalibAwbType_e</name>
+        <enumvalue id="group____cam__device__general_1gga28590da85270e628166a902a0247d653a8107d711f193dbe32ab1ef2b0fb6bd96" prot="public">
+          <name>CAMDEV_CALIB_AWB_TYPE_MANUAL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Manual AWB type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga28590da85270e628166a902a0247d653a96ebdf46d7c5f88c2dead1b19311ef3f" prot="public">
+          <name>CAMDEV_CALIB_AWB_TYPE_AUTO</name>
+          <briefdescription>
+<para>Auto AWB type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga28590da85270e628166a902a0247d653a5dc09c9c64ab6f4977c211f0feb6bcf2" prot="public">
+          <name>CAMDEV_CALIB_AWB_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice Calibration AWB manual/auto control type of an illumination profile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="63" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="enum" id="group____cam__device__general_1ga44b0c3645b571385b4351be8a0ec0e33" prot="public" static="no">
+        <name>CamDeviceCalibIllumType_e</name>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a5e578c6e6e24cbb9510f9c25b38cd5c6" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_A</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Illumination type: A. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a8fb6ccd707e4432edc300a62cf79b9de" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_D50</name>
+          <briefdescription>
+<para>Illumination type: D50. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a24216faef864f15eba1e9871abadcb1f" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_D65</name>
+          <briefdescription>
+<para>Illumination type: D65. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a1dab5cd0965cc5bb0df61df6daa98d06" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_D75</name>
+          <briefdescription>
+<para>Illumination type: D75. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a50303ad007d6ca05a7206ef696f3d08f" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_F2</name>
+          <briefdescription>
+<para>Illumination type: F2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a9118078c0018e79f90a10ffcf72d85ef" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_F11</name>
+          <briefdescription>
+<para>Illumination type: F11. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33afbc33d11ba2ad9bc89c3ad55d5b145eb" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_F12</name>
+          <briefdescription>
+<para>Illumination type: F12. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a3af961b24930eeaa76d9ab6d27b574f0" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_H</name>
+          <briefdescription>
+<para>Illumination type: H. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33ab36391b46d8aab4fdbe0f0f8099fe91b" prot="public">
+          <name>CAMDEV_CALIB_ILLUM_TYPE_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice illumination type of calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="74" bodyend="84"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__general_1ga199d5784a3468f1507953d725783bf4f" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__general_1ga16d5b94c33a3742476cf39815c0070b5" kindref="member">CamDeviceDoorType_e</ref></type>
+        <definition>typedef enum CamDeviceDoorType_e  CamDeviceDoorType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceDoorType_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration doortype of an illumination profile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gaeda04c9cba65d961677727fbd67bfc45" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__general_1ga28590da85270e628166a902a0247d653" kindref="member">CamDeviceCalibAwbType_e</ref></type>
+        <definition>typedef enum CamDeviceCalibAwbType_e  CamDeviceCalibAwbType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibAwbType_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration AWB manual/auto control type of an illumination profile. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="67" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga86fa8f0203d07a96f7ff1139ea353a86" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__general_1ga44b0c3645b571385b4351be8a0ec0e33" kindref="member">CamDeviceCalibIllumType_e</ref></type>
+        <definition>typedef enum CamDeviceCalibIllumType_e  CamDeviceCalibIllumType_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibIllumType_t</name>
+        <briefdescription>
+<para>VsCamDevice illumination type of calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="84" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gad871b146f2fc2b88ee9667ac29706e5c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_header_resolution_framerate__s" kindref="compound">CamDeviceCalibHeaderResolutionFramerate_s</ref></type>
+        <definition>typedef struct CamDeviceCalibHeaderResolutionFramerate_s  CamDeviceCalibHeaderResolutionFramerate_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibHeaderResolutionFramerate_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration file header resolution parameters: framerate configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="94" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gabd151d80409665e9cc9357295e9d6908" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_header_resolution__s" kindref="compound">CamDeviceCalibHeaderResolution_s</ref></type>
+        <definition>typedef struct CamDeviceCalibHeaderResolution_s  CamDeviceCalibHeaderResolution_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibHeaderResolution_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration file header parameters: resolution configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga99e73f5d0a1d0f40b257bb685b8deab1" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_header__s" kindref="compound">CamDeviceCalibHeader_s</ref></type>
+        <definition>typedef struct CamDeviceCalibHeader_s  CamDeviceCalibHeader_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibHeader_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration file header configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gae80adfc883ad34bdb452ce9afbc15112" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s" kindref="compound">CamDeviceCalibSensorAwbIIR_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIIR_s  CamDeviceCalibSensorAwbIIR_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIIR_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB IIR configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="144" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga9a6396fb95b7a9df7fc76f164622831b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_global__s" kindref="compound">CamDeviceCalibSensorAwbGlobal_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbGlobal_s  CamDeviceCalibSensorAwbGlobal_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbGlobal_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB global configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="183" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gabd70efa95ad468b90c3fc8417f31b8e1" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationGmm_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIlluminationGmm_s  CamDeviceCalibSensorAwbIlluminationGmm_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIlluminationGmm_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination Gaussian-mixed-model configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="195" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga0a2905574d244dd4baf7ae6e30e0c6b6" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAlsc_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIlluminationAlsc_s  CamDeviceCalibSensorAwbIlluminationAlsc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIlluminationAlsc_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination auto LSC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="205" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gaa11072855ce6e36d77dccd69c6a84062" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationSatCt_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIlluminationSatCt_s  CamDeviceCalibSensorAwbIlluminationSatCt_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIlluminationSatCt_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination saturation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="215" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gaa6a52042eb31550c1c80ee23c55a5986" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationVigCt_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIlluminationVigCt_s  CamDeviceCalibSensorAwbIlluminationVigCt_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIlluminationVigCt_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination LSC compensation configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="225" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga0f3fe8f1b638f72d6358ee7fa267a15a" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination_acc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAcc_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIlluminationAcc_s  CamDeviceCalibSensorAwbIlluminationAcc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIlluminationAcc_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination auto CC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="234" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gafbe1e8ed04e05408976d7dc4266ca352" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb_illumination__s" kindref="compound">CamDeviceCalibSensorAwbIllumination_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwbIllumination_s  CamDeviceCalibSensorAwbIllumination_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwbIllumination_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB Illumination configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="257" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga90e751bc1d26fc7177f2091a04d21821" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_awb__s" kindref="compound">CamDeviceCalibSensorAwb_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorAwb_s  CamDeviceCalibSensorAwb_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorAwb_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AWB configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="271" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga40c98004acaa8c877d00031aa8825589" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_lsc__s" kindref="compound">CamDeviceCalibSensorLsc_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorLsc_s  CamDeviceCalibSensorLsc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorLsc_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor LSC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="294" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga9d7e80908f0415773064abb064fcebde" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_cc__s" kindref="compound">CamDeviceCalibSensorCc_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorCc_s  CamDeviceCalibSensorCc_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorCc_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor CC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="307" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gadc1358ba6ee5e0f7da0ba6962536f2c9" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor_bls__s" kindref="compound">CamDeviceCalibSensorBls_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensorBls_s  CamDeviceCalibSensorBls_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensorBls_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor BLS configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="319" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga40f4589ca1c9f9718eb0f8c04c421f74" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_sensor__s" kindref="compound">CamDeviceCalibSensor_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSensor_s  CamDeviceCalibSensor_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSensor_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration sensor AEC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="339" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1ga0a18e38787b4140132e9a0cb03aef767" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_system__s" kindref="compound">CamDeviceCalibSystem_s</ref></type>
+        <definition>typedef struct CamDeviceCalibSystem_s  CamDeviceCalibSystem_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibSystem_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration system configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="348" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__general_1gae51a696f29ab33a871ac3bb83fad4a76" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_calib_cfg__s" kindref="compound">CamDeviceCalibCfg_s</ref></type>
+        <definition>typedef struct CamDeviceCalibCfg_s  CamDeviceCalibCfg_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceCalibCfg_t</name>
+        <briefdescription>
+<para>VsCamDevice Calibration configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="359" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CAMDEV_CALIBRATION_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CAMDEV_CALIBRATION_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#define<sp/>CAMDEV_CALIB_LENGTH<sp/>50U</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="51"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group____cam__device__general_1ga16d5b94c33a3742476cf39815c0070b5" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><sp/><ref refid="group____cam__device__general_1ga16d5b94c33a3742476cf39815c0070b5" kindref="member">CamDeviceDoorType_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="53" refid="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a8aa91460eb47f50c3b991c2bc314e0cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a8aa91460eb47f50c3b991c2bc314e0cd" kindref="member">CAMDEV_DOOR_TYPE_OUTDOOR</ref><sp/>=<sp/>0,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a322f557ac473c2c3a5126d685f6c6dbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga16d5b94c33a3742476cf39815c0070b5a322f557ac473c2c3a5126d685f6c6dbd" kindref="member">CAMDEV_DOOR_TYPE_INDOOR</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_DOOR_TYPE_MAX</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga199d5784a3468f1507953d725783bf4f" kindref="member">CamDeviceDoorType_t</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="group____cam__device__general_1ga28590da85270e628166a902a0247d653" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__general_1ga28590da85270e628166a902a0247d653" kindref="member">CamDeviceCalibAwbType_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="64" refid="group____cam__device__general_1gga28590da85270e628166a902a0247d653a8107d711f193dbe32ab1ef2b0fb6bd96" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga28590da85270e628166a902a0247d653a8107d711f193dbe32ab1ef2b0fb6bd96" kindref="member">CAMDEV_CALIB_AWB_TYPE_MANUAL</ref><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group____cam__device__general_1gga28590da85270e628166a902a0247d653a96ebdf46d7c5f88c2dead1b19311ef3f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga28590da85270e628166a902a0247d653a96ebdf46d7c5f88c2dead1b19311ef3f" kindref="member">CAMDEV_CALIB_AWB_TYPE_AUTO</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_CALIB_AWB_TYPE_MAX</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gaeda04c9cba65d961677727fbd67bfc45" kindref="member">CamDeviceCalibAwbType_t</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="73"><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group____cam__device__general_1ga44b0c3645b571385b4351be8a0ec0e33" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="group____cam__device__general_1ga44b0c3645b571385b4351be8a0ec0e33" kindref="member">CamDeviceCalibIllumType_e</ref><sp/>{</highlight></codeline>
+<codeline lineno="75" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a5e578c6e6e24cbb9510f9c25b38cd5c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a5e578c6e6e24cbb9510f9c25b38cd5c6" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_A</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a8fb6ccd707e4432edc300a62cf79b9de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a8fb6ccd707e4432edc300a62cf79b9de" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_D50</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a24216faef864f15eba1e9871abadcb1f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a24216faef864f15eba1e9871abadcb1f" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_D65</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a1dab5cd0965cc5bb0df61df6daa98d06" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a1dab5cd0965cc5bb0df61df6daa98d06" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_D75</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a50303ad007d6ca05a7206ef696f3d08f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a50303ad007d6ca05a7206ef696f3d08f" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_F2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a9118078c0018e79f90a10ffcf72d85ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a9118078c0018e79f90a10ffcf72d85ef" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_F11</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33afbc33d11ba2ad9bc89c3ad55d5b145eb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33afbc33d11ba2ad9bc89c3ad55d5b145eb" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_F12</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a3af961b24930eeaa76d9ab6d27b574f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group____cam__device__general_1gga44b0c3645b571385b4351be8a0ec0e33a3af961b24930eeaa76d9ab6d27b574f0" kindref="member">CAMDEV_CALIB_ILLUM_TYPE_H</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>CAMDEV_CALIB_ILLUM_TYPE_MAX</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga86fa8f0203d07a96f7ff1139ea353a86" kindref="member">CamDeviceCalibIllumType_t</ref>;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="struct_cam_device_calib_header_resolution_framerate__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_header_resolution_framerate__s" kindref="compound">CamDeviceCalibHeaderResolutionFramerate_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="92" refid="struct_cam_device_calib_header_resolution_framerate__s_1a832d618985dc423b5e553421191257d5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header_resolution_framerate__s_1a832d618985dc423b5e553421191257d5" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_cam_device_calib_header_resolution_framerate__s_1aab7babd99d9bfee19da0c6010c68f766" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header_resolution_framerate__s_1aab7babd99d9bfee19da0c6010c68f766" kindref="member">fps</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gad871b146f2fc2b88ee9667ac29706e5c" kindref="member">CamDeviceCalibHeaderResolutionFramerate_t</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="101" refid="struct_cam_device_calib_header_resolution__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_header_resolution__s" kindref="compound">CamDeviceCalibHeaderResolution_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="102" refid="struct_cam_device_calib_header_resolution__s_1a9e69e349994e1ec19fa8736d3bf8fcb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header_resolution__s_1a9e69e349994e1ec19fa8736d3bf8fcb0" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_cam_device_calib_header_resolution__s_1ab8bc364e165cce30f4f014d785ac79f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_cam_device_calib_header_resolution__s_1af10345b31e9d0ddbd655ebe6a998e83e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_header_resolution__s_1af10345b31e9d0ddbd655ebe6a998e83e" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_cam_device_calib_header_resolution__s_1ab0239cabc8ac5902d342783f3c40f0ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_header_resolution__s_1ab0239cabc8ac5902d342783f3c40f0ce" kindref="member">height</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_cam_device_calib_header_resolution__s_1a793e5f1e44266c9ca8253fbcfe615cae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_header_resolution_framerate__s" kindref="compound">CamDeviceCalibHeaderResolutionFramerate_t</ref><sp/>*<ref refid="struct_cam_device_calib_header_resolution__s_1a793e5f1e44266c9ca8253fbcfe615cae" kindref="member">pFramerate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_cam_device_calib_header_resolution__s_1acd8085eda1dfa7dd07c8150ac3aefb82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_calib_header_resolution__s_1acd8085eda1dfa7dd07c8150ac3aefb82" kindref="member">framerateNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gabd151d80409665e9cc9357295e9d6908" kindref="member">CamDeviceCalibHeaderResolution_t</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="117" refid="struct_cam_device_calib_header__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_header__s" kindref="compound">CamDeviceCalibHeader_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="118" refid="struct_cam_device_calib_header__s_1ac88cf39301971de4675024964ae3a6d2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header__s_1ac88cf39301971de4675024964ae3a6d2" kindref="member">date</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="struct_cam_device_calib_header__s_1af5eb2d98a6103673cd89429176e65446" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header__s_1af5eb2d98a6103673cd89429176e65446" kindref="member">creator</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_cam_device_calib_header__s_1a2b6885e5f5a57c6a9d5126737210a0fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header__s_1a2b6885e5f5a57c6a9d5126737210a0fb" kindref="member">sensorName</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_cam_device_calib_header__s_1a3b8c28e072b0b0bc8b5ef68012922c38" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header__s_1a3b8c28e072b0b0bc8b5ef68012922c38" kindref="member">sampleName</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="122" refid="struct_cam_device_calib_header__s_1ab710a14b3ec512029472f489b009d34b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_header__s_1ab710a14b3ec512029472f489b009d34b" kindref="member">generatorVersion</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="124" refid="struct_cam_device_calib_header__s_1a79fead8f319a03f8a5f6c5663823914b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_header_resolution__s" kindref="compound">CamDeviceCalibHeaderResolution_t</ref><sp/>*<ref refid="struct_cam_device_calib_header__s_1a79fead8f319a03f8a5f6c5663823914b" kindref="member">pResolutions</ref>;<sp/></highlight></codeline>
+<codeline lineno="125" refid="struct_cam_device_calib_header__s_1a7a598157b2f7e67f60b7355567c89a32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="struct_cam_device_calib_header__s_1a7a598157b2f7e67f60b7355567c89a32" kindref="member">resolutionNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga99e73f5d0a1d0f40b257bb685b8deab1" kindref="member">CamDeviceCalibHeader_t</ref>;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="struct_cam_device_calib_sensor_awb_i_i_r__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s" kindref="compound">CamDeviceCalibSensorAwbIIR_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="135" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a0a73aaa0d54d45660e5bc92c313f0451" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a0a73aaa0d54d45660e5bc92c313f0451" kindref="member">dampCoefAdd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a3b60d7d99cbd01e7ff22fc425ed6dcb3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a3b60d7d99cbd01e7ff22fc425ed6dcb3" kindref="member">dampCoefSub</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a73f2ca4efe8def69e957d78658cf4a31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a73f2ca4efe8def69e957d78658cf4a31" kindref="member">dampFilterThreshold</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1ab7cc48a6d26b2fcc3335506e9a09db7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1ab7cc48a6d26b2fcc3335506e9a09db7a" kindref="member">dampingCoefMin</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a4ee0fbc736d490b6a300828f334266fb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a4ee0fbc736d490b6a300828f334266fb" kindref="member">dampingCoefMax</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a81467cd439b93eef68b35759bce66aac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a81467cd439b93eef68b35759bce66aac" kindref="member">dampingCoefInit</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a03d4b3e7d0771f75b9a38c84da80a101" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a03d4b3e7d0771f75b9a38c84da80a101" kindref="member">expPriorFilterSizeMax</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a10ca3397a74a6f971058e5c66ecbb059" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1a10ca3397a74a6f971058e5c66ecbb059" kindref="member">expPriorFilterSizeMin</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1af4f3669f5671308f6eaede3e62d52952" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s_1af4f3669f5671308f6eaede3e62d52952" kindref="member">expPriorMiddle</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gae80adfc883ad34bdb452ce9afbc15112" kindref="member">CamDeviceCalibSensorAwbIIR_t</ref>;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="151" refid="struct_cam_device_calib_sensor_awb_global__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_global__s" kindref="compound">CamDeviceCalibSensorAwbGlobal_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="152" refid="struct_cam_device_calib_sensor_awb_global__s_1a0f1c12af90269707745b1cb3af2f76cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a0f1c12af90269707745b1cb3af2f76cc" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_cam_device_calib_sensor_awb_global__s_1aa036e962327dacba4d23aaea2e9f79c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1aa036e962327dacba4d23aaea2e9f79c5" kindref="member">resolution</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_cam_device_calib_sensor_awb_global__s_1addbee297c8a30003260649ec689a4ac3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1addbee297c8a30003260649ec689a4ac3" kindref="member">svdMeanValue</ref>[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="155" refid="struct_cam_device_calib_sensor_awb_global__s_1ae14a89cbe619e9bda5d5e0a2823c45fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1ae14a89cbe619e9bda5d5e0a2823c45fd" kindref="member">pcaMatrix</ref>[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="struct_cam_device_calib_sensor_awb_global__s_1a1c702b741da4489a6436f292cc79b1bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a1c702b741da4489a6436f292cc79b1bb" kindref="member">centerLine</ref>[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="struct_cam_device_calib_sensor_awb_global__s_1af20908920d241be5a27cc2d7987b3cdf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1af20908920d241be5a27cc2d7987b3cdf" kindref="member">afRg2</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="struct_cam_device_calib_sensor_awb_global__s_1a1e69d0f4d1a0fc1ba5d98106aeaea638" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a1e69d0f4d1a0fc1ba5d98106aeaea638" kindref="member">afMaxDist2</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="struct_cam_device_calib_sensor_awb_global__s_1a21a1f7b42405d570cac99a05ab0c098b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a21a1f7b42405d570cac99a05ab0c098b" kindref="member">afRg1</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="160" refid="struct_cam_device_calib_sensor_awb_global__s_1a3a73e869de0ca4473a0cd086da224fe2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a3a73e869de0ca4473a0cd086da224fe2" kindref="member">afMaxDist1</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_cam_device_calib_sensor_awb_global__s_1a9a279a18468259f35d9a8d8816c4f083" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a9a279a18468259f35d9a8d8816c4f083" kindref="member">afGlobalFade2</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_cam_device_calib_sensor_awb_global__s_1aceaae01755f2459f2c32d821d2735ad0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1aceaae01755f2459f2c32d821d2735ad0" kindref="member">afGlobalGainDistance2</ref>[16];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="struct_cam_device_calib_sensor_awb_global__s_1ae3104709927d1c13005d15e0303574be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1ae3104709927d1c13005d15e0303574be" kindref="member">afGlobalFade1</ref>[16];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="164" refid="struct_cam_device_calib_sensor_awb_global__s_1af85ec4fdeda20b567c8ca5574d592f51" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1af85ec4fdeda20b567c8ca5574d592f51" kindref="member">afGlobalGainDistance1</ref>[16];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="165" refid="struct_cam_device_calib_sensor_awb_global__s_1a06eb6ccfeb53a91aa02573533f0ecf56" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a06eb6ccfeb53a91aa02573533f0ecf56" kindref="member">fRgProjIndoorMin</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_cam_device_calib_sensor_awb_global__s_1aa23573c578f0c77b824b161192851f26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1aa23573c578f0c77b824b161192851f26" kindref="member">fRgProjMax</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="167" refid="struct_cam_device_calib_sensor_awb_global__s_1aabd9fb72593364a1814793ae9ebefd77" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1aabd9fb72593364a1814793ae9ebefd77" kindref="member">fRgProjMaxSky</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="168" refid="struct_cam_device_calib_sensor_awb_global__s_1a55fee94a1157292c94809ff9d0081391" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a55fee94a1157292c94809ff9d0081391" kindref="member">fRgProjOutdoorMin</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="struct_cam_device_calib_sensor_awb_global__s_1a01b81e5d113e61b957cff7a53bfb63ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a01b81e5d113e61b957cff7a53bfb63ad" kindref="member">awbClipOutDoor</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_cam_device_calib_sensor_awb_global__s_1ada9d29aeb4a1c2ec3fce724e2f16e600" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1ada9d29aeb4a1c2ec3fce724e2f16e600" kindref="member">kFactor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_cam_device_calib_sensor_awb_global__s_1a0dde59dc957b96897c6ba62db2867baa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a0dde59dc957b96897c6ba62db2867baa" kindref="member">afFade2</ref>[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="struct_cam_device_calib_sensor_awb_global__s_1aaae672498761b27000597ad58bf30a4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1aaae672498761b27000597ad58bf30a4d" kindref="member">afCbMinRegionMax</ref>[6];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_cam_device_calib_sensor_awb_global__s_1a0991b97b2be6ea7ab8464db114ef4864" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a0991b97b2be6ea7ab8464db114ef4864" kindref="member">afCrMinRegionMax</ref>[6];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_cam_device_calib_sensor_awb_global__s_1a274bb574ad6d38dae867efb0bbd6d18a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a274bb574ad6d38dae867efb0bbd6d18a" kindref="member">afMaxCSumRegionMax</ref>[6];<sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="struct_cam_device_calib_sensor_awb_global__s_1ac5eaf7a21a8e428446d858a29ec27637" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1ac5eaf7a21a8e428446d858a29ec27637" kindref="member">afCbMinRegionMin</ref>[6];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="struct_cam_device_calib_sensor_awb_global__s_1a84dec6eef59cbbaa0ddda0097df61cd8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a84dec6eef59cbbaa0ddda0097df61cd8" kindref="member">afCrMinRegionMin</ref>[6];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="struct_cam_device_calib_sensor_awb_global__s_1a7563b27021ece312dd3d3fe39902c0b8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a7563b27021ece312dd3d3fe39902c0b8" kindref="member">afMaxCSumRegionMin</ref>[6];<sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="struct_cam_device_calib_sensor_awb_global__s_1a9c7471b3af37946c25a70869ab4d82a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a9c7471b3af37946c25a70869ab4d82a8" kindref="member">regionSize</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="struct_cam_device_calib_sensor_awb_global__s_1a8ed1908ab6d916a877215a83c58454a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1a8ed1908ab6d916a877215a83c58454a1" kindref="member">regionSizeInc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="struct_cam_device_calib_sensor_awb_global__s_1ac8a6cea71d3da8f4623e0d2db65c403f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s_1ac8a6cea71d3da8f4623e0d2db65c403f" kindref="member">regionSizeDec</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_i_i_r__s" kindref="compound">CamDeviceCalibSensorAwbIIR_t</ref><sp/>awbIIR;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga9a6396fb95b7a9df7fc76f164622831b" kindref="member">CamDeviceCalibSensorAwbGlobal_t</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="190" refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationGmm_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="191" refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1ab78f75ddf83c91c17fa1b0f42f74a67f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1ab78f75ddf83c91c17fa1b0f42f74a67f" kindref="member">invCovMatrix</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1ae73de4fca75fdc2fcde9928cf895c5ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1ae73de4fca75fdc2fcde9928cf895c5ac" kindref="member">gaussianScalingFactor</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1a252411e23c7b0d26119f24fbc9b18192" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1a252411e23c7b0d26119f24fbc9b18192" kindref="member">tau</ref>[2];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1a21fcacedec5d95903be0f01d10792450" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s_1a21fcacedec5d95903be0f01d10792450" kindref="member">gaussianMeanValue</ref>[2];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gabd70efa95ad468b90c3fc8417f31b8e1" kindref="member">CamDeviceCalibSensorAwbIlluminationGmm_t</ref>;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="202" refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAlsc_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="203" refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1aaeaa607abe0e252136d0281591789026" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1aaeaa607abe0e252136d0281591789026" kindref="member">resolution</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="204" refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1a08e847056524978548b2581926b28f59" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s_1a08e847056524978548b2581926b28f59" kindref="member">profile</ref>[CAMDEV_CALIB_LENGTH<sp/>*<sp/>4U];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga0a2905574d244dd4baf7ae6e30e0c6b6" kindref="member">CamDeviceCalibSensorAwbIlluminationAlsc_t</ref>;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="212" refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationSatCt_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="213" refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s_1ab898a321f6e3c2cc8ed58c33cfe3f992" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s_1ab898a321f6e3c2cc8ed58c33cfe3f992" kindref="member">gain</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214" refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s_1ae605d978d5dfd2e0d97e92d8850b1616" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s_1ae605d978d5dfd2e0d97e92d8850b1616" kindref="member">saturation</ref>[4];<sp/><sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gaa11072855ce6e36d77dccd69c6a84062" kindref="member">CamDeviceCalibSensorAwbIlluminationSatCt_t</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="222" refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationVigCt_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="223" refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s_1a79716417f76168252394bdd79a795918" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s_1a79716417f76168252394bdd79a795918" kindref="member">gain</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="224" refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s_1ab94dc968e61ead777e3d53f208e4a2ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s_1ab94dc968e61ead777e3d53f208e4a2ea" kindref="member">vignetting</ref>[4];<sp/><sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gaa6a52042eb31550c1c80ee23c55a5986" kindref="member">CamDeviceCalibSensorAwbIlluminationVigCt_t</ref>;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="232" refid="struct_cam_device_calib_sensor_awb_illumination_acc__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination_acc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAcc_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="233" refid="struct_cam_device_calib_sensor_awb_illumination_acc__s_1a8ee2990556bb4bd2e784cd60093e808a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_acc__s_1a8ee2990556bb4bd2e784cd60093e808a" kindref="member">profile</ref>[CAMDEV_CALIB_LENGTH<sp/>*<sp/>4U];<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga0f3fe8f1b638f72d6358ee7fa267a15a" kindref="member">CamDeviceCalibSensorAwbIlluminationAcc_t</ref>;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="241" refid="struct_cam_device_calib_sensor_awb_illumination__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb_illumination__s" kindref="compound">CamDeviceCalibSensorAwbIllumination_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="242" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a12d419d831361f8a63f58c4180dc451f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a12d419d831361f8a63f58c4180dc451f" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="243" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a9d7e12f5b77a5a30f371d5441aa29b8c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a9d7e12f5b77a5a30f371d5441aa29b8c" kindref="member">doorType</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="245" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a39a2ab6006726888b1345c95ce996877" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_gmm__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationGmm_t</ref><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a39a2ab6006726888b1345c95ce996877" kindref="member">gmm</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a104ad6b522b09e85eec300fb7099173b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_alsc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAlsc_t</ref><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a104ad6b522b09e85eec300fb7099173b" kindref="member">alsc</ref>;<sp/></highlight></codeline>
+<codeline lineno="248" refid="struct_cam_device_calib_sensor_awb_illumination__s_1ae755001e23f2ce38662f24232ee4f253" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1ae755001e23f2ce38662f24232ee4f253" kindref="member">manualWb</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="249" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a7102aea51757897dd989e0f11460df36" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a7102aea51757897dd989e0f11460df36" kindref="member">manualCcMatrix</ref>[9];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a135e2a12e68fce141148bd9e688a638f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a135e2a12e68fce141148bd9e688a638f" kindref="member">manualCcOffset</ref>[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="struct_cam_device_calib_sensor_awb_illumination__s_1ac4f41c477f1a43ca4a6ba3674303a702" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1ac4f41c477f1a43ca4a6ba3674303a702" kindref="member">awbType</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="254" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a043a4173e92f5ca27b092f901cd84b4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_sat_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationSatCt_t</ref><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a043a4173e92f5ca27b092f901cd84b4d" kindref="member">satCt</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="255" refid="struct_cam_device_calib_sensor_awb_illumination__s_1ad7f9da1723354e24936c823850dd21c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_vig_ct__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationVigCt_t</ref><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1ad7f9da1723354e24936c823850dd21c6" kindref="member">vigCt</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="256" refid="struct_cam_device_calib_sensor_awb_illumination__s_1a97dbe5eb8c4e298fd6db7c406caf2111" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination_acc__s" kindref="compound">CamDeviceCalibSensorAwbIlluminationAcc_t</ref><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s_1a97dbe5eb8c4e298fd6db7c406caf2111" kindref="member">acc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gafbe1e8ed04e05408976d7dc4266ca352" kindref="member">CamDeviceCalibSensorAwbIllumination_t</ref>;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="265" refid="struct_cam_device_calib_sensor_awb__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_awb__s" kindref="compound">CamDeviceCalibSensorAwb_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="266" refid="struct_cam_device_calib_sensor_awb__s_1a740724f11cd99fa6e2ad2b8de14faee1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_global__s" kindref="compound">CamDeviceCalibSensorAwbGlobal_t</ref><sp/>*<ref refid="struct_cam_device_calib_sensor_awb__s_1a740724f11cd99fa6e2ad2b8de14faee1" kindref="member">pGlobals</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267" refid="struct_cam_device_calib_sensor_awb__s_1a0548a53db4b95c49c6937f9dbe497047" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_sensor_awb__s_1a0548a53db4b95c49c6937f9dbe497047" kindref="member">globalNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269" refid="struct_cam_device_calib_sensor_awb__s_1a1cdada8685af10d1aa122d27ce093dc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb_illumination__s" kindref="compound">CamDeviceCalibSensorAwbIllumination_t</ref><sp/>*<ref refid="struct_cam_device_calib_sensor_awb__s_1a1cdada8685af10d1aa122d27ce093dc1" kindref="member">pIlluminations</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="270" refid="struct_cam_device_calib_sensor_awb__s_1ae4fa2475a8838e73606574cd5e27fc43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_sensor_awb__s_1ae4fa2475a8838e73606574cd5e27fc43" kindref="member">illuminationNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga90e751bc1d26fc7177f2091a04d21821" kindref="member">CamDeviceCalibSensorAwb_t</ref>;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="278" refid="struct_cam_device_calib_sensor_lsc__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_lsc__s" kindref="compound">CamDeviceCalibSensorLsc_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="279" refid="struct_cam_device_calib_sensor_lsc__s_1aed20c6c6ca07d0210f2a8eeb29912d0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1aed20c6c6ca07d0210f2a8eeb29912d0b" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280" refid="struct_cam_device_calib_sensor_lsc__s_1aeac32106550dd2036dbea1d4cb5f2bd3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1aeac32106550dd2036dbea1d4cb5f2bd3" kindref="member">resolution</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281" refid="struct_cam_device_calib_sensor_lsc__s_1aaa3a8f8573803232cc2eb3df89d0d793" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1aaa3a8f8573803232cc2eb3df89d0d793" kindref="member">illumination</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282" refid="struct_cam_device_calib_sensor_lsc__s_1a8457d8f86ad832d3257764c1d0278013" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a8457d8f86ad832d3257764c1d0278013" kindref="member">sectors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="283" refid="struct_cam_device_calib_sensor_lsc__s_1ae2849c70fb760302d7fa1760a8aa006b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1ae2849c70fb760302d7fa1760a8aa006b" kindref="member">no</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="284" refid="struct_cam_device_calib_sensor_lsc__s_1af98fa997ce6661b18d676de28d899768" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1af98fa997ce6661b18d676de28d899768" kindref="member">xo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285" refid="struct_cam_device_calib_sensor_lsc__s_1a2ae94d3f7f6afaea62324b7326976e9e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a2ae94d3f7f6afaea62324b7326976e9e" kindref="member">yo</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286" refid="struct_cam_device_calib_sensor_lsc__s_1a575af66e8248114df0f69364f2dc19e0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a575af66e8248114df0f69364f2dc19e0" kindref="member">sectSizeX</ref>[32];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="287" refid="struct_cam_device_calib_sensor_lsc__s_1a5713e30aa187cdd08debfb9d9dbbf9c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a5713e30aa187cdd08debfb9d9dbbf9c9" kindref="member">sectSizeY</ref>[32];<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="288" refid="struct_cam_device_calib_sensor_lsc__s_1a5861d736a674a365e50b36fd190986f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a5861d736a674a365e50b36fd190986f1" kindref="member">vignetting</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="290" refid="struct_cam_device_calib_sensor_lsc__s_1a001dce257521e1a197557df78c3ee0c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a001dce257521e1a197557df78c3ee0c7" kindref="member">sampleRed</ref>[33][33];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="291" refid="struct_cam_device_calib_sensor_lsc__s_1ad8f3058c241e275e3dd25b685942e8f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1ad8f3058c241e275e3dd25b685942e8f0" kindref="member">sampleGreenR</ref>[33][33];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="292" refid="struct_cam_device_calib_sensor_lsc__s_1a864a19b22bcb296bf8d03521d2986f4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a864a19b22bcb296bf8d03521d2986f4a" kindref="member">sampleGreenB</ref>[33][33];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="293" refid="struct_cam_device_calib_sensor_lsc__s_1a4c985a0f98e088afab76fab239db0bed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_lsc__s_1a4c985a0f98e088afab76fab239db0bed" kindref="member">sampleBlue</ref>[33][33];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga40c98004acaa8c877d00031aa8825589" kindref="member">CamDeviceCalibSensorLsc_t</ref>;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="301" refid="struct_cam_device_calib_sensor_cc__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_cc__s" kindref="compound">CamDeviceCalibSensorCc_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="302" refid="struct_cam_device_calib_sensor_cc__s_1a9df087acb611ed65decf0f672864489e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_cc__s_1a9df087acb611ed65decf0f672864489e" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="303" refid="struct_cam_device_calib_sensor_cc__s_1ab394a82b79a36b7bb2149f7a52239f5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_cc__s_1ab394a82b79a36b7bb2149f7a52239f5e" kindref="member">saturation</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="304" refid="struct_cam_device_calib_sensor_cc__s_1a796c1b9241216850c6c5b63db21a8992" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_cc__s_1a796c1b9241216850c6c5b63db21a8992" kindref="member">ccMatrix</ref>[9];<sp/><sp/></highlight></codeline>
+<codeline lineno="305" refid="struct_cam_device_calib_sensor_cc__s_1ab5ae4a6dff95e42cd96dcc0219a6fed5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_cc__s_1ab5ae4a6dff95e42cd96dcc0219a6fed5" kindref="member">ccOffset</ref>[3];<sp/><sp/></highlight></codeline>
+<codeline lineno="306" refid="struct_cam_device_calib_sensor_cc__s_1a0eb2d3e62cf91948b6c4c591d6558923" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_cc__s_1a0eb2d3e62cf91948b6c4c591d6558923" kindref="member">wb</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="307"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga9d7e80908f0415773064abb064fcebde" kindref="member">CamDeviceCalibSensorCc_t</ref>;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="315" refid="struct_cam_device_calib_sensor_bls__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor_bls__s" kindref="compound">CamDeviceCalibSensorBls_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="316" refid="struct_cam_device_calib_sensor_bls__s_1aa589ceabadb4153143696455d697ae6b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_bls__s_1aa589ceabadb4153143696455d697ae6b" kindref="member">name</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="317" refid="struct_cam_device_calib_sensor_bls__s_1adcbe70491b02cccc9cc23df2a2757b7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_sensor_bls__s_1adcbe70491b02cccc9cc23df2a2757b7d" kindref="member">resolution</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="318" refid="struct_cam_device_calib_sensor_bls__s_1adeca07bbf097f24edff2808624acc220" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_cam_device_calib_sensor_bls__s_1adeca07bbf097f24edff2808624acc220" kindref="member">data</ref>[4];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="319"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gadc1358ba6ee5e0f7da0ba6962536f2c9" kindref="member">CamDeviceCalibSensorBls_t</ref>;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="327" refid="struct_cam_device_calib_sensor__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_sensor__s" kindref="compound">CamDeviceCalibSensor_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="328" refid="struct_cam_device_calib_sensor__s_1abb10204b8ae3286cd6b1dd83f722f492" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_awb__s" kindref="compound">CamDeviceCalibSensorAwb_t</ref><sp/><ref refid="struct_cam_device_calib_sensor__s_1abb10204b8ae3286cd6b1dd83f722f492" kindref="member">awb</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="330" refid="struct_cam_device_calib_sensor__s_1a442da6cc6faf947493b18c112a9e3005" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_lsc__s" kindref="compound">CamDeviceCalibSensorLsc_t</ref><sp/>*<ref refid="struct_cam_device_calib_sensor__s_1a442da6cc6faf947493b18c112a9e3005" kindref="member">pLsc</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="331" refid="struct_cam_device_calib_sensor__s_1a99fc341d676c97b4d0f80db35856d12a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_sensor__s_1a99fc341d676c97b4d0f80db35856d12a" kindref="member">lscNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="333" refid="struct_cam_device_calib_sensor__s_1a90eb341de0c472b325e6e3779448217a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_cc__s" kindref="compound">CamDeviceCalibSensorCc_t</ref><sp/>*<ref refid="struct_cam_device_calib_sensor__s_1a90eb341de0c472b325e6e3779448217a" kindref="member">pCc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="334" refid="struct_cam_device_calib_sensor__s_1a90594a8d4de1136e61f373578c4529c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_sensor__s_1a90594a8d4de1136e61f373578c4529c1" kindref="member">ccNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="336" refid="struct_cam_device_calib_sensor__s_1a0574f6c9b68c12a947a21e5a7b87d473" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor_bls__s" kindref="compound">CamDeviceCalibSensorBls_t</ref><sp/>*<ref refid="struct_cam_device_calib_sensor__s_1a0574f6c9b68c12a947a21e5a7b87d473" kindref="member">pBls</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="337" refid="struct_cam_device_calib_sensor__s_1acb1f086741e699e0fe781b88e1e50f94" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="struct_cam_device_calib_sensor__s_1acb1f086741e699e0fe781b88e1e50f94" kindref="member">blsNumber</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="339"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga40f4589ca1c9f9718eb0f8c04c421f74" kindref="member">CamDeviceCalibSensor_t</ref>;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="346" refid="struct_cam_device_calib_system__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_system__s" kindref="compound">CamDeviceCalibSystem_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="347" refid="struct_cam_device_calib_system__s_1a3c3f6fddf66e150382f144233e6ae324" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_cam_device_calib_system__s_1a3c3f6fddf66e150382f144233e6ae324" kindref="member">afpsDefault</ref>[CAMDEV_CALIB_LENGTH];<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="348"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1ga0a18e38787b4140132e9a0cb03aef767" kindref="member">CamDeviceCalibSystem_t</ref>;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="355" refid="struct_cam_device_calib_cfg__s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_cam_device_calib_cfg__s" kindref="compound">CamDeviceCalibCfg_s</ref><sp/>{</highlight></codeline>
+<codeline lineno="356" refid="struct_cam_device_calib_cfg__s_1aa1ee3879ff140636447b22df2a9a5dbb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_header__s" kindref="compound">CamDeviceCalibHeader_t</ref><sp/><ref refid="struct_cam_device_calib_cfg__s_1aa1ee3879ff140636447b22df2a9a5dbb" kindref="member">header</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="357" refid="struct_cam_device_calib_cfg__s_1a7126094b4dc67585720291b1e3c98483" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_sensor__s" kindref="compound">CamDeviceCalibSensor_t</ref><sp/><ref refid="struct_cam_device_calib_cfg__s_1a7126094b4dc67585720291b1e3c98483" kindref="member">sensor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="358" refid="struct_cam_device_calib_cfg__s_1afb9cad4bd7928a14518e038a3f85f632" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_calib_system__s" kindref="compound">CamDeviceCalibSystem_t</ref><sp/><ref refid="struct_cam_device_calib_cfg__s_1afb9cad4bd7928a14518e038a3f85f632" kindref="member">system</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="359"><highlight class="normal">}<sp/><ref refid="group____cam__device__general_1gae51a696f29ab33a871ac3bb83fad4a76" kindref="member">CamDeviceCalibCfg_t</ref>;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/>//<sp/>CAMDEV_CALIBRATION_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h"/>
+  </compounddef>
+</doxygen>

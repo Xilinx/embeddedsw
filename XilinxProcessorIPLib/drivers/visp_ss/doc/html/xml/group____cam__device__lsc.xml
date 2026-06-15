@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__lsc" kind="group">
+    <compoundname>_cam_device_lsc</compoundname>
+    <title>VsCamDevice E01C16 Device_LSC Definitions</title>
+    <innerclass refid="struct_cam_device_lsc_manual_config__s" prot="public">CamDeviceLscManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_auto_config__s" prot="public">CamDeviceLscAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_config__s" prot="public">CamDeviceLscConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_lsc_status__s" prot="public">CamDeviceLscStatus_s</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" prot="public" static="no">
+        <name>CamDeviceLscInterMode_e</name>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaf982dd4b3627515e8f5fcaeb5b4d532d" prot="public">
+          <name>CAMDEV_LSC_GAIN_INTER</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>LSC internal gain. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca7f3abb617d31fc642701fcfd0d4a9451" prot="public">
+          <name>CAMDEV_LSC_COLOR_TEMP_WEIGHT_INTER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>LSC internal temperature weight. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9acaa86b2a855a2b4ef12a234f9924cf8585" prot="public">
+          <name>CAMDEV_LSC_GAIN_COLOR_TEMP_WEIGHT_INTER</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>LSC internal color temperature weight gain. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group____cam__device__lsc_1gga9913e937c85f2e65a1d3cacd2d09e9aca1904ac3804f6dffd8baafe3799f13560" prot="public">
+          <name>CAMDEV_LSC_INTER_MAX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>VsCamDevice LSC internal mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="56" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga53fcc026f51a3c6b05a971c78a43dfcc" prot="public" static="no">
+        <type>enum <ref refid="group____cam__device__lsc_1ga9913e937c85f2e65a1d3cacd2d09e9ac" kindref="member">CamDeviceLscInterMode_e</ref></type>
+        <definition>typedef enum CamDeviceLscInterMode_e  CamDeviceLscInterMode_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscInterMode_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC internal mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="62" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga42f73802b5ec060e60bcf54bc98e266b" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_manual_config__s" kindref="compound">CamDeviceLscManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscManualConfig_s CamDeviceLscManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="73" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga6ed93883e741b76a58d8a45c77ca609f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_auto_config__s" kindref="compound">CamDeviceLscAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscAutoConfig_s  CamDeviceLscAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="87" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_config__s" kindref="compound">CamDeviceLscConfig_s</ref></type>
+        <definition>typedef struct CamDeviceLscConfig_s CamDeviceLscConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="98" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__lsc_1ga867edd299b6efba21e3883c27e47bc1f" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_lsc_status__s" kindref="compound">CamDeviceLscStatus_s</ref></type>
+        <definition>typedef struct CamDeviceLscStatus_s CamDeviceLscStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceLscStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice LSC V3 status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="109" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__lsc_1ga0f8ac105d16f6d77cdda4e5b9bcef1e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscConfig_t *pLscCfg)</argsstring>
+        <name>VsiCamDeviceLscSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" kindref="member">CamDeviceLscConfig_t</ref> *</type>
+          <declname>pLscCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gaabb1a970389f69fec8801868100f9c03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscConfig_t *pLscCfg)</argsstring>
+        <name>VsiCamDeviceLscGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1gae95f85b3af7ede2b80b250522988607c" kindref="member">CamDeviceLscConfig_t</ref> *</type>
+          <declname>pLscCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gad2f9fe35edfd844e2c087906b647c83f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="105" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga3fdc08df93df007d44ac7d9ebde3a067" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="143" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga5cc62a42a470ba7264442827328f5d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceLscReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="181" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1ga070348b0cec1f08e5c12671e11e039a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceLscStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceLscGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__lsc_1ga867edd299b6efba21e3883c27e47bc1f" kindref="member">CamDeviceLscStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="219" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__lsc_1gafcca53cf4c83bc5af206d00a8184dc08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceLscGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceLscGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/lsc/cam_device_lsc_api_v3.c" bodystart="262" bodyend="301"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" prot="public" static="no">
+        <name>CAMDEV_LSC_H_BLOCK_NUM</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Maximum horizonta block size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga54491c87340c8add125f98fb2cbb4d9f" prot="public" static="no">
+        <name>CAMDEV_LSC_V_BLOCK_NUM</name>
+        <initializer>32U</initializer>
+        <briefdescription>
+<para>Maximum vertical block size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga584b3716ef0bf547fea98a3c099bf462" prot="public" static="no">
+        <name>CAMDEV_LSC_H_POINT_NUM</name>
+        <initializer>(<ref refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" kindref="member">CAMDEV_LSC_H_BLOCK_NUM</ref> + 1U)</initializer>
+        <briefdescription>
+<para>Maximum horizontal size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__lsc_1ga3e9d3bb25d825b8124e2b86ec290386d" prot="public" static="no">
+        <name>CAMDEV_LSC_V_POINT_NUM</name>
+        <initializer>(<ref refid="group____cam__device__lsc_1gae862674461b514c8880c454796cb17bc" kindref="member">CAMDEV_LSC_H_BLOCK_NUM</ref> + 1U)</initializer>
+        <briefdescription>
+<para>Maximum vertical size of LSC map. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/lsc_v3/cam_device_lsc_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the lens shading correction module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

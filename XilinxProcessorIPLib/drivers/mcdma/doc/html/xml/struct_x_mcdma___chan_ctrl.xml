@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mcdma___chan_ctrl" kind="struct" prot="public">
+    <compoundname>XMcdma_ChanCtrl</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a02a8bf8bf78949826f352a700a538c43" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_ChanCtrl::ChanBase</definition>
+        <argsstring></argsstring>
+        <name>ChanBase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a6f7ba1a3f101b75e4a2a9113391030b2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::Chan_id</definition>
+        <argsstring></argsstring>
+        <name>Chan_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a6d2e9712e86bac663a255faf2a31937c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::MaxTransferLen</definition>
+        <argsstring></argsstring>
+        <name>MaxTransferLen</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ad1636f2180b2dfbf5ca3f837fb1a553d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a23a8170c7009f630cd8718328cbfb40e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::IsRxChan</definition>
+        <argsstring></argsstring>
+        <name>IsRxChan</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ada7d3580675921c3800666aaaa7fc111" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::ext_addr</definition>
+        <argsstring></argsstring>
+        <name>ext_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a925734ae59a67b8258eb40ea9c954a41" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::Has_Txdre</definition>
+        <argsstring></argsstring>
+        <name>Has_Txdre</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a5adbb7c33af8c3dbcb72e2b3743ef0cd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::Has_Rxdre</definition>
+        <argsstring></argsstring>
+        <name>Has_Rxdre</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aeb98b03b0e343d3218fa06e20d7a55c3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::TxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>TxDataWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a93398ad02dcaba1686b56245b251d1b9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::RxDataWidth</definition>
+        <argsstring></argsstring>
+        <name>RxDataWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1afe51ddc81ef596def5923d5ad0fd83df" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::HasStsCntrlStrm</definition>
+        <argsstring></argsstring>
+        <name>HasStsCntrlStrm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aa9fdd0ca36fcbdcd98c9b759c310b2a4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XMcdma_ChanCtrl::HasRxLength</definition>
+        <argsstring></argsstring>
+        <name>HasRxLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ad366a87218d6de0f21d9c41860b39220" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>volatile int XMcdma_ChanCtrl::ChanState</definition>
+        <argsstring></argsstring>
+        <name>ChanState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a75a2621ab3034a7e6496214b73d8d9f0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_ChanCtrl::FirstBdAddr</definition>
+        <argsstring></argsstring>
+        <name>FirstBdAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a8020f106d5b90814ea01193d915678dc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_ChanCtrl::LastBdAddr</definition>
+        <argsstring></argsstring>
+        <name>LastBdAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aa24035c925b2545e7160487bffe41442" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XMcdma_ChanCtrl::Separation</definition>
+        <argsstring></argsstring>
+        <name>Separation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a9c0725031fd2d8bc1816534c0d0484ec" prot="public" static="no" mutable="no">
+        <type>XMcdma_Bd *</type>
+        <definition>XMcdma_Bd* XMcdma_ChanCtrl::BdHead</definition>
+        <argsstring></argsstring>
+        <name>BdHead</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ac53f4c185f630d1401ae28d63fb31b3a" prot="public" static="no" mutable="no">
+        <type>XMcdma_Bd *</type>
+        <definition>XMcdma_Bd* XMcdma_ChanCtrl::BdTail</definition>
+        <argsstring></argsstring>
+        <name>BdTail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ac6cab45497021123dd0adb6640f0fee3" prot="public" static="no" mutable="no">
+        <type>XMcdma_Bd *</type>
+        <definition>XMcdma_Bd* XMcdma_ChanCtrl::BdRestart</definition>
+        <argsstring></argsstring>
+        <name>BdRestart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a9d50e431b890a2c0aa48b27540bde6ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::BdCnt</definition>
+        <argsstring></argsstring>
+        <name>BdCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aa257158e839ce544ef0f8690b998e0fd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::BdPendingCnt</definition>
+        <argsstring></argsstring>
+        <name>BdPendingCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a81beb1e20e33747667d57698128d5a17" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::BdSubmitCnt</definition>
+        <argsstring></argsstring>
+        <name>BdSubmitCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a4039bea7a71a93ef3e22f031e5d98300" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::BdDoneCnt</definition>
+        <argsstring></argsstring>
+        <name>BdDoneCnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a04863542570acfe1f9027a2301960b1f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMcdma_ChanCtrl::Length</definition>
+        <argsstring></argsstring>
+        <name>Length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a065a2b7caaa3a522254d887a9850dc3b" prot="public" static="no" mutable="no">
+        <type>XMcdma_QScheduler</type>
+        <definition>XMcdma_QScheduler XMcdma_ChanCtrl::Schedulertype</definition>
+        <argsstring></argsstring>
+        <name>Schedulertype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a42ca13266719060f74c1fede48b9b9ec" prot="public" static="no" mutable="no">
+        <type>XMcdma_ChanDoneHandler</type>
+        <definition>XMcdma_ChanDoneHandler XMcdma_ChanCtrl::DoneHandler</definition>
+        <argsstring></argsstring>
+        <name>DoneHandler</name>
+        <briefdescription>
+<para>Call back for transfer done interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aad0a845fe7b5200f5f05ba4d8bf5cc97" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma_ChanCtrl::DoneRef</definition>
+        <argsstring></argsstring>
+        <name>DoneRef</name>
+        <briefdescription>
+<para>To be passed to the done interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a4bad32fe6e17ce9c5ca65e141df0bde7" prot="public" static="no" mutable="no">
+        <type>XMcdma_ChanErrorHandler</type>
+        <definition>XMcdma_ChanErrorHandler XMcdma_ChanCtrl::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>Call back for error interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1ae36ea85cbc3422e657e3381af1df2987" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma_ChanCtrl::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>To be passed to the error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1aa1980d2a86fab5245e1e67b87e135e15" prot="public" static="no" mutable="no">
+        <type>XMcdma_ChanPktDropHandler</type>
+        <definition>XMcdma_ChanPktDropHandler XMcdma_ChanCtrl::PktdropHandler</definition>
+        <argsstring></argsstring>
+        <name>PktdropHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mcdma___chan_ctrl_1a111f3564c0ffd590cb3c8e63e2228e22" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XMcdma_ChanCtrl::PktDropRef</definition>
+        <argsstring></argsstring>
+        <name>PktDropRef</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma.h" bodystart="191" bodyend="233"/>
+    <listofallmembers>
+      <member refid="struct_x_mcdma___chan_ctrl_1a9d50e431b890a2c0aa48b27540bde6ab" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdCnt</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a4039bea7a71a93ef3e22f031e5d98300" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdDoneCnt</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a9c0725031fd2d8bc1816534c0d0484ec" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdHead</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aa257158e839ce544ef0f8690b998e0fd" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdPendingCnt</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ac6cab45497021123dd0adb6640f0fee3" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdRestart</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a81beb1e20e33747667d57698128d5a17" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdSubmitCnt</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ac53f4c185f630d1401ae28d63fb31b3a" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>BdTail</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a6f7ba1a3f101b75e4a2a9113391030b2" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Chan_id</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a02a8bf8bf78949826f352a700a538c43" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>ChanBase</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ad366a87218d6de0f21d9c41860b39220" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>ChanState</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a42ca13266719060f74c1fede48b9b9ec" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>DoneHandler</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aad0a845fe7b5200f5f05ba4d8bf5cc97" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>DoneRef</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a4bad32fe6e17ce9c5ca65e141df0bde7" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ae36ea85cbc3422e657e3381af1df2987" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ada7d3580675921c3800666aaaa7fc111" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>ext_addr</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a75a2621ab3034a7e6496214b73d8d9f0" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>FirstBdAddr</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a5adbb7c33af8c3dbcb72e2b3743ef0cd" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Has_Rxdre</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a925734ae59a67b8258eb40ea9c954a41" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Has_Txdre</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aa9fdd0ca36fcbdcd98c9b759c310b2a4" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>HasRxLength</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1afe51ddc81ef596def5923d5ad0fd83df" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>HasStsCntrlStrm</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a23a8170c7009f630cd8718328cbfb40e" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>IsRxChan</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a8020f106d5b90814ea01193d915678dc" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>LastBdAddr</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1ad1636f2180b2dfbf5ca3f837fb1a553d" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>len</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a04863542570acfe1f9027a2301960b1f" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Length</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a6d2e9712e86bac663a255faf2a31937c" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>MaxTransferLen</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aa1980d2a86fab5245e1e67b87e135e15" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>PktdropHandler</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a111f3564c0ffd590cb3c8e63e2228e22" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>PktDropRef</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a93398ad02dcaba1686b56245b251d1b9" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>RxDataWidth</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1a065a2b7caaa3a522254d887a9850dc3b" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Schedulertype</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aa24035c925b2545e7160487bffe41442" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>Separation</name></member>
+      <member refid="struct_x_mcdma___chan_ctrl_1aeb98b03b0e343d3218fa06e20d7a55c3" prot="public" virt="non-virtual"><scope>XMcdma_ChanCtrl</scope><name>TxDataWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

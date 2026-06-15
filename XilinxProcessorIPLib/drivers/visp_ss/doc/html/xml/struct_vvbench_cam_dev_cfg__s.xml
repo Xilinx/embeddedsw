@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_cam_dev_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchCamDevCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_cam_dev_cfg__s_1ad5565af3d4405d794b4595825262485f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchCamDevCfg_s::ispHwId</definition>
+        <argsstring></argsstring>
+        <name>ispHwId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="484" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="484" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cam_dev_cfg__s_1ad1743e653f1038f9e3a087129a06076b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int VvbenchCamDevCfg_s::alignMask</definition>
+        <argsstring></argsstring>
+        <name>alignMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="485" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="485" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cam_dev_cfg__s_1afc09d6f2f180c07abfa230287b70a146" prot="public" static="no" mutable="no">
+        <type>VvbenchBufferCfg_t</type>
+        <definition>VvbenchBufferCfg_t VvbenchCamDevCfg_s::bufCfg[CAMDEV_BUFCHAIN_MAX]</definition>
+        <argsstring>[CAMDEV_BUFCHAIN_MAX]</argsstring>
+        <name>bufCfg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="486" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="486" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cam_dev_cfg__s_1a3426478f3a1d9585de7982f905cf073d" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gadea6d16db290e5ceae71de6d23488818" kindref="member">CamDeviceWorkMode_t</ref></type>
+        <definition>CamDeviceWorkMode_t VvbenchCamDevCfg_s::workMode</definition>
+        <argsstring></argsstring>
+        <name>workMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="487" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="487" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cam_dev_cfg__s_1a87277545c982c0893e1ca6a7087f535e" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref></type>
+        <definition>CamDeviceInputType_t VvbenchCamDevCfg_s::inputType</definition>
+        <argsstring></argsstring>
+        <name>inputType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="488" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="488" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="483" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="483" bodyend="489"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_cam_dev_cfg__s_1ad1743e653f1038f9e3a087129a06076b" prot="public" virt="non-virtual"><scope>VvbenchCamDevCfg_s</scope><name>alignMask</name></member>
+      <member refid="struct_vvbench_cam_dev_cfg__s_1afc09d6f2f180c07abfa230287b70a146" prot="public" virt="non-virtual"><scope>VvbenchCamDevCfg_s</scope><name>bufCfg</name></member>
+      <member refid="struct_vvbench_cam_dev_cfg__s_1a87277545c982c0893e1ca6a7087f535e" prot="public" virt="non-virtual"><scope>VvbenchCamDevCfg_s</scope><name>inputType</name></member>
+      <member refid="struct_vvbench_cam_dev_cfg__s_1ad5565af3d4405d794b4595825262485f" prot="public" virt="non-virtual"><scope>VvbenchCamDevCfg_s</scope><name>ispHwId</name></member>
+      <member refid="struct_vvbench_cam_dev_cfg__s_1a3426478f3a1d9585de7982f905cf073d" prot="public" virt="non-virtual"><scope>VvbenchCamDevCfg_s</scope><name>workMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

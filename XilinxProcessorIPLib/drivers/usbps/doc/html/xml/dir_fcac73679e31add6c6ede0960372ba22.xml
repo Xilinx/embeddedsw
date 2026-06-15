@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fcac73679e31add6c6ede0960372ba22" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xusbps_8c">xusbps.c</innerfile>
+    <innerfile refid="xusbps_8h">xusbps.h</innerfile>
+    <innerfile refid="xusbps__endpoint_8c">xusbps_endpoint.c</innerfile>
+    <innerfile refid="xusbps__endpoint_8h">xusbps_endpoint.h</innerfile>
+    <innerfile refid="xusbps__g_8c">xusbps_g.c</innerfile>
+    <innerfile refid="xusbps__hw_8c">xusbps_hw.c</innerfile>
+    <innerfile refid="xusbps__hw_8h">xusbps_hw.h</innerfile>
+    <innerfile refid="xusbps__intr_8c">xusbps_intr.c</innerfile>
+    <innerfile refid="xusbps__sinit_8c">xusbps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/"/>
+  </compounddef>
+</doxygen>

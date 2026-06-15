@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_dmsc_status__s" kind="struct" prot="public">
+    <compoundname>CamDeviceDmscStatus_s</compoundname>
+    <includes local="no">cam_device_dmsc_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1ad2144f1b12e68970c4ae7b4a1f2d7dfb" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+<para>DMSC enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a9c226d41de506178b55d6d89f0a04b65" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::cacEnable</definition>
+        <argsstring></argsstring>
+        <name>cacEnable</name>
+        <briefdescription>
+<para>DMSC CAC enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a6b061a52ba33f2c62066c7fe65e721a5" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::dmscDemoireEnable</definition>
+        <argsstring></argsstring>
+        <name>dmscDemoireEnable</name>
+        <briefdescription>
+<para>DMSC demoire enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a8c8e42640478707ca30d755885ff8ef7" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::dmscDepurpleEnable</definition>
+        <argsstring></argsstring>
+        <name>dmscDepurpleEnable</name>
+        <briefdescription>
+<para>DMSC depurple enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a6e4010470fd1c12e78be3e4c539cca62" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::dmscSharpenEnable</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenEnable</name>
+        <briefdescription>
+<para>DMSC sharpen enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1aea3cb159585373de1695445105e5a743" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::dmscSharpenLineEnable</definition>
+        <argsstring></argsstring>
+        <name>dmscSharpenLineEnable</name>
+        <briefdescription>
+<para>DMSC sharpenLine enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a94424b4292019b4bd2314539e9d130e4" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceDmscStatus_s::dmscSkinEnable</definition>
+        <argsstring></argsstring>
+        <name>dmscSkinEnable</name>
+        <briefdescription>
+<para>DMSC skin enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1a4d31a95150d8a8580f53a5d6e82cdd52" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceDmscStatus_s::currentMode</definition>
+        <argsstring></argsstring>
+        <name>currentMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_dmsc_status__s_1ab08fa0f2ab2111606a8ae79d903d0d36" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__dmsc_1gae1a4d44b7de4c312cf9bf7c43558316e" kindref="member">CamDeviceDmscManualConfig_t</ref></type>
+        <definition>CamDeviceDmscManualConfig_t CamDeviceDmscStatus_s::currentCfg</definition>
+        <argsstring></argsstring>
+        <name>currentCfg</name>
+        <briefdescription>
+<para>DMSC current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice DMSC status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="293">
+        <label>CamDeviceDmscManualConfig_s</label>
+        <link refid="struct_cam_device_dmsc_manual_config__s"/>
+        <childnode refid="294" relation="usage">
+          <edgelabel>sharpenLineCfg</edgelabel>
+        </childnode>
+        <childnode refid="295" relation="usage">
+          <edgelabel>depurpleCfg</edgelabel>
+        </childnode>
+        <childnode refid="296" relation="usage">
+          <edgelabel>cacCfg</edgelabel>
+        </childnode>
+        <childnode refid="297" relation="usage">
+          <edgelabel>demoireCfg</edgelabel>
+        </childnode>
+        <childnode refid="298" relation="usage">
+          <edgelabel>sharpenCfg</edgelabel>
+        </childnode>
+        <childnode refid="299" relation="usage">
+          <edgelabel>skinCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="299">
+        <label>CamDeviceDmscSkinConfig_s</label>
+        <link refid="struct_cam_device_dmsc_skin_config__s"/>
+      </node>
+      <node id="296">
+        <label>CamDeviceDmscCacConfig_s</label>
+        <link refid="struct_cam_device_dmsc_cac_config__s"/>
+      </node>
+      <node id="298">
+        <label>CamDeviceDmscSharpenConfig_s</label>
+        <link refid="struct_cam_device_dmsc_sharpen_config__s"/>
+      </node>
+      <node id="294">
+        <label>CamDeviceDmscSharpenLineConfig_s</label>
+        <link refid="struct_cam_device_dmsc_sharpen_line_config__s"/>
+      </node>
+      <node id="292">
+        <label>CamDeviceDmscStatus_s</label>
+        <link refid="struct_cam_device_dmsc_status__s"/>
+        <childnode refid="293" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="295">
+        <label>CamDeviceDmscDepurpleConfig_s</label>
+        <link refid="struct_cam_device_dmsc_depurple_config__s"/>
+      </node>
+      <node id="297">
+        <label>CamDeviceDmscDemoireConfig_s</label>
+        <link refid="struct_cam_device_dmsc_demoire_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dmsc_v2/cam_device_dmsc_api.h" bodystart="258" bodyend="268"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_dmsc_status__s_1a9c226d41de506178b55d6d89f0a04b65" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>cacEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1ab08fa0f2ab2111606a8ae79d903d0d36" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>currentCfg</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1a4d31a95150d8a8580f53a5d6e82cdd52" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>currentMode</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1a6b061a52ba33f2c62066c7fe65e721a5" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>dmscDemoireEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1a8c8e42640478707ca30d755885ff8ef7" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>dmscDepurpleEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1a6e4010470fd1c12e78be3e4c539cca62" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>dmscSharpenEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1aea3cb159585373de1695445105e5a743" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>dmscSharpenLineEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1a94424b4292019b4bd2314539e9d130e4" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>dmscSkinEnable</name></member>
+      <member refid="struct_cam_device_dmsc_status__s_1ad2144f1b12e68970c4ae7b4a1f2d7dfb" prot="public" virt="non-virtual"><scope>CamDeviceDmscStatus_s</scope><name>enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

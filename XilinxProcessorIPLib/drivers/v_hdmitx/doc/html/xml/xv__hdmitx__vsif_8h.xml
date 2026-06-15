@@ -1,0 +1,642 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmitx__vsif_8h" kind="file">
+    <compoundname>xv_hdmitx_vsif.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includedby refid="xv__hdmitx_8h" local="yes">xv_hdmitx.h</includedby>
+    <includedby refid="xv__hdmitx__vsif_8c" local="yes">xv_hdmitx_vsif.c</includedby>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="105">
+        <label>xv_hdmitx_vsif.h</label>
+        <link refid="xv_hdmitx_vsif.h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xstatus.h</label>
+      </node>
+      <node id="109">
+        <label>xvidc.h</label>
+      </node>
+      <node id="106">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="116">
+        <label>xv_hdmitx_sinit.c</label>
+        <link refid="xv__hdmitx__sinit_8c"/>
+      </node>
+      <node id="117">
+        <label>xv_hdmitx_vsif.c</label>
+        <link refid="xv__hdmitx__vsif_8c"/>
+      </node>
+      <node id="110">
+        <label>xv_hdmitx_vsif.h</label>
+        <link refid="xv_hdmitx_vsif.h"/>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="114">
+        <label>xv_hdmitx_intr.c</label>
+        <link refid="xv__hdmitx__intr_8c"/>
+      </node>
+      <node id="112">
+        <label>xv_hdmitx.c</label>
+        <link refid="xv__hdmitx_8c"/>
+      </node>
+      <node id="111">
+        <label>xv_hdmitx.h</label>
+        <link refid="xv__hdmitx_8h"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="113">
+        <label>xv_hdmitx_g.c</label>
+      </node>
+      <node id="115">
+        <label>xv_hdmitx_selftest.c</label>
+        <link refid="xv__hdmitx__selftest_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v___hdmi_tx__3_d___meta_data" prot="public">XV_HdmiTx_3D_MetaData</innerclass>
+    <innerclass refid="struct_x_v___hdmi_tx__3_d___info" prot="public">XV_HdmiTx_3D_Info</innerclass>
+    <innerclass refid="struct_x_v___hdmi_tx___v_s_i_f" prot="public">XV_HdmiTx_VSIF</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__vsif__masks_1gac59b3d779b8abe3b92711e348d2b5147" prot="public" static="no">
+        <name>XV_HDMITX_VSIF_VIDEO_FORMAT_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>VSIF Video Format field shift value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga7b4823c40c8dd9317ed385a3b7cf2f42" prot="public" static="no">
+        <name>XV_HDMITX_VSIF_VIDEO_FORMAT_MASK</name>
+        <initializer>(0x7 &lt;&lt; XV_HDMITX_VSIF_VIDEO_FORMAT_SHIFT)</initializer>
+        <briefdescription>
+<para>VSIF Video Format field mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a2a42d5752c8084764592726b6271d7db" compoundref="xv__hdmitx__vsif_8c" startline="281" endline="338">XV_HdmiTx_VSIF_ParsePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga5af0c68f4543634362405af59207a0d8" prot="public" static="no">
+        <name>XV_HDMITX_3D_STRUCT_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>3D Structure field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga49219a18a2d788fb4fbe7efd031e3e6d" prot="public" static="no">
+        <name>XV_HDMITX_3D_STRUCT_MASK</name>
+        <initializer>(0xF &lt;&lt; XV_HDMITX_3D_STRUCT_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Structure field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1gac78774d7ebfc02fb2b6a70ca309704c6" prot="public" static="no">
+        <name>XV_HDMITX_3D_SAMP_METHOD_SHIFT</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>3D Sampling Method field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga68837528d3ff07db902ca9723be8debc" prot="public" static="no">
+        <name>XV_HDMITX_3D_SAMP_METHOD_MASK</name>
+        <initializer>(0x3 &lt;&lt; XV_HDMITX_3D_SAMP_METHOD_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Sampling Method field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga72e2071a1dfbc223f843975373026a5c" prot="public" static="no">
+        <name>XV_HDMITX_3D_SAMP_POS_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>3D Sampling Position field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga0cfab2224b20792750ef82c3ec403aaf" prot="public" static="no">
+        <name>XV_HDMITX_3D_SAMP_POS_MASK</name>
+        <initializer>(0x3 &lt;&lt; XV_HDMITX_3D_SAMP_POS_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Sampling Position field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga5126bfc63c82f029501bb01b4f02b10a" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_PRESENT_SHIFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>3D Metadata Present field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1gab630761461fde0101cfe28b1b4599142" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_PRESENT_MASK</name>
+        <initializer>(0x1 &lt;&lt; XV_HDMITX_3D_META_PRESENT_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Metadata Present field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1gac228e5a4b4769996d43e64ed6971c2a6" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_TYPE_SHIFT</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>3D Metadata Type field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga71eda524db62b54e1d63f22e847c6b82" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_TYPE_MASK</name>
+        <initializer>(0x7 &lt;&lt; XV_HDMITX_3D_META_TYPE_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Metadata Type field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1ga737b35e2d7d74ec04dc5bc250b4afd6e" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_LENGTH_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>3D Metadata Length field shift value </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__vsif__masks_1gafed35566c3cc05b8c849dfa7159bc178" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_LENGTH_MASK</name>
+        <initializer>(0x1F &lt;&lt; XV_HDMITX_3D_META_LENGTH_SHIFT)</initializer>
+        <briefdescription>
+<para>3D Metadata Length field mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx__vsif_8c_1a79e9fd00cabedf0d254cba229facf29b" compoundref="xv__hdmitx__vsif_8c" startline="451" endline="544">XV_HdmiTx_VSIF_GeneratePacket</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__hdmitx__vsif_8h_1abb647a28c1825bf05f2300bc3ec1fade" prot="public" static="no">
+        <name>XV_HDMITX_3D_META_MAX_SIZE</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Maximum 3D Metadata size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374" prot="public" static="no">
+        <name>XV_HdmiTx_VSIF_Video_Format</name>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a021be22a2ef22ff7acd68aed7cc22354" prot="public">
+          <name>XV_HDMITX_VSIF_VF_NOINFO</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>No additional HDMI video format is presented. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1ea65967b92439bf1812eaf3e1a25168" prot="public">
+          <name>XV_HDMITX_VSIF_VF_EXTRES</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Extended resolution format present. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1a3d38954b89c6e72ca69a834964fe7b" prot="public">
+          <name>XV_HDMITX_VSIF_VF_3D</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>3D format indication present </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374ab73ba85f091c04b5a73df5a2f9079f5f" prot="public">
+          <name>XV_HDMITX_VSIF_VF_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>HDMI Video Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="82" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96" prot="public" static="no">
+        <name>XV_HdmiTx_3D_Struct_Field</name>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a5639d4872924d48d483dd9545573a40f" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_FRAME_PACKING</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Frame packing. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96af3a6ffd3189d8d90c63decc570d4ef67" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_FIELD_ALTERNATIVE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Field alternative. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a282a57d7881f909f7e0efcc6a4ced6a9" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_LINE_ALTERNATIVE</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Line alternative. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a9eec869939b64e9edf40314953b8de3e" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_FULL</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Side-by-side (full) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a10771e2b31a94aa487e88868983390f0" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_L_DEPTH</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+<para>L + depth. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4082d73561b154bcd40c4e668e3c9f80" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_L_DEPTH_GRAPH_GDEPTH</name>
+          <initializer>= 5</initializer>
+          <briefdescription>
+<para>L + depth + graphics + graphics-depth. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a6dc1f0d6e478cca786713651f522a228" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_TOP_AND_BOTTOM</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+<para>Top-and-bottom. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4074d34ef7bdf5236ec39d72de1cb44f" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_HALF</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+<para>Side-by-side (half) </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a5464d15a9f0ec547e4e6ce23f8c3de2d" prot="public">
+          <name>XV_HDMITX_3D_STRUCT_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>3D structure definitions as defined in the HDMI 1.4a specification </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="92" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6" prot="public" static="no">
+        <name>XV_HdmiTx_3D_Sampling_Method</name>
+        <enumvalue id="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6af0eb1028b816ced4176d8d209ee3dfab" prot="public">
+          <name>XV_HDMITX_3D_SAMPLING_HORIZONTAL</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Horizontal sub-sampling. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6a1bd0dc5e2007647023d2e9bbec92a24c" prot="public">
+          <name>XV_HDMITX_3D_SAMPLING_QUINCUNX</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Quincunx matrix. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6addd3eb770a9a2858620d9003d7ee85a0" prot="public">
+          <name>XV_HDMITX_3D_SAMPLING_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Sub-sampling methods for Side-by-side(half) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="108" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378" prot="public" static="no">
+        <name>XV_HdmiTx_3D_Sampling_Position</name>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a8be1a2eecaa397000f1117feccef4401" prot="public">
+          <name>XV_HDMITX_3D_SAMPPOS_OLOR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Odd/Left, Odd/Right. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378adb603a264119323efe41ee28de423c8c" prot="public">
+          <name>XV_HDMITX_3D_SAMPPOS_OLER</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Odd/Left, Even/Right. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a94b1c45096eff1a586132ebfe9aa74ca" prot="public">
+          <name>XV_HDMITX_3D_SAMPPOS_ELOR</name>
+          <initializer>= 2</initializer>
+          <briefdescription>
+<para>Even/Left, Odd/Right. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a57a3139d08773b7b9cf513b92c9252e7" prot="public">
+          <name>XV_HDMITX_3D_SAMPPOS_ELER</name>
+          <initializer>= 3</initializer>
+          <briefdescription>
+<para>Even/Left, Even/Right. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378aaea9e020a5cff075193bac87c22ac5e0" prot="public">
+          <name>XV_HDMITX_3D_SAMPPOS_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Sub-sampling positions for the sub-sampling methods. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="117" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9" prot="public" static="no">
+        <name>XV_HdmiTx_3D_MetaData_Type</name>
+        <enumvalue id="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9a8795aa2f721607c689fa8d30c1727625" prot="public">
+          <name>XV_HDMITX_3D_META_PARALLAX</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Parallax information. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9a1d45333dbfb22d056dd53a379ff35fd7" prot="public">
+          <name>XV_HDMITX_3D_META_UNKNOWN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>3D Metadata types </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h" bodystart="128" bodyend="131"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main header file for Vendor Specific InfoFrames used in HDMI. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  yh     15/01/15 Initial release for 3D video support
+2.00  EB     23/01/18 This file is deprecated. All the APIs are now moved
+                                            to HDMI Common library
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XV_HDMITX_VSIF_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMITX_VSIF_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="group__vsif__masks_1gac59b3d779b8abe3b92711e348d2b5147" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_VSIF_VIDEO_FORMAT_SHIFT<sp/>5</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="group__vsif__masks_1ga7b4823c40c8dd9317ed385a3b7cf2f42" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_VSIF_VIDEO_FORMAT_MASK<sp/>(0x7<sp/>&lt;&lt;<sp/>XV_HDMITX_VSIF_VIDEO_FORMAT_SHIFT)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="group__vsif__masks_1ga5af0c68f4543634362405af59207a0d8" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_STRUCT_SHIFT<sp/>4</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="group__vsif__masks_1ga49219a18a2d788fb4fbe7efd031e3e6d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_STRUCT_MASK<sp/>(0xF<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_STRUCT_SHIFT)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56" refid="group__vsif__masks_1gac78774d7ebfc02fb2b6a70ca309704c6" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_SAMP_METHOD_SHIFT<sp/>6</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58" refid="group__vsif__masks_1ga68837528d3ff07db902ca9723be8debc" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_SAMP_METHOD_MASK<sp/>(0x3<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_SAMP_METHOD_SHIFT)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60" refid="group__vsif__masks_1ga72e2071a1dfbc223f843975373026a5c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_SAMP_POS_SHIFT<sp/>4</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62" refid="group__vsif__masks_1ga0cfab2224b20792750ef82c3ec403aaf" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_SAMP_POS_MASK<sp/>(0x3<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_SAMP_POS_SHIFT)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="group__vsif__masks_1ga5126bfc63c82f029501bb01b4f02b10a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_PRESENT_SHIFT<sp/>3</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66" refid="group__vsif__masks_1gab630761461fde0101cfe28b1b4599142" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_PRESENT_MASK<sp/>(0x1<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_META_PRESENT_SHIFT)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="group__vsif__masks_1gac228e5a4b4769996d43e64ed6971c2a6" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_TYPE_SHIFT<sp/>5</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="group__vsif__masks_1ga71eda524db62b54e1d63f22e847c6b82" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_TYPE_MASK<sp/>(0x7<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_META_TYPE_SHIFT)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="group__vsif__masks_1ga737b35e2d7d74ec04dc5bc250b4afd6e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_LENGTH_SHIFT<sp/>0</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="group__vsif__masks_1gafed35566c3cc05b8c849dfa7159bc178" refkind="member"><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_LENGTH_MASK<sp/>(0x1F<sp/>&lt;&lt;<sp/>XV_HDMITX_3D_META_LENGTH_SHIFT)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="83" refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a021be22a2ef22ff7acd68aed7cc22354" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a021be22a2ef22ff7acd68aed7cc22354" kindref="member">XV_HDMITX_VSIF_VF_NOINFO</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="84" refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1ea65967b92439bf1812eaf3e1a25168" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1ea65967b92439bf1812eaf3e1a25168" kindref="member">XV_HDMITX_VSIF_VF_EXTRES</ref><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="85" refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1a3d38954b89c6e72ca69a834964fe7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374a1a3d38954b89c6e72ca69a834964fe7b" kindref="member">XV_HDMITX_VSIF_VF_3D</ref><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_HDMITX_VSIF_VF_UNKNOWN</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374" kindref="member">XV_HdmiTx_VSIF_Video_Format</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="93" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a5639d4872924d48d483dd9545573a40f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a5639d4872924d48d483dd9545573a40f" kindref="member">XV_HDMITX_3D_STRUCT_FRAME_PACKING</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="94" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96af3a6ffd3189d8d90c63decc570d4ef67" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96af3a6ffd3189d8d90c63decc570d4ef67" kindref="member">XV_HDMITX_3D_STRUCT_FIELD_ALTERNATIVE</ref><sp/><sp/><sp/><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="95" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a282a57d7881f909f7e0efcc6a4ced6a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a282a57d7881f909f7e0efcc6a4ced6a9" kindref="member">XV_HDMITX_3D_STRUCT_LINE_ALTERNATIVE</ref><sp/><sp/><sp/><sp/><sp/>=<sp/>2,<sp/></highlight></codeline>
+<codeline lineno="96" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a9eec869939b64e9edf40314953b8de3e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a9eec869939b64e9edf40314953b8de3e" kindref="member">XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_FULL</ref><sp/><sp/><sp/><sp/>=<sp/>3,<sp/></highlight></codeline>
+<codeline lineno="97" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a10771e2b31a94aa487e88868983390f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a10771e2b31a94aa487e88868983390f0" kindref="member">XV_HDMITX_3D_STRUCT_L_DEPTH</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>4,<sp/></highlight></codeline>
+<codeline lineno="98" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4082d73561b154bcd40c4e668e3c9f80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4082d73561b154bcd40c4e668e3c9f80" kindref="member">XV_HDMITX_3D_STRUCT_L_DEPTH_GRAPH_GDEPTH</ref><sp/>=<sp/>5,<sp/></highlight></codeline>
+<codeline lineno="99" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a6dc1f0d6e478cca786713651f522a228" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a6dc1f0d6e478cca786713651f522a228" kindref="member">XV_HDMITX_3D_STRUCT_TOP_AND_BOTTOM</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>6,<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/><sp/>7<sp/>is<sp/>reserved<sp/>for<sp/>future<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4074d34ef7bdf5236ec39d72de1cb44f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96a4074d34ef7bdf5236ec39d72de1cb44f" kindref="member">XV_HDMITX_3D_STRUCT_SIDE_BY_SIDE_HALF</ref><sp/><sp/><sp/><sp/>=<sp/>8,<sp/></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_HDMITX_3D_STRUCT_UNKNOWN</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">}<sp/><ref refid="xv__hdmitx__vsif_8h_1a61b00ff4973c526a46c5d522ad37cd96" kindref="member">XV_HdmiTx_3D_Struct_Field</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109" refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6af0eb1028b816ced4176d8d209ee3dfab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6af0eb1028b816ced4176d8d209ee3dfab" kindref="member">XV_HDMITX_3D_SAMPLING_HORIZONTAL</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="110" refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6a1bd0dc5e2007647023d2e9bbec92a24c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6a1bd0dc5e2007647023d2e9bbec92a24c" kindref="member">XV_HDMITX_3D_SAMPLING_QUINCUNX</ref><sp/><sp/><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_HDMITX_3D_SAMPLING_UNKNOWN</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}<sp/><ref refid="xv__hdmitx__vsif_8h_1ad22f16414a5b796ccd247113daeae7c6" kindref="member">XV_HdmiTx_3D_Sampling_Method</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="118" refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a8be1a2eecaa397000f1117feccef4401" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a8be1a2eecaa397000f1117feccef4401" kindref="member">XV_HDMITX_3D_SAMPPOS_OLOR</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="119" refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378adb603a264119323efe41ee28de423c8c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378adb603a264119323efe41ee28de423c8c" kindref="member">XV_HDMITX_3D_SAMPPOS_OLER</ref><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="120" refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a94b1c45096eff1a586132ebfe9aa74ca" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a94b1c45096eff1a586132ebfe9aa74ca" kindref="member">XV_HDMITX_3D_SAMPPOS_ELOR</ref><sp/>=<sp/>2,<sp/></highlight></codeline>
+<codeline lineno="121" refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a57a3139d08773b7b9cf513b92c9252e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378a57a3139d08773b7b9cf513b92c9252e7" kindref="member">XV_HDMITX_3D_SAMPPOS_ELER</ref><sp/>=<sp/>3,<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_HDMITX_3D_SAMPPOS_UNKNOWN</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/><ref refid="xv__hdmitx__vsif_8h_1a14185d44536f8916b522f8aa050ba378" kindref="member">XV_HdmiTx_3D_Sampling_Position</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129" refid="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9a8795aa2f721607c689fa8d30c1727625" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9a8795aa2f721607c689fa8d30c1727625" kindref="member">XV_HDMITX_3D_META_PARALLAX</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>XV_HDMITX_3D_META_UNKNOWN</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}<sp/><ref refid="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9" kindref="member">XV_HdmiTx_3D_MetaData_Type</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*<sp/><sp/>8<sp/>is<sp/>the<sp/>maximum<sp/>size<sp/>for<sp/>currently<sp/>defined<sp/>meta<sp/>types<sp/>(HDMI<sp/>1.4a)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="xv__hdmitx__vsif_8h_1abb647a28c1825bf05f2300bc3ec1fade" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_HDMITX_3D_META_MAX_SIZE<sp/>8<sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_v___hdmi_tx__3_d___meta_data" refkind="compound"><highlight class="preprocessor">typedef<sp/>struct<sp/>{</highlight></codeline>
+<codeline lineno="141" refid="struct_x_v___hdmi_tx__3_d___meta_data_1a6c92a467f0c80075d2a771685d70ccaf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx__3_d___meta_data_1a6c92a467f0c80075d2a771685d70ccaf" kindref="member">IsPresent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142" refid="struct_x_v___hdmi_tx__3_d___meta_data_1a10792bba576f2eb4b92e294a85f30988" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1ac213f811a6cb0b1ba0d69b3329c384f9" kindref="member">XV_HdmiTx_3D_MetaData_Type</ref><sp/><ref refid="struct_x_v___hdmi_tx__3_d___meta_data_1a10792bba576f2eb4b92e294a85f30988" kindref="member">Type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="struct_x_v___hdmi_tx__3_d___meta_data_1ad1e86786a20b2aaceb512bc5bbd9710c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx__3_d___meta_data_1ad1e86786a20b2aaceb512bc5bbd9710c" kindref="member">Length</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="144" refid="struct_x_v___hdmi_tx__3_d___meta_data_1a70b749c31ff33a8eb013a5ae0936f938" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data[<ref refid="xv__hdmitx__vsif_8h_1abb647a28c1825bf05f2300bc3ec1fade" kindref="member">XV_HDMITX_3D_META_MAX_SIZE</ref>];<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}<sp/><ref refid="struct_x_v___hdmi_tx__3_d___meta_data" kindref="compound">XV_HdmiTx_3D_MetaData</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="struct_x_v___hdmi_tx__3_d___info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>XVidC_3DInfo<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Stream;</highlight></codeline>
+<codeline lineno="152" refid="struct_x_v___hdmi_tx__3_d___info_1a403ede184224b508369b1f2d4e25b999" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx__3_d___meta_data" kindref="compound">XV_HdmiTx_3D_MetaData</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx__3_d___info_1a403ede184224b508369b1f2d4e25b999" kindref="member">MetaData</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}<sp/><ref refid="struct_x_v___hdmi_tx__3_d___info" kindref="compound">XV_HdmiTx_3D_Info</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="struct_x_v___hdmi_tx___v_s_i_f" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160" refid="struct_x_v___hdmi_tx___v_s_i_f_1a68b83ba490350bfc2d82c42829cd1e40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f_1a68b83ba490350bfc2d82c42829cd1e40" kindref="member">Version</ref>;<sp/></highlight></codeline>
+<codeline lineno="161" refid="struct_x_v___hdmi_tx___v_s_i_f_1a51e807c70d465e68d5310d1659aa1889" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f_1a51e807c70d465e68d5310d1659aa1889" kindref="member">IEEE_ID</ref>;<sp/></highlight></codeline>
+<codeline lineno="162" refid="struct_x_v___hdmi_tx___v_s_i_f_1ad8f0aaebac0733ccaa92508c56bc9709" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__hdmitx__vsif_8h_1a2e6773aaa513af12bfce420a27857374" kindref="member">XV_HdmiTx_VSIF_Video_Format</ref><sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f_1ad8f0aaebac0733ccaa92508c56bc9709" kindref="member">Format</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">union<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165" refid="struct_x_v___hdmi_tx___v_s_i_f_1a58210e7255b55f60f1869c7291d7ded3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f_1a58210e7255b55f60f1869c7291d7ded3" kindref="member">HDMI_VIC</ref>;<sp/></highlight></codeline>
+<codeline lineno="166" refid="struct_x_v___hdmi_tx___v_s_i_f_1adec00d19cd21179119f61ebc3ec2b838" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v___hdmi_tx__3_d___info" kindref="compound">XV_HdmiTx_3D_Info</ref><sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f_1adec00d19cd21179119f61ebc3ec2b838" kindref="member">Info_3D</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">}<sp/><ref refid="struct_x_v___hdmi_tx___v_s_i_f" kindref="compound">XV_HdmiTx_VSIF</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx_vsif.h"/>
+  </compounddef>
+</doxygen>

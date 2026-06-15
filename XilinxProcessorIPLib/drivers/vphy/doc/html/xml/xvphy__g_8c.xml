@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xvphy__g_8c" kind="file">
+    <compoundname>xvphy_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xvphy_8h" local="yes">xvphy.h</includes>
+    <incdepgraph>
+      <node id="71">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="73">
+        <label>xil_io.h</label>
+      </node>
+      <node id="70">
+        <label>xvphy.h</label>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xvphy_g.c</label>
+        <link refid="xvphy_g.c"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="72">
+        <label>xvphy_hw.h</label>
+        <link refid="xvphy__hw_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="75">
+        <label>xvidc.h</label>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xvphy__g_8c_1a94df3a39f9e61b1ca53c1437b974258b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_vphy___config" kindref="compound">XVphy_Config</ref></type>
+        <definition>XVphy_Config XVphy_ConfigTable[XPAR_XVPHY_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XVPHY_NUM_INSTANCES]</argsstring>
+        <name>XVphy_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_VID_PHY_CONTROLLER_DEVICE_ID,
+		XPAR_VID_PHY_CONTROLLER_BASEADDR,
+		(XVphy_GtType)XPAR_VID_PHY_CONTROLLER_TRANSCEIVER,
+		XPAR_VID_PHY_CONTROLLER_TX_NO_OF_CHANNELS,
+		XPAR_VID_PHY_CONTROLLER_RX_NO_OF_CHANNELS,
+		(XVphy_ProtocolType)XPAR_VID_PHY_CONTROLLER_TX_PROTOCOL,
+		(XVphy_ProtocolType)XPAR_VID_PHY_CONTROLLER_RX_PROTOCOL,
+		(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_TX_REFCLK_SEL,
+		(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_RX_REFCLK_SEL,
+		(XVphy_SysClkDataSelType)XPAR_VID_PHY_CONTROLLER_TX_PLL_SELECTION,
+		(XVphy_SysClkDataSelType)XPAR_VID_PHY_CONTROLLER_RX_PLL_SELECTION,
+		XPAR_VID_PHY_CONTROLLER_NIDRU,
+		(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_NIDRU_REFCLK_SEL,
+		(XVidC_PixelsPerClock)XPAR_VID_PHY_CONTROLLER_INPUT_PIXELS_PER_CLOCK,
+		XPAR_VID_PHY_CONTROLLER_TX_BUFFER_BYPASS,
+		XPAR_VID_PHY_CONTROLLER_HDMI_FAST_SWITCH,
+		XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH,
+		XPAR_VID_PHY_CONTROLLER_ERR_IRQ_EN,
+		XPAR_VID_PHY_CONTROLLER_AXI_LITE_FREQ_HZ,
+		XPAR_VID_PHY_CONTROLLER_DRPCLK_FREQ,
+		XPAR_VID_PHY_CONTROLLER_USE_GT_CH4_HDMI,
+                XPAR_VID_PHY_CONTROLLER_TX_DP_PROTOCOL,
+                XPAR_VID_PHY_CONTROLLER_RX_DP_PROTOCOL,
+	}
+}</initializer>
+        <briefdescription>
+<para>A table of configuration structures containing the configuration information for each Video PHY core in the system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="xvphy__sinit_8c_1a68bc307b2196dfb3d8727064d72f7771" refkind="member"><highlight class="normal"><ref refid="struct_x_vphy___config" kindref="compound">XVphy_Config</ref><sp/><ref refid="xvphy__sinit_8c_1a68bc307b2196dfb3d8727064d72f7771" kindref="member">XVphy_ConfigTable</ref>[XPAR_XVPHY_NUM_INSTANCES]<sp/>=</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_DEVICE_ID,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_BASEADDR,</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_GtType)XPAR_VID_PHY_CONTROLLER_TRANSCEIVER,</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_TX_NO_OF_CHANNELS,</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_RX_NO_OF_CHANNELS,</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_ProtocolType)XPAR_VID_PHY_CONTROLLER_TX_PROTOCOL,</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_ProtocolType)XPAR_VID_PHY_CONTROLLER_RX_PROTOCOL,</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_TX_REFCLK_SEL,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_RX_REFCLK_SEL,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_SysClkDataSelType)XPAR_VID_PHY_CONTROLLER_TX_PLL_SELECTION,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_SysClkDataSelType)XPAR_VID_PHY_CONTROLLER_RX_PLL_SELECTION,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_NIDRU,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVphy_PllRefClkSelType)XPAR_VID_PHY_CONTROLLER_NIDRU_REFCLK_SEL,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XVidC_PixelsPerClock)XPAR_VID_PHY_CONTROLLER_INPUT_PIXELS_PER_CLOCK,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_TX_BUFFER_BYPASS,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_HDMI_FAST_SWITCH,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_TRANSCEIVER_WIDTH,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_ERR_IRQ_EN,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_AXI_LITE_FREQ_HZ,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_DRPCLK_FREQ,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_USE_GT_CH4_HDMI,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_TX_DP_PROTOCOL,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_RX_DP_PROTOCOL,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vphy/src/xvphy_g.c"/>
+  </compounddef>
+</doxygen>

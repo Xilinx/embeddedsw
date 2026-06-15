@@ -1,0 +1,1603 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__scu200__xp5io__example_2xhdmi__example_8h" kind="file">
+    <compoundname>xmipi_scu200_xp5io_example/xhdmi_example.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2platform_8h" local="yes">platform.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xuartps.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_exception.h</includes>
+    <includes local="yes">string.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2xhdmi__menu_8h" local="yes">xhdmi_menu.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2video__fmc_8h" local="yes">video_fmc.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xv_hdmic.h</includes>
+    <includes local="yes">xv_hdmic_vsif.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2xhdmi__edid_8h" local="yes">xhdmi_edid.h</includes>
+    <includes local="yes">xvidc_edid_ext.h</includes>
+    <includes local="yes">xhdmiphy1.h</includes>
+    <includes local="yes">xintc.h</includes>
+    <includes local="yes">xtmrctr.h</includes>
+    <includedby refid="xmipi__scu200__xp5io__example_2xhdmi__example_8c" local="yes">xhdmi_example.c</includedby>
+    <includedby refid="xmipi__scu200__xp5io__example_8c" local="yes">xmipi_scu200_xp5io_example.c</includedby>
+    <incdepgraph>
+      <node id="1929">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="1923">
+        <label>xuartps.h</label>
+      </node>
+      <node id="1922">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1937">
+        <label>sleep.h</label>
+      </node>
+      <node id="1935">
+        <label>xhdmi_edid.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+      </node>
+      <node id="1927">
+        <label>xhdmi_menu.h</label>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1928" relation="include">
+        </childnode>
+        <childnode refid="1929" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1930" relation="include">
+        </childnode>
+        <childnode refid="1931" relation="include">
+        </childnode>
+        <childnode refid="1932" relation="include">
+        </childnode>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1923" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1935" relation="include">
+        </childnode>
+        <childnode refid="1936" relation="include">
+        </childnode>
+      </node>
+      <node id="1939">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1929" relation="include">
+        </childnode>
+        <childnode refid="1931" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1918">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1946">
+        <label>xv_hdmic_vsif.h</label>
+      </node>
+      <node id="1933">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="1938">
+        <label>xgpio.h</label>
+      </node>
+      <node id="1915">
+        <label>xhdmi_example.h</label>
+        <link refid="xmipi_scu200_xp5io_example/xhdmi_example.h"/>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1917" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1919" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1922" relation="include">
+        </childnode>
+        <childnode refid="1923" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1925" relation="include">
+        </childnode>
+        <childnode refid="1926" relation="include">
+        </childnode>
+        <childnode refid="1927" relation="include">
+        </childnode>
+        <childnode refid="1936" relation="include">
+        </childnode>
+        <childnode refid="1932" relation="include">
+        </childnode>
+        <childnode refid="1945" relation="include">
+        </childnode>
+        <childnode refid="1946" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1935" relation="include">
+        </childnode>
+        <childnode refid="1933" relation="include">
+        </childnode>
+        <childnode refid="1934" relation="include">
+        </childnode>
+        <childnode refid="1947" relation="include">
+        </childnode>
+        <childnode refid="1948" relation="include">
+        </childnode>
+      </node>
+      <node id="1920">
+        <label>platform_config.h</label>
+      </node>
+      <node id="1919">
+        <label>platform.h</label>
+        <childnode refid="1920" relation="include">
+        </childnode>
+      </node>
+      <node id="1942">
+        <label>ti_tmds1204.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1947">
+        <label>xintc.h</label>
+      </node>
+      <node id="1936">
+        <label>video_fmc.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1938" relation="include">
+        </childnode>
+        <childnode refid="1939" relation="include">
+        </childnode>
+        <childnode refid="1940" relation="include">
+        </childnode>
+        <childnode refid="1941" relation="include">
+        </childnode>
+        <childnode refid="1942" relation="include">
+        </childnode>
+        <childnode refid="1943" relation="include">
+        </childnode>
+        <childnode refid="1944" relation="include">
+        </childnode>
+      </node>
+      <node id="1926">
+        <label>string.h</label>
+      </node>
+      <node id="1948">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="1941">
+        <label>onsemi_nb7nq621m.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1934">
+        <label>xhdmiphy1.h</label>
+      </node>
+      <node id="1931">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1932">
+        <label>xvidc.h</label>
+      </node>
+      <node id="1925">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="1924">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1945">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="1928">
+        <label>ctype.h</label>
+      </node>
+      <node id="1916">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1940">
+        <label>ti_lmk03318.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1930">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1921">
+        <label>xiic.h</label>
+      </node>
+      <node id="1943">
+        <label>si5344drv.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+        <childnode refid="1924" relation="include">
+        </childnode>
+        <childnode refid="1929" relation="include">
+        </childnode>
+        <childnode refid="1931" relation="include">
+        </childnode>
+        <childnode refid="1937" relation="include">
+        </childnode>
+        <childnode refid="1918" relation="include">
+        </childnode>
+        <childnode refid="1921" relation="include">
+        </childnode>
+      </node>
+      <node id="1944">
+        <label>rc21008adrv.h</label>
+        <childnode refid="1916" relation="include">
+        </childnode>
+      </node>
+      <node id="1917">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1951">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="1950">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="1949">
+        <label>xhdmi_example.h</label>
+        <link refid="xmipi_scu200_xp5io_example/xhdmi_example.h"/>
+        <childnode refid="1950" relation="include">
+        </childnode>
+        <childnode refid="1951" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdmi___exdes" prot="public">XHdmi_Exdes</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1acb740f5c5d507a6a06e2ee800acde420" prot="public" static="no">
+        <name>_XHDMI_EXAMPLE_H_</name>
+        <briefdescription>
+<para>prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1ad4871ad07e9db2ecb32261da37aec782" prot="public" static="no">
+        <name>XPS_BOARD_SCU200</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a16d1abdbb87c97b4cc438d012e43d7b0" prot="public" static="no">
+        <name>XPS_BOARD_VCU118</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="61" column="12" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a996a3b45b30ac4fff53c6f5087307cc3" prot="public" static="no">
+        <name>AUXFIFOSIZE</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a304768dcd826d7d65123ff4bafc11050" prot="public" static="no">
+        <name>UART_BASEADDR</name>
+        <initializer>XPAR_XUARTPS_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="149" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a953c8b67febdd451f66cac87ed8a484c" prot="public" static="no">
+        <name>APP_MAJ_VERSION</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a0eba744d2f10de2c79576373a9b056b4" prot="public" static="no">
+        <name>APP_MIN_VERSION</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1ad6d7a7c0371741130186bcdb7f1bfb0d" prot="public" static="no">
+        <name>VCU118_U28_MUX_I2C_ADDR</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a63d3a45f18dc2e38c00366be95807173" prot="public" static="no">
+        <name>VCU118_U28_MUX_SEL_NONE</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a6b1e9835a2d167a03d8fdd456794e528" prot="public" static="no">
+        <name>VCU118_U28_MUX_SI570_ADDR</name>
+        <initializer>0x5D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a9b478e6fca6cb055b455074222743ca3" prot="public" static="no">
+        <name>VCU118_U28_MUX_SEL_SI570</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a280e24b429de866e2746d05f418e6d06" prot="public" static="no">
+        <name>VCU118_U80_MUX_I2C_ADDR</name>
+        <initializer>0x75</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a2b278f8cec24962896144a38d3e2e759" prot="public" static="no">
+        <name>VCU118_U80_MUX_SEL_FMCP</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1aa4c499107391f199a09440a6f57785a8" prot="public" static="no">
+        <name>VCU118_U80_MUX_SEL_NONE</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a9e3c02ccaf71eeda39e2524f2fb02a41" prot="public" static="no">
+        <name>I2C_MUX_ADDR</name>
+        <initializer>0x74</initializer>
+        <briefdescription>
+<para>I2C Mux Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a71bd0b63917e21a117972939353bda39" prot="public" static="no">
+        <name>I2C_CLK_ADDR</name>
+        <initializer>0x6C</initializer>
+        <briefdescription>
+<para>I2C Clk Address IDT_8T49N241. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a0634c50d2c600b2bb67602417e1eb221" prot="public" static="no">
+        <name>VRR_MODE</name>
+        <initializer>1  /** 0 - NO VRR , 1 - MANUAL STRETCH , 2 - AUTO STRETCH */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a9dbe7366322193e35206718d1e0e74ac" prot="public" static="no">
+        <name>FVA_FACTOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Note : In Auto Stretch Mode, Enable/Disable VRR is not supported. </para>        </briefdescription>
+        <detaileddescription>
+<para>VRR/FSYNC is always on in VTEM/AMD VSIF Packet </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a4ec5c358421dec832ed1a47d06b08495" prot="public" static="no">
+        <name>CNMVRR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a52d84d9dc3d2d126e0cf696e56363581" prot="public" static="no">
+        <name>EDID_INIT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a237cda4b895b62ed3dab36dc63ddac4f" prot="public" static="no">
+        <name>RC21008A_ADDR</name>
+        <initializer>0x09</initializer>
+        <briefdescription>
+<para>I2C RC21008A Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a34995b955465f6bbb37c359173d50477" prot="public" static="no">
+        <name>ANSI_COLOR_RED</name>
+        <initializer>&quot;\x1b[31m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a966c72d8d733c7734c6c784753d894c7" prot="public" static="no">
+        <name>ANSI_COLOR_GREEN</name>
+        <initializer>&quot;\x1b[32m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a5a123b382640b3aa65dd5db386002fbc" prot="public" static="no">
+        <name>ANSI_COLOR_YELLOW</name>
+        <initializer>&quot;\x1b[33m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1aca16e6a49eb51333c5fd3eee19487315" prot="public" static="no">
+        <name>ANSI_COLOR_BLUE</name>
+        <initializer>&quot;\x1b[34m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1acb30614ba1535da5b9d0c490b3c10515" prot="public" static="no">
+        <name>ANSI_COLOR_MAGENTA</name>
+        <initializer>&quot;\x1b[35m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a8d0b0043e152438bb39b918a1f98c65f" prot="public" static="no">
+        <name>ANSI_COLOR_CYAN</name>
+        <initializer>&quot;\x1b[36m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1ab126a29a20ee0fe9ada8269c91edb753" prot="public" static="no">
+        <name>ANSI_COLOR_WHITE</name>
+        <initializer>&quot;\x1b[37m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a92a364c2b863dde1a024a77eac2a5b3b" prot="public" static="no">
+        <name>ANSI_COLOR_RESET</name>
+        <initializer>&quot;\x1b[0m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a8fd05efb667f027ac48273954940b852" prot="public" static="no">
+        <name>EXDES_DBG_PRINT</name>
+        <initializer>if (exdes_debug_print != NULL) exdes_debug_print</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a990f2d44bc05e58e4bc88bb1f6292fe9" prot="public" static="no">
+        <name>EXDES_AUXFIFO_DBG_PRINT</name>
+        <initializer>if (exdes_aux_debug_print != NULL) exdes_aux_debug_print</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1aa726aae764001df08f3cacdfd2bbcdaa" prot="public" static="no">
+        <name>EXDES_HDCP_DBG_PRINT</name>
+        <initializer>if (exdes_hdcp_debug_print!= NULL) exdes_hdcp_debug_print</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a08701bb14d7f032afd0d35884cbeca8c" prot="public" static="no">
+        <name>PS_IIC_CLK</name>
+        <initializer>100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="348" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1acf4fed76968b1e24686156854c4286c3" prot="public" static="no">
+        <name>TX_RX_RATE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="349" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085f" prot="public" static="no">
+        <name>XOnBoard_IicDev</name>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa4a462e49749f221457625f17256917f8" prot="public">
+          <name>KCU105_SI570</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa02e62d8d0f7588742b33924d02dda819" prot="public">
+          <name>KCU105_HPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa40080fb29d3c5e04722d32f89a19bf82" prot="public">
+          <name>ZCU102_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa183f8bda0eb53b3b7eafc18babe85933" prot="public">
+          <name>ZCU102_SI5328</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fae4d897229a9b43cc0b65273d7046f712" prot="public">
+          <name>ZCU106_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085faa203c632d4268306fc9d3912c0f24882" prot="public">
+          <name>VCU118_FMCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa8cde632095d6b5734010903780658dcd" prot="public">
+          <name>VCK190_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fab3ea673b431c06b3a2ebafabb0ad4f8e" prot="public">
+          <name>VEK280_ES_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa4a462e49749f221457625f17256917f8" prot="public">
+          <name>KCU105_SI570</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa02e62d8d0f7588742b33924d02dda819" prot="public">
+          <name>KCU105_HPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa40080fb29d3c5e04722d32f89a19bf82" prot="public">
+          <name>ZCU102_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa183f8bda0eb53b3b7eafc18babe85933" prot="public">
+          <name>ZCU102_SI5328</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fae4d897229a9b43cc0b65273d7046f712" prot="public">
+          <name>ZCU106_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085faa203c632d4268306fc9d3912c0f24882" prot="public">
+          <name>VCU118_FMCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa8cde632095d6b5734010903780658dcd" prot="public">
+          <name>VCK190_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fab3ea673b431c06b3a2ebafabb0ad4f8e" prot="public">
+          <name>VEK280_ES_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa4a462e49749f221457625f17256917f8" prot="public">
+          <name>KCU105_SI570</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa02e62d8d0f7588742b33924d02dda819" prot="public">
+          <name>KCU105_HPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa40080fb29d3c5e04722d32f89a19bf82" prot="public">
+          <name>ZCU102_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa183f8bda0eb53b3b7eafc18babe85933" prot="public">
+          <name>ZCU102_SI5328</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fae4d897229a9b43cc0b65273d7046f712" prot="public">
+          <name>ZCU106_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085faa203c632d4268306fc9d3912c0f24882" prot="public">
+          <name>VCU118_FMCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa8cde632095d6b5734010903780658dcd" prot="public">
+          <name>VCK190_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fab3ea673b431c06b3a2ebafabb0ad4f8e" prot="public">
+          <name>VEK280_ES_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa4a462e49749f221457625f17256917f8" prot="public">
+          <name>KCU105_SI570</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa02e62d8d0f7588742b33924d02dda819" prot="public">
+          <name>KCU105_HPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa40080fb29d3c5e04722d32f89a19bf82" prot="public">
+          <name>ZCU102_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa183f8bda0eb53b3b7eafc18babe85933" prot="public">
+          <name>ZCU102_SI5328</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fae4d897229a9b43cc0b65273d7046f712" prot="public">
+          <name>ZCU106_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085faa203c632d4268306fc9d3912c0f24882" prot="public">
+          <name>VCU118_FMCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa8cde632095d6b5734010903780658dcd" prot="public">
+          <name>VCK190_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fab3ea673b431c06b3a2ebafabb0ad4f8e" prot="public">
+          <name>VEK280_ES_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa4a462e49749f221457625f17256917f8" prot="public">
+          <name>KCU105_SI570</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa02e62d8d0f7588742b33924d02dda819" prot="public">
+          <name>KCU105_HPC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa40080fb29d3c5e04722d32f89a19bf82" prot="public">
+          <name>ZCU102_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa183f8bda0eb53b3b7eafc18babe85933" prot="public">
+          <name>ZCU102_SI5328</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fae4d897229a9b43cc0b65273d7046f712" prot="public">
+          <name>ZCU106_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085faa203c632d4268306fc9d3912c0f24882" prot="public">
+          <name>VCU118_FMCP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fa8cde632095d6b5734010903780658dcd" prot="public">
+          <name>VCK190_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a79a1493f9e79e92e66513aba645b085fab3ea673b431c06b3a2ebafabb0ad4f8e" prot="public">
+          <name>VEK280_ES_MGT_SI570</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="165" bodyend="174"/>
+      </memberdef>
+      <memberdef kind="enum" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75" prot="public" static="no">
+        <name>TxInputSourceType</name>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ab6c4aa639adae36f839ea1d0891bcefe" prot="public">
+          <name>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad38a52f774ad134e7e424251b2dbaf8e" prot="public">
+          <name>EXDES_TX_INPUT_NONE_NOCONNECTIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad452430f9e9f0dafc0e04f8f61f5aaa6" prot="public">
+          <name>EXDES_TX_INPUT_NONE_RXONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a1929e8246e4fecc21c318a0fa0c20c75" prot="public">
+          <name>EXDES_TX_INPUT_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a77787dd3a8c51c79f72ef9f98f8aa00a" prot="public">
+          <name>EXDES_TX_INPUT_RX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ab6c4aa639adae36f839ea1d0891bcefe" prot="public">
+          <name>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad38a52f774ad134e7e424251b2dbaf8e" prot="public">
+          <name>EXDES_TX_INPUT_NONE_NOCONNECTIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad452430f9e9f0dafc0e04f8f61f5aaa6" prot="public">
+          <name>EXDES_TX_INPUT_NONE_RXONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a1929e8246e4fecc21c318a0fa0c20c75" prot="public">
+          <name>EXDES_TX_INPUT_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a77787dd3a8c51c79f72ef9f98f8aa00a" prot="public">
+          <name>EXDES_TX_INPUT_RX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ab6c4aa639adae36f839ea1d0891bcefe" prot="public">
+          <name>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad38a52f774ad134e7e424251b2dbaf8e" prot="public">
+          <name>EXDES_TX_INPUT_NONE_NOCONNECTIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad452430f9e9f0dafc0e04f8f61f5aaa6" prot="public">
+          <name>EXDES_TX_INPUT_NONE_RXONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a1929e8246e4fecc21c318a0fa0c20c75" prot="public">
+          <name>EXDES_TX_INPUT_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a77787dd3a8c51c79f72ef9f98f8aa00a" prot="public">
+          <name>EXDES_TX_INPUT_RX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ab6c4aa639adae36f839ea1d0891bcefe" prot="public">
+          <name>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad38a52f774ad134e7e424251b2dbaf8e" prot="public">
+          <name>EXDES_TX_INPUT_NONE_NOCONNECTIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad452430f9e9f0dafc0e04f8f61f5aaa6" prot="public">
+          <name>EXDES_TX_INPUT_NONE_RXONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a1929e8246e4fecc21c318a0fa0c20c75" prot="public">
+          <name>EXDES_TX_INPUT_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a77787dd3a8c51c79f72ef9f98f8aa00a" prot="public">
+          <name>EXDES_TX_INPUT_RX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ab6c4aa639adae36f839ea1d0891bcefe" prot="public">
+          <name>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad38a52f774ad134e7e424251b2dbaf8e" prot="public">
+          <name>EXDES_TX_INPUT_NONE_NOCONNECTIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75ad452430f9e9f0dafc0e04f8f61f5aaa6" prot="public">
+          <name>EXDES_TX_INPUT_NONE_RXONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a1929e8246e4fecc21c318a0fa0c20c75" prot="public">
+          <name>EXDES_TX_INPUT_TPG</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__example_8h_1a64bb08e457f634cfbcc0abe37b550a75a77787dd3a8c51c79f72ef9f98f8aa00a" prot="public">
+          <name>EXDES_TX_INPUT_RX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This enumeration defines the &apos;type&apos; of sources that can provide a video stream for the transmitter to output in the example design. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="318" bodyend="324"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a6f3b42498c5f531b949e0b795e2c03de" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* Exdes_Debug_Printf)(const char *fmt,...)</definition>
+        <argsstring>)(const char *fmt,...)</argsstring>
+        <name>Exdes_Debug_Printf</name>
+        <briefdescription>
+<para>Define a function pointer for user enabled printing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a45bb162a861c9d8d8b23f697b30f35c4" prot="public" static="no" mutable="no">
+        <type>Exdes_Debug_Printf</type>
+        <definition>Exdes_Debug_Printf exdes_debug_print</definition>
+        <argsstring></argsstring>
+        <name>exdes_debug_print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a177ecea8b21d405573cc322d1a7b7231" prot="public" static="no" mutable="no">
+        <type>Exdes_Debug_Printf</type>
+        <definition>Exdes_Debug_Printf exdes_aux_debug_print</definition>
+        <argsstring></argsstring>
+        <name>exdes_aux_debug_print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a58930c82079f5fd4700eaf348dfb5365" prot="public" static="no" mutable="no">
+        <type>Exdes_Debug_Printf</type>
+        <definition>Exdes_Debug_Printf exdes_hdcp_debug_print</definition>
+        <argsstring></argsstring>
+        <name>exdes_hdcp_debug_print</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1af5e7e40b565ee65c58ce04b2b2eb20d5" prot="public" static="no" mutable="no">
+        <type>XHdmiphy1</type>
+        <definition>XHdmiphy1 Hdmiphy1</definition>
+        <argsstring></argsstring>
+        <name>Hdmiphy1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a43349066a2d24c2198c89f146e67da1e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 AuxFifoStartFlag</definition>
+        <argsstring></argsstring>
+        <name>AuxFifoStartFlag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="347" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a14d02b412c24ae2c20dc7cfc843f7274" prot="public" static="no" mutable="no">
+        <type>XIic</type>
+        <definition>XIic Iic</definition>
+        <argsstring></argsstring>
+        <name>Iic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__example_8h_1a8c7fc66be53638d7b8d2ea03874d001d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi___exdes" kindref="compound">XHdmi_Exdes</ref></type>
+        <definition>XHdmi_Exdes xhdmi_exdes_ctrlr</definition>
+        <argsstring></argsstring>
+        <name>xhdmi_exdes_ctrlr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>_XHDMI_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#define<sp/>_XHDMI_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;platform.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK280_ES)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK280_ES_REVB)</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK280</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_VEK385)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK385_1)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VEK385</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_SCU200</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(defined<sp/>XPS_BOARD_VEK280)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPS_BOARD_VEK280</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPS_BOARD_VCU118</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XUARTLITE_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>XPS_BOARD_VEK385</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_exception.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;string.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined<sp/>XPS_BOARD_ZCU102)</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="si570drv_8h" kindref="compound">si570drv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(defined<sp/>XPS_BOARD_ZCU106)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="si570drv_8h" kindref="compound">si570drv.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>(defined<sp/>XPS_BOARD_VCU118)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>Place<sp/>Holder<sp/>for<sp/>other<sp/>board<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMIRXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_exdes_sm_rx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_exdes_sm_tx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_menu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;video_fmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmic_vsif.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_edid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc_edid_ext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmiphy1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_TPG_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_tpg.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_AXI4S_REMAP_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_axi4s_remap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XGPIO_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XGPIOPS_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpiops.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(ARMR5)<sp/>||<sp/>(__aarch64__)<sp/>||<sp/>(__arm__)</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XAXIS_SWITCH_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xaxis_switch.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>AUXFIFOSIZE:<sp/>Must<sp/>be<sp/>set<sp/>to<sp/>3<sp/>or<sp/>higher*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUXFIFOSIZE<sp/>10</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XUARTPSV_NUM_INSTANCES<sp/>)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_BASEADDR<sp/>XPAR_XUARTPSV_0_BASEADDR</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPAR_XUARTLITE_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_BASEADDR<sp/>XPAR_XUARTLITE_0_BASEADDR</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UART_BASEADDR<sp/>XPAR_XUARTPS_0_BASEADDR</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/********************************<sp/>OPTIONS<sp/>************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>These<sp/>macro<sp/>values<sp/>need<sp/>to<sp/>changed<sp/>whenever<sp/>there<sp/>is<sp/>a<sp/>change<sp/>in<sp/>version<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>APP_MAJ_VERSION<sp/>1</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>APP_MIN_VERSION<sp/>0</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XV_FRMBUFRD_NUM_INSTANCES)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XV_FRMBUFWR_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Define<sp/>Maximum<sp/>Supported<sp/>Memory<sp/>Color<sp/>Format<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MEMORY_COLOR_FORMATS<sp/>17</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>OnBoard_IicDev<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KCU105_SI570<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KCU105_HPC,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZCU102_MGT_SI570,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZCU102_SI5328,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ZCU106_MGT_SI570,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCU118_FMCP,</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VCK190_MGT_SI570,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VEK280_ES_MGT_SI570</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">}<sp/>XOnBoard_IicDev;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U34_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U34_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U34_MUX_MGTSI570_ADDR<sp/><sp/><sp/><sp/>0x5D</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U34_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U135_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU102_U135_MUX_SEL_HPC1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPS_BOARD_ZCU106)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U34_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U34_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U34_MUX_MGTSI570_ADDR<sp/><sp/><sp/><sp/>0x5D</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U34_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U135_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ZCU106_U135_MUX_SEL_HPC0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPS_BOARD_VCU118)</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9548<sp/>(U28)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U28_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U28_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U28_MUX_SI570_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5D</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U28_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9548<sp/>(U80)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U80_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U80_MUX_SEL_FMCP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCU118_U80_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPS_BOARD_VCK190)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U34_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U34_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U34_MUX_MGTSI570_ADDR<sp/><sp/><sp/><sp/>0x5D</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U34_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U135_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VCK190_U135_MUX_SEL_HPC0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPS_BOARD_VEK280)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U34_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U34_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U34_MUX_MGTSI570_ADDR<sp/>0x5D</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U34_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/>0x40</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U34)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U135_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VEK280_ES_U135_MUX_SEL_HPC0<sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TCA9528<sp/>(U28)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U28_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U28_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U28_MUX_SI570_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5D</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U28_MUX_SEL_SI570<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PCA9544<sp/>(U80)<sp/>Definitions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U80_MUX_I2C_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x75</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U80_MUX_SEL_HPC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x05</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>KCU105_U80_MUX_SEL_NONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>I2C_MUX_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x74<sp/><sp/></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor">#define<sp/>I2C_CLK_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6C<sp/><sp/></highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>VRR_MODE<sp/><sp/><sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>FVA_FACTOR<sp/>1</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CNMVRR<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EDID_INIT<sp/><sp/>1<sp/>//<sp/>0<sp/>-<sp/>Default,<sp/>1-<sp/>2.1<sp/>VRR<sp/>EDID,<sp/>2<sp/>-<sp/>AMD<sp/>FreeSync<sp/>EDID,<sp/>3<sp/>-<sp/>HDMI<sp/>2.1<sp/>VRR<sp/>TMDS</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RC21008A_ADDR<sp/><sp/><sp/>0x09<sp/></highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor">//#define<sp/><sp/>VTEM2FSYNC<sp/>1<sp/>//<sp/>Enable<sp/>When<sp/>RX<sp/>is<sp/>VRR<sp/>and<sp/>TX<sp/>is<sp/>Fsync</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Defining<sp/>constants<sp/>for<sp/>colors<sp/>in<sp/>printing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;\x1b[31m&quot;</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_GREEN<sp/><sp/><sp/><sp/>&quot;\x1b[32m&quot;</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_YELLOW<sp/><sp/><sp/>&quot;\x1b[33m&quot;</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_BLUE<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[34m&quot;</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_MAGENTA<sp/><sp/>&quot;\x1b[35m&quot;</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_CYAN<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[36m&quot;</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_WHITE<sp/><sp/><sp/><sp/>&quot;\x1b[37m&quot;</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_RESET<sp/><sp/><sp/><sp/>&quot;\x1b[0m&quot;</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="262"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*Exdes_Debug_Printf)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,<sp/>...);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>Exdes_Debug_Printf<sp/>exdes_debug_print;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>Exdes_Debug_Printf<sp/>exdes_aux_debug_print;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>Exdes_Debug_Printf<sp/>exdes_hdcp_debug_print;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macros<sp/>for<sp/>printing<sp/>additional<sp/>debugging<sp/>messages.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXDES_DBG_PRINT<sp/>\</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(exdes_debug_print<sp/>!=<sp/>NULL)<sp/>exdes_debug_print</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXDES_AUXFIFO_DBG_PRINT<sp/>\</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(exdes_aux_debug_print<sp/>!=<sp/>NULL)<sp/>exdes_aux_debug_print</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>EXDES_HDCP_DBG_PRINT<sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(exdes_hdcp_debug_print!=<sp/>NULL)<sp/>exdes_hdcp_debug_print</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="280"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_Tx<sp/>*hdmi_tx_ctlr;<sp/></highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr<sp/>SysTmrInst;<sp/><sp/></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SysTmrPulseIntervalinMs;<sp/></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HdcpPulseCounter;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TmrPulseCnt1second;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsTxPresent;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsRxPresent;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ForceIndependent;<sp/><sp/></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SystemEvent;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TxStartTransmit;<sp/><sp/></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>TxBusy;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>crop;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>indicates<sp/>if<sp/>TX<sp/>video<sp/>needs<sp/>to<sp/>be<sp/>scaled<sp/>down<sp/>to<sp/>4K</highlight></codeline>
+<codeline lineno="311"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>this<sp/>is<sp/>a<sp/>flag<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal">}<sp/><ref refid="struct_x_hdmi___exdes" kindref="compound">XHdmi_Exdes</ref>;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXDES_TX_INPUT_NONE_WAITFORNEWSTREAM,</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXDES_TX_INPUT_NONE_NOCONNECTIONS,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXDES_TX_INPUT_NONE_RXONLY,</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXDES_TX_INPUT_TPG,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EXDES_TX_INPUT_RX,</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">}<sp/>TxInputSourceType;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VPhy<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XHdmiphy1<sp/><sp/><sp/><sp/><sp/>Hdmiphy1;</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>HDMI<sp/>TX<sp/>SS<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XV_HdmiTxSs1<sp/>HdmiTxSs;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>USE_HDMI_AUDGEN</highlight></codeline>
+<codeline lineno="336"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XhdmiAudioGen_t<sp/>AudioGen;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="338"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_TPG_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>TPG<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XV_tpg<sp/>Tpg;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XTpg_PatternId<sp/><ref refid="xmipi__example_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref>;</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="344"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>AuxFifoStartFlag;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PS_IIC_CLK<sp/>100000</highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TX_RX_RATE<sp/>0</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="comment">//extern<sp/>XIicPs<sp/>Ps_Iic0,<sp/>Iic1;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XIic<sp/>Iic;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdmi___exdes" kindref="compound">XHdmi_Exdes</ref><sp/>xhdmi_exdes_ctrlr;</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SendVSInfoframe(XV_HdmiTxSs1<sp/>*HdmiTxSs1Ptr);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Exdes_ConfigureTpgEnableInput(u32<sp/>EnableExtSrcInput);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Exdes_ChangeColorbarOutput(XVidC_VideoMode<sp/>VideoMode,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>ColorFormat,</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/>Bpc);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_XHDMI_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_example.h"/>
+  </compounddef>
+</doxygen>

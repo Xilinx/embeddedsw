@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___repeater_auth_stream_ready" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_RepeaterAuthStreamReady</compoundname>
+    <includes local="no">xhdcp22_rx_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_stream_ready_1aabefacaf8e86a9406af7b5ac22e3e599" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthStreamReady::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___repeater_auth_stream_ready_1a78adfae1860c9fa16785eefa1d6eb597" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_RepeaterAuthStreamReady::MPrime[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>MPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" bodystart="393" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the RepeaterAuth_Stream_Ready message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx/src/xhdcp22_rx_i.h" bodystart="390" bodyend="394"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_stream_ready_1a78adfae1860c9fa16785eefa1d6eb597" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthStreamReady</scope><name>MPrime</name></member>
+      <member refid="struct_x_hdcp22___rx___repeater_auth_stream_ready_1aabefacaf8e86a9406af7b5ac22e3e599" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_RepeaterAuthStreamReady</scope><name>MsgId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

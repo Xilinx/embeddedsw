@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_iic___config" kind="struct" prot="public">
+    <compoundname>XIic_Config</compoundname>
+    <includes local="no">xiic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_iic___config_1a031ffc079eab713ef80fc3b6ac05c1a5" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XIic_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="391" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7e448669953bf36074837f174726814d" compoundref="xiic__sinit_8c" startline="93" endline="107">XIic_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIic_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__pmbus__polled__example_8c_1a1cbeb6a6d6f83cb76edb5febefb39caf" compoundref="xiic__pmbus__polled__example_8c" startline="179" endline="252">IicPmbusPolledExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="187" endline="269">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__selftest__example_8c_1a3c732a0c3f0c51e73fae3f189232bd0b" compoundref="xiic__selftest__example_8c" startline="136" endline="170">IicSelfTestExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="185" endline="265">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="186" endline="270">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="209" endline="319">TempSensorExample</referencedby>
+        <referencedby refid="group___overview_1ga96f409bb662ff9aaf349002ced83aaac" compoundref="xiic__sinit_8c" startline="155" endline="180">XIic_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1aa0d66ed6f0ba5a65d444a8cff6a2ea40" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XIic_Config::Has10BitAddr</definition>
+        <argsstring></argsstring>
+        <name>Has10BitAddr</name>
+        <briefdescription>
+<para>Does device have 10 bit address decoding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1a65ecc64160873e6910dab26b912f437f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XIic_Config::GpOutWidth</definition>
+        <argsstring></argsstring>
+        <name>GpOutWidth</name>
+        <briefdescription>
+<para>Number of bits in general purpose output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="395" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XIic_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="397" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="187" endline="269">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="185" endline="265">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="186" endline="270">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="209" endline="319">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIic_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="399" bodyend="-1"/>
+        <referencedby refid="xiic__dynamic__eeprom__example_8c_1acf73440d825599aa965a161279937fdb" compoundref="xiic__dynamic__eeprom__example_8c" startline="261" endline="413">IicDynEepromExample</referencedby>
+        <referencedby refid="xiic__eeprom__example_8c_1aa0f15e4ae2ab31c19f1268a81acdfe23" compoundref="xiic__eeprom__example_8c" startline="311" endline="470">IicEepromExample</referencedby>
+        <referencedby refid="xiic__multi__master__example_8c_1a1910a4a03c18e6dcc001ad0880af0782" compoundref="xiic__multi__master__example_8c" startline="237" endline="405">IicMultiMasterExample</referencedby>
+        <referencedby refid="xiic__pmbus__intr__example_8c_1a8db8cb1247e56449840cd1be84b786b2" compoundref="xiic__pmbus__intr__example_8c" startline="198" endline="306">IicPmbusInterruptSdtExample</referencedby>
+        <referencedby refid="xiic__repeated__start__example_8c_1ad711cc13c49a8ea279600d27dd1148c1" compoundref="xiic__repeated__start__example_8c" startline="187" endline="269">IicRepeatedStartExample</referencedby>
+        <referencedby refid="xiic__slave__example_8c_1a7f5dc26ef1947d1825780346d26d5f70" compoundref="xiic__slave__example_8c" startline="185" endline="265">IicSlaveExample</referencedby>
+        <referencedby refid="xiic__tenbitaddr__example_8c_1ab4e612135486e268a4db49b75f625f52" compoundref="xiic__tenbitaddr__example_8c" startline="186" endline="270">IicTenBitAddrExample</referencedby>
+        <referencedby refid="xiic__tempsensor__example_8c_1a49c0c465f1a78be31e03a2c1a78e6f43" compoundref="xiic__tempsensor__example_8c" startline="209" endline="319">TempSensorExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1a453f6cc99df76bf1c12293b36e44782c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic_Config::SerialClkDelay</definition>
+        <argsstring></argsstring>
+        <name>SerialClkDelay</name>
+        <briefdescription>
+<para>SCL inertial delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_iic___config_1af821a4e2f518e1351466a870e8089af7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIic_Config::AxiClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiClkFreq</name>
+        <briefdescription>
+<para>AXI clock frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga301f08e1fa6e74bf4c2885702bf0ff70" compoundref="xiic_8c" startline="134" endline="186">XIic_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic.h" bodystart="387" bodyend="404"/>
+    <listofallmembers>
+      <member refid="struct_x_iic___config_1af821a4e2f518e1351466a870e8089af7" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>AxiClkFreq</name></member>
+      <member refid="struct_x_iic___config_1ae783f76b6713be6d9b77060d77328102" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_iic___config_1a65ecc64160873e6910dab26b912f437f" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>GpOutWidth</name></member>
+      <member refid="struct_x_iic___config_1aa0d66ed6f0ba5a65d444a8cff6a2ea40" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>Has10BitAddr</name></member>
+      <member refid="struct_x_iic___config_1acab9a6750ed1288bc87868653feaf70e" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_iic___config_1a30b5d6af72a05a175b7af553f8eef939" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_iic___config_1a031ffc079eab713ef80fc3b6ac05c1a5" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>Name</name></member>
+      <member refid="struct_x_iic___config_1a453f6cc99df76bf1c12293b36e44782c" prot="public" virt="non-virtual"><scope>XIic_Config</scope><name>SerialClkDelay</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

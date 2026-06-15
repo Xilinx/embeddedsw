@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___antenna_cfg" kind="struct" prot="public">
+    <compoundname>XDfeMix_AntennaCfg</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___antenna_cfg_1ad877af342798c901a587ac23b4d1ef4d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_AntennaCfg::Gain[XDFEMIX_ANT_NUM_MAX]</definition>
+        <argsstring>[XDFEMIX_ANT_NUM_MAX]</argsstring>
+        <name>Gain</name>
+        <briefdescription>
+<para>[0: -6dB,1:0dB] Antenna gain adjustment </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="438" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" compoundref="xdfemix_8c" startline="3131" endline="3155">XDfeMix_SetAntennaGain</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Configuration to all antennas. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="437" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="437" bodyend="439"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___antenna_cfg_1ad877af342798c901a587ac23b4d1ef4d" prot="public" virt="non-virtual"><scope>XDfeMix_AntennaCfg</scope><name>Gain</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

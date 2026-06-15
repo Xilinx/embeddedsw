@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__multi__scaler__g_8c" kind="file">
+    <compoundname>xv_multi_scaler_g.c</compoundname>
+    <includes refid="xv__multi__scaler_8h" local="yes">xv_multi_scaler.h</includes>
+    <incdepgraph>
+      <node id="54">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="52">
+        <label>xv_multi_scaler.h</label>
+        <link refid="xv__multi__scaler_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>xv_multi_scaler_g.c</label>
+        <link refid="xv_multi_scaler_g.c"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xv_multi_scaler_hw.h</label>
+        <link refid="xv__multi__scaler__hw_8h"/>
+      </node>
+      <node id="55">
+        <label>xstatus.h</label>
+      </node>
+      <node id="53">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__multi__scaler_1gadc0ca8befe5ef5848fc810cf402f5386" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__multi__scaler___config" kindref="compound">XV_multi_scaler_Config</ref></type>
+        <definition>XV_multi_scaler_Config XV_multi_scaler_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_multi_scaler_ConfigTable</name>
+        <initializer>= {
+	{
+		XPAR_V_MULTI_SCALER_0_DEVICE_ID,
+		XPAR_V_MULTI_SCALER_0_S_AXI_CTRL_BASEADDR,
+		XPAR_V_MULTI_SCALER_0_SAMPLES_PER_CLOCK,
+		XPAR_V_MULTI_SCALER_0_MAX_DATA_WIDTH,
+		XPAR_V_MULTI_SCALER_0_MAX_COLS,
+		XPAR_V_MULTI_SCALER_0_MAX_ROWS,
+		XPAR_V_MULTI_SCALER_0_PHASE_SHIFT,
+		XPAR_V_MULTI_SCALER_0_SCALE_MODE,
+		XPAR_V_MULTI_SCALER_0_TAPS,
+		XPAR_V_MULTI_SCALER_0_MAX_OUTS
+	}
+}</initializer>
+        <briefdescription>
+<para>MultiScaler device configuration table. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configuration table for multi-scaler devices.</para><para>This table contains the configuration information for each MultiScaler device in the system. Each entry includes:<itemizedlist>
+<listitem><para>Device ID: Unique identifier for the device instance</para></listitem><listitem><para>Base Address: AXI control interface base address</para></listitem><listitem><para>Samples Per Clock: Number of samples processed per clock cycle</para></listitem><listitem><para>Max Data Width: Maximum pixel data width supported</para></listitem><listitem><para>Max Cols: Maximum number of horizontal pixels</para></listitem><listitem><para>Max Rows: Maximum number of vertical pixels</para></listitem><listitem><para>Phase Shift: Scaling phase shift precision</para></listitem><listitem><para>Scale Mode: Supported scaling modes (bilinear, polyphase, etc.)</para></listitem><listitem><para>Taps: Number of filter taps for polyphase scaling</para></listitem><listitem><para>Max Outs: Maximum number of output channels supported</para></listitem></itemizedlist>
+</para><para>The table is indexed by device ID for lookup during initialization. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_g.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_g.c" bodystart="52" bodyend="-1"/>
+        <referencedby refid="xv__multi__scaler__sinit_8c_1adee042e3274745edc3827b4b0768c44b" compoundref="xv__multi__scaler__sinit_8c" startline="102" endline="117">XV_multi_scaler_LookupConfig</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2010-2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__multi__scaler_8h" kindref="compound">xv_multi_scaler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__v__multi__scaler_1gadc0ca8befe5ef5848fc810cf402f5386" refkind="member"><highlight class="normal"><ref refid="struct_x_v__multi__scaler___config" kindref="compound">XV_multi_scaler_Config</ref><sp/><ref refid="group__v__multi__scaler_1gadc0ca8befe5ef5848fc810cf402f5386" kindref="member">XV_multi_scaler_ConfigTable</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_DEVICE_ID,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_S_AXI_CTRL_BASEADDR,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_SAMPLES_PER_CLOCK,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_MAX_DATA_WIDTH,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_MAX_COLS,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_MAX_ROWS,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_PHASE_SHIFT,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_SCALE_MODE,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_TAPS,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_MULTI_SCALER_0_MAX_OUTS</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/src/xv_multi_scaler_g.c"/>
+  </compounddef>
+</doxygen>

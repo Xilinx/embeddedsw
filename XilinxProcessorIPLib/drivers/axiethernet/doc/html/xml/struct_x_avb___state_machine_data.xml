@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___state_machine_data" kind="struct" prot="public">
+    <compoundname>XAvb_StateMachineData</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___state_machine_data_1ad6a63a3cd991e1b350b8622921b88089" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_StateMachineData::lostResponses</definition>
+        <argsstring></argsstring>
+        <name>lostResponses</name>
+        <briefdescription>
+<para>Keep track of the state machine errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="401" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___state_machine_data_1ad668575ffd6c4bbdc6b4c683137ba893" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_StateMachineData::rcvdPDelayResp</definition>
+        <argsstring></argsstring>
+        <name>rcvdPDelayResp</name>
+        <briefdescription>
+<para>Received a valid PDelayResp packet since PDelayReq was sent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="402" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___state_machine_data_1aef3a1d747515c6c5af274ac32281d1ee" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_StateMachineData::rcvdPDelayRespFollowUp</definition>
+        <argsstring></argsstring>
+        <name>rcvdPDelayRespFollowUp</name>
+        <briefdescription>
+<para>Received a valid PDelayFollowUp packet since PDelayResp was received. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="403" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___state_machine_data_1afd7c69f91db48d400d0e218eb41d4c21" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_avb___port_identity" kindref="compound">XAvb_PortIdentity</ref></type>
+        <definition>XAvb_PortIdentity XAvb_StateMachineData::respPortIdentity</definition>
+        <argsstring></argsstring>
+        <name>respPortIdentity</name>
+        <briefdescription>
+<para>sourcePortIdentity of the last PDelayResp packet received </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="404" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___state_machine_data_1a7e7ed5f180f67ac237f156753aa0e059" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_avb___port_identity" kindref="compound">XAvb_PortIdentity</ref></type>
+        <definition>XAvb_PortIdentity XAvb_StateMachineData::respReqPortIdentity</definition>
+        <argsstring></argsstring>
+        <name>respReqPortIdentity</name>
+        <briefdescription>
+<para>requestingPortIdentity of the last PDelayResp packet received </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="405" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="405" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Keep track of state machine data to make sure we&apos;re fully compliant with the spec. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="39">
+        <label>XAvb_StateMachineData</label>
+        <link refid="struct_x_avb___state_machine_data"/>
+        <childnode refid="40" relation="usage">
+          <edgelabel>respPortIdentity</edgelabel>
+          <edgelabel>respReqPortIdentity</edgelabel>
+        </childnode>
+      </node>
+      <node id="40">
+        <label>XAvb_PortIdentity</label>
+        <link refid="struct_x_avb___port_identity"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="400" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="399" bodyend="406"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___state_machine_data_1ad6a63a3cd991e1b350b8622921b88089" prot="public" virt="non-virtual"><scope>XAvb_StateMachineData</scope><name>lostResponses</name></member>
+      <member refid="struct_x_avb___state_machine_data_1ad668575ffd6c4bbdc6b4c683137ba893" prot="public" virt="non-virtual"><scope>XAvb_StateMachineData</scope><name>rcvdPDelayResp</name></member>
+      <member refid="struct_x_avb___state_machine_data_1aef3a1d747515c6c5af274ac32281d1ee" prot="public" virt="non-virtual"><scope>XAvb_StateMachineData</scope><name>rcvdPDelayRespFollowUp</name></member>
+      <member refid="struct_x_avb___state_machine_data_1afd7c69f91db48d400d0e218eb41d4c21" prot="public" virt="non-virtual"><scope>XAvb_StateMachineData</scope><name>respPortIdentity</name></member>
+      <member refid="struct_x_avb___state_machine_data_1a7e7ed5f180f67ac237f156753aa0e059" prot="public" virt="non-virtual"><scope>XAvb_StateMachineData</scope><name>respReqPortIdentity</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

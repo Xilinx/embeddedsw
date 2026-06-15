@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5a53ac3e9b6b917194ff052f3f10577d" kind="dir">
+    <compoundname>module</compoundname>
+    <innerdir refid="dir_152a475e6c6e10e8ae988a46488e7e6f">2dnr</innerdir>
+    <innerdir refid="dir_c4a78c974bdaa08876fc51ad7ff37c06">ae</innerdir>
+    <innerdir refid="dir_fbfc92234c890e8c4de70f7d705c4958">awb</innerdir>
+    <innerdir refid="dir_0cf9c2d1ca7aa1552b5c3319864a37e1">bls</innerdir>
+    <innerdir refid="dir_e3831aaa9630e8055c535ddbeecf394e">ccm</innerdir>
+    <innerdir refid="dir_02cc1f26ce29917afe860d0cf9c4f32d">cpd</innerdir>
+    <innerdir refid="dir_e087b70022af134e5b03198162287f03">cproc</innerdir>
+    <innerdir refid="dir_8d48fa67606d0ec2b0af4dbd152808cd">dg</innerdir>
+    <innerdir refid="dir_c527dbce09c0f7c5c4be58bb4936dccc">dmsc</innerdir>
+    <innerdir refid="dir_68b9ecdb4a68a06fe3b122fa0e47444b">dpcc</innerdir>
+    <innerdir refid="dir_f7acb09db4f43598f8ac42f02e49de72">dummy</innerdir>
+    <innerdir refid="dir_6bde12286af398e1f1bb77e45df47baa">ee</innerdir>
+    <innerdir refid="dir_8b423236048f8e99f68bdeab7da09296">exp</innerdir>
+    <innerdir refid="dir_3199ed4ac2d68f70771d68b14d48bb45">fusa</innerdir>
+    <innerdir refid="dir_af79683bbd8d7f8ea092917ccd6e29f6">gc</innerdir>
+    <innerdir refid="dir_1eb42b2024214302c3253f8b7bccdfa9">ge</innerdir>
+    <innerdir refid="dir_5d7bda9c9396986ba45d22c6b9876717">gtm</innerdir>
+    <innerdir refid="dir_96ae6edd0f0b0b680acd689d327f275a">hist</innerdir>
+    <innerdir refid="dir_d27b87981be2f613d74be324c82085ae">lsc</innerdir>
+    <innerdir refid="dir_d09f15fe9e7f92f000e980749ccc23d4">rgbir</innerdir>
+    <innerdir refid="dir_72ce049fb27528686ccf6d382331cb5e">tpg</innerdir>
+    <innerdir refid="dir_92711aa45c07ea35b229327cfea9d3f1">wb</innerdir>
+    <innerdir refid="dir_eabca5ddfb3db748713c9e02b4f91e7d">wdr</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/"/>
+  </compounddef>
+</doxygen>

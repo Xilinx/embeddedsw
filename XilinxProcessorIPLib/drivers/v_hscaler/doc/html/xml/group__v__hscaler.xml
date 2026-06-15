@@ -1,0 +1,907 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__hscaler" kind="group">
+    <compoundname>v_hscaler</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__hscaler_1gaf9a9cd0608804f6cd92afc62eb2b108e" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_Lanczos2_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_Lanczos2_taps6</name>
+        <briefdescription>
+<para>2D array containing precomputed filter coefficients for a 6-tap Lanczos2 horizontal scaler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This constant array holds the coefficients for each phase of the horizontal scaling operation, using a 6-tap Lanczos2 filter. The array is indexed first by the phase (from 0 to XV_HSCALER_MAX_H_PHASES-1), and then by the tap index (from 0 to XV_HSCALER_TAPS_6-1).</para><para>These coefficients are used by the horizontal scaler hardware or software to perform high-quality image resampling with minimal artifacts.</para><para><simplesect kind="see"><para>XV_HSCALER_MAX_H_PHASES </para><simplesectsep/><para>XV_HSCALER_TAPS_6 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga6275f4926faee90b49c18e1906fe1e22" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga2d6dcb30da08c48534eb8a30e5c55fc5" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gaa133d1d166770bf13d43fa1f0545b5f4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gacbc89e179f49e03904414f39aa422feb" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga22b3920cdb634fddd03f217017b2c8a7" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga62fd656b44dd98775161c521848d5455" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="456" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gacc35de11ad4ebf186bb272a828f5b335" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="524" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga7cd7534e867c74d3f9b723fa30125132" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps10_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps10_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="592" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gab65043196f82440d7aa9aec804b069ef" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps10_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps10_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="660" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga69fa5f06e38f7a68d38ecd316d15caee" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps12_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" line="728" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="728" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga97506f2957c9619fa243131f678bc6f3" prot="public" static="yes" mutable="no">
+        <type>const int</type>
+        <definition>const int STEP_PRECISION_SHIFT</definition>
+        <argsstring></argsstring>
+        <name>STEP_PRECISION_SHIFT</name>
+        <initializer>= 16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga509dbd13e19e2585abe84a3caf06d442" prot="public" static="yes" mutable="no">
+        <type>const u64</type>
+        <definition>const u64 XHSC_MASK_LOW_32BITS</definition>
+        <argsstring></argsstring>
+        <name>XHSC_MASK_LOW_32BITS</name>
+        <initializer>= ((u64)1&lt;&lt;32)-1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gaf9a9cd0608804f6cd92afc62eb2b108e" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_Lanczos2_taps6[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_Lanczos2_taps6</name>
+        <briefdescription>
+<para>2D array containing precomputed filter coefficients for a 6-tap Lanczos2 horizontal scaler. </para>        </briefdescription>
+        <detaileddescription>
+<para>This constant array holds the coefficients for each phase of the horizontal scaling operation, using a 6-tap Lanczos2 filter. The array is indexed first by the phase (from 0 to XV_HSCALER_MAX_H_PHASES-1), and then by the tap index (from 0 to XV_HSCALER_TAPS_6-1).</para><para>These coefficients are used by the horizontal scaler hardware or software to perform high-quality image resampling with minimal artifacts.</para><para><simplesect kind="see"><para>XV_HSCALER_MAX_H_PHASES </para><simplesectsep/><para>XV_HSCALER_TAPS_6 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga6275f4926faee90b49c18e1906fe1e22" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio1p2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga2d6dcb30da08c48534eb8a30e5c55fc5" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gaa133d1d166770bf13d43fa1f0545b5f4" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gacbc89e179f49e03904414f39aa422feb" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps6_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_6]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps6_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga22b3920cdb634fddd03f217017b2c8a7" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio2[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga62fd656b44dd98775161c521848d5455" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="456" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gacc35de11ad4ebf186bb272a828f5b335" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps8_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_8]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps8_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="524" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga7cd7534e867c74d3f9b723fa30125132" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps10_ScalingRatio3[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps10_ScalingRatio3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="592" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1gab65043196f82440d7aa9aec804b069ef" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps10_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_10]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps10_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="660" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__hscaler_1ga69fa5f06e38f7a68d38ecd316d15caee" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_hscaler_fixedcoeff_taps12_ScalingRatio4[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12]</definition>
+        <argsstring>[XV_HSCALER_MAX_H_PHASES][XV_HSCALER_TAPS_12]</argsstring>
+        <name>XV_hscaler_fixedcoeff_taps12_ScalingRatio4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_coeff.c" bodystart="728" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__hscaler_1ga1abb5e5a123933ec42ecac1e655e0830" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_HScalerSelectCoeff</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr, u32 WidthIn, u32 WidthOut)</argsstring>
+        <name>XV_HScalerSelectCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthOut</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the internal coefficient table to be used based on scaling ratio and loads the filter coefficients in the scaler coefficient storage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Widthout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output stream width</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="150" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1gaa47a60ca38b0013c9a6d1ceb2784c99e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void CalculatePhases</definition>
+        <argsstring>(XV_Hscaler_l2 *HscPtr, u32 WidthIn, u32 WidthOut, u32 PixelRate)</argsstring>
+        <name>CalculatePhases</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>HscPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthOut</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PixelRate</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates the phases for 1 line. </para>        </briefdescription>
+        <detaileddescription>
+<para>Same phase info is used for full frame</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the scaled frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PixelRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of pixels per clock being processed</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="347" bodyend="429"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1gaf1cbc37a112c01d9b1e92041fcd6352c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_HScalerSetCoeff</definition>
+        <argsstring>(XV_Hscaler_l2 *HscPtr)</argsstring>
+        <name>XV_HScalerSetCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>HscPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the filter coefficients and phase data into core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+This version of driver does not make use of computed coefficients. User must load the coefficients, using the provided API, before scaler can be used </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="567" bodyend="585"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga3633318659f36598aa657e58db199a74" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XV_HScalerSetPhase</definition>
+        <argsstring>(XV_Hscaler_l2 *HscPtr)</argsstring>
+        <name>XV_HScalerSetPhase</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>HscPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs the phase data into core registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>HscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+This version of driver does not make use of computed coefficients. User must load the coefficients, using the provided API, before scaler can be used </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="443" bodyend="551"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1gaa56de9b8cf6d41a05c7fec3ce6d5adf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HScalerInitialize</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_HScalerInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="92" bodyend="102"/>
+        <references refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga6b1d1d8a20f69d2cee85e6897e9e9224" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HScalerStart</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_HScalerStart</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the horizontal scaler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="113" bodyend="119"/>
+        <references refid="xv__hscaler_8c_1ae0d2437aa5d0f104aa9f8ea08d3e6211" compoundref="xv__hscaler_8c" startline="177" endline="184">XV_hscaler_EnableAutoRestart</references>
+        <references refid="xv__hscaler_8c_1a8c6d07fe34c3f3c7c54806a69b1c76a7" compoundref="xv__hscaler_8c" startline="82" endline="94">XV_hscaler_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga6af3378b35ee6e260a553a47debb1231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HScalerStop</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_HScalerStop</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the horizontal scaler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="130" bodyend="135"/>
+        <references refid="xv__hscaler_8c_1a0e12a42bfc0aa099330be45c38d31247" compoundref="xv__hscaler_8c" startline="197" endline="204">XV_hscaler_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga2d4f69120d87bc983e2c6b17e0df404b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HScalerLoadExtCoeff</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr, u16 num_phases, u16 num_taps, const short *Coeff)</argsstring>
+        <name>XV_HScalerLoadExtCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_phases</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_taps</declname>
+        </param>
+        <param>
+          <type>const short *</type>
+          <declname>Coeff</declname>
+        </param>
+        <briefdescription>
+<para>This function loads user defined filter coefficients in the scaler coefficient storage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_phases</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of phases in coefficient table </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_taps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of taps in coefficient table </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to user defined filter coefficients table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="273" bodyend="332"/>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler___config_1a4282b794e8c469aa0c50cb28b3e282cd" compoundref="xv__hscaler_8h" startline="62">XV_hscaler_Config::PhaseShift</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HScalerSetup</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr, u32 HeightIn, u32 WidthIn, u32 WidthOut, u32 ColorFormatIn, u32 ColorFormatOut)</argsstring>
+        <name>XV_HScalerSetup</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HeightIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WidthOut</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColorFormatIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ColorFormatOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the scaler core registers with the specified configuration parameters of the axi stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HeightIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream height </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WidthOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColorFormatIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream color format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ColorFormatOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output stream color format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the requested setup parameters are valid XST_FAILURE otherwise </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="603" bodyend="654"/>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler___config_1a074a3b3e53bcbdc9510a82418d5df552" compoundref="xv__hscaler_8h" startline="57">XV_hscaler_Config::PixPerClk</references>
+        <references refid="struct_x_v__hscaler___config_1a9b8f1147b245bb2a6af561ce87b161aa" compoundref="xv__hscaler_8h" startline="63">XV_hscaler_Config::ScalerType</references>
+        <references refid="xv__hscaler_8c_1a715cce4654d3329eb225723337022bda" compoundref="xv__hscaler_8c" startline="355" endline="364">XV_hscaler_Set_HwReg_ColorMode</references>
+        <references refid="xv__hscaler_8c_1a9b136b4250b89f0ab859b80ed8b08054" compoundref="xv__hscaler_8c" startline="402" endline="411">XV_hscaler_Set_HwReg_ColorModeOut</references>
+        <references refid="xv__hscaler_8c_1aefbc1e5012fd62aeed4c3385acafda5f" compoundref="xv__hscaler_8c" startline="217" endline="224">XV_hscaler_Set_HwReg_Height</references>
+        <references refid="xv__hscaler_8c_1adc83c87e2c16e1e2109c13caa6a50bd3" compoundref="xv__hscaler_8c" startline="444" endline="449">XV_hscaler_Set_HwReg_PixelRate</references>
+        <references refid="xv__hscaler_8c_1a612846a6bdddf446da065874f5686bec" compoundref="xv__hscaler_8c" startline="262" endline="271">XV_hscaler_Set_HwReg_WidthIn</references>
+        <references refid="xv__hscaler_8c_1a06e278f308d4923c8859d8a2679fdeb6" compoundref="xv__hscaler_8c" startline="308" endline="317">XV_hscaler_Set_HwReg_WidthOut</references>
+        <references refid="group__v__hscaler_1ga546aba039ad913cfefc82e67ecac1506" compoundref="xv__hscaler__l2_8c" startline="765" endline="788">XV_HScalerValidateConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga7e3786ef99dc9aeab864629c72e8f000" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_HScalerDbgReportStatus</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr)</argsstring>
+        <name>XV_HScalerDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints H Scaler status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer to the core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="667" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="667" bodyend="750"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1a593e6539aa573e9b57c5126b8db1cc5b" compoundref="xv__hscaler_8h" startline="75">XV_hscaler::Config</references>
+        <references refid="struct_x_v__hscaler___config_1aa46e23594ec1f8647bed471bc8d5fa98" compoundref="xv__hscaler_8h" startline="64">XV_hscaler_Config::NumTaps</references>
+        <references refid="struct_x_v__hscaler___config_1a4282b794e8c469aa0c50cb28b3e282cd" compoundref="xv__hscaler_8h" startline="62">XV_hscaler_Config::PhaseShift</references>
+        <references refid="struct_x_v__hscaler___config_1a9b8f1147b245bb2a6af561ce87b161aa" compoundref="xv__hscaler_8h" startline="63">XV_hscaler_Config::ScalerType</references>
+        <references refid="xv__hscaler__hw_8h_1aa942ef90c5fc6d18bd480e671d4b4d8b" compoundref="xv__hscaler__hw_8h" startline="75">XV_HSCALER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__hscaler_8c_1a79190851fa4145de7d1c29ab857cac57" compoundref="xv__hscaler_8c" startline="377" endline="389">XV_hscaler_Get_HwReg_ColorMode</references>
+        <references refid="xv__hscaler_8c_1a08c9bcc7a731476d88da89f2deb936d8" compoundref="xv__hscaler_8c" startline="423" endline="435">XV_hscaler_Get_HwReg_ColorModeOut</references>
+        <references refid="xv__hscaler_8c_1ac190df8dce38c64114270927fdac8f7b" compoundref="xv__hscaler_8c" startline="237" endline="249">XV_hscaler_Get_HwReg_Height</references>
+        <references refid="xv__hscaler_8c_1a67bc579c834cf0a9c8ec4b91798ed277" compoundref="xv__hscaler_8c" startline="473" endline="478">XV_hscaler_Get_HwReg_hfltCoeff_BaseAddress</references>
+        <references refid="xv__hscaler_8c_1adab95db7c44af21bf6a75d2c9ba775f8" compoundref="xv__hscaler_8c" startline="457" endline="465">XV_hscaler_Get_HwReg_PixelRate</references>
+        <references refid="xv__hscaler_8c_1a1fc1fada8eef0ec2cf40826a5d9aa8c3" compoundref="xv__hscaler_8c" startline="283" endline="295">XV_hscaler_Get_HwReg_WidthIn</references>
+        <references refid="xv__hscaler_8c_1a47d66f0357445ffe3752f78d302a2b39" compoundref="xv__hscaler_8c" startline="330" endline="342">XV_hscaler_Get_HwReg_WidthOut</references>
+        <references refid="xv__hscaler_8c_1a9952f215099f3805314cb81b8681aa01" compoundref="xv__hscaler_8c" startline="106" endline="116">XV_hscaler_IsDone</references>
+        <references refid="xv__hscaler_8c_1a10e8034f617beb44377a8e7d0a9419c8" compoundref="xv__hscaler_8c" startline="129" endline="139">XV_hscaler_IsIdle</references>
+        <references refid="xv__hscaler_8c_1a9c646387ef49b919ff45e3d6972a9d44" compoundref="xv__hscaler_8c" startline="153" endline="164">XV_hscaler_IsReady</references>
+        <references refid="xv__hscaler__l2_8h_1a18e533067e97fd0cc84e4bcc526cd41d" compoundref="xv__hscaler__l2_8h" startline="154">XV_HscalerIs420Enabled</references>
+        <references refid="xv__hscaler__l2_8h_1aef566c560e516ed443a77e3fec537bb9" compoundref="xv__hscaler__l2_8h" startline="142">XV_HscalerIs422Enabled</references>
+        <references refid="xv__hscaler__l2_8h_1a00e59b30f96d1af6a212180de19a66a0" compoundref="xv__hscaler__l2_8h" startline="166">XV_HscalerIsCscEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__hscaler_1ga546aba039ad913cfefc82e67ecac1506" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_HScalerValidateConfig</definition>
+        <argsstring>(XV_Hscaler_l2 *InstancePtr, u32 cformatIn, u32 cformatOut)</argsstring>
+        <name>XV_HScalerValidateConfig</name>
+        <param>
+          <type><ref refid="struct_x_v___hscaler__l2" kindref="compound">XV_Hscaler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>cformatIn</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>cformatOut</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if the given input and output color formats are valid configuration parameters for this instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cformatIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream color format. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cformatOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output stream color format.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if the requested setup parameters are valid, FALSE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="765" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="765" bodyend="788"/>
+        <references refid="xv__hscaler__l2_8h_1a18e533067e97fd0cc84e4bcc526cd41d" compoundref="xv__hscaler__l2_8h" startline="154">XV_HscalerIs420Enabled</references>
+        <references refid="xv__hscaler__l2_8h_1aef566c560e516ed443a77e3fec537bb9" compoundref="xv__hscaler__l2_8h" startline="142">XV_HscalerIs422Enabled</references>
+        <references refid="xv__hscaler__l2_8h_1a00e59b30f96d1af6a212180de19a66a0" compoundref="xv__hscaler__l2_8h" startline="166">XV_HscalerIsCscEnabled</references>
+        <referencedby refid="group__v__hscaler_1gae6e04c78787b26aea73ce5c28b1d78b6" compoundref="xv__hscaler__l2_8c" startline="603" endline="654">XV_HScalerSetup</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__hscaler_1gaac235f0d069019ec0c914325b3165ca6" prot="public" static="no">
+        <name>STEP_PRECISION</name>
+        <initializer>(65536)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__hscaler_1ga9ed2c1dac3044ca2708414ca06044d39" prot="public" static="no">
+        <name>XHSC_MASK_LOW_16BITS</name>
+        <initializer>(0x0000FFFF)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__hscaler_1ga3eb169f28df00ca054fedb1734dce5bc" prot="public" static="no">
+        <name>XHSC_MASK_HIGH_16BITS</name>
+        <initializer>(0xFFFF0000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__hscaler_1ga9d76f41cbedf20b487a4932ab361c718" prot="public" static="no">
+        <name>XHSC_MASK_LOW_20BITS</name>
+        <initializer>(0x000FFFFF)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__hscaler_1ga36c8922ba74aec2497736c04fbb2e251" prot="public" static="no">
+        <name>XHSC_MASK_LOW_12BITS</name>
+        <initializer>(0x00000FFF)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_l2.c" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file provides the default fixed coefficient sets for supported taps. </para>    </briefdescription>
+    <detaileddescription>
+<para>This header file contains layer 2 API&apos;s of the horizontal scaler sub-core driver.The functions contained herein provides a high level implementation of features provided by the IP, abstracting away the register level details from the user.</para><para>}</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0  rco   07/31/15   Initial Release
+3.1  rco   02/09/17   Fix c++ compilation warnings
+3.3  vsa   04/07/20   Improve quality with better coefficients
+</preformatted></para><para><bold>H Scaler IP Features </bold></para><para>This H-Scaler IP supports following features<itemizedlist>
+<listitem><para>3 Channel Scaler with RGB, YUV444 and optional YUV422, and YUV420 support</para></listitem><listitem><para>Scale horizontally to 4K line at 60Hz</para></listitem><listitem><para>up to 16bits color depth</para></listitem></itemizedlist>
+</para><para>1, 2 or 4 pixel per clock processing</para><para><bold>Dependency</bold></para><para>This driver makes use of the video enumerations and data types defined in the Xilinx Video Common Driver (video_common_vX.x) and as such the common driver must be included as dependency to compile this driver</para><para><bold>Initialization &amp; Configuration</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the hscaler core.</para><para>Before using the layer-2 API&apos;s user must initialize the core by calling Layer-1 API <ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize()</ref>. This function will look for a configuration structure for the device and initialize it to defined HW settings. After initialization Layer-2 API&apos;s can be used to configure the core. It is recommended user always make use of Layer-2 API to interact with this core. Advanced users always have the capability to directly interact with the IP core using Layer-1 API&apos;s that perform low level register peek/poke.</para><para><bold> Interrupts </bold></para><para>This driver does not have any interrupts</para><para><bold> Virtual Memory </bold></para><para>This driver supports Virtual Memory. The RTOS is responsible for calculating the correct device base address in Virtual Memory space.</para><para><bold> Threads </bold></para><para>This driver is not thread safe. Any needs for threads or thread mutual exclusion must be satisfied by the layer above this driver.</para><para><bold>Limitations</bold></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  rco   07/21/15   Initial Release
+2.00  rco   11/05/15   Integrate layer-1 with layer-2
+      dmc   12/17/15   Add macro to query the Is422Enabled flag that was
+                       added to the <ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref> structure
+3.0   mpe   04/28/16   Added optional color format conversion handling
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

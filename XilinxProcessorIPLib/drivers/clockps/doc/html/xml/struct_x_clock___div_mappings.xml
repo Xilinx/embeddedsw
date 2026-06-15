@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_clock___div_mappings" kind="struct" prot="public">
+    <compoundname>XClock_DivMappings</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_clock___div_mappings_1ae0fd2e9d71e10e1632fbc7884ee682f3" prot="public" static="no" mutable="no">
+        <type>XClock_OutputClks</type>
+        <definition>XClock_OutputClks XClock_DivMappings::ClockId</definition>
+        <argsstring></argsstring>
+        <name>ClockId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_clock___div_mappings_1a161bc0cd14c282487d92ffedefc5dd52" prot="public" static="no" mutable="no">
+        <type>XClock_DivIndices</type>
+        <definition>XClock_DivIndices XClock_DivMappings::DivIndex</definition>
+        <argsstring></argsstring>
+        <name>DivIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/xclockps_divider.c" bodystart="70" bodyend="73"/>
+    <listofallmembers>
+      <member refid="struct_x_clock___div_mappings_1ae0fd2e9d71e10e1632fbc7884ee682f3" prot="public" virt="non-virtual"><scope>XClock_DivMappings</scope><name>ClockId</name></member>
+      <member refid="struct_x_clock___div_mappings_1a161bc0cd14c282487d92ffedefc5dd52" prot="public" virt="non-virtual"><scope>XClock_DivMappings</scope><name>DivIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

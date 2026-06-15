@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi___img_hdr" kind="struct" prot="public">
+    <compoundname>XilPdi_ImgHdr</compoundname>
+    <includes local="no">xilpdi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a6445b6a25a45e98c1d2fe2409cc43d8a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::FirstPrtnHdr</definition>
+        <argsstring></argsstring>
+        <name>FirstPrtnHdr</name>
+        <briefdescription>
+<para>First partition header in the image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a1d4d4cc531aadaa95e09ae3fe1613f4f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::NoOfPrtns</definition>
+        <argsstring></argsstring>
+        <name>NoOfPrtns</name>
+        <briefdescription>
+<para>Number of partitions in the image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a134cccaee400b4b00c3ecbce5f7c3f5a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::EncRevokeID</definition>
+        <argsstring></argsstring>
+        <name>EncRevokeID</name>
+        <briefdescription>
+<para>Revocation ID of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a2c4f7ed5212329a979c98e8b3f6c56b8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::ImgAttr</definition>
+        <argsstring></argsstring>
+        <name>ImgAttr</name>
+        <briefdescription>
+<para>Image Attributes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a84fdca1d6fdad50bccc94279a31c1487" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilPdi_ImgHdr::ImgName[XILPDI_IMG_NAME_ARRAY_SIZE]</definition>
+        <argsstring>[XILPDI_IMG_NAME_ARRAY_SIZE]</argsstring>
+        <name>ImgName</name>
+        <briefdescription>
+<para>Image Name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a97d6df692dc8ee345cb7e39577303a50" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::ImgID</definition>
+        <argsstring></argsstring>
+        <name>ImgID</name>
+        <briefdescription>
+<para>Image ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a284fb2f7c9bd4c9cbc6ce7eca14bbe36" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::UID</definition>
+        <argsstring></argsstring>
+        <name>UID</name>
+        <briefdescription>
+<para>Unique ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a2dead1bd767bb181060650b2084e1179" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::PUID</definition>
+        <argsstring></argsstring>
+        <name>PUID</name>
+        <briefdescription>
+<para>Parent UID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1a45a7530e31466404326ab843be3d6f5e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::FuncID</definition>
+        <argsstring></argsstring>
+        <name>FuncID</name>
+        <briefdescription>
+<para>Function ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1aff911a6b463ed7c5ffbd830661ecca2b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XilPdi_ImgHdr::Reserved</definition>
+        <argsstring></argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Reserved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1ac6af7d1c4b219991b21164ebc4279e66" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::PcrInfo</definition>
+        <argsstring></argsstring>
+        <name>PcrInfo</name>
+        <briefdescription>
+<para>PCR information only applicable for Versal Net. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___img_hdr_1ad83690473e629d686e7c55b4d065eb47" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_ImgHdr::Checksum</definition>
+        <argsstring></argsstring>
+        <name>Checksum</name>
+        <briefdescription>
+<para>Checksum of the image header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Maximum size of IHT Optional data is 15,872B(16KB-128Word) </para>    </briefdescription>
+    <detaileddescription>
+<para>Structure to store the Image header details. It contains all the information of Image header in order. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="261" bodyend="274"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi___img_hdr_1ad83690473e629d686e7c55b4d065eb47" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>Checksum</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a134cccaee400b4b00c3ecbce5f7c3f5a" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>EncRevokeID</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a6445b6a25a45e98c1d2fe2409cc43d8a" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>FirstPrtnHdr</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a45a7530e31466404326ab843be3d6f5e" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>FuncID</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a2c4f7ed5212329a979c98e8b3f6c56b8" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>ImgAttr</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a97d6df692dc8ee345cb7e39577303a50" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>ImgID</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a84fdca1d6fdad50bccc94279a31c1487" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>ImgName</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a1d4d4cc531aadaa95e09ae3fe1613f4f" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>NoOfPrtns</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1ac6af7d1c4b219991b21164ebc4279e66" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>PcrInfo</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a2dead1bd767bb181060650b2084e1179" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>PUID</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1aff911a6b463ed7c5ffbd830661ecca2b" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>Reserved</name></member>
+      <member refid="struct_xil_pdi___img_hdr_1a284fb2f7c9bd4c9cbc6ce7eca14bbe36" prot="public" virt="non-virtual"><scope>XilPdi_ImgHdr</scope><name>UID</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

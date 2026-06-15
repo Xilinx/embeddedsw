@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__bbram__example_8c" kind="file">
+    <compoundname>xilskey_bbram_example.c</compoundname>
+    <includes local="yes">stdio.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xilskey__utils_8h" local="yes">xilskey_utils.h</includes>
+    <includes refid="xilskey__bbram_8h" local="yes">xilskey_bbram.h</includes>
+    <includes refid="xilskey__input_8h" local="yes">xilskey_input.h</includes>
+    <incdepgraph>
+      <node id="25">
+        <label>xil_io.h</label>
+      </node>
+      <node id="29">
+        <label>xilskey_input.h</label>
+        <link refid="xilskey__input_8h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xilskey_bbram_example.c</label>
+        <link refid="xilskey_bbram_example.c"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xstatus.h</label>
+      </node>
+      <node id="30">
+        <label>xil_types.h</label>
+      </node>
+      <node id="28">
+        <label>xilskey_bbram.h</label>
+        <link refid="xilskey__bbram_8h"/>
+      </node>
+      <node id="31">
+        <label>xparameters.h</label>
+      </node>
+      <node id="24">
+        <label>stdio.h</label>
+      </node>
+      <node id="27">
+        <label>xilskey_utils.h</label>
+        <link refid="xilskey__utils_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xilskey__bbram__example_8c_1a9e1ed04962af007a4bc6270070b31ccb" prot="public" static="no" mutable="no">
+        <type>XilSKey_Bbram</type>
+        <definition>XilSKey_Bbram InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilSKey_Bbram_InitData</definition>
+        <argsstring>(XilSKey_Bbram *BbramInstancePtr)</argsstring>
+        <name>XilSKey_Bbram_InitData</name>
+        <param>
+          <type>XilSKey_Bbram *</type>
+          <declname>BbramInstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Function to initialize BBRAM instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BBRAM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_SUCCESS - In case of Success
+  - XST_FAILURE - If initialization fails
+</verbatim></para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BBRAM</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>instance pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - In case of Success</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_FAILURE - If initialization fails</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" bodystart="108" bodyend="132"/>
+        <references refid="xilskey__utils_8c_1aaeb26ca3e2bcdbf7207734864aa58af1" compoundref="xilskey__utils_8c" startline="648" endline="724">XilSKey_Efuse_ConvertStringToHexBE</references>
+        <references refid="xilskey__input_8h_1a5b69a281922edbcc3706b4a7f9843d00" compoundref="xilskey__input_8h" startline="971">XSK_BBRAM_AES_KEY</references>
+        <references refid="xilskey__input_8h_1a752dcf195942b7d9a7d4e01d01e2b7fe" compoundref="xilskey__input_8h" startline="958">XSK_BBRAM_MIO_JTAG_MUX_SELECT</references>
+        <references refid="xilskey__input_8h_1a185ba8a1bbbe3dce6facb5c7e3add24f" compoundref="xilskey__input_8h" startline="956">XSK_BBRAM_MIO_JTAG_TCK</references>
+        <references refid="xilskey__input_8h_1a8ac2d516599594a2e245fd3260517fac" compoundref="xilskey__input_8h" startline="954">XSK_BBRAM_MIO_JTAG_TDI</references>
+        <references refid="xilskey__input_8h_1a855df416e26b9d6e82a6b1fd7bed3838" compoundref="xilskey__input_8h" startline="955">XSK_BBRAM_MIO_JTAG_TDO</references>
+        <references refid="xilskey__input_8h_1a0ef1e832969a454349d7ed62d82e88b1" compoundref="xilskey__input_8h" startline="957">XSK_BBRAM_MIO_JTAG_TMS</references>
+        <referencedby refid="xilskey__bbram__ultrascale__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__bbram__ultrascale__example_8c" startline="101" endline="308">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xilskey__bbram__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c" bodystart="68" bodyend="89"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="xilskey__bbram__example_8c" kindref="compound">xilskey_bbram_example.c</ref> </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>Example illustrates the method of programming the AES key to BBRAM. The user key should be mentioned in <ref refid="xilskey__input_8h" kindref="compound">xilskey_input.h</ref>. BBRAM is a battery backed RAM and there is no restriction on the number of times key can programmed. This algorithm only wokrs when program and verify key are done together and in that order. Procedure:<orderedlist>
+<listitem><para>Create a hardware project using the appropriate design.</para></listitem><listitem><para>Create a BSP.</para></listitem><listitem><para>Create fsbl</para></listitem><listitem><para>Create an application project using bbram example and <ref refid="xilskey__input_8h" kindref="compound">xilskey_input.h</ref></para></listitem><listitem><para>The 256 bit key to be programmed has to be mentioned</para></listitem><listitem><para>A hardware setup which dedicates four MIO pins for JTAG signals should be used and the MIO pins should be mentioned in <ref refid="xilskey__input_8h" kindref="compound">xilskey_input.h</ref> There should be a method to download this example and have the MIO pins connected to JTAG before running this application.</para></listitem><listitem><para>Run the application which will program and verify the BBRAM key</para></listitem><listitem><para>After programming and veifying the key, power off.</para></listitem><listitem><para>Place a BBRAM key encrypted boot image in one of the boot devices, set the appropriate boot pins and power on.</para></listitem><listitem><para>The bbram example will be run from DDR with the default linker.</para></listitem><listitem><para>To run from OCM, modify the linker to map all sections to ps7_ram_0_S_AXI_BASEADDR instead of ps7_ddr_0_S_AXI_BASEADDR.</para></listitem></orderedlist>
+</para></simplesect>
+MODIFICATION HISTORY:</para><para>Ver Who Date Changes <hruler/>
+ 1.01a hk 09/18/13 First release 6.1 vns 10/25/16 Removed ForcePowerCycle and JtagDisable from Zynq BBRAM configuration as they are not actually programming any control bit. 6.7 psl 03/20/19 Added BBRAM jtag server init function. psl 03/15/19 Moved XilSKey_Bbram_JTAGServerInit function from example to library. 6.8 psl 05/21/19 Initialized SystemInitDone ,to indicate XilSKey_Bbram_JTAGServerInit status. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__utils_8h" kindref="compound">xilskey_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__bbram_8h" kindref="compound">xilskey_bbram.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__input_8h" kindref="compound">xilskey_input.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal">XilSKey_Bbram<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" kindref="member">XilSKey_Bbram_InitData</ref>(XilSKey_Bbram<sp/>*BbramInstancePtr);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>BBRAM<sp/>Example<sp/>start<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" kindref="member">XilSKey_Bbram_InitData</ref>(&amp;InstancePtr);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>BBRAM<sp/>Example<sp/>failed<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilskey__zynq__ultra__bbram_1gac7bc27c2933ca2ed403fb3487beee6f8" kindref="member">XilSKey_Bbram_Program</ref>(&amp;InstancePtr);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>BBRAM<sp/>Example<sp/>failed<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/>Successfully<sp/>programmed<sp/>and<sp/>verified<sp/>BBRAM<sp/>key<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xilskey__bbram__example_8c_1aa2a34496cba738813e2c992e8d15a260" kindref="member">XilSKey_Bbram_InitData</ref>(XilSKey_Bbram<sp/>*BbramInstancePtr)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMioTDI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__input_8h_1a8ac2d516599594a2e245fd3260517fac" kindref="member">XSK_BBRAM_MIO_JTAG_TDI</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMioTDO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__input_8h_1a855df416e26b9d6e82a6b1fd7bed3838" kindref="member">XSK_BBRAM_MIO_JTAG_TDO</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMioTCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__input_8h_1a185ba8a1bbbe3dce6facb5c7e3add24f" kindref="member">XSK_BBRAM_MIO_JTAG_TCK</ref>;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMioTMS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__input_8h_1a0ef1e832969a454349d7ed62d82e88b1" kindref="member">XSK_BBRAM_MIO_JTAG_TMS</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMioMuxSel<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__input_8h_1a752dcf195942b7d9a7d4e01d01e2b7fe" kindref="member">XSK_BBRAM_MIO_JTAG_MUX_SELECT</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;JtagMuxSelLineDefVal<sp/><sp/>=<sp/><sp/>XSK_BBRAM_MIO_MUX_SEL_DEFAULT_VAL;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BbramInstancePtr-&gt;SystemInitDone<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Convert<sp/>key<sp/>given<sp/>in<sp/>xilskey_input.h<sp/>and</highlight></codeline>
+<codeline lineno="123"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>assign<sp/>it<sp/>to<sp/>the<sp/>variable<sp/>in<sp/>instance.</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xilskey__utils_8c_1aaeb26ca3e2bcdbf7207734864aa58af1" kindref="member">XilSKey_Efuse_ConvertStringToHexBE</ref>(<ref refid="xilskey__input_8h_1a5b69a281922edbcc3706b4a7f9843d00" kindref="member">XSK_BBRAM_AES_KEY</ref>,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;(BbramInstancePtr-&gt;AESKey[0]),</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_BBRAM_AES_KEY_SIZE_IN_BITS);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_bbram_example.c"/>
+  </compounddef>
+</doxygen>

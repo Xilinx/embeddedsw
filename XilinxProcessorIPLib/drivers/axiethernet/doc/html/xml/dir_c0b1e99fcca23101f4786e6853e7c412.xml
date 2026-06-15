@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c0b1e99fcca23101f4786e6853e7c412" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_347dd2e059d898d227183cda50664df7">avb</innerdir>
+    <innerfile refid="xaxiethernet__example_8h">xaxiethernet_example.h</innerfile>
+    <innerfile refid="xaxiethernet__example__extmulticast_8c">xaxiethernet_example_extmulticast.c</innerfile>
+    <innerfile refid="xaxiethernet__example__extvlan_8c">xaxiethernet_example_extvlan.c</innerfile>
+    <innerfile refid="xaxiethernet__example__intr__fifo_8c">xaxiethernet_example_intr_fifo.c</innerfile>
+    <innerfile refid="xaxiethernet__example__intr__mcdma_8c">xaxiethernet_example_intr_mcdma.c</innerfile>
+    <innerfile refid="xaxiethernet__example__intr__sgdma_8c">xaxiethernet_example_intr_sgdma.c</innerfile>
+    <innerfile refid="xaxiethernet__example__mcdma__poll_8c">xaxiethernet_example_mcdma_poll.c</innerfile>
+    <innerfile refid="xaxiethernet__example__polled_8c">xaxiethernet_example_polled.c</innerfile>
+    <innerfile refid="xaxiethernet__example__util_8c">xaxiethernet_example_util.c</innerfile>
+    <innerfile refid="xaxiethernet__mcdma__ping__req__example_8c">xaxiethernet_mcdma_ping_req_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/"/>
+  </compounddef>
+</doxygen>

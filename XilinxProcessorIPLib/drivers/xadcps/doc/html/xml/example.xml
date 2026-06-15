@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use xadcps driver.</para><sect1 id="example_1ex1">
+<title>xadcps_intr_example.c</title>
+<para>Contains an example on how to use the XAdcps driver directly. This example shows the usage of the driver in interrupt mode to handle on-chip temperature and voltage alarm interrupts.</para><para>For details, see <ref refid="xadcps__intr__example_8c" kindref="compound">xadcps_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xadcps_polled_printf_example.c</title>
+<para>Contains an example on how to use the XAdcps driver directly. This example shows the usage of the driver in polled mode to handle on-chip temperature and voltage alarm interrupts.</para><para>For details, see <ref refid="xadcps__polled__printf__example_8c" kindref="compound">xadcps_polled_printf_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

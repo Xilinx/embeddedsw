@@ -1,0 +1,859 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmcdma__bd_8h" kind="file">
+    <compoundname>xmcdma_bd.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xmcdma_8h" local="yes">xmcdma.h</includedby>
+    <includedby refid="xmcdma__bd_8c" local="yes">xmcdma_bd.c</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_types.h</label>
+      </node>
+      <node id="41">
+        <label>xmcdma_bd.h</label>
+        <link refid="xmcdma_bd.h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="48">
+        <label>xmcdma_intr.c</label>
+        <link refid="xmcdma__intr_8c"/>
+      </node>
+      <node id="49">
+        <label>xmcdma_selftest.c</label>
+        <link refid="xmcdma__selftest_8c"/>
+      </node>
+      <node id="50">
+        <label>xmcdma_sinit.c</label>
+        <link refid="xmcdma__sinit_8c"/>
+      </node>
+      <node id="45">
+        <label>xmcdma.c</label>
+        <link refid="xmcdma_8c"/>
+      </node>
+      <node id="44">
+        <label>xmcdma.h</label>
+        <link refid="xmcdma_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xmcdma_interrupt_example.c</label>
+        <link refid="xmcdma__interrupt__example_8c"/>
+      </node>
+      <node id="46">
+        <label>xmcdma_bd.c</label>
+        <link refid="xmcdma__bd_8c"/>
+      </node>
+      <node id="43">
+        <label>xmcdma_bd.h</label>
+        <link refid="xmcdma_bd.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xmcdma_polled_example.c</label>
+        <link refid="xmcdma__polled__example_8c"/>
+      </node>
+      <node id="47">
+        <label>xmcdma_g.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mcdma_1ga2b6fc083847c292b1fc6b3126f48741d" prot="public" static="no">
+        <name>XMCDMA_CACHE_FLUSH</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>Xil_DCacheFlushRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="43" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gad144a11056d3d8c3df59ae24f61d7fba" prot="public" static="no">
+        <name>XMCDMA_CACHE_INVALIDATE</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>Xil_DCacheInvalidateRange((UINTPTR)(BdPtr), XMCDMA_BD_HW_NUM_BYTES)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" prot="public" static="no">
+        <name>XMcdma_BdRead</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(*(u32 *)(((UINTPTR)(void *)(BaseAddress)) + (u32)(Offset)))</initializer>
+        <briefdescription>
+<para>Read the given Buffer Descriptor word. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BD to read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the word offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the field</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead(u32 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="461" endline="530">XMcdma_BdChainFromHW</referencedby>
+        <referencedby refid="group__mcdma_1ga9295d5a6e89fe6a6471371191078b7fc" compoundref="xmcdma__bd_8c" startline="693" endline="715">XMcDma_BdGetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga357821499f1231555343dc309c59c67a" compoundref="xmcdma__bd_8c" startline="657" endline="677">XMcDma_BdSetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="589" endline="614">XMcdma_BdSetBufAddr</referencedby>
+        <referencedby refid="group__mcdma_1ga2388e0cd3c27b0c675f308b74a0e6b21" compoundref="xmcdma__bd_8c" startline="628" endline="639">XMcDma_BdSetCtrl</referencedby>
+        <referencedby refid="group__mcdma_1ga20e854946069868d98b43a144f282093" compoundref="xmcdma__bd_8c" startline="771" endline="798">XMcDma_DumpBd</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaeea700e622c21664095d4015fdb3c182" prot="public" static="no">
+        <name>XMcdma_BdRead64</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(*(u64 *)(((UINTPTR)(void *)(BaseAddress)) + (u32)(Offset)))</initializer>
+        <briefdescription>
+<para>Read the given Buffer Descriptor word. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BD to read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the word offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 64-bit value of the field</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u64 <ref refid="group__mcdma_1gaeea700e622c21664095d4015fdb3c182" kindref="member">XMcdma_BdRead64(u64 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" prot="public" static="no">
+        <name>XMcdma_BdWrite</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(*(u32 *)((UINTPTR)(void *)(BaseAddress) + (u32)(Offset))) = (u32)(Data)</initializer>
+        <briefdescription>
+<para>Write the given Buffer Descriptor word. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BD to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the word offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the field</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" kindref="member">XMcdma_BdWrite(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga357821499f1231555343dc309c59c67a" compoundref="xmcdma__bd_8c" startline="657" endline="677">XMcDma_BdSetAppWord</referencedby>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="589" endline="614">XMcdma_BdSetBufAddr</referencedby>
+        <referencedby refid="group__mcdma_1ga2388e0cd3c27b0c675f308b74a0e6b21" compoundref="xmcdma__bd_8c" startline="628" endline="639">XMcDma_BdSetCtrl</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="341" endline="401">XMcDma_Chan_Sideband_Submit</referencedby>
+        <referencedby refid="group__mcdma_1ga5cb928c2177632d162e1f83b9df818a4" compoundref="xmcdma__bd_8c" startline="177" endline="252">XMcDma_ChanBdCreate</referencedby>
+        <referencedby refid="group__mcdma_1ga043e7eb1811040fdbdafe288cd4ac5ea" compoundref="xmcdma__bd_8c" startline="272" endline="318">XMcDma_ChanSubmit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac1edd764edccb7e6c240eed49bd073ae" prot="public" static="no">
+        <name>XMcdma_BdWrite64</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(*(u64 *)((UINTPTR)(void *)(BaseAddress) + (u32)(Offset))) = (u64)(Data)</initializer>
+        <briefdescription>
+<para>Write the given Buffer Descriptor double word. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the BD to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the word offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 64-bit value to write to the field</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" kindref="member">XMcdma_BdWrite(u64 BaseAddress, u32 RegOffset, u64 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga2a2cc690650d389e820be2aa8a078024" compoundref="xmcdma__bd_8c" startline="589" endline="614">XMcdma_BdSetBufAddr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga85e21c6be33fd36ffb9e559f53dfa2b4" prot="public" static="no">
+        <name>XMcDma_BdGetSts</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer><ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_STS_OFFSET)</initializer>
+        <briefdescription>
+<para>Retrieve the status of a Ingress(S2MM) BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Use XMDMA_BD_STS_*** values defined in xmdma_hw.h to interpret the returned value</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1ga85e21c6be33fd36ffb9e559f53dfa2b4" kindref="member">XMcDma_BdGetSts(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga369b7454a39ba87d032c2f40394360f8" prot="public" static="no">
+        <name>XMcdma_BdHwCompleted</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_STS_OFFSET) &amp; \
+	 XMCDMA_BD_STS_COMPLETE_MASK)</initializer>
+        <briefdescription>
+<para>Check whether a Ingress(S2MM) BD has completed in hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>This BD has been submitted to hardware. The application can use this function To poll for the Completion of the BD.</para><para>This function may not work if the BD is in cached memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to check on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 if not complete</para></listitem><listitem><para>XMCDMA_BD_STS_COMPLETE_MASK if completed, may contain XMDMA_BD_STS_*_ERR_MASK bits.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1ga369b7454a39ba87d032c2f40394360f8" kindref="member">XMcdma_BdHwCompleted(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga884435b89a533b2195af16a29d41c5d2" prot="public" static="no">
+        <name>XMcDma_BdGetActualLength</name>
+        <param><defname>BdPtr</defname></param>
+        <param><defname>LengthMask</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_STS_OFFSET) &amp; \
+	 LengthMask)</initializer>
+        <briefdescription>
+<para>Get the actual transfer length of a Ingress (S2MM)BD. </para>        </briefdescription>
+        <detaileddescription>
+<para>The BD has completed in hw.</para><para>This function may not work if the BD is in cached memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to check on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LengthMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Maximum Transfer Length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1ga884435b89a533b2195af16a29d41c5d2" kindref="member">XMcDma_BdGetActualLength(XMcdma_Bd* BdPtr, u32 LengthMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga82a87f60a63faa72e95feea2d1af82a6" prot="public" static="no">
+        <name>XMcDma_TxBdGetSts</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer><ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET)</initializer>
+        <briefdescription>
+<para>Retrieve the status of a Egress(MM2S) BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Use XMDMA_BD_STS_*** values defined in xmdma_hw.h to interpret the returned value</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1ga82a87f60a63faa72e95feea2d1af82a6" kindref="member">XMcDma_TxBdGetSts(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga659947c1fbe19d3ca1f0415af9850c15" prot="public" static="no">
+        <name>XMcdma_TxBdHwCompleted</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET) &amp; \
+	 XMCDMA_BD_STS_COMPLETE_MASK)</initializer>
+        <briefdescription>
+<para>Check whether a Egress(MM2S) BD has completed in hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>This BD has been submitted to hardware. The application can use this function To poll for the Completion of the BD.</para><para>This function may not work if the BD is in cached memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to check on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>0 if not complete</para></listitem><listitem><para>XMCDMA_BD_STS_COMPLETE_MASK if completed, may contain XMDMA_BD_STS_*_ERR_MASK bits.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1ga659947c1fbe19d3ca1f0415af9850c15" kindref="member">XMcdma_TxBdHwCompleted(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac3801a964c4a8acafc826d83fb54dcfc" prot="public" static="no">
+        <name>XMcDma_TxBdGetActualLength</name>
+        <param><defname>BdPtr</defname></param>
+        <param><defname>LengthMask</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET) &amp; \
+	 LengthMask)</initializer>
+        <briefdescription>
+<para>Get the actual transfer length of a Egress(MM2S) BD. </para>        </briefdescription>
+        <detaileddescription>
+<para>The BD has completed in hw.</para><para>This function may not work if the BD is in cached memory.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to check on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LengthMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Maximum Transfer Length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1gac3801a964c4a8acafc826d83fb54dcfc" kindref="member">XMcDma_TxBdGetActualLength(XMcdma_Bd* BdPtr, u32 LengthMask)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gabe1a5cd6c2561c807261f7c9b8c4cd34" prot="public" static="no">
+        <name>XMcDma_BdGetCtrl</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_CTRL_OFFSET)	\
+	 &amp; XMCDMA_BD_CTRL_ALL_MASK)</initializer>
+        <briefdescription>
+<para>Gets the control bits of a BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>control bits of a BD.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1gabe1a5cd6c2561c807261f7c9b8c4cd34" kindref="member">XMcDma_BdGetCtrl(XMCDMA_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga66f21c01fc70df953e940e61d6fc133e" prot="public" static="no">
+        <name>XMcdma_BdChainNextBd</name>
+        <param><defname>Chan</defname></param>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(((UINTPTR)(BdPtr) &gt;= (Chan)-&gt;LastBdAddr) ?	\
+	 (UINTPTR)(Chan)-&gt;FirstBdAddr :	\
+	 (UINTPTR)((UINTPTR)(BdPtr) + (Chan)-&gt;Separation))</initializer>
+        <briefdescription>
+<para>Return the next BD in the Chain. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Chan</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Channel BD Chain to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The next BD in the Chain relative to the BdPtr parameter.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: XMcdma_Bd <emphasis>XMcdma_BdChainNextBd(XMcdma_ChanCtrl</emphasis> Chan, XMcdma_Bd *BdPtr) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gac503b02c1b13e908931f84facd8eae44" compoundref="xmcdma__bd_8c" startline="551" endline="574">XMcdma_BdChainFree</referencedby>
+        <referencedby refid="group__mcdma_1gaab94e04161d34aae300d76dd51948117" compoundref="xmcdma__bd_8c" startline="461" endline="530">XMcdma_BdChainFromHW</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="341" endline="401">XMcDma_Chan_Sideband_Submit</referencedby>
+        <referencedby refid="group__mcdma_1ga043e7eb1811040fdbdafe288cd4ac5ea" compoundref="xmcdma__bd_8c" startline="272" endline="318">XMcDma_ChanSubmit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga9bdd15b4246b9b6985c88fcac07ce432" prot="public" static="no">
+        <name>XMcdma_BdChainPrevBd</name>
+        <param><defname>Chan</defname></param>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(((UINTPTR)(BdPtr) &lt;= (Chan)-&gt;FirstBdAddr) ?			\
+	 (XMcdma_Bd *)(Chan)-&gt;LastBdAddr :			\
+	 (XMcdma_Bd *)((UINTPTR)(BdPtr) - (Chan)-&gt;Separation))</initializer>
+        <briefdescription>
+<para>Return the previous BD in the Chain. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Chan</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the MCDMA channel to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current BD.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The previous BD in the Chain relative to the BdPtr parameter.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: XMcdma_Bd <emphasis>XMcdma_BdChainPrevBd(XMcdma_ChanCtrl</emphasis> Chan, XMcdma_Bd *BdPtr) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga5fb0bfe1188cf10ace3f6788cb19f4d7" prot="public" static="no">
+        <name>XMcdma_HwIsStarted</name>
+        <param><defname>Chan</defname></param>
+        <initializer>((XMcdma_ReadReg((Chan)-&gt;ChanBase, XMCDMA_CSR_OFFSET) 	\
+	  &amp; XMCDMA_CSR_HALTED_MASK) ? FALSE : TRUE)</initializer>
+        <briefdescription>
+<para>Check whether a DMA is started, meaning the channel is not halted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Chan</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if channel is started</para></listitem><listitem><para>0 otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1ga56bedd6346bb7deaefc4c46c98e02a8b" kindref="member">XMcdma_ChanHwIsStarted(XMcdma_ChanCtrl *Chan)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="319" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="112" endline="160">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga56bedd6346bb7deaefc4c46c98e02a8b" prot="public" static="no">
+        <name>XMcdma_ChanHwIsStarted</name>
+        <param><defname>Chan</defname></param>
+        <param><defname>Chan_id</defname></param>
+        <initializer>((XMcdma_ReadReg((Chan)-&gt;ChanBase, (XMCDMA_CR_OFFSET + \
+					    (Chan_id - 1) * XMCDMA_NXTCHAN_OFFSET)) \
+	  &amp; XMCDMA_CCR_RUNSTOP_MASK) ? TRUE : FALSE)</initializer>
+        <briefdescription>
+<para>Check whether a DMA channel is started, meaning the channel is not halted. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Chan</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Chan_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel number to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>1 if channel is started</para></listitem><listitem><para>0 otherwise</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>C-style signature: int <ref refid="group__mcdma_1ga56bedd6346bb7deaefc4c46c98e02a8b" kindref="member">XMcdma_ChanHwIsStarted(XMcdma_ChanCtrl *Chan, u32 Chan_id)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="339" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="339" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1ga7d613e34ee855d64d50a462e272bcf38" compoundref="xmcdma__bd_8c" startline="112" endline="160">XMcdma_UpdateChanTDesc</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gac8b57c02f29151129d0c5873d26bbda2" prot="public" static="no">
+        <name>XMcDma_BdSetCtrlSideBand</name>
+        <param><defname>BdPtr</defname></param>
+        <param><defname>Tid</defname></param>
+        <param><defname>Tuser</defname></param>
+        <initializer><ref refid="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" kindref="member">XMcdma_BdWrite</ref>((BdPtr), XMCDMA_BD_CTRL_SBAND_OFFSET, \
+		       Tid &lt;&lt; XMCDMA_BD_CTRL_SBAND_SHIFT | Tuser)</initializer>
+        <briefdescription>
+<para>Set the Tid and Tuser fields of a BD with the user provided values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tid</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Tid value to be written in the Bd field. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tuser</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Tuser value to be written in the Bd field.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1gac8b57c02f29151129d0c5873d26bbda2" kindref="member">XMcDma_BdSetCtrlSideBand(XMcdma_Bd* BdPtr, u8 Tid, u8 Tuser)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="357" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="341" endline="401">XMcDma_Chan_Sideband_Submit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga1fdc6a4a27f6bd75aff05334be9060ce" prot="public" static="no">
+        <name>XMcDma_GetBdSbandStats</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer><ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_SIDEBAND_STS_OFFSET)</initializer>
+        <briefdescription>
+<para>Retrieve the side band status of a BD. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Use XMDMA_BD_STS_*** values defined in xmdma_hw.h to interpret the returned value</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1ga1fdc6a4a27f6bd75aff05334be9060ce" kindref="member">XMcDma_GetBdSbandStats(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="375" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaed8f4b77eb238817267116c08caaa857" prot="public" static="no">
+        <name>XMcdma_BdClear</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>memset((void *)(((UINTPTR)(BdPtr)) + XMCDMA_BD_START_CLEAR), 0, \
+	       XMCDMA_BD_BYTES_TO_CLEAR)</initializer>
+        <briefdescription>
+<para>Clears the BD Contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__mcdma_1gaed8f4b77eb238817267116c08caaa857" kindref="member">XMcdma_BdClear(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="389" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="389" bodyend="-1"/>
+        <referencedby refid="group__mcdma_1gac503b02c1b13e908931f84facd8eae44" compoundref="xmcdma__bd_8c" startline="551" endline="574">XMcdma_BdChainFree</referencedby>
+        <referencedby refid="group__mcdma_1gaea3a22718a28af2430b0508f213b96d1" compoundref="xmcdma__bd_8c" startline="341" endline="401">XMcDma_Chan_Sideband_Submit</referencedby>
+        <referencedby refid="group__mcdma_1ga043e7eb1811040fdbdafe288cd4ac5ea" compoundref="xmcdma__bd_8c" startline="272" endline="318">XMcDma_ChanSubmit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1ga1b48d2e373be7642bbd1f48e7342f86e" prot="public" static="no">
+        <name>XMcdma_BdSetSwId</name>
+        <param><defname>BdPtr</defname></param>
+        <param><defname>Id</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" kindref="member">XMcdma_BdWrite</ref>((BdPtr), XMCDMA_BD_SW_ID_OFFSET, (UINTPTR)(Id)))</initializer>
+        <briefdescription>
+<para>Set the Sw ID field of the given BD. </para>        </briefdescription>
+        <detaileddescription>
+<para>The ID is an arbitrary piece of data the application can associate with a specific BD.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a 32 bit quantity to set in the BD</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__mcdma_1ga1b48d2e373be7642bbd1f48e7342f86e" kindref="member">XMcdma_BdSetSwId(XMcdma_Bd* BdPtr, void Id)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="408" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="408" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mcdma_1gaea4638d00f6620f0a87e1816b53beaa6" prot="public" static="no">
+        <name>XMcdma_BdGetSwId</name>
+        <param><defname>BdPtr</defname></param>
+        <initializer>(<ref refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" kindref="member">XMcdma_BdRead</ref>((BdPtr), XMCDMA_BD_SW_ID_OFFSET))</initializer>
+        <briefdescription>
+<para>Retrieve the Sw ID field of the given BD previously set with XMcdma_BdSetSwId. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BdPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the BD to operate on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>BD Sw identifier</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__mcdma_1gaea4638d00f6620f0a87e1816b53beaa6" kindref="member">XMcdma_BdGetSwId(XMcdma_Bd* BdPtr)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="426" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="426" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__mcdma_1gab0faadd4c5865b9b5207cd7645383950" prot="public" static="no">
+        <type>u32</type>
+        <definition>typedef u32 XMcdma_Bd[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>XMcdma_Bd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>XMCDMA_BD_H_</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_BD_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u32<sp/>XMcdma_Bd[16];</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/>Define<sp/>methods<sp/>to<sp/>flush<sp/>and<sp/>invalidate<sp/>cache<sp/>for<sp/>BDs<sp/>should<sp/>they<sp/>be</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*<sp/>located<sp/>in<sp/>cached<sp/>memory.</highlight></codeline>
+<codeline lineno="38"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__aarch64__</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CACHE_FLUSH(BdPtr)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CACHE_INVALIDATE(BdPtr)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CACHE_FLUSH(BdPtr)<sp/>\</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)(BdPtr),<sp/>XMCDMA_BD_HW_NUM_BYTES)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XMCDMA_CACHE_INVALIDATE(BdPtr)<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)(BdPtr),<sp/>XMCDMA_BD_HW_NUM_BYTES)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="66" refid="group__mcdma_1ga4a9c2fa82ee0b3c7518b7b9125a447e0" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdRead(BaseAddress,<sp/>Offset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)(((UINTPTR)(void<sp/>*)(BaseAddress))<sp/>+<sp/>(u32)(Offset)))</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__mcdma_1gaeea700e622c21664095d4015fdb3c182" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdRead64(BaseAddress,<sp/>Offset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u64<sp/>*)(((UINTPTR)(void<sp/>*)(BaseAddress))<sp/>+<sp/>(u32)(Offset)))</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="103" refid="group__mcdma_1ga2e9ebef9ab28ab4e942a1c6415cebc08" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdWrite(BaseAddress,<sp/>Offset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u32<sp/>*)((UINTPTR)(void<sp/>*)(BaseAddress)<sp/>+<sp/>(u32)(Offset)))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__mcdma_1gac1edd764edccb7e6c240eed49bd073ae" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdWrite64(BaseAddress,<sp/>Offset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(*(u64<sp/>*)((UINTPTR)(void<sp/>*)(BaseAddress)<sp/>+<sp/>(u32)(Offset)))<sp/>=<sp/>(u64)(Data)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="group__mcdma_1ga85e21c6be33fd36ffb9e559f53dfa2b4" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_BdGetSts(BdPtr)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_STS_OFFSET)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="162" refid="group__mcdma_1ga369b7454a39ba87d032c2f40394360f8" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdHwCompleted(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_STS_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMCDMA_BD_STS_COMPLETE_MASK)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="183" refid="group__mcdma_1ga884435b89a533b2195af16a29d41c5d2" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_BdGetActualLength(BdPtr,<sp/>LengthMask)<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_STS_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LengthMask)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="201" refid="group__mcdma_1ga82a87f60a63faa72e95feea2d1af82a6" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_TxBdGetSts(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_SIDEBAND_STS_OFFSET)</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224" refid="group__mcdma_1ga659947c1fbe19d3ca1f0415af9850c15" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_TxBdHwCompleted(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_SIDEBAND_STS_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMCDMA_BD_STS_COMPLETE_MASK)</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="245" refid="group__mcdma_1gac3801a964c4a8acafc826d83fb54dcfc" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_TxBdGetActualLength(BdPtr,<sp/>LengthMask)<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_SIDEBAND_STS_OFFSET)<sp/>&amp;<sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LengthMask)</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="262" refid="group__mcdma_1gabe1a5cd6c2561c807261f7c9b8c4cd34" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_BdGetCtrl(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_CTRL_OFFSET)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XMCDMA_BD_CTRL_ALL_MASK)</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="280" refid="group__mcdma_1ga66f21c01fc70df953e940e61d6fc133e" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdChainNextBd(Chan,<sp/>BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((UINTPTR)(BdPtr)<sp/>&gt;=<sp/>(Chan)-&gt;LastBdAddr)<sp/>?<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)(Chan)-&gt;FirstBdAddr<sp/>:<sp/>\</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)((UINTPTR)(BdPtr)<sp/>+<sp/>(Chan)-&gt;Separation))</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="299" refid="group__mcdma_1ga9bdd15b4246b9b6985c88fcac07ce432" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdChainPrevBd(Chan,<sp/>BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((UINTPTR)(BdPtr)<sp/>&lt;=<sp/>(Chan)-&gt;FirstBdAddr)<sp/>?<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="301"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_Bd<sp/>*)(Chan)-&gt;LastBdAddr<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_Bd<sp/>*)((UINTPTR)(BdPtr)<sp/>-<sp/>(Chan)-&gt;Separation))</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="319" refid="group__mcdma_1ga5fb0bfe1188cf10ace3f6788cb19f4d7" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_HwIsStarted(Chan)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XMcdma_ReadReg((Chan)-&gt;ChanBase,<sp/>XMCDMA_CSR_OFFSET)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XMCDMA_CSR_HALTED_MASK)<sp/>?<sp/>FALSE<sp/>:<sp/>TRUE)</highlight></codeline>
+<codeline lineno="322"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="339" refid="group__mcdma_1ga56bedd6346bb7deaefc4c46c98e02a8b" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_ChanHwIsStarted(Chan,<sp/>Chan_id)<sp/>\</highlight></codeline>
+<codeline lineno="340"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XMcdma_ReadReg((Chan)-&gt;ChanBase,<sp/>(XMCDMA_CR_OFFSET<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Chan_id<sp/>-<sp/>1)<sp/>*<sp/>XMCDMA_NXTCHAN_OFFSET))<sp/>\</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;<sp/>XMCDMA_CCR_RUNSTOP_MASK)<sp/>?<sp/>TRUE<sp/>:<sp/>FALSE)</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="357" refid="group__mcdma_1gac8b57c02f29151129d0c5873d26bbda2" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_BdSetCtrlSideBand(BdPtr,<sp/>Tid,<sp/>Tuser)<sp/>\</highlight></codeline>
+<codeline lineno="358"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_BdWrite((BdPtr),<sp/>XMCDMA_BD_CTRL_SBAND_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="359"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tid<sp/>&lt;&lt;<sp/>XMCDMA_BD_CTRL_SBAND_SHIFT<sp/>|<sp/>Tuser)</highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="375" refid="group__mcdma_1ga1fdc6a4a27f6bd75aff05334be9060ce" refkind="member"><highlight class="preprocessor">#define<sp/>XMcDma_GetBdSbandStats(BdPtr)<sp/>\</highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_SIDEBAND_STS_OFFSET)</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="389" refid="group__mcdma_1gaed8f4b77eb238817267116c08caaa857" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdClear(BdPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="390"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset((void<sp/>*)(((UINTPTR)(BdPtr))<sp/>+<sp/>XMCDMA_BD_START_CLEAR),<sp/>0,<sp/>\</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMCDMA_BD_BYTES_TO_CLEAR)</highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="408" refid="group__mcdma_1ga1b48d2e373be7642bbd1f48e7342f86e" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdSetSwId(BdPtr,<sp/>Id)<sp/>\</highlight></codeline>
+<codeline lineno="409"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XMcdma_BdWrite((BdPtr),<sp/>XMCDMA_BD_SW_ID_OFFSET,<sp/>(UINTPTR)(Id)))</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="426" refid="group__mcdma_1gaea4638d00f6620f0a87e1816b53beaa6" refkind="member"><highlight class="preprocessor">#define<sp/>XMcdma_BdGetSwId(BdPtr)<sp/>(XMcdma_BdRead((BdPtr),<sp/>XMCDMA_BD_SW_ID_OFFSET))</highlight></codeline>
+<codeline lineno="427"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="429"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="431"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mcdma/src/xmcdma_bd.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeprach__intr_8c" kind="file">
+    <compoundname>xdfeprach_intr.c</compoundname>
+    <includes refid="xdfeprach_8h" local="yes">xdfeprach.h</includes>
+    <includes refid="xdfeprach__hw_8h" local="yes">xdfeprach_hw.h</includes>
+    <incdepgraph>
+      <node id="58">
+        <label>stdbool.h</label>
+      </node>
+      <node id="55">
+        <label>xdfeprach.h</label>
+        <link refid="xdfeprach_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="57">
+        <label>assert.h</label>
+      </node>
+      <node id="60">
+        <label>xdfeprach_hw.h</label>
+        <link refid="xdfeprach__hw_8h"/>
+      </node>
+      <node id="54">
+        <label>xdfeprach_intr.c</label>
+        <link refid="xdfeprach_intr.c"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>linux/types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfePrach_GetInterruptMask</definition>
+        <argsstring>(const XDfePrach *InstancePtr, XDfePrach_InterruptMask *Mask)</argsstring>
+        <name>XDfePrach_GetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Returns interrupt mask status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PRACH instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt masks container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="810" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_intr.c" bodystart="58" bodyend="95"/>
+        <references refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" compoundref="xdfeprach_8h" startline="640">XDfePrach_StatusMask::CCSequenceError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" compoundref="xdfeprach_8h" startline="634">XDfePrach_StatusMask::DecimatorOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" compoundref="xdfeprach_8h" startline="636">XDfePrach_StatusMask::DecimatorOverrun</references>
+        <references refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" compoundref="xdfeprach_8h" startline="643">XDfePrach_StatusMask::FrameError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" compoundref="xdfeprach_8h" startline="642">XDfePrach_StatusMask::FrameInitTrigger</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" compoundref="xdfeprach_8h" startline="635">XDfePrach_StatusMask::MixerOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" compoundref="xdfeprach_8h" startline="638">XDfePrach_StatusMask::RachUpdate</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" compoundref="xdfeprach_8h" startline="637">XDfePrach_StatusMask::SelectorOverrun</references>
+        <references refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" compoundref="xdfeprach_8h" startline="151">XDFEPRACH_BAND_ID_MAX</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfePrach_SetInterruptMask</definition>
+        <argsstring>(const XDfePrach *InstancePtr, const XDfePrach_InterruptMask *Mask)</argsstring>
+        <name>XDfePrach_SetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets the interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PRACH instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask flags container.<itemizedlist>
+<listitem><para>0 - does not mask corresponding interrupt</para></listitem><listitem><para>1 - masks corresponding interrupt </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="812" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_intr.c" bodystart="107" bodyend="183"/>
+        <references refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" compoundref="xdfeprach_8h" startline="640">XDfePrach_StatusMask::CCSequenceError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" compoundref="xdfeprach_8h" startline="634">XDfePrach_StatusMask::DecimatorOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" compoundref="xdfeprach_8h" startline="636">XDfePrach_StatusMask::DecimatorOverrun</references>
+        <references refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" compoundref="xdfeprach_8h" startline="643">XDfePrach_StatusMask::FrameError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" compoundref="xdfeprach_8h" startline="642">XDfePrach_StatusMask::FrameInitTrigger</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" compoundref="xdfeprach_8h" startline="635">XDfePrach_StatusMask::MixerOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" compoundref="xdfeprach_8h" startline="638">XDfePrach_StatusMask::RachUpdate</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" compoundref="xdfeprach_8h" startline="637">XDfePrach_StatusMask::SelectorOverrun</references>
+        <references refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" compoundref="xdfeprach_8h" startline="151">XDFEPRACH_BAND_ID_MAX</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfePrach_GetEventStatus</definition>
+        <argsstring>(const XDfePrach *InstancePtr, XDfePrach_StatusMask *Status)</argsstring>
+        <name>XDfePrach_GetEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_StatusMask</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Returns the event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PRACH instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event status container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="814" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_intr.c" bodystart="194" bodyend="231"/>
+        <references refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" compoundref="xdfeprach_8h" startline="640">XDfePrach_StatusMask::CCSequenceError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" compoundref="xdfeprach_8h" startline="634">XDfePrach_StatusMask::DecimatorOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" compoundref="xdfeprach_8h" startline="636">XDfePrach_StatusMask::DecimatorOverrun</references>
+        <references refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" compoundref="xdfeprach_8h" startline="643">XDfePrach_StatusMask::FrameError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" compoundref="xdfeprach_8h" startline="642">XDfePrach_StatusMask::FrameInitTrigger</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" compoundref="xdfeprach_8h" startline="635">XDfePrach_StatusMask::MixerOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" compoundref="xdfeprach_8h" startline="638">XDfePrach_StatusMask::RachUpdate</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" compoundref="xdfeprach_8h" startline="637">XDfePrach_StatusMask::SelectorOverrun</references>
+        <references refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" compoundref="xdfeprach_8h" startline="151">XDFEPRACH_BAND_ID_MAX</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfePrach_ClearEventStatus</definition>
+        <argsstring>(const XDfePrach *InstancePtr, const XDfePrach_StatusMask *Status)</argsstring>
+        <name>XDfePrach_ClearEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_StatusMask</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Clears the event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the PRACH instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clear event status container.<itemizedlist>
+<listitem><para>0 - does not clear corresponding event status</para></listitem><listitem><para>1 - clear corresponding event status </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="816" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_intr.c" bodystart="244" bodyend="291"/>
+        <references refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" compoundref="xdfeprach_8h" startline="640">XDfePrach_StatusMask::CCSequenceError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" compoundref="xdfeprach_8h" startline="634">XDfePrach_StatusMask::DecimatorOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" compoundref="xdfeprach_8h" startline="636">XDfePrach_StatusMask::DecimatorOverrun</references>
+        <references refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" compoundref="xdfeprach_8h" startline="643">XDfePrach_StatusMask::FrameError</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" compoundref="xdfeprach_8h" startline="642">XDfePrach_StatusMask::FrameInitTrigger</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" compoundref="xdfeprach_8h" startline="635">XDfePrach_StatusMask::MixerOverflow</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" compoundref="xdfeprach_8h" startline="638">XDfePrach_StatusMask::RachUpdate</references>
+        <references refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" compoundref="xdfeprach_8h" startline="637">XDfePrach_StatusMask::SelectorOverrun</references>
+        <references refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" compoundref="xdfeprach_8h" startline="151">XDFEPRACH_BAND_ID_MAX</references>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1ga342d626ad373f102b0b57ad2f66a386b" compoundref="xdfeprach_8c" startline="3340" endline="3366">XDfePrach_ClearStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions related to PRACH interrupt handling. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     03/08/21 Initial version
+      dc     04/18/21 Update trigger and event handlers
+1.1   dc     06/30/21 Doxygen documentation update
+1.2   dc     10/29/21 Update doxygen comments
+      dc     11/05/21 Align event handlers
+      dc     11/19/21 Update doxygen documentation
+1.4   dc     08/18/22 Correct event status read
+1.5   dc     01/02/23 Multiband registers update
+1.9   dc     11/25/25 Update doxygen comments, remove not needed code</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeprach_8h" kindref="compound">xdfeprach.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeprach__hw_8h" kindref="compound">xdfeprach_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Macros<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfePrach_RdBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfePrach_WrBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeprach_1ga982d7f33a6d6e57bcb36b471444a967a" kindref="member">XDfePrach_GetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfePrach_ReadReg(InstancePtr,<sp/>XDFEPRACH_IMR);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_MIXER_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref><sp/>=</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERRUN_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref><sp/>=</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_SELECTOR_OVERRUN_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_ERROR_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeprach_1ga1a4ad09d73a5c5a1d734a305638be274" kindref="member">XDfePrach_SetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="109"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIER<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIDR<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref><sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref><sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_MIXER_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_MIXER_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref><sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_DECIMATOR_OVERRUN_OFFSET);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_DECIMATOR_OVERRUN_OFFSET);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref><sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_SELECTOR_OVERRUN_OFFSET);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_SELECTOR_OVERRUN_OFFSET);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref><sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]<sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index));</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index));</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]<sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index));</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index));</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]<sp/>==<sp/>XDFEPRACH_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_FRAME_ERROR_OFFSET(Index));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEPRACH_FRAME_ERROR_OFFSET(Index));</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_WriteReg(InstancePtr,<sp/>XDFEPRACH_IER,<sp/>ValIER);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_WriteReg(InstancePtr,<sp/>XDFEPRACH_IDR,<sp/>ValIDR);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="194" refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeprach_1gae00051310be2b987a05b7ab1e6c7fd3e" kindref="member">XDfePrach_GetEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_StatusMask</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfePrach_ReadReg(InstancePtr,<sp/>XDFEPRACH_ISR);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_MIXER_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref><sp/>=</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERRUN_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref><sp/>=</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_SELECTOR_OVERRUN_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_RdBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]<sp/>=<sp/>XDfePrach_RdBitField(</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_ERROR_OFFSET(Index),<sp/>Val);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="244" refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfeprach_1gaa00484ddc6d5256a6844b2b99ceb0586" kindref="member">XDfePrach_ClearEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach" kindref="compound">XDfePrach</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_prach___status_mask" kindref="compound">XDfePrach_StatusMask</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]<sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERFLOW_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a93627f67cf504660fc2aaaf087c68f9b" kindref="member">DecimatorOverflow</ref>);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_MIXER_OVERFLOW_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a8b9bc35d06f1c199f12a8312d5b6507a" kindref="member">MixerOverflow</ref>);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_DECIMATOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_DECIMATOR_OVERRUN_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1aec23dcd151b221899582eb201956e270" kindref="member">DecimatorOverrun</ref>);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_SELECTOR_OVERRUN_WIDTH,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_SELECTOR_OVERRUN_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a4006e0ec88f30502c220e8177f3c10c9" kindref="member">SelectorOverrun</ref>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_RACH_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_RACH_UPDATE_TRIGGERED_OFFSET,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data,<sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a167e15085bd3ddcefeefee4b81d6f742" kindref="member">RachUpdate</ref>);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/><ref refid="group__dfeprach_1gae6e1cea8a47718ec31f18a01a41b7ad5" kindref="member">XDFEPRACH_BAND_ID_MAX</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_CC_SEQUENCE_ERROR_OFFSET(Index),<sp/>Data,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1acabe9a9f145d187c3d75645813955ce2" kindref="member">CCSequenceError</ref>[Index]);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_INIT_TRIGGERED_OFFSET(Index),<sp/>Data,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1a75fbbfe9d9aed9d7a0bbe86c091a42c4" kindref="member">FrameInitTrigger</ref>[Index]);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfePrach_WrBitField(XDFEPRACH_FRAME_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEPRACH_FRAME_ERROR_OFFSET(Index),</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data,<sp/>Status-&gt;<ref refid="struct_x_dfe_prach___status_mask_1afe81a6f74eadf2809682e3f9d9c387a5" kindref="member">FrameError</ref>[Index]);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfePrach_WriteReg(InstancePtr,<sp/>XDFEPRACH_ISR,<sp/>Data);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach_intr.c"/>
+  </compounddef>
+</doxygen>

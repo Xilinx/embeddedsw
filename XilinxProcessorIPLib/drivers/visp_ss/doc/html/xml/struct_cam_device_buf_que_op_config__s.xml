@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_buf_que_op_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceBufQueOpConfig_s</compoundname>
+    <includes local="no">cam_device_buffer_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_buf_que_op_config__s_1adbb0079e013cfe5634d39dd920a23320" prot="public" static="no" mutable="no">
+        <type><ref refid="group____buf__mgmt__ctrl_1gae6ee30acbc80416c9fea77a3d75e92d7" kindref="member">CamDeviceBufQueBlockType_t</ref></type>
+        <definition>CamDeviceBufQueBlockType_t CamDeviceBufQueOpConfig_s::blockType</definition>
+        <argsstring></argsstring>
+        <name>blockType</name>
+        <briefdescription>
+<para>The buffer queue block type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_buf_que_op_config__s_1a2723f7ebaee694acc84d2f569a5eea8b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceBufQueOpConfig_s::waitTime</definition>
+        <argsstring></argsstring>
+        <name>waitTime</name>
+        <briefdescription>
+<para>When the blockType is time-blocking, should set the wait time. </para>        </briefdescription>
+        <detaileddescription>
+<para>unit:msec </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The buffer queue operation configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_buffer_api.h" bodystart="125" bodyend="129"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_buf_que_op_config__s_1adbb0079e013cfe5634d39dd920a23320" prot="public" virt="non-virtual"><scope>CamDeviceBufQueOpConfig_s</scope><name>blockType</name></member>
+      <member refid="struct_cam_device_buf_que_op_config__s_1a2723f7ebaee694acc84d2f569a5eea8b" prot="public" virt="non-virtual"><scope>CamDeviceBufQueOpConfig_s</scope><name>waitTime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

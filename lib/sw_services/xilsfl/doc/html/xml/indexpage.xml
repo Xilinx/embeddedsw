@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>xilsfl</title>
+    <detaileddescription>
+<para>This file should be included in the example files and compiled along with the examples (*.c).<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+<hruler/>
+
+1.0   sb  8/20/24  Initial release
+1.0   sb  9/25/24  Add XSfl_FlashRead API and callback for non blocking transfer
+                   in <ref refid="struct_x_sfl___cntrl_info" kindref="compound">XSfl_CntrlInfo</ref>.
+1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
+1.1   sb  02/11/25  Add support for x2/x4 operation.
+1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,318 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xi2stx__intr_8c" kind="file">
+    <compoundname>xi2stx_intr.c</compoundname>
+    <includes refid="xi2stx_8h" local="yes">xi2stx.h</includes>
+    <incdepgraph>
+      <node id="116">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="114">
+        <label>xil_io.h</label>
+      </node>
+      <node id="112">
+        <label>xi2stx.h</label>
+        <link refid="xi2stx_8h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+      <node id="115">
+        <label>xi2stx_debug.h</label>
+        <link refid="xi2stx__debug_8h"/>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+      </node>
+      <node id="118">
+        <label>xstatus.h</label>
+      </node>
+      <node id="111">
+        <label>xi2stx_intr.c</label>
+        <link refid="xi2stx_intr.c"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="119">
+        <label>xi2stx_chsts.h</label>
+        <link refid="xi2stx__chsts_8h"/>
+        <childnode refid="112" relation="include">
+        </childnode>
+      </node>
+      <node id="117">
+        <label>xil_types.h</label>
+      </node>
+      <node id="113">
+        <label>xi2stx_hw.h</label>
+        <link refid="xi2stx__hw_8h"/>
+        <childnode refid="114" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XI2s_Tx_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XI2s_Tx_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the I2S Transmitter driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the I2S Transmitter peripheral, determines the source of the interrupts, clears the interrupts and calls callbacks accordingly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="59" bodyend="118"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
+        <references refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" compoundref="xi2stx_8h" startline="123">XI2stx_Config::BaseAddress</references>
+        <references refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" compoundref="xi2stx_8h" startline="142">XI2s_Tx::Config</references>
+        <references refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" compoundref="xi2stx_8h" startline="140">XI2s_Tx::IsReady</references>
+        <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" compoundref="xi2stx__debug_8h" startline="59">XI2S_TX_AES_BLKCMPLT_EVT</references>
+        <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" compoundref="xi2stx__debug_8h" startline="60">XI2S_TX_AES_BLKSYNCERR_EVT</references>
+        <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" compoundref="xi2stx__debug_8h" startline="61">XI2S_TX_AES_CHSTSUPD_EVT</references>
+        <references refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0c8694f12ae4d34ddb805f6b4658a71d" compoundref="xi2stx__debug_8h" startline="62">XI2S_TX_AUD_UNDRFLW_EVT</references>
+        <references refid="group__i2stx_1gad3a413e9c7d1c7be7eb5c970b2b1da8b" compoundref="xi2stx__hw_8h" startline="110">XI2S_TX_INTR_AES_BLKCMPLT_MASK</references>
+        <references refid="group__i2stx_1gad2a8cc76d84d195679304c51c9b39076" compoundref="xi2stx__hw_8h" startline="118">XI2S_TX_INTR_AES_BLKSYNCERR_MASK</references>
+        <references refid="group__i2stx_1ga957f3265c9bec698c9250d1e106795f9" compoundref="xi2stx__hw_8h" startline="126">XI2S_TX_INTR_AES_CHSTSUPD_MASK</references>
+        <references refid="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" compoundref="xi2stx__hw_8h" startline="134">XI2S_TX_INTR_AUDUNDRFLW_MASK</references>
+        <references refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" compoundref="xi2stx__hw_8h" startline="49">XI2S_TX_IRQCTRL_OFFSET</references>
+        <references refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" compoundref="xi2stx__hw_8h" startline="50">XI2S_TX_IRQSTS_OFFSET</references>
+        <references refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" compoundref="xi2stx__debug_8c" startline="59" endline="86">XI2s_Tx_LogWrite</references>
+        <references refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" compoundref="xi2stx__hw_8h" startline="192">XI2s_Tx_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XI2s_Tx_SetHandler</definition>
+        <argsstring>(XI2s_Tx *InstancePtr, XI2s_Tx_HandlerType HandlerType, XI2s_Tx_Callback FuncPtr, void *CallbackRef)</argsstring>
+        <name>XI2s_Tx_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__i2stx_1ga826ab5acb6a522281f46f358fc908bf3" kindref="member">XI2s_Tx_HandlerType</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                              Callback Function
+--------------------------------         -------------------------
+(XI2S_TX_HANDLER_AES_BLKCMPLT)            AesBlkCmpltHandler
+(XI2S_TX_HANDLER_AES_BLKSYNCERR)          AesBlkSyncErrHandler
+(XI2S_TX_HANDLER_AES_CHSTSUPD)            AesChStsUpdHandler
+(XI2S_TX_HANDLER_AUD_UNDRFLW)             AudUndrflwHandler
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference pointer passed on actual calling of the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c" bodystart="148" bodyend="187"/>
+        <references refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" compoundref="xi2stx_8h" startline="147">XI2s_Tx::AesBlkCmpltHandler</references>
+        <references refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" compoundref="xi2stx_8h" startline="149">XI2s_Tx::AesBlkSyncErrHandler</references>
+        <references refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" compoundref="xi2stx_8h" startline="154">XI2s_Tx::AudUndrflwHandler</references>
+        <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd" compoundref="xi2stx_8h" startline="65">XI2S_TX_HANDLER_AES_BLKCMPLT</references>
+        <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a8172cb6e2a0d147df0f06a0eada66f8d" compoundref="xi2stx_8h" startline="66">XI2S_TX_HANDLER_AES_BLKSYNCERR</references>
+        <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3ab9374d0904c4cd4ac730b17fff220107" compoundref="xi2stx_8h" startline="67">XI2S_TX_HANDLER_AES_CHSTSUPD</references>
+        <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a346f30997b8d6d69e215f08a6db8d4ac" compoundref="xi2stx_8h" startline="68">XI2S_TX_HANDLER_AUD_UNDRFLW</references>
+        <references refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a9dfc593232c7f0a4b318f14bd1680e6d" compoundref="xi2stx_8h" startline="69">XI2S_TX_NUM_HANDLERS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved..</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xi2stx_8h" kindref="compound">xi2stx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1gad17911935c47159f6b1c144c3df63ce2" kindref="member">XI2s_Tx_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableMask;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>the<sp/>non-typed<sp/>pointer<sp/>to<sp/>a<sp/>XI2S_Tx<sp/>instance<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*TxPtr<sp/>=<sp/>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TxPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a27283d1e5773c1e61982e5501d93821d" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" kindref="member">XI2s_Tx_ReadReg</ref>(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" kindref="member">Config</ref>.<ref refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gaf0727cfd1d5dd6c4dc2957d380b82878" kindref="member">XI2S_TX_IRQSTS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>interrupt<sp/>control<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnableMask<sp/>=<sp/><ref refid="group__i2stx_1ga70bc2238ba573d955a77cf6752fa209a" kindref="member">XI2s_Tx_ReadReg</ref>(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1afe2bf6f0435f85ab88ec2912abe01137" kindref="member">Config</ref>.<ref refid="struct_x_i2stx___config_1af68feefd4d9c6ccefa84679124e68735" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1gae026183d4bfda7b544050c93cc14f431" kindref="member">XI2S_TX_IRQCTRL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>Block<sp/>Complete<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>EnableMask<sp/>&amp;<sp/><ref refid="group__i2stx_1gad3a413e9c7d1c7be7eb5c970b2b1da8b" kindref="member">XI2S_TX_INTR_AES_BLKCMPLT_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>AES<sp/>Block<sp/>Complete<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI2s_Tx_IntrClear(TxPtr,<sp/>XI2S_TX_INTR_AES_BLKCMPLT_MASK);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(TxPtr,<sp/><ref refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a781f73933fba2f76caf5223ee7d7138a" kindref="member">XI2S_TX_AES_BLKCMPLT_EVT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>AES<sp/>Block<sp/>Complete<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" kindref="member">AesBlkCmpltHandler</ref>)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" kindref="member">AesBlkCmpltHandler</ref>(TxPtr-&gt;AesBlkCmpltRef);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>Block<sp/>Synchronization<sp/>Error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>EnableMask<sp/>&amp;<sp/><ref refid="group__i2stx_1gad2a8cc76d84d195679304c51c9b39076" kindref="member">XI2S_TX_INTR_AES_BLKSYNCERR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>AES<sp/>Block<sp/>Synchronization<sp/>Error<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI2s_Tx_IntrClear(TxPtr,<sp/>XI2S_TX_INTR_AES_BLKSYNCERR_MASK);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(TxPtr,<sp/><ref refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000aa405c98ff185685b920bb0cb2b28a73c" kindref="member">XI2S_TX_AES_BLKSYNCERR_EVT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>AES<sp/>Block<sp/>Synchronization<sp/>Error<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" kindref="member">AesBlkSyncErrHandler</ref>)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" kindref="member">AesBlkSyncErrHandler</ref>(TxPtr-&gt;AesBlkSyncErrRef);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>AES<sp/>Channel<sp/>Status<sp/>Updated<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>EnableMask<sp/>&amp;<sp/><ref refid="group__i2stx_1ga957f3265c9bec698c9250d1e106795f9" kindref="member">XI2S_TX_INTR_AES_CHSTSUPD_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>AES<sp/>Channel<sp/>Status<sp/>Updated<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI2s_Tx_IntrClear(TxPtr,<sp/>XI2S_TX_INTR_AES_CHSTSUPD_MASK);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(TxPtr,<sp/><ref refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000abae6f4f36c3422aed7d6b6777f83d7cb" kindref="member">XI2S_TX_AES_CHSTSUPD_EVT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>AES<sp/>Channel<sp/>Status<sp/>Updated<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPtr-&gt;AesChStsUpdHandler)</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPtr-&gt;AesChStsUpdHandler(TxPtr-&gt;AesChStsUpdRef);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Audio<sp/>Underflow<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/>EnableMask<sp/>&amp;<sp/><ref refid="group__i2stx_1ga1389efbbe1bf1f0d834324564556f221" kindref="member">XI2S_TX_INTR_AUDUNDRFLW_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>Audio<sp/>Underflow<sp/>Detected<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XI2s_Tx_IntrClear(TxPtr,<sp/>XI2S_TX_INTR_AUDUNDRFLW_MASK);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga2a5815edce7bde17b937480d41849d02" kindref="member">XI2s_Tx_LogWrite</ref>(TxPtr,<sp/><ref refid="group__i2stx_1gga6aae04d874f9b352d54806ffba47b000a0c8694f12ae4d34ddb805f6b4658a71d" kindref="member">XI2S_TX_AUD_UNDRFLW_EVT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>Audio<sp/>Underflow<sp/>Detected<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" kindref="member">AudUndrflwHandler</ref>)</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxPtr-&gt;<ref refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" kindref="member">AudUndrflwHandler</ref>(TxPtr-&gt;AudUndrflwRef);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__i2stx_1ga8ff9bb309a9e3902fbe95ce3bc48ac51" kindref="member">XI2s_Tx_SetHandler</ref>(<ref refid="struct_x_i2s___tx" kindref="compound">XI2s_Tx</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga826ab5acb6a522281f46f358fc908bf3" kindref="member">XI2s_Tx_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__i2stx_1ga941c6e35cfcc64176e832ee6e53a2102" kindref="member">XI2s_Tx_Callback</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&lt;<sp/><ref refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a9dfc593232c7f0a4b318f14bd1680e6d" kindref="member">XI2S_TX_NUM_HANDLERS</ref>);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3aee14491aed8a040a938a4a67e74bc6bd" kindref="member">XI2S_TX_HANDLER_AES_BLKCMPLT</ref>):</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___tx_1a1aca453ef57ad2e87ad957d59284e3c6" kindref="member">AesBlkCmpltHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AesBlkCmpltRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a8172cb6e2a0d147df0f06a0eada66f8d" kindref="member">XI2S_TX_HANDLER_AES_BLKSYNCERR</ref>):</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___tx_1a536a00ccba6a6ad94d9356917cece09b" kindref="member">AesBlkSyncErrHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AesBlkSyncErrRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3ab9374d0904c4cd4ac730b17fff220107" kindref="member">XI2S_TX_HANDLER_AES_CHSTSUPD</ref>):</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AesChStsUpdHandler<sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AesChStsUpdRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="group__i2stx_1gga826ab5acb6a522281f46f358fc908bf3a346f30997b8d6d69e215f08a6db8d4ac" kindref="member">XI2S_TX_HANDLER_AUD_UNDRFLW</ref>):</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i2s___tx_1a3c4d4247a9d7f33d9b213aca4620a763" kindref="member">AudUndrflwHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;AudUndrflwRef<sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i2stx/src/xi2stx_intr.c"/>
+  </compounddef>
+</doxygen>

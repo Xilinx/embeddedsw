@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___device_ops" kind="struct" prot="public">
+    <compoundname>XLoader_DeviceOps</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___device_ops_1a5edac14551bbde011a7a87dc3b5d639a" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XLoader_DeviceOps::Init)(u32 DeviceFlags)</definition>
+        <argsstring>)(u32 DeviceFlags)</argsstring>
+        <name>Init</name>
+        <briefdescription>
+<para>Function pointer for Device initialization code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="351" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_ops_1ad830da4d23ce0f62efe849ee6f968b19" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XLoader_DeviceOps::Copy)(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags)</definition>
+        <argsstring>)(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags)</argsstring>
+        <name>Copy</name>
+        <briefdescription>
+<para>Function pointer for device copy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="353" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___device_ops_1a8510a3558c1843c42c47b262e2b39b0c" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XLoader_DeviceOps::Release)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>Release</name>
+        <briefdescription>
+<para>Function pointer for device release. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="355" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga00abb3a6ba0436f171b8a00656d93057" compoundref="xloader_8c" startline="2367" endline="2520">XLoader_InitPdiInstanceForExtractMHAndOptData</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold device operation function pointers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="350" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="350" bodyend="356"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___device_ops_1ad830da4d23ce0f62efe849ee6f968b19" prot="public" virt="non-virtual"><scope>XLoader_DeviceOps</scope><name>Copy</name></member>
+      <member refid="struct_x_loader___device_ops_1a5edac14551bbde011a7a87dc3b5d639a" prot="public" virt="non-virtual"><scope>XLoader_DeviceOps</scope><name>Init</name></member>
+      <member refid="struct_x_loader___device_ops_1a8510a3558c1843c42c47b262e2b39b0c" prot="public" virt="non-virtual"><scope>XLoader_DeviceOps</scope><name>Release</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

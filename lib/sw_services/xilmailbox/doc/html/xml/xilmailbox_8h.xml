@@ -1,0 +1,944 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilmailbox_8h" kind="file">
+    <compoundname>xilmailbox.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xilmailbox__ipips_8h" local="yes">xilmailbox_ipips.h</includes>
+    <includedby refid="xilmailbox__ipips_8c" local="yes">xilmailbox_ipips.c</includedby>
+    <includedby refid="xilmailbox__ipips__control_8h" local="yes">xilmailbox_ipips_control.h</includedby>
+    <includedby refid="xilmailbox__ipips_8h" local="yes">xilmailbox_ipips.h</includedby>
+    <includedby refid="xilmailbox_8c" local="yes">xilmailbox.c</includedby>
+    <includedby refid="xilmailbox__example_8c" local="yes">xilmailbox_example.c</includedby>
+    <incdepgraph>
+      <node id="22">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="19">
+        <label>xil_io.h</label>
+      </node>
+      <node id="18">
+        <label>xilmailbox.h</label>
+        <link refid="xilmailbox.h"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>xil_util.h</label>
+      </node>
+      <node id="27">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="25">
+        <label>xilmailbox_ipips.h</label>
+        <link refid="xilmailbox__ipips_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="21">
+        <label>xil_types.h</label>
+      </node>
+      <node id="26">
+        <label>xipipsu.h</label>
+      </node>
+      <node id="24">
+        <label>xparameters.h</label>
+      </node>
+      <node id="23">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="32">
+        <label>xilmailbox_ipips_intr.c</label>
+        <link refid="xilmailbox__ipips__intr_8c"/>
+      </node>
+      <node id="34">
+        <label>xilmailbox.c</label>
+        <link refid="xilmailbox_8c"/>
+      </node>
+      <node id="28">
+        <label>xilmailbox.h</label>
+        <link refid="xilmailbox.h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xilmailbox_ipips.c</label>
+        <link refid="xilmailbox__ipips_8c"/>
+      </node>
+      <node id="33">
+        <label>xilmailbox_ipips.h</label>
+        <link refid="xilmailbox__ipips_8h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xilmailbox_ipips_control.c</label>
+        <link refid="xilmailbox__ipips__control_8c"/>
+      </node>
+      <node id="30">
+        <label>xilmailbox_ipips_control.h</label>
+        <link refid="xilmailbox__ipips__control_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>xilmailbox_example.c</label>
+        <link refid="xilmailbox__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_mailbox___ipi_shared_mem" prot="public">XMailbox_IpiSharedMem</innerclass>
+    <innerclass refid="struct_x_mbox_tag" prot="public">XMboxTag</innerclass>
+      <sectiondef kind="user-defined">
+      <memberdef kind="function" id="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_Initialize</definition>
+        <argsstring>(XMailbox *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XMailbox_Initialize</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the XMailbox Instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>Functions for <ref refid="xilmailbox_8c" kindref="compound">xilmailbox.c</ref>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the IPI Instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/PS/xilmailbox_ipips.c" bodystart="70" bodyend="95"/>
+        <references refid="group__xilmailbox_1ga3ec66bb2a5cd007668bd5096471f691d" compoundref="xilmailbox__ipips__control_8c" startline="59" endline="102">XIpiPs_Init</references>
+        <references refid="group__xilmailbox_1ga76681a9ebd3706299aa0fa85874c0b40" compoundref="xilmailbox__ipips__control_8c" startline="305" endline="315">XIpiPs_RecvDataById</references>
+        <references refid="group__xilmailbox_1ga0fd5f2755e0951d389b6b83c619e21c6" compoundref="xilmailbox__ipips__control_8c" startline="150" endline="167">XIpiPs_SendById</references>
+        <references refid="group__xilmailbox_1gaecaec4da5fe63fb55a3a71eba12b8e05" compoundref="xilmailbox__ipips__control_8c" startline="231" endline="256">XIpiPs_SendDataById</references>
+        <references refid="group__xilmailbox_1gaf3f752913cc2e1c824a969a5a0703066" compoundref="xilmailbox_8h" startline="137">XMboxTag::XMbox_IPI_RecvById</references>
+        <references refid="group__xilmailbox_1ga1687a2438f51998be0cafbc559e09186" compoundref="xilmailbox_8h" startline="134">XMboxTag::XMbox_IPI_SendById</references>
+        <references refid="group__xilmailbox_1gaf9d549f3ca388507298b27e82a714130" compoundref="xilmailbox_8h" startline="135">XMboxTag::XMbox_IPI_SendDataById</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_Send</definition>
+        <argsstring>(XMailbox *InstancePtr, u32 RemoteId, u8 Is_Blocking)</argsstring>
+        <name>XMailbox_Send</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RemoteId</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>This function triggers an IPI to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RemoteId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Mask of the CPU to which IPI is to be triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if set trigger the notification in blocking mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if unsuccessful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="58" bodyend="69"/>
+        <references refid="group__xilmailbox_1ga74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="143">XMboxTag::Agent</references>
+        <references refid="group__xilmailbox_1ga5de32cff7d1fe5e482d0e3d75b528e6f" compoundref="xilmailbox__ipips_8h" startline="60">XMailbox_Agent::RemoteId</references>
+        <references refid="group__xilmailbox_1ga1687a2438f51998be0cafbc559e09186" compoundref="xilmailbox_8h" startline="134">XMboxTag::XMbox_IPI_SendById</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_SendData</definition>
+        <argsstring>(XMailbox *InstancePtr, u32 RemoteId, void *BufferPtr, u32 MsgLen, u8 BufferType, u8 Is_Blocking)</argsstring>
+        <name>XMailbox_SendData</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RemoteId</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Is_Blocking</declname>
+        </param>
+        <briefdescription>
+<para>This function sends an IPI message to a destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RemoteId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Mask of the CPU to which IPI is to be triggered </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to Buffer which contains the message to be sent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of buffer (XILMBOX_MSG_TYPE_REQ (OR) XILMBOX_MSG_TYPE_RESP) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Is_Blocking</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if set trigger the notification in blocking mode</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if unsuccessful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="88" bodyend="109"/>
+        <references refid="group__xilmailbox_1ga74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="143">XMboxTag::Agent</references>
+        <references refid="group__xilmailbox_1ga5de32cff7d1fe5e482d0e3d75b528e6f" compoundref="xilmailbox__ipips_8h" startline="60">XMailbox_Agent::RemoteId</references>
+        <references refid="group__xilmailbox_1gab916c58f41e76689faa0d2ca46df0427" compoundref="xilmailbox_8h" startline="84">XILMBOX_MSG_TYPE_REQ</references>
+        <references refid="group__xilmailbox_1ga499095c8a6320e4eff3871d739cfafd2" compoundref="xilmailbox_8h" startline="85">XILMBOX_MSG_TYPE_RESP</references>
+        <references refid="group__xilmailbox_1ga02889c9c255257274405440f2e0398f0" compoundref="xilmailbox_8h" startline="86">XMAILBOX_MAX_MSG_LEN</references>
+        <references refid="group__xilmailbox_1gaf9d549f3ca388507298b27e82a714130" compoundref="xilmailbox_8h" startline="135">XMboxTag::XMbox_IPI_SendDataById</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_Recv</definition>
+        <argsstring>(XMailbox *InstancePtr, u32 SourceId, void *BufferPtr, u32 MsgLen, u8 BufferType)</argsstring>
+        <name>XMailbox_Recv</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SourceId</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>BufferPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>This function reads an IPI message. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XMailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SourceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Mask for the CPU which has sent the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to Buffer to which the read message needs to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of buffer (XILMBOX_MSG_TYPE_REQ or XILMBOX_MSG_TYPE_RESP)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful</para></listitem><listitem><para>XST_FAILURE if unsuccessful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="128" bodyend="153"/>
+        <references refid="group__xilmailbox_1ga74c5b640e4fca80f8de65a5c516f6674" compoundref="xilmailbox_8h" startline="143">XMboxTag::Agent</references>
+        <references refid="group__xilmailbox_1ga4a6fb8ef4ca25e40d3640a37ae80704c" compoundref="xilmailbox__ipips_8h" startline="59">XMailbox_Agent::SourceId</references>
+        <references refid="group__xilmailbox_1gab916c58f41e76689faa0d2ca46df0427" compoundref="xilmailbox_8h" startline="84">XILMBOX_MSG_TYPE_REQ</references>
+        <references refid="group__xilmailbox_1ga499095c8a6320e4eff3871d739cfafd2" compoundref="xilmailbox_8h" startline="85">XILMBOX_MSG_TYPE_RESP</references>
+        <references refid="group__xilmailbox_1ga02889c9c255257274405440f2e0398f0" compoundref="xilmailbox_8h" startline="86">XMAILBOX_MAX_MSG_LEN</references>
+        <references refid="group__xilmailbox_1gaf3f752913cc2e1c824a969a5a0703066" compoundref="xilmailbox_8h" startline="137">XMboxTag::XMbox_IPI_RecvById</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XMailbox_SetCallBack</definition>
+        <argsstring>(XMailbox *InstancePtr, XMailbox_Handler HandlerType, void *CallBackFuncPtr, void *CallBackRefPtr)</argsstring>
+        <name>XMailbox_SetCallBack</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xilmailbox_1ga143f24a7eb4d52ae8289dd2a76104b5e" kindref="member">XMailbox_Handler</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRefPtr</declname>
+        </param>
+        <briefdescription>
+<para>This routine installs an asynchronous callback function for the given HandlerType. </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType              Callback Function Type
+-----------------------  --------------------------------------------------
+XMAILBOX_RECV_HANDLER      Recv handler
+XMAILBOX_ERROR_HANDLER   Error handler</preformatted></para><para><preformatted></preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies which callback is to be attached. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRefPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS when handler is installed.</para></listitem><listitem><para>XST_FAILURE when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="183" bodyend="211"/>
+        <references refid="group__xilmailbox_1ga94ad8c15322f8aa87898da64c12d680c" compoundref="xilmailbox_8h" startline="140">XMboxTag::ErrorHandler</references>
+        <references refid="group__xilmailbox_1ga28ee974b8253aed6cd98a41d017e92b5" compoundref="xilmailbox_8h" startline="141">XMboxTag::ErrorRefPtr</references>
+        <references refid="group__xilmailbox_1ga19abe88291a590c4043f0c14f3abbea6" compoundref="xilmailbox_8h" startline="139">XMboxTag::RecvHandler</references>
+        <references refid="group__xilmailbox_1gacd81ebeec1ff8eb6bbd4b62922688353" compoundref="xilmailbox_8h" startline="142">XMboxTag::RecvRefPtr</references>
+        <references refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea4bb156987a17b1507eff3df3e601c716" compoundref="xilmailbox_8h" startline="152">XMAILBOX_ERROR_HANDLER</references>
+        <references refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea875addbc928be95ae410ab219c1cfcd3" compoundref="xilmailbox_8h" startline="151">XMAILBOX_RECV_HANDLER</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_SetSharedMem</definition>
+        <argsstring>(XMailbox *InstancePtr, u64 Address, u32 Size)</argsstring>
+        <name>XMailbox_SetSharedMem</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the shared memory location for IPI usage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of shared memory location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the memory location</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - if memory is set for IPI usage</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="227" bodyend="242"/>
+        <references refid="group__xilmailbox_1ga7807e734780a6c78cf0129b065d8a0b3" compoundref="xilmailbox_8h" startline="144">XMboxTag::SharedMem</references>
+        <references refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aaadb64220277cf0ee43d0dbd58d09e895" compoundref="xilmailbox_8h" startline="112">XMAILBOX_SHARED_MEM_INITIALIZED</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XMailbox_GetSharedMem</definition>
+        <argsstring>(XMailbox *InstancePtr, u64 **Address)</argsstring>
+        <name>XMailbox_GetSharedMem</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64 **</type>
+          <declname>Address</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the shared memory location for IPI usage. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XMailbox instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the address of the variable for which memory needs to be assigned</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Size Size of the memory allocated for IPI usage </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="257" bodyend="270"/>
+        <references refid="group__xilmailbox_1ga7807e734780a6c78cf0129b065d8a0b3" compoundref="xilmailbox_8h" startline="144">XMboxTag::SharedMem</references>
+        <references refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aaadb64220277cf0ee43d0dbd58d09e895" compoundref="xilmailbox_8h" startline="112">XMAILBOX_SHARED_MEM_INITIALIZED</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMailbox_ReleaseSharedMem</definition>
+        <argsstring>(XMailbox *InstancePtr)</argsstring>
+        <name>XMailbox_ReleaseSharedMem</name>
+        <param>
+          <type><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function releases the shared memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - if memory is released</para></listitem><listitem><para>XST_FAILURE - if memory is not released </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.c" bodystart="282" bodyend="295"/>
+        <references refid="group__xilmailbox_1ga7807e734780a6c78cf0129b065d8a0b3" compoundref="xilmailbox_8h" startline="144">XMboxTag::SharedMem</references>
+        <references refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aac0cb85045fed16a25937a7e3d3db62b6" compoundref="xilmailbox_8h" startline="111">XMAILBOX_SHARED_MEM_UNINITIALIZED</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilmailbox_1gab916c58f41e76689faa0d2ca46df0427" prot="public" static="no">
+        <name>XILMBOX_MSG_TYPE_REQ</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>Message type buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="128" endline="153">XMailbox_Recv</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="88" endline="109">XMailbox_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga499095c8a6320e4eff3871d739cfafd2" prot="public" static="no">
+        <name>XILMBOX_MSG_TYPE_RESP</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Response type buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="128" endline="153">XMailbox_Recv</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="88" endline="109">XMailbox_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga02889c9c255257274405440f2e0398f0" prot="public" static="no">
+        <name>XMAILBOX_MAX_MSG_LEN</name>
+        <initializer>XIPIPSU_MAX_MSG_LEN</initializer>
+        <briefdescription>
+<para>Maximum number of Messages (each 4-bytes long) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" compoundref="xilmailbox_8c" startline="128" endline="153">XMailbox_Recv</referencedby>
+        <referencedby refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" compoundref="xilmailbox_8c" startline="88" endline="109">XMailbox_SendData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga0661fcb809edc8a04919686b2c24c2de" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_1U</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>Payload lengths. </para>        </briefdescription>
+        <detaileddescription>
+<para>Payload length of size 1byte </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga3ac9914b3773f66786c14b83ed4ec1d6" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_2U</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+<para>Payload length of size 2byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga433526fce7d55430d5dd884c55236595" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_3U</name>
+        <initializer>(3U)</initializer>
+        <briefdescription>
+<para>Payload length of size 3byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga8bd056c2d1d38cd4f0c766b71276b64b" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_4U</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>Payload length of size 4byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1gad6fec3e5646c0de92448b1ac51a3d8fb" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_5U</name>
+        <initializer>(5U)</initializer>
+        <briefdescription>
+<para>Payload length of size 5byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga5e6886e99fe8eed940eb84c67bdf7717" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_6U</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Payload length of size 6byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga0f56628c135a38c50e52c4346895ca81" prot="public" static="no">
+        <name>XMAILBOX_PAYLOAD_LEN_7U</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Payload length of size 7byte. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga1127e6e1c8ca0ea4d9ea607d36b47293" prot="public" static="no">
+        <name>XMAILBOX_MAJOR_VERSION</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilmailbox_1ga8151a25cf365b645b6ef13793323b472" prot="public" static="no">
+        <name>XMAILBOX_MINOR_VERSION</name>
+        <initializer>9U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" prot="public" static="no">
+        <name>XMailbox_IpiSharedMemState</name>
+        <enumvalue id="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aac0cb85045fed16a25937a7e3d3db62b6" prot="public">
+          <name>XMAILBOX_SHARED_MEM_UNINITIALIZED</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Shared memory uninitialized. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aaadb64220277cf0ee43d0dbd58d09e895" prot="public">
+          <name>XMAILBOX_SHARED_MEM_INITIALIZED</name>
+          <briefdescription>
+<para>Shared memory initialized. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains XMAILBOX shared memory state. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="110" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="enum" id="group__xilmailbox_1ga143f24a7eb4d52ae8289dd2a76104b5e" prot="public" static="no">
+        <name>XMailbox_Handler</name>
+        <enumvalue id="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea875addbc928be95ae410ab219c1cfcd3" prot="public">
+          <name>XMAILBOX_RECV_HANDLER</name>
+          <briefdescription>
+<para>For Recv Handler. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea4bb156987a17b1507eff3df3e601c716" prot="public">
+          <name>XMAILBOX_ERROR_HANDLER</name>
+          <briefdescription>
+<para>For Error Handler. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef contains XMAILBOX Handler Types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="150" bodyend="153"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xilmailbox_1ga8c6dc8e77b4ca1440fff62efadefa502" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XMailbox_RecvHandler)(void *CallBackRefPtr)</definition>
+        <argsstring>)(void *CallBackRefPtr)</argsstring>
+        <name>XMailbox_RecvHandler</name>
+        <briefdescription>
+<para>Receive handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xilmailbox_1ga2dd8ee990e164df828207776499cf9bc" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XMailbox_ErrorHandler)(void *CallBackRefPtr, u32 ErrorMask)</definition>
+        <argsstring>)(void *CallBackRefPtr, u32 ErrorMask)</argsstring>
+        <name>XMailbox_ErrorHandler</name>
+        <briefdescription>
+<para>Error handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" prot="public" static="no">
+        <type>struct <ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref></type>
+        <definition>typedef struct XMboxTag  XMailbox</definition>
+        <argsstring></argsstring>
+        <name>XMailbox</name>
+        <briefdescription>
+<para>Data structure used to refer XilMailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="attention"><para>: The following function pointers XMbox_IPI_Send, XMbox_IPI_SendData, XMbox_IPI_Recv will be deprecated in 2026.2 and will be made obsolete in 2027.1 release.XilMailbox structure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="145" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilmailbox_1ga393a6232e46a57391f44299e50100188" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XMailbox_GetLibVersion</definition>
+        <argsstring>(void)</argsstring>
+        <name>XMailbox_GetLibVersion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns the version number of xilmailbox library. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>32-bit version number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="166" bodyend="169"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#ifndef<sp/>XILMAILBOX_H</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILMAILBOX_H</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilmailbox__ipips_8h" kindref="compound">xilmailbox_ipips.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="group__xilmailbox_1gab916c58f41e76689faa0d2ca46df0427" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XILMBOX_MSG_TYPE_REQ<sp/><sp/><sp/><sp/>(0x00000001U)<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__xilmailbox_1ga499095c8a6320e4eff3871d739cfafd2" refkind="member"><highlight class="preprocessor">#define<sp/>XILMBOX_MSG_TYPE_RESP<sp/><sp/><sp/>(0x00000002U)<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__xilmailbox_1ga02889c9c255257274405440f2e0398f0" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_MAX_MSG_LEN<sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__xilmailbox_1ga0661fcb809edc8a04919686b2c24c2de" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xilmailbox_1ga3ac9914b3773f66786c14b83ed4ec1d6" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_2U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__xilmailbox_1ga433526fce7d55430d5dd884c55236595" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_3U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xilmailbox_1ga8bd056c2d1d38cd4f0c766b71276b64b" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__xilmailbox_1gad6fec3e5646c0de92448b1ac51a3d8fb" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_5U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__xilmailbox_1ga5e6886e99fe8eed940eb84c67bdf7717" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_6U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group__xilmailbox_1ga0f56628c135a38c50e52c4346895ca81" refkind="member"><highlight class="preprocessor">#define<sp/>XMAILBOX_PAYLOAD_LEN_7U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(7U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Library<sp/>version<sp/>info<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMAILBOX_MAJOR_VERSION<sp/><sp/>1U</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMAILBOX_MINOR_VERSION<sp/><sp/>9U</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="group__xilmailbox_1ga8c6dc8e77b4ca1440fff62efadefa502" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__xilmailbox_1ga8c6dc8e77b4ca1440fff62efadefa502" kindref="member">XMailbox_RecvHandler</ref>)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRefPtr);<sp/></highlight></codeline>
+<codeline lineno="105" refid="group__xilmailbox_1ga2dd8ee990e164df828207776499cf9bc" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__xilmailbox_1ga2dd8ee990e164df828207776499cf9bc" kindref="member">XMailbox_ErrorHandler</ref>)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRefPtr,<sp/>u32<sp/>ErrorMask);<sp/></highlight></codeline>
+<codeline lineno="110" refid="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="111" refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aac0cb85045fed16a25937a7e3d3db62b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aac0cb85045fed16a25937a7e3d3db62b6" kindref="member">XMAILBOX_SHARED_MEM_UNINITIALIZED</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="112" refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aaadb64220277cf0ee43d0dbd58d09e895" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1ggaa7c3c20ddbc2f808a7520d82d1f1778aaadb64220277cf0ee43d0dbd58d09e895" kindref="member">XMAILBOX_SHARED_MEM_INITIALIZED</ref>,<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal">}<sp/><ref refid="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" kindref="member">XMailbox_IpiSharedMemState</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="117" refid="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" kindref="member">Address</ref>;<sp/></highlight></codeline>
+<codeline lineno="118" refid="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" kindref="member">Size</ref>;<sp/></highlight></codeline>
+<codeline lineno="119" refid="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" kindref="member">XMailbox_IpiSharedMemState</ref><sp/><ref refid="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" kindref="member">SharedMemState</ref>;<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}<sp/>XMailbox_IpiSharedMem;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="struct_x_mbox_tag" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>{</highlight></codeline>
+<codeline lineno="129" refid="group__xilmailbox_1gac988653f4102330b66dffc80008e5947" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1gac988653f4102330b66dffc80008e5947" kindref="member">XMbox_IPI_Send</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/>u8<sp/>Is_Blocking);<sp/></highlight></codeline>
+<codeline lineno="130" refid="group__xilmailbox_1gad2979174f02c95bba9e1a9a82da86eb6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1gad2979174f02c95bba9e1a9a82da86eb6" kindref="member">XMbox_IPI_SendData</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLen,<sp/>u8<sp/>BufferType,<sp/>u8<sp/>Is_Blocking);<sp/></highlight></codeline>
+<codeline lineno="132" refid="group__xilmailbox_1gacfc620b1b6bee8a53e35bd937d01ef9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1gacfc620b1b6bee8a53e35bd937d01ef9a" kindref="member">XMbox_IPI_Recv</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLen,<sp/>u8<sp/>BufferType);<sp/></highlight></codeline>
+<codeline lineno="134" refid="group__xilmailbox_1ga1687a2438f51998be0cafbc559e09186" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1ga1687a2438f51998be0cafbc559e09186" kindref="member">XMbox_IPI_SendById</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/>u32<sp/>RemoteId,<sp/>u8<sp/>Is_Blocking);<sp/></highlight></codeline>
+<codeline lineno="135" refid="group__xilmailbox_1gaf9d549f3ca388507298b27e82a714130" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1gaf9d549f3ca388507298b27e82a714130" kindref="member">XMbox_IPI_SendDataById</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLen,<sp/>u8<sp/>BufferType,<sp/>u32<sp/>RemoteId,<sp/>u8<sp/>Is_Blocking);<sp/></highlight></codeline>
+<codeline lineno="137" refid="group__xilmailbox_1gaf3f752913cc2e1c824a969a5a0703066" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*<ref refid="group__xilmailbox_1gaf3f752913cc2e1c824a969a5a0703066" kindref="member">XMbox_IPI_RecvById</ref>)(</highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_mbox_tag" kindref="compound">XMboxTag</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLen,<sp/>u32<sp/>SourceId,<sp/>u8<sp/>BufferType);<sp/></highlight></codeline>
+<codeline lineno="139" refid="group__xilmailbox_1ga19abe88291a590c4043f0c14f3abbea6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1ga8c6dc8e77b4ca1440fff62efadefa502" kindref="member">XMailbox_RecvHandler</ref><sp/><ref refid="group__xilmailbox_1ga19abe88291a590c4043f0c14f3abbea6" kindref="member">RecvHandler</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="group__xilmailbox_1ga94ad8c15322f8aa87898da64c12d680c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1ga2dd8ee990e164df828207776499cf9bc" kindref="member">XMailbox_ErrorHandler</ref><sp/><ref refid="group__xilmailbox_1ga94ad8c15322f8aa87898da64c12d680c" kindref="member">ErrorHandler</ref>;<sp/></highlight></codeline>
+<codeline lineno="141" refid="group__xilmailbox_1ga28ee974b8253aed6cd98a41d017e92b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__xilmailbox_1ga28ee974b8253aed6cd98a41d017e92b5" kindref="member">ErrorRefPtr</ref>;<sp/></highlight></codeline>
+<codeline lineno="142" refid="group__xilmailbox_1gacd81ebeec1ff8eb6bbd4b62922688353" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__xilmailbox_1gacd81ebeec1ff8eb6bbd4b62922688353" kindref="member">RecvRefPtr</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="143" refid="group__xilmailbox_1ga74c5b640e4fca80f8de65a5c516f6674" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mailbox___agent" kindref="compound">XMailbox_Agent</ref><sp/><ref refid="group__xilmailbox_1ga74c5b640e4fca80f8de65a5c516f6674" kindref="member">Agent</ref>;<sp/></highlight></codeline>
+<codeline lineno="144" refid="group__xilmailbox_1ga7807e734780a6c78cf0129b065d8a0b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox_IpiSharedMem<sp/><ref refid="group__xilmailbox_1ga7807e734780a6c78cf0129b065d8a0b3" kindref="member">SharedMem</ref>;<sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}<sp/><ref refid="group__xilmailbox_1gade56a2dd883b18d7ae9a891483c90b40" kindref="member">XMailbox</ref>;<sp/></highlight></codeline>
+<codeline lineno="150" refid="group__xilmailbox_1ga143f24a7eb4d52ae8289dd2a76104b5e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="151" refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea875addbc928be95ae410ab219c1cfcd3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea875addbc928be95ae410ab219c1cfcd3" kindref="member">XMAILBOX_RECV_HANDLER</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea4bb156987a17b1507eff3df3e601c716" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilmailbox_1gga143f24a7eb4d52ae8289dd2a76104b5ea4bb156987a17b1507eff3df3e601c716" kindref="member">XMAILBOX_ERROR_HANDLER</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153"><highlight class="normal">}<sp/><ref refid="group__xilmailbox_1ga143f24a7eb4d52ae8289dd2a76104b5e" kindref="member">XMailbox_Handler</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="165"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>__attribute__((always_inline))<sp/>INLINE</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">u32<sp/>XMailbox_GetLibVersion(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XIL_BUILD_VERSION(XMAILBOX_MAJOR_VERSION,<sp/>XMAILBOX_MINOR_VERSION));</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" kindref="member">XMailbox_Initialize</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u8<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1gaea8c673aaab09a69201956d63b49c008" kindref="member">XMailbox_Initialize</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga3b1215935d7ba605846e3a13f015e956" kindref="member">XMailbox_Send</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>RemoteId,<sp/>u8<sp/>Is_Blocking);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga4c8296024494f03b6e33a54fe80ba3da" kindref="member">XMailbox_SendData</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>RemoteId,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,<sp/>u32<sp/>MsgLen,<sp/>u8<sp/>BufferType,<sp/>u8<sp/>Is_Blocking);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga1e5da60f7c2fc80ec54209fc4031c03b" kindref="member">XMailbox_Recv</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u32<sp/>SourceId,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*BufferPtr,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLen,<sp/>u8<sp/>BufferType);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">s32<sp/><ref refid="group__xilmailbox_1gafbc26a4d8f0d4cff937f88b125defe01" kindref="member">XMailbox_SetCallBack</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/><ref refid="group__xilmailbox_1ga143f24a7eb4d52ae8289dd2a76104b5e" kindref="member">XMailbox_Handler</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRefPtr);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga5a04406fa4d00d2acad6a32ff7a4230b" kindref="member">XMailbox_SetSharedMem</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u64<sp/>Address,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">u32<sp/><ref refid="group__xilmailbox_1ga4c4631ec46d933f1fff9ce944c3b82d6" kindref="member">XMailbox_GetSharedMem</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr,<sp/>u64<sp/>**Address);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilmailbox_1gae18bdfda3723a66063211be38ad0a541" kindref="member">XMailbox_ReleaseSharedMem</ref>(<ref refid="struct_x_mbox_tag" kindref="compound">XMailbox</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILMAILBOX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h"/>
+  </compounddef>
+</doxygen>

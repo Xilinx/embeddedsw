@@ -1,0 +1,2808 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdfec_8h" kind="file">
+    <compoundname>xsdfec.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xsdfec__hw_8h" local="yes">xsdfec_hw.h</includes>
+    <includedby refid="xsdfec_8c" local="yes">xsdfec.c</includedby>
+    <includedby refid="xsdfec__sinit_8c" local="yes">xsdfec_sinit.c</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xsdfec.h</label>
+        <link refid="xsdfec.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>xsdfec_hw.h</label>
+      </node>
+      <node id="13">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="17">
+        <label>xsdfec.c</label>
+      </node>
+      <node id="16">
+        <label>xsdfec.h</label>
+        <link refid="xsdfec.h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xsdfec_sinit.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_sd_fec___config" prot="public">XSdFec_Config</innerclass>
+    <innerclass refid="struct_x_sd_fec" prot="public">XSdFec</innerclass>
+    <innerclass refid="struct_x_sd_fec_ldpc_parameters" prot="public">XSdFecLdpcParameters</innerclass>
+    <innerclass refid="struct_x_sd_fec_turbo_parameters" prot="public">XSdFecTurboParameters</innerclass>
+    <innerclass refid="struct_x_sd_fec_interrupt_class" prot="public">XSdFecInterruptClass</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsdfec_8h_1a0007462a0df282bf08fb8d7c4d3dabc2" prot="public" static="no">
+        <name>XSDFEC_STANDARD_OTHER</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec_8h_1a75517c60f5ec2bd29459872068fbff3f" prot="public" static="no">
+        <name>XSDFEC_STANDARD_5G</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec_8h_1a3f8e897277eb7c3c8c701e984244db4c" prot="public" static="no">
+        <name>XSDFEC_TD_PARAM_MAX_DEFAULT</name>
+        <initializer>{ 0 , 12 }</initializer>
+        <briefdescription>
+<para>Default MaxScale Turbo configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec_8h_1ab535570d9f046a650b722a498875b263" prot="public" static="no">
+        <name>XSDFEC_TD_PARAM_MAXSTAR_DEFAULT</name>
+        <initializer>{ 1 , 0 }</initializer>
+        <briefdescription>
+<para>Default MaxScale Turbo configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec_8h_1ab1c3581fa6c0bc956c0512ccdd8ee8ce" prot="public" static="no">
+        <name>XSdFecWriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="411" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="411" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec_8h_1abd295e32c14216af0e3ef739a7bd2085" prot="public" static="no">
+        <name>XSdFecReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="413" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" bodystart="413" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xsdfec_8h_1a42a57b16a5401e9719100f2e9fb7d135" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSdFecInitialize</definition>
+        <argsstring>(XSdFec *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Device initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para>The driver looks up its own configuration structure created by the tool-chain based on an Device ID (XSCT flow) or Base Address (SDT flow) provided by the tool-chain. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_sinit.c" bodystart="53" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1af70f5198fdc9e93ce7bd7db2db051fb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref> *</type>
+        <definition>XSdFec_Config* XSdFec_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFec_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Configuration lookup. </para>        </briefdescription>
+        <detaileddescription>
+<para>Returns the configuration struct for a given device ID </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="162" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a28a130a2d1db759801b12254d0658373" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSdFecCfgInitialize</definition>
+        <argsstring>(XSdFec *InstancePtr, XSdFec_Config *ConfigPtr)</argsstring>
+        <name>XSdFecCfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>Device initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para>Uses a configuration structure provided by the caller </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="11" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a7bee92134cc7d67afc861e55698857ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecAddLdpcParams</definition>
+        <argsstring>(XSdFec *InstancePtr, u32 CodeId, u32 SCOffset, u32 LAOffset, u32 QCOffset, const XSdFecLdpcParameters *ParamsPtr)</argsstring>
+        <name>XSdFecAddLdpcParams</name>
+        <param>
+          <type><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SCOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>LAOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>QCOffset</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_sd_fec_ldpc_parameters" kindref="compound">XSdFecLdpcParameters</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Add LDPC parameters to a device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Updates LDPC code parameter registers and share tables using the specified CodeId and offsets with the specified parameters. The offsets arrays in the given <ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> instance structure are updated with the supplied offsets for specified CodeId.</para><para>NOTE: When the device/IP has been configured to support the 5G NR standard the IP directly supports the 5G NR codes and it is not necessary to add the codes at run-time. This function will generate an assertion if used on a instance configured to support the 5G NR standard.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device instance struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Code number to be used for the specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SCOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scale table offset to use for specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LAOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LA table offset to use for specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QSCOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>QC table offset to use for specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to parameters struct for the LDPC code to be added to the device </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="28" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a6a90d9797e3ed8354f8a85a0f19fdd61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSetTurboParams</definition>
+        <argsstring>(XSdFec *InstancePtr, const XSdFecTurboParameters *ParamsPtr)</argsstring>
+        <name>XSdFecSetTurboParams</name>
+        <param>
+          <type><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_sd_fec_turbo_parameters" kindref="compound">XSdFecTurboParameters</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Set Turbo parameters on a device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Updates Turbo code parameter registers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device instance struct </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Turbo parameters struct to be set on the device </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="83" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a7ddc8f4d66431964d816d72e30fa071e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecShareTableSize</definition>
+        <argsstring>(const XSdFecLdpcParameters *ParamsPtr, u32 *SCSizePtr, u32 *LASizePtr, u32 *QCSizePtr)</argsstring>
+        <name>XSdFecShareTableSize</name>
+        <param>
+          <type>const <ref refid="struct_x_sd_fec_ldpc_parameters" kindref="compound">XSdFecLdpcParameters</ref> *</type>
+          <declname>ParamsPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>SCSizePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>LASizePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>QCSizePtr</declname>
+        </param>
+        <briefdescription>
+<para>Calculate share table size for a LDPC code. </para>        </briefdescription>
+        <detaileddescription>
+<para>Populates SCSizePtr, LASizePtr and QCSizePtr variables with the effective table size occupied by the specified LDPC code. These values can be used to increment the table offsets.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to parameters struct for the LDPC code being queried </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SCSizePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to variable to populate with the effective scale table size for the specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LASizePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to variable to populate with the effective LA table size for the specified LDPC code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>QCSizePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to variable to populate with the effective QC table size for the specified LDPC code </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="70" bodyend="81"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a1b42b68a68aab9b2526c606d9388bf31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_sd_fec_interrupt_class" kindref="compound">XSdFecInterruptClass</ref></type>
+        <definition>XSdFecInterruptClass XSdFecInterruptClassifier</definition>
+        <argsstring>(XSdFec *InstancePtr)</argsstring>
+        <name>XSdFecInterruptClassifier</name>
+        <param>
+          <type><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Classify interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>Queries interrupt status registers and classifies interrupt and reports recovery action</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to device instance struct</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Interrupt Class Struct defining interrupt class and recover action </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="92" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aa15558b96e518e5a69660aa3d708d09d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXI_WR_PROTECT</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXI_WR_PROTECT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_AXI_WR_PROTECT access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="133" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a0d451de26ad277a9325dbf46aa9ad316" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXI_WR_PROTECT</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXI_WR_PROTECT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="137" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aa8accd7183420ea8b377329935d2ef8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_CODE_WR_PROTECT</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_CODE_WR_PROTECT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_CODE_WR_PROTECT access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="141" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a80d1c644aed93cb5877a7fa4486d067c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_CODE_WR_PROTECT</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_CODE_WR_PROTECT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="145" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1abbcabbe3be83763b5ffbde1e208a3e03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_ACTIVE</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_ACTIVE</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ACTIVE access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="149" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a4b5bd6c5e1f54f52875b81b6cf0a1727" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_WIDTH_DIN</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_WIDTH_DIN</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_AXIS_WIDTH access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="153" bodyend="158"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a6ef61184ffc0995301b314484388cd37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_WIDTH_DIN</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_WIDTH_DIN</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="160" bodyend="163"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a7577d44858f35bc6d98b02d2ed65fef5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_WIDTH_DIN_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_WIDTH_DIN_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="165" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a69dcc5174e109ca77bfdb4dcccba7c86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_WIDTH_DIN_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_WIDTH_DIN_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="172" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a184579a7e50251c49f39064e04c5590e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_WIDTH_DOUT</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_WIDTH_DOUT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="177" bodyend="182"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aa745c844ae2d4a117368cce59cd9f96d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_WIDTH_DOUT</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_WIDTH_DOUT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="184" bodyend="187"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ace81f831eef60be2aabf6f4db53e90a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_WIDTH_DOUT_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_WIDTH_DOUT_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="189" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ab640c06b06edaa2d67c717bc60189452" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_WIDTH_DOUT_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_WIDTH_DOUT_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="196" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ac14944105c954a05d1f230c631131bef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_WIDTH</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_WIDTH</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="201" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1af92abbbb54afc55658408ab2207852ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_WIDTH</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_WIDTH</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="251" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="205" bodyend="207"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a01cec30f7efd765e8f8365878ffc0318" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_CTRL</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_CTRL</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_AXIS_ENABLE access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="209" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a200037d281b0b41b0dc25761a76eaa93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_CTRL</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_CTRL</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="257" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="216" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ac34bfee54082da744fc1134af2d4aa38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_DIN</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_DIN</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="221" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aa8e80723544b09eda0108bb3d81cdebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_DIN</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_DIN</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="228" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a8186b73d25bc281f5abe88ddd5bef08a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_DIN_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_DIN_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="260" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="233" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a1e5b9f26e7c76b6a42dc9afda8121663" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_DIN_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_DIN_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="261" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="240" bodyend="243"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a99ab7559107f00c6983663c1c591fded" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_STATUS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_STATUS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="245" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9946dc7ea623f4d4d221a4bdaf856b50" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_STATUS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_STATUS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="252" bodyend="255"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a2b76f9c29c53a2a367c19b49639e5d00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_DOUT</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_DOUT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="257" bodyend="262"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1af101b67902ab251241c189024d9040ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_DOUT</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_DOUT</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="264" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ada25cd057d7ba5fbb21f3d94f69175ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE_DOUT_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE_DOUT_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="269" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a221e5b6a4b248a5474fbb5d04c8d7f52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE_DOUT_WORDS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE_DOUT_WORDS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="276" bodyend="279"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1abd2ac9dd37bb784b23e230da0d684bd6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_AXIS_ENABLE</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_AXIS_ENABLE</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="281" bodyend="283"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a28d1b9af01d30579dfc849051c7eae20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_AXIS_ENABLE</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_AXIS_ENABLE</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="285" bodyend="287"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a4c088b3c382286edaed66bac37127e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_ORDER</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_ORDER</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ORDER access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="289" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ab2dfda4d8867a17c08f5339dc792be39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_ORDER</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_ORDER</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="293" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1af8465ece194ae264d822b92ad94a82db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_ISR</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_ISR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ISR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="297" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a0dd7c249d6618f678d9a559a2984e62c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_ISR</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_ISR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="301" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a2082b581d14307ba846fb2b7b4d86985" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_IER</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_IER</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_IER access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="305" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a8c2eebc7869e85dccce7f869b82ed07c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_IDR</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_IDR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_IDR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="309" bodyend="311"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a94ea04efa5ddc3d0eeb9f94f0b6ef184" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_IMR</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_IMR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>CORE_IMR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="313" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a877d5e7d1c21cb31d73d609a24b462cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_ECC_ISR</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_ECC_ISR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ECC_ISR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="317" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ab04bac04ec33950621bd04eacbe8d571" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_ECC_ISR</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_ECC_ISR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="321" bodyend="323"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ae740f4d7be9ba979786633ecfed91591" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_ECC_IER</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_ECC_IER</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ECC_IER access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="325" bodyend="327"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1abb56107130c6410d4846e621eada1661" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_ECC_IDR</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_ECC_IDR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ECC_IDR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="329" bodyend="331"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a3e02b000e16725cdf151f1385e6b1a9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_ECC_IMR</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_ECC_IMR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>CORE_ECC_IMR access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="333" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9472df87facb64d787026b8a38c5fe16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_CORE_BYPASS</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_CORE_BYPASS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>CORE_BYPASS access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="337" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aa7b56235feb7b8bc30abc5ae74187ea4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_BYPASS</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_BYPASS</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="341" bodyend="343"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a76841d4e9c1a43d4a6045e8069e3d1cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_CORE_VERSION</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_CORE_VERSION</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>CORE_VERSION access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="345" bodyend="347"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a5e6a7b22b198db29b6c13582169f1282" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_TURBO_ALG</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_TURBO_ALG</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>TURBO access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="349" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a0ee80eeaf02f0ec712cca1f97a17892c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_TURBO_ALG</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_TURBO_ALG</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="356" bodyend="359"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a72b1f0a7f69b1e5ed4eb234f4742d43c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_TURBO_SCALE_FACTOR</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_TURBO_SCALE_FACTOR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="361" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a112a04b944e19416b767bb9ca64fe06d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_TURBO_SCALE_FACTOR</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_TURBO_SCALE_FACTOR</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="368" bodyend="371"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1abf6a3ccbd2795ec632b5971d740563ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdFecSet_TURBO</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Data)</argsstring>
+        <name>XSdFecSet_TURBO</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="337" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="373" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a444374d4688a3f17e5a9d218da09820a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecGet_TURBO</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XSdFecGet_TURBO</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="338" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="377" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a867734b26127beaed7b944f38e92fc33" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG0_N_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG0_N_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_CODE_REG0 access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="381" bodyend="394"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a4848369e556a44ee6206ec8bad2a360e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG0_N_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG0_N_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="396" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a3e44feef74d610e78119e2184e9cf5f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG0_K_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG0_K_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="345" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="410" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1adde219ac32adb361e80aacbab1e1e514" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG0_K_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG0_K_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="346" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="425" bodyend="437"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a4289612fe6e2cf86cd374376f1252c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG0_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG0_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="439" bodyend="450"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ad31ff8cc42d350950697e622c2a5c7cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG0_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG0_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="452" bodyend="463"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9ad3761b27c100ea711c5526b77390df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG1_PSIZE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG1_PSIZE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_CODE_REG1 access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="465" bodyend="478"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a16600d2549c1b9cc623ecae655edd878" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG1_PSIZE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG1_PSIZE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="480" bodyend="492"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a79d1b7bb998d3175890a69638075493a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG1_NO_PACKING_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG1_NO_PACKING_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="494" bodyend="507"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ac1115b69b7de68729e0b25188baba306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG1_NO_PACKING_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG1_NO_PACKING_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="509" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a0518942aa734ba087031c9309109160a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG1_NM_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG1_NM_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="523" bodyend="536"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ae6fe9057f3a338e5568b3f37264b8f25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG1_NM_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG1_NM_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="538" bodyend="550"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a27402d98914c58a9b15bd8df4d0640aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG1_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG1_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="552" bodyend="563"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a30d599d53346937ce81219b36628500d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG1_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG1_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="565" bodyend="576"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aca4d5edb1f296512a7a4c5931fb7ae28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_NLAYERS_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_NLAYERS_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_CODE_REG2 access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="578" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1af832a33c922f7cbaf4c879ad1a4f02cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_NLAYERS_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_NLAYERS_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="366" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="593" bodyend="605"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1aaea129aac8893bececee3d0eda94ea1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_NMQC_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_NMQC_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="607" bodyend="620"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ad9e9ba3ccae50ab05e6bd7b5afe4386a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_NMQC_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_NMQC_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="622" bodyend="634"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a8d2c9aa5850da17b75b6f02b5bacdc1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_NORM_TYPE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_NORM_TYPE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="636" bodyend="649"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a01fd87d7f71cbfc9a0a3b6a95095ac73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_NORM_TYPE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_NORM_TYPE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="370" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="651" bodyend="663"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a926bc48945388e022fcbdc849a89c87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_SPECIAL_QC_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_SPECIAL_QC_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="371" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="665" bodyend="678"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9c91256125a8d8ca6684b3a984e0e76c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_SPECIAL_QC_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_SPECIAL_QC_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="372" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="680" bodyend="692"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ab9eb568ebdc49ce5b038d7a9322df97e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="694" bodyend="707"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a557ce86bd597c2b5392f92510776a5a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="374" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="709" bodyend="721"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ac5b772ba82874070a509d69dbea9046d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_MAX_SCHEDULE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_MAX_SCHEDULE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="723" bodyend="736"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a73f783499d4da23da514c07297992071" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_MAX_SCHEDULE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_MAX_SCHEDULE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="738" bodyend="750"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a55ab6b5af707b25357a941fb5afe7790" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG2_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG2_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="752" bodyend="763"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a68670e6a348e5f10ef2d08554c95c191" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG2_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG2_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="378" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="765" bodyend="776"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a5ff1de0a109778e57a0dc249e956d814" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG3_SC_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG3_SC_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_CODE_REG3 access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="778" bodyend="791"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a2b216f6bb5be8791cfe4281c1fd87163" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG3_SC_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG3_SC_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="793" bodyend="805"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a460d1da22cc37a1a06d66c097334ea0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG3_LA_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG3_LA_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="807" bodyend="820"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a683338429b75c33564458ab65d1b3e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG3_LA_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG3_LA_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="822" bodyend="834"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a222b3f01e312b9acd476e779ea4732de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG3_QC_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG3_QC_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="387" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="836" bodyend="849"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ac140ed011a82e6555f2dbc283846e41f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG3_QC_OFF_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG3_QC_OFF_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="851" bodyend="863"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a946e8856490b4253fb95cc66dec36b7c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_CODE_REG3_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_CODE_REG3_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="389" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="865" bodyend="876"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a17c7892c175045597bde2399ef930ca1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_CODE_REG3_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_CODE_REG3_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="878" bodyend="889"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a82ea75b1b802f313feb08c2dca4c8f7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_SC_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_SC_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_SC_TABLE access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="891" bodyend="902"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9661a58c2a62900e512dac115cb478e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_SC_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_SC_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="904" bodyend="915"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a4f3f6259cdaeab7041eaeb6524ad68fd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_LA_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_LA_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_LA_TABLE access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="917" bodyend="928"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a6c1482d7afcb94c7fd97507fef62f1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_LA_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_LA_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="930" bodyend="941"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1a9e760e0987e605849727b0324356775c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecWrite_LDPC_QC_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, const u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecWrite_LDPC_QC_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+<para>LDPC_QC_TABLE access functions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="943" bodyend="954"/>
+      </memberdef>
+      <memberdef kind="function" id="xsdfec_8h_1ab73c6b368076f7f5017dacfffd5d5537" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSdFecRead_LDPC_QC_TABLE_Words</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 WordOffset, u32 *DataArrayPtr, u32 NumData)</argsstring>
+        <name>XSdFecRead_LDPC_QC_TABLE_Words</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>WordOffset</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>DataArrayPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>NumData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h" line="408" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.c" bodystart="956" bodyend="967"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XSDFEC_H</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_H</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Include<sp/>Files</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsdfec_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Standard<sp/>constants</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_STANDARD_OTHER<sp/>0</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_STANDARD_5G<sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Type<sp/>Definitions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="struct_x_sd_fec___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/>DeviceId;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Standard;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Initialization[4];</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}<sp/><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="struct_x_sd_fec" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IsReady;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>Standard;</highlight></codeline>
+<codeline lineno="89" refid="struct_x_sd_fec_1a9b110edf0c45370934537d65459c9629" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>SCOffset[128];<sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_x_sd_fec_1ab631183c4d69ec3e140eac641fb5fc0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>LAOffset[128];<sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_x_sd_fec_1abc1c4294433bebc819b72453f0a0b760" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>QCOffset[128];<sp/></highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/><ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="struct_x_sd_fec_ldpc_parameters" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>N;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>K;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>PSize;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NLayers;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NQC;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NMQC;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NM;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NormType;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NoPacking;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>SpecialQC;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>NoFinalParity;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/>u32<sp/><sp/>MaxSchedule;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>u32*<sp/>SCTable;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/>u32*<sp/>LATable;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/>u32*<sp/>QCTable;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}<sp/><ref refid="struct_x_sd_fec_ldpc_parameters" kindref="compound">XSdFecLdpcParameters</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="struct_x_sd_fec_turbo_parameters" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>u8<sp/><sp/>Alg;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/>u16<sp/>Scale;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}<sp/><ref refid="struct_x_sd_fec_turbo_parameters" kindref="compound">XSdFecTurboParameters</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor">#define<sp/>XSDFEC_TD_PARAM_MAX_DEFAULT<sp/><sp/><sp/><sp/><sp/>{<sp/>0<sp/>,<sp/>12<sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_TD_PARAM_MAXSTAR_DEFAULT<sp/>{<sp/>1<sp/>,<sp/>0<sp/>}<sp/><sp/>//<sp/>Set<sp/>no<sp/>scaling</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="struct_x_sd_fec_interrupt_class" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135" refid="struct_x_sd_fec_interrupt_class_1a4b8c09af7e5b5c7d5f8bc4f487b171e3" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a4b8c09af7e5b5c7d5f8bc4f487b171e3" kindref="member">Intf</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_sd_fec_interrupt_class_1a01e69813e77204c9664924531d42c66a" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a01e69813e77204c9664924531d42c66a" kindref="member">ECCSBit</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_x_sd_fec_interrupt_class_1a38d57c033608974a991ec533bb0265a3" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a38d57c033608974a991ec533bb0265a3" kindref="member">ECCMBit</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138" refid="struct_x_sd_fec_interrupt_class_1a67d441005acd67e27ccbe523f199c12b" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a67d441005acd67e27ccbe523f199c12b" kindref="member">RstReq</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="struct_x_sd_fec_interrupt_class_1a8b393fd84238b8f967abe87ab01bae24" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a8b393fd84238b8f967abe87ab01bae24" kindref="member">ReprogReq</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="140" refid="struct_x_sd_fec_interrupt_class_1a8c4764743c3ef572e0884f7c8e64deed" refkind="member"><highlight class="normal"><sp/><sp/>u8<sp/><ref refid="struct_x_sd_fec_interrupt_class_1a8c4764743c3ef572e0884f7c8e64deed" kindref="member">ReCfgReq</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}<sp/><ref refid="struct_x_sd_fec_interrupt_class" kindref="compound">XSdFecInterruptClass</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//<sp/>API<sp/>Function<sp/>Prototypes</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSdFecInitialize(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSdFecInitialize(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref>*<sp/>XSdFecLookupConfig(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref><sp/>*XSdFec_LookupConfig(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSdFecCfgInitialize(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_sd_fec___config" kindref="compound">XSdFec_Config</ref><sp/>*ConfigPtr);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecAddLdpcParams(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr,<sp/>u32<sp/>CodeId,<sp/>u32<sp/>SCOffset,<sp/>u32<sp/>LAOffset,<sp/>u32<sp/>QCOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_sd_fec_ldpc_parameters" kindref="compound">XSdFecLdpcParameters</ref>*<sp/>ParamsPtr);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSetTurboParams(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_sd_fec_turbo_parameters" kindref="compound">XSdFecTurboParameters</ref>*<sp/>ParamsPtr);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecShareTableSize(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_sd_fec_ldpc_parameters" kindref="compound">XSdFecLdpcParameters</ref>*<sp/>ParamsPtr,<sp/>u32*<sp/>SCSizePtr,<sp/>u32*<sp/>LASizePtr,<sp/>u32*<sp/>QCSizePtr);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><ref refid="struct_x_sd_fec_interrupt_class" kindref="compound">XSdFecInterruptClass</ref><sp/>XSdFecInterruptClassifier(<ref refid="struct_x_sd_fec" kindref="compound">XSdFec</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Base<sp/>API<sp/>Function<sp/>Prototypes</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXI_WR_PROTECT(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXI_WR_PROTECT(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_CODE_WR_PROTECT(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">u32<sp/>XSdFecGet_CORE_CODE_WR_PROTECT(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal">u32<sp/>XSdFecGet_CORE_ACTIVE(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_WIDTH_DIN(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_WIDTH_DIN(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_WIDTH_DIN_WORDS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_WIDTH_DIN_WORDS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_WIDTH_DOUT(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_WIDTH_DOUT(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_WIDTH_DOUT_WORDS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_WIDTH_DOUT_WORDS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_WIDTH(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_WIDTH(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_CTRL(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_CTRL(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_DIN(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_DIN(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_DIN_WORDS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_DIN_WORDS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_STATUS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_STATUS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_DOUT(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_DOUT(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE_DOUT_WORDS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE_DOUT_WORDS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_AXIS_ENABLE(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">u32<sp/>XSdFecGet_CORE_AXIS_ENABLE(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_ORDER(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">u32<sp/>XSdFecGet_CORE_ORDER(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_ISR(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">u32<sp/>XSdFecGet_CORE_ISR(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_IER(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_IDR(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal">u32<sp/>XSdFecGet_CORE_IMR(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_ECC_ISR(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">u32<sp/>XSdFecGet_CORE_ECC_ISR(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_ECC_IER(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_ECC_IDR(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal">u32<sp/>XSdFecGet_CORE_ECC_IMR(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_CORE_BYPASS(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">u32<sp/>XSdFecGet_CORE_BYPASS(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal">u32<sp/>XSdFecGet_CORE_VERSION(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_TURBO_ALG(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal">u32<sp/>XSdFecGet_TURBO_ALG(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_TURBO_SCALE_FACTOR(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">u32<sp/>XSdFecGet_TURBO_SCALE_FACTOR(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdFecSet_TURBO(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">u32<sp/>XSdFecGet_TURBO(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG0_N_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG0_N_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG0_K_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG0_K_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="347"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG0_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG0_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG1_PSIZE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG1_PSIZE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG1_NO_PACKING_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG1_NO_PACKING_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG1_NM_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG1_NM_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG1_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG1_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_NLAYERS_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_NLAYERS_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="367"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_NMQC_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_NMQC_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_NORM_TYPE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_NORM_TYPE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_SPECIAL_QC_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_SPECIAL_QC_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_MAX_SCHEDULE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_MAX_SCHEDULE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG2_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG2_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG3_SC_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG3_SC_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG3_LA_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG3_LA_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG3_QC_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG3_QC_OFF_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_CODE_REG3_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_CODE_REG3_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_SC_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="396"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_SC_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_LA_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_LA_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal">u32<sp/>XSdFecWrite_LDPC_QC_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">u32<sp/>XSdFecRead_LDPC_QC_TABLE_Words(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>WordOffset,<sp/>u32<sp/>*DataArrayPtr,<sp/>u32<sp/>NumData);</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSdFecWriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="412"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="413"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSdFecReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="417"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,801 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdps_8c" kind="file">
+    <compoundname>xsdps.c</compoundname>
+    <includes refid="xsdps__core_8h" local="yes">xsdps_core.h</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>xsdps.c</label>
+        <link refid="xsdps.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xsdps_core.h</label>
+        <link refid="xsdps__core_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CfgInitialize</definition>
+        <argsstring>(XSdPs *InstancePtr, XSdPs_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XSdPs_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance so that the driver is ready to use. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference to a structure containing information about a specific SD device. This function initializes an InstancePtr object for a specific device specified by the contents of Configuration. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use ConfigPtr-&gt;Config. BaseAddress for this device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device is already started. It must be stopped to re-initialize.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function initializes the host controller. Initial clock of 400 KHz is set. Voltage of 3.3 V is selected as that is supported by host. Interrupts status is enabled and signal disabled by default. Default data direction is card to host and 32 bit ADMA2 is selected. Default Block size is 512 bytes. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="144" bodyend="222"/>
+        <references refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" compoundref="xsdps_8h" startline="201">XSdPs_Config::BankNumber</references>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" compoundref="xsdps_8h" startline="281">XSdPs::BlkSize</references>
+        <references refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" compoundref="xsdps_8h" startline="200">XSdPs_Config::BusWidth</references>
+        <references refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" compoundref="xsdps_8h" startline="198">XSdPs_Config::CardDetect</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1af0e45cda323df91369aa88c61d8e00e2" compoundref="xsdps_8h" startline="277">XSdPs::Dma64BitAddr</references>
+        <references refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" compoundref="xsdps_8h" startline="202">XSdPs_Config::HasEMIO</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" compoundref="xsdps_8h" startline="260">XSdPs::Host_Caps</references>
+        <references refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" compoundref="xsdps_8h" startline="197">XSdPs_Config::InputClockHz</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" compoundref="xsdps_8h" startline="282">XSdPs::IsTuningDone</references>
+        <references refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" compoundref="xsdps_8h" startline="276">XSdPs::ITapDelay</references>
+        <references refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" compoundref="xsdps_8h" startline="210">XSdPs_Config::ITapDly_DDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" compoundref="xsdps_8h" startline="208">XSdPs_Config::ITapDly_SDR_Clk50</references>
+        <references refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" compoundref="xsdps_8h" startline="274">XSdPs::Mode</references>
+        <references refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" compoundref="xsdps_8h" startline="275">XSdPs::OTapDelay</references>
+        <references refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" compoundref="xsdps_8h" startline="214">XSdPs_Config::OTapDly_DDR_Clk200</references>
+        <references refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" compoundref="xsdps_8h" startline="211">XSdPs_Config::OTapDly_DDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" compoundref="xsdps_8h" startline="212">XSdPs_Config::OTapDly_SDR_Clk100</references>
+        <references refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" compoundref="xsdps_8h" startline="213">XSdPs_Config::OTapDly_SDR_Clk200</references>
+        <references refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" compoundref="xsdps_8h" startline="209">XSdPs_Config::OTapDly_SDR_Clk50</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1afb72007125fc5046392961ad99999ad9" compoundref="xsdps_8h" startline="272">XSdPs::SectorCount</references>
+        <references refid="struct_x_sd_ps_1a227dd8d81f553fb5d647a3a21b42d0c6" compoundref="xsdps_8h" startline="279">XSdPs::SlcrBaseAddr</references>
+        <references refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" compoundref="xsdps_8h" startline="203">XSdPs_Config::SlotType</references>
+        <references refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" compoundref="xsdps_8h" startline="199">XSdPs_Config::WriteProtect</references>
+        <references refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" compoundref="xsdps__card_8c" startline="829" endline="847">XSdPs_HostConfig</references>
+        <references refid="group__sdps__api_1ga43c82653cd80c9c1eb82db2eec0d7718" compoundref="xsdps__card_8c" startline="787" endline="817">XSdPs_ResetConfig</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_CardInitialize</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_CardInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes Card with Identification mode sequence. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because a) SD is already initialized b) There is no card inserted c) One of the steps (commands) in the initialization cycle failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="243" bodyend="295"/>
+        <references refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" compoundref="xsdps_8h" startline="267">XSdPs::BusSpeed</references>
+        <references refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" compoundref="xsdps_8h" startline="266">XSdPs::BusWidth</references>
+        <references refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" compoundref="xsdps_8h" startline="263">XSdPs::CardType</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1ad43dbd76cb2740f110f3088a8b592006" compoundref="xsdps_8h" startline="268">XSdPs::Switch1v8</references>
+        <references refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" compoundref="xsdps__options_8c" startline="99" endline="148">XSdPs_Change_ClkFreq</references>
+        <references refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" compoundref="xsdps__card_8c" startline="219" endline="265">XSdPs_IdentifyCard</references>
+        <references refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" compoundref="xsdps__card_8c" startline="344" endline="390">XSdPs_MmcCardInitialize</references>
+        <references refid="group__sdps__api_1ga8e9a576dfdb4440a795eb6e712994050" compoundref="xsdps__card_8c" startline="293" endline="318">XSdPs_SdCardInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_ReadPolled</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, u8 *Buff)</argsstring>
+        <name>XSdPs_ReadPolled</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Performs SD read in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="314" bodyend="366"/>
+        <references refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" compoundref="xsdps_8h" startline="281">XSdPs::BlkSize</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" compoundref="xsdps_8h" startline="204">XSdPs_Config::IsCacheCoherent</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga15e41cb3481e66918efd4ad7db154b62" compoundref="xsdps__card_8c" startline="76" endline="105">XSdPs_Read</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_WritePolled</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 Arg, u32 BlkCnt, const u8 *Buff)</argsstring>
+        <name>XSdPs_WritePolled</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Arg</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BlkCnt</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Buff</declname>
+        </param>
+        <briefdescription>
+<para>Performs SD write in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address passed by the user that is to be sent as argument along with the command. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BlkCnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Block count passed by the user. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data buffer for a DMA transfer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or command or data inhibit is set </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="385" bodyend="427"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" compoundref="xsdps__host_8c" startline="1656" endline="1692">XSdps_CheckTransferDone</references>
+        <references refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" compoundref="xsdps__host_8c" startline="219" endline="254">XSdPs_SetupTransfer</references>
+        <references refid="group__sdps__api_1gac51519692c6bb54d91aaecb8bcf957d1" compoundref="xsdps__card_8c" startline="124" endline="153">XSdPs_Write</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Idle</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Idle</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>API to idle the SDIO Interface. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="442" bodyend="479"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" compoundref="xsdps__host_8c" startline="1705" endline="1727">XSdPs_CheckBusIdle</references>
+        <references refid="group__sdps__api_1gaa42580dd8c7438e838e274579d9c4be3" compoundref="xsdps__host_8c" startline="598" endline="611">XSdPs_DisableBusPower</references>
+        <references refid="group__sdps__api_1gab802e347cc12cdd73d4d9dd7737535e6" compoundref="xsdps__host_8c" startline="269" endline="285">XSdPs_Reset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Erase</definition>
+        <argsstring>(XSdPs *InstancePtr, u32 StartAddr, u32 EndAddr)</argsstring>
+        <name>XSdPs_Erase</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>StartAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EndAddr</declname>
+        </param>
+        <briefdescription>
+<para>Performs Erase operation on the given address range. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StartAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the first write block to be erased. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the last write block of the continuous range to be erased.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if erase is successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or card not present or erase operation failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="496" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="496" bodyend="557"/>
+        <references refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" compoundref="xsdps_8h" startline="196">XSdPs_Config::BaseAddress</references>
+        <references refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" compoundref="xsdps_8h" startline="198">XSdPs_Config::CardDetect</references>
+        <references refid="struct_x_sd_ps_1a33a193ab2bde892a55f842b0d49856d1" compoundref="xsdps_8h" startline="271">XSdPs::CardSpecData</references>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" compoundref="xsdps_8h" startline="265">XSdPs::HC_Version</references>
+        <references refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" compoundref="xsdps_8h" startline="260">XSdPs::Host_Caps</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="struct_x_sd_ps_1a4a098e7835929d87e01f9cf7a9091598" compoundref="xsdps_8h" startline="278">XSdPs::TransferMode</references>
+        <references refid="group__sdps__api_1ga5ab803ced3accc20c54eee342e6e5b52" compoundref="xsdps__card_8c" startline="1734" endline="1749">XSdPs_SendErase</references>
+        <references refid="group__sdps__api_1ga9fb2d5662fa3656cafb4a20530def821" compoundref="xsdps__card_8c" startline="1709" endline="1720">XSdPs_SetEndAddr</references>
+        <references refid="group__sdps__api_1ga73b1071173ef4b1a1958773ed5c59a5f" compoundref="xsdps__card_8c" startline="1683" endline="1694">XSdPs_SetStartAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSdPs_Sanitize</definition>
+        <argsstring>(XSdPs *InstancePtr)</argsstring>
+        <name>XSdPs_Sanitize</name>
+        <param>
+          <type><ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Performs Sanitize operation on the unmapped user address range. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Sanitize is successful</para></listitem><listitem><para>XST_FAILURE if failure - could be because another transfer is in progress or card not present or Sanitize operation failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" line="572" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c" bodystart="572" bodyend="599"/>
+        <references refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" compoundref="xsdps_8h" startline="258">XSdPs::Config</references>
+        <references refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" compoundref="xsdps_8h" startline="280">XSdPs::IsBusy</references>
+        <references refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" compoundref="xsdps_8h" startline="259">XSdPs::IsReady</references>
+        <references refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" compoundref="xsdps_8h" startline="206">XSdPs_Config::RefClk</references>
+        <references refid="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" compoundref="xsdps__options_8c" startline="671" endline="696">XSdPs_Set_Mmc_ExtCsd</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="101"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsdps__core_8h" kindref="compound">xsdps_core.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="144" refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gaf99da6fcfbc311afcd2d6e8a94c5fe55" kindref="member">XSdPs_CfgInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_sd_ps___config" kindref="compound">XSdPs_Config</ref><sp/>*ConfigPtr,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>this<sp/>API<sp/>is<sp/>getting<sp/>called<sp/>twice,<sp/>return<sp/>value<sp/>accordingly<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_DEVICE_IS_STARTED;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH<sp/>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>some<sp/>default<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.DeviceId<sp/>=<sp/>ConfigPtr-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" kindref="member">InputClockHz</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a0f3c5d739bd1567d28b1ef827aedc75b" kindref="member">InputClockHz</ref>;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" kindref="member">CardDetect</ref><sp/>=<sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" kindref="member">CardDetect</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" kindref="member">WriteProtect</ref><sp/>=<sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a096af7ddafe53bdf7e4359f3555ae2c4" kindref="member">WriteProtect</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" kindref="member">BusWidth</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1aea317a5fc926ce97c26cd7deeecb0c0f" kindref="member">BusWidth</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" kindref="member">BankNumber</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a7fe36b608a4251f5b93c9c74cfb85e08" kindref="member">BankNumber</ref>;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" kindref="member">HasEMIO</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a892a82eef72bba816d1576cc8b4aa1ba" kindref="member">HasEMIO</ref>;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" kindref="member">SlotType</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a97543575628c859c83c69a772df955ee" kindref="member">SlotType</ref>;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" kindref="member">IsCacheCoherent</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" kindref="member">IsCacheCoherent</ref>;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" kindref="member">ITapDly_SDR_Clk50</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a6fb9aee8d2b99bd35fc1f328425ea86f" kindref="member">ITapDly_SDR_Clk50</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" kindref="member">OTapDly_SDR_Clk50</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1ab88ed07cfc347e97ac5391b602081b4c" kindref="member">OTapDly_SDR_Clk50</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" kindref="member">ITapDly_DDR_Clk50</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a14ecdc28f2bfb7947ac241e0025b78b5" kindref="member">ITapDly_DDR_Clk50</ref>;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" kindref="member">OTapDly_DDR_Clk50</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a97d8fe542ee0224d85448f3e0cc1877c" kindref="member">OTapDly_DDR_Clk50</ref>;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" kindref="member">OTapDly_SDR_Clk100</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a6c15fcbb080e3e2b428135eb21c02d8b" kindref="member">OTapDly_SDR_Clk100</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" kindref="member">OTapDly_SDR_Clk200</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a365ea7869549e591ca1e48a3c89d91ca" kindref="member">OTapDly_SDR_Clk200</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" kindref="member">OTapDly_DDR_Clk200</ref><sp/>=<sp/>ConfigPtr-&gt;<ref refid="struct_x_sd_ps___config_1a2ab8b411b04ba543826fdd91794b4c87" kindref="member">OTapDly_DDR_Clk200</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1afb72007125fc5046392961ad99999ad9" kindref="member">SectorCount</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a2958388759de8ad51b37dcd814f96be3" kindref="member">Mode</ref><sp/>=<sp/>XSDPS_DEFAULT_SPEED_MODE;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a5c05548361b08986315685d826851c3c" kindref="member">OTapDelay</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ace5e3ce5b40302079652d5244fc26461" kindref="member">ITapDelay</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1af0e45cda323df91369aa88c61d8e00e2" kindref="member">Dma64BitAddr</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a227dd8d81f553fb5d647a3a21b42d0c6" kindref="member">SlcrBaseAddr</ref><sp/>=<sp/>XPS_SYS_CTRL_BASEADDR;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref><sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" kindref="member">BlkSize</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1af363c990cbd2a7c2ac2fedef7041f082" kindref="member">IsTuningDone</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Host<sp/>Controller<sp/>version<sp/>is<sp/>read.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" kindref="member">HC_Version</ref><sp/>=</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)(XSdPs_ReadReg16(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDPS_HOST_CTRL_VER_OFFSET)<sp/>&amp;<sp/>XSDPS_HC_SPEC_VER_MASK);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>capabilities<sp/>register<sp/>and<sp/>update<sp/>it<sp/>in<sp/>Instance<sp/>pointer.</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>It<sp/>is<sp/>sufficient<sp/>to<sp/>read<sp/>this<sp/>once<sp/>on<sp/>power<sp/>on.</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" kindref="member">Host_Caps</ref><sp/>=<sp/>XSdPs_ReadReg(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDPS_CAPS_OFFSET);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>SD<sp/>bus<sp/>lines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga43c82653cd80c9c1eb82db2eec0d7718" kindref="member">XSdPs_ResetConfig</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH<sp/>;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>SD<sp/>Host<sp/>Controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdps__api_1ga90976f95bfd56ede8ee75175610c4c58" kindref="member">XSdPs_HostConfig</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="243" refid="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga3c3ab46b98e997b8439af4b149445811" kindref="member">XSdPs_CardInitialize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Default<sp/>settings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a069e352a2e02b9a9c0f61787549817db" kindref="member">BusWidth</ref><sp/>=<sp/>XSDPS_1_BIT_WIDTH;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" kindref="member">CardType</ref><sp/>=<sp/>XSDPS_CARD_SD;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ad43dbd76cb2740f110f3088a8b592006" kindref="member">Switch1v8</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" kindref="member">BusSpeed</ref><sp/>=<sp/>XSDPS_CLK_400_KHZ;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>the<sp/>clock<sp/>frequency<sp/>to<sp/>400<sp/>KHz<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga1f8661e4ae53a7c29b3fd44cc56a3673" kindref="member">XSdPs_Change_ClkFreq</ref>(InstancePtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aa22055804ffd9cbe6885b2abe40fee86" kindref="member">BusSpeed</ref>);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH<sp/>;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Identify<sp/>the<sp/>Card<sp/>whether<sp/>it<sp/>is<sp/>SD,<sp/>MMC<sp/>or<sp/>eMMC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga87790bbe65eea7bf873f401121f4a6f7" kindref="member">XSdPs_IdentifyCard</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>identified<sp/>card<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ace9a2dd34b39f3100f97fcd50883f833" kindref="member">CardType</ref><sp/>==<sp/>XSDPS_CARD_SD)<sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga8e9a576dfdb4440a795eb6e712994050" kindref="member">XSdPs_SdCardInitialize</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gae55b1aa663629e99a9da94619c7487c5" kindref="member">XSdPs_MmcCardInitialize</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="314" refid="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga8dfe3686ed74d09a2a46a7b5cddcde47" kindref="member">XSdPs_ReadPolled</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/>u8<sp/>*Buff)</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>Read<sp/>Transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" kindref="member">XSdPs_SetupTransfer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>from<sp/>the<sp/>card<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga15e41cb3481e66918efd4ad7db154b62" kindref="member">XSdPs_Read</ref>(InstancePtr,<sp/>Arg,<sp/>BlkCnt,<sp/>Buff);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>transfer<sp/>done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" kindref="member">XSdps_CheckTransferDone</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1U)</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a1f220a7f0690a1d0c7fd0a95b5cec14c" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Buff,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((INTPTR)BlkCnt<sp/>*<sp/>(INTPTR)InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" kindref="member">BlkSize</ref>));</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="357"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Buff,</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((INTPTR)BlkCnt<sp/>*<sp/>(INTPTR)InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9f2cc68e1e0155d5a70c6d7323fe39c9" kindref="member">BlkSize</ref>));</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="360"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="385" refid="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga69aa57979c1ef9b9ec3fbdc6d8ab7277" kindref="member">XSdPs_WritePolled</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Arg,<sp/>u32<sp/>BlkCnt,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Buff)</highlight></codeline>
+<codeline lineno="386"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="398"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="400"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>Write<sp/>Transfer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga78d4cd8fc91d6c32b6ed35bd86581cb3" kindref="member">XSdPs_SetupTransfer</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>to<sp/>the<sp/>card<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gac51519692c6bb54d91aaecb8bcf957d1" kindref="member">XSdPs_Write</ref>(InstancePtr,<sp/>Arg,<sp/>BlkCnt,<sp/>Buff);</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>transfer<sp/>done<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gaaa85509249cb90b33c8a201a751bdd8f" kindref="member">XSdps_CheckTransferDone</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="426"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="442" refid="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1ga88cdddd905825791ef9b682eb5adfff8" kindref="member">XSdPs_Idle</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="443"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>bus<sp/>is<sp/>idle<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga3c9d104a1d7f9e14d8b2b79fbb47702d" kindref="member">XSdPs_CheckBusIdle</ref>(InstancePtr,<sp/>XSDPS_PSR_INHIBIT_CMD_MASK</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XSDPS_PSR_INHIBIT_DAT_MASK</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XSDPS_PSR_DAT_ACTIVE_MASK);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH<sp/>;</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"></highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>Bus<sp/>Power<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__sdps__api_1gaa42580dd8c7438e838e274579d9c4be3" kindref="member">XSdPs_DisableBusPower</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>Command<sp/>and<sp/>Data<sp/>Lines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gab802e347cc12cdd73d4d9dd7737535e6" kindref="member">XSdPs_Reset</ref>(InstancePtr,<sp/>XSDPS_SWRST_ALL_MASK);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH<sp/>;</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="476"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="478"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="479"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="496" refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gae356e151de825904653850dc1f2de4e7" kindref="member">XSdPs_Erase</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>StartAddr,<sp/>u32<sp/>EndAddr)</highlight></codeline>
+<codeline lineno="497"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>CardCC;</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PresentStateReg;</highlight></codeline>
+<codeline lineno="501"><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="506"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="508"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a11d4222e3ecae1a01aa4c3e34a00ef35" kindref="member">HC_Version</ref><sp/>!=<sp/>XSDPS_HC_SPEC_V3)<sp/>||</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ad8613960aa0353d5a3515d9bc8d8540a" kindref="member">Host_Caps</ref><sp/>&amp;<sp/>XSDPS_CAPS_SLOT_TYPE_MASK)</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!=<sp/>XSDPS_CAPS_EMB_SLOT))<sp/>{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a494f4186575a737efe3f8b3b9848c3c7" kindref="member">CardDetect</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>status<sp/>to<sp/>ensure<sp/>card<sp/>is<sp/>present<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PresentStateReg<sp/>=<sp/>XSdPs_ReadReg(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a18fc4a81c465a70686b9a3c038e3dbc0" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDPS_PRES_STATE_OFFSET);</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PresentStateReg<sp/>&amp;<sp/>XSDPS_PSR_CARD_INSRT_MASK)<sp/>==<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>CCC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CardCC<sp/>=<sp/>(u16)((InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a33a193ab2bde892a55f842b0d49856d1" kindref="member">CardSpecData</ref>[2]<sp/>&amp;<sp/>CSD_CCC_MASK)<sp/>&gt;&gt;<sp/>CSD_CCC_SHIFT);</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((CardCC<sp/>&amp;<sp/>CSD_CCC_CLASS5_MASK)<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a4a098e7835929d87e01f9cf7a9091598" kindref="member">TransferMode</ref><sp/>=<sp/>XSDPS_TM_DAT_DIR_SEL_MASK;</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga73b1071173ef4b1a1958773ed5c59a5f" kindref="member">XSdPs_SetStartAddr</ref>(InstancePtr,<sp/>StartAddr);</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"></highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga9fb2d5662fa3656cafb4a20530def821" kindref="member">XSdPs_SetEndAddr</ref>(InstancePtr,<sp/>EndAddr);</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1ga5ab803ced3accc20c54eee342e6e5b52" kindref="member">XSdPs_SendErase</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="553"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="555"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="557"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"></highlight></codeline>
+<codeline lineno="559"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="572" refid="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__sdps__api_1gad748650bd8ac568583551f6ef14b498a" kindref="member">XSdPs_Sanitize</ref>(<ref refid="struct_x_sd_ps" kindref="compound">XSdPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="573"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1ab0fec7949e73bc680a138fbf644bd692" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="580"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockEnable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="582"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1aae169220856ab624877027540c585b93" kindref="member">IsBusy</ref><sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__sdps__api_1gaee773eef8e260b4498dc607061eb18f6" kindref="member">XSdPs_Set_Mmc_ExtCsd</ref>(InstancePtr,<sp/>XSDPS_MMC_START_SANITIZE_ARG);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>RETURN_PATH;</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"></highlight></codeline>
+<codeline lineno="594"><highlight class="normal">RETURN_PATH:</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/><sp/>(XCLOCKING)</highlight></codeline>
+<codeline lineno="596"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ClockDisable(InstancePtr-&gt;<ref refid="struct_x_sd_ps_1a9ab6ed4e7a1155a0708152ca2f27d650" kindref="member">Config</ref>.<ref refid="struct_x_sd_ps___config_1a93be6aa218ccdd7c36799c6fc4bb5d65" kindref="member">RefClk</ref>);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="598"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdps/src/xsdps.c"/>
+  </compounddef>
+</doxygen>

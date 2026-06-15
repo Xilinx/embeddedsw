@@ -1,0 +1,857 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h" kind="file">
+    <compoundname>xmipi_scu200_xp5io_example/xhdmi_menu.h</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">ctype.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xuartps.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes local="yes">xvidc_edid_ext.h</includes>
+    <includes local="yes">xhdmiphy1.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2xhdmi__edid_8h" local="yes">xhdmi_edid.h</includes>
+    <includes refid="xmipi__scu200__xp5io__example_2video__fmc_8h" local="yes">video_fmc.h</includes>
+    <includedby refid="xmipi__scu200__xp5io__example_2xhdmi__example_8h" local="yes">xhdmi_example.h</includedby>
+    <includedby refid="xmipi__scu200__xp5io__example_2xhdmi__menu_8c" local="yes">xhdmi_menu.c</includedby>
+    <includedby refid="xmipi__scu200__xp5io__example_8c" local="yes">xmipi_scu200_xp5io_example.c</includedby>
+    <incdepgraph>
+      <node id="2333">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2339">
+        <label>xuartps.h</label>
+      </node>
+      <node id="2346">
+        <label>sleep.h</label>
+      </node>
+      <node id="2343">
+        <label>xhdmi_edid.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2331" relation="include">
+        </childnode>
+        <childnode refid="2344" relation="include">
+        </childnode>
+        <childnode refid="2341" relation="include">
+        </childnode>
+      </node>
+      <node id="2329">
+        <label>xhdmi_menu.h</label>
+        <link refid="xmipi_scu200_xp5io_example/xhdmi_menu.h"/>
+        <childnode refid="2330" relation="include">
+        </childnode>
+        <childnode refid="2331" relation="include">
+        </childnode>
+        <childnode refid="2332" relation="include">
+        </childnode>
+        <childnode refid="2333" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2335" relation="include">
+        </childnode>
+        <childnode refid="2336" relation="include">
+        </childnode>
+        <childnode refid="2337" relation="include">
+        </childnode>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2339" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+        <childnode refid="2341" relation="include">
+        </childnode>
+        <childnode refid="2342" relation="include">
+        </childnode>
+        <childnode refid="2343" relation="include">
+        </childnode>
+        <childnode refid="2345" relation="include">
+        </childnode>
+      </node>
+      <node id="2348">
+        <label>idt_8t49n24x.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2333" relation="include">
+        </childnode>
+        <childnode refid="2336" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2344" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+      </node>
+      <node id="2344">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2341">
+        <label>xvidc_edid_ext.h</label>
+      </node>
+      <node id="2347">
+        <label>xgpio.h</label>
+      </node>
+      <node id="2351">
+        <label>ti_tmds1204.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+      </node>
+      <node id="2345">
+        <label>video_fmc.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2347" relation="include">
+        </childnode>
+        <childnode refid="2348" relation="include">
+        </childnode>
+        <childnode refid="2349" relation="include">
+        </childnode>
+        <childnode refid="2350" relation="include">
+        </childnode>
+        <childnode refid="2351" relation="include">
+        </childnode>
+        <childnode refid="2352" relation="include">
+        </childnode>
+        <childnode refid="2353" relation="include">
+        </childnode>
+      </node>
+      <node id="2330">
+        <label>string.h</label>
+      </node>
+      <node id="2350">
+        <label>onsemi_nb7nq621m.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+      </node>
+      <node id="2342">
+        <label>xhdmiphy1.h</label>
+      </node>
+      <node id="2336">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2337">
+        <label>xvidc.h</label>
+      </node>
+      <node id="2334">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2332">
+        <label>ctype.h</label>
+      </node>
+      <node id="2338">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2349">
+        <label>ti_lmk03318.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+      </node>
+      <node id="2335">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2340">
+        <label>xiic.h</label>
+      </node>
+      <node id="2352">
+        <label>si5344drv.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+        <childnode refid="2334" relation="include">
+        </childnode>
+        <childnode refid="2333" relation="include">
+        </childnode>
+        <childnode refid="2336" relation="include">
+        </childnode>
+        <childnode refid="2346" relation="include">
+        </childnode>
+        <childnode refid="2344" relation="include">
+        </childnode>
+        <childnode refid="2340" relation="include">
+        </childnode>
+      </node>
+      <node id="2353">
+        <label>rc21008adrv.h</label>
+        <childnode refid="2338" relation="include">
+        </childnode>
+      </node>
+      <node id="2331">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2357">
+        <label>xmipi_scu200_xp5io_example.c</label>
+      </node>
+      <node id="2358">
+        <label>xhdmi_menu.c</label>
+      </node>
+      <node id="2354">
+        <label>xhdmi_menu.h</label>
+        <link refid="xmipi_scu200_xp5io_example/xhdmi_menu.h"/>
+        <childnode refid="2355" relation="include">
+        </childnode>
+        <childnode refid="2358" relation="include">
+        </childnode>
+        <childnode refid="2357" relation="include">
+        </childnode>
+      </node>
+      <node id="2356">
+        <label>xhdmi_example.c</label>
+      </node>
+      <node id="2355">
+        <label>xhdmi_example.h</label>
+        <childnode refid="2356" relation="include">
+        </childnode>
+        <childnode refid="2357" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdmi___menu_config" prot="public">XHdmi_MenuConfig</innerclass>
+    <innerclass refid="struct_x_hdmi___menu___ex_des___ctrlr" prot="public">XHdmi_Menu_ExDes_Ctrlr</innerclass>
+    <innerclass refid="struct_x_hdmi___menu" prot="public">XHdmi_Menu</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a896c61616bb6eadcdfe1b51f08ae7d66" prot="public" static="no">
+        <name>XHDMI_MENU_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1aaa18cefbb5d07be916429c697475864a" prot="public" static="no">
+        <name>HDMI_DEBUG_TOOLS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1ac11136ca34bc590c3d7a4d81f11076f8" prot="public" static="no">
+        <name>CUSTOM_RESOLUTION_ENABLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a909bacc68e0df497902fb395ad60c0cf" prot="public" static="no">
+        <name>HDCP_DEBUG_MENU_EN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1af37494546e74bb16ad4ec9954fcec8c5" prot="public" static="no">
+        <name>VIDEO_MASKING_MENU_EN</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4a" prot="public" static="no">
+        <name>XHdmi_MenuType</name>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa468b76bd918277230e3b17db24fa4a22" prot="public">
+          <name>XHDMI_EDID_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa27f506f7d0e0c12d7c8708f3b79b8439" prot="public">
+          <name>XHDMI_DEBUG_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa8e6979618ab616a4bd9461d2b9bc6fbf" prot="public">
+          <name>XHDMI_VPHY_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa455192ce69d4f039d9f17783af4ad346" prot="public">
+          <name>XHDMI_ONSEMI_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__hpio__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa468b76bd918277230e3b17db24fa4a22" prot="public">
+          <name>XHDMI_EDID_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa27f506f7d0e0c12d7c8708f3b79b8439" prot="public">
+          <name>XHDMI_DEBUG_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa8e6979618ab616a4bd9461d2b9bc6fbf" prot="public">
+          <name>XHDMI_VPHY_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa455192ce69d4f039d9f17783af4ad346" prot="public">
+          <name>XHDMI_ONSEMI_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vck__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa468b76bd918277230e3b17db24fa4a22" prot="public">
+          <name>XHDMI_EDID_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa27f506f7d0e0c12d7c8708f3b79b8439" prot="public">
+          <name>XHDMI_DEBUG_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa8e6979618ab616a4bd9461d2b9bc6fbf" prot="public">
+          <name>XHDMI_VPHY_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa455192ce69d4f039d9f17783af4ad346" prot="public">
+          <name>XHDMI_ONSEMI_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek280__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa468b76bd918277230e3b17db24fa4a22" prot="public">
+          <name>XHDMI_EDID_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa27f506f7d0e0c12d7c8708f3b79b8439" prot="public">
+          <name>XHDMI_DEBUG_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa8e6979618ab616a4bd9461d2b9bc6fbf" prot="public">
+          <name>XHDMI_VPHY_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa455192ce69d4f039d9f17783af4ad346" prot="public">
+          <name>XHDMI_ONSEMI_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__cphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa9fb7115f4931f574f662586fb1dfcb23" prot="public">
+          <name>XHDMI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa468b76bd918277230e3b17db24fa4a22" prot="public">
+          <name>XHDMI_EDID_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa27f506f7d0e0c12d7c8708f3b79b8439" prot="public">
+          <name>XHDMI_DEBUG_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa8e6979618ab616a4bd9461d2b9bc6fbf" prot="public">
+          <name>XHDMI_VPHY_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aa455192ce69d4f039d9f17783af4ad346" prot="public">
+          <name>XHDMI_ONSEMI_DEBUG_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__vek385__dphy__example_2xhdmi__menu_8h_1a8425d7c3a20915745a94c5b552376d4aaed37668f055ce73a10dce92b7a087dc6" prot="public">
+          <name>XHDMI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The HDMI menu types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" bodystart="143" bodyend="159"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a2e4afb5518de4d078da0ba502dddab44" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Edid[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Edid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="101" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a14d02b412c24ae2c20dc7cfc843f7274" prot="public" static="no" mutable="no">
+        <type>XIic</type>
+        <definition>XIic Iic</definition>
+        <argsstring></argsstring>
+        <name>Iic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_example.c" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a886549f4c5a89353a3dd7e563758d439" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdmi_MenuInitialize</definition>
+        <argsstring>(XHdmi_Menu *InstancePtr, u32 UartBaseAddress, u8 *ForceIndependentPtr, u8 *SystemEventPtr, u8 *IsTxPresentPtr, u8 *IsRxPresentPtr, void *ChangeColorbarOutputCB, void *ConfigureTpgEnableInputCB, void *ToggleHdmiRxHpdCB)</argsstring>
+        <name>XHdmi_MenuInitialize</name>
+        <param>
+          <type><ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>UartBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>ForceIndependentPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>SystemEventPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>IsTxPresentPtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>IsRxPresentPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ChangeColorbarOutputCB</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ConfigureTpgEnableInputCB</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ToggleHdmiRxHpdCB</declname>
+        </param>
+        <briefdescription>
+<para>This function takes care of the HDMI menu initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.c" bodystart="203" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1aef0c77222dd933d65ac89908b7791f34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdmi_MenuProcess</definition>
+        <argsstring>(XHdmi_Menu *InstancePtr, u8 TxBusy)</argsstring>
+        <name>XHdmi_MenuProcess</name>
+        <param>
+          <type><ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>TxBusy</declname>
+        </param>
+        <briefdescription>
+<para>This function is called to trigger the HDMI menu statemachine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value used for the next menu state decoder.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.c" bodystart="2774" bodyend="2837"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__scu200__xp5io__example_2xhdmi__menu_8h_1a8507711886833ab068231566550c677e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdmi_MenuReset</definition>
+        <argsstring>(XHdmi_Menu *InstancePtr)</argsstring>
+        <name>XHdmi_MenuReset</name>
+        <param>
+          <type><ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the menu to the main menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.c" bodystart="264" bodyend="267"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#ifndef<sp/>XHDMI_MENU_H_</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDMI_MENU_H_<sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctype.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XUARTPSV_NUM_INSTANCES<sp/>)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(XPAR_XUARTLITE_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK280)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiicps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc_edid_ext.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XV_FRMBUFRD_NUM_INSTANCES)<sp/>&amp;&amp;<sp/>\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPAR_XV_FRMBUFWR_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufrd_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmiphy1.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_edid.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdmi_exdes_sm_tx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_TPG_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_tpg.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;video_fmc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>Edid[];</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined<sp/>(XPS_BOARD_ZCU102)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_ZCU106)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VCK190)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined<sp/>(XPS_BOARD_VEK280))</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XIicPs<sp/>Ps_Iic0,<sp/>Iic;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="comment">//extern<sp/>XIicPs<sp/>Ps_Iic0,<sp/>Iic1;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XIic<sp/>Iic;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>MENU<sp/>OPTIONS<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enabling<sp/>this<sp/>will<sp/>enable<sp/>a<sp/>debug<sp/>UART<sp/>menu<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HDMI_DEBUG_TOOLS<sp/>1</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enabling<sp/>this<sp/>will<sp/>register<sp/>a<sp/>custom<sp/>resolution<sp/>to<sp/>the<sp/>video<sp/>timing<sp/>table</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CUSTOM_RESOLUTION_ENABLE<sp/>1</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enabling<sp/>this<sp/>will<sp/>enable<sp/>HDCP<sp/>Debug<sp/>menu<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HDCP_DEBUG_MENU_EN<sp/>1</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enabling<sp/>this<sp/>will<sp/>enable<sp/>Video<sp/>Masking<sp/>menu<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_MASKING_MENU_EN<sp/>1</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>CUSTOM_RESOLUTION_ENABLE</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assign<sp/>Mode<sp/>ID<sp/>Enumeration.<sp/>First<sp/>entry<sp/>Must<sp/>be<sp/>&gt;<sp/>XVIDC_VM_CUSTOM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_1152x864_60_P<sp/>=<sp/>(XVIDC_VM_CUSTOM<sp/>+<sp/>1),</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_2560x1440_144_P<sp/>=<sp/>(XVIDC_VM_CUSTOM<sp/>+<sp/>2),</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CM_NUM_SUPPORTED</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>XVIDC_CUSTOM_MODES;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="142"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_MAIN_MENU,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_EDID_MENU,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_RESOLUTION_MENU,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_FRAMERATE_MENU,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_COLORDEPTH_MENU,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_COLORSPACE_MENU,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_VIDEO_MENU,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if(HDMI_DEBUG_TOOLS<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_DEBUG_MAIN_MENU,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_VPHY_DEBUG_MENU,</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_ONSEMI_DEBUG_MENU,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHDMI_NUM_MENUS</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/>XHdmi_MenuType;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HdcpIsSupported;<sp/></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="struct_x_hdmi___menu_config" kindref="compound">XHdmi_MenuConfig</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*ChangeColorbarOutput)(XVidC_VideoMode<sp/>VideoMode,</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>ColorFormat,<sp/>XVidC_ColorDepth<sp/><sp/>Bpc);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_XV_HDMITXSS1_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*ConfigureTpgEnableInput)(u32<sp/>EnableExtSrcInput);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*ForceIndependentPtr;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*SystemEventPtr;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*IsTxPresentPtr;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*IsRxPresentPtr;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XPAR_XV_HDMITXSS1_NUM_INSTANCES)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChangeColorbarOutput<sp/>ChangeColorbarOutputCB;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigureTpgEnableInput<sp/>ConfigureTpgEnableInputCB;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="struct_x_hdmi___menu___ex_des___ctrlr" kindref="compound">XHdmi_Menu_ExDes_Ctrlr</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdmi___menu_config" kindref="compound">XHdmi_MenuConfig</ref><sp/><sp/><sp/><sp/>Config;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdmi_MenuType<sp/><sp/><sp/><sp/><sp/><sp/>CurrentMenu;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartBaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WaitForColorbar;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdmi___menu___ex_des___ctrlr" kindref="compound">XHdmi_Menu_ExDes_Ctrlr</ref><sp/>ExDesCtrlr;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorDepth<sp/><sp/><sp/><sp/>AdvColorDepth;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/><sp/><sp/>AdvColorSpace;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref>;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdmi_MenuInitialize(<ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref><sp/>*InstancePtr,<sp/>u32<sp/>UartBaseAddress,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*ForceIndependentPtr,<sp/>u8<sp/>*SystemEventPtr,<sp/>u8<sp/>*IsTxPresentPtr,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*IsRxPresentPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ChangeColorbarOutputCB,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ConfigureTpgEnableInputCB,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ToggleHdmiRxHpdCB);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdmi_MenuProcess(<ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref><sp/>*InstancePtr,<sp/>u8<sp/>TxBusy);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdmi_MenuReset(<ref refid="struct_x_hdmi___menu" kindref="compound">XHdmi_Menu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_xp5io_example/xhdmi_menu.h"/>
+  </compounddef>
+</doxygen>

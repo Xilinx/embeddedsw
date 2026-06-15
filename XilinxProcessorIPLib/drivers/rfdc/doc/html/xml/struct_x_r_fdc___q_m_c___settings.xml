@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___q_m_c___settings" kind="struct" prot="public">
+    <compoundname>XRFdc_QMC_Settings</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1aabe41bbdb1b9e628ff23a6a563a75df1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_QMC_Settings::EnablePhase</definition>
+        <argsstring></argsstring>
+        <name>EnablePhase</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="472" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1a8ea2e00d518a6e1e52562b8cd8d4cc52" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_QMC_Settings::EnableGain</definition>
+        <argsstring></argsstring>
+        <name>EnableGain</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="473" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="473" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1a9ca57ce60c1a9a7e7be67c9dfe656b32" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_QMC_Settings::GainCorrectionFactor</definition>
+        <argsstring></argsstring>
+        <name>GainCorrectionFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="474" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="474" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1ad900dd65126958c1c74979b5439b6262" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_QMC_Settings::PhaseCorrectionFactor</definition>
+        <argsstring></argsstring>
+        <name>PhaseCorrectionFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="475" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1a56ce1f6a894012c8fe36a635769231d5" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XRFdc_QMC_Settings::OffsetCorrectionFactor</definition>
+        <argsstring></argsstring>
+        <name>OffsetCorrectionFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="476" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___q_m_c___settings_1a51779fb415fa749d1cba83128cefdae2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_QMC_Settings::EventSource</definition>
+        <argsstring></argsstring>
+        <name>EventSource</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="477" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="477" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>QMC settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="471" bodyend="478"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1a8ea2e00d518a6e1e52562b8cd8d4cc52" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>EnableGain</name></member>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1aabe41bbdb1b9e628ff23a6a563a75df1" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>EnablePhase</name></member>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1a51779fb415fa749d1cba83128cefdae2" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>EventSource</name></member>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1a9ca57ce60c1a9a7e7be67c9dfe656b32" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>GainCorrectionFactor</name></member>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1a56ce1f6a894012c8fe36a635769231d5" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>OffsetCorrectionFactor</name></member>
+      <member refid="struct_x_r_fdc___q_m_c___settings_1ad900dd65126958c1c74979b5439b6262" prot="public" virt="non-virtual"><scope>XRFdc_QMC_Settings</scope><name>PhaseCorrectionFactor</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_srio" kind="struct" prot="public">
+    <compoundname>XSrio</compoundname>
+    <includes local="no">xsrio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_srio___config" kindref="compound">XSrio_Config</ref></type>
+        <definition>XSrio_Config XSrio::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Config Structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" compoundref="xsrio_8c" startline="56" endline="82">XSrio_CfgInitialize</referencedby>
+        <referencedby refid="group__srio_1ga753aded6db30e1c042e7c7ee43b2a483" compoundref="xsrio_8c" startline="134" endline="151">XSrio_GetPEType</referencedby>
+        <referencedby refid="group__srio_1gacbd49fb630e7f2d7c8533d12607ef105" compoundref="xsrio_8c" startline="100" endline="117">XSrio_GetPortStatus</referencedby>
+        <referencedby refid="group__srio_1ga9eb82f808fa01a1679ed60a026a2a2c7" compoundref="xsrio_8c" startline="297" endline="312">XSrio_GetWaterMark</referencedby>
+        <referencedby refid="group__srio_1ga9cb7fbc368f16113382c2a9b4556b601" compoundref="xsrio_8c" startline="244" endline="278">XSrio_SetWaterMark</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XSrio::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" compoundref="xsrio_8c" startline="56" endline="82">XSrio_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_srio_1a142f0ed613e326b59ccee2e72b8e20cc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XSrio::PortWidth</definition>
+        <argsstring></argsstring>
+        <name>PortWidth</name>
+        <briefdescription>
+<para>Serial lane Port width (1x or 2x or 4x) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="group__srio_1gae4e21d1e48b45bc2694bb9a62845d01a" compoundref="xsrio_8c" startline="56" endline="82">XSrio_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_srio" kindref="compound">XSrio</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each SRIO device in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XSrio</label>
+        <link refid="struct_x_srio"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XSrio_Config</label>
+        <link refid="struct_x_srio___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/xsrio.h" bodystart="184" bodyend="188"/>
+    <listofallmembers>
+      <member refid="struct_x_srio_1a488646036c48d69dad92b9c251f6865d" prot="public" virt="non-virtual"><scope>XSrio</scope><name>Config</name></member>
+      <member refid="struct_x_srio_1ace213b237a319af359f46fee4ea92b1a" prot="public" virt="non-virtual"><scope>XSrio</scope><name>IsReady</name></member>
+      <member refid="struct_x_srio_1a142f0ed613e326b59ccee2e72b8e20cc" prot="public" virt="non-virtual"><scope>XSrio</scope><name>PortWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

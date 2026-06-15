@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb___device_config" kind="struct" prot="public">
+    <compoundname>XUsb_DeviceConfig</compoundname>
+    <includes local="no">xusb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb___device_config_1afabc76c53b986e9ae1c5ae30f52789f9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsb_DeviceConfig::NumEndpoints</definition>
+        <argsstring></argsstring>
+        <name>NumEndpoints</name>
+        <briefdescription>
+<para>Number of Endpoints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" compoundref="xusb__dma__intr__storage_8c" startline="267" endline="332">InitUsbInterface</referencedby>
+        <referencedby refid="xusb__cp9_8h_1aa8556bb31c18a1a79e669d398eb3d550" compoundref="xusb__cp9_8c" startline="979" endline="1046">SetConfiguration</referencedby>
+        <referencedby refid="group__usb_1gaeab13bf4d5ed84b5b9e0c1c651f50aaa" compoundref="xusb_8c" startline="89" endline="122">XUsb_CfgInitialize</referencedby>
+        <referencedby refid="group__usb_1ga9c50c0ee6d36d4b87a40018c2ad0fd25" compoundref="xusb_8c" startline="143" endline="179">XUsb_ConfigureDevice</referencedby>
+        <referencedby refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" compoundref="xusb__intr_8c" startline="156" endline="293">XUsb_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb___ep_config" kindref="compound">XUsb_EpConfig</ref></type>
+        <definition>XUsb_EpConfig XUsb_DeviceConfig::Ep[XUSB_MAX_ENDPOINTS]</definition>
+        <argsstring>[XUSB_MAX_ENDPOINTS]</argsstring>
+        <name>Ep</name>
+        <briefdescription>
+<para>An array of end points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="xusb__cp9_8h_1a33729d6b78e329bb598c6f06e9f80c11" compoundref="xusb__cp9_8c" startline="215" endline="278">EP0ProcessInToken</referencedby>
+        <referencedby refid="xusb__cp9_8h_1a27bfda5402c9f09018d88bf739cef6df" compoundref="xusb__cp9_8c" startline="148" endline="202">EP0ProcessOutToken</referencedby>
+        <referencedby refid="xusb__storage_8h_1a386bfc503aaebdfd92028284d6fb63f0" compoundref="xusb__dma__intr__storage_8c" startline="471" endline="498">Ep1IntrHandler</referencedby>
+        <referencedby refid="xusb__storage_8h_1a6030c0dc187b2ca30a157d5c12fb3101" compoundref="xusb__dma__intr__storage_8c" startline="516" endline="553">Ep2IntrHandler</referencedby>
+        <referencedby refid="xusb__cp9_8h_1a05b34453f563c02ff58a34f561ce0dd0" compoundref="xusb__cp9_8c" startline="944" endline="966">GetConfiguration</referencedby>
+        <referencedby refid="xusb__cp9_8h_1a4a4a0285e230799d49ba9c155d478735" compoundref="xusb__cp9_8c" startline="486" endline="514">GetInterface</referencedby>
+        <referencedby refid="xusb__storage_8h_1a58677e910a98e950bd94400b386584e0" compoundref="xusb__dma__intr__storage_8c" startline="1215" endline="1232">GetMaxLUN</referencedby>
+        <referencedby refid="xusb__cp9_8h_1a7586176b8d7887141ac9ca8e2cb54652" compoundref="xusb__cp9_8c" startline="581" endline="650">GetStatus</referencedby>
+        <referencedby refid="xusb__storage_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" compoundref="xusb__dma__intr__storage_8c" startline="267" endline="332">InitUsbInterface</referencedby>
+        <referencedby refid="xusb__cp9_8h_1af8ce6abb665614a213d352a7dfe02697" compoundref="xusb__cp9_8c" startline="1175" endline="1209">LoadEP0</referencedby>
+        <referencedby refid="xusb__cp9_8h_1aecd8f2cb6543de9f51b92df0880add14" compoundref="xusb__cp9_8c" startline="1062" endline="1162">SetClearFeature</referencedby>
+        <referencedby refid="xusb__cp9_8h_1aa8556bb31c18a1a79e669d398eb3d550" compoundref="xusb__cp9_8c" startline="979" endline="1046">SetConfiguration</referencedby>
+        <referencedby refid="xusb__cp9_8h_1a0e70dcdbdf3db1095a5b1b4128041618" compoundref="xusb__cp9_8c" startline="552" endline="568">SetupControlWriteStatusStage</referencedby>
+        <referencedby refid="group__usb_1ga9c50c0ee6d36d4b87a40018c2ad0fd25" compoundref="xusb_8c" startline="143" endline="179">XUsb_ConfigureDevice</referencedby>
+        <referencedby refid="group__usb_1ga143b99da38f8de7e4d0f5cee108fc797" compoundref="xusb__endpoint_8c" startline="428" endline="548">XUsb_EpDataRecv</referencedby>
+        <referencedby refid="group__usb_1gabf09f948bc604c279cb0a12bba14057b" compoundref="xusb__endpoint_8c" startline="261" endline="406">XUsb_EpDataSend</referencedby>
+        <referencedby refid="group__usb_1gae7fef0669e6d6094cc2af067195cc04d" compoundref="xusb__intr_8c" startline="344" endline="357">XUsb_EpSetHandler</referencedby>
+        <referencedby refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" compoundref="xusb__intr_8c" startline="156" endline="293">XUsb_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb___device_config_1a39868eeb033b4118b6e80f11a819d79c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsb_DeviceConfig::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>USB device Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xusb__dma__intr__storage_8c_1aaa76bf2e4a9d18c6362bdf783a067da6" compoundref="xusb__dma__intr__storage_8c" startline="568" endline="662">DmaIntrHandler</referencedby>
+        <referencedby refid="xusb__storage_8h_1a3b40155d0d9fa44133905dd9f6f02ee7" compoundref="xusb__dma__intr__storage_8c" startline="267" endline="332">InitUsbInterface</referencedby>
+        <referencedby refid="xusb__storage_8h_1aaa4db21dc45028300278c1c09cf97719" compoundref="xusb__dma__intr__storage_8c" startline="676" endline="878">ProcessRxCmd</referencedby>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="896" endline="994">Read10</referencedby>
+        <referencedby refid="xusb__storage_8h_1a8bd3ecc4e2acd07b864ea2392a0394f4" compoundref="xusb__dma__intr__storage_8c" startline="349" endline="388">UsbIfIntrHandler</referencedby>
+        <referencedby refid="xusb__storage_8c_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__storage_8c" startline="991" endline="1107">Write10</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsb_DeviceConfig::CurrentConfiguration</definition>
+        <argsstring></argsstring>
+        <name>CurrentConfiguration</name>
+        <briefdescription>
+<para><verbatim>      Current state of enumeration
+</verbatim> enumerated (1)/Not enumerated (0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="305" bodyend="-1"/>
+        <referencedby refid="xusb__cp9_8h_1a05b34453f563c02ff58a34f561ce0dd0" compoundref="xusb__cp9_8c" startline="944" endline="966">GetConfiguration</referencedby>
+        <referencedby refid="xusb__dma__intr__storage_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xusb__dma__intr__storage_8c" startline="131" endline="249">main</referencedby>
+        <referencedby refid="xusb__cp9_8h_1aa8556bb31c18a1a79e669d398eb3d550" compoundref="xusb__cp9_8c" startline="979" endline="1046">SetConfiguration</referencedby>
+        <referencedby refid="xusb__storage_8h_1a8bd3ecc4e2acd07b864ea2392a0394f4" compoundref="xusb__dma__intr__storage_8c" startline="349" endline="388">UsbIfIntrHandler</referencedby>
+        <referencedby refid="xusb__keyboard_8c_1a8882fbbb39100578edb3cd06a935ada6" compoundref="xusb__keyboard_8c" startline="191" endline="330">UsbKbdExample</referencedby>
+        <referencedby refid="xusb__mouse_8c_1a6e79a835f2be08e5725fd210740126f0" compoundref="xusb__mouse_8c" startline="190" endline="333">UsbMouseExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb___device_config_1a53ebfe09517736ee2ca350e4d96e996c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsb_DeviceConfig::CurrentSpeed</definition>
+        <argsstring></argsstring>
+        <name>CurrentSpeed</name>
+        <briefdescription>
+<para>Current Speed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="xusb__storage_8c_1a386bfc503aaebdfd92028284d6fb63f0" compoundref="xusb__storage_8c" startline="476" endline="570">Ep1IntrHandler</referencedby>
+        <referencedby refid="xusb__cp9_8h_1ab8ca0ad29df636d913b014873634e94f" compoundref="xusb__cp9_8c" startline="663" endline="912">GetDescriptor</referencedby>
+        <referencedby refid="xusb__storage__polled__mode_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xusb__storage__polled__mode_8c" startline="84" endline="202">main</referencedby>
+        <referencedby refid="xusb__storage_8h_1aa3bc2a29a012dcb0b3c4afc5d2ed2843" compoundref="xusb__dma__intr__storage_8c" startline="896" endline="994">Read10</referencedby>
+        <referencedby refid="xusb__dma__intr__storage_8c_1a20c10bb6c0fae679e5f4309d4f82e8a1" compoundref="xusb__dma__intr__storage_8c" startline="1054" endline="1105">ReadTransfer</referencedby>
+        <referencedby refid="xusb__storage_8c_1ac7e4e799fabb2ebbea49a1eafd6625c8" compoundref="xusb__storage_8c" startline="991" endline="1107">Write10</referencedby>
+        <referencedby refid="xusb__dma__intr__storage_8c_1a92a7e0322925656f0e14d4f57dc004c9" compoundref="xusb__dma__intr__storage_8c" startline="1119" endline="1169">WriteTransfer</referencedby>
+        <referencedby refid="group__usb_1gaeab13bf4d5ed84b5b9e0c1c651f50aaa" compoundref="xusb_8c" startline="89" endline="122">XUsb_CfgInitialize</referencedby>
+        <referencedby refid="group__usb_1gacc119aa9f628ab0cc3fac2f63073e386" compoundref="xusb__intr_8c" startline="156" endline="293">XUsb_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_usb___device_config" kindref="compound">XUsb_DeviceConfig</ref> structure contains the configuration information to configure the USB controller for DEVICE mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>This data structure is used with the <ref refid="group__usb_1ga9c50c0ee6d36d4b87a40018c2ad0fd25" kindref="member">XUsb_ConfigureDevice()</ref> function call. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="88">
+        <label>XUsb_DeviceConfig</label>
+        <link refid="struct_x_usb___device_config"/>
+        <childnode refid="89" relation="usage">
+          <edgelabel>Ep</edgelabel>
+        </childnode>
+      </node>
+      <node id="89">
+        <label>XUsb_EpConfig</label>
+        <link refid="struct_x_usb___ep_config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/src/xusb.h" bodystart="301" bodyend="309"/>
+    <listofallmembers>
+      <member refid="struct_x_usb___device_config_1aa2e570d2cf6027c87adee4304b6afd79" prot="public" virt="non-virtual"><scope>XUsb_DeviceConfig</scope><name>CurrentConfiguration</name></member>
+      <member refid="struct_x_usb___device_config_1a53ebfe09517736ee2ca350e4d96e996c" prot="public" virt="non-virtual"><scope>XUsb_DeviceConfig</scope><name>CurrentSpeed</name></member>
+      <member refid="struct_x_usb___device_config_1a6448bf5499b369be43e341c0edf109ea" prot="public" virt="non-virtual"><scope>XUsb_DeviceConfig</scope><name>Ep</name></member>
+      <member refid="struct_x_usb___device_config_1afabc76c53b986e9ae1c5ae30f52789f9" prot="public" virt="non-virtual"><scope>XUsb_DeviceConfig</scope><name>NumEndpoints</name></member>
+      <member refid="struct_x_usb___device_config_1a39868eeb033b4118b6e80f11a819d79c" prot="public" virt="non-virtual"><scope>XUsb_DeviceConfig</scope><name>Status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

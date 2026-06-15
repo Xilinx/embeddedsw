@@ -1,0 +1,2391 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2ve__2vm_2server_2xloader__plat__secure_8h" kind="file">
+    <compoundname>2ve_2vm/server/xloader_plat_secure.h</compoundname>
+    <includes local="yes">xilpdi.h</includes>
+    <includes local="yes">xplmi_config.h</includes>
+    <includes local="yes">xsecure_kat.h</includes>
+    <includes refid="xloader_8h" local="yes">xloader.h</includes>
+    <includedby refid="2ve__2vm_2server_2xloader__plat__secure_8c" local="yes">xloader_plat_secure.c</includedby>
+    <incdepgraph>
+      <node id="1291">
+        <label>xcfupmc.h</label>
+      </node>
+      <node id="1290">
+        <label>xplmi_dma.h</label>
+      </node>
+      <node id="1289">
+        <label>xplmi_debug.h</label>
+      </node>
+      <node id="1292">
+        <label>xloader_defs.h</label>
+        <link refid="xloader__defs_8h"/>
+        <childnode refid="1293" relation="include">
+        </childnode>
+        <childnode refid="1294" relation="include">
+        </childnode>
+      </node>
+      <node id="1284">
+        <label>xilpdi.h</label>
+      </node>
+      <node id="1296">
+        <label>xsecure_init.h</label>
+      </node>
+      <node id="1285">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1294">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1287">
+        <label>xloader.h</label>
+        <link refid="xloader_8h"/>
+        <childnode refid="1284" relation="include">
+        </childnode>
+        <childnode refid="1288" relation="include">
+        </childnode>
+        <childnode refid="1289" relation="include">
+        </childnode>
+        <childnode refid="1290" relation="include">
+        </childnode>
+        <childnode refid="1291" relation="include">
+        </childnode>
+        <childnode refid="1292" relation="include">
+        </childnode>
+        <childnode refid="1295" relation="include">
+        </childnode>
+        <childnode refid="1296" relation="include">
+        </childnode>
+      </node>
+      <node id="1283">
+        <label>xloader_plat_secure.h</label>
+        <link refid="2ve_2vm/server/xloader_plat_secure.h"/>
+        <childnode refid="1284" relation="include">
+        </childnode>
+        <childnode refid="1285" relation="include">
+        </childnode>
+        <childnode refid="1286" relation="include">
+        </childnode>
+        <childnode refid="1287" relation="include">
+        </childnode>
+      </node>
+      <node id="1293">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1295">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="1286">
+        <label>xsecure_kat.h</label>
+      </node>
+      <node id="1288">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1298">
+        <label>xloader_plat_secure.c</label>
+      </node>
+      <node id="1297">
+        <label>xloader_plat_secure.h</label>
+        <link refid="2ve_2vm/server/xloader_plat_secure.h"/>
+        <childnode refid="1298" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_loader___aes_kek_info" prot="public">XLoader_AesKekInfo</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" prot="public" static="no">
+        <name>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>eFUSE cache JTAG disable mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="185" endline="236">XLoader_AddDeviceStateChangeToScheduler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gae54e304e12bed07a3378c0185da9868b" prot="public" static="no">
+        <name>XLOADER_PMC_TAP_JTAG_STATUS_0</name>
+        <initializer>(0xF11A004CU)</initializer>
+        <briefdescription>
+<para>PMC TAP JTAG status 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="267" endline="302">XLoader_CheckDeviceStateChange</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gaf0fd9eb97eb65edff5280a0650feb534" prot="public" static="no">
+        <name>XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK</name>
+        <initializer>(0x00000001U &lt;&lt; 23U)</initializer>
+        <briefdescription>
+<para>DAP status mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="267" endline="302">XLoader_CheckDeviceStateChange</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga23eb31b043f46073edbb1cbfdde09b2c" prot="public" static="no">
+        <name>XLOADER_JTAG_SEC_GATE_CLOSE</name>
+        <initializer>(0x00U)</initializer>
+        <briefdescription>
+<para>JTAG secure gate close. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="267" endline="302">XLoader_CheckDeviceStateChange</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga55f22124092b10460be08e5d91a908a0" prot="public" static="no">
+        <name>XLOADER_JTAG_SEC_GATE_OPEN</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>JTAG secure gate open. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="267" endline="302">XLoader_CheckDeviceStateChange</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gaa899516ff2dd76c1c6dbcc30d8ecc57f" prot="public" static="no">
+        <name>XLOADER_DEVICE_STATE_POLL_INTERVAL</name>
+        <initializer>(1000U)</initializer>
+        <briefdescription>
+<para>Device state poll interval. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="185" endline="236">XLoader_AddDeviceStateChangeToScheduler</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga36eeb66375a1d833608e9869ac5e8c25" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1164" endline="1258">XLoader_UpdateHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga65218185907fca6d951e23931dc55cb8" prot="public" static="no">
+        <name>XLOADER_BBRAM_8_ADDRESS</name>
+        <initializer>(0xF11F0030U)</initializer>
+        <briefdescription>
+<para>Address of BBRAM_8 register used to store CL params. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga84d80bfee431a016d911745ccb090270" prot="public" static="no">
+        <name>XLOADER_BBRAM_8_MEM_ADDRESS</name>
+        <initializer>(0xF11F0050U)</initializer>
+        <briefdescription>
+<para>Address of register to read the value in BBRAM_8 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gad9f31eaf90c33ab151898cd37e4eff9b" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_COUNTER_MASK</name>
+        <initializer>(0x0FFFFFFFU)</initializer>
+        <briefdescription>
+<para>Mask to get the value of counter in Configuration Limiter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gafd80e0e1eb20b3b660d8fce5a9103014" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_MODE_MASK</name>
+        <initializer>(0x30000000U)</initializer>
+        <briefdescription>
+<para>Mask to get the value of mode in Configuration Limiter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga37c08661d3152aec41f313cded9ec6fc" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_MODE_SHIFT</name>
+        <initializer>(28)</initializer>
+        <briefdescription>
+<para>Shift to get the value of mode in Configuration Limiter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gae7ff8e9593d22d18fb2ad59d3f52d8bc" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_FEATURE_EN_MASK</name>
+        <initializer>(0xC0000000U)</initializer>
+        <briefdescription>
+<para>Mask to get the value of Feature enable in Configuration Limiter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga5c23ecf402f03d73697bd9853b03615a" prot="public" static="no">
+        <name>XLOADER_CL_FEATURE_EN_SHIFT</name>
+        <initializer>(30U)</initializer>
+        <briefdescription>
+<para>CL Feature Enable Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1gaa070570ecc9f9f5b26fde37bfbb65404" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Number of failed configurations selected as mode for Configuration Limiter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga0b30f9c74384da3b9f742b6c7ab1a4b8" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>Number of failed configurations selected as mode for Configuration Limiter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga2e055ae35f63339067a9226ebbfc376b" prot="public" static="no">
+        <name>XLOADER_BBRAM_CL_FEATURE_ENABLE</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>Value when Configuration Limiter feature is enabled. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga7d8acff2a4081c51964f881ef7aa89a4" prot="public" static="no">
+        <name>XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK</name>
+        <initializer>(0x79FFF8C1U)</initializer>
+        <briefdescription>
+<para>Mask to enable required instructions in Instruction Mask 0 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__apis_1ga1f8c9ff94d21dc60ec6d54247e94cc8a" prot="public" static="no">
+        <name>XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK</name>
+        <initializer>(0x070BFF91U)</initializer>
+        <briefdescription>
+<para>Mask to enable required instructions in Instruction Mask 1 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xloader__apis_1gae8e595a7e8a42347e6c48aee19445f10" prot="public" static="no">
+        <name>XLoader_SecErrCodes</name>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" prot="public">
+          <name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Incorrect Authentication type selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x03 PPK Hash calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" prot="public">
+          <name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x04 All PPKs are revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" prot="public">
+          <name>XLOADER_SEC_SEL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x05 When selected PPK is revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</name>
+          <briefdescription>
+<para>0x06 PPK HAsh is all zero hence inavalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_COMPARE_FAIL</name>
+          <briefdescription>
+<para>0x07 HAsh comparison failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" prot="public">
+          <name>XLOADER_ERR_RESERVED_08</name>
+          <briefdescription>
+<para>0x08 XLOADER_ERR_RESERVED_08 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" prot="public">
+          <name>XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x09 SPK HAsh calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" prot="public">
+          <name>XLOADER_SEC_RSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0A RSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x0B RSA Pss signature verification failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" prot="public">
+          <name>XLOADER_SEC_ECDSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0C ECDSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" prot="public">
+          <name>XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</name>
+          <briefdescription>
+<para>0x0D ECDSA invalid key coordinates </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" prot="public">
+          <name>XLOADER_SEC_INVALID_AUTH</name>
+          <briefdescription>
+<para>0x0E Only RSA and ECDSA are supported </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" prot="public">
+          <name>XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 Revocation ID is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" prot="public">
+          <name>XLOADER_SEC_ID_REVOKED</name>
+          <briefdescription>
+<para>0x11 Revocation ID range not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" prot="public">
+          <name>XLOADER_SEC_BLACK_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x12 Black key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" prot="public">
+          <name>XLOADER_SEC_OBFUS_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x13 Obfuscated key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" prot="public">
+          <name>XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</name>
+          <briefdescription>
+<para>0x14 Invalid key source selected for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" prot="public">
+          <name>XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</name>
+          <briefdescription>
+<para>0x15 Data still remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" prot="public">
+          <name>XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</name>
+          <briefdescription>
+<para>0x16 Size mismatch for data remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" prot="public">
+          <name>XLOADER_SEC_AES_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x17 AES Operation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" prot="public">
+          <name>XLOADER_SEC_DPA_CM_ERR</name>
+          <briefdescription>
+<para>0x18 DPA CM Cfg Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" prot="public">
+          <name>XLOADER_ERR_RESERVED_19</name>
+          <briefdescription>
+<para>0x19 XLOADER_ERR_RESERVED_19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" prot="public">
+          <name>XLOADER_SEC_AES_KEK_DEC</name>
+          <briefdescription>
+<para>0x1A AES KEK decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</name>
+          <briefdescription>
+<para>0x1B RSA ENC 0xbc value is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</name>
+          <briefdescription>
+<para>0x1C RSA PSS verification hash is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</name>
+          <briefdescription>
+<para>0x1D Keysrc should be efuse black key for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</name>
+          <briefdescription>
+<para>0x1E PUFHD location should be from eFuse for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" prot="public">
+          <name>XLOADER_SEC_METAHDR_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x1F eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" prot="public">
+          <name>XLOADER_SEC_BLACK_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x20 eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" prot="public">
+          <name>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</name>
+          <briefdescription>
+<para>0x21 Metahdr IV Range not matched with eFuse IV </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" prot="public">
+          <name>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</name>
+          <briefdescription>
+<para>0x23 Error during memset for XSecure_RsaSha3Array </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</name>
+          <briefdescription>
+<para>0x24 Error during memset for Xsecure_Varsocm </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" prot="public">
+          <name>XLOADER_SEC_MASKED_DB_MSB_ERROR</name>
+          <briefdescription>
+<para>0x25 Error in RSA EM MSB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" prot="public">
+          <name>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x26 Failed to verify DB check </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" prot="public">
+          <name>XLOADER_SEC_MEMSET_ERROR</name>
+          <briefdescription>
+<para>0x27 Error during XPlmi_MemSetBytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" prot="public">
+          <name>XLOADER_SEC_GLITCH_DETECTED_ERROR</name>
+          <briefdescription>
+<para>0x28 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" prot="public">
+          <name>XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</name>
+          <briefdescription>
+<para>0x29 Error encrypted data is not 128 bit aligned </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" prot="public">
+          <name>XLOADER_ERR_RESERVED_30</name>
+          <briefdescription>
+<para>0x30 XLOADER_ERR_RESERVED_30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" prot="public">
+          <name>XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x31 Error when RED key clear failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" prot="public">
+          <name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>0x32 Error when ECC curve is not supported and trying to access </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name>
+          <briefdescription>
+<para>0x33 Error when partition hash is not present for respective partition </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name>
+          <briefdescription>
+<para>0x34 Error when partition hash comparison is failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" prot="public">
+          <name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Incorrect Authentication type selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x03 PPK Hash calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" prot="public">
+          <name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x04 All PPKs are revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" prot="public">
+          <name>XLOADER_SEC_SEL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x05 When selected PPK is revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</name>
+          <briefdescription>
+<para>0x06 PPK HAsh is all zero hence inavalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_COMPARE_FAIL</name>
+          <briefdescription>
+<para>0x07 HAsh comparison failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" prot="public">
+          <name>XLOADER_ERR_RESERVED_08</name>
+          <briefdescription>
+<para>0x08 XLOADER_ERR_RESERVED_08 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" prot="public">
+          <name>XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x09 SPK HAsh calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" prot="public">
+          <name>XLOADER_SEC_RSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0A RSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x0B RSA Pss signature verification failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" prot="public">
+          <name>XLOADER_SEC_ECDSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0C ECDSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" prot="public">
+          <name>XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</name>
+          <briefdescription>
+<para>0x0D ECDSA invalid key coordinates </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" prot="public">
+          <name>XLOADER_SEC_INVALID_AUTH</name>
+          <briefdescription>
+<para>0x0E Only RSA and ECDSA are supported </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" prot="public">
+          <name>XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 Revocation ID is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" prot="public">
+          <name>XLOADER_SEC_ID_REVOKED</name>
+          <briefdescription>
+<para>0x11 Revocation ID range not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" prot="public">
+          <name>XLOADER_SEC_BLACK_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x12 Black key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" prot="public">
+          <name>XLOADER_SEC_OBFUS_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x13 Obfuscated key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" prot="public">
+          <name>XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</name>
+          <briefdescription>
+<para>0x14 Invalid key source selected for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" prot="public">
+          <name>XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</name>
+          <briefdescription>
+<para>0x15 Data still remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" prot="public">
+          <name>XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</name>
+          <briefdescription>
+<para>0x16 Size mismatch for data remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" prot="public">
+          <name>XLOADER_SEC_AES_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x17 AES Operation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" prot="public">
+          <name>XLOADER_SEC_DPA_CM_ERR</name>
+          <briefdescription>
+<para>0x18 DPA CM Cfg Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" prot="public">
+          <name>XLOADER_ERR_RESERVED_19</name>
+          <briefdescription>
+<para>0x19 XLOADER_ERR_RESERVED_19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" prot="public">
+          <name>XLOADER_SEC_AES_KEK_DEC</name>
+          <briefdescription>
+<para>0x1A AES KEK decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</name>
+          <briefdescription>
+<para>0x1B RSA ENC 0xbc value is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</name>
+          <briefdescription>
+<para>0x1C RSA PSS verification hash is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</name>
+          <briefdescription>
+<para>0x1D Keysrc should be efuse black key for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</name>
+          <briefdescription>
+<para>0x1E PUFHD location should be from eFuse for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" prot="public">
+          <name>XLOADER_SEC_METAHDR_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x1F eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" prot="public">
+          <name>XLOADER_SEC_BLACK_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x20 eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" prot="public">
+          <name>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</name>
+          <briefdescription>
+<para>0x21 Metahdr IV Range not matched with eFuse IV </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" prot="public">
+          <name>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</name>
+          <briefdescription>
+<para>0x23 Error during memset for XSecure_RsaSha3Array </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</name>
+          <briefdescription>
+<para>0x24 Error during memset for Xsecure_Varsocm </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" prot="public">
+          <name>XLOADER_SEC_MASKED_DB_MSB_ERROR</name>
+          <briefdescription>
+<para>0x25 Error in RSA EM MSB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" prot="public">
+          <name>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x26 Failed to verify DB check </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" prot="public">
+          <name>XLOADER_SEC_MEMSET_ERROR</name>
+          <briefdescription>
+<para>0x27 Error during XPlmi_MemSetBytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" prot="public">
+          <name>XLOADER_SEC_GLITCH_DETECTED_ERROR</name>
+          <briefdescription>
+<para>0x28 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" prot="public">
+          <name>XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</name>
+          <briefdescription>
+<para>0x29 Error encrypted data is not 128 bit aligned </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" prot="public">
+          <name>XLOADER_ERR_RESERVED_30</name>
+          <briefdescription>
+<para>0x30 XLOADER_ERR_RESERVED_30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" prot="public">
+          <name>XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x31 Error when RED key clear failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" prot="public">
+          <name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name>
+          <briefdescription>
+<para>0x32 Error when secure state config measurement failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" prot="public">
+          <name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>0x2C Error when ECC curve is not supported and trying to access </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name>
+          <briefdescription>
+<para>0x34 Error when partition hash is not present for respective partition </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name>
+          <briefdescription>
+<para>0x35 Error when partition hash comparison is failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" prot="public">
+          <name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x36 - Error in AES AAD Operation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" prot="public">
+          <name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x37 - Error in LMS sign verification due to error in SHA operation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" prot="public">
+          <name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name>
+          <briefdescription>
+<para>0x38 - Error in LMS sign verification due to invalid public key size </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" prot="public">
+          <name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Incorrect Authentication type selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x03 PPK Hash calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" prot="public">
+          <name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x04 All PPKs are revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" prot="public">
+          <name>XLOADER_SEC_SEL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x05 When selected PPK is revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</name>
+          <briefdescription>
+<para>0x06 PPK HAsh is all zero hence inavalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_COMPARE_FAIL</name>
+          <briefdescription>
+<para>0x07 HAsh comparison failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" prot="public">
+          <name>XLOADER_ERR_RESERVED_08</name>
+          <briefdescription>
+<para>0x08 XLOADER_ERR_RESERVED_08 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" prot="public">
+          <name>XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x09 SPK HAsh calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" prot="public">
+          <name>XLOADER_SEC_RSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0A RSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x0B RSA Pss signature verification failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" prot="public">
+          <name>XLOADER_SEC_ECDSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0C ECDSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" prot="public">
+          <name>XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</name>
+          <briefdescription>
+<para>0x0D ECDSA invalid key coordinates </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" prot="public">
+          <name>XLOADER_SEC_INVALID_AUTH</name>
+          <briefdescription>
+<para>0x0E Only RSA and ECDSA are supported </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" prot="public">
+          <name>XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 Revocation ID is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" prot="public">
+          <name>XLOADER_SEC_ID_REVOKED</name>
+          <briefdescription>
+<para>0x11 Revocation ID range not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" prot="public">
+          <name>XLOADER_SEC_BLACK_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x12 Black key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" prot="public">
+          <name>XLOADER_SEC_OBFUS_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x13 Obfuscated key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" prot="public">
+          <name>XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</name>
+          <briefdescription>
+<para>0x14 Invalid key source selected for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" prot="public">
+          <name>XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</name>
+          <briefdescription>
+<para>0x15 Data still remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" prot="public">
+          <name>XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</name>
+          <briefdescription>
+<para>0x16 Size mismatch for data remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" prot="public">
+          <name>XLOADER_SEC_AES_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x17 AES Operation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" prot="public">
+          <name>XLOADER_SEC_DPA_CM_ERR</name>
+          <briefdescription>
+<para>0x18 DPA CM Cfg Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" prot="public">
+          <name>XLOADER_ERR_RESERVED_19</name>
+          <briefdescription>
+<para>0x19 XLOADER_ERR_RESERVED_19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" prot="public">
+          <name>XLOADER_SEC_AES_KEK_DEC</name>
+          <briefdescription>
+<para>0x1A AES KEK decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</name>
+          <briefdescription>
+<para>0x1B RSA ENC 0xbc value is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</name>
+          <briefdescription>
+<para>0x1C RSA PSS verification hash is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</name>
+          <briefdescription>
+<para>0x1D Keysrc should be efuse black key for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</name>
+          <briefdescription>
+<para>0x1E PUFHD location should be from eFuse for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" prot="public">
+          <name>XLOADER_SEC_METAHDR_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x1F eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" prot="public">
+          <name>XLOADER_SEC_BLACK_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x20 eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" prot="public">
+          <name>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</name>
+          <briefdescription>
+<para>0x21 Metahdr IV Range not matched with eFuse IV </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" prot="public">
+          <name>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</name>
+          <briefdescription>
+<para>0x23 Error during memset for XSecure_RsaSha3Array </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</name>
+          <briefdescription>
+<para>0x24 Error during memset for Xsecure_Varsocm </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" prot="public">
+          <name>XLOADER_SEC_MASKED_DB_MSB_ERROR</name>
+          <briefdescription>
+<para>0x25 Error in RSA EM MSB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" prot="public">
+          <name>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x26 Failed to verify DB check </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" prot="public">
+          <name>XLOADER_SEC_MEMSET_ERROR</name>
+          <briefdescription>
+<para>0x27 Error during XPlmi_MemSetBytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" prot="public">
+          <name>XLOADER_SEC_GLITCH_DETECTED_ERROR</name>
+          <briefdescription>
+<para>0x28 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" prot="public">
+          <name>XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</name>
+          <briefdescription>
+<para>0x29 Error encrypted data is not 128 bit aligned </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" prot="public">
+          <name>XLOADER_ERR_RESERVED_30</name>
+          <briefdescription>
+<para>0x30 XLOADER_ERR_RESERVED_30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" prot="public">
+          <name>XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x31 Error when RED key clear failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" prot="public">
+          <name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>0x32 Error when ECC curve is not supported and trying to access </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name>
+          <briefdescription>
+<para>0x33 Error when partition hash is not present for respective partition </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name>
+          <briefdescription>
+<para>0x34 Error when partition hash comparison is failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" prot="public">
+          <name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Incorrect Authentication type selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x03 PPK Hash calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" prot="public">
+          <name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x04 All PPKs are revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" prot="public">
+          <name>XLOADER_SEC_SEL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x05 When selected PPK is revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</name>
+          <briefdescription>
+<para>0x06 PPK HAsh is all zero hence inavalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_COMPARE_FAIL</name>
+          <briefdescription>
+<para>0x07 HAsh comparison failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" prot="public">
+          <name>XLOADER_ERR_RESERVED_08</name>
+          <briefdescription>
+<para>0x08 XLOADER_ERR_RESERVED_08 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" prot="public">
+          <name>XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x09 SPK HAsh calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" prot="public">
+          <name>XLOADER_SEC_RSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0A RSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x0B RSA Pss signature verification failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" prot="public">
+          <name>XLOADER_SEC_ECDSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0C ECDSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" prot="public">
+          <name>XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</name>
+          <briefdescription>
+<para>0x0D ECDSA invalid key coordinates </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" prot="public">
+          <name>XLOADER_SEC_INVALID_AUTH</name>
+          <briefdescription>
+<para>0x0E Only RSA and ECDSA are supported </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" prot="public">
+          <name>XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 Revocation ID is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" prot="public">
+          <name>XLOADER_SEC_ID_REVOKED</name>
+          <briefdescription>
+<para>0x11 Revocation ID range not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" prot="public">
+          <name>XLOADER_SEC_BLACK_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x12 Black key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" prot="public">
+          <name>XLOADER_SEC_OBFUS_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x13 Obfuscated key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" prot="public">
+          <name>XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</name>
+          <briefdescription>
+<para>0x14 Invalid key source selected for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" prot="public">
+          <name>XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</name>
+          <briefdescription>
+<para>0x15 Data still remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" prot="public">
+          <name>XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</name>
+          <briefdescription>
+<para>0x16 Size mismatch for data remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" prot="public">
+          <name>XLOADER_SEC_AES_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x17 AES Operation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" prot="public">
+          <name>XLOADER_SEC_DPA_CM_ERR</name>
+          <briefdescription>
+<para>0x18 DPA CM Cfg Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" prot="public">
+          <name>XLOADER_ERR_RESERVED_19</name>
+          <briefdescription>
+<para>0x19 XLOADER_ERR_RESERVED_19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" prot="public">
+          <name>XLOADER_SEC_AES_KEK_DEC</name>
+          <briefdescription>
+<para>0x1A AES KEK decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</name>
+          <briefdescription>
+<para>0x1B RSA ENC 0xbc value is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</name>
+          <briefdescription>
+<para>0x1C RSA PSS verification hash is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</name>
+          <briefdescription>
+<para>0x1D Keysrc should be efuse black key for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</name>
+          <briefdescription>
+<para>0x1E PUFHD location should be from eFuse for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" prot="public">
+          <name>XLOADER_SEC_METAHDR_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x1F eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" prot="public">
+          <name>XLOADER_SEC_BLACK_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x20 eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" prot="public">
+          <name>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</name>
+          <briefdescription>
+<para>0x21 Metahdr IV Range not matched with eFuse IV </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" prot="public">
+          <name>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</name>
+          <briefdescription>
+<para>0x23 Error during memset for XSecure_RsaSha3Array </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</name>
+          <briefdescription>
+<para>0x24 Error during memset for Xsecure_Varsocm </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" prot="public">
+          <name>XLOADER_SEC_MASKED_DB_MSB_ERROR</name>
+          <briefdescription>
+<para>0x25 Error in RSA EM MSB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" prot="public">
+          <name>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x26 Failed to verify DB check </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" prot="public">
+          <name>XLOADER_SEC_MEMSET_ERROR</name>
+          <briefdescription>
+<para>0x27 Error during XPlmi_MemSetBytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" prot="public">
+          <name>XLOADER_SEC_GLITCH_DETECTED_ERROR</name>
+          <briefdescription>
+<para>0x28 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" prot="public">
+          <name>XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</name>
+          <briefdescription>
+<para>0x29 Error encrypted data is not 128 bit aligned </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05dd724d34635eecfe3ac0dcc38e7030" prot="public">
+          <name>XLOADER_ERR_RESERVED_2A</name>
+          <briefdescription>
+<para>0x2A XLOADER_ERR_RESERVED_2A </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" prot="public">
+          <name>XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x2B Error when RED key clear failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" prot="public">
+          <name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>0x2C Error when ECC curve is not supported and trying to access </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name>
+          <briefdescription>
+<para>0x2D Error when partition hash is not present for respective partition </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name>
+          <briefdescription>
+<para>0x2E Error when partition hash comparison is failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" prot="public">
+          <name>XLOADER_SEC_AES_AAD_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x2F - Error in AES AAD Operation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" prot="public">
+          <name>XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x30 - Error in LMS sign verification due to error in SHA operation </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" prot="public">
+          <name>XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</name>
+          <briefdescription>
+<para>0x31 - Error in LMS sign verification due to invalid public key size </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" prot="public">
+          <name>XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+<para>0x02 Incorrect Authentication type selected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x03 PPK Hash calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" prot="public">
+          <name>XLOADER_SEC_ALL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x04 All PPKs are revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" prot="public">
+          <name>XLOADER_SEC_SEL_PPK_REVOKED_ERR</name>
+          <briefdescription>
+<para>0x05 When selected PPK is revoked </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</name>
+          <briefdescription>
+<para>0x06 PPK HAsh is all zero hence inavalid </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" prot="public">
+          <name>XLOADER_SEC_PPK_HASH_COMPARE_FAIL</name>
+          <briefdescription>
+<para>0x07 HAsh comparison failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" prot="public">
+          <name>XLOADER_ERR_RESERVED_08</name>
+          <briefdescription>
+<para>0x08 XLOADER_ERR_RESERVED_08 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" prot="public">
+          <name>XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</name>
+          <briefdescription>
+<para>0x09 SPK HAsh calculation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" prot="public">
+          <name>XLOADER_SEC_RSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0A RSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</name>
+          <briefdescription>
+<para>0x0B RSA Pss signature verification failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" prot="public">
+          <name>XLOADER_SEC_ECDSA_AUTH_FAIL</name>
+          <briefdescription>
+<para>0x0C ECDSA signature is not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" prot="public">
+          <name>XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</name>
+          <briefdescription>
+<para>0x0D ECDSA invalid key coordinates </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" prot="public">
+          <name>XLOADER_SEC_INVALID_AUTH</name>
+          <briefdescription>
+<para>0x0E Only RSA and ECDSA are supported </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" prot="public">
+          <name>XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+<para>0x10 Revocation ID is out of range </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" prot="public">
+          <name>XLOADER_SEC_ID_REVOKED</name>
+          <briefdescription>
+<para>0x11 Revocation ID range not verified </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" prot="public">
+          <name>XLOADER_SEC_BLACK_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x12 Black key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" prot="public">
+          <name>XLOADER_SEC_OBFUS_KEY_DEC_ERR</name>
+          <briefdescription>
+<para>0x13 Obfuscated key decryption error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" prot="public">
+          <name>XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</name>
+          <briefdescription>
+<para>0x14 Invalid key source selected for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" prot="public">
+          <name>XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</name>
+          <briefdescription>
+<para>0x15 Data still remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" prot="public">
+          <name>XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</name>
+          <briefdescription>
+<para>0x16 Size mismatch for data remaining for decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" prot="public">
+          <name>XLOADER_SEC_AES_OPERATION_FAILED</name>
+          <briefdescription>
+<para>0x17 AES Operation failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" prot="public">
+          <name>XLOADER_SEC_DPA_CM_ERR</name>
+          <briefdescription>
+<para>0x18 DPA CM Cfg Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" prot="public">
+          <name>XLOADER_ERR_RESERVED_19</name>
+          <briefdescription>
+<para>0x19 XLOADER_ERR_RESERVED_19 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" prot="public">
+          <name>XLOADER_SEC_AES_KEK_DEC</name>
+          <briefdescription>
+<para>0x1A AES KEK decryption </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</name>
+          <briefdescription>
+<para>0x1B RSA ENC 0xbc value is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" prot="public">
+          <name>XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</name>
+          <briefdescription>
+<para>0x1C RSA PSS verification hash is not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</name>
+          <briefdescription>
+<para>0x1D Keysrc should be efuse black key for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" prot="public">
+          <name>XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</name>
+          <briefdescription>
+<para>0x1E PUFHD location should be from eFuse for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" prot="public">
+          <name>XLOADER_SEC_METAHDR_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x1F eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" prot="public">
+          <name>XLOADER_SEC_BLACK_IV_ZERO_ERR</name>
+          <briefdescription>
+<para>0x20 eFuse IV should be non-zero for enc only </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" prot="public">
+          <name>XLOADER_SEC_IV_METAHDR_RANGE_ERROR</name>
+          <briefdescription>
+<para>0x21 Metahdr IV Range not matched with eFuse IV </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" prot="public">
+          <name>XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x22 Metahdr DpaCm &amp; eFuse DpaCm values are not matched </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</name>
+          <briefdescription>
+<para>0x23 Error during memset for XSecure_RsaSha3Array </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" prot="public">
+          <name>XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</name>
+          <briefdescription>
+<para>0x24 Error during memset for Xsecure_Varsocm </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" prot="public">
+          <name>XLOADER_SEC_MASKED_DB_MSB_ERROR</name>
+          <briefdescription>
+<para>0x25 Error in RSA EM MSB </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" prot="public">
+          <name>XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</name>
+          <briefdescription>
+<para>0x26 Failed to verify DB check </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" prot="public">
+          <name>XLOADER_SEC_MEMSET_ERROR</name>
+          <briefdescription>
+<para>0x27 Error during XPlmi_MemSetBytes </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" prot="public">
+          <name>XLOADER_SEC_GLITCH_DETECTED_ERROR</name>
+          <briefdescription>
+<para>0x28 Error glitch detected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" prot="public">
+          <name>XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</name>
+          <briefdescription>
+<para>0x29 Error encrypted data is not 128 bit aligned </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" prot="public">
+          <name>XLOADER_ERR_RESERVED_30</name>
+          <briefdescription>
+<para>0x30 XLOADER_ERR_RESERVED_30 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" prot="public">
+          <name>XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</name>
+          <briefdescription>
+<para>0x31 Error when RED key clear failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" prot="public">
+          <name>XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</name>
+          <briefdescription>
+<para>0x32 Error when secure state config measurement failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" prot="public">
+          <name>XLOADER_SEC_CURVE_NOT_SUPPORTED</name>
+          <briefdescription>
+<para>0x2C Error when ECC curve is not supported and trying to access </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</name>
+          <briefdescription>
+<para>0x34 Error when partition hash is not present for respective partition </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" prot="public">
+          <name>XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</name>
+          <briefdescription>
+<para>0x35 Error when partition hash comparison is failed </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Structure to hold SEC error codes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" bodystart="103" bodyend="202"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__apis_1gac8bc92d0322ebe706e0642274395c092" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XLoader_GetKekSrc</definition>
+        <argsstring>(void)</argsstring>
+        <name>XLoader_GetKekSrc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function updates KEK red key availability status from boot header. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Decryption Key source status. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="84" bodyend="109"/>
+        <references refid="xloader__auth__enc_8h_1ade3004565717199ee57abec59c1fb18c" compoundref="xloader__auth__enc_8h" startline="186">XLOADER_BBRAM_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1ade4d767281c0bfc8f13986d55dba83fa" compoundref="xloader__auth__enc_8h" startline="284">XLOADER_BBRAM_RED_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a58356b659336e4b427c4970be82d3ac1" compoundref="xloader__auth__enc_8h" startline="188">XLOADER_BH_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1ab6ee28a571ba641e995ca7b765968cc5" compoundref="xloader__auth__enc_8h" startline="286">XLOADER_BHDR_RED_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a1c3ef02f873ab336be986fce84fd0cbe" compoundref="xloader__auth__enc_8h" startline="182">XLOADER_EFUSE_BLK_KEY</references>
+        <references refid="xloader__auth__enc_8h_1a9c389c98f746e41bfb5e14b5abf4a76d" compoundref="xloader__auth__enc_8h" startline="288">XLOADER_EFUSE_RED_KEY</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga67aad6fd596b7f1b30b91ae303531984" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_AesObfusKeySelect</definition>
+        <argsstring>(u32 PdiKeySrc, u32 DecKeyMask, void *KeySrcPtr)</argsstring>
+        <name>XLoader_AesObfusKeySelect</name>
+        <param>
+          <type>u32</type>
+          <declname>PdiKeySrc</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DecKeyMask</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>KeySrcPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function provides Obfuscated Aes Key source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success and error code on failure</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiKeySrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Key source given in Pdi. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecKeyMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the current DecKeyMask. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the calculated KeySrc.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="123" bodyend="131"/>
+        <references refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" compoundref="server_2xloader__plat__secure_8h" startline="110">XLOADER_SEC_AES_KEK_DEC</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga944e827539b7d91e136e4e64f8411a9a" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XLoader_AddDeviceStateChangeToScheduler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XLoader_AddDeviceStateChangeToScheduler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is supported only for Versalnet, nothing to be done in Versal. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns XST_SUCCESS always </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" bodystart="195" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga53a30d478b54d5ef349ca169085eb7b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_CheckDeviceStateChange</definition>
+        <argsstring>(void *Arg)</argsstring>
+        <name>XLoader_CheckDeviceStateChange</name>
+        <param>
+          <type>void *</type>
+          <declname>Arg</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the JTAG device state change. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            When Secure gate is opened from close state this API raises an error,
+    if the gate is closed and re-opened again this function recognizes the
+    state change and performs the action configured.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Arg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is of pointer of void type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.c" bodystart="267" bodyend="302"/>
+        <references refid="group__xloader__server__apis_1ga830f47f91bd5f3b12b41a8e80108017d" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1836" endline="1850">XLoader_CheckAndUpdateSecureState</references>
+        <references refid="group__xloader__apis_1ga23eb31b043f46073edbb1cbfdde09b2c" compoundref="2ve__2vm_2server_2xloader__plat__secure_8h" startline="72">XLOADER_JTAG_SEC_GATE_CLOSE</references>
+        <references refid="group__xloader__apis_1ga55f22124092b10460be08e5d91a908a0" compoundref="2ve__2vm_2server_2xloader__plat__secure_8h" startline="73">XLOADER_JTAG_SEC_GATE_OPEN</references>
+        <references refid="group__xloader__apis_1gae54e304e12bed07a3378c0185da9868b" compoundref="2ve__2vm_2server_2xloader__plat__secure_8h" startline="70">XLOADER_PMC_TAP_JTAG_STATUS_0</references>
+        <references refid="group__xloader__apis_1gaf0fd9eb97eb65edff5280a0650feb534" compoundref="2ve__2vm_2server_2xloader__plat__secure_8h" startline="71">XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK</references>
+        <referencedby refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" compoundref="2ve__2vm_2server_2xloader__plat__secure_8c" startline="185" endline="236">XLoader_AddDeviceStateChangeToScheduler</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga36eeb66375a1d833608e9869ac5e8c25" compoundref="2ve__2vm_2server_2xloader__plat_8c" startline="1164" endline="1258">XLoader_UpdateHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga647a935c43dcde43b8f4c308764fbd6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_UpdateCfgLimitCount</definition>
+        <argsstring>(u32 UpdateFlag)</argsstring>
+        <name>XLoader_UpdateCfgLimitCount</name>
+        <param>
+          <type>u32</type>
+          <declname>UpdateFlag</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="224" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1gacab6dc67b284d4e40675a3a2db2dae2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_CheckAndUpdateCfgLimit</definition>
+        <argsstring>(u32 BootPhase)</argsstring>
+        <name>XLoader_CheckAndUpdateCfgLimit</name>
+        <param>
+          <type>u32</type>
+          <declname>BootPhase</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h" line="225" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga7f8a05533623425c11d0c61ae684c27e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_RsaKat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XLoader_RsaKat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function runs the KAT for RSA. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success and error code on failure</para></listitem></itemizedlist>
+</para><simplesectsep/><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="142" bodyend="148"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__apis_1ga12304b3fe7be1b2e0831cda984875428" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_MaskGenFunc</definition>
+        <argsstring>(XSecure_Sha3 *Sha3InstancePtr, u8 *Out, u32 OutLen, u8 *Input)</argsstring>
+        <name>XLoader_MaskGenFunc</name>
+        <param>
+          <type>XSecure_Sha3 *</type>
+          <declname>Sha3InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Out</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>OutLen</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Input</declname>
+        </param>
+        <briefdescription>
+<para>Mask generation function with SHA3. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Sha3InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the XSecure_Sha3 instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer in which output of this function will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the required length. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer which holds the input data for which mask should be calculated which should be 48 bytes length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XLOADER_SEC_BUF_CLEAR_ERR if failed to clear buffer.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Sha3InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the XSecure_Sha3 instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Out</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer in which output of this function will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the required length. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer which holds the input data for which mask should be calculated which should be 48 bytes length.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>Errorcode on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal/server/xloader_plat_secure.c" bodystart="183" bodyend="249"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#ifndef<sp/>XLOADER_PLAT_SECURE_H</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_PLAT_SECURE_H</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilpdi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_kat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xloader_8h" kindref="compound">xloader.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="group__xloader__apis_1gab01b2c8e8ec0893568094291e5cdb0ca" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XLOADER_EFUSE_CACHE_JTAG_DIS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xloader__apis_1gae54e304e12bed07a3378c0185da9868b" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_PMC_TAP_JTAG_STATUS_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF11A004CU)<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xloader__apis_1gaf0fd9eb97eb65edff5280a0650feb534" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_PMC_TAP_JTAG_STATUS_DAP_STATUS_MASK<sp/><sp/><sp/><sp/><sp/>(0x00000001U<sp/>&lt;&lt;<sp/>23U)<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xloader__apis_1ga23eb31b043f46073edbb1cbfdde09b2c" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_JTAG_SEC_GATE_CLOSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00U)<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xloader__apis_1ga55f22124092b10460be08e5d91a908a0" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_JTAG_SEC_GATE_OPEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xloader__apis_1gaa899516ff2dd76c1c6dbcc30d8ecc57f" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_DEVICE_STATE_POLL_INTERVAL<sp/><sp/><sp/><sp/><sp/><sp/>(1000U)<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__xloader__apis_1ga65218185907fca6d951e23931dc55cb8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_8_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF11F0030U)</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="group__xloader__apis_1ga84d80bfee431a016d911745ccb090270" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_8_MEM_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF11F0050U)</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xloader__apis_1gad9f31eaf90c33ab151898cd37e4eff9b" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_COUNTER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0FFFFFFFU)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="group__xloader__apis_1gafd80e0e1eb20b3b660d8fce5a9103014" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x30000000U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85" refid="group__xloader__apis_1ga37c08661d3152aec41f313cded9ec6fc" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_MODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(28)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__xloader__apis_1gae7ff8e9593d22d18fb2ad59d3f52d8bc" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_FEATURE_EN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xC0000000U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89" refid="group__xloader__apis_1ga5c23ecf402f03d73697bd9853b03615a" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_CL_FEATURE_EN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__xloader__apis_1gaa070570ecc9f9f5b26fde37bfbb65404" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_FAILED_CONFIGS_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__xloader__apis_1ga0b30f9c74384da3b9f742b6c7ab1a4b8" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_TOTAL_CONFIGS_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="group__xloader__apis_1ga2e055ae35f63339067a9226ebbfc376b" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_BBRAM_CL_FEATURE_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__xloader__apis_1ga7d8acff2a4081c51964f881ef7aa89a4" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_PMC_TAP_INST_MASK_0_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x79FFF8C1U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96" refid="group__xloader__apis_1ga1f8c9ff94d21dc60ec6d54247e94cc8a" refkind="member"><highlight class="preprocessor">#define<sp/>XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x070BFF91U)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="103" refid="group__xloader__apis_1gae8e595a7e8a42347e6c48aee19445f10" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>platform<sp/>specific<sp/>error<sp/>codes<sp/>from<sp/>0xA0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1b1f003fb5ffb2d2f91187725db223a9" kindref="member">XLOADER_SEC_AUTH_EN_PPK_HASH_NONZERO</ref><sp/>=<sp/>0x02,</highlight></codeline>
+<codeline lineno="107" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae150fbff2ee2501eb23c7e66ea6b04bb" kindref="member">XLOADER_SEC_PPK_HASH_CALCULATION_FAIL</ref>,</highlight></codeline>
+<codeline lineno="109" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10acc4c64cb7e559509b2fa2c48731d17fd" kindref="member">XLOADER_SEC_ALL_PPK_REVOKED_ERR</ref>,</highlight></codeline>
+<codeline lineno="111" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a848cf0ae90f8a2fd19cbff71ee12fc11" kindref="member">XLOADER_SEC_SEL_PPK_REVOKED_ERR</ref>,</highlight></codeline>
+<codeline lineno="113" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a59f3f72bbfcc50dac7644dabc9019c4d" kindref="member">XLOADER_SEC_PPK_HASH_ALLZERO_INVLD</ref>,</highlight></codeline>
+<codeline lineno="115" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a071be2144e41d79e189a6b6e6a3c2b5f" kindref="member">XLOADER_SEC_PPK_HASH_COMPARE_FAIL</ref>,</highlight></codeline>
+<codeline lineno="117" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4a96eaa6d83558ce5509c9d473ab25e6" kindref="member">XLOADER_ERR_RESERVED_08</ref>,</highlight></codeline>
+<codeline lineno="119" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac32ab6ac66812e397d43eba847d49de0" kindref="member">XLOADER_SEC_SPK_HASH_CALCULATION_FAIL</ref>,</highlight></codeline>
+<codeline lineno="121" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae86898320ca42ec97009413419b4f059" kindref="member">XLOADER_SEC_RSA_AUTH_FAIL</ref>,</highlight></codeline>
+<codeline lineno="123" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0ef01699836b976cc2498c79b54b4e7e" kindref="member">XLOADER_SEC_RSA_PSS_SIGN_VERIFY_FAIL</ref>,</highlight></codeline>
+<codeline lineno="125" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a7d4c56d2a099dde67ff62430a4e9367c" kindref="member">XLOADER_SEC_ECDSA_AUTH_FAIL</ref>,</highlight></codeline>
+<codeline lineno="127" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afc1a904946cf6ae03804fd8fdb58316d" kindref="member">XLOADER_SEC_ECDSA_INVLD_KEY_COORDINATES</ref>,</highlight></codeline>
+<codeline lineno="129" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ad29fa219f71596ed1d1acab42472e896" kindref="member">XLOADER_SEC_INVALID_AUTH</ref>,</highlight></codeline>
+<codeline lineno="131" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abd79f359f3fcd98f95caf51253a8a06f" kindref="member">XLOADER_SEC_REVOCATION_ID_OUTOFRANGE_ERR</ref><sp/>=<sp/>0x10,</highlight></codeline>
+<codeline lineno="133" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6c6aa4ff7495deec67330fda67f0b9db" kindref="member">XLOADER_SEC_ID_REVOKED</ref>,</highlight></codeline>
+<codeline lineno="135" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aef00ac2ac5ac5addf42df82ef44cad15" kindref="member">XLOADER_SEC_BLACK_KEY_DEC_ERR</ref>,</highlight></codeline>
+<codeline lineno="137" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abf1d2773cf2e41c8b942ab6bd26a07c1" kindref="member">XLOADER_SEC_OBFUS_KEY_DEC_ERR</ref>,</highlight></codeline>
+<codeline lineno="139" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10abda576a18333538b5a3b2904c7ec9e34" kindref="member">XLOADER_SEC_DEC_INVALID_KEYSRC_SEL</ref>,</highlight></codeline>
+<codeline lineno="141" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0c93379834d5184262f0d9253d3fc40e" kindref="member">XLOADER_SEC_DATA_LEFT_FOR_DECRYPT_ERR</ref>,</highlight></codeline>
+<codeline lineno="143" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ac5f49242d5ad70eba22ca540f7b227a8" kindref="member">XLOADER_SEC_DECRYPT_REM_DATA_SIZE_MISMATCH</ref>,</highlight></codeline>
+<codeline lineno="146" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a6f0de72235541f947f26b99d5ed06903" kindref="member">XLOADER_SEC_AES_OPERATION_FAILED</ref>,</highlight></codeline>
+<codeline lineno="148" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4c85821a13038474975039ac4d60fb01" kindref="member">XLOADER_SEC_DPA_CM_ERR</ref>,</highlight></codeline>
+<codeline lineno="150" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a772e3f917e4795e0d529fc641c7c0722" kindref="member">XLOADER_ERR_RESERVED_19</ref>,</highlight></codeline>
+<codeline lineno="152" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a05bccee42aee024d2f8ffed7f37754b9" kindref="member">XLOADER_SEC_AES_KEK_DEC</ref>,</highlight></codeline>
+<codeline lineno="154" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a8c2efeca862dc87ae82772f998557f80" kindref="member">XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED</ref>,</highlight></codeline>
+<codeline lineno="156" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a38b3937ac67249d5adf8f9dcce931884" kindref="member">XLOADER_SEC_RSA_PSS_HASH_COMPARE_FAILURE</ref>,</highlight></codeline>
+<codeline lineno="158" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a1dcfdb20208f2552b70b6b178026f1c6" kindref="member">XLOADER_SEC_ENC_ONLY_KEYSRC_ERR</ref>,</highlight></codeline>
+<codeline lineno="160" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aaad722258acf48d904ca5f5f055adb2d" kindref="member">XLOADER_SEC_ENC_ONLY_PUFHD_LOC_ERR</ref>,</highlight></codeline>
+<codeline lineno="162" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a56a085f7a514689e95ea1c423fdb4496" kindref="member">XLOADER_SEC_METAHDR_IV_ZERO_ERR</ref>,</highlight></codeline>
+<codeline lineno="164" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a22b40169e0c5c1736305adf63ddf0fdb" kindref="member">XLOADER_SEC_BLACK_IV_ZERO_ERR</ref>,</highlight></codeline>
+<codeline lineno="166" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a49185beb1e7d8badc1981140df3d6a63" kindref="member">XLOADER_SEC_IV_METAHDR_RANGE_ERROR</ref>,</highlight></codeline>
+<codeline lineno="168" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a272fd9d0dfd431b087e2a1b391952130" kindref="member">XLOADER_SEC_EFUSE_DPA_CM_MISMATCH_ERROR</ref>,</highlight></codeline>
+<codeline lineno="170" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a188696a4661e00114b62bd4be4cd27ea" kindref="member">XLOADER_SEC_RSA_MEMSET_SHA3_ARRAY_FAIL</ref>,</highlight></codeline>
+<codeline lineno="172" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a0b2849b0847f7bb9ba89ab3438f7fb48" kindref="member">XLOADER_SEC_RSA_MEMSET_VARSCOM_FAIL</ref>,</highlight></codeline>
+<codeline lineno="174" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10af12d05ab9e1e70331c1641f4110f688b" kindref="member">XLOADER_SEC_MASKED_DB_MSB_ERROR</ref>,</highlight></codeline>
+<codeline lineno="176" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4ec6d45bfbd9812351a79b872ec82115" kindref="member">XLOADER_SEC_EFUSE_DB_PATTERN_MISMATCH_ERROR</ref>,</highlight></codeline>
+<codeline lineno="178" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a912c5179463f4dd7364db793172c42b9" kindref="member">XLOADER_SEC_MEMSET_ERROR</ref>,</highlight></codeline>
+<codeline lineno="180" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10afabd5e832ca78dbba881a5f7badd7950" kindref="member">XLOADER_SEC_GLITCH_DETECTED_ERROR</ref>,</highlight></codeline>
+<codeline lineno="182" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae4f334a0e4c866accee2bd93cceb9126" kindref="member">XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR</ref>,</highlight></codeline>
+<codeline lineno="184" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a193c3208737eecf527f1abc324bb0550" kindref="member">XLOADER_ERR_RESERVED_30</ref>,</highlight></codeline>
+<codeline lineno="186" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10aeab0be360a546c6ad35794d928be06ba" kindref="member">XLOADER_SEC_KEY_CLEAR_FAILED_ERROR</ref>,</highlight></codeline>
+<codeline lineno="188" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a568b9e484fb0939f3a0f5b0f20fe3253" kindref="member">XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR</ref>,</highlight></codeline>
+<codeline lineno="190" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9178c78325077b1fa634577027ad5e27" kindref="member">XLOADER_SEC_CURVE_NOT_SUPPORTED</ref>,</highlight></codeline>
+<codeline lineno="192" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a62c502d513c7017568bf754df03a42b4" kindref="member">XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR</ref>,</highlight></codeline>
+<codeline lineno="194" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a4469f2a1fa9f23cb53b4d13ce8009a19" kindref="member">XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR</ref>,</highlight></codeline>
+<codeline lineno="196" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a57517b1053bce4795230e3abfeb95e64" kindref="member">XLOADER_SEC_AES_AAD_OPERATION_FAILED</ref>,</highlight></codeline>
+<codeline lineno="198" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10ae5d07db01820e2b102343e4ae3bb1613" kindref="member">XLOADER_SEC_LMS_SIGN_VERIFY_FAIL</ref>,</highlight></codeline>
+<codeline lineno="200" refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xloader__apis_1ggae8e595a7e8a42347e6c48aee19445f10a9c01a97086ca5d60aed4907b4472ca1c" kindref="member">XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">}<sp/><ref refid="group__xloader__apis_1gae8e595a7e8a42347e6c48aee19445f10" kindref="member">XLoader_SecErrCodes</ref>;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PdiKeySrc;<sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufHdLocation;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufShutterValue;<sp/></highlight></codeline>
+<codeline lineno="211" refid="struct_x_loader___aes_kek_info_1a2cc75c41abe9b3779bc9aefd4b17a509" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_loader___aes_kek_info_1a2cc75c41abe9b3779bc9aefd4b17a509" kindref="member">PufRoSwapEn</ref>;<sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_AesKeySrc<sp/>KeySrc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_AesKeySrc<sp/>KeyDst;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>KekIvAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}<sp/><ref refid="struct_x_loader___aes_kek_info" kindref="compound">XLoader_AesKekInfo</ref>;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal">u32<sp/><ref refid="group__xloader__server__apis_1gac8bc92d0322ebe706e0642274395c092" kindref="member">XLoader_GetKekSrc</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga67aad6fd596b7f1b30b91ae303531984" kindref="member">XLoader_AesObfusKeySelect</ref>(u32<sp/>PdiKeySrc,<sp/>u32<sp/>DecKeyMask,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*KeySrcPtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga331850d019d28f888cfa3499be80529d" kindref="member">XLoader_AddDeviceStateChangeToScheduler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga53a30d478b54d5ef349ca169085eb7b8" kindref="member">XLoader_CheckDeviceStateChange</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Arg);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_UpdateCfgLimitCount(u32<sp/>UpdateFlag);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XLoader_CheckAndUpdateCfgLimit(u32<sp/>BootPhase);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga7f8a05533623425c11d0c61ae684c27e" kindref="member">XLoader_RsaKat</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xloader__server__apis_1ga12304b3fe7be1b2e0831cda984875428" kindref="member">XLoader_MaskGenFunc</ref>(XSecure_Sha3<sp/>*Sha3InstancePtr,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*<sp/>Out,<sp/>u32<sp/>OutLen,<sp/>u8<sp/>*Input);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>END<sp/>OF<sp/>PLM_SECURE_EXCLUDE<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XLOADER_PLAT_SECURE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/server/xloader_plat_secure.h"/>
+  </compounddef>
+</doxygen>

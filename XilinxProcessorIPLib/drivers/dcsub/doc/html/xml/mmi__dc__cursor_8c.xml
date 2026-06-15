@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mmi__dc__cursor_8c" kind="file">
+    <compoundname>mmi_dc_cursor.c</compoundname>
+    <includes refid="mmi__dc__cursor_8h" local="yes">mmi_dc_cursor.h</includes>
+    <includes refid="mmi__dc__setup__frames_8h" local="yes">mmi_dc_setup_frames.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <incdepgraph>
+      <node id="6">
+        <label>xclk_wiz.h</label>
+      </node>
+      <node id="14">
+        <label>mmi_dpdc_example.h</label>
+        <link refid="mmi__dpdc__example_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4">
+        <label>mmi_dc_nonlive_test.h</label>
+        <link refid="mmi__dc__nonlive__test_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>mmi_dc_cursor.c</label>
+        <link refid="mmi_dc_cursor.c"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>mmi_dc_cursor.h</label>
+        <link refid="mmi__dc__cursor_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xdcsub.h</label>
+        <link refid="xdcsub_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xdc.h</label>
+        <link refid="xdc_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="13">
+        <label>xmmidp.h</label>
+      </node>
+      <node id="9">
+        <label>xdc_hw.h</label>
+        <link refid="xdc__hw_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>mmi_dc_setup_frames.h</label>
+        <link refid="mmi__dc__setup__frames_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>xparameters.h</label>
+      </node>
+      <node id="17">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="12">
+        <label>xdcdma_hw.h</label>
+        <link refid="xdcdma__hw_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>xdcdma.h</label>
+        <link refid="xdcdma_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_InitCursorFrameBuffer</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_InitCursorFrameBuffer</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the cursor frame buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Sets up cursor frame buffer with RGBA4444 format </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" line="31" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" bodystart="31" bodyend="46"/>
+        <references refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" compoundref="mmi__dpdc__example_8h" startline="57">FrameInfo::Address</references>
+        <references refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" compoundref="mmi__dpdc__example_8h" startline="63">FrameInfo::Bpc</references>
+        <references refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" compoundref="mmi__dpdc__example_8h" startline="103">RunConfig::Cursor_FbInfo</references>
+        <references refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" compoundref="mmi__dpdc__example_8h" startline="62">FrameInfo::Height</references>
+        <references refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" compoundref="mmi__dpdc__example_8h" startline="64">FrameInfo::VideoFormat</references>
+        <references refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" compoundref="mmi__dpdc__example_8h" startline="61">FrameInfo::Width</references>
+        <references refid="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__cursor_8c_1afc0e01ef8f0328aadb0723fb9a1e76d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_FillCursorBuffer</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_FillCursorBuffer</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function fills the cursor buffer with a red circle pattern. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>RGBA4444 format: 16-bit per pixel, bit layout from MSB to LSB: Bits 15-12: Alpha[3:0] Bits 11-8: Blue[3:0] Bits 7-4: Green[3:0] Bits 3-0: Red[3:0]</para></simplesect>
+<verbatim>      Red (opaque) = 0xF00F (A=F, B=0, G=0, R=F)
+      Transparent = 0x0000 (all zeros)</verbatim> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" bodystart="68" bodyend="134"/>
+        <references refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" compoundref="xdc__hw_8h" startline="7007">XDc_WriteReg</references>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__cursor_8c_1a96bf24eb1517805863f48597fa307fa2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ConfigureCursorBlend</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_ConfigureCursorBlend</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures cursor blend parameters using DCsub APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Uses XDcSub_SetCursorBlend and XDcSub_SetSdpCursorBuffers APIs to configure cursor parameters. Must be called BEFORE hardware init.</para></simplesect>
+Hardware registers are written during <ref refid="xdcsub_8c_1a4e69f4103855f57e2eae9266a6c316b3" kindref="member">XDcSub_ConfigureDcVideo()</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" bodystart="151" bodyend="181"/>
+        <references refid="struct_run_config_1ada47938d55738c23004dd79bee00538f" compoundref="mmi__dpdc__example_8h" startline="123">RunConfig::CursorCoordX</references>
+        <references refid="struct_run_config_1a3b11a353ee68a922c4c9be2c02424fa5" compoundref="mmi__dpdc__example_8h" startline="124">RunConfig::CursorCoordY</references>
+        <references refid="struct_run_config_1abb0cb390ebd09332447f76082e0c3e44" compoundref="mmi__dpdc__example_8h" startline="125">RunConfig::CursorSizeX</references>
+        <references refid="struct_run_config_1aa8826a74b951bb02922ed2bed615b911" compoundref="mmi__dpdc__example_8h" startline="126">RunConfig::CursorSizeY</references>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" compoundref="xdc_8c" startline="308" endline="320">XDc_GetNonLiveVideoAttribute</references>
+        <references refid="xdcsub_8c_1a6467feb371e3756d86bcc28304f96574" compoundref="xdcsub_8c" startline="583" endline="609">XDcSub_SetCursorBlend</references>
+        <references refid="xdcsub_8c_1ae36ce0ca74383d782e71e94b39bf867c" compoundref="xdcsub_8c" startline="843" endline="855">XDcSub_SetSdpCursorBuffers</references>
+        <referencedby refid="mmi__dc__nonlive__test_8h_1aecb963c6bffb8a2e2488d46545822052" compoundref="mmi__dc__nonlive__test_8c" startline="94" endline="234">XDpDc_InitDcSubPtr</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mmi__dc__cursor_8c_1a49e1fbf2f34f8ee299d6ef8a937da5e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDpDc_ConfigureCursorDMA</definition>
+        <argsstring>(RunConfig *RunCfgPtr)</argsstring>
+        <name>XDpDc_ConfigureCursorDMA</name>
+        <param>
+          <type><ref refid="struct_run_config" kindref="compound">RunConfig</ref> *</type>
+          <declname>RunCfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function configures cursor DMA channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RunCfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to <ref refid="struct_run_config" kindref="compound">RunConfig</ref> structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Sets up SDP DMA channel for cursor data transfer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c" bodystart="195" bodyend="203"/>
+        <references refid="struct_run_config_1a155539680243341a34acb114b0333b41" compoundref="mmi__dpdc__example_8h" startline="84">RunConfig::DcSubPtr</references>
+        <references refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" compoundref="mmi__dpdc__example_8h" startline="95">RunConfig::Desc7</references>
+        <referencedby refid="mmi__dpdc__platform_8h_1a36260594d61926e44fbd3c2d0913ccd8" compoundref="mmi__dpdc__platform_8c" startline="213" endline="298">XDpDc_InitDcSubsystem</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains cursor blend functionality implementation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__cursor_8h" kindref="compound">mmi_dc_cursor.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="mmi__dc__setup__frames_8h" kindref="compound">mmi_dc_setup_frames.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31" refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__cursor_8c_1aeec8d3294a1eefe714a7990afdbd6b91" kindref="member">XDpDc_InitCursorFrameBuffer</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_frame_info" kindref="compound">FrameInfo</ref><sp/>*Cursor_FbInfo;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a7cc31114b2db6be8bdee621b0c49dce9" kindref="member">Cursor_FbInfo</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref><sp/>=<sp/>CURSOR_BUFFER_ADDR;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Cursor<sp/>size<sp/>is<sp/>always<sp/>128x128<sp/>per<sp/>hardware<sp/>spec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" kindref="member">Width</ref><sp/>=<sp/>128;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" kindref="member">Height</ref><sp/>=<sp/>128;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" kindref="member">VideoFormat</ref><sp/>=<sp/>RGBA4444;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" kindref="member">Bpc</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mmi__dc__setup__frames_8c_1a6f9a34817bd7485ced17700ecd627716" kindref="member">XDpDc_GenerateFrameInfoAttribute</ref>(Cursor_FbInfo);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Cursor<sp/>frame<sp/>buffer<sp/>initialized:<sp/>128x128<sp/>(hardware<sp/>fixed)<sp/>@<sp/>0x%llx\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal">)Cursor_FbInfo-&gt;<ref refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" kindref="member">Address</ref>);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="mmi__dc__cursor_8h_1afc0e01ef8f0328aadb0723fb9a1e76d3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__cursor_8c_1afc0e01ef8f0328aadb0723fb9a1e76d3" kindref="member">XDpDc_FillCursorBuffer</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)RunCfgPtr;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n===<sp/>Cursor<sp/>Buffer<sp/>Setup<sp/>===\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Format:<sp/>RGBA4444\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Pattern:<sp/>Red<sp/>circle<sp/>on<sp/>transparent<sp/>background\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hardware<sp/>cursor<sp/>is<sp/>always<sp/>128x128<sp/>per<sp/>spec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>width<sp/>=<sp/>128;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>height<sp/>=<sp/>128;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Draw<sp/>a<sp/>circle<sp/>in<sp/>the<sp/>center<sp/>-<sp/>radius<sp/>50<sp/>pixels<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>center_x<sp/>=<sp/>width<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>center_y<sp/>=<sp/>height<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>50<sp/>pixel<sp/>radius<sp/>for<sp/>100x100<sp/>visible<sp/>cursor<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>radius<sp/>=<sp/>50;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>red_opaque<sp/>=<sp/>0xF00F;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>transparent<sp/>=<sp/>0x0000;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>radius_squared<sp/>=<sp/>radius<sp/>*<sp/>radius;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>red_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>transparent_count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Pack<sp/>two<sp/>RGBA4444<sp/>pixels<sp/>into<sp/>each<sp/>32-bit<sp/>write<sp/>at<sp/>4-byte-aligned</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>offsets.<sp/><sp/>Pixels<sp/>are<sp/>stored<sp/>little-endian:<sp/>pixel_even<sp/>in<sp/>bits<sp/>[15:0],</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>pixel_odd<sp/>in<sp/>bits<sp/>[31:16].</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/>height;<sp/>y++)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/>width;<sp/>x<sp/>+=<sp/>2)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>p0,<sp/>p1;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>dx,<sp/>dy;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>d2;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>(s32)x<sp/>-<sp/>(s32)center_x;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dy<sp/>=<sp/>(s32)y<sp/>-<sp/>(s32)center_y;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>d2<sp/>=<sp/>(u32)(dx<sp/>*<sp/>dx<sp/>+<sp/>dy<sp/>*<sp/>dy);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;=<sp/>radius_squared)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p0<sp/>=<sp/>red_opaque;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>red_count++;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p0<sp/>=<sp/>transparent;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>transparent_count++;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dx<sp/>=<sp/>(s32)(x<sp/>+<sp/>1)<sp/>-<sp/>(s32)center_x;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>d2<sp/>=<sp/>(u32)(dx<sp/>*<sp/>dx<sp/>+<sp/>dy<sp/>*<sp/>dy);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(d2<sp/>&lt;=<sp/>radius_squared)<sp/>{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p1<sp/>=<sp/>red_opaque;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>red_count++;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>p1<sp/>=<sp/>transparent;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>transparent_count++;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>word<sp/>=<sp/>((u32)p1<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(u32)p0;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>offset<sp/>=<sp/>(y<sp/>*<sp/>width<sp/>+<sp/>x)<sp/>*<sp/>2;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdc__hw_8h_1a062318ea1e6d6815de6958ea8e81c0ce" kindref="member">XDc_WriteReg</ref>(CURSOR_BUFFER_ADDR,<sp/>offset,<sp/>word);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Hardware<sp/>cursor<sp/>size:<sp/>128x128<sp/>(fixed)\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Visible<sp/>circle:<sp/>radius=%d<sp/>pixels<sp/>(center<sp/>at<sp/>64,64)\r\n&quot;</highlight><highlight class="normal">,<sp/>radius);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Red<sp/>pixels<sp/>(opaque):<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>red_count);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Transparent<sp/>pixels<sp/>(alpha=0):<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>transparent_count);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Cursor<sp/>buffer<sp/>generation<sp/>complete\r\n\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="151" refid="mmi__dc__cursor_8h_1a96bf24eb1517805863f48597fa307fa2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__cursor_8c_1a96bf24eb1517805863f48597fa307fa2" kindref="member">XDpDc_ConfigureCursorBlend</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_dc___cursor" kindref="compound">XDc_Cursor</ref><sp/>CursorConfig;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Populate<sp/>cursor<sp/>configuration<sp/>from<sp/>RunConfig<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorConfig.CoordX<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ada47938d55738c23004dd79bee00538f" kindref="member">CursorCoordX</ref>;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorConfig.CoordY<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a3b11a353ee68a922c4c9be2c02424fa5" kindref="member">CursorCoordY</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorConfig.SizeX<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1abb0cb390ebd09332447f76082e0c3e44" kindref="member">CursorSizeX</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorConfig.SizeY<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa8826a74b951bb02922ed2bed615b911" kindref="member">CursorSizeY</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CursorConfig.CursorAttribute<sp/>=<sp/>(XDc_VideoAttribute<sp/>*)<ref refid="group__mmi__dc_1gae47a85e818e8ee672ba51f4963562ef5" kindref="member">XDc_GetNonLiveVideoAttribute</ref>(RGBA4444);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>DCsub<sp/>API<sp/>to<sp/>configure<sp/>cursor<sp/>blend<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdcsub_8c_1a6467feb371e3756d86bcc28304f96574" kindref="member">XDcSub_SetCursorBlend</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>CB_ENABLE,<sp/>&amp;CursorConfig);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>configure<sp/>cursor<sp/>blend\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>DCsub<sp/>API<sp/>to<sp/>configure<sp/>SDP<sp/>channel<sp/>for<sp/>cursor<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdcsub_8c_1ae36ce0ca74383d782e71e94b39bf867c" kindref="member">XDcSub_SetSdpCursorBuffers</ref>(RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>,<sp/>0x1,<sp/>0x3);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>configure<sp/>SDP<sp/>cursor<sp/>buffers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Cursor<sp/>blend<sp/>configured:<sp/>Position(%d,%d)<sp/>Size(%dx%d)\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ada47938d55738c23004dd79bee00538f" kindref="member">CursorCoordX</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a3b11a353ee68a922c4c9be2c02424fa5" kindref="member">CursorCoordY</ref>,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1abb0cb390ebd09332447f76082e0c3e44" kindref="member">CursorSizeX</ref>,<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1aa8826a74b951bb02922ed2bed615b911" kindref="member">CursorSizeY</ref>);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>SDP<sp/>channel<sp/>configured:<sp/>Enable=0x1,<sp/>BurstLen=0x3\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="195" refid="mmi__dc__cursor_8h_1a49e1fbf2f34f8ee299d6ef8a937da5e3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="mmi__dc__cursor_8c_1a49e1fbf2f34f8ee299d6ef8a937da5e3" kindref="member">XDpDc_ConfigureCursorDMA</ref>(<ref refid="struct_run_config" kindref="compound">RunConfig</ref><sp/>*RunCfgPtr)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dc_dma" kindref="compound">XDcDma</ref><sp/>*DmaPtr<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1a155539680243341a34acb114b0333b41" kindref="member">DcSubPtr</ref>-&gt;DmaPtr;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;SDP.Channel.Current<sp/>=<sp/>RunCfgPtr-&gt;<ref refid="struct_run_config_1ad979d916c40ccd4fc49755851de358ca" kindref="member">Desc7</ref>;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr-&gt;SDP.SDP_TriggerStatus<sp/>=<sp/>XDCDMA_TRIGGER_EN;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>-<sp/>Cursor<sp/>DMA<sp/>configured\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dc_cursor.c"/>
+  </compounddef>
+</doxygen>

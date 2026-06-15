@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_traf_gen___p_ram_cmd" kind="struct" prot="public">
+    <compoundname>XTrafGen_PRamCmd</compoundname>
+    <includes local="no">xtrafgen.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a7280f3150d2489ac8e243999d598a615" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::OpCntl0</definition>
+        <argsstring></argsstring>
+        <name>OpCntl0</name>
+        <briefdescription>
+<para>Control field 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a7a2a616de2b96ebb0f7cd26ea547790d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::OpCntl1</definition>
+        <argsstring></argsstring>
+        <name>OpCntl1</name>
+        <briefdescription>
+<para>Control field 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a8b77d85f3ace7b81c2fea480573ad818" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::OpCntl2</definition>
+        <argsstring></argsstring>
+        <name>OpCntl2</name>
+        <briefdescription>
+<para>Control field 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a8a767b1c623f144b914c00745829d6c4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::AddrMode</definition>
+        <argsstring></argsstring>
+        <name>AddrMode</name>
+        <briefdescription>
+<para>Address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a136c084bd4f0aa1a701b861cd8c21056" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::IntervalMode</definition>
+        <argsstring></argsstring>
+        <name>IntervalMode</name>
+        <briefdescription>
+<para>Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a56036b5629d83c70ae9381590eeb47c5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::IdMode</definition>
+        <argsstring></argsstring>
+        <name>IdMode</name>
+        <briefdescription>
+<para>Id mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_traf_gen___p_ram_cmd_1a1bc73bc28457bc97a12fcbcce88fa077" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrafGen_PRamCmd::Opcode</definition>
+        <argsstring></argsstring>
+        <name>Opcode</name>
+        <briefdescription>
+<para>Opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Parameter Ram word fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen.h" bodystart="273" bodyend="281"/>
+    <listofallmembers>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a8a767b1c623f144b914c00745829d6c4" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>AddrMode</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a56036b5629d83c70ae9381590eeb47c5" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>IdMode</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a136c084bd4f0aa1a701b861cd8c21056" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>IntervalMode</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a7280f3150d2489ac8e243999d598a615" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>OpCntl0</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a7a2a616de2b96ebb0f7cd26ea547790d" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>OpCntl1</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a8b77d85f3ace7b81c2fea480573ad818" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>OpCntl2</name></member>
+      <member refid="struct_x_traf_gen___p_ram_cmd_1a1bc73bc28457bc97a12fcbcce88fa077" prot="public" virt="non-virtual"><scope>XTrafGen_PRamCmd</scope><name>Opcode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

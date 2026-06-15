@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>emaclite</title>
+    <detaileddescription>
+<para>The Xilinx Ethernet Lite (EmacLite) driver. This driver supports the Xilinx Ethernet Lite 10/100 MAC (EmacLite).</para><para>The Xilinx Ethernet Lite 10/100 MAC supports the following features:<itemizedlist>
+<listitem><para>Media Independent Interface (MII) for connection to external 10/100 Mbps PHY transceivers</para></listitem><listitem><para>Independent internal transmit and receive buffers</para></listitem><listitem><para>CSMA/CD compliant operations for half-duplex modes</para></listitem><listitem><para>Unicast and broadcast</para></listitem><listitem><para>Automatic FCS insertion</para></listitem><listitem><para>Automatic pad insertion on transmit</para></listitem><listitem><para>Configurable ping/pong buffers for either/both transmit and receive buffer areas</para></listitem><listitem><para>Interrupt driven mode</para></listitem><listitem><para>Internal loop back</para></listitem><listitem><para>MDIO Support to access PHY Registers</para></listitem></itemizedlist>
+</para><para>The Xilinx Ethernet Lite 10/100 MAC does not support the following features:<itemizedlist>
+<listitem><para>multi-frame buffering only 1 transmit frame is allowed into each transmit buffer, only 1 receive frame is allowed into each receive buffer. the hardware blocks reception until buffer is emptied</para></listitem><listitem><para>Pause frame (flow control) detection in full-duplex mode</para></listitem><listitem><para>Programmable inter frame gap</para></listitem><listitem><para>Multicast and promiscuous address filtering</para></listitem><listitem><para>Automatic source address insertion or overwrite</para></listitem></itemizedlist>
+</para><para><bold>Driver Description</bold></para><para>The device driver enables higher layer software (e.g., an application) to communicate to the EmacLite. The driver handles transmission and reception of Ethernet frames, as well as configuration of the controller. It does not handle protocol stack functionality such as Link Layer Control (LLC) or the Address Resolution Protocol (ARP). The protocol stack that makes use of the driver handles this functionality. This implies that the driver is simply a pass-through mechanism between a protocol stack and the EmacLite.</para><para>Since the driver is a simple pass-through mechanism between a protocol stack and the EmacLite, no assembly or disassembly of Ethernet frames is done at the driver-level. This assumes that the protocol stack passes a correctly formatted Ethernet frame to the driver for transmission, and that the driver does not validate the contents of an incoming frame. A single device driver can support multiple EmacLite devices.</para><para>The driver supports interrupt driven mode and the default mode of operation is polled mode. If interrupts are desired, XEmacLite_InterruptEnable() must be called.</para><para><bold>Device Configuration</bold></para><para>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <ref refid="xemaclite__g_8c" kindref="compound">xemaclite_g.c</ref> file. A table is defined where each entry contains configuration information for an EmacLite device. This information includes such things as the base address of the memory-mapped device and the number of buffers.</para><para><bold>Interrupt Processing</bold></para><para>After _Initialize is called, _InterruptEnable can be called to enable the interrupt driven functionality. If polled operation is desired, just call _Send and check the return code. If XST_FAILURE is returned, call _Send with the same data until XST_SUCCESS is returned. The same idea applies to _Recv. Call _Recv until the returned length is non-zero at which point the received data is in the buffer provided in the function call.</para><para>The Transmit and Receive interrupts are enabled within the _InterruptEnable function and disabled in the _InterruptDisable function. The _Send and _Recv functions acknowledge the EmacLite generated interrupts associated with each function. It is the application&apos;s responsibility to acknowledge any associated Interrupt Controller interrupts if it is used in the system.</para><para><bold>Memory Buffer Alignment</bold></para><para>The alignment of the input/output buffers for the _Send and _Recv routine is not required to be 32 bits. If the buffer is not aligned on a 32-bit boundary there will be a performance impact while the driver aligns the data for transmission or upon reception.</para><para>For optimum performance, the user should provide a 32-bit aligned buffer to the _Send and _Recv routines.</para><para><bold>Asserts</bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that application developers leave asserts on during development.</para><para><simplesect kind="note"><para></para></simplesect>
+This driver requires EmacLite hardware version 1.01a and higher. It is not compatible with earlier versions of the EmacLite hardware. Use version 1.00a software driver for hardware version 1.00a/b.</para><para>The RX hardware is enabled from powerup and there is no disable. It is possible that frames have been received prior to the initialization of the driver. If this situation is possible, call <ref refid="group__emaclite_1gae7ced3b39bd2f06d037660e884c0706b" kindref="member">XEmacLite_FlushReceive()</ref> to empty the receive buffers after initialization.</para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.01a ecm  01/30/04 First release
+1.11a mta  03/21/07 Updated to new coding style
+1.12a mta  11/28/07 Added the function XEmacLite_CfgInitialize,
+              moved the functions XEmacLite_LookupConfig and
+              XEmacLite_Initialize to <ref refid="xemaclite__sinit_8c" kindref="compound">xemaclite_sinit.c</ref> for removing
+              the dependency on the static config table and
+              xparameters.h from the driver initialization
+1.13a sv   02/1/08  Updated the TxBufferAvailable routine to return
+              busy status properly and added macros for Tx/Rx status
+1.14a sdm  08/22/08 Removed support for static interrupt handlers from the MDD
+              file
+2.00a ktn  02/16/09 Added support for MDIO and internal loop back
+2.01a ktn  07/20/09 Updated the XEmacLite_AlignedWrite and
+                    XEmacLite_AlignedRead functions to use volatile
+                    variables so that they are not optimized.
+                    Modified the XEmacLite_EnableInterrupts and
+                    XEmacLite_DisableInterrupts functions to enable/disable
+                    the interrupt in the Ping buffer as this is used to enable
+                    the interrupts for both Ping and Pong Buffers.
+                    The interrupt enable bit in the Pong buffer is not used by
+                    the HW.
+                    Modified XEmacLite_Send function to use Ping buffers
+                    Interrupt enable bit since this alone is used to enable
+                    the interrupts for both Ping and Pong Buffers.
+3.00a ktn  10/22/09 Updated driver to use the HAL Processor APIs/macros.
+              The macros have been renamed to remove _m from the name in
+              all the driver files.
+              The macros changed in this file are
+              XEmacLite_mNextTransmitAddr is XEmacLite_NextTransmitAddr,
+              XEmacLite_mNextReceiveAddr is XEmacLite_NextReceiveAddr,
+              XEmacLite_mIsMdioConfigured is XEmacLite_IsMdioConfigured,
+              XEmacLite_mIsLoopbackConfigured is
+              XEmacLite_IsLoopbackConfigured.
+              See <ref refid="xemaclite__i_8h" kindref="compound">xemaclite_i.h</ref> for the macros which have changed.
+3.01a ktn  07/08/10 The macro XEmacLite_GetReceiveDataLength in the
+              <ref refid="xemaclite_8c" kindref="compound">xemaclite.c</ref> file is changed to a static function.
+              XEmacLite_GetReceiveDataLength and XEmacLite_Recv
+              functions  are updated to support little endian
+              MicroBlaze.
+3.02a sdm  07/22/11 Removed redundant code in XEmacLite_Recv functions for
+              CR617290
+3.03a asa  04/05/12 Defined the flag <bold>LITTLE_ENDIAN</bold> for cases where the
+              driver is compiled with ARM toolchain.
+3.04a srt  04/13/13 Removed warnings (CR 705000).
+4.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+4.1     nsk  07/13/15 Added Length check in XEmacLite_AlignedWrite function
+              in <ref refid="xemaclite__l_8c" kindref="compound">xemaclite_l.c</ref> file to avoid extra write operation
+              (CR 843707).
+4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XEmacLite_CfgInitialize API.
+4.2   adk  11/18/15 Fix compilation errors due to conflicting data types
+              CR#917930
+4.2     adk  29/02/16 Updated interrupt example to support Zynq and ZynqMP
+              CR#938244.
+4.3   asa  08/27/16 Fix compilation warning by making change <ref refid="xemaclite__l_8c" kindref="compound">xemaclite_l.c</ref>
+      ms   01/23/17 Added xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a fix
+                    for CR-965028.
+      ms   03/17/17 Modified text file in examples folder for doxygen
+                    generation.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

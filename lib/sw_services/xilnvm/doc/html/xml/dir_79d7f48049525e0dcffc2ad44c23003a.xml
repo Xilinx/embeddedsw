@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_79d7f48049525e0dcffc2ad44c23003a" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="net_2client_2xnvm__efuseclient_8c">net/client/xnvm_efuseclient.c</innerfile>
+    <innerfile refid="net_2client_2xnvm__efuseclient_8h">net/client/xnvm_efuseclient.h</innerfile>
+    <innerfile refid="xnvm__efuseclient__hw_8h">xnvm_efuseclient_hw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/versal_net/client/"/>
+  </compounddef>
+</doxygen>

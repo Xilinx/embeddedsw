@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__rsa__common_8c" kind="file">
+    <compoundname>xasu_rsa_common.c</compoundname>
+    <includes refid="xasu__rsa__common_8h" local="yes">xasu_rsa_common.h</includes>
+    <includes refid="xasu__keymanager__common_8h" local="yes">xasu_keymanager_common.h</includes>
+    <incdepgraph>
+      <node id="993">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="994" relation="include">
+        </childnode>
+      </node>
+      <node id="991">
+        <label>xil_util.h</label>
+      </node>
+      <node id="992">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="987">
+        <label>xasu_rsa_common.c</label>
+        <link refid="xasu_rsa_common.c"/>
+        <childnode refid="988" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="988">
+        <label>xasu_rsa_common.h</label>
+        <link refid="xasu__rsa__common_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="990" relation="include">
+        </childnode>
+      </node>
+      <node id="994">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="991" relation="include">
+        </childnode>
+        <childnode refid="990" relation="include">
+        </childnode>
+        <childnode refid="995" relation="include">
+        </childnode>
+        <childnode refid="996" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+      </node>
+      <node id="989">
+        <label>xil_types.h</label>
+      </node>
+      <node id="995">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu__eccinfo_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+      </node>
+      <node id="990">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="991" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+      </node>
+      <node id="996">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="989" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_RsaValidateInputParams</definition>
+        <argsstring>(const XAsu_RsaParams *RsaParamsPtr)</argsstring>
+        <name>XAsu_RsaValidateInputParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> *</type>
+          <declname>RsaParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates input parameters that are common to all RSA padding algorithms. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RsaParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref> structure that holds the input parameters for RSA. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if input validation is successful.</para></listitem><listitem><para>XST_FAILURE, if input validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate that the addresses of all input buffers are non-zero. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsa_common.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsa_common.c" bodystart="57" bodyend="70"/>
+        <references refid="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" compoundref="xasu__rsainfo_8h" startline="142">XAsu_RsaParams::InputDataAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" compoundref="xasu__rsainfo_8h" startline="145">XAsu_RsaParams::KeyCompAddr</references>
+        <references refid="struct_x_asu___rsa_params_1a59ac67149bdb6dfd10cc7fcb0033934b" compoundref="xasu__rsainfo_8h" startline="155">XAsu_RsaParams::KeyId</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa738d6a05293f677e9fdd1fd137cc912" compoundref="xasu__rsa_8c" startline="233" endline="299">XAsu_RsaCrtDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga8d99c3659893b5b77683b6bc3ee3abf8" compoundref="xasu__rsa_8c" startline="148" endline="214">XAsu_RsaDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaa85dcefff8e7e30465bf6a5e5d20e7fd" compoundref="xasu__rsa_8c" startline="64" endline="130">XAsu_RsaEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaf459c9f8ebb4d33247bbd8b6ab591809" compoundref="xasu__rsa_8c" startline="418" endline="499">XAsu_RsaOaepDec</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga32fd59ce2f1c0da67ca9217a224a4626" compoundref="xasu__rsa_8c" startline="318" endline="399">XAsu_RsaOaepEnc</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1gaceff65cb28ac22b56121a047dbb53aa9" compoundref="xasu__rsa_8c" startline="518" endline="601">XAsu_RsaPssSignGen</referencedby>
+        <referencedby refid="group__xasu__rsa__client__apis_1ga3a33eba68b96c49e0dcb8ca6abfd7b89" compoundref="xasu__rsa_8c" startline="620" endline="701">XAsu_RsaPssSignVer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the RSA function definitions which are common across client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   02/04/25 Initial release
+      yog  01/28/26 Added RSA key ID validation.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*****************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__rsa__common_8h" kindref="compound">xasu_rsa_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keymanager__common_8h" kindref="compound">xasu_keymanager_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>***************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>***************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>**************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__rsa__common__apis_1gaad67e90120a3bdd3a8f4a98c3543eba4" kindref="member">XAsu_RsaValidateInputParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___rsa_params" kindref="compound">XAsu_RsaParams</ref><sp/>*RsaParamsPtr)</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RsaParamsPtr-&gt;<ref refid="struct_x_asu___rsa_params_1ae603b7d80dd7b6135fb3b0bef96301c2" kindref="member">InputDataAddr</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" kindref="member">XAsu_KmValidateKeyAddrNdKeyId</ref>(RsaParamsPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a5e18a0a1b467d66aa7570db8a1dadaef" kindref="member">KeyCompAddr</ref>,<sp/>RsaParamsPtr-&gt;<ref refid="struct_x_asu___rsa_params_1a59ac67149bdb6dfd10cc7fcb0033934b" kindref="member">KeyId</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_rsa_common.c"/>
+  </compounddef>
+</doxygen>

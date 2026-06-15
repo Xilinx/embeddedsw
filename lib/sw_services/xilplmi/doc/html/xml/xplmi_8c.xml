@@ -1,0 +1,967 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi_8c" kind="file">
+    <compoundname>xplmi.c</compoundname>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes refid="xplmi__err__common_8h" local="yes">xplmi_err_common.h</includes>
+    <includes local="yes">xplmi_wdt.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes local="yes">xplmi_plat.h</includes>
+    <includes refid="xplmi__ipi_8h" local="yes">xplmi_ipi.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xplmi_err.h</includes>
+    <incdepgraph>
+      <node id="139">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="131">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="132" relation="include">
+        </childnode>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="134" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="150">
+        <label>xplmi_error_node.h</label>
+      </node>
+      <node id="145">
+        <label>stdlib.h</label>
+      </node>
+      <node id="126">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+      </node>
+      <node id="123">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+      <node id="153">
+        <label>xil_util.h</label>
+      </node>
+      <node id="129">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="120">
+        <label>xplmi.c</label>
+        <link refid="xplmi.c"/>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="148" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="154" relation="include">
+        </childnode>
+      </node>
+      <node id="121">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+      <node id="148">
+        <label>xplmi_err_common.h</label>
+        <link refid="xplmi__err__common_8h"/>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="146">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="147" relation="include">
+        </childnode>
+      </node>
+      <node id="122">
+        <label>xplmi_generic.h</label>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="146" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+      </node>
+      <node id="142">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="137">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="143">
+        <label>xstatus.h</label>
+      </node>
+      <node id="125">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="133">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="149">
+        <label>xil_error_node.h</label>
+      </node>
+      <node id="130">
+        <label>xil_types.h</label>
+      </node>
+      <node id="147">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="127">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>xplmi_err.h</label>
+      </node>
+      <node id="136">
+        <label>xparameters.h</label>
+      </node>
+      <node id="124">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="144">
+        <label>list.h</label>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+      <node id="151">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="134">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="138">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="128">
+        <label>xplmi_status.h</label>
+      </node>
+      <node id="152">
+        <label>xplmi_wdt.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilplmi__server__apis_1gac9fe0f9615e3c200512cbd3d92b3c65a" prot="public" static="no" mutable="no">
+        <type><ref refid="2vp__p_2server_2xplmi__plat_8h_1a3f69d50232dc5c7c01788c7646929d9d" kindref="member">XPlmi_IsAddrRangeValid_t</ref></type>
+        <definition>XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_IsAddrRangeValid</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+<para>&lt; Global address range validation handler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="110" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" compoundref="xplmi_8c" startline="126" endline="152">XPlmi_Init</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga5e22086aa3c57afc8c772d01c1c10502" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPlmi_PrintEarlyLog</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_PrintEarlyLog</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints early log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="347" bodyend="368"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_Init</definition>
+        <argsstring>(XPlmi_IsAddrRangeValid_t IsAddrRangeValidHandler)</argsstring>
+        <name>XPlmi_Init</name>
+        <param>
+          <type><ref refid="2vp__p_2server_2xplmi__plat_8h_1a3f69d50232dc5c7c01788c7646929d9d" kindref="member">XPlmi_IsAddrRangeValid_t</ref></type>
+          <declname>IsAddrRangeValidHandler</declname>
+        </param>
+        <briefdescription>
+<para>This function will initialize the PLMI module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IsAddrRangeValidHandler</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Function pointer to address range validation handler that validates if a given address range is accessible by the specified subsystem.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERR_PRE_INIT if pre initialization fails.</para></listitem><listitem><para>XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER if handler is NULL. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="126" bodyend="152"/>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7eaee6e49b0dd0d753b13b88d8ac878c" compoundref="2vp_2server_2xplmi__status_8h" startline="180">XPLMI_ERR_PRE_INIT</references>
+        <references refid="group__xilplmi__server__apis_1gac9fe0f9615e3c200512cbd3d92b3c65a" compoundref="xplmi_8c" startline="110">XPlmi_IsAddrRangeValid</references>
+        <references refid="group__xilplmi__server__apis_1ga4d05007b07e69ed4471ee801451b3141" compoundref="server_2xplmi__plat_8c" startline="293" endline="296">XPlmi_PreInit</references>
+        <references refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" compoundref="server_2xplmi__wdt_8c" startline="175" endline="178">XPlmi_SetPlmLiveStatus</references>
+        <references refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" compoundref="xplmi__proc_8c" startline="347" endline="409">XPlmi_SetUpInterruptSystem</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_RunTimeConfigInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_RunTimeConfigInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the Runtime Configuration Area with default values. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Clear the Runtime configuration area</para><para>Set the default PLM Run time configuration values</para><para>Initialize platform specific RTCA Registers</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="162" bodyend="232"/>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="267" endline="271">XPlmi_IsPlmUpdateDone</references>
+        <references refid="group__xilplmi__server__apis_1gaf59d6afb61ec8e872bdb40c116b8f67b" compoundref="xplmi__update_8c" startline="280" endline="284">XPlmi_IsPlmUpdateDoneTmp</references>
+        <references refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" compoundref="xplmi__dma_8c" startline="810" endline="858">XPlmi_MemSet</references>
+        <references refid="xplmi_8h_1ab5ce4f0450661c7d604cd813d02deb36" compoundref="xplmi_8h" startline="96">XPLMI_PLM_MAJOR_VERSION</references>
+        <references refid="xplmi_8h_1aaa1d6f0e73669ddbf6307fb34d9f3954" compoundref="xplmi_8h" startline="100">XPLMI_PLM_MAJOR_VERSION_SHIFT</references>
+        <references refid="xplmi_8h_1a32e2908463b2798137fb7803fbd699f2" compoundref="xplmi_8h" startline="97">XPLMI_PLM_MINOR_VERSION</references>
+        <references refid="xplmi_8h_1a9f5b5242c70ed334d25712914560563c" compoundref="xplmi_8h" startline="101">XPLMI_PLM_MINOR_VERSION_SHIFT</references>
+        <references refid="xplmi_8h_1acfc039e4322a82d801b5226baee68126" compoundref="xplmi_8h" startline="98">XPLMI_PLM_RC_VERSION</references>
+        <references refid="xplmi_8h_1add9122b602dd6a27131c2086cc450838" compoundref="xplmi_8h" startline="102">XPLMI_PLM_RC_VERSION_SHIFT</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a7df3528b92dbe963e434ca96b5e2e7fc" compoundref="2vp_2server_2xplmi__plat_8h" startline="54">XPLMI_PLM_USER_DEFINED_VERSION</references>
+        <references refid="group__xilplmi__server__apis_1gacb3d2b049fc1adc0d8f6d00fa6b5e288" compoundref="server_2xplmi__plat_8c" startline="236" endline="254">XPlmi_RtcaPlatInit</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a5ec9ec42c88f293a05b22e166653fafb" compoundref="2vp_2server_2xplmi__plat_8h" startline="62">XPLMI_RTCFG_BASEADDR</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a835158beef1bb56a6d72a4e54982a6f1" compoundref="2vp_2server_2xplmi__plat_8h" startline="95">XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1aff5df410700f7a25f282d6908e3cb27e" compoundref="2vp_2server_2xplmi__plat_8h" startline="87">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a95f4ca438901c86e839a6e8d18ec5f8b" compoundref="2vp_2server_2xplmi__plat_8h" startline="89">XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ab7384f1ec083ef8a5b0f3ed6db679083" compoundref="2vp_2server_2xplmi__plat_8h" startline="91">XPLMI_RTCFG_IMG_STORE_SIZE</references>
+        <references refid="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" compoundref="xplmi_8h" startline="127">XPLMI_RTCFG_LOG_UART_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_LpdInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_LpdInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function calls all the PS LPD init functions of all the different modules. </para>        </briefdescription>
+        <detaileddescription>
+<para>As a part of init functions, modules can register the command handlers, interrupt handlers with the interface layer. </para>        </detaileddescription>
+        <inbodydescription>
+<para>Enable Slave Error for PSM Global</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="241" bodyend="286"/>
+        <references refid="xplmi_8h_1a8da3b9c038d06165eaed1bd2e7c14295" compoundref="xplmi_8h" startline="131">LPD_INITIALIZED</references>
+        <references refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" compoundref="xplmi__err__common_8c" startline="240" endline="336">XPlmi_ErrMgr</references>
+        <references refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" compoundref="xplmi__debug_8c" startline="113" endline="198">XPlmi_InitUart</references>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="267" endline="271">XPlmi_IsPlmUpdateDone</references>
+        <references refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" compoundref="xplmi__err__common_8c" startline="217" endline="231">XPlmi_LogPlmErr</references>
+        <references refid="group__xilplmi__server__apis_1ga366702831fa35fe6b4f462d0ac261188" compoundref="2ve__2vm_2server_2xplmi__err_8c" startline="1324" endline="1388">XPlmi_LpdSlcrEmInit</references>
+        <references refid="xplmi__err__psm_8c_1ab3827194b7dbb96569c6695a73701465" compoundref="xplmi__err__psm_8c" startline="208" endline="261">XPlmi_PsEmInit</references>
+        <references refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" compoundref="xplmi_8c" startline="393" endline="398">XPlmi_SetLpdInitialized</references>
+        <references refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" compoundref="xplmi__util_8c" startline="96" endline="109">XPlmi_UtilRMW</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a75ed30b68ec865a18368bce5e54c1ee6" compoundref="2vp_2server_2xplmi__status_8h" startline="69">XPLMI_WARNING_MAJOR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_PrintPlmBanner</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_PrintPlmBanner</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function prints PLM banner. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="293" bodyend="340"/>
+        <references refid="xplmi_8h_1af0c1ecafb49cd854040429431d27fd30" compoundref="xplmi_8h" startline="94">SDK_RELEASE_QUARTER</references>
+        <references refid="xplmi_8h_1a92ceeeea4057c595c7df535c65e351ed" compoundref="xplmi_8h" startline="93">SDK_RELEASE_YEAR</references>
+        <references refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" compoundref="xplmi__update_8c" startline="267" endline="271">XPlmi_IsPlmUpdateDone</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a7355ebb47cfd3bab7349504447420a10" compoundref="2vp_2server_2xplmi__plat_8h" startline="50">XPLMI_PLM_BANNER</references>
+        <references refid="xplmi_8h_1a3c8c0cc7bddd7a647846335ae9139db4" compoundref="xplmi_8h" startline="124">XPLMI_PMC_VERSION_MASK</references>
+        <references refid="xplmi_8h_1a74e13164b0e8ec2249d86657820c7557" compoundref="xplmi_8h" startline="125">XPLMI_PMC_VERSION_SHIFT</references>
+        <references refid="group__xilplmi__server__apis_1ga677012587c48177e23f758fe88a7ae74" compoundref="server_2xplmi__plat_8c" startline="261" endline="283">XPlmi_PrintRomVersion</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ResetLpdInitialized</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_ResetLpdInitialized</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function resets LpdInitialized variable to 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="375" bodyend="384"/>
+        <references refid="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" compoundref="xplmi_8h" startline="132">LPD_WDT_INITIALIZED</references>
+        <references refid="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" compoundref="server_2xplmi__wdt_8c" startline="164" endline="168">XPlmi_DisableWdt</references>
+        <references refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" compoundref="server_2xplmi__plat_8c" startline="223" endline="228">XPlmi_GetLpdInitialized</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_SetLpdInitialized</definition>
+        <argsstring>(u32 Flag)</argsstring>
+        <name>XPlmi_SetLpdInitialized</name>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function sets LpdInitialized variable with given flag. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to set the UART or LPD WDT initialization state. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="393" bodyend="398"/>
+        <references refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" compoundref="server_2xplmi__plat_8c" startline="223" endline="228">XPlmi_GetLpdInitialized</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" compoundref="xplmi__debug_8c" startline="218" endline="265">XPlmi_ConfigUart</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" compoundref="server_2xplmi__wdt_8c" startline="106" endline="154">XPlmi_EnableWdt</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" compoundref="xplmi__debug_8c" startline="113" endline="198">XPlmi_InitUart</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" compoundref="xplmi_8c" startline="241" endline="286">XPlmi_LpdInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_UnSetLpdInitialized</definition>
+        <argsstring>(u32 Flag)</argsstring>
+        <name>XPlmi_UnSetLpdInitialized</name>
+        <param>
+          <type>u32</type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>This function clears LpdInitialized variable with given flag. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to unset the UART or LPD WDT initialization state. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="407" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="407" bodyend="412"/>
+        <references refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" compoundref="server_2xplmi__plat_8c" startline="223" endline="228">XPlmi_GetLpdInitialized</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" compoundref="xplmi__debug_8c" startline="218" endline="265">XPlmi_ConfigUart</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_UpdateKatStatus</definition>
+        <argsstring>(u32 PlmKatStatus)</argsstring>
+        <name>XPlmi_UpdateKatStatus</name>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatStatus</declname>
+        </param>
+        <briefdescription>
+<para>This function sets XPLMI_RTCFG_PLM_KAT_ADDR with PlmKatStatus. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlmKatStatus</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the KAT status updated by PLM </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="422" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="422" bodyend="427"/>
+        <references refid="group__xilplmi__server__apis_1ga45c3c8d152ab4449a53105b5ddfef2f8" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="977" endline="991">XPlmi_CheckAndUpdateFipsState</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a014e46fa04f789c7a66bd1916bae6d87" compoundref="2vp_2server_2xplmi__plat_8h" startline="252">XPLMI_KAT_MASK</references>
+        <references refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" compoundref="xplmi__util_8c" startline="96" endline="109">XPlmi_UtilRMW</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" compoundref="xplmi_8c" startline="463" endline="469">XPlmi_ClearKatMask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" compoundref="xplmi_8c" startline="447" endline="453">XPlmi_SetKatMask</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_GetKatStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_GetKatStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is called to get KAT status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="434" bodyend="437"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a014e46fa04f789c7a66bd1916bae6d87" compoundref="2vp_2server_2xplmi__plat_8h" startline="252">XPLMI_KAT_MASK</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" compoundref="xplmi_8c" startline="463" endline="469">XPlmi_ClearKatMask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" compoundref="xplmi_8c" startline="447" endline="453">XPlmi_SetKatMask</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_SetKatMask</definition>
+        <argsstring>(u32 PlmKatMask)</argsstring>
+        <name>XPlmi_SetKatMask</name>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function sets XPLMI_RTCFG_PLM_KAT_ADDR with PlmKatMask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlmKatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the kat mask that needs to be set </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="447" bodyend="453"/>
+        <references refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" compoundref="xplmi_8c" startline="434" endline="437">XPlmi_GetKatStatus</references>
+        <references refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" compoundref="xplmi_8c" startline="422" endline="427">XPlmi_UpdateKatStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ClearKatMask</definition>
+        <argsstring>(u32 PlmKatMask)</argsstring>
+        <name>XPlmi_ClearKatMask</name>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears XPLMI_RTCFG_PLM_KAT_ADDR with PlmKatMask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PlmKatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the kat mask that needs to be cleared </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="463" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="463" bodyend="469"/>
+        <references refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" compoundref="xplmi_8c" startline="434" endline="437">XPlmi_GetKatStatus</references>
+        <references refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" compoundref="xplmi_8c" startline="422" endline="427">XPlmi_UpdateKatStatus</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gae6c21cf5cfaf66b61df763e6f926e908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XPlmi_IsCryptoKatEn</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_IsCryptoKatEn</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function will return the crypto kat enable status from efuse cache. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>TRUE If crypto kat bit is set FALSE If crypto kat bit is not set </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" line="481" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c" bodystart="481" bodyend="488"/>
+        <referencedby refid="group__xilplmi__server__apis_1gacdb56ccfa74a74aea408e21009ac8374" compoundref="2ve__2vm_2server_2xplmi__plat_8c" startline="1031" endline="1046">XPlmi_IsKatRan</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the PLMI module register functions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+----- ---- -------- -------------------------------------------------------
+1.00  kc   02/07/2019 Initial release
+1.01  ma   08/01/2019 Added LPD init code
+1.02  kc   02/19/2020 Moved code to support PLM banner from PLM app
+      bsv  04/04/2020 Code clean up
+1.03  bsv  07/07/2020 Made functions used in single translation unit as
+                                        static
+      kc   07/28/2020 Moved LpdInitialized from <ref refid="xplmi__debug_8c" kindref="compound">xplmi_debug.c</ref> to <ref refid="xplmi_8c" kindref="compound">xplmi.c</ref>
+      bm   09/08/2020 Added RunTime Configuration Init API to XPlmi_Init
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.04  bm   10/28/2020 Added ROM Version Print
+      har  03/17/2021 Added code for run time initialization of Secure State
+                      registers
+      ma   03/24/2021 Print early logs
+      bm   03/24/2021 Added RTCA initialization for Error Status registers
+      har  03/31/2021 Added RTCA initialization for PDI ID
+      bsv  04/16/2021 Add provision to store Subsystem Id in XilPlmi
+      bm   05/05/2021 Added USR_ACCESS support for PLD0 image
+      ma   05/21/2021 Copy secure boot state from PMC GLOBAL GEN STORAGE2
+                      register to RTCA Secure State offset
+1.05  td   07/08/2021 Fix doxygen warnings
+      bsv  07/18/2021 Print PLM banner at the beginning of PLM execution
+      bsv  07/24/2021 Clear RTC area at the beginning of PLM
+      bsv  08/02/2021 Code clean up to reduce elf size
+      rb   07/29/2021 Update reset reason during Init
+      ma   08/23/2021 Do not clear Debug Log RTCA memory
+      ma   09/13/2021 Set PLM prints log level during RTCA init
+      tnt  11/11/2021 Add RTCA initialization for MIO Flush routine
+      tnt  12/17/2021 Add RTCA initialization for PL_POR HDIO WA
+1.06  bm   07/06/2022 Refactor versal and versal_net code
+      kpt  07/19/2022 Added APIs to update or get KAT status from RTC area
+      bm   07/22/2022 Update EAM logic for In-Place PLM Update
+1.07  ng   11/11/2022 Updated doxygen comments
+      kpt  01/04/2023 Added XPlmi_SetFipsKatMask command
+      bm   01/14/2023 Remove bypassing of PLM Set Alive during boot
+      bm   03/11/2023 Added status check for XPlmi_PreInit
+1.08  sk   07/18/2023 Warn out for uart init fail
+      sk   07/26/2023 Added redundant check for XPlmi_IsPlmUpdateDone
+      dd   09/12/2023 MISRA-C violation Rule 10.3 fixed
+1.09  ma   10/10/2023 Enable Slave Error for PSM_GLOBAL
+      ng   01/28/2024 optimized u8 variables
+      sk   02/18/2024 Added DDRMC Calib Check Status RTCA Register Init
+      ng   03/20/2024 Added print to UART on log buffer full after LPD init
+1.10  sk   06/05/2024 Added code to populate PLM version in RTCA Reg
+      mss  06/13/2024 Added timestamp banner conditionally
+      bm   07/15/2024 Fixed timestamp print in banner
+1.11  sk   02/20/2025 Added EAM error config in LPDSLCR for Versal 2VE
+                      and 2VM Devices
+      pre  08/21/2025 Added TPM initialization after LPD initialization
+      pre  09/08/2025 Added logic to avoid flooding of log buffer with repeated error messages
+      pre  03/16/2026 Added client support for TPM module</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="83"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__err__common_8h" kindref="compound">xplmi_err_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__ipi_8h" kindref="compound">xplmi_ipi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_wdt.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_err.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_TPM</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtpm.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_PrintEarlyLog(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="group__xilplmi__server__apis_1gac9fe0f9615e3c200512cbd3d92b3c65a" refkind="member"><highlight class="normal"><ref refid="2vp_2server_2xplmi__plat_8h_1a3f69d50232dc5c7c01788c7646929d9d" kindref="member">XPlmi_IsAddrRangeValid_t</ref><sp/><ref refid="group__xilplmi__server__apis_1gac9fe0f9615e3c200512cbd3d92b3c65a" kindref="member">XPlmi_IsAddrRangeValid</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="126" refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" kindref="member">XPlmi_Init</ref>(<ref refid="2vp_2server_2xplmi__plat_8h_1a3f69d50232dc5c7c01788c7646929d9d" kindref="member">XPlmi_IsAddrRangeValid_t</ref><sp/>IsAddrRangeValidHandler)</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga4d05007b07e69ed4471ee801451b3141" kindref="member">XPlmi_PreInit</ref>();</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a7eaee6e49b0dd0d753b13b88d8ac878c" kindref="member">XPLMI_ERR_PRE_INIT</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IsAddrRangeValidHandler<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gac9fe0f9615e3c200512cbd3d92b3c65a" kindref="member">XPlmi_IsAddrRangeValid</ref><sp/>=<sp/>IsAddrRangeValidHandler;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga39991f4765e9e7323223ec6288ab40a3" kindref="member">XPlmi_SetUpInterruptSystem</ref>();</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_GenericInit();</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_RegisterPlmHandler(<ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="162" refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac7d9401e9180244111edb141932b0d37" kindref="member">XPlmi_RunTimeConfigInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DevSecureState<sp/>=<sp/>XPlmi_In32(PMC_GLOBAL_GLOBAL_GEN_STORAGE2);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PlmVersion;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>In-Place<sp/>PLM<sp/>Update<sp/>is<sp/>applicable<sp/>only<sp/>for<sp/>versalnet<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" kindref="member">XPlmi_IsPlmUpdateDone</ref>()<sp/>==<sp/>(u8)TRUE)<sp/>||<sp/>(<ref refid="group__xilplmi__server__apis_1gaf59d6afb61ec8e872bdb40c116b8f67b" kindref="member">XPlmi_IsPlmUpdateDoneTmp</ref>()<sp/>==<sp/>(u8)TRUE))<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR,<sp/>DevSecureState);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" kindref="member">XPlmi_MemSet</ref>((u64)<ref refid="2vp_2server_2xplmi__plat_8h_1a5ec9ec42c88f293a05b22e166653fafb" kindref="member">XPLMI_RTCFG_BASEADDR</ref>,<sp/>0U,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_RTCFG_DBG_LOG_BUF_OFFSET<sp/>&gt;&gt;<sp/>XPLMI_WORD_LEN_SHIFT));</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1gab7f5511c526c00a7477c689c3a476e3f" kindref="member">XPlmi_MemSet</ref>((u64)(XPLMI_RTCFG_BASEADDR<sp/>+<sp/><ref refid="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" kindref="member">XPLMI_RTCFG_LOG_UART_OFFSET</ref>),</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/><sp/><sp/><sp/><sp/>((XPLMI_RTCFG_SIZE<sp/>-<sp/><ref refid="xplmi_8h_1af601db1e3dfa27453bbc0d96439a3d45" kindref="member">XPLMI_RTCFG_LOG_UART_OFFSET</ref>)</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/>XPLMI_WORD_LEN_SHIFT));</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_RTCA_ADDR,<sp/>XPLMI_RTCFG_IDENTIFICATION);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_VERSION_ADDR,<sp/>XPLMI_RTCFG_VER);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_SIZE_ADDR,<sp/>XPLMI_RTCFG_SIZE);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_ADDRLOW_ADDR,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_IMAGE_INFO_TBL_BUFFER_ADDR);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_ADDRHIGH_ADDR,</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_RTCFG_IMGINFOTBL_ADDR_HIGH);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_RTCFG_IMGINFOTBL_LEN);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_AHWROT_ADDR,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_RTCFG_SECURESTATE_AHWROT);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_SECURESTATE_SHWROT_ADDR,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_RTCFG_SECURESTATE_SHWROT);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_PDI_ID_ADDR,<sp/>XPLMI_RTCFG_PDI_ID);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_SECURE_STATE_ADDR,<sp/>DevSecureState);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(<ref refid="2vp_2server_2xplmi__plat_8h_1aff5df410700f7a25f282d6908e3cb27e" kindref="member">XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH</ref>,<sp/>XPLMI_RTCFG_IMG_STORE_ADDRESS_HIGH_INVALID);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32((<ref refid="2vp_2server_2xplmi__plat_8h_1a95f4ca438901c86e839a6e8d18ec5f8b" kindref="member">XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW</ref>),<sp/>XPLMI_RTCFG_IMG_STORE_ADDRESS_LOW_INVALID);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(<ref refid="2vp_2server_2xplmi__plat_8h_1ab7384f1ec083ef8a5b0f3ed6db679083" kindref="member">XPLMI_RTCFG_IMG_STORE_SIZE</ref>,<sp/>XPLMI_RTCFG_IMG_STORE_SIZE_INVALID);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(<ref refid="2vp_2server_2xplmi__plat_8h_1a835158beef1bb56a6d72a4e54982a6f1" kindref="member">XPLMI_RTCFG_DDRMC_CALIB_CHECK_SKIP_ADDR</ref>,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_RTCFG_INIT_DDRMC_CALIB_CHECK);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gacb3d2b049fc1adc0d8f6d00fa6b5e288" kindref="member">XPlmi_RtcaPlatInit</ref>();</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>PLM<sp/>prints<sp/>log<sp/>level<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogLevel<sp/>=<sp/>((u8)XPlmiDbgCurrentTypes<sp/>&lt;&lt;<sp/>XPLMI_LOG_LEVEL_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)XPlmiDbgCurrentTypes;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlmVersion<sp/>=<sp/>((<ref refid="xplmi_8h_1ab5ce4f0450661c7d604cd813d02deb36" kindref="member">XPLMI_PLM_MAJOR_VERSION</ref><sp/>&lt;&lt;<sp/><ref refid="xplmi_8h_1aaa1d6f0e73669ddbf6307fb34d9f3954" kindref="member">XPLMI_PLM_MAJOR_VERSION_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xplmi_8h_1a32e2908463b2798137fb7803fbd699f2" kindref="member">XPLMI_PLM_MINOR_VERSION</ref><sp/>&lt;&lt;<sp/><ref refid="xplmi_8h_1a9f5b5242c70ed334d25712914560563c" kindref="member">XPLMI_PLM_MINOR_VERSION_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="xplmi_8h_1acfc039e4322a82d801b5226baee68126" kindref="member">XPLMI_PLM_RC_VERSION</ref><sp/>&lt;&lt;<sp/><ref refid="xplmi_8h_1add9122b602dd6a27131c2086cc450838" kindref="member">XPLMI_PLM_RC_VERSION_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="2vp_2server_2xplmi__plat_8h_1a7df3528b92dbe963e434ca96b5e2e7fc" kindref="member">XPLMI_PLM_USER_DEFINED_VERSION</ref>));</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Out32(XPLMI_RTCFG_PLM_VERSION_ADDR,<sp/>PlmVersion);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="241" refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" kindref="member">XPlmi_LpdInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_UART_PS</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" kindref="member">XPlmi_InitUart</ref>();</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/><sp/><ref refid="2vp_2server_2xplmi__status_8h_1a75ed30b68ec865a18368bce5e54c1ee6" kindref="member">XPLMI_WARNING_MAJOR_MASK</ref>;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa2b957e74d75b6b0a33ab25b31d222bf" kindref="member">XPlmi_LogPlmErr</ref>(Status);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>versal,<sp/>PLM<sp/>Update<sp/>is<sp/>not<sp/>applicable,<sp/>and<sp/>this<sp/>API<sp/>returns<sp/>FALSE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" kindref="member">XPlmi_IsPlmUpdateDone</ref>()<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xplmi__err__psm_8c_1ab3827194b7dbb96569c6695a73701465" kindref="member">XPlmi_PsEmInit</ref>();</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga366702831fa35fe6b4f462d0ac261188" kindref="member">XPlmi_LpdSlcrEmInit</ref>();</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>((defined(versal)<sp/>||<sp/>defined(VERSAL_2VE_2VM))<sp/>&amp;&amp;<sp/>defined(PLM_TPM))</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TPM<sp/>module<sp/>is<sp/>applicable<sp/>for<sp/>Versal<sp/>and<sp/>Versal_2VE_2VM<sp/>only<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)XTpm_ModuleInit();</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1a8da3b9c038d06165eaed1bd2e7c14295" kindref="member">LPD_INITIALIZED</ref>);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>VERSAL_2VE_2VM</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>(PSM_GLOBAL_REG_BASEADDR,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PSM_GLOBAL_REG_GLOBAL_CNTRL_SLVERR_ENABLE_MASK);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_PrintEarlyLog();</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" kindref="member">XPlmi_ErrMgr</ref>(Status);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="293" refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" kindref="member">XPlmi_PrintPlmBanner</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Version;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PsVersion;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PmcVersion;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BootMode;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MultiBoot;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PmcVersionDecimal;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>the<sp/>PLM<sp/>Banner<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;****************************************\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a7355ebb47cfd3bab7349504447420a10" kindref="member">XPLMI_PLM_BANNER</ref>);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Release<sp/>%s.%s&quot;</highlight><highlight class="normal">,<ref refid="xplmi_8h_1a92ceeeea4057c595c7df535c65e351ed" kindref="member">SDK_RELEASE_YEAR</ref>,<sp/><ref refid="xplmi_8h_1af0c1ecafb49cd854040429431d27fd30" kindref="member">SDK_RELEASE_QUARTER</ref>);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>PLM_BANNER_TIMESTAMP_EXCLUDE</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/>%s<sp/><sp/>-<sp/><sp/>%s&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__DATE__,<sp/>__TIME__);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>versal,<sp/>PLM<sp/>Update<sp/>is<sp/>not<sp/>applicable,<sp/>and<sp/>this<sp/>API<sp/>returns<sp/>FALSE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xilplmi__server__apis_1gaa162fe5ce1ebcb2622bb2ccec4fcec4f" kindref="member">XPlmi_IsPlmUpdateDone</ref>()<sp/>!=<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>Version<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Version<sp/>=<sp/>XPlmi_In32(PMC_TAP_VERSION);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PsVersion<sp/>=<sp/>((Version<sp/>&amp;<sp/>PMC_TAP_VERSION_PS_VERSION_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_TAP_VERSION_PS_VERSION_SHIFT);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcVersion<sp/>=<sp/>((Version<sp/>&amp;<sp/>PMC_TAP_VERSION_PMC_VERSION_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PMC_TAP_VERSION_PMC_VERSION_SHIFT);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BootMode<sp/>=<sp/>XPlmi_In32(CRP_BOOT_MODE_USER)<sp/>&amp;</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CRP_BOOT_MODE_USER_BOOT_MODE_MASK;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MultiBoot<sp/>=<sp/>XPlmi_In32(PMC_GLOBAL_PMC_MULTI_BOOT);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcVersionDecimal<sp/>=<sp/>(PmcVersion<sp/>&amp;<sp/><ref refid="xplmi_8h_1a3c8c0cc7bddd7a647846335ae9139db4" kindref="member">XPLMI_PMC_VERSION_MASK</ref>);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcVersion<sp/>=<sp/>(PmcVersion<sp/>&gt;&gt;<sp/><ref refid="xplmi_8h_1a74e13164b0e8ec2249d86657820c7557" kindref="member">XPLMI_PMC_VERSION_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;Platform<sp/>Version:<sp/>v%u.%u<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;PMC:<sp/>v%u.%u,<sp/>PS:<sp/>v%u.%u\n\r&quot;</highlight><highlight class="normal">,<sp/>PmcVersion,<sp/>PmcVersionDecimal,</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PmcVersion,<sp/>PmcVersionDecimal,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PsVersion<sp/>&gt;&gt;<sp/><ref refid="xplmi_8h_1a74e13164b0e8ec2249d86657820c7557" kindref="member">XPLMI_PMC_VERSION_SHIFT</ref>),</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(PsVersion<sp/>&amp;<sp/><ref refid="xplmi_8h_1a3c8c0cc7bddd7a647846335ae9139db4" kindref="member">XPLMI_PMC_VERSION_MASK</ref>));</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga677012587c48177e23f758fe88a7ae74" kindref="member">XPlmi_PrintRomVersion</ref>();</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;BOOTMODE:<sp/>0x%x,<sp/>MULTIBOOT:<sp/>0x%x\n\r&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,<sp/>BootMode,<sp/>MultiBoot);</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf(DEBUG_PRINT_ALWAYS,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;****************************************\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="340"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="347"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPlmi_PrintEarlyLog(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;DiscardLogsAndPrintToBuf<sp/>=<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Print<sp/>early<sp/>log<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DebugLog-&gt;LogBuffer.IsBufferFull<sp/>==<sp/>(u32)FALSE)<sp/>{</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_OutByte64(DebugLog-&gt;LogBuffer.StartAddr<sp/>+</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.Offset,<sp/>0U);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)DebugLog-&gt;LogBuffer.StartAddr);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gabc6c22a6abbfe15fb3d908c81b0941dc" kindref="member">XPlmi_PrintPlmBanner</ref>();</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;%.*s&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DebugLog-&gt;LogBuffer.Len<sp/>-<sp/>DebugLog-&gt;LogBuffer.Offset),</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINTPTR)(DebugLog-&gt;LogBuffer.StartAddr<sp/>+<sp/>DebugLog-&gt;LogBuffer.Offset)</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_Printf_WoTS(DEBUG_PRINT_ALWAYS,<sp/></highlight><highlight class="stringliteral">&quot;%.*s&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.Offset,<sp/>(UINTPTR)(DebugLog-&gt;LogBuffer.StartAddr));</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;DiscardLogsAndPrintToBuf<sp/>=<sp/>(u8)TRUE;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="375" refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" kindref="member">XPlmi_ResetLpdInitialized</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="376"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((*LpdInitializedPtr<sp/>&amp;<sp/><ref refid="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" kindref="member">LPD_WDT_INITIALIZED</ref>)<sp/>==<sp/>LPD_WDT_INITIALIZED)<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" kindref="member">XPlmi_DisableWdt</ref>(XPLMI_WDT_EXTERNAL);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*LpdInitializedPtr<sp/>=<sp/>(u32)0U;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="393" refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(u32<sp/>Flag)</highlight></codeline>
+<codeline lineno="394"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*LpdInitializedPtr<sp/>|=<sp/>Flag;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="407" refid="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" kindref="member">XPlmi_UnSetLpdInitialized</ref>(u32<sp/>Flag)</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*LpdInitializedPtr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1edaac0184e76d6ca65c7499e137f72c" kindref="member">XPlmi_GetLpdInitialized</ref>();</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*LpdInitializedPtr<sp/>&amp;=<sp/>(u32)(~Flag);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="422" refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" kindref="member">XPlmi_UpdateKatStatus</ref>(u32<sp/>PlmKatStatus)</highlight></codeline>
+<codeline lineno="423"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gaa6f19eeebb4a42d17f8e2f62b01b0080" kindref="member">XPlmi_UtilRMW</ref>(XPLMI_RTCFG_PLM_KAT_ADDR,<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a014e46fa04f789c7a66bd1916bae6d87" kindref="member">XPLMI_KAT_MASK</ref>,<sp/>PlmKatStatus);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Applicable<sp/>only<sp/>for<sp/>VersalNet<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__xilplmi__server__apis_1ga45c3c8d152ab4449a53105b5ddfef2f8" kindref="member">XPlmi_CheckAndUpdateFipsState</ref>();</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="434" refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" kindref="member">XPlmi_GetKatStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="435"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XPlmi_In32(XPLMI_RTCFG_PLM_KAT_ADDR)<sp/>&amp;<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a014e46fa04f789c7a66bd1916bae6d87" kindref="member">XPLMI_KAT_MASK</ref>);</highlight></codeline>
+<codeline lineno="437"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="447" refid="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga23c31adbc077352c74d251c2c164b0ab" kindref="member">XPlmi_SetKatMask</ref>(u32<sp/>PlmKatMask)</highlight></codeline>
+<codeline lineno="448"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PlmKatStatus<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" kindref="member">XPlmi_GetKatStatus</ref>();</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlmKatStatus<sp/>|=<sp/>PlmKatMask;</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" kindref="member">XPlmi_UpdateKatStatus</ref>(PlmKatStatus);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="463" refid="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga68e1f74e26153655b8f85fc892396843" kindref="member">XPlmi_ClearKatMask</ref>(u32<sp/>PlmKatMask)</highlight></codeline>
+<codeline lineno="464"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PlmKatStatus<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga8de52017af72f81c5525e900a5e95855" kindref="member">XPlmi_GetKatStatus</ref>();</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PlmKatStatus<sp/>&amp;=<sp/>~PlmKatMask;</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga25e99e120ef0c34fb5f96b37ab03539d" kindref="member">XPlmi_UpdateKatStatus</ref>(PlmKatStatus);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="481" refid="group__xilplmi__server__apis_1gae6c21cf5cfaf66b61df763e6f926e908" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilplmi__server__apis_1gae6c21cf5cfaf66b61df763e6f926e908" kindref="member">XPlmi_IsCryptoKatEn</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="482"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CryptoKatEn<sp/>=<sp/>((XPlmi_In32(EFUSE_CACHE_MISC_CTRL)<sp/>&amp;</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_MASK)<sp/>&gt;&gt;</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_EFUSE_CACHE_CRYPTO_KAT_EN_SHIFT);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>CryptoKatEn;</highlight></codeline>
+<codeline lineno="488"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi.c"/>
+  </compounddef>
+</doxygen>

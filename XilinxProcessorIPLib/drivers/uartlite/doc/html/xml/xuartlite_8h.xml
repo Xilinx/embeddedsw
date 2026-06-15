@@ -1,0 +1,889 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xuartlite_8h" kind="file">
+    <compoundname>xuartlite.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includedby refid="xuartlite_8c" local="yes">xuartlite.c</includedby>
+    <includedby refid="xuartlite__i_8h" local="yes">xuartlite_i.h</includedby>
+    <includedby refid="xuartlite__g_8c" local="yes">xuartlite_g.c</includedby>
+    <includedby refid="xuartlite__intr_8c" local="yes">xuartlite_intr.c</includedby>
+    <includedby refid="xuartlite__selftest_8c" local="yes">xuartlite_selftest.c</includedby>
+    <includedby refid="xuartlite__stats_8c" local="yes">xuartlite_stats.c</includedby>
+    <includedby refid="xuartlite__intr__example_8c" local="yes">xuartlite_intr_example.c</includedby>
+    <includedby refid="xuartlite__intr__tapp__example_8c" local="yes">xuartlite_intr_tapp_example.c</includedby>
+    <includedby refid="xuartlite__polled__example_8c" local="yes">xuartlite_polled_example.c</includedby>
+    <includedby refid="xuartlite__selftest__example_8c" local="yes">xuartlite_selftest_example.c</includedby>
+    <incdepgraph>
+      <node id="17">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="18">
+        <label>xstatus.h</label>
+      </node>
+      <node id="15">
+        <label>xuartlite.h</label>
+        <link refid="xuartlite.h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="25">
+        <label>xuartlite_stats.c</label>
+        <link refid="xuartlite__stats_8c"/>
+      </node>
+      <node id="29">
+        <label>xuartlite_polled_example.c</label>
+        <link refid="xuartlite__polled__example_8c"/>
+      </node>
+      <node id="30">
+        <label>xuartlite_selftest_example.c</label>
+        <link refid="xuartlite__selftest__example_8c"/>
+      </node>
+      <node id="26">
+        <label>xuartlite_g.c</label>
+        <link refid="xuartlite__g_8c"/>
+      </node>
+      <node id="27">
+        <label>xuartlite_intr_example.c</label>
+        <link refid="xuartlite__intr__example_8c"/>
+      </node>
+      <node id="28">
+        <label>xuartlite_intr_tapp_example.c</label>
+        <link refid="xuartlite__intr__tapp__example_8c"/>
+      </node>
+      <node id="22">
+        <label>xuartlite_intr.c</label>
+        <link refid="xuartlite__intr_8c"/>
+      </node>
+      <node id="20">
+        <label>xuartlite.c</label>
+        <link refid="xuartlite_8c"/>
+      </node>
+      <node id="19">
+        <label>xuartlite.h</label>
+        <link refid="xuartlite.h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xuartlite_selftest.c</label>
+        <link refid="xuartlite__selftest_8c"/>
+      </node>
+      <node id="21">
+        <label>xuartlite_i.h</label>
+        <link refid="xuartlite__i_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>xuartlite_sinit.c</label>
+        <link refid="xuartlite__sinit_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_uart_lite___stats" prot="public">XUartLite_Stats</innerclass>
+    <innerclass refid="struct_x_uart_lite___buffer" prot="public">XUartLite_Buffer</innerclass>
+    <innerclass refid="struct_x_uart_lite___config" prot="public">XUartLite_Config</innerclass>
+    <innerclass refid="struct_x_uart_lite" prot="public">XUartLite</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__uartlite_1gad441178033a5726b8a743eaa61af9c85" prot="public" static="no">
+        <name>XUARTLITE_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XUartLite_Handler)(void *CallBackRef, unsigned int ByteCount)</definition>
+        <argsstring>)(void *CallBackRef, unsigned int ByteCount)</argsstring>
+        <name>XUartLite_Handler</name>
+        <briefdescription>
+<para>Callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para>The first argument is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. The second argument is the ByteCount which is the number of bytes that actually moved from/to the buffer provided in the _Send/_Receive call. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartLite_Initialize</definition>
+        <argsstring>(XUartLite *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XUartLite_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The receive and transmit FIFOs of the UART are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything starts up as expected.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device is not found in the configuration table.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_sinit.c" bodystart="133" bodyend="158"/>
+        <references refid="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" compoundref="xuartlite_8h" startline="197">XUartLite_Config::RegBaseAddr</references>
+        <references refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="116" endline="160">XUartLite_CfgInitialize</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <referencedby refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" compoundref="xuartlite__polled__example_8c" startline="157" endline="230">UartLitePolledExample</referencedby>
+        <referencedby refid="xuartlite__selftest__example_8c_1a262dc5e981799ecf2b5463319f94452f" compoundref="xuartlite__selftest__example_8c" startline="133" endline="159">UartLiteSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga79efa4208bc789a3eb1c7d91ff17671f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref> *</type>
+        <definition>XUartLite_Config * XUartLite_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XUartLite_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_sinit.c" bodystart="85" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartLite_CfgInitialize</definition>
+        <argsstring>(XUartLite *InstancePtr, XUartLite_Config *Config, UINTPTR EffectiveAddr)</argsstring>
+        <name>XUartLite_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref> *</type>
+          <declname>Config</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize a <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para>        </briefdescription>
+        <detaileddescription>
+<para>The receive and transmit FIFOs of the UART are not flushed, so the user may want to flush them. The hardware device does not have any way to disable the receiver such that any valid data may be present in the receive FIFO. This function disables the UART interrupt. The baudrate and format of the data are fixed in the hardware at hardware build time.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Config</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference to a structure containing information about a specific UART Lite device. This function initializes an InstancePtr object for a specific device specified by the contents of Config. This function can initialize multiple instance objects with the use of multiple calls giving different Config information on each call. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. The caller is responsible for keeping the address mapping from EffectiveAddr to the device physical base address unchanged once this function is invoked. Unexpected errors may occur if the address mapping changes after this function is called. If address translation is not used, use Config-&gt;BaseAddress for this parameters, passing the physical address instead.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything starts up as expected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The Config pointer argument is not used by this function, but is provided to keep the function signature consistent with other drivers. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" bodystart="116" bodyend="160"/>
+        <references refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" compoundref="xuartlite_8h" startline="222">XUartLite::ReceiveBuffer</references>
+        <references refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" compoundref="xuartlite_8h" startline="224">XUartLite::RecvHandler</references>
+        <references refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" compoundref="xuartlite_8h" startline="221">XUartLite::SendBuffer</references>
+        <references refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" compoundref="xuartlite_8h" startline="226">XUartLite::SendHandler</references>
+        <references refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" compoundref="xuartlite__stats_8c" startline="101" endline="117">XUartLite_ClearStats</references>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+        <referencedby refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" compoundref="xuartlite__sinit_8c" startline="133" endline="158">XUartLite_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_ResetFifos</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_ResetFifos</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the FIFOs, both transmit and receive, of the UART such that they are emptied. </para>        </briefdescription>
+        <detaileddescription>
+<para>Since the UART does not have any way to disable it from receiving data, it may be necessary for the application to reset the FIFOs to get rid of any unwanted data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance .</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" bodystart="342" bodyend="366"/>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+        <referencedby refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" compoundref="xuartlite__selftest_8c" startline="79" endline="113">XUartLite_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Send</definition>
+        <argsstring>(XUartLite *InstancePtr, u8 *DataBufferPtr, unsigned int NumBytes)</argsstring>
+        <name>XUartLite_Send</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataBufferPtr</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>NumBytes</declname>
+        </param>
+        <briefdescription>
+<para>This functions sends the specified buffer of data using the UART in either polled or interrupt driven modes. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is non-blocking such that it will return before the data has been sent by the UART. If the UART is busy sending data, it will return and indicate zero bytes were sent.</para><para>In a polled mode, this function will only send as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to send a buffer.</para><para>In interrupt mode, this function will start sending the specified buffer and then the interrupt handler of the driver will continue sending data until the buffer has been sent. A callback function, as specified by the application, will be called to indicate the completion of sending the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to a buffer of data to be sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the number of bytes to be sent. A value of zero will stop a previous send operation that is in progress in interrupt mode. Any data that was already put into the transmit FIFO will be sent.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes actually sent.</para></simplesect>
+<simplesect kind="note"><para>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" bodystart="193" bodyend="242"/>
+        <references refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" compoundref="xuartlite_8h" startline="221">XUartLite::SendBuffer</references>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+        <references refid="group__uartlite_1ga155b5a1fba111533992e283445ad8f73" compoundref="xuartlite_8c" startline="458" endline="524">XUartLite_SendBuffer</references>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <referencedby refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" compoundref="xuartlite__polled__example_8c" startline="157" endline="230">UartLitePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int XUartLite_Recv</definition>
+        <argsstring>(XUartLite *InstancePtr, u8 *DataBufferPtr, unsigned int NumBytes)</argsstring>
+        <name>XUartLite_Recv</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DataBufferPtr</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>NumBytes</declname>
+        </param>
+        <briefdescription>
+<para>This function will attempt to receive a specified number of bytes of data from the UART and store it into the specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is designed for either polled or interrupt driven modes. It is non-blocking such that it will return if no data has already received by the UART.</para><para>In a polled mode, this function will only receive as much data as the UART can buffer in the FIFO. The application may need to call it repeatedly to receive a buffer. Polled mode is the default mode of operation for the driver.</para><para>In interrupt mode, this function will start receiving and then the interrupt handler of the driver will continue receiving data until the buffer has been received. A callback function, as specified by the application, will be called to indicate the completion of receiving the buffer or when any receive errors or timeouts occur.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataBufferPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to buffer for data to be received into. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NumBytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes to be received. A value of zero will stop a previous receive operation that is in progress in interrupt mode.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes received.</para></simplesect>
+<simplesect kind="note"><para>The number of bytes is not asserted so that this function may be called with a value of zero to stop an operation that is already in progress. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" bodystart="276" bodyend="325"/>
+        <references refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" compoundref="xuartlite_8h" startline="222">XUartLite::ReceiveBuffer</references>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+        <references refid="group__uartlite_1ga74efaecba1b6b1406c8c82abbb628cc8" compoundref="xuartlite_8c" startline="558" endline="625">XUartLite_ReceiveBuffer</references>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <referencedby refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" compoundref="xuartlite__polled__example_8c" startline="157" endline="230">UartLitePolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga40bc490d296a7a929f1cc5d07bb29b3c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartLite_IsSending</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_IsSending</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function determines if the specified UART is sending data. </para>        </briefdescription>
+        <detaileddescription>
+<para>If the transmitter register is not empty, it is sending data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A value of TRUE if the UART is sending data, otherwise FALSE.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.c" bodystart="381" bodyend="400"/>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_GetStats</definition>
+        <argsstring>(XUartLite *InstancePtr, XUartLite_Stats *StatsPtr)</argsstring>
+        <name>XUartLite_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Returns a snapshot of the current statistics in the structure specified. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a XUartLiteStats structure to where the statistics are to be copied.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_stats.c" bodystart="66" bodyend="87"/>
+        <references refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" compoundref="xuartlite_8h" startline="171">XUartLite_Stats::CharactersReceived</references>
+        <references refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" compoundref="xuartlite_8h" startline="170">XUartLite_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" compoundref="xuartlite_8h" startline="174">XUartLite_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" compoundref="xuartlite_8h" startline="169">XUartLite_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" compoundref="xuartlite_8h" startline="172">XUartLite_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" compoundref="xuartlite_8h" startline="173">XUartLite_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" compoundref="xuartlite_8h" startline="168">XUartLite_Stats::TransmitInterrupts</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_ClearStats</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function zeros the statistics for the given instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_stats.c" bodystart="101" bodyend="117"/>
+        <references refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" compoundref="xuartlite_8h" startline="171">XUartLite_Stats::CharactersReceived</references>
+        <references refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" compoundref="xuartlite_8h" startline="170">XUartLite_Stats::CharactersTransmitted</references>
+        <references refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" compoundref="xuartlite_8h" startline="174">XUartLite_Stats::ReceiveFramingErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" compoundref="xuartlite_8h" startline="169">XUartLite_Stats::ReceiveInterrupts</references>
+        <references refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" compoundref="xuartlite_8h" startline="172">XUartLite_Stats::ReceiveOverrunErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" compoundref="xuartlite_8h" startline="173">XUartLite_Stats::ReceiveParityErrors</references>
+        <references refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" compoundref="xuartlite_8h" startline="168">XUartLite_Stats::TransmitInterrupts</references>
+        <referencedby refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" compoundref="xuartlite_8c" startline="116" endline="160">XUartLite_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUartLite_SelfTest</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Runs a self-test on the device hardware. </para>        </briefdescription>
+        <detaileddescription>
+<para>Since there is no way to perform a loopback in the hardware, this test can only check the state of the status register to verify it is correct. This test assumes that the hardware device is still in its reset state, but has been initialized with the Initialize function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test was successful.</para></listitem><listitem><para>XST_FAILURE if the self-test failed, the status register value was not correct</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_selftest.c" bodystart="79" bodyend="113"/>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+        <references refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" compoundref="xuartlite_8c" startline="342" endline="366">XUartLite_ResetFifos</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+        <referencedby refid="xuartlite__polled__example_8c_1aafae45d01390b1f13b15fbcdaac8a448" compoundref="xuartlite__polled__example_8c" startline="157" endline="230">UartLitePolledExample</referencedby>
+        <referencedby refid="xuartlite__selftest__example_8c_1a262dc5e981799ecf2b5463319f94452f" compoundref="xuartlite__selftest__example_8c" startline="133" endline="159">UartLiteSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_EnableInterrupt</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_EnableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the UART interrupt such that an interrupt will occur when data is received or data has been transmitted. </para>        </briefdescription>
+        <detaileddescription>
+<para>The device contains 16 byte receive and transmit FIFOs such that an interrupt is generated anytime there is data in the receive FIFO and when the transmit FIFO transitions from not empty to empty.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_intr.c" bodystart="297" bodyend="309"/>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_DisableInterrupt</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_DisableInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the UART interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>After calling this function, data may still be received by the UART but no interrupt will be generated since the hardware device has no way to disable the receiver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_intr.c" bodystart="267" bodyend="279"/>
+        <references refid="group__uartlite_1gacb96d217d7b77e8d517e9556d421db95" compoundref="xuartlite__l_8h" startline="150">XUartLite_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_SetRecvHandler</definition>
+        <argsstring>(XUartLite *InstancePtr, XUartLite_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XUartLite_SetRecvHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the handler is to allow application specific processing to be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_intr.c" bodystart="74" bodyend="87"/>
+        <references refid="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" compoundref="xuartlite_8h" startline="225">XUartLite::RecvCallBackRef</references>
+        <references refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" compoundref="xuartlite_8h" startline="224">XUartLite::RecvHandler</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_SetSendHandler</definition>
+        <argsstring>(XUartLite *InstancePtr, XUartLite_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XUartLite_SetSendHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs in the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>The purpose of the handler is to allow application specific processing to be performed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> instance . </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>There is no assert on the CallBackRef since the driver doesn&apos;t know what it is (nor should it) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_intr.c" bodystart="107" bodyend="120"/>
+        <references refid="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" compoundref="xuartlite_8h" startline="227">XUartLite::SendCallBackRef</references>
+        <references refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" compoundref="xuartlite_8h" startline="226">XUartLite::SendHandler</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUartLite_InterruptHandler</definition>
+        <argsstring>(XUartLite *InstancePtr)</argsstring>
+        <name>XUartLite_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the UART lite driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It must be connected to an interrupt system by the user such that it is called when an interrupt for any UART lite occurs. This function does not save or restore the processor context such that the user must ensure this occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the instance of the UART that the interrupt is for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite_intr.c" bodystart="139" bodyend="160"/>
+        <references refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" compoundref="xuartlite_8h" startline="221">XUartLite::SendBuffer</references>
+        <references refid="group__uartlite_1ga52107358628671b9c39beb81183b7365" compoundref="xuartlite_8c" startline="644" endline="655">XUartLite_GetSR</references>
+        <referencedby refid="xuartlite__intr__example_8c_1a8079702e33795e4de685d18352796beb" compoundref="xuartlite__intr__example_8c" startline="215" endline="316">UartLiteIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor">#ifndef<sp/>XUARTLITE_H<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUARTLITE_H<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ByteCount);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167" refid="struct_x_uart_lite___stats" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168" refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1a046cc0881c445ef40f27140e19e2c174" kindref="member">TransmitInterrupts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="169" refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1a5aa85c00c96797e499040c43f000b458" kindref="member">ReceiveInterrupts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170" refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1a2835184ffdbb9eb956f475f71460c699" kindref="member">CharactersTransmitted</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171" refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1a419c9a4c527458f4ca8e681fa300160f" kindref="member">CharactersReceived</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1af82d51917660948cd9fd5860ee1c9e00" kindref="member">ReceiveOverrunErrors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1a54e9bfc44f29f17020ed86b0eba6da86" kindref="member">ReceiveParityErrors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___stats_1ad78aa2351dfb161a2651a4229137e5e9" kindref="member">ReceiveFramingErrors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}<sp/><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref>;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182" refid="struct_x_uart_lite___buffer" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*NextBytePtr;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RequestedBytes;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RemainingBytes;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">}<sp/><ref refid="struct_x_uart_lite___buffer" kindref="compound">XUartLite_Buffer</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191" refid="struct_x_uart_lite___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="195" refid="struct_x_uart_lite___config_1a8d5c1bec555a07a93d2b793beb6d089d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_uart_lite___config_1a8d5c1bec555a07a93d2b793beb6d089d" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="197" refid="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_uart_lite___config_1a8afe6e1ad74e83584e757bebddbf7a30" kindref="member">RegBaseAddr</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198" refid="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_uart_lite___config_1ae711744a0420840d9599e234525f1487" kindref="member">BaudRate</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199" refid="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_uart_lite___config_1a581d63c484cae600ecdeb5b05f775a08" kindref="member">UseParity</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_uart_lite___config_1a4265aa3443fe342e8e6a7858ca96ab37" kindref="member">ParityOdd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="202" refid="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_uart_lite___config_1abde7d4add528443f4bf8ab33aa98fad8" kindref="member">DataBits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="204" refid="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_uart_lite___config_1ab90c5e86d516f1f49a14325a0fbe9c33" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="206" refid="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_uart_lite___config_1a2f57cbe432323d54cd26352bb9d8ce63" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref>;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216" refid="struct_x_uart_lite" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref><sp/>Stats;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Component<sp/>Statistics<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RegBaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Base<sp/>address<sp/>of<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IsReady;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>is<sp/>initialized<sp/>and<sp/>ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_lite___buffer" kindref="compound">XUartLite_Buffer</ref><sp/><ref refid="struct_x_uart_lite_1a2f1181b625ce924d3eea822bb7d1b048" kindref="member">SendBuffer</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_lite___buffer" kindref="compound">XUartLite_Buffer</ref><sp/><ref refid="struct_x_uart_lite_1ac6bbb7a88a8cd4610a9f7d7384551df1" kindref="member">ReceiveBuffer</ref>;<sp/></highlight></codeline>
+<codeline lineno="224" refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref><sp/><ref refid="struct_x_uart_lite_1a92bda98b3f5f8c49eb9dfeb4acef80c5" kindref="member">RecvHandler</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_uart_lite_1ab174da82712959f718ee725216a85bc1" kindref="member">RecvCallBackRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="226" refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref><sp/><ref refid="struct_x_uart_lite_1a2f49dd74fe86187018d13732838537e6" kindref="member">SendHandler</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="227" refid="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_uart_lite_1a4fbf0298a548fd9c5ac1024a9e2c8f70" kindref="member">SendCallBackRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="normal">}<sp/><ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/>*<sp/>Initialization<sp/>functions<sp/>in<sp/>xuartlite_sinit.c</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" kindref="member">XUartLite_Initialize</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref><sp/>*XUartLite_LookupConfig(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga3c83194bde1d39a420bc5ff1b6c8677d" kindref="member">XUartLite_Initialize</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref><sp/>*XUartLite_LookupConfig(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/>*<sp/>Required<sp/>functions,<sp/>in<sp/>file<sp/>xuart.c</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gaaf61ea88e001e95175590cb5b221a18d" kindref="member">XUartLite_CfgInitialize</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_uart_lite___config" kindref="compound">XUartLite_Config</ref><sp/>*Config,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga7932155bf2bc603fc0a972f5aefec77e" kindref="member">XUartLite_ResetFifos</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gacd990348cf8483d47934d3263dc6fe90" kindref="member">XUartLite_Send</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DataBufferPtr,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBytes);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gaa30ed8bfedba1acdc67dc94e77d5a41d" kindref="member">XUartLite_Recv</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/>u8<sp/>*DataBufferPtr,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>NumBytes);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga40bc490d296a7a929f1cc5d07bb29b3c" kindref="member">XUartLite_IsSending</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/>*<sp/>Functions<sp/>for<sp/>statistics,<sp/>in<sp/>file<sp/>xuartlite_stats.c</highlight></codeline>
+<codeline lineno="265"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga081d00a44aeebe19ed77e195a063b4e1" kindref="member">XUartLite_GetStats</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_uart_lite___stats" kindref="compound">XUartLite_Stats</ref><sp/>*StatsPtr);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga33651bc4c0c36496d86038d95f39f0cd" kindref="member">XUartLite_ClearStats</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/>*<sp/>Functions<sp/>for<sp/>self-test,<sp/>in<sp/>file<sp/>xuartlite_selftest.c</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gabfbfaddf9ab531ff85a1c4f9036631aa" kindref="member">XUartLite_SelfTest</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/>*<sp/>Functions<sp/>for<sp/>interrupts,<sp/>in<sp/>file<sp/>xuartlite_intr.c</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gaca08a21fa15779ce8dedd2ac9f25971e" kindref="member">XUartLite_EnableInterrupt</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1gaaa1b67ac0d2f5bf69ce6084ea49cef39" kindref="member">XUartLite_DisableInterrupt</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga312d1ce48b9e29e08ebb25d942b2ff51" kindref="member">XUartLite_SetRecvHandler</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga282cca48bbd4c1144c811681854fc780" kindref="member">XUartLite_SetSendHandler</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr,<sp/><ref refid="group__uartlite_1gab0f5a21f40b003c13e1fcde2ab036f75" kindref="member">XUartLite_Handler</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uartlite_1ga399463f89d7b4e846a4a4089e9cd54fb" kindref="member">XUartLite_InterruptHandler</ref>(<ref refid="struct_x_uart_lite" kindref="compound">XUartLite</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/xuartlite.h"/>
+  </compounddef>
+</doxygen>

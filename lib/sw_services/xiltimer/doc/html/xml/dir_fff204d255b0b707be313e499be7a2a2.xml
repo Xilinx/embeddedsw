@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fff204d255b0b707be313e499be7a2a2" kind="dir">
+    <compoundname>default_timer</compoundname>
+    <innerfile refid="cortexr5__sleep_8c">cortexr5_sleep.c</innerfile>
+    <innerfile refid="globaltimer__sleep_8c">globaltimer_sleep.c</innerfile>
+    <innerfile refid="globaltimer__sleep__zynq_8c">globaltimer_sleep_zynq.c</innerfile>
+    <innerfile refid="microblaze__riscv__sleep_8c">microblaze_riscv_sleep.c</innerfile>
+    <innerfile refid="microblaze__sleep_8c">microblaze_sleep.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltimer/src/core/default_timer/"/>
+  </compounddef>
+</doxygen>

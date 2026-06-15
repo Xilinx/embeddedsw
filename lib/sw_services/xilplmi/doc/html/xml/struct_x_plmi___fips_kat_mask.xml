@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___fips_kat_mask" kind="struct" prot="public">
+    <compoundname>XPlmi_FipsKatMask</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1acf6aea76f7c5a66dd94acdef65aa3fb3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::RomKatMask</definition>
+        <argsstring></argsstring>
+        <name>RomKatMask</name>
+        <briefdescription>
+<para>ROM Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1a4f681b08b53139005312c0e87f4f2de7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::PlmKatMask</definition>
+        <argsstring></argsstring>
+        <name>PlmKatMask</name>
+        <briefdescription>
+<para>PLM Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="331" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1a4d4112848d730b3a5a851770615262e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::DDRKatMask</definition>
+        <argsstring></argsstring>
+        <name>DDRKatMask</name>
+        <briefdescription>
+<para>DDR Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="332" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="332" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1aa0131529f9745d7013eb381aba0eb3b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::HnicCpm5NPcideKatMask</definition>
+        <argsstring></argsstring>
+        <name>HnicCpm5NPcideKatMask</name>
+        <briefdescription>
+<para>HNIC CPM5N PCIDE Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1ac96ba15b542b85e777bf495f4f87bb51" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::PKI0KatMask</definition>
+        <argsstring></argsstring>
+        <name>PKI0KatMask</name>
+        <briefdescription>
+<para>PKI0 Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="334" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1a81abdf390a271a9a3c74e269bb263cd4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::PKI1KatMask</definition>
+        <argsstring></argsstring>
+        <name>PKI1KatMask</name>
+        <briefdescription>
+<para>PKI1 Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="335" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___fips_kat_mask_1a76f0672f89f5949d9f557f885db55e9a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_FipsKatMask::PKI2KatMask</definition>
+        <argsstring></argsstring>
+        <name>PKI2KatMask</name>
+        <briefdescription>
+<para>PKI2 Kat mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/xplmi_plat.h" bodystart="329" bodyend="337"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___fips_kat_mask_1a4d4112848d730b3a5a851770615262e9" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>DDRKatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1aa0131529f9745d7013eb381aba0eb3b1" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>HnicCpm5NPcideKatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1ac96ba15b542b85e777bf495f4f87bb51" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>PKI0KatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1a81abdf390a271a9a3c74e269bb263cd4" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>PKI1KatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1a76f0672f89f5949d9f557f885db55e9a" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>PKI2KatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1a4f681b08b53139005312c0e87f4f2de7" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>PlmKatMask</name></member>
+      <member refid="struct_x_plmi___fips_kat_mask_1acf6aea76f7c5a66dd94acdef65aa3fb3" prot="public" virt="non-virtual"><scope>XPlmi_FipsKatMask</scope><name>RomKatMask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

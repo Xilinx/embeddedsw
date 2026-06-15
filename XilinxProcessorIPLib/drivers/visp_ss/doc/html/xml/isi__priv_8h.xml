@@ -1,0 +1,223 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="isi__priv_8h" kind="file">
+    <compoundname>isi_priv.h</compoundname>
+    <includes refid="types_8h" local="no">types.h</includes>
+    <includes refid="isi_8h" local="yes">isi.h</includes>
+    <includedby refid="ox03f10__priv_8h" local="no">ox03f10_priv.h</includedby>
+    <includedby refid="ox05b1s__priv_8h" local="no">ox05b1s_priv.h</includedby>
+    <includedby refid="ox08b40__priv_8h" local="no">ox08b40_priv.h</includedby>
+    <includedby refid="ox03f10_8c" local="yes">ox03f10.c</includedby>
+    <includedby refid="ox05b1s_8c" local="yes">ox05b1s.c</includedby>
+    <includedby refid="ox08b40_8c" local="yes">ox08b40.c</includedby>
+    <includedby refid="isi_8c" local="yes">isi.c</includedby>
+    <incdepgraph>
+      <node id="5831">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="5827">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5829">
+        <label>stddef.h</label>
+      </node>
+      <node id="5823">
+        <label>isi_priv.h</label>
+        <link refid="isi_priv.h"/>
+        <childnode refid="5824" relation="include">
+        </childnode>
+        <childnode refid="5830" relation="include">
+        </childnode>
+      </node>
+      <node id="5828">
+        <label>limits.h</label>
+      </node>
+      <node id="5832">
+        <label>buf_defs.h</label>
+        <childnode refid="5824" relation="include">
+        </childnode>
+      </node>
+      <node id="5833">
+        <label>isi_vvsensor.h</label>
+        <link refid="isi__vvsensor_8h"/>
+        <childnode refid="5834" relation="include">
+        </childnode>
+      </node>
+      <node id="5830">
+        <label>isi.h</label>
+        <link refid="isi_8h"/>
+        <childnode refid="5824" relation="include">
+        </childnode>
+        <childnode refid="5831" relation="include">
+        </childnode>
+        <childnode refid="5832" relation="include">
+        </childnode>
+        <childnode refid="5833" relation="include">
+        </childnode>
+        <childnode refid="5835" relation="include">
+        </childnode>
+        <childnode refid="5836" relation="include">
+        </childnode>
+      </node>
+      <node id="5836">
+        <label>isi_metadata.h</label>
+        <childnode refid="5824" relation="include">
+        </childnode>
+        <childnode refid="5833" relation="include">
+        </childnode>
+      </node>
+      <node id="5835">
+        <label>isi_otp.h</label>
+        <childnode refid="5824" relation="include">
+        </childnode>
+        <childnode refid="5834" relation="include">
+        </childnode>
+      </node>
+      <node id="5834">
+        <label>isi_common.h</label>
+        <link refid="isi__common_8h"/>
+      </node>
+      <node id="5824">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5825" relation="include">
+        </childnode>
+        <childnode refid="5828" relation="include">
+        </childnode>
+        <childnode refid="5829" relation="include">
+        </childnode>
+      </node>
+      <node id="5826">
+        <label>stdio.h</label>
+      </node>
+      <node id="5825">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5826" relation="include">
+        </childnode>
+        <childnode refid="5827" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5842">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5838">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5839" relation="include">
+        </childnode>
+        <childnode refid="5840" relation="include">
+        </childnode>
+      </node>
+      <node id="5841">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5842" relation="include">
+        </childnode>
+      </node>
+      <node id="5843">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5844" relation="include">
+        </childnode>
+      </node>
+      <node id="5837">
+        <label>isi_priv.h</label>
+        <link refid="isi_priv.h"/>
+        <childnode refid="5838" relation="include">
+        </childnode>
+        <childnode refid="5841" relation="include">
+        </childnode>
+        <childnode refid="5843" relation="include">
+        </childnode>
+        <childnode refid="5840" relation="include">
+        </childnode>
+        <childnode refid="5842" relation="include">
+        </childnode>
+        <childnode refid="5844" relation="include">
+        </childnode>
+        <childnode refid="5845" relation="include">
+        </childnode>
+      </node>
+      <node id="5844">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5840">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5845">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="5839">
+        <label>ms_fw.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_isi_sensor_context__s" prot="public">IsiSensorContext_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__isi__priv_1gac4cdbc369ffa10a4cd182fe3c57ea360" prot="public" static="no">
+        <type>struct IsiSensorContext_s</type>
+        <definition>typedef struct IsiSensorContext_s  IsiSensorContext_t</definition>
+        <argsstring></argsstring>
+        <name>IsiSensorContext_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h" line="53" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Interface description for image sensor specific implementation (iss). </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************\</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">|*<sp/>Copyright<sp/>2010,<sp/>Dream<sp/>Chip<sp/>Technologies<sp/>GmbH.<sp/>used<sp/>with<sp/>permission<sp/>by<sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">|*<sp/>VeriSilicon.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">|*<sp/>Copyright<sp/>(c)<sp/>&lt;2022&gt;<sp/>by<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.<sp/>(&quot;VeriSilicon&quot;)<sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">|*<sp/>All<sp/>Rights<sp/>Reserved.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">|*<sp/>The<sp/>material<sp/>in<sp/>this<sp/>file<sp/>is<sp/>confidential<sp/>and<sp/>contains<sp/>trade<sp/>secrets<sp/>of<sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">|*<sp/>of<sp/>VeriSilicon.<sp/><sp/>This<sp/>is<sp/>proprietary<sp/>information<sp/>owned<sp/>or<sp/>licensed<sp/>by<sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">|*<sp/>VeriSilicon.<sp/><sp/>No<sp/>part<sp/>of<sp/>this<sp/>work<sp/>may<sp/>be<sp/>disclosed,<sp/>reproduced,<sp/>copied,<sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">|*<sp/>transmitted,<sp/>or<sp/>used<sp/>in<sp/>any<sp/>way<sp/>for<sp/>any<sp/>purpose,<sp/>without<sp/>the<sp/>express<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">|*<sp/>written<sp/>permission<sp/>of<sp/>VeriSilicon.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">\******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2022<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifndef<sp/>ISI_PRIV_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ISI_PRIV_H</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_I2C0_BASEADDR</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;hal_i2c.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="isi_8h" kindref="compound">isi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">IsiSensorContext_s<sp/>{</highlight></codeline>
+<codeline lineno="49" refid="group__isi__priv_1ga74b5b39e324c8ff39402909b17afe4ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_isi_sensor__s" kindref="compound">IsiSensor_t</ref><sp/>*<ref refid="group__isi__priv_1ga74b5b39e324c8ff39402909b17afe4ef" kindref="member">pSensor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#ifdef<sp/>XPAR_I2C0_BASEADDR</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HalI2cHandle_t<sp/>halI2cHandle;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/>IsiSensorContext_t;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ISI_PRIV_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include_priv/isi_priv.h"/>
+  </compounddef>
+</doxygen>

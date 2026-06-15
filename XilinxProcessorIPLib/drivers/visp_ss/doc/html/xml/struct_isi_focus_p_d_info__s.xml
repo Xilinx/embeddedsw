@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_focus_p_d_info__s" kind="struct" prot="public">
+    <compoundname>IsiFocusPDInfo_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a3e17c6f669a47e85d0f3d410b1296842" prot="public" static="no" mutable="no">
+        <type>IsiPdafSensorType_e</type>
+        <definition>IsiPdafSensorType_e IsiFocusPDInfo_s::sensorType</definition>
+        <argsstring></argsstring>
+        <name>sensorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a4c074db1048311284debbb1de53b18cb" prot="public" static="no" mutable="no">
+        <type><ref refid="group__isi__iss_1ga42f89b8dfb3e7dcd9b143b5c4fd2bd99" kindref="member">IsiBayerPattern_t</ref></type>
+        <definition>IsiBayerPattern_t IsiFocusPDInfo_s::bayerPattern</definition>
+        <argsstring></argsstring>
+        <name>bayerPattern</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1afc122e414b6bd8e2f910a88407fa09b0" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t IsiFocusPDInfo_s::ocl2x1Shield</definition>
+        <argsstring></argsstring>
+        <name>ocl2x1Shield</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a609e85a68e624bb511ab678b641bf334" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::bitWidth</definition>
+        <argsstring></argsstring>
+        <name>bitWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a4c313246e46192aaefe23cba021ec093" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiFocusPDInfo_s::imageWidth</definition>
+        <argsstring></argsstring>
+        <name>imageWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1ac3167de034c9aec25556a973421f7cd3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiFocusPDInfo_s::imageHeight</definition>
+        <argsstring></argsstring>
+        <name>imageHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1ad1631db780a4f07f175b3d0485eeef52" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t IsiFocusPDInfo_s::pdArea[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>pdArea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a0eb1e2f16de3c99e30ca06bf9db5a221" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiFocusPDInfo_s::correctRect[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>correctRect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a40009fb2024d24ea63ea593a8480e293" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdNumPerArea[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>pdNumPerArea</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1ab601310920e3b3816d84705c16a12a70" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdShiftL2R[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>pdShiftL2R</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a1cc1b83e2c60935841732eac71c7b2bc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdShiftMark[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>pdShiftMark</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a838f9c93126741a8dc236a5126ca5ab3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdFocalHeigh</definition>
+        <argsstring></argsstring>
+        <name>pdFocalHeigh</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a1f6b1e80cbfd095c910437bba13aedf9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdFocalWidth</definition>
+        <argsstring></argsstring>
+        <name>pdFocalWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a5caf3402e694a3c4e88f045757a0b53b" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t IsiFocusPDInfo_s::pdDistance</definition>
+        <argsstring></argsstring>
+        <name>pdDistance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_isi_focus_p_d_info__s_1a2dd061fb2a96b15f1fead1d4f952f6c3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int IsiFocusPDInfo_s::pdFocal[48]</definition>
+        <argsstring>[48]</argsstring>
+        <name>pdFocal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi.h" bodystart="146" bodyend="162"/>
+    <listofallmembers>
+      <member refid="struct_isi_focus_p_d_info__s_1a4c074db1048311284debbb1de53b18cb" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>bayerPattern</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a609e85a68e624bb511ab678b641bf334" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>bitWidth</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a0eb1e2f16de3c99e30ca06bf9db5a221" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>correctRect</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1ac3167de034c9aec25556a973421f7cd3" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>imageHeight</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a4c313246e46192aaefe23cba021ec093" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>imageWidth</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1afc122e414b6bd8e2f910a88407fa09b0" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>ocl2x1Shield</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1ad1631db780a4f07f175b3d0485eeef52" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdArea</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a5caf3402e694a3c4e88f045757a0b53b" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdDistance</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a2dd061fb2a96b15f1fead1d4f952f6c3" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdFocal</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a838f9c93126741a8dc236a5126ca5ab3" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdFocalHeigh</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a1f6b1e80cbfd095c910437bba13aedf9" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdFocalWidth</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a40009fb2024d24ea63ea593a8480e293" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdNumPerArea</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1ab601310920e3b3816d84705c16a12a70" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdShiftL2R</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a1cc1b83e2c60935841732eac71c7b2bc" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>pdShiftMark</name></member>
+      <member refid="struct_isi_focus_p_d_info__s_1a3e17c6f669a47e85d0f3d410b1296842" prot="public" virt="non-virtual"><scope>IsiFocusPDInfo_s</scope><name>sensorType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

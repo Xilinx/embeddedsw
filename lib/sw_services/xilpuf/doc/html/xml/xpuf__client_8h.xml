@@ -1,0 +1,337 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpuf__client_8h" kind="file">
+    <compoundname>xpuf_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xpuf__mailbox_8h" local="yes">xpuf_mailbox.h</includes>
+    <includes refid="xpuf__defs_8h" local="yes">xpuf_defs.h</includes>
+    <includedby refid="xpuf__client_8c" local="yes">xpuf_client.c</includedby>
+    <includedby refid="xilpuf__client__example_8c" local="yes">xilpuf_client_example.c</includedby>
+    <includedby refid="xilpuf__enc__dec__data__client__example_8c" local="yes">xilpuf_enc_dec_data_client_example.c</includedby>
+    <includedby refid="xilpuf__ssit__client__example_8c" local="yes">xilpuf_ssit_client_example.c</includedby>
+    <includedby refid="xilpuf__versal__net__example_8c" local="yes">xilpuf_versal_net_example.c</includedby>
+    <incdepgraph>
+      <node id="196">
+        <label>xpuf_mailbox.h</label>
+        <link refid="xpuf__mailbox_8h"/>
+        <childnode refid="197" relation="include">
+        </childnode>
+        <childnode refid="198" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xpuf_defs.h</label>
+        <link refid="xpuf__defs_8h"/>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="195">
+        <label>xil_types.h</label>
+      </node>
+      <node id="194">
+        <label>xpuf_client.h</label>
+        <link refid="xpuf_client.h"/>
+        <childnode refid="195" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="199" relation="include">
+        </childnode>
+      </node>
+      <node id="198">
+        <label>xparameters.h</label>
+      </node>
+      <node id="200">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="203">
+        <label>xilpuf_client_example.c</label>
+        <link refid="xilpuf__client__example_8c"/>
+      </node>
+      <node id="204">
+        <label>xilpuf_enc_dec_data_client_example.c</label>
+        <link refid="xilpuf__enc__dec__data__client__example_8c"/>
+      </node>
+      <node id="206">
+        <label>xilpuf_versal_net_example.c</label>
+        <link refid="xilpuf__versal__net__example_8c"/>
+      </node>
+      <node id="202">
+        <label>xpuf_client.c</label>
+        <link refid="xpuf__client_8c"/>
+      </node>
+      <node id="201">
+        <label>xpuf_client.h</label>
+        <link refid="xpuf_client.h"/>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+        <childnode refid="206" relation="include">
+        </childnode>
+      </node>
+      <node id="205">
+        <label>xilpuf_ssit_client_example.c</label>
+        <link refid="xilpuf__ssit__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_puf___puf_data" prot="public">XPuf_PufData</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ClientInit</definition>
+        <argsstring>(XPuf_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XPuf_ClientInit</name>
+        <param>
+          <type><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the mailbox instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful initialization</para></listitem><listitem><para>XST_FAILURE on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set XMailbox instance provided by the user to client library instance by validating whether provided instance is initialized and not NULL. This XMailbox instance will be used by client library to send requests to PLM.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="76" bodyend="94"/>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Registration</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)</argsstring>
+        <name>XPuf_Registration</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for PUF registration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure which includes options to configure PUF</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF registration is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload.</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="109" bodyend="145"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80" compoundref="xpuf__defs_8h" startline="131">XPUF_PUF_REGISTRATION</references>
+        <references refid="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" compoundref="xpuf__client_8c" startline="53">XPUF_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Regeneration</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)</argsstring>
+        <name>XPuf_Regeneration</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for PUF regeneration(on demand / ID only). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure which includes options to configure PUF</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF regeneration is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="160" bodyend="196"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980ae0d7de4596d15f543923f5ed09565e84" compoundref="xpuf__defs_8h" startline="132">XPUF_PUF_REGENERATION</references>
+        <references refid="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" compoundref="xpuf__client_8c" startline="53">XPUF_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ClearPufID</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr)</argsstring>
+        <name>XPuf_ClearPufID</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for clearing PUF ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF clear ID is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="209" bodyend="241"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a64590602f5af8086c2a85ec6f4812c83" compoundref="xpuf__defs_8h" startline="133">XPUF_PUF_CLEAR_PUF_ID</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the PUF hardware interface. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kpt  01/04/22 Initial release
+      am   02/28/22 Fixed MISRA C violation rule 8.3
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+2.1   am   02/13/23 Fixed MISRA C violations
+2.3   ng   11/22/23 Fixed doxygen grouping
+2.7   bha  01/06/26 Fixed Doxygen warnings
+      sd   04/13/26 Added PUF support for VERSAL_2VP_P</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XPUF_CLIENT_H</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_CLIENT_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__mailbox_8h" kindref="compound">xpuf_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__defs_8h" kindref="compound">xpuf_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="51" refid="struct_x_puf___puf_data" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52" refid="struct_x_puf___puf_data_1acd59f5a328d694c8e9604a6b33c00e4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SyndromeData[<ref refid="xpuf__defs_8h_1a30b6c52a106b8927e0610139c037b2a6" kindref="member">XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="53" refid="struct_x_puf___puf_data_1ac822de162635f1a3fe9511a278de4839" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_puf___puf_data_1ac822de162635f1a3fe9511a278de4839" kindref="member">Chash</ref>;<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VP_P</highlight></codeline>
+<codeline lineno="55" refid="struct_x_puf___puf_data_1a0d672671ce938e22fb6eeb7ad17d304b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_puf___puf_data_1a0d672671ce938e22fb6eeb7ad17d304b" kindref="member">Aux</ref>;<sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57" refid="struct_x_puf___puf_data_1a100970e88224119cde1aae05a66883cf" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PufID[<ref refid="xpuf__defs_8h_1af26b29ea65b90d142f4c9aeea7cf0d19" kindref="member">XPUF_ID_LEN_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#ifndef<sp/>VERSAL_2VP_P</highlight></codeline>
+<codeline lineno="59" refid="struct_x_puf___puf_data_1acb4c45af90ae580aff73f8176cd2b075" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EfuseSynData[<ref refid="xpuf__defs_8h_1ac70aff2d45cf728a19bf8ed8958b5c2a" kindref="member">XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_puf___puf_data" kindref="compound">XPuf_PufData</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" kindref="member">XPuf_ClientInit</ref>(<ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>XMailbox*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MailboxPtr);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" kindref="member">XPuf_Registration</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DataAddr);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" kindref="member">XPuf_Regeneration</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>DataAddr);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" kindref="member">XPuf_ClearPufID</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPUF_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.h"/>
+  </compounddef>
+</doxygen>

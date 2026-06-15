@@ -1,0 +1,402 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__prd" kind="group">
+    <compoundname>prd</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_prd___config" prot="public">XPrd_Config</innerclass>
+    <innerclass refid="struct_x_prd" prot="public">XPrd</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Offset</header>
+      <memberdef kind="define" id="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" prot="public" static="no">
+        <name>XPRD_CTRL_OFFSET</name>
+        <initializer>(0x000)</initializer>
+        <briefdescription>
+<para>Control register Offset and status register is also mappped to same address as Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+        <referencedby refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" compoundref="xprd_8c" startline="106" endline="115">XPrd_SetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register Mask</header>
+      <memberdef kind="define" id="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" prot="public" static="no">
+        <name>XPRD_CTRL_DECOUPLER_MASK</name>
+        <initializer>(0x00000001)</initializer>
+        <briefdescription>
+<para>Decoupler Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__prd_1ga0535d78c352329f7600250c0936ffc21" prot="public" static="no">
+        <name>XPrd_State</name>
+        <enumvalue id="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" prot="public">
+          <name>XPRD_DECOUPLER_OFF</name>
+          <briefdescription>
+<para>Decoupler Off. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" prot="public">
+          <name>XPRD_DECOUPLER_ON</name>
+          <briefdescription>
+<para>Decoupler On. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="103" bodyend="106"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__prd_1ga42be70c609282a5682c3cf7c66b83553" prot="public" static="no" mutable="no">
+        <type>XPrd_Config</type>
+        <definition>XPrd_Config XPrd_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XPrd_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_sinit.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_g.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__prd_1ga424f5c8b2cad657a5aea953ba959be55" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XPrd_CfgInitialize</definition>
+        <argsstring>(XPrd *InstancePtr, XPrd_Config *ConfigPtr, u32 EffectiveAddress)</argsstring>
+        <name>XPrd_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPrd_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device base address in the virtual memory address space. If the address translation is not used then the physical address is passed.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set some default values for instance data, don&apos;t indicate the device is ready to use until everything has been initialized successfully.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="64" bodyend="85"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <referencedby refid="xprd__example_8c_1a0be6b2318e2ad4f307f868f0eb84ad2e" compoundref="xprd__example_8c" startline="126" endline="184">XPrd_Example</referencedby>
+        <referencedby refid="xprd__selftest__example_8c_1a2a19849e01a0a6fcd64136354d7bbe9c" compoundref="xprd__selftest__example_8c" startline="126" endline="160">XPrd_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1gacb64d55940567d71186233e1e230c0d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPrd_SetDecouplerState</definition>
+        <argsstring>(XPrd *InstancePtr, XPrd_State DecouplerValue)</argsstring>
+        <name>XPrd_SetDecouplerState</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref></type>
+          <declname>DecouplerValue</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set Decoupler On or Off. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecouplerValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to set Decoupler On or Off. Value can be either 0 or 1. Values are<itemizedlist>
+<listitem><para>XPRD_DECOUPLER_OFF(0) if Decoupler is Off</para></listitem><listitem><para>XPRD_DECOUPLER_ON(1) if Decoupler is On</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>When Decoupler is On then it separates the Reconfigurable partition from static logic while Partial Reconfiguration occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="106" bodyend="115"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <references refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" compoundref="xprd__hw_8h" startline="45">XPRD_CTRL_OFFSET</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" compoundref="xprd_8h" startline="104">XPRD_DECOUPLER_OFF</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" compoundref="xprd_8h" startline="105">XPRD_DECOUPLER_ON</references>
+        <references refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" compoundref="xprd__hw_8h" startline="93">XPrd_WriteReg</references>
+        <referencedby refid="xprd__example_8c_1a7d27eeac5a2c92eea613b73500530488" compoundref="xprd__example_8c" startline="201" endline="250">XPrd_TestDecouplerState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__prd_1ga0535d78c352329f7600250c0936ffc21" kindref="member">XPrd_State</ref></type>
+        <definition>XPrd_State XPrd_GetDecouplerState</definition>
+        <argsstring>(XPrd *InstancePtr)</argsstring>
+        <name>XPrd_GetDecouplerState</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the state of the Decoupler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns decoupler state.<itemizedlist>
+<listitem><para>XPRD_DECOUPLER_ON(1) if Decoupler is enabled.</para></listitem><listitem><para>XPRD_DECOUPLER_OFF(0) if Decoupler is disabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.c" bodystart="131" bodyend="142"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <references refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" compoundref="xprd__hw_8h" startline="59">XPRD_CTRL_DECOUPLER_MASK</references>
+        <references refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" compoundref="xprd__hw_8h" startline="45">XPRD_CTRL_OFFSET</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21ac14eedee45ec9f0d49f1bd9c395177f2" compoundref="xprd_8h" startline="104">XPRD_DECOUPLER_OFF</references>
+        <references refid="group__prd_1gga0535d78c352329f7600250c0936ffc21a91d1acd860924ac7a0255af3fd3fbb30" compoundref="xprd_8h" startline="105">XPRD_DECOUPLER_ON</references>
+        <references refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" compoundref="xprd__hw_8h" startline="78">XPrd_ReadReg</references>
+        <referencedby refid="xprd__example_8c_1a7d27eeac5a2c92eea613b73500530488" compoundref="xprd__example_8c" startline="201" endline="250">XPrd_TestDecouplerState</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1ga980c446b57a2dd8bb4158762fe671e6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XPrd_Config *</type>
+        <definition>XPrd_Config * XPrd_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XPrd_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table XPrd_ConfigTable[] contains the configuration information for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID/BaseAddress, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_sinit.c" bodystart="98" bodyend="113"/>
+        <referencedby refid="xprd__example_8c_1a0be6b2318e2ad4f307f868f0eb84ad2e" compoundref="xprd__example_8c" startline="126" endline="184">XPrd_Example</referencedby>
+        <referencedby refid="xprd__selftest__example_8c_1a2a19849e01a0a6fcd64136354d7bbe9c" compoundref="xprd__selftest__example_8c" startline="126" endline="160">XPrd_SelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XPrd_SelfTest</definition>
+        <argsstring>(XPrd *InstancePtr)</argsstring>
+        <name>XPrd_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_prd" kindref="compound">XPrd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test for the PRD driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This self test reads the value from the status register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the test was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_selftest.c" bodystart="58" bodyend="81"/>
+        <references refid="struct_x_prd_1a56436a9e781a4203a9cb2f63c75fff80" compoundref="xprd_8h" startline="123">XPrd::Config</references>
+        <references refid="struct_x_prd_1ae394be32476d0fb74f270326b8d73743" compoundref="xprd_8h" startline="124">XPrd::IsReady</references>
+        <references refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" compoundref="xprd__hw_8h" startline="45">XPRD_CTRL_OFFSET</references>
+        <references refid="group__prd_1gaffb12c25656847672ed8f5cb804467f3" compoundref="xprd__hw_8h" startline="78">XPrd_ReadReg</references>
+        <references refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" compoundref="xprd__hw_8h" startline="93">XPrd_WriteReg</references>
+        <referencedby refid="xprd__example_8c_1a0be6b2318e2ad4f307f868f0eb84ad2e" compoundref="xprd__example_8c" startline="126" endline="184">XPrd_Example</referencedby>
+        <referencedby refid="xprd__selftest__example_8c_1a2a19849e01a0a6fcd64136354d7bbe9c" compoundref="xprd__selftest__example_8c" startline="126" endline="160">XPrd_SelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__prd_1ga31ac7a2c3af52e568498eac547c7f3c3" prot="public" static="no">
+        <name>XPRD_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prd_1ga441af12b649f69397a518ca341e2298f" prot="public" static="no">
+        <name>XPRD_HW_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prd_1gaffb12c25656847672ed8f5cb804467f3" prot="public" static="no">
+        <name>XPrd_ReadReg</name>
+        <param><defname>Address</defname></param>
+        <initializer>Xil_In32(Address)</initializer>
+        <briefdescription>
+<para>This macro reads a value from the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value read from register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" prot="public" static="no">
+        <name>XPrd_WriteReg</name>
+        <param><defname>Address</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(Address, (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+        <referencedby refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" compoundref="xprd_8c" startline="106" endline="115">XPrd_SetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the interface functions for the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file contains the implementation of the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> driver&apos;s static initialization functionality.</para><para>This file contains the self-test functions for the <ref refid="struct_x_prd" kindref="compound">XPrd</ref> driver.</para><para>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the Xilinx PR Decoupler.</para><para>}</para><para>Refer <ref refid="xprd_8h" kindref="compound">xprd.h</ref> for a detailed description of the driver.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who    Date          Changes
+<hruler/>
+
+1.0  ms    07/14/2016     First release
+2.2  Nava  06/22/2023     Added support for system device-tree flow.
+2.3  Nava  07/30/2025     Improve self-test by validating control register
+                          read/write path.
+</preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who      Date         Changes
+<hruler/>
+
+1.0   ms     07/14/2016    First release</preformatted></para><para><preformatted></preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date           Changes
+<hruler/>
+
+1.0   ms    07/14/2016    First release.
+2.3   Nava  07/30/2025    Improve self-test by validating control register
+                          read/write path.</preformatted></para><para><preformatted></preformatted></para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date          Changes
+<hruler/>
+
+1.0   ms    07/14/16      First release
+1.1   ms    01/16/17      Updated the parameter naming from
+                          XPAR_PR_DECOUPLER_NUM_INSTANCES to
+                          XPAR_XPRD_NUM_INSTANCES to avoid compilation
+                          failure for XPAR_PR_DECOUPLER_NUM_INSTANCES as
+                          the tools are generating XPAR_XPRD_NUM_INSTANCES
+                          in the generated xprd_g.c for fixing MISRA-C
+                          files. This is a fix for CR-966099 based on the
+                          update in the tools.
+2.2   Nava  06/22/23      Added support for system device-tree flow.
+2.4   bdk   12/08/25      Updated comments to support SDT flow for Doxygen
+                          documentation.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,718 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structxvisp__ss___config" kind="struct" prot="public">
+    <compoundname>xvisp_ss_Config</compoundname>
+    <includes local="no">xvisp_ss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structxvisp__ss___config_1a7318d177e5ac1f2a947fa78740988460" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique Name of device (compatible string) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR xvisp_ss_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="36" bodyend="-1"/>
+        <referencedby refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</referencedby>
+        <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a9e89061a48f1e1ccfcca9a8a6c670ae1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::NumStreams</definition>
+        <argsstring></argsstring>
+        <name>NumStreams</name>
+        <briefdescription>
+<para>Number of streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a18f895d531ede886ad73b01d15418f7b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Rpu</definition>
+        <argsstring></argsstring>
+        <name>Rpu</name>
+        <briefdescription>
+<para>Rpu ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a959ef4ffe608d4020c3db7f26ab63a48" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::IspId</definition>
+        <argsstring></argsstring>
+        <name>IspId</name>
+        <briefdescription>
+<para>ISP ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a15cc6b9fe147f30029a5d545c83fe6ea" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::IoMode</definition>
+        <argsstring></argsstring>
+        <name>IoMode</name>
+        <briefdescription>
+<para>IO mode info. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a7b1c41e01a1761696779c9c483197c50" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0FrameRate</definition>
+        <argsstring></argsstring>
+        <name>Iba0FrameRate</name>
+        <briefdescription>
+<para>Iba0 framerate support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1aee1fbd0b10d2537a1004be7f0f55a11f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0DataFormat</definition>
+        <argsstring></argsstring>
+        <name>Iba0DataFormat</name>
+        <briefdescription>
+<para>Iba0 dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a6456971bd839ee1e2b06fb39fdf9c403" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0Ppc</definition>
+        <argsstring></argsstring>
+        <name>Iba0Ppc</name>
+        <briefdescription>
+<para>Iba0 pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a2dbccac9557681c8d9a9a23755390a1e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Iba0MaxWidth</name>
+        <briefdescription>
+<para>Iba0 Maximum columns support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a8c02242fe02117b92e5ac720b9637278" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>Iba0MaxHeight</name>
+        <briefdescription>
+<para>Iba0 Maximum rows support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a92acdb52d524939a57f221139fa75e9d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba0Vcid</definition>
+        <argsstring></argsstring>
+        <name>Iba0Vcid</name>
+        <briefdescription>
+<para>Iba0 vcid support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ae5c526369c69ed384a366b4ca879bfa4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba0MpBpp</definition>
+        <argsstring></argsstring>
+        <name>Oba0MpBpp</name>
+        <briefdescription>
+<para>Oba0 main path of bits per pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1aaaa2c9ac8783d585d21199cf91ea77db" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba0MpPpc</definition>
+        <argsstring></argsstring>
+        <name>Oba0MpPpc</name>
+        <briefdescription>
+<para>Oba0 main path of pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ab3081fd162878275606b0d9f7e36c97c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::Oba0MpDataFormat</definition>
+        <argsstring></argsstring>
+        <name>Oba0MpDataFormat</name>
+        <briefdescription>
+<para>Oba0 main path of dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a4d8f7f6bbfc90d940b555f8aa0c5479c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba0SpBpp</definition>
+        <argsstring></argsstring>
+        <name>Oba0SpBpp</name>
+        <briefdescription>
+<para>Oba0 self path of bits per pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ab8541cf62d33161eb2ed3920c73bdd92" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba0SpPpc</definition>
+        <argsstring></argsstring>
+        <name>Oba0SpPpc</name>
+        <briefdescription>
+<para>Oba0 self path of pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a1409b2e5c94f75fc5a41b6be872c0fc2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::Oba0SpDataFormat</definition>
+        <argsstring></argsstring>
+        <name>Oba0SpDataFormat</name>
+        <briefdescription>
+<para>Oba0 self path of dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a7edad79f1e24cb30608059d8234d143b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1FrameRate</definition>
+        <argsstring></argsstring>
+        <name>Iba1FrameRate</name>
+        <briefdescription>
+<para>Iba1 framerate support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a94e170fb5f9df495fa528c643e757f2f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1DataFormat</definition>
+        <argsstring></argsstring>
+        <name>Iba1DataFormat</name>
+        <briefdescription>
+<para>Iba1 dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a4b6dbaa963abea1a3d2b60d8aba70053" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1Ppc</definition>
+        <argsstring></argsstring>
+        <name>Iba1Ppc</name>
+        <briefdescription>
+<para>Iba1 pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ae518a0ffd4dddbbf975bdc7960c77dec" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Iba1MaxWidth</name>
+        <briefdescription>
+<para>Iba1 Maximum columns support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1adecefb3233606b58d08705fa0c92c146" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>Iba1MaxHeight</name>
+        <briefdescription>
+<para>Iba1 Maximum rows support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ab98e30e0835e3df2f6fc587afd513756" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba1Vcid</definition>
+        <argsstring></argsstring>
+        <name>Iba1Vcid</name>
+        <briefdescription>
+<para>Iba1 vcid support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ad41b704cd096e145512bb8893de6f1af" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2FrameRate</definition>
+        <argsstring></argsstring>
+        <name>Iba2FrameRate</name>
+        <briefdescription>
+<para>Iba2 framerate support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a64b6bc427f7919a9b5b47c6a420d6c54" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2DataFormat</definition>
+        <argsstring></argsstring>
+        <name>Iba2DataFormat</name>
+        <briefdescription>
+<para>Iba2 dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ae2aa475ff4f1146e9171eb922b29be22" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2Ppc</definition>
+        <argsstring></argsstring>
+        <name>Iba2Ppc</name>
+        <briefdescription>
+<para>Iba2 pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1aa649d68e404db7ad925c68813a59dd8e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Iba2MaxWidth</name>
+        <briefdescription>
+<para>Iba2 Maximum columns support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a26a75922ab6ae2bbd497e3486ae2ad28" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>Iba2MaxHeight</name>
+        <briefdescription>
+<para>Iba2 Maximum rows support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a9a26941926b6891cbdb66c8278cac8af" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba2Vcid</definition>
+        <argsstring></argsstring>
+        <name>Iba2Vcid</name>
+        <briefdescription>
+<para>Iba2 vcid support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1af220127e34a8bd16cc23d386b204bbae" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3FrameRate</definition>
+        <argsstring></argsstring>
+        <name>Iba3FrameRate</name>
+        <briefdescription>
+<para>Iba3 framerate support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a65d84ad0db33042b38cd7f5cc4c3405b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3DataFormat</definition>
+        <argsstring></argsstring>
+        <name>Iba3DataFormat</name>
+        <briefdescription>
+<para>Iba3 dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a84123fe79507274b790c25f1fde50a60" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3Ppc</definition>
+        <argsstring></argsstring>
+        <name>Iba3Ppc</name>
+        <briefdescription>
+<para>Iba3 pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a77078d05928c0fd4c6cecb641bfdeaac" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Iba3MaxWidth</name>
+        <briefdescription>
+<para>Iba3 Maximum columns support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a818cd2d40b8084d963914c875103b45a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>Iba3MaxHeight</name>
+        <briefdescription>
+<para>Iba3 Maximum rows support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a303d11619ed4077d45a6197da0c979a1" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba3Vcid</definition>
+        <argsstring></argsstring>
+        <name>Iba3Vcid</name>
+        <briefdescription>
+<para>Iba3 vcid support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a0af172660482f546475afc177ae0b5c5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4FrameRate</definition>
+        <argsstring></argsstring>
+        <name>Iba4FrameRate</name>
+        <briefdescription>
+<para>Iba4 framerate support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a2c25000d4b08ffbe7b02a4ba88c27075" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4DataFormat</definition>
+        <argsstring></argsstring>
+        <name>Iba4DataFormat</name>
+        <briefdescription>
+<para>Iba4 dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a20de794b121af35390501992f4754a51" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4Ppc</definition>
+        <argsstring></argsstring>
+        <name>Iba4Ppc</name>
+        <briefdescription>
+<para>Iba4 pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a0b1f7f001e9f2df1eba67c095cc7fc1f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>Iba4MaxWidth</name>
+        <briefdescription>
+<para>Iba4 Maximum columns support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ae6926881557a203abc76288ee0949588" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>Iba4MaxHeight</name>
+        <briefdescription>
+<para>Iba4 Maximum rows support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a73468ddbdf3fbc83e3c2b53527cd1f00" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Iba4Vcid</definition>
+        <argsstring></argsstring>
+        <name>Iba4Vcid</name>
+        <briefdescription>
+<para>Iba4 vcid support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a4ebeadc53871963274aca7c802d5af12" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba1MpBpp</definition>
+        <argsstring></argsstring>
+        <name>Oba1MpBpp</name>
+        <briefdescription>
+<para>Oba1 main path of bits per pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1af82c43c78473122e0e6d3af92a66d053" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba1MpPpc</definition>
+        <argsstring></argsstring>
+        <name>Oba1MpPpc</name>
+        <briefdescription>
+<para>Oba1 main path of pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a2b230ef752912eb89b96b7b23d535e91" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::Oba1MpDataFormat</definition>
+        <argsstring></argsstring>
+        <name>Oba1MpDataFormat</name>
+        <briefdescription>
+<para>Oba1 main path of dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba1SpBpp</definition>
+        <argsstring></argsstring>
+        <name>Oba1SpBpp</name>
+        <briefdescription>
+<para>Oba1 self path of bits per pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Oba1SpPpc</definition>
+        <argsstring></argsstring>
+        <name>Oba1SpPpc</name>
+        <briefdescription>
+<para>Oba1 self path of pixel per clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* xvisp_ss_Config::Oba1SpDataFormat</definition>
+        <argsstring></argsstring>
+        <name>Oba1SpDataFormat</name>
+        <briefdescription>
+<para>Oba1 self path of dataformat support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1abd06defb3913867ec8200fdd3acfdc6c" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 xvisp_ss_Config::Interrupts[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>Interrupts</name>
+        <briefdescription>
+<para>Interrupts array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 xvisp_ss_Config::InterruptParent</definition>
+        <argsstring></argsstring>
+        <name>InterruptParent</name>
+        <briefdescription>
+<para>Interrupt parent ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the VISP SS core Each core instance should have a configuration structure associated. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" line="30" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss.h" bodystart="30" bodyend="94"/>
+    <listofallmembers>
+      <member refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>BaseAddress</name></member>
+      <member refid="structxvisp__ss___config_1aee1fbd0b10d2537a1004be7f0f55a11f" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0DataFormat</name></member>
+      <member refid="structxvisp__ss___config_1a7b1c41e01a1761696779c9c483197c50" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0FrameRate</name></member>
+      <member refid="structxvisp__ss___config_1a8c02242fe02117b92e5ac720b9637278" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0MaxHeight</name></member>
+      <member refid="structxvisp__ss___config_1a2dbccac9557681c8d9a9a23755390a1e" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0MaxWidth</name></member>
+      <member refid="structxvisp__ss___config_1a6456971bd839ee1e2b06fb39fdf9c403" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0Ppc</name></member>
+      <member refid="structxvisp__ss___config_1a92acdb52d524939a57f221139fa75e9d" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba0Vcid</name></member>
+      <member refid="structxvisp__ss___config_1a94e170fb5f9df495fa528c643e757f2f" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1DataFormat</name></member>
+      <member refid="structxvisp__ss___config_1a7edad79f1e24cb30608059d8234d143b" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1FrameRate</name></member>
+      <member refid="structxvisp__ss___config_1adecefb3233606b58d08705fa0c92c146" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1MaxHeight</name></member>
+      <member refid="structxvisp__ss___config_1ae518a0ffd4dddbbf975bdc7960c77dec" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1MaxWidth</name></member>
+      <member refid="structxvisp__ss___config_1a4b6dbaa963abea1a3d2b60d8aba70053" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1Ppc</name></member>
+      <member refid="structxvisp__ss___config_1ab98e30e0835e3df2f6fc587afd513756" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba1Vcid</name></member>
+      <member refid="structxvisp__ss___config_1a64b6bc427f7919a9b5b47c6a420d6c54" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2DataFormat</name></member>
+      <member refid="structxvisp__ss___config_1ad41b704cd096e145512bb8893de6f1af" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2FrameRate</name></member>
+      <member refid="structxvisp__ss___config_1a26a75922ab6ae2bbd497e3486ae2ad28" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2MaxHeight</name></member>
+      <member refid="structxvisp__ss___config_1aa649d68e404db7ad925c68813a59dd8e" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2MaxWidth</name></member>
+      <member refid="structxvisp__ss___config_1ae2aa475ff4f1146e9171eb922b29be22" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2Ppc</name></member>
+      <member refid="structxvisp__ss___config_1a9a26941926b6891cbdb66c8278cac8af" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba2Vcid</name></member>
+      <member refid="structxvisp__ss___config_1a65d84ad0db33042b38cd7f5cc4c3405b" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3DataFormat</name></member>
+      <member refid="structxvisp__ss___config_1af220127e34a8bd16cc23d386b204bbae" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3FrameRate</name></member>
+      <member refid="structxvisp__ss___config_1a818cd2d40b8084d963914c875103b45a" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3MaxHeight</name></member>
+      <member refid="structxvisp__ss___config_1a77078d05928c0fd4c6cecb641bfdeaac" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3MaxWidth</name></member>
+      <member refid="structxvisp__ss___config_1a84123fe79507274b790c25f1fde50a60" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3Ppc</name></member>
+      <member refid="structxvisp__ss___config_1a303d11619ed4077d45a6197da0c979a1" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba3Vcid</name></member>
+      <member refid="structxvisp__ss___config_1a2c25000d4b08ffbe7b02a4ba88c27075" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4DataFormat</name></member>
+      <member refid="structxvisp__ss___config_1a0af172660482f546475afc177ae0b5c5" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4FrameRate</name></member>
+      <member refid="structxvisp__ss___config_1ae6926881557a203abc76288ee0949588" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4MaxHeight</name></member>
+      <member refid="structxvisp__ss___config_1a0b1f7f001e9f2df1eba67c095cc7fc1f" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4MaxWidth</name></member>
+      <member refid="structxvisp__ss___config_1a20de794b121af35390501992f4754a51" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4Ppc</name></member>
+      <member refid="structxvisp__ss___config_1a73468ddbdf3fbc83e3c2b53527cd1f00" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Iba4Vcid</name></member>
+      <member refid="structxvisp__ss___config_1a8634cfa9168e1c4ce7adc1ac0db975ca" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>InterruptParent</name></member>
+      <member refid="structxvisp__ss___config_1abd06defb3913867ec8200fdd3acfdc6c" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Interrupts</name></member>
+      <member refid="structxvisp__ss___config_1a15cc6b9fe147f30029a5d545c83fe6ea" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>IoMode</name></member>
+      <member refid="structxvisp__ss___config_1a959ef4ffe608d4020c3db7f26ab63a48" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>IspId</name></member>
+      <member refid="structxvisp__ss___config_1a7318d177e5ac1f2a947fa78740988460" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Name</name></member>
+      <member refid="structxvisp__ss___config_1a9e89061a48f1e1ccfcca9a8a6c670ae1" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>NumStreams</name></member>
+      <member refid="structxvisp__ss___config_1ae5c526369c69ed384a366b4ca879bfa4" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0MpBpp</name></member>
+      <member refid="structxvisp__ss___config_1ab3081fd162878275606b0d9f7e36c97c" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0MpDataFormat</name></member>
+      <member refid="structxvisp__ss___config_1aaaa2c9ac8783d585d21199cf91ea77db" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0MpPpc</name></member>
+      <member refid="structxvisp__ss___config_1a4d8f7f6bbfc90d940b555f8aa0c5479c" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0SpBpp</name></member>
+      <member refid="structxvisp__ss___config_1a1409b2e5c94f75fc5a41b6be872c0fc2" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0SpDataFormat</name></member>
+      <member refid="structxvisp__ss___config_1ab8541cf62d33161eb2ed3920c73bdd92" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba0SpPpc</name></member>
+      <member refid="structxvisp__ss___config_1a4ebeadc53871963274aca7c802d5af12" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1MpBpp</name></member>
+      <member refid="structxvisp__ss___config_1a2b230ef752912eb89b96b7b23d535e91" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1MpDataFormat</name></member>
+      <member refid="structxvisp__ss___config_1af82c43c78473122e0e6d3af92a66d053" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1MpPpc</name></member>
+      <member refid="structxvisp__ss___config_1ae78bf00fad63ef9f43b6d17b3d746ff8" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1SpBpp</name></member>
+      <member refid="structxvisp__ss___config_1af35fa90bd2401bb5fb20f496f5fcb182" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1SpDataFormat</name></member>
+      <member refid="structxvisp__ss___config_1a14ea5cd80b92a57c22a72f2a61a26dbd" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Oba1SpPpc</name></member>
+      <member refid="structxvisp__ss___config_1a18f895d531ede886ad73b01d15418f7b" prot="public" virt="non-virtual"><scope>xvisp_ss_Config</scope><name>Rpu</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

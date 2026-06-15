@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___lms_sign_verify_params" kind="struct" prot="public">
+    <compoundname>XSecure_LmsSignVerifyParams</compoundname>
+    <includes local="no">xsecure_lms_core.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_LmsSignVerifyParams::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Buffer to store data which is signed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsSignVerifyParams::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Length of data which is signed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsSignVerifyParams::PreHashedMsg</definition>
+        <argsstring></argsstring>
+        <name>PreHashedMsg</name>
+        <briefdescription>
+<para>Flag to indicate if data is prehashed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_LmsSignVerifyParams::LmsSign</definition>
+        <argsstring></argsstring>
+        <name>LmsSign</name>
+        <briefdescription>
+<para>Buffer to store signature to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsSignVerifyParams::LmsSignLen</definition>
+        <argsstring></argsstring>
+        <name>LmsSignLen</name>
+        <briefdescription>
+<para>Length of signature to be verified. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XSecure_LmsSignVerifyParams::ExpectedPubKey</definition>
+        <argsstring></argsstring>
+        <name>ExpectedPubKey</name>
+        <briefdescription>
+<para>Buffer to store expected public key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_LmsSignVerifyParams::PubKeyLen</definition>
+        <argsstring></argsstring>
+        <name>PubKeyLen</name>
+        <briefdescription>
+<para>Length of public key to verify signature. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga112da8c38a140d02852bd8f93ab78e2f" compoundref="xsecure__lms__core_8c" startline="1308" endline="1403">XSecure_HssFinish</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga981b22fbc50d9cd6f91c16604754f078" compoundref="xsecure__lms__core_8c" startline="884" endline="1215">XSecure_HssInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gad7b08bfc183e838bb6d65a94b96ea218" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1763" endline="1776">XSecure_LmsSha2256Kat</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gafc77ae5d3ebc5c665ee997c554612390" compoundref="2ve__2vm_2xsecure__plat__kat_8c" startline="1789" endline="1802">XSecure_LmsShake256Kat</referencedby>
+        <referencedby refid="group__xsecure__lms__server__apis_1ga6b50f9fb052dd231c50ea15138f17ff7" compoundref="xsecure__lms__core_8c" startline="421" endline="856">XSecure_LmsSignatureVerification</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for LMS Signature verification parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_core.h" bodystart="53" bodyend="61"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___lms_sign_verify_params_1ac306c446ade9fc59d2565cc5943a80e2" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>Data</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1a349c020041cf28df186676b9d7f18cca" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>DataLen</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1a71d8c484d7c9e79fd4991e319fff004c" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>ExpectedPubKey</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1a06dab3925f496872c17c0b9675c8e91e" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>LmsSign</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1a2d59068b0ac06c8b635ea004d069040c" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>LmsSignLen</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1af2e0341c0e60e8c82b3c34aee9ecb51a" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>PreHashedMsg</name></member>
+      <member refid="struct_x_secure___lms_sign_verify_params_1aa246d73bd61f8c713633d8b15ffc97e4" prot="public" virt="non-virtual"><scope>XSecure_LmsSignVerifyParams</scope><name>PubKeyLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

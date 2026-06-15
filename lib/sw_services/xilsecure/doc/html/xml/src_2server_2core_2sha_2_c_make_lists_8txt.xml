@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2server_2core_2sha_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/server/core/sha/CMakeLists.txt</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="src_2server_2core_2sha_2_c_make_lists_8txt_1abb22758c5a54b05f6b231df8822de439" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>if</definition>
+        <argsstring>((&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;) OR(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;)) if((&quot;$</argsstring>
+        <name>if</name>
+        <param>
+          <type>(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;VersalNet&quot;) OR(&quot;${CMAKE_MACHINE}&quot;STREQUAL&quot;Versal&quot;)</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/CMakeLists.txt" line="6" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/CMakeLists.txt" bodystart="6" bodyend="15"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xsecure_sha_common.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">if((&quot;${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">VersalNet</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="7"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="8"><highlight class="stringliteral"><sp/><sp/>if(&quot;</highlight><highlight class="normal">Versal_2VP_P</highlight><highlight class="stringliteral">&quot;<sp/>IN_LIST<sp/>VARIANT)</highlight></codeline>
+<codeline lineno="9"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(sha_pmxc)</highlight></codeline>
+<codeline lineno="10"><highlight class="stringliteral"><sp/><sp/>else()</highlight></codeline>
+<codeline lineno="11"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>add_subdirectory(sha_pmx)</highlight></codeline>
+<codeline lineno="12"><highlight class="stringliteral"><sp/><sp/>endif()</highlight></codeline>
+<codeline lineno="13"><highlight class="stringliteral">endif()</highlight></codeline>
+<codeline lineno="14"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="15"><highlight class="stringliteral">if((&quot;</highlight><highlight class="normal">${CMAKE_SUBMACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">Versal_2VE_2VM</highlight><highlight class="stringliteral">&quot;)<sp/>OR</highlight></codeline>
+<codeline lineno="16"><highlight class="stringliteral"><sp/><sp/>(&quot;</highlight><highlight class="normal">${CMAKE_MACHINE}</highlight><highlight class="stringliteral">&quot;<sp/>STREQUAL<sp/>&quot;</highlight><highlight class="normal">spartanuplus</highlight><highlight class="stringliteral">&quot;))</highlight></codeline>
+<codeline lineno="17"><highlight class="stringliteral"><sp/><sp/>add_subdirectory(sha_pmxc)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral">endif()</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/sha/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx_link_config" kind="struct" prot="public">
+    <compoundname>XDp_RxLinkConfig</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_link_config_1a82e4a7f1fe35953426ca5cc2734514f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxLinkConfig::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+<para>The current lane count of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="949" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="949" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_link_config_1ab70b4cf241b5e00f2a0a0e60f634562b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxLinkConfig::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+<para>The current link rate of the main link. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="951" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="951" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information about the main link settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="948" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="948" bodyend="953"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_link_config_1a82e4a7f1fe35953426ca5cc2734514f2" prot="public" virt="non-virtual"><scope>XDp_RxLinkConfig</scope><name>LaneCount</name></member>
+      <member refid="struct_x_dp___rx_link_config_1ab70b4cf241b5e00f2a0a0e60f634562b" prot="public" virt="non-virtual"><scope>XDp_RxLinkConfig</scope><name>LinkRate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

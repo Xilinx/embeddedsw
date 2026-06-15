@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="core_2util_2xsecure__sss_8h" kind="file">
+    <compoundname>core/util/xsecure_sss.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_plat.h</includes>
+    <includedby refid="core_2util_2xsecure__sss_8c" local="yes">xsecure_sss.c</includedby>
+    <incdepgraph>
+      <node id="4644">
+        <label>xsecure_plat.h</label>
+      </node>
+      <node id="4642">
+        <label>xsecure_sss.h</label>
+        <link refid="core/util/xsecure_sss.h"/>
+        <childnode refid="4643" relation="include">
+        </childnode>
+        <childnode refid="4644" relation="include">
+        </childnode>
+      </node>
+      <node id="4643">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4646">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="4645">
+        <label>xsecure_sss.h</label>
+        <link refid="core/util/xsecure_sss.h"/>
+        <childnode refid="4646" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This file contains macros and functions required for SSS configuration for Versal. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   har     03/26/20 Initial Release
+4.2   har     03/26/20 Updated file version to sync with library version
+4.3   rpo     09/10/20 Changed the return type of some prototypes
+      am      09/24/20 Resolved MISRA C violations
+      har     10/12/20 Addressed security review comments
+      bsv     10/19/20 Changed register writes to PMC SSS Cfg to mask writes
+5.0   bm      07/06/22 Refactor versal and versal_net code</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifndef<sp/>XSECURE_SSS_H</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SSS_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_CFG_LEN_IN_BITS<sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Address;<sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="normal">}XSecure_Sss;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gac44d78314f59033c8bee53a3f1dee58b" kindref="member">XSecure_SssInitialize</ref>(XSecure_Sss<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" kindref="member">XSecure_SssAes</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_Sss<sp/>*InstancePtr,<sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>InputSrc,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>OutputSrc);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga9fd733a169850268505e89c96636a584" kindref="member">XSecure_SssSha</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_Sss<sp/>*InstancePtr,<sp/>u16<sp/>DmaId,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>Resource);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gab55d05fcfb4497a11b3571a703db2724" kindref="member">XSecure_SssDmaLoopBack</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XSecure_Sss<sp/>*InstancePtr,<sp/>u16<sp/>DmaId);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Functions<sp/>defined<sp/>in<sp/>xsecure_plat.c<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal">u32<sp/><ref refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" kindref="member">XSecure_SssMask</ref>(<ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>InputSrc,<sp/><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref><sp/>OutputSrc,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>XSecure_SssLookupTable[<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>][<ref refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" kindref="member">XSECURE_SSS_MAX_SRCS</ref>];</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_SSS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/xsecure_sss.h"/>
+  </compounddef>
+</doxygen>

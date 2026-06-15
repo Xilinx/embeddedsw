@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_usb_ps___device_config" kind="struct" prot="public">
+    <compoundname>XUsbPs_DeviceConfig</compoundname>
+    <includes local="no">xusbps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_usb_ps___device_config_1aeb059166762916b8b5776f4afba26315" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XUsbPs_DeviceConfig::NumEndpoints</definition>
+        <argsstring></argsstring>
+        <name>NumEndpoints</name>
+        <briefdescription>
+<para>Number of Endpoints for the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>This number depends on the runtime configuration of driver. The driver may configure fewer endpoints than are available in the core. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="501" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="506" endline="566">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga6bfe53ec45a998d5673b80e11ab4d292" compoundref="xusbps__endpoint_8c" startline="173" endline="181">XUsbPs_EpBufferSend</referencedby>
+        <referencedby refid="group__usbps_1ga1e4c0735be24ea24b73404db8d18133e" compoundref="xusbps__endpoint_8c" startline="200" endline="218">XUsbPs_EpBufferSendWithZLT</referencedby>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <referencedby refid="group__usbps_1gaba0ae2eac9c6b402e32e401333a5b105" compoundref="xusbps__endpoint_8c" startline="766" endline="793">XUsbPs_EpPrime</referencedby>
+        <referencedby refid="group__usbps_1ga04fb0b564bcd01cdf33e29ca2732656a" compoundref="xusbps__endpoint_8c" startline="675" endline="698">XUsbPs_EpSetHandler</referencedby>
+        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="723" endline="746">XUsbPs_EpSetIsoHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___device_config_1afd60a9334300a134f4027be0bef9c6c4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb_ps___ep_config" kindref="compound">XUsbPs_EpConfig</ref></type>
+        <definition>XUsbPs_EpConfig XUsbPs_DeviceConfig::EpCfg[XUSBPS_MAX_ENDPOINTS]</definition>
+        <argsstring>[XUSBPS_MAX_ENDPOINTS]</argsstring>
+        <name>EpCfg</name>
+        <briefdescription>
+<para>List of endpoint configurations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="507" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="507" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="506" endline="566">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga1e4c0735be24ea24b73404db8d18133e" compoundref="xusbps__endpoint_8c" startline="200" endline="218">XUsbPs_EpBufferSendWithZLT</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___device_config_1a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_DeviceConfig::DMAMemPhys</definition>
+        <argsstring></argsstring>
+        <name>DMAMemPhys</name>
+        <briefdescription>
+<para>Physical base address of DMAable memory allocated for the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="511" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="511" bodyend="-1"/>
+        <referencedby refid="xusbps__audio__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xusbps__audio__example_8c" startline="176" endline="292">main</referencedby>
+        <referencedby refid="group__usbps_1ga6daace32113a806a6822a6d5943a93f4" compoundref="xusbps__endpoint_8c" startline="96" endline="155">XUsbPs_ConfigureDevice</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___device_config_1a7776d48757f00ec0c53fb83457a7855d" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_usb_ps___endpoint" kindref="compound">XUsbPs_Endpoint</ref></type>
+        <definition>XUsbPs_Endpoint XUsbPs_DeviceConfig::Ep[XUSBPS_MAX_ENDPOINTS]</definition>
+        <argsstring>[XUSBPS_MAX_ENDPOINTS]</argsstring>
+        <name>Ep</name>
+        <briefdescription>
+<para>List of endpoint metadata structures. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="523" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="523" bodyend="-1"/>
+        <referencedby refid="group__usbps_1gac27a9d64ddf33a2400d7493e301a7192" compoundref="xusbps__endpoint_8c" startline="506" endline="566">XUsbPs_EpBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1gadbe72ae98e3bc73150a650f5f8e5c34f" compoundref="xusbps__endpoint_8c" startline="621" endline="648">XUsbPs_EpDataBufferReceive</referencedby>
+        <referencedby refid="group__usbps_1ga0532b9ebbcab7bb72ec6bef692e20faf" compoundref="xusbps__endpoint_8c" startline="395" endline="478">XUsbPs_EpGetData</referencedby>
+        <referencedby refid="group__usbps_1ga91c44ff9dcae2e47ed8112c8a0779fa1" compoundref="xusbps__endpoint_8c" startline="812" endline="892">XUsbPs_EpGetSetupData</referencedby>
+        <referencedby refid="group__usbps_1ga04fb0b564bcd01cdf33e29ca2732656a" compoundref="xusbps__endpoint_8c" startline="675" endline="698">XUsbPs_EpSetHandler</referencedby>
+        <referencedby refid="group__usbps_1ga5eb603906d381d4a426a3d24fc2082a0" compoundref="xusbps__endpoint_8c" startline="723" endline="746">XUsbPs_EpSetIsoHandler</referencedby>
+        <referencedby refid="group__usbps_1ga90aab040f015299b2064124bed882896" compoundref="xusbps__endpoint_8c" startline="1385" endline="1442">XUsbPs_ReconfigureEp</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_usb_ps___device_config_1a6098d846df00c20ac64592a1794400dc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPs_DeviceConfig::PhysAligned</definition>
+        <argsstring></argsstring>
+        <name>PhysAligned</name>
+        <briefdescription>
+<para>64 byte aligned base address of the DMA memory block. </para>        </briefdescription>
+        <detaileddescription>
+<para>Will be computed and set by the L0/L1 driver. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="526" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="526" bodyend="-1"/>
+        <referencedby refid="group__usbps_1ga6daace32113a806a6822a6d5943a93f4" compoundref="xusbps__endpoint_8c" startline="96" endline="155">XUsbPs_ConfigureDevice</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_usb_ps___device_config" kindref="compound">XUsbPs_DeviceConfig</ref> structure contains the configuration information to configure the USB controller for DEVICE mode. </para>    </briefdescription>
+    <detaileddescription>
+<para>This data structure is used with the <ref refid="group__usbps_1ga6daace32113a806a6822a6d5943a93f4" kindref="member">XUsbPs_ConfigureDevice()</ref> function call. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="60">
+        <label>XUsbPs_Endpoint</label>
+        <link refid="struct_x_usb_ps___endpoint"/>
+        <childnode refid="61" relation="usage">
+          <edgelabel>In</edgelabel>
+        </childnode>
+        <childnode refid="62" relation="usage">
+          <edgelabel>Out</edgelabel>
+        </childnode>
+      </node>
+      <node id="62">
+        <label>XUsbPs_EpOut</label>
+        <link refid="struct_x_usb_ps___ep_out"/>
+      </node>
+      <node id="59">
+        <label>XUsbPs_DeviceConfig</label>
+        <link refid="struct_x_usb_ps___device_config"/>
+        <childnode refid="60" relation="usage">
+          <edgelabel>Ep</edgelabel>
+        </childnode>
+        <childnode refid="63" relation="usage">
+          <edgelabel>EpCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="61">
+        <label>XUsbPs_EpIn</label>
+        <link refid="struct_x_usb_ps___ep_in"/>
+      </node>
+      <node id="63">
+        <label>XUsbPs_EpConfig</label>
+        <link refid="struct_x_usb_ps___ep_config"/>
+        <childnode refid="64" relation="usage">
+          <edgelabel>In</edgelabel>
+          <edgelabel>Out</edgelabel>
+        </childnode>
+      </node>
+      <node id="64">
+        <label>XUsbPs_EpSetup</label>
+        <link refid="struct_x_usb_ps___ep_setup"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" line="500" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/src/xusbps.h" bodystart="500" bodyend="529"/>
+    <listofallmembers>
+      <member refid="struct_x_usb_ps___device_config_1a0a5c8ac8a91e6d08ee7c74e6b1d7ad0e" prot="public" virt="non-virtual"><scope>XUsbPs_DeviceConfig</scope><name>DMAMemPhys</name></member>
+      <member refid="struct_x_usb_ps___device_config_1a7776d48757f00ec0c53fb83457a7855d" prot="public" virt="non-virtual"><scope>XUsbPs_DeviceConfig</scope><name>Ep</name></member>
+      <member refid="struct_x_usb_ps___device_config_1afd60a9334300a134f4027be0bef9c6c4" prot="public" virt="non-virtual"><scope>XUsbPs_DeviceConfig</scope><name>EpCfg</name></member>
+      <member refid="struct_x_usb_ps___device_config_1aeb059166762916b8b5776f4afba26315" prot="public" virt="non-virtual"><scope>XUsbPs_DeviceConfig</scope><name>NumEndpoints</name></member>
+      <member refid="struct_x_usb_ps___device_config_1a6098d846df00c20ac64592a1794400dc" prot="public" virt="non-virtual"><scope>XUsbPs_DeviceConfig</scope><name>PhysAligned</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_audio_formatter___config" kind="struct" prot="public">
+    <compoundname>XAudioFormatter_Config</compoundname>
+    <includes local="no">xaudioformatter.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1ad88a34b4f8faf7694d7bbfb4b5f4bc46" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XAudioFormatter_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a77b37a46a977ee338a8407547403382e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAudioFormatter_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the device&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__audio__formatter_1gaef1d64562a996ebb195cf2d6ef2f6ea7" compoundref="xaudioformatter_8c" startline="76" endline="103">XAudioFormatter_CfgInitialize</referencedby>
+        <referencedby refid="group__audio__formatter_1gabec553226fe4cfd97f01d23b2c30bbad" compoundref="xaudioformatter_8c" startline="422" endline="445">XSdiAud_GetChStat</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a00cf28fa827d42385330ca450eeeda65" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::IncludeMM2S</definition>
+        <argsstring></argsstring>
+        <name>IncludeMM2S</name>
+        <briefdescription>
+<para>IncludeMM2S is MM2S included or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1ab196adb9a9c8f7064c0c26d2a447313b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::IncludeS2MM</definition>
+        <argsstring></argsstring>
+        <name>IncludeS2MM</name>
+        <briefdescription>
+<para>IncludeS2MM is S2MM included or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a7f7b33004190e99b88823a35bdd1ed87" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::MaxChannelsMM2S</definition>
+        <argsstring></argsstring>
+        <name>MaxChannelsMM2S</name>
+        <briefdescription>
+<para>MaxChannelsMM2S is the max number of channels supported in MM2S. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="277" endline="343">XAudioFormatterSetHwParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a8feec23f4c0e955063ca0d6819ac3de7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::MaxChannelsS2MM</definition>
+        <argsstring></argsstring>
+        <name>MaxChannelsS2MM</name>
+        <briefdescription>
+<para>MaxChannelsS2MM is the max number of channels supported in S2MM. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__audio__formatter_1ga0d2e42ac1ba8d83eca142032ad59320b" compoundref="xaudioformatter_8c" startline="277" endline="343">XAudioFormatterSetHwParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a4fbeb49a32add1b7ac84cc8354cba869" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::MM2SAddrWidth</definition>
+        <argsstring></argsstring>
+        <name>MM2SAddrWidth</name>
+        <briefdescription>
+<para>MM2SAddrWidth is the MM2S Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a177b866f1b59cf37bc4434726ac44833" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::MM2SDataFormat</definition>
+        <argsstring></argsstring>
+        <name>MM2SDataFormat</name>
+        <briefdescription>
+<para>MM2SDataFormat is the MM2S Data format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a58a942ca4bc504554dd2f6e2bb07a610" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::PackagingModeMM2S</definition>
+        <argsstring></argsstring>
+        <name>PackagingModeMM2S</name>
+        <briefdescription>
+<para>PackagingModeMM2S is the MM2S packaging mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a12cf0d832b79f2ca5450ad1756aed3ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::PackagingModeS2MM</definition>
+        <argsstring></argsstring>
+        <name>PackagingModeS2MM</name>
+        <briefdescription>
+<para>PackagingModeS2MM is the S2MM packaging mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a75b3e9629a1b150642520ddbaae572e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::S2MMAddrWidth</definition>
+        <argsstring></argsstring>
+        <name>S2MMAddrWidth</name>
+        <briefdescription>
+<para>S2MMAddrWidth is the S2MM Address Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a4c70b2922caa22862a3951c48b588aca" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAudioFormatter_Config::S2MMDataFormat</definition>
+        <argsstring></argsstring>
+        <name>S2MMDataFormat</name>
+        <briefdescription>
+<para>S2MMDataFormat is the S2MM Data format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1a2c82cd5b42c5bbb85df39f91fd0234ea" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAudioFormatter_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter___config_1ade02da2244c6c0ca9276d66dfd2ab035" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XAudioFormatter_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a audio formatter core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each audio formatter core should have a configuration structure associated. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="100" bodyend="128"/>
+    <listofallmembers>
+      <member refid="struct_x_audio_formatter___config_1a77b37a46a977ee338a8407547403382e" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_audio_formatter___config_1a00cf28fa827d42385330ca450eeeda65" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>IncludeMM2S</name></member>
+      <member refid="struct_x_audio_formatter___config_1ab196adb9a9c8f7064c0c26d2a447313b" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>IncludeS2MM</name></member>
+      <member refid="struct_x_audio_formatter___config_1a2c82cd5b42c5bbb85df39f91fd0234ea" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_audio_formatter___config_1ade02da2244c6c0ca9276d66dfd2ab035" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_audio_formatter___config_1a7f7b33004190e99b88823a35bdd1ed87" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>MaxChannelsMM2S</name></member>
+      <member refid="struct_x_audio_formatter___config_1a8feec23f4c0e955063ca0d6819ac3de7" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>MaxChannelsS2MM</name></member>
+      <member refid="struct_x_audio_formatter___config_1a4fbeb49a32add1b7ac84cc8354cba869" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>MM2SAddrWidth</name></member>
+      <member refid="struct_x_audio_formatter___config_1a177b866f1b59cf37bc4434726ac44833" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>MM2SDataFormat</name></member>
+      <member refid="struct_x_audio_formatter___config_1ad88a34b4f8faf7694d7bbfb4b5f4bc46" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>Name</name></member>
+      <member refid="struct_x_audio_formatter___config_1a58a942ca4bc504554dd2f6e2bb07a610" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>PackagingModeMM2S</name></member>
+      <member refid="struct_x_audio_formatter___config_1a12cf0d832b79f2ca5450ad1756aed3ac" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>PackagingModeS2MM</name></member>
+      <member refid="struct_x_audio_formatter___config_1a75b3e9629a1b150642520ddbaae572e4" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>S2MMAddrWidth</name></member>
+      <member refid="struct_x_audio_formatter___config_1a4c70b2922caa22862a3951c48b588aca" prot="public" virt="non-virtual"><scope>XAudioFormatter_Config</scope><name>S2MMDataFormat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_2b6e5866f41da8a25b7fe99f4b7cae61" kind="dir">
+    <compoundname>dualsplitter</compoundname>
+    <innerfile refid="xdptxss__dualsplitter_8c">xdptxss_dualsplitter.c</innerfile>
+    <innerfile refid="xdptxss__dualsplitter_8h">xdptxss_dualsplitter.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21txss/src/dualsplitter/"/>
+  </compounddef>
+</doxygen>

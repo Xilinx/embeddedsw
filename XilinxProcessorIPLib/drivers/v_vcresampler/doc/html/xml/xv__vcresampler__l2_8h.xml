@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vcresampler__l2_8h" kind="file">
+    <compoundname>xv_vcresampler_l2.h</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="xv__vcresampler_8h" local="yes">xv_vcresampler.h</includes>
+    <includedby refid="xv__vcresampler__coeff_8c" local="yes">xv_vcresampler_coeff.c</includedby>
+    <includedby refid="xv__vcresampler__l2_8c" local="yes">xv_vcresampler_l2.c</includedby>
+    <incdepgraph>
+      <node id="65">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="67">
+        <label>xil_io.h</label>
+      </node>
+      <node id="61">
+        <label>xv_vcresampler_l2.h</label>
+        <link refid="xv_vcresampler_l2.h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xv_vcresampler.h</label>
+        <link refid="xv__vcresampler_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="62">
+        <label>xvidc.h</label>
+      </node>
+      <node id="64">
+        <label>xil_types.h</label>
+      </node>
+      <node id="68">
+        <label>xv_vcresampler_hw.h</label>
+        <link refid="xv__vcresampler__hw_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="70">
+        <label>xv_vcresampler_coeff.c</label>
+        <link refid="xv__vcresampler__coeff_8c"/>
+      </node>
+      <node id="71">
+        <label>xv_vcresampler_l2.c</label>
+        <link refid="xv__vcresampler__l2_8c"/>
+      </node>
+      <node id="69">
+        <label>xv_vcresampler_l2.h</label>
+        <link refid="xv_vcresampler_l2.h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v___vcresampler__l2" prot="public">XV_Vcresampler_l2</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Hw Configuration</header>
+      <description><para>The following constants define the vert.</para><para>resampler HW MAX configuration </para></description>
+      <memberdef kind="define" id="xv__vcresampler__l2_8h_1a130be9da22e3d8e8f1f88d6826dea335" prot="public" static="no">
+        <name>XV_VCRSMPLR_MAX_TAPS</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vcresampler__l2_8h_1a8abf2fe94c1d408d9421adf02479fe80" prot="public" static="no">
+        <name>XV_VCRSMPLR_MAX_PHASES</name>
+        <initializer>(2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4c" prot="public" static="no">
+        <name>XV_VCRESAMPLER_TAPS</name>
+        <enumvalue id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4ca5058e742f12a0e51dbfc97131a87e258" prot="public">
+          <name>XV_VCRSMPLR_TAPS_4</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4ca55d99dc8f0c2175d56c30ec7ec2d8082" prot="public">
+          <name>XV_VCRSMPLR_TAPS_6</name>
+          <initializer>= 6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4ca3516cdec95970b87d94a1b01b22dd040" prot="public">
+          <name>XV_VCRSMPLR_TAPS_8</name>
+          <initializer>= 8</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4ca11ca5b11a43477e0b87e98fe8590d154" prot="public">
+          <name>XV_VCRSMPLR_TAPS_10</name>
+          <initializer>= 10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4cad755978638791d99252a9c8917ce1d83" prot="public">
+          <name>XV_VCRSMPLR_NUM_SUPPORTED_TAPS_CONFIG</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef enumerates the supported taps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="96" bodyend="103"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaced" prot="public" static="no">
+        <name>XV_VCRESAMPLER_CONVERSION</name>
+        <enumvalue id="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaceda0405480969e169af7da7b14deaf6284c" prot="public">
+          <name>XV_VCRSMPLR_422_TO_420</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaceda6e12f2211dfbb5d58db014da5bed47a4" prot="public">
+          <name>XV_VCRSMPLR_420_TO_422</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaceda99cc4dc763f3faed3c8f16eac9581154" prot="public">
+          <name>XV_VCRSMPLR_NUM_CONVERSIONS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef enumerates the conversion type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="108" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="enum" id="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87" prot="public" static="no">
+        <name>XV_VCRESAMPLER_TYPE</name>
+        <enumvalue id="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87af3a1cd21dd3afb79f3bcba4274f792b3" prot="public">
+          <name>XV_VCRSMPLR_TYPE_NEAREST_NEIGHBOR</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87adaba625b02f9c072eee35b7776ee8571" prot="public">
+          <name>XV_VCRSMPLR_TYPE_FIXED_COEFFICIENT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87a008a3fe87aaad4a76eda94e61fb74183" prot="public">
+          <name>XV_VCRSMPLR_TYPE_FIR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef enumerates the resampling algorithm. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="118" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga0f78877397bf8b1ec1723573a39f29e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_VcrsmplInitialize</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_VcrsmplInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="63" bodyend="73"/>
+        <references refid="xv__vcresampler_8h_1a4e513f7ffd2e841e9b7ef5f589568781" compoundref="xv__vcresampler__sinit_8c" startline="130" endline="144">XV_vcresampler_Initialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga4cac68c29c6fd1d5be671e9b943708eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplStart</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplStart</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="84" bodyend="90"/>
+        <references refid="xv__vcresampler_8c_1afcfcebe5b588b8a1dfb8761d817c0fc9" compoundref="xv__vcresampler_8c" startline="132" endline="138">XV_vcresampler_EnableAutoRestart</references>
+        <references refid="xv__vcresampler_8c_1a87dde33eb2551ab05c02ee4e6df75c7e" compoundref="xv__vcresampler_8c" startline="57" endline="65">XV_vcresampler_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga622560c87045beb2bef22e0f220faacb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplStop</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplStop</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the Chroma resampler core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="101" bodyend="106"/>
+        <references refid="xv__vcresampler_8c_1a5e2713e1e927461583ef9e0b82f672e4" compoundref="xv__vcresampler_8c" startline="145" endline="151">XV_vcresampler_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplLoadDefaultCoeff</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplLoadDefaultCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function loads default filter coefficients in the chroma resampler coefficient storage based on the selected TAP configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="118" bodyend="157"/>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+        <references refid="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" compoundref="xv__vcresampler__coeff_8c" startline="49">XV_vcrsmplrcoeff_taps4</references>
+        <references refid="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" compoundref="xv__vcresampler__coeff_8c" startline="81">XV_vcrsmplrcoeff_taps6</references>
+        <references refid="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" compoundref="xv__vcresampler__coeff_8c" startline="116">XV_vcrsmplrcoeff_taps8</references>
+        <references refid="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" compoundref="xv__vcresampler__coeff_8c" startline="150">XV_vcrsmplrcoeff_taps10</references>
+        <references refid="group__v__vcresampler_1gae71f8a8ce586e2f6aebf1b37b7df16ff" compoundref="xv__vcresampler__l2_8c" startline="171" endline="237">XV_VCrsmplrLoadExtCoeff</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1gae71f8a8ce586e2f6aebf1b37b7df16ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplrLoadExtCoeff</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u16 num_taps, const short *Coeff)</argsstring>
+        <name>XV_VCrsmplrLoadExtCoeff</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>num_taps</declname>
+        </param>
+        <param>
+          <type>const short *</type>
+          <declname>Coeff</declname>
+        </param>
+        <briefdescription>
+<para>This function loads user defined filter coefficients in the horiz. </para>        </briefdescription>
+        <detaileddescription>
+<para>chroma resampler coefficient storage</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_taps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of taps </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Coeff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to user defined filter coefficients table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="171" bodyend="237"/>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga2492dbe762f82a9a4ef46d5027f20ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplSetActiveSize</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, u32 width, u32 height)</argsstring>
+        <name>XV_VCrsmplSetActiveSize</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler active resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the active frame height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="250" bodyend="258"/>
+        <references refid="xv__vcresampler_8c_1a4cf12d7ba9ed07002b192d6393b809c7" compoundref="xv__vcresampler_8c" startline="159" endline="165">XV_vcresampler_Set_HwReg_width</references>
+        <references refid="xv__vcresampler_8c_1a072495c5efe846ce5f19f990f5eb8825" compoundref="xv__vcresampler_8c" startline="189" endline="195">XV_vcresampler_Set_HwReg_height</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga51999e4a3525d76ae247012128e8de80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplSetFormat</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr, XVidC_ColorFormat formatIn, XVidC_ColorFormat formatOut)</argsstring>
+        <name>XV_VCrsmplSetFormat</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>formatOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Chroma resampler for the required format conversion. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input chroma format </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>formatOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is required chroma format</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="272" bodyend="304"/>
+        <references refid="xv__vcresampler_8c_1a5741ce40dc98ea86a3a6d7ca752108f5" compoundref="xv__vcresampler_8c" startline="219" endline="225">XV_vcresampler_Set_HwReg_input_video_format</references>
+        <references refid="xv__vcresampler_8c_1acbc8c85cc8ce7852a8eed88191cecf48" compoundref="xv__vcresampler_8c" startline="249" endline="255">XV_vcresampler_Set_HwReg_output_video_format</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1a049be29b02a84bfe7d037d15de3a9ebc" compoundref="xv__vcresampler_8h" startline="61">XV_vcresampler_Config::ResamplingType</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_VCrsmplDbgReportStatus</definition>
+        <argsstring>(XV_Vcresampler_l2 *InstancePtr)</argsstring>
+        <name>XV_VCrsmplDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints Chroma Resampler status on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.c" bodystart="352" bodyend="420"/>
+        <references refid="xv__vcresampler_8c_1aba0027e29d9fcbd6c1ab016000a99dfa" compoundref="xv__vcresampler_8c" startline="78" endline="86">XV_vcresampler_IsDone</references>
+        <references refid="xv__vcresampler_8c_1aa09f70e6c9ab6416836f49b84ac087f3" compoundref="xv__vcresampler_8c" startline="97" endline="105">XV_vcresampler_IsIdle</references>
+        <references refid="xv__vcresampler_8c_1ad1eda8d670141d925646d219074054e7" compoundref="xv__vcresampler_8c" startline="116" endline="125">XV_vcresampler_IsReady</references>
+        <references refid="struct_x_v__vcresampler_1a96845340c2bc438632ef8a7c37d09f9f" compoundref="xv__vcresampler_8h" startline="70">XV_vcresampler::Config</references>
+        <references refid="struct_x_v__vcresampler___config_1a7fef856fb4ed415cc0d6218f191ba2e1" compoundref="xv__vcresampler_8h" startline="55">XV_vcresampler_Config::BaseAddress</references>
+        <references refid="xv__vcresampler__hw_8h_1af158c38dc1e7133794af9eaaf927e852" compoundref="xv__vcresampler__hw_8h" startline="67">XV_VCRESAMPLER_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__vcresampler_8c_1a66b92c787146f6151e0267a20faf37be" compoundref="xv__vcresampler_8c" startline="232" endline="241">XV_vcresampler_Get_HwReg_input_video_format</references>
+        <references refid="xv__vcresampler_8c_1ad90ffa0e7003659e0230f1a7ab435356" compoundref="xv__vcresampler_8c" startline="262" endline="271">XV_vcresampler_Get_HwReg_output_video_format</references>
+        <references refid="xv__vcresampler_8c_1a2556a5a207d9d47b84133d8aaa7e81e8" compoundref="xv__vcresampler_8c" startline="202" endline="211">XV_vcresampler_Get_HwReg_height</references>
+        <references refid="xv__vcresampler_8c_1a6a8682f6648b031b94cc4d0bb4e788e5" compoundref="xv__vcresampler_8c" startline="172" endline="181">XV_vcresampler_Get_HwReg_width</references>
+        <references refid="struct_x_v__vcresampler___config_1a049be29b02a84bfe7d037d15de3a9ebc" compoundref="xv__vcresampler_8h" startline="61">XV_vcresampler_Config::ResamplingType</references>
+        <references refid="struct_x_v__vcresampler___config_1af1116e099efcbc8b77681ab0bce08523" compoundref="xv__vcresampler_8h" startline="62">XV_vcresampler_Config::NumTaps</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__vcresampler__l2_8h_1a9f902f5dc447cca77f2cd405da24e12d" prot="public" static="no">
+        <name>XV_VCHROMA_RESAMPLER_L2_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#ifndef<sp/>XV_VCHROMA_RESAMPLER_L2_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VCHROMA_RESAMPLER_L2_H<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__vcresampler_8h" kindref="compound">xv_vcresampler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XV_VCRSMPLR_MAX_TAPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(10)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VCRSMPLR_MAX_PHASES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="96" refid="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4c" refkind="member"><highlight class="normal"><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TAPS_4<sp/><sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TAPS_6<sp/><sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TAPS_8<sp/><sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TAPS_10<sp/>=<sp/>10,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_NUM_SUPPORTED_TAPS_CONFIG<sp/>=<sp/>4</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/>}<ref refid="xv__vcresampler__l2_8h_1a470e3cb652ada7f76311c883fe8d4f4c" kindref="member">XV_VCRESAMPLER_TAPS</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaced" refkind="member"><highlight class="normal"><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_422_TO_420<sp/><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_420_TO_422<sp/>,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_NUM_CONVERSIONS</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/>}<ref refid="xv__vcresampler__l2_8h_1ac26b2024021a80453e6728fc66eeaced" kindref="member">XV_VCRESAMPLER_CONVERSION</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87" refkind="member"><highlight class="normal"><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TYPE_NEAREST_NEIGHBOR<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TYPE_FIXED_COEFFICIENT,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/>XV_VCRSMPLR_TYPE_FIR</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/>}<ref refid="xv__vcresampler__l2_8h_1a149d9ee07c91fc35307271c58e302c87" kindref="member">XV_VCRESAMPLER_TYPE</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="struct_x_v___vcresampler__l2" refkind="compound"><highlight class="normal"><sp/></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><ref refid="struct_x_v__vcresampler" kindref="compound">XV_vcresampler</ref><sp/>Vcr;<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;&lt;<sp/>Layer<sp/>1<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/>u16<sp/>UseExtCoeff;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>coeff[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_MAX_TAPS];</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/>}<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref>;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga0f78877397bf8b1ec1723573a39f29e0" kindref="member">XV_VcrsmplInitialize</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga4cac68c29c6fd1d5be671e9b943708eb" kindref="member">XV_VCrsmplStart</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga622560c87045beb2bef22e0f220faacb" kindref="member">XV_VCrsmplStop</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" kindref="member">XV_VCrsmplLoadDefaultCoeff</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1gae71f8a8ce586e2f6aebf1b37b7df16ff" kindref="member">XV_VCrsmplrLoadExtCoeff</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>num_taps,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>*Coeff);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga2492dbe762f82a9a4ef46d5027f20ef6" kindref="member">XV_VCrsmplSetActiveSize</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>width,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>height);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga51999e4a3525d76ae247012128e8de80" kindref="member">XV_VCrsmplSetFormat</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>formatIn,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>formatOut);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1ga9fbc3495721fdc850c27d53b9517dfa0" kindref="member">XV_VCrsmplDbgReportStatus</ref>(<ref refid="struct_x_v___vcresampler__l2" kindref="compound">XV_Vcresampler_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_l2.h"/>
+  </compounddef>
+</doxygen>

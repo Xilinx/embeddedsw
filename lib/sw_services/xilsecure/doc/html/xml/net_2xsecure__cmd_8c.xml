@@ -1,0 +1,757 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2xsecure__cmd_8c" kind="file">
+    <compoundname>net/xsecure_cmd.c</compoundname>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes refid="versal__net_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
+    <includes local="yes">xplmi_cmd.h</includes>
+    <includes local="yes">xplmi_generic.h</includes>
+    <includes local="yes">xplmi_modules.h</includes>
+    <includes refid="xsecure__aes__ipihandler_8h" local="yes">xsecure_aes_ipihandler.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes refid="xsecure__elliptic__ipihandler_8h" local="yes">xsecure_elliptic_ipihandler.h</includes>
+    <includes refid="xsecure__rsa__ipihandler_8h" local="yes">xsecure_rsa_ipihandler.h</includes>
+    <includes local="yes">xsecure_sha_ipihandler.h</includes>
+    <includes local="yes">xsecure_trng_ipihandler.h</includes>
+    <includes refid="xsecure__plat__elliptic__ipihandler_8h" local="yes">xsecure_plat_elliptic_ipihandler.h</includes>
+    <includes refid="versal__net_2xsecure__plat__kat__ipihandler_8h" local="yes">xsecure_plat_kat_ipihandler.h</includes>
+    <includes refid="net_2xsecure__plat__ipihandler_8h" local="yes">xsecure_plat_ipihandler.h</includes>
+    <includes refid="xsecure__cmd_8h" local="yes">xsecure_cmd.h</includes>
+    <includes local="yes">xplmi.h</includes>
+    <includes local="yes">xplmi_tamper.h</includes>
+    <includes local="yes">xsecure_cryptochk.h</includes>
+    <includes refid="xsecure__plat__aes__ipihandler_8h" local="yes">xsecure_plat_aes_ipihandler.h</includes>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes refid="net_2xsecure__server__aesalginfo_8h" local="yes">xsecure_server_aesalginfo.h</includes>
+    <includes refid="net_2xsecure__server__rsaalginfo_8h" local="yes">xsecure_server_rsaalginfo.h</includes>
+    <includes refid="net_2xsecure__server__ellipticalginfo_8h" local="yes">xsecure_server_ellipticalginfo.h</includes>
+    <includes refid="versal__net_2xsecure__server__ecdhalginfo_8h" local="yes">xsecure_server_ecdhalginfo.h</includes>
+    <includes refid="net_2xsecure__server__shaalginfo_8h" local="yes">xsecure_server_shaalginfo.h</includes>
+    <includes refid="versal__net_2xsecure__server__hmacalginfo_8h" local="yes">xsecure_server_hmacalginfo.h</includes>
+    <includes local="yes">xtrngpsx_alginfo.h</includes>
+    <includes refid="xsecure__server__keyunwrapalginfo_8h" local="yes">xsecure_server_keyunwrapalginfo.h</includes>
+    <includes refid="xsecure__hmac__ipihandler_8h" local="yes">xsecure_hmac_ipihandler.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <incdepgraph>
+      <node id="1019">
+        <label>xsecure_server_ellipticalginfo.h</label>
+        <link refid="net_2xsecure__server__ellipticalginfo_8h"/>
+      </node>
+      <node id="1015">
+        <label>xsecure_plat_aes_ipihandler.h</label>
+        <link refid="xsecure__plat__aes__ipihandler_8h"/>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="995">
+        <label>xplmi_modules.h</label>
+      </node>
+      <node id="1000">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1012">
+        <label>xplmi.h</label>
+      </node>
+      <node id="1021">
+        <label>xsecure_server_shaalginfo.h</label>
+        <link refid="net_2xsecure__server__shaalginfo_8h"/>
+      </node>
+      <node id="992">
+        <label>xsecure_error.h</label>
+        <link refid="versal__net_2xsecure__error_8h"/>
+      </node>
+      <node id="1014">
+        <label>xsecure_cryptochk.h</label>
+      </node>
+      <node id="996">
+        <label>xsecure_aes_ipihandler.h</label>
+        <link refid="xsecure__aes__ipihandler_8h"/>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="1020">
+        <label>xsecure_server_ecdhalginfo.h</label>
+        <link refid="versal__net_2xsecure__server__ecdhalginfo_8h"/>
+      </node>
+      <node id="1023">
+        <label>xtrngpsx_alginfo.h</label>
+      </node>
+      <node id="1001">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1005">
+        <label>xsecure_rsa_ipihandler.h</label>
+        <link refid="xsecure__rsa__ipihandler_8h"/>
+        <childnode refid="1004" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="1009">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="1016">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="993">
+        <label>xplmi_cmd.h</label>
+      </node>
+      <node id="997">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="998" relation="include">
+        </childnode>
+        <childnode refid="999" relation="include">
+        </childnode>
+        <childnode refid="1000" relation="include">
+        </childnode>
+        <childnode refid="1001" relation="include">
+        </childnode>
+        <childnode refid="1002" relation="include">
+        </childnode>
+      </node>
+      <node id="1018">
+        <label>xsecure_server_rsaalginfo.h</label>
+        <link refid="net_2xsecure__server__rsaalginfo_8h"/>
+      </node>
+      <node id="1013">
+        <label>xplmi_tamper.h</label>
+      </node>
+      <node id="1011">
+        <label>xsecure_cmd.h</label>
+        <link refid="xsecure__cmd_8h"/>
+      </node>
+      <node id="1004">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="1002">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1017">
+        <label>xsecure_server_aesalginfo.h</label>
+        <link refid="net_2xsecure__server__aesalginfo_8h"/>
+      </node>
+      <node id="999">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1022">
+        <label>xsecure_server_hmacalginfo.h</label>
+        <link refid="versal__net_2xsecure__server__hmacalginfo_8h"/>
+      </node>
+      <node id="990">
+        <label>xsecure_cmd.c</label>
+        <link refid="net/xsecure_cmd.c"/>
+        <childnode refid="991" relation="include">
+        </childnode>
+        <childnode refid="992" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+        <childnode refid="994" relation="include">
+        </childnode>
+        <childnode refid="995" relation="include">
+        </childnode>
+        <childnode refid="996" relation="include">
+        </childnode>
+        <childnode refid="997" relation="include">
+        </childnode>
+        <childnode refid="1003" relation="include">
+        </childnode>
+        <childnode refid="1005" relation="include">
+        </childnode>
+        <childnode refid="1006" relation="include">
+        </childnode>
+        <childnode refid="1007" relation="include">
+        </childnode>
+        <childnode refid="1008" relation="include">
+        </childnode>
+        <childnode refid="1009" relation="include">
+        </childnode>
+        <childnode refid="1010" relation="include">
+        </childnode>
+        <childnode refid="1011" relation="include">
+        </childnode>
+        <childnode refid="1012" relation="include">
+        </childnode>
+        <childnode refid="1013" relation="include">
+        </childnode>
+        <childnode refid="1014" relation="include">
+        </childnode>
+        <childnode refid="1015" relation="include">
+        </childnode>
+        <childnode refid="1016" relation="include">
+        </childnode>
+        <childnode refid="1017" relation="include">
+        </childnode>
+        <childnode refid="1018" relation="include">
+        </childnode>
+        <childnode refid="1019" relation="include">
+        </childnode>
+        <childnode refid="1020" relation="include">
+        </childnode>
+        <childnode refid="1021" relation="include">
+        </childnode>
+        <childnode refid="1022" relation="include">
+        </childnode>
+        <childnode refid="1023" relation="include">
+        </childnode>
+        <childnode refid="1024" relation="include">
+        </childnode>
+        <childnode refid="1025" relation="include">
+        </childnode>
+        <childnode refid="1002" relation="include">
+        </childnode>
+      </node>
+      <node id="1010">
+        <label>xsecure_plat_ipihandler.h</label>
+        <link refid="net_2xsecure__plat__ipihandler_8h"/>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="1003">
+        <label>xsecure_elliptic_ipihandler.h</label>
+        <link refid="xsecure__elliptic__ipihandler_8h"/>
+        <childnode refid="1004" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="998">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="991">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="1006">
+        <label>xsecure_sha_ipihandler.h</label>
+      </node>
+      <node id="1024">
+        <label>xsecure_server_keyunwrapalginfo.h</label>
+        <link refid="xsecure__server__keyunwrapalginfo_8h"/>
+      </node>
+      <node id="1008">
+        <label>xsecure_plat_elliptic_ipihandler.h</label>
+        <link refid="xsecure__plat__elliptic__ipihandler_8h"/>
+        <childnode refid="1004" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+      <node id="1007">
+        <label>xsecure_trng_ipihandler.h</label>
+      </node>
+      <node id="994">
+        <label>xplmi_generic.h</label>
+      </node>
+      <node id="1025">
+        <label>xsecure_hmac_ipihandler.h</label>
+        <link refid="xsecure__hmac__ipihandler_8h"/>
+        <childnode refid="999" relation="include">
+        </childnode>
+        <childnode refid="993" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga39d733dc4a1a03f4b443798e2d474fb6" prot="public" static="yes" mutable="no">
+        <type>XPlmi_Module</type>
+        <definition>static XPlmi_Module XPlmi_Secure</definition>
+        <argsstring></argsstring>
+        <name>XPlmi_Secure</name>
+        <initializer>=
+{
+	XPLMI_MODULE_XILSECURE_ID,
+	XSecure_Cmds,
+	<ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),
+	NULL,
+	XSecure_AccessPermBuff,
+	NULL,
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1gafaaecb8a7248125f91ab03ea048e082a" prot="public" static="yes" mutable="no">
+        <type>XPlmi_ModuleCmd</type>
+        <definition>XPlmi_ModuleCmd XSecure_Cmds[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_Cmds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga71f2f6bc35a9c9a1a017d8ecbbac00ca" prot="public" static="yes" mutable="no">
+        <type>XPlmi_AccessPerm_t</type>
+        <definition>XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX]</definition>
+        <argsstring>[XSECURE_API_MAX]</argsstring>
+        <name>XSecure_AccessPermBuff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2xsecure__cmd_8c_1ga6df1e6829843cdb25af0335f2cf820d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_FeaturesCmd</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_FeaturesCmd</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function checks if a particular Secure API ID is supported or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS In case of success</para></listitem><listitem><para>XST_INVALID_PARAM In case of unsupported API ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="162" bodyend="275"/>
+      </memberdef>
+      <memberdef kind="function" id="net_2xsecure__cmd_8c_1ga96cce7246721f32bb07e36a49283a14a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_ProcessCmd</definition>
+        <argsstring>(XPlmi_Cmd *Cmd)</argsstring>
+        <name>XSecure_ProcessCmd</name>
+        <param>
+          <type>XPlmi_Cmd *</type>
+          <declname>Cmd</declname>
+        </param>
+        <briefdescription>
+<para>This function processes XilSecure IPI commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the command structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Upon success</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameter is invalid</para></listitem><listitem><para>XSECURE_KAT_MAJOR_ERROR If KAT fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" line="288" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c" bodystart="288" bodyend="389"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_CmdsInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_CmdsInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function registers the XilSecure commands to the PLMI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi</para></listitem><listitem><para>Register command handlers with XilPlmi </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal/xsecure_cmd.c" bodystart="357" bodyend="367"/>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the Xilsecure IPI handler implementation. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.0   kal  03/23/2021 Initial release
+      har  05/18/2021 Added support for secure access control for Xilsecure
+                      IPI calls
+4.6   har  07/14/2021 Fixed doxygen warnings
+      kal  08/16/2021 Fixed magic number usage comment and fixed bug in
+                      XSecure_FeaturesCmd API
+      rb   08/11/2021 Fix compilation warnings
+5.0   kpt  07/24/2022 Added XSecure_KatIpiHandler and support to go into
+                      secure lockdown when KAT fails
+5.1   skg  10/17/2022 Added Null to invalid command handler of secure module
+5.2   bm   06/23/2023 Added access permissions for IPI commands
+      bm   07/05/2023 Added crypto check in features command
+      vns  07/07/2023 Added separate IPI commands for Crypto Status and KAT status updates
+      kpt  07/10/2023 Added support for key wrap and unwrap
+      ng   07/13/2023 Added support for system device tree flow
+      dd   10/11/2023 MISRA-C violation Rule 10.4 fixed
+      dd   10/11/2023 MISRA-C violation Rule 8.13 fixed
+5.3   har  02/06/2024 Added support for AES operation and zeroize key
+5.4   kpt  06/13/2024 Added XSECURE_API_RSA_RELEASE_KEY
+      mb   07/31/2024 Added the check to validate Payload for NULL pointer
+      pre  03/02/2025 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
+5.7   tbk  04/09/2026 Added support for getting crypto algorithm&apos;s version
+      tvp  04/29/2026 Added IPI for HMAC</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__net_2xsecure__error_8h" kindref="compound">xsecure_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_cmd.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_generic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_modules.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__aes__ipihandler_8h" kindref="compound">xsecure_aes_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__elliptic__ipihandler_8h" kindref="compound">xsecure_elliptic_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__rsa__ipihandler_8h" kindref="compound">xsecure_rsa_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_sha_ipihandler.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_trng_ipihandler.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__plat__elliptic__ipihandler_8h" kindref="compound">xsecure_plat_elliptic_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__net_2xsecure__plat__kat__ipihandler_8h" kindref="compound">xsecure_plat_kat_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__plat__ipihandler_8h" kindref="compound">xsecure_plat_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__cmd_8h" kindref="compound">xsecure_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_tamper.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_cryptochk.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__plat__aes__ipihandler_8h" kindref="compound">xsecure_plat_aes_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__server__aesalginfo_8h" kindref="compound">xsecure_server_aesalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__server__rsaalginfo_8h" kindref="compound">xsecure_server_rsaalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__server__ellipticalginfo_8h" kindref="compound">xsecure_server_ellipticalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__net_2xsecure__server__ecdhalginfo_8h" kindref="compound">xsecure_server_ecdhalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="net_2xsecure__server__shaalginfo_8h" kindref="compound">xsecure_server_shaalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__net_2xsecure__server__hmacalginfo_8h" kindref="compound">xsecure_server_hmacalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtrngpsx_alginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__server__keyunwrapalginfo_8h" kindref="compound">xsecure_server_keyunwrapalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__hmac__ipihandler_8h" kindref="compound">xsecure_hmac_ipihandler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>XPlmi_Secure;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_ModuleCmd<sp/>XSecure_Cmds[<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>];</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Buffer<sp/>holding<sp/>access<sp/>permissions<sp/>of<sp/>secure<sp/>module<sp/>commands<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_AccessPerm_t<sp/>XSecure_AccessPermBuff[<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref>),</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>),</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>),</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>),</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>),</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>),</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>),</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>),</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>),</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>),</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>),</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>),</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>),</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>),</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>),</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>),</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>),</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>),</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8e1f5af6efb89d6bd03e40a68960158e" kindref="member">XSECURE_API_AES_LOCK_USER_KEY</ref>),</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>),</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>),</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>),</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>),</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref>),</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" kindref="member">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</ref>),</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" kindref="member">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</ref>),</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" kindref="member">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</ref>),</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" kindref="member">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</ref>),</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_NO_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac72b5b1939f0484d1a3848ffd7b97f7b" kindref="member">XSECURE_API_UPDATE_DDR_KAT_STATUS</ref>),</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca44f09d5b48a831480a1cf114ccb1454c" kindref="member">XSECURE_API_UPDATE_HNIC_KAT_STATUS</ref>),</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac08da78d39f6d01df82e295363a7dc51" kindref="member">XSECURE_API_UPDATE_CPM5N_KAT_STATUS</ref>),</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9e649e1f6951aa5a6dd65c119eedf6ba" kindref="member">XSECURE_API_UPDATE_PCIDE_KAT_STATUS</ref>),</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca2c3a03734f8768efe3c23fd7585e332d" kindref="member">XSECURE_API_UPDATE_PKI_KAT_STATUS</ref>),</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" kindref="member">XSECURE_API_GEN_SHARED_SECRET</ref>),</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" kindref="member">XSECURE_API_KEY_UNWRAP</ref>),</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" kindref="member">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</ref>),</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" kindref="member">XSECURE_API_RSA_RELEASE_KEY</ref>),</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" kindref="member">XSECURE_API_HMAC_OPERATION</ref>),</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_ALL_IPI_FULL_ACCESS(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" kindref="member">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</ref>),</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XPlmi_Module<sp/>XPlmi_Secure<sp/>=</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_MODULE_XILSECURE_ID,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Cmds,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18eba90f086d185554c0320c951cb660" kindref="member">XSECURE_API_MAX</ref>),</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_AccessPermBuff,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NULL,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="162"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_FeaturesCmd(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ApiId;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AlgoVersion<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NistStatus<sp/>=<sp/>NIST_NON_COMPLIANT;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd-&gt;Payload<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ApiId<sp/>=<sp/>Cmd-&gt;Payload[0U];</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(ApiId)<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__sha__server__apis_1ga8134a5fe2255d32ba0ab971394e4a49f" kindref="member">XSECURE_SHA_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__sha__server__apis_1gaa32e75b8e378ad9eb88d199dbbda4391" kindref="member">XSECURE_SHA_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" kindref="member">XSECURE_API_HMAC_OPERATION</ref>):</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__hmac__apis_1ga5b36ab175c1a950101c679977e06e6d2" kindref="member">XSECURE_HMAC_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__hmac__apis_1ga3788ab95d3bef608f29d32d48aba11d1" kindref="member">XSECURE_HMAC_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>):</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>):</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>):</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__rsa__server__apis_1ga6ed43cb5946c2b8c3b867ff45d8cf639" kindref="member">XSECURE_RSA_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__rsa__server__apis_1gad6ea9f1f63928f6a34e4922c00089871" kindref="member">XSECURE_RSA_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" kindref="member">XSECURE_API_KEY_UNWRAP</ref>):</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__keyunwrap__server__apis_1ga2ff2d165519f5d20f3a1715e14e2b35b" kindref="member">XSECURE_KEYUNWRAP_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__keyunwrap__server__apis_1ga476aa69cf3f2fa3d722389cd751829c7" kindref="member">XSECURE_KEYUNWRAP_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" kindref="member">XSECURE_API_RSA_RELEASE_KEY</ref>):</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>break;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>):</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>):</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>):</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>):</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__ecdsa__server__apis_1ga389c5e560815071f34180f5db1df8093" kindref="member">XSECURE_ELLIPTIC_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga2d4e93202dc4e0ee11ae6b4e26bb6d31" kindref="member">XSECURE_ELLIPTIC_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" kindref="member">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</ref>):</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" kindref="member">XSECURE_API_GEN_SHARED_SECRET</ref>):</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__ecdsa__server__apis_1ga4ef2714ed37b537de401f71f3e685c8d" kindref="member">XSECURE_ECDH_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__ecdsa__server__apis_1gacfc1bb8f9adb5c5aa730b79259e347f2" kindref="member">XSECURE_ECDH_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>):</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>):</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>):</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>):</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>):</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>):</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>):</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>):</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>):</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref>):</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" kindref="member">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</ref>):</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="group__xsecure__aes__server__apis_1ga800b644eccd7e925ba1ddaa11d445619" kindref="member">XSECURE_AES_MODULE_MAJOR_VERSION</ref>,<sp/><ref refid="group__xsecure__aes__server__apis_1ga26ad6dbed45d518516c2dbe449c69063" kindref="member">XSECURE_AES_MODULE_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>):</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>XIL_BUILD_VERSION(XTRNGPSX_MAJOR_VERSION,<sp/>XTRNGPSX_MINOR_VERSION);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>):</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>break;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac72b5b1939f0484d1a3848ffd7b97f7b" kindref="member">XSECURE_API_UPDATE_DDR_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca44f09d5b48a831480a1cf114ccb1454c" kindref="member">XSECURE_API_UPDATE_HNIC_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac08da78d39f6d01df82e295363a7dc51" kindref="member">XSECURE_API_UPDATE_CPM5N_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9e649e1f6951aa5a6dd65c119eedf6ba" kindref="member">XSECURE_API_UPDATE_PCIDE_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca2c3a03734f8768efe3c23fd7585e332d" kindref="member">XSECURE_API_UPDATE_PKI_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" kindref="member">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" kindref="member">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" kindref="member">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" kindref="member">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>break;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;Cmd<sp/>not<sp/>supported\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>crypto<sp/>environment<sp/>check<sp/>and<sp/>preserve<sp/>warning<sp/>status<sp/>if<sp/>any<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" kindref="member">XSecure_CryptoCheck</ref>(<ref refid="group__xsecure__helper__server__apis_1gga4a4bd32908fec3ffc005880c1fd38ce0a836ce3ac5ccad42130346893b0c40791" kindref="member">XSECURE_CORE_ALL</ref>);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgoVersion<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NistStatus<sp/>=<sp/>NIST_NON_COMPLIANT;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>(int)XPLMI_WARNING_MINOR_MASK;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fill<sp/>the<sp/>version<sp/>in<sp/>the<sp/>response<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xsecure__common__apis_1ga759eb81426eee2c2c46bda9fdd8866d9" kindref="member">XSECURE_ALGO_VERSION_RESP_INDEX</ref>]<sp/>=<sp/>AlgoVersion;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd-&gt;Response[<ref refid="group__xsecure__common__apis_1gaa09ca7204ddb03698c3d27c12ca837c5" kindref="member">XSECURE_NIST_STATUS_RESP_INDEX</ref>]<sp/>=<sp/>NistStatus;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="288"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XSecure_ProcessCmd(XPlmi_Cmd<sp/>*Cmd)</highlight></codeline>
+<codeline lineno="289"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>StatusTmp<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*Pload<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Cmd<sp/>==<sp/>NULL<sp/>||<sp/>Cmd-&gt;Payload<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pload<sp/>=<sp/>Cmd-&gt;Payload;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Cmd-&gt;CmdId<sp/>&amp;<sp/><ref refid="group__xsecure__common__apis_1gaa2f27ea2d621bbdeda76bad8109eb77b" kindref="member">XSECURE_API_ID_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca751d44e2e77d153cff86b478f01d0e72" kindref="member">XSECURE_API_FEATURES</ref>):</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_FeaturesCmd(Cmd);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad0cd2989c68726f30ffe2fbdc41c778f" kindref="member">XSECURE_API_SHA3_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" kindref="member">XSecure_Sha3IpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" kindref="member">XSECURE_API_RSA_PUBLIC_ENCRYPT</ref>):</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" kindref="member">XSECURE_API_RSA_SIGN_VERIFY</ref>):</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga987514bb3cfd057697b78f0d7b17321d" kindref="member">XSecure_RsaIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaeab0747eb84fba76e285132d85fae1c4" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_KEY</ref>):</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1eebf4899c7d95eb160c8a83d4c780f8" kindref="member">XSECURE_API_ELLIPTIC_GENERATE_SIGN</ref>):</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca01c0ab6477c532f187b729665036b0b8" kindref="member">XSECURE_API_ELLIPTIC_VALIDATE_KEY</ref>):</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca0bd0d49b5ae8ddc3957afa1a2e3cc284" kindref="member">XSECURE_API_ELLIPTIC_VERIFY_SIGN</ref>):</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga898afa7a2d84540bb675ddeaeb33442f" kindref="member">XSecure_EllipticIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca02f7a9f0b902d3783d8d7508ef194477" kindref="member">XSECURE_API_AES_INIT</ref>):</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acabf47c27ddc6dcbdce2694869cea603aa" kindref="member">XSECURE_API_AES_OP_INIT</ref>):</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6febb16fb9387879f8ffb7c7a51e7064" kindref="member">XSECURE_API_AES_UPDATE_AAD</ref>):</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad8f88bc04c0bf662cf12324269d81ff2" kindref="member">XSECURE_API_AES_ENCRYPT_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca725ee7839a0af61500722276cdf5fe65" kindref="member">XSECURE_API_AES_ENCRYPT_FINAL</ref>):</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca45d225b8053c332f20fbdb468b21e436" kindref="member">XSECURE_API_AES_DECRYPT_UPDATE</ref>):</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca18c3a8922609fb6afceea6a068f2baf2" kindref="member">XSECURE_API_AES_DECRYPT_FINAL</ref>):</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca16f54fa4047812544017288d499c2ddb" kindref="member">XSECURE_API_AES_KEY_ZERO</ref>):</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab8155ff5779538f3fa2f7b8b2c3c251c" kindref="member">XSECURE_API_AES_WRITE_KEY</ref>):</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acad5d672c120603105e990a4a321938cb1" kindref="member">XSECURE_API_AES_KEK_DECRYPT</ref>):</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadc717b63c9b0d4b8f7b3a54d932435de" kindref="member">XSECURE_API_AES_SET_DPA_CM</ref>):</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaffa8a13644e65d5e7776e9198365c5cd" kindref="member">XSECURE_API_AES_PERFORM_OPERATION</ref>):</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" kindref="member">XSecure_AesIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" kindref="member">XSECURE_API_TRNG_GENERATE</ref>):</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__trng__server__apis_1ga1b389dc6ee1adeeff437018602b66742" kindref="member">XSecure_TrngIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acafcb78231ca805fdd53c34ddc9688000a" kindref="member">XSECURE_API_KAT</ref>):</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(<ref refid="group__xsecure__common__apis_1ga3f6824338155930886ff46163669700c" kindref="member">XSECURE_KAT_MAJOR_ERROR</ref>,</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,<sp/>StatusTmp,<sp/><ref refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" kindref="member">XSecure_KatPlatIpiHandler</ref>,<sp/>Cmd)</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>break;</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_ECDSA_EXCLUDE</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acab281f47d0b6c949e695c0173ff9d0dc7" kindref="member">XSECURE_API_GEN_SHARED_SECRET</ref>):</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6587bb0b0a30f19f162af828a11338c3" kindref="member">XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN</ref>):</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__ecdsa__server__apis_1ga5c01365d664f53f9b987711c52f7bee8" kindref="member">XSecure_PlatEllipticIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac72b5b1939f0484d1a3848ffd7b97f7b" kindref="member">XSECURE_API_UPDATE_DDR_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca44f09d5b48a831480a1cf114ccb1454c" kindref="member">XSECURE_API_UPDATE_HNIC_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acac08da78d39f6d01df82e295363a7dc51" kindref="member">XSECURE_API_UPDATE_CPM5N_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9e649e1f6951aa5a6dd65c119eedf6ba" kindref="member">XSECURE_API_UPDATE_PCIDE_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca2c3a03734f8768efe3c23fd7585e332d" kindref="member">XSECURE_API_UPDATE_PKI_KAT_STATUS</ref>):</highlight></codeline>
+<codeline lineno="357"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__kat__server__apis_1ga88d62049d752ebdaecef899fdf2dfa16" kindref="member">XSecure_UpdateKatStatusIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acadac31f02339f8ef8d0e6058c5c40dbbb" kindref="member">XSECURE_API_UPDATE_HNIC_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca6b7c229a9a6d706cdfa97a6028cf4d4c" kindref="member">XSECURE_API_UPDATE_CPM5N_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca779769fce2f901b43cc58900383c3e93" kindref="member">XSECURE_API_UPDATE_PCIDE_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaab46c22eae0bfecb0e69dd1f1e6bb939" kindref="member">XSECURE_API_UPDATE_PKI_CRYPTO_STATUS</ref>):</highlight></codeline>
+<codeline lineno="364"><highlight class="normal">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="365"><highlight class="normal">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca9fb8faab069c0b14121970bc6c5b2424" kindref="member">XSECURE_API_KEY_UNWRAP</ref>):</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" kindref="member">XSECURE_API_RSA_PRIVATE_DECRYPT</ref>):</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>case<sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1f9dbb2720c7e9bcf7e1a7ca6129ac8f" kindref="member">XSECURE_API_RSA_RELEASE_KEY</ref>):</highlight></codeline>
+<codeline lineno="369"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="370"><highlight class="normal">#endif</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__helper__server__apis_1ga7d0e634c95aed6e2adc7673b85920146" kindref="member">XSecure_PlatIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca8f23f62e97bec8e4fbccb0b8bd3ae00b" kindref="member">XSECURE_API_HMAC_OPERATION</ref>):</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" kindref="member">XSecure_HmacIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__common__apis_1ga2f4a1a99096821d10b0719a4ded431d5" kindref="member">XSECURE_API</ref>(<ref refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca5dc57e832b3e25778fdd795e7fe19300" kindref="member">XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY</ref>):</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" kindref="member">XSecure_PlatAesIpiHandler</ref>(Cmd);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="381"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__common__apis_1ga693c54d224d1fa8ca68b215023b2b359" kindref="member">XSecure_Printf</ref>(<ref refid="group__xsecure__utils__apis_1gad317bd5f7cf522c602b9f00246d34d97" kindref="member">XSECURE_DEBUG_GENERAL</ref>,<sp/></highlight><highlight class="stringliteral">&quot;CMD:<sp/>INVALID<sp/>PARAM\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="389"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="396"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" kindref="member">XSecure_CmdsInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="397"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idx;</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>XPlmi_Secure.CmdCnt;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Cmds[Idx].Handler<sp/>=<sp/>XSecure_ProcessCmd;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_ModuleRegister(&amp;XPlmi_Secure);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_net/xsecure_cmd.c"/>
+  </compounddef>
+</doxygen>

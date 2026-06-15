@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_qspi_ps_inst_format" kind="struct" prot="public">
+    <compoundname>XQspiPsInstFormat</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_qspi_ps_inst_format_1ad7c3b248a24182397198ab2b3193d92b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsInstFormat::OpCode</definition>
+        <argsstring></argsstring>
+        <name>OpCode</name>
+        <briefdescription>
+<para>Operational code of the instruction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_inst_format_1a4d2743b4cc1dfbf7c62ca441af7ac5a0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsInstFormat::InstSize</definition>
+        <argsstring></argsstring>
+        <name>InstSize</name>
+        <briefdescription>
+<para>Size of the instruction including address bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_ps_inst_format_1a666b42bf421d26b62b52b46f16422833" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsInstFormat::TxOffset</definition>
+        <argsstring></argsstring>
+        <name>TxOffset</name>
+        <briefdescription>
+<para>Register address where instruction has to be written. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines qspi flash instruction format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspips/src/xqspips.c" bodystart="107" bodyend="112"/>
+    <listofallmembers>
+      <member refid="struct_x_qspi_ps_inst_format_1a4d2743b4cc1dfbf7c62ca441af7ac5a0" prot="public" virt="non-virtual"><scope>XQspiPsInstFormat</scope><name>InstSize</name></member>
+      <member refid="struct_x_qspi_ps_inst_format_1ad7c3b248a24182397198ab2b3193d92b" prot="public" virt="non-virtual"><scope>XQspiPsInstFormat</scope><name>OpCode</name></member>
+      <member refid="struct_x_qspi_ps_inst_format_1a666b42bf421d26b62b52b46f16422833" prot="public" virt="non-virtual"><scope>XQspiPsInstFormat</scope><name>TxOffset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

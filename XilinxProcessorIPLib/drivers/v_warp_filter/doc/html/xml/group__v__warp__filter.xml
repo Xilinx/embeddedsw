@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__v__warp__filter" kind="group">
+    <compoundname>v_warp_filter</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__warp__filter_1gadde08c378e8fb2912620460a04a9ec47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_SetCallback</definition>
+        <argsstring>(XV_warp_filter *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVWarpFilter_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Installs an asynchronous callback function for frame done events. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function registers a callback function that will be invoked when a frame processing is complete. Invoking this function for a handler that has already been installed replaces it with the new handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="45" bodyend="55"/>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__filter_1gaca694bd5cb18bcc884e8e0aca4356a37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpFilter_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVWarpFilter_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the Warp Filter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determines if the source is the frame done signal. If yes, it calls the registered callback function. The application is responsible for connecting this function to the interrupt system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__filter" kindref="compound">XV_warp_filter</ref> instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_filter/src/xv_warp_filter_intr.c" bodystart="75" bodyend="88"/>
+        <references refid="struct_x_v__warp__filter_1a830d2a77cc4b77dc42108684905533b8" compoundref="xv__warp__filter_8h" startline="89">XV_warp_filter::CallbackRef</references>
+        <references refid="struct_x_v__warp__filter_1a6ba0046496cf6de69d1b214ca5aa78f1" compoundref="xv__warp__filter_8h" startline="88">XV_warp_filter::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__filter_1ad9fe6ba4241457cbbe61a7177d4878ca" compoundref="xv__warp__filter_8h" startline="87">XV_warp_filter::IsReady</references>
+        <references refid="xv__warp__filter_8c_1ae408cbf177a31cc30d8c568cc7bb7e3c" compoundref="xv__warp__filter_8c" startline="685" endline="690">XV_warp_filter_InterruptClear</references>
+        <references refid="xv__warp__filter_8c_1afde5613c56b4d80b872ff7a65e585ed2" compoundref="xv__warp__filter_8c" startline="727" endline="732">XV_warp_filter_InterruptGetStatus</references>
+        <references refid="xv__warp__filter__hw_8h_1ae7767ad314c1fd7edd4c0d659fda9cfa" compoundref="xv__warp__filter__hw_8h" startline="127">XV_WARP_FILTER_INTR_AP_DONE_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The functions in this file provides interrupt handler and associated functions that are consumed by layer-2. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

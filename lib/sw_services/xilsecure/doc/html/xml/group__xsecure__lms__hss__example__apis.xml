@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__lms__hss__example__apis" kind="group">
+    <compoundname>xsecure_lms_hss_example_apis</compoundname>
+    <title>XilSecure LMS/HSS SHAKE SPARTANUP Example</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1gad8689a0e5d97d892d7877229f9da1875" prot="public" static="yes" mutable="no">
+        <type>XSecure_Sha</type>
+        <definition>XSecure_Sha SecureSha</definition>
+        <argsstring></argsstring>
+        <name>SecureSha</name>
+        <briefdescription>
+<para>SHA instance and DMA instance placed in shared memory section so that PartialData buffer inside the SHA instance is accessible by PMC DMA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga0903830edda2fda26b8ff58dfde3f088" prot="public" static="yes" mutable="no">
+        <type>XPmcDma</type>
+        <definition>XPmcDma PmcDma</definition>
+        <argsstring></argsstring>
+        <name>PmcDma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga37fc3fe6c2aa0f9766f61fef1c279ccb" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsShake256Data[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE]</argsstring>
+        <name>LmsShake256Data</name>
+        <initializer>= {
+	0xD3, 0x7D, 0x15, 0x14, 0xD0, 0x4D, 0xE1, 0x94, 0x44, 0xCD, 0xCA, 0x3F, 0x4C, 0x45, 0x86, 0x53, 0x4B,
+	0xF9, 0x51, 0x9A, 0x2C, 0xC1, 0x26, 0x30, 0x1F, 0x8C, 0x68, 0x2B, 0x90, 0xD8, 0x09, 0x57, 0xA6, 0x60,
+	0xFE, 0xE6, 0x97, 0xBE, 0x94, 0x16, 0x46, 0x81, 0xC3, 0x12, 0x5C, 0xBB, 0x00, 0x96, 0x29, 0x7A, 0xAC,
+	0xCE, 0x22, 0xA4, 0xDA, 0x5C
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga1c5593748051666ae2ae3530492d47f7" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsShake256PubKey[XSECURE_LMS_PUB_KEY_TOTAL_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_PUB_KEY_TOTAL_SIZE]</argsstring>
+        <name>LmsShake256PubKey</name>
+        <initializer>= {
+	0x00, 0x00, 0x00, 0x0F,
+	0x00, 0x00, 0x00, 0x0A,
+	0x07, 0x58, 0x33, 0xA4, 0xE8, 0x7B, 0x36, 0x41, 0x21, 0x8D, 0x49, 0xED, 0x10, 0x2F, 0xDE, 0x10,
+	0xB4, 0x5F, 0xA0, 0x83, 0x08, 0xA3, 0x94, 0x86, 0x55, 0xE1, 0xEA, 0xB9, 0x88, 0xC1, 0xFE, 0x65,
+	0x60, 0x28, 0x05, 0x40, 0x6B, 0x22, 0xF4, 0x17, 0x5B, 0x21, 0x39, 0xF3, 0xD8, 0x16, 0x46, 0x3E
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1gaee20c474484e2fb093cd31d9d3550382" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 HssShake256Data[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE]</argsstring>
+        <name>HssShake256Data</name>
+        <initializer>= {
+	0xD3, 0x7D, 0x15, 0x14, 0xD0, 0x4D, 0xE1, 0x94, 0x44, 0xCD, 0xCA, 0x3F, 0x4C, 0x45, 0x86, 0x53, 0x4B,
+	0xF9, 0x51, 0x9A, 0x2C, 0xC1, 0x26, 0x30, 0x1F, 0x8C, 0x68, 0x2B, 0x90, 0xD8, 0x09, 0x57, 0xA6, 0x60,
+	0xFE, 0xE6, 0x97, 0xBE, 0x94, 0x16, 0x46, 0x81, 0xC3, 0x12, 0x5C, 0xBB, 0x00, 0x96, 0x29, 0x7A, 0xAC,
+	0xCE, 0x22, 0xA4, 0xDA, 0x5C
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga96d58e414459d219b915bfc4e4d18514" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 HssShake256PubKey[XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE]</definition>
+        <argsstring>[XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE]</argsstring>
+        <name>HssShake256PubKey</name>
+        <initializer>= {
+	0x00, 0x00, 0x00, 0x01,
+	0x00, 0x00, 0x00, 0x0F,
+	0x00, 0x00, 0x00, 0x0A,
+	0x45, 0xE5, 0x0E, 0x1C, 0xAE, 0x8C, 0x44, 0x30, 0xE7, 0xFB, 0x7E, 0x63, 0xDF, 0x01, 0x77, 0xE6,
+	0x21, 0x9B, 0x56, 0x36, 0xC0, 0xB3, 0xF6, 0x95, 0xB0, 0x13, 0x59, 0x41, 0x80, 0x37, 0xD4, 0x08,
+	0xAE, 0xE3, 0x6C, 0xCE, 0x7C, 0xA3, 0xEF, 0x18, 0x27, 0x7F, 0xE6, 0x5D, 0xBF, 0xAC, 0x84, 0x46
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga93e864e87675c060f4757a31fbbe0e24" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 HssShake256Signature[XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE]</argsstring>
+        <name>HssShake256Signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__lms__hss__example__apis_1ga1034cd932022736d02bdc782d95dc904" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 LmsShake256Signature[XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE]</definition>
+        <argsstring>[XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE]</argsstring>
+        <name>LmsShake256Signature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__lms__hss__example__apis_1ga109539221ccb30518f05a8536f1acf2f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_InitDmaAndSha</definition>
+        <argsstring>(XPmcDma *PmcDma, XSecure_Sha *ShaInst)</argsstring>
+        <name>XSecure_InitDmaAndSha</name>
+        <param>
+          <type>XPmcDma *</type>
+          <declname>PmcDma</declname>
+        </param>
+        <param>
+          <type>XSecure_Sha *</type>
+          <declname>ShaInst</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the PMC DMA and SHA instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PmcDma</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PmcDma instance to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShaInst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to SHA instance to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - on successful initialization.</para></listitem><listitem><para>XST_FAILURE - if DMA config lookup, DMA init, or SHA init fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="748" bodyend="773"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__hss__example__apis_1gaad12eccda83cc929f86a9466a755c9c8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_LmsShakeVerifyExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_LmsShakeVerifyExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="815" bodyend="849"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__hss__example__apis_1ga1cea2d5c27a0a340eba1bee073e38c58" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_HssShakeVerifyExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_HssShakeVerifyExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="860" bodyend="892"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__lms__hss__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the LmsShakeVerifyExample and HssShakeVerifyExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the LMS or HSS SHAKE256 signature verification failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="784" bodyend="804"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__lms__hss__example__apis_1ga18e249b19ec7ba310370b940e4fbf3ea" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_EXAMPLE_DATA_SIZE</name>
+        <initializer>(56U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__hss__example__apis_1gac791d06281ad1392176f4c20b0c4bb77" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_EXAMPLE_HSS_SIG_SIZE</name>
+        <initializer>(4464U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__lms__hss__example__apis_1ga9a50d8a75f5f0d610c094dae2b5169f3" prot="public" static="no">
+        <name>XSECURE_LMS_HSS_EXAMPLE_LMS_SIG_SIZE</name>
+        <initializer>(4460U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_spartanup_lms_hss_server_example.c" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example demonstrates LMS and HSS signature verification using the hardened SHAKE block in the PMCL on Spartan UltraScale+. </para>    </briefdescription>
+    <detaileddescription>
+<para><heading level="2">Procedure to link and compile the example for DDR-less designs: </heading>
+</para><para>The LMS/HSS test vectors must reside in a memory region accessible to both PL and PMC (PMCRAM) for DMA transfers.</para><para><orderedlist>
+<listitem><para>Add a shared memory region in the linker script memory declaration. The region must be at least 0x3000 bytes to accommodate the LMS/HSS test vectors (~12 KB):</para><para>shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x3000</para></listitem></orderedlist>
+</para><para>Data elements that are passed by reference to the PMC side should be stored in the above shared memory section. Change the .data section region to point to the new shared_mem region created in step 1. as below <verbatim>                 .data : {
+                 . = ALIGN(4);
+                 __data_start = .;
+                 *(.data)
+                 *(.data.*)
+                 *(.gnu.linkonce.d.*)
+                 __data_end = .;
+                 } &gt; shared_mem
+</verbatim></para><para>Note: The shared_mem section address is design and platform dependent. Users must map shared_mem to a memory region that is accessible to both the PMC and the PL, based on the target device and Vivado design.</para><para>MODIFICATION HISTORY: <preformatted>
+  Ver   Who    Date     Changes
+<hruler/>
+
+  1.0   har    03/15/26 First Release
+        mb     03/25/26 Remove hard code shared_mem section address
+  </preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

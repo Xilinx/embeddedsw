@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_aes_keys" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseAesKeys</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1a2522ff9f35a99b22320603e230a736d9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeys::AesKey</definition>
+        <argsstring>[XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS]</argsstring>
+        <name>AesKey</name>
+        <briefdescription>
+<para>AES key value to be programmed. </para>        </briefdescription>
+        <detaileddescription>
+<para>AES key data. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1a04a7faba1888e73857840081c74abd73" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeys::PrgmAesKey</definition>
+        <argsstring></argsstring>
+        <name>PrgmAesKey</name>
+        <briefdescription>
+<para>Flag to determine whether to program AES key or not. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1aec8281ba9536521d0f83fec3f32f84ea" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseAesKeys::PrgmAesKey</definition>
+        <argsstring></argsstring>
+        <name>PrgmAesKey</name>
+        <briefdescription>
+<para>Program AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1a96b652dce36a2738c562770927b41a70" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseAesKeys::PrgmUserKey0</definition>
+        <argsstring></argsstring>
+        <name>PrgmUserKey0</name>
+        <briefdescription>
+<para>Program user key 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1a48961cf1ae8c3034bdcff0d7df30e48e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseAesKeys::PrgmUserKey1</definition>
+        <argsstring></argsstring>
+        <name>PrgmUserKey1</name>
+        <briefdescription>
+<para>Program user key 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1afcfbfbf655095b7302cfc33a522e7289" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeys::UserKey0[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]</argsstring>
+        <name>UserKey0</name>
+        <briefdescription>
+<para>User key 0 data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_aes_keys_1ad9b1d27390c7d09141668392a58a4f9c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XNvm_EfuseAesKeys::UserKey1[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]</definition>
+        <argsstring>[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS]</argsstring>
+        <name>UserKey1</name>
+        <briefdescription>
+<para>User key 1 data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__client__apis_1gac572fc5f0c58365ced7c15eeb8adec73" compoundref="net_2client_2xnvm__efuseclient_8c" startline="125" endline="276">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>eFuse AES key </para>    </briefdescription>
+    <detaileddescription>
+<para>Structure for Aes keys data. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/spartanup/xnvm_efuse.h" bodystart="235" bodyend="238"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_aes_keys_1a2522ff9f35a99b22320603e230a736d9" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>AesKey</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1a04a7faba1888e73857840081c74abd73" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>PrgmAesKey</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1aec8281ba9536521d0f83fec3f32f84ea" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>PrgmAesKey</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1a96b652dce36a2738c562770927b41a70" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>PrgmUserKey0</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1a48961cf1ae8c3034bdcff0d7df30e48e" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>PrgmUserKey1</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1afcfbfbf655095b7302cfc33a522e7289" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>UserKey0</name></member>
+      <member refid="struct_x_nvm___efuse_aes_keys_1ad9b1d27390c7d09141668392a58a4f9c" prot="public" virt="non-virtual"><scope>XNvm_EfuseAesKeys</scope><name>UserKey1</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

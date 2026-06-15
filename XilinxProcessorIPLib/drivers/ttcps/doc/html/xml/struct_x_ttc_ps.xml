@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ttc_ps" kind="struct" prot="public">
+    <compoundname>XTtcPs</compoundname>
+    <includes local="no">xttcps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ttc_ps___config" kindref="compound">XTtcPs_Config</ref></type>
+        <definition>XTtcPs_Config XTtcPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="xttcps__tapp__example_8c_1a55a4ef7e495ea3307a3d63b54c3b4975" compoundref="xttcps__tapp__example_8c" startline="269" endline="339">SetupTicker</referencedby>
+        <referencedby refid="group__ttcps_1ga40d86f052a231f2cd35d7e5136163039" compoundref="xttcps_8c" startline="586" endline="653">XTtcPs_CalcIntervalFromFreq</referencedby>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" compoundref="xttcps__options_8c" startline="176" endline="206">XTtcPs_GetOptions</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga30d6a84844676b794d8cf1a43a727bac" compoundref="xttcps_8c" startline="670" endline="704">XTtcPs_InterruptHandler</referencedby>
+        <referencedby refid="group__ttcps_1ga82c79564c7d223ff7e63acfdf7b43344" compoundref="xttcps_8c" startline="322" endline="372">XTtcPs_Release</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga8fb59113e183b65dabff6e2c34bbf7e2" compoundref="xttcps_8c" startline="729" endline="742">XTtcPs_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTtcPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__ttcps_1gae49e15051a6bc16bc2a5369832f1a584" compoundref="xttcps_8c" startline="168" endline="281">XTtcPs_CfgInitialize</referencedby>
+        <referencedby refid="group__ttcps_1ga1e494683b5f905fdd8184192680b8a3c" compoundref="xttcps_8c" startline="431" endline="446">XTtcPs_GetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1gac33ce44553e83555369c400b964234e7" compoundref="xttcps__options_8c" startline="176" endline="206">XTtcPs_GetOptions</referencedby>
+        <referencedby refid="group__ttcps_1ga9d528bcd850e49f08fc585cb867ca11c" compoundref="xttcps_8c" startline="532" endline="560">XTtcPs_GetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga38ff3b491801add8d2b5faa22e2e0a08" compoundref="xttcps__selftest_8c" startline="64" endline="86">XTtcPs_SelfTest</referencedby>
+        <referencedby refid="group__ttcps_1gaf400713723ba81109ac83fc1800681b2" compoundref="xttcps_8c" startline="399" endline="413">XTtcPs_SetMatchValue</referencedby>
+        <referencedby refid="group__ttcps_1ga7053f4ac8c20f1d1fd335a755960aea9" compoundref="xttcps__options_8c" startline="115" endline="157">XTtcPs_SetOptions</referencedby>
+        <referencedby refid="group__ttcps_1gac08478cc050c41cc435a3f2b49b4c874" compoundref="xttcps_8c" startline="469" endline="506">XTtcPs_SetPrescaler</referencedby>
+        <referencedby refid="group__ttcps_1ga8fb59113e183b65dabff6e2c34bbf7e2" compoundref="xttcps_8c" startline="729" endline="742">XTtcPs_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps_1af413a52ad998ab73f2846f94b435efb3" prot="public" static="no" mutable="no">
+        <type>XTtcPs_StatusHandler</type>
+        <definition>XTtcPs_StatusHandler XTtcPs::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ttc_ps_1a87448079dd0451d53f14533897862e8d" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XTtcPs::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+<para>Callback reference for status handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_ttc_ps" kindref="compound">XTtcPs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for each PS timer/counter device in the system. A pointer to a variable of this type is then passed to various driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XTtcPs_Config</label>
+        <link refid="struct_x_ttc_ps___config"/>
+      </node>
+      <node id="5">
+        <label>XTtcPs</label>
+        <link refid="struct_x_ttc_ps"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ttcps/src/xttcps.h" bodystart="238" bodyend="243"/>
+    <listofallmembers>
+      <member refid="struct_x_ttc_ps_1abb9f7fb33b935a868d692e0d90542ac9" prot="public" virt="non-virtual"><scope>XTtcPs</scope><name>Config</name></member>
+      <member refid="struct_x_ttc_ps_1aac0267992556670f31d2fa1cb7d1a889" prot="public" virt="non-virtual"><scope>XTtcPs</scope><name>IsReady</name></member>
+      <member refid="struct_x_ttc_ps_1af413a52ad998ab73f2846f94b435efb3" prot="public" virt="non-virtual"><scope>XTtcPs</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_ttc_ps_1a87448079dd0451d53f14533897862e8d" prot="public" virt="non-virtual"><scope>XTtcPs</scope><name>StatusRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

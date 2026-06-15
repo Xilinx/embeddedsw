@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structjs__port__struct" kind="struct" prot="public">
+    <compoundname>js_port_struct</compoundname>
+    <includes local="no">xilskey_js.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structjs__port__struct_1a01281a854f85117dc9ac2151c7c2e6d9" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__server__struct" kindref="compound">js_server_t</ref> *</type>
+        <definition>js_server_t* js_port_struct::server</definition>
+        <argsstring></argsstring>
+        <name>server</name>
+        <briefdescription>
+<para>Server associated with port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" prot="public" static="no" mutable="no">
+        <type><ref refid="structjs__node__struct" kindref="compound">js_node_t</ref> *</type>
+        <definition>js_node_t* js_port_struct::root_node</definition>
+        <argsstring></argsstring>
+        <name>root_node</name>
+        <briefdescription>
+<para>Node representing the whole scan chain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="xilskey__jscmd_8c_1a78af9b51ba9fcca1fee4e43816ccf78f" compoundref="xilskey__jscmd_8c" startline="895" endline="913">jtag_navigate</referencedby>
+        <referencedby refid="xilskey__jscmd_8c_1a7464db2af53dd1a43ebc36827189cb52" compoundref="xilskey__jscmd_8c" startline="923" endline="986">jtag_shift</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>JTAG port. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is retrieved by calling js_open_port(). </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="44">
+        <label>js_server_struct</label>
+        <link refid="structjs__server__struct"/>
+      </node>
+      <node id="43">
+        <label>js_port_struct</label>
+        <link refid="structjs__port__struct"/>
+        <childnode refid="44" relation="usage">
+          <edgelabel>server</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>root_node</edgelabel>
+        </childnode>
+      </node>
+      <node id="45">
+        <label>js_node_struct</label>
+        <link refid="structjs__node__struct"/>
+        <childnode refid="43" relation="usage">
+          <edgelabel>port</edgelabel>
+        </childnode>
+        <childnode refid="45" relation="usage">
+          <edgelabel>child_list</edgelabel>
+          <edgelabel>parent</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_js.h" bodystart="104" bodyend="113"/>
+    <listofallmembers>
+      <member refid="structjs__port__struct_1abf533f6c7a4e296234a45949cbf45839" prot="public" virt="non-virtual"><scope>js_port_struct</scope><name>root_node</name></member>
+      <member refid="structjs__port__struct_1a01281a854f85117dc9ac2151c7c2e6d9" prot="public" virt="non-virtual"><scope>js_port_struct</scope><name>server</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

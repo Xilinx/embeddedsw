@@ -1,0 +1,493 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpuf__defs_8h" kind="file">
+    <compoundname>xpuf_defs.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xpuf__client_8h" local="yes">xpuf_client.h</includedby>
+    <includedby refid="common_2server_2xpuf_8h" local="yes">xpuf.h</includedby>
+    <incdepgraph>
+      <node id="213">
+        <label>xpuf_defs.h</label>
+        <link refid="xpuf_defs.h"/>
+        <childnode refid="214" relation="include">
+        </childnode>
+        <childnode refid="215" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>xil_types.h</label>
+      </node>
+      <node id="214">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="219">
+        <label>xilpuf_client_example.c</label>
+        <link refid="xilpuf__client__example_8c"/>
+      </node>
+      <node id="220">
+        <label>xilpuf_enc_dec_data_client_example.c</label>
+        <link refid="xilpuf__enc__dec__data__client__example_8c"/>
+      </node>
+      <node id="216">
+        <label>xpuf_defs.h</label>
+        <link refid="xpuf_defs.h"/>
+        <childnode refid="217" relation="include">
+        </childnode>
+        <childnode refid="223" relation="include">
+        </childnode>
+      </node>
+      <node id="223">
+        <label>xpuf.h</label>
+      </node>
+      <node id="222">
+        <label>xilpuf_versal_net_example.c</label>
+        <link refid="xilpuf__versal__net__example_8c"/>
+      </node>
+      <node id="218">
+        <label>xpuf_client.c</label>
+        <link refid="xpuf__client_8c"/>
+      </node>
+      <node id="217">
+        <label>xpuf_client.h</label>
+        <link refid="xpuf__client_8h"/>
+        <childnode refid="218" relation="include">
+        </childnode>
+        <childnode refid="219" relation="include">
+        </childnode>
+        <childnode refid="220" relation="include">
+        </childnode>
+        <childnode refid="221" relation="include">
+        </childnode>
+        <childnode refid="222" relation="include">
+        </childnode>
+      </node>
+      <node id="221">
+        <label>xilpuf_ssit_client_example.c</label>
+        <link refid="xilpuf__ssit__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_puf___data_addr" prot="public">XPuf_DataAddr</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xpuf__defs_8h_1a573da0871ddc81e2c1bda5637acd8fcb" prot="public" static="no">
+        <name>XPUF_DEBUG</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Enable client printfs by setting XPUF_DEBUG to 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" prot="public" static="no">
+        <name>XPUF_DEBUG_GENERAL</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>Disable general debug prints. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="45" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1aed547acdacee538b3d5edb8effdabd33" prot="public" static="no">
+        <name>XPUF_REGISTRATION</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>PUF Operation - PUF Registration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" prot="public" static="no">
+        <name>XPUF_REGEN_ON_DEMAND</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>PUF Operation - PUF On demand regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga2f60c4624b046d3f5c74d8cb01f8f90d" compoundref="versal__2vp__p_2server_2xpuf_8c" startline="266" endline="376">XPuf_Regeneration</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" prot="public" static="no">
+        <name>XPUF_REGEN_ID_ONLY</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>PUF Operation - PUF ID only regeneration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga2f60c4624b046d3f5c74d8cb01f8f90d" compoundref="versal__2vp__p_2server_2xpuf_8c" startline="266" endline="376">XPuf_Regeneration</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a9cfb7987663200093ac2af0dcf78a85d" prot="public" static="no">
+        <name>XPUF_4K_PUF_SYN_LEN_IN_WORDS</name>
+        <initializer>(140U)</initializer>
+        <briefdescription>
+<para>PUF 4K Syndrome length in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga03c85715b04394967ebb2274f09f510a" compoundref="versal__gen_2server_2xpuf_8c" startline="849" endline="1081">XPuf_GenerateFuseFormat</referencedby>
+        <referencedby refid="group__xpuf__apis_1gae2607f20a8f0199c8f0eb53d0dfc9f0a" compoundref="spartanup_2xpuf_8c" startline="279" endline="339">XPuf_Registration</referencedby>
+        <referencedby refid="group__xpuf__apis_1gad039d7cf5b8f0575f1e4d31fd6c30ef6" compoundref="spartanup_2xpuf_8c" startline="564" endline="789">XPuf_TrimPufData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a30b6c52a106b8927e0610139c037b2a6" prot="public" static="no">
+        <name>XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1a9cfb7987663200093ac2af0dcf78a85d" kindref="member">XPUF_4K_PUF_SYN_LEN_IN_WORDS</ref>)</initializer>
+        <briefdescription>
+<para>Max syndrome data length in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1ac70aff2d45cf728a19bf8ed8958b5c2a" prot="public" static="no">
+        <name>XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</name>
+        <initializer>(127U)</initializer>
+        <briefdescription>
+<para>eFuse trim syndrome data length in words </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga03c85715b04394967ebb2274f09f510a" compoundref="versal__gen_2server_2xpuf_8c" startline="849" endline="1081">XPuf_GenerateFuseFormat</referencedby>
+        <referencedby refid="group__xpuf__apis_1gad039d7cf5b8f0575f1e4d31fd6c30ef6" compoundref="spartanup_2xpuf_8c" startline="564" endline="789">XPuf_TrimPufData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1af26b29ea65b90d142f4c9aeea7cf0d19" prot="public" static="no">
+        <name>XPUF_ID_LEN_IN_WORDS</name>
+        <initializer>(0x8U)</initializer>
+        <briefdescription>
+<para>PUF ID length in words. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" prot="public" static="no">
+        <name>XPUF_WORD_LENGTH</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>PUF word length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a7b98365a3c072269e58932492fd16332" prot="public" static="no">
+        <name>XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1a30b6c52a106b8927e0610139c037b2a6" kindref="member">XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS</ref> * \
+								<ref refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" kindref="member">XPUF_WORD_LENGTH</ref>)</initializer>
+        <briefdescription>
+<para>Max syndrome data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="71" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a58294db242aa1fe03ed2f65318686eb6" prot="public" static="no">
+        <name>XPUF_4K_PUF_SYN_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1a9cfb7987663200093ac2af0dcf78a85d" kindref="member">XPUF_4K_PUF_SYN_LEN_IN_WORDS</ref> * \
+								<ref refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" kindref="member">XPUF_WORD_LENGTH</ref>)</initializer>
+        <briefdescription>
+<para>PUF 4K Syndrome length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__xpuf__server__apis_1ga03c85715b04394967ebb2274f09f510a" compoundref="versal__gen_2server_2xpuf_8c" startline="849" endline="1081">XPuf_GenerateFuseFormat</referencedby>
+        <referencedby refid="group__xpuf__apis_1gad039d7cf5b8f0575f1e4d31fd6c30ef6" compoundref="spartanup_2xpuf_8c" startline="564" endline="789">XPuf_TrimPufData</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1adeae201828b6f555ff36343e035d56aa" prot="public" static="no">
+        <name>XPUF_ID_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1af26b29ea65b90d142f4c9aeea7cf0d19" kindref="member">XPUF_ID_LEN_IN_WORDS</ref> * \
+								<ref refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" kindref="member">XPUF_WORD_LENGTH</ref>)</initializer>
+        <briefdescription>
+<para>PUF ID length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a1f584f3e4898550273c76652517e8c98" prot="public" static="no">
+        <name>XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1ac70aff2d45cf728a19bf8ed8958b5c2a" kindref="member">XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS</ref> * \
+								<ref refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" kindref="member">XPUF_WORD_LENGTH</ref>)</initializer>
+        <briefdescription>
+<para>eFuse trim syndrome data length in bytes </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1accc30269ffccadce90c4a12261a9fb55" prot="public" static="no">
+        <name>XPUF_SHUTTER_VALUE</name>
+        <initializer>(0x81000100U)</initializer>
+        <briefdescription>
+<para>PUF Shutter Value - Versal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="87" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" prot="public" static="no">
+        <name>XPuf_Printf</name>
+        <param><defname>DebugType</defname></param>
+        <param><defname>...</defname></param>
+        <initializer>if ((DebugType) == 1U) {xil_printf (__VA_ARGS__);}</initializer>
+        <briefdescription>
+<para>Print debug messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a85aae4e0aca28e5d7fda90a0f5e30987" prot="public" static="no">
+        <name>XPUF_API</name>
+        <param><defname>ApiId</defname></param>
+        <initializer>((u32)ApiId)</initializer>
+        <briefdescription>
+<para>Typecast XPUF API ID to u32. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xpuf__defs_8h_1a2df64d9cf44c3e3a72ffe4382d43533f" prot="public" static="no">
+        <name>XPUF_API_ID_MASK</name>
+        <initializer>(0xFFU)</initializer>
+        <briefdescription>
+<para>Mask for API ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01" prot="public" static="no">
+        <name>XPuf_ReadOption</name>
+        <enumvalue id="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a840cf45a2b10a58c8ea5c0790d4dda7d" prot="public">
+          <name>XPUF_READ_FROM_RAM</name>
+          <briefdescription>
+<para>Read helper data from memory. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a0980f439bee315d71a0a9ad2ce1ab2ef" prot="public">
+          <name>XPUF_READ_FROM_EFUSE_CACHE</name>
+          <briefdescription>
+<para>Read helper data from eFuse cache. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PUF read options. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="enum" id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980" prot="public" static="no">
+        <name>XPuf_ApiId</name>
+        <enumvalue id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a6b2a951369bb1914dc8d535fc14f79f5" prot="public">
+          <name>XPUF_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>API id for features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80" prot="public">
+          <name>XPUF_PUF_REGISTRATION</name>
+          <briefdescription>
+<para>API id for PUF registration. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980ae0d7de4596d15f543923f5ed09565e84" prot="public">
+          <name>XPUF_PUF_REGENERATION</name>
+          <briefdescription>
+<para>API id for PUF regeneration. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a64590602f5af8086c2a85ec6f4812c83" prot="public">
+          <name>XPUF_PUF_CLEAR_PUF_ID</name>
+          <briefdescription>
+<para>API id for PUF clear id. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a14aaef4e5f66273ab69c5a426f66665d" prot="public">
+          <name>XPUF_API_MAX</name>
+          <briefdescription>
+<para>Number of API features. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilPUF API ids. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h" bodystart="129" bodyend="135"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the xilpuf API IDs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kpt  01/04/22 Initial release
+2.3   ng   11/22/23 Fixed doxygen grouping
+2.4   sd   04/13/26 Added PUF support for VERSAL_2VP_P
+      mb   04/23/26 Remove unused macros</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XPUF_DEFS_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_DEFS_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="xpuf__defs_8h_1a573da0871ddc81e2c1bda5637acd8fcb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_DEBUG<sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#if<sp/>(XPUF_DEBUG)</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_DEBUG_GENERAL<sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="45" refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_DEBUG_GENERAL<sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="xpuf__defs_8h_1aed547acdacee538b3d5edb8effdabd33" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_REGISTRATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50" refid="xpuf__defs_8h_1aa9fd28d7474a740dad170102dd6e8d8f" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_REGEN_ON_DEMAND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52" refid="xpuf__defs_8h_1a9382543db8550e50f67432edcab2413e" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_REGEN_ID_ONLY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55" refid="xpuf__defs_8h_1a9cfb7987663200093ac2af0dcf78a85d" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_4K_PUF_SYN_LEN_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(140U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57" refid="xpuf__defs_8h_1a30b6c52a106b8927e0610139c037b2a6" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_4K_PUF_SYN_LEN_IN_WORDS)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="xpuf__defs_8h_1ac70aff2d45cf728a19bf8ed8958b5c2a" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(127U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61" refid="xpuf__defs_8h_1af26b29ea65b90d142f4c9aeea7cf0d19" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_ID_LEN_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x8U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63" refid="xpuf__defs_8h_1a7cc114e93bac484acbaec6b550ec96de" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_WORD_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_SYN_LEN_IN_WORDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(30U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XPUF_SYN_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_SYN_LEN_IN_WORDS<sp/>*<sp/>XPUF_WORD_LENGTH)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71" refid="xpuf__defs_8h_1a7b98365a3c072269e58932492fd16332" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS<sp/>*<sp/>\</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_WORD_LENGTH)</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="xpuf__defs_8h_1a58294db242aa1fe03ed2f65318686eb6" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_4K_PUF_SYN_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_4K_PUF_SYN_LEN_IN_WORDS<sp/>*<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_WORD_LENGTH)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="77" refid="xpuf__defs_8h_1adeae201828b6f555ff36343e035d56aa" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_ID_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_ID_LEN_IN_WORDS<sp/>*<sp/>\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_WORD_LENGTH)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xpuf__defs_8h_1a1f584f3e4898550273c76652517e8c98" refkind="member"><highlight class="preprocessor">#define<sp/>XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS<sp/>*<sp/>\</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_WORD_LENGTH)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#if<sp/>(defined(VERSAL_NET)<sp/>||<sp/>defined(VERSAL_2VP_P))</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_SHUTTER_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01000080U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="87" refid="xpuf__defs_8h_1accc30269ffccadce90c4a12261a9fb55" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_SHUTTER_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x81000100U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPuf_Printf(DebugType,<sp/>...)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((DebugType)<sp/>==<sp/>1U)<sp/>{xil_printf<sp/>(__VA_ARGS__);}<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XPUF_API(ApiId)<sp/>((u32)ApiId)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor">#define<sp/>XPUF_API_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFU)<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="103"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="104" refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a840cf45a2b10a58c8ea5c0790d4dda7d" kindref="member">XPUF_READ_FROM_RAM</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a840cf45a2b10a58c8ea5c0790d4dda7d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a0980f439bee315d71a0a9ad2ce1ab2ef" kindref="member">XPUF_READ_FROM_EFUSE_CACHE</ref><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a0980f439bee315d71a0a9ad2ce1ab2ef" refkind="member"><highlight class="normal">}<sp/><ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01" kindref="member">XPuf_ReadOption</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="110" refid="struct_x_puf___data_addr" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PufOperation;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>GlobalVarFilter;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_puf___data_addr_1a0b76ec76c8932158e42d0f0a852b12a3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ReadOption;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_puf___data_addr_1a3f5acbcdeff298e09a3fcb3be52ca844" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ShutterValue;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_puf___data_addr_1aef88f59b36abf6c14b5d42c42fd223fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SyndromeDataAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_puf___data_addr_1a477d66215592b26953fd6254cd699fbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>ChashAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="struct_x_puf___data_addr_1a7aa4bee6328404ae00c65a97f1d0c094" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>AuxAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="struct_x_puf___data_addr_1af3de1e4d6617ae2cf96fc7cdf5db3680" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PufIDAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119" refid="struct_x_puf___data_addr_1ad8a1971c928cfa94df02ce67162932ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SyndromeAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="120" refid="struct_x_puf___data_addr_1aaa293b3f5c4d35e0da4d4b66b7d10611" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>EfuseSynDataAddr;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121" refid="struct_x_puf___data_addr_1a90181bc52778e8bfdf7eafc90ec09b3b" refkind="member"><highlight class="preprocessor">#if<sp/>(defined(VERSAL_NET)<sp/>||<sp/>defined(VERSAL_2VP_P))</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RoSwapVal;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_puf___data_addr" kindref="compound">XPuf_DataAddr</ref>;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a6b2a951369bb1914dc8d535fc14f79f5" kindref="member">XPUF_API_FEATURES</ref><sp/>=<sp/>0U,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a6b2a951369bb1914dc8d535fc14f79f5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80" kindref="member">XPUF_PUF_REGISTRATION</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980ae0d7de4596d15f543923f5ed09565e84" kindref="member">XPUF_PUF_REGENERATION</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980ae0d7de4596d15f543923f5ed09565e84" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a64590602f5af8086c2a85ec6f4812c83" kindref="member">XPUF_PUF_CLEAR_PUF_ID</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a64590602f5af8086c2a85ec6f4812c83" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a14aaef4e5f66273ab69c5a426f66665d" kindref="member">XPUF_API_MAX</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a14aaef4e5f66273ab69c5a426f66665d" refkind="member"><highlight class="normal">}<sp/><ref refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980" kindref="member">XPuf_ApiId</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPUF_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/common/xpuf_defs.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___sw_pcr_log_read_data" kind="struct" prot="public">
+    <compoundname>XOcp_SwPcrLogReadData</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_log_read_data_1a228b003c238efa3aea955e402d7f5792" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrLogReadData::PcrNum</definition>
+        <argsstring></argsstring>
+        <name>PcrNum</name>
+        <briefdescription>
+<para>SW PCR number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_log_read_data_1a33e5a0b3d180448ae54f2577a1bce7c9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrLogReadData::LogSize</definition>
+        <argsstring></argsstring>
+        <name>LogSize</name>
+        <briefdescription>
+<para>User provided buffer size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_log_read_data_1a5564c13ef3df18204c7a023c66fdb7f0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XOcp_SwPcrLogReadData::PcrLogAddr</definition>
+        <argsstring></argsstring>
+        <name>PcrLogAddr</name>
+        <briefdescription>
+<para>User provided buffer address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___sw_pcr_log_read_data_1acbe1bdf6c597dbe9a87a3343792e1acd" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_SwPcrLogReadData::DigestCount</definition>
+        <argsstring></argsstring>
+        <name>DigestCount</name>
+        <briefdescription>
+<para>Extended digest count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Software PCR Log read data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="184" bodyend="189"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___sw_pcr_log_read_data_1acbe1bdf6c597dbe9a87a3343792e1acd" prot="public" virt="non-virtual"><scope>XOcp_SwPcrLogReadData</scope><name>DigestCount</name></member>
+      <member refid="struct_x_ocp___sw_pcr_log_read_data_1a33e5a0b3d180448ae54f2577a1bce7c9" prot="public" virt="non-virtual"><scope>XOcp_SwPcrLogReadData</scope><name>LogSize</name></member>
+      <member refid="struct_x_ocp___sw_pcr_log_read_data_1a5564c13ef3df18204c7a023c66fdb7f0" prot="public" virt="non-virtual"><scope>XOcp_SwPcrLogReadData</scope><name>PcrLogAddr</name></member>
+      <member refid="struct_x_ocp___sw_pcr_log_read_data_1a228b003c238efa3aea955e402d7f5792" prot="public" virt="non-virtual"><scope>XOcp_SwPcrLogReadData</scope><name>PcrNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

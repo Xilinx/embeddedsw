@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hdmirx__g_8c" kind="file">
+    <compoundname>xv_hdmirx_g.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xv__hdmirx_8h" local="yes">xv_hdmirx.h</includes>
+    <incdepgraph>
+      <node id="37">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="36">
+        <label>xil_io.h</label>
+      </node>
+      <node id="39">
+        <label>xdebug.h</label>
+      </node>
+      <node id="32">
+        <label>xv_hdmirx_g.c</label>
+        <link refid="xv_hdmirx_g.c"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>xstatus.h</label>
+      </node>
+      <node id="40">
+        <label>xvidc.h</label>
+      </node>
+      <node id="41">
+        <label>xv_hdmirx_vsif.h</label>
+        <link refid="xv__hdmirx__vsif_8h"/>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="35">
+        <label>xv_hdmirx_hw.h</label>
+        <link refid="xv__hdmirx__hw_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xil_types.h</label>
+      </node>
+      <node id="43">
+        <label>xv_hdmic.h</label>
+      </node>
+      <node id="33">
+        <label>xparameters.h</label>
+      </node>
+      <node id="34">
+        <label>xv_hdmirx.h</label>
+        <link refid="xv__hdmirx_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__hdmirx__g_8c_1aaf6effd5905ea0d06acc37767c89182a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___hdmi_rx___config" kindref="compound">XV_HdmiRx_Config</ref></type>
+        <definition>XV_HdmiRx_Config XV_HdmiRx_ConfigTable[XPAR_XV_HDMIRX_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XV_HDMIRX_NUM_INSTANCES]</argsstring>
+        <name>XV_HdmiRx_ConfigTable</name>
+        <initializer>=
+{
+	{
+		XPAR_V_HDMI_RX_SS_V_HDMI_RX_DEVICE_ID,
+		XPAR_V_HDMI_RX_SS_V_HDMI_RX_BASEADDR
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_g.c" line="15" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_g.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010-2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"></highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hdmirx_8h" kindref="compound">xv_hdmirx.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*<sp/>The<sp/>configuration<sp/>table<sp/>for<sp/>devices</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><ref refid="struct_x_v___hdmi_rx___config" kindref="compound">XV_HdmiRx_Config</ref><sp/>XV_HdmiRx_ConfigTable[XPAR_XV_HDMIRX_NUM_INSTANCES]<sp/>=</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_RX_SS_V_HDMI_RX_DEVICE_ID,</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_V_HDMI_RX_SS_V_HDMI_RX_BASEADDR</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmirx/src/xv_hdmirx_g.c"/>
+  </compounddef>
+</doxygen>

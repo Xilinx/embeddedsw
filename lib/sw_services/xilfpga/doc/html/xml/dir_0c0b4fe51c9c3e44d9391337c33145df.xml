@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0c0b4fe51c9c3e44d9391337c33145df" kind="dir">
+    <compoundname>xilfpga</compoundname>
+    <innerdir refid="dir_de0617aa14519224cb56a64dcb937def">examples</innerdir>
+    <innerdir refid="dir_7ccfa30a70a9c2150023b0bca3e4b86f">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/"/>
+  </compounddef>
+</doxygen>

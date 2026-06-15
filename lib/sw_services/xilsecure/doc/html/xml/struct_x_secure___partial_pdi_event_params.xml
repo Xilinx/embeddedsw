@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___partial_pdi_event_params" kind="struct" prot="public">
+    <compoundname>XSecure_PartialPdiEventParams</compoundname>
+    <includes local="no">xsecure_init.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___partial_pdi_event_params_1a2af028efb7fde954df4f695057392453" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartialPdiEventParams::PartialPdiEventSts</definition>
+        <argsstring></argsstring>
+        <name>PartialPdiEventSts</name>
+        <briefdescription>
+<para>Partial PDI event status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partial_pdi_event_params_1a44843c9b66877c7ebc4782197c44b030" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XSecure_PartialPdiEventParams::TriggerPartialPdiEvent)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>TriggerPartialPdiEvent</name>
+        <briefdescription>
+<para>Function pointer to trigger partial PDI event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partial_pdi_event_params_1a229f2e94e313f0201b0cb6a2f347e8e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartialPdiEventParams::IpiMask</definition>
+        <argsstring></argsstring>
+        <name>IpiMask</name>
+        <briefdescription>
+<para>IPI mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partial_pdi_event_params_1a661d3485a079ec9430ef8420f07771cf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_PartialPdiEventParams::PdiSrc</definition>
+        <argsstring></argsstring>
+        <name>PdiSrc</name>
+        <briefdescription>
+<para>PDI source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___partial_pdi_event_params_1a7fa8c455b6d6aa6edbced66e44128310" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_PartialPdiEventParams::PdiAddr</definition>
+        <argsstring></argsstring>
+        <name>PdiAddr</name>
+        <briefdescription>
+<para>PDI address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold partial PDI event parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.h" bodystart="58" bodyend="66"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___partial_pdi_event_params_1a229f2e94e313f0201b0cb6a2f347e8e0" prot="public" virt="non-virtual"><scope>XSecure_PartialPdiEventParams</scope><name>IpiMask</name></member>
+      <member refid="struct_x_secure___partial_pdi_event_params_1a2af028efb7fde954df4f695057392453" prot="public" virt="non-virtual"><scope>XSecure_PartialPdiEventParams</scope><name>PartialPdiEventSts</name></member>
+      <member refid="struct_x_secure___partial_pdi_event_params_1a7fa8c455b6d6aa6edbced66e44128310" prot="public" virt="non-virtual"><scope>XSecure_PartialPdiEventParams</scope><name>PdiAddr</name></member>
+      <member refid="struct_x_secure___partial_pdi_event_params_1a661d3485a079ec9430ef8420f07771cf" prot="public" virt="non-virtual"><scope>XSecure_PartialPdiEventParams</scope><name>PdiSrc</name></member>
+      <member refid="struct_x_secure___partial_pdi_event_params_1a44843c9b66877c7ebc4782197c44b030" prot="public" virt="non-virtual"><scope>XSecure_PartialPdiEventParams</scope><name>TriggerPartialPdiEvent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

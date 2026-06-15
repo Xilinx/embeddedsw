@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_timing_regs" kind="struct" prot="public">
+    <compoundname>TimingRegs</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_timing_regs_1a620dfa9c58cf9fc499b3b28a95c51708" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int TimingRegs::Tsusta</definition>
+        <argsstring></argsstring>
+        <name>Tsusta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_timing_regs_1af35e611eaa72881033ac122b5c0b1827" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int TimingRegs::Tsusto</definition>
+        <argsstring></argsstring>
+        <name>Tsusto</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_timing_regs_1a4f1b1e1433f0bff598dc84fd2d20847c" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int TimingRegs::Thdsta</definition>
+        <argsstring></argsstring>
+        <name>Thdsta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_timing_regs_1aa2a9c7b225bbb667d5da76462e483f51" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int TimingRegs::Tsudat</definition>
+        <argsstring></argsstring>
+        <name>Tsudat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_timing_regs_1a0775f5f8fbf59ff2d7e0b0c29ec72ffd" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int TimingRegs::Tbuf</definition>
+        <argsstring></argsstring>
+        <name>Tbuf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iic/src/xiic_options.c" bodystart="42" bodyend="48"/>
+    <listofallmembers>
+      <member refid="struct_timing_regs_1a0775f5f8fbf59ff2d7e0b0c29ec72ffd" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Tbuf</name></member>
+      <member refid="struct_timing_regs_1a4f1b1e1433f0bff598dc84fd2d20847c" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Thdsta</name></member>
+      <member refid="struct_timing_regs_1aa2a9c7b225bbb667d5da76462e483f51" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Tsudat</name></member>
+      <member refid="struct_timing_regs_1a620dfa9c58cf9fc499b3b28a95c51708" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Tsusta</name></member>
+      <member refid="struct_timing_regs_1af35e611eaa72881033ac122b5c0b1827" prot="public" virt="non-virtual"><scope>TimingRegs</scope><name>Tsusto</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

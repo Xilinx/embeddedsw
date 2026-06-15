@@ -1,0 +1,1551 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp22__mmult_8h" kind="file">
+    <compoundname>xhdcp22_mmult.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xhdcp22__mmult__hw_8h" local="yes">xhdcp22_mmult_hw.h</includes>
+    <includedby refid="xhdcp22__mmult_8c" local="yes">xhdcp22_mmult.c</includedby>
+    <includedby refid="xhdcp22__mmult__g_8c" local="yes">xhdcp22_mmult_g.c</includedby>
+    <includedby refid="xhdcp22__mmult__sinit_8c" local="yes">xhdcp22_mmult_sinit.c</includedby>
+    <incdepgraph>
+      <node id="12">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xhdcp22_mmult.h</label>
+        <link refid="xhdcp22_mmult.h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11">
+        <label>xil_types.h</label>
+      </node>
+      <node id="15">
+        <label>xhdcp22_mmult_hw.h</label>
+        <link refid="xhdcp22__mmult__hw_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="19">
+        <label>xhdcp22_mmult_sinit.c</label>
+        <link refid="xhdcp22__mmult__sinit_8c"/>
+      </node>
+      <node id="17">
+        <label>xhdcp22_mmult.c</label>
+        <link refid="xhdcp22__mmult_8c"/>
+      </node>
+      <node id="16">
+        <label>xhdcp22_mmult.h</label>
+        <link refid="xhdcp22_mmult.h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>xhdcp22_mmult_g.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdcp22__mmult___config" prot="public">XHdcp22_mmult_Config</innerclass>
+    <innerclass refid="struct_x_hdcp22__mmult" prot="public">XHdcp22_mmult</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xhdcp22__mmult_8h_1a0617607372e45e37518c9f4f6529c645" prot="public" static="no">
+        <name>XHdcp22_mmult_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xhdcp22__mmult_8h_1a82acfc4280767dc7e7bbce428e58203c" prot="public" static="no">
+        <name>XHdcp22_mmult_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xhdcp22__mmult_8h_1a170c4f343ec4ae9c6bac6066831a0fbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XHdcp22_mmult_Config *</type>
+        <definition>XHdcp22_mmult_Config* XHdcp22_mmult_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XHdcp22_mmult_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult_sinit.c" bodystart="54" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga94b5544d7e1f29c8bac9ea8f4c40d541" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22_mmult_CfgInitialize</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, XHdcp22_mmult_Config *ConfigPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XHdcp22_mmult_CfgInitialize</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XHdcp22_mmult_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="34" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaefd0d1ed8197ed37b4c3ae24e8113537" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_Start</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Start</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="46" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga223db09f1f75a1c3088b86539f29b495" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_IsDone</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_IsDone</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="56" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga4d97cd0494e4afdc7e9877d9801f3ca2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_IsIdle</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_IsIdle</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="66" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga291bd0c175ef6e0b1d06317dc51f519f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_IsReady</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_IsReady</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="76" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga0106c3829be6beafd6c5404de31b2886" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_EnableAutoRestart</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_EnableAutoRestart</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="87" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga7069c42bd78bcfb06fd5c82917dc84e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_DisableAutoRestart</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_DisableAutoRestart</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="94" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga57c85592b56c876828a3a9e777d57b76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_U_BaseAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_U_BaseAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="101" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga0dcb483225b0b201162d5f136c41e468" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_U_HighAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_U_HighAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="108" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga6193585aa875b73e5fe5115c656a2ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_U_TotalBytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_U_TotalBytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="115" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga18d845338964ed362cf15b2ed7a11e23" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_U_BitWidth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_U_BitWidth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="122" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga5140477b246e8ae7f06794c445411a04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_U_Depth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_U_Depth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="129" bodyend="134"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaa2eda6b307858b00bfd5d0af8d3f8df7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_U_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_U_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="136" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga4c949e1913088f3c0c28206ff59acd51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_U_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_U_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="151" bodyend="164"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gae2d8a19abe9584b721ba07e1c9d924a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_U_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_U_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="166" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga268c285f3a9ce51f71ac95da7589122d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_U_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_U_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="181" bodyend="194"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga4b26d6c73921464555847e8820abc47d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_A_BaseAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_A_BaseAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="196" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga22ac0b061031dbdcaa8a04fb71342665" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_A_HighAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_A_HighAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="203" bodyend="208"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga7f31f2de8b7e32d9942a0bc903b166ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_A_TotalBytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_A_TotalBytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="210" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga162e268ea7336ed1f2a1da5c4890af6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_A_BitWidth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_A_BitWidth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="217" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaf0bc60cb693a7b91119e45429b6c9a2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_A_Depth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_A_Depth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="224" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gae595618b7ed896a94b0fe1d465a60c1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_A_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_A_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="231" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga5a2156db39a08a29bfde332bc7eae268" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_A_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_A_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="246" bodyend="259"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga46e1006804cd4c8a1c5482f4270a5c7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_A_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_A_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="261" bodyend="274"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga969007e4d40524307b16837cbc2f5941" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_A_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_A_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="276" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga4e42b971382b04e13c7c377a7f88bc78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_B_BaseAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_B_BaseAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="291" bodyend="296"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga94cdffad6eed7a4d21b44de54bb78717" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_B_HighAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_B_HighAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="298" bodyend="303"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga89132a8b9e397d5882927fccffa7c672" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_B_TotalBytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_B_TotalBytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="305" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga241801e7158a98aba9ac90b17bf1f627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_B_BitWidth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_B_BitWidth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="312" bodyend="317"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gab461670a28d388b9d19e771829abafbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_B_Depth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_B_Depth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="319" bodyend="324"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga2cac322fe0b239894debc710ae10c86f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_B_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_B_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="326" bodyend="339"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga2ec49bd54405da927d9d77a61ed86ef3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_B_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_B_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="341" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga87dbb9cd24bfae203f925a6c47c193c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_B_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_B_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="356" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga4a6403e014e29ce384785d94e90941e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_B_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_B_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="371" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga78fd7818a9ff849e182cd10bdd26be4c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_N_BaseAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_N_BaseAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="386" bodyend="391"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga31dce994a40176c7a2ce1b1d6e3b3ae8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_N_HighAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_N_HighAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="393" bodyend="398"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gafdc52836374e80105e530d211e81a56f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_N_TotalBytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_N_TotalBytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="400" bodyend="405"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga37dcc97849a1b40bc61c99f836a9eed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_N_BitWidth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_N_BitWidth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="407" bodyend="412"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga9f8f92301c85fa68cfd19cd93513c246" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_N_Depth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_N_Depth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="414" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga459c1faaae262ded90e16309b42c4b30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_N_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_N_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="421" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga35c3f08c86b6c551fb5291bf29615e58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_N_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_N_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="436" bodyend="449"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga9157b188c2b7d36c9f81f77fab261df2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_N_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_N_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="451" bodyend="464"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga7a3732dc13b319a823e5ee18f13df869" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_N_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_N_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="466" bodyend="479"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gacd8d5271f0fd52b3057bbae69abbe834" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_NPrime_BaseAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_NPrime_BaseAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="481" bodyend="486"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga9c51a3ce9d0c08066fdb3ed4f6a1b00a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_NPrime_HighAddress</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_NPrime_HighAddress</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="488" bodyend="493"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gacf16d3e096f7a4230d966d15db13a1ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_NPrime_TotalBytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_NPrime_TotalBytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="495" bodyend="500"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaee9a4274c11bf62a791c5ee757c603de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_NPrime_BitWidth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_NPrime_BitWidth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="502" bodyend="507"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaf368f08baece027c3e1ff59bc106a8f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Get_NPrime_Depth</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_Get_NPrime_Depth</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="509" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gae96ce8f44a05c9ac0eb0e83e08ec0405" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_NPrime_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_NPrime_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="516" bodyend="529"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga7a05c9a5ec7ad5042e859a195dc590dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_NPrime_Words</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, int *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_NPrime_Words</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="531" bodyend="544"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gac675213cae1200e3ece11d675a296000" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Write_NPrime_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Write_NPrime_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="546" bodyend="559"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga5f9ce30683bfeee80ce17a14e528d306" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_Read_NPrime_Bytes</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, int offset, char *data, int length)</argsstring>
+        <name>XHdcp22_mmult_Read_NPrime_Bytes</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="561" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga57f825f3abb852cc627c98d78b571cc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_InterruptGlobalEnable</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_InterruptGlobalEnable</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="576" bodyend="581"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaaded4632056df461a108ddfaa367d50a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_InterruptGlobalDisable</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_InterruptGlobalDisable</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="583" bodyend="588"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1gaafab83ff2f0b0dbc1b88fddac81bb370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_InterruptEnable</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, u32 Mask)</argsstring>
+        <name>XHdcp22_mmult_InterruptEnable</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="590" bodyend="598"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga677f0b27e60de747d871a709c71d4980" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_InterruptDisable</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, u32 Mask)</argsstring>
+        <name>XHdcp22_mmult_InterruptDisable</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="600" bodyend="608"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga5f57b3ad73d2af383b9a56a5480d45e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22_mmult_InterruptClear</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr, u32 Mask)</argsstring>
+        <name>XHdcp22_mmult_InterruptClear</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="610" bodyend="615"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga06410ece0b45d5545edde0dd6c0bf7c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_InterruptGetEnabled</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_InterruptGetEnabled</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="617" bodyend="622"/>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp22__mmult_1ga9188eaa04a1cee205888f0ce74d8ea95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XHdcp22_mmult_InterruptGetStatus</definition>
+        <argsstring>(XHdcp22_mmult *InstancePtr)</argsstring>
+        <name>XHdcp22_mmult_InterruptGetStatus</name>
+        <param>
+          <type>XHdcp22_mmult *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.c" bodystart="624" bodyend="629"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XHDCP22_MMULT_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP22_MMULT_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp22__mmult__hw_8h" kindref="compound">xhdcp22_mmult_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Name;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}<sp/>XHdcp22_mmult_Config;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XHdcp22_mmult_Config<sp/>Config;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IsReady;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/>XHdcp22_mmult;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHdcp22_mmult_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHdcp22_mmult_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHdcp22_mmult_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHdcp22_mmult_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal">XHdcp22_mmult_Config*<sp/>XHdcp22_mmult_LookupConfig(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal">XHdcp22_mmult_Config<sp/>*XHdcp22_mmult_LookupConfig(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_CfgInitialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/>XHdcp22_mmult_Config<sp/>*ConfigPtr,<sp/>UINTPTR<sp/>EffectiveAddr);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Initialize((XHdcp22_mmult<sp/>*)InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Release(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_Start(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">u32<sp/>XHdcp22_mmult_IsDone(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">u32<sp/>XHdcp22_mmult_IsIdle(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">u32<sp/>XHdcp22_mmult_IsReady(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_EnableAutoRestart(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_DisableAutoRestart(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_U_BaseAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_U_HighAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_U_TotalBytes(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_U_BitWidth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_U_Depth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_U_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_U_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_U_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_U_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_A_BaseAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_A_HighAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_A_TotalBytes(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_A_BitWidth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_A_Depth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_A_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_A_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_A_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_A_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_B_BaseAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_B_HighAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_B_TotalBytes(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_B_BitWidth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_B_Depth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_B_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_B_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_B_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_B_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_N_BaseAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_N_HighAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_N_TotalBytes(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_N_BitWidth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_N_Depth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_N_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_N_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_N_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_N_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_NPrime_BaseAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_NPrime_HighAddress(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_NPrime_TotalBytes(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_NPrime_BitWidth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">u32<sp/>XHdcp22_mmult_Get_NPrime_Depth(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_NPrime_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_NPrime_Words(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">u32<sp/>XHdcp22_mmult_Write_NPrime_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">u32<sp/>XHdcp22_mmult_Read_NPrime_Bytes(XHdcp22_mmult<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_InterruptGlobalEnable(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_InterruptGlobalDisable(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_InterruptEnable(XHdcp22_mmult<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_InterruptDisable(XHdcp22_mmult<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XHdcp22_mmult_InterruptClear(XHdcp22_mmult<sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">u32<sp/>XHdcp22_mmult_InterruptGetEnabled(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">u32<sp/>XHdcp22_mmult_InterruptGetStatus(XHdcp22_mmult<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_mmult/src/xhdcp22_mmult.h"/>
+  </compounddef>
+</doxygen>

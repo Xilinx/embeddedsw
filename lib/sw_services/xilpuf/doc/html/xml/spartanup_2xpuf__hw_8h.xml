@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="spartanup_2xpuf__hw_8h" kind="file">
+    <compoundname>spartanup/xpuf_hw.h</compoundname>
+    <includedby refid="spartanup_2xpuf_8c" local="yes">xpuf.c</includedby>
+    <includedby refid="versal__2vp__p_2server_2xpuf_8c" local="yes">xpuf.c</includedby>
+    <includedby refid="versal__2vp__p_2server_2xpuf__plat_8c" local="yes">xpuf_plat.c</includedby>
+    <includedby refid="versal__gen_2server_2xpuf_8c" local="yes">xpuf.c</includedby>
+    <includedby refid="versal__gen_2server_2xpuf__plat_8c" local="yes">xpuf_plat.c</includedby>
+    <invincdepgraph>
+      <node id="247">
+        <label>xpuf_plat.c</label>
+      </node>
+      <node id="246">
+        <label>xpuf.c</label>
+      </node>
+      <node id="242">
+        <label>xpuf_hw.h</label>
+        <link refid="spartanup/xpuf_hw.h"/>
+        <childnode refid="243" relation="include">
+        </childnode>
+        <childnode refid="244" relation="include">
+        </childnode>
+        <childnode refid="245" relation="include">
+        </childnode>
+        <childnode refid="246" relation="include">
+        </childnode>
+        <childnode refid="247" relation="include">
+        </childnode>
+      </node>
+      <node id="243">
+        <label>xpuf.c</label>
+      </node>
+      <node id="244">
+        <label>xpuf.c</label>
+      </node>
+      <node id="245">
+        <label>xpuf_plat.c</label>
+        <link refid="versal__2vp__p_2server_2xpuf__plat_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Offsets for PUF registers in PUF module</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1761baaeb32f86a0b3c184535e340458" prot="public" static="no">
+        <name>XPUF_PUF_CMD_OFFSET</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>PUF Command register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a378f7fb6dd13be48e71ee3d8268310c9" prot="public" static="no">
+        <name>XPUF_PUF_CFG0_OFFSET</name>
+        <initializer>(0x00000004U)</initializer>
+        <briefdescription>
+<para>PUF Configuration 0 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1ad8ae1e84fde66ce3279ceabaec7ef29b" prot="public" static="no">
+        <name>XPUF_PUF_CFG1_OFFSET</name>
+        <initializer>(0x00000008U)</initializer>
+        <briefdescription>
+<para>PUF Configuration 1 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a5b09782cec29eb3688e48a7ab3c25478" prot="public" static="no">
+        <name>XPUF_PUF_SHUT_OFFSET</name>
+        <initializer>(0x0000000CU)</initializer>
+        <briefdescription>
+<para>PUF Shutter register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a0307a45e9ce86fc982023be0bc589e15" prot="public" static="no">
+        <name>XPUF_PUF_STATUS_OFFSET</name>
+        <initializer>(0x00000024U)</initializer>
+        <briefdescription>
+<para>PUF Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aac065ed904fdc6cf30c5a72eee0dfe81" prot="public" static="no">
+        <name>XPUF_PUF_WORD_OFFSET</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>PUF Word register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a07f6d13d22c76ec201e1eba8d2c1462a" prot="public" static="no">
+        <name>XPUF_PUF_DBG_OFFSET</name>
+        <initializer>(0x00000068U)</initializer>
+        <briefdescription>
+<para>PUF Debug register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a8fa70ca008f8b7185b98adb5e0d4355c" prot="public" static="no">
+        <name>XPUF_PUF_CHASH_OFFSET</name>
+        <initializer>(0x000003C0U)</initializer>
+        <briefdescription>
+<para>PUF CHASH register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Offsets for PUF registers in PMC_GLOBAL module</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1ac15be32d805578af22606fee1023af53" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PUF_RST_OFFSET</name>
+        <initializer>(0x00000064U)</initializer>
+        <briefdescription>
+<para>PUF Reset register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a7feea0f76057cffd0a7dfb70c0543b01" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET</name>
+        <initializer>(0x0001F310U)</initializer>
+        <briefdescription>
+<para>PUF Status register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1acc70b6f35bcdee82e2fc151262d05518" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET</name>
+        <initializer>(0x0001F32CU)</initializer>
+        <briefdescription>
+<para>PUF Clear register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aefd38f0e57b5784aad04e37ab14fd3af" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET</name>
+        <initializer>(0x0001F330U)</initializer>
+        <briefdescription>
+<para>PUF ID 0 register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a50b3a35de37cdd1989b6c321b221f574" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PUF_RO_SWAP_OFFSET</name>
+        <initializer>(0x0001F35CU)</initializer>
+        <briefdescription>
+<para>PUF RO Swap register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a033d6ae6139636f45d6c60dfd0d27935" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET</name>
+        <initializer>(0x0001F354U)</initializer>
+        <briefdescription>
+<para>PUF Capture register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PUF Command register definition</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a0f4acb19c9fb1ca471ba2a2990d81343" prot="public" static="no">
+        <name>XPUF_CMD_PAUSE</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>PUF Pause command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a6ecccb5394199541d2b158e7390b13c4" prot="public" static="no">
+        <name>XPUF_CMD_REGISTRATION</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>PUF Registration command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a88ccf6d2d29f56d0fcbc04a32aa38221" prot="public" static="no">
+        <name>XPUF_CMD_REGEN_ON_DEMAND</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>PUF Regenerate on Demand command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1dc0d25715d5462bd4dfb9c7c565fbba" prot="public" static="no">
+        <name>XPUF_CMD_STOP</name>
+        <initializer>(0x03U)</initializer>
+        <briefdescription>
+<para>PUF Stop command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PUF Configuration 0 register definition</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a04b11f4601b82448c5873cd0e2126b7d" prot="public" static="no">
+        <name>XPUF_CFG0_GLOBAL_FILTER_ENABLE</name>
+        <initializer>(0x01U)</initializer>
+        <briefdescription>
+<para>PUF Global Filter Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a5bb1e7102ad6d1438b2738732d8ef590" prot="public" static="no">
+        <name>XPUF_CFG0_HASH_SEL</name>
+        <initializer>(0x02U)</initializer>
+        <briefdescription>
+<para>PUF Hash Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PUF Configuration 1 register definition</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a8de92777769beec92be582cbeea6f374" prot="public" static="no">
+        <name>XPUF_CFG1_INIT_VAL_4K</name>
+        <initializer>(0x0C230090U)</initializer>
+        <briefdescription>
+<para>PUF Configuration 1 register value for 4K Registration mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>PUF Status register definition</header>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a9baa264f1f50fc83fe50e4ffd18b44b2" prot="public" static="no">
+        <name>XPUF_STATUS_SYNDROME_WORD_RDY</name>
+        <initializer>((u32)0x01U &lt;&lt; 0U)</initializer>
+        <briefdescription>
+<para>Syndrome Word Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1acc0edf21ac7dffef28649d67b298fc11" prot="public" static="no">
+        <name>XPUF_STATUS_ID_ZERO</name>
+        <initializer>((u32)0x01U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+<para>ID Zero. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1e613c480a5234d7b9bd38a0358db75b" prot="public" static="no">
+        <name>XPUF_STATUS_KEY_RDY</name>
+        <initializer>((u32)0x01U &lt;&lt; 3U)</initializer>
+        <briefdescription>
+<para>Key Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a1132056b6c36613af8f10fe1e43cd66e" prot="public" static="no">
+        <name>XPUF_STATUS_ZZ_MASK</name>
+        <initializer>((u32)0x01U &lt;&lt; 1U)</initializer>
+        <briefdescription>
+<para>ZZ Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aa051b5036b418d936dd9601b9cc80a0d" prot="public" static="no">
+        <name>XPUF_STATUS_SEG_RDY</name>
+        <initializer>((u32)0x01U &lt;&lt; 2U)</initializer>
+        <briefdescription>
+<para>Segment Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1a7c9cea801d83c73aac586671710c492b" prot="public" static="no">
+        <name>XPUF_PMC_GLOBAL_BASEADDR</name>
+        <initializer>(0x040A0000U)</initializer>
+        <briefdescription>
+<para>PMC global Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1af3635e29c526accdfc917794ba073188" prot="public" static="no">
+        <name>XPUF_BASEADDR</name>
+        <initializer>(0x04080000U)</initializer>
+        <briefdescription>
+<para>PUF Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="spartanup_2xpuf__hw_8h_1aa434bf16a400f338385e4b9df797a1da" prot="public" static="no">
+        <name>XPUF_CLEAR_ID</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Clear PUF ID bit in PUF_STATUS register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="spartanup_2xpuf__hw_8h_1a04fcf307e6417c1f11d3040084f19110" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPuf_ReadReg</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset)</argsstring>
+        <name>XPuf_ReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the value from the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the module which consists the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="spartanup_2xpuf__hw_8h_1abe5f7a9b92568ee1540b219191442f7e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPuf_WriteReg</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>XPuf_WriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes the value into the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the module which consists the register </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset of the register. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h" bodystart="140" bodyend="143"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XPUF_HW_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_HW_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x040A0000U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#define<sp/>XPUF_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04080000U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>XPUF_PUF_CMD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#define<sp/>XPUF_PUF_CFG0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000004U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>XPUF_PUF_CFG1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000008U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#define<sp/>XPUF_PUF_SHUT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0000000CU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#define<sp/>XPUF_PUF_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000024U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>XPUF_PUF_WORD_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#define<sp/>XPUF_PUF_DBG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000068U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>XPUF_PUF_CHASH_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000003C0U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PUF_RST_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000064U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001F310U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001F32CU)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PUF_ID_0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001F330U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PUF_RO_SWAP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001F35CU)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XPUF_PMC_GLOBAL_PMC_PUF_CAPTURE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0001F354U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XPUF_CMD_PAUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>XPUF_CMD_REGISTRATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XPUF_CMD_REGEN_ON_DEMAND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>XPUF_CMD_STOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03U)<sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XPUF_CFG0_GLOBAL_FILTER_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01U)<sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#define<sp/>XPUF_CFG0_HASH_SEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02U)<sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor">#define<sp/>XPUF_CFG1_INIT_VAL_4K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0C230090U)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor">#define<sp/>XPUF_STATUS_SYNDROME_WORD_RDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>0U)<sp/></highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor">#define<sp/>XPUF_STATUS_ID_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XPUF_STATUS_KEY_RDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>3U)<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XPUF_STATUS_ZZ_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>1U)<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XPUF_STATUS_SEG_RDY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)0x01U<sp/>&lt;&lt;<sp/>2U)<sp/></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XPUF_CLEAR_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="124"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XPuf_ReadReg(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xil_In32((UINTPTR)(BaseAddress<sp/>+<sp/>RegOffset));</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPuf_WriteReg(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((UINTPTR)(BaseAddress<sp/>+<sp/>RegOffset),<sp/>Data);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPUF_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/xpuf_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdebug_8h" kind="file">
+    <compoundname>xdebug.h</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdebug_8h_1a12060fbd49869828f1554c4ddd071fd5" prot="public" static="no">
+        <name>xdbg_stmnt</name>
+        <param><defname>x</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xdebug.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xdebug.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdebug_8h_1ac91e7d6ead432cebc3c8890d9bcbad22" prot="public" static="no">
+        <name>xdbg_printf</name>
+        <param><defname>...</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xdebug.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xdebug.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XDEBUG</highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDEBUG</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(DEBUG)<sp/>&amp;&amp;<sp/>!defined(NDEBUG)</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XDEBUG_WARNING</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDEBUG_WARNING</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#warning<sp/>DEBUG<sp/>is<sp/>enabled</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="20"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>printf(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*format,<sp/>...);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>error<sp/><sp/>condition<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_GENERAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>general<sp/>debug<sp/><sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFFU<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>all<sp/>debugging<sp/>data<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_FIFO_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>display<sp/>register<sp/>reads/writes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_FIFO_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000101U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>receive<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_FIFO_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000102U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>transmit<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_FIFO_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000010FU<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>all<sp/>fifo<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_REG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>display<sp/>register<sp/>reads/writes<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_RX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000401U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>receive<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_TX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000402U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>transmit<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000040FU<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>all<sp/>temac<sp/><sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ADPT_RX<sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>receive<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ADPT_TX<sp/><sp/><sp/><sp/><sp/>0x00000801U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>transmit<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ADPT_IOCTL<sp/><sp/>0x00000802U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ioctl<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ADPT_MISC<sp/><sp/><sp/>0x00000803U<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>debug<sp/>msg<sp/>for<sp/>other<sp/>routines<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDBG_DEBUG_TEMAC_ADPT_ALL<sp/><sp/><sp/><sp/>0x0000080FU<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>all<sp/>temac<sp/>adapter<sp/>debug<sp/>messages<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>xdbg_current_types<sp/>(XDBG_DEBUG_GENERAL<sp/>|<sp/>XDBG_DEBUG_ERROR<sp/>|<sp/>XDBG_DEBUG_TEMAC_REG<sp/>|<sp/>XDBG_DEBUG_FIFO_RX<sp/>|<sp/>XDBG_DEBUG_FIFO_TX<sp/>|<sp/>XDBG_DEBUG_FIFO_REG)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>xdbg_stmnt(x)<sp/><sp/>x</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>In<sp/>VxWorks,<sp/>if<sp/>_WRS_GNU_VAR_MACROS<sp/>is<sp/>defined,<sp/>special<sp/>syntax<sp/>is<sp/>needed<sp/>for</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>macros<sp/>that<sp/>accept<sp/>variable<sp/>number<sp/>of<sp/>arguments</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XENV_VXWORKS)<sp/>&amp;&amp;<sp/>defined(_WRS_GNU_VAR_MACROS)</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xdbg_printf(type,<sp/>args...)<sp/>(((type)<sp/>&amp;<sp/>xdbg_current_types)<sp/>?<sp/>printf<sp/>(##<sp/>args)<sp/>:<sp/>0)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>ANSI<sp/>Syntax<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xdbg_printf(type,<sp/>...)<sp/>(((type)<sp/>&amp;<sp/>xdbg_current_types)<sp/>?<sp/>printf<sp/>(__VA_ARGS__)<sp/>:<sp/>0)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>defined(DEBUG)<sp/>&amp;&amp;<sp/>!defined(NDEBUG)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>xdbg_stmnt(x)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>See<sp/>VxWorks<sp/>comments<sp/>above<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(XENV_VXWORKS)<sp/>&amp;&amp;<sp/>defined(_WRS_GNU_VAR_MACROS)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xdbg_printf(type,<sp/>args...)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>ANSI<sp/>Syntax<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>xdbg_printf(...)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>defined(DEBUG)<sp/>&amp;&amp;<sp/>!defined(NDEBUG)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XDEBUG<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xdebug.h"/>
+  </compounddef>
+</doxygen>

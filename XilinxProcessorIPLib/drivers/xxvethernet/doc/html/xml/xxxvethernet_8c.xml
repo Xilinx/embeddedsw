@@ -1,0 +1,1173 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xxxvethernet_8c" kind="file">
+    <compoundname>xxxvethernet.c</compoundname>
+    <includes refid="xxxvethernet_8h" local="yes">xxxvethernet.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="14">
+        <label>xil_io.h</label>
+      </node>
+      <node id="8">
+        <label>sleep.h</label>
+      </node>
+      <node id="9">
+        <label>xenv.h</label>
+      </node>
+      <node id="13">
+        <label>xdebug.h</label>
+      </node>
+      <node id="6">
+        <label>xxxvethernet.c</label>
+        <link refid="xxxvethernet.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xxxvethernet.h</label>
+        <link refid="xxxvethernet_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>xstatus.h</label>
+      </node>
+      <node id="15">
+        <label>xil_types.h</label>
+      </node>
+      <node id="12">
+        <label>xxxvethernet_hw.h</label>
+        <link refid="xxxvethernet__hw_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xxvethernet_1ga0d1234c580a8bfebeb8e1a94450b63ae" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XXxvEthernet_InitHw</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_InitHw</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="323" bodyend="350"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_CfgInitialize</definition>
+        <argsstring>(XXxvEthernet *InstancePtr, XXxvEthernet_Config *CfgPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XXxvEthernet_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_CfgInitialize initializes an XXV Ethernet device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the memory instance to be associated with the XXV Ethernet core instance upon initialization. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the structure holding the hardware configuration for the Xxv Ethernet core to initialize. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the processor address used to access the base address of the XXV Ethernet instance. In systems with an MMU and virtual memory, <emphasis>EffectiveAddress</emphasis> is the virtual address mapped to the physical in <computeroutput>ConfigPtr-&gt;Config.BaseAddress</computeroutput>. In systems without an active MMU, <emphasis>EffectiveAddress</emphasis> should be set to the same value as <computeroutput>ConfigPtr-&gt;Config.BaseAddress</computeroutput>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="70" bodyend="94"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" compoundref="xxxvethernet_8c" startline="283" endline="308">XXxvEthernet_Reset</references>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_Initialize</definition>
+        <argsstring>(XXxvEthernet *InstancePtr, XXxvEthernet_Config *CfgPtr)</argsstring>
+        <name>XXxvEthernet_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_Initialize initializes an XXV Ethernet device along with the <emphasis>InstancePtr</emphasis> that references it. </para>        </briefdescription>
+        <detaileddescription>
+<para>The PHY is setup independently from the Ethernet core. Use the MII or whatever other interface may be present for setup.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the memory instance to be associated with the AXI Ethernet core instance upon initialization. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the structure holding the hardware configuration for the Axi Ethernet core to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS.</para></simplesect>
+<simplesect kind="note"><para>When user calls this function he should ensure the hardware is in a quiescent state by resetting all the hardware Configurations. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="117" bodyend="136"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_Start</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_Start</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_Start starts the Xxv Ethernet device as follows: </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>  - Enable transmitter if XXE_TRANSMIT_ENABLE_OPTION is set
+  - Enable receiver if XXE_RECEIVER_ENABLE_OPTION is set
+  - Upon enabling RX, check for RX BLOCK LOCK bit to make sure
+    RX channel is ready.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_FAILURE if RX is enabled and BLOCK LOCK is not set.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="154" bodyend="219"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" compoundref="xxxvethernet_8h" startline="258">XXxvEthernet::IsStarted</references>
+        <references refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" compoundref="xxxvethernet_8h" startline="260">XXxvEthernet::Options</references>
+        <references refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" compoundref="xxxvethernet_8h" startline="167">XXE_TRANSMITTER_ENABLE_OPTION</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XXxvEthernet_Stop</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_Stop</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_Stop gracefully stops the Xxv Ethernet device by disabling the receiver. </para>        </briefdescription>
+        <detaileddescription>
+<para>XXxvEthernet_Stop does not modify any of the current device options.</para><para>Since the transmitter is not disabled, frames currently in internal buffers or in process by a DMA engine are allowed to be transmitted.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="239" bodyend="267"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" compoundref="xxxvethernet_8h" startline="258">XXxvEthernet::IsStarted</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1ad378e34d2e8428eef9ea834edff258b3" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="285" endline="394">XxvEthernetSgDmaIntrExample</referencedby>
+        <referencedby refid="xxxvethernet__example__intr__mcdma_8c_1a8b7170116154c4ce8b89da78bdf9070d" compoundref="xxxvethernet__example__intr__mcdma_8c" startline="614" endline="817">XxvEthernetSgDmaIntrSingleFrameExample</referencedby>
+        <referencedby refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" compoundref="xxxvethernet_8c" startline="283" endline="308">XXxvEthernet_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XXxvEthernet_Reset</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_Reset</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_Reset does not perform a soft reset of the XxvEthernet core. </para>        </briefdescription>
+        <detaileddescription>
+<para>XxvEthernet hardware is reset by the device connected to the AXI4-Stream interface i.e. MCDMA. This function simply disabled TX and RX. This function inserts some delay before proceeding to stop the device.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="283" bodyend="308"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" compoundref="xxxvethernet_8h" startline="260">XXxvEthernet::Options</references>
+        <references refid="group__xxvethernet_1ga5583eb421b99a7aa0a2e462b4e59ddda" compoundref="xxxvethernet_8h" startline="175">XXE_DEFAULT_OPTIONS</references>
+        <references refid="group__xxvethernet_1ga764c2fbd121e5eaa93a155ffac11ee66" compoundref="xxxvethernet__hw_8h" startline="200">XXE_LOOPS_TO_COME_OUT_OF_RST</references>
+        <references refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</references>
+        <referencedby refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" compoundref="xxxvethernet_8c" startline="70" endline="94">XXxvEthernet_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_SetOptions</definition>
+        <argsstring>(XXxvEthernet *InstancePtr, u32 Options)</argsstring>
+        <name>XXxvEthernet_SetOptions</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_SetOptions enables the options, <emphasis>Options</emphasis> for the Xxv Ethernet, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Xxv Ethernet should be stopped with <ref refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" kindref="member">XXxvEthernet_Stop()</ref> before changing options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bitmask of OR&apos;d XXE_*_OPTION values for options to set. Options not specified are not affected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful completion.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has not been stopped.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>See <ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref> for a description of the available options. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="373" bodyend="455"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" compoundref="xxxvethernet_8h" startline="258">XXxvEthernet::IsStarted</references>
+        <references refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" compoundref="xxxvethernet_8h" startline="260">XXxvEthernet::Options</references>
+        <references refid="group__xxvethernet_1ga5583eb421b99a7aa0a2e462b4e59ddda" compoundref="xxxvethernet_8h" startline="175">XXE_DEFAULT_OPTIONS</references>
+        <references refid="group__xxvethernet_1ga5a0f2dffd9343065334bb754bdb981af" compoundref="xxxvethernet_8h" startline="161">XXE_FCS_INSERT_OPTION</references>
+        <references refid="group__xxvethernet_1ga797714a1d894fea40fd3fe6aa2b0f3e2" compoundref="xxxvethernet_8h" startline="155">XXE_FCS_STRIP_OPTION</references>
+        <references refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" compoundref="xxxvethernet_8h" startline="167">XXE_TRANSMITTER_ENABLE_OPTION</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_ClearOptions</definition>
+        <argsstring>(XXxvEthernet *InstancePtr, u32 Options)</argsstring>
+        <name>XXxvEthernet_ClearOptions</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Options</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_ClearOptions clears the options, <emphasis>Options</emphasis> for the Xxv Ethernet, specified by <emphasis>InstancePtr</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para>Xxv Ethernet should be stopped with <ref refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" kindref="member">XXxvEthernet_Stop()</ref> before changing options.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Options</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bitmask of OR&apos;d XXE_*_OPTION values for options to clear. Options not specified are not affected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful completion.</para></listitem><listitem><para>XST_DEVICE_IS_STARTED if the device has not been stopped.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>See <ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref> for a description of the available options. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="476" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="476" bodyend="560"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" compoundref="xxxvethernet_8h" startline="258">XXxvEthernet::IsStarted</references>
+        <references refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" compoundref="xxxvethernet_8h" startline="260">XXxvEthernet::Options</references>
+        <references refid="group__xxvethernet_1ga5a0f2dffd9343065334bb754bdb981af" compoundref="xxxvethernet_8h" startline="161">XXE_FCS_INSERT_OPTION</references>
+        <references refid="group__xxvethernet_1ga797714a1d894fea40fd3fe6aa2b0f3e2" compoundref="xxxvethernet_8h" startline="155">XXE_FCS_STRIP_OPTION</references>
+        <references refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" compoundref="xxxvethernet_8h" startline="167">XXE_TRANSMITTER_ENABLE_OPTION</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gab074cd6caf93431db36a6a3295f4e143" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XXxvEthernet_GetOptions</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_GetOptions</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_GetOptions returns the current option settings. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns a bitmask of XXE_*_OPTION constants, each bit specifying an option that is currently active.</para></simplesect>
+<simplesect kind="note"><para>See <ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref> for a description of the available options. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="576" bodyend="582"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" compoundref="xxxvethernet_8h" startline="260">XXxvEthernet::Options</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_SetUsxgmiiRateAndDuplex</definition>
+        <argsstring>(XXxvEthernet *InstancePtr, u32 Rate, u32 SetFD)</argsstring>
+        <name>XXxvEthernet_SetUsxgmiiRateAndDuplex</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Rate</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SetFD</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_SetUsxgmiiRateAndDuplex sets the speed and duplex ability in USXGMII Autonegotiation register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the Xxv Ethernet on which to operate. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Rate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>to be set - currently only 1G and 2.5G are tested. Pass RATE_1G or RATE_2G5 to the function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Set</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>FD or HD - if 0 Half duplex is set, else Full duplex.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS on successful setting of speed.<itemizedlist>
+<listitem><para>XST_FAILURE, if the speed cannot be set for the present hardware configuration.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="603" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="603" bodyend="658"/>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XXxvEthernet_UsxgmiiAnMainReset</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_UsxgmiiAnMainReset</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_UsxgmiiAnMainReset sets the USXGMII AN Main reset. </para>        </briefdescription>
+        <detaileddescription>
+<para>A delay is provided in between setting and clearing the main reset bit.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+<simplesect kind="note"><para>This function is only supported for USXGMII Ethernet MAC </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="673" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="673" bodyend="691"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XXxvEthernet_UsxgmiiAnMainRestart</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_UsxgmiiAnMainRestart</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_UsxgmiiAnMainRestart sets the USXGMII AN Main restart. </para>        </briefdescription>
+        <detaileddescription>
+<para>A delay is provided in between setting and clearing this bit as it is not self clearing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+<simplesect kind="note"><para>This function is only supported for USXGMII Ethernet MAC </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="706" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="706" bodyend="730"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u16</type>
+        <definition>u16 XXxvEthernet_GetAutoNegSpeed</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_GetAutoNegSpeed</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_GetAutoNegSpeed reports the speed (only 10G supported) from the Autonegotiation status register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Xxv Ethernet instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the link speed in units of gigabits per second (10) Can return a value of 0, in case 10Gbps is not set.</para></simplesect>
+<simplesect kind="note"><para>This function is only supported for XXV Ethernet MAC </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="747" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="747" bodyend="762"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" compoundref="xxxvethernet__hw_8h" startline="283">XXxvEthernet_ReadReg</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+        <references refid="group__xxvethernet_1ga8f1033cd2bbe2db9e406d1c9d3f06684" compoundref="xxxvethernet__hw_8h" startline="198">XXE_SPEED_10_GBPS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XXxvEthernet_SetAutoNegSpeed</definition>
+        <argsstring>(XXxvEthernet *InstancePtr)</argsstring>
+        <name>XXxvEthernet_SetAutoNegSpeed</name>
+        <param>
+          <type><ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>XXxvEthernet_SetAutoNegSpeed sets the speed (only 10G supported) in the Autonegotiation control register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>references the Xxv Ethernet on which to operate.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS on successful setting of speed.<itemizedlist>
+<listitem><para>XST_FAILURE, if the speed cannot be set for the present hardware configuration.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function is only supported for XXV Ethernet MAC </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" line="780" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c" bodystart="780" bodyend="795"/>
+        <references refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" compoundref="xxxvethernet_8h" startline="259">XXxvEthernet::IsReady</references>
+        <references refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" compoundref="xxxvethernet__hw_8h" startline="311">XXxvEthernet_WriteReg</references>
+        <references refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" compoundref="xxxvethernet_8h" startline="257">XXxvEthernet::Config</references>
+        <references refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" compoundref="xxxvethernet_8h" startline="226">XXxvEthernet_Config::BaseAddress</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xxxvethernet_8h" kindref="compound">xxxvethernet.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XXxvEthernet_InitHw(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr);<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HW<sp/>reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1gad071a1cb807ee930634dac763c9d8227" kindref="member">XXxvEthernet_CfgInitialize</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>instance<sp/>memory<sp/>and<sp/>make<sp/>copy<sp/>of<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref>));</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>,<sp/>CfgPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref>));</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_CfgInitialize\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>device<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>the<sp/>hardware<sp/>and<sp/>set<sp/>default<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" kindref="member">XXxvEthernet_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XxvEthernet_CfgInitialize:<sp/>returning<sp/>SUCCESS\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117" refid="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga0460b90bd3cebb8df32d3197bca2abb4" kindref="member">XXxvEthernet_Initialize</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref><sp/>*CfgPtr)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>instance<sp/>memory<sp/>and<sp/>make<sp/>copy<sp/>of<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset(InstancePtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref>));</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy(&amp;InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>,<sp/>CfgPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_x_xxv_ethernet___config" kindref="compound">XXxvEthernet_Config</ref>));</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Initialize\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>device<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>default<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="154" refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" kindref="member">XXxvEthernet_Start</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Timeout<sp/>=<sp/>10000000;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>bad<sp/>arguments<sp/>and<sp/>conditions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>already<sp/>started,<sp/>then<sp/>there<sp/>is<sp/>nothing<sp/>to<sp/>do<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>==<sp/>XIL_COMPONENT_IS_STARTED)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Start\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>transmitter<sp/>if<sp/>not<sp/>already<sp/>enabled<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>&amp;<sp/><ref refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" kindref="member">XXE_TRANSMITTER_ENABLE_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;enabling<sp/>transmitter\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(Reg<sp/>&amp;<sp/>XXE_TXCFG_TX_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;transmitter<sp/>not<sp/>enabled,<sp/>enabling<sp/>now\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>|<sp/>XXE_TXCFG_TX_MASK);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;transmitter<sp/>enabled\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>receiver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>&amp;<sp/>XXE_RECEIVER_ENABLE_OPTION)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;enabling<sp/>receiver\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(Reg<sp/>&amp;<sp/>XXE_RXCFG_RX_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;receiver<sp/>not<sp/>enabled,<sp/>enabling<sp/>now\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>|<sp/>XXE_RXCFG_RX_MASK);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>RX<sp/>block<sp/>lock<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>a<sp/>dummy<sp/>read<sp/>because<sp/>this<sp/>is<sp/>a<sp/>sticky<sp/>bit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXBLSR_OFFSET);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!(<ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXBLSR_OFFSET)<sp/>&amp;<sp/>XXE_RXBLKLCK_MASK))<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timeout--;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Timeout<sp/>&lt;=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Block<sp/>lock<sp/>is<sp/>not<sp/>set<sp/>\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;receiver<sp/>enabled\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>as<sp/>started<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>=<sp/>XIL_COMPONENT_IS_STARTED;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Start:<sp/>done\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="239" refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" kindref="member">XXxvEthernet_Stop</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>If<sp/>already<sp/>stopped,<sp/>then<sp/>there<sp/>is<sp/>nothing<sp/>to<sp/>do<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Stop\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Stop:<sp/>disabling<sp/>receiver\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>receiver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&amp;=<sp/>~XXE_RXCFG_RX_MASK;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET,<sp/>Reg);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>as<sp/>stopped<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Stop:<sp/>done\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="283" refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" kindref="member">XXxvEthernet_Reset</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>TimeoutLoops;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="291"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Add<sp/>delay<sp/>of<sp/>10000<sp/>loops<sp/>to<sp/>give<sp/>enough<sp/>time<sp/>to<sp/>the<sp/>core<sp/>to<sp/>come</highlight></codeline>
+<codeline lineno="292"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>out<sp/>of<sp/>reset.<sp/>Till<sp/>the<sp/>time<sp/>core<sp/>comes<sp/>out<sp/>of<sp/>reset<sp/>none<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XxvEthernet<sp/>registers<sp/>are<sp/>accessible<sp/>including<sp/>the<sp/>IS<sp/>register.</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeoutLoops<sp/>=<sp/><ref refid="group__xxvethernet_1ga764c2fbd121e5eaa93a155ffac11ee66" kindref="member">XXE_LOOPS_TO_COME_OUT_OF_RST</ref>;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TimeoutLoops<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimeoutLoops--;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_Reset\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stop<sp/>the<sp/>device<sp/>and<sp/>reset<sp/>HW<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" kindref="member">XXxvEthernet_Stop</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>=<sp/><ref refid="group__xxvethernet_1ga5583eb421b99a7aa0a2e462b4e59ddda" kindref="member">XXE_DEFAULT_OPTIONS</ref>;</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>HW<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_InitHw(InstancePtr);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="312"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="313"><highlight class="comment">*<sp/>XXxvEthernet_InitHw<sp/>(internal<sp/>use<sp/>only)<sp/>performs<sp/>a<sp/>one-time<sp/>setup<sp/>of</highlight></codeline>
+<codeline lineno="314"><highlight class="comment">*<sp/>Xxv<sp/>Ethernet<sp/>device.<sp/>The<sp/>setup<sp/>performed<sp/>here<sp/>only<sp/>need<sp/>to<sp/>occur<sp/>once</highlight></codeline>
+<codeline lineno="315"><highlight class="comment">*<sp/>after<sp/>any<sp/>reset.</highlight></codeline>
+<codeline lineno="316"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="317"><highlight class="comment">*<sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>is<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>Xxv<sp/>Ethernet<sp/>instance<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="318"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>worked<sp/>on.</highlight></codeline>
+<codeline lineno="319"><highlight class="comment">*<sp/>@note<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>None.</highlight></codeline>
+<codeline lineno="320"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="321"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="322"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XXxvEthernet_InitHw(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="324"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Reg;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_InitHw\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>the<sp/>receiver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Reg<sp/>&amp;=<sp/>~XXE_RXCFG_RX_MASK;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET,<sp/>Reg);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="338"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Sync<sp/>default<sp/>options<sp/>with<sp/>HW<sp/>but<sp/>leave<sp/>receiver<sp/>and<sp/>transmitter</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>disabled.<sp/>They<sp/>get<sp/>enabled<sp/>with<sp/>XXxvEthernet_Start()<sp/>if</highlight></codeline>
+<codeline lineno="340"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>XXE_TRANSMITTER_ENABLE_OPTION<sp/>and<sp/>XXE_RECEIVER_ENABLE_OPTION</highlight></codeline>
+<codeline lineno="341"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>are<sp/>set</highlight></codeline>
+<codeline lineno="342"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" kindref="member">XXxvEthernet_SetOptions</ref>(InstancePtr,<sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>&amp;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>~(<ref refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" kindref="member">XXE_TRANSMITTER_ENABLE_OPTION</ref><sp/>|</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RECEIVER_ENABLE_OPTION));</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" kindref="member">XXxvEthernet_ClearOptions</ref>(InstancePtr,<sp/>~InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref>);</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_InitHw:<sp/>done\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="373" refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" kindref="member">XXxvEthernet_SetOptions</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options)</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegRcfg;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>original<sp/>contents<sp/>of<sp/>RCFG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegTc;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>original<sp/>contents<sp/>of<sp/>TC<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegNewRcfg;<sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>new<sp/>contents<sp/>of<sp/>RCFG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegNewTc;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>new<sp/>contents<sp/>of<sp/>TC<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Be<sp/>sure<sp/>device<sp/>has<sp/>been<sp/>stopped<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>==<sp/>XIL_COMPONENT_IS_STARTED)<sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_IS_STARTED);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_SetOptions\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="391"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>options<sp/>word<sp/>to<sp/>its<sp/>new<sp/>value.</highlight></codeline>
+<codeline lineno="392"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>|=<sp/>Options;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="396"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Many<sp/>of<sp/>these<sp/>options<sp/>will<sp/>change<sp/>the<sp/>RCFG<sp/>or<sp/>TCFG<sp/>registers.</highlight></codeline>
+<codeline lineno="397"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>To<sp/>reduce<sp/>the<sp/>amount<sp/>of<sp/>IO<sp/>to<sp/>the<sp/>device,<sp/>group<sp/>these<sp/>options<sp/>here</highlight></codeline>
+<codeline lineno="398"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>change<sp/>them<sp/>all<sp/>at<sp/>once.</highlight></codeline>
+<codeline lineno="399"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>current<sp/>register<sp/>contents<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegRcfg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegTc<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>=<sp/>RegRcfg;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>=<sp/>RegTc;</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;current<sp/>control<sp/>regs:<sp/>RCFG:<sp/>0x%0x;<sp/>TC:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegRcfg,<sp/>RegTc);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Options:<sp/>0x%0x;<sp/>default<sp/>options:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,<sp/>Options,</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1ga5583eb421b99a7aa0a2e462b4e59ddda" kindref="member">XXE_DEFAULT_OPTIONS</ref>);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>on<sp/>FCS<sp/>stripping<sp/>on<sp/>receive<sp/>packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1ga797714a1d894fea40fd3fe6aa2b0f3e2" kindref="member">XXE_FCS_STRIP_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;setOptions:<sp/>enabling<sp/>fcs<sp/>stripping\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>|=<sp/>XXE_RXCFG_DEL_FCS_MASK;</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"></highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>on<sp/>FCS<sp/>insertion<sp/>on<sp/>transmit<sp/>packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1ga5a0f2dffd9343065334bb754bdb981af" kindref="member">XXE_FCS_INSERT_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;setOptions:<sp/>enabling<sp/>fcs<sp/>insertion\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>|=<sp/>XXE_TXCFG_FCS_MASK;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>transmitter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" kindref="member">XXE_TRANSMITTER_ENABLE_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>|=<sp/>XXE_TXCFG_TX_MASK;</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>receiver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/>XXE_RECEIVER_ENABLE_OPTION)<sp/>{</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>|=<sp/>XXE_RXCFG_RX_MASK;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>the<sp/>TC<sp/>or<sp/>RCFG<sp/>registers<sp/>if<sp/>they<sp/>need<sp/>to<sp/>be<sp/>modified<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegTc<sp/>!=<sp/>RegNewTc)<sp/>{</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;setOptions:<sp/>writing<sp/>tc:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,<sp/>RegNewTc);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET,<sp/>RegNewTc);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegRcfg<sp/>!=<sp/>RegNewRcfg)<sp/>{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;setOptions:<sp/>writing<sp/>rcfg:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,<sp/>RegNewRcfg);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET,<sp/>RegNewRcfg);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;setOptions:<sp/>returning<sp/>SUCCESS\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"></highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="476" refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" kindref="member">XXxvEthernet_ClearOptions</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr,<sp/>u32<sp/>Options)</highlight></codeline>
+<codeline lineno="477"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegRcfg;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>original<sp/>contents<sp/>of<sp/>RCFG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegTc;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>original<sp/>contents<sp/>of<sp/>TC<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegNewRcfg;<sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>new<sp/>contents<sp/>of<sp/>RCFG<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegNewTc;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reflects<sp/>new<sp/>contents<sp/>of<sp/>TC<sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>0x%08x\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Options);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Be<sp/>sure<sp/>device<sp/>has<sp/>been<sp/>stopped<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a957ab238a83c9f11d456a43d40ffcf50" kindref="member">IsStarted</ref><sp/>==<sp/>XIL_COMPONENT_IS_STARTED)<sp/>{</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_IS_STARTED);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="495"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>options<sp/>word<sp/>to<sp/>its<sp/>new<sp/>value.</highlight></codeline>
+<codeline lineno="496"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref><sp/>&amp;=<sp/>~Options;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"></highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="500"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Many<sp/>of<sp/>these<sp/>options<sp/>will<sp/>change<sp/>the<sp/>RCFG<sp/>or<sp/>TC<sp/>registers.</highlight></codeline>
+<codeline lineno="501"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Group<sp/>these<sp/>options<sp/>here<sp/>and<sp/>change<sp/>them<sp/>all<sp/>at<sp/>once.<sp/>What<sp/>we<sp/>are</highlight></codeline>
+<codeline lineno="502"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>trying<sp/>to<sp/>accomplish<sp/>is<sp/>to<sp/>reduce<sp/>the<sp/>amount<sp/>of<sp/>IO<sp/>to<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="503"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>current<sp/>register<sp/>contents<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegRcfg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegTc<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>=<sp/>RegRcfg;</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>=<sp/>RegTc;</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"></highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>off<sp/>FCS<sp/>stripping<sp/>on<sp/>receive<sp/>packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1ga797714a1d894fea40fd3fe6aa2b0f3e2" kindref="member">XXE_FCS_STRIP_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>disabling<sp/>fcs<sp/>strip\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>&amp;=<sp/>~XXE_RXCFG_DEL_FCS_MASK;</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Turn<sp/>off<sp/>FCS<sp/>insertion<sp/>on<sp/>transmit<sp/>packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1ga5a0f2dffd9343065334bb754bdb981af" kindref="member">XXE_FCS_INSERT_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>disabling<sp/>fcs<sp/>insert\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>&amp;=<sp/>~XXE_TXCFG_FCS_MASK;</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>transmitter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/><ref refid="group__xxvethernet_1gafed4106583a6dbea15635fc7d945e134" kindref="member">XXE_TRANSMITTER_ENABLE_OPTION</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>disabling<sp/>transmitter\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewTc<sp/>&amp;=<sp/>~XXE_TXCFG_TX_MASK;</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Disable<sp/>receiver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Options<sp/>&amp;<sp/>XXE_RECEIVER_ENABLE_OPTION)<sp/>{</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>disabling<sp/>receiver\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegNewRcfg<sp/>&amp;=<sp/>~XXE_RXCFG_RX_MASK;</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Change<sp/>the<sp/>TC<sp/>and<sp/>RCFG<sp/>registers<sp/>if<sp/>they<sp/>need<sp/>to<sp/>be</highlight></codeline>
+<codeline lineno="542"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>modified</highlight></codeline>
+<codeline lineno="543"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegTc<sp/>!=<sp/>RegNewTc)<sp/>{</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>setting<sp/>TC:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,<sp/>RegNewTc);</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_TXCFG_OFFSET,<sp/>RegNewTc);</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RegRcfg<sp/>!=<sp/>RegNewRcfg)<sp/>{</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_ClearOptions:<sp/>setting<sp/>RCFG:<sp/>0x%0x\n&quot;</highlight><highlight class="normal">,<sp/>RegNewRcfg);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_RXCFG_OFFSET,<sp/>RegNewRcfg);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"></highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;ClearOptions:<sp/>returning<sp/>SUCCESS\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="560"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"></highlight></codeline>
+<codeline lineno="562"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="576" refid="group__xxvethernet_1gab074cd6caf93431db36a6a3295f4e143" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xxvethernet_1gab074cd6caf93431db36a6a3295f4e143" kindref="member">XXxvEthernet_GetOptions</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="577"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"></highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a3bee9035da48d3c3faeb645af334b793" kindref="member">Options</ref>);</highlight></codeline>
+<codeline lineno="582"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="603" refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" kindref="member">XXxvEthernet_SetUsxgmiiRateAndDuplex</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr,<sp/>u32<sp/>Rate,<sp/>u32<sp/>SetFD)</highlight></codeline>
+<codeline lineno="604"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RateMask,<sp/>UsxgmiiAnReg;</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal"></highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_SetUsxgmiiRateAndDuplex\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"></highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>speed<sp/>in<sp/>axi<sp/>lite<sp/>register<sp/>field<sp/>and<sp/>the<sp/>signal<sp/>field<sp/>to</highlight></codeline>
+<codeline lineno="613"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>keep<sp/>them<sp/>in<sp/>sync</highlight></codeline>
+<codeline lineno="614"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Rate)<sp/>{</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RATE_1G:</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateMask<sp/>=<sp/>(XXE_USXGMII_RATE_1G_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_RATE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XXE_USXGMII_RATE_1G_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_SPEED_SHIFT);</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RATE_2G5:</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateMask<sp/>=<sp/>(XXE_USXGMII_RATE_2G5_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_RATE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XXE_USXGMII_RATE_2G5_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_SPEED_SHIFT);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RATE_10G:</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateMask<sp/>=<sp/>(XXE_USXGMII_RATE_10G_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_RATE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XXE_USXGMII_RATE_10G_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_SPEED_SHIFT);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RATE_10M:</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateMask<sp/>=<sp/>(XXE_USXGMII_RATE_10M_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_RATE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XXE_USXGMII_RATE_10M_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_SPEED_SHIFT);</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>RATE_100M:</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RateMask<sp/>=<sp/>(XXE_USXGMII_RATE_100M_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_RATE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XXE_USXGMII_RATE_100M_MASK<sp/>&lt;&lt;<sp/>XXE_USXGMII_SPEED_SHIFT);</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>speed<sp/>and<sp/>make<sp/>sure<sp/>to<sp/>enable<sp/>USXGMII<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET);</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>&amp;=<sp/>~(XXE_USXGMII_RATE_MASK<sp/>|<sp/>XXE_USXGMII_ANA_SPEED_MASK<sp/>);</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>|=<sp/>(XXE_USXGMII_ANA_MASK<sp/>|<sp/>XXE_USXGMII_LINK_STS_MASK<sp/>|<sp/>RateMask);</highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
+<codeline lineno="645"><highlight class="normal"></highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Duplex<sp/>setting<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!SetFD)<sp/>{</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>&amp;=<sp/>~XXE_USXGMII_ANA_FD_MASK;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>|=<sp/>XXE_USXGMII_ANA_FD_MASK;</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,<sp/>UsxgmiiAnReg);</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_SetUsxgmiiRateAndDuplex:<sp/>done\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="658"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="661"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="673" refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" kindref="member">XXxvEthernet_UsxgmiiAnMainReset</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="674"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UsxgmiiAnReg;</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"></highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET);</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>|<sp/>XXE_USXGMII_ANMAINRESET_MASK);</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"></highlight></codeline>
+<codeline lineno="686"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(100);</highlight></codeline>
+<codeline lineno="687"><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>&amp;<sp/>~XXE_USXGMII_ANMAINRESET_MASK);</highlight></codeline>
+<codeline lineno="691"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"></highlight></codeline>
+<codeline lineno="693"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="706" refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" kindref="member">XXxvEthernet_UsxgmiiAnMainRestart</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="707"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UsxgmiiAnReg;</highlight></codeline>
+<codeline lineno="709"><highlight class="normal"></highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"></highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>=<sp/><ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET);</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>&amp;<sp/>~XXE_USXGMII_ANRESTART_MASK);</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(100);</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"></highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>|<sp/>XXE_USXGMII_ANRESTART_MASK);</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"></highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(100);</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"></highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_USXGMII_AN_OFFSET,</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UsxgmiiAnReg<sp/>&amp;<sp/>~XXE_USXGMII_ANRESTART_MASK);</highlight></codeline>
+<codeline lineno="730"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="733"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="747" refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" refkind="member"><highlight class="normal">u16<sp/><ref refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" kindref="member">XXxvEthernet_GetAutoNegSpeed</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="748"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"></highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_GetOperatingSpeed\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_ANASR_OFFSET)<sp/>&amp;<sp/>XXE_ANA_10GKR_MASK)<sp/>{</highlight></codeline>
+<codeline lineno="755"><highlight class="normal"></highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_GetOperatingSpeed:<sp/>returning<sp/>1000\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1ga8f1033cd2bbe2db9e406d1c9d3f06684" kindref="member">XXE_SPEED_10_GBPS</ref>;</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="762"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"></highlight></codeline>
+<codeline lineno="764"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="780" refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" kindref="member">XXxvEthernet_SetAutoNegSpeed</ref>(<ref refid="struct_x_xxv_ethernet" kindref="compound">XXxvEthernet</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="781"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="782"><highlight class="normal"></highlight></codeline>
+<codeline lineno="783"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="784"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a6f047e72d874dface1769d112daab7e3" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="785"><highlight class="normal"></highlight></codeline>
+<codeline lineno="786"><highlight class="normal"></highlight></codeline>
+<codeline lineno="787"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,<sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_SetOperatingSpeed\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="788"><highlight class="normal"></highlight></codeline>
+<codeline lineno="789"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>register<sp/>and<sp/>return<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="790"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_xxv_ethernet_1a59619b2a855f14b1fb7970acdce87206" kindref="member">Config</ref>.<ref refid="struct_x_xxv_ethernet___config_1a7224e895cfa19a244b6394008f72b892" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="791"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_ANACR_OFFSET,<sp/>XXE_ANA_10GKR_MASK);</highlight></codeline>
+<codeline lineno="792"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_GENERAL,</highlight></codeline>
+<codeline lineno="793"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;XXxvEthernet_SetOperatingSpeed:<sp/>done\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="794"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="795"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet.c"/>
+  </compounddef>
+</doxygen>

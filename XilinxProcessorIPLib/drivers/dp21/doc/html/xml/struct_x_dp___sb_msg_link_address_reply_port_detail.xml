@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___sb_msg_link_address_reply_port_detail" kind="struct" prot="public">
+    <compoundname>XDp_SbMsgLinkAddressReplyPortDetail</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1af877aa2abc157bcc53c89409895d614e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::InputPort</definition>
+        <argsstring></argsstring>
+        <name>InputPort</name>
+        <briefdescription>
+<para>Specifies that this port is an input port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="904" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="904" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1afb55abb438f51b9ae2f19393c5568955" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::PeerDeviceType</definition>
+        <argsstring></argsstring>
+        <name>PeerDeviceType</name>
+        <briefdescription>
+<para>Specifies the device type connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="906" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="906" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1a9be2d852f8b70e95d79b4236845ab098" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::PortNum</definition>
+        <argsstring></argsstring>
+        <name>PortNum</name>
+        <briefdescription>
+<para>The port number of this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="908" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="908" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1a0c81adeb568575c3495ebd6cc6bde078" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::MsgCapStatus</definition>
+        <argsstring></argsstring>
+        <name>MsgCapStatus</name>
+        <briefdescription>
+<para>This port or the device at this port can send and receive MST messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="909" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="909" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1a1b3e05aac1931818c4341e40c735923f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::DpDevPlugStatus</definition>
+        <argsstring></argsstring>
+        <name>DpDevPlugStatus</name>
+        <briefdescription>
+<para>There is a device connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="912" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="912" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1a2518872144076e449841943446e67316" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::LegacyDevPlugStatus</definition>
+        <argsstring></argsstring>
+        <name>LegacyDevPlugStatus</name>
+        <briefdescription>
+<para>This port is connected to a legacy device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="915" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="915" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1adac39cfe4d7be7d8f7298e62606646b5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::DpcdRev</definition>
+        <argsstring></argsstring>
+        <name>DpcdRev</name>
+        <briefdescription>
+<para>The DisplayPort Configuration Data (DPCD) revision of the device connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="917" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="917" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1ab4fad788d3486e10c326ea3a7d5e84fe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::Guid[XDP_GUID_NBYTES]</definition>
+        <argsstring>[XDP_GUID_NBYTES]</argsstring>
+        <name>Guid</name>
+        <briefdescription>
+<para>The global unique identifier (GUID) of the device connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="920" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="920" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1a78e4ae237d0fc20489df32b927dd61ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::NumSdpStreams</definition>
+        <argsstring></argsstring>
+        <name>NumSdpStreams</name>
+        <briefdescription>
+<para>The total number of Secondary-Data Packet (SDP) streams that this port can handle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="923" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="923" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___sb_msg_link_address_reply_port_detail_1ae203810200030ff2d48e5401c51f5be0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_SbMsgLinkAddressReplyPortDetail::NumSdpStreamSinks</definition>
+        <argsstring></argsstring>
+        <name>NumSdpStreamSinks</name>
+        <briefdescription>
+<para>The number of SDP streams associated with this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="926" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="926" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a port that is connected to a DisplayPort branch device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure is used when the driver is operating in multi-stream transport (MST) mode. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="903" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="903" bodyend="928"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1adac39cfe4d7be7d8f7298e62606646b5" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>DpcdRev</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1a1b3e05aac1931818c4341e40c735923f" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>DpDevPlugStatus</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1ab4fad788d3486e10c326ea3a7d5e84fe" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>Guid</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1af877aa2abc157bcc53c89409895d614e" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>InputPort</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1a2518872144076e449841943446e67316" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>LegacyDevPlugStatus</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1a0c81adeb568575c3495ebd6cc6bde078" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>MsgCapStatus</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1a78e4ae237d0fc20489df32b927dd61ed" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>NumSdpStreams</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1ae203810200030ff2d48e5401c51f5be0" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>NumSdpStreamSinks</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1afb55abb438f51b9ae2f19393c5568955" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>PeerDeviceType</name></member>
+      <member refid="struct_x_dp___sb_msg_link_address_reply_port_detail_1a9be2d852f8b70e95d79b4236845ab098" prot="public" virt="non-virtual"><scope>XDp_SbMsgLinkAddressReplyPortDetail</scope><name>PortNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

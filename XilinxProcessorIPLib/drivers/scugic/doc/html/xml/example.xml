@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use scugic driver.</para><sect1 id="example_1ex1">
+<title>xscugic_example.c</title>
+<para>Contains an example on how to use the XScugic driver directly. This example shows the usage of the driver and hardware device.</para><para>For details, see <ref refid="xscugic__example_8c" kindref="compound">xscugic_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xscugic_low_level_example.c</title>
+<para>Contains an example on how to use the XScugic driver directly. This example shows the usage of the low level driver, interface of the Interrupt Controller driver.</para><para>For details, see <ref refid="xscugic__low__level__example_8c" kindref="compound">xscugic_low_level_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xscugic_tapp_example.c</title>
+<para>Contains an example on how to use the XScugic driver directly. This example shows the usage of the driver and TestApp Gen utility uses this file to perform the self test and setup of Intc for interrupts.</para><para>For details, see <ref refid="xscugic__tapp__example_8c" kindref="compound">xscugic_tapp_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

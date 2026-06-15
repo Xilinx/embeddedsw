@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_666a9b4688f9ec8a8cdadfbbbe45f2a2" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="versal__net_2client_2xloader__plat__client_8c">versal_net/client/xloader_plat_client.c</innerfile>
+    <innerfile refid="versal__net_2client_2xloader__plat__client_8h">versal_net/client/xloader_plat_client.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_net/client/"/>
+  </compounddef>
+</doxygen>

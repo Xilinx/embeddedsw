@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ebd_mask" kind="struct" prot="public">
+    <compoundname>EbdMask</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ebd_mask_1a81320c2176f7f084c961e75c349083cc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 EbdMask::words[25][4]</definition>
+        <argsstring>[25][4]</argsstring>
+        <name>words</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>EbdMask - EBD Mask structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/xsem_reformat_ebdcfi.c" bodystart="92" bodyend="94"/>
+    <listofallmembers>
+      <member refid="struct_ebd_mask_1a81320c2176f7f084c961e75c349083cc" prot="public" virt="non-virtual"><scope>EbdMask</scope><name>words</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

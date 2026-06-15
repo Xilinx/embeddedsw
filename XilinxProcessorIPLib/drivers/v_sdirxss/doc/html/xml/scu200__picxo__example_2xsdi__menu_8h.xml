@@ -1,0 +1,395 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="scu200__picxo__example_2xsdi__menu_8h" kind="file">
+    <compoundname>scu200_picxo_example/xsdi_menu.h</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">ctype.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xuartlite_l.h</includes>
+    <includes refid="xv__sdirxss_8h" local="yes">xv_sdirxss.h</includes>
+    <includes local="yes">xv_sditxss.h</includes>
+    <includedby refid="scu200__picxo__example_2xsdi__example_8c" local="yes">xsdi_example.c</includedby>
+    <includedby refid="scu200__picxo__example_2xsdi__menu_8c" local="yes">xsdi_menu.c</includedby>
+    <incdepgraph>
+      <node id="580">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="587">
+        <label>xv_sdivid.h</label>
+      </node>
+      <node id="586">
+        <label>xv_sdirxss.h</label>
+        <link refid="xv__sdirxss_8h"/>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+      </node>
+      <node id="588">
+        <label>xv_sdirx.h</label>
+      </node>
+      <node id="577">
+        <label>string.h</label>
+      </node>
+      <node id="583">
+        <label>xstatus.h</label>
+      </node>
+      <node id="584">
+        <label>xvidc.h</label>
+      </node>
+      <node id="581">
+        <label>xil_types.h</label>
+      </node>
+      <node id="579">
+        <label>ctype.h</label>
+      </node>
+      <node id="582">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="576">
+        <label>xsdi_menu.h</label>
+        <link refid="scu200_picxo_example/xsdi_menu.h"/>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+      </node>
+      <node id="585">
+        <label>xuartlite_l.h</label>
+      </node>
+      <node id="578">
+        <label>stdio.h</label>
+      </node>
+      <node id="589">
+        <label>xv_sditxss.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="591">
+        <label>xsdi_example.c</label>
+      </node>
+      <node id="592">
+        <label>xsdi_menu.c</label>
+      </node>
+      <node id="590">
+        <label>xsdi_menu.h</label>
+        <link refid="scu200_picxo_example/xsdi_menu.h"/>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_sdi___menu" prot="public">XSdi_Menu</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="scu200__picxo__example_2xsdi__menu_8h_1a43b3cc97eb44a6a594690646865302af" prot="public" static="no">
+        <name>XSDI_MENU_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="scu200__picxo__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6a" prot="public" static="no">
+        <name>XSdi_MenuType</name>
+        <enumvalue id="scu200__picxo__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa343ee0dd8f8bb7d308513261ddaab6a4" prot="public">
+          <name>XSDI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="scu200__picxo__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa1002ff108cdc4288384c384a5117aebf" prot="public">
+          <name>XSDI_SUBCORE_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="scu200__picxo__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa2eed7c2d085066b0fdf76936b8bdd895" prot="public">
+          <name>XSDI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa343ee0dd8f8bb7d308513261ddaab6a4" prot="public">
+          <name>XSDI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa1002ff108cdc4288384c384a5117aebf" prot="public">
+          <name>XSDI_SUBCORE_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vck190__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa2eed7c2d085066b0fdf76936b8bdd895" prot="public">
+          <name>XSDI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa343ee0dd8f8bb7d308513261ddaab6a4" prot="public">
+          <name>XSDI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa1002ff108cdc4288384c384a5117aebf" prot="public">
+          <name>XSDI_SUBCORE_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="vek385__av__pt_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa2eed7c2d085066b0fdf76936b8bdd895" prot="public">
+          <name>XSDI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa343ee0dd8f8bb7d308513261ddaab6a4" prot="public">
+          <name>XSDI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa1002ff108cdc4288384c384a5117aebf" prot="public">
+          <name>XSDI_SUBCORE_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa2eed7c2d085066b0fdf76936b8bdd895" prot="public">
+          <name>XSDI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__rx__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa343ee0dd8f8bb7d308513261ddaab6a4" prot="public">
+          <name>XSDI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__rx__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa1002ff108cdc4288384c384a5117aebf" prot="public">
+          <name>XSDI_SUBCORE_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xuhdsdi__rx__example_2xsdi__menu_8h_1a0fb65531d872bdaa97a3c0cb630e5c6aa2eed7c2d085066b0fdf76936b8bdd895" prot="public">
+          <name>XSDI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The SDI menu types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" bodystart="53" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="scu200__picxo__example_2xsdi__menu_8h_1ac7968c537f9754babeb38483eb3bad49" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdi_MenuInitialize</definition>
+        <argsstring>(XSdi_Menu *InstancePtr, u32 UartBaseAddress)</argsstring>
+        <name>XSdi_MenuInitialize</name>
+        <param>
+          <type><ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>UartBaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function takes care of the SDI menu initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UartBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the base address of PS uart.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.c" bodystart="89" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="scu200__picxo__example_2xsdi__menu_8h_1ac74505e03761810c2a379695163ad041" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdi_MenuProcess</definition>
+        <argsstring>(XSdi_Menu *InstancePtr)</argsstring>
+        <name>XSdi_MenuProcess</name>
+        <param>
+          <type><ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called to trigger the SDI menu statemachine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.c" bodystart="185" bodyend="203"/>
+      </memberdef>
+      <memberdef kind="function" id="scu200__picxo__example_2xsdi__menu_8h_1a6f8bd95a8609d8225238942b416fe26f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSdi_MenuReset</definition>
+        <argsstring>(XSdi_Menu *InstancePtr)</argsstring>
+        <name>XSdi_MenuReset</name>
+        <param>
+          <type><ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the menu to the main menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/vck190_av_pt/xsdi_menu.c" bodystart="114" bodyend="117"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XSDI_MENU_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDI_MENU_H_<sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctype.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__sdirxss_8h" kindref="compound">xv_sdirxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_sditxss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDI_MAIN_MENU,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDI_SUBCORE_MENU,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSDI_NUM_MENUS</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/>XSdi_MenuType;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="struct_x_sdi___menu" refkind="compound"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSdi_MenuType<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentMenu;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>menu<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="struct_x_sdi___menu_1a0efd38178be10991857ce88c2a3900f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UartBaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Uart<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sub<sp/>menu<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WaitForColorbar;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}<sp/><ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdi_MenuInitialize(<ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref><sp/>*InstancePtr,<sp/>u32<sp/>UartBaseAddress);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdi_MenuProcess(<ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSdi_MenuReset(<ref refid="struct_x_sdi___menu" kindref="compound">XSdi_Menu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/scu200_picxo_example/xsdi_menu.h"/>
+  </compounddef>
+</doxygen>

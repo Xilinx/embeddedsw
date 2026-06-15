@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_tft" kind="struct"><name>XTft</name>
+    <member refid="struct_x_tft_1a7b57d88c2f86585f12d2e32e18a6cd87" kind="variable"><name>TftConfig</name></member>
+    <member refid="struct_x_tft_1aca9d4577a8b752a2c1a8142e5196a4db" kind="variable"><name>IsReady</name></member>
+    <member refid="struct_x_tft_1acef1fa311d00ad95aca04546f827e27b" kind="variable"><name>ColVal</name></member>
+    <member refid="struct_x_tft_1a2fea2e6b537433ac6dde7d97eb340577" kind="variable"><name>RowVal</name></member>
+    <member refid="struct_x_tft_1ab7d29e890e9981c4f9af66b426280da5" kind="variable"><name>FgColor</name></member>
+    <member refid="struct_x_tft_1acc10038cdf317ab5b50ce0ec2fedcdd0" kind="variable"><name>BgColor</name></member>
+  </compound>
+  <compound refid="struct_x_tft___config" kind="struct"><name>XTft_Config</name>
+    <member refid="struct_x_tft___config_1a4a82ccc081184475776bf139beb99963" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_tft___config_1af13b84d730fc82272b844c4f787a5142" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_tft___config_1a81392a22d4ef495818378bef86b06427" kind="variable"><name>VideoMemBaseAddr</name></member>
+    <member refid="struct_x_tft___config_1aaaf2c79008199a54c94cc69a9760a0e5" kind="variable"><name>AddrWidth</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xtft_8c" kind="file"><name>xtft.c</name>
+    <member refid="group__tft_1gad0556f4de98ba9bebd76fed92d1d6d7d" kind="function"><name>XTft_WriteChar</name></member>
+    <member refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" kind="function"><name>XTft_CfgInitialize</name></member>
+    <member refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" kind="function"><name>XTft_SetPos</name></member>
+    <member refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" kind="function"><name>XTft_SetPosChar</name></member>
+    <member refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" kind="function"><name>XTft_SetColor</name></member>
+    <member refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" kind="function"><name>XTft_SetPixel</name></member>
+    <member refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" kind="function"><name>XTft_GetPixel</name></member>
+    <member refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" kind="function"><name>XTft_Write</name></member>
+    <member refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" kind="function"><name>XTft_Scroll</name></member>
+    <member refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" kind="function"><name>XTft_ClearScreen</name></member>
+    <member refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" kind="function"><name>XTft_FillScreen</name></member>
+    <member refid="group__tft_1ga308d28143a386bcde54db714f43ae737" kind="function"><name>XTft_EnableDisplay</name></member>
+    <member refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" kind="function"><name>XTft_DisableDisplay</name></member>
+    <member refid="group__tft_1gaab5334330486fb514c230f98702d485a" kind="function"><name>XTft_ScanReverse</name></member>
+    <member refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" kind="function"><name>XTft_ScanNormal</name></member>
+    <member refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" kind="function"><name>XTft_SetFrameBaseAddr</name></member>
+    <member refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" kind="function"><name>XTft_WriteReg</name></member>
+    <member refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" kind="function"><name>XTft_ReadReg</name></member>
+    <member refid="group__tft_1ga3241465696077377ea4000f4caca21a7" kind="function"><name>XTft_IntrEnable</name></member>
+    <member refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" kind="function"><name>XTft_IntrDisable</name></member>
+    <member refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" kind="function"><name>XTft_GetVsyncStatus</name></member>
+  </compound>
+  <compound refid="xtft_8h" kind="file"><name>xtft.h</name>
+    <member refid="group__tft_1gae8378000b715e0b26b0c75a0d7ad2660" kind="define"><name>XTFT_H</name></member>
+    <member refid="group__tft_1ga547452270c1b3d9df4af6ceb9f347684" kind="define"><name>XTFT_ASCIICHAR_OFFSET</name></member>
+    <member refid="group__tft_1gaf4d426ca83e1b41f324d732fbdabfae6" kind="define"><name>XTFT_DEF_FGCOLOR</name></member>
+    <member refid="group__tft_1ga6802361cad5f41ab4686e2184bb06d62" kind="define"><name>XTFT_DEF_BGCOLOR</name></member>
+    <member refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" kind="define"><name>XTFT_DEF_COLVAL</name></member>
+    <member refid="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" kind="define"><name>XTFT_DEF_ROWVAL</name></member>
+    <member refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" kind="function"><name>XTft_LookupConfig</name></member>
+    <member refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" kind="function"><name>XTft_CfgInitialize</name></member>
+    <member refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" kind="function"><name>XTft_SetPos</name></member>
+    <member refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" kind="function"><name>XTft_SetPosChar</name></member>
+    <member refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" kind="function"><name>XTft_SetColor</name></member>
+    <member refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" kind="function"><name>XTft_SetPixel</name></member>
+    <member refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" kind="function"><name>XTft_GetPixel</name></member>
+    <member refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" kind="function"><name>XTft_Write</name></member>
+    <member refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" kind="function"><name>XTft_Scroll</name></member>
+    <member refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" kind="function"><name>XTft_ClearScreen</name></member>
+    <member refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" kind="function"><name>XTft_FillScreen</name></member>
+    <member refid="group__tft_1ga308d28143a386bcde54db714f43ae737" kind="function"><name>XTft_EnableDisplay</name></member>
+    <member refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" kind="function"><name>XTft_DisableDisplay</name></member>
+    <member refid="group__tft_1gaab5334330486fb514c230f98702d485a" kind="function"><name>XTft_ScanReverse</name></member>
+    <member refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" kind="function"><name>XTft_ScanNormal</name></member>
+    <member refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" kind="function"><name>XTft_SetFrameBaseAddr</name></member>
+    <member refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" kind="function"><name>XTft_WriteReg</name></member>
+    <member refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" kind="function"><name>XTft_ReadReg</name></member>
+    <member refid="group__tft_1ga3241465696077377ea4000f4caca21a7" kind="function"><name>XTft_IntrEnable</name></member>
+    <member refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" kind="function"><name>XTft_IntrDisable</name></member>
+    <member refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" kind="function"><name>XTft_GetVsyncStatus</name></member>
+  </compound>
+  <compound refid="xtft__charcode_8h" kind="file"><name>xtft_charcode.h</name>
+    <member refid="group__tft_1gabfdbe746bbf3ae5fa88dc202707b479a" kind="define"><name>XTFT_CHARCODE_H</name></member>
+    <member refid="group__tft_1ga65c06a5c7f78dcca1f2574fd4de631a0" kind="define"><name>GenPixels</name></member>
+    <member refid="group__tft_1gac1b688c0177c8178bfcf44c1b099bbe7" kind="variable"><name>XTft_VidChars</name></member>
+  </compound>
+  <compound refid="xtft__example_8c" kind="file"><name>xtft_example.c</name>
+    <member refid="xtft__example_8c_1a4e5b258835a007d43f1eac8a5f60fe55" kind="define"><name>TFT_FRAME_ADDR</name></member>
+    <member refid="xtft__example_8c_1a27bab78a5956de44e87eab983a9f8783" kind="define"><name>FGCOLOR_VALUE</name></member>
+    <member refid="xtft__example_8c_1aa2e911a0e8fa78132f9baffbf26ebd73" kind="define"><name>BGCOLOR_VALUE</name></member>
+    <member refid="xtft__example_8c_1a2d24b990c00e26930d01f4179147cb59" kind="define"><name>WHITECOLOR_VALUE</name></member>
+    <member refid="xtft__example_8c_1aa4d3ff9341955d632e5107848bb2e9a7" kind="define"><name>X1POS</name></member>
+    <member refid="xtft__example_8c_1a6654e71fdd217d10e9445d8d2939d8ae" kind="define"><name>X2POS</name></member>
+    <member refid="xtft__example_8c_1a939dbc13f86ffcd1cc75869dfba9c9f7" kind="define"><name>Y1POS</name></member>
+    <member refid="xtft__example_8c_1a8ba6644e505663efa5d41d4989c7d344" kind="define"><name>Y2POS</name></member>
+    <member refid="xtft__example_8c_1a620b7b1dd6e7b917c2b636c9141f728f" kind="variable"><name>TftInstance</name></member>
+    <member refid="xtft__example_8c_1adc0622fcc42d323fcab28e508affbc9e" kind="function"><name>TftWriteString</name></member>
+    <member refid="xtft__example_8c_1a775542242de4268bd25e745cf9fe11de" kind="function"><name>TftDrawLine</name></member>
+    <member refid="xtft__example_8c_1aa567e9e2b698234bafb682123dfa239e" kind="function"><name>TftExample</name></member>
+    <member refid="xtft__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xtft__g_8c" kind="file"><name>xtft_g.c</name>
+    <member refid="group__tft_1ga00b919b8b293fc3b45cceee84d27e65b" kind="variable"><name>XTft_ConfigTable</name></member>
+  </compound>
+  <compound refid="xtft__hw_8h" kind="file"><name>xtft_hw.h</name>
+    <member refid="group__tft_1ga3f2dda8ffdcd2d04e9307cc7f3edaa11" kind="define"><name>XTFT_AR_OFFSET</name></member>
+    <member refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" kind="define"><name>XTFT_CR_OFFSET</name></member>
+    <member refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" kind="define"><name>XTFT_IESR_OFFSET</name></member>
+    <member refid="group__tft_1gad0b65c05fe82f1493e865d70878d5773" kind="define"><name>XTFT_AR_LSB_OFFSET</name></member>
+    <member refid="group__tft_1ga585665d41b80da57013a246faaf7869e" kind="define"><name>XTFT_AR_MSB_OFFSET</name></member>
+    <member refid="group__tft_1ga3069ee03357025e835743cbe81b7fd94" kind="define"><name>XTFT_CR_TDE_MASK</name></member>
+    <member refid="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" kind="define"><name>XTFT_CR_DPS_MASK</name></member>
+    <member refid="group__tft_1gafcc9028848f7ab88a9461c53a5c64bf0" kind="define"><name>XTFT_IESR_VADDRLATCH_STATUS_MASK</name></member>
+    <member refid="group__tft_1ga9e75abb8c7b5263ebabb683ce1ee2b8f" kind="define"><name>XTFT_IESR_IE_MASK</name></member>
+    <member refid="group__tft_1gaf3371d83ad1d9fdc8506a555782d9e3c" kind="define"><name>XTFT_HW_H</name></member>
+    <member refid="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" kind="define"><name>XTFT_CHAR_WIDTH</name></member>
+    <member refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" kind="define"><name>XTFT_CHAR_HEIGHT</name></member>
+    <member refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" kind="define"><name>XTFT_DISPLAY_WIDTH</name></member>
+    <member refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" kind="define"><name>XTFT_DISPLAY_HEIGHT</name></member>
+    <member refid="group__tft_1ga4d27aca52ce921aee61dab5870700c5b" kind="define"><name>XTFT_DISPLAY_BUFFER_WIDTH</name></member>
+    <member refid="group__tft_1ga2d988ed9da8b7e1ff66b120a13772d82" kind="define"><name>XTFT_DCR_REG_SHIFT</name></member>
+  </compound>
+  <compound refid="xtft__sinit_8c" kind="file"><name>xtft_sinit.c</name>
+    <member refid="group__tft_1ga00b919b8b293fc3b45cceee84d27e65b" kind="variable"><name>XTft_ConfigTable</name></member>
+    <member refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" kind="function"><name>XTft_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__tft" kind="group"><name>tft</name>
+    <member refid="group__tft_1ga3f2dda8ffdcd2d04e9307cc7f3edaa11" kind="define"><name>XTFT_AR_OFFSET</name></member>
+    <member refid="group__tft_1ga5fdc2c6fd8a7dae841feb936a043dd58" kind="define"><name>XTFT_CR_OFFSET</name></member>
+    <member refid="group__tft_1ga6fec872a11e74e007882df480ef9d951" kind="define"><name>XTFT_IESR_OFFSET</name></member>
+    <member refid="group__tft_1gad0b65c05fe82f1493e865d70878d5773" kind="define"><name>XTFT_AR_LSB_OFFSET</name></member>
+    <member refid="group__tft_1ga585665d41b80da57013a246faaf7869e" kind="define"><name>XTFT_AR_MSB_OFFSET</name></member>
+    <member refid="group__tft_1ga3069ee03357025e835743cbe81b7fd94" kind="define"><name>XTFT_CR_TDE_MASK</name></member>
+    <member refid="group__tft_1gaccac2b2d2b56aed3798bd781ba5775a5" kind="define"><name>XTFT_CR_DPS_MASK</name></member>
+    <member refid="group__tft_1gafcc9028848f7ab88a9461c53a5c64bf0" kind="define"><name>XTFT_IESR_VADDRLATCH_STATUS_MASK</name></member>
+    <member refid="group__tft_1ga9e75abb8c7b5263ebabb683ce1ee2b8f" kind="define"><name>XTFT_IESR_IE_MASK</name></member>
+    <member refid="group__tft_1gac1b688c0177c8178bfcf44c1b099bbe7" kind="variable"><name>XTft_VidChars</name></member>
+    <member refid="group__tft_1ga00b919b8b293fc3b45cceee84d27e65b" kind="variable"><name>XTft_ConfigTable</name></member>
+    <member refid="group__tft_1ga00b919b8b293fc3b45cceee84d27e65b" kind="variable"><name>XTft_ConfigTable</name></member>
+    <member refid="group__tft_1gad0556f4de98ba9bebd76fed92d1d6d7d" kind="function"><name>XTft_WriteChar</name></member>
+    <member refid="group__tft_1ga7cb92a2667272b013b8fccb0df1307ad" kind="function"><name>XTft_CfgInitialize</name></member>
+    <member refid="group__tft_1gabb17655cf7670fad99d96f1e92692b05" kind="function"><name>XTft_SetPos</name></member>
+    <member refid="group__tft_1ga7416b0a7b68676ae4791aef9816683de" kind="function"><name>XTft_SetPosChar</name></member>
+    <member refid="group__tft_1ga689206aec1006c6231f4b10062a8eeb0" kind="function"><name>XTft_SetColor</name></member>
+    <member refid="group__tft_1ga4efcd245e6e68c56641138123e3f67cc" kind="function"><name>XTft_SetPixel</name></member>
+    <member refid="group__tft_1ga577850dbb8a67f20b52c42a818074381" kind="function"><name>XTft_GetPixel</name></member>
+    <member refid="group__tft_1ga1cc88ecc501ab053fdccbcb270315068" kind="function"><name>XTft_Write</name></member>
+    <member refid="group__tft_1ga40c2b5ed76baff0d64b5a78b67620184" kind="function"><name>XTft_Scroll</name></member>
+    <member refid="group__tft_1ga4181b68f12ba322250de4e29ef453abe" kind="function"><name>XTft_ClearScreen</name></member>
+    <member refid="group__tft_1gad4dd01f62992007c014fc4a13d39abdf" kind="function"><name>XTft_FillScreen</name></member>
+    <member refid="group__tft_1ga308d28143a386bcde54db714f43ae737" kind="function"><name>XTft_EnableDisplay</name></member>
+    <member refid="group__tft_1ga5324d540859b06ca950fbf07d466a7fe" kind="function"><name>XTft_DisableDisplay</name></member>
+    <member refid="group__tft_1gaab5334330486fb514c230f98702d485a" kind="function"><name>XTft_ScanReverse</name></member>
+    <member refid="group__tft_1ga62eadbfc2233460b7ae8003c34347c01" kind="function"><name>XTft_ScanNormal</name></member>
+    <member refid="group__tft_1ga56ccbb6cd6478cd5bd330ef70f733b4a" kind="function"><name>XTft_SetFrameBaseAddr</name></member>
+    <member refid="group__tft_1ga6c43a240d09cc381fef702e397b2d24b" kind="function"><name>XTft_WriteReg</name></member>
+    <member refid="group__tft_1ga254efd25fdc63b78691a33ed565ae759" kind="function"><name>XTft_ReadReg</name></member>
+    <member refid="group__tft_1ga3241465696077377ea4000f4caca21a7" kind="function"><name>XTft_IntrEnable</name></member>
+    <member refid="group__tft_1ga1bc1f7d9c152c6e661cd125f4c190dd8" kind="function"><name>XTft_IntrDisable</name></member>
+    <member refid="group__tft_1gacc8325682d029d3618ff0a7d6ee265dc" kind="function"><name>XTft_GetVsyncStatus</name></member>
+    <member refid="group__tft_1ga6fbdb38685fd32b2c564a93b5fe70bf3" kind="function"><name>XTft_LookupConfig</name></member>
+    <member refid="group__tft_1gae8378000b715e0b26b0c75a0d7ad2660" kind="define"><name>XTFT_H</name></member>
+    <member refid="group__tft_1ga547452270c1b3d9df4af6ceb9f347684" kind="define"><name>XTFT_ASCIICHAR_OFFSET</name></member>
+    <member refid="group__tft_1gaf4d426ca83e1b41f324d732fbdabfae6" kind="define"><name>XTFT_DEF_FGCOLOR</name></member>
+    <member refid="group__tft_1ga6802361cad5f41ab4686e2184bb06d62" kind="define"><name>XTFT_DEF_BGCOLOR</name></member>
+    <member refid="group__tft_1gaaeaf77de0c8548663003c19c3b772a25" kind="define"><name>XTFT_DEF_COLVAL</name></member>
+    <member refid="group__tft_1ga095e9f2723ddfa46427fcdf9e1209204" kind="define"><name>XTFT_DEF_ROWVAL</name></member>
+    <member refid="group__tft_1gabfdbe746bbf3ae5fa88dc202707b479a" kind="define"><name>XTFT_CHARCODE_H</name></member>
+    <member refid="group__tft_1ga65c06a5c7f78dcca1f2574fd4de631a0" kind="define"><name>GenPixels</name></member>
+    <member refid="group__tft_1gaf3371d83ad1d9fdc8506a555782d9e3c" kind="define"><name>XTFT_HW_H</name></member>
+    <member refid="group__tft_1ga6da9efdd6a18854c2994f2260e2b1482" kind="define"><name>XTFT_CHAR_WIDTH</name></member>
+    <member refid="group__tft_1ga1e190b26de7e75aa55a59319c573a227" kind="define"><name>XTFT_CHAR_HEIGHT</name></member>
+    <member refid="group__tft_1ga8cdf302af29f0563c0079c0cbfb6abff" kind="define"><name>XTFT_DISPLAY_WIDTH</name></member>
+    <member refid="group__tft_1ga3d391c05df971dfe77189be6daf57521" kind="define"><name>XTFT_DISPLAY_HEIGHT</name></member>
+    <member refid="group__tft_1ga4d27aca52ce921aee61dab5870700c5b" kind="define"><name>XTFT_DISPLAY_BUFFER_WIDTH</name></member>
+    <member refid="group__tft_1ga2d988ed9da8b7e1ff66b120a13772d82" kind="define"><name>XTFT_DCR_REG_SHIFT</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_f2a1908e3f90f8e373fa7e63b9c6cf25" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_79a468f7ed53780c569cde463470fea9" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="dir_a30428a1378fc3becbd239a9fdd4313b" kind="dir"><name>tft</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

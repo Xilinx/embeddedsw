@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi2_ss___sub_cores" kind="struct" prot="public">
+    <compoundname>XDsi2Ss_SubCores</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi2_ss___sub_cores_1a964aa586867ab922ff9de04fdb80ab3d" prot="public" static="no" mutable="no">
+        <type>XDsi2Rx</type>
+        <definition>XDsi2Rx XDsi2Ss_SubCores::Dsi2RxInst</definition>
+        <argsstring></argsstring>
+        <name>Dsi2RxInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.c" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef declares the driver instances of all the cores in the subsystem. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsirxss/src/xdsi2rxss.c" bodystart="45" bodyend="50"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi2_ss___sub_cores_1a964aa586867ab922ff9de04fdb80ab3d" prot="public" virt="non-virtual"><scope>XDsi2Ss_SubCores</scope><name>Dsi2RxInst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

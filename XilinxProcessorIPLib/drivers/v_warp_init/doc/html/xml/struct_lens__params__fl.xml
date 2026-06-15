@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_lens__params__fl" kind="struct" prot="public">
+    <compoundname>Lens_params_fl</compoundname>
+    <includes local="no">xwarp_input_configs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_lens__params__fl_1a4c3608b43520d7f2efbbdef5cf86c2cf" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Lens_params_fl::k_pre</definition>
+        <argsstring></argsstring>
+        <name>k_pre</name>
+        <briefdescription>
+<para>Pre-distortion coefficient for fisheye lens. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_lens__params__fl_1ac896b280ff99180169955c04b5b0940f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float Lens_params_fl::k_post</definition>
+        <argsstring></argsstring>
+        <name>k_post</name>
+        <briefdescription>
+<para>Post-distortion coefficient for fisheye lens. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="xwarp__input__configs_8h_1abca1da10f59dbbedfea288b1adf12b6b" compoundref="xwarp__input__configs_8c" startline="498" endline="543">get_init_vect_input_configs</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Lens distortion parameters in floating-point format. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the fisheye lens distortion coefficients used for pre and post distortion correction. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/xwarp_input_configs.h" bodystart="85" bodyend="88"/>
+    <listofallmembers>
+      <member refid="struct_lens__params__fl_1ac896b280ff99180169955c04b5b0940f" prot="public" virt="non-virtual"><scope>Lens_params_fl</scope><name>k_post</name></member>
+      <member refid="struct_lens__params__fl_1a4c3608b43520d7f2efbbdef5cf86c2cf" prot="public" virt="non-virtual"><scope>Lens_params_fl</scope><name>k_pre</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

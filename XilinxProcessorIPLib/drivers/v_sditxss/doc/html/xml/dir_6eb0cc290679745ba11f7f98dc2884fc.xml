@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6eb0cc290679745ba11f7f98dc2884fc" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerdir refid="dir_88c2cf3167e295a9fa20643e9f769946">xuhdsdi_pixco_example</innerdir>
+    <innerfile refid="xv__sditxss__selftest__example_8c">xv_sditxss_selftest_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sditxss/examples/"/>
+  </compounddef>
+</doxygen>

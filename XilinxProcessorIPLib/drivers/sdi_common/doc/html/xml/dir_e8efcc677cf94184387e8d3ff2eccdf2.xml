@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e8efcc677cf94184387e8d3ff2eccdf2" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__sdivid_8c">xv_sdivid.c</innerfile>
+    <innerfile refid="xv__sdivid_8h">xv_sdivid.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sdi_common/src/"/>
+  </compounddef>
+</doxygen>

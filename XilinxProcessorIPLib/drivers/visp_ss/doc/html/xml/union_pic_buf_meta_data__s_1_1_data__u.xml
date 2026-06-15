@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_pic_buf_meta_data__s_1_1_data__u" kind="union" prot="public">
+    <compoundname>PicBufMetaData_s::Data_u</compoundname>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1data__meta" prot="public">PicBufMetaData_s::Data_u::data_meta</innerclass>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1data__s" prot="public">PicBufMetaData_s::Data_u::data_s</innerclass>
+    <innerclass refid="struct_pic_buf_meta_data__s_1_1_data__u_1_1jpeg__s" prot="public">PicBufMetaData_s::Data_u::jpeg_s</innerclass>
+    <innerclass refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_r_g_b__u" prot="public">PicBufMetaData_s::Data_u::RGB_u</innerclass>
+    <innerclass refid="union_pic_buf_meta_data__s_1_1_data__u_1_1_y_cb_cr__u" prot="public">PicBufMetaData_s::Data_u::YCbCr_u</innerclass>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1a4c120d386512997863484e471addab4b" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::data_s</type>
+        <definition>struct PicBufMetaData_s::Data_u::data_s  PicBufMetaData_s::Data_u::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="602" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1a0245df33b39bd186a22ca3168d7d24d5" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::data_meta</type>
+        <definition>struct PicBufMetaData_s::Data_u::data_meta  PicBufMetaData_s::Data_u::meta</definition>
+        <argsstring></argsstring>
+        <name>meta</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="611" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1a26404c9fb8fb73b722b6858bce0ed192" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_pic_buf_plane__s" kindref="compound">PicBufPlane_t</ref></type>
+        <definition>PicBufPlane_t PicBufMetaData_s::Data_u::raw</definition>
+        <argsstring></argsstring>
+        <name>raw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="613" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="613" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1a911247a60210124653ca8ab37be78c5c" prot="public" static="no" mutable="no">
+        <type>struct PicBufMetaData_s::Data_u::jpeg_s</type>
+        <definition>struct PicBufMetaData_s::Data_u::jpeg_s  PicBufMetaData_s::Data_u::jpeg</definition>
+        <argsstring></argsstring>
+        <name>jpeg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="621" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1aafe2c305527a76acb9ad080f39ae67bb" prot="public" static="no" mutable="no">
+        <type>union PicBufMetaData_s::Data_u::YCbCr_u</type>
+        <definition>union PicBufMetaData_s::Data_u::YCbCr_u  PicBufMetaData_s::Data_u::YCbCr</definition>
+        <argsstring></argsstring>
+        <name>YCbCr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="634" column="1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_pic_buf_meta_data__s_1_1_data__u_1ac853f27cad92722bbe1993b07ebfbfbc" prot="public" static="no" mutable="no">
+        <type>union PicBufMetaData_s::Data_u::RGB_u</type>
+        <definition>union PicBufMetaData_s::Data_u::RGB_u  PicBufMetaData_s::Data_u::RGB</definition>
+        <argsstring></argsstring>
+        <name>RGB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="643" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="735">
+        <label>PicBufMetaData_s::Data_u</label>
+        <childnode refid="736" relation="usage">
+          <edgelabel>raw</edgelabel>
+        </childnode>
+      </node>
+      <node id="736">
+        <label>PicBufPlane_s</label>
+        <link refid="struct_pic_buf_plane__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" line="597" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/common/include/buf_defs.h" bodystart="597" bodyend="654"/>
+    <listofallmembers>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1a4c120d386512997863484e471addab4b" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>data</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1a911247a60210124653ca8ab37be78c5c" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>jpeg</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1a0245df33b39bd186a22ca3168d7d24d5" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>meta</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1a26404c9fb8fb73b722b6858bce0ed192" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>raw</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1ac853f27cad92722bbe1993b07ebfbfbc" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>RGB</name></member>
+      <member refid="union_pic_buf_meta_data__s_1_1_data__u_1aafe2c305527a76acb9ad080f39ae67bb" prot="public" virt="non-virtual"><scope>PicBufMetaData_s::Data_u</scope><name>YCbCr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rng" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rng</compoundname>
+    <includes local="no">xhdcp22_rng.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___rng___config" kindref="compound">XHdcp22_Rng_Config</ref></type>
+        <definition>XHdcp22_Rng_Config XHdcp22_Rng::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" compoundref="xhdcp22__rng_8c" startline="71" endline="98">XHdcp22Rng_CfgInitialize</referencedby>
+        <referencedby refid="group__hdcp22__rng_1ga7e005af26bda452f9939a06d306bfafe" compoundref="xhdcp22__rng_8c" startline="117" endline="141">XHdcp22Rng_GetRandom</referencedby>
+        <referencedby refid="group__hdcp22__rng_1gac23d7fedd7eb00b9478c4b87a4884e55" compoundref="xhdcp22__rng__selftest_8c" startline="58" endline="77">XHdcp22Rng_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Rng::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Core and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__hdcp22__rng_1ga978c7ec1b9ddbfd02084306d0aa1e21a" compoundref="xhdcp22__rng_8c" startline="71" endline="98">XHdcp22Rng_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The XHdcp22 Rng driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each HDCP22 Rng core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XHdcp22_Rng_Config</label>
+        <link refid="struct_x_hdcp22___rng___config"/>
+      </node>
+      <node id="1">
+        <label>XHdcp22_Rng</label>
+        <link refid="struct_x_hdcp22___rng"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rng/src/xhdcp22_rng.h" bodystart="76" bodyend="79"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rng_1a0b1f66ab42d2548e531cc37919df33b2" prot="public" virt="non-virtual"><scope>XHdcp22_Rng</scope><name>Config</name></member>
+      <member refid="struct_x_hdcp22___rng_1a140562272992a14bf4a9644f02c24dae" prot="public" virt="non-virtual"><scope>XHdcp22_Rng</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

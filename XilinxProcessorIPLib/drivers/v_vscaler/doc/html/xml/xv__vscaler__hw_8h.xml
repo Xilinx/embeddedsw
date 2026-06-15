@@ -1,0 +1,387 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vscaler__hw_8h" kind="file">
+    <compoundname>xv_vscaler_hw.h</compoundname>
+    <includedby refid="xv__vscaler_8h" local="yes">xv_vscaler.h</includedby>
+    <invincdepgraph>
+      <node id="49">
+        <label>xv_vscaler_sinit.c</label>
+        <link refid="xv__vscaler__sinit_8c"/>
+      </node>
+      <node id="47">
+        <label>xv_vscaler_l2.c</label>
+        <link refid="xv__vscaler__l2_8c"/>
+      </node>
+      <node id="44">
+        <label>xv_vscaler.c</label>
+        <link refid="xv__vscaler_8c"/>
+      </node>
+      <node id="45">
+        <label>xv_vscaler_l2.h</label>
+        <link refid="xv__vscaler__l2_8h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xv_vscaler.h</label>
+        <link refid="xv__vscaler_8h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="42">
+        <label>xv_vscaler_hw.h</label>
+        <link refid="xv_vscaler_hw.h"/>
+        <childnode refid="43" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xv_vscaler_coeff.c</label>
+        <link refid="xv__vscaler__coeff_8c"/>
+      </node>
+      <node id="48">
+        <label>xv_vscaler_g.c</label>
+        <link refid="xv__vscaler__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a2b54102c1746076e2810afcd00235f90" prot="public" static="no">
+        <name>XV_VSCALER_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x000</initializer>
+        <briefdescription>
+<para>Register address and bit-width definitions for XV_VSCALER hardware module. </para>        </briefdescription>
+        <detaileddescription>
+<para>XV_VSCALER_CTRL_ADDR_AP_CTRL:<itemizedlist>
+<listitem><para>Address: 0x000</para></listitem><listitem><para>Description: Control register for starting, stopping, and monitoring the hardware.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_GIE:<itemizedlist>
+<listitem><para>Address: 0x004</para></listitem><listitem><para>Description: Global Interrupt Enable register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_IER:<itemizedlist>
+<listitem><para>Address: 0x008</para></listitem><listitem><para>Description: Interrupt Enable Register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_ISR:<itemizedlist>
+<listitem><para>Address: 0x00c</para></listitem><listitem><para>Description: Interrupt Status Register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTIN_DATA:<itemizedlist>
+<listitem><para>Address: 0x010</para></listitem><listitem><para>Bits: 16</para></listitem><listitem><para>Description: Input frame height register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_WIDTH_DATA:<itemizedlist>
+<listitem><para>Address: 0x018</para></listitem><listitem><para>Bits: 16</para></listitem><listitem><para>Description: Input frame width register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTOUT_DATA:<itemizedlist>
+<listitem><para>Address: 0x020</para></listitem><listitem><para>Bits: 16</para></listitem><listitem><para>Description: Output frame height register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_LINERATE_DATA:<itemizedlist>
+<listitem><para>Address: 0x028</para></listitem><listitem><para>Bits: 32</para></listitem><listitem><para>Description: Line rate configuration register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA:<itemizedlist>
+<listitem><para>Address: 0x030</para></listitem><listitem><para>Bits: 8</para></listitem><listitem><para>Description: Color mode configuration register.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE:<itemizedlist>
+<listitem><para>Address: 0x800</para></listitem><listitem><para>Description: Base address for vertical filter coefficients.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH:<itemizedlist>
+<listitem><para>Address: 0xbff</para></listitem><listitem><para>Description: High address for vertical filter coefficients.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF:<itemizedlist>
+<listitem><para>Width: 16</para></listitem><listitem><para>Description: Bit width of each vertical filter coefficient.</para></listitem></itemizedlist>
+</para><para>XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF:<itemizedlist>
+<listitem><para>Depth: 512</para></listitem><listitem><para>Description: Number of vertical filter coefficients. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="xv__vscaler_8h_1ab2c36dd3e88c5be95a8c1101cac4a111" compoundref="xv__vscaler_8c" startline="170" endline="175">XV_vscaler_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__vscaler_8h_1a4bee58a9aaeaf7de3f4393044f284445" compoundref="xv__vscaler_8c" startline="149" endline="155">XV_vscaler_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__vscaler_8h_1a8df38322c966a4a17c09ae17c86b1f27" compoundref="xv__vscaler_8c" startline="82" endline="91">XV_vscaler_IsDone</referencedby>
+        <referencedby refid="xv__vscaler_8h_1a9037422243c74fa13b1f3dfdeb1e2db3" compoundref="xv__vscaler_8c" startline="104" endline="113">XV_vscaler_IsIdle</referencedby>
+        <referencedby refid="xv__vscaler_8h_1ac21858dd356b66d377bef6b3b7fa99e5" compoundref="xv__vscaler_8c" startline="126" endline="136">XV_vscaler_IsReady</referencedby>
+        <referencedby refid="xv__vscaler_8h_1ac93878549b2774a0067b7c9711c3e14c" compoundref="xv__vscaler_8c" startline="59" endline="69">XV_vscaler_Start</referencedby>
+        <referencedby refid="group__v__vscaler_1ga0aec7af5a1af5d07c6d769c0f54e73fd" compoundref="xv__vscaler__l2_8c" startline="429" endline="506">XV_VScalerDbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1ab41d051025c5e5de495a6538d31b9866" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_GIE</name>
+        <initializer>0x004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a98b7d33292e798edf58ff457f6f93e25" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_IER</name>
+        <initializer>0x008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a3e5b95ca0a51f55a450a2759e9378eb2" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_ISR</name>
+        <initializer>0x00c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1aed755de1c5a0d0611151131036a25906" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTIN_DATA</name>
+        <initializer>0x010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a9046b3ef634060e0aab28b8e3010567d" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_BITS_HWREG_HEIGHTIN_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a94290d63f1b5d95b338668e2be4c952e" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_WIDTH_DATA</name>
+        <initializer>0x018</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a690a4126f3f02de73e8f6a14ef74d2a5" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_BITS_HWREG_WIDTH_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a0a70f829ae88a035d07e6ee3e7065e97" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTOUT_DATA</name>
+        <initializer>0x020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a5ab0e5d283b92267df649fefeda79581" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_BITS_HWREG_HEIGHTOUT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1af83730b1a0cf2b4e70839e9ea6783995" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_LINERATE_DATA</name>
+        <initializer>0x028</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1ac2e47b133642c49d109a0a33d98ff5d2" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_BITS_HWREG_LINERATE_DATA</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1ad92b2176d46a51862667964339bdbeb9" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA</name>
+        <initializer>0x030</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a2eaf1065c13ae87cbc35618ba3781a64" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_BITS_HWREG_COLORMODE_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a1e00c1d818adf8ac8407e6d22ebe5d22" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE</name>
+        <initializer>0x800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1a5b642c49e9aef04b8053a02fa81ee3ff" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH</name>
+        <initializer>0xbff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1ae56dc18992ff6116271be6566293b63f" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__vscaler__hw_8h_1ae5d2d44d460361a4a89221626a6f6801" prot="public" static="no">
+        <name>XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_VSCALER_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_HW_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x000<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x004<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x008<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x00c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x010<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_HeightIn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_HeightIn[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x014<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x018<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_Width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_Width[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x01c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x020<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_HeightOut</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_HeightOut[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x024<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x028<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_LineRate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_LineRate[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x02c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x030<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_ColorMode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>HwReg_ColorMode[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x034<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x400<sp/>~</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x7ff<sp/>:<sp/>Memory<sp/>&apos;HwReg_vfltCoeff&apos;<sp/>(512<sp/>*<sp/>16b)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Word<sp/>n<sp/>:<sp/>bit<sp/>[15:<sp/>0]<sp/>-<sp/>HwReg_vfltCoeff[2n]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>[31:16]<sp/>-<sp/>HwReg_vfltCoeff[2n+1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="xv__vscaler__hw_8h_1a45e6c51a9633e2e0258d4e33e3bb7785" refkind="member"><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x004</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x008</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00c</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTIN_DATA<sp/><sp/>0x010</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_BITS_HWREG_HEIGHTIN_DATA<sp/><sp/>16</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/>0x018</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_BITS_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_HEIGHTOUT_DATA<sp/>0x020</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_BITS_HWREG_HEIGHTOUT_DATA<sp/>16</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_LINERATE_DATA<sp/><sp/>0x028</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_BITS_HWREG_LINERATE_DATA<sp/><sp/>32</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_COLORMODE_DATA<sp/>0x030</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_BITS_HWREG_COLORMODE_DATA<sp/>8</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_BASE<sp/>0x800</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_ADDR_HWREG_VFLTCOEFF_HIGH<sp/>0xbff</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_WIDTH_HWREG_VFLTCOEFF<sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_VSCALER_CTRL_DEPTH_HWREG_VFLTCOEFF<sp/><sp/><sp/><sp/><sp/>512</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vscaler/src/xv_vscaler_hw.h"/>
+  </compounddef>
+</doxygen>

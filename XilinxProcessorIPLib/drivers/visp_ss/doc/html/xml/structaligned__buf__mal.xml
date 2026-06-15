@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structaligned__buf__mal" kind="struct" prot="public">
+    <compoundname>aligned_buf_mal</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaligned__buf__mal_1ab0df1dfce1a06e53937bedc88f656ae1" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* aligned_buf_mal::malloc_ret_addr</definition>
+        <argsstring></argsstring>
+        <name>malloc_ret_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaligned__buf__mal_1aa5d0a90b3a321f06956b35ccdcb57604" prot="public" static="no" mutable="no">
+        <type>uintptr_t</type>
+        <definition>uintptr_t aligned_buf_mal::aligned_addr</definition>
+        <argsstring></argsstring>
+        <name>aligned_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvpath.c" bodystart="38" bodyend="41"/>
+    <listofallmembers>
+      <member refid="structaligned__buf__mal_1aa5d0a90b3a321f06956b35ccdcb57604" prot="public" virt="non-virtual"><scope>aligned_buf_mal</scope><name>aligned_addr</name></member>
+      <member refid="structaligned__buf__mal_1ab0df1dfce1a06e53937bedc88f656ae1" prot="public" virt="non-virtual"><scope>aligned_buf_mal</scope><name>malloc_ret_addr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___s_k_e_send_eks" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_SKESendEks</compoundname>
+    <includes local="no">xhdcp22_tx_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___s_k_e_send_eks_1a29aa15380e4d8f5d0eeeb4f7cd5a8583" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_SKESendEks::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="382" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___s_k_e_send_eks_1aaa59c6fc40e11726f1a4bcdc1e1629e3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_SKESendEks::EDkeyKs[XHDCP22_TX_EDKEY_KS_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_EDKEY_KS_SIZE]</argsstring>
+        <name>EDkeyKs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___s_k_e_send_eks_1a6b4611f16bbdbaa1b60da938a7ecdd39" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_SKESendEks::Riv[XHDCP22_TX_RIV_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_RIV_SIZE]</argsstring>
+        <name>Riv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the transmitted SKE_Send_Eks message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx_i.h" bodystart="380" bodyend="386"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___s_k_e_send_eks_1aaa59c6fc40e11726f1a4bcdc1e1629e3" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_SKESendEks</scope><name>EDkeyKs</name></member>
+      <member refid="struct_x_hdcp22___tx___s_k_e_send_eks_1a29aa15380e4d8f5d0eeeb4f7cd5a8583" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_SKESendEks</scope><name>MsgId</name></member>
+      <member refid="struct_x_hdcp22___tx___s_k_e_send_eks_1a6b4611f16bbdbaa1b60da938a7ecdd39" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_SKESendEks</scope><name>Riv</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

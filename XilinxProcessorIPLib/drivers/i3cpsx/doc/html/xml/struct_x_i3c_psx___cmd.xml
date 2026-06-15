@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_i3c_psx___cmd" kind="struct" prot="public">
+    <compoundname>XI3cPsx_Cmd</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI3cPsx_Cmd::TransCmd</definition>
+        <argsstring></argsstring>
+        <name>TransCmd</name>
+        <briefdescription>
+<para>Transaction command code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XI3cPsx_Cmd::TransArg</definition>
+        <argsstring></argsstring>
+        <name>TransArg</name>
+        <briefdescription>
+<para>Argument associated with the transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XI3cPsx_Cmd::RxBuf</definition>
+        <argsstring></argsstring>
+        <name>RxBuf</name>
+        <briefdescription>
+<para>Pointer to receive buffer for incoming data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_i3c_psx___cmd_1ae1d8774d79c71023c6f4c0127689a0a3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XI3cPsx_Cmd::Error</definition>
+        <argsstring></argsstring>
+        <name>Error</name>
+        <briefdescription>
+<para>Error status for the transaction. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/i3cpsx/src/xi3cpsx.h" bodystart="188" bodyend="193"/>
+    <listofallmembers>
+      <member refid="struct_x_i3c_psx___cmd_1ae1d8774d79c71023c6f4c0127689a0a3" prot="public" virt="non-virtual"><scope>XI3cPsx_Cmd</scope><name>Error</name></member>
+      <member refid="struct_x_i3c_psx___cmd_1a25184fff7b1703c67d4df4533a79d272" prot="public" virt="non-virtual"><scope>XI3cPsx_Cmd</scope><name>RxBuf</name></member>
+      <member refid="struct_x_i3c_psx___cmd_1ad5becc01b30e22da1c71dbde4155a04a" prot="public" virt="non-virtual"><scope>XI3cPsx_Cmd</scope><name>TransArg</name></member>
+      <member refid="struct_x_i3c_psx___cmd_1a96959e56dba59fec98d8b79fa4fdf145" prot="public" virt="non-virtual"><scope>XI3cPsx_Cmd</scope><name>TransCmd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

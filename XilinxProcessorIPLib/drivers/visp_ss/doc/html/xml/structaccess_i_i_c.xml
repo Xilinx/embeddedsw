@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structaccess_i_i_c" kind="struct" prot="public">
+    <compoundname>accessIIC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structaccess_i_i_c_1ac705325ab64e82d588e245e35d32e58f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 accessIIC::i2cBusId</definition>
+        <argsstring></argsstring>
+        <name>i2cBusId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaccess_i_i_c_1a64dfea89d8a983155de03590dc07a7da" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* accessIIC::readIIC)(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t *pValue, uint8_t dataWidth)</definition>
+        <argsstring>)(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t *pValue, uint8_t dataWidth)</argsstring>
+        <name>readIIC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structaccess_i_i_c_1af59c1eaa4b0ad24f0a3b7cd4a380eecd" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* accessIIC::writeIIC)(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t value, uint8_t dataWidth)</definition>
+        <argsstring>)(u8 i2cBusId, u8 slave_addr, uint16_t addr, uint8_t regWidth, uint16_t value, uint8_t dataWidth)</argsstring>
+        <name>writeIIC</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="200" bodyend="206"/>
+    <listofallmembers>
+      <member refid="structaccess_i_i_c_1ac705325ab64e82d588e245e35d32e58f" prot="public" virt="non-virtual"><scope>accessIIC</scope><name>i2cBusId</name></member>
+      <member refid="structaccess_i_i_c_1a64dfea89d8a983155de03590dc07a7da" prot="public" virt="non-virtual"><scope>accessIIC</scope><name>readIIC</name></member>
+      <member refid="structaccess_i_i_c_1af59c1eaa4b0ad24f0a3b7cd4a380eecd" prot="public" virt="non-virtual"><scope>accessIIC</scope><name>writeIIC</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

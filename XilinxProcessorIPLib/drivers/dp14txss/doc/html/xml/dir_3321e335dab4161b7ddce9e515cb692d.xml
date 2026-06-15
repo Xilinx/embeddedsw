@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_3321e335dab4161b7ddce9e515cb692d" kind="dir">
+    <compoundname>tx_only</compoundname>
+    <innerfile refid="tx__only_2clk__set_8c">tx_only/clk_set.c</innerfile>
+    <innerfile refid="tx__only_2clk__set_8h">tx_only/clk_set.h</innerfile>
+    <innerfile refid="tx__only_2idt__8t49n24x_8c">tx_only/idt_8t49n24x.c</innerfile>
+    <innerfile refid="tx__only_2idt__8t49n24x_8h">tx_only/idt_8t49n24x.h</innerfile>
+    <innerfile refid="tx__only_2menus_8c">tx_only/menus.c</innerfile>
+    <innerfile refid="tx__only_2si570_8c">tx_only/si570.c</innerfile>
+    <innerfile refid="tx__only_2ti__lmk03318_8c">tx_only/ti_lmk03318.c</innerfile>
+    <innerfile refid="tx__only_2ti__lmk03318_8h">tx_only/ti_lmk03318.h</innerfile>
+    <innerfile refid="tx__only_2videofmc__defs_8h">tx_only/videofmc_defs.h</innerfile>
+    <innerfile refid="xdptxss__dp14__tx_8c">xdptxss_dp14_tx.c</innerfile>
+    <innerfile refid="xdptxss__dp14__tx_8h">xdptxss_dp14_tx.h</innerfile>
+    <innerfile refid="tx__only_2xvid__clk__gen_8c">tx_only/xvid_clk_gen.c</innerfile>
+    <innerfile refid="tx__only_2xvid__pat__gen_8c">tx_only/xvid_pat_gen.c</innerfile>
+    <innerfile refid="tx__only_2xvidframe__crc_8c">tx_only/xvidframe_crc.c</innerfile>
+    <innerfile refid="tx__only_2xvidframe__crc_8h">tx_only/xvidframe_crc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/tx_only/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1101 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilpki_8h" kind="file">
+    <compoundname>xilpki.h</compoundname>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xilpki__ecdsa_8h" local="yes">xilpki_ecdsa.h</includes>
+    <includes local="yes">xtrngpsx.h</includes>
+    <includes local="yes">xil_mmu.h</includes>
+    <includedby refid="xilpki_8c" local="yes">xilpki.c</includedby>
+    <includedby refid="xilpki__ecdsa_8h" local="yes">xilpki_ecdsa.h</includedby>
+    <includedby refid="xilpki__kat_8c" local="yes">xilpki_kat.c</includedby>
+    <includedby refid="_xilpki__ecdsa__example_8c" local="yes">Xilpki_ecdsa_example.c</includedby>
+    <includedby refid="_xilpki__ecdsa__keypair__example_8c" local="yes">Xilpki_ecdsa_keypair_example.c</includedby>
+    <incdepgraph>
+      <node id="19">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="21">
+        <label>xil_io.h</label>
+      </node>
+      <node id="18">
+        <label>sleep.h</label>
+      </node>
+      <node id="20">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="24">
+        <label>xil_util.h</label>
+      </node>
+      <node id="27">
+        <label>xtrngpsx.h</label>
+      </node>
+      <node id="23">
+        <label>xil_types.h</label>
+      </node>
+      <node id="25">
+        <label>xparameters.h</label>
+      </node>
+      <node id="28">
+        <label>xil_mmu.h</label>
+      </node>
+      <node id="22">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="17">
+        <label>xilpki.h</label>
+        <link refid="xilpki.h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xilpki_ecdsa.h</label>
+        <link refid="xilpki__ecdsa_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="32">
+        <label>xilpki_kat.c</label>
+        <link refid="xilpki__kat_8c"/>
+      </node>
+      <node id="34">
+        <label>Xilpki_ecdsa_keypair_example.c</label>
+      </node>
+      <node id="33">
+        <label>Xilpki_ecdsa_example.c</label>
+      </node>
+      <node id="30">
+        <label>xilpki.c</label>
+        <link refid="xilpki_8c"/>
+      </node>
+      <node id="29">
+        <label>xilpki.h</label>
+        <link refid="xilpki.h"/>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xilpki_ecdsa.h</label>
+        <link refid="xilpki__ecdsa_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_pki___request___info" prot="public">XPki_Request_Info</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilpki-api_1ga4877acc9d6a83a4f254970dab52187d6" prot="public" static="no">
+        <name>XPKI_INVALID_PARAM</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+<para>Error codes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Invalid parameters </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" compoundref="xilpki_8c" startline="851" endline="871">XilPki_DeQueue</referencedby>
+        <referencedby refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</referencedby>
+        <referencedby refid="group__xilpki-api_1ga576bdd3a3c4387f79ce64072c9be1e8e" compoundref="xilpki_8c" startline="450" endline="517">XPki_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga22d3441cd8c17837ce0f26711b0f6502" prot="public" static="no">
+        <name>XPKI_ERROR_UNALIGN_ADDR</name>
+        <initializer>0x3U</initializer>
+        <briefdescription>
+<para>For unaligned address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1gaffff0e169b2892e3b89960208a1aaca3" prot="public" static="no">
+        <name>XPKI_INVALID_QUEUE_ID</name>
+        <initializer>0x4U</initializer>
+        <briefdescription>
+<para>Invalid Queue ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga59a066a8419d2bd879050ec3778eb4d1" prot="public" static="no">
+        <name>XPKI_UNSUPPORTED_OPS</name>
+        <initializer>0x5U</initializer>
+        <briefdescription>
+<para>Unsupported operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1gaecd8c5bf657f4956f3156c8ccda28cae" prot="public" static="no">
+        <name>XPKI_QUEUE_FULL</name>
+        <initializer>0x6U</initializer>
+        <briefdescription>
+<para>Queue full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga3c4ee847d41481347ffe9e22c20827fc" prot="public" static="no">
+        <name>XPKI_SLOT_SIZE_ERR</name>
+        <initializer>0x7U</initializer>
+        <briefdescription>
+<para>For incompatible slot size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga45b57aaaa03e56b9ed1b9f2a4705dcb6" prot="public" static="no">
+        <name>XPKI_INVALID_REQ_ID</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+<para>Invalid request ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga1050315ee39dec8045e595900152f945" prot="public" static="no">
+        <name>XPKI_SIGN_COPY_ERR</name>
+        <initializer>0x9U</initializer>
+        <briefdescription>
+<para>Failed to copy the signature into the user pointed buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga2e734c9d7fd5fc7659467b73bf4435cd" prot="public" static="no">
+        <name>XPKI_PRIV_KEY_COPY_ERR</name>
+        <initializer>0xAU</initializer>
+        <briefdescription>
+<para>Failed to copy the private-key into the user pointed buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpki-api_1ga79ab7367766b15cf44879750e9145378" prot="public" static="no">
+        <name>XPKI_PUB_KEY_COPY_ERR</name>
+        <initializer>0xBU</initializer>
+        <briefdescription>
+<para>Failed to copy the public-key into the user pointed buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xilpki-api_1ga2ada82147d8840951ba1ab921cc5fe77" prot="public" static="no">
+        <name>Xpki_OpsType</name>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a450e3b7dbaffcfdd0ba9c5401309149d" prot="public">
+          <name>PKI_ECC_NIST_P192_SIGN</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>ECC NIST P-192 signature generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a483c2b35b683faeb70fcb78f6965f672" prot="public">
+          <name>PKI_ECC_NIST_P256_SIGN</name>
+          <briefdescription>
+<para>ECC NIST P-256 signature generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acdab55697f7e3de418090c06b4cf4a43" prot="public">
+          <name>PKI_ECC_NIST_P384_SIGN</name>
+          <briefdescription>
+<para>ECC NIST P-384 signature generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac0207dd557b354ef62d7ac6d23284a60" prot="public">
+          <name>PKI_ECC_NIST_P521_SIGN</name>
+          <briefdescription>
+<para>ECC NIST P-521 signature generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ab88f47ec99dca856c9cb27d1f2968d00" prot="public">
+          <name>PKI_ECC_NIST_P192_SIGN_VERIFY</name>
+          <briefdescription>
+<para>ECC NIST P-192 signature verification. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77abef5f4196b37f65112bcc06ce9ec4e89" prot="public">
+          <name>PKI_ECC_NIST_P256_SIGN_VERIFY</name>
+          <briefdescription>
+<para>ECC NIST P-256 signature verification. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acbb236799f819cfd64610cbf8bdf4259" prot="public">
+          <name>PKI_ECC_NIST_P384_SIGN_VERIFY</name>
+          <briefdescription>
+<para>ECC NIST P-384 signature verification. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77af704dd1d03fade9c09d106fd19e2b926" prot="public">
+          <name>PKI_ECC_NIST_P521_SIGN_VERIFY</name>
+          <briefdescription>
+<para>ECC NIST P-521 signature verification. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77aa0e8156b5571c43d72cc0a7b531ffa18" prot="public">
+          <name>PKI_ECC_NIST_P192_KEY_PRIV_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-192 private-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac21a75cc63a68de870f84c802e71d6ef" prot="public">
+          <name>PKI_ECC_NIST_P256_KEY_PRIV_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-256 private-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a5d03296c91f085ed217a543bd410d89f" prot="public">
+          <name>PKI_ECC_NIST_P384_KEY_PRIV_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-384 private-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ae7a1e4aa6ddb9878f1ed66a59e976b4a" prot="public">
+          <name>PKI_ECC_NIST_P521_KEY_PRIV_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-521 private-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a587a22c675c8759a94ac25ec29c65a8c" prot="public">
+          <name>PKI_ECC_NIST_P192_KEY_PUB_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-192 public-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a1a4132b55a03a6807f70266fd8a1f8e7" prot="public">
+          <name>PKI_ECC_NIST_P256_KEY_PUB_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-256 public-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a24e795e1389f1ed1f5cfafcf6910146c" prot="public">
+          <name>PKI_ECC_NIST_P384_KEY_PUB_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-384 public-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac7f44f3c4951b2b9f10421e5e9ef7dde" prot="public">
+          <name>PKI_ECC_NIST_P521_KEY_PUB_GEN</name>
+          <briefdescription>
+<para>ECC NIST P-521 public-key generation. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ad662c4543b0cbffbabad2bd4608191de" prot="public">
+          <name>PKI_MAX_OPS</name>
+          <briefdescription>
+<para>Maximum supported ops count. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>PKI ECC supported operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="216" bodyend="234"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilpki-api_1ga926ee6fc0f1462ae2de5ba10d2886c45" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XPki_GetLibVersion</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPki_GetLibVersion</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function returns the version number of xilpki library. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>32-bit version number </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" bodystart="279" bodyend="282"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga505935a763918d9c3703d7b27be9a41b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPki_Reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPki_Reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reset the PKI module. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="416" bodyend="422"/>
+        <referencedby refid="group__xilpki-api_1ga576bdd3a3c4387f79ce64072c9be1e8e" compoundref="xilpki_8c" startline="450" endline="517">XPki_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga9ea0ba13f75d8fef10d836964638a016" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPki_SoftReset</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPki_SoftReset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function performs the PKI module soft reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="429" bodyend="435"/>
+        <referencedby refid="group__xilpki-api_1ga576bdd3a3c4387f79ce64072c9be1e8e" compoundref="xilpki_8c" startline="450" endline="517">XPki_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga576bdd3a3c4387f79ce64072c9be1e8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_Initialize</definition>
+        <argsstring>(XPki_Instance *InstancePtr)</argsstring>
+        <name>XPki_Initialize</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the PKI module initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XPKI_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XPKI_ERROR_UNALIGN_ADDR - On Request/Completion queue Address are not Word aligned.</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="291" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="450" bodyend="517"/>
+        <references refid="group__xilpki-api_1ga4877acc9d6a83a4f254970dab52187d6" compoundref="xilpki_8h" startline="181">XPKI_INVALID_PARAM</references>
+        <references refid="group__xilpki-api_1ga505935a763918d9c3703d7b27be9a41b" compoundref="xilpki_8c" startline="416" endline="422">XPki_Reset</references>
+        <references refid="group__xilpki-api_1ga9ea0ba13f75d8fef10d836964638a016" compoundref="xilpki_8c" startline="429" endline="435">XPki_SoftReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_EcdsaGenerateKeyPair</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_EcdsaCrvType CrvType, XPki_EcdsaKey *PubKey, u8 *PrivKey)</argsstring>
+        <name>XPki_EcdsaGenerateKeyPair</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref></type>
+          <declname>CrvType</declname>
+        </param>
+        <param>
+          <type>XPki_EcdsaKey *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PrivKey</declname>
+        </param>
+        <briefdescription>
+<para>This function Generate key pairs for the ECC curves NIST-P192, P256, P384, and P521. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrvType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of ECC curve(NIST-P192,P256,P384, and P521) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the pulic-key buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the private-key buffer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - when passes</para></listitem><listitem><para>Errorcode - when fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_kat.c" bodystart="845" bodyend="933"/>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" compoundref="xilpki__ecdsa_8h" startline="59">ECC_NIST_P192</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" compoundref="xilpki__ecdsa_8h" startline="60">ECC_NIST_P256</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" compoundref="xilpki__ecdsa_8h" startline="61">ECC_NIST_P384</references>
+        <references refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" compoundref="xilpki_8h" startline="240">XPki_Request_Info::OpsType</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77aa0e8156b5571c43d72cc0a7b531ffa18" compoundref="xilpki_8h" startline="225">PKI_ECC_NIST_P192_KEY_PRIV_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a587a22c675c8759a94ac25ec29c65a8c" compoundref="xilpki_8h" startline="229">PKI_ECC_NIST_P192_KEY_PUB_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac21a75cc63a68de870f84c802e71d6ef" compoundref="xilpki_8h" startline="226">PKI_ECC_NIST_P256_KEY_PRIV_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a1a4132b55a03a6807f70266fd8a1f8e7" compoundref="xilpki_8h" startline="230">PKI_ECC_NIST_P256_KEY_PUB_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a5d03296c91f085ed217a543bd410d89f" compoundref="xilpki_8h" startline="227">PKI_ECC_NIST_P384_KEY_PRIV_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a24e795e1389f1ed1f5cfafcf6910146c" compoundref="xilpki_8h" startline="231">PKI_ECC_NIST_P384_KEY_PUB_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ae7a1e4aa6ddb9878f1ed66a59e976b4a" compoundref="xilpki_8h" startline="228">PKI_ECC_NIST_P521_KEY_PRIV_GEN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac7f44f3c4951b2b9f10421e5e9ef7dde" compoundref="xilpki_8h" startline="232">PKI_ECC_NIST_P521_KEY_PUB_GEN</references>
+        <references refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" compoundref="xilpki_8h" startline="238">XPki_Request_Info::PtrInputData</references>
+        <references refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" compoundref="xilpki_8h" startline="239">XPki_Request_Info::PtrOutputData</references>
+        <references refid="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" compoundref="xilpki_8c" startline="851" endline="871">XilPki_DeQueue</references>
+        <references refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</references>
+        <references refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" compoundref="xilpki_8h" startline="241">XPki_Request_Info::XPki_CompletionCallBack</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_EcdsaVerifySignKat</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo)</argsstring>
+        <name>XPki_EcdsaVerifySignKat</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPki_EcdsaCrvInfo *</type>
+          <declname>CrvInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ECC sign verify known answer test(KAT) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrvInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of ECC curve class either prime/binary curve and curve type(NIST-P192,P256,P384, and P521)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - when KAT passes</para></listitem><listitem><para>Errorcode - when KAT fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_kat.c" bodystart="512" bodyend="570"/>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" compoundref="xilpki__ecdsa_8h" startline="59">ECC_NIST_P192</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" compoundref="xilpki__ecdsa_8h" startline="60">ECC_NIST_P256</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" compoundref="xilpki__ecdsa_8h" startline="61">ECC_NIST_P384</references>
+        <references refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" compoundref="xilpki_8h" startline="240">XPki_Request_Info::OpsType</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ab88f47ec99dca856c9cb27d1f2968d00" compoundref="xilpki_8h" startline="221">PKI_ECC_NIST_P192_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77abef5f4196b37f65112bcc06ce9ec4e89" compoundref="xilpki_8h" startline="222">PKI_ECC_NIST_P256_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acbb236799f819cfd64610cbf8bdf4259" compoundref="xilpki_8h" startline="223">PKI_ECC_NIST_P384_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77af704dd1d03fade9c09d106fd19e2b926" compoundref="xilpki_8h" startline="224">PKI_ECC_NIST_P521_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" compoundref="xilpki_8h" startline="238">XPki_Request_Info::PtrInputData</references>
+        <references refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</references>
+        <references refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" compoundref="xilpki_8h" startline="241">XPki_Request_Info::XPki_CompletionCallBack</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_EcdsaSignGenerateKat</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo)</argsstring>
+        <name>XPki_EcdsaSignGenerateKat</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPki_EcdsaCrvInfo *</type>
+          <declname>CrvInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ECC sign generate known answer test(KAT) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrvInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of ECC curve class either prime or binary class and curve type(NIST-P192,P256,P384, and P521)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - when KAT passes</para></listitem><listitem><para>Errorcode - when KAT fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_kat.c" bodystart="604" bodyend="684"/>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" compoundref="xilpki__ecdsa_8h" startline="59">ECC_NIST_P192</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" compoundref="xilpki__ecdsa_8h" startline="60">ECC_NIST_P256</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" compoundref="xilpki__ecdsa_8h" startline="61">ECC_NIST_P384</references>
+        <references refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" compoundref="xilpki_8h" startline="240">XPki_Request_Info::OpsType</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a450e3b7dbaffcfdd0ba9c5401309149d" compoundref="xilpki_8h" startline="217">PKI_ECC_NIST_P192_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a483c2b35b683faeb70fcb78f6965f672" compoundref="xilpki_8h" startline="218">PKI_ECC_NIST_P256_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acdab55697f7e3de418090c06b4cf4a43" compoundref="xilpki_8h" startline="219">PKI_ECC_NIST_P384_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac0207dd557b354ef62d7ac6d23284a60" compoundref="xilpki_8h" startline="220">PKI_ECC_NIST_P521_SIGN</references>
+        <references refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" compoundref="xilpki_8h" startline="238">XPki_Request_Info::PtrInputData</references>
+        <references refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" compoundref="xilpki_8h" startline="239">XPki_Request_Info::PtrOutputData</references>
+        <references refid="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" compoundref="xilpki_8c" startline="851" endline="871">XilPki_DeQueue</references>
+        <references refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</references>
+        <references refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" compoundref="xilpki_8h" startline="241">XPki_Request_Info::XPki_CompletionCallBack</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_EcdsaPwct</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_EcdsaCrvInfo *CrvInfo, XPki_EcdsaKey *PubKey, u8 *PrivKey)</argsstring>
+        <name>XPki_EcdsaPwct</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XPki_EcdsaCrvInfo *</type>
+          <declname>CrvInfo</declname>
+        </param>
+        <param>
+          <type>XPki_EcdsaKey *</type>
+          <declname>PubKey</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>PrivKey</declname>
+        </param>
+        <briefdescription>
+<para>This function performs ECC pairwise consistency test on ECC Curves. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CrvInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of ECC curve class either prime or binary class and curve type(NIST-P192,P256,P384, and P521) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PubKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ECC public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PrivKey</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ECC private key</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - when KAT passes</para></listitem><listitem><para>Errorcode - when KAT fails </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_kat.c" bodystart="721" bodyend="828"/>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faaa5a49f182e930999ebf8be222d62cdea" compoundref="xilpki__ecdsa_8h" startline="59">ECC_NIST_P192</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faae8c5cb86007337b5c7943ad42d88c26d" compoundref="xilpki__ecdsa_8h" startline="60">ECC_NIST_P256</references>
+        <references refid="group__xilpki-api_1gga17397319ffdcb8c105f8aaa731eac7faa8694a219c07cd54e8969db947c01bd6b" compoundref="xilpki__ecdsa_8h" startline="61">ECC_NIST_P384</references>
+        <references refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" compoundref="xilpki_8h" startline="240">XPki_Request_Info::OpsType</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a450e3b7dbaffcfdd0ba9c5401309149d" compoundref="xilpki_8h" startline="217">PKI_ECC_NIST_P192_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ab88f47ec99dca856c9cb27d1f2968d00" compoundref="xilpki_8h" startline="221">PKI_ECC_NIST_P192_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a483c2b35b683faeb70fcb78f6965f672" compoundref="xilpki_8h" startline="218">PKI_ECC_NIST_P256_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77abef5f4196b37f65112bcc06ce9ec4e89" compoundref="xilpki_8h" startline="222">PKI_ECC_NIST_P256_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acdab55697f7e3de418090c06b4cf4a43" compoundref="xilpki_8h" startline="219">PKI_ECC_NIST_P384_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acbb236799f819cfd64610cbf8bdf4259" compoundref="xilpki_8h" startline="223">PKI_ECC_NIST_P384_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac0207dd557b354ef62d7ac6d23284a60" compoundref="xilpki_8h" startline="220">PKI_ECC_NIST_P521_SIGN</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77af704dd1d03fade9c09d106fd19e2b926" compoundref="xilpki_8h" startline="224">PKI_ECC_NIST_P521_SIGN_VERIFY</references>
+        <references refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" compoundref="xilpki_8h" startline="238">XPki_Request_Info::PtrInputData</references>
+        <references refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" compoundref="xilpki_8h" startline="239">XPki_Request_Info::PtrOutputData</references>
+        <references refid="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" compoundref="xilpki_8c" startline="851" endline="871">XilPki_DeQueue</references>
+        <references refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" compoundref="xilpki_8c" startline="777" endline="834">XilPki_EnQueue</references>
+        <references refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" compoundref="xilpki_8h" startline="241">XPki_Request_Info::XPki_CompletionCallBack</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga17c93923bc5348033293e61c582eb7a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPki_TrngGenerateRandomNum</definition>
+        <argsstring>(u8 GenSize, u8 *RandBuf)</argsstring>
+        <name>XPki_TrngGenerateRandomNum</name>
+        <param>
+          <type>u8</type>
+          <declname>GenSize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RandBuf</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to generate the Random number for the give size. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>GenSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Required Random Number length in bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store the Random Number.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="624" bodyend="641"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPki_EnQueue</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr, u32 *RequestID)</argsstring>
+        <name>XilPki_EnQueue</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pki___request___info" kindref="compound">XPki_Request_Info</ref> *</type>
+          <declname>Request_InfoPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>RequestID</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to submit the crypto operation to the PKI Queue. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Request_InfoPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the queue info structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the RequestID. if the request is successfully submitted it filled with unique id </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XPKI_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XPKI_UNSUPPORTED_OPS - If the requested operation is not supported.</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="777" bodyend="834"/>
+        <references refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" compoundref="xilpki_8h" startline="240">XPki_Request_Info::OpsType</references>
+        <references refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ad662c4543b0cbffbabad2bd4608191de" compoundref="xilpki_8h" startline="233">PKI_MAX_OPS</references>
+        <references refid="group__xilpki-api_1ga4877acc9d6a83a4f254970dab52187d6" compoundref="xilpki_8h" startline="181">XPKI_INVALID_PARAM</references>
+        <references refid="group__xilpki-api_1gaecd8c5bf657f4956f3156c8ccda28cae" compoundref="xilpki_8h" startline="185">XPKI_QUEUE_FULL</references>
+        <references refid="group__xilpki-api_1ga59a066a8419d2bd879050ec3778eb4d1" compoundref="xilpki_8h" startline="184">XPKI_UNSUPPORTED_OPS</references>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+        <referencedby refid="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" compoundref="xilpki__kat_8c" startline="512" endline="570">XPki_EcdsaVerifySignKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPki_DeQueue</definition>
+        <argsstring>(XPki_Instance *InstancePtr, XPki_Request_Info *Request_InfoPtr, u32 RequestID)</argsstring>
+        <name>XilPki_DeQueue</name>
+        <param>
+          <type>XPki_Instance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_pki___request___info" kindref="compound">XPki_Request_Info</ref> *</type>
+          <declname>Request_InfoPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RequestID</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to get the crypto operation results from the PKI Queue. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XPki instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Request_InfoPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the queue info structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RequestID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Unique request ID Filled by the <ref refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" kindref="member">XilPki_EnQueue()</ref> API. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XPKI_INVALID_PARAM - On invalid argument</para></listitem><listitem><para>XPKI_UNSUPPORTED_OPS - If the requested operation is not supported.</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="851" bodyend="871"/>
+        <references refid="group__xilpki-api_1ga4877acc9d6a83a4f254970dab52187d6" compoundref="xilpki_8h" startline="181">XPKI_INVALID_PARAM</references>
+        <referencedby refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" compoundref="xilpki__kat_8c" startline="845" endline="933">XPki_EcdsaGenerateKeyPair</referencedby>
+        <referencedby refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" compoundref="xilpki__kat_8c" startline="721" endline="828">XPki_EcdsaPwct</referencedby>
+        <referencedby refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" compoundref="xilpki__kat_8c" startline="604" endline="684">XPki_EcdsaSignGenerateKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpki-api_1ga2ddb8e612b2e3b756bfbff5ba1d81bb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPki_Close</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPki_Close</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to disable access to the PKI Hardware. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.c" bodystart="524" bodyend="535"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor">#ifndef<sp/>XILPKI_H</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPKI_H</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilpki__ecdsa_8h" kindref="compound">xilpki_ecdsa.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtrngpsx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_mmu.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
+<codeline lineno="74"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#define<sp/>FPD_SLCR_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEC8C0000U</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_SLCR_BASEADDR<sp/>)<sp/>+<sp/>0x00000000U<sp/>)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_FULLMASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_FULLRWMASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_DEFVAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_ACTIVE_SHIFT<sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_ACTIVE_WIDTH<sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_WPROT0_ACTIVE_DEFVAL<sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((<sp/>FPD_SLCR_BASEADDR<sp/>)<sp/>+<sp/>0x00002000U<sp/>)</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_FULLMASK<sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_FULLRWMASK<sp/>0x00000001U</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_DEFVAL<sp/><sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_PKI_SMUX_PATHSEL_SHIFT<sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_PKI_SMUX_PATHSEL_WIDTH<sp/><sp/><sp/><sp/><sp/>1U</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_PKI_SMUX_PATHSEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000001U</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_SLCR_PKI_MUX_SEL_PKI_SMUX_PATHSEL_DEFVAL<sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>PSX_CRF_RST_PKI<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEC200340U)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20400000000U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_CTRLSTAT_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20400050000U)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor">#define<sp/>FPD_PKI_ENGINE_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CTRLSTAT_BASEADDR<sp/>)<sp/>+<sp/>0x00000C00U<sp/>)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_ENGINE_CM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_ENGINE_CM_ENABLE_VAL<sp/><sp/><sp/><sp/>0x0U</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_ENGINE_CM_DISABLE_VAL<sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>FPD_PKI_SOFT_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000038U<sp/>)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>FPD_PKI_IRQ_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000088U<sp/>)</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>FPD_PKI_IRQ_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000090U<sp/>)</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>FPD_PKI_IRQ_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x000000A0U<sp/>)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_PAGE_ADDR_INPUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000100U<sp/>)</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_PAGE_ADDR_OUTPUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000108U<sp/>)</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_PAGE_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000120U<sp/>)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_CQID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000128U<sp/>)</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_PERMISSIONS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000130U<sp/>)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CFG_QUEUE_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00000140U<sp/>)</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#define<sp/>FPD_PKI_CQ_CFG_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00001100U<sp/>)</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor">#define<sp/>FPD_PKI_CQ_CFG_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00001108U<sp/>)</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>FPD_PKI_CQ_CFG_IRQ_IDX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00001110U<sp/>)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor">#define<sp/>FPD_PKI_RQ_CTL_NEW_REQUEST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00002000U<sp/>)</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>FPD_PKI_CTL_PENDING_REQS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00002018U<sp/>)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>FPD_PKI_CQ_CTL_TRIGPOS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<sp/>(<sp/>FPD_PKI_CRYPTO_BASEADDR<sp/>)<sp/>+<sp/>0x00002028U<sp/>)</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPKI_REQ_MAX_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256U</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181" refid="group__xilpki-api_1ga4877acc9d6a83a4f254970dab52187d6" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_INVALID_PARAM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U<sp/></highlight></codeline>
+<codeline lineno="182" refid="group__xilpki-api_1ga22d3441cd8c17837ce0f26711b0f6502" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_ERROR_UNALIGN_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3U<sp/></highlight></codeline>
+<codeline lineno="183" refid="group__xilpki-api_1gaffff0e169b2892e3b89960208a1aaca3" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_INVALID_QUEUE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4U<sp/></highlight></codeline>
+<codeline lineno="184" refid="group__xilpki-api_1ga59a066a8419d2bd879050ec3778eb4d1" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_UNSUPPORTED_OPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5U<sp/></highlight></codeline>
+<codeline lineno="185" refid="group__xilpki-api_1gaecd8c5bf657f4956f3156c8ccda28cae" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_QUEUE_FULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6U<sp/></highlight></codeline>
+<codeline lineno="186" refid="group__xilpki-api_1ga3c4ee847d41481347ffe9e22c20827fc" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_SLOT_SIZE_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7U<sp/></highlight></codeline>
+<codeline lineno="187" refid="group__xilpki-api_1ga45b57aaaa03e56b9ed1b9f2a4705dcb6" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_INVALID_REQ_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8U<sp/></highlight></codeline>
+<codeline lineno="188" refid="group__xilpki-api_1ga1050315ee39dec8045e595900152f945" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_SIGN_COPY_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x9U<sp/></highlight></codeline>
+<codeline lineno="189" refid="group__xilpki-api_1ga2e734c9d7fd5fc7659467b73bf4435cd" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_PRIV_KEY_COPY_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xAU<sp/></highlight></codeline>
+<codeline lineno="190" refid="group__xilpki-api_1ga79ab7367766b15cf44879750e9145378" refkind="member"><highlight class="preprocessor">#define<sp/>XPKI_PUB_KEY_COPY_ERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBU<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="193"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
+<codeline lineno="194"><highlight class="comment">*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor">#define<sp/>PKI_QUEUE_0_SLOT_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/>128U</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PKI_QUEUE_1_SLOT_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/>256U</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PKI_QUEUE_2_SLOT_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/>512U</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PKI_QUEUE_3_SLOT_SIZE_BYTES<sp/><sp/><sp/><sp/><sp/>512U</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XPKI_MAJOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPKI_MINOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PKI_QUEUE_ID_0<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PKI_QUEUE_ID_1,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PKI_QUEUE_ID_2,</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PKI_QUEUE_ID_3</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}<sp/>XPki_QueueID;</highlight></codeline>
+<codeline lineno="216" refid="group__xilpki-api_1ga2ada82147d8840951ba1ab921cc5fe77" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="217" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a450e3b7dbaffcfdd0ba9c5401309149d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a450e3b7dbaffcfdd0ba9c5401309149d" kindref="member">PKI_ECC_NIST_P192_SIGN</ref><sp/>=<sp/>1,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="218" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a483c2b35b683faeb70fcb78f6965f672" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a483c2b35b683faeb70fcb78f6965f672" kindref="member">PKI_ECC_NIST_P256_SIGN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="219" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acdab55697f7e3de418090c06b4cf4a43" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acdab55697f7e3de418090c06b4cf4a43" kindref="member">PKI_ECC_NIST_P384_SIGN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="220" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac0207dd557b354ef62d7ac6d23284a60" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac0207dd557b354ef62d7ac6d23284a60" kindref="member">PKI_ECC_NIST_P521_SIGN</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ab88f47ec99dca856c9cb27d1f2968d00" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ab88f47ec99dca856c9cb27d1f2968d00" kindref="member">PKI_ECC_NIST_P192_SIGN_VERIFY</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77abef5f4196b37f65112bcc06ce9ec4e89" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77abef5f4196b37f65112bcc06ce9ec4e89" kindref="member">PKI_ECC_NIST_P256_SIGN_VERIFY</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acbb236799f819cfd64610cbf8bdf4259" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77acbb236799f819cfd64610cbf8bdf4259" kindref="member">PKI_ECC_NIST_P384_SIGN_VERIFY</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="224" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77af704dd1d03fade9c09d106fd19e2b926" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77af704dd1d03fade9c09d106fd19e2b926" kindref="member">PKI_ECC_NIST_P521_SIGN_VERIFY</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77aa0e8156b5571c43d72cc0a7b531ffa18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77aa0e8156b5571c43d72cc0a7b531ffa18" kindref="member">PKI_ECC_NIST_P192_KEY_PRIV_GEN</ref>,<sp/></highlight></codeline>
+<codeline lineno="226" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac21a75cc63a68de870f84c802e71d6ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac21a75cc63a68de870f84c802e71d6ef" kindref="member">PKI_ECC_NIST_P256_KEY_PRIV_GEN</ref>,<sp/></highlight></codeline>
+<codeline lineno="227" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a5d03296c91f085ed217a543bd410d89f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a5d03296c91f085ed217a543bd410d89f" kindref="member">PKI_ECC_NIST_P384_KEY_PRIV_GEN</ref>,<sp/></highlight></codeline>
+<codeline lineno="228" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ae7a1e4aa6ddb9878f1ed66a59e976b4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ae7a1e4aa6ddb9878f1ed66a59e976b4a" kindref="member">PKI_ECC_NIST_P521_KEY_PRIV_GEN</ref>,<sp/></highlight></codeline>
+<codeline lineno="229" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a587a22c675c8759a94ac25ec29c65a8c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a587a22c675c8759a94ac25ec29c65a8c" kindref="member">PKI_ECC_NIST_P192_KEY_PUB_GEN</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="230" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a1a4132b55a03a6807f70266fd8a1f8e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a1a4132b55a03a6807f70266fd8a1f8e7" kindref="member">PKI_ECC_NIST_P256_KEY_PUB_GEN</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="231" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a24e795e1389f1ed1f5cfafcf6910146c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77a24e795e1389f1ed1f5cfafcf6910146c" kindref="member">PKI_ECC_NIST_P384_KEY_PUB_GEN</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="232" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac7f44f3c4951b2b9f10421e5e9ef7dde" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ac7f44f3c4951b2b9f10421e5e9ef7dde" kindref="member">PKI_ECC_NIST_P521_KEY_PUB_GEN</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="233" refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ad662c4543b0cbffbabad2bd4608191de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1gga2ada82147d8840951ba1ab921cc5fe77ad662c4543b0cbffbabad2bd4608191de" kindref="member">PKI_MAX_OPS</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}<sp/><ref refid="group__xilpki-api_1ga2ada82147d8840951ba1ab921cc5fe77" kindref="member">Xpki_OpsType</ref>;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237" refid="struct_x_pki___request___info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="238" refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__xilpki-api_1ga4750aeba3cd920b113e027f1b90a6c6c" kindref="member">PtrInputData</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239" refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__xilpki-api_1gadad46ec8656c2b010f923719be16301e" kindref="member">PtrOutputData</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="240" refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilpki-api_1ga2ada82147d8840951ba1ab921cc5fe77" kindref="member">Xpki_OpsType</ref><sp/><ref refid="group__xilpki-api_1ga661c6c12cb44acbcc56872825795ef8b" kindref="member">OpsType</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241" refid="group__xilpki-api_1ga0c79d9b9a4e2922c5328b39b4f033b35" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*XPki_CompletionCallBack)(u32<sp/>RequestID,<sp/>u32<sp/>Status);<sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="normal">}<sp/><ref refid="struct_x_pki___request___info" kindref="compound">XPki_Request_Info</ref>;</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="245"><highlight class="comment">@cond<sp/>internal</highlight></codeline>
+<codeline lineno="246"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RQInputAddr;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RQOutputAddr;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>CQAddr;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QSlotSize;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QMaxSlots;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>QFreeSlots;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RQ_SubmitList[XPKI_REQ_MAX_COUNT];</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*XPki_IntrCallBack[XPKI_REQ_MAX_COUNT])(u32<sp/>RequestID,<sp/>u32<sp/>Status);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}<sp/>XPki_MultiQueueData;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RQInputAddr;<sp/></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>RQOutputAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>CQAddr;<sp/><sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Is_Cm_Enabled;<sp/></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_MultiQueueData<sp/>MultiQinfo[4];</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RQCount;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}<sp/>XPki_Instance;</highlight></codeline>
+<codeline lineno="268"><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="278"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>__attribute__((always_inline))<sp/>inline</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">u32<sp/>XPki_GetLibVersion<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XIL_BUILD_VERSION(XPKI_MAJOR_VERSION,<sp/>XPKI_MINOR_VERSION));</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga505935a763918d9c3703d7b27be9a41b" kindref="member">XPki_Reset</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga9ea0ba13f75d8fef10d836964638a016" kindref="member">XPki_SoftReset</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga576bdd3a3c4387f79ce64072c9be1e8e" kindref="member">XPki_Initialize</ref>(XPki_Instance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga7f5cc0cd24e52dbdb086c293cbe8eb37" kindref="member">XPki_EcdsaGenerateKeyPair</ref>(XPki_Instance<sp/>*InstancePtr,<sp/><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref><sp/>CrvType,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_EcdsaKey<sp/>*PubKey,<sp/>u8<sp/>*PrivKey);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga4e05fcde36a6900da8e90f5e29c18cfc" kindref="member">XPki_EcdsaVerifySignKat</ref>(XPki_Instance<sp/>*InstancePtr,<sp/>XPki_EcdsaCrvInfo<sp/>*CrvInfo);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga0b2b5d7924786767fa77fda38febdf83" kindref="member">XPki_EcdsaSignGenerateKat</ref>(XPki_Instance<sp/>*InstancePtr,<sp/>XPki_EcdsaCrvInfo<sp/>*CrvInfo);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1gafdce6fc10f8a3c600a5b2ad5892f96cd" kindref="member">XPki_EcdsaPwct</ref>(XPki_Instance<sp/>*InstancePtr,<sp/>XPki_EcdsaCrvInfo<sp/>*CrvInfo,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPki_EcdsaKey<sp/>*PubKey,<sp/>u8<sp/>*PrivKey);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga17c93923bc5348033293e61c582eb7a3" kindref="member">XPki_TrngGenerateRandomNum</ref>(u8<sp/>GenSize,<sp/>u8<sp/>*RandBuf);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga56071d557aca5100f5e0f77f9c49c572" kindref="member">XilPki_EnQueue</ref>(XPki_Instance<sp/>*InstancePtr,<sp/><ref refid="struct_x_pki___request___info" kindref="compound">XPki_Request_Info</ref><sp/>*Request_InfoPtr,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*RequestID);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1gacc4bfe87976eaae5bf350315054d9be1" kindref="member">XilPki_DeQueue</ref>(XPki_Instance<sp/>*InstancePtr,<sp/><ref refid="struct_x_pki___request___info" kindref="compound">XPki_Request_Info</ref><sp/>*Request_InfoPtr,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RequestID);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilpki-api_1ga2ddb8e612b2e3b756bfbff5ba1d81bb8" kindref="member">XPki_Close</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XILPKI_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,1019 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__scenechange__stream__mode__ex_8c" kind="file">
+    <compoundname>xv_scenechange_stream_mode_ex.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes refid="platform_8h" local="yes">platform.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="xv__scenechange_8h" local="yes">xv_scenechange.h</includes>
+    <includes local="yes">xscugic.h</includes>
+    <includes local="yes">xv_tpg.h</includes>
+    <includes local="yes">xv_frmbufwr.h</includes>
+    <includes local="yes">xv_frmbufwr_l2.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="121">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="115">
+        <label>xil_io.h</label>
+      </node>
+      <node id="117">
+        <label>sleep.h</label>
+      </node>
+      <node id="119">
+        <label>xv_scenechange.h</label>
+        <link refid="xv__scenechange_8h"/>
+        <childnode refid="120" relation="include">
+        </childnode>
+        <childnode refid="121" relation="include">
+        </childnode>
+        <childnode refid="122" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="123" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="116">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="126">
+        <label>xv_frmbufwr.h</label>
+      </node>
+      <node id="112">
+        <label>platform.h</label>
+        <link refid="platform_8h"/>
+        <childnode refid="113" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xv_scenechange_stream_mode_ex.c</label>
+        <link refid="xv_scenechange_stream_mode_ex.c"/>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+        <childnode refid="124" relation="include">
+        </childnode>
+        <childnode refid="125" relation="include">
+        </childnode>
+        <childnode refid="126" relation="include">
+        </childnode>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="128" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="122">
+        <label>xstatus.h</label>
+      </node>
+      <node id="123">
+        <label>xv_scenechange_hw.h</label>
+        <link refid="xv__scenechange__hw_8h"/>
+      </node>
+      <node id="118">
+        <label>xvidc.h</label>
+      </node>
+      <node id="120">
+        <label>xil_types.h</label>
+      </node>
+      <node id="127">
+        <label>xv_frmbufwr_l2.h</label>
+      </node>
+      <node id="110">
+        <label>xparameters.h</label>
+      </node>
+      <node id="114">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="111">
+        <label>stdio.h</label>
+      </node>
+      <node id="125">
+        <label>xv_tpg.h</label>
+      </node>
+      <node id="124">
+        <label>xscugic.h</label>
+      </node>
+      <node id="113">
+        <label>platform_config.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__scenechange__stream__mode__ex_8c_1aae330e618e2010bc93116fe9048dbffb" prot="public" static="no">
+        <name>IP_RESET_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Bit mask for resetting all IPs in the pipeline. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__scenechange__stream__mode__ex_8c_1a5a7b542415a09f0be89e9b68292e698b" prot="public" static="no">
+        <name>SCD_STREAMS_ENABLE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Number of scene change detection streams to enable (max 8) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__scenechange__stream__mode__ex_8c_1a24c48ef77929deff9e40e141a891dbb8" prot="public" static="no">
+        <name>MAX_PATTERNS</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Maximum number of test patterns supported by the Test Pattern Generator. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__stream__mode__ex_8c" startline="501" endline="570">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__scenechange__stream__mode__ex_8c_1a1efbf85113b872a73e4fdb8a81fff564" prot="public" static="no">
+        <name>FB_COLOR_FORMAT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Framebuffer color format (refer to PG278 for format codes) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" compoundref="xv__scenechange__stream__mode__ex_8c" startline="379" endline="391">FrameBuf_Config</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__scenechange__stream__mode__ex_8c_1af3cabbd572652ff168e38460f25bde04" prot="public" static="no">
+        <name>FB_CLRFMT_BYTES</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Number of bytes per color component in framebuffer format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="85" bodyend="-1"/>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" compoundref="xv__scenechange__stream__mode__ex_8c" startline="379" endline="391">FrameBuf_Config</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a312ca8d2a102c5cc9805e32168675d38" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 memaddr</definition>
+        <argsstring></argsstring>
+        <name>memaddr</name>
+        <initializer>= 0x10000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a5d3cd6fccd0281763d87905695153dd7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_height</definition>
+        <argsstring></argsstring>
+        <name>scd_height</name>
+        <initializer>= 720</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a601cf02f3184c4a9cbc5727722ffc95f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_width</definition>
+        <argsstring></argsstring>
+        <name>scd_width</name>
+        <initializer>= 1280</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a13582b7819b1aa4602c6199c8a9fadbf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_stride</definition>
+        <argsstring></argsstring>
+        <name>scd_stride</name>
+        <initializer>= 1280</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a4ee55f8c7926c57d3c47f8b97bf8fa92" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_histbits</definition>
+        <argsstring></argsstring>
+        <name>scd_histbits</name>
+        <initializer>= 16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a6d423498ce876bbbf39ec213ac7f662a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_clrfmt</definition>
+        <argsstring></argsstring>
+        <name>scd_clrfmt</name>
+        <initializer>= <ref refid="xv__scenechange_8h_1a39493a9312d5533b9801042b8509576ba07a3095a6334436ad4ccabcafc12a294" kindref="member">XV_SCD_HAS_Y8</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a9b99daa5567788968a365b18488b3e54" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 scd_threshold</definition>
+        <argsstring></argsstring>
+        <name>scd_threshold</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a0d8eab783ec04647fb24454b9dd660a7" prot="public" static="no" mutable="no">
+        <type>XV_tpg</type>
+        <definition>XV_tpg Tpg</definition>
+        <argsstring></argsstring>
+        <name>Tpg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a3dfff12939666684957419ee764c793c" prot="public" static="no" mutable="no">
+        <type>XV_tpg_Config *</type>
+        <definition>XV_tpg_Config* Tpg_ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>Tpg_ConfigPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" prot="public" static="no" mutable="no">
+        <type>XTpg_PatternId</type>
+        <definition>XTpg_PatternId Pattern</definition>
+        <argsstring></argsstring>
+        <name>Pattern</name>
+        <briefdescription>
+<para>Video pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__stream__mode__ex_8c" startline="501" endline="570">main</referencedby>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" compoundref="xv__scenechange__stream__mode__ex_8c" startline="347" endline="363">XV_ConfigTpg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a822222fb1bdb49d7fc14545665552dc1" prot="public" static="no" mutable="no">
+        <type>XV_FrmbufWr_l2</type>
+        <definition>XV_FrmbufWr_l2 Frmbufwr</definition>
+        <argsstring></argsstring>
+        <name>Frmbufwr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1a2649a9bde065747c5b9353c5727c9918" prot="public" static="no" mutable="no">
+        <type>XV_frmbufwr_Config *</type>
+        <definition>XV_frmbufwr_Config* FrmBufWr_ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>FrmBufWr_ConfigPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1aac9b9dd3f01c78843949f1b0dd37b80c" prot="public" static="no" mutable="no">
+        <type>XScuGic</type>
+        <definition>XScuGic Intc</definition>
+        <argsstring></argsstring>
+        <name>Intc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1aca2b1f901a3f11f067860bd7baa91964" prot="public" static="no" mutable="no">
+        <type>XV_scenechange</type>
+        <definition>XV_scenechange ScdPtr</definition>
+        <argsstring></argsstring>
+        <name>ScdPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1adc5ea272960eae9572164d348030ab0f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 is_detected</definition>
+        <argsstring></argsstring>
+        <name>is_detected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xv__scenechange__stream__mode__ex_8c_1ab6e54bd6ecb77f6b3665b5ad0c9d9fd9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 sc_detected</definition>
+        <argsstring></argsstring>
+        <name>sc_detected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a5473c6cfd6c580642133754e141ca556" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ClearScreen</definition>
+        <argsstring>(void)</argsstring>
+        <name>ClearScreen</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Clear the terminal screen. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears the terminal screen and resets the cursor to the home position (0,0) using ANSI escape sequences.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Uses ANSI escape sequences which may not work on all terminals. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="89" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1ab49dd7c81808a100489045e0d6bfa03c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void SceneChangeDetectedCallback</definition>
+        <argsstring>(void *CallbackRef)</argsstring>
+        <name>SceneChangeDetectedCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for scene change detection. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is called when a scene change is detected by the IP. It prints the layer ID and SAD (Sum of Absolute Differences) value, and sets the detection flag.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to callback reference (not used)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This callback is registered with <ref refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" kindref="member">XV_scenechange_SetCallback()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="93" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_SceneChange_init</definition>
+        <argsstring>()</argsstring>
+        <name>XV_SceneChange_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the SceneChange IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the SceneChange IP for stream mode operation, configures the enabled stream with its parameters (height, width, stride, color format, histogram bits, threshold), sets up interrupts, registers the callback, and starts the IP in auto-restart mode.</para><para><simplesect kind="return"><para>XST_SUCCESS if initialization succeeds XST_FAILURE if any initialization step fails</para></simplesect>
+<simplesect kind="note"><para>This function expects stream-based mode. It will fail for memory mode. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="94" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void reset_pipe</definition>
+        <argsstring>(void)</argsstring>
+        <name>reset_pipe</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Reset the video pipeline. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function performs a hardware reset of the video processing pipeline by writing to the appropriate registers. The reset sequence ensures proper initialization of all IPs in the pipeline.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The reset sequence includes setting reset, clearing it, and setting it again to ensure proper IP initialization. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="95" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_ConfigTpg</definition>
+        <argsstring>(XV_tpg *InstancePtr)</argsstring>
+        <name>XV_ConfigTpg</name>
+        <param>
+          <type>XV_tpg *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Configure the Test Pattern Generator (TPG) IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the TPG IP with the specified parameters including height, width, color format, background pattern, and enables auto-restart mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the TPG instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The TPG is configured for Y-only (grayscale) color format. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="347" bodyend="363"/>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" compoundref="xv__scenechange__stream__mode__ex_8c" startline="116">Pattern</references>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__stream__mode__ex_8c" startline="501" endline="570">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void FrameBuf_Config</definition>
+        <argsstring>()</argsstring>
+        <name>FrameBuf_Config</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Configure the Frame Buffer Write IP. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function configures the Frame Buffer Write IP with the appropriate width, height, stride, video format, and memory buffer address. It enables auto-restart mode and starts the IP.</para><para><simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The frame buffer is configured to write frames to the memory address specified in the global memaddr variable. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="379" bodyend="391"/>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1af3cabbd572652ff168e38460f25bde04" compoundref="xv__scenechange__stream__mode__ex_8c" startline="85">FB_CLRFMT_BYTES</references>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a1efbf85113b872a73e4fdb8a81fff564" compoundref="xv__scenechange__stream__mode__ex_8c" startline="81">FB_COLOR_FORMAT</references>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" compoundref="xv__scenechange__stream__mode__ex_8c" startline="409" endline="483">scd_stream_mode_pipe_init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 scd_stream_mode_pipe_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>scd_stream_mode_pipe_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize the video pipeline for stream mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes and configures the Test Pattern Generator (TPG) and Frame Buffer Write IPs. It looks up configurations, initializes each IP, sets up interrupts for the Frame Buffer Write IP, and configures the frame buffer.</para><para><simplesect kind="return"><para>XST_SUCCESS if pipeline initialization succeeds XST_DEVICE_NOT_FOUND if device configuration lookup fails XST_FAILURE if initialization or interrupt setup fails</para></simplesect>
+<simplesect kind="note"><para>This function must be called after <ref refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" kindref="member">XV_SceneChange_init()</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="409" bodyend="483"/>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" compoundref="xv__scenechange__stream__mode__ex_8c" startline="379" endline="391">FrameBuf_Config</references>
+        <referencedby refid="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xv__scenechange__stream__mode__ex_8c" startline="501" endline="570">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>Main function for SceneChange stream mode test application. </para>        </briefdescription>
+        <detaileddescription>
+<para>This application configures the SceneChange IP in stream mode to calculate SAD values between consecutive frames. It initializes the platform, configures the SceneChange IP, sets up a video pipeline with TPG and Frame Buffer Write, and cycles through different test patterns to trigger scene changes.</para><para><simplesect kind="return"><para>XST_SUCCESS if scene change is detected and test passes XST_FAILURE if initialization fails or no scene change detected</para></simplesect>
+<simplesect kind="note"><para>The test expects at least one scene change detection within MAX_PATTERNS iterations. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c" bodystart="501" bodyend="570"/>
+        <references refid="xv__scenechange__memory__mode__ex_8c_1a5473c6cfd6c580642133754e141ca556" compoundref="xv__scenechange__memory__mode__ex_8c" startline="126" endline="130">ClearScreen</references>
+        <references refid="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" compoundref="platform_8c" startline="134" endline="147">init_platform</references>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a24c48ef77929deff9e40e141a891dbb8" compoundref="xv__scenechange__stream__mode__ex_8c" startline="74">MAX_PATTERNS</references>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" compoundref="xv__scenechange__stream__mode__ex_8c" startline="116">Pattern</references>
+        <references refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" compoundref="xv__scenechange__memory__mode__ex_8c" startline="317" endline="338">reset_pipe</references>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" compoundref="xv__scenechange__stream__mode__ex_8c" startline="409" endline="483">scd_stream_mode_pipe_init</references>
+        <references refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" compoundref="xv__scenechange__stream__mode__ex_8c" startline="347" endline="363">XV_ConfigTpg</references>
+        <references refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" compoundref="xv__scenechange__memory__mode__ex_8c" startline="215" endline="301">XV_SceneChange_init</references>
+        <references refid="group__v__scenechange_1ga23a166ec0b7c75bcee59b09d2984f6ce" compoundref="xv__scenechange__l2_8c" startline="377" endline="404">XV_scenechange_Stop</references>
+        <references refid="group__v__scenechange_1gae6c86fc73f611432fe5e6a5dacf2444b" compoundref="xv__scenechange__l2_8c" startline="421" endline="440">XV_scenechange_WaitForIdle</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/><sp/><sp/><sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>xv_scenechange_stream_mode_ex.c:<sp/>scenechange<sp/>IP<sp/>in<sp/>stream<sp/>mode<sp/>test<sp/>application.</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>This<sp/>application<sp/>configures<sp/>SceneChange<sp/>IP<sp/>to<sp/>calculate<sp/>SAD<sp/>values<sp/>between</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>consecutive<sp/>streams.<sp/>The<sp/>driver<sp/>accepts<sp/>the<sp/>threshold<sp/>values<sp/>per<sp/>stream<sp/>and</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>calls<sp/>the<sp/>registered<sp/>callback<sp/>with<sp/>SAD<sp/>value<sp/>and<sp/>stream<sp/>id.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>&lt;pre&gt;</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>MODIFICATION<sp/>HISTORY:</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>Ver<sp/><sp/><sp/>Who<sp/><sp/><sp/><sp/>Date<sp/><sp/><sp/><sp/><sp/>Changes</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>-----<sp/>----<sp/>--------<sp/>-------------------------------------------------------</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>1.00<sp/><sp/>pv<sp/><sp/><sp/>10/10/18<sp/><sp/><sp/>Initial<sp/>Release</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Added<sp/>flushing<sp/>feature<sp/>support<sp/>for<sp/>the<sp/>driver.</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>it<sp/>supports<sp/>only<sp/>for<sp/>memory<sp/>based<sp/>scenechange<sp/>IP.</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flush<sp/>bit<sp/>should<sp/>be<sp/>set<sp/>and<sp/>held<sp/>(until<sp/>reset)<sp/>by</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>software<sp/>to<sp/>flush<sp/>pending<sp/>transactions.IP<sp/>is<sp/>expecting</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>hard<sp/>reset,<sp/>when<sp/>flushing<sp/>is<sp/>done.(There<sp/>is<sp/>a<sp/>flush</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>status<sp/>bit<sp/>and<sp/>is<sp/>asserted<sp/>when<sp/>the<sp/>flush<sp/>is<sp/>done).</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*<sp/>&lt;/pre&gt;</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="platform_8h" kindref="compound">platform.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__scenechange_8h" kindref="compound">xv_scenechange.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_tpg.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Reset<sp/>IPs<sp/>in<sp/>pipeline<sp/>using<sp/>IP_RESET_MASK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="xv__scenechange__stream__mode__ex_8c_1aae330e618e2010bc93116fe9048dbffb" refkind="member"><highlight class="preprocessor">#define<sp/>IP_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>Configurable<sp/>Data<sp/>for<sp/>testing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>configure<sp/>till<sp/>8<sp/>streams,<sp/>each<sp/>bit<sp/>is<sp/>designated<sp/>for<sp/>one<sp/>stream</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/>*<sp/>in<sp/>integer<sp/>in<sp/>IP<sp/>register<sp/>*/</highlight></codeline>
+<codeline lineno="69" refid="xv__scenechange__stream__mode__ex_8c_1a5a7b542415a09f0be89e9b68292e698b" refkind="member"><highlight class="preprocessor">#define<sp/>SCD_STREAMS_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Test<sp/>formats<sp/>for<sp/>the<sp/>TPG<sp/>*/</highlight></codeline>
+<codeline lineno="74" refid="xv__scenechange__stream__mode__ex_8c_1a24c48ef77929deff9e40e141a891dbb8" refkind="member"><highlight class="preprocessor">#define<sp/>MAX_PATTERNS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Please<sp/>refer<sp/>framebuffer<sp/>PG278<sp/>to<sp/>get<sp/>number<sp/>of<sp/>bytes<sp/>per<sp/>color<sp/>and</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>color<sp/>format<sp/>representation.<sp/>So,<sp/>User<sp/>can<sp/>pass<sp/>any<sp/>format<sp/>in</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>FB_COLOR_FORMAT,<sp/>FB_CLRFMT_BYTES<sp/>*/</highlight></codeline>
+<codeline lineno="81" refid="xv__scenechange__stream__mode__ex_8c_1a1efbf85113b872a73e4fdb8a81fff564" refkind="member"><highlight class="preprocessor">#define<sp/>FB_COLOR_FORMAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85" refid="xv__scenechange__stream__mode__ex_8c_1af3cabbd572652ff168e38460f25bde04" refkind="member"><highlight class="preprocessor">#define<sp/>FB_CLRFMT_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a5473c6cfd6c580642133754e141ca556" kindref="member">ClearScreen</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1ab49dd7c81808a100489045e0d6bfa03c" kindref="member">SceneChangeDetectedCallback</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" kindref="member">XV_SceneChange_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" kindref="member">reset_pipe</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" kindref="member">XV_ConfigTpg</ref>(XV_tpg<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" kindref="member">FrameBuf_Config</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">u32<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" kindref="member">scd_stream_mode_pipe_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>can<sp/>pass<sp/>any<sp/>memory<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal">u64<sp/>memaddr<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>0x10000000;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>IP<sp/>supports<sp/>till<sp/>4320<sp/>as<sp/>height*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal">u32<sp/>scd_height<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>720;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>IP<sp/>supports<sp/>till<sp/>8192<sp/>as<sp/>width*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal">u32<sp/>scd_width<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1280;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">u32<sp/>scd_stride<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1280;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>user<sp/>can<sp/>configure<sp/>hist<sp/>bits<sp/>:<sp/>2,<sp/>4,<sp/>8,<sp/>16,<sp/>32<sp/>and<sp/>64.<sp/>Typical<sp/>value<sp/>is<sp/>16*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal">u32<sp/>scd_histbits<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Two<sp/>color<sp/>formats<sp/>are<sp/>supported<sp/>by<sp/>IP:<sp/>XV_SCD_HAS_Y8,<sp/>XV_SCD_HAS_Y10<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal">u32<sp/>scd_clrfmt<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/><ref refid="xv__scenechange_8h_1a39493a9312d5533b9801042b8509576ba07a3095a6334436ad4ccabcafc12a294" kindref="member">XV_SCD_HAS_Y8</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">u32<sp/>scd_threshold<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">XV_tpg<sp/>Tpg;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">XV_tpg_Config<sp/>*Tpg_ConfigPtr;</highlight></codeline>
+<codeline lineno="116" refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" refkind="member"><highlight class="normal">XTpg_PatternId<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref>;<sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="normal">XV_FrmbufWr_l2<sp/><sp/><sp/><sp/><sp/>Frmbufwr;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">XV_frmbufwr_Config<sp/>*FrmBufWr_ConfigPtr;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">XScuGic<sp/><sp/><sp/><sp/>Intc;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">XV_scenechange<sp/>ScdPtr;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/>is_detected,<sp/>sc_detected;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="135"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a5473c6cfd6c580642133754e141ca556" kindref="member">ClearScreen</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;%c\[2J&quot;</highlight><highlight class="normal">,<sp/>27);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;%c\033[0;0H&quot;</highlight><highlight class="normal">,<sp/>27);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SetupInterruptSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic<sp/>*IntcInstPtr<sp/>=<sp/>&amp;Intc;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*IntcCfgPtr;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcCfgPtr<sp/>=<sp/>XScuGic_LookupConfig(XPAR_PSU_ACPU_GIC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!IntcCfgPtr)<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>Interrupt<sp/>Controller<sp/>not<sp/>found&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_CfgInitialize(IntcInstPtr,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcCfgPtr,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcCfgPtr-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Intc<sp/>initialization<sp/>failed!\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XScuGic_InterruptHandler,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XScuGic<sp/>*)IntcInstPtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1ab49dd7c81808a100489045e0d6bfa03c" kindref="member">SceneChangeDetectedCallback</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;IN<sp/>CB:<sp/>Layer:%d<sp/>SAD:%X\r\n&quot;</highlight><highlight class="normal">,<sp/>ScdPtr.ScdDetLayerId,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.ScdLayerDetSAD);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>is_detected<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="224"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" kindref="member">XV_SceneChange_init</ref>()</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__scenechange___config" kindref="compound">XV_scenechange_Config</ref><sp/>*ScdConfig;</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>streams<sp/>=<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a5a7b542415a09f0be89e9b68292e698b" kindref="member">SCD_STREAMS_ENABLE</ref><sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdConfig<sp/>=<sp/><ref refid="xv__scenechange_8h_1aaddad36ab15e7fe600f4395e096a23d1" kindref="member">XV_scenechange_LookupConfig</ref>(XPAR_XV_SCENECHANGE_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdConfig<sp/>=<sp/><ref refid="xv__scenechange_8h_1aaddad36ab15e7fe600f4395e096a23d1" kindref="member">XV_scenechange_LookupConfig</ref>(XPAR_XV_SCENECHANGE_0_BASEADDR);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ScdConfig<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>top<sp/>level<sp/>and<sp/>all<sp/>included<sp/>sub-cores<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__scenechange_8h_1afec77ee650301a3fc63b915c61276b5e" kindref="member">XV_scenechange_Initialize</ref>(&amp;ScdPtr,<sp/>XPAR_XV_SCENECHANGE_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__scenechange_8h_1afec77ee650301a3fc63b915c61276b5e" kindref="member">XV_scenechange_Initialize</ref>(&amp;ScdPtr,<sp/>XPAR_XV_SCENECHANGE_0_BASEADDR);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ScdPtr.ScdConfig-&gt;MemoryBased<sp/>==<sp/><ref refid="xv__scenechange_8h_1a0086163f2942d90c71dd2647b13d8b3f" kindref="member">XV_SCD_MEMORY_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Application<sp/>meant<sp/>for<sp/>stream<sp/>mode\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1gad4a9360689805652fa4e7d1949adfd4b" kindref="member">XV_scenechange_Layer_stream_enable</ref>(&amp;ScdPtr,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a5a7b542415a09f0be89e9b68292e698b" kindref="member">SCD_STREAMS_ENABLE</ref>);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].Height<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>scd_height;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].Width<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>scd_width;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].Stride<sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>scd_stride;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].VFormat<sp/><sp/><sp/><sp/><sp/>=<sp/>scd_clrfmt;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].SubSample<sp/><sp/><sp/>=<sp/>scd_histbits;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].BufferAddr<sp/><sp/>=<sp/>memaddr;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.LayerConfig[streams].Threshold<sp/><sp/><sp/>=<sp/>scd_threshold;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__v__scenechange_1ga597891e75dffd6f116154b6c97984ec2" kindref="member">XV_scenechange_Layer_config</ref>(&amp;ScdPtr,<sp/>streams);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>Unable<sp/>to<sp/>configure<sp/>SD<sp/>Layer\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SetupInterruptSystem();</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SetupInterruptSystem()<sp/>is<sp/>Failed.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>XScuGic_Connect(&amp;Intc,</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__v__scenechange_1ga777953ac644245b3adee8f0b9346108a" kindref="member">XV_scenechange_InterruptHandler</ref>,</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(&amp;Intc,<sp/>XPAR_FABRIC_V_SCENECHANGE_0_VEC_ID);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>Unable<sp/>to<sp/>register<sp/>SD<sp/>interrupt<sp/>handler&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;ScdPtr,&amp;XV_scenechange_InterruptHandler,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.ScdConfig-&gt;IntrId,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ScdPtr.ScdConfig-&gt;IntrParent,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;XSetupInterruptSystem()<sp/>is<sp/>Failed.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1ga784cfa43b22b8894858c4bd0affbafd5" kindref="member">XV_scenechange_SetCallback</ref>(&amp;ScdPtr,<sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1ab49dd7c81808a100489045e0d6bfa03c" kindref="member">SceneChangeDetectedCallback</ref>,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/>&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange_8c_1a20f533c7ac9204c88f8bcea4f9128933" kindref="member">XV_scenechange_InterruptGlobalEnable</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1ga61aa64def88d063b4f41fab97540c8dd" kindref="member">XV_scenechange_EnableInterrupts</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange_8c_1a9d547652ea399c83e586aec9ecdf92f7" kindref="member">XV_scenechange_EnableAutoRestart</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange_8c_1a55471dd370134105c6b6c65b2cc0e656" kindref="member">XV_scenechange_Start</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="320"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" kindref="member">reset_pipe</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A0018,<sp/>0xFFFF0000);</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A02C4,<sp/>0xFFFFFFFF);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A02C8,<sp/>0xFFFFFFFF);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A004C,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1aae330e618e2010bc93116fe9048dbffb" kindref="member">IP_RESET_MASK</ref>);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A004C,<sp/>0x00000000);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(0xFF0A004C,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1aae330e618e2010bc93116fe9048dbffb" kindref="member">IP_RESET_MASK</ref>);</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Reset<sp/>SCD<sp/>-<sp/>Done.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="347" refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" kindref="member">XV_ConfigTpg</ref>(XV_tpg<sp/>*InstancePtr)<sp/>{</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg<sp/>*pTpg<sp/>=<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_DisableAutoRestart(pTpg);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_height(pTpg,<sp/>scd_height);</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_width(pTpg,<sp/>scd_width);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_colorFormat(pTpg,<sp/>XVIDC_CSF_YONLY);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_bckgndId(pTpg,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref>);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_ovrlayId(pTpg,<sp/>0);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_enableInput(pTpg,<sp/>0);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_passthruStartX(pTpg,<sp/>0);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_passthruStartY(pTpg,<sp/>0);</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_passthruEndX(pTpg,<sp/>scd_width);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_passthruEndY(pTpg,<sp/>scd_height);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_EnableAutoRestart(pTpg);</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Start(pTpg);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="379" refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" kindref="member">FrameBuf_Config</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Set_HwReg_width(&amp;Frmbufwr.FrmbufWr,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scd_width);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Set_HwReg_height(&amp;Frmbufwr.FrmbufWr,</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scd_height);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Set_HwReg_stride(&amp;Frmbufwr.FrmbufWr,</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scd_width<sp/>*<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1af3cabbd572652ff168e38460f25bde04" kindref="member">FB_CLRFMT_BYTES</ref>);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Set_HwReg_video_format(&amp;Frmbufwr.FrmbufWr,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a1efbf85113b872a73e4fdb8a81fff564" kindref="member">FB_COLOR_FORMAT</ref>);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Set_HwReg_frm_buffer_V(&amp;Frmbufwr.FrmbufWr,</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memaddr);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_EnableAutoRestart(&amp;Frmbufwr.FrmbufWr);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_Start(&amp;Frmbufwr.FrmbufWr);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="409" refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" refkind="member"><highlight class="normal">u32<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" kindref="member">scd_stream_mode_pipe_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="410"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Status;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>TPG<sp/>IP<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tpg_ConfigPtr<sp/>=<sp/>XV_tpg_LookupConfig(XPAR_XV_TPG_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="417"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tpg_ConfigPtr<sp/>=<sp/>XV_tpg_LookupConfig(XPAR_XV_TPG_0_BASEADDR);</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="419"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Tpg_ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tpg.IsReady<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;TPG<sp/>-<sp/>failed...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="425"><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XV_tpg_CfgInitialize(&amp;Tpg,<sp/>Tpg_ConfigPtr,</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Tpg_ConfigPtr-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>TPG<sp/>Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_FAILURE);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>FrameBufWr<sp/>IP<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="435"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrmBufWr_ConfigPtr<sp/>=<sp/>XV_frmbufwr_LookupConfig(XPAR_V_FRMBUF_WR_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="437"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrmBufWr_ConfigPtr<sp/>=<sp/>XV_frmbufwr_LookupConfig(XPAR_V_FRMBUF_WR_0_BASEADDR);</highlight></codeline>
+<codeline lineno="438"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="439"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!FrmBufWr_ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;FBWR<sp/>-<sp/>failed...\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="446"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVFrmbufWr_Initialize(&amp;Frmbufwr,<sp/>XPAR_V_FRMBUF_WR_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="448"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XVFrmbufWr_Initialize(&amp;Frmbufwr,<sp/>XPAR_V_FRMBUF_WR_0_BASEADDR);</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>FrmBufWr<sp/>Initialization<sp/>failed<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_FAILURE);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="456"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>|=<sp/>XScuGic_Connect(&amp;Intc,</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)XVFrmbufWr_InterruptHandler,</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;Frmbufwr);</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(&amp;Intc,<sp/>XPAR_FABRIC_V_FRMBUF_WR_0_VEC_ID);</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>Unable<sp/>to<sp/>register<sp/>SD<sp/>interrupt<sp/>handler&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="467"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;Frmbufwr,&amp;XVFrmbufWr_InterruptHandler,</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Frmbufwr.FrmbufWr.Config.IntrId,</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Frmbufwr.FrmbufWr.Config.IntrParent,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR::<sp/>Unable<sp/>to<sp/>register<sp/>SD<sp/>interrupt<sp/>handler.\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="476"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_InterruptGlobalEnable(&amp;Frmbufwr.FrmbufWr);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_frmbufwr_InterruptEnable(&amp;Frmbufwr.FrmbufWr,<sp/>XVFRMBUFWR_IRQ_DONE_MASK);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd11436c5ec5424a8d8c521b09d42ab" kindref="member">FrameBuf_Config</ref>();</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="501" refid="xv__scenechange__stream__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="502"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>state;</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"></highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a5473c6cfd6c580642133754e141ca556" kindref="member">ClearScreen</ref>();</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"></highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-----------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;---<sp/><sp/><sp/>SceneChange<sp/>IP<sp/>Application<sp/>--------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;---<sp/><sp/><sp/><sp/><sp/>(c)<sp/>2018<sp/>by<sp/>Xilinx,<sp/>Inc.<sp/><sp/><sp/><sp/><sp/>----\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;----------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;<sp/><sp/><sp/><sp/><sp/><sp/>Build<sp/>%s<sp/>-<sp/>%s<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>__DATE__,<sp/>__TIME__);</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-----------------------------------------\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"></highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionDisable();</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" kindref="member">init_platform</ref>();</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"></highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" kindref="member">reset_pipe</ref>();</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>=<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref>;</highlight></codeline>
+<codeline lineno="521"><highlight class="normal"></highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SceneChange<sp/>initialization<sp/>-<sp/>Started\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>=<sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a2c2e74c20597807bca83e3b3f62f06bb" kindref="member">XV_SceneChange_init</ref>();</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SceneChange_init<sp/>Failed.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>=<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a3002cf19481c5ca3e4c84bbfcc938717" kindref="member">scd_stream_mode_pipe_init</ref>();</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(state<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;scd_<sp/>stream<sp/>mode<sp/>pipe<sp/>Failed.\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>state<sp/>=<sp/>XTPG_BKGND_H_RAMP;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4a5ac3a38401a55659af4cf0a4a765b0" kindref="member">XV_ConfigTpg</ref>(&amp;Tpg);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(is_detected)<sp/>{</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>is_detected<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sc_detected++;</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"></highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(++state<sp/>&gt;=<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a24c48ef77929deff9e40e141a891dbb8" kindref="member">MAX_PATTERNS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(sc_detected)</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SCD_DONE;</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>SCD_FAILED;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref><sp/>=<sp/>state;</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XV_tpg_Set_bckgndId(&amp;Tpg,<sp/><ref refid="xv__scenechange__stream__mode__ex_8c_1a4dd9957df1df06f40703f124a18c8904" kindref="member">Pattern</ref>);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sleep(1);</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(1);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"></highlight></codeline>
+<codeline lineno="557"><highlight class="normal">SCD_DONE:</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1ga23a166ec0b7c75bcee59b09d2984f6ce" kindref="member">XV_scenechange_Stop</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" kindref="member">reset_pipe</ref>();</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1gae6c86fc73f611432fe5e6a5dacf2444b" kindref="member">XV_scenechange_WaitForIdle</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SceneChange<sp/>test<sp/>:<sp/>PASSED\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal">SCD_FAILED:</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1ga23a166ec0b7c75bcee59b09d2984f6ce" kindref="member">XV_scenechange_Stop</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__scenechange__memory__mode__ex_8c_1a86a559ed339f06dcf5dc0abfeb25886d" kindref="member">reset_pipe</ref>();</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__v__scenechange_1gae6c86fc73f611432fe5e6a5dacf2444b" kindref="member">XV_scenechange_WaitForIdle</ref>(&amp;ScdPtr);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;SceneChange<sp/>test<sp/>:<sp/>FAILURE\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="570"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_scenechange/examples/src/xv_scenechange_stream_mode_ex.c"/>
+  </compounddef>
+</doxygen>

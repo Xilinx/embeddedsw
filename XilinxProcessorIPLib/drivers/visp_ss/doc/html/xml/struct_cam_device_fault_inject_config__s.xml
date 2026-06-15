@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_fault_inject_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceFaultInjectConfig_s</compoundname>
+    <includes local="no">cam_device_fusa_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_fault_inject_config__s_1a70f846f437f96af2f6447cb2d036cac4" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFaultInjectConfig_s::ahbTimeOutEn</definition>
+        <argsstring></argsstring>
+        <name>ahbTimeOutEn</name>
+        <briefdescription>
+<para>AHB (Advanced high performance bus) timeout enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fault_inject_config__s_1a0e39b7a688201096f903e2ae769438b2" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFaultInjectConfig_s::dupEn</definition>
+        <argsstring></argsstring>
+        <name>dupEn</name>
+        <briefdescription>
+<para>Dumping enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fault_inject_config__s_1a6d7fa3b73aa4fe3fb5f2cc2d66eacb8d" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFaultInjectConfig_s::ecc2bitEn</definition>
+        <argsstring></argsstring>
+        <name>ecc2bitEn</name>
+        <briefdescription>
+<para>ECC (Error checking and correcting) 2-bit enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_fault_inject_config__s_1a32742f8018fe5871595711e74903a4ee" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceFaultInjectConfig_s::ecc1bitEn</definition>
+        <argsstring></argsstring>
+        <name>ecc1bitEn</name>
+        <briefdescription>
+<para>ECC 1-bit enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice FuSa fault injection configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/fusa/cam_device_fusa_api.h" bodystart="116" bodyend="122"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_fault_inject_config__s_1a70f846f437f96af2f6447cb2d036cac4" prot="public" virt="non-virtual"><scope>CamDeviceFaultInjectConfig_s</scope><name>ahbTimeOutEn</name></member>
+      <member refid="struct_cam_device_fault_inject_config__s_1a0e39b7a688201096f903e2ae769438b2" prot="public" virt="non-virtual"><scope>CamDeviceFaultInjectConfig_s</scope><name>dupEn</name></member>
+      <member refid="struct_cam_device_fault_inject_config__s_1a32742f8018fe5871595711e74903a4ee" prot="public" virt="non-virtual"><scope>CamDeviceFaultInjectConfig_s</scope><name>ecc1bitEn</name></member>
+      <member refid="struct_cam_device_fault_inject_config__s_1a6d7fa3b73aa4fe3fb5f2cc2d66eacb8d" prot="public" virt="non-virtual"><scope>CamDeviceFaultInjectConfig_s</scope><name>ecc2bitEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

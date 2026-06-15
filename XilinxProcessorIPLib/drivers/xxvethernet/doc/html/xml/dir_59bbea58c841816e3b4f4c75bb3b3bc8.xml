@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_59bbea58c841816e3b4f4c75bb3b3bc8" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xxxvethernet__example_8h">xxxvethernet_example.h</innerfile>
+    <innerfile refid="xxxvethernet__example__intr__mcdma_8c">xxxvethernet_example_intr_mcdma.c</innerfile>
+    <innerfile refid="xxxvethernet__example__util_8c">xxxvethernet_example_util.c</innerfile>
+    <innerfile refid="xxxvethernet__usxgmii__example__intr__mcdma_8c">xxxvethernet_usxgmii_example_intr_mcdma.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/examples/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_935dda85b1187bd12fbf37feff5b1370" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="inputs_8h">inputs.h</innerfile>
+    <innerfile refid="xwarp__example_8c">xwarp_example.c</innerfile>
+    <innerfile refid="xwarp__input__configs_8c">xwarp_input_configs.c</innerfile>
+    <innerfile refid="xwarp__input__configs_8h">xwarp_input_configs.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/examples/src/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_frame_info" kind="struct" prot="public">
+    <compoundname>FrameInfo</compoundname>
+    <includes local="no">mmi_dpdc_example.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 FrameInfo::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Frame buffer base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1adc1413b4d5cdc6a62f4cd6e75fd661ca" compoundref="mmi__dc__setup__frames_8c" startline="658" endline="663">XDpDc_SetupCursorDescriptor</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1a28b48cdbc4ab2b26acfcd928d511b14a" compoundref="mmi__dc__sdp_8c" startline="128" endline="133">XDpDc_SetupSdpDescriptor</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1aebd7ac73b079a58f72ecacdc1bfef5f1" compoundref="mmi__dc__setup__frames_8c" startline="569" endline="597">XDpDc_SetupStream1Descriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a2638411c2ae587ebc77adc73d673439c" compoundref="mmi__dc__setup__frames_8c" startline="614" endline="642">XDpDc_SetupStream2Descriptors</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Frame buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1af01b016c00245f21541974c6dab538aa" compoundref="mmi__dc__setup__frames_8c" startline="510" endline="552">XDpDc_InitFrames</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Stride</definition>
+        <argsstring></argsstring>
+        <name>Stride</name>
+        <briefdescription>
+<para>Stride in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::LineSize</definition>
+        <argsstring></argsstring>
+        <name>LineSize</name>
+        <briefdescription>
+<para>Line size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1acd2ed76d014f99adc3fcd14ca3b378b1" compoundref="mmi__dc__setup__frames_8c" startline="218" endline="269">XDpDc_CreateDescriptors</referencedby>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__sdp_8h_1ac4d820ea95f52734bb803c61bc4ba6ba" compoundref="mmi__dc__sdp_8c" startline="36" endline="45">XDpDc_InitSdpFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Width</definition>
+        <argsstring></argsstring>
+        <name>Width</name>
+        <briefdescription>
+<para>Width in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Height</definition>
+        <argsstring></argsstring>
+        <name>Height</name>
+        <briefdescription>
+<para>Height in pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FrameInfo::Bpc</definition>
+        <argsstring></argsstring>
+        <name>Bpc</name>
+        <briefdescription>
+<para>Bits per component. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="mmi__dc__setup__frames_8h_1a6f9a34817bd7485ced17700ecd627716" compoundref="mmi__dc__setup__frames_8c" startline="182" endline="198">XDpDc_GenerateFrameInfoAttribute</referencedby>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" prot="public" static="no" mutable="no">
+        <type><ref refid="xdc_8h_1ad45e6a818b9bcacc05e58b69ac140895" kindref="member">XDc_VideoFormat</ref></type>
+        <definition>XDc_VideoFormat FrameInfo::VideoFormat</definition>
+        <argsstring></argsstring>
+        <name>VideoFormat</name>
+        <briefdescription>
+<para>Video format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="mmi__dc__cursor_8h_1aeec8d3294a1eefe714a7990afdbd6b91" compoundref="mmi__dc__cursor_8c" startline="31" endline="46">XDpDc_InitCursorFrameBuffer</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the frame buffer information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/examples/dpdc/mmi_dpdc_example.h" bodystart="56" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_frame_info_1a07d6ccc7f65963ee62456d0574b27857" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Address</name></member>
+      <member refid="struct_frame_info_1aa86b846fe97a34c623b23f2a7c82a434" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Bpc</name></member>
+      <member refid="struct_frame_info_1afb59098b9e8c1b5828bec8875a920454" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Height</name></member>
+      <member refid="struct_frame_info_1a00cd8ff046596293a640cc0048b2f539" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>LineSize</name></member>
+      <member refid="struct_frame_info_1a723d39f5c0e596544cf1c609606bb7ab" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Size</name></member>
+      <member refid="struct_frame_info_1a4d890ee45a9b9dd8d011da614d56549b" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Stride</name></member>
+      <member refid="struct_frame_info_1ad024a3bf1e432c445fdcf84e5fa1dcbb" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>VideoFormat</name></member>
+      <member refid="struct_frame_info_1a5c828928824345c4fc46c69b4527bd6e" prot="public" virt="non-virtual"><scope>FrameInfo</scope><name>Width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

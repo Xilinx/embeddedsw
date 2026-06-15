@@ -1,0 +1,413 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="system_8h" kind="file">
+    <compoundname>system.h</compoundname>
+    <includes refid="periph_8h" local="yes">periph.h</includes>
+    <includes refid="xvprocss_8h" local="yes">xvprocss.h</includes>
+    <includedby refid="system_8c" local="yes">system.c</includedby>
+    <includedby refid="xv__procss__example_8c" local="yes">xv_procss_example.c</includedby>
+    <incdepgraph>
+      <node id="51">
+        <label>system.h</label>
+        <link refid="system.h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xv_letterbox_l2.h</label>
+      </node>
+      <node id="65">
+        <label>xv_csc_l2.h</label>
+      </node>
+      <node id="58">
+        <label>sleep.h</label>
+      </node>
+      <node id="56">
+        <label>xgpio.h</label>
+      </node>
+      <node id="69">
+        <label>xv_hscaler_l2.h</label>
+      </node>
+      <node id="63">
+        <label>xvprocss_log.h</label>
+        <link refid="xvprocss__log_8h"/>
+      </node>
+      <node id="61">
+        <label>xaxis_switch.h</label>
+      </node>
+      <node id="70">
+        <label>xv_vscaler_l2.h</label>
+      </node>
+      <node id="59">
+        <label>xvprocss.h</label>
+        <link refid="xvprocss_8h"/>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>string.h</label>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="54">
+        <label>xvidc.h</label>
+      </node>
+      <node id="64">
+        <label>xparameters.h</label>
+      </node>
+      <node id="57">
+        <label>xvtc.h</label>
+      </node>
+      <node id="67">
+        <label>xv_hcresampler_l2.h</label>
+      </node>
+      <node id="52">
+        <label>periph.h</label>
+        <link refid="periph_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xv_vcresampler_l2.h</label>
+      </node>
+      <node id="55">
+        <label>xv_tpg.h</label>
+      </node>
+      <node id="62">
+        <label>xaxivdma.h</label>
+      </node>
+      <node id="66">
+        <label>xv_deinterlacer_l2.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="73">
+        <label>system.c</label>
+        <link refid="system_8c"/>
+      </node>
+      <node id="72">
+        <label>system.h</label>
+        <link refid="system.h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="74">
+        <label>xv_procss_example.c</label>
+        <link refid="xv__procss__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="system_8h_1a5c7c69b71b47d04cf3d86089a501283e" prot="public" static="no">
+        <name>XSYSTEM_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" line="27" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="system_8h_1add86a9c9335ceb53d8e504821257e4bf" prot="public" static="no">
+        <name>XSys_StreamDirection</name>
+        <enumvalue id="system_8h_1add86a9c9335ceb53d8e504821257e4bfa14012f94fd2b44a882c9a38f55a62456" prot="public">
+          <name>XSYS_VPSS_STREAM_IN</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="system_8h_1add86a9c9335ceb53d8e504821257e4bfaeab8d442e0784d2a6a2f99e637142b0c" prot="public">
+          <name>XSYS_VPSS_STREAM_OUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" bodystart="37" bodyend="41"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="system_8h_1adc710a6298515ea6e63a39567010bc75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSys_Init</definition>
+        <argsstring>(XPeriph *pPeriph, XVprocSs *pVprocss)</argsstring>
+        <name>XSys_Init</name>
+        <param>
+          <type><ref refid="struct_x_periph" kindref="compound">XPeriph</ref> *</type>
+          <declname>pPeriph</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>pVprocss</declname>
+        </param>
+        <briefdescription>
+<para>This function is the system level initialization routine. </para>        </briefdescription>
+        <detaileddescription>
+<para>It in turn calls each of the included subsystem initialization function</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pPeriph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the peripherals instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pVprocss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the video proc subsystem instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if init. was successful.</para></listitem><listitem><para>XST_FAILURE if init. was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.c" bodystart="72" bodyend="128"/>
+        <references refid="struct_x_vproc_ss___config_1af561818387a2c40b466a1884faeb3310" compoundref="xvprocss_8h" startline="344">XVprocSs_Config::BaseAddress</references>
+        <references refid="struct_x_vproc_ss___config_1a53b84d342e901571eeecbd899d51b8f3" compoundref="xvprocss_8h" startline="348">XVprocSs_Config::Topology</references>
+        <references refid="periph_8c_1acf9db5b3ae03d0367de50a8cf1926421" compoundref="periph_8c" startline="108" endline="199">XPeriph_PowerOnInit</references>
+        <references refid="xvprocss_8c_1aac138624e6b5449040be8bd02710a512" compoundref="xvprocss_8c" startline="373" endline="524">XVprocSs_CfgInitialize</references>
+        <references refid="xvprocss_8h_1a7bde6b4ee20f3546da3db9c8b3295d59" compoundref="xvprocss__log_8c" startline="48" endline="57">XVprocSs_LogReset</references>
+        <references refid="group__vprocss_1gaea7e0f3a01027389e89cd2e70e8a919f" compoundref="xvprocss__sinit_8c" startline="91" endline="104">XVprocSs_LookupConfig</references>
+        <references refid="xvprocss_8c_1a650457b5f1b57842c2e3edd06d1de480" compoundref="xvprocss_8c" startline="345" endline="352">XVprocSs_SetFrameBufBaseaddr</references>
+      </memberdef>
+      <memberdef kind="function" id="system_8h_1a782ef0a1a4d351df9c125446c81dd1be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSys_ReportSystemInfo</definition>
+        <argsstring>(XPeriph *pPeriph, XVprocSs *pVprocss)</argsstring>
+        <name>XSys_ReportSystemInfo</name>
+        <param>
+          <type><ref refid="struct_x_periph" kindref="compound">XPeriph</ref> *</type>
+          <declname>pPeriph</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>pVprocss</declname>
+        </param>
+        <briefdescription>
+<para>This function reports all the IP&apos;s included in the system design. </para>        </briefdescription>
+        <detaileddescription>
+<para>It calls each subsystem API to report its child nodes</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pPeriph</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the peripherals instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pVprocss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the video proc subsystem instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.c" bodystart="188" bodyend="200"/>
+        <references refid="periph_8c_1a031f74192dd2f5bc81a370043141d63d" compoundref="periph_8c" startline="66" endline="97">XPeriph_ReportDeviceInfo</references>
+        <references refid="xvprocss_8c_1af3ef2fc6d79df8ccb528644f8e539828" compoundref="xvprocss_8c" startline="2545" endline="2625">XVprocSs_ReportSubsystemCoreInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="system_8h_1a8792e86d543723e45b05f863a9aeeea0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSys_SetStreamParam</definition>
+        <argsstring>(XVprocSs *pVprocss, u16 Direction, u16 Width, u16 Height, XVidC_FrameRate FrameRate, XVidC_ColorFormat cfmt, u16 IsInterlaced)</argsstring>
+        <name>XSys_SetStreamParam</name>
+        <param>
+          <type><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> *</type>
+          <declname>pVprocss</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Height</declname>
+        </param>
+        <param>
+          <type>XVidC_FrameRate</type>
+          <declname>FrameRate</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmt</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>IsInterlaced</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the video stream parameters for the Video Processing Subsystem (VProcSS). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pVprocss</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Stream direction (XSYS_VPSS_STREAM_IN or XSYS_VPSS_STREAM_OUT). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Width of the video stream in pixels. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Height of the video stream in pixels. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FrameRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frame rate of the video stream (XVidC_FrameRate). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Color format of the video stream (XVidC_ColorFormat). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IsInterlaced</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates if the video stream is interlaced (1) or progressive (0).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, XST_INVALID_PARAM if the video mode is not supported. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.c" bodystart="144" bodyend="173"/>
+        <references refid="struct_x_vproc_ss___config_1adc152d18753ba8d8ccc8a84e88008124" compoundref="xvprocss_8h" startline="350">XVprocSs_Config::ColorDepth</references>
+        <references refid="struct_x_vproc_ss_1a63bcaaaf281c28f90fb0ca06167cb658" compoundref="xvprocss_8h" startline="376">XVprocSs::Config</references>
+        <references refid="struct_x_vproc_ss___config_1ab49aa8f927f6858960fddc1c3bcdc997" compoundref="xvprocss_8h" startline="349">XVprocSs_Config::PixPerClock</references>
+        <references refid="xvprocss_8c_1a47c310a89b7072313404485d4bb9b03f" compoundref="xvprocss_8c" startline="789" endline="802">XVprocSs_SetVidStreamIn</references>
+        <references refid="xvprocss_8c_1a28fae690c023b4d8b7a1d9b9c68c966c" compoundref="xvprocss_8c" startline="814" endline="827">XVprocSs_SetVidStreamOut</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2014<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XSYSTEM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSYSTEM_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="periph_8h" kindref="compound">periph.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xvprocss_8h" kindref="compound">xvprocss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>XSYS_VPSS_STREAM_IN<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/>XSYS_VPSS_STREAM_OUT</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}XSys_StreamDirection;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Structure<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Exported<sp/>APIs<sp/>************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="system_8c_1adc710a6298515ea6e63a39567010bc75" kindref="member">XSys_Init</ref>(<ref refid="struct_x_periph" kindref="compound">XPeriph</ref><sp/><sp/>*pPeriph,<sp/><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*pVprocss);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="system_8c_1a782ef0a1a4d351df9c125446c81dd1be" kindref="member">XSys_ReportSystemInfo</ref>(<ref refid="struct_x_periph" kindref="compound">XPeriph</ref><sp/><sp/>*pPeriph,<sp/><ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*pVprocss);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="system_8c_1a8792e86d543723e45b05f863a9aeeea0" kindref="member">XSys_SetStreamParam</ref>(<ref refid="struct_x_vproc_ss" kindref="compound">XVprocSs</ref><sp/>*pVprocss,<sp/>u16<sp/>Direction,<sp/>u16<sp/>Width,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Height,<sp/>XVidC_FrameRate<sp/>FrameRate,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>cfmt,<sp/>u16<sp/>IsInterlaced);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vprocss/examples/src/system.h"/>
+  </compounddef>
+</doxygen>

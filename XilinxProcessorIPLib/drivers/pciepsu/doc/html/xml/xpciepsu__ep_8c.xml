@@ -1,0 +1,729 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpciepsu__ep_8c" kind="file">
+    <compoundname>xpciepsu_ep.c</compoundname>
+    <includes refid="xpciepsu__ep_8h" local="yes">xpciepsu_ep.h</includes>
+    <includes refid="xpciepsu__common_8h" local="yes">xpciepsu_common.h</includes>
+    <includes refid="xpciepsu__hw_8h" local="yes">xpciepsu_hw.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <incdepgraph>
+      <node id="68">
+        <label>xpciepsu_hw.h</label>
+        <link refid="xpciepsu__hw_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+      <node id="67">
+        <label>xil_io.h</label>
+      </node>
+      <node id="71">
+        <label>sleep.h</label>
+      </node>
+      <node id="62">
+        <label>xpciepsu_ep.c</label>
+        <link refid="xpciepsu_ep.c"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="63">
+        <label>xpciepsu_ep.h</label>
+        <link refid="xpciepsu__ep_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xpciepsu.h</label>
+        <link refid="xpciepsu_8h"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="65">
+        <label>xil_types.h</label>
+      </node>
+      <node id="69">
+        <label>xpciepsu_common.h</label>
+        <link refid="xpciepsu__common_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a242ba36cd7d2aa4f33863bc5aa8075d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_EP_CfgInitialize</definition>
+        <argsstring>(XPciePsu *PciePsuPtr, const XPciePsu_Config *ConfigPtr)</argsstring>
+        <name>XPciePsu_EP_CfgInitialize</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <param>
+          <type>const XPciePsu_Config *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the config space. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config instrance Pointer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on success err on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="48" bodyend="53"/>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1acc7842964c589d60177706498dfb51c1" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="213" endline="231">XPciePsu_InitEndPoint</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a99474c575ca291a93548797b66df45b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_EP_BridgeInitialize</definition>
+        <argsstring>(XPciePsu *PciePsuPtr)</argsstring>
+        <name>XPciePsu_EP_BridgeInitialize</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes PCIe bridge. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="61" bodyend="107"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a6486e8d86d93762e998010aa29efd100" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_Egress_EP_BridgeInitialize</definition>
+        <argsstring>(XPciePsu *PciePsuPtr)</argsstring>
+        <name>XPciePsu_Egress_EP_BridgeInitialize</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes Egress PCIe bridge. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu Instance Pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="116" bodyend="171"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1aca1b71a1574b91939ee539c11556ce88" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_EP_WaitForLinkup</definition>
+        <argsstring>(XPciePsu *PciePsuPtr)</argsstring>
+        <name>XPciePsu_EP_WaitForLinkup</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for Pcie link to come up. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config Instance Pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="179" bodyend="187"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a1d40296b15e59da3006fda5faa6a5d9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPciePsu_EP_WaitForEnumeration</definition>
+        <argsstring>(XPciePsu *PciePsuPtr)</argsstring>
+        <name>XPciePsu_EP_WaitForEnumeration</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function waits for host to enumerate. </para>        </briefdescription>
+        <detaileddescription>
+<para>On x86 BIOS sets memory enable bit On ARM64 it is set when driver gets inserted</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config Instance Pointer </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="197" bodyend="206"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a4371c3e45fec3f54c3f229668ea70322" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XPciePSU_ReadBar</definition>
+        <argsstring>(XPciePsu *PciePsuPtr, u32 BarNum, u32 *BarLo, u32 *BarHi)</argsstring>
+        <name>XPciePSU_ReadBar</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BarNum</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BarLo</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>BarHi</declname>
+        </param>
+        <briefdescription>
+<para>This function read bar address of specific bar number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarLo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarHi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="217" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1af44c30122a4a391b9c486f9646e7cf2e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Do_Egress_Test</definition>
+        <argsstring>(u32 *egress_src_lo)</argsstring>
+        <name>Do_Egress_Test</name>
+        <param>
+          <type>u32 *</type>
+          <declname>egress_src_lo</declname>
+        </param>
+        <briefdescription>
+<para>This function does Egress test. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>egress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>source address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="238" bodyend="264"/>
+        <referencedby refid="xpciepsu__ep_8h_1ad0ab59afa2bae270a5be2f4496945dde" compoundref="xpciepsu__ep_8c" startline="347" endline="402">XPciePsu_EP_SetupEgress</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1a60670dca0dbddb37079e9917e41eae40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPciePsu_EP_SetupIngress</definition>
+        <argsstring>(XPciePsu *PciePsuPtr, u32 IngressNum, u32 BarNum, u64 Dst)</argsstring>
+        <name>XPciePsu_EP_SetupIngress</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IngressNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BarNum</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Dst</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up ingress translation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IngressNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ingress must be 0 to 7 </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BarNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bar no to setup ingress </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>32 or 64 bit destination address</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if setup is successful XST_FAILURE if setup is fail </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="278" bodyend="333"/>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xpciepsu__ep_8c_1ac7e335a61b13a5455ddaa43f46a416a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPciePsu_EP_SetupEgress</definition>
+        <argsstring>(XPciePsu *PciePsuPtr, u32 EgressNum)</argsstring>
+        <name>XPciePsu_EP_SetupEgress</name>
+        <param>
+          <type>XPciePsu *</type>
+          <declname>PciePsuPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>EgressNum</declname>
+        </param>
+        <briefdescription>
+<para>This function sets up Egress translation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PciePsuPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to XPciePsu_Config Instance Pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EgressNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ingress must be 0 to 7</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if setup is successful XST_FAILURE if setup is fail </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c" bodystart="347" bodyend="402"/>
+        <references refid="xpciepsu__ep_8c_1af44c30122a4a391b9c486f9646e7cf2e" compoundref="xpciepsu__ep_8c" startline="238" endline="264">Do_Egress_Test</references>
+        <references refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" compoundref="xpciepsu_8c" startline="54" endline="56">XPciePsu_ReadReg</references>
+        <references refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" compoundref="xpciepsu_8c" startline="69" endline="71">XPciePsu_WriteReg</references>
+        <referencedby refid="xpciepsu__egress__ep__enable__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xpciepsu__egress__ep__enable__example_8c" startline="159" endline="194">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Implements all of functions for psu_pci IP EndPoint driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0     tk      02/13/2019      First release
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">/********************************<sp/>Include<sp/>Files<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpciepsu__ep_8h" kindref="compound">xpciepsu_ep.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpciepsu__common_8h" kindref="compound">xpciepsu_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpciepsu__hw_8h" kindref="compound">xpciepsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/********************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="48" refid="xpciepsu__ep_8h_1a242ba36cd7d2aa4f33863bc5aa8075d8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1a242ba36cd7d2aa4f33863bc5aa8075d8" kindref="member">XPciePsu_EP_CfgInitialize</ref>(XPciePsu<sp/>*PciePsuPtr,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XPciePsu_Config<sp/>*ConfigPtr){</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ConfigPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)memset(PciePsuPtr,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XPciePsu));</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)memcpy(&amp;(PciePsuPtr-&gt;Config),<sp/>ConfigPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XPciePsu_Config));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="xpciepsu__ep_8h_1a99474c575ca291a93548797b66df45b8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1a99474c575ca291a93548797b66df45b8" kindref="member">XPciePsu_EP_BridgeInitialize</ref>(XPciePsu<sp/>*PciePsuPtr)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bridge<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_BREG_BASE_LO,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOWER_32_BITS(PciePsuPtr-&gt;Config.BrigReg));</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_BREG_BASE_HI,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(PciePsuPtr-&gt;Config.BrigReg));</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_BREG_CONTROL);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>~(BREG_SIZE_MASK<sp/>|<sp/>BREG_ENABLE_FORCE);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>((u32)BREG_SIZE)<sp/>&lt;&lt;<sp/>BREG_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>BREG_ENABLE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_BREG_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMA<sp/>regs<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_BASE_LO,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PciePsuPtr-&gt;Config.DmaBaseAddr);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_BASE_HI,<sp/>0U);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_CONTROL);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>DMA_ENABLE;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ECAM<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_ECAM_BASE_LO,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PciePsuPtr-&gt;Config.NpMemBaseAddr);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_BASE_HI,<sp/>0U);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ECAM<sp/>Enable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_CONTROL);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>ECAM_ENABLE;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>AXI<sp/>domain<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.DmaBaseAddr,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DMA0_CHAN_AXI_INTR,<sp/>AXI_INTR_ENABLE);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>MSGF_DMA_MASK,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MSGF_DMA_INTR_ENABLE);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="116" refid="xpciepsu__ep_8h_1a6486e8d86d93762e998010aa29efd100" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1a6486e8d86d93762e998010aa29efd100" kindref="member">XPciePsu_Egress_EP_BridgeInitialize</ref>(XPciePsu<sp/>*PciePsuPtr)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,0U);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>(u32)(~PCIE_DMA_REG_ACCESS_DISABLE);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,0U,<sp/>Val);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Bridge<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_BREG_BASE_LO,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOWER_32_BITS(PciePsuPtr-&gt;Config.BrigReg));</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_BREG_BASE_HI,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UPPER_32_BITS(PciePsuPtr-&gt;Config.BrigReg));</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_BREG_CONTROL);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>~(BREG_SIZE_MASK<sp/>|<sp/>BREG_ENABLE_FORCE);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>((u32)BREG_SIZE)<sp/>&lt;&lt;<sp/>BREG_SIZE_SHIFT;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>BREG_ENABLE;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_BREG_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>DMA<sp/>regs<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_BASE_LO,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PciePsuPtr-&gt;Config.DmaBaseAddr);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_BASE_HI,<sp/>0U);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_CONTROL);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>DMA_ENABLE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>DREG_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ECAM<sp/>Configurations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>(u32)(ECAM_BASE);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>XPCIEPSU_E_ECAM_BASE_LO,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val=<sp/>UPPER_32_BITS(ECAM_BASE);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_BASE_HI,<sp/>Val);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ECAM<sp/>Enable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_CONTROL);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>ECAM_ENABLE;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_E_ECAM_CONTROL,<sp/>Val);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>AXI<sp/>domain<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.DmaBaseAddr,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DMA0_CHAN_AXI_INTR<sp/>+<sp/>0x80,<sp/>AXI_INTR_ENABLE);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>MSGF_DMA_MASK<sp/>+<sp/>0x80,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MSGF_DMA_INTR_ENABLE);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="xpciepsu__ep_8h_1aca1b71a1574b91939ee539c11556ce88" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1aca1b71a1574b91939ee539c11556ce88" kindref="member">XPciePsu_EP_WaitForLinkup</ref>(XPciePsu<sp/>*PciePsuPtr)</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.PciReg,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPCIEPSU_PS_LINKUP_OFFSET);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Val<sp/>&amp;<sp/>PCIE_LINK_UP)<sp/>==<sp/>0U);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="xpciepsu__ep_8h_1a1d40296b15e59da3006fda5faa6a5d9c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1a1d40296b15e59da3006fda5faa6a5d9c" kindref="member">XPciePsu_EP_WaitForEnumeration</ref>(XPciePsu<sp/>*PciePsuPtr)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.NpMemBaseAddr,</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>COMMAND_REG);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(ENUMERATION_WAIT_TIME);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((Val<sp/>&amp;<sp/>PCIE_ENUMERATED_STATUS)<sp/>==<sp/>0U);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="217"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XPciePSU_ReadBar(XPciePsu<sp/>*PciePsuPtr,<sp/>u32<sp/>BarNum,<sp/>u32<sp/>*BarLo,</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BarHi)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Offset<sp/>=<sp/><sp/>(BAR0_OFFSET_LO<sp/>+<sp/>(BarNum<sp/>*<sp/>0x4U));</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BarLo<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.NpMemBaseAddr,<sp/>Offset);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offset<sp/>=<sp/>(BAR0_OFFSET_HI<sp/>+<sp/>(BarNum<sp/>*<sp/>0x4U));</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*BarHi<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.NpMemBaseAddr,<sp/>Offset);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;BAR%d<sp/>LO<sp/>configured<sp/>by<sp/>host<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,<sp/>BarNum,<sp/>*BarLo);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;BAR%d<sp/>HI<sp/>configured<sp/>by<sp/>host<sp/>0x%08X\r\n&quot;</highlight><highlight class="normal">,<sp/>BarNum,<sp/>*BarHi);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="238" refid="xpciepsu__ep_8h_1af44c30122a4a391b9c486f9646e7cf2e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1af44c30122a4a391b9c486f9646e7cf2e" kindref="member">Do_Egress_Test</ref>(u32<sp/>*egress_src_lo)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>buf[2]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Inside<sp/>of<sp/>egress<sp/>test:<sp/>egress_src_lo:<sp/>%llx\n&quot;</highlight><highlight class="normal">,<sp/>egress_src_lo);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[0]<sp/>=<sp/>*egress_src_lo;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Pre:<sp/>Value<sp/>read<sp/>from<sp/>offset<sp/>0<sp/>=&gt;<sp/>0x%x\n&quot;</highlight><highlight class="normal">,<sp/>buf[0]);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Pre:<sp/>Value<sp/>read<sp/>from<sp/>offset<sp/>4<sp/>=&gt;<sp/>0x%x\n&quot;</highlight><highlight class="normal">,<sp/>buf[1]);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*egress_src_lo<sp/>=<sp/>0xdeadbeef;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*(egress_src_lo<sp/>+<sp/>1)<sp/>=<sp/>0xbeefdead;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[0]<sp/>=<sp/>*egress_src_lo;</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[1]<sp/>=<sp/>*(egress_src_lo<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Value<sp/>read<sp/>from<sp/>offset<sp/>0<sp/>=&gt;<sp/>0x%x\n&quot;</highlight><highlight class="normal">,<sp/>buf[0]);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Value<sp/>read<sp/>from<sp/>offset<sp/>4<sp/>=&gt;<sp/>0x%x\n&quot;</highlight><highlight class="normal">,<sp/>buf[1]);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(buf[0]<sp/>==<sp/>0xdeadbeef<sp/>&amp;&amp;<sp/>buf[1]<sp/>==<sp/>0xbeefdead)<sp/>{</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PCIe<sp/>Egress<sp/>Test<sp/>Pass!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PCIe<sp/>Egress<sp/>Test<sp/>Fail\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Values<sp/>written<sp/>=&gt;<sp/>0xdeadbeef,<sp/>0xbeefdead\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Values<sp/>read<sp/>=&gt;<sp/>0x%x,<sp/>0x%x\n&quot;</highlight><highlight class="normal">,<sp/>buf[0],<sp/>buf[1]);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="278" refid="xpciepsu__ep_8h_1a60670dca0dbddb37079e9917e41eae40" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1a60670dca0dbddb37079e9917e41eae40" kindref="member">XPciePsu_EP_SetupIngress</ref>(XPciePsu<sp/>*PciePsuPtr,<sp/>u32<sp/>IngressNum,<sp/>u32<sp/>BarNum,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>Dst){</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcLo;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcHi;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DestLo;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DestHi;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IngressNum<sp/>&gt;<sp/>7U)<sp/>{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePSU_ReadBar(PciePsuPtr,<sp/>BarNum,<sp/>&amp;SrcLo,<sp/>&amp;SrcHi);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Using<sp/>Ingress<sp/>Address<sp/>Translation<sp/>0<sp/>to<sp/>setup<sp/>translation</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>PS<sp/>DDR</highlight></codeline>
+<codeline lineno="295"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INGRESS0_SRC_BASE_LO<sp/>+<sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE)),</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcLo<sp/>&amp;<sp/>~0xfU);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INGRESS0_SRC_BASE_HI<sp/>+</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE)),<sp/>SrcHi);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>writing<sp/>the<sp/>Ingress<sp/>Src<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestLo<sp/>=<sp/>LOWER_32_BITS(Dst);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestHi<sp/>=<sp/>UPPER_32_BITS(Dst);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INGRESS0_DST_BASE_LO<sp/>+</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE)),<sp/>DestLo);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INGRESS0_DST_BASE_HI<sp/>+</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE)),<sp/>DestHi);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>writing<sp/>the<sp/>Ingress<sp/>Dst<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>INGRESS0_CONTROL<sp/>+</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE));</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Read<sp/>Ingress<sp/>Control<sp/>register\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>(u32)(~INGRESS_SIZE_MASK);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>(((u32)INGRESS_SIZE_ENCODING<sp/>&lt;&lt;<sp/>INGRESS_SIZE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)INGRESS_ENABLE<sp/>|<sp/>(u32)INGRESS_SECURITY_ENABLE);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>INGRESS_RD_WR_ATTR;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(INGRESS0_CONTROL<sp/>+<sp/>(IngressNum<sp/>*<sp/>INGRESS_SIZE)),<sp/>Val);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>setting<sp/>up<sp/>the<sp/>ingress<sp/>trasnslation<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="347" refid="xpciepsu__ep_8h_1ad0ab59afa2bae270a5be2f4496945dde" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xpciepsu__ep_8c_1ac7e335a61b13a5455ddaa43f46a416a4" kindref="member">XPciePsu_EP_SetupEgress</ref>(XPciePsu<sp/>*PciePsuPtr,<sp/>u32<sp/>EgressNum<sp/>){</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(PciePsuPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcLo;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SrcHi;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Scratch0,<sp/>Scratch1;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="355"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Using<sp/>Ingress<sp/>Address<sp/>Translation<sp/>0<sp/>to<sp/>setup<sp/>translation</highlight></codeline>
+<codeline lineno="356"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>to<sp/>PS<sp/>DDR</highlight></codeline>
+<codeline lineno="357"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcLo<sp/>=<sp/>LOWER_32_BITS(EGRESS_SRC_LO);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcHi<sp/>=<sp/>UPPER_32_BITS(EGRESS_SRC_HI);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EGRESS0_SRC_BASE_LO<sp/>+<sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE)),</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SrcLo<sp/>&amp;<sp/>~0xfU);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EGRESS0_SRC_BASE_HI<sp/>+<sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE)),<sp/>SrcHi);</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>writing<sp/>the<sp/>Ingress<sp/>Src<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Scratch0<sp/>=<sp/>(PciePsuPtr-&gt;Config.DmaBaseAddr<sp/>+<sp/>EGRESS_BUF_ADDR0_OFFSET);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Scratch1<sp/>=<sp/>(PciePsuPtr-&gt;Config.DmaBaseAddr<sp/>+<sp/>EGRESS_BUF_ADDR1_OFFSET);</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(Scratch0,<sp/>0U);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EGRESS0_DST_BASE_LO<sp/>+<sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE)),<sp/>Val);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(Scratch1,<sp/>0U);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EGRESS0_DST_BASE_HI<sp/>+</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE)),<sp/>Val);</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>writing<sp/>the<sp/>Ingress<sp/>Dst<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xpciepsu_8c_1a0cfd7833187346f6f654d80a359951b0" kindref="member">XPciePsu_ReadReg</ref>(PciePsuPtr-&gt;Config.BrigReg,<sp/>EGRESS0_CONTROL<sp/>+</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE));</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>&amp;=<sp/>(u32)(~EGRESS_SIZE_MASK);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>|=<sp/>(((u32)EGRESS_SIZE_ENCODING<sp/>&lt;&lt;<sp/>EGRESS_SIZE_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)EGRESS_ENABLE<sp/>|<sp/>(u32)EGRESS_SECURITY_ENABLE);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu_8c_1a558622766b2c01af123a216c1d682376" kindref="member">XPciePsu_WriteReg</ref>(PciePsuPtr-&gt;Config.BrigReg,</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(EGRESS0_CONTROL<sp/>+<sp/>(EgressNum<sp/>*<sp/>EGRESS_SIZE))<sp/>,<sp/>Val);</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPciePsu_Dbg(</highlight><highlight class="stringliteral">&quot;Done<sp/>setting<sp/>up<sp/>the<sp/>Egress<sp/>trasnslation<sp/>registers\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xpciepsu__ep_8c_1af44c30122a4a391b9c486f9646e7cf2e" kindref="member">Do_Egress_Test</ref>((u32<sp/>*)<sp/>EGRESS_SRC_LO);</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pciepsu/src/xpciepsu_ep.c"/>
+  </compounddef>
+</doxygen>

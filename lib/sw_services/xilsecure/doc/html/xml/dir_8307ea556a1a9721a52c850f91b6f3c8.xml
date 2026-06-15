@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8307ea556a1a9721a52c850f91b6f3c8" kind="dir">
+    <compoundname>trng</compoundname>
+    <innerdir refid="dir_a14ef1e2285f21b9ed85a0033f69404b">trngpsv</innerdir>
+    <innerdir refid="dir_a2e454e9563b0ae4708bdb12b714cb6d">trngpsx</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/trng/"/>
+  </compounddef>
+</doxygen>

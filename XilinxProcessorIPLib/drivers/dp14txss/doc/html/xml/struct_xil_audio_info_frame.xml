@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_audio_info_frame" kind="struct" prot="public">
+    <compoundname>XilAudioInfoFrame</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a37ee496c243f2675212c6b0d0ede96da" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a1086dc0b979599e69e889160638e9d9d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1aed2d9fe10a045de921c9357c54e5abb9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a5430c259076cdefa9cb1075a95178cfe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::audio_coding_type</definition>
+        <argsstring></argsstring>
+        <name>audio_coding_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1aef8c6996b7764d8f471dc69ffa42e74b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::audio_channel_count</definition>
+        <argsstring></argsstring>
+        <name>audio_channel_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a75049abc3a822006820a27b89b3331cc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::sampling_frequency</definition>
+        <argsstring></argsstring>
+        <name>sampling_frequency</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1af57c834ddb143cc3e35dfcb9a370ddda" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::sample_size</definition>
+        <argsstring></argsstring>
+        <name>sample_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1ac8e31333b6782ee34f852cfc9cc56366" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::level_shift</definition>
+        <argsstring></argsstring>
+        <name>level_shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a05917ff447b510d7cab4c6c403b031f2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::downmix_inhibit</definition>
+        <argsstring></argsstring>
+        <name>downmix_inhibit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a2f6132b94aea3cf24523ef8cf39039e8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::channel_allocation</definition>
+        <argsstring></argsstring>
+        <name>channel_allocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a0e1017d048c871ee297a2c3d9d980c9d" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XilAudioInfoFrame::info_length</definition>
+        <argsstring></argsstring>
+        <name>info_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a54ad524edea416388c123e490095897f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::sec_id</definition>
+        <argsstring></argsstring>
+        <name>sec_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_audio_info_frame_1a6cb27b382c7072a5bd41a963b67389fd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XilAudioInfoFrame::frame_count</definition>
+        <argsstring></argsstring>
+        <name>frame_count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/xdptxss_kcu105_dp14.c" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/xdptxss_zcu102_tx.h" bodystart="212" bodyend="225"/>
+    <listofallmembers>
+      <member refid="struct_xil_audio_info_frame_1aef8c6996b7764d8f471dc69ffa42e74b" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>audio_channel_count</name></member>
+      <member refid="struct_xil_audio_info_frame_1a5430c259076cdefa9cb1075a95178cfe" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>audio_coding_type</name></member>
+      <member refid="struct_xil_audio_info_frame_1a2f6132b94aea3cf24523ef8cf39039e8" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>channel_allocation</name></member>
+      <member refid="struct_xil_audio_info_frame_1a05917ff447b510d7cab4c6c403b031f2" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>downmix_inhibit</name></member>
+      <member refid="struct_xil_audio_info_frame_1a6cb27b382c7072a5bd41a963b67389fd" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>frame_count</name></member>
+      <member refid="struct_xil_audio_info_frame_1a0e1017d048c871ee297a2c3d9d980c9d" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>info_length</name></member>
+      <member refid="struct_xil_audio_info_frame_1aed2d9fe10a045de921c9357c54e5abb9" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>length</name></member>
+      <member refid="struct_xil_audio_info_frame_1ac8e31333b6782ee34f852cfc9cc56366" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>level_shift</name></member>
+      <member refid="struct_xil_audio_info_frame_1af57c834ddb143cc3e35dfcb9a370ddda" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>sample_size</name></member>
+      <member refid="struct_xil_audio_info_frame_1a75049abc3a822006820a27b89b3331cc" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>sampling_frequency</name></member>
+      <member refid="struct_xil_audio_info_frame_1a54ad524edea416388c123e490095897f" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>sec_id</name></member>
+      <member refid="struct_xil_audio_info_frame_1a37ee496c243f2675212c6b0d0ede96da" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>type</name></member>
+      <member refid="struct_xil_audio_info_frame_1a1086dc0b979599e69e889160638e9d9d" prot="public" virt="non-virtual"><scope>XilAudioInfoFrame</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

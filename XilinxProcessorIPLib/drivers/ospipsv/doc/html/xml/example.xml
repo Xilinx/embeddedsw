@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use ospi driver.</para><sect1 id="example_1ex1">
+<title>xospipsv_flash_polled_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> driver directly. This example performs the read and write and erase using ospi driver in polled mode.</para><para>For details, see <ref refid="xospipsv__flash__polled__example_8c" kindref="compound">xospipsv_flash_polled_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xospipsv_flash_intr_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> driver directly. This example performs the read and write and erase test using ospi driver in interrupt mode.</para><para>For details, see <ref refid="xospipsv__flash__intr__example_8c" kindref="compound">xospipsv_flash_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xospipsv_flash_non_blocking_read_example.c</title>
+<para>Contains an example on how to use the <ref refid="struct_x_ospi_psv" kindref="compound">XOspiPsv</ref> driver directly. This example performs the read (using non-blocking APIs) and write and erase using ospi driver in polled mode.</para><para>For details, see <ref refid="xospipsv__flash__non__blocking__read__example_8c" kindref="compound">xospipsv_flash_non_blocking_read_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xospipsv_flash_config.h</title>
+<para>Contains flash related configuration table and macros. This header file must be included in the ospipsv examples.</para><para>For details, see <ref refid="xospipsv__flash__config_8h" kindref="compound">xospipsv_flash_config.h</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

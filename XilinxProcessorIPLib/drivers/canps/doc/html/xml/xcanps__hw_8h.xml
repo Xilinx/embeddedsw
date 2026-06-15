@@ -1,0 +1,1986 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcanps__hw_8h" kind="file">
+    <compoundname>xcanps_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xcanps_8h" local="yes">xcanps.h</includedby>
+    <includedby refid="xcanps__hw_8c" local="yes">xcanps_hw.c</includedby>
+    <incdepgraph>
+      <node id="47">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="48">
+        <label>xil_io.h</label>
+      </node>
+      <node id="45">
+        <label>xcanps_hw.h</label>
+        <link refid="xcanps_hw.h"/>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="46">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="55">
+        <label>xcanps_sinit.c</label>
+        <link refid="xcanps__sinit_8c"/>
+      </node>
+      <node id="51">
+        <label>xcanps.c</label>
+        <link refid="xcanps_8c"/>
+      </node>
+      <node id="50">
+        <label>xcanps.h</label>
+        <link refid="xcanps_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xcanps_selftest.c</label>
+        <link refid="xcanps__selftest_8c"/>
+      </node>
+      <node id="59">
+        <label>xcanps_hw.c</label>
+        <link refid="xcanps__hw_8c"/>
+      </node>
+      <node id="49">
+        <label>xcanps_hw.h</label>
+        <link refid="xcanps_hw.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="58">
+        <label>xcanps_watermark_intr_example.c</label>
+        <link refid="xcanps__watermark__intr__example_8c"/>
+      </node>
+      <node id="52">
+        <label>xcanps_g.c</label>
+        <link refid="xcanps__g_8c"/>
+      </node>
+      <node id="53">
+        <label>xcanps_intr.c</label>
+        <link refid="xcanps__intr_8c"/>
+      </node>
+      <node id="57">
+        <label>xcanps_polled_example.c</label>
+        <link refid="xcanps__polled__example_8c"/>
+      </node>
+      <node id="56">
+        <label>xcanps_intr_example.c</label>
+        <link refid="xcanps__intr__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the CAN. Each register is 32 bits.</header>
+      <memberdef kind="define" id="group__canps_1gafb27f73bff57c437925c094d2accbeca" prot="public" static="no">
+        <name>XCANPS_SRR_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Software Reset Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" compoundref="xcanps__hw_8c" startline="68" endline="72">XCanPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga91d2e7710b05c1f1999d26ec4786fe7f" prot="public" static="no">
+        <name>XCANPS_MSR_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Mode Select Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga9da53efdc3565439b3a73e896ac2256f" prot="public" static="no">
+        <name>XCANPS_BRPR_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Baud Rate Prescaler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__canps_1gae452283471584ad19f0c854a782640ab" compoundref="xcanps_8c" startline="946" endline="955">XCanPs_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf746ee190f7157c3508ed6a40a87a69a" prot="public" static="no">
+        <name>XCANPS_BTR_OFFSET</name>
+        <initializer>0x0000000CU</initializer>
+        <briefdescription>
+<para>Bit Timing Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga116d4c70b44ccceacd85b97f93caffed" prot="public" static="no">
+        <name>XCANPS_ECR_OFFSET</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Error Counter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga9fcd5569b88b35770450468eb08ba7ea" prot="public" static="no">
+        <name>XCANPS_ESR_OFFSET</name>
+        <initializer>0x00000014U</initializer>
+        <briefdescription>
+<para>Error Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gab03b1427d6741629e7c78dccfa818dff" prot="public" static="no">
+        <name>XCANPS_SR_OFFSET</name>
+        <initializer>0x00000018U</initializer>
+        <briefdescription>
+<para>Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga6d87194a88956cbe32f48ea3d25697ef" compoundref="xcanps_8c" startline="333" endline="341">XCanPs_GetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" prot="public" static="no">
+        <name>XCANPS_ISR_OFFSET</name>
+        <initializer>0x0000001CU</initializer>
+        <briefdescription>
+<para>Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad534c55a73e054745c04c3adada42a7a" prot="public" static="no">
+        <name>XCANPS_IER_OFFSET</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad00a5deeda33258d922282e6fa62e876" prot="public" static="no">
+        <name>XCANPS_ICR_OFFSET</name>
+        <initializer>0x00000024U</initializer>
+        <briefdescription>
+<para>Interrupt Clear Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="71" bodyend="-1"/>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga9548e23d85404e5d7c99dba105d0ace0" prot="public" static="no">
+        <name>XCANPS_TCR_OFFSET</name>
+        <initializer>0x00000028U</initializer>
+        <briefdescription>
+<para>Timestamp Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gafc95b4cb9252a27181088ceb7ea55368" prot="public" static="no">
+        <name>XCANPS_WIR_OFFSET</name>
+        <initializer>0x0000002CU</initializer>
+        <briefdescription>
+<para>Watermark Interrupt Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="73" bodyend="-1"/>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gacb31377ed96f3942ad04a2d1cc671e0b" prot="public" static="no">
+        <name>XCANPS_TXFIFO_ID_OFFSET</name>
+        <initializer>0x00000030U</initializer>
+        <briefdescription>
+<para>TX FIFO ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf75023bc197ce872c17549d713df9554" prot="public" static="no">
+        <name>XCANPS_TXFIFO_DLC_OFFSET</name>
+        <initializer>0x00000034U</initializer>
+        <briefdescription>
+<para>TX FIFO DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gacd9cd2454a08413ca93d0d930259a512" prot="public" static="no">
+        <name>XCANPS_TXFIFO_DW1_OFFSET</name>
+        <initializer>0x00000038U</initializer>
+        <briefdescription>
+<para>TX FIFO Data Word 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga013a534f0c8c386429c5cfb9c513f114" prot="public" static="no">
+        <name>XCANPS_TXFIFO_DW2_OFFSET</name>
+        <initializer>0x0000003CU</initializer>
+        <briefdescription>
+<para>TX FIFO Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga5c6477d3dc9fa44898e0c45848784fd3" prot="public" static="no">
+        <name>XCANPS_TXHPB_ID_OFFSET</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga77cb2726abe4719e42371b4925de121c" prot="public" static="no">
+        <name>XCANPS_TXHPB_DLC_OFFSET</name>
+        <initializer>0x00000044U</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga69e8639d7e62a61f25cff6be0637bee2" prot="public" static="no">
+        <name>XCANPS_TXHPB_DW1_OFFSET</name>
+        <initializer>0x00000048U</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga44b907a14b92140955ab6a16fe0264d8" prot="public" static="no">
+        <name>XCANPS_TXHPB_DW2_OFFSET</name>
+        <initializer>0x0000004CU</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1e35a066151075f0f6b1fc6fa826db87" prot="public" static="no">
+        <name>XCANPS_RXFIFO_ID_OFFSET</name>
+        <initializer>0x00000050U</initializer>
+        <briefdescription>
+<para>RX FIFO ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga5df39d1c1c96a98151789ec1e4e75d97" prot="public" static="no">
+        <name>XCANPS_RXFIFO_DLC_OFFSET</name>
+        <initializer>0x00000054U</initializer>
+        <briefdescription>
+<para>RX FIFO DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gab81486ca8fa93c5e000320dada489d42" prot="public" static="no">
+        <name>XCANPS_RXFIFO_DW1_OFFSET</name>
+        <initializer>0x00000058U</initializer>
+        <briefdescription>
+<para>RX FIFO Data Word 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="87" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf0b0033445dd41c7d603fb27b2f0bf49" prot="public" static="no">
+        <name>XCANPS_RXFIFO_DW2_OFFSET</name>
+        <initializer>0x0000005CU</initializer>
+        <briefdescription>
+<para>RX FIFO Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga8525441daf41ee14d7d27f23408861e4" prot="public" static="no">
+        <name>XCANPS_AFR_OFFSET</name>
+        <initializer>0x00000060U</initializer>
+        <briefdescription>
+<para>Acceptance Filter Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1ga52a76621e921b66e70e1bed7a58b72f7" compoundref="xcanps_8c" startline="708" endline="717">XCanPs_AcceptFilterGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga6a46ac3e01263720489d12d2434f8da6" prot="public" static="no">
+        <name>XCANPS_AFMR1_OFFSET</name>
+        <initializer>0x00000064U</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga0276ddb753573f4e0e7e13a5fa67b2c8" prot="public" static="no">
+        <name>XCANPS_AFIR1_OFFSET</name>
+        <initializer>0x00000068U</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaeb3aa3cbaec57000d6277186cec0d9bc" prot="public" static="no">
+        <name>XCANPS_AFMR2_OFFSET</name>
+        <initializer>0x0000006CU</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4c3499a588eaaf69085cc430ebb307d4" prot="public" static="no">
+        <name>XCANPS_AFIR2_OFFSET</name>
+        <initializer>0x00000070U</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga7e207d923ee0ac71efb22f54e1026189" prot="public" static="no">
+        <name>XCANPS_AFMR3_OFFSET</name>
+        <initializer>0x00000074U</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga3ccf7c7b51e73147c839cf304434e197" prot="public" static="no">
+        <name>XCANPS_AFIR3_OFFSET</name>
+        <initializer>0x00000078U</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaebde5cf5bdaa29b3701b33609a4416c0" prot="public" static="no">
+        <name>XCANPS_AFMR4_OFFSET</name>
+        <initializer>0x0000007CU</initializer>
+        <briefdescription>
+<para>Acceptance Filter Mask 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga0df09bfd99ee8271149cd25cc0cde463" prot="public" static="no">
+        <name>XCANPS_AFIR4_OFFSET</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>Acceptance Filter ID 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Software Reset Register (SRR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1gaa8660e9bf0230cccd37ef328184411ca" prot="public" static="no">
+        <name>XCANPS_SRR_CEN_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Can Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4f344431790c6daf1fa330afdafa0bb6" prot="public" static="no">
+        <name>XCANPS_SRR_SRST_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" compoundref="xcanps__hw_8c" startline="68" endline="72">XCanPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mode Select Register (MSR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga68373b2f799e7da7d8c508ebcd1dc4f7" prot="public" static="no">
+        <name>XCANPS_MSR_SNOOP_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Snoop Mode Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga860c6a31f77ddf683c86b8001bdf67e7" prot="public" static="no">
+        <name>XCANPS_MSR_LBACK_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Loop Back Mode Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf36c6eced1dfccdfc5729e56795b5ee5" prot="public" static="no">
+        <name>XCANPS_MSR_SLEEP_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Sleep Mode Select. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Baud Rate Prescaler register (BRPR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga94395d3db59f8f9ecbfea9daabe267fa" prot="public" static="no">
+        <name>XCANPS_BRPR_BRP_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Baud Rate Prescaler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Bit Timing Register (BTR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1gab2fa448aceee2ee7380128f1f56ab76c" prot="public" static="no">
+        <name>XCANPS_BTR_SJW_MASK</name>
+        <initializer>0x00000180U</initializer>
+        <briefdescription>
+<para>Synchronization Jump Width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gacef7d7d60affa993ff2a9ca913bef3ca" prot="public" static="no">
+        <name>XCANPS_BTR_SJW_SHIFT</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Shift Value for SJW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gac1d9027df8de8ce8fb521677251601aa" prot="public" static="no">
+        <name>XCANPS_BTR_TS2_MASK</name>
+        <initializer>0x00000070U</initializer>
+        <briefdescription>
+<para>Time Segment 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1c1d508084a512e4f62a8a7376c396e6" prot="public" static="no">
+        <name>XCANPS_BTR_TS2_SHIFT</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Shift Value for TS2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaa00268720875bafc99c8bb93d8d1094e" prot="public" static="no">
+        <name>XCANPS_BTR_TS1_MASK</name>
+        <initializer>0x0000000FU</initializer>
+        <briefdescription>
+<para>Time Segment 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error Counter Register (ECR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga431d070fafedc970ffbd0b4332aece9e" prot="public" static="no">
+        <name>XCANPS_ECR_REC_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Receive Error Counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga8d881e7ccf954df2f22ddf66b9edc6fb" prot="public" static="no">
+        <name>XCANPS_ECR_REC_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Shift Value for REC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga978194cae1bbb8c72bbf5606bbcb95fb" prot="public" static="no">
+        <name>XCANPS_ECR_TEC_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Transmit Error Counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error Status Register (ESR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga5bcb1b889c3e08833d9e043372b183e4" prot="public" static="no">
+        <name>XCANPS_ESR_ACKER_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>ACK Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga89a98d7041f10767396ae048179a3b89" prot="public" static="no">
+        <name>XCANPS_ESR_BERR_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Bit Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gabf556c44e2049c14c39d735be4b6e810" prot="public" static="no">
+        <name>XCANPS_ESR_STER_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Stuff Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga9f8e78fa8cf400ca661beb1a23feb95e" prot="public" static="no">
+        <name>XCANPS_ESR_FMER_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Form Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gadabf3de36b51ec7f67d520625cec08c4" prot="public" static="no">
+        <name>XCANPS_ESR_CRCER_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>CRC Error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Status Register (SR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga94ac17fbb55d32c3b00cd9209240b99e" prot="public" static="no">
+        <name>XCANPS_SR_SNOOP_MASK</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Snoop Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="153" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga395ca492e1b1699df527987b3d1b5982" prot="public" static="no">
+        <name>XCANPS_SR_ACFBSY_MASK</name>
+        <initializer>0x00000800U</initializer>
+        <briefdescription>
+<para>Acceptance Filter busy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad9255c34d0981002d1b06825ba872c53" prot="public" static="no">
+        <name>XCANPS_SR_TXFLL_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>TX FIFO is full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1785ab9ad6f36795a567d7503afda2b8" prot="public" static="no">
+        <name>XCANPS_SR_TXBFLL_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>TX High Priority Buffer full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga30d3e067e1af42eb938703bd67dcd44f" prot="public" static="no">
+        <name>XCANPS_SR_ESTAT_MASK</name>
+        <initializer>0x00000180U</initializer>
+        <briefdescription>
+<para>Error Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga8a7040d6bc97c1a14d3e0202938cd2eb" prot="public" static="no">
+        <name>XCANPS_SR_ESTAT_SHIFT</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Shift value for ESTAT. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4458d7f97a53daf578629a72116ef6b0" prot="public" static="no">
+        <name>XCANPS_SR_ERRWRN_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Error Warning. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1fed347617a45fbd4aed22079e84e60c" prot="public" static="no">
+        <name>XCANPS_SR_BBSY_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>Bus Busy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1e46e3e1025b91629fd927a10d9790ba" prot="public" static="no">
+        <name>XCANPS_SR_BIDLE_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>Bus Idle. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga6431dce1e634178247a140c6635597e4" prot="public" static="no">
+        <name>XCANPS_SR_NORMAL_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Normal Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga5c19dc6a17f0d0d01e89fd1d667ed335" prot="public" static="no">
+        <name>XCANPS_SR_SLEEP_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Sleep Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaaaad1372ab538abe678de61e874d2031" prot="public" static="no">
+        <name>XCANPS_SR_LBACK_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Loop Back Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga370aed28013318d6fccaddb6c39dd8f4" prot="public" static="no">
+        <name>XCANPS_SR_CONFIG_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Configuration Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt Status/Enable/Clear Register Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1gaae5de1da0ece29ccfca9d884c55b9bf8" prot="public" static="no">
+        <name>XCANPS_IXR_TXFEMP_MASK</name>
+        <initializer>0x00004000U</initializer>
+        <briefdescription>
+<para>Tx Fifo Empty Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gae0079b661baab2a690b6beab2e259e86" prot="public" static="no">
+        <name>XCANPS_IXR_TXFWMEMP_MASK</name>
+        <initializer>0x00002000U</initializer>
+        <briefdescription>
+<para>Tx Fifo Watermark Empty. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" prot="public" static="no">
+        <name>XCANPS_IXR_RXFWMFLL_MASK</name>
+        <initializer>0x00001000U</initializer>
+        <briefdescription>
+<para>Rx FIFO Watermark Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaa85aec590359fff45d33d12edb43d1fd" prot="public" static="no">
+        <name>XCANPS_IXR_WKUP_MASK</name>
+        <initializer>0x00000800U</initializer>
+        <briefdescription>
+<para>Wake up Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga83a79d0a328234c542de4a6a0615791c" prot="public" static="no">
+        <name>XCANPS_IXR_SLP_MASK</name>
+        <initializer>0x00000400U</initializer>
+        <briefdescription>
+<para>Sleep Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" prot="public" static="no">
+        <name>XCANPS_IXR_BSOFF_MASK</name>
+        <initializer>0x00000200U</initializer>
+        <briefdescription>
+<para>Bus Off Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga5f8ec6f644bc0212dce402d138716aa4" prot="public" static="no">
+        <name>XCANPS_IXR_ERROR_MASK</name>
+        <initializer>0x00000100U</initializer>
+        <briefdescription>
+<para>Error Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" prot="public" static="no">
+        <name>XCANPS_IXR_RXNEMP_MASK</name>
+        <initializer>0x00000080U</initializer>
+        <briefdescription>
+<para>RX FIFO Not Empty Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga380edfd096c837c735e9f50fcae4bd89" prot="public" static="no">
+        <name>XCANPS_IXR_RXOFLW_MASK</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>RX FIFO Overflow Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gadb093abe285ffcc4acfbe92175a9ff3c" prot="public" static="no">
+        <name>XCANPS_IXR_RXUFLW_MASK</name>
+        <initializer>0x00000020U</initializer>
+        <briefdescription>
+<para>RX FIFO Underflow Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga68430463f29b1d8df291a50883f643ac" prot="public" static="no">
+        <name>XCANPS_IXR_RXOK_MASK</name>
+        <initializer>0x00000010U</initializer>
+        <briefdescription>
+<para>New Message Received Intr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga8ac7090cc527801acbb5209a75265072" prot="public" static="no">
+        <name>XCANPS_IXR_TXBFLL_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>TX High Priority Buf Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga7ee9a029b99b8293db3aa66c34a1db7c" prot="public" static="no">
+        <name>XCANPS_IXR_TXFLL_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>TX FIFO Full Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="183" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga5270e4112cfc21e4a7ed8c168f2ccb10" prot="public" static="no">
+        <name>XCANPS_IXR_TXOK_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>TX Successful Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4a9f40766aa79e63473f80e45d7a4cb2" prot="public" static="no">
+        <name>XCANPS_IXR_ARBLST_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Arbitration Lost Interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="185" bodyend="-1"/>
+        <referencedby refid="group__canps_1gad7c797dfe9aef613d20c2a822ed301dc" compoundref="xcanps__intr_8c" startline="210" endline="306">XCanPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga7e5dc6bddd01c5a2d54da6689c956be9" prot="public" static="no">
+        <name>XCANPS_IXR_ALL</name>
+        <initializer>((u32)<ref refid="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" kindref="member">XCANPS_IXR_RXFWMFLL_MASK</ref> | \
+				(u32)<ref refid="group__canps_1gaa85aec590359fff45d33d12edb43d1fd" kindref="member">XCANPS_IXR_WKUP_MASK</ref>   | \
+				(u32)<ref refid="group__canps_1ga83a79d0a328234c542de4a6a0615791c" kindref="member">XCANPS_IXR_SLP_MASK</ref>	| \
+				(u32)<ref refid="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" kindref="member">XCANPS_IXR_BSOFF_MASK</ref>  | \
+				(u32)<ref refid="group__canps_1ga5f8ec6f644bc0212dce402d138716aa4" kindref="member">XCANPS_IXR_ERROR_MASK</ref>  | \
+				(u32)<ref refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" kindref="member">XCANPS_IXR_RXNEMP_MASK</ref> | \
+				(u32)<ref refid="group__canps_1ga380edfd096c837c735e9f50fcae4bd89" kindref="member">XCANPS_IXR_RXOFLW_MASK</ref> | \
+				(u32)<ref refid="group__canps_1gadb093abe285ffcc4acfbe92175a9ff3c" kindref="member">XCANPS_IXR_RXUFLW_MASK</ref> | \
+				(u32)<ref refid="group__canps_1ga68430463f29b1d8df291a50883f643ac" kindref="member">XCANPS_IXR_RXOK_MASK</ref>   | \
+				(u32)<ref refid="group__canps_1ga8ac7090cc527801acbb5209a75265072" kindref="member">XCANPS_IXR_TXBFLL_MASK</ref> | \
+				(u32)<ref refid="group__canps_1ga7ee9a029b99b8293db3aa66c34a1db7c" kindref="member">XCANPS_IXR_TXFLL_MASK</ref>  | \
+				(u32)<ref refid="group__canps_1ga5270e4112cfc21e4a7ed8c168f2ccb10" kindref="member">XCANPS_IXR_TXOK_MASK</ref>   | \
+				(u32)<ref refid="group__canps_1ga4a9f40766aa79e63473f80e45d7a4cb2" kindref="member">XCANPS_IXR_ARBLST_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Basic interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Timestamp Control Register (TCR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga73ebdb9f11b9c769acc0d2cdc085fdc7" prot="public" static="no">
+        <name>XCANPS_TCR_CTS_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Clear Timestamp counter mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Watermark Register (WIR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga6d56baf5cc7a7eb6c54f3f2255e2291a" prot="public" static="no">
+        <name>XCANPS_WIR_FW_MASK</name>
+        <initializer>0x0000003FU</initializer>
+        <briefdescription>
+<para>Rx Full Threshold mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga47696ac14c38ae7091315ac7fb52c5c6" prot="public" static="no">
+        <name>XCANPS_WIR_EW_MASK</name>
+        <initializer>0x00003F00U</initializer>
+        <briefdescription>
+<para>Tx Empty Threshold mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga2e6e7ab6cde78ab992a1084ec540ac68" prot="public" static="no">
+        <name>XCANPS_WIR_EW_SHIFT</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Tx Empty Threshold shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Identifier (TX High Priority Buffer/TX/RX/Acceptance Filter</header>
+      <description><para>Mask/Acceptance Filter ID) </para></description>
+      <memberdef kind="define" id="group__canps_1ga03c570854310ffd7198a240aa3e5b450" prot="public" static="no">
+        <name>XCANPS_IDR_ID1_MASK</name>
+        <initializer>0xFFE00000U</initializer>
+        <briefdescription>
+<para>Standard Messg Identifier. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4941ee8f7d5736d356d6ab633a0ddcbb" prot="public" static="no">
+        <name>XCANPS_IDR_ID1_SHIFT</name>
+        <initializer>21U</initializer>
+        <briefdescription>
+<para>Shift Value for ID1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad77824652aaf9b68e9031e4c1ab52e08" prot="public" static="no">
+        <name>XCANPS_IDR_SRR_MASK</name>
+        <initializer>0x00100000U</initializer>
+        <briefdescription>
+<para>Substitute Remote TX Req. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gab747ed0dcfb5a078a77c4b192bbb05fb" prot="public" static="no">
+        <name>XCANPS_IDR_SRR_SHIFT</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+<para>Shift Value for SRR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gae6a7ad9f02cb2b57195783ced2dff986" prot="public" static="no">
+        <name>XCANPS_IDR_IDE_MASK</name>
+        <initializer>0x00080000U</initializer>
+        <briefdescription>
+<para>Identifier Extension. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga38afdb344a0ffc14fd74026903b48399" prot="public" static="no">
+        <name>XCANPS_IDR_IDE_SHIFT</name>
+        <initializer>19U</initializer>
+        <briefdescription>
+<para>Shift Value for IDE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga23de74a7d58119de9d629f830c28aa53" prot="public" static="no">
+        <name>XCANPS_IDR_ID2_MASK</name>
+        <initializer>0x0007FFFEU</initializer>
+        <briefdescription>
+<para>Extended Message Ident. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf1f453f117b64787f8b2707e2e9ac510" prot="public" static="no">
+        <name>XCANPS_IDR_ID2_SHIFT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Shift Value for ID2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf7c18bde3aed08f7411934f977145cc8" prot="public" static="no">
+        <name>XCANPS_IDR_RTR_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Remote TX Request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Length Code (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__canps_1ga98d6f7c2e6040aed17c331ab39a52f60" prot="public" static="no">
+        <name>XCANPS_DLCR_DLC_MASK</name>
+        <initializer>0xF0000000U</initializer>
+        <briefdescription>
+<para>Data Length Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad609eaa96de046faa06b2450792594d2" prot="public" static="no">
+        <name>XCANPS_DLCR_DLC_SHIFT</name>
+        <initializer>28U</initializer>
+        <briefdescription>
+<para>Shift Value for DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gae2000262a11f01d0b8a890445292b95f" prot="public" static="no">
+        <name>XCANPS_DLCR_TIMESTAMP_MASK</name>
+        <initializer>0x0000FFFFU</initializer>
+        <briefdescription>
+<para>Timestamp Mask (Rx only) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Word 1 (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__canps_1gabfe44e5fafc88252567d9313d7b4ce94" prot="public" static="no">
+        <name>XCANPS_DW1R_DB0_MASK</name>
+        <initializer>0xFF000000U</initializer>
+        <briefdescription>
+<para>Data Byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga41a13316b9a1b674e86ac761e6b03de3" prot="public" static="no">
+        <name>XCANPS_DW1R_DB0_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Byte 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga024e13e45dab4d19b67d8a15ddbb139e" prot="public" static="no">
+        <name>XCANPS_DW1R_DB1_MASK</name>
+        <initializer>0x00FF0000U</initializer>
+        <briefdescription>
+<para>Data Byte 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gade1cf2207a65a7697c054b50e93fc300" prot="public" static="no">
+        <name>XCANPS_DW1R_DB1_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Byte 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga9c0843860eb96f41e0a324185dc568ff" prot="public" static="no">
+        <name>XCANPS_DW1R_DB2_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Data Byte 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaabb26c591b255e1c5d0cde9cd7555d68" prot="public" static="no">
+        <name>XCANPS_DW1R_DB2_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Byte 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad3b91a27b6a7bbd6fcaf559851448d29" prot="public" static="no">
+        <name>XCANPS_DW1R_DB3_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Data Byte 3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN Frame Data Word 2 (TX High Priority Buffer/TX/RX)</header>
+      <memberdef kind="define" id="group__canps_1ga758ca7ff3994295f328f44ee77a8a4a9" prot="public" static="no">
+        <name>XCANPS_DW2R_DB4_MASK</name>
+        <initializer>0xFF000000U</initializer>
+        <briefdescription>
+<para>Data Byte 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1b59b48427b11f88ce092aedadb19d09" prot="public" static="no">
+        <name>XCANPS_DW2R_DB4_SHIFT</name>
+        <initializer>24U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Byte 4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaf30904663d3fb9139dddd22035abe323" prot="public" static="no">
+        <name>XCANPS_DW2R_DB5_MASK</name>
+        <initializer>0x00FF0000U</initializer>
+        <briefdescription>
+<para>Data Byte 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga39b1a54a7891d3c2c39fdb026c58abf3" prot="public" static="no">
+        <name>XCANPS_DW2R_DB5_SHIFT</name>
+        <initializer>16U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Bbyet 5. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga25a82b59a9f09988b49bca491c3a5577" prot="public" static="no">
+        <name>XCANPS_DW2R_DB6_MASK</name>
+        <initializer>0x0000FF00U</initializer>
+        <briefdescription>
+<para>Data Byte 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga1f69e33ffd709c6056746b9e32328dd5" prot="public" static="no">
+        <name>XCANPS_DW2R_DB6_SHIFT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Shift Value for Data Byte 6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga43fb550275bf4ba6b672988096b6509d" prot="public" static="no">
+        <name>XCANPS_DW2R_DB7_MASK</name>
+        <initializer>0x000000FFU</initializer>
+        <briefdescription>
+<para>Data Byte 7. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Acceptance Filter Register (AFR) Bit Definitions and Masks</header>
+      <memberdef kind="define" id="group__canps_1ga5e43518568ed23a47adea5a9d16e5036" prot="public" static="no">
+        <name>XCANPS_AFR_UAF4_MASK</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.4. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga4a2436988a3530bb49220dc20dd878bd" prot="public" static="no">
+        <name>XCANPS_AFR_UAF3_MASK</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.3. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga3ad179f930a2c29de945fabfddefc7d2" prot="public" static="no">
+        <name>XCANPS_AFR_UAF2_MASK</name>
+        <initializer>0x00000002U</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gabde095aa619a3485599cf97c2bca57b5" prot="public" static="no">
+        <name>XCANPS_AFR_UAF1_MASK</name>
+        <initializer>0x00000001U</initializer>
+        <briefdescription>
+<para>Use Acceptance Filter No.1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="271" bodyend="-1"/>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gadf814ffa617dee9d66af1c579fa06b64" prot="public" static="no">
+        <name>XCANPS_AFR_UAF_ALL_MASK</name>
+        <initializer>((u32)<ref refid="group__canps_1ga5e43518568ed23a47adea5a9d16e5036" kindref="member">XCANPS_AFR_UAF4_MASK</ref> | \
+					(u32)<ref refid="group__canps_1ga4a2436988a3530bb49220dc20dd878bd" kindref="member">XCANPS_AFR_UAF3_MASK</ref> | \
+					(u32)<ref refid="group__canps_1ga3ad179f930a2c29de945fabfddefc7d2" kindref="member">XCANPS_AFR_UAF2_MASK</ref> | \
+					(u32)<ref refid="group__canps_1gabde095aa619a3485599cf97c2bca57b5" kindref="member">XCANPS_AFR_UAF1_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Mask for Acceptance Filers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>CAN frame length constants</header>
+      <memberdef kind="define" id="group__canps_1ga87adc8cfc88e067c42ee749b5e59177a" prot="public" static="no">
+        <name>XCANPS_MAX_FRAME_SIZE</name>
+        <initializer>sizeof(u32)*16U</initializer>
+        <briefdescription>
+<para>Maximum CAN frame length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__canps_1gaca9eb3a2aa07e9efd31ac8c83a05b57a" prot="public" static="no">
+        <name>XCANPS_HW_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gafa75ffdfd5ce5f0f19a0b1c583a0b6c3" prot="public" static="no">
+        <name>XCANPS_TXBUF_ID_OFFSET</name>
+        <initializer><ref refid="group__canps_1ga5c6477d3dc9fa44898e0c45848784fd3" kindref="member">XCANPS_TXHPB_ID_OFFSET</ref></initializer>
+        <briefdescription>
+<para>TX High Priority Buffer ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaa405e7a2e1ddf872d8bc02a05f0adeab" prot="public" static="no">
+        <name>XCANPS_TXBUF_DLC_OFFSET</name>
+        <initializer><ref refid="group__canps_1ga77cb2726abe4719e42371b4925de121c" kindref="member">XCANPS_TXHPB_DLC_OFFSET</ref></initializer>
+        <briefdescription>
+<para>TX High Priority Buffer DLC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gad968b22db1079bec48ac27684f34a5e5" prot="public" static="no">
+        <name>XCANPS_TXBUF_DW1_OFFSET</name>
+        <initializer><ref refid="group__canps_1ga69e8639d7e62a61f25cff6be0637bee2" kindref="member">XCANPS_TXHPB_DW1_OFFSET</ref></initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gaefcd0a123d760e519b90f7afdbab4aa6" prot="public" static="no">
+        <name>XCANPS_TXBUF_DW2_OFFSET</name>
+        <initializer><ref refid="group__canps_1ga44b907a14b92140955ab6a16fe0264d8" kindref="member">XCANPS_TXHPB_DW2_OFFSET</ref></initializer>
+        <briefdescription>
+<para>TX High Priority Buf Data Word 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="289" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga00332bb0aa9a1a67d0e64887369e759b" prot="public" static="no">
+        <name>XCANPS_RXFWIR_RXFLL_MASK</name>
+        <initializer><ref refid="group__canps_1ga6d56baf5cc7a7eb6c54f3f2255e2291a" kindref="member">XCANPS_WIR_FW_MASK</ref></initializer>
+        <briefdescription>
+<para>Rx Full Threshold mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="291" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga6d4277fa0965a5c80a424e5ca60ededf" prot="public" static="no">
+        <name>XCANPS_RXWIR_OFFSET</name>
+        <initializer><ref refid="group__canps_1gafc95b4cb9252a27181088ceb7ea55368" kindref="member">XCANPS_WIR_OFFSET</ref></initializer>
+        <briefdescription>
+<para>Watermark Interrupt Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1gab63780641e401273577d26019b1354c8" prot="public" static="no">
+        <name>XCANPS_IXR_RXFLL_MASK</name>
+        <initializer><ref refid="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" kindref="member">XCANPS_IXR_RXFWMFLL_MASK</ref></initializer>
+        <briefdescription>
+<para>Rx FIFO Watermark Full. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="293" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" prot="public" static="no">
+        <name>XCanPs_ReadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddr) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="315" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga52a76621e921b66e70e1bed7a58b72f7" compoundref="xcanps_8c" startline="708" endline="717">XCanPs_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__canps_1gae452283471584ad19f0c854a782640ab" compoundref="xcanps_8c" startline="946" endline="955">XCanPs_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6d87194a88956cbe32f48ea3d25697ef" compoundref="xcanps_8c" startline="333" endline="341">XCanPs_GetStatus</referencedby>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga54552fe78115d81806e23a03646efb55" prot="public" static="no">
+        <name>XCanPs_WriteReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddr) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+        <referencedby refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" compoundref="xcanps__hw_8c" startline="68" endline="72">XCanPs_ResetHw</referencedby>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+        <referencedby refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCanPs_ResetHw</definition>
+        <argsstring>(UINTPTR BaseAddr)</argsstring>
+        <name>XCanPs_ResetHw</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the CAN device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Calling this function resets the device immediately, and any pending transmission or reception is terminated at once. Both Object Layer and Transfer Layer are reset. This function does not reset the Physical Layer. All registers are reset to the default values, and no previous status will be restored. TX FIFO, RX FIFO and TX High Priority Buffer are also reset.</para><para>The CAN device will be in Configuration Mode immediately after this function returns.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the interface.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.c" bodystart="68" bodyend="72"/>
+        <references refid="group__canps_1gafb27f73bff57c437925c094d2accbeca" compoundref="xcanps__hw_8h" startline="61">XCANPS_SRR_OFFSET</references>
+        <references refid="group__canps_1ga4f344431790c6daf1fa330afdafa0bb6" compoundref="xcanps__hw_8h" startline="105">XCANPS_SRR_SRST_MASK</references>
+        <references refid="group__canps_1ga54552fe78115d81806e23a03646efb55" compoundref="xcanps__hw_8h" startline="333">XCanPs_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor">#ifndef<sp/>XCANPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43" refid="group__canps_1gaca9eb3a2aa07e9efd31ac8c83a05b57a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCANPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="group__canps_1gafb27f73bff57c437925c094d2accbeca" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/></highlight></codeline>
+<codeline lineno="62" refid="group__canps_1ga91d2e7710b05c1f1999d26ec4786fe7f" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_MSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="63" refid="group__canps_1ga9da53efdc3565439b3a73e896ac2256f" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BRPR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="64" refid="group__canps_1gaf746ee190f7157c3508ed6a40a87a69a" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000CU<sp/></highlight></codeline>
+<codeline lineno="65" refid="group__canps_1ga116d4c70b44ccceacd85b97f93caffed" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ECR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__canps_1ga9fcd5569b88b35770450468eb08ba7ea" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014U<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__canps_1gab03b1427d6741629e7c78dccfa818dff" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018U<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ISR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001CU<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__canps_1gad534c55a73e054745c04c3adada42a7a" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__canps_1gad00a5deeda33258d922282e6fa62e876" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ICR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000024U<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__canps_1ga9548e23d85404e5d7c99dba105d0ace0" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028U<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__canps_1gafc95b4cb9252a27181088ceb7ea55368" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_WIR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000002CU<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__canps_1gacb31377ed96f3942ad04a2d1cc671e0b" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXFIFO_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000030U<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__canps_1gaf75023bc197ce872c17549d713df9554" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXFIFO_DLC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000034U<sp/></highlight></codeline>
+<codeline lineno="77" refid="group__canps_1gacd9cd2454a08413ca93d0d930259a512" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXFIFO_DW1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000038U<sp/></highlight></codeline>
+<codeline lineno="78" refid="group__canps_1ga013a534f0c8c386429c5cfb9c513f114" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXFIFO_DW2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000003CU<sp/></highlight></codeline>
+<codeline lineno="80" refid="group__canps_1ga5c6477d3dc9fa44898e0c45848784fd3" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXHPB_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="81" refid="group__canps_1ga77cb2726abe4719e42371b4925de121c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXHPB_DLC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000044U<sp/></highlight></codeline>
+<codeline lineno="82" refid="group__canps_1ga69e8639d7e62a61f25cff6be0637bee2" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXHPB_DW1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000048U<sp/></highlight></codeline>
+<codeline lineno="83" refid="group__canps_1ga44b907a14b92140955ab6a16fe0264d8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXHPB_DW2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000004CU<sp/></highlight></codeline>
+<codeline lineno="85" refid="group__canps_1ga1e35a066151075f0f6b1fc6fa826db87" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXFIFO_ID_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000050U<sp/></highlight></codeline>
+<codeline lineno="86" refid="group__canps_1ga5df39d1c1c96a98151789ec1e4e75d97" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXFIFO_DLC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000054U<sp/></highlight></codeline>
+<codeline lineno="87" refid="group__canps_1gab81486ca8fa93c5e000320dada489d42" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXFIFO_DW1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000058U<sp/></highlight></codeline>
+<codeline lineno="88" refid="group__canps_1gaf0b0033445dd41c7d603fb27b2f0bf49" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXFIFO_DW2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000005CU<sp/></highlight></codeline>
+<codeline lineno="90" refid="group__canps_1ga8525441daf41ee14d7d27f23408861e4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000060U<sp/></highlight></codeline>
+<codeline lineno="91" refid="group__canps_1ga6a46ac3e01263720489d12d2434f8da6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFMR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000064U<sp/></highlight></codeline>
+<codeline lineno="92" refid="group__canps_1ga0276ddb753573f4e0e7e13a5fa67b2c8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFIR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000068U<sp/></highlight></codeline>
+<codeline lineno="93" refid="group__canps_1gaeb3aa3cbaec57000d6277186cec0d9bc" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFMR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000006CU<sp/></highlight></codeline>
+<codeline lineno="94" refid="group__canps_1ga4c3499a588eaaf69085cc430ebb307d4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFIR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000070U<sp/></highlight></codeline>
+<codeline lineno="95" refid="group__canps_1ga7e207d923ee0ac71efb22f54e1026189" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFMR3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000074U<sp/></highlight></codeline>
+<codeline lineno="96" refid="group__canps_1ga3ccf7c7b51e73147c839cf304434e197" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFIR3_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000078U<sp/></highlight></codeline>
+<codeline lineno="97" refid="group__canps_1gaebde5cf5bdaa29b3701b33609a4416c0" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFMR4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000007CU<sp/></highlight></codeline>
+<codeline lineno="98" refid="group__canps_1ga0df09bfd99ee8271149cd25cc0cde463" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFIR4_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="104" refid="group__canps_1gaa8660e9bf0230cccd37ef328184411ca" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SRR_CEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002U<sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="group__canps_1ga4f344431790c6daf1fa330afdafa0bb6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SRR_SRST_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__canps_1ga68373b2f799e7da7d8c508ebcd1dc4f7" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_MSR_SNOOP_MASK<sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="112" refid="group__canps_1ga860c6a31f77ddf683c86b8001bdf67e7" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_MSR_LBACK_MASK<sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__canps_1gaf36c6eced1dfccdfc5729e56795b5ee5" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_MSR_SLEEP_MASK<sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="119" refid="group__canps_1ga94395d3db59f8f9ecbfea9daabe267fa" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BRPR_BRP_MASK<sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="125" refid="group__canps_1gab2fa448aceee2ee7380128f1f56ab76c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_SJW_MASK<sp/><sp/><sp/><sp/><sp/>0x00000180U<sp/></highlight></codeline>
+<codeline lineno="126" refid="group__canps_1gacef7d7d60affa993ff2a9ca913bef3ca" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_SJW_SHIFT<sp/><sp/><sp/><sp/>7U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="group__canps_1gac1d9027df8de8ce8fb521677251601aa" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_TS2_MASK<sp/><sp/><sp/><sp/><sp/>0x00000070U<sp/></highlight></codeline>
+<codeline lineno="128" refid="group__canps_1ga1c1d508084a512e4f62a8a7376c396e6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_TS2_SHIFT<sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="group__canps_1gaa00268720875bafc99c8bb93d8d1094e" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_BTR_TS1_MASK<sp/><sp/><sp/><sp/><sp/>0x0000000FU<sp/></highlight></codeline>
+<codeline lineno="135" refid="group__canps_1ga431d070fafedc970ffbd0b4332aece9e" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ECR_REC_MASK<sp/><sp/><sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="136" refid="group__canps_1ga8d881e7ccf954df2f22ddf66b9edc6fb" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ECR_REC_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="137" refid="group__canps_1ga978194cae1bbb8c72bbf5606bbcb95fb" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ECR_TEC_MASK<sp/><sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="143" refid="group__canps_1ga5bcb1b889c3e08833d9e043372b183e4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_ACKER_MASK<sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="144" refid="group__canps_1ga89a98d7041f10767396ae048179a3b89" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_BERR_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="145" refid="group__canps_1gabf556c44e2049c14c39d735be4b6e810" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_STER_MASK<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="146" refid="group__canps_1ga9f8e78fa8cf400ca661beb1a23feb95e" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_FMER_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="147" refid="group__canps_1gadabf3de36b51ec7f67d520625cec08c4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_ESR_CRCER_MASK<sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="153" refid="group__canps_1ga94ac17fbb55d32c3b00cd9209240b99e" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_SNOOP_MASK<sp/><sp/><sp/><sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="154" refid="group__canps_1ga395ca492e1b1699df527987b3d1b5982" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_ACFBSY_MASK<sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="155" refid="group__canps_1gad9255c34d0981002d1b06825ba872c53" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_TXFLL_MASK<sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="156" refid="group__canps_1ga1785ab9ad6f36795a567d7503afda2b8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_TXBFLL_MASK<sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="157" refid="group__canps_1ga30d3e067e1af42eb938703bd67dcd44f" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_ESTAT_MASK<sp/><sp/><sp/><sp/>0x00000180U<sp/></highlight></codeline>
+<codeline lineno="158" refid="group__canps_1ga8a7040d6bc97c1a14d3e0202938cd2eb" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_ESTAT_SHIFT<sp/><sp/><sp/>7U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__canps_1ga4458d7f97a53daf578629a72116ef6b0" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_ERRWRN_MASK<sp/><sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="160" refid="group__canps_1ga1fed347617a45fbd4aed22079e84e60c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_BBSY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="161" refid="group__canps_1ga1e46e3e1025b91629fd927a10d9790ba" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_BIDLE_MASK<sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="162" refid="group__canps_1ga6431dce1e634178247a140c6635597e4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_NORMAL_MASK<sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="163" refid="group__canps_1ga5c19dc6a17f0d0d01e89fd1d667ed335" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_SLEEP_MASK<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="164" refid="group__canps_1gaaaad1372ab538abe678de61e874d2031" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_LBACK_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="165" refid="group__canps_1ga370aed28013318d6fccaddb6c39dd8f4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_SR_CONFIG_MASK<sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="171" refid="group__canps_1gaae5de1da0ece29ccfca9d884c55b9bf8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_TXFEMP_MASK<sp/><sp/><sp/>0x00004000U<sp/></highlight></codeline>
+<codeline lineno="172" refid="group__canps_1gae0079b661baab2a690b6beab2e259e86" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_TXFWMEMP_MASK<sp/>0x00002000U<sp/></highlight></codeline>
+<codeline lineno="173" refid="group__canps_1gafe154f7d522c1a8e7e26f20d1e8df897" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXFWMFLL_MASK<sp/>0x00001000U<sp/></highlight></codeline>
+<codeline lineno="174" refid="group__canps_1gaa85aec590359fff45d33d12edb43d1fd" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_WKUP_MASK<sp/><sp/><sp/><sp/><sp/>0x00000800U<sp/></highlight></codeline>
+<codeline lineno="175" refid="group__canps_1ga83a79d0a328234c542de4a6a0615791c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_SLP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400U<sp/></highlight></codeline>
+<codeline lineno="176" refid="group__canps_1ga438360dd41b95c4e5794ed038e311cf1" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_BSOFF_MASK<sp/><sp/><sp/>0x00000200U<sp/></highlight></codeline>
+<codeline lineno="177" refid="group__canps_1ga5f8ec6f644bc0212dce402d138716aa4" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_ERROR_MASK<sp/><sp/><sp/>0x00000100U<sp/></highlight></codeline>
+<codeline lineno="178" refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXNEMP_MASK<sp/><sp/>0x00000080U<sp/></highlight></codeline>
+<codeline lineno="179" refid="group__canps_1ga380edfd096c837c735e9f50fcae4bd89" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXOFLW_MASK<sp/><sp/>0x00000040U<sp/></highlight></codeline>
+<codeline lineno="180" refid="group__canps_1gadb093abe285ffcc4acfbe92175a9ff3c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXUFLW_MASK<sp/><sp/>0x00000020U<sp/></highlight></codeline>
+<codeline lineno="181" refid="group__canps_1ga68430463f29b1d8df291a50883f643ac" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXOK_MASK<sp/><sp/><sp/><sp/>0x00000010U<sp/></highlight></codeline>
+<codeline lineno="182" refid="group__canps_1ga8ac7090cc527801acbb5209a75265072" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_TXBFLL_MASK<sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="183" refid="group__canps_1ga7ee9a029b99b8293db3aa66c34a1db7c" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_TXFLL_MASK<sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="184" refid="group__canps_1ga5270e4112cfc21e4a7ed8c168f2ccb10" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_TXOK_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="185" refid="group__canps_1ga4a9f40766aa79e63473f80e45d7a4cb2" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_ARBLST_MASK<sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="186" refid="group__canps_1ga7e5dc6bddd01c5a2d54da6689c956be9" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XCANPS_IXR_RXFWMFLL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_WKUP_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_SLP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_BSOFF_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_ERROR_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_RXNEMP_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_RXOFLW_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_RXUFLW_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_RXOK_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_TXBFLL_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_TXFLL_MASK<sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_TXOK_MASK<sp/><sp/><sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_IXR_ARBLST_MASK)</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="205" refid="group__canps_1ga73ebdb9f11b9c769acc0d2cdc085fdc7" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TCR_CTS_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="211" refid="group__canps_1ga6d56baf5cc7a7eb6c54f3f2255e2291a" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_WIR_FW_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000003FU<sp/></highlight></codeline>
+<codeline lineno="212" refid="group__canps_1ga47696ac14c38ae7091315ac7fb52c5c6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_WIR_EW_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00003F00U<sp/></highlight></codeline>
+<codeline lineno="213" refid="group__canps_1ga2e6e7ab6cde78ab992a1084ec540ac68" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_WIR_EW_SHIFT<sp/><sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="221" refid="group__canps_1ga03c570854310ffd7198a240aa3e5b450" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_ID1_MASK<sp/><sp/><sp/><sp/><sp/>0xFFE00000U<sp/></highlight></codeline>
+<codeline lineno="222" refid="group__canps_1ga4941ee8f7d5736d356d6ab633a0ddcbb" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_ID1_SHIFT<sp/><sp/><sp/><sp/>21U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="223" refid="group__canps_1gad77824652aaf9b68e9031e4c1ab52e08" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_SRR_MASK<sp/><sp/><sp/><sp/><sp/>0x00100000U<sp/></highlight></codeline>
+<codeline lineno="224" refid="group__canps_1gab747ed0dcfb5a078a77c4b192bbb05fb" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_SRR_SHIFT<sp/><sp/><sp/><sp/>20U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225" refid="group__canps_1gae6a7ad9f02cb2b57195783ced2dff986" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_IDE_MASK<sp/><sp/><sp/><sp/><sp/>0x00080000U<sp/></highlight></codeline>
+<codeline lineno="226" refid="group__canps_1ga38afdb344a0ffc14fd74026903b48399" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_IDE_SHIFT<sp/><sp/><sp/><sp/>19U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227" refid="group__canps_1ga23de74a7d58119de9d629f830c28aa53" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_ID2_MASK<sp/><sp/><sp/><sp/><sp/>0x0007FFFEU<sp/></highlight></codeline>
+<codeline lineno="228" refid="group__canps_1gaf1f453f117b64787f8b2707e2e9ac510" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_ID2_SHIFT<sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229" refid="group__canps_1gaf7c18bde3aed08f7411934f977145cc8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IDR_RTR_MASK<sp/><sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="235" refid="group__canps_1ga98d6f7c2e6040aed17c331ab39a52f60" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DLCR_DLC_MASK<sp/><sp/><sp/><sp/><sp/>0xF0000000U<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236" refid="group__canps_1gad609eaa96de046faa06b2450792594d2" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DLCR_DLC_SHIFT<sp/><sp/><sp/><sp/>28U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="237" refid="group__canps_1gae2000262a11f01d0b8a890445292b95f" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DLCR_TIMESTAMP_MASK<sp/>0x0000FFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="244" refid="group__canps_1gabfe44e5fafc88252567d9313d7b4ce94" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB0_MASK<sp/><sp/><sp/><sp/>0xFF000000U<sp/></highlight></codeline>
+<codeline lineno="245" refid="group__canps_1ga41a13316b9a1b674e86ac761e6b03de3" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB0_SHIFT<sp/><sp/><sp/>24U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="246" refid="group__canps_1ga024e13e45dab4d19b67d8a15ddbb139e" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB1_MASK<sp/><sp/><sp/><sp/>0x00FF0000U<sp/></highlight></codeline>
+<codeline lineno="247" refid="group__canps_1gade1cf2207a65a7697c054b50e93fc300" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB1_SHIFT<sp/><sp/><sp/>16U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="248" refid="group__canps_1ga9c0843860eb96f41e0a324185dc568ff" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB2_MASK<sp/><sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="249" refid="group__canps_1gaabb26c591b255e1c5d0cde9cd7555d68" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB2_SHIFT<sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="250" refid="group__canps_1gad3b91a27b6a7bbd6fcaf559851448d29" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW1R_DB3_MASK<sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="256" refid="group__canps_1ga758ca7ff3994295f328f44ee77a8a4a9" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB4_MASK<sp/><sp/><sp/><sp/>0xFF000000U<sp/></highlight></codeline>
+<codeline lineno="257" refid="group__canps_1ga1b59b48427b11f88ce092aedadb19d09" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB4_SHIFT<sp/><sp/><sp/>24U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258" refid="group__canps_1gaf30904663d3fb9139dddd22035abe323" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB5_MASK<sp/><sp/><sp/><sp/>0x00FF0000U<sp/></highlight></codeline>
+<codeline lineno="259" refid="group__canps_1ga39b1a54a7891d3c2c39fdb026c58abf3" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB5_SHIFT<sp/><sp/><sp/>16U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="group__canps_1ga25a82b59a9f09988b49bca491c3a5577" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB6_MASK<sp/><sp/><sp/><sp/>0x0000FF00U<sp/></highlight></codeline>
+<codeline lineno="261" refid="group__canps_1ga1f69e33ffd709c6056746b9e32328dd5" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB6_SHIFT<sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262" refid="group__canps_1ga43fb550275bf4ba6b672988096b6509d" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_DW2R_DB7_MASK<sp/><sp/><sp/><sp/>0x000000FFU<sp/></highlight></codeline>
+<codeline lineno="268" refid="group__canps_1ga5e43518568ed23a47adea5a9d16e5036" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_UAF4_MASK<sp/><sp/><sp/><sp/>0x00000008U<sp/></highlight></codeline>
+<codeline lineno="269" refid="group__canps_1ga4a2436988a3530bb49220dc20dd878bd" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_UAF3_MASK<sp/><sp/><sp/><sp/>0x00000004U<sp/></highlight></codeline>
+<codeline lineno="270" refid="group__canps_1ga3ad179f930a2c29de945fabfddefc7d2" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_UAF2_MASK<sp/><sp/><sp/><sp/>0x00000002U<sp/></highlight></codeline>
+<codeline lineno="271" refid="group__canps_1gabde095aa619a3485599cf97c2bca57b5" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_UAF1_MASK<sp/><sp/><sp/><sp/>0x00000001U<sp/></highlight></codeline>
+<codeline lineno="272" refid="group__canps_1gadf814ffa617dee9d66af1c579fa06b64" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_AFR_UAF_ALL_MASK<sp/>((u32)XCANPS_AFR_UAF4_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_AFR_UAF3_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_AFR_UAF2_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)XCANPS_AFR_UAF1_MASK)</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="282" refid="group__canps_1ga87adc8cfc88e067c42ee749b5e59177a" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_MAX_FRAME_SIZE<sp/>sizeof(u32)*16U<sp/></highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>backwards<sp/>compatibility<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="286" refid="group__canps_1gafa75ffdfd5ce5f0f19a0b1c583a0b6c3" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCANPS_TXBUF_ID_OFFSET<sp/><sp/><sp/>XCANPS_TXHPB_ID_OFFSET<sp/><sp/></highlight></codeline>
+<codeline lineno="287" refid="group__canps_1gaa405e7a2e1ddf872d8bc02a05f0adeab" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXBUF_DLC_OFFSET<sp/><sp/>XCANPS_TXHPB_DLC_OFFSET<sp/></highlight></codeline>
+<codeline lineno="288" refid="group__canps_1gad968b22db1079bec48ac27684f34a5e5" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXBUF_DW1_OFFSET<sp/><sp/>XCANPS_TXHPB_DW1_OFFSET<sp/></highlight></codeline>
+<codeline lineno="289" refid="group__canps_1gaefcd0a123d760e519b90f7afdbab4aa6" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_TXBUF_DW2_OFFSET<sp/><sp/>XCANPS_TXHPB_DW2_OFFSET<sp/></highlight></codeline>
+<codeline lineno="291" refid="group__canps_1ga00332bb0aa9a1a67d0e64887369e759b" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXFWIR_RXFLL_MASK<sp/>XCANPS_WIR_FW_MASK<sp/><sp/></highlight></codeline>
+<codeline lineno="292" refid="group__canps_1ga6d4277fa0965a5c80a424e5ca60ededf" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_RXWIR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>XCANPS_WIR_OFFSET<sp/><sp/></highlight></codeline>
+<codeline lineno="293" refid="group__canps_1gab63780641e401273577d26019b1354c8" refkind="member"><highlight class="preprocessor">#define<sp/>XCANPS_IXR_RXFLL_MASK<sp/><sp/><sp/><sp/>XCANPS_IXR_RXFWMFLL_MASK<sp/></highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="315" refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" refkind="member"><highlight class="preprocessor">#define<sp/>XCanPs_ReadReg(BaseAddr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddr)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="333" refid="group__canps_1ga54552fe78115d81806e23a03646efb55" refkind="member"><highlight class="preprocessor">#define<sp/>XCanPs_WriteReg(BaseAddr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="334"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddr)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="335"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="338"><highlight class="comment"><sp/>*<sp/>Perform<sp/>reset<sp/>operation<sp/>to<sp/>the<sp/>CanPs<sp/>interface</highlight></codeline>
+<codeline lineno="339"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__canps_1ga15c5dee7163ddf071ad33c3d0f884469" kindref="member">XCanPs_ResetHw</ref>(UINTPTR<sp/>BaseAddr);</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="343"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_a_v_buf" kind="struct" prot="public">
+    <compoundname>XAVBuf</compoundname>
+    <includes local="no">xavbuf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_a_v_buf_1ac5e810aa0f2f47b8a753bd1303edfb5b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_a_v_buf___config" kindref="compound">XAVBuf_Config</ref></type>
+        <definition>XAVBuf_Config XAVBuf::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf_1a154b84e4af16eb551fdf33147972ee56" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_a_v_buf___a_v_modes" kindref="compound">XAVBuf_AVModes</ref></type>
+        <definition>XAVBuf_AVModes XAVBuf::AVMode</definition>
+        <argsstring></argsstring>
+        <name>AVMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_a_v_buf_1af0796a8d234d2b0e3e2e1745e67b97ed" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_a_v_buf___blender" kindref="compound">XAVBuf_Blender</ref></type>
+        <definition>XAVBuf_Blender XAVBuf::Blender</definition>
+        <argsstring></argsstring>
+        <name>Blender</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_a_v_buf" kindref="compound">XAVBuf</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every XAVBUF instance in the system. A pointer to this type is then passed to the driver API functions </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>XAVBuf_Config</label>
+        <link refid="struct_x_a_v_buf___config"/>
+      </node>
+      <node id="5">
+        <label>XAVBuf_VideoAttribute</label>
+        <link refid="struct_x_a_v_buf___video_attribute"/>
+      </node>
+      <node id="3">
+        <label>XAVBuf</label>
+        <link refid="struct_x_a_v_buf"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>AVMode</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Blender</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>XAVBuf_Blender</label>
+        <link refid="struct_x_a_v_buf___blender"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>OutputVideo</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XAVBuf_AVModes</label>
+        <link refid="struct_x_a_v_buf___a_v_modes"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>LiveVideo</edgelabel>
+          <edgelabel>NonLiveGraphics</edgelabel>
+          <edgelabel>NonLiveVideo</edgelabel>
+          <edgelabel>LiveGraphics</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Audio</edgelabel>
+          <edgelabel>GraphicsAudio</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>XAVBuf_AudioAttribute</label>
+        <link refid="struct_x_a_v_buf___audio_attribute"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/avbuf/src/xavbuf.h" bodystart="231" bodyend="235"/>
+    <listofallmembers>
+      <member refid="struct_x_a_v_buf_1a154b84e4af16eb551fdf33147972ee56" prot="public" virt="non-virtual"><scope>XAVBuf</scope><name>AVMode</name></member>
+      <member refid="struct_x_a_v_buf_1af0796a8d234d2b0e3e2e1745e67b97ed" prot="public" virt="non-virtual"><scope>XAVBuf</scope><name>Blender</name></member>
+      <member refid="struct_x_a_v_buf_1ac5e810aa0f2f47b8a753bd1303edfb5b" prot="public" virt="non-virtual"><scope>XAVBuf</scope><name>Config</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

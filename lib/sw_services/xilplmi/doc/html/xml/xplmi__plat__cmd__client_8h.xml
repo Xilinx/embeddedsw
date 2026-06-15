@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__plat__cmd__client_8h" kind="file">
+    <compoundname>xplmi_plat_cmd_client.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xplmi__mailbox_8h" local="yes">xplmi_mailbox.h</includes>
+    <includes refid="xplmi__defs_8h" local="yes">xplmi_defs.h</includes>
+    <includedby refid="xplmi__plat__cmd__client_8c" local="yes">xplmi_plat_cmd_client.c</includedby>
+    <includedby refid="xilplmi__in__place__plm__update__client__example_8c" local="yes">xilplmi_in_place_plm_update_client_example.c</includedby>
+    <incdepgraph>
+      <node id="2459">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="2456">
+        <label>xplmi_plat_cmd_client.h</label>
+        <link refid="xplmi_plat_cmd_client.h"/>
+        <childnode refid="2457" relation="include">
+        </childnode>
+        <childnode refid="2458" relation="include">
+        </childnode>
+        <childnode refid="2461" relation="include">
+        </childnode>
+      </node>
+      <node id="2458">
+        <label>xplmi_mailbox.h</label>
+        <link refid="xplmi__mailbox_8h"/>
+        <childnode refid="2459" relation="include">
+        </childnode>
+        <childnode refid="2460" relation="include">
+        </childnode>
+      </node>
+      <node id="2457">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2460">
+        <label>xparameters.h</label>
+      </node>
+      <node id="2462">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2461">
+        <label>xplmi_defs.h</label>
+        <link refid="xplmi__defs_8h"/>
+        <childnode refid="2462" relation="include">
+        </childnode>
+        <childnode refid="2457" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2464">
+        <label>xplmi_plat_cmd_client.c</label>
+        <link refid="xplmi__plat__cmd__client_8c"/>
+      </node>
+      <node id="2463">
+        <label>xplmi_plat_cmd_client.h</label>
+        <link refid="xplmi_plat_cmd_client.h"/>
+        <childnode refid="2464" relation="include">
+        </childnode>
+        <childnode refid="2465" relation="include">
+        </childnode>
+      </node>
+      <node id="2465">
+        <label>xilplmi_in_place_plm_update_client_example.c</label>
+        <link refid="xilplmi__in__place__plm__update__client__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga5b26ec2d046651d51851eef8149c511d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_InPlacePlmUpdate_ImageStore</definition>
+        <argsstring>(XPlmi_ClientInstance *Ptr, const u32 Flag, u32 PdiId)</argsstring>
+        <name>XPlmi_InPlacePlmUpdate_ImageStore</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>Ptr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Flag</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PdiId</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to perform in-place PLM update from Image Store. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable / disable jtag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Image store pdi id</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="121" bodyend="126"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__client__apis_1ga312e47feb0264d1df52b0505eef675eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_InPlacePlmUpdate_DDR</definition>
+        <argsstring>(XPlmi_ClientInstance *Ptr, const u32 Flag, u32 DDRAddr)</argsstring>
+        <name>XPlmi_InPlacePlmUpdate_DDR</name>
+        <param>
+          <type><ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> *</type>
+          <declname>Ptr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Flag</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DDRAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to perform in-place PLM update from DDR. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To enable / disable jtag </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DDRAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of DDR</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XST_FAILURE on failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.c" bodystart="101" bodyend="106"/>
+        <references refid="2vp_2server_2xplmi__plat_8h_1ad18a2073e3bf855834608a2679ba4638" compoundref="2vp_2server_2xplmi__plat_8h" startline="440">XPlmi_InPlacePlmUpdate</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00  dd   01/09/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XPLMI_PLAT_CMD_CLIENT_H</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PLAT_CMD_CLIENT_H</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__mailbox_8h" kindref="compound">xplmi_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__defs_8h" kindref="compound">xplmi_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga5b26ec2d046651d51851eef8149c511d" kindref="member">XPlmi_InPlacePlmUpdate_ImageStore</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*Ptr,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Flag,<sp/>u32<sp/>PdiId);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__client__apis_1ga312e47feb0264d1df52b0505eef675eb" kindref="member">XPlmi_InPlacePlmUpdate_DDR</ref>(<ref refid="struct_x_plmi___client_instance" kindref="compound">XPlmi_ClientInstance</ref><sp/>*Ptr,</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Flag,<sp/>u32<sp/>DDRAddr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_PLAT_CMD_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/client/xplmi_plat_cmd_client.h"/>
+  </compounddef>
+</doxygen>

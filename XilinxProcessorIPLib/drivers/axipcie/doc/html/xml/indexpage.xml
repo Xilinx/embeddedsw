@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>axipcie</title>
+    <detaileddescription>
+<para>This file contains the software API definition of the Xilinx AXI PCIe IP (<ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref>). This driver provides &quot;C&quot; function interface to application/upper layer to access the hardware.</para><para><bold>Features</bold> The driver provides its user with entry points<itemizedlist>
+<listitem><para>To initialize and configure itself and the hardware</para></listitem><listitem><para>To access PCIe configuration space locally</para></listitem><listitem><para>To enable/disable and to report errors (interrupts).</para></listitem></itemizedlist>
+</para><para><bold>IP Hardware Configuration</bold> The AXI PCIE IP supports only the endpoint for Virtex®-6 and Spartan®-6 families.</para><para>The AXI PCIE IP supports both the endpoint and Root Port for the Kintex® 7 devices.</para><para><bold>Driver Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_axi_pcie___config" kindref="compound">XAxiPcie_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XAxiPcie_LookupConfig(DeviceId) - Use the device identifier to find the static configuration structure defined in <ref refid="xaxipcie__g_8c" kindref="compound">xaxipcie_g.c</ref>. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para>XAxiPcie_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Interrupt Management</bold></para><para>The <ref refid="struct_x_axi_pcie" kindref="compound">XAxiPcie</ref> driver provides interrupt management functions. It allows the caller to enable/disable each individual interrupt as well as get/clear pending interrupts. Implementation of callback handlers is left to the user.</para><para><simplesect kind="note"><para></para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a rkv  03/03/11 Original code.
+2.00a nm   10/19/11  Added support of pcie root complex functionality.
+               Changed these functions
+                        -renamed function XAxiPcie_GetRequestId to
+                XAxiPcie_GetRequesterId
+                -added two functions arguments RootPortPtr &amp;
+                ECAMSizePtr to XAxiPcie_GetBridgeInfo API
+               Added these new API for root complex support<itemizedlist>
+<listitem><para>XAxiPcie_GetRootPortStatusCtrl</para></listitem><listitem><para>XAxiPcie_SetRootPortStatusCtrl</para></listitem><listitem><para>XAxiPcie_SetRootPortMSIBase</para></listitem><listitem><para>XAxiPcie_GetRootPortErrFIFOMsg</para></listitem><listitem><para>XAxiPcie_ClearRootPortErrFIFOMsg</para></listitem><listitem><para>XAxiPcie_GetRootPortIntFIFOReg</para></listitem><listitem><para>XAxiPcie_ClearRootPortIntFIFOReg</para></listitem><listitem><para>XAxiPcie_WriteLocalConfigSpace</para></listitem><listitem><para>XAxiPcie_ComposeExternalConfigAddress</para></listitem><listitem><para>XAxiPcie_ReadRemoteConfigSpace</para></listitem><listitem><para>XAxiPcie_WriteRemoteConfigSpace</para></listitem></itemizedlist>
+</preformatted></para><para><preformatted>2.01a nm   04/01/12  Removed XAxiPcie_SetRequesterId and
+               XAxiPcie_SetBlPortNumber APIs as these are writing
+               to Read Only bits for CR638299.
+2.02a nm   08/01/12  Updated for removing compilation errors with C++,
+               changed XCOMPONENT_IS_READY to XIL_COMPONENT_IS_READY
+               Removed the Endian Swap in
+               XAxiPcie_ReadRemoteConfigSpace and
+               XAxiPcie_WriteRemoteConfigSpace APIs as the HW
+               has been fixed and the swapping is not required
+               in  the driver (CR 657412)
+2.03a srt  04/13/13  Removed Warnings (CR 705004).
+2.04a srt  09/06/13  Fixed CR 734175:
+               C_BASEADDR and C_HIGHADDR configuration parameters are
+                       renamed to BASEADDR and HIGHADDR in Vivado builds.
+                     Modified the tcl for this change.
+3.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+3.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XAxiPcie_CfgInitialize API.
+      ms   01/23/17 Added xil_printf statement in main function for all
+                   examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                   strings are available in all examples. This is a fix
+                   for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+      ms   04/05/17 Added tabspace for return statements in functions
+                    of axipcie examples for proper documentation while
+                    generating doxygen.
+3.2     nsk  11/20/19 Added support for axi_pcie3
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structfmc__addrconfig__s" kind="struct" prot="public">
+    <compoundname>fmc_addrconfig_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfmc__addrconfig__s_1a96d8dd0b160eeb40cfb01ca592f7046a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 fmc_addrconfig_s::des_actual_addr</definition>
+        <argsstring></argsstring>
+        <name>des_actual_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfmc__addrconfig__s_1a5e4e0ca9a0bcb175fda1c84a73a7142e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 fmc_addrconfig_s::des_alias_addr</definition>
+        <argsstring></argsstring>
+        <name>des_alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfmc__addrconfig__s_1a9077998ebd3b301650a9cefcb3603a6c" prot="public" static="no" mutable="no">
+        <type>dslink</type>
+        <definition>dslink fmc_addrconfig_s::link_a</definition>
+        <argsstring></argsstring>
+        <name>link_a</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfmc__addrconfig__s_1a14976dbe5875456dd530095c6d2ea362" prot="public" static="no" mutable="no">
+        <type>dslink</type>
+        <definition>dslink fmc_addrconfig_s::link_b</definition>
+        <argsstring></argsstring>
+        <name>link_b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="41" bodyend="46"/>
+    <listofallmembers>
+      <member refid="structfmc__addrconfig__s_1a96d8dd0b160eeb40cfb01ca592f7046a" prot="public" virt="non-virtual"><scope>fmc_addrconfig_s</scope><name>des_actual_addr</name></member>
+      <member refid="structfmc__addrconfig__s_1a5e4e0ca9a0bcb175fda1c84a73a7142e" prot="public" virt="non-virtual"><scope>fmc_addrconfig_s</scope><name>des_alias_addr</name></member>
+      <member refid="structfmc__addrconfig__s_1a9077998ebd3b301650a9cefcb3603a6c" prot="public" virt="non-virtual"><scope>fmc_addrconfig_s</scope><name>link_a</name></member>
+      <member refid="structfmc__addrconfig__s_1a14976dbe5875456dd530095c6d2ea362" prot="public" virt="non-virtual"><scope>fmc_addrconfig_s</scope><name>link_b</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

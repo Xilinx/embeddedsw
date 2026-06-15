@@ -1,0 +1,483 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__gamma__lut__hw_8h" kind="file">
+    <compoundname>xv_gamma_lut_hw.h</compoundname>
+    <includedby refid="xv__gamma__lut_8h" local="yes">xv_gamma_lut.h</includedby>
+    <includedby refid="xv__gamma__lut__intr_8c" local="yes">xv_gamma_lut_intr.c</includedby>
+    <invincdepgraph>
+      <node id="52">
+        <label>xv_gamma_lut_intr.c</label>
+        <link refid="xv__gamma__lut__intr_8c"/>
+      </node>
+      <node id="53">
+        <label>xv_gamma_lut_sinit.c</label>
+        <link refid="xv__gamma__lut__sinit_8c"/>
+      </node>
+      <node id="54">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="48">
+        <label>xv_gamma_lut_hw.h</label>
+        <link refid="xv_gamma_lut_hw.h"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xv_gamma_lut_g.c</label>
+        <link refid="xv__gamma__lut__g_8c"/>
+      </node>
+      <node id="50">
+        <label>xv_gamma_lut.c</label>
+        <link refid="xv__gamma__lut_8c"/>
+      </node>
+      <node id="49">
+        <label>xv_gamma_lut.h</label>
+        <link refid="xv__gamma__lut_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a24409f0ef500069e70e7c889fb3e0dbc" prot="public" static="no">
+        <name>XV_GAMMA_LUT_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a9fb694e3c76d62fc65164b052fbcc9cf" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x0000</initializer>
+        <briefdescription>
+<para>Control register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a2726379ae52a28d785d63ad03888ca86" compoundref="xv__gamma__lut_8c" startline="184" endline="189">XV_gamma_lut_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1af9d354156571f095ce9ee4b3a9b5d635" compoundref="xv__gamma__lut_8c" startline="163" endline="168">XV_gamma_lut_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a52915a27b7eac019117945f2d810a053" compoundref="xv__gamma__lut_8c" startline="90" endline="98">XV_gamma_lut_IsDone</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4c5427f99d99e0976e9e37a005c08e9d" compoundref="xv__gamma__lut_8c" startline="114" endline="122">XV_gamma_lut_IsIdle</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9b36bd64f8c0453f467f3447df6096d6" compoundref="xv__gamma__lut_8c" startline="138" endline="147">XV_gamma_lut_IsReady</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a3435176f56514a6d31d37b96280eede1" compoundref="xv__gamma__lut_8c" startline="66" endline="74">XV_gamma_lut_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1afb9cdd8eb5f07cd80275596c73dff716" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_GIE</name>
+        <initializer>0x0004</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a91801c03efa81b2735df746f78af304b" compoundref="xv__gamma__lut_8c" startline="1042" endline="1047">XV_gamma_lut_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a852d3416d88d0c3ee8549fab7a858874" compoundref="xv__gamma__lut_8c" startline="1021" endline="1026">XV_gamma_lut_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a43af32d041e0096a9946bd79b811862d" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_IER</name>
+        <initializer>0x0008</initializer>
+        <briefdescription>
+<para>Interrupt Enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a24a1b9e45c5dfee0d0be454cfd4d3889" compoundref="xv__gamma__lut_8c" startline="1089" endline="1097">XV_gamma_lut_InterruptDisable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adcfd346f8d93324de3fd3de13fcacb35" compoundref="xv__gamma__lut_8c" startline="1064" endline="1072">XV_gamma_lut_InterruptEnable</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ac4567ab095b1ad518950902178df1a20" compoundref="xv__gamma__lut_8c" startline="1135" endline="1140">XV_gamma_lut_InterruptGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a27d76f355a4f7b26b1b111a09c161202" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_ISR</name>
+        <initializer>0x000c</initializer>
+        <briefdescription>
+<para>Interrupt Status register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="72" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a8f0e77edeb5c76e0fc6c11229bf01c37" compoundref="xv__gamma__lut_8c" startline="1114" endline="1119">XV_gamma_lut_InterruptClear</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1adef3bebf8837172be781276ae3cc2f3c" compoundref="xv__gamma__lut_8c" startline="1156" endline="1161">XV_gamma_lut_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a925f21f0966e1dc1421a279b6d68fa2c" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_WIDTH_DATA</name>
+        <initializer>0x0010</initializer>
+        <briefdescription>
+<para>Width register data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a3ef5ea680899bdd9eccaddd900217630" compoundref="xv__gamma__lut_8c" startline="225" endline="233">XV_gamma_lut_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acc4c0596f2ca39395fcfbd74372bc684" compoundref="xv__gamma__lut_8c" startline="205" endline="210">XV_gamma_lut_Set_HwReg_width</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a8749f842c9e1e80a37df9e7d951b508a" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_BITS_HWREG_WIDTH_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Width register data bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a58c3c960667431c57fc136790d3c77c5" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_HEIGHT_DATA</name>
+        <initializer>0x0018</initializer>
+        <briefdescription>
+<para>Height register data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1ae996e7c956baaab7fe9098bee29b0bbf" compoundref="xv__gamma__lut_8c" startline="269" endline="277">XV_gamma_lut_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ab68e6dc2105db15892a302f72bddff7d" compoundref="xv__gamma__lut_8c" startline="249" endline="254">XV_gamma_lut_Set_HwReg_height</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1ae52e3094cdc2196f44b7737e473fcda1" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_BITS_HWREG_HEIGHT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Height register data bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a910a30142147e9fd17e6c61bfee19ff2" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA</name>
+        <initializer>0x0020</initializer>
+        <briefdescription>
+<para>Video format register data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a37b9f9621c4fa5f685a447cd9df6ac25" compoundref="xv__gamma__lut_8c" startline="313" endline="321">XV_gamma_lut_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a09c698fc18c2242ebeca7df9bea9772d" compoundref="xv__gamma__lut_8c" startline="293" endline="298">XV_gamma_lut_Set_HwReg_video_format</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a9f5171d9ac96ac7e4f126b36ba5246e5" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Video format register data bit width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a5965a99dc48e68dcce34dffd3e14dd25" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>Gamma LUT 0 base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a2eb9b2ebe12a5ca8c64e4d4d514ac6ad" compoundref="xv__gamma__lut_8c" startline="336" endline="341">XV_gamma_lut_Get_HwReg_gamma_lut_0_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acefad788aa14c5e5917af9ebd7358edf" compoundref="xv__gamma__lut_8c" startline="376" endline="381">XV_gamma_lut_Get_HwReg_gamma_lut_0_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4159c7b30c6cbb75a5665a5bcb4057f3" compoundref="xv__gamma__lut_8c" startline="536" endline="549">XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a5a1499d9419d21a34ed895bc4a6eb47f" compoundref="xv__gamma__lut_8c" startline="472" endline="485">XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ade451aeecc028b05d1993aca3f404d29" compoundref="xv__gamma__lut_8c" startline="504" endline="517">XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae59b641d2ee3ea018c4236c448b4451f" compoundref="xv__gamma__lut_8c" startline="440" endline="453">XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1ae6a604e4aef0cf97fb2b1204cd3258bf" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH</name>
+        <initializer>0x0fff</initializer>
+        <briefdescription>
+<para>Gamma LUT 0 high address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a4d69867260cd0eae4da1686aa18efa4a" compoundref="xv__gamma__lut_8c" startline="356" endline="361">XV_gamma_lut_Get_HwReg_gamma_lut_0_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1acefad788aa14c5e5917af9ebd7358edf" compoundref="xv__gamma__lut_8c" startline="376" endline="381">XV_gamma_lut_Get_HwReg_gamma_lut_0_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4159c7b30c6cbb75a5665a5bcb4057f3" compoundref="xv__gamma__lut_8c" startline="536" endline="549">XV_gamma_lut_Read_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a5a1499d9419d21a34ed895bc4a6eb47f" compoundref="xv__gamma__lut_8c" startline="472" endline="485">XV_gamma_lut_Read_HwReg_gamma_lut_0_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ade451aeecc028b05d1993aca3f404d29" compoundref="xv__gamma__lut_8c" startline="504" endline="517">XV_gamma_lut_Write_HwReg_gamma_lut_0_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1ae59b641d2ee3ea018c4236c448b4451f" compoundref="xv__gamma__lut_8c" startline="440" endline="453">XV_gamma_lut_Write_HwReg_gamma_lut_0_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a5c43918c469b7e217417ca2977810fe8" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_0</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Gamma LUT 0 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a8128a0b4e1aee6eced8f9c904bca95a6" compoundref="xv__gamma__lut_8c" startline="396" endline="401">XV_gamma_lut_Get_HwReg_gamma_lut_0_BitWidth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a2187900be6e26287e6e058fd01e50cc3" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_0</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Gamma LUT 0 depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a2c4aea67a4ef9a9893e19562a18eaa68" compoundref="xv__gamma__lut_8c" startline="416" endline="421">XV_gamma_lut_Get_HwReg_gamma_lut_0_Depth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a30569b5cc3424ff690bd7bb640c2c6a0" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>Gamma LUT 1 base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1afd451f6cf961583ff14e8a9a41e6aafe" compoundref="xv__gamma__lut_8c" startline="564" endline="569">XV_gamma_lut_Get_HwReg_gamma_lut_1_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2b446e8b042c2d4bb08177e2741c3349" compoundref="xv__gamma__lut_8c" startline="604" endline="609">XV_gamma_lut_Get_HwReg_gamma_lut_1_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9d76de6cb0b75c7233c5326d5ae99429" compoundref="xv__gamma__lut_8c" startline="764" endline="777">XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8e0117c2bea8920555b4599b5018fc82" compoundref="xv__gamma__lut_8c" startline="700" endline="713">XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8c32c2137d41ca4ef6691aa4e3a6b93b" compoundref="xv__gamma__lut_8c" startline="732" endline="745">XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1abc94054a3bc15dd3f88ef9f633725a8c" compoundref="xv__gamma__lut_8c" startline="668" endline="681">XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1ace48205a8ce8e4e3ed9b941d4ed43437" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH</name>
+        <initializer>0x17ff</initializer>
+        <briefdescription>
+<para>Gamma LUT 1 high address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1aba1b7e96c6d891c3251c25ff86051323" compoundref="xv__gamma__lut_8c" startline="584" endline="589">XV_gamma_lut_Get_HwReg_gamma_lut_1_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a2b446e8b042c2d4bb08177e2741c3349" compoundref="xv__gamma__lut_8c" startline="604" endline="609">XV_gamma_lut_Get_HwReg_gamma_lut_1_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a9d76de6cb0b75c7233c5326d5ae99429" compoundref="xv__gamma__lut_8c" startline="764" endline="777">XV_gamma_lut_Read_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8e0117c2bea8920555b4599b5018fc82" compoundref="xv__gamma__lut_8c" startline="700" endline="713">XV_gamma_lut_Read_HwReg_gamma_lut_1_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a8c32c2137d41ca4ef6691aa4e3a6b93b" compoundref="xv__gamma__lut_8c" startline="732" endline="745">XV_gamma_lut_Write_HwReg_gamma_lut_1_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1abc94054a3bc15dd3f88ef9f633725a8c" compoundref="xv__gamma__lut_8c" startline="668" endline="681">XV_gamma_lut_Write_HwReg_gamma_lut_1_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1acbdbe2786cb93d1cfba3597291c7a4df" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_1</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Gamma LUT 1 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a156374700654a7ce1903ab83886101d6" compoundref="xv__gamma__lut_8c" startline="624" endline="629">XV_gamma_lut_Get_HwReg_gamma_lut_1_BitWidth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1ab20cd7d29d7d36380f19a7a3d6602746" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_1</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Gamma LUT 1 depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a2cda24c7f97c977c785ddc03c8a20923" compoundref="xv__gamma__lut_8c" startline="644" endline="649">XV_gamma_lut_Get_HwReg_gamma_lut_1_Depth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a4b65fd2c991ee8e7be784bfe9ab5c1b6" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE</name>
+        <initializer>0x1800</initializer>
+        <briefdescription>
+<para>Gamma LUT 2 base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a4ce16daf750141d2f775224169320dc2" compoundref="xv__gamma__lut_8c" startline="792" endline="797">XV_gamma_lut_Get_HwReg_gamma_lut_2_BaseAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a044dda9cd83e78b529d87d27e396255a" compoundref="xv__gamma__lut_8c" startline="832" endline="837">XV_gamma_lut_Get_HwReg_gamma_lut_2_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a62770a2f54caf64c6b72c0f0484258dc" compoundref="xv__gamma__lut_8c" startline="992" endline="1005">XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a20fb8d0329cd56f1616050bc44f6bd59" compoundref="xv__gamma__lut_8c" startline="928" endline="941">XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a79f4ef13e9b8e610de156b742e753c07" compoundref="xv__gamma__lut_8c" startline="960" endline="973">XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d0d36eb81f07e1f276ad5290e00d3da" compoundref="xv__gamma__lut_8c" startline="896" endline="909">XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1aa882a9969042150c758e8dab8e6b7c43" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH</name>
+        <initializer>0x1fff</initializer>
+        <briefdescription>
+<para>Gamma LUT 2 high address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="104" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a21bca0c11221800a291cd8069bacf9f9" compoundref="xv__gamma__lut_8c" startline="812" endline="817">XV_gamma_lut_Get_HwReg_gamma_lut_2_HighAddress</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a044dda9cd83e78b529d87d27e396255a" compoundref="xv__gamma__lut_8c" startline="832" endline="837">XV_gamma_lut_Get_HwReg_gamma_lut_2_TotalBytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a62770a2f54caf64c6b72c0f0484258dc" compoundref="xv__gamma__lut_8c" startline="992" endline="1005">XV_gamma_lut_Read_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a20fb8d0329cd56f1616050bc44f6bd59" compoundref="xv__gamma__lut_8c" startline="928" endline="941">XV_gamma_lut_Read_HwReg_gamma_lut_2_Words</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a79f4ef13e9b8e610de156b742e753c07" compoundref="xv__gamma__lut_8c" startline="960" endline="973">XV_gamma_lut_Write_HwReg_gamma_lut_2_Bytes</referencedby>
+        <referencedby refid="xv__gamma__lut_8h_1a4d0d36eb81f07e1f276ad5290e00d3da" compoundref="xv__gamma__lut_8c" startline="896" endline="909">XV_gamma_lut_Write_HwReg_gamma_lut_2_Words</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a174b1fb954dcae101e2193d78554501f" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_2</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Gamma LUT 2 data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="106" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1aa9ce0359e4ef1b8248d57280bb132933" compoundref="xv__gamma__lut_8c" startline="852" endline="857">XV_gamma_lut_Get_HwReg_gamma_lut_2_BitWidth</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__gamma__lut__hw_8h_1a889124e1ff66b0f8963b1741278041ee" prot="public" static="no">
+        <name>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_2</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+<para>Gamma LUT 2 depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h" bodystart="108" bodyend="-1"/>
+        <referencedby refid="xv__gamma__lut_8h_1a05cee7d0c940bd2e3c990c3f1923dadb" compoundref="xv__gamma__lut_8c" startline="872" endline="877">XV_gamma_lut_Get_HwReg_gamma_lut_2_Depth</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_GAMMA_LUT_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0000<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0004<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0008<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x000c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0010<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_width[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0014<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0018<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_height[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x001c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0020<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_video_format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_video_format[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0024<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0800<sp/>~</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0fff<sp/>:<sp/>Memory<sp/>&apos;HwReg_gamma_lut_0&apos;<sp/>(1024<sp/>*<sp/>16b)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Word<sp/>n<sp/>:<sp/>bit<sp/>[15:<sp/>0]<sp/>-<sp/>HwReg_gamma_lut_0[2n]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>[31:16]<sp/>-<sp/>HwReg_gamma_lut_0[2n+1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1000<sp/>~</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x17ff<sp/>:<sp/>Memory<sp/>&apos;HwReg_gamma_lut_1&apos;<sp/>(1024<sp/>*<sp/>16b)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Word<sp/>n<sp/>:<sp/>bit<sp/>[15:<sp/>0]<sp/>-<sp/>HwReg_gamma_lut_1[2n]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>[31:16]<sp/>-<sp/>HwReg_gamma_lut_1[2n+1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1800<sp/>~</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1fff<sp/>:<sp/>Memory<sp/>&apos;HwReg_gamma_lut_2&apos;<sp/>(1024<sp/>*<sp/>16b)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Word<sp/>n<sp/>:<sp/>bit<sp/>[15:<sp/>0]<sp/>-<sp/>HwReg_gamma_lut_2[2n]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>[31:16]<sp/>-<sp/>HwReg_gamma_lut_2[2n+1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="xv__gamma__lut__hw_8h_1a9fb694e3c76d62fc65164b052fbcc9cf" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="xv__gamma__lut__hw_8h_1afb9cdd8eb5f07cd80275596c73dff716" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0004</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xv__gamma__lut__hw_8h_1a43af32d041e0096a9946bd79b811862d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0008</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72" refid="xv__gamma__lut__hw_8h_1a27d76f355a4f7b26b1b111a09c161202" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000c</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="xv__gamma__lut__hw_8h_1a925f21f0966e1dc1421a279b6d68fa2c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0010</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76" refid="xv__gamma__lut__hw_8h_1a8749f842c9e1e80a37df9e7d951b508a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_BITS_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="xv__gamma__lut__hw_8h_1a58c3c960667431c57fc136790d3c77c5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0018</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xv__gamma__lut__hw_8h_1ae52e3094cdc2196f44b7737e473fcda1" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_BITS_HWREG_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="82" refid="xv__gamma__lut__hw_8h_1a910a30142147e9fd17e6c61bfee19ff2" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA<sp/>0x0020</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="xv__gamma__lut__hw_8h_1a9f5171d9ac96ac7e4f126b36ba5246e5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA<sp/>16</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="xv__gamma__lut__hw_8h_1a5965a99dc48e68dcce34dffd3e14dd25" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_BASE<sp/><sp/>0x0800</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88" refid="xv__gamma__lut__hw_8h_1ae6a604e4aef0cf97fb2b1204cd3258bf" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_0_HIGH<sp/><sp/>0x0fff</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="xv__gamma__lut__hw_8h_1a5c43918c469b7e217417ca2977810fe8" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_0<sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="xv__gamma__lut__hw_8h_1a2187900be6e26287e6e058fd01e50cc3" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_0<sp/><sp/><sp/><sp/><sp/><sp/>1024</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="xv__gamma__lut__hw_8h_1a30569b5cc3424ff690bd7bb640c2c6a0" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_BASE<sp/><sp/>0x1000</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96" refid="xv__gamma__lut__hw_8h_1ace48205a8ce8e4e3ed9b941d4ed43437" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_1_HIGH<sp/><sp/>0x17ff</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98" refid="xv__gamma__lut__hw_8h_1acbdbe2786cb93d1cfba3597291c7a4df" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_1<sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100" refid="xv__gamma__lut__hw_8h_1ab20cd7d29d7d36380f19a7a3d6602746" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_1<sp/><sp/><sp/><sp/><sp/><sp/>1024</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="xv__gamma__lut__hw_8h_1a4b65fd2c991ee8e7be784bfe9ab5c1b6" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_BASE<sp/><sp/>0x1800</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xv__gamma__lut__hw_8h_1aa882a9969042150c758e8dab8e6b7c43" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_ADDR_HWREG_GAMMA_LUT_2_HIGH<sp/><sp/>0x1fff</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106" refid="xv__gamma__lut__hw_8h_1a174b1fb954dcae101e2193d78554501f" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_WIDTH_HWREG_GAMMA_LUT_2<sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="xv__gamma__lut__hw_8h_1a889124e1ff66b0f8963b1741278041ee" refkind="member"><highlight class="preprocessor">#define<sp/>XV_GAMMA_LUT_CTRL_DEPTH_HWREG_GAMMA_LUT_2<sp/><sp/><sp/><sp/><sp/><sp/>1024</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_gamma_lut/src/xv_gamma_lut_hw.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,459 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__puf__registration_8h" kind="file">
+    <compoundname>xilskey_puf_registration.h</compoundname>
+    <includes local="yes">xsecure_aes.h</includes>
+    <includes refid="xilskey__eps__zynqmp__puf_8h" local="yes">xilskey_eps_zynqmp_puf.h</includes>
+    <includedby refid="xilskey__puf__registration__example_8c" local="yes">xilskey_puf_registration_example.c</includedby>
+    <incdepgraph>
+      <node id="211">
+        <label>xilskey_puf_registration.h</label>
+        <link refid="xilskey_puf_registration.h"/>
+        <childnode refid="212" relation="include">
+        </childnode>
+        <childnode refid="213" relation="include">
+        </childnode>
+      </node>
+      <node id="213">
+        <label>xilskey_eps_zynqmp_puf.h</label>
+        <link refid="xilskey__eps__zynqmp__puf_8h"/>
+      </node>
+      <node id="212">
+        <label>xsecure_aes.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="214">
+        <label>xilskey_puf_registration.h</label>
+        <link refid="xilskey_puf_registration.h"/>
+        <childnode refid="215" relation="include">
+        </childnode>
+      </node>
+      <node id="215">
+        <label>xilskey_puf_registration_example.c</label>
+        <link refid="xilskey__puf__registration__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a5ce3f79f86ee0440c3457359a2020b3e" prot="public" static="no">
+        <name>XSK_PUF_MODE4K</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="128" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a8634538ff5c7988bc17d5483dfca95e3" prot="public" static="no">
+        <name>XSK_PUF_INFO_ON_UART</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a8b50144307dc18b5ef693a634b490235" prot="public" static="no">
+        <name>XSK_PUF_PROGRAM_EFUSE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1ad81b7e67402b6351cdf854b72fad8417" prot="public" static="no">
+        <name>XSK_PUF_IF_CONTRACT_MANUFACTURER</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a6a8b5c593a08d79cb0992294f0815d73" prot="public" static="no">
+        <name>XSK_PUF_READ_SECUREBITS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1aac9dc3f11666463c683fc8e3f5b56309" prot="public" static="no">
+        <name>XSK_PUF_PROGRAM_SECUREBITS</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a2b6443df52b46b2e9fc1541d9dfe033b" prot="public" static="no">
+        <name>XSK_PUF_SYN_INVALID</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a93866f259767fa622143f6c54328a017" prot="public" static="no">
+        <name>XSK_PUF_SYN_WRLK</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a0f59dcae0c751d2f232a877955c632bc" prot="public" static="no">
+        <name>XSK_PUF_REGISTER_DISABLE</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a2436f81d068302d49ec30427686cd612" prot="public" static="no">
+        <name>XSK_PUF_RESERVED</name>
+        <initializer>FALSE</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a79520d69694d4b660a241e93f8011abc" prot="public" static="no">
+        <name>XSK_PUF_AES_KEY</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a3d0c7550734676b6baf61ba5c3f33b53" prot="public" static="no">
+        <name>XSK_PUF_BLACK_KEY_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a98db935ff1ae5bab36372b82a95c68d9" prot="public" static="no">
+        <name>XSK_PUF_REG_MODE</name>
+        <initializer>XSK_PUF_MODE4K</initializer>
+        <briefdescription>
+<para>Registration Mode XPUF_MODE4K. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="154" bodyend="-1"/>
+        <referencedby refid="xilskey__puf__registration__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__puf__registration__example_8c" startline="92" endline="387">main</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a87d7dd3e751fecf6297c62441ff41c6e" prot="public" static="no">
+        <name>XPUF_INFO_ON_UART</name>
+        <briefdescription>
+<para>If defined, sends information on UART. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" prot="public" static="no">
+        <name>XPUF_DEBUG_GENERAL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1adbb7fb6b4ef216b1231f0e27664e5fea" prot="public" static="no">
+        <name>XPUF_FUSE_SYN_DATA</name>
+        <briefdescription>
+<para>If defined, writes syndrome data, black key, Aux and Chash values into eFUSE. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="172" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilskey__puf__registration_8h_1af9c505ec48684a1bd6180d6d0a9b551e" prot="public" static="no">
+        <name>XPUF_CONTRACT_MANUFACTURER</name>
+        <briefdescription>
+<para>If defined, additional checks will be made to verify that app is authenticated before running. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xilskey__puf__registration_8h_1a4630dcd5e3bd94866e44a8416ea77df1" prot="public" static="no" mutable="no">
+        <type>XilSKey_Puf</type>
+        <definition>XilSKey_Puf PufInstance</definition>
+        <argsstring></argsstring>
+        <name>PufInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__puf__registration_8h_1ad1c57a3539b910d1dfabf185cc13ad8e" prot="public" static="no" mutable="no">
+        <type>XSecure_Aes</type>
+        <definition>XSecure_Aes AesInstance</definition>
+        <argsstring></argsstring>
+        <name>AesInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__puf__registration_8h_1a6ac1478432df4951ce8f0fc753bb652d" prot="public" static="no" mutable="no">
+        <type>XCsuDma</type>
+        <definition>XCsuDma CsuDma</definition>
+        <argsstring></argsstring>
+        <name>CsuDma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xilskey__puf__registration_8h_1a92949814c3c3a77e2e735cf519ff4e3c" prot="public" static="no" mutable="no">
+        <type>XilSKey_ZynqMpEPs</type>
+        <definition>XilSKey_ZynqMpEPs EfuseInstance</definition>
+        <argsstring></argsstring>
+        <name>EfuseInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains header interface related information for PUF device and macros used in the driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para><verbatim>          User configurable parameters for PUF
+</verbatim> <hruler/>
+ <verbatim>    #define XSK_PUF_INFO_ON_UART                    FALSE
+    TRUE will display syndrome data on the UART com port
+    FALSE will display any data on UART com port.
+
+    #define XSK_PUF_PROGRAM_EFUSE                   FALSE
+    TRUE will program the generated syndrome data, CHash ,Auxiliary values,
+    and the Black key.
+    FALSE will not program data into eFUSE.
+
+    #define XSK_PUF_IF_CONTRACT_MANUFACTURER        FALSE
+    This should be enabled when application is hand over to contract
+    manufacturer.
+    TRUE will allow only authenticated application.
+    FALSE authentication is not mandatory.
+
+    #define XSK_PUF_REG_MODE                        XSK_PUF_MODE4K
+    PUF registration is performed in 4K mode. Only 4K mode is supported and
+    user should not modify this value.
+
+    #define XSK_PUF_READ_SECUREBITS                 FALSE
+    TRUE will read the status of the PUF secure bits from eFUSEs and will be
+    displayed on UART.
+    FALSE will not read the secure bits.
+
+    #define XSK_PUF_PROGRAM_SECUREBITS              FALSE
+    TRUE will program PUF secure bits based on the user input provided
+    at XSK_PUF_SYN_INVALID, XSK_PUF_SYN_WRLK and XSK_PUF_REGISTER_DISABLE
+    FALSE will not program any PUF secure bits.
+
+    #define XSK_PUF_SYN_INVALID                     FALSE
+    TRUE will permanently invalidates the already programmed syndrome data.
+    FALSE will not modify anything
+
+    #define XSK_PUF_SYN_WRLK                        FALSE
+    TRUE will permanently disable programming syndrome data into eFUSEs.
+    FALSE will not modify anything.
+
+    #define XSK_PUF_REGISTER_DISABLE                FALSE
+    TRUE will permanently disable PUF syndrome data registration.
+    FALSE will not modify anything.
+
+    #define XSK_PUF_RESERVED                                FALSE
+    TRUE programs this reserved eFUSE bit.
+    FALSE will not modify anything.
+
+    #define         XSK_PUF_AES_KEY
+    &quot;0000000000000000000000000000000000000000000000000000000000000000&quot;
+    The value will be converted to hex buffer and encrypts
+    this with PUF in order to generate black key ,the black key will get
+    written to the PS eFUSE array when XSK_PUF_PROGRAM_EFUSE macro is set
+    to TRUE.
+    This value should be given in string format. It should be 64 characters
+    long, valid characters are 0-9,a-f,A-F. Any other character is
+    considered as invalid  and will not burn Black key.
+    Note: Provided here should be red key and application calculates the
+    black key and programs into eFUSE if XSK_PUF_PROGRAM_EFUSE macro is
+    TRUE.
+    To avoid programming eFUSE results can be displayed on UART com port
+    by making XSK_PUF_INFO_ON_UART to TRUE.
+
+    #define         XSK_PUF_BLACK_KEY_IV    &quot;000000000000000000000000&quot;
+    The value mentioned here will be converted to hex buffer.
+    This is Initialization vector(IV) used with the AES-GCM cryptographic
+    hardware in order to generate encrypted red key, which is black key.
+    This value should be given in string format. It should be 24 characters
+    long, valid characters are 0-9,a-f,A-F. Any other character is
+    considered as invalid string.
+</verbatim></para></simplesect>
+<preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date        Changes
+<hruler/>
+
+ 6.1   rp   17/10/16 First release.
+ 6.2   vns  03/10/17 Added support for programming and reading one reserved
+                     bit
+ 6.3   vns  10/05/18 Corrected the following macro
+                     XSK_PUF_IV  to XSK_PUF_BLACK_KEY_IV and
+                     XSK_PUF_IF_CONTRACT_MANUFATURER to
+                     XSK_PUF_IF_CONTRACT_MANUFACTURER
+ 6.8   psl  06/07/19 Added doxygen tags
+ 7.5   ng   07/13/23 added SDT support
+ </preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_PUF_REGISTRATION_H_</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_PUF_REGISTRATION_H_</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Include<sp/>Files<sp/>************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_aes.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilskey__eps__zynqmp__puf_8h" kindref="compound">xilskey_eps_zynqmp_puf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/><sp/>XSK_ZYNQ_ULTRA_MP_PLATFORM</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_CSUDMA_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_CSUDMA_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XCSUDMA_0_BASEADDR</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_PUF_MODE4K<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Following<sp/>parameters<sp/>should<sp/>be<sp/>configured<sp/>by<sp/>user<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_INFO_ON_UART<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_PROGRAM_EFUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_IF_CONTRACT_MANUFACTURER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>programming/reading<sp/>secure<sp/>bits<sp/>of<sp/>PUF<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_READ_SECUREBITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_PROGRAM_SECUREBITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSK_PUF_PROGRAM_SECUREBITS<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_SYN_INVALID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_SYN_WRLK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_REGISTER_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_RESERVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FALSE</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_AES_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_BLACK_KEY_IV<sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="xilskey__puf__registration_8h_1a98db935ff1ae5bab36372b82a95c68d9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_PUF_REG_MODE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_PUF_MODE4K</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="158"><highlight class="comment">/***************************End<sp/>of<sp/>configurable<sp/>parameters********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSK_PUF_INFO_ON_UART<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="161" refid="xilskey__puf__registration_8h_1a87d7dd3e751fecf6297c62441ff41c6e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_INFO_ON_UART<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XPUF_DEBUG_GENERAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_DEBUG_GENERAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSK_PUF_PROGRAM_EFUSE<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_FUSE_SYN_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XSK_PUF_IF_CONTRACT_MANUFACTURER<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_CONTRACT_MANUFACTURER<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="xilskey__puf__registration_8h_1af9c505ec48684a1bd6180d6d0a9b551e" refkind="member"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Type<sp/>Definitions<sp/>**********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>All<sp/>the<sp/>instances<sp/>used<sp/>for<sp/>this<sp/>application<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal">XilSKey_Puf<sp/>PufInstance;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">XSecure_Aes<sp/>AesInstance;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">XCsuDma<sp/>CsuDma;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">XilSKey_ZynqMpEPs<sp/>EfuseInstance;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILSKEY_PUF_REGISTRATION_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/examples/xilskey_puf_registration.h"/>
+  </compounddef>
+</doxygen>

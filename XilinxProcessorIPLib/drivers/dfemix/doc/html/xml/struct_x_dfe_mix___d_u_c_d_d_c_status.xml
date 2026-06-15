@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_mix___d_u_c_d_d_c_status" kind="struct" prot="public">
+    <compoundname>XDfeMix_DUCDDCStatus</compoundname>
+    <includes local="no">xdfemix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_mix___d_u_c_d_d_c_status_1ae952e07837e2b3f93f88290e6dd1644b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_DUCDDCStatus::Stage</definition>
+        <argsstring></argsstring>
+        <name>Stage</name>
+        <briefdescription>
+<para>[0-3] Earliest stage in which overflow occurred. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="459" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="459" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga33030e76902b46e8b159da6410e037f4" compoundref="xdfemix_8c" startline="3439" endline="3462">XDfeMix_GetDUCDDCStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___d_u_c_d_d_c_status_1a53c0d8d7bde81d5d6c5e3bb7c74817eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_DUCDDCStatus::Antenna</definition>
+        <argsstring></argsstring>
+        <name>Antenna</name>
+        <briefdescription>
+<para><verbatim>      [0-7] Antenna on which overflow occurred, with lowest
+</verbatim> antenna taking priority. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="460" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="460" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga33030e76902b46e8b159da6410e037f4" compoundref="xdfemix_8c" startline="3439" endline="3462">XDfeMix_GetDUCDDCStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___d_u_c_d_d_c_status_1abcf3d2f3a21825c19be9c5cbb54a36a5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_DUCDDCStatus::NcoId</definition>
+        <argsstring></argsstring>
+        <name>NcoId</name>
+        <briefdescription>
+<para><verbatim>    [0-15] Number of NCO associated with overflowing channel,
+</verbatim> with lowest taking priority. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="462" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="462" bodyend="-1"/>
+        <referencedby refid="group__dfemix_1ga33030e76902b46e8b159da6410e037f4" compoundref="xdfemix_8c" startline="3439" endline="3462">XDfeMix_GetDUCDDCStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_mix___d_u_c_d_d_c_status_1a9e7729b9ff6fa3bdf35472314a8d146b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeMix_DUCDDCStatus::Mode</definition>
+        <argsstring></argsstring>
+        <name>Mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="464" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="464" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>DUC/DDC status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="458" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" bodystart="458" bodyend="468"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_mix___d_u_c_d_d_c_status_1a53c0d8d7bde81d5d6c5e3bb7c74817eb" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCStatus</scope><name>Antenna</name></member>
+      <member refid="struct_x_dfe_mix___d_u_c_d_d_c_status_1a9e7729b9ff6fa3bdf35472314a8d146b" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCStatus</scope><name>Mode</name></member>
+      <member refid="struct_x_dfe_mix___d_u_c_d_d_c_status_1abcf3d2f3a21825c19be9c5cbb54a36a5" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCStatus</scope><name>NcoId</name></member>
+      <member refid="struct_x_dfe_mix___d_u_c_d_d_c_status_1ae952e07837e2b3f93f88290e6dd1644b" prot="public" virt="non-virtual"><scope>XDfeMix_DUCDDCStatus</scope><name>Stage</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

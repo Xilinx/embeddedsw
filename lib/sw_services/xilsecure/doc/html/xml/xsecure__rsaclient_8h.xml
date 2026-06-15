@@ -1,0 +1,406 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__rsaclient_8h" kind="file">
+    <compoundname>xsecure_rsaclient.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xsecure__mailbox_8h" local="yes">xsecure_mailbox.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includes refid="client_2core_2rsa_2xsecure__rsaalginfo_8h" local="yes">xsecure_rsaalginfo.h</includes>
+    <includedby refid="xsecure__rsaclient_8c" local="yes">xsecure_rsaclient.c</includedby>
+    <includedby refid="xilsecure__versal__net__keyunwrap__client__example_8c" local="yes">xilsecure_versal_net_keyunwrap_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__net__rsa__client__example_8c" local="yes">xilsecure_versal_net_rsa_client_example.c</includedby>
+    <includedby refid="xilsecure__versal__rsa__client__example_8c" local="yes">xilsecure_versal_rsa_client_example.c</includedby>
+    <incdepgraph>
+      <node id="3703">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3698">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="3701">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="client_2core_2rsa_2xsecure__rsaalginfo_8h"/>
+        <childnode refid="3702" relation="include">
+        </childnode>
+        <childnode refid="3703" relation="include">
+        </childnode>
+      </node>
+      <node id="3699">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="3694">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="3702">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="3696">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="3697" relation="include">
+        </childnode>
+        <childnode refid="3692" relation="include">
+        </childnode>
+        <childnode refid="3698" relation="include">
+        </childnode>
+        <childnode refid="3699" relation="include">
+        </childnode>
+        <childnode refid="3700" relation="include">
+        </childnode>
+      </node>
+      <node id="3700">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="3692">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3695">
+        <label>xparameters.h</label>
+      </node>
+      <node id="3697">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="3693">
+        <label>xsecure_mailbox.h</label>
+        <link refid="xsecure__mailbox_8h"/>
+        <childnode refid="3694" relation="include">
+        </childnode>
+        <childnode refid="3695" relation="include">
+        </childnode>
+      </node>
+      <node id="3691">
+        <label>xsecure_rsaclient.h</label>
+        <link refid="xsecure_rsaclient.h"/>
+        <childnode refid="3692" relation="include">
+        </childnode>
+        <childnode refid="3693" relation="include">
+        </childnode>
+        <childnode refid="3696" relation="include">
+        </childnode>
+        <childnode refid="3701" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3708">
+        <label>xilsecure_versal_rsa_client_example.c</label>
+      </node>
+      <node id="3707">
+        <label>xilsecure_versal_net_rsa_client_example.c</label>
+        <link refid="xilsecure__versal__net__rsa__client__example_8c"/>
+      </node>
+      <node id="3706">
+        <label>xilsecure_versal_net_keyunwrap_client_example.c</label>
+        <link refid="xilsecure__versal__net__keyunwrap__client__example_8c"/>
+      </node>
+      <node id="3705">
+        <label>xsecure_rsaclient.c</label>
+        <link refid="xsecure__rsaclient_8c"/>
+      </node>
+      <node id="3704">
+        <label>xsecure_rsaclient.h</label>
+        <link refid="xsecure_rsaclient.h"/>
+        <childnode refid="3705" relation="include">
+        </childnode>
+        <childnode refid="3706" relation="include">
+        </childnode>
+        <childnode refid="3707" relation="include">
+        </childnode>
+        <childnode refid="3708" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPrivateDecrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA decryption with private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the update is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="65" bodyend="114"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="57">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="289" endline="317">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPublicEncrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPublicEncrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA encryption with public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be encrypted with public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If encryption was successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="136" bodyend="185"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="56">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="546" endline="590">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="289" endline="317">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gac4ab51058f2ef18bcb5a1aedf95b83d8" compoundref="xsecure__kat_8c" startline="1110" endline="1157">XSecure_RsaPublicEncryptKat</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaSignVerification</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</argsstring>
+        <name>XSecure_RsaSignVerification</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SignAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA sign verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer which holds the decrypted RSA signature. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the HashAddr which has the hash calculated on the data to be authenticated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of Hash used For SHA3 it should be 48 bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If decryption was successful</para></listitem><listitem><para>XST_FAILURE In case of mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size SignParams to SignParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="204" bodyend="251"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="546" endline="590">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file Contains the client function prototypes, defines and macros for the RSA hardware module. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kal  03/23/21 Initial release
+4.5   kal  03/23/20 Updated file version to sync with library version
+      kpt  03/16/22 Removed IPI related code and added mailbox support
+5.0   kpt  07/24/22 Moved XSecure_RsaKat into <ref refid="xsecure__katclient_8c" kindref="compound">xsecure_katclient.c</ref>
+5.2   mmd  07/09/23 Included header file for crypto algorithm information
+5.4   yog  04/29/24 Fixed doxygen grouping.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSA_CLIENT_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_CLIENT_H</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__mailbox_8h" kindref="compound">xsecure_mailbox.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="client_2core_2rsa_2xsecure__rsaalginfo_8h" kindref="compound">xsecure_rsaalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" kindref="member">XSecure_RsaPrivateDecrypt</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KeyAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" kindref="member">XSecure_RsaPublicEncrypt</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>KeyAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>InDataAddr,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>OutDataAddr);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" kindref="member">XSecure_RsaSignVerification</ref>(XSecure_ClientInstance<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>SignAddr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u64<sp/>HashAddr,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSA_CLIENT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.h"/>
+  </compounddef>
+</doxygen>

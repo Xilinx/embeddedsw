@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___coefficients" kind="struct" prot="public">
+    <compoundname>XDfeEqu_Coefficients</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___coefficients_1a5c1ce3a36ca91fb9db6deabde173370f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Coefficients::Num</definition>
+        <argsstring></argsstring>
+        <name>Num</name>
+        <briefdescription>
+<para><verbatim>  [1-12|24] True number of coefficients,
+</verbatim> [1 - 12] in complex mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="270" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" compoundref="xdfeequ_8c" startline="1189" endline="1240">XDfeEqu_LoadCoefficients</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___coefficients_1a174eddf9c08b56d291c361744e4a40f8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Coefficients::Set</definition>
+        <argsstring></argsstring>
+        <name>Set</name>
+        <briefdescription>
+<para>[0-3] Coefficient set that the coefficients apply to </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="272" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1gab553aa1cfced879709804331bda8c876" compoundref="xdfeequ_8c" startline="1189" endline="1240">XDfeEqu_LoadCoefficients</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___coefficients_1af55285beee6b7c9cf8bfcdf8b9435158" prot="public" static="no" mutable="no">
+        <type>s16</type>
+        <definition>s16 XDfeEqu_Coefficients::Coefficients[XDFEEQU_NUM_COEFF]</definition>
+        <argsstring>[XDFEEQU_NUM_COEFF]</argsstring>
+        <name>Coefficients</name>
+        <briefdescription>
+<para>Signed real numbers. </para>        </briefdescription>
+        <detaileddescription>
+<para>Array of Coefficients. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="273" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga12d7169da8086c7d940094f4c468e3dd" compoundref="xdfeequ__pass__through__example_8c" startline="63" endline="131">XDfeEqu_PassThroughExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Equalizer Coefficients Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="269" bodyend="275"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___coefficients_1af55285beee6b7c9cf8bfcdf8b9435158" prot="public" virt="non-virtual"><scope>XDfeEqu_Coefficients</scope><name>Coefficients</name></member>
+      <member refid="struct_x_dfe_equ___coefficients_1a5c1ce3a36ca91fb9db6deabde173370f" prot="public" virt="non-virtual"><scope>XDfeEqu_Coefficients</scope><name>Num</name></member>
+      <member refid="struct_x_dfe_equ___coefficients_1a174eddf9c08b56d291c361744e4a40f8" prot="public" virt="non-virtual"><scope>XDfeEqu_Coefficients</scope><name>Set</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

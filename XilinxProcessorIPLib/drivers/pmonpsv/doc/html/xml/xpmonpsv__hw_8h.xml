@@ -1,0 +1,603 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpmonpsv__hw_8h" kind="file">
+    <compoundname>xpmonpsv_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xpmonpsv_8h" local="yes">xpmonpsv.h</includedby>
+    <incdepgraph>
+      <node id="32">
+        <label>xil_io.h</label>
+      </node>
+      <node id="30">
+        <label>xpmonpsv_hw.h</label>
+        <link refid="xpmonpsv_hw.h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="36">
+        <label>xpmonpsv_g.c</label>
+        <link refid="xpmonpsv__g_8c"/>
+      </node>
+      <node id="35">
+        <label>xpmonpsv.c</label>
+        <link refid="xpmonpsv_8c"/>
+      </node>
+      <node id="34">
+        <label>xpmonpsv.h</label>
+        <link refid="xpmonpsv_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xpmonpsv_hw.h</label>
+        <link refid="xpmonpsv_hw.h"/>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xpmonpsv_sint.c</label>
+        <link refid="xpmonpsv__sint_8c"/>
+      </node>
+      <node id="38">
+        <label>xpmonpsv_selftest_example.c</label>
+        <link refid="xpmonpsv__selftest__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__pmonpsv_1gadbf8851a8507632a05e64fba2b406697" prot="public" static="no">
+        <name>XPMONPSV_HW_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" prot="public" static="no">
+        <name>PMONPSV_APM0_LAR</name>
+        <initializer>0x0FB0U</initializer>
+        <briefdescription>
+<para>Performance Monitor Register offsets. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" compoundref="xpmonpsv_8c" startline="462" endline="468">XPmonPsv_Lock</referencedby>
+        <referencedby refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" compoundref="xpmonpsv_8c" startline="444" endline="450">XPmonPsv_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga68de29de7f0adbb2fc40d67b5309b584" prot="public" static="no">
+        <name>PMONPSV_APM0_LSR</name>
+        <initializer>0x0FB4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6678637b98dfd977d52c42dcaa1f3b45" prot="public" static="no">
+        <name>LPD_MAIN_OFFSET</name>
+        <initializer>0x4000U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad34518198726d61bfb36472a952a2082" prot="public" static="no">
+        <name>PMONPSV_PROBE1_MAINCTRL</name>
+        <initializer>0x3008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga44f06612e8a60529c72ff7ca5afd504e" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_PORTSEL</name>
+        <initializer>0x3134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6e787cab62561f68e0cadb7391d4327e" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_SRC</name>
+        <initializer>0x3138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga5627994e831f8956d8fcc074f3d251ed" prot="public" static="no">
+        <name>PMONPSV_PROBE1_STATPERIOD</name>
+        <initializer>0x3024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab8cc6babd278874ddc41422d9c8da75f" prot="public" static="no">
+        <name>PMONPSV_PROBE1_CFGCTRL</name>
+        <initializer>0X300CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gada385628398e80e890fd063455d16254" prot="public" static="no">
+        <name>PMONPSV_WR_REQ_COUNTER0_VAL</name>
+        <initializer>0X313CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae85fcbcfd0719d913401c6acaf40bed4" prot="public" static="no">
+        <name>PMONPSV_PROBE2_MAINCTRL</name>
+        <initializer>0X4008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga65cfa55bf6599753d75a64b194b12bb5" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_PORTSEL</name>
+        <initializer>0x4134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gacf55676c46c32a1e7d18d2e3b7603258" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_SRC</name>
+        <initializer>0x4138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga49e74dd6ce6d81c0169604fa9b5b001c" prot="public" static="no">
+        <name>PMONPSV_PROBE2_STATPERIOD</name>
+        <initializer>0x4024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gabc05deb616ba6a4b6dead96026d10f4a" prot="public" static="no">
+        <name>PMONPSV_PROBE2_CFGCTRL</name>
+        <initializer>0x400CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga63e565bc4dd71de7a3f3e3be22131874" prot="public" static="no">
+        <name>PMONPSV_WR_RESP_COUNTER0_VAL</name>
+        <initializer>0x413CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae6cc92cc40dfca11975461f90d008bb2" prot="public" static="no">
+        <name>PMONPSV_PROBE3_MAINCTRL</name>
+        <initializer>0X1008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad708e6ec8435452f270211602a3cd504" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_PORTSEL</name>
+        <initializer>0x1134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gadfcff0c6802f5cad5fc0e25429cd56a4" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_SRC</name>
+        <initializer>0x1138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga19871fe800e9df3002f76446364fedd8" prot="public" static="no">
+        <name>PMONPSV_RD_REQ_COUNTER0_VAL</name>
+        <initializer>0x113CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga35d981e6d7d8ce5dc3a57d649c9ee6a9" prot="public" static="no">
+        <name>PMONPSV_PROBE3_STATPERIOD</name>
+        <initializer>0x1024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga982bfd8805f794bd95ac5c25852e372e" prot="public" static="no">
+        <name>PMONPSV_PROBE3_CFGCTRL</name>
+        <initializer>0x100CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad056f0ecde3a36a2f434a137a9e76f94" prot="public" static="no">
+        <name>PMONPSV_PROBE4_MAINCTRL</name>
+        <initializer>0X2008U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga0738db8d6b200a56d3bc6ee5c9573b3b" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_PORTSEL</name>
+        <initializer>0x2134U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae69f73958274c482e7393830efdfdf20" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_SRC</name>
+        <initializer>0x2138U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga3a93fe8fb222c60ca06c3cfe7af0dbf2" prot="public" static="no">
+        <name>PMONPSV_RD_RESP_COUNTER0_VAL</name>
+        <initializer>0x213CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab9066949f0ab93e2ec18b4663d395719" prot="public" static="no">
+        <name>PMONPSV_PROBE4_STATPERIOD</name>
+        <initializer>0x2024U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gae4f36d6fd6da1d3b13d7054f84ee8e21" prot="public" static="no">
+        <name>PMONPSV_PROBE4_CFGCTRL</name>
+        <initializer>0x200CU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga200bb94ffe88c1d209e8d6c699358b70" prot="public" static="no">
+        <name>XPMONPSV_COUNTER_OFFSET</name>
+        <initializer>0x14U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga6227dd1bf6ecbd51b437b388c74cf97f" prot="public" static="no">
+        <name>MAINCTRL_STATEN_MASK</name>
+        <initializer>0x8U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gad877bbddae9599417380e654d411a266" prot="public" static="no">
+        <name>MAINCTRL_STATCONDDUMP_MASK</name>
+        <initializer>0x20U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gab8ab442321e2ab5659d900afb6d1284f" prot="public" static="no">
+        <name>STATPERIOD_PERIOD_MASK</name>
+        <initializer>0x1FU</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga9d0acac532b649b16481a883ffbfa480" prot="public" static="no">
+        <name>CFGCTRL_GLOBALEN_MASK</name>
+        <initializer>0x1U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga69ff4f438bc221a2944477fafe519577" prot="public" static="no">
+        <name>CFGCTRL_ACTIVE_MASK</name>
+        <initializer>0x2U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" prot="public" static="no">
+        <name>XPmonPsv_ReadReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32((InstancePtr-&gt;Config.BaseAddress) + (RegOffset)))</initializer>
+        <briefdescription>
+<para>Read a register of the Performance Monitor device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro provides register access to all registers using the register offsets defined above.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains Instance pointer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the register. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1ga8969db0e19b31ea48690fb6f8e8c0208" compoundref="xpmonpsv_8c" startline="221" endline="252">XPmonPsv_GetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1ga1ddd643de28219ab0c50aab729ddd058" compoundref="xpmonpsv_8c" startline="356" endline="382">XPmonPsv_GetReadCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga57d5aae6b20218e6fbca2ce9e90e3c12" compoundref="xpmonpsv_8c" startline="275" endline="300">XPmonPsv_GetWriteCounter</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" prot="public" static="no">
+        <name>XPmonPsv_WriteReg</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>(Xil_Out32( InstancePtr-&gt;Config.BaseAddress +  (RegOffset), (Data)))</initializer>
+        <briefdescription>
+<para>Write a register of the Performance Monitor device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This macro provides register access to all registers using the register offsets defined above.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains Instance pointer contains the Baseaddress. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__pmonpsv_1gadb59f26ba546912f1adb10aaa315148c" compoundref="xpmonpsv_8c" startline="400" endline="431">XPmonPsv_EnableCounters</referencedby>
+        <referencedby refid="group__pmonpsv_1ga84fcdf6169d586181aaea1223a82bce1" compoundref="xpmonpsv_8c" startline="462" endline="468">XPmonPsv_Lock</referencedby>
+        <referencedby refid="group__pmonpsv_1gaf9da08c69ce00c2dd67828196f443a51" compoundref="xpmonpsv_8c" startline="111" endline="150">XPmonPsv_ResetCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1gae01033d281536814a9a0578e6029ed4f" compoundref="xpmonpsv_8c" startline="171" endline="202">XPmonPsv_SetMetrics</referencedby>
+        <referencedby refid="group__pmonpsv_1gace779962fd5f79ca06427ec1340d553c" compoundref="xpmonpsv_8c" startline="592" endline="613">XPmonPsv_SetPort</referencedby>
+        <referencedby refid="group__pmonpsv_1ga7e7371e8483b02cd647f795976658040" compoundref="xpmonpsv_8c" startline="530" endline="566">XPmonPsv_SetSrc</referencedby>
+        <referencedby refid="group__pmonpsv_1gaea617c99cf28bd06a05856209b6e0ae1" compoundref="xpmonpsv_8c" startline="484" endline="511">XPmonPsv_StopCounter</referencedby>
+        <referencedby refid="group__pmonpsv_1ga10df3b03dcc3e64fb7b8b8bb98ff42d0" compoundref="xpmonpsv_8c" startline="444" endline="450">XPmonPsv_Unlock</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2019<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XPMONPSV_HW_H<sp/></highlight><highlight class="comment">/*<sp/>Prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMONPSV_HW_H<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__pmonpsv_1gaf75c12bc9c0d7c1edbbe3f9623243d07" refkind="member"><highlight class="preprocessor">#define<sp/>PMONPSV_APM0_LAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FB0U</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_APM0_LSR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0FB4U</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LPD_MAIN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4000U</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE1_MAINCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3008U</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_REQ_COUNTER0_PORTSEL<sp/>0x3134U</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_REQ_COUNTER0_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3138U</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE1_STATPERIOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3024U</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE1_CFGCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X300CU</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_REQ_COUNTER0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X313CU</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE2_MAINCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X4008U</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_RESP_COUNTER0_PORTSEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4134U</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_RESP_COUNTER0_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4138U</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE2_STATPERIOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4024U</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE2_CFGCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x400CU</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_WR_RESP_COUNTER0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x413CU</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE3_MAINCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X1008U</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_REQ_COUNTER0_PORTSEL<sp/>0x1134U</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_REQ_COUNTER0_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1138U</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_REQ_COUNTER0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x113CU</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE3_STATPERIOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1024U</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE3_CFGCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100CU</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE4_MAINCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X2008U</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_RESP_COUNTER0_PORTSEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2134U</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_RESP_COUNTER0_SRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2138U</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_RD_RESP_COUNTER0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x213CU</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE4_STATPERIOD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2024U</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PMONPSV_PROBE4_CFGCTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x200CU</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPMONPSV_COUNTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14U</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Main<sp/>Control<sp/>bit<sp/>mask<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAINCTRL_STATEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x8U</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAINCTRL_STATCONDDUMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20U</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>StatPeriod<sp/><sp/>bit<sp/>mask<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STATPERIOD_PERIOD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1FU</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CFGCTRL<sp/><sp/>bit<sp/>mask<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CFGCTRL_GLOBALEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1U</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CFGCTRL_ACTIVE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2U</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="107" refid="group__pmonpsv_1gacc0ae31abca813a507dc900990c7f133" refkind="member"><highlight class="preprocessor">#define<sp/>XPmonPsv_ReadReg(InstancePtr,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32((InstancePtr-&gt;Config.BaseAddress)<sp/>+<sp/>(RegOffset)))</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="124" refid="group__pmonpsv_1ga7df7c6c14c7434fbbfa5374e7cfcbe9b" refkind="member"><highlight class="preprocessor">#define<sp/>XPmonPsv_WriteReg(InstancePtr,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_Out32(<sp/>InstancePtr-&gt;Config.BaseAddress<sp/>+<sp/><sp/>(RegOffset),<sp/>(Data)))</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro.<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/pmonpsv/src/xpmonpsv_hw.h"/>
+  </compounddef>
+</doxygen>

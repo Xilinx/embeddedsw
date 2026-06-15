@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_042d014002c260243aa1929d4cedab8a" kind="dir">
+    <compoundname>zynqmp</compoundname>
+    <innerfile refid="xsecure_8c">xsecure.c</innerfile>
+    <innerfile refid="xsecure_8h">xsecure.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__aes_8c">zynqmp/xsecure_aes.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__aes_8h">zynqmp/xsecure_aes.h</innerfile>
+    <innerfile refid="xsecure__aes__hw_8h">xsecure_aes_hw.h</innerfile>
+    <innerfile refid="server_2zynqmp_2xsecure__aesalginfo_8h">server/zynqmp/xsecure_aesalginfo.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__cryptochk_8c">zynqmp/xsecure_cryptochk.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__cryptochk_8h">zynqmp/xsecure_cryptochk.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__rsa_8c">zynqmp/xsecure_rsa.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__rsa_8h">zynqmp/xsecure_rsa.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__rsa__core_8c">zynqmp/xsecure_rsa_core.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__rsa__core_8h">zynqmp/xsecure_rsa_core.h</innerfile>
+    <innerfile refid="xsecure__rsa__hw_8h">xsecure_rsa_hw.h</innerfile>
+    <innerfile refid="server_2zynqmp_2xsecure__rsaalginfo_8h">server/zynqmp/xsecure_rsaalginfo.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__sha_8c">zynqmp/xsecure_sha.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__sha_8h">zynqmp/xsecure_sha.h</innerfile>
+    <innerfile refid="server_2zynqmp_2xsecure__sha3alginfo_8h">server/zynqmp/xsecure_sha3alginfo.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__sha__hw_8h">zynqmp/xsecure_sha_hw.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__sss_8c">zynqmp/xsecure_sss.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__sss_8h">zynqmp/xsecure_sss.h</innerfile>
+    <innerfile refid="zynqmp_2xsecure__utils_8c">zynqmp/xsecure_utils.c</innerfile>
+    <innerfile refid="zynqmp_2xsecure__utils_8h">zynqmp/xsecure_utils.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xpuf__generic_8c" kind="file">
+    <compoundname>xpuf_generic.c</compoundname>
+    <includes refid="xpuf__generic_8h" local="yes">xpuf_generic.h</includes>
+    <incdepgraph>
+      <node id="227">
+        <label>xpuf_mailbox.h</label>
+        <link refid="xpuf__mailbox_8h"/>
+        <childnode refid="228" relation="include">
+        </childnode>
+        <childnode refid="229" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="226">
+        <label>xil_types.h</label>
+      </node>
+      <node id="229">
+        <label>xparameters.h</label>
+      </node>
+      <node id="224">
+        <label>xpuf_generic.c</label>
+        <link refid="xpuf_generic.c"/>
+        <childnode refid="225" relation="include">
+        </childnode>
+      </node>
+      <node id="225">
+        <label>xpuf_generic.h</label>
+        <link refid="xpuf__generic_8h"/>
+        <childnode refid="226" relation="include">
+        </childnode>
+        <childnode refid="227" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_SendRequest</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</argsstring>
+        <name>XPuf_SendRequest</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PayloadBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ResponseBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResponseLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM through either SMC or IPI mailbox based on the execution environment. </para>        </briefdescription>
+        <detaileddescription>
+<para>For EL1 non-secure AArch64 applications, SMC is used. For other environments, IPI mailbox is used.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of response buffer (number of u32 elements)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the request is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure</para></listitem><listitem><para>XST_INVALID_PARAM if input parameters are invalid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>Note: For communication via IPI mailbox, response is not directly returned. The caller should handle response retrieval if needed.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="67" bodyend="105"/>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" compoundref="xpuf__mailbox_8c" startline="72" endline="98">XPuf_ProcessMailbox</references>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the implementation of the generic request API that handles both SMC and IPI mailbox communication for xilpuf client library. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+2.7   tbk  03/24/26 Initial release for unified SMC/Mailbox handling</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__generic_8h" kindref="compound">xpuf_generic.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xpuf__smc_8h" kindref="compound">xpuf_smc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" kindref="member">XPuf_SendRequest</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref><sp/>*InstancePtr,<sp/>u32<sp/>*PayloadBuf,<sp/>u32<sp/>PayloadLen,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*ResponseBuf,<sp/>u32<sp/>ResponseLen)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((PayloadBuf<sp/>==<sp/>NULL)<sp/>||<sp/>(PayloadLen<sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(__aarch64__)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)InstancePtr;<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPuf_SmcCall(PayloadBuf,<sp/>PayloadLen,<sp/>ResponseBuf,<sp/>ResponseLen);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr<sp/>==<sp/>NULL)<sp/>||<sp/>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref><sp/>==<sp/>NULL))<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" kindref="member">XPuf_ProcessMailbox</ref>(InstancePtr-&gt;<ref refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" kindref="member">MailboxPtr</ref>,<sp/>PayloadBuf,<sp/>PayloadLen);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseBuf;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)ResponseLen;<sp/></highlight><highlight class="comment">/*<sp/>Unused<sp/>in<sp/>mailbox<sp/>path<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c"/>
+  </compounddef>
+</doxygen>

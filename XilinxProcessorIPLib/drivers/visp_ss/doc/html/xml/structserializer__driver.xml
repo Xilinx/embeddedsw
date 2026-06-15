@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structserializer__driver" kind="struct" prot="public">
+    <compoundname>serializer_driver</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structserializer__driver_1a253ab618583ddb67708f5b80d43bdf2c" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char serializer_driver::name[30]</definition>
+        <argsstring>[30]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1af7f94a53f4232d7a6c7d7a16eb303910" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 serializer_driver::link_lane</definition>
+        <argsstring></argsstring>
+        <name>link_lane</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a64a5996d659b3cc325ee07911386e87c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::i2c_addr</definition>
+        <argsstring></argsstring>
+        <name>i2c_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a4877888c6e2465c434a8f8e122de6bae" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::bus_num</definition>
+        <argsstring></argsstring>
+        <name>bus_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a0806367b9df73300df7b18e012b95877" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::alias_addr</definition>
+        <argsstring></argsstring>
+        <name>alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a9221bf5a3790f1c4ed37c7bae3913c9d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::broadcast_addr</definition>
+        <argsstring></argsstring>
+        <name>broadcast_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1ab2a4eca3c90a9bf6ae4f1534eb8e94f9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a98386788b0b4aea1fc2ee1eaaed48c77" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::alias_en</definition>
+        <argsstring></argsstring>
+        <name>alias_en</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a6f69f8256b1ce6d1236b1b35f615f7f0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int serializer_driver::broadcast_en</definition>
+        <argsstring></argsstring>
+        <name>broadcast_en</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a457807e1c385f46d9473e236971b9047" prot="public" static="no" mutable="no">
+        <type>transition_state</type>
+        <definition>transition_state serializer_driver::ser_state</definition>
+        <argsstring></argsstring>
+        <name>ser_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a5cc5e069f4d135b950d849b1bdb55bc1" prot="public" static="no" mutable="no">
+        <type>RegI2CT *</type>
+        <definition>RegI2CT* serializer_driver::init_array</definition>
+        <argsstring></argsstring>
+        <name>init_array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1af7352d3b7daa1f8193ba8d40a05e428a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 serializer_driver::init_array_len</definition>
+        <argsstring></argsstring>
+        <name>init_array_len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a86544d206fc7efaaa151d9494ea3d3ec" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::init_serializer)(struct serializer_driver *ser_inst)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst)</argsstring>
+        <name>init_serializer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a1179897b841c0170761b4d4a34e3b75b" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::deinit_serializer)(struct serializer_driver *ser_inst)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst)</argsstring>
+        <name>deinit_serializer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1ac1bfe53d95c06dd2be138eb8612afb4d" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::set_alias_addr)(struct serializer_driver *ser_inst, int link_number, int addr, int alias_addr)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, int link_number, int addr, int alias_addr)</argsstring>
+        <name>set_alias_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a676eef0779141be9f4a014fd582b6445" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::enable_link)(struct serializer_driver *ser_inst, int link)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, int link)</argsstring>
+        <name>enable_link</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a527ed3a3f27cb34a872f4328f1637c55" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::disable_link)(struct serializer_driver *ser_inst, int link)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, int link)</argsstring>
+        <name>disable_link</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a0483456856fa71f98c223583fea86fc7" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::reset_links)(struct serializer_driver *ser_inst)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst)</argsstring>
+        <name>reset_links</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1ac0963905593370d5d8cb91b896e47190" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::phy_lanes_enable)(struct serializer_driver *ser_inst, int phy_cnt)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, int phy_cnt)</argsstring>
+        <name>phy_lanes_enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a84ae6187fa54a609f4bf10a2193e85fa" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::set_virt_ch_map)(struct serializer_driver *ser_inst, struct map_struct *map, int map_count)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, struct map_struct *map, int map_count)</argsstring>
+        <name>set_virt_ch_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1aeb4e24452cd912f764ef47ab6bcce81d" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::set_sensor_addr_map)(struct serializer_driver *ser_inst, struct map_struct *map, int map_count)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, struct map_struct *map, int map_count)</argsstring>
+        <name>set_sensor_addr_map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1adfacd9680831f0f19137f7ee43b21593" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::set_broadcast_addr)(struct serializer_driver *ser_inst, int addr)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, int addr)</argsstring>
+        <name>set_broadcast_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a85f71d75329e6deca3a07c072253504b" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::send_broadcast)(struct serializer_driver *ser_inst, char *data, int size)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, char *data, int size)</argsstring>
+        <name>send_broadcast</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1a8006fdb6c83a1b5ec10d2d0cd1d59059" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::i2c_write)(struct serializer_driver *ser_inst, char *data, int size)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, char *data, int size)</argsstring>
+        <name>i2c_write</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structserializer__driver_1aa14e0c8d21aa27a7c6e143758089bc8f" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* serializer_driver::i2c_read)(struct serializer_driver *ser_inst, char *data, int size)</definition>
+        <argsstring>)(struct serializer_driver *ser_inst, char *data, int size)</argsstring>
+        <name>i2c_read</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_fmc.h" bodystart="166" bodyend="198"/>
+    <listofallmembers>
+      <member refid="structserializer__driver_1a0806367b9df73300df7b18e012b95877" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>alias_addr</name></member>
+      <member refid="structserializer__driver_1a98386788b0b4aea1fc2ee1eaaed48c77" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>alias_en</name></member>
+      <member refid="structserializer__driver_1a9221bf5a3790f1c4ed37c7bae3913c9d" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>broadcast_addr</name></member>
+      <member refid="structserializer__driver_1a6f69f8256b1ce6d1236b1b35f615f7f0" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>broadcast_en</name></member>
+      <member refid="structserializer__driver_1a4877888c6e2465c434a8f8e122de6bae" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>bus_num</name></member>
+      <member refid="structserializer__driver_1a1179897b841c0170761b4d4a34e3b75b" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>deinit_serializer</name></member>
+      <member refid="structserializer__driver_1a527ed3a3f27cb34a872f4328f1637c55" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>disable_link</name></member>
+      <member refid="structserializer__driver_1ab2a4eca3c90a9bf6ae4f1534eb8e94f9" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>enable</name></member>
+      <member refid="structserializer__driver_1a676eef0779141be9f4a014fd582b6445" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>enable_link</name></member>
+      <member refid="structserializer__driver_1a64a5996d659b3cc325ee07911386e87c" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>i2c_addr</name></member>
+      <member refid="structserializer__driver_1aa14e0c8d21aa27a7c6e143758089bc8f" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>i2c_read</name></member>
+      <member refid="structserializer__driver_1a8006fdb6c83a1b5ec10d2d0cd1d59059" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>i2c_write</name></member>
+      <member refid="structserializer__driver_1a5cc5e069f4d135b950d849b1bdb55bc1" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>init_array</name></member>
+      <member refid="structserializer__driver_1af7352d3b7daa1f8193ba8d40a05e428a" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>init_array_len</name></member>
+      <member refid="structserializer__driver_1a86544d206fc7efaaa151d9494ea3d3ec" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>init_serializer</name></member>
+      <member refid="structserializer__driver_1af7f94a53f4232d7a6c7d7a16eb303910" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>link_lane</name></member>
+      <member refid="structserializer__driver_1a253ab618583ddb67708f5b80d43bdf2c" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>name</name></member>
+      <member refid="structserializer__driver_1ac0963905593370d5d8cb91b896e47190" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>phy_lanes_enable</name></member>
+      <member refid="structserializer__driver_1a0483456856fa71f98c223583fea86fc7" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>reset_links</name></member>
+      <member refid="structserializer__driver_1a85f71d75329e6deca3a07c072253504b" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>send_broadcast</name></member>
+      <member refid="structserializer__driver_1a457807e1c385f46d9473e236971b9047" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>ser_state</name></member>
+      <member refid="structserializer__driver_1ac1bfe53d95c06dd2be138eb8612afb4d" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>set_alias_addr</name></member>
+      <member refid="structserializer__driver_1adfacd9680831f0f19137f7ee43b21593" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>set_broadcast_addr</name></member>
+      <member refid="structserializer__driver_1aeb4e24452cd912f764ef47ab6bcce81d" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>set_sensor_addr_map</name></member>
+      <member refid="structserializer__driver_1a84ae6187fa54a609f4bf10a2193e85fa" prot="public" virt="non-virtual"><scope>serializer_driver</scope><name>set_virt_ch_map</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

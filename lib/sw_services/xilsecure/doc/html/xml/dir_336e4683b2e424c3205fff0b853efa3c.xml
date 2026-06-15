@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_336e4683b2e424c3205fff0b853efa3c" kind="dir">
+    <compoundname>util</compoundname>
+    <innerfile refid="core_2util_2xsecure__sss_8c">core/util/xsecure_sss.c</innerfile>
+    <innerfile refid="core_2util_2xsecure__sss_8h">core/util/xsecure_sss.h</innerfile>
+    <innerfile refid="core_2util_2xsecure__utils_8c">core/util/xsecure_utils.c</innerfile>
+    <innerfile refid="core_2util_2xsecure__utils_8h">core/util/xsecure_utils.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/util/"/>
+  </compounddef>
+</doxygen>

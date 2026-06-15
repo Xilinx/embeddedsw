@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_v___hdmi_c___src_prod_desc_i_f" kind="union" prot="public">
+    <compoundname>XV_HdmiC_SrcProdDescIF</compoundname>
+    <includes local="no">xv_hdmic.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_v___hdmi_c___src_prod_desc_i_f_1a7c8d1aef91d3d2ce696ec31ed333e81a" prot="public" static="no" mutable="no">
+        <type>XV_HdmiC_FreeSync</type>
+        <definition>XV_HdmiC_FreeSync XV_HdmiC_SrcProdDescIF::FreeSync</definition>
+        <argsstring></argsstring>
+        <name>FreeSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="633" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_v___hdmi_c___src_prod_desc_i_f_1afd6f7400c07322c0dd0e777c0c282f12" prot="public" static="no" mutable="no">
+        <type>XV_HdmiC_FreeSyncPro</type>
+        <definition>XV_HdmiC_FreeSyncPro XV_HdmiC_SrcProdDescIF::FreeSyncPro</definition>
+        <argsstring></argsstring>
+        <name>FreeSyncPro</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="634" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="634" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains AMD Source Product Descriptor Infoframe specific data structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="632" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="632" bodyend="635"/>
+    <listofallmembers>
+      <member refid="union_x_v___hdmi_c___src_prod_desc_i_f_1a7c8d1aef91d3d2ce696ec31ed333e81a" prot="public" virt="non-virtual"><scope>XV_HdmiC_SrcProdDescIF</scope><name>FreeSync</name></member>
+      <member refid="union_x_v___hdmi_c___src_prod_desc_i_f_1afd6f7400c07322c0dd0e777c0c282f12" prot="public" virt="non-virtual"><scope>XV_HdmiC_SrcProdDescIF</scope><name>FreeSyncPro</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

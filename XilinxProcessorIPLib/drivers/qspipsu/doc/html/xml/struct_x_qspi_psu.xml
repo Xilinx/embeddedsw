@@ -1,0 +1,498 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_qspi_psu" kind="struct" prot="public">
+    <compoundname>XQspiPsu</compoundname>
+    <includes local="no">xqspipsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_qspi_psu___config" kindref="compound">XQspiPsu_Config</ref></type>
+        <definition>XQspiPsu_Config XQspiPsu::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="230" bodyend="-1"/>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a4f09bf044ed26b11fc5489cb7b7ca1e6" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1457" endline="1564">BulkErase</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a97d8ab88e6002a97c30b95b66db231ea" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1581" endline="1735">DieErase</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a83a78784f5ba39b5e76b17a7e4a5ecad" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="2187" endline="2712">FlashEnableQuadMode</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1ae8d1767607b58391ccb2d0103c2fd456" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1929" endline="2169">FlashEnterExit4BAddMode</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a8c7c38172a5258ee7cdfaef5a1a9af82" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="835" endline="1070">FlashErase</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1aaaad34739d0ad6d1fb5436c1d6428463" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1094" endline="1228">FlashRead</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a333c8e44e9af52811dee98f2cfcacf53" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="655" endline="816">FlashWrite</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1af45c38b76bbabbaf848a33cdc889ebfb" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1755" endline="1807">GetRealAddr</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1aa6007218826af36e0df62b747de40de5" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="1253" endline="1441">MultiDieRead</referencedby>
+        <referencedby refid="xqspipsu__polldata__polltimeout__interrupt__example_8c_1a90454c300a46c3a9c1ba66d2a680b63c" compoundref="xqspipsu__polldata__polltimeout__interrupt__example_8c" startline="594" endline="629">QspiPsuConfigurePoll</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__non__blocking__read__example_8c_1a5ff92137c574620d42d37c564565bbbf" compoundref="xqspipsu__generic__flash__non__blocking__read__example_8c" startline="238" endline="426">QspiPsuFlashNonBlockingReadExample</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__interrupt__example_8c_1a5460b9fed1713fd6fcf6fe88b8eb3331" compoundref="xqspipsu__generic__flash__interrupt__example_8c" startline="293" endline="534">QspiPsuInterruptFlashExample</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c_1a414f5ebcabb6461fc494d784f711f306" compoundref="xqspipsu__generic__flash__polled__64bit__dma__r5__example_8c" startline="255" endline="436">QspiPsuPolledFlashExample</referencedby>
+        <referencedby refid="xqspipsu__write__protect__example_8c_1aadb60261ff1b3a4ec0b972eb47e90356" compoundref="xqspipsu__write__protect__example_8c" startline="280" endline="496">QspiPsuWriteProtectFlashExample</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0948cd1e33a60561c808e681306bcc65" compoundref="xqspipsu__options_8c" startline="218" endline="263">XQspiPsu_ClearOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" compoundref="xqspipsu__hw_8c" startline="71" endline="106">XQspiPsu_FillTxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" compoundref="xqspipsu__hw_8c" startline="417" endline="471">XQspiPsu_GenFifoEntryDataLen</referencedby>
+        <referencedby refid="group__qspipsu__api_1gab0d4072d9dfe0949c8e099342c2270f6" compoundref="xqspipsu__options_8c" startline="282" endline="303">XQspiPsu_GetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga46a8ddc9fc0b6f9e2d616de84d9c7ed5" compoundref="xqspipsu_8c" startline="220" endline="242">XQspiPsu_Idle</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" compoundref="xqspipsu__hw_8c" startline="678" endline="706">XQspiPsu_IORead</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga83a88b04245b12857557e1d443cd3689" compoundref="xqspipsu__control_8c" startline="301" endline="358">XQspiPsu_PolledMessageTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga18829cabd2b37c4cf9fb2efa0632c398" compoundref="xqspipsu__xfer_8c" startline="101" endline="145">XQspiPsu_PolledRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad8adcb1fd07106bb0add26e24a4c0084" compoundref="xqspipsu__xfer_8c" startline="64" endline="83">XQspiPsu_PolledSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga61de390e2bc4af0ce77448a46763ea39" compoundref="xqspipsu_8c" startline="435" endline="502">XQspiPsu_PolledTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" compoundref="xqspipsu__hw_8c" startline="631" endline="663">XQspiPsu_ReadRxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga9b86ec1c50d3af19b922698fa9ba7dfb" compoundref="xqspipsu__options_8c" startline="325" endline="381">XQspiPsu_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae720bdee9a521b160e1e364053b66b61" compoundref="xqspipsu__hw_8c" startline="564" endline="616">XQspiPsu_SetDefaultConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="265" endline="286">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad0fea713a1ec2a4ce6159439e30f7cd7" compoundref="xqspipsu__options_8c" startline="120" endline="193">XQspiPsu_SetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga3a37a08570be55ea07945a18a80306f3" compoundref="xqspipsu__options_8c" startline="481" endline="523">XQspiPsu_SetReadMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="211" endline="246">XQspiPsu_Setup64BRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="149" endline="195">XQspiPsu_SetupRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga54cce449d0bda6133fe2c254a164e08e" compoundref="xqspipsu__options_8c" startline="543" endline="555">XQspiPsu_SetWP</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0ec97b3d7c6cb24544f0bfa8114b56d7" compoundref="xqspipsu_8c" startline="718" endline="737">XQspiPsu_WriteProtectToggle</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="231" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0948cd1e33a60561c808e681306bcc65" compoundref="xqspipsu__options_8c" startline="218" endline="263">XQspiPsu_ClearOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" compoundref="xqspipsu__hw_8c" startline="485" endline="511">XQspiPsu_CreatePollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" compoundref="xqspipsu__hw_8c" startline="71" endline="106">XQspiPsu_FillTxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga7fc4cdebc35bb7b5d3ca9128917c131c" compoundref="xqspipsu__hw_8c" startline="417" endline="471">XQspiPsu_GenFifoEntryDataLen</referencedby>
+        <referencedby refid="group__qspipsu__api_1gab0d4072d9dfe0949c8e099342c2270f6" compoundref="xqspipsu__options_8c" startline="282" endline="303">XQspiPsu_GetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga46a8ddc9fc0b6f9e2d616de84d9c7ed5" compoundref="xqspipsu_8c" startline="220" endline="242">XQspiPsu_Idle</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa345ea3ab3694a94a60e6217cb8d5e59" compoundref="xqspipsu_8c" startline="609" endline="651">XQspiPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" compoundref="xqspipsu__hw_8c" startline="678" endline="706">XQspiPsu_IORead</referencedby>
+        <referencedby refid="xqspipsu__generic__flash__lqspi__example_8c_1aa6bbd1c49467adb12326f1d14b849a97" compoundref="xqspipsu__generic__flash__lqspi__example_8c" startline="282" endline="302">XQspiPsu_LqspiRead</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga61de390e2bc4af0ce77448a46763ea39" compoundref="xqspipsu_8c" startline="435" endline="502">XQspiPsu_PolledTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" compoundref="xqspipsu__hw_8c" startline="631" endline="663">XQspiPsu_ReadRxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga28338ae42ed4f7d2685ab18de2d21128" compoundref="xqspipsu__options_8c" startline="405" endline="459">XQspiPsu_SelectFlash</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga9b86ec1c50d3af19b922698fa9ba7dfb" compoundref="xqspipsu__options_8c" startline="325" endline="381">XQspiPsu_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="265" endline="286">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad0fea713a1ec2a4ce6159439e30f7cd7" compoundref="xqspipsu__options_8c" startline="120" endline="193">XQspiPsu_SetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga3a37a08570be55ea07945a18a80306f3" compoundref="xqspipsu__options_8c" startline="481" endline="523">XQspiPsu_SetReadMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02ea5e95c8939c2be78d26c255a6ba6f" compoundref="xqspipsu_8c" startline="690" endline="700">XQspiPsu_SetStatusHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="211" endline="246">XQspiPsu_Setup64BRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="149" endline="195">XQspiPsu_SetupRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga54cce449d0bda6133fe2c254a164e08e" compoundref="xqspipsu__options_8c" startline="543" endline="555">XQspiPsu_SetWP</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="122" endline="134">XQspiPsu_TXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0ec97b3d7c6cb24544f0bfa8114b56d7" compoundref="xqspipsu_8c" startline="718" endline="737">XQspiPsu_WriteProtectToggle</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPsu::SendBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>SendBufferPtr</name>
+        <briefdescription>
+<para>Buffer to send (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="233" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="122" endline="134">XQspiPsu_TXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a5464cdad6cf047e5228f13cb3a761c3f" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPsu::RecvBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>RecvBufferPtr</name>
+        <briefdescription>
+<para>Buffer to receive (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="234" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a5847b936a60565902840095849c90331" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XQspiPsu::RecvBuffer</definition>
+        <argsstring></argsstring>
+        <name>RecvBuffer</name>
+        <briefdescription>
+<para>Buffer Address to receive (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="235" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1adc71282aafc4eb9a8f37e672bf3bec51" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XQspiPsu::GenFifoBufferPtr</definition>
+        <argsstring></argsstring>
+        <name>GenFifoBufferPtr</name>
+        <briefdescription>
+<para>Gen FIFO entries. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::TxBytes</definition>
+        <argsstring></argsstring>
+        <name>TxBytes</name>
+        <briefdescription>
+<para>Number of bytes to transfer (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5c0853d67052b9b05af03946e51c4c2" compoundref="xqspipsu__hw_8c" startline="71" endline="106">XQspiPsu_FillTxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa77c471d9c50c3671a2f2a7c28707f4d" compoundref="xqspipsu__xfer_8c" startline="160" endline="183">XQspiPsu_IntrSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga83a88b04245b12857557e1d443cd3689" compoundref="xqspipsu__control_8c" startline="301" endline="358">XQspiPsu_PolledMessageTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad8adcb1fd07106bb0add26e24a4c0084" compoundref="xqspipsu__xfer_8c" startline="64" endline="83">XQspiPsu_PolledSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga58406ccb7e182a93cd3a47c060de091e" compoundref="xqspipsu__hw_8c" startline="122" endline="134">XQspiPsu_TXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::RxBytes</definition>
+        <argsstring></argsstring>
+        <name>RxBytes</name>
+        <briefdescription>
+<para>Number of bytes left to transfer(state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae7900ea73e245de8f091d4d4c201fe76" compoundref="xqspipsu__hw_8c" startline="678" endline="706">XQspiPsu_IORead</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga83a88b04245b12857557e1d443cd3689" compoundref="xqspipsu__control_8c" startline="301" endline="358">XQspiPsu_PolledMessageTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga18829cabd2b37c4cf9fb2efa0632c398" compoundref="xqspipsu__xfer_8c" startline="101" endline="145">XQspiPsu_PolledRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa04d433c594d66417be2c4f83c092203" compoundref="xqspipsu__hw_8c" startline="631" endline="663">XQspiPsu_ReadRxFifo</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="265" endline="286">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga03fb04c8187cf51d256a9196430c6224" compoundref="xqspipsu__hw_8c" startline="211" endline="246">XQspiPsu_Setup64BRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0467a9580fe9018adfd4302fbd91e404" compoundref="xqspipsu__hw_8c" startline="149" endline="195">XQspiPsu_SetupRxDma</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga8b201a022bb63afbaaf9afad23064761" compoundref="xqspipsu__hw_8c" startline="336" endline="399">XQspiPsu_TXRXSetup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1ac08fabd6f7822d5aeffe328e45266196" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::GenFifoEntries</definition>
+        <argsstring></argsstring>
+        <name>GenFifoEntries</name>
+        <briefdescription>
+<para>Number of Gen FIFO entries remaining. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1ad253a7c807935d5b3178966e74f6821c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 XQspiPsu::IsBusy</definition>
+        <argsstring></argsstring>
+        <name>IsBusy</name>
+        <briefdescription>
+<para>A transfer is in progress (state) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0948cd1e33a60561c808e681306bcc65" compoundref="xqspipsu__options_8c" startline="218" endline="263">XQspiPsu_ClearOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga61de390e2bc4af0ce77448a46763ea39" compoundref="xqspipsu_8c" startline="435" endline="502">XQspiPsu_PolledTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga9b86ec1c50d3af19b922698fa9ba7dfb" compoundref="xqspipsu__options_8c" startline="325" endline="381">XQspiPsu_SetClkPrescaler</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad0fea713a1ec2a4ce6159439e30f7cd7" compoundref="xqspipsu__options_8c" startline="120" endline="193">XQspiPsu_SetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga3a37a08570be55ea07945a18a80306f3" compoundref="xqspipsu__options_8c" startline="481" endline="523">XQspiPsu_SetReadMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga54cce449d0bda6133fe2c254a164e08e" compoundref="xqspipsu__options_8c" startline="543" endline="555">XQspiPsu_SetWP</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu::ReadMode</definition>
+        <argsstring></argsstring>
+        <name>ReadMode</name>
+        <briefdescription>
+<para>DMA or IO mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaaa69ec6da90deb760954ea3dcfd55d7f" compoundref="xqspipsu_8c" startline="287" endline="361">XQspiPsu_Abort</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga83a88b04245b12857557e1d443cd3689" compoundref="xqspipsu__control_8c" startline="301" endline="358">XQspiPsu_PolledMessageTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga18829cabd2b37c4cf9fb2efa0632c398" compoundref="xqspipsu__xfer_8c" startline="101" endline="145">XQspiPsu_PolledRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad77b041e10c03756bd0e3c197a63a2e3" compoundref="xqspipsu__hw_8c" startline="301" endline="319">XQspiPsu_RXSetup</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="265" endline="286">XQspiPsu_SetIOMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga3a37a08570be55ea07945a18a80306f3" compoundref="xqspipsu__options_8c" startline="481" endline="523">XQspiPsu_SetReadMode</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1adbe5c279e1de1f98d3f63bc30cd2d2a4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu::GenFifoCS</definition>
+        <argsstring></argsstring>
+        <name>GenFifoCS</name>
+        <briefdescription>
+<para>Gen FIFO chip selection. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga28338ae42ed4f7d2685ab18de2d21128" compoundref="xqspipsu__options_8c" startline="405" endline="459">XQspiPsu_SelectFlash</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a04675183fe2c3b312d0866a2a2f9b906" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XQspiPsu::GenFifoBus</definition>
+        <argsstring></argsstring>
+        <name>GenFifoBus</name>
+        <briefdescription>
+<para>Gen FIFO bus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6f3b7fc81ae5c50ee3ea373d80b4b542" compoundref="xqspipsu__hw_8c" startline="485" endline="511">XQspiPsu_CreatePollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga28338ae42ed4f7d2685ab18de2d21128" compoundref="xqspipsu__options_8c" startline="405" endline="459">XQspiPsu_SelectFlash</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1af6710ef68edf3ff0a833c088207ba227" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::NumMsg</definition>
+        <argsstring></argsstring>
+        <name>NumMsg</name>
+        <briefdescription>
+<para>Number of messages. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaa345ea3ab3694a94a60e6217cb8d5e59" compoundref="xqspipsu_8c" startline="609" endline="651">XQspiPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1ad39fab4f939983f961777ae33212f14c" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::MsgCnt</definition>
+        <argsstring></argsstring>
+        <name>MsgCnt</name>
+        <briefdescription>
+<para>Message Count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="245" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="245" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaa345ea3ab3694a94a60e6217cb8d5e59" compoundref="xqspipsu_8c" startline="609" endline="651">XQspiPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa77c471d9c50c3671a2f2a7c28707f4d" compoundref="xqspipsu__xfer_8c" startline="160" endline="183">XQspiPsu_IntrSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a1e1d64fc74cfc2442eedaf0eb3f97263" prot="public" static="no" mutable="no">
+        <type>s32</type>
+        <definition>s32 XQspiPsu::IsUnaligned</definition>
+        <argsstring></argsstring>
+        <name>IsUnaligned</name>
+        <briefdescription>
+<para>Unaligned information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga08036c2fa8996e246d9d529fd2302af9" compoundref="xqspipsu__control_8c" startline="67" endline="116">XQspiPsu_GenFifoEntryData</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga83a88b04245b12857557e1d443cd3689" compoundref="xqspipsu__control_8c" startline="301" endline="358">XQspiPsu_PolledMessageTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02f2ea05785dff6887625c5ef088a73b" compoundref="xqspipsu__hw_8c" startline="265" endline="286">XQspiPsu_SetIOMode</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a159f22a8fb11877c4b4b2888d8153fd2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XQspiPsu::IsManualstart</definition>
+        <argsstring></argsstring>
+        <name>IsManualstart</name>
+        <briefdescription>
+<para>Manual start information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="247" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="247" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga0948cd1e33a60561c808e681306bcc65" compoundref="xqspipsu__options_8c" startline="218" endline="263">XQspiPsu_ClearOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1gad0fea713a1ec2a4ce6159439e30f7cd7" compoundref="xqspipsu__options_8c" startline="120" endline="193">XQspiPsu_SetOptions</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a29f89d26e8b2046a17065912e1a7b365" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_qspi_psu___msg" kindref="compound">XQspiPsu_Msg</ref> *</type>
+        <definition>XQspiPsu_Msg* XQspiPsu::Msg</definition>
+        <argsstring></argsstring>
+        <name>Msg</name>
+        <briefdescription>
+<para>Message. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="248" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga6be41fd692a96516b0ce22591510c73d" compoundref="xqspipsu_8c" startline="849" endline="893">XQspiPsu_CheckDmaDone</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa345ea3ab3694a94a60e6217cb8d5e59" compoundref="xqspipsu_8c" startline="609" endline="651">XQspiPsu_InterruptHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga6ae727534cf55b878b9b1974dc72a625" compoundref="xqspipsu_8c" startline="523" endline="593">XQspiPsu_InterruptTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga872f5fe8dbac27ca8867387e2185069d" compoundref="xqspipsu__xfer_8c" startline="199" endline="237">XQspiPsu_IntrRecvData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaa77c471d9c50c3671a2f2a7c28707f4d" compoundref="xqspipsu__xfer_8c" startline="160" endline="183">XQspiPsu_IntrSendData</referencedby>
+        <referencedby refid="group__qspipsu__api_1gae55fa60e803534f990c0493b67eb02f1" compoundref="xqspipsu__control_8c" startline="132" endline="202">XQspiPsu_PollDataConfig</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga769969b43f91def18f7501555ec35b11" compoundref="xqspipsu_8c" startline="758" endline="833">XQspiPsu_StartDmaTransfer</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1a2ebf04ce847da29d6069795db26fbccc" prot="public" static="no" mutable="no">
+        <type><ref refid="group__qspipsu__api_1ga4fcad0707fd0557232bc94a8c3ba1fea" kindref="member">XQspiPsu_StatusHandler</ref></type>
+        <definition>XQspiPsu_StatusHandler XQspiPsu::StatusHandler</definition>
+        <argsstring></argsstring>
+        <name>StatusHandler</name>
+        <briefdescription>
+<para>Status Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="249" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="249" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1ga803eccd67d1dfde416b54488865c1e9d" compoundref="xqspipsu_8c" startline="138" endline="202">XQspiPsu_CfgInitialize</referencedby>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02ea5e95c8939c2be78d26c255a6ba6f" compoundref="xqspipsu_8c" startline="690" endline="700">XQspiPsu_SetStatusHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_qspi_psu_1aaf2ea17aa1aae667ccc6190222e218f7" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XQspiPsu::StatusRef</definition>
+        <argsstring></argsstring>
+        <name>StatusRef</name>
+        <briefdescription>
+<para>Callback reference for status handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="250" bodyend="-1"/>
+        <referencedby refid="group__qspipsu__api_1gaf5cca9a4c8ba075e4d9855a789cecc40" compoundref="xqspipsu__control_8c" startline="373" endline="406">XQspiPsu_IntrDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga73c0f0aa6fe6f1818b7ec15cdac0e7ed" compoundref="xqspipsu__control_8c" startline="421" endline="483">XQspiPsu_IntrDummyDataTransfer</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga5f083afb4ec79c542a7c7098a519d771" compoundref="xqspipsu_8c" startline="379" endline="415">XQspiPsu_PollDataHandler</referencedby>
+        <referencedby refid="group__qspipsu__api_1ga02ea5e95c8939c2be78d26c255a6ba6f" compoundref="xqspipsu_8c" startline="690" endline="700">XQspiPsu_SetStatusHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_qspi_psu" kindref="compound">XQspiPsu</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every QSPIPSU device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XQspiPsu_Config</label>
+        <link refid="struct_x_qspi_psu___config"/>
+      </node>
+      <node id="7">
+        <label>XQspiPsu_Msg</label>
+        <link refid="struct_x_qspi_psu___msg"/>
+      </node>
+      <node id="5">
+        <label>XQspiPsu</label>
+        <link refid="struct_x_qspi_psu"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Msg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/qspipsu/src/xqspipsu.h" bodystart="229" bodyend="251"/>
+    <listofallmembers>
+      <member refid="struct_x_qspi_psu_1a9b3aa272eb335fecaaa8f47fd2ed9241" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>Config</name></member>
+      <member refid="struct_x_qspi_psu_1adc71282aafc4eb9a8f37e672bf3bec51" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>GenFifoBufferPtr</name></member>
+      <member refid="struct_x_qspi_psu_1a04675183fe2c3b312d0866a2a2f9b906" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>GenFifoBus</name></member>
+      <member refid="struct_x_qspi_psu_1adbe5c279e1de1f98d3f63bc30cd2d2a4" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>GenFifoCS</name></member>
+      <member refid="struct_x_qspi_psu_1ac08fabd6f7822d5aeffe328e45266196" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>GenFifoEntries</name></member>
+      <member refid="struct_x_qspi_psu_1ad253a7c807935d5b3178966e74f6821c" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>IsBusy</name></member>
+      <member refid="struct_x_qspi_psu_1a159f22a8fb11877c4b4b2888d8153fd2" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>IsManualstart</name></member>
+      <member refid="struct_x_qspi_psu_1ae6039f5b4f8cdf2e528931ec383deb31" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>IsReady</name></member>
+      <member refid="struct_x_qspi_psu_1a1e1d64fc74cfc2442eedaf0eb3f97263" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>IsUnaligned</name></member>
+      <member refid="struct_x_qspi_psu_1a29f89d26e8b2046a17065912e1a7b365" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>Msg</name></member>
+      <member refid="struct_x_qspi_psu_1ad39fab4f939983f961777ae33212f14c" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>MsgCnt</name></member>
+      <member refid="struct_x_qspi_psu_1af6710ef68edf3ff0a833c088207ba227" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>NumMsg</name></member>
+      <member refid="struct_x_qspi_psu_1abcf49b02b0b90a7eecf9fb5ba40ac0b3" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>ReadMode</name></member>
+      <member refid="struct_x_qspi_psu_1a5847b936a60565902840095849c90331" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>RecvBuffer</name></member>
+      <member refid="struct_x_qspi_psu_1a5464cdad6cf047e5228f13cb3a761c3f" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>RecvBufferPtr</name></member>
+      <member refid="struct_x_qspi_psu_1ac45ddbc82ca891a58fbc9f25150fce30" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>RxBytes</name></member>
+      <member refid="struct_x_qspi_psu_1a2a11cb56ad7d4b388a4669359156ab0b" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>SendBufferPtr</name></member>
+      <member refid="struct_x_qspi_psu_1a2ebf04ce847da29d6069795db26fbccc" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>StatusHandler</name></member>
+      <member refid="struct_x_qspi_psu_1aaf2ea17aa1aae667ccc6190222e218f7" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>StatusRef</name></member>
+      <member refid="struct_x_qspi_psu_1a489eab59d93d119fe5776f8d440ec2bd" prot="public" virt="non-virtual"><scope>XQspiPsu</scope><name>TxBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

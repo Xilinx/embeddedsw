@@ -1,0 +1,1431 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpiops__intr_8c" kind="file">
+    <compoundname>xgpiops_intr.c</compoundname>
+    <includes refid="xgpiops_8h" local="yes">xgpiops.h</includes>
+    <incdepgraph>
+      <node id="69">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="70">
+        <label>xil_io.h</label>
+      </node>
+      <node id="71">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="67">
+        <label>xgpiops_hw.h</label>
+        <link refid="xgpiops__hw_8h"/>
+        <childnode refid="68" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+        <childnode refid="70" relation="include">
+        </childnode>
+      </node>
+      <node id="66">
+        <label>xstatus.h</label>
+      </node>
+      <node id="65">
+        <label>xgpiops.h</label>
+        <link refid="xgpiops_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="68">
+        <label>xil_types.h</label>
+      </node>
+      <node id="64">
+        <label>xgpiops_intr.c</label>
+        <link refid="xgpiops_intr.c"/>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrEnable</definition>
+        <argsstring>(XGpioPs *InstancePtr, u8 Bank, u32 Mask)</argsstring>
+        <name>XGpioPs_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupts for the specified pins in the specified bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit mask of the pins for which interrupts are to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="75" bodyend="94"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" compoundref="xgpiops_8h" startline="266">XGpioPs::CoreIntrMask</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" compoundref="xgpiops__hw_8h" startline="57">XGPIOPS_INTEN_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+        <referencedby refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" compoundref="xgpiops__selftest_8c" startline="64" endline="112">XGpioPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrEnablePin</definition>
+        <argsstring>(XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_IntrEnablePin</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the interrupt for the specified pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number for which the interrupt is to be enabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="109" bodyend="133"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" compoundref="xgpiops_8h" startline="266">XGpioPs::CoreIntrMask</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" compoundref="xgpiops__hw_8h" startline="57">XGPIOPS_INTEN_OFFSET</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrDisable</definition>
+        <argsstring>(XGpioPs *InstancePtr, u8 Bank, u32 Mask)</argsstring>
+        <name>XGpioPs_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupts for the specified pins in the specified bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit mask of the pins for which interrupts are to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="152" bodyend="171"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" compoundref="xgpiops_8h" startline="266">XGpioPs::CoreIntrMask</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" compoundref="xgpiops__hw_8h" startline="58">XGPIOPS_INTDIS_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+        <referencedby refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" compoundref="xgpiops__selftest_8c" startline="64" endline="112">XGpioPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrDisablePin</definition>
+        <argsstring>(XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_IntrDisablePin</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the interrupts for the specified pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number for which the interrupt is to be disabled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="186" bodyend="210"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" compoundref="xgpiops_8h" startline="266">XGpioPs::CoreIntrMask</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" compoundref="xgpiops__hw_8h" startline="58">XGPIOPS_INTDIS_OFFSET</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpioPs_IntrGetEnabled</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u8 Bank)</argsstring>
+        <name>XGpioPs_IntrGetEnabled</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the interrupt enable status for a bank. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Enabled interrupt(s) in a 32-bit format. Bit positions with 1 indicate that the interrupt for that pin is enabled, bit positions with 0 indicate that the interrupt for that pin is disabled.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="228" bodyend="247"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" compoundref="xgpiops__hw_8h" startline="56">XGPIOPS_INTMASK_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <referencedby refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" compoundref="xgpiops__intr_8c" startline="748" endline="780">XGpioPs_IntrHandler</referencedby>
+        <referencedby refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" compoundref="xgpiops__selftest_8c" startline="64" endline="112">XGpioPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga323857757f17a313a984de0b522341e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpioPs_IntrGetEnabledPin</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_IntrGetEnabledPin</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function returns whether interrupts are enabled for the specified pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number for which the interrupt enable status is to be known.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the interrupt is enabled.</para></listitem><listitem><para>FALSE if the interrupt is disabled.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="265" bodyend="287"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" compoundref="xgpiops__hw_8h" startline="56">XGPIOPS_INTMASK_OFFSET</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpioPs_IntrGetStatus</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u8 Bank)</argsstring>
+        <name>XGpioPs_IntrGetStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <briefdescription>
+<para>This function returns interrupt status read from Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from Interrupt Status Register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="302" bodyend="318"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" compoundref="xgpiops__hw_8h" startline="59">XGPIOPS_INTSTS_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <referencedby refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" compoundref="xgpiops__intr_8c" startline="748" endline="780">XGpioPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XGpioPs_IntrGetStatusPin</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_IntrGetStatusPin</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function returns interrupt enable status of the specified pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number for which the interrupt enable status is to be known.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if the interrupt has occurred.</para></listitem><listitem><para>FALSE if the interrupt has not occurred.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="336" bodyend="358"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" compoundref="xgpiops__hw_8h" startline="59">XGPIOPS_INTSTS_OFFSET</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrClear</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u8 Bank, u32 Mask)</argsstring>
+        <name>XGpioPs_IntrClear</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears pending interrupt(s) with the provided mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function should be called after the software has serviced the interrupts that are pending.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="376" bodyend="393"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" compoundref="xgpiops__hw_8h" startline="59">XGPIOPS_INTSTS_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+        <referencedby refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" compoundref="xgpiops__intr_8c" startline="748" endline="780">XGpioPs_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrClearPin</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_IntrClearPin</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the specified pending interrupt. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function should be called after the software has serviced the interrupts that are pending.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number for which the interrupt status is to be cleared.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="408" bodyend="434"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" compoundref="xgpiops__hw_8h" startline="59">XGPIOPS_INTSTS_OFFSET</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_SetIntrType</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u8 Bank, u32 IntrType, u32 IntrPolarity, u32 IntrOnAny)</argsstring>
+        <name>XGpioPs_SetIntrType</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrPolarity</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrOnAny</declname>
+        </param>
+        <briefdescription>
+<para>This function is used for setting the Interrupt Type, Interrupt Polarity and Interrupt On Any for the specified GPIO Bank pins. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit mask of the interrupt type. 0 means Level Sensitive and 1 means Edge Sensitive. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrPolarity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit mask of the interrupt polarity. 0 means Active Low or Falling Edge and 1 means Active High or Rising Edge. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrOnAny</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit mask of the interrupt trigger for edge triggered interrupts. 0 means trigger on single edge using the configured interrupt polarity and 1 means trigger on both edges.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function is used for setting the interrupt related properties of all the pins in the specified bank. The previous state of the pins is not maintained. To change the Interrupt properties of a single GPIO pin, use the function XGpioPs_SetPinIntrType(). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="463" bodyend="488"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" compoundref="xgpiops__hw_8h" startline="62">XGPIOPS_INTANY_OFFSET</references>
+        <references refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" compoundref="xgpiops__hw_8h" startline="61">XGPIOPS_INTPOL_OFFSET</references>
+        <references refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" compoundref="xgpiops__hw_8h" startline="60">XGPIOPS_INTTYPE_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+        <referencedby refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" compoundref="xgpiops__selftest_8c" startline="64" endline="112">XGpioPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_GetIntrType</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u8 Bank, u32 *IntrType, u32 *IntrPolarity, u32 *IntrOnAny)</argsstring>
+        <name>XGpioPs_GetIntrType</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Bank</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IntrType</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IntrPolarity</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IntrOnAny</declname>
+        </param>
+        <briefdescription>
+<para>This function is used for getting the Interrupt Type, Interrupt Polarity and Interrupt On Any for the specified GPIO Bank pins. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bank</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bank number of the GPIO to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>returns the 32 bit mask of the interrupt type. 0 means Level Sensitive and 1 means Edge Sensitive. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrPolarity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>returns the 32 bit mask of the interrupt polarity. 0 means Active Low or Falling Edge and 1 means Active High or Rising Edge. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrOnAny</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>returns the 32 bit mask of the interrupt trigger for edge triggered interrupts. 0 means trigger on single edge using the configured interrupt polarity and 1 means trigger on both edges.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="513" bodyend="539"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" compoundref="xgpiops__hw_8h" startline="62">XGPIOPS_INTANY_OFFSET</references>
+        <references refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" compoundref="xgpiops__hw_8h" startline="61">XGPIOPS_INTPOL_OFFSET</references>
+        <references refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" compoundref="xgpiops__hw_8h" startline="60">XGPIOPS_INTTYPE_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <referencedby refid="group__gpiops_1ga173133193aeba362fa0a5c6e7cdd8dfa" compoundref="xgpiops__selftest_8c" startline="64" endline="112">XGpioPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_SetIntrTypePin</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u32 Pin, u8 IrqType)</argsstring>
+        <name>XGpioPs_SetIntrTypePin</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>IrqType</declname>
+        </param>
+        <briefdescription>
+<para>This function is used for setting the IRQ Type of a single GPIO pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number whose IRQ type is to be set. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IrqType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the IRQ type for GPIO Pin. Use XGPIOPS_IRQ_TYPE_* defined in <ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref> to specify the IRQ type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; Default statement is added for MISRA C compliance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="556" bodyend="627"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" compoundref="xgpiops__hw_8h" startline="62">XGPIOPS_INTANY_OFFSET</references>
+        <references refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" compoundref="xgpiops__hw_8h" startline="61">XGPIOPS_INTPOL_OFFSET</references>
+        <references refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" compoundref="xgpiops__hw_8h" startline="60">XGPIOPS_INTTYPE_OFFSET</references>
+        <references refid="group__gpiops_1gaaa0415781a99043db06849daa027d5c5" compoundref="xgpiops_8h" startline="163">XGPIOPS_IRQ_TYPE_EDGE_BOTH</references>
+        <references refid="group__gpiops_1gae8082ec62bd44c68e3334b77c87fca96" compoundref="xgpiops_8h" startline="162">XGPIOPS_IRQ_TYPE_EDGE_FALLING</references>
+        <references refid="group__gpiops_1ga25b306607f3b370ea355229c21e7db02" compoundref="xgpiops_8h" startline="161">XGPIOPS_IRQ_TYPE_EDGE_RISING</references>
+        <references refid="group__gpiops_1ga09bf1d6e818f6f442ba61535f8e855ea" compoundref="xgpiops_8h" startline="164">XGPIOPS_IRQ_TYPE_LEVEL_HIGH</references>
+        <references refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" compoundref="xgpiops_8h" startline="165">XGPIOPS_IRQ_TYPE_LEVEL_LOW</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1ga848274dc058043932e802a3caa39db3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XGpioPs_GetIntrTypePin</definition>
+        <argsstring>(const XGpioPs *InstancePtr, u32 Pin)</argsstring>
+        <name>XGpioPs_GetIntrTypePin</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the IRQ Type of a given GPIO pin. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pin number whose IRQ type is to be obtained.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use XGPIOPS_IRQ_TYPE_* defined in <ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref> for the IRQ type returned by this function. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="643" bodyend="699"/>
+        <references refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" compoundref="xgpiops_8h" startline="243">XGpioPs_Config::BaseAddr</references>
+        <references refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" compoundref="xgpiops_8h" startline="258">XGpioPs::GpioConfig</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</references>
+        <references refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" compoundref="xgpiops__hw_8h" startline="62">XGPIOPS_INTANY_OFFSET</references>
+        <references refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" compoundref="xgpiops__hw_8h" startline="61">XGPIOPS_INTPOL_OFFSET</references>
+        <references refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" compoundref="xgpiops__hw_8h" startline="60">XGPIOPS_INTTYPE_OFFSET</references>
+        <references refid="group__gpiops_1gaaa0415781a99043db06849daa027d5c5" compoundref="xgpiops_8h" startline="163">XGPIOPS_IRQ_TYPE_EDGE_BOTH</references>
+        <references refid="group__gpiops_1gae8082ec62bd44c68e3334b77c87fca96" compoundref="xgpiops_8h" startline="162">XGPIOPS_IRQ_TYPE_EDGE_FALLING</references>
+        <references refid="group__gpiops_1ga25b306607f3b370ea355229c21e7db02" compoundref="xgpiops_8h" startline="161">XGPIOPS_IRQ_TYPE_EDGE_RISING</references>
+        <references refid="group__gpiops_1ga09bf1d6e818f6f442ba61535f8e855ea" compoundref="xgpiops_8h" startline="164">XGPIOPS_IRQ_TYPE_LEVEL_HIGH</references>
+        <references refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" compoundref="xgpiops_8h" startline="165">XGPIOPS_IRQ_TYPE_LEVEL_LOW</references>
+        <references refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" compoundref="xgpiops__hw_8h" startline="118">XGpioPs_ReadReg</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gacd63e0e5c7ed18517d54104e4ad6dcd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_SetCallbackHandler</definition>
+        <argsstring>(XGpioPs *InstancePtr, void *CallBackRef, XGpioPs_Handler FuncPointer)</argsstring>
+        <name>XGpioPs_SetCallbackHandler</name>
+        <param>
+          <type><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type><ref refid="group__gpiops_1ga2349a384fe8a39f89168780f84940efc" kindref="member">XGpioPs_Handler</ref></type>
+          <declname>FuncPointer</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the status callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para>The callback function is called by the XGpioPs_IntrHandler when an interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The handler is called within interrupt context, so it should do its work quickly and queue potentially time-consuming work to a task-level thread. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="720" bodyend="729"/>
+        <references refid="struct_x_gpio_ps_1a7bb5325d472614845866cb7abf370ce9" compoundref="xgpiops_8h" startline="261">XGpioPs::CallBackRef</references>
+        <references refid="struct_x_gpio_ps_1aca8b8269a2bd384f19de77e312de684a" compoundref="xgpiops_8h" startline="260">XGpioPs::Handler</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+      </memberdef>
+      <memberdef kind="function" id="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_IntrHandler</definition>
+        <argsstring>(const XGpioPs *InstancePtr)</argsstring>
+        <name>XGpioPs_IntrHandler</name>
+        <param>
+          <type>const <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for GPIO interrupts.It checks the interrupt status registers of all the banks to determine the actual bank in which an interrupt has been triggered. </para>        </briefdescription>
+        <detaileddescription>
+<para>It then calls the upper layer callback handler set by the function XGpioPs_SetBankHandler(). The callback is called when an interrupt</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>This function does not save and restore the processor context such that the user must provide this processing. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c" bodystart="748" bodyend="780"/>
+        <references refid="struct_x_gpio_ps_1a7bb5325d472614845866cb7abf370ce9" compoundref="xgpiops_8h" startline="261">XGpioPs::CallBackRef</references>
+        <references refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" compoundref="xgpiops_8h" startline="266">XGpioPs::CoreIntrMask</references>
+        <references refid="struct_x_gpio_ps_1aca8b8269a2bd384f19de77e312de684a" compoundref="xgpiops_8h" startline="260">XGpioPs::Handler</references>
+        <references refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" compoundref="xgpiops_8h" startline="259">XGpioPs::IsReady</references>
+        <references refid="struct_x_gpio_ps_1aea00d5eac94a0ae4b17d3ec0061afba1" compoundref="xgpiops_8h" startline="264">XGpioPs::MaxBanks</references>
+        <references refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" compoundref="xgpiops_8h" startline="265">XGpioPs::PmcGpio</references>
+        <references refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</references>
+        <references refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</references>
+        <references refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xgpiops_8h" kindref="compound">xgpiops.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="75" refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" kindref="member">XGpioPs_IntrEnable</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" kindref="member">XGPIOPS_INTEN_OFFSET</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>mask<sp/>for<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" kindref="member">CoreIntrMask</ref>[Bank]<sp/>|=<sp/>Mask;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" kindref="member">XGpioPs_IntrEnablePin</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" kindref="member">XGPIOPS_INTEN_OFFSET</ref>,<sp/>IntrReg);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>mask<sp/>for<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" kindref="member">CoreIntrMask</ref>[Bank]<sp/>|=<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="152" refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" kindref="member">XGpioPs_IntrDisable</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="153"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" kindref="member">XGPIOPS_INTDIS_OFFSET</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>mask<sp/>for<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" kindref="member">CoreIntrMask</ref>[Bank]<sp/>&amp;=<sp/>~Mask;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="186" refid="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" kindref="member">XGpioPs_IntrDisablePin</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" kindref="member">XGPIOPS_INTDIS_OFFSET</ref>,<sp/>IntrReg);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>mask<sp/>for<sp/>CPU<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" kindref="member">CoreIntrMask</ref>[Bank]<sp/>&amp;=<sp/>~IntrReg;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" kindref="member">XGpioPs_IntrGetEnabled</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrMask;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrMask<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" kindref="member">XGPIOPS_INTMASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(~IntrMask);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="265" refid="group__gpiops_1ga323857757f17a313a984de0b522341e3" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpiops_1ga323857757f17a313a984de0b522341e3" kindref="member">XGpioPs_IntrGetEnabledPin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/><sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" kindref="member">XGPIOPS_INTMASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((IntrReg<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>!=<sp/>(u32)0)?<sp/>(u32)FALSE<sp/>:<sp/>(u32)TRUE);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="302" refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" kindref="member">XGpioPs_IntrGetStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="308"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" kindref="member">XGPIOPS_INTSTS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="336" refid="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" kindref="member">XGpioPs_IntrGetStatusPin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="352"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" kindref="member">XGPIOPS_INTSTS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(((IntrReg<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>!=<sp/>(u32)0)?<sp/>(u32)TRUE<sp/>:<sp/>(u32)FALSE);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="376" refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" kindref="member">XGpioPs_IntrClear</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="377"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="382"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>currently<sp/>pending<sp/>interrupts.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" kindref="member">XGPIOPS_INTSTS_OFFSET</ref>,<sp/>Mask);</highlight></codeline>
+<codeline lineno="393"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="408" refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" kindref="member">XGpioPs_IntrClearPin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="409"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrReg;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="422"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="424"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>specified<sp/>pending<sp/>interrupts.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" kindref="member">XGPIOPS_INTSTS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrReg<sp/>&amp;=<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber);</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" kindref="member">XGPIOPS_INTSTS_OFFSET</ref>,<sp/>IntrReg);</highlight></codeline>
+<codeline lineno="434"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight></codeline>
+<codeline lineno="436"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="463" refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" kindref="member">XGpioPs_SetIntrType</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank,<sp/>u32<sp/>IntrType,</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrPolarity,<sp/>u32<sp/>IntrOnAny)</highlight></codeline>
+<codeline lineno="465"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="476"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" kindref="member">XGPIOPS_INTTYPE_OFFSET</ref>,<sp/>IntrType);</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>,<sp/>IntrPolarity);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" kindref="member">XGPIOPS_INTANY_OFFSET</ref>,<sp/>IntrOnAny);</highlight></codeline>
+<codeline lineno="488"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="513" refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" kindref="member">XGpioPs_GetIntrType</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u8<sp/>Bank,<sp/>u32<sp/>*IntrType,</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*IntrPolarity,<sp/>u32<sp/>*IntrOnAny)</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"></highlight></codeline>
+<codeline lineno="516"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>&lt;<sp/>InstancePtr-&gt;MaxBanks);</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="521"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Bank<sp/>!=<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>);</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid((Bank<sp/>!=<ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>&amp;&amp;<sp/>(Bank<sp/>!=<ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>));</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="527"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*IntrType<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" kindref="member">XGPIOPS_INTTYPE_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*IntrPolarity<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*IntrOnAny<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" kindref="member">XGPIOPS_INTANY_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="539"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="556" refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" kindref="member">XGpioPs_SetIntrTypePin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin,<sp/>u8<sp/>IrqType)</highlight></codeline>
+<codeline lineno="557"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrTypeReg;</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrPolReg;</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrOnAnyReg;</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"></highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(IrqType<sp/>&lt;=<sp/><ref refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" kindref="member">XGPIOPS_IRQ_TYPE_LEVEL_LOW</ref>);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="570"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="571"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="573"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="575"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" kindref="member">XGPIOPS_INTTYPE_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPolReg<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="583"><highlight class="normal"></highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrOnAnyReg<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" kindref="member">XGPIOPS_INTANY_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(IrqType)<sp/>{</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga25b306607f3b370ea355229c21e7db02" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_RISING</ref>:</highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPolReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrOnAnyReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gae8082ec62bd44c68e3334b77c87fca96" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_FALLING</ref>:</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPolReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrOnAnyReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gaaa0415781a99043db06849daa027d5c5" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_BOTH</ref>:</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrOnAnyReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga09bf1d6e818f6f442ba61535f8e855ea" kindref="member">XGPIOPS_IRQ_TYPE_LEVEL_HIGH</ref>:</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPolReg<sp/>|=<sp/>((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" kindref="member">XGPIOPS_IRQ_TYPE_LEVEL_LOW</ref>:</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrTypeReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPolReg<sp/>&amp;=<sp/>~((u32)1<sp/>&lt;&lt;<sp/>(u32)PinNumber);</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"></highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" kindref="member">XGPIOPS_INTTYPE_OFFSET</ref>,<sp/>IntrTypeReg);</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"></highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>,<sp/>IntrPolReg);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" kindref="member">XGpioPs_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" kindref="member">XGPIOPS_INTANY_OFFSET</ref>,<sp/>IntrOnAnyReg);</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="643" refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" kindref="member">XGpioPs_GetIntrTypePin</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/>u32<sp/>Pin)</highlight></codeline>
+<codeline lineno="644"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="645"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrType;</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrPol;</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrOnAny;</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>PinNumber;</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IrqType;</highlight></codeline>
+<codeline lineno="651"><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Pin<sp/>&lt;<sp/>InstancePtr-&gt;MaxPinNum);</highlight></codeline>
+<codeline lineno="655"><highlight class="normal"></highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Bank<sp/>number<sp/>and<sp/>Pin<sp/>number<sp/>within<sp/>the<sp/>bank.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="657"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="658"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>(InstancePtr,(u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="660"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" kindref="member">XGpioPs_GetBankPin</ref>((u8)Pin,<sp/>&amp;Bank,<sp/>&amp;PinNumber);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="662"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrType<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/><ref refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" kindref="member">XGPIOPS_REG_MASK_OFFSET</ref>)<sp/>+</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" kindref="member">XGPIOPS_INTTYPE_OFFSET</ref>)<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber);</highlight></codeline>
+<codeline lineno="666"><highlight class="normal"></highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrType<sp/>==<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>{</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"></highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrOnAny<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="670"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" kindref="member">XGPIOPS_INTANY_OFFSET</ref>)<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber);</highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPol<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>)<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber);</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"></highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrOnAny<sp/>==<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>{</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IrqType<sp/>=<sp/><ref refid="group__gpiops_1gaaa0415781a99043db06849daa027d5c5" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_BOTH</ref>;</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrPol<sp/>==<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>{</highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IrqType<sp/>=<sp/><ref refid="group__gpiops_1ga25b306607f3b370ea355229c21e7db02" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_RISING</ref>;</highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IrqType<sp/>=<sp/><ref refid="group__gpiops_1gae8082ec62bd44c68e3334b77c87fca96" kindref="member">XGPIOPS_IRQ_TYPE_EDGE_FALLING</ref>;</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrPol<sp/>=<sp/><ref refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" kindref="member">XGpioPs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a312cec02e6e2550ba15824fad0596921" kindref="member">GpioConfig</ref>.<ref refid="struct_x_gpio_ps___config_1aa74cd33dca7de750beea6adbe0b69ae8" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)(Bank)<sp/>*<sp/>XGPIOPS_REG_MASK_OFFSET)<sp/>+</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" kindref="member">XGPIOPS_INTPOL_OFFSET</ref>)<sp/>&amp;<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber);</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"></highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(IntrPol<sp/>==<sp/>((u32)1<sp/>&lt;&lt;<sp/>PinNumber))<sp/>{</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IrqType<sp/>=<sp/><ref refid="group__gpiops_1ga09bf1d6e818f6f442ba61535f8e855ea" kindref="member">XGPIOPS_IRQ_TYPE_LEVEL_HIGH</ref>;</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IrqType<sp/>=<sp/><ref refid="group__gpiops_1ga84b599940b75f6e1d6920c7b33fc2789" kindref="member">XGPIOPS_IRQ_TYPE_LEVEL_LOW</ref>;</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>IrqType;</highlight></codeline>
+<codeline lineno="699"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="720" refid="group__gpiops_1gacd63e0e5c7ed18517d54104e4ad6dcd4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gacd63e0e5c7ed18517d54104e4ad6dcd4" kindref="member">XGpioPs_SetCallbackHandler</ref>(<ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,</highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1ga2349a384fe8a39f89168780f84940efc" kindref="member">XGpioPs_Handler</ref><sp/>FuncPointer)</highlight></codeline>
+<codeline lineno="722"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPointer<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"></highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1aca8b8269a2bd384f19de77e312de684a" kindref="member">Handler</ref><sp/>=<sp/>FuncPointer;</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a7bb5325d472614845866cb7abf370ce9" kindref="member">CallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="729"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"></highlight></codeline>
+<codeline lineno="731"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="748" refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" kindref="member">XGpioPs_IntrHandler</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_gpio_ps" kindref="compound">XGpioPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="749"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Bank;</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask;</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatus;</highlight></codeline>
+<codeline lineno="753"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrEnabled;</highlight></codeline>
+<codeline lineno="754"><highlight class="normal"></highlight></codeline>
+<codeline lineno="755"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a3acad7612d69a3b801cea87a78aaa60b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="757"><highlight class="normal"></highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Bank<sp/>=<sp/>0U;<sp/>Bank<sp/>&lt;<sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1aea00d5eac94a0ae4b17d3ec0061afba1" kindref="member">MaxBanks</ref>;<sp/>Bank++)<sp/>{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>versal</highlight></codeline>
+<codeline lineno="760"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a50fe90cdd869323ac83d27f1439c58ea" kindref="member">PmcGpio</ref><sp/>==<sp/>(u32)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Bank<sp/>==<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="763"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="764"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="765"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((Bank<sp/>==<sp/><ref refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" kindref="member">XGPIOPS_ONE</ref>)<sp/>||<sp/>(Bank<sp/>==<sp/><ref refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" kindref="member">XGPIOPS_TWO</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="766"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="767"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="768"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="769"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="770"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatus<sp/>=<sp/><ref refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" kindref="member">XGpioPs_IntrGetStatus</ref>(InstancePtr,<sp/>Bank);</highlight></codeline>
+<codeline lineno="771"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrEnabled<sp/>=<sp/><ref refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" kindref="member">XGpioPs_IntrGetEnabled</ref>(InstancePtr,Bank);</highlight></codeline>
+<codeline lineno="772"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask<sp/>=<sp/>IntrStatus<sp/>&amp;<sp/>IntrEnabled<sp/>&amp;<sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a1f5502ab9e469d502a476a7433b2de9b" kindref="member">CoreIntrMask</ref>[Bank];</highlight></codeline>
+<codeline lineno="773"><highlight class="normal"></highlight></codeline>
+<codeline lineno="774"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask<sp/>!=<sp/>(u32)0)</highlight></codeline>
+<codeline lineno="775"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="776"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" kindref="member">XGpioPs_IntrClear</ref>(InstancePtr,<sp/>Bank,<sp/>Mask);</highlight></codeline>
+<codeline lineno="777"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1aca8b8269a2bd384f19de77e312de684a" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_gpio_ps_1a7bb5325d472614845866cb7abf370ce9" kindref="member">CallBackRef</ref>,<sp/>Bank,<sp/>Mask);</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="779"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="780"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_intr.c"/>
+  </compounddef>
+</doxygen>

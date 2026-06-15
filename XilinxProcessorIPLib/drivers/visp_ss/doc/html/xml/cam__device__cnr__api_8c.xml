@@ -1,0 +1,541 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="cam__device__cnr__api_8c" kind="file">
+    <compoundname>cam_device_cnr_api.c</compoundname>
+    <includes refid="cam__device__app_8h" local="no">cam_device_app.h</includes>
+    <incdepgraph>
+      <node id="2146">
+        <label>stdbool.h</label>
+      </node>
+      <node id="2158">
+        <label>cam_device_cpd_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2156">
+        <label>cam_device_lsc_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2150">
+        <label>cam_device_module_api.h</label>
+        <childnode refid="2151" relation="include">
+        </childnode>
+        <childnode refid="2152" relation="include">
+        </childnode>
+        <childnode refid="2153" relation="include">
+        </childnode>
+        <childnode refid="2154" relation="include">
+        </childnode>
+        <childnode refid="2155" relation="include">
+        </childnode>
+        <childnode refid="2156" relation="include">
+        </childnode>
+        <childnode refid="2157" relation="include">
+        </childnode>
+        <childnode refid="2158" relation="include">
+        </childnode>
+        <childnode refid="2159" relation="include">
+        </childnode>
+        <childnode refid="2160" relation="include">
+        </childnode>
+        <childnode refid="2161" relation="include">
+        </childnode>
+        <childnode refid="2162" relation="include">
+        </childnode>
+        <childnode refid="2163" relation="include">
+        </childnode>
+        <childnode refid="2164" relation="include">
+        </childnode>
+        <childnode refid="2165" relation="include">
+        </childnode>
+        <childnode refid="2166" relation="include">
+        </childnode>
+        <childnode refid="2167" relation="include">
+        </childnode>
+        <childnode refid="2168" relation="include">
+        </childnode>
+        <childnode refid="2169" relation="include">
+        </childnode>
+        <childnode refid="2170" relation="include">
+        </childnode>
+        <childnode refid="2171" relation="include">
+        </childnode>
+        <childnode refid="2172" relation="include">
+        </childnode>
+        <childnode refid="2173" relation="include">
+        </childnode>
+        <childnode refid="2174" relation="include">
+        </childnode>
+        <childnode refid="2175" relation="include">
+        </childnode>
+        <childnode refid="2176" relation="include">
+        </childnode>
+        <childnode refid="2177" relation="include">
+        </childnode>
+        <childnode refid="2178" relation="include">
+        </childnode>
+      </node>
+      <node id="2170">
+        <label>cam_device_dmsc_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2165">
+        <label>cam_device_dpcc_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2140">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="2157">
+        <label>cam_device_rgbir_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2147">
+        <label>stdint.h</label>
+      </node>
+      <node id="2137">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2153">
+        <label>cam_device_2dnr_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2159">
+        <label>cam_device_bls_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2160">
+        <label>cam_device_hdr_api.h</label>
+      </node>
+      <node id="2152">
+        <label>cam_device_wb_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2131">
+        <label>cam_device_cnr_api.c</label>
+        <link refid="cam_device_cnr_api.c"/>
+        <childnode refid="2132" relation="include">
+        </childnode>
+      </node>
+      <node id="2144">
+        <label>sensor_cmd.h</label>
+        <childnode refid="2145" relation="include">
+        </childnode>
+        <childnode refid="2140" relation="include">
+        </childnode>
+      </node>
+      <node id="2154">
+        <label>cam_device_ge_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2178">
+        <label>cam_device_fusa_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2172">
+        <label>cam_device_gtm_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2139">
+        <label>stddef.h</label>
+      </node>
+      <node id="2166">
+        <label>cam_device_wdr_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2138">
+        <label>limits.h</label>
+      </node>
+      <node id="2133">
+        <label>cam_device_common.h</label>
+        <childnode refid="2134" relation="include">
+        </childnode>
+        <childnode refid="2140" relation="include">
+        </childnode>
+        <childnode refid="2141" relation="include">
+        </childnode>
+        <childnode refid="2143" relation="include">
+        </childnode>
+        <childnode refid="2144" relation="include">
+        </childnode>
+      </node>
+      <node id="2167">
+        <label>cam_device_af_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2143">
+        <label>buf_defs.h</label>
+        <childnode refid="2134" relation="include">
+        </childnode>
+      </node>
+      <node id="2145">
+        <label>mbox_api.h</label>
+        <childnode refid="2146" relation="include">
+        </childnode>
+        <childnode refid="2147" relation="include">
+        </childnode>
+        <childnode refid="2148" relation="include">
+        </childnode>
+      </node>
+      <node id="2173">
+        <label>cam_device_cnr_api.h</label>
+      </node>
+      <node id="2132">
+        <label>cam_device_app.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+        <childnode refid="2150" relation="include">
+        </childnode>
+      </node>
+      <node id="2142">
+        <label>string.h</label>
+      </node>
+      <node id="2148">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="2146" relation="include">
+        </childnode>
+        <childnode refid="2149" relation="include">
+        </childnode>
+      </node>
+      <node id="2168">
+        <label>cam_device_afm_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2164">
+        <label>cam_device_gc_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2174">
+        <label>cam_device_exp_api_v2.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2155">
+        <label>cam_device_cproc_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2163">
+        <label>cam_device_ee_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2149">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="2177">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2162">
+        <label>cam_device_3dnr_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2134">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="2135" relation="include">
+        </childnode>
+        <childnode refid="2138" relation="include">
+        </childnode>
+        <childnode refid="2139" relation="include">
+        </childnode>
+      </node>
+      <node id="2171">
+        <label>cam_device_ae_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+        <childnode refid="2147" relation="include">
+        </childnode>
+      </node>
+      <node id="2169">
+        <label>cam_device_awb_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+        <childnode refid="2147" relation="include">
+        </childnode>
+      </node>
+      <node id="2151">
+        <label>cam_device_dg_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2161">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2176">
+        <label>cam_device_hist256_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2141">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="2134" relation="include">
+        </childnode>
+        <childnode refid="2142" relation="include">
+        </childnode>
+      </node>
+      <node id="2136">
+        <label>stdio.h</label>
+      </node>
+      <node id="2175">
+        <label>cam_device_hist64_api.h</label>
+        <childnode refid="2133" relation="include">
+        </childnode>
+      </node>
+      <node id="2135">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="2136" relation="include">
+        </childnode>
+        <childnode refid="2137" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a00c84c1a05cc17be76fb69e195fa1de5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCnrConfig_t *pCnrCfg)</argsstring>
+        <name>VsiCamDeviceCnrSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>CamDeviceCnrConfig_t *</type>
+          <declname>pCnrCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="18" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a7389019fa9e3a15a1385b47ceedbc70a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCnrConfig_t *pCnrCfg)</argsstring>
+        <name>VsiCamDeviceCnrGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>CamDeviceCnrConfig_t *</type>
+          <declname>pCnrCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="27" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="28" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a3d619fee26303f302bdb3e5513356932" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCnrEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="37" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a406255bdfb9f09602c62a0796276d04b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCnrDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="46" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a8b413c4d07befb7a080fb21515a7c6e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceCnrStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceCnrGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>CamDeviceCnrStatus_t *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="55" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a352e99ef88d0e90f0305534288cbd759" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceCnrReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="65" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="cam__device__cnr__api_8c_1a64cc1e261b4f3a372e10655d90b37f93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceCnrGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceCnrGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c" bodystart="74" bodyend="80"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************\</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">|*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">|*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>by<sp/>VeriSilicon<sp/>Holdings<sp/>Co.,<sp/>Ltd.<sp/>(&quot;VeriSilicon&quot;)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">|*<sp/>All<sp/>Rights<sp/>Reserved.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">|*<sp/>The<sp/>material<sp/>in<sp/>this<sp/>file<sp/>is<sp/>confidential<sp/>and<sp/>contains<sp/>trade<sp/>secrets<sp/>of<sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">|*<sp/>of<sp/>VeriSilicon.<sp/><sp/>This<sp/>is<sp/>proprietary<sp/>information<sp/>owned<sp/>or<sp/>licensed<sp/>by<sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">|*<sp/>VeriSilicon.<sp/><sp/>No<sp/>part<sp/>of<sp/>this<sp/>work<sp/>may<sp/>be<sp/>disclosed,<sp/>reproduced,<sp/>copied,<sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">|*<sp/>transmitted,<sp/>or<sp/>used<sp/>in<sp/>any<sp/>way<sp/>for<sp/>any<sp/>purpose,<sp/>without<sp/>the<sp/>express<sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">|*<sp/>written<sp/>permission<sp/>of<sp/>VeriSilicon.<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">|*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*|</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">\******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cam_device_app.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrSetConfig</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceCnrConfig_t<sp/>*pCnrCfg</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrGetConfig</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceCnrConfig_t<sp/>*pCnrCfg</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrEnable</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrDisable</highlight></codeline>
+<codeline lineno="46"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrGetStatus</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceCnrStatus_t<sp/>*pStatus</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrReset</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">RESULT<sp/>VsiCamDeviceCnrGetVersion</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>*pVersion</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="return__codes_8h_1aa0dec624244ce7f5492ec5de65797fa6" kindref="member">RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dummy/cam_device_cnr_api.c"/>
+  </compounddef>
+</doxygen>

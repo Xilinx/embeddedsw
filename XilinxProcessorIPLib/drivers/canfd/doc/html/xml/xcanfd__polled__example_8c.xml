@@ -1,0 +1,726 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcanfd__polled__example_8c" kind="file">
+    <compoundname>xcanfd_polled_example.c</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes refid="xcanfd_8h" local="yes">xcanfd.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="95">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="96">
+        <label>xil_io.h</label>
+      </node>
+      <node id="91">
+        <label>xplatform_info.h</label>
+      </node>
+      <node id="93">
+        <label>xcanfd_hw.h</label>
+        <link refid="xcanfd__hw_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="92">
+        <label>xstatus.h</label>
+      </node>
+      <node id="90">
+        <label>xcanfd.h</label>
+        <link refid="xcanfd_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>xil_types.h</label>
+      </node>
+      <node id="89">
+        <label>xparameters.h</label>
+      </node>
+      <node id="88">
+        <label>xcanfd_polled_example.c</label>
+        <link refid="xcanfd_polled_example.c"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a768a4fc7cda3cb12ab502e4e6977cb50" prot="public" static="no">
+        <name>XCANFD_BASEADDRESS</name>
+        <initializer>XPAR_XCANFD_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="59" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a7b689d14c47ec2af170f1fdbd3fd547a" prot="public" static="no">
+        <name>XCANFD_MAX_FRAME_SIZE_IN_BYTES</name>
+        <initializer>72</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a3317b62fb7f445865d6d8288847a6dac" prot="public" static="no">
+        <name>FRAME_DATA_LENGTH</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a8402ffb273c0d8a8e72f2a845d96b269" prot="public" static="no">
+        <name>TEST_MESSAGE_ID</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a40b93f102dc8a0ae0f87092bc96087f1" prot="public" static="no">
+        <name>TEST_BRPR_BAUD_PRESCALAR</name>
+        <initializer>29</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1aa2f0504cb1cf0584ff8d7532b91d17f3" prot="public" static="no">
+        <name>TEST_BTR_SYNCJUMPWIDTH</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a963822e22ff13542adf1ca249fb11e1e" prot="public" static="no">
+        <name>TEST_BTR_SECOND_TIMESEGMENT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a413d190032b595cee3eaad35f5ff0f95" prot="public" static="no">
+        <name>TEST_BTR_FIRST_TIMESEGMENT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a474988275e3a9563fd011d79425deb90" prot="public" static="no">
+        <name>TEST_FBRPR_BAUD_PRESCALAR</name>
+        <initializer>29</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a5d1f49839781fd8c867b2ff25bf54705" prot="public" static="no">
+        <name>TEST_FBTR_SYNCJUMPWIDTH</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1adcd8382bc86aa05dd490d5ccdd3878c8" prot="public" static="no">
+        <name>TEST_FBTR_SECOND_TIMESEGMENT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1ad96e9ba070cc4dd19846492c373ba0b9" prot="public" static="no">
+        <name>TEST_FBTR_FIRST_TIMESEGMENT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1ad826e8327ae2f1e333992795523c1a31" prot="public" static="no">
+        <name>TEST_MAILBOX_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xcanfd__polled__example_8c_1a308d6d407e58de28e1ceb8eb2ae38c39" prot="public" static="no">
+        <name>TESTMSG_DLC</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xcanfd__polled__example_8c_1a9a5d0495e78295679baab1fc69ea5ab4" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 TxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]</definition>
+        <argsstring>[XCANFD_MAX_FRAME_SIZE_IN_BYTES]</argsstring>
+        <name>TxFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xcanfd__polled__example_8c_1afd559b6b29eafb5554f79921671e5cf0" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 RxFrame[XCANFD_MAX_FRAME_SIZE_IN_BYTES]</definition>
+        <argsstring>[XCANFD_MAX_FRAME_SIZE_IN_BYTES]</argsstring>
+        <name>RxFrame</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xcanfd__polled__example_8c_1ad4785d878d80b2e68b0373f0c3bca2e2" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref></type>
+        <definition>XCanFd CanFd</definition>
+        <argsstring></argsstring>
+        <name>CanFd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XCanFdPolledExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XCanFdPolledExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>The entry point for showing the XCan driver in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The example configures the device for internal loopback mode, then sends a Can frame, receives the same Can frame, and verifies the frame contents.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, otherwise driver-specific error code.</para></simplesect>
+<simplesect kind="note"><para>- In XSCT/classic flow, DeviceId is used to look up the device configuration.<itemizedlist>
+<listitem><para>If the device is not working correctly, this function may enter an infinite loop and will never return to the caller. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="188" bodyend="294"/>
+        <references refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" compoundref="xcanfd_8h" startline="351">XCanFd_Config::BaseAddress</references>
+        <references refid="group__canfd_1ga40b93f102dc8a0ae0f87092bc96087f1" compoundref="xcanfd__selftest_8c" startline="66">TEST_BRPR_BAUD_PRESCALAR</references>
+        <references refid="group__canfd_1ga413d190032b595cee3eaad35f5ff0f95" compoundref="xcanfd__selftest_8c" startline="70">TEST_BTR_FIRST_TIMESEGMENT</references>
+        <references refid="group__canfd_1ga963822e22ff13542adf1ca249fb11e1e" compoundref="xcanfd__selftest_8c" startline="69">TEST_BTR_SECOND_TIMESEGMENT</references>
+        <references refid="group__canfd_1gaa2f0504cb1cf0584ff8d7532b91d17f3" compoundref="xcanfd__selftest_8c" startline="68">TEST_BTR_SYNCJUMPWIDTH</references>
+        <references refid="group__canfd_1ga474988275e3a9563fd011d79425deb90" compoundref="xcanfd__selftest_8c" startline="72">TEST_FBRPR_BAUD_PRESCALAR</references>
+        <references refid="group__canfd_1gad96e9ba070cc4dd19846492c373ba0b9" compoundref="xcanfd__selftest_8c" startline="76">TEST_FBTR_FIRST_TIMESEGMENT</references>
+        <references refid="group__canfd_1gadcd8382bc86aa05dd490d5ccdd3878c8" compoundref="xcanfd__selftest_8c" startline="75">TEST_FBTR_SECOND_TIMESEGMENT</references>
+        <references refid="group__canfd_1ga5d1f49839781fd8c867b2ff25bf54705" compoundref="xcanfd__selftest_8c" startline="74">TEST_FBTR_SYNCJUMPWIDTH</references>
+        <references refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" compoundref="xcanfd__selftest_8c" startline="58">TEST_MESSAGE_ID</references>
+        <references refid="group__canfd_1ga065604ddf0525f05cd46ad81ccb4cd12" compoundref="xcanfd_8c" startline="1227" endline="1243">XCanFd_AcceptFilterDisable</references>
+        <references refid="group__canfd_1gaf03fb5fddc1f4f5ff4c3307dfbe2094a" compoundref="xcanfd_8c" startline="1191" endline="1207">XCanFd_AcceptFilterEnable</references>
+        <references refid="group__canfd_1gae9152191cec53a4346c385e50b689560" compoundref="xcanfd__hw_8h" startline="585">XCANFD_AFR_UAF_ALL_MASK</references>
+        <references refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" compoundref="xcanfd_8c" startline="132" endline="196">XCanFd_CfgInitialize</references>
+        <references refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" compoundref="xcanfd_8h" startline="482">XCanFd_CreateIdValue</references>
+        <references refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" compoundref="xcanfd_8c" startline="340" endline="471">XCanFd_EnterMode</references>
+        <references refid="group__canfd_1gafd5be1bd2849b2f4679095d713679bb8" compoundref="xcanfd_8h" startline="805">XCANFD_GET_RX_MODE</references>
+        <references refid="group__canfd_1ga02d64d90bf4ecd474f96a220fc2e709c" compoundref="xcanfd_8h" startline="1026">XCanFd_Get_RxBuffers</references>
+        <references refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" compoundref="xcanfd_8c" startline="275" endline="306">XCanFd_GetMode</references>
+        <references refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" compoundref="xcanfd__sinit_8c" startline="90" endline="104">XCanFd_LookupConfig</references>
+        <references refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" compoundref="xcanfd_8h" startline="313">XCANFD_MODE_CONFIG</references>
+        <references refid="group__canfd_1ga4255701f478b2b8fe95dc9db289a7a22" compoundref="xcanfd_8h" startline="315">XCANFD_MODE_LOOPBACK</references>
+        <references refid="group__canfd_1ga6aecf5e7b51a04d10ff8db6a87095fe0" compoundref="xcanfd_8c" startline="961" endline="988">XCanFd_RxBuff_MailBox_Active</references>
+        <references refid="group__canfd_1ga1118faee933e64e921cf0bbc38f9a1dd" compoundref="xcanfd_8c" startline="1064" endline="1091">XCanFd_RxBuff_MailBox_DeActive</references>
+        <references refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" compoundref="xcanfd__selftest_8c" startline="103" endline="254">XCanFd_SelfTest</references>
+        <references refid="group__canfd_1ga79f6caa236d0d46a4ec82664b3ff2da1" compoundref="xcanfd_8c" startline="1008" endline="1044">XCanFd_Set_MailBox_IdMask</references>
+        <references refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" compoundref="xcanfd__config_8c" startline="71" endline="88">XCanFd_SetBaudRatePrescaler</references>
+        <references refid="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" compoundref="xcanfd__config_8c" startline="440" endline="454">XCanFd_SetBitRateSwitch_DisableNominal</references>
+        <references refid="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" compoundref="xcanfd__config_8c" startline="147" endline="176">XCanFd_SetBitTiming</references>
+        <references refid="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" compoundref="xcanfd__config_8c" startline="239" endline="261">XCanFd_SetFBaudRatePrescaler</references>
+        <references refid="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" compoundref="xcanfd__config_8c" startline="320" endline="348">XCanFd_SetFBitTiming</references>
+        <references refid="group__canfd_1gadb3b0ba459b2c4dd17bc9ae471f766ad" compoundref="xcanfd_8c" startline="211" endline="226">XCanFd_stop</references>
+        <referencedby refid="xcanfd__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcanfd__polled__example_8c" startline="141" endline="159">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xcanfd__polled__example_8c_1a0a16785185d653d8b7c4c7f5256fe2f1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SendFrame</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>SendFrame</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Send a CAN frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the driver instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, a driver-specific return code if not.</para></simplesect>
+<simplesect kind="note"><para>This function waits until TX FIFO has room for at least one frame before sending a frame. So this function may block if the hardware is not built correctly. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="311" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="xcanfd__polled__example_8c_1af3894d85d2755730aa667277b994b34a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int RecvFrame</definition>
+        <argsstring>(XCanFd *InstancePtr)</argsstring>
+        <name>RecvFrame</name>
+        <param>
+          <type><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function receives a frame and verifies its contents. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the driver instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful, a driver-specific return code if not.</para></simplesect>
+<simplesect kind="note"><para>This function waits until RX FIFO becomes not empty before reading a frame from it. So this function may block if the hardware is not built correctly. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="367" bodyend="404"/>
+      </memberdef>
+      <memberdef kind="function" id="xcanfd__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the example. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is not included if the example is generated from the TestAppGen test tool.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c" bodystart="141" bodyend="159"/>
+        <references refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" compoundref="xcanfd__polled__example_8c" startline="188" endline="294">XCanFdPolledExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains an example of how to use the XCan driver directly. </para>    </briefdescription>
+    <detaileddescription>
+<para>The example here shows using the driver/device in polled mode.</para><para><simplesect kind="note"><para></para></simplesect>
+The Baud Rate Prescaler Register (BRPR) and Bit Timing Register (BTR) are setup such that CAN baud rate equals 40Kbps, assuming that the the CAN clock frequency is 24MHz. The user needs to modify these values based on the desired baud rate and the CAN clock frequency. For more information see the CAN 2.0A, CAN 2.0B, ISO 11898-1 specifications.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date       Changes
+<hruler/>
+
+1.0   nsk    06/04/15 First release
+1.2   ms     01/23/17 Modified xil_printf statement in main function to
+                      ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings are
+                      available in all examples. This is a fix for CR-965028.
+      ms     04/05/17 Added tabspace for return statements in functions
+                      for proper documentation while generating doxygen.
+1.3   ask    08/08/18 Changed the Can ID to 11 bit value as standard Can ID
+                                        is 11 bit.
+2.8   ht     06/19/23 Added support for system device-tree flow.
+2.8   gm     06/22/23 Call XCanFd_stop to release canfd node.
+2.10  ht     01/09/25 Fix C++ warning.
+2.12  vlt    12/12/25 Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcanfd_8h" kindref="compound">xcanfd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>XPAR<sp/>parameters<sp/>created<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/>xparameters.h<sp/>file.<sp/>They<sp/>are<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/>change<sp/>all<sp/>the<sp/>needed<sp/>parameters<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CANFD_DEVICE_ID<sp/>XPAR_CANFD_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCANFD_BASEADDRESS<sp/>XPAR_XCANFD_0_BASEADDR</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Maximum<sp/>CAN<sp/>frame<sp/>length<sp/>in<sp/>Bytes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCANFD_MAX_FRAME_SIZE_IN_BYTES<sp/>72</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FRAME_DATA_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>64</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Message<sp/>Id<sp/>Constant<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_MESSAGE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>The<sp/>Baud<sp/>Rate<sp/>Prescaler<sp/>Register<sp/>(BRPR)<sp/>and<sp/>Bit<sp/>Timing<sp/>Register<sp/>(BTR)</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>are<sp/>setup<sp/>such<sp/>that<sp/>CAN<sp/>baud<sp/>rate<sp/>equals<sp/>40Kbps,<sp/>assuming<sp/>that<sp/>the</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/>the<sp/>CAN<sp/>clock<sp/>frequency<sp/>is<sp/>24MHz.<sp/>The<sp/>user<sp/>needs<sp/>to<sp/>modify<sp/>these<sp/>values</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>based<sp/>on<sp/>the<sp/>desired<sp/>baud<sp/>rate<sp/>and<sp/>the<sp/>CAN<sp/>clock<sp/>frequency.<sp/>For<sp/>more</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*<sp/>information<sp/>see<sp/>the<sp/>CAN<sp/>2.0A,<sp/>CAN<sp/>2.0B,<sp/>ISO<sp/>11898-1<sp/>specifications.</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>both<sp/>in<sp/>DataPhase<sp/>and<sp/>Arbitration<sp/>Phase.</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BRPR_BAUD_PRESCALAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>29</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_BTR_SYNCJUMPWIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TEST_BTR_SECOND_TIMESEGMENT<sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TEST_BTR_FIRST_TIMESEGMENT<sp/><sp/><sp/><sp/><sp/><sp/>15</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_FBRPR_BAUD_PRESCALAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>29</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_FBTR_SYNCJUMPWIDTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TEST_FBTR_SECOND_TIMESEGMENT<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>TEST_FBTR_FIRST_TIMESEGMENT<sp/><sp/><sp/><sp/><sp/>15</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Mask<sp/>for<sp/>MailBox<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TEST_MAILBOX_MASK<sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Test<sp/>Message<sp/>Dlc<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TESTMSG_DLC<sp/><sp/><sp/><sp/><sp/>15</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SendFrame(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RecvFrame(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/>*<sp/>Buffers<sp/>to<sp/>hold<sp/>frames<sp/>to<sp/>send<sp/>and<sp/>receive.<sp/>These<sp/>are<sp/>declared<sp/>as<sp/>global<sp/>so</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*<sp/>that<sp/>they<sp/>are<sp/>not<sp/>on<sp/>the<sp/>stack.</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*<sp/>These<sp/>buffers<sp/>need<sp/>to<sp/>be<sp/>32-bit<sp/>aligned</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>TxFrame[<ref refid="group__canfd_1ga7b689d14c47ec2af170f1fdbd3fd547a" kindref="member">XCANFD_MAX_FRAME_SIZE_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>RxFrame[<ref refid="group__canfd_1ga7b689d14c47ec2af170f1fdbd3fd547a" kindref="member">XCANFD_MAX_FRAME_SIZE_IN_BYTES</ref>];</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Driver<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>CanFd;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor">#ifndef<sp/>TESTAPP_GEN</highlight></codeline>
+<codeline lineno="141" refid="xcanfd__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xcanfd__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;XCanFd<sp/>Polled<sp/>Mode<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>Can<sp/>Polled<sp/>example,<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is<sp/>generated</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>in<sp/>xparameters.h<sp/>.</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(CANFD_DEVICE_ID))<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(XCANFD_BASEADDRESS))<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;XCanFd<sp/>Polled<sp/>Mode<sp/>example<sp/>Failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>XCanFd<sp/>Polled<sp/>Mode<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="188" refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xcanfd__polled__example_8c_1a4e9e09ef664aee1dcef0dfb56e5fc93b" kindref="member">XCanFdPolledExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*CanFdInstPtr<sp/>=<sp/>&amp;CanFd;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_can_fd___config" kindref="compound">XCanFd_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IdValue;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BuffNr;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RxBuffers;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>Can<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" kindref="member">XCanFd_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__canfd_1gaf25c50ab9ef473c52c127d3ef586ced8" kindref="member">XCanFd_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CanFdInstPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canfd_1gaa9040324632e8051fb846d49f0c358d4" kindref="member">XCanFd_CfgInitialize</ref>(CanFdInstPtr,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_can_fd___config_1ab68c671c8e2b191d8bae1247f70898ee" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>self-test<sp/>on<sp/>the<sp/>device,<sp/>which<sp/>verifies<sp/>basic<sp/>sanity<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>device<sp/>and<sp/>the<sp/>driver.</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canfd_1gad1bbb72c208cf3330dc27a32b2546999" kindref="member">XCanFd_SelfTest</ref>(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="222"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>Configuration<sp/>Mode<sp/>so<sp/>we<sp/>can<sp/>setup<sp/>Baud<sp/>Rate<sp/>Prescaler</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Register<sp/>(BRPR)<sp/>and<sp/>Bit<sp/>Timing<sp/>Register<sp/>(BTR)</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(CanFdInstPtr)<sp/>!=<sp/><ref refid="group__canfd_1ga6197f9c8450e02a85e4c3bf046d43895" kindref="member">XCANFD_MODE_CONFIG</ref>);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="229"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configure<sp/>the<sp/>Baud<sp/>Rate<sp/>Prescalar<sp/>in</highlight></codeline>
+<codeline lineno="230"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Arbitration<sp/>Phase</highlight></codeline>
+<codeline lineno="231"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga0816bd655bd4460034d67b6ee7481be4" kindref="member">XCanFd_SetBaudRatePrescaler</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1ga40b93f102dc8a0ae0f87092bc96087f1" kindref="member">TEST_BRPR_BAUD_PRESCALAR</ref>);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Configure<sp/>the<sp/>Bit<sp/>Timing<sp/>Values<sp/>in</highlight></codeline>
+<codeline lineno="236"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Arbitration<sp/>Phase.</highlight></codeline>
+<codeline lineno="237"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaa17ba1328e0830d24fb6e4f0be805478" kindref="member">XCanFd_SetBitTiming</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1gaa2f0504cb1cf0584ff8d7532b91d17f3" kindref="member">TEST_BTR_SYNCJUMPWIDTH</ref>,</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga963822e22ff13542adf1ca249fb11e1e" kindref="member">TEST_BTR_SECOND_TIMESEGMENT</ref>,<sp/><ref refid="group__canfd_1ga413d190032b595cee3eaad35f5ff0f95" kindref="member">TEST_BTR_FIRST_TIMESEGMENT</ref>);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>Baud<sp/>Rate<sp/>Prescalar<sp/>in<sp/>Data<sp/>Phase<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga9bb4859d5023d5fd72ccdcf8603ac484" kindref="member">XCanFd_SetFBaudRatePrescaler</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1ga474988275e3a9563fd011d79425deb90" kindref="member">TEST_FBRPR_BAUD_PRESCALAR</ref>);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>the<sp/>Bit<sp/>Timing<sp/>Values<sp/>in<sp/>Data<sp/>Phase<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gac7c6d1176e31abbe2e7e3f429c70be11" kindref="member">XCanFd_SetFBitTiming</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1ga5d1f49839781fd8c867b2ff25bf54705" kindref="member">TEST_FBTR_SYNCJUMPWIDTH</ref>,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gadcd8382bc86aa05dd490d5ccdd3878c8" kindref="member">TEST_FBTR_SECOND_TIMESEGMENT</ref>,<sp/><ref refid="group__canfd_1gad96e9ba070cc4dd19846492c373ba0b9" kindref="member">TEST_FBTR_FIRST_TIMESEGMENT</ref>);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>Global<sp/>BRS<sp/>Disable<sp/>so<sp/>that</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>at<sp/>the<sp/>time<sp/>of<sp/>sending<sp/>the<sp/>can<sp/>frame</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>we<sp/>will<sp/>choose<sp/>whether<sp/>we<sp/>need<sp/>Bit</highlight></codeline>
+<codeline lineno="252"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Rate<sp/>Switch<sp/>or<sp/>not.</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga8875718facd2632f0d1c82a9d0ce2c27" kindref="member">XCanFd_SetBitRateSwitch_DisableNominal</ref>(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>for<sp/>the<sp/>design</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>0<sp/>-<sp/>Sequential<sp/>Mode</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>1<sp/>-<sp/>MailBox<sp/>Mode.</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1gafd5be1bd2849b2f4679095d713679bb8" kindref="member">XCANFD_GET_RX_MODE</ref>(CanFdInstPtr)<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga065604ddf0525f05cd46ad81ccb4cd12" kindref="member">XCanFd_AcceptFilterDisable</ref>(CanFdInstPtr,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gae9152191cec53a4346c385e50b689560" kindref="member">XCANFD_AFR_UAF_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaf03fb5fddc1f4f5ff4c3307dfbe2094a" kindref="member">XCanFd_AcceptFilterEnable</ref>(CanFdInstPtr,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gae9152191cec53a4346c385e50b689560" kindref="member">XCANFD_AFR_UAF_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxBuffers<sp/>=<sp/><ref refid="group__canfd_1ga02d64d90bf4ecd474f96a220fc2e709c" kindref="member">XCanFd_Get_RxBuffers</ref>(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IdValue<sp/>=<sp/><ref refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" kindref="member">XCanFd_CreateIdValue</ref>(<ref refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kindref="member">TEST_MESSAGE_ID</ref>,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(BuffNr<sp/>=<sp/>0;<sp/>BuffNr<sp/>&lt;<sp/>RxBuffers;<sp/>BuffNr++)<sp/>{</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga1118faee933e64e921cf0bbc38f9a1dd" kindref="member">XCanFd_RxBuff_MailBox_DeActive</ref>(CanFdInstPtr,<sp/>BuffNr);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga79f6caa236d0d46a4ec82664b3ff2da1" kindref="member">XCanFd_Set_MailBox_IdMask</ref>(CanFdInstPtr,<sp/>BuffNr,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TEST_MAILBOX_MASK,<sp/>IdValue);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga6aecf5e7b51a04d10ff8db6a87095fe0" kindref="member">XCanFd_RxBuff_MailBox_Active</ref>(CanFdInstPtr,<sp/>BuffNr);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>CAN<sp/>Device<sp/>to<sp/>enter<sp/>to<sp/>Loop<sp/>Back<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gaaa893768ea4f0db5796f31ab3d8ca431" kindref="member">XCanFd_EnterMode</ref>(CanFdInstPtr,<sp/><ref refid="group__canfd_1ga4255701f478b2b8fe95dc9db289a7a22" kindref="member">XCANFD_MODE_LOOPBACK</ref>);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1ga8e1df3e2b6ed809dda14de08d8b6d0a5" kindref="member">XCanFd_GetMode</ref>(CanFdInstPtr)<sp/>!=<sp/><ref refid="group__canfd_1ga4255701f478b2b8fe95dc9db289a7a22" kindref="member">XCANFD_MODE_LOOPBACK</ref>);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>Frame<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>SendFrame(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Receive<sp/>The<sp/>Frame<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>RecvFrame(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Stop<sp/>Canfd<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1gadb3b0ba459b2c4dd17bc9ae471f766ad" kindref="member">XCanFd_stop</ref>(CanFdInstPtr);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="311"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>SendFrame(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TxBufferNumber;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*FramePtr;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NofBytes;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Create<sp/>correct<sp/>values<sp/>for<sp/>Identifier<sp/>and<sp/>Data<sp/>Length<sp/>Code<sp/>Register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFrame[0]<sp/>=<sp/><ref refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" kindref="member">XCanFd_CreateIdValue</ref>(<ref refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kindref="member">TEST_MESSAGE_ID</ref>,<sp/>0,<sp/>0,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFrame[1]<sp/>=<sp/><ref refid="group__canfd_1ga13f53735422dfa045400cc5157ccef23" kindref="member">XCanFd_Create_CanFD_Dlc_BrsValue</ref>(TESTMSG_DLC);</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="324"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Get<sp/>the<sp/>number<sp/>of<sp/>bytes<sp/>to<sp/>transmit<sp/>so<sp/>that<sp/>we<sp/>can<sp/>buffer<sp/>with<sp/>those</highlight></codeline>
+<codeline lineno="325"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>many<sp/>bytes</highlight></codeline>
+<codeline lineno="326"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NofBytes<sp/>=<sp/><ref refid="group__canfd_1ga10fa6a0030a1dc8ca563745ffb5f9c95" kindref="member">XCanFd_GetDlc2len</ref>(TxFrame[1]<sp/>&amp;<sp/><ref refid="group__canfd_1ga1b0e652716cf3dd05f680d8b2d4e18ca" kindref="member">XCANFD_DLCR_DLC_MASK</ref>,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga542481265db77d21efeb1829b8618d13" kindref="member">EDL_CANFD</ref>);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="331"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Now<sp/>fill<sp/>in<sp/>the<sp/>data<sp/>field<sp/>with<sp/>known<sp/>values<sp/>so<sp/>we<sp/>can<sp/>verify<sp/>them</highlight></codeline>
+<codeline lineno="332"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>receive.</highlight></codeline>
+<codeline lineno="333"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FramePtr<sp/>=<sp/>(u8<sp/>*)(&amp;TxFrame[2]);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>NofBytes;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*FramePtr++<sp/>=<sp/>(u8)Index;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Now<sp/>send<sp/>the<sp/>frame<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canfd_1gabbf9d9534ce5602afb24a30b5ad2b8d4" kindref="member">XCanFd_Send</ref>(InstancePtr,<sp/>TxFrame,<sp/>&amp;TxBufferNumber);</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_FIFO_NO_ROOM)<sp/>{</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>Buffer<sp/>is<sp/>Transmitted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1gaf405a386db63e0d74f21fecc48c62982" kindref="member">XCanFd_IsBufferTransmitted</ref>(InstancePtr,<sp/>TxBufferNumber)</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>==<sp/>FALSE);</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"></highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="367"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>RecvFrame(<ref refid="struct_x_can_fd" kindref="compound">XCanFd</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="368"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Dlc;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*FramePtr;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Receive<sp/>a<sp/>frame<sp/>and<sp/>verify<sp/>its<sp/>contents<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canfd_1gafd5be1bd2849b2f4679095d713679bb8" kindref="member">XCANFD_GET_RX_MODE</ref>(InstancePtr)<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canfd_1gae93c2c9dd933e4258b9d4118c4bf6220" kindref="member">XCanFd_Recv_Mailbox</ref>(InstancePtr,<sp/>RxFrame);</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canfd_1gaf5ac1e7ce4a9c7eabfd07a41e77b0cdb" kindref="member">XCanFd_Recv_Sequential</ref>(InstancePtr,<sp/>RxFrame);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Dlc<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dlc<sp/>=<sp/><ref refid="group__canfd_1ga10fa6a0030a1dc8ca563745ffb5f9c95" kindref="member">XCanFd_GetDlc2len</ref>(RxFrame[1]<sp/>&amp;<sp/><ref refid="group__canfd_1ga1b0e652716cf3dd05f680d8b2d4e18ca" kindref="member">XCANFD_DLCR_DLC_MASK</ref>,</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canfd_1ga542481265db77d21efeb1829b8618d13" kindref="member">EDL_CANFD</ref>);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>Identifier<sp/>and<sp/>Data<sp/>Length<sp/>Code<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxFrame[0]<sp/>!=<sp/><ref refid="group__canfd_1gadd7b8b6d9a5c527ed796bec8ba7106b8" kindref="member">XCanFd_CreateIdValue</ref>(<ref refid="group__canfd_1ga8402ffb273c0d8a8e72f2a845d96b269" kindref="member">TEST_MESSAGE_ID</ref>,<sp/>0,<sp/>0,<sp/>0,<sp/>0))<sp/>{</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TESTMSG_DLC<sp/>!=<sp/><ref refid="group__canfd_1ga3586b83927030ada806c45a251dadf32" kindref="member">XCanFd_GetLen2Dlc</ref>(Dlc))<sp/>{</highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>Data<sp/>field<sp/>contents<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FramePtr<sp/>=<sp/>(u8<sp/>*)(&amp;RxFrame[2]);</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>Dlc;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(*FramePtr++<sp/>!=<sp/>(u8)Index)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="404"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/xcanfd_polled_example.c"/>
+  </compounddef>
+</doxygen>

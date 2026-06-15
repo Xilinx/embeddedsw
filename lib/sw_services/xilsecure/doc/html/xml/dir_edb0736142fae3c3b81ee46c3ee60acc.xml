@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_edb0736142fae3c3b81ee46c3ee60acc" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xilsecure__aes__example_8c">xilsecure_aes_example.c</innerfile>
+    <innerfile refid="xilsecure__mldsa__client__example_8c">xilsecure_mldsa_client_example.c</innerfile>
+    <innerfile refid="xilsecure__rsa__example_8c">xilsecure_rsa_example.c</innerfile>
+    <innerfile refid="xilsecure__rsa__generic__example_8c">xilsecure_rsa_generic_example.c</innerfile>
+    <innerfile refid="xilsecure__sha__example_8c">xilsecure_sha_example.c</innerfile>
+    <innerfile refid="xilsecure__simple__aes__example_8c">xilsecure_simple_aes_example.c</innerfile>
+    <innerfile refid="xilsecure__slhdsa__client__example_8c">xilsecure_slhdsa_client_example.c</innerfile>
+    <innerfile refid="xilsecure__spartanup__lms__hss__server__example_8c">xilsecure_spartanup_lms_hss_server_example.c</innerfile>
+    <innerfile refid="xilsecure__spartanup__sha__server__example_8c">xilsecure_spartanup_sha_server_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__2ve__2vm__sha__client__example_8c">xilsecure_versal_2ve_2vm_sha_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__aes__client__example_8c">xilsecure_versal_aes_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__aes__server__example_8c">xilsecure_versal_aes_server_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__ecdsa__client__example_8c">xilsecure_versal_ecdsa_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__ecdsa__server__example_8c">xilsecure_versal_ecdsa_server_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__net__ecdh__client__example_8c">xilsecure_versal_net_ecdh_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__net__keyunwrap__client__example_8c">xilsecure_versal_net_keyunwrap_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__net__rsa__client__example_8c">xilsecure_versal_net_rsa_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__net__trng__client__example_8c">xilsecure_versal_net_trng_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__rsa__client__example_8c">xilsecure_versal_rsa_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__rsa__server__example_8c">xilsecure_versal_rsa_server_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__sha__client__example_8c">xilsecure_versal_sha_client_example.c</innerfile>
+    <innerfile refid="xilsecure__versal__sha__server__example_8c">xilsecure_versal_sha_server_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/"/>
+  </compounddef>
+</doxygen>

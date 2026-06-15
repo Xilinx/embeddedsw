@@ -1,0 +1,299 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_ecdsa_crv_info" kind="struct" prot="public">
+    <compoundname>EcdsaCrvInfo</compoundname>
+    <includes local="no">Ecdsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" prot="public" static="no" mutable="no">
+        <type>EcdsaCrvTyp</type>
+        <definition>EcdsaCrvTyp EcdsaCrvInfo::CrvType</definition>
+        <argsstring></argsstring>
+        <name>CrvType</name>
+        <briefdescription>
+<para>Curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 EcdsaCrvInfo::Bits</definition>
+        <argsstring></argsstring>
+        <name>Bits</name>
+        <briefdescription>
+<para>Curve bits. </para>        </briefdescription>
+        <detaileddescription>
+<para>Curve bites. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga3af7e8a366bb982fa4c0c82be1b37250" compoundref="xsecure__elliptic_8c" startline="269" endline="390">XSecure_EllipticGenerateSignature_64Bit</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga1d8ce761d128ed9438878593bc349c36" compoundref="xsecure__elliptic_8c" startline="962" endline="974">XSecure_EllipticGetCrvSize</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga0bb6ca50d138b482eb9a5d9f18e398d8" compoundref="xsecure__elliptic_8c" startline="621" endline="738">XSecure_EllipticVerifySign_64Bit</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" prot="public" static="no" mutable="no">
+        <type>EcdsaCrvClass</type>
+        <definition>EcdsaCrvClass EcdsaCrvInfo::Class</definition>
+        <argsstring></argsstring>
+        <name>Class</name>
+        <briefdescription>
+<para>Curve class - Prime or Binary. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d0</definition>
+        <argsstring></argsstring>
+        <name>d0</name>
+        <briefdescription>
+<para>Obfuscated field 0. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 0 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d1</definition>
+        <argsstring></argsstring>
+        <name>d1</name>
+        <briefdescription>
+<para>Obfuscated field 1. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 1 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d2</definition>
+        <argsstring></argsstring>
+        <name>d2</name>
+        <briefdescription>
+<para>Obfuscated field 2. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 2 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d3</definition>
+        <argsstring></argsstring>
+        <name>d3</name>
+        <briefdescription>
+<para>Obfuscated field 3. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 3 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d4</definition>
+        <argsstring></argsstring>
+        <name>d4</name>
+        <briefdescription>
+<para>Obfuscated field 4. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 4 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d5</definition>
+        <argsstring></argsstring>
+        <name>d5</name>
+        <briefdescription>
+<para>Obfuscated field 5. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 5 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d6</definition>
+        <argsstring></argsstring>
+        <name>d6</name>
+        <briefdescription>
+<para>Obfuscated field 6. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 6 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d7</definition>
+        <argsstring></argsstring>
+        <name>d7</name>
+        <briefdescription>
+<para>Obfuscated field 7. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 7 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d8</definition>
+        <argsstring></argsstring>
+        <name>d8</name>
+        <briefdescription>
+<para>Obfuscated field 8. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 8 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d9</definition>
+        <argsstring></argsstring>
+        <name>d9</name>
+        <briefdescription>
+<para>Obfuscated field 9. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 9 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d10</definition>
+        <argsstring></argsstring>
+        <name>d10</name>
+        <briefdescription>
+<para>Obfuscated field 10. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 10 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d11</definition>
+        <argsstring></argsstring>
+        <name>d11</name>
+        <briefdescription>
+<para>Obfuscated field 11. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 11 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d12</definition>
+        <argsstring></argsstring>
+        <name>d12</name>
+        <briefdescription>
+<para>Obfuscated field 12. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 12 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d13</definition>
+        <argsstring></argsstring>
+        <name>d13</name>
+        <briefdescription>
+<para>Obfuscated field 13. </para>        </briefdescription>
+        <detaileddescription>
+<para>curve specific data field 13 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a3970c398e0bee88772293f01ccabd71e" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d14</definition>
+        <argsstring></argsstring>
+        <name>d14</name>
+        <briefdescription>
+<para>curve specific data field 14 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a146ca893fd99e835a81782c991dd44a1" prot="public" static="no" mutable="no">
+        <type>const u8 *const</type>
+        <definition>const u8 *const EcdsaCrvInfo::d15</definition>
+        <argsstring></argsstring>
+        <name>d15</name>
+        <briefdescription>
+<para>curve specific data field 15 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_ecdsa_crv_info_1a67bae41c173409f6c1944a71ff7b16c6" prot="public" static="no" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 EcdsaCrvInfo::d16</definition>
+        <argsstring></argsstring>
+        <name>d16</name>
+        <briefdescription>
+<para>curve specific data field 16 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2ve_2vm/Ecdsa.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt; The structure below matches the more private structures of binary_curve and prime_curve in the SDK. </para>    </briefdescription>
+    <detaileddescription>
+<para>The field names are obfuscated, as this API is intended for an end-user that does not necessarily have the rights to the source code of the SDK </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/Ecdsa.h" bodystart="82" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_ecdsa_crv_info_1a73e6a9de9816384b5cdef5c52c283952" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>Bits</name></member>
+      <member refid="struct_ecdsa_crv_info_1a03ebedbc1c020c1f2f88c05f09a5fdd9" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>Class</name></member>
+      <member refid="struct_ecdsa_crv_info_1a1fa219c58e5750f09d1eca612fc7ba2f" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>CrvType</name></member>
+      <member refid="struct_ecdsa_crv_info_1a1b7637b2006557ab1871a42be1d54ffe" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d0</name></member>
+      <member refid="struct_ecdsa_crv_info_1af9a759543ff2eab38308e38e3bf0e3da" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d1</name></member>
+      <member refid="struct_ecdsa_crv_info_1a24f1037659b1484c0083c0bc4a682da2" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d10</name></member>
+      <member refid="struct_ecdsa_crv_info_1a9f6136d314f96b181dc13d23c4191356" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d11</name></member>
+      <member refid="struct_ecdsa_crv_info_1a281b08ca8e147eee5ec914460b6c52af" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d12</name></member>
+      <member refid="struct_ecdsa_crv_info_1a45343f734552c4589b68b18c38f86208" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d13</name></member>
+      <member refid="struct_ecdsa_crv_info_1a3970c398e0bee88772293f01ccabd71e" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d14</name></member>
+      <member refid="struct_ecdsa_crv_info_1a146ca893fd99e835a81782c991dd44a1" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d15</name></member>
+      <member refid="struct_ecdsa_crv_info_1a67bae41c173409f6c1944a71ff7b16c6" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d16</name></member>
+      <member refid="struct_ecdsa_crv_info_1a5b74c1a4d07e838f863b363d4287e47d" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d2</name></member>
+      <member refid="struct_ecdsa_crv_info_1af8465f1ca794bb055defadc150c729ca" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d3</name></member>
+      <member refid="struct_ecdsa_crv_info_1a027b5e861974fe007924d7313f227c3b" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d4</name></member>
+      <member refid="struct_ecdsa_crv_info_1a36736ff4ad213b21a3f9414d64fd6f82" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d5</name></member>
+      <member refid="struct_ecdsa_crv_info_1a42c34dc8c8baba7f7205b4816c76413c" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d6</name></member>
+      <member refid="struct_ecdsa_crv_info_1a007025529b0da34232df7c46132a8d86" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d7</name></member>
+      <member refid="struct_ecdsa_crv_info_1afed6fcfea6f4845199d7825c30c32188" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d8</name></member>
+      <member refid="struct_ecdsa_crv_info_1ad84ec2027490f7da735324c0dd30b307" prot="public" virt="non-virtual"><scope>EcdsaCrvInfo</scope><name>d9</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

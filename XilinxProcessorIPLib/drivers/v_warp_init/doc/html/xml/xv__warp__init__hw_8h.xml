@@ -1,0 +1,439 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__init__hw_8h" kind="file">
+    <compoundname>xv_warp_init_hw.h</compoundname>
+    <includedby refid="xv__warp__init_8h" local="yes">xv_warp_init.h</includedby>
+    <includedby refid="xv__warp__init__intr_8c" local="yes">xv_warp_init_intr.c</includedby>
+    <invincdepgraph>
+      <node id="53">
+        <label>xv_warp_init_g.c</label>
+        <link refid="xv__warp__init__g_8c"/>
+      </node>
+      <node id="52">
+        <label>xv_warp_init.c</label>
+        <link refid="xv__warp__init_8c"/>
+      </node>
+      <node id="51">
+        <label>xv_warp_init.h</label>
+        <link refid="xv__warp__init_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xv_warp_init_sinit.c</label>
+        <link refid="xv__warp__init__sinit_8c"/>
+      </node>
+      <node id="56">
+        <label>xv_warp_init_l2.c</label>
+        <link refid="xv__warp__init__l2_8c"/>
+      </node>
+      <node id="55">
+        <label>xv_warp_init_l2.h</label>
+        <link refid="xv__warp__init__l2_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xwarp_input_configs.c</label>
+        <link refid="xwarp__input__configs_8c"/>
+      </node>
+      <node id="57">
+        <label>xwarp_input_configs.h</label>
+        <link refid="xwarp__input__configs_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xv_warp_init_intr.c</label>
+        <link refid="xv__warp__init__intr_8c"/>
+      </node>
+      <node id="50">
+        <label>xv_warp_init_hw.h</label>
+        <link refid="xv_warp_init_hw.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xwarp_example.c</label>
+        <link refid="xwarp__example_8c"/>
+      </node>
+      <node id="58">
+        <label>inputs.h</label>
+        <link refid="inputs_8h"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Control register address - AP control signals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a8946b1e5d07efb564675b3607515f339" compoundref="xv__warp__init_8c" startline="182" endline="187">XV_warp_init_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a78c0265a05e907b51b8a04d7b4ac02ea" compoundref="xv__warp__init_8c" startline="161" endline="166">XV_warp_init_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a6d616342e1eb47e05768d11c56d47a36" compoundref="xv__warp__init_8c" startline="506" endline="515">XV_warp_init_Get_FlushDone</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aa46ac963cb95115434b753c3b1fcb5b1" compoundref="xv__warp__init_8c" startline="88" endline="96">XV_warp_init_IsDone</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a1d1f4b4d9a8e99220b98ec293d38a732" compoundref="xv__warp__init_8c" startline="112" endline="120">XV_warp_init_IsIdle</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aab4485ec0a4dfbf831603eabcb68d652" compoundref="xv__warp__init_8c" startline="136" endline="145">XV_warp_init_IsReady</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a7102b31303fda31be239a8e3b5d78235" compoundref="xv__warp__init_8c" startline="479" endline="490">XV_warp_init_SetFlushbit</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a894a0392e9fc275220cc8e0f6d89a951" compoundref="xv__warp__init_8c" startline="64" endline="72">XV_warp_init_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a8f60d7fcb2e940f2f8501f64fd5fa71d" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_GIE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Global Interrupt Enable register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a75bb3d1d09053f6d01e59ba8648bd1e5" compoundref="xv__warp__init_8c" startline="344" endline="349">XV_warp_init_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ad55655343d7384299276e18891cf65ca" compoundref="xv__warp__init_8c" startline="323" endline="328">XV_warp_init_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1aba84bc90d844ceda687efafe68338a57" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_IER</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1aa3b1dcd9b0d9e7711a990ee41698e631" compoundref="xv__warp__init_8c" startline="391" endline="399">XV_warp_init_InterruptDisable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a2262029cd2093f79e7f04f21f0b9efe0" compoundref="xv__warp__init_8c" startline="366" endline="374">XV_warp_init_InterruptEnable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ada2d148b67381daac37db3d694351b09" compoundref="xv__warp__init_8c" startline="437" endline="442">XV_warp_init_InterruptGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a85bc0e7687dcf013d23630aa4b3796e9" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_ISR</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+<para>Interrupt Status Register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a8340dadb90e5190397e0ff75205d2069" compoundref="xv__warp__init_8c" startline="416" endline="421">XV_warp_init_InterruptClear</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a649361eaec8b063948de05a5d26e1a14" compoundref="xv__warp__init_8c" startline="458" endline="463">XV_warp_init_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1ab931db7a9b064bf84b533170f3cb57c6" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Descriptor address data register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a850f224e076fb288e5bd369b39c9fa7f" compoundref="xv__warp__init_8c" startline="298" endline="307">XV_warp_init_Get_desc_addr</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a09f6b8f5d8fcdaaebfda25182778654b" compoundref="xv__warp__init_8c" startline="276" endline="282">XV_warp_init_Set_desc_addr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a7d2dd5b4452409416b317f357f51041b" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_BITS_DESC_ADDR_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Descriptor address data width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1aa3a7115c0bf46e4b2de82522ad3127de" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>AXI master read/write address register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1aca7453333c52413e5b36d7fcfa9b956e" compoundref="xv__warp__init_8c" startline="250" endline="259">XV_warp_init_Get_maxi_read_write</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ae7df0f2a5209079f33adb22219b3bd82" compoundref="xv__warp__init_8c" startline="228" endline="234">XV_warp_init_Set_maxi_read_write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a1b58ee27e8334b4875c59f9d589e3932" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_BITS_MAXI_READ_WRITE_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>AXI master read/write address width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a84f048bc5d9a38e2c1c0372e6968ecf1" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>IP status register address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a53caf177b8412aa07bec78489db7cbc6" compoundref="xv__warp__init_8c" startline="203" endline="211">XV_warp_init_Get_ip_status</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a5a6914f8d43fabf92dc8445a1f960ca0" prot="public" static="no">
+        <name>XV_WARP_INIT_CTRL_BITS_IP_STATUS_REG_DATA</name>
+        <initializer>32</initializer>
+        <briefdescription>
+<para>IP status register width in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1aedae6eaf85a1dedd30a286b7e8064f7e" prot="public" static="no">
+        <name>AP_CTRL_START_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>AP control start bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1add0432c57edbe6c167aade6ad261d44c" prot="public" static="no">
+        <name>AP_CTRL_DONE_MASK</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>AP control done bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1ae97e0ce6e31557b416760c4e45ffdeb7" prot="public" static="no">
+        <name>AP_CTRL_IDLE_MASK</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>AP control idle bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1ae528316f77713741c4579c4764ca63fd" prot="public" static="no">
+        <name>AP_CTRL_READY_MASK</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>AP control ready bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a81eb710a0ca183dca5a02ee067a4bc67" prot="public" static="no">
+        <name>AP_CTRL_AUTO_RST_MASK</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+<para>AP control auto-restart bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a21d0d7b744d26fa37837e3d894d7baae" prot="public" static="no">
+        <name>AP_CTRL_FLUSH_BIT_POS</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>AP control flush bit position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1ae46000c978cee02028105e3f066a8a6f" prot="public" static="no">
+        <name>AP_CTRL_FLUSH_BIT</name>
+        <initializer>(1 &lt;&lt; <ref refid="xv__warp__init__hw_8h_1a21d0d7b744d26fa37837e3d894d7baae" kindref="member">AP_CTRL_FLUSH_BIT_POS</ref>)</initializer>
+        <briefdescription>
+<para>AP control flush bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a7102b31303fda31be239a8e3b5d78235" compoundref="xv__warp__init_8c" startline="479" endline="490">XV_warp_init_SetFlushbit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1ab5dd7b1d53f08cd7463863e22c065e7b" prot="public" static="no">
+        <name>AP_CTRL_FLUSH_STATUSBIT_POS</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>AP control flush status bit position. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a0a9c087324755f58c0103309d0d2d696" prot="public" static="no">
+        <name>AP_CTRL_FLUSH_STATUSBIT</name>
+        <initializer>(1 &lt;&lt; <ref refid="xv__warp__init__hw_8h_1ab5dd7b1d53f08cd7463863e22c065e7b" kindref="member">AP_CTRL_FLUSH_STATUSBIT_POS</ref>)</initializer>
+        <briefdescription>
+<para>AP control flush status bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a6d616342e1eb47e05768d11c56d47a36" compoundref="xv__warp__init_8c" startline="506" endline="515">XV_warp_init_Get_FlushDone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1adaff63549b3b993fb0483f337ad79615" prot="public" static="no">
+        <name>XV_WARP_INIT_INTR_AP_DONE_MASK</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+<para>Interrupt mask for AP done signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+        <referencedby refid="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" compoundref="xv__warp__init__intr_8c" startline="74" endline="90">XVWarpInit_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init__hw_8h_1a71002f6219c051f8b5006afd3a9d26a1" prot="public" static="no">
+        <name>XV_WARP_INIT_INTR_AP_READY_MASK</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+<para>Interrupt mask for AP ready signal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x00<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x04<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x08<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>enable<sp/>ap_done<sp/>interrupt<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>enable<sp/>ap_ready<sp/>interrupt<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_done<sp/>(COR/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_ready<sp/>(COR/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x10<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>desc_addr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>desc_addr[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x14<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>desc_addr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>desc_addr[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x18<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x30<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>ip_status_reg</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>ip_status_reg[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x34<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x38<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>maxi_read_write</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>maxi_read_write[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x3c<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>maxi_read_write</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>maxi_read_write[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x40<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54" refid="xv__warp__init__hw_8h_1a8f60d7fcb2e940f2f8501f64fd5fa71d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59" refid="xv__warp__init__hw_8h_1aba84bc90d844ceda687efafe68338a57" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64" refid="xv__warp__init__hw_8h_1a85bc0e7687dcf013d23630aa4b3796e9" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0c</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="xv__warp__init__hw_8h_1ab931db7a9b064bf84b533170f3cb57c6" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="xv__warp__init__hw_8h_1a7d2dd5b4452409416b317f357f51041b" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_BITS_DESC_ADDR_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>64</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79" refid="xv__warp__init__hw_8h_1aa3a7115c0bf46e4b2de82522ad3127de" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA<sp/>0x20</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="xv__warp__init__hw_8h_1a1b58ee27e8334b4875c59f9d589e3932" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_BITS_MAXI_READ_WRITE_DATA<sp/>64</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89" refid="xv__warp__init__hw_8h_1a84f048bc5d9a38e2c1c0372e6968ecf1" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA<sp/><sp/><sp/>0x30</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="xv__warp__init__hw_8h_1a5a6914f8d43fabf92dc8445a1f960ca0" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_CTRL_BITS_IP_STATUS_REG_DATA<sp/><sp/><sp/>32</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bit<sp/>masks<sp/>for<sp/>AP_CTRL<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="xv__warp__init__hw_8h_1aedae6eaf85a1dedd30a286b7e8064f7e" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_START_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110" refid="xv__warp__init__hw_8h_1add0432c57edbe6c167aade6ad261d44c" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115" refid="xv__warp__init__hw_8h_1ae97e0ce6e31557b416760c4e45ffdeb7" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_IDLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="xv__warp__init__hw_8h_1ae528316f77713741c4579c4764ca63fd" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_READY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125" refid="xv__warp__init__hw_8h_1a81eb710a0ca183dca5a02ee067a4bc67" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_AUTO_RST_MASK<sp/><sp/><sp/>0x80</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130" refid="xv__warp__init__hw_8h_1a21d0d7b744d26fa37837e3d894d7baae" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_FLUSH_BIT_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5)</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="xv__warp__init__hw_8h_1ae46000c978cee02028105e3f066a8a6f" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_FLUSH_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>AP_CTRL_FLUSH_BIT_POS)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140" refid="xv__warp__init__hw_8h_1ab5dd7b1d53f08cd7463863e22c065e7b" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_FLUSH_STATUSBIT_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145" refid="xv__warp__init__hw_8h_1a0a9c087324755f58c0103309d0d2d696" refkind="member"><highlight class="preprocessor">#define<sp/>AP_CTRL_FLUSH_STATUSBIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>AP_CTRL_FLUSH_STATUSBIT_POS)</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Bit<sp/>masks<sp/>for<sp/>IER,<sp/>ISR,<sp/>GIE<sp/>registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="xv__warp__init__hw_8h_1adaff63549b3b993fb0483f337ad79615" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_INTR_AP_DONE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157" refid="xv__warp__init__hw_8h_1a71002f6219c051f8b5006afd3a9d26a1" refkind="member"><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_INTR_AP_READY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_hw.h"/>
+  </compounddef>
+</doxygen>

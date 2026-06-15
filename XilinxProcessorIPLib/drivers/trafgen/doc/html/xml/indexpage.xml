@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>trafgen</title>
+    <detaileddescription>
+<para>This file contains the implementation of the AXI Traffic Generator driver.User documentation for the driver functions is contained in this file in the form of comment blocks at the front of each function.</para><para>The AXI Traffic Generator IP is designed to generate AXI4 traffic which can be used to stress different modules/interconnect connected in the system. Different configurable options allow the user to generate a wide variety of traffic based on their requirements. The core is broadly separated into a master and slave block, each of which contains the write block and read block. Other support features are provided by the Control registers and Internal RAMs.</para><para>The commands to be issued by the AXI traffic generator are loaded in a 128-bit wide, 512 deep command RAM through AXI Slave interface. After the core is enabled, control logic issues the write/read commands based on the command settings programmed. The core updates the Status registers and asserts interrupts on the completion of issuing programmed commands.</para><para>The Axi Traffic Generator has five different modes:</para><para><itemizedlist>
+<listitem><para>Advanced Mode: Advanced Mode allows full control over the traffic generation Control registers are provided to you to program the core to generate different AXI4 transactions.</para></listitem><listitem><para>Basic Mode: Basic Mode allows basic AXI4 traffic generation with less resource overhead.</para></listitem><listitem><para>Static Mode: Static Mode allows you to generate a simple AXI4 traffic with very less resource and minimum processor intervention.In this Mode the core continuously generates fixed address and fixed length INCR type read and write transfers.</para></listitem><listitem><para>System Init Mode: System Init Mode is a special Mode where core provides only AXI4-Lite Master write interface.This mode can be used in a system without a processor to initialize the system peripherals with preconfigured values on system reset.</para></listitem><listitem><para>Streaming Mode: In Streaming Mode the core can be configured to generate traffic based on the register configuration.</para></listitem></itemizedlist>
+</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_traf_gen___config" kindref="compound">XTrafGen_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in the following way:</para><para><itemizedlist>
+<listitem><para>XTrafGen_LookupConfig(DeviceId) - Use the divide identifier to find the static configuration structure defined in <ref refid="xtrafgen__g_8c" kindref="compound">xtrafgen_g.c</ref>. This is setup by the tools. For some operating systems the config structure will be initialized by the software and this call is not needed.</para></listitem><listitem><para>XTrafGen_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Command Handling</bold></para><para>AXI Traffic Generator core operates based on the commands programmed into Command and Parameter RAMs. The CMDRAM and PARAMRAM is divided into two regions: write and read. Each region can hold 256 entries. Once the core is enabled, the internal control logic issues write/read commands. To handle command programming efficiently, we are maintaining a software list of commands. Following APIs are provided to handle this mechanism:</para><para><itemizedlist>
+<listitem><para><ref refid="group__trafgen_1ga39eaea669c1ff2df58e54c002b43f854" kindref="member">XTrafGen_AddCommand()</ref>: This function prepares the Command Words and Parameter Word from the Command structure passed from the user application. It then adds to a software list of commands.</para></listitem><listitem><para><ref refid="group__trafgen_1ga14377a8884e99ce01c0c76128c939c49" kindref="member">XTrafGen_WriteCmdsToHw()</ref>: This function writes the prepared list of Command and Parameter Words prepared to CMDRAM and PARAMRAM.</para></listitem><listitem><para><ref refid="group__trafgen_1ga262d850cbfc5b0495fbc2d84334a1fba" kindref="member">XTrafGen_GetLastValidIndex()</ref>: This function gets last Valid Command Index of Write/Read region. The last valid command index is used to set &apos;my_depend&apos; and &apos;other_depend&apos; fields of the Command RAM.</para></listitem><listitem><para><ref refid="group__trafgen_1ga539d4976ad3ace9e15d993e2b18143a0" kindref="member">XTrafGen_EraseAllCommands()</ref>: This function clears the list of commands maintained in software and also updates the respective RAMs.</para></listitem><listitem><para>XTrafGen_PrintAllCmds(): This function displays the list of commands.</para></listitem></itemizedlist>
+</para><para><bold>Master RAM Handling</bold></para><para>AXI Traffic Generator uses MSTRAM to<itemizedlist>
+<listitem><para>Take data from this RAM for write transactions</para></listitem><listitem><para>Store data to this RAM for read transaction User need to call this API to write/read to/from Master RAM,</para></listitem><listitem><para><ref refid="group__trafgen_1gaaea625b89454268bbbe7f93e309141c4" kindref="member">XTrafGen_AccessMasterRam()</ref> - This function programs the Master RAM with the data which is used in master logic. The amount of the data is limited by the size of master RAM.</para></listitem></itemizedlist>
+</para><para><bold>Interrupts</bold></para><para>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated for one of the following conditions:<itemizedlist>
+<listitem><para>Master Logic Completion Interrupt</para></listitem><listitem><para>Error Interrupt (For Master and Slave Errors)</para></listitem></itemizedlist>
+</para><para>The application can control which interrupts are enabled using these functions:<itemizedlist>
+<listitem><para><ref refid="group__trafgen_1ga11a588bff0d2c58310d48da4c24126a1" kindref="member">XTrafGen_EnableMasterCmpInterrupt()</ref></para></listitem><listitem><para><ref refid="group__trafgen_1ga0a8a195712d5963fa07799d59045e86f" kindref="member">XTrafGen_MasterErrIntrEnable()</ref></para></listitem><listitem><para><ref refid="group__trafgen_1gacd4a2d138602873e0614886c7e11b751" kindref="member">XTrafGen_SlaveErrIntrEnable()</ref></para></listitem></itemizedlist>
+</para><para>The interrupt system has to be set up and if the interrupts are enabled, Traffic Generator notifies the software either about the completion or an error in transfer through interrupts.</para><para><bold> Examples </bold></para><para>We provided two examples to show how to use the driver API:<itemizedlist>
+<listitem><para>One for interrupt mode (<ref refid="xtrafgen__interrupt__example_8c" kindref="compound">xtrafgen_interrupt_example.c</ref>)</para></listitem><listitem><para>One for polling mode (<ref refid="xtrafgen__polling__example_8c" kindref="compound">xtrafgen_polling_example.c</ref>)</para></listitem></itemizedlist>
+</para><para><bold> Asserts </bold></para><para>Asserts are used within all Xilinx drivers to enforce constraints on argument values. Asserts can be turned off on a system-wide basis by defining, at compile time, the NDEBUG identifier. By default, asserts are turned on and it is recommended that users leave asserts on during development.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a srt  01/24/13 First release
+1.01a adk  03/09/13 Updated Driver to Support Streaming and Static Mode
+2.00a adk  16/09/13 Fixed CR:737291
+2.01a adk  21/10/13 Fixed CR:740522 Updated the MasterRam offset as per latest
+              IP.This driver is valid only for IP(v2.0) onwards. The
+              XTG_MASTER_RAM_OFFSET has been changed from
+              0x10000 to 0xc000.
+2.01a adk  15/11/13 Fixed CR:760808 added Macro&apos;s for the New bit fields added
+                      in the latest tarfgen IP(v2.0).
+3.0   adk  12/10/13 Updated as per the New Tcl API&apos;s
+3.1   adk  28/04/14 Fixed CR:782131 Incorrect mask value for the
+              loopenable bit.
+3.2   adk  05/08/14 Fixed CR:798742 The last word of 8KB Master RAM in
+              axi traffic generator can&apos;t access and CR:799554
+                      Some incorrect parameter in axi traffic generator driver.
+4.0   sd  19/08/15 Fixed CR:876564 Added 64-bit Support to axi traffic generator
+             driver.
+4.1   ms  01/23/17 Modified xil_printf statement in main function for all
+                   examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                   strings are available in all examples. This is a fix
+                   for CR-965028.
+      ms  03/17/17 Added readme.txt file in examples folder for doxygen
+                   generation.
+      ms  04/05/17 Added tabspace for return statements in functions of
+                   trafgen examples for proper documentation while
+                   generating doxygen and also modified filename tag in
+                   master streaming example file to include it in doxygen
+                   examples.
+4.2   ms  04/18/17 Modified tcl file to add suffix U for all macros
+                   definitions of trafgen in xparameters.h
+4.4   sd   09/03/20 Updated makefile for parallel execution.
+4.7   ar   03/07/24 Modified trafgen intr examples added macro for Interrupt ID.
+4.8   ht   12/01/24 Fixed GCC warnings.
+4.9   vlt  12/30/25 Update Doxygen comments to include SDT flow details.
+      vlt  01/27/25 Fixed codespell issues.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

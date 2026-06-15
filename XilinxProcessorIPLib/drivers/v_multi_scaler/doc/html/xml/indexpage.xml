@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_multi_scaler</title>
+    <detaileddescription>
+<para>This file provides the default fixed coefficient sets for scaling filters.The coefficients are pre-calculated polyphase filter banks that enable high-quality image scaling operations. Multiple tap configurations are supported (6-tap, 8-tap, 10-tap, 12-tap) with different coefficient array formats (6C, 8C, 10C, 12C) to accommodate various hardware configurations. </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

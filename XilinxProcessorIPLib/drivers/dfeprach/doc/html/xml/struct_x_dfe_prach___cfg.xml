@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_prach___cfg" kind="struct" prot="public">
+    <compoundname>XDfePrach_Cfg</compoundname>
+    <includes local="no">xdfeprach.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_prach___cfg_1a49194e09c3f812a73fd279ee3be53774" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___version" kindref="compound">XDfePrach_Version</ref></type>
+        <definition>XDfePrach_Version XDfePrach_Cfg::Version</definition>
+        <argsstring></argsstring>
+        <name>Version</name>
+        <briefdescription>
+<para>Logicore version. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="297" bodyend="-1"/>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_prach___cfg_1a116125ccd0dc1840bd02b91fcbabb5fb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dfe_prach___model_parameters" kindref="compound">XDfePrach_ModelParameters</ref></type>
+        <definition>XDfePrach_ModelParameters XDfePrach_Cfg::ModelParams</definition>
+        <argsstring></argsstring>
+        <name>ModelParams</name>
+        <briefdescription>
+<para><verbatim>                                Logicore
+</verbatim> parameterization </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga1287a30b7e83158a48088593234ab1e4" compoundref="xdfeprach__2_c_c__3_r_c__dynamic__example_8c" startline="71" endline="324">XDfePrach_2CC3RCDynamicTestExample</referencedby>
+        <referencedby refid="group___overview_1ga80c73e89a6fc66abac088bbc45431dc3" compoundref="xdfeprach__2_c_c__3_r_c__reconfigure__example_8c" startline="73" endline="377">XDfePrach_2CC3RCReconfigureTestExample</referencedby>
+        <referencedby refid="group___overview_1gabd47bf94fdf2e70c66193ba7d36baded" compoundref="xdfeprach__2_c_c__3_r_c__example_8c" startline="70" endline="337">XDfePrach_2CC3RCTestExample</referencedby>
+        <referencedby refid="group__dfeprach_1ga16b80a647ed6d6efa28dd2223880696a" compoundref="xdfeprach_8c" startline="1711" endline="1902">XDfePrach_Configure</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>PRACH IP Configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="13">
+        <label>XDfePrach_ModelParameters</label>
+        <link refid="struct_x_dfe_prach___model_parameters"/>
+      </node>
+      <node id="14">
+        <label>XDfePrach_Version</label>
+        <link refid="struct_x_dfe_prach___version"/>
+      </node>
+      <node id="12">
+        <label>XDfePrach_Cfg</label>
+        <link refid="struct_x_dfe_prach___cfg"/>
+        <childnode refid="13" relation="usage">
+          <edgelabel>ModelParams</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>Version</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeprach/src/xdfeprach.h" bodystart="296" bodyend="300"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_prach___cfg_1a116125ccd0dc1840bd02b91fcbabb5fb" prot="public" virt="non-virtual"><scope>XDfePrach_Cfg</scope><name>ModelParams</name></member>
+      <member refid="struct_x_dfe_prach___cfg_1a49194e09c3f812a73fd279ee3be53774" prot="public" virt="non-virtual"><scope>XDfePrach_Cfg</scope><name>Version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

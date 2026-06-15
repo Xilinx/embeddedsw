@@ -1,0 +1,616 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xplmi__debug_8c" kind="file">
+    <compoundname>xplmi_debug.c</compoundname>
+    <includes refid="xplmi_8h" local="yes">xplmi.h</includes>
+    <includes refid="xplmi__debug_8h" local="yes">xplmi_debug.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xplmi_hw.h</includes>
+    <includes local="yes">xplmi_status.h</includes>
+    <includes local="no">stdarg.h</includes>
+    <incdepgraph>
+      <node id="596">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="588">
+        <label>xplmi_proc.h</label>
+        <link refid="xplmi__proc_8h"/>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+      </node>
+      <node id="606">
+        <label>stdarg.h</label>
+      </node>
+      <node id="597">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="602">
+        <label>stdlib.h</label>
+      </node>
+      <node id="583">
+        <label>xplmi_event_logging.h</label>
+        <link refid="xplmi__event__logging_8h"/>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="586" relation="include">
+        </childnode>
+      </node>
+      <node id="592">
+        <label>xplmi_ipi.h</label>
+        <link refid="xplmi__ipi_8h"/>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+      </node>
+      <node id="598">
+        <label>xplmi_task.h</label>
+        <link refid="xplmi__task_8h"/>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="577">
+        <label>xplmi_debug.c</label>
+        <link refid="xplmi_debug.c"/>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+      </node>
+      <node id="580">
+        <label>xplmi_debug.h</label>
+        <link refid="xplmi__debug_8h"/>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+      </node>
+      <node id="586">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="587" relation="include">
+        </childnode>
+      </node>
+      <node id="578">
+        <label>xplmi.h</label>
+        <link refid="xplmi_8h"/>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="603">
+        <label>xplmi_dma.h</label>
+        <link refid="xplmi__dma_8h"/>
+        <childnode refid="604" relation="include">
+        </childnode>
+      </node>
+      <node id="579">
+        <label>xplmi_generic.h</label>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="603" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+      </node>
+      <node id="599">
+        <label>mb_interface.h</label>
+      </node>
+      <node id="594">
+        <label>xplmi_modules.h</label>
+        <link refid="xplmi__modules_8h"/>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+      </node>
+      <node id="600">
+        <label>xstatus.h</label>
+      </node>
+      <node id="582">
+        <label>xplmi_config.h</label>
+      </node>
+      <node id="590">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="587">
+        <label>xil_types.h</label>
+      </node>
+      <node id="604">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="584">
+        <label>xplmi_cmd.h</label>
+        <link refid="xplmi__cmd_8h"/>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+      </node>
+      <node id="593">
+        <label>xparameters.h</label>
+      </node>
+      <node id="581">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="601">
+        <label>list.h</label>
+        <childnode refid="602" relation="include">
+        </childnode>
+      </node>
+      <node id="605">
+        <label>xplmi_hw.h</label>
+      </node>
+      <node id="591">
+        <label>xplmi_gic_interrupts.h</label>
+        <link refid="xplmi__gic__interrupts_8h"/>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+      </node>
+      <node id="589">
+        <label>xiomodule.h</label>
+      </node>
+      <node id="595">
+        <label>xplmi_plat.h</label>
+      </node>
+      <node id="585">
+        <label>xplmi_status.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_InitUart</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_InitUart</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes the PS UART. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERR_UART_MEMSET on UART instance failure.</para></listitem><listitem><para>XPLMI_ERR_UART_LOOKUP if UART driver lookup fails.</para></listitem><listitem><para>XPLMI_ERR_UART_CFG if UART driver configuration fails.</para></listitem><listitem><para>XPLMI_ERR_UART_PSV_SET_BAUD_RATE if failed to set the baud rate. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initialize UART, If UART is already initialized, just return success.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" bodystart="113" bodyend="198"/>
+        <references refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" compoundref="xplmi_8h" startline="130">UART_INITIALIZED</references>
+        <references refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" compoundref="xplmi_8h" startline="133">UART_PRINT_ENABLED</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ade7868c57f1197b9464c04199671844f" compoundref="2vp_2server_2xplmi__status_8h" startline="110">XPLMI_ERR_UART_CFG</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a2d2e9c6b052cd00637e95ac09b306aef" compoundref="2vp_2server_2xplmi__status_8h" startline="109">XPLMI_ERR_UART_LOOKUP</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a6093c14eb56b932353cdb31ca98b0f66" compoundref="2vp_2server_2xplmi__status_8h" startline="138">XPLMI_ERR_UART_MEMSET</references>
+        <references refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a489080a886793f42db5c82d1ae08b8d8" compoundref="2vp_2server_2xplmi__status_8h" startline="142">XPLMI_ERR_UART_PSV_SET_BAUD_RATE</references>
+        <references refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" compoundref="server_2xplmi__plat_8c" startline="209" endline="214">XPlmi_GetUartBaseAddr</references>
+        <references refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" compoundref="xplmi__dma_8c" startline="934" endline="983">XPlmi_MemSetBytes</references>
+        <references refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" compoundref="xplmi_8c" startline="393" endline="398">XPlmi_SetLpdInitialized</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga096c3ab59b174d7abd84700c70debaa7" compoundref="xplmi_8c" startline="241" endline="286">XPlmi_LpdInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_ConfigUart</definition>
+        <argsstring>(u8 UartSelect, u8 UartEnable)</argsstring>
+        <name>XPlmi_ConfigUart</name>
+        <param>
+          <type>u8</type>
+          <declname>UartSelect</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>UartEnable</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the PS UART base address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>UartSelect</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the uart number to be selected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UartEnable</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the flag used to enable or disable uart</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XPLMI_ERR_NO_UART_PRESENT if UART is not available to configure.</para></listitem><listitem><para>XPLMI_ERR_CURRENT_UART_INVALID if selected UART base address is invalid.</para></listitem><listitem><para>XPLMI_ERR_INVALID_UART_SELECT if invalid UART SELECT argument is passed.</para></listitem><listitem><para>XPLMI_ERR_INVALID_UART_ENABLE if invalid UART ENABLE argument is passed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" bodystart="218" bodyend="265"/>
+        <references refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" compoundref="xplmi_8h" startline="133">UART_PRINT_ENABLED</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a44869241ecebed42cc3c95df37ba68af" compoundref="2vp_2server_2xplmi__plat_8h" startline="271">XPLMI_ERR_CURRENT_UART_INVALID</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a2aeadf1e7e6bee4cefb900f8b1408cc5" compoundref="2vp_2server_2xplmi__plat_8h" startline="277">XPLMI_ERR_INVALID_UART_ENABLE</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a767bf951fd7913a26fe73f3bc9f402ff" compoundref="2vp_2server_2xplmi__plat_8h" startline="274">XPLMI_ERR_INVALID_UART_SELECT</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4a1874a91778641e92e402f1586d7db2" compoundref="2vp_2server_2xplmi__plat_8h" startline="280">XPLMI_ERR_NO_UART_PRESENT</references>
+        <references refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" compoundref="server_2xplmi__plat_8c" startline="209" endline="214">XPlmi_GetUartBaseAddr</references>
+        <references refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" compoundref="xplmi_8c" startline="393" endline="398">XPlmi_SetLpdInitialized</references>
+        <references refid="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" compoundref="xplmi_8c" startline="407" endline="412">XPlmi_UnSetLpdInitialized</references>
+        <referencedby refid="group__xilplmi__server__apis_1gaf48d925ddd447c3e5b00eab9f221429b" compoundref="xplmi__event__logging_8c" startline="274" endline="333">XPlmi_EventLogging</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga05aef7037486274b220f118ecc87aab7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void outbyte</definition>
+        <argsstring>(char c)</argsstring>
+        <name>outbyte</name>
+        <param>
+          <type>char</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>This function prints and logs the terminal prints to debug log buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the character to be printed and logged </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>If UART is enabled, send the byte to UART.</para></listitem><listitem><para>Store the byte onto log buffer. </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" bodystart="274" bodyend="298"/>
+        <references refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" compoundref="server_2xplmi__plat_8c" startline="209" endline="214">XPlmi_GetUartBaseAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga2b28c3907e83a63bf43adaa1f5a545e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_Print</definition>
+        <argsstring>(u16 DebugType, const char8 *Ctrl1,...)</argsstring>
+        <name>XPlmi_Print</name>
+        <param>
+          <type>u16</type>
+          <declname>DebugType</declname>
+        </param>
+        <param>
+          <type>const char8 *</type>
+          <declname>Ctrl1</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>This function prints debug messages with timestamp. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DebugType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the PLM Debug level for the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ctrl1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the format specified string to print </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c" bodystart="308" bodyend="321"/>
+        <references refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" compoundref="xplmi__proc_8c" startline="242" endline="250">XPlmi_PrintPlmTimeStamp</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga2c8aea8817f7523f8e19f5b8f2712234" compoundref="xplmi__plat__cmd_8c" startline="287" endline="325">XPlmi_ScatterWrite</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga1e1cdb534edb8282728567c27ed02bc1" compoundref="xplmi__plat__cmd_8c" startline="345" endline="385">XPlmi_ScatterWrite2</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga30cbe0eeabc180d930a709179f8a2801" compoundref="xplmi__plat__cmd_8c" startline="400" endline="433">XPlmi_SetFipsKatMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the file which contains uart initialization code for the PLM. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date        Changes
+<hruler/>
+
+1.00  kc   07/13/2018 Initial release
+1.01  ma   08/01/2019 Added LPD init code
+1.02  ana  11/26/2019 Updated Uart Device ID
+      kc   01/16/2020 Removed xilpm dependency in PLMI for UART
+      ma   02/18/2020 Added support for logging terminal prints
+      ma   03/02/2020 Implement PLMI own outbyte to support logging as well
+      bsv  04/04/2020 Code clean up
+1.03  kc   07/28/2020 Moved LpdInitialized from <ref refid="xplmi__debug_8c" kindref="compound">xplmi_debug.c</ref> to <ref refid="xplmi_8c" kindref="compound">xplmi.c</ref>
+      bm   10/14/2020 Code clean up
+      td   10/19/2020 MISRA C Fixes
+1.04  bm   02/01/2021 Add XPlmi_Print functions using xil_vprintf
+      ma   03/24/2021 Store DebugLog structure to RTCA
+      ma   03/24/2021 Print logs to memory when PrintToBuf is TRUE
+      td   05/20/2021 Support user configurable uart baudrate
+1.05  td   07/08/2021 Fix doxygen warnings
+      bsv  07/16/2021 Fix doxygen warnings
+      bsv  08/02/2021 Code clean up to reduce size
+      bm   08/12/2021 Added support to configure uart during run-time
+      rb   08/11/2021 Fix compilation warnings
+      bsv  09/05/2021 Disable prints in slave boot modes in case of error
+1.06  am   11/24/2021 Fixed doxygen warning
+1.07  skd  04/21/2022 Misra-C violation Rule 8.3 fixed
+1.08  bm   07/06/2022 Refactor versal and versal_net code
+1.09  sk   11/09/2022 Added Timeout settings info for JTAG_SBI Bootmode
+      ng   03/30/2023 Updated algorithm and return values in doxygen comments
+1.10  ng   07/06/2023 Added support for SDT flow
+      pre  14/12/2023 Fixed compilation warnings
+      pre  09/08/2025 Limited printtobuf to lower nibble only
+2.4     abh  10/27/2025 Fixed MISRA-C violations</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi_8h" kindref="compound">xplmi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xplmi__debug_8h" kindref="compound">xplmi_debug.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_UART_PS</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_status.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdarg.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PLM_DEBUG_DETAILED</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#warning<sp/>&quot;Log<sp/>Level<sp/>set<sp/>to<sp/>Detailed,for<sp/>JTAG_SBI<sp/>Bootmode<sp/>device<sp/>program<sp/>may<sp/>timeout<sp/>refer<sp/>PLM<sp/>wiki<sp/>to<sp/>change<sp/>xsdb<sp/>timeout&quot;</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>0U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_SPP_INPUT_CLK_FREQ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(25000000U)<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#define<sp/>XPLMI_UART_SELECT_CURRENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>0U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_UART_SELECT_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XPLMI_UART_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor">#define<sp/>XPLMI_UART_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>1U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_UART_SELECT_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)<sp/></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="113" refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga7074352326bac9f81a27eb1896c15801" kindref="member">XPlmi_InitUart</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_BASEADDRESS</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*UartBaseAddr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" kindref="member">XPlmi_GetUartBaseAddr</ref>();</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_IsUartInitialized()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>0U)</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv<sp/>UartPsvIns;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_Config<sp/>*Config;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>(u8)XPLMI_UART_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>XUartPsv_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga996d4ed8fe42abcb42ef2fba05264a68" kindref="member">XPlmi_MemSetBytes</ref>(&amp;UartPsvIns,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XUartPsv),</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(XUartPsv));</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a6093c14eb56b932353cdb31ca98b0f66" kindref="member">XPLMI_ERR_UART_MEMSET</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XUartPsv_LookupConfig(Index);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config<sp/>=<sp/>XUartPsv_LookupConfig(XUartPsv_ConfigTable[Index].BaseAddress);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>Config)<sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a2d2e9c6b052cd00637e95ac09b306aef" kindref="member">XPLMI_ERR_UART_LOOKUP</ref>,<sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)Index);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>-<sp/>Set<sp/>the<sp/>input<sp/>clock<sp/>frequency<sp/>to<sp/>25MHz<sp/>for<sp/>SPP<sp/>platforms.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPLMI_PLATFORM<sp/>==<sp/>PMC_TAP_VERSION_SPP)<sp/>{</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;InputClockHz<sp/>=<sp/>XPLMI_SPP_INPUT_CLK_FREQ;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUartPsv_CfgInitialize(&amp;UartPsvIns,<sp/>Config,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config-&gt;BaseAddress);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3ade7868c57f1197b9464c04199671844f" kindref="member">XPLMI_ERR_UART_CFG</ref>,<sp/>Status);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUartPsv_SetBaudRate(&amp;UartPsvIns,<sp/>Config-&gt;BaudRate);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XPlmi_UpdateStatus(<ref refid="2vp_2server_2xplmi__status_8h_1a2e39b3b0824b1911dafde398ea02b6d3a489080a886793f42db5c82d1ae08b8d8" kindref="member">XPLMI_ERR_UART_PSV_SET_BAUD_RATE</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" kindref="member">UART_INITIALIZED</ref>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>DEBUG_UART_MDM</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1af2f54717aeab90c91cb85cd095f2c86b" kindref="member">UART_INITIALIZED</ref>);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(PLM_PRINT_NO_UART)<sp/>&amp;&amp;<sp/>defined(STDOUT_BASEADDRESS)</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" kindref="member">UART_PRINT_ENABLED</ref>);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>STDOUT_BASEADDRESS</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*UartBaseAddr<sp/>=<sp/>(u32)STDOUT_BASEADDRESS;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="218" refid="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga51cdb30d3f7194a797cbe30886428a9b" kindref="member">XPlmi_ConfigUart</ref>(u8<sp/>UartSelect,<sp/>u8<sp/>UartEnable)</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a4a1874a91778641e92e402f1586d7db2" kindref="member">XPLMI_ERR_NO_UART_PRESENT</ref>;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)UartSelect;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)UartEnable;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>0U)</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*UartBaseAddr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" kindref="member">XPlmi_GetUartBaseAddr</ref>();</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UartSelect<sp/>==<sp/>XPLMI_UART_SELECT_0)<sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*UartBaseAddr<sp/>=<sp/>XPLMI_UART_0_BASEADDR;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>1U)</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UartSelect<sp/>==<sp/>XPLMI_UART_SELECT_1)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*UartBaseAddr<sp/>=<sp/>XPLMI_UART_1_BASEADDR;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UartSelect<sp/>==<sp/>XPLMI_UART_SELECT_CURRENT)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(*UartBaseAddr<sp/>==<sp/>XPLMI_INVALID_UART_BASE_ADDR)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a44869241ecebed42cc3c95df37ba68af" kindref="member">XPLMI_ERR_CURRENT_UART_INVALID</ref>;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a767bf951fd7913a26fe73f3bc9f402ff" kindref="member">XPLMI_ERR_INVALID_UART_SELECT</ref>;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UartEnable<sp/>==<sp/>XPLMI_UART_ENABLE)<sp/>{</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" kindref="member">XPlmi_SetLpdInitialized</ref>(<ref refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" kindref="member">UART_PRINT_ENABLED</ref>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(UartEnable<sp/>==<sp/>XPLMI_UART_DISABLE)<sp/>{</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1gabd3b47e48133fb2e51358b8f476f8cf1" kindref="member">XPlmi_UnSetLpdInitialized</ref>(<ref refid="xplmi_8h_1a2c770b4d1c45e582fe15305dd53bc832" kindref="member">UART_PRINT_ENABLED</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a2aeadf1e7e6bee4cefb900f8b1408cc5" kindref="member">XPLMI_ERR_INVALID_UART_ENABLE</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="274" refid="group__xilplmi__server__apis_1ga05aef7037486274b220f118ecc87aab7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga05aef7037486274b220f118ecc87aab7" kindref="member">outbyte</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>c)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>CurrentAddr;</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#if<sp/>(XPLMI_UART_NUM_INSTANCES<sp/>&gt;<sp/>0U)</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*UartBaseAddr<sp/>=<sp/><ref refid="group__xilplmi__server__apis_1ga1f827dead46c0135f8bea6b0f0bf223d" kindref="member">XPlmi_GetUartBaseAddr</ref>();</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XPlmi_IsUartPrintInitialized()<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUartPsv_SendByte(*UartBaseAddr,<sp/>(u8)c);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DebugLog-&gt;DiscardLogsAndPrintToBuf<sp/>&amp;<sp/>XPLMI_PRINTTOBUFF_MASK)<sp/>==<sp/>(u8)TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentAddr<sp/>=<sp/>DebugLog-&gt;LogBuffer.StartAddr<sp/>+</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.Offset;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CurrentAddr<sp/>&gt;=<sp/>(DebugLog-&gt;LogBuffer.StartAddr<sp/>+</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.Len))<sp/>{</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.Offset<sp/>=<sp/>0x0U;</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DebugLog-&gt;LogBuffer.IsBufferFull<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CurrentAddr<sp/>=<sp/>DebugLog-&gt;LogBuffer.StartAddr;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPlmi_OutByte64(CurrentAddr,<sp/>(u8)c);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++DebugLog-&gt;LogBuffer.Offset;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="298"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="308" refid="group__xilplmi__server__apis_1ga2b28c3907e83a63bf43adaa1f5a545e9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga2b28c3907e83a63bf43adaa1f5a545e9" kindref="member">XPlmi_Print</ref>(u16<sp/>DebugType,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>char8<sp/>*Ctrl1,<sp/>...)</highlight></codeline>
+<codeline lineno="309"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>va_list<sp/>Args;</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>va_start(Args,<sp/>Ctrl1);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((DebugType)<sp/>&amp;<sp/>(DebugLog-&gt;LogLevel))<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((DebugType<sp/>&amp;<sp/>XPLMI_DEBUG_PRINT_TIMESTAMP_MASK)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilplmi__server__apis_1ga161d819b7e4971a43da00b9c8d3ddc6a" kindref="member">XPlmi_PrintPlmTimeStamp</ref>();</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_vprintf(Ctrl1,<sp/>Args);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>va_end(Args);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_debug.c"/>
+  </compounddef>
+</doxygen>

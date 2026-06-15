@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_can_ps___config" kind="struct" prot="public">
+    <compoundname>XCanPs_Config</compoundname>
+    <includes local="no">xcanps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_can_ps___config_1a884c258e39e5af81651c85014e3b9f7b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XCanPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga9883d8be70b9697a32bbe2e38d722cb1" compoundref="xcanps__sinit_8c" startline="90" endline="104">XCanPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCanPs_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__polled__example_8c_1a0bd337ce93d64955109b034d61546eac" compoundref="xcanps__polled__example_8c" startline="185" endline="258">CanPsPolledExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+        <referencedby refid="group__canps_1ga1cffdc22b01e4b4d3aad5e556bf96d20" compoundref="xcanps_8c" startline="676" endline="691">XCanPs_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__canps_1ga1ec6f79564deff77e496120552004ad8" compoundref="xcanps_8c" startline="637" endline="653">XCanPs_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__canps_1gaf2ac50558c7d926fed54329667d4aaca" compoundref="xcanps_8c" startline="840" endline="887">XCanPs_AcceptFilterGet</referencedby>
+        <referencedby refid="group__canps_1ga52a76621e921b66e70e1bed7a58b72f7" compoundref="xcanps_8c" startline="708" endline="717">XCanPs_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__canps_1ga4de284fb96ea457b047c41fbd73ada44" compoundref="xcanps_8c" startline="748" endline="817">XCanPs_AcceptFilterSet</referencedby>
+        <referencedby refid="group__canps_1ga458b97ea8e4dbb67edb27687a41ebd87" compoundref="xcanps_8c" startline="76" endline="114">XCanPs_CfgInitialize</referencedby>
+        <referencedby refid="group__canps_1ga616ac01563ef3d8f9ae57bf308bad534" compoundref="xcanps_8c" startline="419" endline="426">XCanPs_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</referencedby>
+        <referencedby refid="group__canps_1gae452283471584ad19f0c854a782640ab" compoundref="xcanps_8c" startline="946" endline="955">XCanPs_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gaecaff4cbadbea1a01f570a7e6917a027" compoundref="xcanps_8c" startline="1035" endline="1054">XCanPs_GetBitTiming</referencedby>
+        <referencedby refid="group__canps_1gaecf35feac1fbc0df4029ca4e1150c650" compoundref="xcanps_8c" startline="359" endline="376">XCanPs_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__canps_1ga647e39edd3f7247a5e283e9083d8d285" compoundref="xcanps_8c" startline="392" endline="400">XCanPs_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__canps_1gadc59b9185cd5973cb03ea2bae94b70cb" compoundref="xcanps_8c" startline="1114" endline="1124">XCanPs_GetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1ga6d87194a88956cbe32f48ea3d25697ef" compoundref="xcanps_8c" startline="333" endline="341">XCanPs_GetStatus</referencedby>
+        <referencedby refid="group__canps_1gaa59c678943abd873688ba4fd16ee0941" compoundref="xcanps_8c" startline="1183" endline="1193">XCanPs_GetTxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gae573e5472755420a3b6ded5d01814534" compoundref="xcanps__intr_8c" startline="173" endline="187">XCanPs_IntrClear</referencedby>
+        <referencedby refid="group__canps_1ga6228ea25a1ccf31608231b07f3ae54a7" compoundref="xcanps__intr_8c" startline="93" endline="107">XCanPs_IntrDisable</referencedby>
+        <referencedby refid="group__canps_1ga06e4eda1022a81ea619ac7d66e345577" compoundref="xcanps__intr_8c" startline="60" endline="74">XCanPs_IntrEnable</referencedby>
+        <referencedby refid="group__canps_1gac3325adebecffcb97cb01ff3c75391b0" compoundref="xcanps__intr_8c" startline="122" endline="130">XCanPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__canps_1gac6640f1ea5f9e4027d67af3b4eec4623" compoundref="xcanps__intr_8c" startline="147" endline="154">XCanPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</referencedby>
+        <referencedby refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</referencedby>
+        <referencedby refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</referencedby>
+        <referencedby refid="group__canps_1ga64f46d8713f6e3d4c62047d6b9ddbebf" compoundref="xcanps_8c" startline="574" endline="616">XCanPs_SendHighPriority</referencedby>
+        <referencedby refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</referencedby>
+        <referencedby refid="group__canps_1ga6c86f833053ec1121fcfad4176dea686" compoundref="xcanps_8c" startline="1075" endline="1099">XCanPs_SetRxIntrWatermark</referencedby>
+        <referencedby refid="group__canps_1gaf4147148a66b44ca844ecbe3340ecce3" compoundref="xcanps_8c" startline="1145" endline="1169">XCanPs_SetTxIntrWatermark</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps___config_1a70c2e9d162682ce6fc316566582b48e4" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCanPs_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_ps___config_1a35708bda6d16a8bca7da06cc3b6956e7" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCanPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" bodystart="234" bodyend="247"/>
+    <listofallmembers>
+      <member refid="struct_x_can_ps___config_1aead9a19a4d9084512a482d1d5ae41bc9" prot="public" virt="non-virtual"><scope>XCanPs_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_can_ps___config_1a70c2e9d162682ce6fc316566582b48e4" prot="public" virt="non-virtual"><scope>XCanPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_can_ps___config_1a35708bda6d16a8bca7da06cc3b6956e7" prot="public" virt="non-virtual"><scope>XCanPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_can_ps___config_1a884c258e39e5af81651c85014e3b9f7b" prot="public" virt="non-virtual"><scope>XCanPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

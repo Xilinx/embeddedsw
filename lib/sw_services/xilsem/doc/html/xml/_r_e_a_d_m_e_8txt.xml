@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_r_e_a_d_m_e_8txt" kind="file">
+    <compoundname>README.txt</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_r_e_a_d_m_e_8txt_1ae56b725a4fdb52dec0b1c30e74067d4b" prot="public" static="no" mutable="no">
+        <type>Steps to Lookup Essential Bit Data from user</type>
+        <definition>Steps to Lookup Essential Bit Data from user design</definition>
+        <argsstring></argsstring>
+        <name>design</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/README.txt" line="1" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/README.txt" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_r_e_a_d_m_e_8txt_1ac547806c318a44dcce4f10252aea7054" prot="public" static="no" mutable="no">
+        <type>Steps to Lookup Essential Bit Data from user for</type>
+        <definition>Steps to Lookup Essential Bit Data from user for SLR1</definition>
+        <argsstring></argsstring>
+        <name>SLR1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/README.txt" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/README.txt" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">Steps<sp/>to<sp/>Lookup<sp/>Essential<sp/>Bit<sp/>Data<sp/>from<sp/>user<sp/>design:</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">----------------------------------------------------</highlight></codeline>
+<codeline lineno="3"><highlight class="normal">Follow<sp/>the<sp/>steps<sp/>given<sp/>below<sp/>to<sp/>find<sp/>out<sp/>whether<sp/>a<sp/>particular<sp/>bit<sp/>is<sp/>essential<sp/>or<sp/>not.</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal">1.<sp/>Creating<sp/>golden<sp/>EBD<sp/>data<sp/>from<sp/>user<sp/>design</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">============================================</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.1<sp/>Generate<sp/>uncompressed<sp/>*.ebd_cfi<sp/>file<sp/>from<sp/>vivado<sp/></highlight><highlight class="keyword">using</highlight><highlight class="normal"><sp/>commands<sp/>below:</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set_property<sp/>bitstream.seu.essentialbits<sp/>yes<sp/>[current_design]</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set_property<sp/>bitstream.general.compress<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal"><sp/>[current_design]</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>write_device_image<sp/>-raw<sp/>-force<sp/>-readback<sp/>typeN</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>where<sp/>N<sp/>refers<sp/>to<sp/>Specific<sp/>block<sp/>type.</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>by<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal"><sp/>choose<sp/>block<sp/>type<sp/>0.</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>e.g:write_device_image<sp/>-raw<sp/>-force<sp/>-readback<sp/>type0</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.2<sp/>Download<sp/></highlight><highlight class="stringliteral">&quot;generate_ebd_golden_data&quot;</highlight><highlight class="normal"><sp/>folder<sp/>from<sp/>XilSEM<sp/>example<sp/>folder</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Path</highlight><highlight class="stringliteral">&quot;<sp/>https://github.com/Xilinx/embeddedsw/tree/master/lib/sw_services/xilsem/examples)</highlight></codeline>
+<codeline lineno="18"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>your<sp/>local<sp/>path</highlight></codeline>
+<codeline lineno="19"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="20"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3<sp/>Generate<sp/>EBD<sp/>Golden<sp/>Data<sp/>for<sp/>Mono<sp/>Devices</highlight></codeline>
+<codeline lineno="21"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="22"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3.1<sp/>cd<sp/>to<sp/>your<sp/>local<sp/>path<sp/>where<sp/>the<sp/>folder<sp/>&quot;</highlight><highlight class="normal">generate_ebd_golden_data</highlight><highlight class="stringliteral">&quot;<sp/>is<sp/>present</highlight></codeline>
+<codeline lineno="23"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="24"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3.2<sp/>Copy<sp/>*.ebd_cfi<sp/>generated<sp/>from<sp/>Vivado<sp/>(step<sp/>1.1)<sp/>to<sp/>this<sp/>folder</highlight></codeline>
+<codeline lineno="25"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="26"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3.3<sp/>Locate<sp/>&quot;</highlight><highlight class="normal">run.sh</highlight><highlight class="stringliteral">&quot;<sp/>script<sp/>in<sp/>the<sp/>folder<sp/>and<sp/>change<sp/>permissions<sp/>of<sp/>the<sp/>script<sp/>file<sp/>by<sp/>running<sp/>following<sp/>command<sp/>from<sp/>the<sp/>terminal:</highlight></codeline>
+<codeline lineno="27"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>chmod<sp/>u+x<sp/>run.sh</highlight></codeline>
+<codeline lineno="28"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.3.4<sp/>Run<sp/>&quot;</highlight><highlight class="normal">run.sh</highlight><highlight class="stringliteral">&quot;<sp/>using<sp/>the<sp/>following<sp/>command<sp/>to<sp/>generate<sp/>&quot;</highlight><highlight class="normal">xsem_edbgoldendata.c</highlight><highlight class="stringliteral">&quot;:</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bash<sp/>run.sh</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.4<sp/>Generate<sp/>EBD<sp/>Golden<sp/>Data<sp/>for<sp/>SSIT<sp/>Devices</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.4.1<sp/>cd<sp/>to<sp/>your<sp/>local<sp/>path<sp/>where<sp/>the<sp/>folder<sp/>&quot;</highlight><highlight class="normal">generate_ebd_golden_data</highlight><highlight class="stringliteral">&quot;<sp/>is<sp/>present</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.4.2<sp/>Copy<sp/>*.ebd_cfi<sp/>files<sp/>generated<sp/>for<sp/>all<sp/>SLRs<sp/>from<sp/>Vivado<sp/>(step<sp/>1.1)<sp/>to<sp/>this<sp/>folder</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.4.3<sp/>Locate<sp/>&quot;</highlight><highlight class="normal">run_ssit.sh</highlight><highlight class="stringliteral">&quot;<sp/>script<sp/>in<sp/>the<sp/>folder<sp/>and<sp/>change<sp/>permissions<sp/>of<sp/>the<sp/>script<sp/>file<sp/>by<sp/>running<sp/>following<sp/>command<sp/>from<sp/>the<sp/>terminal:</highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>chmod<sp/>u+x<sp/>run_ssit.sh</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.4.4<sp/>Run<sp/>&quot;</highlight><highlight class="normal">run_ssit.sh</highlight><highlight class="stringliteral">&quot;<sp/>using<sp/>the<sp/>following<sp/>command<sp/>to<sp/>generate<sp/>&quot;</highlight><highlight class="normal">xsem_edbgoldendata&lt;slr_id&gt;.c</highlight><highlight class="stringliteral">&quot;<sp/>for<sp/>all<sp/>SLRs<sp/>in<sp/>the<sp/>device:</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bash<sp/>run_ssit.sh<sp/>&lt;slr_id&gt;</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>slr_id<sp/>=<sp/>0<sp/>for<sp/>SLR0,1<sp/>for<sp/>SLR1,..n<sp/>for<sp/>SLRn</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral">2.<sp/>Build<sp/>and<sp/>Run<sp/>EBD<sp/>lookup<sp/>example<sp/>for<sp/>Versal<sp/>Monolithic<sp/>device</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral">================================================================================</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.1<sp/>Open<sp/>Vitis<sp/>tool<sp/>and<sp/>import<sp/>XilSEM<sp/>example<sp/>&quot;</highlight><highlight class="normal">xsem_ebd_example</highlight><highlight class="stringliteral">&quot;<sp/>from<sp/>R5/A72<sp/>application</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.2<sp/>This<sp/>folder<sp/>contains<sp/>a<sp/>source<sp/>file<sp/>&quot;</highlight><highlight class="normal">xsem_ebdgoldendata.c</highlight><highlight class="stringliteral">&quot;.<sp/>This<sp/>needs<sp/>to<sp/>be<sp/>replaced</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>with<sp/>the<sp/>file<sp/>which<sp/>is<sp/>generated<sp/>from<sp/>your<sp/>design<sp/>(Refer<sp/>Step<sp/>1.3)</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.3<sp/>Define<sp/>a<sp/>DDR<sp/>memory<sp/>section<sp/>&quot;</highlight><highlight class="normal">sem_ebddata</highlight><highlight class="stringliteral">&quot;<sp/>in<sp/>your<sp/>R5/A72<sp/>linker<sp/>script<sp/>as<sp/>below:</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.sem_ebddata<sp/>:<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KEEP<sp/>(*(.sem_ebddata))</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>&gt;<sp/>axi_noc_0_C0_DDR_LOW0</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>above<sp/>section<sp/>is<sp/>used<sp/>for<sp/>storing<sp/>structured<sp/>EBD<sp/>golden<sp/>data<sp/>in<sp/>DDR<sp/>memory.</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2.4<sp/>Build<sp/>and<sp/>run<sp/>your<sp/>application.</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral">3.<sp/>Build<sp/>and<sp/>Run<sp/>EBD<sp/>lookup<sp/>example<sp/>for<sp/>Versal<sp/>SSIT<sp/>device</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral">==========================================================================</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.1<sp/>Open<sp/>Vitis<sp/>tool<sp/>and<sp/>Import<sp/>XilSEM<sp/>example<sp/>&quot;</highlight><highlight class="normal">xsem_ebd_ssit_example</highlight><highlight class="stringliteral">&quot;<sp/>from<sp/>R5/A72<sp/>application</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.2<sp/>This<sp/>folder<sp/>contains<sp/>source<sp/>files</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xsem_ebdgoldendata0.c<sp/>for<sp/>slr0</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xsem_ebdgoldendata1.c<sp/>for<sp/>slr1</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Replace<sp/>these<sp/>two<sp/>files<sp/>with<sp/>the<sp/>generated<sp/>files<sp/>from<sp/>your<sp/>design<sp/>(Refer<sp/>steps<sp/>1.4)</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Note:If<sp/>the<sp/>device<sp/>has<sp/>more<sp/>than<sp/>2<sp/>SLRs<sp/>then<sp/>you<sp/>need<sp/>to<sp/>add<sp/>xsem_ebdgoldendataX.c<sp/>for<sp/>other<sp/>SLRs</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.3<sp/>Define<sp/>a<sp/>DDR<sp/>memory<sp/>section<sp/>&quot;</highlight><highlight class="normal">sem_ebddata</highlight><highlight class="stringliteral">&quot;<sp/>in<sp/>your<sp/>R5/A72<sp/>linker<sp/>script<sp/>as<sp/>below:</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.sem_ebddata<sp/>:<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KEEP<sp/>(*(.sem_ebddata))</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>&gt;<sp/>axi_noc_0_C0_DDR_LOW0</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>The<sp/>above<sp/>section<sp/>is<sp/>used<sp/>for<sp/>storing<sp/>structured<sp/>EBD<sp/>golden<sp/>data<sp/>in<sp/>DDR<sp/>memory.</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3.4<sp/>Build<sp/>and<sp/>run<sp/>your<sp/>application.</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/examples/generate_ebd_golden_data/README.txt"/>
+  </compounddef>
+</doxygen>

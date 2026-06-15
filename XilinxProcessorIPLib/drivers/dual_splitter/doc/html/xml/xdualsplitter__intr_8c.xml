@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdualsplitter__intr_8c" kind="file">
+    <compoundname>xdualsplitter_intr.c</compoundname>
+    <includes refid="xdualsplitter_8h" local="yes">xdualsplitter.h</includes>
+    <incdepgraph>
+      <node id="55">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="54">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>xdualsplitter_intr.c</label>
+        <link refid="xdualsplitter_intr.c"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xstatus.h</label>
+      </node>
+      <node id="53">
+        <label>xdualsplitter_hw.h</label>
+        <link refid="xdualsplitter__hw_8h"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xdualsplitter.h</label>
+        <link refid="xdualsplitter_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XDualSplitter_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the Dual Splitter core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the GENR_ERROR register, determines the source of the interrupts and calls the respective callbacks for the interrupts that are enabled in IRQ_ENABLE register, and finally clears the interrupts.</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this core is also responsible for providing callbacks to handle interrupts and installing the callbacks using XDualSplitter_SetCallBack() during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Interrupt should be enabled to execute interrupt handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_intr.c" bodystart="70" bodyend="93"/>
+        <references refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" compoundref="xdualsplitter_8h" startline="160">XDualSplitter::Config</references>
+        <references refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" compoundref="xdualsplitter_8h" startline="163">XDualSplitter::ErrCallback</references>
+        <references refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" compoundref="xdualsplitter_8h" startline="165">XDualSplitter::ErrRef</references>
+        <references refid="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" compoundref="xdualsplitter_8h" startline="138">XDualSplitter_Config::HasIntrReq</references>
+        <references refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" compoundref="xdualsplitter_8h" startline="161">XDualSplitter::IsReady</references>
+        <references refid="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" compoundref="xdualsplitter_8h" startline="348">XDualSplitter_IntrClear</references>
+        <references refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" compoundref="xdualsplitter_8h" startline="323">XDualSplitter_IntrGetPending</references>
+        <references refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" compoundref="xdualsplitter__hw_8h" startline="89">XDUSP_ALL_ERR_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDualSplitter_SetCallback</definition>
+        <argsstring>(XDualSplitter *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XDualSplitter_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a callback that already has been installed replaces it with the new callback. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_intr.c" bodystart="111" bodyend="124"/>
+        <references refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" compoundref="xdualsplitter_8h" startline="163">XDualSplitter::ErrCallback</references>
+        <references refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" compoundref="xdualsplitter_8h" startline="165">XDualSplitter::ErrRef</references>
+        <references refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" compoundref="xdualsplitter_8h" startline="161">XDualSplitter::IsReady</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2014<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdualsplitter_8h" kindref="compound">xdualsplitter.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dual__splitter_1ga040c43cf8292cad54fad4111a7af19c3" kindref="member">XDualSplitter_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ErrorStatus;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref><sp/>*XDualSpltrPtr<sp/>=<sp/>(<ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref><sp/>*)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)InstancePtr);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDualSpltrPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDualSpltrPtr-&gt;<ref refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(XDualSpltrPtr-&gt;<ref refid="struct_x_dual_splitter_1aeded47f9b34da5e26741ef05f5278843" kindref="member">Config</ref>.<ref refid="struct_x_dual_splitter___config_1a0a9073578b8b05a9d3c3ae49f1b7ac7f" kindref="member">HasIntrReq</ref><sp/>==<sp/>0x1);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>pending<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group__dual__splitter_1ga5443342ec7cb733071f68a3011846490" kindref="member">XDualSplitter_IntrGetPending</ref>(XDualSpltrPtr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>has<sp/>happened<sp/>due<sp/>to<sp/>error(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PendingIntr<sp/>&amp;<sp/><ref refid="group__dual__splitter_1ga9702539641dd20a1668e5ca074de7f25" kindref="member">XDUSP_ALL_ERR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>PendingIntr<sp/>&amp;<sp/>(u32)XDUSP_ALL_ERR_MASK;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDualSpltrPtr-&gt;<ref refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" kindref="member">ErrCallback</ref>(XDualSpltrPtr-&gt;<ref refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" kindref="member">ErrRef</ref>,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>pending<sp/>interrupt(s)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dual__splitter_1gade3b45e32122663dce6a7671a2963054" kindref="member">XDualSplitter_IntrClear</ref>(XDualSpltrPtr,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="111" refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dual__splitter_1ga6d470b5b39f29a4635707b69290898f4" kindref="member">XDualSplitter_SetCallback</ref>(<ref refid="struct_x_dual_splitter" kindref="compound">XDualSplitter</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dual_splitter_1abefb52f749cdb12c05f0a5f6458ca51b" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>sets<sp/>user<sp/>provided<sp/>callback<sp/>and<sp/>callback<sp/>reference<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dual_splitter_1ab03d3f613e60a8638a8d5c2a8328e599" kindref="member">ErrCallback</ref><sp/>=</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__dual__splitter_1ga873e8f9016fe93ebb39e59dcfd4a1c2b" kindref="member">XDualSplitter_ErrCallback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dual_splitter_1a5bd5757ddb107dd4981cfaa9ccac9efa" kindref="member">ErrRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dual_splitter/src/xdualsplitter_intr.c"/>
+  </compounddef>
+</doxygen>

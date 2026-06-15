@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="xddrps_8h" kind="file"><name>xddrps.h</name>
+  </compound>
+  <compound refid="group__ddrps" kind="group"><name>ddrps</name>
+  </compound>
+  <compound refid="dir_cb3b0ff669e168126edf7170eda53933" kind="dir"><name>ddrps</name>
+  </compound>
+  <compound refid="dir_742e8f67384067420728c2cafbd31ce6" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

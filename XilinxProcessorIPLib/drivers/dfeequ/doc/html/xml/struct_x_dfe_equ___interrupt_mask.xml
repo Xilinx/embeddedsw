@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___interrupt_mask" kind="struct" prot="public">
+    <compoundname>XDfeEqu_InterruptMask</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___interrupt_mask_1a8376166dc9792447d5fc1fe356467b40" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_InterruptMask::Mask[XDFEEQU_CHANNEL_NUM]</definition>
+        <argsstring>[XDFEEQU_CHANNEL_NUM]</argsstring>
+        <name>Mask</name>
+        <briefdescription>
+<para>[0,1] Mask status events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1gabe7873b94d13d47c80bf23035136e326" compoundref="xdfeequ__intr_8c" startline="156" endline="172">XDfeEqu_GetInterruptMask</referencedby>
+        <referencedby refid="group__dfeequ_1ga532bd09f9d28805fb487f0d2f8e00679" compoundref="xdfeequ__intr_8c" startline="128" endline="145">XDfeEqu_SetInterruptMask</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Event status and interrupt mask. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="310" bodyend="312"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___interrupt_mask_1a8376166dc9792447d5fc1fe356467b40" prot="public" virt="non-virtual"><scope>XDfeEqu_InterruptMask</scope><name>Mask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

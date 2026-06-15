@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ocp___x509_cert" kind="struct" prot="public">
+    <compoundname>XOcp_X509Cert</compoundname>
+    <includes local="no">xocp_common.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ocp___x509_cert_1a682e991ef0c2bdd9c1fc2f342fbda92b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XOcp_X509Cert::CertAddr</definition>
+        <argsstring></argsstring>
+        <name>CertAddr</name>
+        <briefdescription>
+<para>Address of Certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___x509_cert_1ab601adae5228b4c5b4d1c633222bbc22" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XOcp_X509Cert::ActualLenAddr</definition>
+        <argsstring></argsstring>
+        <name>ActualLenAddr</name>
+        <briefdescription>
+<para>Address of Actual Length of certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___x509_cert_1a7a6117571f9a0f803bc94b9aee7c7a02" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_X509Cert::CertSize</definition>
+        <argsstring></argsstring>
+        <name>CertSize</name>
+        <briefdescription>
+<para>Size of certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___x509_cert_1a4fb4be269714e6fb2854ad704a4fe5ad" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xocp__definitions_1gab4f16347c8ba05472531d737ae9e04a3" kindref="member">XOcp_DevKey</ref></type>
+        <definition>XOcp_DevKey XOcp_X509Cert::DevKeySel</definition>
+        <argsstring></argsstring>
+        <name>DevKeySel</name>
+        <briefdescription>
+<para>Select Device key - DevIK/ DevAK. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XOcp_X509Cert::IsCsr</definition>
+        <argsstring></argsstring>
+        <name>IsCsr</name>
+        <briefdescription>
+<para>Flag for Certificate Signing Request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>X509 Certificate structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_common.h" bodystart="194" bodyend="200"/>
+    <listofallmembers>
+      <member refid="struct_x_ocp___x509_cert_1ab601adae5228b4c5b4d1c633222bbc22" prot="public" virt="non-virtual"><scope>XOcp_X509Cert</scope><name>ActualLenAddr</name></member>
+      <member refid="struct_x_ocp___x509_cert_1a682e991ef0c2bdd9c1fc2f342fbda92b" prot="public" virt="non-virtual"><scope>XOcp_X509Cert</scope><name>CertAddr</name></member>
+      <member refid="struct_x_ocp___x509_cert_1a7a6117571f9a0f803bc94b9aee7c7a02" prot="public" virt="non-virtual"><scope>XOcp_X509Cert</scope><name>CertSize</name></member>
+      <member refid="struct_x_ocp___x509_cert_1a4fb4be269714e6fb2854ad704a4fe5ad" prot="public" virt="non-virtual"><scope>XOcp_X509Cert</scope><name>DevKeySel</name></member>
+      <member refid="struct_x_ocp___x509_cert_1ad78221d8e5c2b24414d81299728914b1" prot="public" virt="non-virtual"><scope>XOcp_X509Cert</scope><name>IsCsr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

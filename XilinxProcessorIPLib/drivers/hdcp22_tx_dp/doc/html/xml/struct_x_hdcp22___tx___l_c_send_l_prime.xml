@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___l_c_send_l_prime" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_LCSendLPrime</compoundname>
+    <includes local="no">xhdcp22_tx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___l_c_send_l_prime_1aaa4e8bec3b8522c59d04e4f2c7698c9d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_LCSendLPrime::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___l_c_send_l_prime_1a39964868c2c7318754144664300b8287" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_LCSendLPrime::LPrime[XHDCP22_TX_L_PRIME_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_L_PRIME_SIZE]</argsstring>
+        <name>LPrime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the received AKE_Send_L_prime message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="325" bodyend="330"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___l_c_send_l_prime_1a39964868c2c7318754144664300b8287" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_LCSendLPrime</scope><name>LPrime</name></member>
+      <member refid="struct_x_hdcp22___tx___l_c_send_l_prime_1aaa4e8bec3b8522c59d04e4f2c7698c9d" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_LCSendLPrime</scope><name>MsgId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___cipher_stats" kind="struct" prot="public">
+    <compoundname>XHdcp1x_CipherStats</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___cipher_stats_1a105f3fd602c69a8fdcddb02b7b716440" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_CipherStats::IntCount</definition>
+        <argsstring></argsstring>
+        <name>IntCount</name>
+        <briefdescription>
+<para>The number of interrupts detected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="917" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="917" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga7a718cbfba0847675523d2a89d8a3755" compoundref="xhdcp1x__cipher__intr_8c" startline="212" endline="252">XHdcp1x_CipherHandleInterrupt</referencedby>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+        <referencedby refid="group__hdcp1x_1gaa503ece3533fb6055289ad2dd01ba80b" compoundref="xhdcp1x__tx_8c" startline="916" endline="982">XHdcp1x_TxInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the statistics collected by a cipher instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="916" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="916" bodyend="918"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___cipher_stats_1a105f3fd602c69a8fdcddb02b7b716440" prot="public" virt="non-virtual"><scope>XHdcp1x_CipherStats</scope><name>IntCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

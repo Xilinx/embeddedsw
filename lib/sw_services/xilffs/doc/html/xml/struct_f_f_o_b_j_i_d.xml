@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_f_f_o_b_j_i_d" kind="struct" prot="public">
+    <compoundname>FFOBJID</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1a867089659a2374d44ab917c60037fe5c" prot="public" static="no" mutable="no">
+        <type>FATFS *</type>
+        <definition>FATFS* FFOBJID::fs</definition>
+        <argsstring></argsstring>
+        <name>fs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1afc765e01ff97bfd9645c42b0ba30397f" prot="public" static="no" mutable="no">
+        <type>WORD</type>
+        <definition>WORD FFOBJID::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1ae9b1e6f98dbad367cc00f92b87f8d279" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FFOBJID::attr</definition>
+        <argsstring></argsstring>
+        <name>attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1aa7bfa8dd8958d11df042a67e1da25f63" prot="public" static="no" mutable="no">
+        <type>BYTE</type>
+        <definition>BYTE FFOBJID::stat</definition>
+        <argsstring></argsstring>
+        <name>stat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1ad990393e2ddf16f73671ded4b751becb" prot="public" static="no" mutable="no">
+        <type>DWORD</type>
+        <definition>DWORD FFOBJID::sclust</definition>
+        <argsstring></argsstring>
+        <name>sclust</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_f_f_o_b_j_i_d_1a83c51ba99687054f0cc653b45f195268" prot="public" static="no" mutable="no">
+        <type>FSIZE_t</type>
+        <definition>FSIZE_t FFOBJID::objsize</definition>
+        <argsstring></argsstring>
+        <name>objsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/ff.h" bodystart="206" bodyend="223"/>
+    <listofallmembers>
+      <member refid="struct_f_f_o_b_j_i_d_1ae9b1e6f98dbad367cc00f92b87f8d279" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>attr</name></member>
+      <member refid="struct_f_f_o_b_j_i_d_1a867089659a2374d44ab917c60037fe5c" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>fs</name></member>
+      <member refid="struct_f_f_o_b_j_i_d_1afc765e01ff97bfd9645c42b0ba30397f" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>id</name></member>
+      <member refid="struct_f_f_o_b_j_i_d_1a83c51ba99687054f0cc653b45f195268" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>objsize</name></member>
+      <member refid="struct_f_f_o_b_j_i_d_1ad990393e2ddf16f73671ded4b751becb" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>sclust</name></member>
+      <member refid="struct_f_f_o_b_j_i_d_1aa7bfa8dd8958d11df042a67e1da25f63" prot="public" virt="non-virtual"><scope>FFOBJID</scope><name>stat</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

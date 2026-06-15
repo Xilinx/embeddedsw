@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>ufspsxc</title>
+    <detaileddescription>
+<para>This section contains information about the driver structures, user API prototypes and all the defines required for the user to interact with the driver. ufspsxc driver supports the UFS controller in Versal 2VE and 2VM SoC platforms.</para><para><bold>Initialization &amp; Configuration</bold></para><para><bold>Supported features</bold></para><para>This driver supports following features</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who Date     Changes
+--<mdash/> <mdash/> -----<mdash/> --------------------------------------------<mdash/>.
+1.0   sk  01/16/24 First release
+1.1   sk  01/13/25 Update the example to enable the LU before
+                   configuring the Boot LUN ID.
+1.2   an  06/09/25 Configure RMMI and M-PHY registers for HS mode</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

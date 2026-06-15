@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_flash_timing" kind="struct" prot="public">
+    <compoundname>XFlashTiming</compoundname>
+    <includes local="no">xilflash_properties.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_flash_timing_1a0f2c22ebb8c8dea20df70fcbc752a703" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashTiming::WriteSingle_Us</definition>
+        <argsstring></argsstring>
+        <name>WriteSingle_Us</name>
+        <briefdescription>
+<para>Time to program a single word unit Units are in microseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_timing_1a57e945e9b72a597a700cc961b22b4362" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashTiming::WriteBuffer_Us</definition>
+        <argsstring></argsstring>
+        <name>WriteBuffer_Us</name>
+        <briefdescription>
+<para>Time to program the contents of the write buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>Units are in microseconds If the part does not support write buffers, then this value should be zero </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_timing_1ad4b8713386c554cade817237f17e8b11" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashTiming::EraseBlock_Ms</definition>
+        <argsstring></argsstring>
+        <name>EraseBlock_Ms</name>
+        <briefdescription>
+<para>Time to erase a single block Units are in milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_timing_1a8cd3df65b4b581ce7885124066c81e6b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XFlashTiming::EraseChip_Ms</definition>
+        <argsstring></argsstring>
+        <name>EraseChip_Ms</name>
+        <briefdescription>
+<para>Time to perform a chip erase Units are in milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Flash timing. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="57" bodyend="69"/>
+    <listofallmembers>
+      <member refid="struct_x_flash_timing_1ad4b8713386c554cade817237f17e8b11" prot="public" virt="non-virtual"><scope>XFlashTiming</scope><name>EraseBlock_Ms</name></member>
+      <member refid="struct_x_flash_timing_1a8cd3df65b4b581ce7885124066c81e6b" prot="public" virt="non-virtual"><scope>XFlashTiming</scope><name>EraseChip_Ms</name></member>
+      <member refid="struct_x_flash_timing_1a57e945e9b72a597a700cc961b22b4362" prot="public" virt="non-virtual"><scope>XFlashTiming</scope><name>WriteBuffer_Us</name></member>
+      <member refid="struct_x_flash_timing_1a0f2c22ebb8c8dea20df70fcbc752a703" prot="public" virt="non-virtual"><scope>XFlashTiming</scope><name>WriteSingle_Us</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,350 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeofdm__examples_8c" kind="file">
+    <compoundname>xdfeofdm_examples.c</compoundname>
+    <includes refid="xdfeofdm__examples_8h" local="yes">xdfeofdm_examples.h</includes>
+    <incdepgraph>
+      <node id="23">
+        <label>stdbool.h</label>
+      </node>
+      <node id="24">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="22">
+        <label>assert.h</label>
+      </node>
+      <node id="18">
+        <label>xdfeofdm_examples.c</label>
+        <link refid="xdfeofdm_examples.c"/>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>xdfeofdm_examples.h</label>
+        <link refid="xdfeofdm__examples_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="25">
+        <label>xdfeofdm_hw.h</label>
+        <link refid="xdfeofdm__hw_8h"/>
+      </node>
+      <node id="20">
+        <label>xdfeofdm.h</label>
+        <link refid="xdfeofdm_8h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>metal/sleep.h</label>
+      </node>
+      <node id="28">
+        <label>metal/log.h</label>
+      </node>
+      <node id="26">
+        <label>math.h</label>
+      </node>
+      <node id="21">
+        <label>linux/types.h</label>
+      </node>
+      <node id="27">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdfeofdm__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeSi570_SetMgtOscillator</definition>
+        <argsstring>(double CurrentFrequency, double NewFrequency)</argsstring>
+        <name>XDfeSi570_SetMgtOscillator</name>
+        <param>
+          <type>double</type>
+          <declname>CurrentFrequency</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>NewFrequency</declname>
+        </param>
+        <briefdescription>
+<para>This function: initialize I2C bus, reads current state of si570, calculates parameters for si570 MGT oscillator new frequency, writes them to si570 and resets PL to use the new frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CurrentFrequency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MGT oscillator current frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NewFrequency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>MGT oscillator new frequency.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c" line="41" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfesi570_mgt.c" bodystart="653" bodyend="664"/>
+        <references refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeofdm_8h" startline="113">XST_FAILURE</references>
+        <references refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeofdm_8h" startline="110">XST_SUCCESS</references>
+        <referencedby refid="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeofdm__examples_8c" startline="70" endline="102">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeOfdm_AddCCExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeOfdm_AddCCExample</name>
+        <briefdescription>
+<para>This function runs the DFE OFDM device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Set the triggers</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Add CC.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample1] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_AddCC_example.c" bodystart="63" bodyend="168"/>
+        <references refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeofdm_8h" startline="110">XST_SUCCESS</references>
+        <references refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeofdm_8h" startline="113">XST_FAILURE</references>
+        <references refid="group__dfeofdm_1ga432a6579323bb9a5ec591489ffc2ac0f" compoundref="xdfeofdm_8c" startline="924" endline="1018">XDfeOfdm_InstanceInit</references>
+        <references refid="group__dfeofdm_1ga95bec20efb52b90b2b6a2d96e51e8989" compoundref="xdfeofdm_8c" startline="2425" endline="2454">XDfeOfdm_GetVersions</references>
+        <references refid="struct_x_dfe_ofdm___version_1a9aa2f3a5d250912399f20e9e781c085b" compoundref="xdfeofdm_8h" startline="183">XDfeOfdm_Version::Major</references>
+        <references refid="struct_x_dfe_ofdm___version_1af5fcebc75c34601d4a802e10cce5409c" compoundref="xdfeofdm_8h" startline="184">XDfeOfdm_Version::Minor</references>
+        <references refid="group__dfeofdm_1ga337fe11e6ef1bef0727ba3b9ee59b10f" compoundref="xdfeofdm_8c" startline="1058" endline="1067">XDfeOfdm_Reset</references>
+        <references refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</references>
+        <references refid="struct_x_dfe_ofdm___init_1a442ea1755b41de1b2b2b8dec54c638f3" compoundref="xdfeofdm_8h" startline="288">XDfeOfdm_Init::CCSequenceLength</references>
+        <references refid="group__dfeofdm_1ga01a406ff1a9f5562ee5fc7c7a28ea237" compoundref="xdfeofdm_8c" startline="1143" endline="1164">XDfeOfdm_Initialize</references>
+        <references refid="struct_x_dfe_ofdm___trigger_cfg_1aa57868c1544ac36a8c3c0df957280b3f" compoundref="xdfeofdm_8h" startline="236">XDfeOfdm_TriggerCfg::Activate</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1a7588c100fa85f1c3921c785dc949577b" compoundref="xdfeofdm_8h" startline="197">XDfeOfdm_Trigger::Mode</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1afa7f0e1385ceb726bc0675cdbe6afc8f" compoundref="xdfeofdm_8h" startline="213">XDfeOfdm_Trigger::TuserEdgeLevel</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1a08962b0f9f87949435bb7d06891bc00f" compoundref="xdfeofdm_8h" startline="228">XDfeOfdm_Trigger::TUSERBit</references>
+        <references refid="struct_x_dfe_ofdm___trigger_cfg_1aa18f8fff86f7d41df716d87e6332665f" compoundref="xdfeofdm_8h" startline="241">XDfeOfdm_TriggerCfg::CCUpdate</references>
+        <references refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</references>
+        <references refid="group__dfeofdm_1ga17cc3a5b3f29a0dc0065018d0fe3ec98" compoundref="xdfeofdm_8c" startline="1175" endline="1203">XDfeOfdm_Activate</references>
+        <references refid="struct_x_dfe_ofdm_1a13700eb62a7a5d65decb22b291f09edb" compoundref="xdfeofdm_8h" startline="435">XDfeOfdm::NodeName</references>
+        <references refid="struct_x_dfe_ofdm_1a8400ce059751b5bc46dbce6cf9cc8e3f" compoundref="xdfeofdm_8h" startline="431">XDfeOfdm::Config</references>
+        <references refid="struct_x_dfe_ofdm___config_1a000fe7aff8b1a94854d52906b74516e9" compoundref="xdfeofdm_8h" startline="416">XDfeOfdm_Config::BaseAddr</references>
+        <references refid="struct_x_dfe_ofdm___config_1aaa5d6fa86588a75218cd3cd5562c2353" compoundref="xdfeofdm_8h" startline="420">XDfeOfdm_Config::NumAntenna</references>
+        <references refid="struct_x_dfe_ofdm___config_1a7019e60230034c910288a2a3e2523884" compoundref="xdfeofdm_8h" startline="421">XDfeOfdm_Config::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ofdm___cfg_1ad9d93d7772122b3375effab5910358a5" compoundref="xdfeofdm_8h" startline="280">XDfeOfdm_Cfg::Version</references>
+        <references refid="struct_x_dfe_ofdm___version_1a253dc76cd0f291a746d1daac0ae53486" compoundref="xdfeofdm_8h" startline="185">XDfeOfdm_Version::Revision</references>
+        <references refid="struct_x_dfe_ofdm___version_1a07307e027316a832b6234574fc99383f" compoundref="xdfeofdm_8h" startline="186">XDfeOfdm_Version::Patch</references>
+        <references refid="struct_x_dfe_ofdm___cfg_1a38c1c79086484df53f2f1a6285f2d9f8" compoundref="xdfeofdm_8h" startline="281">XDfeOfdm_Cfg::ModelParams</references>
+        <references refid="struct_x_dfe_ofdm___model_parameters_1adc43d413c0fb6208c2e5562f4b33f157" compoundref="xdfeofdm_8h" startline="269">XDfeOfdm_ModelParameters::NumAntenna</references>
+        <references refid="struct_x_dfe_ofdm___model_parameters_1ab3eea5fdd0f6aef6e40b19c2a4e9f87a" compoundref="xdfeofdm_8h" startline="270">XDfeOfdm_ModelParameters::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" compoundref="xdfeofdm_8h" startline="383">XDfeOfdm_Status::SaturationCCID</references>
+        <references refid="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" compoundref="xdfeofdm_8h" startline="385">XDfeOfdm_Status::SaturationCount</references>
+        <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" compoundref="xdfeofdm_8h" startline="391">XDfeOfdm_Status::Saturation</references>
+        <references refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a9c5b2618474f9abfff97ce4d6cb8e04a" compoundref="xdfeofdm_8h" startline="296">XDfeOfdm_CarrierCfg::Numerology</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a28c3b141657d28642106a2dc91ccba60" compoundref="xdfeofdm_8h" startline="306">XDfeOfdm_CarrierCfg::FftSize</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a8e89be7280a23bf544fe02ea64627477" compoundref="xdfeofdm_8h" startline="312">XDfeOfdm_CarrierCfg::NumSubcarriers</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a5e7eccd516549e6547c4881c74bf578c" compoundref="xdfeofdm_8h" startline="314">XDfeOfdm_CarrierCfg::ScaleFactor</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a686973c0ebb9efea76c75f12c751c797" compoundref="xdfeofdm_8h" startline="317">XDfeOfdm_CarrierCfg::CommsStandard</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a5df249fedf2fba3dd80b9f25815a69db" compoundref="xdfeofdm_8h" startline="321">XDfeOfdm_CarrierCfg::OutputDelay</references>
+        <references refid="struct_x_dfe_ofdm___f_t_sequence_1a1c5d8cfef8f5dbaff69b2a110bc6b9f9" compoundref="xdfeofdm_8h" startline="258">XDfeOfdm_FTSequence::Length</references>
+        <references refid="group__dfeofdm_1ga8c3460b747d8e053c0bcb66a36b1a827" compoundref="xdfeofdm_8c" startline="1213" endline="1238">XDfeOfdm_Deactivate</references>
+        <references refid="group__dfeofdm_1ga765082b84acafa5bcef9c2ad92bb7cf6" compoundref="xdfeofdm_8c" startline="1029" endline="1048">XDfeOfdm_InstanceClose</references>
+        <referencedby refid="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeofdm__examples_8c" startline="70" endline="102">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeOfdm_MultiAddCCExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeOfdm_MultiAddCCExample</name>
+        <briefdescription>
+<para>This function runs the DFE OFDM device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Set the triggers</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Add CC.</para></listitem><listitem><para>Deactivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample2] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_multiAddCC_example.c" bodystart="63" bodyend="175"/>
+        <references refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeofdm_8h" startline="110">XST_SUCCESS</references>
+        <references refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeofdm_8h" startline="113">XST_FAILURE</references>
+        <references refid="group__dfeofdm_1ga432a6579323bb9a5ec591489ffc2ac0f" compoundref="xdfeofdm_8c" startline="924" endline="1018">XDfeOfdm_InstanceInit</references>
+        <references refid="group__dfeofdm_1ga95bec20efb52b90b2b6a2d96e51e8989" compoundref="xdfeofdm_8c" startline="2425" endline="2454">XDfeOfdm_GetVersions</references>
+        <references refid="struct_x_dfe_ofdm___version_1a9aa2f3a5d250912399f20e9e781c085b" compoundref="xdfeofdm_8h" startline="183">XDfeOfdm_Version::Major</references>
+        <references refid="struct_x_dfe_ofdm___version_1af5fcebc75c34601d4a802e10cce5409c" compoundref="xdfeofdm_8h" startline="184">XDfeOfdm_Version::Minor</references>
+        <references refid="group__dfeofdm_1ga337fe11e6ef1bef0727ba3b9ee59b10f" compoundref="xdfeofdm_8c" startline="1058" endline="1067">XDfeOfdm_Reset</references>
+        <references refid="group__dfeofdm_1ga8248b6bc1f2f9dd0f5b2a04c62062753" compoundref="xdfeofdm_8c" startline="1079" endline="1130">XDfeOfdm_Configure</references>
+        <references refid="struct_x_dfe_ofdm___init_1a442ea1755b41de1b2b2b8dec54c638f3" compoundref="xdfeofdm_8h" startline="288">XDfeOfdm_Init::CCSequenceLength</references>
+        <references refid="group__dfeofdm_1ga01a406ff1a9f5562ee5fc7c7a28ea237" compoundref="xdfeofdm_8c" startline="1143" endline="1164">XDfeOfdm_Initialize</references>
+        <references refid="struct_x_dfe_ofdm___trigger_cfg_1aa57868c1544ac36a8c3c0df957280b3f" compoundref="xdfeofdm_8h" startline="236">XDfeOfdm_TriggerCfg::Activate</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1a7588c100fa85f1c3921c785dc949577b" compoundref="xdfeofdm_8h" startline="197">XDfeOfdm_Trigger::Mode</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1afa7f0e1385ceb726bc0675cdbe6afc8f" compoundref="xdfeofdm_8h" startline="213">XDfeOfdm_Trigger::TuserEdgeLevel</references>
+        <references refid="struct_x_dfe_ofdm___trigger_1a08962b0f9f87949435bb7d06891bc00f" compoundref="xdfeofdm_8h" startline="228">XDfeOfdm_Trigger::TUSERBit</references>
+        <references refid="struct_x_dfe_ofdm___trigger_cfg_1aa18f8fff86f7d41df716d87e6332665f" compoundref="xdfeofdm_8h" startline="241">XDfeOfdm_TriggerCfg::CCUpdate</references>
+        <references refid="group__dfeofdm_1ga5e4d810d0e04bbad650fbb60115254e4" compoundref="xdfeofdm_8c" startline="2179" endline="2262">XDfeOfdm_SetTriggersCfg</references>
+        <references refid="group__dfeofdm_1ga17cc3a5b3f29a0dc0065018d0fe3ec98" compoundref="xdfeofdm_8c" startline="1175" endline="1203">XDfeOfdm_Activate</references>
+        <references refid="struct_x_dfe_ofdm_1a13700eb62a7a5d65decb22b291f09edb" compoundref="xdfeofdm_8h" startline="435">XDfeOfdm::NodeName</references>
+        <references refid="struct_x_dfe_ofdm_1a8400ce059751b5bc46dbce6cf9cc8e3f" compoundref="xdfeofdm_8h" startline="431">XDfeOfdm::Config</references>
+        <references refid="struct_x_dfe_ofdm___config_1a000fe7aff8b1a94854d52906b74516e9" compoundref="xdfeofdm_8h" startline="416">XDfeOfdm_Config::BaseAddr</references>
+        <references refid="struct_x_dfe_ofdm___config_1aaa5d6fa86588a75218cd3cd5562c2353" compoundref="xdfeofdm_8h" startline="420">XDfeOfdm_Config::NumAntenna</references>
+        <references refid="struct_x_dfe_ofdm___config_1a7019e60230034c910288a2a3e2523884" compoundref="xdfeofdm_8h" startline="421">XDfeOfdm_Config::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ofdm___cfg_1ad9d93d7772122b3375effab5910358a5" compoundref="xdfeofdm_8h" startline="280">XDfeOfdm_Cfg::Version</references>
+        <references refid="struct_x_dfe_ofdm___version_1a253dc76cd0f291a746d1daac0ae53486" compoundref="xdfeofdm_8h" startline="185">XDfeOfdm_Version::Revision</references>
+        <references refid="struct_x_dfe_ofdm___version_1a07307e027316a832b6234574fc99383f" compoundref="xdfeofdm_8h" startline="186">XDfeOfdm_Version::Patch</references>
+        <references refid="struct_x_dfe_ofdm___cfg_1a38c1c79086484df53f2f1a6285f2d9f8" compoundref="xdfeofdm_8h" startline="281">XDfeOfdm_Cfg::ModelParams</references>
+        <references refid="struct_x_dfe_ofdm___model_parameters_1adc43d413c0fb6208c2e5562f4b33f157" compoundref="xdfeofdm_8h" startline="269">XDfeOfdm_ModelParameters::NumAntenna</references>
+        <references refid="struct_x_dfe_ofdm___model_parameters_1ab3eea5fdd0f6aef6e40b19c2a4e9f87a" compoundref="xdfeofdm_8h" startline="270">XDfeOfdm_ModelParameters::AntennaInterleave</references>
+        <references refid="struct_x_dfe_ofdm___status_1adf029f9a8749eeb0e32c7b746862cc6d" compoundref="xdfeofdm_8h" startline="383">XDfeOfdm_Status::SaturationCCID</references>
+        <references refid="struct_x_dfe_ofdm___status_1aa08cdef43e5dee673925674a92cd8512" compoundref="xdfeofdm_8h" startline="385">XDfeOfdm_Status::SaturationCount</references>
+        <references refid="struct_x_dfe_ofdm___status_1acf8828edf030249444e48a6ddba48600" compoundref="xdfeofdm_8h" startline="387">XDfeOfdm_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_ofdm___status_1a44d833d3eb4c76c14f844e3e3b3b8b4a" compoundref="xdfeofdm_8h" startline="389">XDfeOfdm_Status::FTCCSequenceError</references>
+        <references refid="struct_x_dfe_ofdm___status_1aace4b8584b3e30af0f4665953329bb93" compoundref="xdfeofdm_8h" startline="391">XDfeOfdm_Status::Saturation</references>
+        <references refid="group__dfeofdm_1gaba6f602fc482a8c8fd22320d2ba34356" compoundref="xdfeofdm__intr_8c" startline="104" endline="129">XDfeOfdm_ClearEventStatus</references>
+        <references refid="group__dfeofdm_1ga895d37558bb4351d118f1970d79a2d7b" compoundref="xdfeofdm_8c" startline="1270" endline="1309">XDfeOfdm_GetCurrentCCCfg</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a9c5b2618474f9abfff97ce4d6cb8e04a" compoundref="xdfeofdm_8h" startline="296">XDfeOfdm_CarrierCfg::Numerology</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a28c3b141657d28642106a2dc91ccba60" compoundref="xdfeofdm_8h" startline="306">XDfeOfdm_CarrierCfg::FftSize</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a8e89be7280a23bf544fe02ea64627477" compoundref="xdfeofdm_8h" startline="312">XDfeOfdm_CarrierCfg::NumSubcarriers</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a5e7eccd516549e6547c4881c74bf578c" compoundref="xdfeofdm_8h" startline="314">XDfeOfdm_CarrierCfg::ScaleFactor</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a686973c0ebb9efea76c75f12c751c797" compoundref="xdfeofdm_8h" startline="317">XDfeOfdm_CarrierCfg::CommsStandard</references>
+        <references refid="struct_x_dfe_ofdm___carrier_cfg_1a5df249fedf2fba3dd80b9f25815a69db" compoundref="xdfeofdm_8h" startline="321">XDfeOfdm_CarrierCfg::OutputDelay</references>
+        <references refid="struct_x_dfe_ofdm___f_t_sequence_1a1c5d8cfef8f5dbaff69b2a110bc6b9f9" compoundref="xdfeofdm_8h" startline="258">XDfeOfdm_FTSequence::Length</references>
+        <references refid="group__dfeofdm_1gade552f0bcf5ed9eac51ca4fcc4b983fa" compoundref="xdfeofdm_8c" startline="1369" endline="1451">XDfeOfdm_AddCCtoCCCfg</references>
+        <references refid="group__dfeofdm_1ga9daeab383fd324e6812ae53d248ceeaa" compoundref="xdfeofdm_8c" startline="1805" endline="1814">XDfeOfdm_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfeofdm_1ga8c3460b747d8e053c0bcb66a36b1a827" compoundref="xdfeofdm_8c" startline="1213" endline="1238">XDfeOfdm_Deactivate</references>
+        <references refid="group__dfeofdm_1ga765082b84acafa5bcef9c2ad92bb7cf6" compoundref="xdfeofdm_8c" startline="1029" endline="1048">XDfeOfdm_InstanceClose</references>
+        <referencedby refid="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeofdm__examples_8c" startline="70" endline="102">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function that invokes the polled example in this file. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c" bodystart="70" bodyend="102"/>
+        <references refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" compoundref="xdfeofdm___add_c_c__example_8c" startline="63" endline="168">XDfeOfdm_AddCCExample</references>
+        <references refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" compoundref="xdfeofdm__multi_add_c_c__example_8c" startline="63" endline="175">XDfeOfdm_MultiAddCCExample</references>
+        <references refid="xdfeofdm__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" compoundref="xdfesi570__mgt_8c" startline="653" endline="664">XDfeSi570_SetMgtOscillator</references>
+        <references refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeofdm_8h" startline="113">XST_FAILURE</references>
+        <references refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeofdm_8h" startline="110">XST_SUCCESS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the examples main function. </para>    </briefdescription>
+    <detaileddescription>
+<para>Note: MGT si570 oscillator is set to 152.25MHz by default. The DFE IP wrapper requires MGT clock to be set to 122.88MHz (some IP use 61.44MHz). Prerequisite is to set the MGT si570 oscillator to the required IP before running the example code. This is for the ZCU670 production platform.</para><para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     11/21/22 Initial version
+1.1   cog    07/18/23 Modify example for SDT flow
+1.2   cog    04/20/24 Configure si570 in Linux examples</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeofdm__examples_8h" kindref="compound">xdfeofdm_examples.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdfeofdm__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" kindref="member">XDfeSi570_SetMgtOscillator</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>CurrentFrequency,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>NewFrequency);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" kindref="member">XDfeOfdm_AddCCExample</ref>();</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" kindref="member">XDfeOfdm_MultiAddCCExample</ref>();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__BAREMETAL__</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal">metal_phys_addr_t<sp/>XDfeOfdm_metal_phys[<ref refid="group__dfeofdm_1ga845d4be1302f35864f7c53001bb4d793" kindref="member">XDFEOFDM_MAX_NUM_INSTANCES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_NODE1_BASE,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_device<sp/>XDfeOfdm_CustomDevice[<ref refid="group__dfeofdm_1ga845d4be1302f35864f7c53001bb4d793" kindref="member">XDFEOFDM_MAX_NUM_INSTANCES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEOFDM_CUSTOM_DEV(XDFEOFDM_NODE1_NAME,<sp/>XDFEOFDM_NODE1_BASE,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0),</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="70" refid="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdfeofdm__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\n\nDFE<sp/>Orthogonal<sp/>Frequency<sp/>Division<sp/>Multiplexing<sp/>(OFDM)<sp/>Examples:<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdfeofdm__examples_8c_1a0ddb0f8ca495eb4e99eabc79fc0d41d1" kindref="member">XDfeSi570_SetMgtOscillator</ref>(XDFESI570_CURRENT_FREQUENCY,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFESI570_NEW_FREQUENCY))<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Setting<sp/>MGT<sp/>oscillator<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>DFE<sp/>OFDM<sp/>AddCC<sp/>example.<sp/>For<sp/>bare<sp/>metal</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is<sp/>generated<sp/>in<sp/>xparameters.h.</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/><ref refid="group__dfeofdm_1ga6d938668e6e1b73a585775cbe0eab471" kindref="member">XDfeOfdm_AddCCExample</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;AddCC<sp/>Example<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Run<sp/>the<sp/>DFE<sp/>OFDM<sp/>multiAddCC<sp/>example.<sp/>For<sp/>bare<sp/>metal</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>specify<sp/>the<sp/>Device<sp/>ID<sp/>that<sp/>is<sp/>generated<sp/>in<sp/>xparameters.h.</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/><ref refid="group__dfeofdm_1gaf304555910bc042c2de8437ac0b448d3" kindref="member">XDfeOfdm_MultiAddCCExample</ref>())<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;MultiAddCC<sp/>Example<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nSuccessfully<sp/>run<sp/>DFE<sp/>Orthogonal<sp/>Frequency<sp/>Division<sp/>Multiplexing<sp/>(OFDM)<sp/>Examples\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeofdm_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeofdm/examples/xdfeofdm_examples.c"/>
+  </compounddef>
+</doxygen>

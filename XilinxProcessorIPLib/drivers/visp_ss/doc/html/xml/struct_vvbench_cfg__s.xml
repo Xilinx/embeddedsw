@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_cfg__s_1a698e2471fd4851cf8cbd04f2e9bc6a0d" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int VvbenchCfg_s::alignMask</definition>
+        <argsstring></argsstring>
+        <name>alignMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cfg__s_1a4eb6644d17be393749f8c4ab8a0e3580" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VvbenchCfg_s::streamDuration</definition>
+        <argsstring></argsstring>
+        <name>streamDuration</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cfg__s_1a6625ee266a8a5dde6ae866eb4e590f3f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int VvbenchCfg_s::useTerminal</definition>
+        <argsstring></argsstring>
+        <name>useTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cfg__s_1af1f2fa8c0ff2c7fb53b5422d5fe746d1" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchCfg_s::swSimuName[FILE_NAME]</definition>
+        <argsstring>[FILE_NAME]</argsstring>
+        <name>swSimuName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_cfg__s_1a75d29a776902ab081b766f2643bfee9b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char VvbenchCfg_s::rawName[FILE_NAME]</definition>
+        <argsstring>[FILE_NAME]</argsstring>
+        <name>rawName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="50" bodyend="56"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_cfg__s_1a698e2471fd4851cf8cbd04f2e9bc6a0d" prot="public" virt="non-virtual"><scope>VvbenchCfg_s</scope><name>alignMask</name></member>
+      <member refid="struct_vvbench_cfg__s_1a75d29a776902ab081b766f2643bfee9b" prot="public" virt="non-virtual"><scope>VvbenchCfg_s</scope><name>rawName</name></member>
+      <member refid="struct_vvbench_cfg__s_1a4eb6644d17be393749f8c4ab8a0e3580" prot="public" virt="non-virtual"><scope>VvbenchCfg_s</scope><name>streamDuration</name></member>
+      <member refid="struct_vvbench_cfg__s_1af1f2fa8c0ff2c7fb53b5422d5fe746d1" prot="public" virt="non-virtual"><scope>VvbenchCfg_s</scope><name>swSimuName</name></member>
+      <member refid="struct_vvbench_cfg__s_1a6625ee266a8a5dde6ae866eb4e590f3f" prot="public" virt="non-virtual"><scope>VvbenchCfg_s</scope><name>useTerminal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pki___ecdsa_gpoint" kind="struct" prot="public">
+    <compoundname>XPki_EcdsaGpoint</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_gpoint_1af213f7504514897c52664942c26dc7a2" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaGpoint::Gx</definition>
+        <argsstring></argsstring>
+        <name>Gx</name>
+        <briefdescription>
+<para>ECC Curve Generator point x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_gpoint_1ab9082a0aa9b57ab26810e0cf23c6a962" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaGpoint::Gy</definition>
+        <argsstring></argsstring>
+        <name>Gy</name>
+        <briefdescription>
+<para>ECC Curve Generator curve point y. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_gpoint_1a293c325d812d6fb3ab2e40f8e753a863" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaGpoint::Gxlen</definition>
+        <argsstring></argsstring>
+        <name>Gxlen</name>
+        <briefdescription>
+<para>Length of Generator point x. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_gpoint_1a8f7d986bb8c6302fc44771be24757f2e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaGpoint::Gylen</definition>
+        <argsstring></argsstring>
+        <name>Gylen</name>
+        <briefdescription>
+<para>Length of Generator point y. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="85" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_pki___ecdsa_gpoint_1af213f7504514897c52664942c26dc7a2" prot="public" virt="non-virtual"><scope>XPki_EcdsaGpoint</scope><name>Gx</name></member>
+      <member refid="struct_x_pki___ecdsa_gpoint_1a293c325d812d6fb3ab2e40f8e753a863" prot="public" virt="non-virtual"><scope>XPki_EcdsaGpoint</scope><name>Gxlen</name></member>
+      <member refid="struct_x_pki___ecdsa_gpoint_1ab9082a0aa9b57ab26810e0cf23c6a962" prot="public" virt="non-virtual"><scope>XPki_EcdsaGpoint</scope><name>Gy</name></member>
+      <member refid="struct_x_pki___ecdsa_gpoint_1a8f7d986bb8c6302fc44771be24757f2e" prot="public" virt="non-virtual"><scope>XPki_EcdsaGpoint</scope><name>Gylen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

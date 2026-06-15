@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_output_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceOutputConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_output_config__s_1a094ee0cb1cfc7f1cba88ec174fd1554e" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga20c75829daea91b7f3c758123ad5e2a5" kindref="member">CamDeviceOutputType_t</ref></type>
+        <definition>CamDeviceOutputType_t CamDeviceOutputConfig_s::outputType</definition>
+        <argsstring></argsstring>
+        <name>outputType</name>
+        <briefdescription>
+<para>ISP output type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="108" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to configure ISP output. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="107" bodyend="109"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_output_config__s_1a094ee0cb1cfc7f1cba88ec174fd1554e" prot="public" virt="non-virtual"><scope>CamDeviceOutputConfig_s</scope><name>outputType</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

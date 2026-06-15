@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___pdi_info" kind="struct" prot="public">
+    <compoundname>XLoader_PdiInfo</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___pdi_info_1a8971a6ee5577b354703b169b3ef3073b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_PdiInfo::PdiId</definition>
+        <argsstring></argsstring>
+        <name>PdiId</name>
+        <briefdescription>
+<para>PDI ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="431" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga8122f50322351d61e03c5dd33cf6f635" compoundref="xloader_8c" startline="2253" endline="2284">XLoader_IsPdiAddrLookup</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___pdi_info_1a19b97948a89589746d61b2dac82a3ff4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XLoader_PdiInfo::PdiAddr</definition>
+        <argsstring></argsstring>
+        <name>PdiAddr</name>
+        <briefdescription>
+<para>Address of PDI. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="432" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="432" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga8122f50322351d61e03c5dd33cf6f635" compoundref="xloader_8c" startline="2253" endline="2284">XLoader_IsPdiAddrLookup</referencedby>
+        <referencedby refid="group__xloader__server__apis_1gafa91a58dad6f9d08c018cbf914f7202c" compoundref="xloader_8c" startline="2200" endline="2238">XLoader_ReadImageStoreCfg</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold PDI information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="430" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="430" bodyend="433"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___pdi_info_1a19b97948a89589746d61b2dac82a3ff4" prot="public" virt="non-virtual"><scope>XLoader_PdiInfo</scope><name>PdiAddr</name></member>
+      <member refid="struct_x_loader___pdi_info_1a8971a6ee5577b354703b169b3ef3073b" prot="public" virt="non-virtual"><scope>XLoader_PdiInfo</scope><name>PdiId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

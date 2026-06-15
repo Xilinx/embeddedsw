@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>spi</title>
+    <detaileddescription>
+<para>This component contains the implementation of the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> component. It is the driver for an SPI master or slave device. It supports 8-bit, 16-bit and 32-bit wide data transfers.</para><para>SPI is a 4-wire serial interface. It is a full-duplex, synchronous bus that facilitates communication between one master and one slave. The device is always full-duplex, which means that for every byte sent, one is received, and vice-versa. The master controls the clock, so it can regulate when it wants to send or receive data. The slave is under control of the master, it must respond quickly since it has no control of the clock and must send/receive data as fast or as slow as the master does.</para><para>The application software between master and slave must implement a higher layer protocol so that slaves know what to transmit to the master and when.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_spi___config" kindref="compound">XSpi_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</para><para><itemizedlist>
+<listitem><para>XSpi_Initialize(InstancePtr, DeviceId) - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</para></listitem><listitem><para>XSpi_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>Multiple Masters</bold></para><para>More than one master can exist, but arbitration is the responsibility of the higher layer software. The device driver does not perform any type of arbitration.</para><para><bold>Multiple Slaves</bold></para><para>Multiple slaves are supported by adding additional slave select (SS) signals to each device, one for each slave on the bus. The driver ensures that only one slave can be selected at any one time.</para><para><bold>FIFOs</bold></para><para>The SPI hardware is parameterized such that it can be built with or without FIFOs. When using FIFOs, both send and receive must have FIFOs. The driver will not function correctly if one direction has a FIFO but the other direction does not. The frequency of the interrupts which occur is proportional to the data rate such that high data rates without the FIFOs could cause the software to consume large amounts of processing time. The driver is designed to work with or without the FIFOs.</para><para><bold>Interrupts</bold></para><para>The user must connect the interrupt handler of the driver, XSpi_InterruptHandler to an interrupt system such that it will be called when an interrupt occurs. This function does not save and restore the processor context such that the user must provide this processing.</para><para>The driver handles the following interrupts:<itemizedlist>
+<listitem><para>Data Transmit Register/FIFO Empty</para></listitem><listitem><para>Data Transmit FIFO Half Empty</para></listitem><listitem><para>Data Transmit Register/FIFO Underrun</para></listitem><listitem><para>Data Receive Register/FIFO Overrun</para></listitem><listitem><para>Mode Fault Error</para></listitem><listitem><para>Slave Mode Fault Error</para></listitem><listitem><para>Slave Mode Select</para></listitem><listitem><para>Data Receive FIFO not Empty</para></listitem></itemizedlist>
+</para><para>The Data Transmit Register/FIFO Empty interrupt indicates that the SPI device has transmitted all the data available to transmit, and now its data register (or FIFO) is empty. The driver uses this interrupt to indicate progress while sending data. The driver may have more data to send, in which case the data transmit register (or FIFO) is filled for subsequent transmission. When this interrupt arrives and all the data has been sent, the driver invokes the status callback with a value of XST_SPI_TRANSFER_DONE to inform the upper layer software that all data has been sent.</para><para>The Data Transmit FIFO Half Empty interrupt indicates that the SPI device has transmitted half of the data available, in the FIFO, to transmit. The driver uses this interrupt to indicate progress while sending data. The driver may have more data to send, in which case the data transmit FIFO is filled for subsequent transmission. This interrupt is particualrly useful in slave mode, while transferring more than FIFO_DEPTH number of bytes. In this case, the driver ensures that the FIFO is never empty during a transfer and avoids master receiving invalid data.</para><para>The Data Transmit Register/FIFO Underrun interrupt indicates that, as slave, the SPI device was required to transmit but there was no data available to transmit in the transmit register (or FIFO). This may not be an error if the master is not expecting data, but in the case where the master is expecting data this serves as a notification of such a condition. The driver reports this condition to the upper layer software through the status handler.</para><para>The Data Receive Register/FIFO Overrun interrupt indicates that the SPI device received data and subsequently dropped the data because the data receive register (or FIFO) was full. The interrupt applies to both master and slave operation. The driver reports this condition to the upper layer software through the status handler. This likely indicates a problem with the higher layer protocol, or a problem with the slave performance.</para><para>The Mode Fault Error interrupt indicates that while configured as a master, the device was selected as a slave by another master. This can be used by the application for arbitration in a multimaster environment or to indicate a problem with arbitration. When this interrupt occurs, the driver invokes the status callback with a status value of XST_SPI_MODE_FAULT. It is up to the application to resolve the conflict.</para><para>The Slave Mode Fault Error interrupt indicates that a slave device was selected as a slave by a master, but the slave device was disabled. This can be used during system debugging or by the slave application to learn when the slave application has not prepared for a master operation in a timely fashion. This likely indicates a problem with the higher layer protocol, or a problem with the slave performance.</para><para>The Slave Mode Select interrupt indicates that the SPI device was selected as a slave by a master. The driver reports this condition to the upper layer software through the status handler.</para><para>Data Receive FIFO not Empty interrupt indicates that the SPI device, in slave mode, has received a data byte in the Data Receive FIFO, after the master has started a transfer. The driver reports this condition to the upper layer software through the status handler.</para><para><bold>Polled Operation</bold></para><para>This driver operates in polled mode operation too. To put the driver in polled mode the Global Interrupt must be disabled after the Spi is Initialized and Spi driver is started.</para><para>Statistics are not updated in this mode of operation.</para><para><bold>Device Busy</bold></para><para>Some operations are disallowed when the device is busy. The driver tracks whether a device is busy. The device is considered busy when a data transfer request is outstanding, and is considered not busy only when that transfer completes (or is aborted with a mode fault error). This applies to both master and slave devices.</para><para><bold>Device Configuration</bold></para><para>The device can be configured in various ways during the FPGA implementation process. Configuration parameters are stored in the <ref refid="xspi__g_8c" kindref="compound">xspi_g.c</ref> file or passed in via _CfgInitialize(). A table is defined where each entry contains configuration information for an SPI device. This information includes such things as the base address of the memory-mapped device, the number of slave select bits in the device, and whether the device has FIFOs and is configured as slave-only.</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a rpm  10/11/01 First release
+1.00b jhl  03/14/02 Repartitioned driver for smaller files.
+1.01a jvb  12/14/05 I separated dependency on the static config table and
+                    xparameters.h from the driver initialization by moving
+                    _Initialize and _LookupConfig to _sinit.c. I also added
+                    the new _CfgInitialize routine.
+1.11a wgr  03/22/07 Converted to new coding style.
+1.11a  sv  02/22/08 Added the definition of LSB-MSB first option in <ref refid="xspi__l_8h" kindref="compound">xspi_l.h</ref>.
+1.12a sdm  03/22/08 Updated the code to support 16/32 bit transfer width and
+                    polled mode of operation, removed the macros in <ref refid="xspi__l_8h" kindref="compound">xspi_l.h</ref>,
+                    added macros in <ref refid="xspi_8h" kindref="compound">xspi.h</ref> file, moved the interrupt
+                    register/bit definitions from <ref refid="xspi__i_8h" kindref="compound">xspi_i.h</ref> to xpsi_l.h.
+                    Even for the polled mode of operation the Interrupt Logic
+                    in the core should be included. The driver can be put in
+                    polled mode of operation by disabling the Global Interrupt
+                    after the Spi Initialization is completed and Spi is
+                    started.
+2.00a sdm  07/30/08 Updated the code to support 16/32 bit transfer width and
+                    polled mode of operation, removed the macros in <ref refid="xspi__l_8h" kindref="compound">xspi_l.h</ref>,
+                    added macros in <ref refid="xspi_8h" kindref="compound">xspi.h</ref> file, moved the interrupt
+                    register/bit definitions from <ref refid="xspi__i_8h" kindref="compound">xspi_i.h</ref> to xpsi_l.h.
+                    Even for the polled mode of operation the Interrupt Logic
+                    in the core should be included. The driver can be put in
+                    polled mode of operation by disabling the Global Interrupt
+                    after the Spi Initialization is completed and Spi is
+                    started.
+2.01a sdm  08/22/08 Removed support for static interrupt handlers from the MDD
+              file
+2.01b sdm  04/08/09 Fixed an issue in the XSpi_Transfer function where the
+                    Global Interrupt is being enabled in polled mode when a
+                    slave is not selected.
+3.00a ktn  10/22/09 Converted all register accesses to 32 bit access.
+              Updated driver to use the HAL APIs/macros.
+              Removed the macro XSpi_mReset, XSpi_Reset API should be
+              used in its place.
+              The macros have been renamed to remove _m from the name
+              XSpi_mIntrGlobalEnable is renamed XSpi_IntrGlobalEnable,
+              XSpi_mIntrGlobalDisable is now XSpi_IntrGlobalDisable,
+              XSpi_mIsIntrGlobalEnabled is now XSpi_IsIntrGlobalEnabled,
+              XSpi_mIntrGetStatus is now XSpi_IntrGetStatus,
+              XSpi_mIntrClear is now XSpi_IntrClear,
+              XSpi_mIntrEnable is now XSpi_IntrEnable,
+              XSpi_mIntrDisable is now XSpi_IntrDisable,
+              XSpi_mIntrGetEnabled is now XSpi_IntrGetEnabled,
+              XSpi_mSetControlReg is now XSpi_SetControlReg,
+              XSpi_mGetControlReg is now XSpi_GetControlReg,
+              XSpi_mGetStatusReg is now XSpi_GetStatusReg,
+              XSpi_mSetSlaveSelectReg is now XSpi_SetSlaveSelectReg,
+              XSpi_mGetSlaveSelectReg is now XSpi_GetSlaveSelectReg,
+              XSpi_mEnable is now XSpi_Enable,
+              XSpi_mDisable is now XSpi_Disable.
+3.01a sdm  04/23/10 Updated the driver to handle new slave mode interrupts
+              and the DTR Half Empty interrupt.
+3.02a sdm  03/30/11 Updated to support axi_qspi.
+3.03a sdm  08/09/11 Updated the selftest to check for a correct default value
+              in the case of axi_qspi - CR 620502
+              Updated tcl to generate a config parameter for C_SPI_MODE
+3.04a bss  03/21/12 Updated <ref refid="struct_x_spi___config" kindref="compound">XSpi_Config</ref> and <ref refid="struct_x_spi" kindref="compound">XSpi</ref> instance structure to support
+              XIP Mode.
+              Updated XSpi_CfgInitialize to support XIP Mode
+              Added XIP Mode Register masks in <ref refid="xspi__l_8h" kindref="compound">xspi_l.h</ref>
+              Tcl Script changes:
+              Added C_TYPE_OF_AXI4_INTERFACE, C_AXI4_BASEADDR and
+              C_XIP_MODE to config structure.
+              Modified such that based on C_XIP_MODE and
+              C_TYPE_OF_AXI4_INTERFACE parameters C_BASEADDR will
+              be updated with C_AXI4_BASEADDR.
+              Modified such that C_FIFO_EXIST will be updated based
+              on C_FIFO_DEPTH for compatibility of the driver with
+              Axi Spi.
+3.05a adk  18/04/13 Updated the code to avoid unused variable
+                 warnings when compiling with the -Wextra -Wall flags
+                 In the file <ref refid="xspi_8c" kindref="compound">xspi.c</ref>. CR:705005.
+3.06a adk  07/08/13 Added a dummy read in the CfgInitialize(), if startup
+                    block is used in the h/w design (CR 721229).
+3.07a adk  11/10/13 Fixed CR:732962 Changes are made in the <ref refid="xspi_8c" kindref="compound">xspi.c</ref> file
+4.0   adk  19/12/13 Updated as per the New Tcl API&apos;s
+4.1     bss  08/07/14 Modified XSpi_Transfer in <ref refid="xspi_8c" kindref="compound">xspi.c</ref> and LoopbackTest in
+              <ref refid="xspi__selftest_8c" kindref="compound">xspi_selftest.c</ref> to check for Interrupt Status
+              register Tx Empty bit instead of Status register
+              CR#810294.
+4.2   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XSpi_CfgInitialize API.
+      ms   01/23/17 Added xil_printf statement in main function for all
+                    examples to ensure that &quot;Successfully ran&quot; and &quot;Failed&quot;
+                    strings are available in all examples. This is a
+                    fix for CR-965028.
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+      ms   04/05/17 Modified Comment lines in functions of spi
+                    examples to follow doxygen rules.
+4.3   ms   04/18/17 Modified tcl file to add suffix U for all macros
+                    definitions of spi in xparameters.h
+4.4     tjs  11/28/17 When receive fifo exists, we need to check for status
+                    register rx fifo empty flag. If clear we can proceed for
+                    read. Otherwise we will hit exception. CR# 989938
+4.5     akm  05/29/19 Removed master inhibit dependency while writing DTR
+              in between multiple transfers.
+4.5   akm  07/12/19 Fixed compilation error in spi interrupt example by
+               passing the correct interrupt controller instance to
+               <ref refid="xspi__intr__example_8c_1a9311ed4ae1b8862383322e45697ee09c" kindref="member">SpiIntrExample()</ref> function (CR-1035793).
+4.7     akm  09/02/20 Updated the Makefile to support parallel make execution.
+4.7   akm  10/22/20 Removed dependency of Tx_Full flag while writing DTR
+                    in between multiple transfers.
+4.8   akm  01/19/21 Fix multiple byte transfer hang issue, when FIFOs are
+                    disabled.
+4.9     adk  31/01/22 Fix interrupt controller name in SMP designs, Changes are
+                      made in the interrupt app tcl file.
+4.10  akm  02/21/23 Avoid data loss in interrupt mode with TX HALF EMPTY
+                    Interrupt enabled.
+4.11  sb   07/11/23 Added support for system device-tree flow.
+4.13  ap   08/20/24 Added logic to wait for FIFO reset to complete.
+4.16  vlt  12/18/25 Update Doxygen comments to include SDT flow details.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

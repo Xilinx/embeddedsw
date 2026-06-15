@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h" kind="file">
+    <compoundname>kcu116_xuhdsdi_example/fzetta_fmc_iic.h</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includedby refid="kcu116__xuhdsdi__example_2fzetta__fmc__ctlr_8h" local="yes">fzetta_fmc_ctlr.h</includedby>
+    <includedby refid="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8c" local="yes">fzetta_fmc_iic.c</includedby>
+    <includedby refid="kcu116__xuhdsdi__example_2fzetta__fmc__init__table_8c" local="yes">fzetta_fmc_init_table.c</includedby>
+    <incdepgraph>
+      <node id="136">
+        <label>xiic.h</label>
+      </node>
+      <node id="134">
+        <label>fzetta_fmc_iic.h</label>
+        <link refid="kcu116_xuhdsdi_example/fzetta_fmc_iic.h"/>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="135">
+        <label>stdio.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="140">
+        <label>main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="142">
+        <label>fzetta_fmc_init_table.c</label>
+      </node>
+      <node id="139">
+        <label>fzetta_fmc_ctlr.c</label>
+      </node>
+      <node id="138">
+        <label>fzetta_fmc_ctlr.h</label>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="141">
+        <label>fzetta_fmc_iic.c</label>
+      </node>
+      <node id="137">
+        <label>fzetta_fmc_iic.h</label>
+        <link refid="kcu116_xuhdsdi_example/fzetta_fmc_iic.h"/>
+        <childnode refid="138" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+        <childnode refid="142" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1a6d6561e5c661713b5b0a012c68932cd2" prot="public" static="no">
+        <name>XBAR_IIC_WRITE_ADDR</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1a2f995ad595665b2e21ee554dbd9d325c" prot="public" static="no" mutable="no">
+        <type>XIic_Config *</type>
+        <definition>XIic_Config* fzetta_fmc_Iic_ConfigPtr</definition>
+        <argsstring></argsstring>
+        <name>fzetta_fmc_Iic_ConfigPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="32" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.c" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1a1b3b0752268ba2a33c919440ac3daba8" prot="public" static="no" mutable="no">
+        <type>XIic</type>
+        <definition>XIic fzetta_fmc_Iic</definition>
+        <argsstring></argsstring>
+        <name>fzetta_fmc_Iic</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="33" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.c" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1ad6da3cf116e19c43bde2315e4bd48fac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fzetta_fmc_iic_init</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>fzetta_fmc_iic_init</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function Initializes IIC IP and its corresponding drivers and configptr instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Dev_ID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="51" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.c" bodystart="47" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1a6d14099b6b9f0514fad5fc514d84b887" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fzetta_fmc_iic_xbar_register_write</definition>
+        <argsstring>(u8 RegAddr, u8 RegData)</argsstring>
+        <name>fzetta_fmc_iic_xbar_register_write</name>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegData</declname>
+        </param>
+        <briefdescription>
+<para>This function Fidus Zetta FMC Xbar Switch (DS10CP15A) IIC Register Write Sequence: START <ndash/>&gt; SMB ADDR + W <ndash/>&gt; ACK <ndash/>&gt; Xbar Reg ADDR \ <ndash/>&gt; ACK <ndash/>&gt; Xbar Reg DATA <ndash/>&gt; ACK <ndash/>&gt; STOP. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Data</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if register write is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.c" bodystart="104" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="kcu116__xuhdsdi__example_2fzetta__fmc__iic_8h_1a7a54c8370048d37cf00f0763c8e16f4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 fzetta_fmc_iic_xbar_register_read</definition>
+        <argsstring>(u8 RegAddr)</argsstring>
+        <name>fzetta_fmc_iic_xbar_register_read</name>
+        <param>
+          <type>u8</type>
+          <declname>RegAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function Fidus Zetta FMC Xbar Switch DS10CP15A Register Read IIC Sequence: START <ndash/>&gt; SMB ADDR + W <ndash/>&gt; ACK <ndash/>&gt; Xbar Reg ADDR <ndash/>&gt; ACK \ <ndash/>&gt; START <ndash/>&gt; SMB ADDR + R <ndash/>&gt; ACK <ndash/>&gt; Xbar Reg DATA <ndash/>&gt; NACK <ndash/>&gt;STOP NOT WORKING YET. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>RegAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Register Address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if register read is successful else XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.c" bodystart="141" bodyend="181"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>FZETTA_FMC_IIC_H_</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>FZETTA_FMC_IIC_H_</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XIic_Config<sp/>*fzetta_fmc_Iic_ConfigPtr;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Pointer<sp/>to<sp/>configuration<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>XIic<sp/>fzetta_fmc_Iic;<sp/></highlight><highlight class="comment">/*<sp/>The<sp/>driver<sp/>instance<sp/>for<sp/>IIC<sp/>Device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XBAR_IIC_WRITE_ADDR<sp/>0x50</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_iic_init(u8<sp/>Dev_ID);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_iic_init(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="70"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>fzetta_fmc_iic_xbar_register_write(u8<sp/>RegAddr,<sp/>u8<sp/>RegData);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">u8<sp/>fzetta_fmc_iic_xbar_register_read(u8<sp/>RegAddr);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>FZETTA_FMC_IIC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/kcu116_xuhdsdi_example/fzetta_fmc_iic.h"/>
+  </compounddef>
+</doxygen>

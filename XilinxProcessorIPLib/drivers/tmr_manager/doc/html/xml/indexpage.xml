@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>tmr_manager</title>
+    <detaileddescription>
+<para>This component contains the implementation of the <ref refid="struct_x_t_m_r___manager" kindref="compound">XTMR_Manager</ref> component which is the driver for the Xilinx TMR Manager device. Most features are configurable at run time by software, but someare only configurable when the hardware device is built.</para><para>The driver defaults to no interrupts at initialization such that interrupts must be enabled if desired. An interrupt is generated when a SEM event that has not been masked occurs.</para><para><bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_t_m_r___manager___config" kindref="compound">XTMR_Manager_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</para><para><itemizedlist>
+<listitem><para>XTMR_Manager_Initialize(InstancePtr, DeviceId) - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</para></listitem><listitem><para>XTMR_Manager_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><simplesect kind="note"><para></para></simplesect>
+The driver is partitioned such that a minimal implementation may be used. More features require additional files to be linked in.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+1.2   mus  08/31/20 Updated makefile to support parallel make and
+                    incremental builds. It would help to reduce
+                    compilation time.
+1.3   adk  01/07/22 Fixed Assert check in the XTMR_Manager_BreakHandler API,
+                      Corrected the break handler handoff offset in the
+                      xtmr_manager_recover_l.S file.
+      adk  01/31/22 Updated the interrupt examples independent of SEM IP
+              hardware configuration.
+      adk  02/23/22 Added new API XTMR_Manager_Configure_BrkDelay()
+              for configuring break delay.
+1.4   adk  27/12/22 Updated addtogroup tag.
+1.5   adk  03/07/23 Added support for system device-tree flow.
+1.6   adk  20/10/23 The function XTMR_Manager_InjectionTest was erroneously
+                      declared. It does not exist. Remove the
+                      XTMR_Manager_InjectionTest API declaration.
+1.7   adk  04/04/25 Added Interrupt fields in the config struct in SDT flow.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

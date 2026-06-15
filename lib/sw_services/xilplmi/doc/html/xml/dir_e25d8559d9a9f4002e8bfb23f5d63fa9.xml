@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_e25d8559d9a9f4002e8bfb23f5d63fa9" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="xplmi__asu__cmd_8c">xplmi_asu_cmd.c</innerfile>
+    <innerfile refid="xplmi__asu__cmd_8h">xplmi_asu_cmd.h</innerfile>
+    <innerfile refid="xplmi__asu__update_8c">xplmi_asu_update.c</innerfile>
+    <innerfile refid="xplmi__asu__update_8h">xplmi_asu_update.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__config_8h">2ve_2vm/server/xplmi_config.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__err_8c">2ve_2vm/server/xplmi_err.c</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__err_8h">2ve_2vm/server/xplmi_err.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__error__node_8h">2ve_2vm/server/xplmi_error_node.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__hw_8h">2ve_2vm/server/xplmi_hw.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__plat_8c">2ve_2vm/server/xplmi_plat.c</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__plat_8h">2ve_2vm/server/xplmi_plat.h</innerfile>
+    <innerfile refid="2ve__2vm_2server_2xplmi__status_8h">2ve_2vm/server/xplmi_status.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2ve_2vm/server/"/>
+  </compounddef>
+</doxygen>

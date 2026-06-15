@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__cryptochk__apis" kind="group">
+    <compoundname>xsecure_cryptochk_apis</compoundname>
+    <title>XilSecure Crypto Check APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__cryptochk__apis_1ga3c2d3f2c3695547c6b70c53677102739" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_CryptoCheck</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_CryptoCheck</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if the EXPORT control eFuse is programmed. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS - When EXPORT control eFUSE is not programmed XSECURE_CRYPTO_DISABLED_ERROR - When EXPORT control eFUSE is programmed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" bodystart="56" bodyend="71"/>
+        <references refid="group__xsecure__cryptochk__apis_1ga6a597d966c4ec8a5c6f7ad3f1a1789d1" compoundref="zynqmp_2xsecure__cryptochk_8h" startline="47">XSECURE_CRYPTO_DISABLED_ERROR</references>
+        <references refid="group__xsecure__cryptochk__apis_1ga3fe1a79f9981fe248355620cb78f738d" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="40">XSECURE_EXPORT_CONTROL_BIT_MASK</references>
+        <references refid="group__xsecure__cryptochk__apis_1ga263a467ef969a03c264ef19d7debfb5b" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="36">XSECURE_IPDISABLE_EFUSE_BASE</references>
+        <references refid="group__xsecure__cryptochk__apis_1gaf7066545b92dedf09902a9b12577da58" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="39">XSECURE_IPDISABLE_EFUSE_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__cryptochk__apis_1ga263a467ef969a03c264ef19d7debfb5b" prot="public" static="no">
+        <name>XSECURE_IPDISABLE_EFUSE_BASE</name>
+        <initializer>(0xFFCC0000U)</initializer>
+        <briefdescription>
+<para>IP disable efuse base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" bodystart="36" bodyend="-1"/>
+        <referencedby refid="group__xsecure__cryptochk__apis_1ga3c2d3f2c3695547c6b70c53677102739" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="56" endline="71">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__cryptochk__apis_1gaf7066545b92dedf09902a9b12577da58" prot="public" static="no">
+        <name>XSECURE_IPDISABLE_EFUSE_OFFSET</name>
+        <initializer>(0x00001018U)</initializer>
+        <briefdescription>
+<para>IP disable efuse offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" bodystart="39" bodyend="-1"/>
+        <referencedby refid="group__xsecure__cryptochk__apis_1ga3c2d3f2c3695547c6b70c53677102739" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="56" endline="71">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__cryptochk__apis_1ga3fe1a79f9981fe248355620cb78f738d" prot="public" static="no">
+        <name>XSECURE_EXPORT_CONTROL_BIT_MASK</name>
+        <initializer>(0x8000U)</initializer>
+        <briefdescription>
+<para>Export control bit mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.c" bodystart="40" bodyend="-1"/>
+        <referencedby refid="group__xsecure__cryptochk__apis_1ga3c2d3f2c3695547c6b70c53677102739" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="56" endline="71">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__cryptochk__apis_1ga6a597d966c4ec8a5c6f7ad3f1a1789d1" prot="public" static="no">
+        <name>XSECURE_CRYPTO_DISABLED_ERROR</name>
+        <initializer>(0x40U)</initializer>
+        <briefdescription>
+<para>Crypto disabled error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_cryptochk.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="group__xsecure__cryptochk__apis_1ga3c2d3f2c3695547c6b70c53677102739" compoundref="zynqmp_2xsecure__cryptochk_8c" startline="56" endline="71">XSecure_CryptoCheck</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

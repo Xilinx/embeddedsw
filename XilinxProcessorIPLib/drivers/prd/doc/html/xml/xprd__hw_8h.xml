@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xprd__hw_8h" kind="file">
+    <compoundname>xprd_hw.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xprd_8h" local="yes">xprd.h</includedby>
+    <incdepgraph>
+      <node id="44">
+        <label>xprd_hw.h</label>
+        <link refid="xprd_hw.h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="45">
+        <label>xil_io.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="46">
+        <label>xprd_hw.h</label>
+        <link refid="xprd_hw.h"/>
+        <childnode refid="47" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xprd_g.c</label>
+      </node>
+      <node id="51">
+        <label>xprd_sinit.c</label>
+        <link refid="xprd__sinit_8c"/>
+      </node>
+      <node id="52">
+        <label>xprd_example.c</label>
+        <link refid="xprd__example_8c"/>
+      </node>
+      <node id="48">
+        <label>xprd.c</label>
+        <link refid="xprd_8c"/>
+      </node>
+      <node id="47">
+        <label>xprd.h</label>
+        <link refid="xprd_8h"/>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xprd_selftest.c</label>
+        <link refid="xprd__selftest_8c"/>
+      </node>
+      <node id="53">
+        <label>xprd_selftest_example.c</label>
+        <link refid="xprd__selftest__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Offset</header>
+      <memberdef kind="define" id="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" prot="public" static="no">
+        <name>XPRD_CTRL_OFFSET</name>
+        <initializer>(0x000)</initializer>
+        <briefdescription>
+<para>Control register Offset and status register is also mappped to same address as Control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+        <referencedby refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" compoundref="xprd_8c" startline="106" endline="115">XPrd_SetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register Mask</header>
+      <memberdef kind="define" id="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" prot="public" static="no">
+        <name>XPRD_CTRL_DECOUPLER_MASK</name>
+        <initializer>(0x00000001)</initializer>
+        <briefdescription>
+<para>Decoupler Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__prd_1ga441af12b649f69397a518ca341e2298f" prot="public" static="no">
+        <name>XPRD_HW_H_</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__prd_1gaffb12c25656847672ed8f5cb804467f3" prot="public" static="no">
+        <name>XPrd_ReadReg</name>
+        <param><defname>Address</defname></param>
+        <initializer>Xil_In32(Address)</initializer>
+        <briefdescription>
+<para>This macro reads a value from the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value read from register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="group__prd_1gad37688cbdb9d0b50c481132f6f05cee0" compoundref="xprd_8c" startline="131" endline="142">XPrd_GetDecouplerState</referencedby>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" prot="public" static="no">
+        <name>XPrd_WriteReg</name>
+        <param><defname>Address</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(Address, (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes a value to the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Address</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the register to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__prd_1gaf18335c2976ab9b7c9d12a5a0c0a450c" compoundref="xprd__selftest_8c" startline="58" endline="81">XPrd_SelfTest</referencedby>
+        <referencedby refid="group__prd_1gacb64d55940567d71186233e1e230c0d0" compoundref="xprd_8c" startline="106" endline="115">XPrd_SetDecouplerState</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XPRD_HW_H_<sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPRD_HW_H_<sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="group__prd_1ga822c5f24e18d6a6b7b1c23cfbf640693" refkind="member"><highlight class="preprocessor">#define<sp/>XPRD_CTRL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x000)<sp/></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XPRD_CTRL_DECOUPLER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__prd_1ga73f34d1bb856e71aedea43644e2da1db" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XPrd_ReadReg(Address)<sp/><sp/><sp/>Xil_In32(Address)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor">#define<sp/>XPrd_WriteReg(Address,<sp/>Data)<sp/><sp/><sp/><sp/>Xil_Out32(Address,<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="group__prd_1ga93e7e75f1c667dcddcdb0a1a43230415" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/xprd_hw.h"/>
+  </compounddef>
+</doxygen>

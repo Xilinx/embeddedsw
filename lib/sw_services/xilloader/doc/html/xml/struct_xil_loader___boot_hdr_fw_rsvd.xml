@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_loader___boot_hdr_fw_rsvd" kind="struct" prot="public">
+    <compoundname>XilLoader_BootHdrFwRsvd</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_loader___boot_hdr_fw_rsvd_1a378b191006de05bfd49ae4f7d93aa4c8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_BootHdrFwRsvd::MetaHdrOfst</definition>
+        <argsstring></argsstring>
+        <name>MetaHdrOfst</name>
+        <briefdescription>
+<para>Offset to the start of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_loader___boot_hdr_fw_rsvd_1a1c665106d18c6282f211ced50b30a5ea" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilLoader_BootHdrFwRsvd::FwRsvd</definition>
+        <argsstring>[24U]</argsstring>
+        <name>FwRsvd</name>
+        <briefdescription>
+<para>FW Reserved fields. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to store the Boot Header PMC FW fields. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/versal_2ve_2vm/client/xloader_plat_client.c" bodystart="74" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_xil_loader___boot_hdr_fw_rsvd_1a1c665106d18c6282f211ced50b30a5ea" prot="public" virt="non-virtual"><scope>XilLoader_BootHdrFwRsvd</scope><name>FwRsvd</name></member>
+      <member refid="struct_xil_loader___boot_hdr_fw_rsvd_1a378b191006de05bfd49ae4f7d93aa4c8" prot="public" virt="non-virtual"><scope>XilLoader_BootHdrFwRsvd</scope><name>MetaHdrOfst</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

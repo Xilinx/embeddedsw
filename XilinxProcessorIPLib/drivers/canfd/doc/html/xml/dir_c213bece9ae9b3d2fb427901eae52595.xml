@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c213bece9ae9b3d2fb427901eae52595" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xcanfd__intr__example_8c">xcanfd_intr_example.c</innerfile>
+    <innerfile refid="xcanfd__polled__example_8c">xcanfd_polled_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canfd/examples/"/>
+  </compounddef>
+</doxygen>

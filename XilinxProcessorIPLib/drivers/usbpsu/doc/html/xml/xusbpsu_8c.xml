@@ -1,0 +1,803 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbpsu_8c" kind="file">
+    <compoundname>xusbpsu.c</compoundname>
+    <includes refid="xusbpsu__local_8h" local="yes">xusbpsu_local.h</includes>
+    <incdepgraph>
+      <node id="930">
+        <label>xusbpsu_local.h</label>
+        <link refid="xusbpsu__local_8h"/>
+      </node>
+      <node id="929">
+        <label>xusbpsu.c</label>
+        <link refid="xusbpsu.c"/>
+        <childnode refid="930" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__usbpsu__api_1gac3a213e441b7dd53903232683294235d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUsbPsu_SetMode</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u32 Mode)</argsstring>
+        <name>XUsbPsu_SetMode</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+<para>Sets mode of core to USB Device/Host/OTG. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode to set<itemizedlist>
+<listitem><para>XUSBPSU_GCTL_PRTCAP_OTG</para></listitem><listitem><para>XUSBPSU_GCTL_PRTCAP_HOST</para></listitem><listitem><para>XUSBPSU_GCTL_PRTCAP_DEVICE</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="77" bodyend="85"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gaf7fc389b7054389fa0ad0c6577496f5e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XUsbPsu_InitializeEps</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_InitializeEps</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes endpoints. </para>        </briefdescription>
+        <detaileddescription>
+<para>All OUT endpoints are even numbered and all IN endpoints are odd numbered. EP0 is for Control OUT and EP1 is for Control IN.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="100" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_CfgInitialize</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, XUsbPsu_Config *ConfigPtr, u32 BaseAddress)</argsstring>
+        <name>XUsbPsu_CfgInitialize</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function does the following: </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>  - initializes a specific XUsbPsu instance.
+  - sets up Event Buffer for Core to write events.
+  - Core Reset and PHY Reset.
+  - Sets core in Device Mode.
+  - Sets default speed as HIGH_SPEED.
+  - Sets Device Address to 0.
+  - Enables interrupts.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Points to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> device configuration structure. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device base address in the virtual memory address space. If the address translation is not used then the physical address is passed. Unexpected errors may occur if the address mapping is changed after this function is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="144" bodyend="192"/>
+        <references refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" compoundref="xusbpsu_8h" startline="530">XUsbPsu::ConfigPtr</references>
+        <references refid="struct_x_usb_psu___config_1aaa803eab77fc38e18becdf22821e22e4" compoundref="xusbpsu_8h" startline="459">XUsbPsu_Config::EnableSuperSpeed</references>
+        <references refid="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" compoundref="xusbpsu_8h" startline="555">XUsbPsu::NumInEps</references>
+        <references refid="struct_x_usb_psu_1a65d03f0b14986135e50959098d945db2" compoundref="xusbpsu_8h" startline="554">XUsbPsu::NumOutEps</references>
+        <references refid="group__usbpsu__api_1ga01495a656b7de39f6874390556643a1e" compoundref="xusbpsu__device_8c" startline="461" endline="529">XUsbPsu_CoreInit</references>
+        <references refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" compoundref="xusbpsu__device_8c" startline="540" endline="556">XUsbPsu_EventBuffersSetup</references>
+        <references refid="group__usbpsu__api_1ga320848a4722e7150a31427f5635bab56" compoundref="xusbpsu__device_8c" startline="187" endline="196">XUsbPsu_ReadHwParams</references>
+        <references refid="group__usbpsu__api_1ga12567217fd7112e7d8fc4c6d91b20e11" compoundref="xusbpsu__device_8c" startline="279" endline="302">XUsbPsu_SetDeviceAddress</references>
+        <references refid="group__usbpsu__api_1gaebd7592c8206e1fa22594cb2e4e44f7f" compoundref="xusbpsu__device_8c" startline="254" endline="265">XUsbPsu_SetSpeed</references>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga6d7651e8afca56974940464709b8a3ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_Start</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_Start</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Starts the controller so that host can detect this device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="207" bodyend="225"/>
+        <references refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" compoundref="xusbpsu__device_8c" startline="68" endline="79">XUsbPsu_WaitClearTimeout</references>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga7fa4e391a5107c357c314fa5e550e370" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_Stop</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_Stop</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stops the controller so that the device disconnects from the host. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="239" bodyend="256"/>
+        <references refid="group__usbpsu__api_1gaf75d50db67d1cab7fed1c8738d1b95c9" compoundref="xusbpsu__device_8c" startline="95" endline="106">XUsbPsu_WaitSetTimeout</references>
+        <referencedby refid="group__usbpsu__api_1gad13cbcf5858fa37dcba606bed25ed338" compoundref="xusbpsu__device_8c" startline="361" endline="448">XUsbPsu_Idle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga8eb71617c93d98325d328d7801bbb6bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XUsbPsu_GetLinkState</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_GetLinkState</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets current state of USB link. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Link State </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="268" bodyend="277"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga4df83ee534df24f4403e51ae9423238a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_SetLinkState</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, XusbPsuLinkStateChange State)</argsstring>
+        <name>XUsbPsu_SetLinkState</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__usbpsu__api_1ga01b275c406db01f76fc27ce428e859b0" kindref="member">XusbPsuLinkStateChange</ref></type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+<para>Sets USB Link to a particular State. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State of Link to set.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="290" bodyend="308"/>
+        <references refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" compoundref="xusbpsu__device_8c" startline="68" endline="79">XUsbPsu_WaitClearTimeout</references>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gaa511f1b4207a9b718f8951e2f3b0ac90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_SetU1SleepTimeout</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u8 Timeout)</argsstring>
+        <name>XUsbPsu_SetU1SleepTimeout</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Timeout</declname>
+        </param>
+        <briefdescription>
+<para>Sets U1 sleep timeout. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time in microseconds</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="322" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gade3b6c0bdb87c504d946212311c04216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_SetU2SleepTimeout</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u8 Timeout)</argsstring>
+        <name>XUsbPsu_SetU2SleepTimeout</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Timeout</declname>
+        </param>
+        <briefdescription>
+<para>Sets U2 sleep timeout. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time in microseconds.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="348" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="348" bodyend="360"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga314e8d22a5f1a2e0e4bef7f0c7bffe85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_AcceptU1U2Sleep</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_AcceptU1U2Sleep</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable Accept U1 and U2 sleep enable. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="373" bodyend="384"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gab610beaf7a6f5703f123e6682bea8c45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_U1SleepEnable</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_U1SleepEnable</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables U1 enable sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="397" bodyend="408"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga5340d1fa1682b73d5f4da55eff3b0a0b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_U2SleepEnable</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_U2SleepEnable</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables U2 enable sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="421" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="421" bodyend="432"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga35ea7b99952969130f6bc35b088b16a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_U1SleepDisable</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_U1SleepDisable</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables U1 disable sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="445" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gace8c49312a72bbabfb622b62d88ffc0a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_U2SleepDisable</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_U2SleepDisable</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enables U2 disable sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="469" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="469" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_IsSuperSpeed</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_IsSuperSpeed</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks if the current speed is super speed or not. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" line="493" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c" bodystart="493" bodyend="502"/>
+        <references refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" compoundref="xusbpsu_8h" startline="537">XUsbPsu::AppData</references>
+        <references refid="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" compoundref="xusbpsu_8h" startline="479">Usb_DevData::Speed</references>
+        <references refid="group__usbpsu__api_1ga907197f8e0fa8febbc3c7794c877c147" compoundref="xusbpsu_8h" startline="295">XUSBPSU_SPEED_SUPER</references>
+        <referencedby refid="xusb__wrapper_8h_1a02e8ef492f6fb18133f23f90205cc573" compoundref="xusb__wrapper_8c" startline="265" endline="268">IsSuperSpeed</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbpsu__local_8h" kindref="compound">xusbpsu_local.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUsbPsu_SetMode(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mode);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUsbPsu_InitializeEps(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="77"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUsbPsu_SetMode(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mode)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_GCTL);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~(XUSBPSU_GCTL_PRTCAPDIR(XUSBPSU_GCTL_PRTCAP_OTG));</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_GCTL_PRTCAPDIR(Mode);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_GCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="100"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XUsbPsu_InitializeEps(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>i;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Epnum;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a65d03f0b14986135e50959098d945db2" kindref="member">NumOutEps</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Epnum<sp/>=<sp/>(i<sp/>&lt;&lt;<sp/>1U)<sp/>|<sp/><ref refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kindref="member">XUSBPSU_EP_DIR_OUT</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1ac848e7b64a1137b6922a32dfebe62ab5" kindref="member">PhyEpNum</ref><sp/>=<sp/>Epnum;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" kindref="member">Direction</ref><sp/>=<sp/><ref refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kindref="member">XUSBPSU_EP_DIR_OUT</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0U;<sp/>i<sp/>&lt;<sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" kindref="member">NumInEps</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Epnum<sp/>=<sp/>(i<sp/>&lt;&lt;<sp/>1U)<sp/>|<sp/><ref refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kindref="member">XUSBPSU_EP_DIR_IN</ref>;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1ac848e7b64a1137b6922a32dfebe62ab5" kindref="member">PhyEpNum</ref><sp/>=<sp/>Epnum;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" kindref="member">Direction</ref><sp/>=<sp/><ref refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kindref="member">XUSBPSU_EP_DIR_IN</ref>;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum].<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="144" refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga55228afff6b16b58790b91efb185eff5" kindref="member">XUsbPsu_CfgInitialize</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref><sp/>*<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>,<sp/>u32<sp/><ref refid="struct_x_usb_psu_1a740530acd1ee913daa3399e377b8916a" kindref="member">BaseAddress</ref>)</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Speed;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(ConfigPtr<sp/><sp/><sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(BaseAddress<sp/>!=<sp/>0U);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref><sp/>=<sp/><ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__usbpsu__api_1ga01495a656b7de39f6874390556643a1e" kindref="member">XUsbPsu_CoreInit</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XUSBPSU_DEBUG</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Core<sp/>initialization<sp/>failed\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/><ref refid="group__usbpsu__api_1ga320848a4722e7150a31427f5635bab56" kindref="member">XUsbPsu_ReadHwParams</ref>(InstancePtr,<sp/>3U);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" kindref="member">NumInEps</ref><sp/>=<sp/>(u8)XUSBPSU_NUM_IN_EPS(RegVal);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a65d03f0b14986135e50959098d945db2" kindref="member">NumOutEps</ref><sp/>=<sp/>(u8)(XUSBPSU_NUM_EPS(RegVal)<sp/>-</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1ae1a79187909ced95add06dc5acb2064a" kindref="member">NumInEps</ref>);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Map<sp/>USB<sp/>and<sp/>Physical<sp/>Endpoints<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_InitializeEps(InstancePtr);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga2137782bf79ed3f9148defc507786a9c" kindref="member">XUsbPsu_EventBuffersSetup</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_SetMode(InstancePtr,<sp/>XUSBPSU_GCTL_PRTCAP_DEVICE);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="179"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Set<sp/>connection<sp/>speed<sp/>based<sp/>on<sp/>EnableSuperSpeed<sp/>parameter</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Speed<sp/>=<sp/>(ConfigPtr-&gt;<ref refid="struct_x_usb_psu___config_1aaa803eab77fc38e18becdf22821e22e4" kindref="member">EnableSuperSpeed</ref><sp/>==<sp/>(u8)TRUE)<sp/>?</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_DCFG_SUPERSPEED<sp/>:<sp/>XUSBPSU_DCFG_HIGHSPEED;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setting<sp/>to<sp/>max<sp/>speed<sp/>to<sp/>support<sp/>SS<sp/>and<sp/>HS</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1gaebd7592c8206e1fa22594cb2e4e44f7f" kindref="member">XUsbPsu_SetSpeed</ref>(InstancePtr,<sp/>Speed);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__usbpsu__api_1ga12567217fd7112e7d8fc4c6d91b20e11" kindref="member">XUsbPsu_SetDeviceAddress</ref>(InstancePtr,<sp/>0U);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="207" refid="group__usbpsu__api_1ga6d7651e8afca56974940464709b8a3ed" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga6d7651e8afca56974940464709b8a3ed" kindref="member">XUsbPsu_Start</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>RegVal;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_DCTL_RUN_STOP;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" kindref="member">XUsbPsu_WaitClearTimeout</ref>(InstancePtr,<sp/>XUSBPSU_DSTS,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_DSTS_DEVCTRLHLT,<sp/>500U)<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="239" refid="group__usbpsu__api_1ga7fa4e391a5107c357c314fa5e550e370" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga7fa4e391a5107c357c314fa5e550e370" kindref="member">XUsbPsu_Stop</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>RegVal;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_DCTL_RUN_STOP;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__usbpsu__api_1gaf75d50db67d1cab7fed1c8738d1b95c9" kindref="member">XUsbPsu_WaitSetTimeout</ref>(InstancePtr,<sp/>XUSBPSU_DSTS,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_DSTS_DEVCTRLHLT,<sp/>500U)<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="268" refid="group__usbpsu__api_1ga8eb71617c93d98325d328d7801bbb6bf" refkind="member"><highlight class="normal">u8<sp/><ref refid="group__usbpsu__api_1ga8eb71617c93d98325d328d7801bbb6bf" kindref="member">XUsbPsu_GetLinkState</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DSTS);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(u8)XUSBPSU_DSTS_USBLNKST(RegVal);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="290" refid="group__usbpsu__api_1ga4df83ee534df24f4403e51ae9423238a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga4df83ee534df24f4403e51ae9423238a" kindref="member">XUsbPsu_SetLinkState</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga01b275c406db01f76fc27ce428e859b0" kindref="member">XusbPsuLinkStateChange</ref><sp/>State)</highlight></codeline>
+<codeline lineno="292"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>device<sp/>controller<sp/>is<sp/>ready.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__usbpsu__api_1ga2616d8b140915fc83ced2c316db3aa16" kindref="member">XUsbPsu_WaitClearTimeout</ref>(InstancePtr,<sp/>XUSBPSU_DSTS,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_DSTS_DCNRD,<sp/>500U)<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_DCTL_ULSTCHNGREQ_MASK;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_DCTL_ULSTCHNGREQ(State);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="322" refid="group__usbpsu__api_1gaa511f1b4207a9b718f8951e2f3b0ac90" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1gaa511f1b4207a9b718f8951e2f3b0ac90" kindref="member">XUsbPsu_SetU1SleepTimeout</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u8<sp/>Timeout)</highlight></codeline>
+<codeline lineno="323"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_PORTMSC_30);</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_PORTMSC_30_U1_TIMEOUT_MASK;</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>((u32)Timeout<sp/>&lt;&lt;<sp/>XUSBPSU_PORTMSC_30_U1_TIMEOUT_SHIFT);</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_PORTMSC_30,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="348" refid="group__usbpsu__api_1gade3b6c0bdb87c504d946212311c04216" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1gade3b6c0bdb87c504d946212311c04216" kindref="member">XUsbPsu_SetU2SleepTimeout</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u8<sp/>Timeout)</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_PORTMSC_30);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_PORTMSC_30_U2_TIMEOUT_MASK;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>((u32)Timeout<sp/>&lt;&lt;<sp/>XUSBPSU_PORTMSC_30_U2_TIMEOUT_SHIFT);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_PORTMSC_30,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="373" refid="group__usbpsu__api_1ga314e8d22a5f1a2e0e4bef7f0c7bffe85" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga314e8d22a5f1a2e0e4bef7f0c7bffe85" kindref="member">XUsbPsu_AcceptU1U2Sleep</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="374"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_DCTL_ACCEPTU2ENA<sp/>|<sp/>XUSBPSU_DCTL_ACCEPTU1ENA;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="397" refid="group__usbpsu__api_1gab610beaf7a6f5703f123e6682bea8c45" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1gab610beaf7a6f5703f123e6682bea8c45" kindref="member">XUsbPsu_U1SleepEnable</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="398"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_DCTL_INITU1ENA;</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"></highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="421" refid="group__usbpsu__api_1ga5340d1fa1682b73d5f4da55eff3b0a0b" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga5340d1fa1682b73d5f4da55eff3b0a0b" kindref="member">XUsbPsu_U2SleepEnable</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="422"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>|=<sp/>XUSBPSU_DCTL_INITU2ENA;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="445" refid="group__usbpsu__api_1ga35ea7b99952969130f6bc35b088b16a0" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga35ea7b99952969130f6bc35b088b16a0" kindref="member">XUsbPsu_U1SleepDisable</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="446"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_DCTL_INITU1ENA;</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"></highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="456"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="469" refid="group__usbpsu__api_1gace8c49312a72bbabfb622b62d88ffc0a" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1gace8c49312a72bbabfb622b62d88ffc0a" kindref="member">XUsbPsu_U2SleepDisable</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="470"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegVal;</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>=<sp/>XUsbPsu_ReadReg(InstancePtr,<sp/>XUSBPSU_DCTL);</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegVal<sp/>&amp;=<sp/>~XUSBPSU_DCTL_INITU2ENA;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUsbPsu_WriteReg(InstancePtr,<sp/>XUSBPSU_DCTL,<sp/>RegVal);</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="493" refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga7e0a64e9adf5e221b4bd8386ad38055e" kindref="member">XUsbPsu_IsSuperSpeed</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="494"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"></highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" kindref="member">AppData</ref>-&gt;<ref refid="struct_usb___dev_data_1ab54eee2cc1c6a5d178c976f187a2ea47" kindref="member">Speed</ref><sp/>!=<sp/><ref refid="group__usbpsu__api_1ga907197f8e0fa8febbc3c7794c877c147" kindref="member">XUSBPSU_SPEED_SUPER</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.c"/>
+  </compounddef>
+</doxygen>

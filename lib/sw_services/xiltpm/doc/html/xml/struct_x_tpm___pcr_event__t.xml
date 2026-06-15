@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_tpm___pcr_event__t" kind="struct" prot="public">
+    <compoundname>XTpm_PcrEvent_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_tpm___pcr_event__t_1a42e8981372ecee1c8b1846b7db25bdbe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTpm_PcrEvent_t::PcrNo</definition>
+        <argsstring></argsstring>
+        <name>PcrNo</name>
+        <briefdescription>
+<para>HW PCR number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_event__t_1ade52400aa4ffdd95787a382d670ae136" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTpm_PcrEvent_t::Hash[XTPM_SHA3_HASH_LEN_IN_BYTES]</definition>
+        <argsstring>[XTPM_SHA3_HASH_LEN_IN_BYTES]</argsstring>
+        <name>Hash</name>
+        <briefdescription>
+<para>Hash to be extended. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_tpm___pcr_event__t_1a46776002a13465378e95b95769a5d73e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTpm_PcrEvent_t::PcrValue[PCR_VALUE_MAX_LEN]</definition>
+        <argsstring>[PCR_VALUE_MAX_LEN]</argsstring>
+        <name>PcrValue</name>
+        <briefdescription>
+<para>PCR value after extension. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/common/xtpm_defs.h" bodystart="82" bodyend="86"/>
+    <listofallmembers>
+      <member refid="struct_x_tpm___pcr_event__t_1ade52400aa4ffdd95787a382d670ae136" prot="public" virt="non-virtual"><scope>XTpm_PcrEvent_t</scope><name>Hash</name></member>
+      <member refid="struct_x_tpm___pcr_event__t_1a42e8981372ecee1c8b1846b7db25bdbe" prot="public" virt="non-virtual"><scope>XTpm_PcrEvent_t</scope><name>PcrNo</name></member>
+      <member refid="struct_x_tpm___pcr_event__t_1a46776002a13465378e95b95769a5d73e" prot="public" virt="non-virtual"><scope>XTpm_PcrEvent_t</scope><name>PcrValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

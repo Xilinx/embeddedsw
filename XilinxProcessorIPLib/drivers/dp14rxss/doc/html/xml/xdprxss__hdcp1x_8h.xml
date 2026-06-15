@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__hdcp1x_8h" kind="file">
+    <compoundname>xdprxss_hdcp1x.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xdprxss__hdcp1x_8c" local="yes">xdprxss_hdcp1x.c</includedby>
+    <includedby refid="xdprxss_8h" local="yes">xdprxss.h</includedby>
+    <incdepgraph>
+      <node id="433">
+        <label>xparameters.h</label>
+      </node>
+      <node id="432">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss_hdcp1x.h"/>
+        <childnode refid="433" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="448">
+        <label>xdprxss_intr_example.c</label>
+        <link refid="xdprxss__intr__example_8c"/>
+      </node>
+      <node id="441">
+        <label>xdprxss_dbg.c</label>
+        <link refid="xdprxss__dbg_8c"/>
+      </node>
+      <node id="439">
+        <label>xdprxss_mcdp6000.c</label>
+        <link refid="xdprxss__mcdp6000_8c"/>
+      </node>
+      <node id="438">
+        <label>xdprxss_mcdp6000.h</label>
+        <link refid="xdprxss__mcdp6000_8h"/>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+      </node>
+      <node id="449">
+        <label>xdprxss_mst_example.c</label>
+        <link refid="xdprxss__mst__example_8c"/>
+      </node>
+      <node id="443">
+        <label>xdprxss_intr.c</label>
+        <link refid="xdprxss__intr_8c"/>
+      </node>
+      <node id="444">
+        <label>xdprxss_selftest.c</label>
+        <link refid="xdprxss__selftest_8c"/>
+      </node>
+      <node id="442">
+        <label>xdprxss_g.c</label>
+      </node>
+      <node id="446">
+        <label>xdprxss_debug_example.c</label>
+        <link refid="xdprxss__debug__example_8c"/>
+      </node>
+      <node id="437">
+        <label>xdprxss.c</label>
+        <link refid="xdprxss_8c"/>
+      </node>
+      <node id="450">
+        <label>xdprxss_selftest_example.c</label>
+        <link refid="xdprxss__selftest__example_8c"/>
+      </node>
+      <node id="436">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="437" relation="include">
+        </childnode>
+        <childnode refid="438" relation="include">
+        </childnode>
+        <childnode refid="441" relation="include">
+        </childnode>
+        <childnode refid="442" relation="include">
+        </childnode>
+        <childnode refid="443" relation="include">
+        </childnode>
+        <childnode refid="439" relation="include">
+        </childnode>
+        <childnode refid="444" relation="include">
+        </childnode>
+        <childnode refid="445" relation="include">
+        </childnode>
+        <childnode refid="440" relation="include">
+        </childnode>
+        <childnode refid="446" relation="include">
+        </childnode>
+        <childnode refid="447" relation="include">
+        </childnode>
+        <childnode refid="448" relation="include">
+        </childnode>
+        <childnode refid="449" relation="include">
+        </childnode>
+        <childnode refid="450" relation="include">
+        </childnode>
+      </node>
+      <node id="447">
+        <label>xdprxss_hdcp_example.c</label>
+        <link refid="xdprxss__hdcp__example_8c"/>
+      </node>
+      <node id="445">
+        <label>xdprxss_sinit.c</label>
+        <link refid="xdprxss__sinit_8c"/>
+      </node>
+      <node id="440">
+        <label>xdprxss_dp14_rx.c</label>
+        <link refid="xdprxss__dp14__rx_8c"/>
+      </node>
+      <node id="435">
+        <label>xdprxss_hdcp1x.c</label>
+        <link refid="xdprxss__hdcp1x_8c"/>
+      </node>
+      <node id="434">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss_hdcp1x.h"/>
+        <childnode refid="435" relation="include">
+        </childnode>
+        <childnode refid="436" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdprxss__hdcp1x_8h_1ac55da9dbf081c7c7255ee6acf41b67a1" prot="public" static="no">
+        <name>XDPRXSS_HDCP1X_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/hdcp1x/xdprxss_hdcp1x.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/hdcp1x/xdprxss_hdcp1x.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__hdcp1x_8h_1a92acc39f4ff403d71aad1122fe939664" prot="public" static="no">
+        <name>XPAR_XHDCP_NUM_INSTANCES</name>
+        <initializer>XPAR_XHDCP1X_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/hdcp1x/xdprxss_hdcp1x.h" line="38" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/hdcp1x/xdprxss_hdcp1x.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the header file for Xilinx DisplayPort Receiver Subsystem sub-core, is High-Bandwidth Content Protection (HDCP). </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 05/18/15 Initial release.
+2.00 sha 10/05/15 Protected HDCP, Timer Counter header file under macro
+                   number of instances.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XDPRXSS_HDCP1X_H_</highlight></codeline>
+<codeline lineno="27" refid="xdprxss__hdcp1x_8h_1ac55da9dbf081c7c7255ee6acf41b67a1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_HDCP1X_H_<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XHDCP_NUM_INSTANCES<sp/>XPAR_XHDCP1X_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(XPAR_XHDCP_NUM_INSTANCES<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xhdcp1x.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/src/hdcp1x/xdprxss_hdcp1x.h"/>
+  </compounddef>
+</doxygen>

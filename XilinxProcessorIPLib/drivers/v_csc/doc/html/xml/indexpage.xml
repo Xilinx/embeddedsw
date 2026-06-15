@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_csc</title>
+    <detaileddescription>
+<para>The CSC Layer-2 Driver. The functions in this file provides an abstraction from the register peek/poke methodology by implementing most common use-case provided by the sub-core. See <ref refid="xv__csc__l2_8h" kindref="compound">xv_csc_l2.h</ref> for a detailed description of the layer-2 driver</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date    Changes
+<hruler/>
+
+1.00  rco   07/21/15 Initial Release
+2.00  rco   11/05/15 Integrate layer-1 with layer-2
+      dmc   12/17/15 IsDemoWindowEnabled prevents access to absent HW regs
+                     Corrected typo in XV_CscSetColorspace setting K31 FW reg
+                     Updated the XV_CscDbgReportStatus routine
+2.1   rco   02/09/17 Fix c++ warnings
+2.2   vyc   10/04/17 Added support for 4:2:0
+2.3   viv   06/19/18 Added support for color range
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

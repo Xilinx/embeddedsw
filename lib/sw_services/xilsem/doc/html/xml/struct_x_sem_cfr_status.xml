@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sem_cfr_status" kind="struct" prot="public">
+    <compoundname>XSemCfrStatus</compoundname>
+    <includes local="no">xsem_client_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sem_cfr_status_1addd887c9fd58e8458504557f871e9db3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrStatus::Status</definition>
+        <argsstring></argsstring>
+        <name>Status</name>
+        <briefdescription>
+<para>CRAM Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrStatus::ErrAddrL[MAX_CRAMERR_REGISTER_CNT]</definition>
+        <argsstring>[MAX_CRAMERR_REGISTER_CNT]</argsstring>
+        <name>ErrAddrL</name>
+        <briefdescription>
+<para>Error Low register L0...L6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrStatus::ErrAddrH[MAX_CRAMERR_REGISTER_CNT]</definition>
+        <argsstring>[MAX_CRAMERR_REGISTER_CNT]</argsstring>
+        <name>ErrAddrH</name>
+        <briefdescription>
+<para>Error High register H0...H6. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sem_cfr_status_1a4761efb652d2500853d8cb20c54f6578" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSemCfrStatus::ErrCorCnt</definition>
+        <argsstring></argsstring>
+        <name>ErrCorCnt</name>
+        <briefdescription>
+<para>Count of correctable errors. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="304" bodyend="-1"/>
+        <referencedby refid="xsem__cram__example__pl__mb_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xsem__cram__example__pl__mb_8c" startline="706" endline="916">main</referencedby>
+        <referencedby refid="group__xsem__client__apis_1ga649664a7f7ef4c94cd2d64eaa9a3f6ad" compoundref="xsem__client__api_8c" startline="661" endline="688">XSem_CmdCfrGetStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="struct_x_sem_cfr_status" kindref="compound">XSemCfrStatus</ref> - CRAM Status structure to store the data read from PMC RAM registers This structure provides: </para>    </briefdescription>
+    <detaileddescription>
+<para><itemizedlist>
+<listitem><para>CRAM scan state information</para></listitem><listitem><para>The low address of last 7 corrected error details if correction is enabled in design</para></listitem><listitem><para>The high address of last 7 corrected error details if correction is enabled in design</para></listitem><listitem><para>CRAM corrected error bits count value </para></listitem></itemizedlist>
+</para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsem/src/client/xsem_client_api.h" bodystart="300" bodyend="305"/>
+    <listofallmembers>
+      <member refid="struct_x_sem_cfr_status_1ab833bd42039240f18e2637d47b8e2956" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>ErrAddrH</name></member>
+      <member refid="struct_x_sem_cfr_status_1ade29b60e7b0785d909c7065bd54ad9c9" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>ErrAddrL</name></member>
+      <member refid="struct_x_sem_cfr_status_1a4761efb652d2500853d8cb20c54f6578" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>ErrCorCnt</name></member>
+      <member refid="struct_x_sem_cfr_status_1addd887c9fd58e8458504557f871e9db3" prot="public" virt="non-virtual"><scope>XSemCfrStatus</scope><name>Status</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

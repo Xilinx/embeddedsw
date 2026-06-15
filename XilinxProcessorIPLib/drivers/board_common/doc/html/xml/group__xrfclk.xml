@@ -1,0 +1,701 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xrfclk" kind="group">
+    <compoundname>xrfclk</compoundname>
+    <title>Xrfclk</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__xrfclk_1gaed742c436da53c1080638ce6ef7d13de" prot="public" static="no">
+        <type>unsigned char</type>
+        <definition>typedef unsigned char u8</definition>
+        <argsstring></argsstring>
+        <name>u8</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xrfclk_1ga10e94b422ef0c20dcdec20d31a1f5049" prot="public" static="no">
+        <type>unsigned int</type>
+        <definition>typedef unsigned int u32</definition>
+        <argsstring></argsstring>
+        <name>u32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__xrfclk_1gaa62c75d314a0d1f37f79c4b73b2292e2" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int s32</definition>
+        <argsstring></argsstring>
+        <name>s32</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xrfclk_1ga918d6c7ecaab240659423c70b3b02057" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_WriteReg</definition>
+        <argsstring>(u32 ChipId, u32 Data)</argsstring>
+        <name>XRFClk_WriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+          <defname>d</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to write a register on one of LMX2594 or LMX04828. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>= {D2, D1, D0} Where [D0,D1,D2] bits are: LMK04282: bit [23] - 1-bit command field (R/W) bits [22:21] - 2-bit multi-byte field (W1, W0) bits [20:8] - 13-bit address field (A12 to A0) bits [7-0]- 8-bit data field (D7 to D0). LMX2594: bit [23] - 1-bit command field (R/W) bits [22:16] - 7-bit address field (A6 to A0) bits [15-0]- 16-bit data field (D15 to D0).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="898" bodyend="921"/>
+        <referencedby refid="group__xrfclk_1ga91a0033a744f217741b6bf0125914407" compoundref="xrfclk_8c" startline="1478" endline="1553">XRFClk_ConfigOutputDividerAndMUXOnLMK</referencedby>
+        <referencedby refid="group__xrfclk_1gaa084685a70d719dd933f735cb350fb95" compoundref="xrfclk_8c" startline="1433" endline="1456">XRFClk_ControlOutputPortLMK</referencedby>
+        <referencedby refid="group__xrfclk_1gae0b716c787b95513649b2fcba33b3b95" compoundref="xrfclk_8c" startline="1068" endline="1086">XRFClk_ResetChip</referencedby>
+        <referencedby refid="group__xrfclk_1gaf97229ea09f7cf0d46fb4c1ee6f2f700" compoundref="xrfclk_8c" startline="1189" endline="1203">XRFClk_SetConfigOnOneChip</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1gad22f0b428656960235f5be3e47e4e26e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_ReadReg</definition>
+        <argsstring>(u32 ChipId, u32 *Data)</argsstring>
+        <name>XRFClk_ReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Data</declname>
+          <defname>d</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to read a register from one of LMX2594 or LMX04828. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>d</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>= {D2, D1, D0} Where [D0,D1,D2] bits are: LMK04282: bit [23] - 1-bit command field (R/W) bits [22:21] - 2-bit multi-byte field (W1, W0) bits [20:8] - 13-bit address field (A12 to A0) bits [7-0]- 8-bit data field (D7 to D0). LMX2594: bit [23] - 1-bit command field (R/W) bits [22:16] - 7-bit address field (A6 to A0) bits [15-0]- 16-bit data field (D15 to D0).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="948" bodyend="987"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga5a7296352a6f5ff2b511184ee95f496b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_Init</definition>
+        <argsstring>(int GpioId)</argsstring>
+        <name>XRFClk_Init</name>
+        <param>
+          <type>int</type>
+          <declname>GpioId</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize RFCLK devices on i2c1-bus: i2c1 bus switch, i2c2spi bridge and MUX_SELx GPIOs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>none</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>GpioId gpio ID for Linux build, n/a for baremetal build.</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1010" bodyend="1029"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga15b874b3001ca5c28a1d53ec32b62ef4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XRFClk_Close</definition>
+        <argsstring>()</argsstring>
+        <name>XRFClk_Close</name>
+        <briefdescription>
+<para>This function is used to close RFCLK devices. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>none</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1043" bodyend="1052"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1gae0b716c787b95513649b2fcba33b3b95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_ResetChip</definition>
+        <argsstring>(u32 ChipId)</argsstring>
+        <name>XRFClk_ResetChip</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to reset one of LMX2594 or LMK04828. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1068" bodyend="1086"/>
+        <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga64c1af6644e83e169033afab6abcf344" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_SetConfigOnOneChipFromConfigId</definition>
+        <argsstring>(u32 ChipId, u32 ConfigId)</argsstring>
+        <name>XRFClk_SetConfigOnOneChipFromConfigId</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigId</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to set a full configuration on one of LMX2594 or LMX04828 for the requested frequency.where the register settings is provided from the selected hard coded data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip configuration Id.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1158" bodyend="1169"/>
+        <referencedby refid="group__xrfclk_1ga70661f1623b48f8230135120ab764eca" compoundref="xrfclk_8c" startline="1223" endline="1259">XRFClk_SetConfigOnAllChipsFromConfigId</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1gaf97229ea09f7cf0d46fb4c1ee6f2f700" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_SetConfigOnOneChip</definition>
+        <argsstring>(u32 ChipId, u32 *cfgData, u32 len)</argsstring>
+        <name>XRFClk_SetConfigOnOneChip</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>cfgData</declname>
+          <defname>CfgData</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>len</declname>
+          <defname>Len</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to set the full configuration data on one of LMX2594 or LMX04828. </para>        </briefdescription>
+        <detaileddescription>
+<para>The all register values are passed as a pointer CfgData, Len defines a number of data ready for writing.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the configuration for all registers. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates a number of data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1189" bodyend="1203"/>
+        <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga330f1f2804693e7a787ace303ba9a584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_GetConfigFromOneChip</definition>
+        <argsstring>(u32 ChipId, u32 *cfgData)</argsstring>
+        <name>XRFClk_GetConfigFromOneChip</name>
+        <param>
+          <type>u32</type>
+          <declname>ChipId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>cfgData</declname>
+          <defname>CfgData</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to read the full configuration data from one of LMX2594 or LMX04828. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChipId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the RF clock chip Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the array of the RF clock chip configuration data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1385" bodyend="1414"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga70661f1623b48f8230135120ab764eca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_SetConfigOnAllChipsFromConfigId</definition>
+        <argsstring>(u32 ConfigId_LMK, u32 ConfigId_RF1, u32 ConfigId_RF2)</argsstring>
+        <name>XRFClk_SetConfigOnAllChipsFromConfigId</name>
+        <param>
+          <type>u32</type>
+          <declname>ConfigId_LMK</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigId_RF1</declname>
+          <defname>ConfigId_1</defname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ConfigId_RF2</declname>
+          <defname>ConfigId_2</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to set a full configuration on all LMX2594 and LMK04828 or LMK04208 for the requested frequency. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ConfigId_LMK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the LMK configuration Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigId_RF1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the LMX RF1 configuration Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigId_RF2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the LMX RF2 configuration Id. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigId_RF3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the LMX RF3 configuration Id.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1223" bodyend="1259"/>
+        <references refid="group___overview_1ga64c1af6644e83e169033afab6abcf344" compoundref="xrfclk_8c" startline="1158" endline="1169">XRFClk_SetConfigOnOneChipFromConfigId</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1gaa084685a70d719dd933f735cb350fb95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_ControlOutputPortLMK</definition>
+        <argsstring>(u32 PortId, u32 state)</argsstring>
+        <name>XRFClk_ControlOutputPortLMK</name>
+        <param>
+          <type>u32</type>
+          <declname>PortId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>state</declname>
+          <defname>State</defname>
+        </param>
+        <briefdescription>
+<para>This function is used to enable or disable the specified output port on LMK04828. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PortId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates a LMK04828 port id, [1:7]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the state of the port, see chapter 9.7.2.7 in lmk04828.pdf datasheet, [0:7]</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1433" bodyend="1456"/>
+        <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xrfclk_1ga91a0033a744f217741b6bf0125914407" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XRFClk_ConfigOutputDividerAndMUXOnLMK</definition>
+        <argsstring>(u32 PortId, u32 DCLKoutX_DIV, u32 DCLKoutX_MUX, u32 SDCLKoutY_MUX, u32 SYSREF_DIV)</argsstring>
+        <name>XRFClk_ConfigOutputDividerAndMUXOnLMK</name>
+        <param>
+          <type>u32</type>
+          <declname>PortId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DCLKoutX_DIV</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DCLKoutX_MUX</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SDCLKoutY_MUX</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SYSREF_DIV</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to configure a clock divider and the output port MUX state on LMK04828. </para>        </briefdescription>
+        <detaileddescription>
+<para>For the details consult tables 16, 18, 19 and 25 in the lmk04828.pdf datasheet.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PortId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates a LMK04828 port id, [1:7]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DCLKoutX_DIV</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets divider for the clock output [0:31]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DCLKoutX_MUX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>selects input to the device clk buffer [0:3]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SDCLKoutY_MUX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets input to SDCLKoutY [0:1]. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SYSREF_DIV</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>sets SYSREF output divider [8:8191]</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_FAILURE if failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.c" bodystart="1478" bodyend="1553"/>
+        <references refid="group___overview_1ga02dab3acd290a218e441d08199454338" compoundref="xrfclk_8c" startline="898" endline="921">XRFClk_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xrfclk_1ga195a5d6c1d0400a26e774668ab36694a" prot="public" static="no">
+        <name>RFCLK_VERSION</name>
+        <initializer>&quot;1.4&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="39" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga629f5a74bef39bd47dc9a9bec5c40c42" prot="public" static="no">
+        <name>XPS_BOARD_ZCU216</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga959ffc15251ddc9b3a883a30f97b7715" prot="public" static="no">
+        <name>XST_SUCCESS</name>
+        <initializer>0L</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga9478d2b97aa40e09052dee2571940ef9" prot="public" static="no">
+        <name>XST_FAILURE</name>
+        <initializer>1L</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga8a5e6ab6e23a1ce6426e1df79721a886" prot="public" static="no">
+        <name>RFCLK_LMX2594_1</name>
+        <initializer>0 /* I0 on MUX and SS3 on Bridge */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gacbaff3a6f3b4521adeb6b6df3320d805" prot="public" static="no">
+        <name>RFCLK_LMX2594_2</name>
+        <initializer>1 /* I1 on MUX and SS2 on Bridge */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gabd0fa4e2b3601faa984b54d8e048fd93" prot="public" static="no">
+        <name>RFCLK_LMK</name>
+        <initializer>2 /* I2 on MUX and SS1 on Bridge */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gab93f592398ce9a767aa0e1dbc3ee1b4f" prot="public" static="no">
+        <name>RFCLK_CHIP_NUM</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="66" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gaf7d355798a5e42e2dc7e21495ab1377c" prot="public" static="no">
+        <name>LMK_COUNT</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gab55ca1c8cb9451baaa9276bee575e1b0" prot="public" static="no">
+        <name>LMK_FREQ_NUM</name>
+        <initializer>2 /* Number of LMK freq. configs */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga6fa4795aa16fe725e0f7aaee77756b9d" prot="public" static="no">
+        <name>LMX_ADC_NUM</name>
+        <initializer>8 /* Number of LMX ADC configs */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1gaedda6ebb7aa6dcf121e913a22cd08d4b" prot="public" static="no">
+        <name>LMX_DAC_NUM</name>
+        <initializer>24 /* Number of LMX DAC configs */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga4044410868ab81eeffb2170173057f8c" prot="public" static="no">
+        <name>LMX2594_COUNT</name>
+        <initializer>116</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xrfclk_1ga2fec56c18dbd90d82d3d82168b0da788" prot="public" static="no">
+        <name>FREQ_LIST_STR_SIZE</name>
+        <initializer>50 /* Frequency string size */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/board_common/src/rfclk/src/xrfclk.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains the API of the XRFclk middleware. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   dc     07/21/19 Initial version
+1.1   dc     11/21/19 Remove xil dependencies from linux build
+      dc     11/25/19 update LMX and LMK configs
+      dc     12/05/19 adjust LMX and LMK configs to a rftool needs
+1.2   dc     22/01/20 add version and list of LMK frequencies
+      dc     03/05/20 add protection for shared i2c1 MUX
+1.3   dc     03/10/20 update LMK/LMX config for MTS
+1.4   dc     03/30/20 new LMX config suppressing RF noise on dual output
+1.5   dc     18/01/21 pass GPIO Mux base address as parameter
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

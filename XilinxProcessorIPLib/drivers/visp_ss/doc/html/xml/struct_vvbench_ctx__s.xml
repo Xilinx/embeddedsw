@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_ctx__s" kind="struct" prot="public">
+    <compoundname>VvbenchCtx_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_ctx__s_1adc1a1a29d92ec7cec3273ed8c3f88460" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* VvbenchCtx_s::cfgJsonFile</definition>
+        <argsstring></argsstring>
+        <name>cfgJsonFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_ctx__s_1a5f4867f0341d23050d8ec755f5978e7b" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* VvbenchCtx_s::caseJsonFile</definition>
+        <argsstring></argsstring>
+        <name>caseJsonFile</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_ctx__s_1adce52b770b81c7aa483a788843ae62bd" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* VvbenchCtx_s::swSimuName</definition>
+        <argsstring></argsstring>
+        <name>swSimuName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="47" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvbase.h" bodystart="44" bodyend="48"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_ctx__s_1a5f4867f0341d23050d8ec755f5978e7b" prot="public" virt="non-virtual"><scope>VvbenchCtx_s</scope><name>caseJsonFile</name></member>
+      <member refid="struct_vvbench_ctx__s_1adc1a1a29d92ec7cec3273ed8c3f88460" prot="public" virt="non-virtual"><scope>VvbenchCtx_s</scope><name>cfgJsonFile</name></member>
+      <member refid="struct_vvbench_ctx__s_1adce52b770b81c7aa483a788843ae62bd" prot="public" virt="non-virtual"><scope>VvbenchCtx_s</scope><name>swSimuName</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

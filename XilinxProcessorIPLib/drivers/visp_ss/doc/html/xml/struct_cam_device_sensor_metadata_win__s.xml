@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_sensor_metadata_win__s" kind="struct" prot="public">
+    <compoundname>CamDeviceSensorMetadataWin_s</compoundname>
+    <includes local="no">cam_device_sensor_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_sensor_metadata_win__s_1a62097c2a7dbbbf7f8ebf6c65c11f1ea8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceSensorMetadataWin_s::winNum</definition>
+        <argsstring></argsstring>
+        <name>winNum</name>
+        <briefdescription>
+<para>The number of windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_sensor_metadata_win__s_1ad792a85d159df2792caee98e9c534019" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref></type>
+        <definition>CamDeviceWindow_t CamDeviceSensorMetadataWin_s::metaWin[CAMDEV_SENSOR_METADATA_WIN_NUM_MAX]</definition>
+        <argsstring>[CAMDEV_SENSOR_METADATA_WIN_NUM_MAX]</argsstring>
+        <name>metaWin</name>
+        <briefdescription>
+<para>Metadata windows. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice sensor meatdata window information. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="592">
+        <label>CamDeviceSensorMetadataWin_s</label>
+        <link refid="struct_cam_device_sensor_metadata_win__s"/>
+        <childnode refid="593" relation="usage">
+          <edgelabel>metaWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="593">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_sensor_api.h" bodystart="354" bodyend="357"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_sensor_metadata_win__s_1ad792a85d159df2792caee98e9c534019" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataWin_s</scope><name>metaWin</name></member>
+      <member refid="struct_cam_device_sensor_metadata_win__s_1a62097c2a7dbbbf7f8ebf6c65c11f1ea8" prot="public" virt="non-virtual"><scope>CamDeviceSensorMetadataWin_s</scope><name>winNum</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

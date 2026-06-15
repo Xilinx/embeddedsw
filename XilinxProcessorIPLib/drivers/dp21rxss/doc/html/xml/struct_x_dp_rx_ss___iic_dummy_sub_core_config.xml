@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_rx_ss___iic_dummy_sub_core_config" kind="struct" prot="public">
+    <compoundname>XDpRxSs_IicDummySubCoreConfig</compoundname>
+    <includes local="no">xdprxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a9b255cc98d7a6c3e497315ae5f53f3e2" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDpRxSs_IicDummySubCoreConfig::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a312e87fa875ab0f7302e1ad365ead8f9" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpRxSs_IicDummySubCoreConfig::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="397" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a89f014ba9df22fd63809f10f661e5ee4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XDpRxSs_IicDummySubCoreConfig::Has10BitAddr</definition>
+        <argsstring></argsstring>
+        <name>Has10BitAddr</name>
+        <briefdescription>
+<para>Does device have 10 bit address decoding. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a2dc96fd08f6ac4a619b4a8f0152bade6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpRxSs_IicDummySubCoreConfig::GpOutWidth</definition>
+        <argsstring></argsstring>
+        <name>GpOutWidth</name>
+        <briefdescription>
+<para>Number of bits in general purpose output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="399" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a7fd6699457b849cb73b49e19a3e68398" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpRxSs_IicDummySubCoreConfig::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a766a1c0d1152d73c9d6604eae45dcd2a" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpRxSs_IicDummySubCoreConfig::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="403" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="403" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the DpRxSs I2C dummy subcore instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/src/xdprxss.h" bodystart="391" bodyend="406"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a312e87fa875ab0f7302e1ad365ead8f9" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a2dc96fd08f6ac4a619b4a8f0152bade6" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>GpOutWidth</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a89f014ba9df22fd63809f10f661e5ee4" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>Has10BitAddr</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a7fd6699457b849cb73b49e19a3e68398" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>IntrId</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a766a1c0d1152d73c9d6604eae45dcd2a" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>IntrParent</name></member>
+      <member refid="struct_x_dp_rx_ss___iic_dummy_sub_core_config_1a9b255cc98d7a6c3e497315ae5f53f3e2" prot="public" virt="non-virtual"><scope>XDpRxSs_IicDummySubCoreConfig</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

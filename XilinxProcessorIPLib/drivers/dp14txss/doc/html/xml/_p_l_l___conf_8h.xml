@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_p_l_l___conf_8h" kind="file">
+    <compoundname>PLL_Conf.h</compoundname>
+    <includes refid="_l_m_k04906_8h" local="yes">LMK04906.h</includes>
+    <incdepgraph>
+      <node id="1257">
+        <label>PLL_Conf.h</label>
+        <link refid="PLL_Conf.h"/>
+        <childnode refid="1258" relation="include">
+        </childnode>
+      </node>
+      <node id="1259">
+        <label>stdlib.h</label>
+      </node>
+      <node id="1258">
+        <label>LMK04906.h</label>
+        <link refid="_l_m_k04906_8h"/>
+        <childnode refid="1259" relation="include">
+        </childnode>
+        <childnode refid="1260" relation="include">
+        </childnode>
+        <childnode refid="1261" relation="include">
+        </childnode>
+        <childnode refid="1262" relation="include">
+        </childnode>
+      </node>
+      <node id="1260">
+        <label>xspi.h</label>
+      </node>
+      <node id="1262">
+        <label>microblaze_sleep.h</label>
+      </node>
+      <node id="1261">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="_p_l_l___conf_8h_1ac7065774d0cb079b38f365d99a89aa06" prot="public" static="no">
+        <name>INIT_CMD_NUM</name>
+        <initializer>34</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_p_l_l___conf_8h_1a84db32ac6a86812aaca84d982a654f85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int PLL_init_Seting</definition>
+        <argsstring>(XSpi *SPI_LMK04906)</argsstring>
+        <name>PLL_init_Seting</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="33" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_p_l_l___conf_8h_1a871a237458b1f43b32f9d694750d6572" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK81MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK81MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="35" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_p_l_l___conf_8h_1aff44d140397bf999e9e5662c4cc8bcf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK135MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK135MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="36" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_p_l_l___conf_8h_1a2f6bc78c575c2e3940b94415b676575b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK162MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK162MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="37" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_p_l_l___conf_8h_1ab71e36d0b77f94d09211a35cb169fe7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CLK270MHz_Out</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 CLKout_Num)</argsstring>
+        <name>CLK270MHz_Out</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CLKout_Num</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="38" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="_p_l_l___conf_8h_1aa2b8df77fd2a79fc6faa299e47f491cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void PLL_RegWrite</definition>
+        <argsstring>(XSpi *SPI_LMK04906, u32 RegData, u32 RegNum)</argsstring>
+        <name>PLL_RegWrite</name>
+        <param>
+          <type>XSpi *</type>
+          <declname>SPI_LMK04906</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegNum</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h" line="39" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains functions to configure Video Pattern Generator core. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  KI    07/13/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>PLL_CONF_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLL_CONF_H_</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_l_m_k04906_8h" kindref="compound">LMK04906.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INIT_CMD_NUM<sp/>34</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>PLL_init_Seting(XSpi<sp/>*SPI_LMK04906);</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK81MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK135MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK162MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CLK270MHz_Out<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>CLKout_Num);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>PLL_RegWrite<sp/>(XSpi<sp/>*SPI_LMK04906<sp/>,<sp/>u32<sp/>RegData<sp/>,<sp/>u32<sp/>RegNum);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLL_CONF_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/inc/PLL_Conf.h"/>
+  </compounddef>
+</doxygen>

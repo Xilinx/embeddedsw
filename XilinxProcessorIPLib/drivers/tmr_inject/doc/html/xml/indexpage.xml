@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>tmr_inject</title>
+    <detaileddescription>
+<para>This component contains the implementation of the <ref refid="struct_x_t_m_r___inject" kindref="compound">XTMR_Inject</ref> component which is the driver for the Xilinx TMR Inject device.<bold>Initialization &amp; Configuration</bold></para><para>The <ref refid="struct_x_t_m_r___inject___config" kindref="compound">XTMR_Inject_Config</ref> structure is used by the driver to configure itself. This configuration structure is typically created by the tool-chain based on HW build properties.</para><para>To support multiple runtime loading and initialization strategies employed by various operating systems, the driver instance can be initialized in one of the following ways:</para><para><itemizedlist>
+<listitem><para>XTMR_Inject_Initialize(InstancePtr, DeviceId) - The driver looks up its own configuration structure created by the tool-chain based on an ID provided by the tool-chain.</para></listitem><listitem><para>XTMR_Inject_CfgInitialize(InstancePtr, CfgPtr, EffectiveAddr) - Uses a configuration structure provided by the caller. If running in a system with address translation, the provided virtual memory base address replaces the physical address present in the configuration structure.</para></listitem></itemizedlist>
+</para><para><bold>RTOS Independence</bold></para><para>This driver is intended to be RTOS and processor independent. It works with physical addresses only. Any needs for dynamic memory management, threads or thread mutual exclusion, virtual memory, or cache control must be satisfied by the layer above this driver.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   sa   04/05/17 First release
+      ms   03/17/17 Added readme.txt file in examples folder for doxygen
+                    generation.
+1.1   mus  10/25/18 Added new member &quot;LMBAddrWidth&quot; to config structure.
+                    It contains value of C_INJECT_LMB_AWIDTH parameter.
+1.3   mus  08/31/20 Updated makefile to support parallel make and
+                         incremental builds. It would help to reduce
+                         compilation time.
+1.4   adk  02/24/22 While updating the IIR offset apply the mask.
+1.5   adk  27/12/22 Updated addtogroup tag.
+1.6   adk  03/07/23 Added support for system device-tree flow.
+1.6   adk  08/09/23 Fixed the -Wunused-parameter warning in the driver.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

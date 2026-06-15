@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_psu___config" kind="struct" prot="public">
+    <compoundname>XDpPsu_Config</compoundname>
+    <includes local="no">xdppsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_psu___config_1a65f45755e46dde2a02f82ff6f77237e1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDpPsu_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="xdppsu__selftest__example_8c_1a813b92c07fdf38394fe53f1addda1a50" compoundref="xdppsu__selftest__example_8c" startline="98" endline="120">DpPsu_SelfTestExample</referencedby>
+        <referencedby refid="xdppsu__common__example_8h_1a31ed0302fb945e5748d9e7c182533786" compoundref="xdppsu__common__example_8c" startline="89" endline="115">DpPsu_SetupExample</referencedby>
+        <referencedby refid="xdppsu__common__example_8h_1a64d2267afa217a44aa3bf09bcd51e409" compoundref="xdppsu__common__example_8c" startline="130" endline="209">DpPsu_StartLink</referencedby>
+        <referencedby refid="xdppsu_8h_1a619d7de707e733f244b8eeaf8dbc8377" compoundref="xdppsu_8c" startline="1348" endline="1365">XDpPsu_CfgInitialize</referencedby>
+        <referencedby refid="xdppsu_8h_1ad113ed848850849d07fae7ce163a8a62" compoundref="xdppsu_8c" startline="2145" endline="2158">XDpPsu_EnableMainLink</referencedby>
+        <referencedby refid="xdppsu_8h_1abe31bd9b101b094a40eff13ef032ea44" compoundref="xdppsu_8c" startline="1477" endline="1524">XDpPsu_EstablishLink</referencedby>
+        <referencedby refid="xdppsu__intr_8c_1a940393f7b33c36e51ea69d4561630222" compoundref="xdppsu__intr_8c" startline="100" endline="134">XDpPsu_HpdInterruptHandler</referencedby>
+        <referencedby refid="xdppsu_8h_1a17608072027dcae9a885b07ad2c25690" compoundref="xdppsu_8c" startline="1714" endline="1807">XDpPsu_IicRead</referencedby>
+        <referencedby refid="xdppsu_8h_1a2602de9c767cd981896326433a3c2570" compoundref="xdppsu_8c" startline="1284" endline="1328">XDpPsu_InitializeTx</referencedby>
+        <referencedby refid="xdppsu_8h_1aee45a79c993e3bcad636dddf3121aeab" compoundref="xdppsu_8c" startline="1585" endline="1606">XDpPsu_IsConnected</referencedby>
+        <referencedby refid="xdppsu_8h_1a6eec1f08aa677fac3467a9d34b54589c" compoundref="xdppsu_8c" startline="2172" endline="2197">XDpPsu_ResetPhy</referencedby>
+        <referencedby refid="xdppsu__selftest_8c_1a361b97262d5192f5f357fb4fb27b3ec8" compoundref="xdppsu__selftest_8c" startline="123" endline="151">XDpPsu_SelfTest</referencedby>
+        <referencedby refid="xdppsu_8h_1a7836168f290562156a24fb51762acde4" compoundref="xdppsu_8c" startline="1864" endline="1900">XDpPsu_SetDownspread</referencedby>
+        <referencedby refid="xdppsu_8h_1a2ec5ae4af1f5232fc86116d457045997" compoundref="xdppsu_8c" startline="1920" endline="1957">XDpPsu_SetEnhancedFrameMode</referencedby>
+        <referencedby refid="xdppsu_8h_1a868ca9bd2184707f3929e6f7e695cc93" compoundref="xdppsu_8c" startline="1975" endline="2009">XDpPsu_SetLaneCount</referencedby>
+        <referencedby refid="xdppsu_8h_1a68384c6a808dff1f2e68e7611057a548" compoundref="xdppsu_8c" startline="2031" endline="2078">XDpPsu_SetLinkRate</referencedby>
+        <referencedby refid="xdppsu__spm_8c_1a0ae04780a260564bbae1fd7c26155bd5" compoundref="xdppsu__spm_8c" startline="660" endline="715">XDpPsu_SetMsaValues</referencedby>
+        <referencedby refid="xdppsu_8h_1a690be0eee00d0c06370f88fdfbfdfb75" compoundref="xdppsu_8c" startline="2095" endline="2130">XDpPsu_SetScrambler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___config_1a6836b9f5f40f080c2586b258272bb9ab" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___config_1a12cca2392764025ac1a8c0abc2042a98" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDpPsu_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the DisplayPort TX core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.h" bodystart="56" bodyend="70"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" prot="public" virt="non-virtual"><scope>XDpPsu_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_dp_psu___config_1a6836b9f5f40f080c2586b258272bb9ab" prot="public" virt="non-virtual"><scope>XDpPsu_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_dp_psu___config_1a12cca2392764025ac1a8c0abc2042a98" prot="public" virt="non-virtual"><scope>XDpPsu_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_dp_psu___config_1a65f45755e46dde2a02f82ff6f77237e1" prot="public" virt="non-virtual"><scope>XDpPsu_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

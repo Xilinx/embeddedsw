@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_calib_sensor_awb_global__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCalibSensorAwbGlobal_s</compoundname>
+    <includes local="no">cam_device_calibration.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a0f1c12af90269707745b1cb3af2f76cc" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbGlobal_s::name[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>name</name>
+        <briefdescription>
+<para>AWB header name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1aa036e962327dacba4d23aaea2e9f79c5" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbGlobal_s::resolution[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>resolution</name>
+        <briefdescription>
+<para>Resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1addbee297c8a30003260649ec689a4ac3" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::svdMeanValue[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>svdMeanValue</name>
+        <briefdescription>
+<para>Mean of singular value decomposition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1ae14a89cbe619e9bda5d5e0a2823c45fd" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::pcaMatrix[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>pcaMatrix</name>
+        <briefdescription>
+<para>Transformation matrix of the PCA domain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a1c702b741da4489a6436f292cc79b1bb" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::centerLine[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>centerLine</name>
+        <briefdescription>
+<para>Position coordinate of first-order straight lines fitted from white points during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1af20908920d241be5a27cc2d7987b3cdf" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afRg2[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afRg2</name>
+        <briefdescription>
+<para>Horizontal coordinate of the projection of the upper edge of the black box along the sampling point to the centerline during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a1e69d0f4d1a0fc1ba5d98106aeaea638" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afMaxDist2[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afMaxDist2</name>
+        <briefdescription>
+<para>Distance between the horizontal coordinate of the sample point on the upper edge of the black box and afRg2 during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a21a1f7b42405d570cac99a05ab0c098b" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afRg1[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afRg1</name>
+        <briefdescription>
+<para>Horizontal coordinate of the projection of the sampling point to the centerline along the lower edge of the black box during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a3a73e869de0ca4473a0cd086da224fe2" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afMaxDist1[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afMaxDist1</name>
+        <briefdescription>
+<para>Distance between the horizontal coordinate of the sampling point along the lower edge of the black box and afRg1 during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a9a279a18468259f35d9a8d8816c4f083" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afGlobalFade2[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afGlobalFade2</name>
+        <briefdescription>
+<para>Horizontal coordinate of the projection of the upper edge of the orange box along the sampling point to the centerline during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1aceaae01755f2459f2c32d821d2735ad0" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afGlobalGainDistance2[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afGlobalGainDistance2</name>
+        <briefdescription>
+<para>Distance between the horizontal coordinate of the sampling point on the upper edge of the orange box and afGlobalFade2 during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1ae3104709927d1c13005d15e0303574be" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afGlobalFade1[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afGlobalFade1</name>
+        <briefdescription>
+<para>Horizontal coordinate of the projection of the sampling point to the centerline along the lower edge of the orange box during the AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1af85ec4fdeda20b567c8ca5574d592f51" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afGlobalGainDistance1[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>afGlobalGainDistance1</name>
+        <briefdescription>
+<para>Distance between the horizontal coordinate of the sampling point on the upper edge of the orange box and afGlobalFade1 during AWB calibration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a06eb6ccfeb53a91aa02573533f0ecf56" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::fRgProjIndoorMin</definition>
+        <argsstring></argsstring>
+        <name>fRgProjIndoorMin</name>
+        <briefdescription>
+<para>Minimum Rg value in indoor scenes when the AWB clip box is calibrated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1aa23573c578f0c77b824b161192851f26" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::fRgProjMax</definition>
+        <argsstring></argsstring>
+        <name>fRgProjMax</name>
+        <briefdescription>
+<para>Maximum Rg boundary value of the black box when the AWB clip box is calibrated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1aabd9fb72593364a1814793ae9ebefd77" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::fRgProjMaxSky</definition>
+        <argsstring></argsstring>
+        <name>fRgProjMaxSky</name>
+        <briefdescription>
+<para>Maximum Rg boundary value of the orange box when the AWB clip box is calibrated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a55fee94a1157292c94809ff9d0081391" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::fRgProjOutdoorMin</definition>
+        <argsstring></argsstring>
+        <name>fRgProjOutdoorMin</name>
+        <briefdescription>
+<para>Rg of indoor and outdoor dividing line when the AWB clip box is calibrated. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a01b81e5d113e61b957cff7a53bfb63ad" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char CamDeviceCalibSensorAwbGlobal_s::awbClipOutDoor[CAMDEV_CALIB_LENGTH]</definition>
+        <argsstring>[CAMDEV_CALIB_LENGTH]</argsstring>
+        <name>awbClipOutDoor</name>
+        <briefdescription>
+<para>Name of the light source which is the dividing line between indoor and outdoor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1ada9d29aeb4a1c2ec3fce724e2f16e600" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::kFactor</definition>
+        <argsstring></argsstring>
+        <name>kFactor</name>
+        <briefdescription>
+<para>Sensor sensitivity coefficient, which determines whether the scene is indoor or outdoor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a0dde59dc957b96897c6ba62db2867baa" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::afFade2[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afFade2</name>
+        <briefdescription>
+<para>Six coordinates on the Rg-Bg coordinate system. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1aaae672498761b27000597ad58bf30a4d" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afCbMinRegionMax[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afCbMinRegionMax</name>
+        <briefdescription>
+<para>White points are located in the max range specified by Cb. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a0991b97b2be6ea7ab8464db114ef4864" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afCrMinRegionMax[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afCrMinRegionMax</name>
+        <briefdescription>
+<para>White points are located in the max range specified by Cr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a274bb574ad6d38dae867efb0bbd6d18a" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afMaxCSumRegionMax[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afMaxCSumRegionMax</name>
+        <briefdescription>
+<para>White points are located in the min range specified by Cb and Cr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1ac5eaf7a21a8e428446d858a29ec27637" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afCbMinRegionMin[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afCbMinRegionMin</name>
+        <briefdescription>
+<para>White points are located in the min range specified by Cb. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a84dec6eef59cbbaa0ddda0097df61cd8" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afCrMinRegionMin[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afCrMinRegionMin</name>
+        <briefdescription>
+<para>White points are located in the min range specified by Cr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a7563b27021ece312dd3d3fe39902c0b8" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::afMaxCSumRegionMin[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>afMaxCSumRegionMin</name>
+        <briefdescription>
+<para>White points are located in the range specified by Cb and Cr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a9c7471b3af37946c25a70869ab4d82a8" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t CamDeviceCalibSensorAwbGlobal_s::regionSize</definition>
+        <argsstring></argsstring>
+        <name>regionSize</name>
+        <briefdescription>
+<para>Controls the proportional scaling of the white point area. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a8ed1908ab6d916a877215a83c58454a1" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::regionSizeInc</definition>
+        <argsstring></argsstring>
+        <name>regionSizeInc</name>
+        <briefdescription>
+<para>Increment used for adjusting the RegionSize in the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1ac8a6cea71d3da8f4623e0d2db65c403f" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float CamDeviceCalibSensorAwbGlobal_s::regionSizeDec</definition>
+        <argsstring></argsstring>
+        <name>regionSizeDec</name>
+        <briefdescription>
+<para>Decrement used for adjusting the RegionSize in the driver. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_calib_sensor_awb_global__s_1a31c6803562c5c28824c895fa00558c79" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gae80adfc883ad34bdb452ce9afbc15112" kindref="member">CamDeviceCalibSensorAwbIIR_t</ref></type>
+        <definition>CamDeviceCalibSensorAwbIIR_t CamDeviceCalibSensorAwbGlobal_s::awbIIR</definition>
+        <argsstring></argsstring>
+        <name>awbIIR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice Calibration sensor AWB global configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="181">
+        <label>CamDeviceCalibSensorAwbGlobal_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_global__s"/>
+        <childnode refid="182" relation="usage">
+          <edgelabel>awbIIR</edgelabel>
+        </childnode>
+      </node>
+      <node id="182">
+        <label>CamDeviceCalibSensorAwbIIR_s</label>
+        <link refid="struct_cam_device_calib_sensor_awb_i_i_r__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_calibration.h" bodystart="151" bodyend="183"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1aaae672498761b27000597ad58bf30a4d" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afCbMinRegionMax</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1ac5eaf7a21a8e428446d858a29ec27637" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afCbMinRegionMin</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a0991b97b2be6ea7ab8464db114ef4864" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afCrMinRegionMax</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a84dec6eef59cbbaa0ddda0097df61cd8" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afCrMinRegionMin</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a0dde59dc957b96897c6ba62db2867baa" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afFade2</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1ae3104709927d1c13005d15e0303574be" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afGlobalFade1</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a9a279a18468259f35d9a8d8816c4f083" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afGlobalFade2</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1af85ec4fdeda20b567c8ca5574d592f51" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afGlobalGainDistance1</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1aceaae01755f2459f2c32d821d2735ad0" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afGlobalGainDistance2</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a274bb574ad6d38dae867efb0bbd6d18a" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afMaxCSumRegionMax</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a7563b27021ece312dd3d3fe39902c0b8" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afMaxCSumRegionMin</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a3a73e869de0ca4473a0cd086da224fe2" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afMaxDist1</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a1e69d0f4d1a0fc1ba5d98106aeaea638" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afMaxDist2</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a21a1f7b42405d570cac99a05ab0c098b" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afRg1</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1af20908920d241be5a27cc2d7987b3cdf" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>afRg2</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a01b81e5d113e61b957cff7a53bfb63ad" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>awbClipOutDoor</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a31c6803562c5c28824c895fa00558c79" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>awbIIR</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a1c702b741da4489a6436f292cc79b1bb" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>centerLine</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a06eb6ccfeb53a91aa02573533f0ecf56" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>fRgProjIndoorMin</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1aa23573c578f0c77b824b161192851f26" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>fRgProjMax</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1aabd9fb72593364a1814793ae9ebefd77" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>fRgProjMaxSky</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a55fee94a1157292c94809ff9d0081391" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>fRgProjOutdoorMin</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1ada9d29aeb4a1c2ec3fce724e2f16e600" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>kFactor</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a0f1c12af90269707745b1cb3af2f76cc" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>name</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1ae14a89cbe619e9bda5d5e0a2823c45fd" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>pcaMatrix</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a9c7471b3af37946c25a70869ab4d82a8" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>regionSize</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1ac8a6cea71d3da8f4623e0d2db65c403f" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>regionSizeDec</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1a8ed1908ab6d916a877215a83c58454a1" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>regionSizeInc</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1aa036e962327dacba4d23aaea2e9f79c5" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>resolution</name></member>
+      <member refid="struct_cam_device_calib_sensor_awb_global__s_1addbee297c8a30003260649ec689a4ac3" prot="public" virt="non-virtual"><scope>CamDeviceCalibSensorAwbGlobal_s</scope><name>svdMeanValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

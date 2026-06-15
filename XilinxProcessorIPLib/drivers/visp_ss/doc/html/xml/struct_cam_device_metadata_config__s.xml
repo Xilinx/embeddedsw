@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_metadata_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceMetadataConfig_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_metadata_config__s_1aa6693874d20d2df884d47d74f58b9d19" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gab41968a4bfec3549ecabcb20d55ac9bd" kindref="member">CamDeviceAwbWorkMode_t</ref></type>
+        <definition>CamDeviceAwbWorkMode_t CamDeviceMetadataConfig_s::modeAwb</definition>
+        <argsstring></argsstring>
+        <name>modeAwb</name>
+        <briefdescription>
+<para>Choose awb mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="340" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_config__s_1a21b800d975eec2ced40513677a190025" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga3a193cfb5e425037f2655e3dc1b7c915" kindref="member">CamDeviceAeWorkMode_t</ref></type>
+        <definition>CamDeviceAeWorkMode_t CamDeviceMetadataConfig_s::modeAe</definition>
+        <argsstring></argsstring>
+        <name>modeAe</name>
+        <briefdescription>
+<para>Choose ae mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_metadata_config__s_1af962799d23fa6275e24c9df4c391654b" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga066540f04579f69b0b587b3e21f1a846" kindref="member">CamDeviceMetadataInfo_t</ref></type>
+        <definition>CamDeviceMetadataInfo_t CamDeviceMetadataConfig_s::metaInfo</definition>
+        <argsstring></argsstring>
+        <name>metaInfo</name>
+        <briefdescription>
+<para>Metadata information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Metadata configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="484">
+        <label>CamDeviceMetadataHist_s</label>
+        <link refid="struct_cam_device_metadata_hist__s"/>
+        <childnode refid="485" relation="usage">
+          <edgelabel>gbChannelBins</edgelabel>
+          <edgelabel>grChannelBins</edgelabel>
+          <edgelabel>redChannelBins</edgelabel>
+          <edgelabel>totalBins</edgelabel>
+          <edgelabel>blueChannelBins</edgelabel>
+        </childnode>
+        <childnode refid="478" relation="usage">
+          <edgelabel>histRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="479">
+        <label>CamDeviceFloatRange_s</label>
+        <link refid="struct_cam_device_float_range__s"/>
+      </node>
+      <node id="477">
+        <label>CamDeviceMetadataMeanLuma_s</label>
+        <link refid="struct_cam_device_metadata_mean_luma__s"/>
+        <childnode refid="478" relation="usage">
+          <edgelabel>meanRoiWin</edgelabel>
+        </childnode>
+      </node>
+      <node id="481">
+        <label>CamDeviceCcmManualConfig_s</label>
+        <link refid="struct_cam_device_ccm_manual_config__s"/>
+      </node>
+      <node id="480">
+        <label>CamDeviceCcmStatus_s</label>
+        <link refid="struct_cam_device_ccm_status__s"/>
+        <childnode refid="481" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="483">
+        <label>CamDeviceIntegerRange_s</label>
+        <link refid="struct_cam_device_integer_range__s"/>
+      </node>
+      <node id="482">
+        <label>CamDeviceRawChannelFloat_s</label>
+        <link refid="struct_cam_device_raw_channel_float__s"/>
+      </node>
+      <node id="478">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+      <node id="476">
+        <label>CamDeviceMetadataInfo_s</label>
+        <link refid="struct_cam_device_metadata_info__s"/>
+        <childnode refid="477" relation="usage">
+          <edgelabel>meanLuma</edgelabel>
+        </childnode>
+        <childnode refid="479" relation="usage">
+          <edgelabel>analogGainRange</edgelabel>
+          <edgelabel>digitalGainRange</edgelabel>
+        </childnode>
+        <childnode refid="480" relation="usage">
+          <edgelabel>ccmConfig</edgelabel>
+        </childnode>
+        <childnode refid="482" relation="usage">
+          <edgelabel>ispDgain</edgelabel>
+          <edgelabel>ispWbGain</edgelabel>
+          <edgelabel>wbGain</edgelabel>
+        </childnode>
+        <childnode refid="483" relation="usage">
+          <edgelabel>integrationTimeRange</edgelabel>
+        </childnode>
+        <childnode refid="484" relation="usage">
+          <edgelabel>histBins</edgelabel>
+        </childnode>
+      </node>
+      <node id="485">
+        <label>CamDeviceHistBins_s</label>
+        <link refid="struct_cam_device_hist_bins__s"/>
+      </node>
+      <node id="475">
+        <label>CamDeviceMetadataConfig_s</label>
+        <link refid="struct_cam_device_metadata_config__s"/>
+        <childnode refid="476" relation="usage">
+          <edgelabel>metaInfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="339" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="339" bodyend="343"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_metadata_config__s_1af962799d23fa6275e24c9df4c391654b" prot="public" virt="non-virtual"><scope>CamDeviceMetadataConfig_s</scope><name>metaInfo</name></member>
+      <member refid="struct_cam_device_metadata_config__s_1a21b800d975eec2ced40513677a190025" prot="public" virt="non-virtual"><scope>CamDeviceMetadataConfig_s</scope><name>modeAe</name></member>
+      <member refid="struct_cam_device_metadata_config__s_1aa6693874d20d2df884d47d74f58b9d19" prot="public" virt="non-virtual"><scope>CamDeviceMetadataConfig_s</scope><name>modeAwb</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___rx___kpub_rx" kind="struct" prot="public">
+    <compoundname>XHdcp22_Rx_KpubRx</compoundname>
+    <includes local="no">xhdcp22_rx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___kpub_rx_1a928dcede6eef5c1b6a589ae3556428f5" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_KpubRx::N[128]</definition>
+        <argsstring>[128]</argsstring>
+        <name>N</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___rx___kpub_rx_1ada76947884e5bdba3ab4bf4a3dfce862" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Rx_KpubRx::e[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>e</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef is the RSA public key definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_rx_dp/src/xhdcp22_rx_dp_i.h" bodystart="277" bodyend="281"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___rx___kpub_rx_1ada76947884e5bdba3ab4bf4a3dfce862" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_KpubRx</scope><name>e</name></member>
+      <member refid="struct_x_hdcp22___rx___kpub_rx_1a928dcede6eef5c1b6a589ae3556428f5" prot="public" virt="non-virtual"><scope>XHdcp22_Rx_KpubRx</scope><name>N</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

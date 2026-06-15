@@ -1,0 +1,416 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__ox05b1s__priv" kind="group">
+    <compoundname>ox05b1s_priv</compoundname>
+    <title>Ox05b1s_priv</title>
+    <innerclass refid="struct_ox05b1s___context__s" prot="public">Ox05b1s_Context_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__ox05b1s__priv_1gae1dcbdbee9124c77b78e640d83799314" prot="public" static="no">
+        <type>struct Ox05b1s_Context_s</type>
+        <definition>typedef struct Ox05b1s_Context_s  Ox05b1s_Context_t</definition>
+        <argsstring></argsstring>
+        <name>Ox05b1s_Context_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="101" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__ox05b1s__priv_1ga8494fac82df73d8a18ee3a65739a038b" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_mipi4lane_2592_1944_linear_init[][2]</definition>
+        <argsstring>[][2]</argsstring>
+        <name>Ox05b1s_mipi4lane_2592_1944_linear_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__ox05b1s__priv_1ga95e8c08e9014748dfdbfcfdb6d434e6f" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_mipi4lane_2592_1944_linear_ABmode_init[][2]</definition>
+        <argsstring>[][2]</argsstring>
+        <name>Ox05b1s_mipi4lane_2592_1944_linear_ABmode_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="2256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="2256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__ox05b1s__priv_1gaa1d42c0358655d846a6b503f96b76943" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Ox05b1s_mipi4lane_2592_1944_linear_ABmode_IRframe_init[][2]</definition>
+        <argsstring>[][2]</argsstring>
+        <name>Ox05b1s_mipi4lane_2592_1944_linear_ABmode_IRframe_init</name>
+        <initializer>= {
+	{OX05B1S_TABLE_END, 0},
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="3376" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="3376" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga97324b6cc2da8dd33981b36c80ea5384" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiCreateIss</definition>
+        <argsstring>(IsiSensorInstanceConfig_t *pConfig, IsiSensorHandle_t *pHandle)</argsstring>
+        <name>Ox05b1s_IsiCreateIss</name>
+        <param>
+          <type>IsiSensorInstanceConfig_t *</type>
+          <declname>pConfig</declname>
+        </param>
+        <param>
+          <type>IsiSensorHandle_t *</type>
+          <declname>pHandle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga33d2cf610a1243d37a43de85e8c7f4b3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiOpenIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t mode)</argsstring>
+        <name>Ox05b1s_IsiOpenIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="104" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga3ec8fd0efac1dbabe3a9a83776d0a486" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiCloseIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>Ox05b1s_IsiCloseIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="105" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga2645b2c68b4e285d27d0bc138dae2415" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiReleaseIss</definition>
+        <argsstring>(IsiSensorHandle_t handle)</argsstring>
+        <name>Ox05b1s_IsiReleaseIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="106" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga9285a80a4f4fe2e3db385859bc9ebc2a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiGetCapsIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiCaps_t *pCaps)</argsstring>
+        <name>Ox05b1s_IsiGetCapsIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type><ref refid="group__isi_1ga8f5b11036e332d8d0ce011de3035834b" kindref="member">IsiCaps_t</ref> *</type>
+          <declname>pCaps</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="107" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1gaa8ce3c1bdae8a6de210dd241adae16c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiSetStreamingIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, bool_t on)</argsstring>
+        <name>Ox05b1s_IsiSetStreamingIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>bool_t</type>
+          <declname>on</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga0c3cf8b3b90317e2cb2f4068e435d34e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiGetRevisionIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, uint32_t *pValue)</argsstring>
+        <name>Ox05b1s_IsiGetRevisionIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pValue</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="109" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga87540173b19d3450b8d391e904a14e20" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_pIsiGetAeBaseInfoIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiAeBaseInfo_t *pAeBaseInfo)</argsstring>
+        <name>Ox05b1s_pIsiGetAeBaseInfoIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiAeBaseInfo_t *</type>
+          <declname>pAeBaseInfo</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="110" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga3a3113a374057569b2dd371c077cf847" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiGetAGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>Ox05b1s_IsiGetAGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorAGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="959" bodyend="977"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga47fd2ff918aa707275feffc67d4c79c7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiGetDGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>Ox05b1s_IsiGetDGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorDGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="979" bodyend="997"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1gaf99db5b3fb5c5720160f74a8b52c426d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiSetAGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorAGain)</argsstring>
+        <name>Ox05b1s_IsiSetAGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorAGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="864" bodyend="909"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga1eae7a277793edc24006e39d2189b55c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiSetDGainIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorGain_t *pSensorDGain)</argsstring>
+        <name>Ox05b1s_IsiSetDGainIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorGain_t *</type>
+          <declname>pSensorDGain</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="114" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="911" bodyend="957"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga1e39c54f0d78e20eae88b977839bbf8a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiGetIntTimeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>Ox05b1s_IsiGetIntTimeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorIntTime_t *</type>
+          <declname>pSensorIntTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="1040" bodyend="1058"/>
+      </memberdef>
+      <memberdef kind="function" id="group__ox05b1s__priv_1ga55cfa6b219121ec86215b5c698ff2088" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>static RESULT Ox05b1s_IsiSetIntTimeIss</definition>
+        <argsstring>(IsiSensorHandle_t handle, IsiSensorIntTime_t *pSensorIntTime)</argsstring>
+        <name>Ox05b1s_IsiSetIntTimeIss</name>
+        <param>
+          <type>IsiSensorHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>IsiSensorIntTime_t *</type>
+          <declname>pSensorIntTime</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/source/sensor_drv/ox05b1s.c" bodystart="999" bodyend="1038"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__ox05b1s__priv_1gaef894bb1771639e903a6140e9fb18091" prot="public" static="no">
+        <name>OX05B1S_TABLE_END</name>
+        <initializer>(0xffff)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ox05b1s__priv_1ga4ccdaeb763c45d698f63b2f5693de8a6" prot="public" static="no">
+        <name>OX05B1S_TABLE_WAIT</name>
+        <initializer>(0xfffe)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ox05b1s__priv_1ga6691ea43e906cce8672e89cf4d421e47" prot="public" static="no">
+        <name>OX05B1S_TABLE_WAIT_MS</name>
+        <initializer>(210)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ox05b1s__priv_1ga2fde3a529209ddf5f6be80fddb3a6336" prot="public" static="no">
+        <name>DSER_ADDR</name>
+        <initializer>(0x68)      /* 7bit */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__ox05b1s__priv_1ga7692168878a0468b9b4d6566817bd661" prot="public" static="no">
+        <name>SER_ADDR</name>
+        <initializer>(0x62)      /* 7bit */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/sensor_drv/ox05b1s_priv.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

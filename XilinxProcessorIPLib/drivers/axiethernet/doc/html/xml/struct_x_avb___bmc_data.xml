@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_avb___bmc_data" kind="struct" prot="public">
+    <compoundname>XAvb_BmcData</compoundname>
+    <includes local="no">xavb.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1ae60a5e9cd8c572d2db805650287483f7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_avb___port_identity" kindref="compound">XAvb_PortIdentity</ref></type>
+        <definition>XAvb_PortIdentity XAvb_BmcData::SourcePortIdentity</definition>
+        <argsstring></argsstring>
+        <name>SourcePortIdentity</name>
+        <briefdescription>
+<para>Announce message: sourcePortIdentity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="316" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1aa842c05dfde7a1dccd0a48c906c742d9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_avb___clock_identity" kindref="compound">XAvb_ClockIdentity</ref></type>
+        <definition>XAvb_ClockIdentity XAvb_BmcData::GrandmasterIdentity</definition>
+        <argsstring></argsstring>
+        <name>GrandmasterIdentity</name>
+        <briefdescription>
+<para>Announce message: grandmasterIdentity. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1aa82e09ae59ed634e54fdcfebe78d10d2" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_BmcData::stepsRemoved</definition>
+        <argsstring></argsstring>
+        <name>stepsRemoved</name>
+        <briefdescription>
+<para>Announce message: stepsRemoved. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1a463904e4270ced5a6c437e68fad3b98f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_avb___clock_quality" kindref="compound">XAvb_ClockQuality</ref></type>
+        <definition>XAvb_ClockQuality XAvb_BmcData::ClockQuality</definition>
+        <argsstring></argsstring>
+        <name>ClockQuality</name>
+        <briefdescription>
+<para>Announce message: grandmasterClockQuality. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="319" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1a206dca9ffafe9d7fbf0019402127e6dd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_BmcData::GrandmasterPriority1</definition>
+        <argsstring></argsstring>
+        <name>GrandmasterPriority1</name>
+        <briefdescription>
+<para>Announce message: grandmasterPriority1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="320" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1ab345aec9e45cac47fddee9e48724c9ef" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_BmcData::GrandmasterPriority2</definition>
+        <argsstring></argsstring>
+        <name>GrandmasterPriority2</name>
+        <briefdescription>
+<para>Announce message: grandmasterPriority2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1ae38ec83a381d57348fdbaf065c2190eb" compoundref="xavb__ptp__bmca_8c" startline="354" endline="554">XAvb_BestMasterClockAlgorithm</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a2234b9dec3b039479123f49ee573a14e" compoundref="xavb__ptp__bmca_8c" startline="576" endline="600">XAvb_UpdateBmcRecords</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1a7d3619e11c42446854d5438dab27e84a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAvb_BmcData::IAmTheRtcMaster</definition>
+        <argsstring></argsstring>
+        <name>IAmTheRtcMaster</name>
+        <briefdescription>
+<para>Boolean: 1 = grandmaster, 0 = slave. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="322" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a52eb3269ef7daea39a316315d903c43c" compoundref="xavb__ptp__bmca_8c" startline="670" endline="688">XAvb_BecomeRtcSlave</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a4091121232495f00535ca134664b4f7c" compoundref="xavb__ptp__bmca_8c" startline="67" endline="118">XAvb_DecodeTxAnnounceFrame</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1a112462d30d91fae9ea7f01d6b275e3d0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_BmcData::tlvLengthField</definition>
+        <argsstring></argsstring>
+        <name>tlvLengthField</name>
+        <briefdescription>
+<para>Announce message: lengthField (for TLV) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1ae1a43181c99b74fbac809dc9b833509e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char XAvb_BmcData::logMessageInterval</definition>
+        <argsstring></argsstring>
+        <name>logMessageInterval</name>
+        <briefdescription>
+<para>Announce message: logMessageInterval. </para>        </briefdescription>
+        <detaileddescription>
+<para>NOTE: 8-bit signed integer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1aa66e9752ef47bf7eafe4784cb59e1093" compoundref="xavb__ptp__bmca_8c" startline="315" endline="332">XAvb_ReadAnnounceReceiptTimeout</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_avb___bmc_data_1af3bcc274ccdd364fe5983d586b5cff62" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XAvb_BmcData::AnnounceIntervalDuration</definition>
+        <argsstring></argsstring>
+        <name>AnnounceIntervalDuration</name>
+        <briefdescription>
+<para>Announce Interval in units of 1/128 secs. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5eaf575de699cb2f054a43daa8a93849" compoundref="xavb__ptp__bmca_8c" startline="138" endline="229">XAvb_DecodeRxAnnounceFrame</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the format for a data structure which stores the relevant fields which are captured from Announce Packets. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="14">
+        <label>XAvb_BmcData</label>
+        <link refid="struct_x_avb___bmc_data"/>
+        <childnode refid="15" relation="usage">
+          <edgelabel>SourcePortIdentity</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>GrandmasterIdentity</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>ClockQuality</edgelabel>
+        </childnode>
+      </node>
+      <node id="16">
+        <label>XAvb_ClockIdentity</label>
+        <link refid="struct_x_avb___clock_identity"/>
+      </node>
+      <node id="17">
+        <label>XAvb_ClockQuality</label>
+        <link refid="struct_x_avb___clock_quality"/>
+      </node>
+      <node id="15">
+        <label>XAvb_PortIdentity</label>
+        <link refid="struct_x_avb___port_identity"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb.h" bodystart="314" bodyend="327"/>
+    <listofallmembers>
+      <member refid="struct_x_avb___bmc_data_1af3bcc274ccdd364fe5983d586b5cff62" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>AnnounceIntervalDuration</name></member>
+      <member refid="struct_x_avb___bmc_data_1a463904e4270ced5a6c437e68fad3b98f" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>ClockQuality</name></member>
+      <member refid="struct_x_avb___bmc_data_1aa842c05dfde7a1dccd0a48c906c742d9" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>GrandmasterIdentity</name></member>
+      <member refid="struct_x_avb___bmc_data_1a206dca9ffafe9d7fbf0019402127e6dd" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>GrandmasterPriority1</name></member>
+      <member refid="struct_x_avb___bmc_data_1ab345aec9e45cac47fddee9e48724c9ef" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>GrandmasterPriority2</name></member>
+      <member refid="struct_x_avb___bmc_data_1a7d3619e11c42446854d5438dab27e84a" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>IAmTheRtcMaster</name></member>
+      <member refid="struct_x_avb___bmc_data_1ae1a43181c99b74fbac809dc9b833509e" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>logMessageInterval</name></member>
+      <member refid="struct_x_avb___bmc_data_1ae60a5e9cd8c572d2db805650287483f7" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>SourcePortIdentity</name></member>
+      <member refid="struct_x_avb___bmc_data_1aa82e09ae59ed634e54fdcfebe78d10d2" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>stepsRemoved</name></member>
+      <member refid="struct_x_avb___bmc_data_1a112462d30d91fae9ea7f01d6b275e3d0" prot="public" virt="non-virtual"><scope>XAvb_BmcData</scope><name>tlvLengthField</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

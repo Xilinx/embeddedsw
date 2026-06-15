@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_fifo_control" kind="struct" prot="public">
+    <compoundname>FifoControl</compoundname>
+    <includes local="no">mbox_fifo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_fifo_control_1aa171ae6b9784c660317084d68ff5239f" prot="public" static="no" mutable="no">
+        <type>uint64_t *</type>
+        <definition>uint64_t* FifoControl::buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a5f1b6d2e1bbe72f820e8ef4bd49266f7" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoControl::virt_addr_dummy_res[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>virt_addr_dummy_res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a06f82a43539daec50b53acdd229f91c4" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoControl::item_size</definition>
+        <argsstring></argsstring>
+        <name>item_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a16e175a32d262954bc4e9206d56a2fb8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoControl::item_total</definition>
+        <argsstring></argsstring>
+        <name>item_total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1af1f8ff74d8269b8e35792c3d1708ced2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoControl::buffer_size</definition>
+        <argsstring></argsstring>
+        <name>buffer_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a0828d44b42ebd9a9e4085c9fec623752" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t FifoControl::item_stored</definition>
+        <argsstring></argsstring>
+        <name>item_stored</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a672fd09c7c507367d04cfdce36a5de42" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>volatile uint32_t FifoControl::read_offset</definition>
+        <argsstring></argsstring>
+        <name>read_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_fifo_control_1a33c11576fa864dd0dea1fd7cfc60b49c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>volatile uint32_t FifoControl::write_offset</definition>
+        <argsstring></argsstring>
+        <name>write_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of fifo control (shared memory - must match RPU layout) </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/mailbox/inc/mbox_fifo.h" bodystart="56" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_fifo_control_1aa171ae6b9784c660317084d68ff5239f" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>buffer</name></member>
+      <member refid="struct_fifo_control_1af1f8ff74d8269b8e35792c3d1708ced2" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>buffer_size</name></member>
+      <member refid="struct_fifo_control_1a06f82a43539daec50b53acdd229f91c4" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>item_size</name></member>
+      <member refid="struct_fifo_control_1a0828d44b42ebd9a9e4085c9fec623752" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>item_stored</name></member>
+      <member refid="struct_fifo_control_1a16e175a32d262954bc4e9206d56a2fb8" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>item_total</name></member>
+      <member refid="struct_fifo_control_1a672fd09c7c507367d04cfdce36a5de42" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>read_offset</name></member>
+      <member refid="struct_fifo_control_1a5f1b6d2e1bbe72f820e8ef4bd49266f7" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>virt_addr_dummy_res</name></member>
+      <member refid="struct_fifo_control_1a33c11576fa864dd0dea1fd7cfc60b49c" prot="public" virt="non-virtual"><scope>FifoControl</scope><name>write_offset</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

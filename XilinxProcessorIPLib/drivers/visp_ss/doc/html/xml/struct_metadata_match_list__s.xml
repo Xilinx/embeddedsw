@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_metadata_match_list__s" kind="struct" prot="public">
+    <compoundname>MetadataMatchList_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_metadata_match_list__s_1a85e49e3d9bb4f224b873bf6120a24395" prot="public" static="no" mutable="no">
+        <type>MetadataPaserIndex_t</type>
+        <definition>MetadataPaserIndex_t MetadataMatchList_s::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_match_list__s_1a45c419c66ae8370df989a3efeb6b0e51" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t MetadataMatchList_s::regAddr</definition>
+        <argsstring></argsstring>
+        <name>regAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_match_list__s_1abab36535ad3b665990084aa9213ab7ab" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t MetadataMatchList_s::regValue</definition>
+        <argsstring></argsstring>
+        <name>regValue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_metadata_match_list__s_1a6c11dc3247378ec7837fb05d806b9e53" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t MetadataMatchList_s::bytesOffset</definition>
+        <argsstring></argsstring>
+        <name>bytesOffset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/vvMetadata.c" bodystart="102" bodyend="107"/>
+    <listofallmembers>
+      <member refid="struct_metadata_match_list__s_1a6c11dc3247378ec7837fb05d806b9e53" prot="public" virt="non-virtual"><scope>MetadataMatchList_s</scope><name>bytesOffset</name></member>
+      <member refid="struct_metadata_match_list__s_1a85e49e3d9bb4f224b873bf6120a24395" prot="public" virt="non-virtual"><scope>MetadataMatchList_s</scope><name>index</name></member>
+      <member refid="struct_metadata_match_list__s_1a45c419c66ae8370df989a3efeb6b0e51" prot="public" virt="non-virtual"><scope>MetadataMatchList_s</scope><name>regAddr</name></member>
+      <member refid="struct_metadata_match_list__s_1abab36535ad3b665990084aa9213ab7ab" prot="public" virt="non-virtual"><scope>MetadataMatchList_s</scope><name>regValue</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___sdi_rx_ss" kind="struct" prot="public">
+    <compoundname>XV_SdiRxSs</compoundname>
+    <includes local="no">xv_sdirxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a881d8188fa81829cfb38a44aea36e7a1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___sdi_rx_ss___config" kindref="compound">XV_SdiRxSs_Config</ref></type>
+        <definition>XV_SdiRxSs_Config XV_SdiRxSs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="169" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="169" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1abdf39808f611fee6a00a996388f9e907" compoundref="xv__sdirxss_8c" startline="583" endline="599">XV_SdiRxSs_GetTransportMode</referencedby>
+        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="87">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a636607ca5e3a96b200e1786330c58e20" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_SdiRxSs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Core and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="170" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v___sdi_rx_ss___log" kindref="compound">XV_SdiRxSs_Log</ref></type>
+        <definition>XV_SdiRxSs_Log XV_SdiRxSs::Log</definition>
+        <argsstring></argsstring>
+        <name>Log</name>
+        <briefdescription>
+<para>A log of events. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="171" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss__log_8c_1a79f6c8e124a9308ac14b02673b69d3bc" compoundref="xv__sdirxss__log_8c" startline="106" endline="129">XV_SdiRxSs_LogRead</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4deea5c587f6a732de2f6b127fc12b4d" compoundref="xv__sdirxss__log_8c" startline="42" endline="49">XV_SdiRxSs_LogReset</referencedby>
+        <referencedby refid="xv__sdirxss__log_8c_1a4ec835467423d601222535543e1ffedf" compoundref="xv__sdirxss__log_8c" startline="61" endline="93">XV_SdiRxSs_LogWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" prot="public" static="no" mutable="no">
+        <type>XV_SdiRx *</type>
+        <definition>XV_SdiRx* XV_SdiRxSs::SdiRxPtr</definition>
+        <argsstring></argsstring>
+        <name>SdiRxPtr</name>
+        <briefdescription>
+<para>handle to sub-core driver instance </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="172" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="172" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1a43a9c2aa8bc176afeaa71534eb0e8304" compoundref="xv__sdirxss_8c" startline="200" endline="237">XV_SdiRxSs_CfgInitialize</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1af49a48ec567ed898bcfeb44aca665f13" compoundref="xv__sdirxss_8c" startline="690" endline="697">XV_SdiRxSs_ClearYCbCr444_RGB_10bit</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1acdcc25f982d8de1ff367bbb1b263c87c" compoundref="xv__sdirxss_8c" startline="548" endline="551">XV_SdiRxSs_GetPayloadId</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a0d48d3ccb9d5c5fbdc0cb4be88158e1e" compoundref="xv__sdirxss_8c" startline="560" endline="563">XV_SdiRxSs_GetTransport</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a5be7353bb8e6f16f77dda374b8f353a1" compoundref="xv__sdirxss_8c" startline="614" endline="617">XV_SdiRxSs_GetTransportBitRate</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1abdf39808f611fee6a00a996388f9e907" compoundref="xv__sdirxss_8c" startline="583" endline="599">XV_SdiRxSs_GetTransportMode</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a890d07c87dfb74ed53a8cdedfd13d463" compoundref="xv__sdirxss_8c" startline="632" endline="636">XV_SdiRxSs_GetVideoStream</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ab1ca3e2e4ccfd482bb5c59d30238e1e9" compoundref="xv__sdirxss_8c" startline="883" endline="886">XV_SdiRxSs_HandleNoPayload</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a1c43a11c0334d76865b099c1c9e126f8" compoundref="xv__sdirxss_8c" startline="832" endline="845">XV_SdiRxSs_IntrDisable</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a68c587dc98e40471fbf8f033ea32b2c4" compoundref="xv__sdirxss_8c" startline="805" endline="818">XV_SdiRxSs_IntrEnable</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a84e38fd80d5c91fb4d1c41342156bdb1" compoundref="xv__sdirxss_8c" startline="92" endline="102">XV_SdiRxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a1dfbf89e4d3f79928c6b2b1e822efc54" compoundref="xv__sdirxss_8c" startline="740" endline="754">XV_SdiRxSs_ReportDebugInfo</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ac6feab2fe2d855c68363c9ec9c858407" compoundref="xv__sdirxss_8c" startline="653" endline="660">XV_SdiRxSs_ReportDetectedError</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1af3904a73ebc6ac067616c91965e14a98" compoundref="xv__sdirxss_8c" startline="709" endline="726">XV_SdiRxSs_ReportInfo</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a8e0c0ac7a26fe796c72794420092430c" compoundref="xv__sdirxss_8c" startline="77" endline="82">XV_SdiRxSS_SdiRxIntrHandler</referencedby>
+        <referencedby refid="group__v__sdirxss_1ga5fe6048ab8f1692c136fd89d6fdf4e46" compoundref="xv__sdirxss__selftest_8c" startline="62" endline="78">XV_SdiRxSs_SelfTest</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ab6de65113833af27d572301a00eaa7ec" compoundref="xv__sdirxss_8c" startline="671" endline="678">XV_SdiRxSs_SetYCbCr444_RGB_10bit</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a691319ac2baf302e4f0b833c0aafc963" compoundref="xv__sdirxss_8c" startline="412" endline="421">XV_SdiRxSs_Start</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ac4e45bc8ac7c85d1ad5958be34844543" compoundref="xv__sdirxss_8c" startline="432" endline="439">XV_SdiRxSs_Stop</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1a3843cd72bcb3260ba7002756dcda7eeb" compoundref="xv__sdirxss_8c" startline="387" endline="391">XV_SdiRxSs_StreamFlowDisable</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1ac1f60e4d77b72e3b6e7b24d9ead04947" compoundref="xv__sdirxss_8c" startline="371" endline="375">XV_SdiRxSs_StreamFlowEnable</referencedby>
+        <referencedby refid="group__v__sdirxss_1ga8acb662b4cdd74817ee6b48f166f3e25" compoundref="xv__sdirxss__coreinit_8c" startline="51" endline="87">XV_SdiRxSs_SubcoreInitSdiRx</referencedby>
+        <referencedby refid="xv__sdirxss_8h_1aeef26d7216e3d1be32c040ad486d64aa" compoundref="xv__sdirxss_8c" startline="864" endline="871">XV_SdiRxSs_WaitforPayLoad</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1ac6c1423b80178dbe9027b9dd102be539" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__sdirxss_8h_1ac888e5ca6d02748b5151ca630800e2b9" kindref="member">XV_SdiRxSs_Callback</ref></type>
+        <definition>XV_SdiRxSs_Callback XV_SdiRxSs::StreamDownCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamDownCallback</name>
+        <briefdescription>
+<para>Callback for stream down event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="174" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a56622168a811b7efd1cd27e589dae982" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_SdiRxSs::StreamDownRef</definition>
+        <argsstring></argsstring>
+        <name>StreamDownRef</name>
+        <briefdescription>
+<para>To be passed to the stream down callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1ab19763b0e65000dfd9cd08c1e7e2548d" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__sdirxss_8h_1ac888e5ca6d02748b5151ca630800e2b9" kindref="member">XV_SdiRxSs_Callback</ref></type>
+        <definition>XV_SdiRxSs_Callback XV_SdiRxSs::StreamUpCallback</definition>
+        <argsstring></argsstring>
+        <name>StreamUpCallback</name>
+        <briefdescription>
+<para>Callback for stream up event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a07acf3741b57e00a15a0d2e72ffaf5f3" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_SdiRxSs::StreamUpRef</definition>
+        <argsstring></argsstring>
+        <name>StreamUpRef</name>
+        <briefdescription>
+<para>To be passed to the stream up callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1aaffb32640f027e8c29f4c294bd596f91" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__sdirxss_8h_1ac888e5ca6d02748b5151ca630800e2b9" kindref="member">XV_SdiRxSs_Callback</ref></type>
+        <definition>XV_SdiRxSs_Callback XV_SdiRxSs::OverFlowCallback</definition>
+        <argsstring></argsstring>
+        <name>OverFlowCallback</name>
+        <briefdescription>
+<para>Callback for Over flow event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a892f4e96be351528cdcb82981de135a2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_SdiRxSs::OverFlowRef</definition>
+        <argsstring></argsstring>
+        <name>OverFlowRef</name>
+        <briefdescription>
+<para>To be passed to the Over flow callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="181" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a89a31dc3dfb044fd53dba357318ca5c6" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__sdirxss_8h_1ac888e5ca6d02748b5151ca630800e2b9" kindref="member">XV_SdiRxSs_Callback</ref></type>
+        <definition>XV_SdiRxSs_Callback XV_SdiRxSs::UnderFlowCallback</definition>
+        <argsstring></argsstring>
+        <name>UnderFlowCallback</name>
+        <briefdescription>
+<para>Callback for Under Flow event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="183" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1ad02aa1a78244c26c1258f856267aaa4a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_SdiRxSs::UnderFlowRef</definition>
+        <argsstring></argsstring>
+        <name>UnderFlowRef</name>
+        <briefdescription>
+<para>To be passed to the Under Flow callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="184" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a8b5be4429ab297ed402e86bb8c5100c1" prot="public" static="no" mutable="no">
+        <type><ref refid="xv__sdirxss_8h_1ac888e5ca6d02748b5151ca630800e2b9" kindref="member">XV_SdiRxSs_Callback</ref></type>
+        <definition>XV_SdiRxSs_Callback XV_SdiRxSs::VsyncCallback</definition>
+        <argsstring></argsstring>
+        <name>VsyncCallback</name>
+        <briefdescription>
+<para>Callback for Vsync event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="186" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a59da686c56a37ff371157f97ff09fab2" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XV_SdiRxSs::VsyncRef</definition>
+        <argsstring></argsstring>
+        <name>VsyncRef</name>
+        <briefdescription>
+<para>To be passed to the Vsync callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1accc1c969a550cbdc4ed5612184a03f6f" compoundref="xv__sdirxss_8c" startline="471" endline="530">XV_SdiRxSs_SetCallback</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___sdi_rx_ss_1a22b513d825a779df51c63a5badcc5149" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_SdiRxSs::IsStreamUp</definition>
+        <argsstring></argsstring>
+        <name>IsStreamUp</name>
+        <briefdescription>
+<para>SDI RX Stream Up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="189" bodyend="-1"/>
+        <referencedby refid="xv__sdirxss_8h_1a4d5f7c1195f84c95a4a00c87071d4be7" compoundref="xv__sdirxss_8c" startline="786" endline="792">XV_SdiRxSs_IsStreamUp</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_v___sdi_rx_ss" kindref="compound">XV_SdiRxSs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each SDI RX core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="14">
+        <label>XV_SdiRxSs_SubCore</label>
+        <link refid="struct_x_v___sdi_rx_ss___sub_core"/>
+      </node>
+      <node id="11">
+        <label>XV_SdiRxSs</label>
+        <link refid="struct_x_v___sdi_rx_ss"/>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Log</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="13">
+        <label>XV_SdiRxSs_Config</label>
+        <link refid="struct_x_v___sdi_rx_ss___config"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>SdiRx</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>XV_SdiRxSs_Log</label>
+        <link refid="struct_x_v___sdi_rx_ss___log"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/src/xv_sdirxss.h" bodystart="168" bodyend="190"/>
+    <listofallmembers>
+      <member refid="struct_x_v___sdi_rx_ss_1a881d8188fa81829cfb38a44aea36e7a1" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>Config</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a636607ca5e3a96b200e1786330c58e20" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>IsReady</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a22b513d825a779df51c63a5badcc5149" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>IsStreamUp</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1aa8bead632dc99af35c9ab20fdd034741" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>Log</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1aaffb32640f027e8c29f4c294bd596f91" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>OverFlowCallback</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a892f4e96be351528cdcb82981de135a2" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>OverFlowRef</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1ae3d8d6ae92334dc0e542d1af1f8d9a3e" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>SdiRxPtr</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1ac6c1423b80178dbe9027b9dd102be539" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>StreamDownCallback</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a56622168a811b7efd1cd27e589dae982" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>StreamDownRef</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1ab19763b0e65000dfd9cd08c1e7e2548d" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>StreamUpCallback</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a07acf3741b57e00a15a0d2e72ffaf5f3" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>StreamUpRef</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a89a31dc3dfb044fd53dba357318ca5c6" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>UnderFlowCallback</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1ad02aa1a78244c26c1258f856267aaa4a" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>UnderFlowRef</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a8b5be4429ab297ed402e86bb8c5100c1" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>VsyncCallback</name></member>
+      <member refid="struct_x_v___sdi_rx_ss_1a59da686c56a37ff371157f97ff09fab2" prot="public" virt="non-virtual"><scope>XV_SdiRxSs</scope><name>VsyncRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

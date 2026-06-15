@@ -1,0 +1,1270 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__core_8h" kind="file">
+    <compoundname>xsecure_core.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xsecure_cryptochk.h</includes>
+    <includes refid="xsecure__defs_8h" local="yes">xsecure_defs.h</includes>
+    <includedby refid="xsecure__core_8c" local="yes">xsecure_core.c</includedby>
+    <includedby refid="versal_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <includedby refid="versal__net_2xsecure__plat_8h" local="yes">xsecure_plat.h</includedby>
+    <incdepgraph>
+      <node id="1051">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure_core.h"/>
+        <childnode refid="1052" relation="include">
+        </childnode>
+        <childnode refid="1053" relation="include">
+        </childnode>
+        <childnode refid="1054" relation="include">
+        </childnode>
+      </node>
+      <node id="1056">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="1053">
+        <label>xsecure_cryptochk.h</label>
+      </node>
+      <node id="1057">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="1054">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="1055" relation="include">
+        </childnode>
+        <childnode refid="1052" relation="include">
+        </childnode>
+        <childnode refid="1056" relation="include">
+        </childnode>
+        <childnode refid="1057" relation="include">
+        </childnode>
+        <childnode refid="1058" relation="include">
+        </childnode>
+      </node>
+      <node id="1058">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="1052">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1055">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1069">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="1080">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="1063">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1064">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp_2xsecure__plat_8h"/>
+      </node>
+      <node id="1072">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="1060">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="1059">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure_core.h"/>
+        <childnode refid="1060" relation="include">
+        </childnode>
+        <childnode refid="1061" relation="include">
+        </childnode>
+        <childnode refid="1062" relation="include">
+        </childnode>
+        <childnode refid="1064" relation="include">
+        </childnode>
+        <childnode refid="1065" relation="include">
+        </childnode>
+        <childnode refid="1067" relation="include">
+        </childnode>
+      </node>
+      <node id="1068">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="1071">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="1078">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="1067">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="1068" relation="include">
+        </childnode>
+        <childnode refid="1069" relation="include">
+        </childnode>
+        <childnode refid="1070" relation="include">
+        </childnode>
+        <childnode refid="1071" relation="include">
+        </childnode>
+        <childnode refid="1072" relation="include">
+        </childnode>
+        <childnode refid="1073" relation="include">
+        </childnode>
+        <childnode refid="1074" relation="include">
+        </childnode>
+        <childnode refid="1075" relation="include">
+        </childnode>
+        <childnode refid="1076" relation="include">
+        </childnode>
+        <childnode refid="1078" relation="include">
+        </childnode>
+        <childnode refid="1079" relation="include">
+        </childnode>
+        <childnode refid="1080" relation="include">
+        </childnode>
+        <childnode refid="1081" relation="include">
+        </childnode>
+      </node>
+      <node id="1070">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="1066">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1075">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="1065">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
+        <childnode refid="1066" relation="include">
+        </childnode>
+      </node>
+      <node id="1073">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="1074">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="1077">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="1076">
+        <label>xsecure_sss.h</label>
+        <link refid="core_2util_2xsecure__sss_8h"/>
+        <childnode refid="1077" relation="include">
+        </childnode>
+      </node>
+      <node id="1079">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="1062">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
+        <childnode refid="1063" relation="include">
+        </childnode>
+      </node>
+      <node id="1061">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_2xsecure__plat_8h"/>
+      </node>
+      <node id="1081">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>AES_KEY_SEL values</header>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga17b1b793c519bbb5a9de7929acab7811" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_BBRAM_KEY</name>
+        <initializer>(0xBBDE6600U)</initializer>
+        <briefdescription>
+<para>&lt; Key select values </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga725215992353ebc421f6c662d99e1f0c" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_BBRAM_RD_KEY</name>
+        <initializer>(0xBBDE8200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga61a059ce7411201169318941d7c43a4a" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_BH_KEY</name>
+        <initializer>(0xBDB06600U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gae2d2442a2c95e01a2664d0f116a7d779" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_BH_RD_KEY</name>
+        <initializer>(0xBDB08200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gac2b6a7aee03290ab7475ea2aab457750" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_KEY</name>
+        <initializer>(0xEFDE6600U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaaf48fdced8f9fdd55656c028cf2c197a" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_RED_KEY</name>
+        <initializer>(0xEFDE8200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga70f57dcbeb7d3e737e2dba83ffd0ba67" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0</name>
+        <initializer>(0xEF856601U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gad7243095b159f22b02d68aa4c9581814" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1</name>
+        <initializer>(0xEF856602U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga0ce2194e810f0c296bf87205c7c1912f" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0</name>
+        <initializer>(0xEF858201U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaca764a1764f923818c0993636c9cbe58" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1</name>
+        <initializer>(0xEF858202U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaa280d76aa376ce7a7ae81d040191c95f" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_KUP_KEY</name>
+        <initializer>(0xBDC98200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaf015a0f35e899e5e37780d8701513e48" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_PUF_KEY</name>
+        <initializer>(0xDBDE8200U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga3588910e9010e21e97463b43adc6a1e4" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_0</name>
+        <initializer>(0xBD858201U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga41289962313a29b1e2e1b8178b394b8b" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_1</name>
+        <initializer>(0xBD858202U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga0c1630499b20cdd69062f19366d334d2" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_2</name>
+        <initializer>(0xBD858204U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaf8be1d8991fffbd2bd8d33bcaba32ea0" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_3</name>
+        <initializer>(0xBD858208U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga29f1a3939c3368b496bc03cfaa5a04c1" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_4</name>
+        <initializer>(0xBD858210U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gacc1c836abc56d468c89af95f35b3c935" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_5</name>
+        <initializer>(0xBD858220U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gad747534e2361a85d8490b5140546f89c" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_6</name>
+        <initializer>(0xBD858240U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga287790f9d16f0fcd2ea707eb2760d008" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SEL_USR_KEY_7</name>
+        <initializer>(0xBD858280U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AES_KEY_CLEAR register</header>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga2fa0b0a3c91c523e31c2ed3aa11cd89a" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_OFFSET</name>
+        <initializer>(0x00000014U)</initializer>
+        <briefdescription>
+<para>&lt; AES_KEY_CLEAR register offset and definitions </para>        </briefdescription>
+        <detaileddescription>
+<para>AES Key Clear register offset </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gabd84b3f8c7cc8779e95b93f97cefad8b" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK</name>
+        <initializer>(0x00200000U)</initializer>
+        <briefdescription>
+<para>PUF key clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga76c06d8ee15289df0c2732e731296ab4" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_MASK</name>
+        <initializer>(0x00100000U)</initializer>
+        <briefdescription>
+<para>BBRAM Red key clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga95f8b6f17ef405ef82d5878abefb8ab8" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK</name>
+        <initializer>(0x00080000U)</initializer>
+        <briefdescription>
+<para>BH Red key clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gafe6dcf27e787fc78783ecc1cc23734ef" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_BH_KEY_MASK</name>
+        <initializer>(0x00040000U)</initializer>
+        <briefdescription>
+<para>BH key clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga410e6e633eecdaf20b9ef738fa57ba2d" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_MASK</name>
+        <initializer>(0x00020000U)</initializer>
+        <briefdescription>
+<para>eFUSE User Red key 1 clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gab46775dfc4ef608a6c87e40a2ebf4ef1" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_MASK</name>
+        <initializer>(0x00010000U)</initializer>
+        <briefdescription>
+<para>eFUSE User Red key 0 clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga197b7d82f3672c3134c16986f88b8055" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK</name>
+        <initializer>(0x00008000U)</initializer>
+        <briefdescription>
+<para>eFUSE Red key clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaa2ead5910f830b1308d952502996c46b" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_MASK</name>
+        <initializer>(0x00004000U)</initializer>
+        <briefdescription>
+<para>eFUSE User key 1 clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga4b9d3e1f0df37dbcd0b395dc87b701c6" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_MASK</name>
+        <initializer>(0x00002000U)</initializer>
+        <briefdescription>
+<para>eFUSE User key 0 clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga76f15973a4af50291c1a7874379cce34" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK</name>
+        <initializer>(0x00001000U)</initializer>
+        <briefdescription>
+<para>eFUSE key clear mask </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gac7d5a7384f5cd63547de379b029a142f" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK</name>
+        <initializer>(0x00000800U)</initializer>
+        <briefdescription>
+<para>User key 7 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gafe0205f407a5a200ce3842a835618cac" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK</name>
+        <initializer>(0x00000400U)</initializer>
+        <briefdescription>
+<para>User key 6 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga1bb7bac2a8eefc88b898cff728f7595a" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK</name>
+        <initializer>(0x00000200U)</initializer>
+        <briefdescription>
+<para>User key 5 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5fcec8e0660101185b385ce9a1159174" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK</name>
+        <initializer>(0x00000100U)</initializer>
+        <briefdescription>
+<para>User key 4 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga69ebc0ae6a3844f1d1d9f0781acf078e" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK</name>
+        <initializer>(0x00000080U)</initializer>
+        <briefdescription>
+<para>User key 3 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga279bc71965001241f8f29f66e582c179" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK</name>
+        <initializer>(0x00000040U)</initializer>
+        <briefdescription>
+<para>User key 2 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga38e782789e1cc7cdd12793feb5418a83" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK</name>
+        <initializer>(0x00000020U)</initializer>
+        <briefdescription>
+<para>User key 1 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaea60ed52265e03a9cab4bfcb70f34301" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK</name>
+        <initializer>(0x00000010U)</initializer>
+        <briefdescription>
+<para>User key 0 clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5735a791160430c5939be29fd94333e1" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>KUP key clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga79483b38cc1188110a2f6addb67fbd2a" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</name>
+        <initializer>(0x00000001U)</initializer>
+        <briefdescription>
+<para>AES key zeroize mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga08ecf3bc030936d7c68e971f13dd00a3" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLR_REG_CLR_MASK</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+<para>Key clear register clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaa1a36a1365ba4a24c7e8cad108a90ff3" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK</name>
+        <initializer>(0x003FFFF3U)</initializer>
+        <briefdescription>
+<para>Clear all keys mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gab50e7db09d7000e0eee286659feb7aae" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK</name>
+        <initializer>(0x003B8003U)</initializer>
+        <briefdescription>
+<para>PUF Red expanded keys clear mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gaf0677063816a02cd9e4002214396a75d" prot="public" static="no">
+        <name>XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK</name>
+        <initializer>(<ref refid="group__xsecure__helper__server__apis_1ga5735a791160430c5939be29fd94333e1" kindref="member">XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK</ref> | \
+							 <ref refid="group__xsecure__helper__server__apis_1ga79483b38cc1188110a2f6addb67fbd2a" kindref="member">XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Combined mask to clear KUP key and expanded (zeroize) key simultaneously. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__common__apis_1gae33ca0e2e1894653442fee4c63c611f7" prot="public" static="no">
+        <name>XSECURE_AES_BASEADDR</name>
+        <initializer>(0xF11E0000U)</initializer>
+        <briefdescription>
+<para>AES Base Address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga45287c1ff2dea7b205549c1529d3e48e" prot="public" static="no">
+        <name>XSECURE_AES_KEY_DEC_SEL_BBRAM_RED</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>BBRAM Red Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1gac375899bf23e5d9fe59e224ab3b8f882" prot="public" static="no">
+        <name>XSECURE_AES_KEY_DEC_SEL_BH_RED</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>BH Red Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga07bc4757b01ab47ce923b28bef13f5d2" prot="public" static="no">
+        <name>XSECURE_AES_KEY_DEC_SEL_EFUSE_RED</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+<para>eFUSE Red Key </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga85b782e0363d2f90221297c31150dc94" prot="public" static="no">
+        <name>XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED</name>
+        <initializer>(0x3U)</initializer>
+        <briefdescription>
+<para>eFUSE User Red Key 0 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga3547d4c2480bbcb5bc47a0cf63e23ee2" prot="public" static="no">
+        <name>XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED</name>
+        <initializer>(0x4U)</initializer>
+        <briefdescription>
+<para>eFUSE User Red Key 1 </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga5d6acf733aceb2fdb872f874beb1f86a" prot="public" static="no">
+        <name>XSECURE_AES_INVALID_CFG</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Invalid Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__common__apis_1ga957ffaf3197a7cf9549ab9b9f701e56f" prot="public" static="no">
+        <name>XSECURE_MAX_KEY_SOURCES</name>
+        <initializer><ref refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1b2dfac9fa33633ef8a335b121716ea" kindref="member">XSECURE_AES_EXPANDED_KEYS</ref></initializer>
+        <briefdescription>
+<para>Max key source value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__common__apis_1gac18d312794ff692037e63183f8f9343f" prot="public" static="no">
+        <name>XSecure_AesKeySrc</name>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf0c657ebe9923d4838d44337c90cc6a7" prot="public">
+          <name>XSECURE_AES_BBRAM_KEY</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>BBRAM Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faacf963544b9e4e371b603a9f66a1404b" prot="public">
+          <name>XSECURE_AES_BBRAM_RED_KEY</name>
+          <briefdescription>
+<para>BBRAM Red Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faa6ffd70735b44d0b80f75f344beca566" prot="public">
+          <name>XSECURE_AES_BH_KEY</name>
+          <briefdescription>
+<para>BH Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafc412e409ab2538a1971c54f917cbbf1" prot="public">
+          <name>XSECURE_AES_BH_RED_KEY</name>
+          <briefdescription>
+<para>BH Red Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1278a39ca4943887c84d5ebe42e1b77" prot="public">
+          <name>XSECURE_AES_EFUSE_KEY</name>
+          <briefdescription>
+<para>eFUSE Key </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa8585f5fe3bb64ce15874e6338c786bb8" prot="public">
+          <name>XSECURE_AES_EFUSE_RED_KEY</name>
+          <briefdescription>
+<para>eFUSE Red Key </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fadfa54dce5072be1cc37ae590ce0e4844" prot="public">
+          <name>XSECURE_AES_EFUSE_USER_KEY_0</name>
+          <briefdescription>
+<para>eFUSE User Key 0 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa5bf5cdf50e0b07a26029220ab8213e14" prot="public">
+          <name>XSECURE_AES_EFUSE_USER_KEY_1</name>
+          <briefdescription>
+<para>eFUSE User Key 1 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa1df11b3e22d9684470bda33485b793ae" prot="public">
+          <name>XSECURE_AES_EFUSE_USER_RED_KEY_0</name>
+          <briefdescription>
+<para>eFUSE User Red Key 0 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faad4d84e71729c279e0078c7014e36bbe" prot="public">
+          <name>XSECURE_AES_EFUSE_USER_RED_KEY_1</name>
+          <briefdescription>
+<para>eFUSE User Red Key 1 </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa7d8127f4bfb0f1283df773606b56f7cf" prot="public">
+          <name>XSECURE_AES_KUP_KEY</name>
+          <briefdescription>
+<para>KUP key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa78b79c2fdd517f30458ffbc9364abbdc" prot="public">
+          <name>XSECURE_AES_PUF_KEY</name>
+          <briefdescription>
+<para>PUF key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2ed303c437d0f865f4c4af8c6ff8fd82" prot="public">
+          <name>XSECURE_AES_USER_KEY_0</name>
+          <briefdescription>
+<para>User Key 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faad2ed7c10297dbd5f5b3632e099e25a7" prot="public">
+          <name>XSECURE_AES_USER_KEY_1</name>
+          <briefdescription>
+<para>User Key 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fae4ac4d063374a434ea4ebb672b7e9b2c" prot="public">
+          <name>XSECURE_AES_USER_KEY_2</name>
+          <briefdescription>
+<para>User Key 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2e8aac0ed6602911daf2103edd6441fd" prot="public">
+          <name>XSECURE_AES_USER_KEY_3</name>
+          <briefdescription>
+<para>User Key 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6bbe752ad219dc263fdc114399949b7a" prot="public">
+          <name>XSECURE_AES_USER_KEY_4</name>
+          <briefdescription>
+<para>User Key 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa1af96660bb5da69424191738f36d4d0d" prot="public">
+          <name>XSECURE_AES_USER_KEY_5</name>
+          <briefdescription>
+<para>User Key 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafbe238b0cf0f77f2c027a692fbc18053" prot="public">
+          <name>XSECURE_AES_USER_KEY_6</name>
+          <briefdescription>
+<para>User Key 6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fab5c84ff4a7f15af959065b2e66aa088f" prot="public">
+          <name>XSECURE_AES_USER_KEY_7</name>
+          <briefdescription>
+<para>User Key 7. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1b2dfac9fa33633ef8a335b121716ea" prot="public">
+          <name>XSECURE_AES_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>Expanded keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fabb34caf742fb64983763cd676574a262" prot="public">
+          <name>XSECURE_AES_PUF_RED_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>AES PUF,RED,KUP keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf035533712ed34d41577670e7b54b73f" prot="public">
+          <name>XSECURE_AES_KUP_AND_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>KUP and Expanded keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac0b53728403f2f50005b56e03f562bef" prot="public">
+          <name>XSECURE_AES_ALL_KEYS</name>
+          <briefdescription>
+<para>AES All keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6f5e96363db1d4342eeb50152f469d5e" prot="public">
+          <name>XSECURE_AES_INVALID_KEY</name>
+          <briefdescription>
+<para>AES Invalid Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faa6ffd70735b44d0b80f75f344beca566" prot="public">
+          <name>XSECURE_AES_BH_KEY</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>BH Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafc412e409ab2538a1971c54f917cbbf1" prot="public">
+          <name>XSECURE_AES_BH_RED_KEY</name>
+          <briefdescription>
+<para>BH Red Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1278a39ca4943887c84d5ebe42e1b77" prot="public">
+          <name>XSECURE_AES_EFUSE_KEY</name>
+          <briefdescription>
+<para>eFUSE Key </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa8585f5fe3bb64ce15874e6338c786bb8" prot="public">
+          <name>XSECURE_AES_EFUSE_RED_KEY</name>
+          <briefdescription>
+<para>eFUSE Red Key </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa7d8127f4bfb0f1283df773606b56f7cf" prot="public">
+          <name>XSECURE_AES_KUP_KEY</name>
+          <briefdescription>
+<para>KUP key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fada4ea94e6f2e0f448b3e948465e7a4de" prot="public">
+          <name>XSECURE_AES_FAMILY_KEY</name>
+          <briefdescription>
+<para>Family key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa78b79c2fdd517f30458ffbc9364abbdc" prot="public">
+          <name>XSECURE_AES_PUF_KEY</name>
+          <briefdescription>
+<para>PUF key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2ed303c437d0f865f4c4af8c6ff8fd82" prot="public">
+          <name>XSECURE_AES_USER_KEY_0</name>
+          <briefdescription>
+<para>User Key 0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faad2ed7c10297dbd5f5b3632e099e25a7" prot="public">
+          <name>XSECURE_AES_USER_KEY_1</name>
+          <briefdescription>
+<para>User Key 1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fae4ac4d063374a434ea4ebb672b7e9b2c" prot="public">
+          <name>XSECURE_AES_USER_KEY_2</name>
+          <briefdescription>
+<para>User Key 2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2e8aac0ed6602911daf2103edd6441fd" prot="public">
+          <name>XSECURE_AES_USER_KEY_3</name>
+          <briefdescription>
+<para>User Key 3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6bbe752ad219dc263fdc114399949b7a" prot="public">
+          <name>XSECURE_AES_USER_KEY_4</name>
+          <briefdescription>
+<para>User Key 4. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa1af96660bb5da69424191738f36d4d0d" prot="public">
+          <name>XSECURE_AES_USER_KEY_5</name>
+          <briefdescription>
+<para>User Key 5. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafbe238b0cf0f77f2c027a692fbc18053" prot="public">
+          <name>XSECURE_AES_USER_KEY_6</name>
+          <briefdescription>
+<para>User Key 6. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fab5c84ff4a7f15af959065b2e66aa088f" prot="public">
+          <name>XSECURE_AES_USER_KEY_7</name>
+          <briefdescription>
+<para>User Key 7. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1b2dfac9fa33633ef8a335b121716ea" prot="public">
+          <name>XSECURE_AES_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>Expanded keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fabb34caf742fb64983763cd676574a262" prot="public">
+          <name>XSECURE_AES_PUF_RED_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>AES PUF,RED,KUP keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf035533712ed34d41577670e7b54b73f" prot="public">
+          <name>XSECURE_AES_KUP_AND_EXPANDED_KEYS</name>
+          <briefdescription>
+<para>KUP and Expanded keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac0b53728403f2f50005b56e03f562bef" prot="public">
+          <name>XSECURE_AES_ALL_KEYS</name>
+          <briefdescription>
+<para>AES All keys. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6f5e96363db1d4342eeb50152f469d5e" prot="public">
+          <name>XSECURE_AES_INVALID_KEY</name>
+          <briefdescription>
+<para>AES Invalid Key. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Used for selecting the Key source of AES Core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h" bodystart="170" bodyend="196"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the common definitions for versalgen core. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   kpt  08/17/23 Initial release
+5.7   tbk  04/07/26 Added combined KUP and expanded key clear mask and enum</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_CORE_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CORE_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_cryptochk.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__defs_8h" kindref="compound">xsecure_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="group__xsecure__common__apis_1gae33ca0e2e1894653442fee4c63c611f7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF11E0000U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__common__apis_1ga17b1b793c519bbb5a9de7929acab7811" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_BBRAM_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBBDE6600U)</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_BBRAM_RD_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBBDE8200U)</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_BH_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBDB06600U)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_BH_RD_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBDB08200U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEFDE6600U)</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_RED_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEFDE8200U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEF856601U)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEF856602U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEF858201U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xEF858202U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_KUP_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBDC98200U)</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_PUF_KEY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xDBDE8200U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858201U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858202U)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858204U)</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858208U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858210U)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858220U)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_6<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858240U)</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_SEL_USR_KEY_7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xBD858280U)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78" refid="group__xsecure__common__apis_1ga2fa0b0a3c91c523e31c2ed3aa11cd89a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000014U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xsecure__common__apis_1gabd84b3f8c7cc8779e95b93f97cefad8b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00200000U)</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="84" refid="group__xsecure__common__apis_1ga76c06d8ee15289df0c2732e731296ab4" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00100000U)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="87" refid="group__xsecure__common__apis_1ga95f8b6f17ef405ef82d5878abefb8ab8" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00080000U)</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90" refid="group__xsecure__common__apis_1gafe6dcf27e787fc78783ecc1cc23734ef" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_BH_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00040000U)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93" refid="group__xsecure__common__apis_1ga410e6e633eecdaf20b9ef738fa57ba2d" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_MASK<sp/>(0x00020000U)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="96" refid="group__xsecure__common__apis_1gab46775dfc4ef608a6c87e40a2ebf4ef1" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_MASK<sp/>(0x00010000U)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99" refid="group__xsecure__common__apis_1ga197b7d82f3672c3134c16986f88b8055" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00008000U)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="group__xsecure__common__apis_1gaa2ead5910f830b1308d952502996c46b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_MASK<sp/><sp/><sp/><sp/><sp/>(0x00004000U)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105" refid="group__xsecure__common__apis_1ga4b9d3e1f0df37dbcd0b395dc87b701c6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_MASK<sp/><sp/><sp/><sp/><sp/>(0x00002000U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108" refid="group__xsecure__common__apis_1ga76f15973a4af50291c1a7874379cce34" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00001000U)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111" refid="group__xsecure__common__apis_1gac7d5a7384f5cd63547de379b029a142f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000800U)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="114" refid="group__xsecure__common__apis_1gafe0205f407a5a200ce3842a835618cac" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000400U)</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117" refid="group__xsecure__common__apis_1ga1bb7bac2a8eefc88b898cff728f7595a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000200U)</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="120" refid="group__xsecure__common__apis_1ga5fcec8e0660101185b385ce9a1159174" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000100U)</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="123" refid="group__xsecure__common__apis_1ga69ebc0ae6a3844f1d1d9f0781acf078e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000080U)</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="126" refid="group__xsecure__common__apis_1ga279bc71965001241f8f29f66e582c179" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000040U)</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="129" refid="group__xsecure__common__apis_1ga38e782789e1cc7cdd12793feb5418a83" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000020U)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="132" refid="group__xsecure__common__apis_1gaea60ed52265e03a9cab4bfcb70f34301" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000010U)</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135" refid="group__xsecure__common__apis_1ga5735a791160430c5939be29fd94333e1" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="138" refid="group__xsecure__common__apis_1ga79483b38cc1188110a2f6addb67fbd2a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/>(0x00000001U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141" refid="group__xsecure__common__apis_1ga08ecf3bc030936d7c68e971f13dd00a3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLR_REG_CLR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="144" refid="group__xsecure__common__apis_1gaa1a36a1365ba4a24c7e8cad108a90ff3" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x003FFFF3U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147" refid="group__xsecure__common__apis_1gab50e7db09d7000e0eee286659feb7aae" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x003B8003U)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151" refid="group__xsecure__common__apis_1gaf0677063816a02cd9e4002214396a75d" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK<sp/><sp/><sp/><sp/><sp/>(XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155" refid="group__xsecure__common__apis_1ga45287c1ff2dea7b205549c1529d3e48e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_BBRAM_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="156" refid="group__xsecure__common__apis_1gac375899bf23e5d9fe59e224ab3b8f882" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_BH_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="157" refid="group__xsecure__common__apis_1ga07bc4757b01ab47ce923b28bef13f5d2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_EFUSE_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x2U)<sp/><sp/></highlight></codeline>
+<codeline lineno="158" refid="group__xsecure__common__apis_1ga85b782e0363d2f90221297c31150dc94" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_EFUSE_USR0_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3U)<sp/><sp/></highlight></codeline>
+<codeline lineno="159" refid="group__xsecure__common__apis_1ga3547d4c2480bbcb5bc47a0cf63e23ee2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_KEY_DEC_SEL_EFUSE_USR1_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x4U)<sp/><sp/></highlight></codeline>
+<codeline lineno="161" refid="group__xsecure__common__apis_1ga5d6acf733aceb2fdb872f874beb1f86a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_INVALID_CFG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="163" refid="group__xsecure__common__apis_1ga957ffaf3197a7cf9549ab9b9f701e56f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_MAX_KEY_SOURCES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_EXPANDED_KEYS</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166"><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="170" refid="group__xsecure__common__apis_1gac18d312794ff692037e63183f8f9343f" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="171" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf0c657ebe9923d4838d44337c90cc6a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caf0c657ebe9923d4838d44337c90cc6a7" kindref="member">XSECURE_AES_BBRAM_KEY</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="172" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faacf963544b9e4e371b603a9f66a1404b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caacf963544b9e4e371b603a9f66a1404b" kindref="member">XSECURE_AES_BBRAM_RED_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="173" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faa6ffd70735b44d0b80f75f344beca566" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caa6ffd70735b44d0b80f75f344beca566" kindref="member">XSECURE_AES_BH_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafc412e409ab2538a1971c54f917cbbf1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cafc412e409ab2538a1971c54f917cbbf1" kindref="member">XSECURE_AES_BH_RED_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="175" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1278a39ca4943887c84d5ebe42e1b77" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cac1278a39ca4943887c84d5ebe42e1b77" kindref="member">XSECURE_AES_EFUSE_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa8585f5fe3bb64ce15874e6338c786bb8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca8585f5fe3bb64ce15874e6338c786bb8" kindref="member">XSECURE_AES_EFUSE_RED_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="177" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fadfa54dce5072be1cc37ae590ce0e4844" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cadfa54dce5072be1cc37ae590ce0e4844" kindref="member">XSECURE_AES_EFUSE_USER_KEY_0</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa5bf5cdf50e0b07a26029220ab8213e14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca5bf5cdf50e0b07a26029220ab8213e14" kindref="member">XSECURE_AES_EFUSE_USER_KEY_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa1df11b3e22d9684470bda33485b793ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca1df11b3e22d9684470bda33485b793ae" kindref="member">XSECURE_AES_EFUSE_USER_RED_KEY_0</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="180" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faad4d84e71729c279e0078c7014e36bbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caad4d84e71729c279e0078c7014e36bbe" kindref="member">XSECURE_AES_EFUSE_USER_RED_KEY_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa7d8127f4bfb0f1283df773606b56f7cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__apis_1gac1d450a8bf29adb33a6855a2d495d00e" kindref="member">XSECURE_AES_KUP_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa78b79c2fdd517f30458ffbc9364abbdc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca78b79c2fdd517f30458ffbc9364abbdc" kindref="member">XSECURE_AES_PUF_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="183" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2ed303c437d0f865f4c4af8c6ff8fd82" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca2ed303c437d0f865f4c4af8c6ff8fd82" kindref="member">XSECURE_AES_USER_KEY_0</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="184" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faad2ed7c10297dbd5f5b3632e099e25a7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262caad2ed7c10297dbd5f5b3632e099e25a7" kindref="member">XSECURE_AES_USER_KEY_1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fae4ac4d063374a434ea4ebb672b7e9b2c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cae4ac4d063374a434ea4ebb672b7e9b2c" kindref="member">XSECURE_AES_USER_KEY_2</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa2e8aac0ed6602911daf2103edd6441fd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca2e8aac0ed6602911daf2103edd6441fd" kindref="member">XSECURE_AES_USER_KEY_3</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="187" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6bbe752ad219dc263fdc114399949b7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca6bbe752ad219dc263fdc114399949b7a" kindref="member">XSECURE_AES_USER_KEY_4</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="188" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa1af96660bb5da69424191738f36d4d0d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262ca1af96660bb5da69424191738f36d4d0d" kindref="member">XSECURE_AES_USER_KEY_5</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fafbe238b0cf0f77f2c027a692fbc18053" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cafbe238b0cf0f77f2c027a692fbc18053" kindref="member">XSECURE_AES_USER_KEY_6</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="190" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fab5c84ff4a7f15af959065b2e66aa088f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cab5c84ff4a7f15af959065b2e66aa088f" kindref="member">XSECURE_AES_USER_KEY_7</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac1b2dfac9fa33633ef8a335b121716ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cac1b2dfac9fa33633ef8a335b121716ea" kindref="member">XSECURE_AES_EXPANDED_KEYS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fabb34caf742fb64983763cd676574a262" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fabb34caf742fb64983763cd676574a262" kindref="member">XSECURE_AES_PUF_RED_EXPANDED_KEYS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="193" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf035533712ed34d41577670e7b54b73f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343faf035533712ed34d41577670e7b54b73f" kindref="member">XSECURE_AES_KUP_AND_EXPANDED_KEYS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fac0b53728403f2f50005b56e03f562bef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__aes__client__apis_1gga3be7525f93a2e54baa60c3b1a9df262cac0b53728403f2f50005b56e03f562bef" kindref="member">XSECURE_AES_ALL_KEYS</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195" refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6f5e96363db1d4342eeb50152f469d5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggac18d312794ff692037e63183f8f9343fa6f5e96363db1d4342eeb50152f469d5e" kindref="member">XSECURE_AES_INVALID_KEY</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}<sp/><ref refid="group__xsecure__common__apis_1gac18d312794ff692037e63183f8f9343f" kindref="member">XSecure_AesKeySrc</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Function<sp/>Prototypes<sp/>***************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XSECURE_CORE_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_core.h"/>
+  </compounddef>
+</doxygen>

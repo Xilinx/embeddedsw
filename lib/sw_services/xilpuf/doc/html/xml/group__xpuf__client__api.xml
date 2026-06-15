@@ -1,0 +1,300 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xpuf__client__api" kind="group">
+    <compoundname>xpuf_client_api</compoundname>
+    <title>XilPuf Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xpuf__client__api_1ga49d1e926b95c73c927b8b3f078899f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ClientInit</definition>
+        <argsstring>(XPuf_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XPuf_ClientInit</name>
+        <param>
+          <type><ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the mailbox instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful initialization</para></listitem><listitem><para>XST_FAILURE on failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Set XMailbox instance provided by the user to client library instance by validating whether provided instance is initialized and not NULL. This XMailbox instance will be used by client library to send requests to PLM.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="76" bodyend="94"/>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Registration</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)</argsstring>
+        <name>XPuf_Registration</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for PUF registration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure which includes options to configure PUF</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF registration is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload.</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="109" bodyend="145"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" compoundref="xpuf__client_8c" startline="53">XPUF_ADDR_HIGH_SHIFT</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a811924cbfc83968c698b096d31214a80" compoundref="xpuf__defs_8h" startline="131">XPUF_PUF_REGISTRATION</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_Regeneration</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr)</argsstring>
+        <name>XPuf_Regeneration</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>DataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for PUF regeneration(on demand / ID only). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data structure which includes options to configure PUF</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF regeneration is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="160" bodyend="196"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" compoundref="xpuf__client_8c" startline="53">XPUF_ADDR_HIGH_SHIFT</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980ae0d7de4596d15f543923f5ed09565e84" compoundref="xpuf__defs_8h" startline="132">XPUF_PUF_REGENERATION</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_ClearPufID</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr)</argsstring>
+        <name>XPuf_ClearPufID</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request for clearing PUF ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the PUF clear ID is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid.</para></listitem><listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send request to server via SMC for EL1 non-secure AArch64 applications or via IPI mailbox for other environments.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="209" bodyend="241"/>
+        <references refid="xpuf__mailbox_8h_1a4b6c33d928a245e03965396fdde7ceea" compoundref="xpuf__mailbox_8h" startline="76">PAYLOAD_ARG_CNT</references>
+        <references refid="struct_x_puf___client_instance_1a7143b439788b58016d427e58f4c9333d" compoundref="xpuf__mailbox_8h" startline="90">XPuf_ClientInstance::SlrIndex</references>
+        <references refid="xpuf__defs_8h_1a6c9b7b9ebbf0e007223cb2ed1919b7f8" compoundref="xpuf__defs_8h" startline="45">XPUF_DEBUG_GENERAL</references>
+        <references refid="xpuf__defs_8h_1a7a376f6caa6da91f2f0c790361223551" compoundref="xpuf__defs_8h" startline="92">XPuf_Printf</references>
+        <references refid="xpuf__defs_8h_1a2e19f3b163a88acd0d435dbb8f3e6980a64590602f5af8086c2a85ec6f4812c83" compoundref="xpuf__defs_8h" startline="133">XPUF_PUF_CLEAR_PUF_ID</references>
+        <references refid="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" compoundref="xpuf__generic_8c" startline="67" endline="105">XPuf_SendRequest</references>
+        <references refid="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" compoundref="xpuf__client_8c" startline="49">XPUF_SLR_INDEX_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xpuf__client__api_1gad52ef96e7928d55f964e2169dfb527de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPuf_SendRequest</definition>
+        <argsstring>(const XPuf_ClientInstance *InstancePtr, u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen)</argsstring>
+        <name>XPuf_SendRequest</name>
+        <param>
+          <type>const <ref refid="struct_x_puf___client_instance" kindref="compound">XPuf_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>PayloadBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PayloadLen</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>ResponseBuf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ResponseLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends request to PLM through either SMC or IPI mailbox based on the execution environment. </para>        </briefdescription>
+        <detaileddescription>
+<para>For EL1 non-secure AArch64 applications, SMC is used. For other environments, IPI mailbox is used.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PayloadLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseBuf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store response values (can be NULL) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ResponseLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of response buffer (number of u32 elements)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the request is successful</para></listitem><listitem><para>XST_FAILURE if there is a failure</para></listitem><listitem><para>XST_INVALID_PARAM if input parameters are invalid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This is a generic API that internally handles SMC or Mailbox communication based on the build configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters.</para></listitem><listitem><para>For other environments, use IPI mailbox communication.</para></listitem><listitem><para>Validate mailbox pointer for IPI communication</para></listitem><listitem><para>Send request through IPI mailbox</para></listitem><listitem><para>Note: For communication via IPI mailbox, response is not directly returned. The caller should handle response retrieval if needed.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_generic.c" bodystart="67" bodyend="105"/>
+        <references refid="struct_x_puf___client_instance_1a91ea2a4589c09bc2ec99ffab36fa3ed8" compoundref="xpuf__mailbox_8h" startline="88">XPuf_ClientInstance::MailboxPtr</references>
+        <references refid="group__xpuf__mailbox__apis_1ga2052fd116d6e086ca703c3518eafd887" compoundref="xpuf__mailbox_8c" startline="72" endline="98">XPuf_ProcessMailbox</references>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xpuf__client__api_1gab83919b4e338ae14a1ea949eefc6d87f" prot="public" static="no">
+        <name>XPUF_SLR_INDEX_SHIFT</name>
+        <initializer>(6U)</initializer>
+        <briefdescription>
+<para>Shift value to get SLR index in the header of the IPI request. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1gae8d5cc63e59e2c814c2181043759fb9d" compoundref="xpuf__client_8c" startline="209" endline="241">XPuf_ClearPufID</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xpuf__client__api_1gaf5881ac64a7ea71e067471c3012aa2e1" prot="public" static="no">
+        <name>XPUF_ADDR_HIGH_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shift value to get higher 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" line="52" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/common/client/xpuf_client.c" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__xpuf__client__api_1ga1b42ac41fa42710bb134fd1f1325c397" compoundref="xpuf__client_8c" startline="160" endline="196">XPuf_Regeneration</referencedby>
+        <referencedby refid="group__xpuf__client__api_1ga773b36e5066bc5cea6d6d400327c1ba1" compoundref="xpuf__client_8c" startline="109" endline="145">XPuf_Registration</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

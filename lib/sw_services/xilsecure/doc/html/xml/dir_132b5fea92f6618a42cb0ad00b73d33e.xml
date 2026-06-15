@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_132b5fea92f6618a42cb0ad00b73d33e" kind="dir">
+    <compoundname>key_unwrap</compoundname>
+    <innerfile refid="xsecure__keyunwrap_8c">xsecure_keyunwrap.c</innerfile>
+    <innerfile refid="xsecure__keyunwrap_8h">xsecure_keyunwrap.h</innerfile>
+    <innerfile refid="xsecure__plat__aes_8c">xsecure_plat_aes.c</innerfile>
+    <innerfile refid="xsecure__plat__aes_8h">xsecure_plat_aes.h</innerfile>
+    <innerfile refid="xsecure__plat__rsa_8c">xsecure_plat_rsa.c</innerfile>
+    <innerfile refid="xsecure__plat__rsa_8h">xsecure_plat_rsa.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/"/>
+  </compounddef>
+</doxygen>

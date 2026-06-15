@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="src_2common_2_c_make_lists_8txt" kind="file">
+    <compoundname>src/common/CMakeLists.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="3"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_aesinfo.h)</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_def.h)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_eccinfo.h)</highlight></codeline>
+<codeline lineno="7"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_rsainfo.h)</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_shainfo.h)</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_trnginfo.h)</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_hmacinfo.h)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_kdfinfo.h)</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_eciesinfo.h)</highlight></codeline>
+<codeline lineno="13"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_sharedmem.c)</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_sharedmem.h)</highlight></codeline>
+<codeline lineno="15"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_aes_common.h)</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_aes_common.c)</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_rsa_common.h)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_rsa_common.c)</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_ecies_common.h)</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_ecies_common.c)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_keywrapinfo.h)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_keywrap_common.h)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_keywrap_common.c)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_ocpinfo.h)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_ocp_common.h)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_ocp_common.c)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_kdf_common.h)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_kdf_common.c)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_generic.h)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_generic.c)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_keymanagerinfo.h)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_keymanager_common.h)</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_keymanager_common.c)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_lmsinfo.h)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">collect<sp/>(PROJECT_LIB_HEADERS<sp/>xasu_lms_common.h)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">collect<sp/>(PROJECT_LIB_SOURCES<sp/>xasu_lms_common.c)</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/CMakeLists.txt"/>
+  </compounddef>
+</doxygen>

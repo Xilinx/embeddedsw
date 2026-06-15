@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="_r_e_a_d_m_e_8txt" kind="file">
+    <compoundname>README.txt</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">When<sp/>executed<sp/>on<sp/>the<sp/>board<sp/>the<sp/>example<sp/>application<sp/>will<sp/>select<sp/>each<sp/>use<sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>from<sp/>the</highlight></codeline>
+<codeline lineno="2"><highlight class="normal">use<sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>list<sp/>and<sp/>sets<sp/>the<sp/>input<sp/>and<sp/>output<sp/>configuration<sp/>of<sp/>the<sp/>multiscaler<sp/>IP<sp/>accordingly.</highlight></codeline>
+<codeline lineno="3"><highlight class="normal">The<sp/>source<sp/>buffers<sp/>are<sp/>filled<sp/>by<sp/>the<sp/>application<sp/>with<sp/>some<sp/>fixed<sp/>pattern.<sp/>The<sp/>application</highlight></codeline>
+<codeline lineno="4"><highlight class="normal">waits<sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>the<sp/>interrupt<sp/>from<sp/>the<sp/>IP<sp/>and<sp/>prints<sp/>the<sp/>contents<sp/>of<sp/>the<sp/>destination<sp/>buffers<sp/>to</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">validate<sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>the<sp/>scaling<sp/>is<sp/>performed.</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_multi_scaler/examples/README.txt"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfemix__one__instance__initialization__example_8c" kind="file">
+    <compoundname>xdfemix_one_instance_initialization_example.c</compoundname>
+    <includes refid="xdfemix__examples_8h" local="yes">xdfemix_examples.h</includes>
+    <incdepgraph>
+      <node id="58">
+        <label>stdbool.h</label>
+      </node>
+      <node id="59">
+        <label>metal/sys.h</label>
+      </node>
+      <node id="57">
+        <label>assert.h</label>
+      </node>
+      <node id="55">
+        <label>xdfemix.h</label>
+        <link refid="xdfemix_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xdfemix_examples.h</label>
+        <link refid="xdfemix__examples_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>metal/sleep.h</label>
+      </node>
+      <node id="63">
+        <label>metal/log.h</label>
+      </node>
+      <node id="61">
+        <label>math.h</label>
+      </node>
+      <node id="60">
+        <label>xdfemix_hw.h</label>
+      </node>
+      <node id="56">
+        <label>linux/types.h</label>
+      </node>
+      <node id="62">
+        <label>stdio.h</label>
+      </node>
+      <node id="53">
+        <label>xdfemix_one_instance_initialization_example.c</label>
+        <link refid="xdfemix_one_instance_initialization_example.c"/>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdfemix__one__instance__initialization__example_8c_1ae2eee6e23955bad5e7f92fa005b0089a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeMix_SelfTestExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeMix_SelfTestExample</name>
+        <briefdescription>
+<para>This function runs the DFE Mixer device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c" bodystart="54" bodyend="95"/>
+        <references refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" compoundref="xdfemix_8h" startline="208">XDfeMix_Version::Major</references>
+        <references refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" compoundref="xdfemix_8h" startline="209">XDfeMix_Version::Minor</references>
+        <references refid="struct_x_dfe_mix___version_1a3e008974f46642083bd193fb40e4d7e0" compoundref="xdfemix_8h" startline="211">XDfeMix_Version::Patch</references>
+        <references refid="struct_x_dfe_mix___version_1a9aa720deae91fc110ba6c393c9652283" compoundref="xdfemix_8h" startline="210">XDfeMix_Version::Revision</references>
+        <references refid="struct_x_dfe_mix___init_1af9aaa5104c75ff98b732d397fe844f21" compoundref="xdfemix_8h" startline="317">XDfeMix_Init::TuserSelect</references>
+        <references refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" compoundref="xdfemix_8c" startline="2054" endline="2086">XDfeMix_Activate</references>
+        <references refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</references>
+        <references refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" compoundref="xdfemix_8c" startline="2096" endline="2126">XDfeMix_Deactivate</references>
+        <references refid="group__dfemix_1ga499409b4675bb141d962a2c15ad3dc61" compoundref="xdfemix_8c" startline="3625" endline="3650">XDfeMix_GetVersions</references>
+        <references refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</references>
+        <references refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" compoundref="xdfemix_8c" startline="1856" endline="1875">XDfeMix_InstanceClose</references>
+        <references refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" compoundref="xdfemix_8c" startline="1751" endline="1845">XDfeMix_InstanceInit</references>
+        <references refid="group__dfemix_1ga8d63f4fc15bb4344b6fb33d382468c35" compoundref="xdfemix_8c" startline="1885" endline="1893">XDfeMix_Reset</references>
+        <references refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfemix_8h" startline="137">XST_FAILURE</references>
+        <references refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfemix_8h" startline="134">XST_SUCCESS</references>
+        <referencedby refid="xdfemix__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfemix__examples_8c" startline="82" endline="124">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a load coefficients example. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.1   dc     07/21/21 Add and reorganise examples
+1.5   dc     10/24/22 Switching Uplink/Downlink support</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfemix__examples_8h" kindref="compound">xdfemix_examples.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="54" refid="xdfemix__one__instance__initialization__example_8c_1ae2eee6e23955bad5e7f92fa005b0089a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdfemix__examples_8c_1ae2eee6e23955bad5e7f92fa005b0089a" kindref="member">XDfeMix_SelfTestExample</ref>()</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_init_params<sp/>init_param<sp/>=<sp/>METAL_INIT_DEFAULTS;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___cfg" kindref="compound">XDfeMix_Cfg</ref><sp/>Cfg;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___version" kindref="compound">XDfeMix_Version</ref><sp/>SwVersion;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___version" kindref="compound">XDfeMix_Version</ref><sp/>HwVersion;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___init" kindref="compound">XDfeMix_Init</ref><sp/>Init;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nMixer<sp/>\&quot;One<sp/>Instance<sp/>Initialization\&quot;<sp/>Example<sp/>-<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>libmetal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/>metal_init(&amp;init_param))<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>run<sp/>metal<sp/>initialization\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>instance<sp/>of<sp/>Mixer<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/><ref refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" kindref="member">XDfeMix_InstanceInit</ref>(XDFEMIX_NODE_NAME);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>SW<sp/>and<sp/>HW<sp/>version<sp/>numbers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga499409b4675bb141d962a2c15ad3dc61" kindref="member">XDfeMix_GetVersions</ref>(InstancePtr,<sp/>&amp;SwVersion,<sp/>&amp;HwVersion);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;SW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>SwVersion.<ref refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" kindref="member">Major</ref>,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SwVersion.<ref refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" kindref="member">Minor</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;HW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d,<sp/>Revision<sp/>%d,<sp/>Patch<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" kindref="member">Major</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" kindref="member">Minor</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1a9aa720deae91fc110ba6c393c9652283" kindref="member">Revision</ref>,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1a3e008974f46642083bd193fb40e4d7e0" kindref="member">Patch</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Go<sp/>through<sp/>initialization<sp/>states<sp/>of<sp/>the<sp/>state<sp/>machine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga8d63f4fc15bb4344b6fb33d382468c35" kindref="member">XDfeMix_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" kindref="member">XDfeMix_Configure</ref>(InstancePtr,<sp/>&amp;Cfg);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Init.<ref refid="struct_x_dfe_mix___init_1af9aaa5104c75ff98b732d397fe844f21" kindref="member">TuserSelect</ref><sp/>=<sp/>XDFEMIX_SWITCHABLE_CONTROL_TUSER_SEL_DOWNLINK;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" kindref="member">XDfeMix_Initialize</ref>(InstancePtr,<sp/>&amp;Init);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" kindref="member">XDfeMix_Activate</ref>(InstancePtr,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" kindref="member">XDfeMix_Deactivate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" kindref="member">XDfeMix_InstanceClose</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Mixer<sp/>\&quot;One<sp/>Instance<sp/>Initialization\&quot;<sp/>Example:<sp/>Pass\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_one_instance_initialization_example.c"/>
+  </compounddef>
+</doxygen>

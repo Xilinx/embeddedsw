@@ -1,0 +1,335 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__slhdsa__wots_8c" kind="file">
+    <compoundname>xsecure_slhdsa_wots.c</compoundname>
+    <includes refid="xsecure__slhdsa__addr_8h" local="yes">xsecure_slhdsa_addr.h</includes>
+    <includes refid="xsecure__slhdsa__hash_8h" local="yes">xsecure_slhdsa_hash.h</includes>
+    <includes refid="xsecure__slhdsa__wots_8h" local="yes">xsecure_slhdsa_wots.h</includes>
+    <includes refid="xsecure__slhdsa__fors_8h" local="yes">xsecure_slhdsa_fors.h</includes>
+    <incdepgraph>
+      <node id="4533">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4534" relation="include">
+        </childnode>
+        <childnode refid="4535" relation="include">
+        </childnode>
+        <childnode refid="4536" relation="include">
+        </childnode>
+      </node>
+      <node id="4535">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4538">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4533" relation="include">
+        </childnode>
+        <childnode refid="4534" relation="include">
+        </childnode>
+        <childnode refid="4539" relation="include">
+        </childnode>
+      </node>
+      <node id="4539">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="4532">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure_slhdsa_wots.c"/>
+        <childnode refid="4533" relation="include">
+        </childnode>
+        <childnode refid="4537" relation="include">
+        </childnode>
+        <childnode refid="4540" relation="include">
+        </childnode>
+        <childnode refid="4541" relation="include">
+        </childnode>
+      </node>
+      <node id="4540">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4538" relation="include">
+        </childnode>
+        <childnode refid="4534" relation="include">
+        </childnode>
+      </node>
+      <node id="4536">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="4534">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4541">
+        <label>xsecure_slhdsa_fors.h</label>
+        <link refid="xsecure__slhdsa__fors_8h"/>
+        <childnode refid="4534" relation="include">
+        </childnode>
+        <childnode refid="4538" relation="include">
+        </childnode>
+      </node>
+      <node id="4537">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4538" relation="include">
+        </childnode>
+        <childnode refid="4534" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1ga141cd483445e9c483f9e89b1958e8d79" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_ComputeChecksum</definition>
+        <argsstring>(const XSecure_ChecksumParam *const ChecksumParams, const u8 *const M, u32 *const Output)</argsstring>
+        <name>XSecure_ComputeChecksum</name>
+        <param>
+          <type>const <ref refid="struct_x_secure___checksum_param" kindref="compound">XSecure_ChecksumParam</ref> *const</type>
+          <declname>ChecksumParams</declname>
+        </param>
+        <param>
+          <type>const u8 *const</type>
+          <declname>M</declname>
+        </param>
+        <param>
+          <type>u32 *const</type>
+          <declname>Output</declname>
+        </param>
+        <briefdescription>
+<para>This function computes WOTS+ checksum and combines with base-w message representation to create the complete message array used for WOTS+ signature verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChecksumParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to checksum parameters structure containing: </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>M</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input message (n bytes, typically 32 bytes for SHAKE-256s) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output array to store combined message and checksum digits (len1 + len2 elements, typically 67 for SHAKE-256s) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Buffer to hold checksum as bytes (max 4 bytes needed)</para></listitem><listitem><para>Step 2: msg &lt;- base_2b(M, lgw, len1) - Convert message to base-w</para></listitem><listitem><para>Step 3-5: Compute checksum</para></listitem><listitem><para>for i from 0 to len1 - 1 do</para></listitem><listitem><para>Step 4: csum &lt;- csum + w - 1 - msg[i]</para></listitem><listitem><para>w = 2^lgw, so w-1 = (1 &lt;&lt; lgw) - 1</para></listitem><listitem><para>Step 5: end for</para></listitem><listitem><para>Step 6: csum &lt;- csum &lt;&lt; ((8 - ((len2 * lgw) mod 8)) mod 8)</para></listitem><listitem><para>For lgw=4, this shifts left by 4 bits</para></listitem><listitem><para>Convert checksum to bytes for base_2b conversion</para></listitem><listitem><para>toByte(csum, ceil(len2*lgw/8))</para></listitem><listitem><para>Store checksum in big-endian format</para></listitem><listitem><para>Step 7: msg &lt;- msg || base_2b(toByte(csum, ceil(len2*lgw/8)), lgw, len2)</para></listitem><listitem><para>Convert checksum to base-w and append to message array </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="55" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SlhdsaWotsPkFromSign</definition>
+        <argsstring>(u64 WotsSignAddr, u64 MAddr, u64 PublicKeyAddr, u8 *const WotsPk)</argsstring>
+        <name>XSecure_SlhdsaWotsPkFromSign</name>
+        <param>
+          <type>u64</type>
+          <declname>WotsSignAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>MAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>PublicKeyAddr</declname>
+        </param>
+        <param>
+          <type>u8 *const</type>
+          <declname>WotsPk</declname>
+        </param>
+        <briefdescription>
+<para>This function reconstructs the WOTS+ public key from the provided WOTS+ signature and message. </para>        </briefdescription>
+        <detaileddescription>
+<para>It computes the checksum, extends each signature chain to derive the public key elements, and then hashes all elements to produce the final WOTS+ public key.</para><para><simplesect kind="par"><title>Algorithm Flow for SHAKE-256s (len=67, w=16, n=32):</title><para></para></simplesect>
+Given: M=FORS_PK (32 bytes), WotsSign=WOTS_signature (2144 bytes) Input message: M = [0x3A, 0x7F, 0x92, 0x1C, ...] (32 bytes)</para><para>=== WOTS+ SIGNATURE STRUCTURE === WotsSign layout (2144 bytes total): ┌──────────────┬──────────────┬─────┬──────────────┬──────────────┬─────┬──────────────┐ │ sig[0] │ sig[1] │ ... │ sig[63] │ sig[64] │ ... │ sig[66] │ │ (32 bytes) │ (32 bytes) │ │ (32 bytes) │ (32 bytes) │ │ (32 bytes) │ │ Chain 0 │ Chain 1 │ │ Chain 63 │ Checksum 0 │ │ Checksum 2 │ └──────────────┴──────────────┴─────┴──────────────┴──────────────┴─────┴──────────────┘</para><para>Message chains: sig[0] to sig[63] (64 chains for 32-byte message) Checksum chains: sig[64] to sig[66] (3 chains for checksum) Total: 67 chains × 32 bytes = 2144 bytes</para><para>=== INITIAL SETUP === ADRS initialization:<itemizedlist>
+<listitem><para>Type already set to WOTS_HASH for chain computations</para></listitem><listitem><para>KeyPairAddress inherited from caller</para></listitem></itemizedlist>
+</para><para>=== STEP 1-7: MESSAGE PROCESSING AND CHECKSUM === XSecure_SlhdsaWotsCheckSum(M, Data2[]) computes:</para><para>Step 1: csum = 0 Step 2: msg = base_w(M, w, len1) - Convert message to base-16 digits</para><para>Message conversion (first 4 bytes example): M[0] = 0x3A = 0011 1010 → base_w[0] = 3, base_w[1] = 10 M[1] = 0x7F = 0111 1111 → base_w[2] = 7, base_w[3] = 15 M[2] = 0x92 = 1001 0010 → base_w[4] = 9, base_w[5] = 2 M[3] = 0x1C = 0001 1100 → base_w[6] = 1, base_w[7] = 12 ...continuing for all 32 bytes → 64 base-16 digits</para><para>Step 3-5: Compute checksum for i from 0 to len1-1: csum += w-1-msg[i] csum += (15-3) + (15-10) + (15-7) + (15-15) + (15-9) + (15-2) + ... = sum</para><para>Step 6-7: Convert checksum to base-16 and append csum_base_w = base_w(csum, w, len2) → 3 additional base-16 digits Final msg array: [msg[0]...msg[63], csum[0], csum[1], csum[2]]</para><para>=== WOTS+ CHAIN COMPUTATION TABLE (WITH HW ACCELERATION) === +<ndash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | i | msg[i] | Chain | Iterations | HW Chain Operation | Result Location | +<ndash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | 0 | 3 | 0 | 15-3 = 12 | HW: sig[0] →(×12)→ | Data1[0:31] | | 1 | 10 | 1 | 15-10 = 5 | HW: sig[1] →(×5)→ | Data1[32:63] | | 2 | 7 | 2 | 15-7 = 8 | HW: sig[2] →(×8)→ | Data1[64:95] | | 3 | 15 | 3 | 15-15 = 0 | SKIP: sig[3] copied | Data1[96:127] | | 4 | 9 | 4 | 15-9 = 6 | HW: sig[4] →(×6)→ | Data1[128:159] | | ... | ... | ... | ... | ... | ... | | 63 | msg[63] | 63 | 15-msg[63] | HW: sig[63] →(×n)→ | Data1[2016:2047] | | 64 | csum[0] | 64 | 15-csum[0] | HW: sig[64] →(×n)→ | Data1[2048:2079] | | 65 | csum[1] | 65 | 15-csum[1] | HW: sig[65] →(×n)→ | Data1[2080:2111] | | 66 | csum[2] | 66 | 15-csum[2] | HW: sig[66] →(×n)→ | Data1[2112:2143] | +<ndash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/>+-<mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== ADDRESS PROGRESSION === For each chain i: +<ndash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | i | ChainAddress(i) | HW Chain Operation | +<ndash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+ | 0 | 0 | HW: chain=0, iter=3→15 | | 1 | 1 | HW: chain=1, iter=10→15 | | 2 | 2 | HW: chain=2, iter=7→15 | | ... | ... | ... | | 66 | 66 | HW: chain=66, iter=x→15 | +<ndash/><mdash/>+<mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+<ndash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/><mdash/>+</para><para>=== FINAL PUBLIC KEY COMPUTATION === Step 12-13: Switch ADRS to WOTS_PK type XSecure_SlhdsaSetTypeClearNotKp(WOTS_PK)</para><para>Step 15: Compute final WOTS+ public key WotsPk = Tlen(PK.seed, ADRS, Data1[0:2143])</para><para>XSecure_SlhdsaShake256sHashTl computes:<itemizedlist>
+<listitem><para>Input: All 67 public key elements (Data1, 2144 bytes total)</para></listitem><listitem><para>Hash: SHAKE-256(PK.seed || ADRS || Data1[0:2143])</para></listitem><listitem><para>Output: 32-byte WOTS+ public key (WotsPk)</para></listitem></itemizedlist>
+</para><para>=== MEMORY MANAGEMENT === Buffer Usage:<itemizedlist>
+<listitem><para>Data1[2144]: Stores all 67 public key elements (67 × 32 bytes)</para></listitem><listitem><para>Data2[67]: Stores base-w representation + checksum</para></listitem><listitem><para>WotsPk[32]: Output buffer for final public key</para></listitem><listitem><para>TmpPtr: Tracks current position in signature buffer (increments by 32)</para></listitem></itemizedlist>
+</para><para>Memory Layout during execution: ┌─────────────────────────────────────────────────────────────────────────┐ │ Data1: [pk_elem[0]][pk_elem[1]]...[pk_elem[66]] (2144 bytes) │ ├─────────────────────────────────────────────────────────────────────────┤ │ Data2: [msg[0]][msg[1]]...[msg[63]][csum[0]][csum[1]][csum[2]] (67 vals)│ └─────────────────────────────────────────────────────────────────────────┘</para><para>Memory Usage:<itemizedlist>
+<listitem><para>Input signature: 2144 bytes</para></listitem><listitem><para>Working buffers: 2144 + 67 = 2211 bytes</para></listitem><listitem><para>Output: 32 bytes</para></listitem><listitem><para>Total working memory: ~2.2 KB</para></listitem></itemizedlist>
+</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>WotsSignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of WOTS+ signature (2144 bytes for SHAKE-256s). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of message to verify (typically FORS public key, n bytes = 32 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PublicKeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address of public key seed for hash computations (n bytes = 32 bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>WotsPk</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store computed WOTS+ public key (n bytes = 32 bytes).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if WOTS+ public key computation succeeds.</para></listitem><listitem><para>ErrorCode Otherwise. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Step 1: csum &lt;- 0 (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 2: msg &lt;- base_2b(M, lgw, len1) (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 3-7: Compute checksum and append to msg (handled inside WotsCheckSum)</para></listitem><listitem><para>Step 8: for i from 0 to len-1 do</para></listitem><listitem><para>Use embedded parameter for total length instead of direct Param-&gt;len</para></listitem><listitem><para>Step 9: ADRS.setChainAddress(i)</para></listitem><listitem><para>Step 11: end for</para></listitem><listitem><para>Step 12: wotspkADRS &lt;- ADRS (current ADRS used)</para></listitem><listitem><para>Step 13: wotspkADRS.setTypeAndClear(WOTS_PK)</para></listitem><listitem><para>Step 16: return pksig </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c" bodystart="214" bodyend="282"/>
+        <references refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" compoundref="xsecure__slhdsa__instance_8h" startline="222">XSecure_SlhdsaInstance::Addr</references>
+        <references refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" compoundref="xsecure__slhdsa__instance_8h" startline="177">XSecure_ChecksumParam::ChecksumLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" compoundref="xsecure__slhdsa__instance_8h" startline="210">XSecure_SlhdsaParam::ChecksumParams</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" compoundref="xsecure__slhdsa__instance_8h" startline="247">XSecure_SlhdsaInstance::Data1</references>
+        <references refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" compoundref="xsecure__slhdsa__instance_8h" startline="280">XSecure_SlhdsaInstance::Data4</references>
+        <references refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" compoundref="xsecure__slhdsa__instance_8h" startline="176">XSecure_ChecksumParam::InputLenInDigits</references>
+        <references refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" compoundref="xsecure__slhdsa__instance_8h" startline="187">XSecure_SlhdsaParam::n</references>
+        <references refid="struct_x_secure___slhdsa_param_1a2dc6b5def7f134da1de12a64abea1dd8" compoundref="xsecure__slhdsa__instance_8h" startline="205">XSecure_SlhdsaParam::NoOfInvSign</references>
+        <references refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" compoundref="xsecure__slhdsa__instance_8h" startline="225">XSecure_SlhdsaInstance::Param</references>
+        <references refid="struct_x_secure___slhdsa_chain_config_1a6f07310e601a00ebbfda4382dc31fafe" compoundref="xsecure__slhdsa__hash_8h" startline="46">XSecure_SlhdsaChainConfig::StartIdx</references>
+        <references refid="struct_x_secure___slhdsa_chain_config_1a1a8026f972031d204b1f91187a44f25a" compoundref="xsecure__slhdsa__hash_8h" startline="47">XSecure_SlhdsaChainConfig::Steps</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" compoundref="xsecure__slhdsa__instance_8c" startline="51" endline="102">XSecure_SlhdsaGetInstance</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</references>
+        <references refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" compoundref="xsecure__slhdsa__hash_8c" startline="276" endline="323">XSecure_SlhdsaShake256sHashTl</references>
+        <references refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" compoundref="core_2util_2xsecure__utils_8h" startline="63">XSECURE_ZERO</references>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gae2f63765bb0a4b550407c200d2715a1c" compoundref="xsecure__slhdsa__xmss_8c" startline="189" endline="287">XSecure_SlhdsaXmssPkFromSign</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file consists of definitions for SLH-DSA WOTS+ operations. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  02/19/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__addr_8h" kindref="compound">xsecure_slhdsa_addr.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__hash_8h" kindref="compound">xsecure_slhdsa_hash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__wots_8h" kindref="compound">xsecure_slhdsa_wots.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__slhdsa__fors_8h" kindref="compound">xsecure_slhdsa_fors.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************************<sp/>Function<sp/>Prototypes<sp/>*************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_ComputeChecksum(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___checksum_param" kindref="compound">XSecure_ChecksumParam</ref><sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ChecksumParams,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>M,<sp/>u32<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Output);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Function<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="55"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_ComputeChecksum(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___checksum_param" kindref="compound">XSecure_ChecksumParam</ref><sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>ChecksumParams,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>M,<sp/>u32<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Output)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Csum<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;<sp/><sp/></highlight><highlight class="comment">/*<sp/>Step<sp/>1:<sp/>csum<sp/>&lt;-<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/>Idx;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ChecksumBytes[<ref refid="group__xsecure__slhdsa__server__apis_1gae1d8d2f28f1f4a2aaabccc66e372386a" kindref="member">XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES</ref><sp/>*<sp/><ref refid="group__xsecure__generic__server__apis_1ga11cdf9a462e84497704a8673f83b5e83" kindref="member">XSECURE_VALUE_TWO</ref>]<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gadaedb44c3081c08f71c26e1dc8e74937" kindref="member">XSecure_SlhdsaBase2b</ref>(Output,<sp/>M,<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a1a71e3287a2b92df1697067deab000df" kindref="member">DigitWidth</ref>,<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" kindref="member">InputLenInDigits</ref>);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" kindref="member">InputLenInDigits</ref>;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csum<sp/>+=<sp/>((u32)((<ref refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" kindref="member">XSECURE_VALUE_ONE</ref><sp/>&lt;&lt;<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a1a71e3287a2b92df1697067deab000df" kindref="member">DigitWidth</ref>)<sp/>-</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" kindref="member">XSECURE_VALUE_ONE</ref>)<sp/>-<sp/>Output[Idx]);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Csum<sp/>=<sp/>(Csum<sp/>&lt;&lt;<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1ab7c489e02d09f7c480ab0870f0b18bb9" kindref="member">ChecksumShift</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a7fb98e2f1d2a36144f8d64a9fb125ea4" kindref="member">ChecksumSizeInBytes</ref>;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChecksumBytes[ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a7fb98e2f1d2a36144f8d64a9fb125ea4" kindref="member">ChecksumSizeInBytes</ref><sp/>-<sp/><ref refid="group__xsecure__generic__server__apis_1ga8023ea0b632e9b4eba69c1dd8f62c5eb" kindref="member">XSECURE_VALUE_ONE</ref><sp/>-<sp/>Idx]<sp/>=</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u8)((Csum<sp/>&gt;&gt;<sp/>(Idx<sp/>*<sp/><ref refid="group__xsecure__generic__server__apis_1ga8fc10049426f8541ee568885a9d03902" kindref="member">XSECURE_BYTE_IN_BITS</ref>))<sp/>&amp;<sp/>0xFFU);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gadaedb44c3081c08f71c26e1dc8e74937" kindref="member">XSecure_SlhdsaBase2b</ref>(&amp;Output[ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" kindref="member">InputLenInDigits</ref>],<sp/>ChecksumBytes,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1a1a71e3287a2b92df1697067deab000df" kindref="member">DigitWidth</ref>,<sp/>ChecksumParams-&gt;<ref refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" kindref="member">ChecksumLenInDigits</ref>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="214" refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gaf6e4f612fb9bedd0adc25a5e5d6828c1" kindref="member">XSecure_SlhdsaWotsPkFromSign</ref>(u64<sp/>WotsSignAddr,<sp/>u64<sp/>MAddr,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>PublicKeyAddr,<sp/>u8<sp/>*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>WotsPk)</highlight></codeline>
+<codeline lineno="216"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___slhdsa_instance" kindref="compound">XSecure_SlhdsaInstance</ref><sp/>*InstancePtr<sp/>=<sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga97d1800f2a4746b7cdce71d41fb704fe" kindref="member">XSecure_SlhdsaGetInstance</ref>();</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TmpPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga4e096b508706aab2c2dd4b70452fb620" kindref="member">XSECURE_ZERO</ref>;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Idx;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalLength;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_secure___slhdsa_chain_config" kindref="compound">XSecure_SlhdsaChainConfig</ref><sp/>ChainConfig;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ComputeChecksum(&amp;InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" kindref="member">ChecksumParams</ref>,<sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*)(UINTPTR)MAddr,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" kindref="member">Data4</ref>);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TotalLength<sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" kindref="member">ChecksumParams</ref>.<ref refid="struct_x_secure___checksum_param_1a622729b6c957e154dbd17d4c1909c522" kindref="member">InputLenInDigits</ref><sp/>+</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a14a066a9a67f5df8f300e0e25464a31a" kindref="member">ChecksumParams</ref>.<ref refid="struct_x_secure___checksum_param_1add5d7a87ec82f389e013cb54061879e3" kindref="member">ChecksumLenInDigits</ref>;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Idx<sp/>=<sp/>0U;<sp/>Idx<sp/>&lt;<sp/>TotalLength;<sp/>Idx++)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaSetChainAddress(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>,<sp/>Idx);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>10:<sp/>tmp[i]<sp/>&lt;-<sp/>chain(sig[i],<sp/>msg[i],<sp/>w-1-msg[i],<sp/>PK.seed,<sp/>ADRS)</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>chain<sp/>function<sp/>computes<sp/>the<sp/>hash<sp/>chain<sp/>for<sp/>each<sp/>signature<sp/>element</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChainConfig.<ref refid="struct_x_secure___slhdsa_chain_config_1a6f07310e601a00ebbfda4382dc31fafe" kindref="member">StartIdx</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" kindref="member">Data4</ref>[Idx];</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ChainConfig.<ref refid="struct_x_secure___slhdsa_chain_config_1a1a8026f972031d204b1f91187a44f25a" kindref="member">Steps</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1a2dc6b5def7f134da1de12a64abea1dd8" kindref="member">NoOfInvSign</ref><sp/>-<sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1a73299ad6a573bb74f7247581a6a0c4cf" kindref="member">Data4</ref>[Idx];</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" kindref="member">XSecure_SlhdsaShake256sChain</ref>,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WotsSignAddr<sp/>+<sp/>TmpPtr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Input<sp/>Data<sp/>address<sp/>for<sp/>HASH<sp/>function<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;ChainConfig,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Chain<sp/>configuration<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicKeyAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Public<sp/>key<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" kindref="member">Data1</ref><sp/>+<sp/>TmpPtr));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[out]<sp/>pointer<sp/>to<sp/>output<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpPtr<sp/>+=<sp/>(u32)InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1aac6e97312cdbf94f5082041f6c3b88a3" kindref="member">Param</ref>-&gt;<ref refid="struct_x_secure___slhdsa_param_1adf0e83ff47d247fa29935dcbf4bd089d" kindref="member">n</ref>;</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_SlhdsaSetTypeClearNotKp(InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1ab63a47abcc83e7c80c42544c729e204e" kindref="member">Addr</ref>,<sp/>XSECURE_SLH_DSA_ADRS_TYPE_WOTS_PK);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>14:<sp/>wotspkADRS.setKeyPairAddress(ADRS.getKeyPairAddress())<sp/>(implicit,<sp/>not<sp/>needed<sp/>as</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>keypair<sp/>is<sp/>unchanged)</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Step<sp/>15:<sp/>pksig<sp/>&lt;-<sp/>Tlen(PK.seed,<sp/>wotspkADRS,<sp/>tmp)</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Tlen<sp/>is<sp/>a<sp/>hash<sp/>function<sp/>mapping<sp/>all<sp/>tmp[]<sp/>to<sp/>the<sp/>final<sp/>WOTS+<sp/>public<sp/>key</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_TEMPORAL_CHECK(END,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__slhdsa__server__apis_1ga97c714ead98479888556f73faf3d1dfb" kindref="member">XSecure_SlhdsaShake256sHashTl</ref>,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PublicKeyAddr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Public<sp/>key<sp/>seed<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_secure___slhdsa_instance_1a9e8012429ea8cd259bcd4b67a106fb62" kindref="member">Data1</ref>,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Input<sp/>data<sp/>buffer<sp/>(tmp<sp/>array)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TmpPtr,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[in]<sp/>Size<sp/>of<sp/>input<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>WotsPk);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>[out]<sp/>WOTS+<sp/>public<sp/>key<sp/>output<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/slhdsa/xsecure_slhdsa_wots.c"/>
+  </compounddef>
+</doxygen>

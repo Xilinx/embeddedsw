@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="client_2core_2rsa_2xsecure__rsaalginfo_8h" kind="file">
+    <compoundname>client/core/rsa/xsecure_rsaalginfo.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includedby refid="xsecure__rsaalginfo_8c" local="yes">xsecure_rsaalginfo.c</includedby>
+    <includedby refid="xsecure__rsaclient_8h" local="yes">xsecure_rsaclient.h</includedby>
+    <incdepgraph>
+      <node id="3637">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3635">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="client/core/rsa/xsecure_rsaalginfo.h"/>
+        <childnode refid="3636" relation="include">
+        </childnode>
+        <childnode refid="3637" relation="include">
+        </childnode>
+      </node>
+      <node id="3636">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3644">
+        <label>xilsecure_versal_rsa_client_example.c</label>
+      </node>
+      <node id="3639">
+        <label>xsecure_rsaalginfo.c</label>
+        <link refid="xsecure__rsaalginfo_8c"/>
+      </node>
+      <node id="3638">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="client/core/rsa/xsecure_rsaalginfo.h"/>
+        <childnode refid="3639" relation="include">
+        </childnode>
+        <childnode refid="3640" relation="include">
+        </childnode>
+      </node>
+      <node id="3643">
+        <label>xilsecure_versal_net_rsa_client_example.c</label>
+        <link refid="xilsecure__versal__net__rsa__client__example_8c"/>
+      </node>
+      <node id="3642">
+        <label>xilsecure_versal_net_keyunwrap_client_example.c</label>
+        <link refid="xilsecure__versal__net__keyunwrap__client__example_8c"/>
+      </node>
+      <node id="3641">
+        <label>xsecure_rsaclient.c</label>
+        <link refid="xsecure__rsaclient_8c"/>
+      </node>
+      <node id="3640">
+        <label>xsecure_rsaclient.h</label>
+        <link refid="xsecure__rsaclient_8h"/>
+        <childnode refid="3641" relation="include">
+        </childnode>
+        <childnode refid="3642" relation="include">
+        </childnode>
+        <childnode refid="3643" relation="include">
+        </childnode>
+        <childnode refid="3644" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_RsaGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_RsaGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the RSA crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" bodystart="53" bodyend="56"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+5.2   mmd     07/04/23 Initial Release
+      vss       09/21/23 Fixed doxygen warnings
+5.3   mb      04/01/24 Updated minor version
+5.4   kpt     06/30/24 Updated version number
+5.6   vss     09/30/25 Updated version number
+5.7   tbk     02/05/26 Changed file path and modified XSecure_RsaGetCryptoAlgInfo
+                        Moved function implementation to .c file</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSAALGINFO_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSAALGINFO_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/******************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" kindref="member">XSecure_RsaGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSAALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.h"/>
+  </compounddef>
+</doxygen>

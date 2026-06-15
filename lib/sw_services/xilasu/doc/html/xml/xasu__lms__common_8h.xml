@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__lms__common_8h" kind="file">
+    <compoundname>xasu_lms_common.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="xasu__lmsinfo_8h" local="yes">xasu_lmsinfo.h</includes>
+    <includedby refid="xasu__lms_8c" local="yes">xasu_lms.c</includedby>
+    <includedby refid="xasu__lms__common_8c" local="yes">xasu_lms_common.c</includedby>
+    <incdepgraph>
+      <node id="761">
+        <label>xasu_lmsinfo.h</label>
+        <link refid="xasu__lmsinfo_8h"/>
+        <childnode refid="760" relation="include">
+        </childnode>
+        <childnode refid="762" relation="include">
+        </childnode>
+      </node>
+      <node id="762">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="760">
+        <label>xil_types.h</label>
+      </node>
+      <node id="759">
+        <label>xasu_lms_common.h</label>
+        <link refid="xasu_lms_common.h"/>
+        <childnode refid="760" relation="include">
+        </childnode>
+        <childnode refid="761" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="764">
+        <label>xasu_lms.c</label>
+        <link refid="xasu__lms_8c"/>
+      </node>
+      <node id="765">
+        <label>xasu_lms_common.c</label>
+        <link refid="xasu__lms__common_8c"/>
+      </node>
+      <node id="763">
+        <label>xasu_lms_common.h</label>
+        <link refid="xasu_lms_common.h"/>
+        <childnode refid="764" relation="include">
+        </childnode>
+        <childnode refid="765" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_LmsValidateParams</definition>
+        <argsstring>(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)</argsstring>
+        <name>XAsu_LmsValidateParams</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> *</type>
+          <declname>LmsParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the LMS signature verification parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>LmsParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref> structure which holds the LMS signature verification parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if validation of LMS parameters is successful.</para></listitem><listitem><para>XST_FAILURE, if any argument is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate LMS params pointer.</para><para>Validate message address.</para><para>Validate signature address and length.</para><para>Validate signature length against NIST SP 800-208 bounds. Minimum: 780 bytes (smallest LMS param set: N=24, W=8, H=5). Maximum: 18708 bytes (largest 2-level HSS: N=32, W=1, H=25).</para><para>Validate that exactly one of PubKeyAddr or PubKeyId is provided.</para><para>Validate public key length is within NIST SP 800-208 valid range. Min: 48 bytes (LMS N=24), Max: 60 bytes (HSS N=32) if PublicKeyAddr is provided.</para><para>Validate PreHashedMsg flag value.</para><para>Validate message length for pre-hashed case per NIST SP 800-208. When message is NOT pre-hashed: any length is valid per RFC 8554. When message IS pre-hashed: length must equal a NIST-valid hash output size (24 bytes for N=24 parameter sets, 32 bytes for N=32 parameter sets).</para><para>Validate message length doesn&apos;t exceed DMA max transfer length.</para><para>Validate SHA type and mode per NIST SP 800-208 / RFC 8554. LMS only permits two hash functions:<itemizedlist>
+<listitem><para>SHA-256: ShaType = XASU_SHA2_TYPE, ShaMode = XASU_SHA_MODE_256</para></listitem><listitem><para>SHAKE256: ShaType = XASU_SHA3_TYPE, ShaMode = XASU_SHA_MODE_SHAKE256 No other combinations (SHA-384, SHA-512, SHA3-256, etc.) are defined in any LMS/HSS parameter set.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lms_common.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lms_common.c" bodystart="58" bodyend="147"/>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad706187fe5e4d081fcb4357cf8a380f3" compoundref="xasu__lmsinfo_8h" startline="93">XAsu_LmsHssSignVerifyParams::LmsHssKeyObj</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1abc451c2fd592e99fcd0d0b333f97a117" compoundref="xasu__lmsinfo_8h" startline="94">XAsu_LmsHssSignVerifyParams::MsgAddr</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a7683e8ee4e8d6e8172ce68baf40b4cb2" compoundref="xasu__lmsinfo_8h" startline="96">XAsu_LmsHssSignVerifyParams::MsgLen</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad28500d3973f5d86f3e6042203edc84f" compoundref="xasu__lmsinfo_8h" startline="98">XAsu_LmsHssSignVerifyParams::PreHashedMsg</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1adb6a8ae23f3c636e65cc1b27bb43f8e9" compoundref="xasu__lmsinfo_8h" startline="84">XAsu_LmsHssKeyObject::PubKeyAddr</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1a49158772d7b74323467a0cd6fc3a2f34" compoundref="xasu__lmsinfo_8h" startline="85">XAsu_LmsHssKeyObject::PubKeyId</references>
+        <references refid="struct_x_asu___lms_hss_key_object_1a0afb75139a65376f9dcaef5c27b6cc02" compoundref="xasu__lmsinfo_8h" startline="86">XAsu_LmsHssKeyObject::PubKeyLen</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1aac66f1315c92aee53b8bcb92e438fe7b" compoundref="xasu__lmsinfo_8h" startline="101">XAsu_LmsHssSignVerifyParams::ShaMode</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a0f4bf85d8b3a8d0fe86f55385e9e4886" compoundref="xasu__lmsinfo_8h" startline="100">XAsu_LmsHssSignVerifyParams::ShaType</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1ad36ea5a2491c6e52f7f57dd8401cfb57" compoundref="xasu__lmsinfo_8h" startline="95">XAsu_LmsHssSignVerifyParams::SignatureAddr</references>
+        <references refid="struct_x_asu___lms_hss_sign_verify_params_1a111e80dc30131fa73a1105897ea1cc56" compoundref="xasu__lmsinfo_8h" startline="97">XAsu_LmsHssSignVerifyParams::SignatureLen</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="66">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <references refid="group__xasu__common__defs_1ga710451a59758191dcec276ad9f316ecd" compoundref="xasu__lmsinfo_8h" startline="63">XASU_LMS_HASH_LEN_N24</references>
+        <references refid="group__xasu__common__defs_1ga7475f051e918353a28b9a14bb6326eab" compoundref="xasu__lmsinfo_8h" startline="64">XASU_LMS_HASH_LEN_N32</references>
+        <references refid="group__xasu__common__defs_1ga23cc6c1f157c6b826597c413520ea28a" compoundref="xasu__lmsinfo_8h" startline="60">XASU_LMS_MAX_PUB_KEY_SIZE</references>
+        <references refid="group__xasu__common__defs_1ga97eb0854bbc9370c89b032570857e555" compoundref="xasu__lmsinfo_8h" startline="72">XASU_LMS_MAX_SIGNATURE_SIZE</references>
+        <references refid="group__xasu__common__defs_1gadfbeea8569c9443ced55ea714f139836" compoundref="xasu__lmsinfo_8h" startline="71">XASU_LMS_MIN_SIGNATURE_SIZE</references>
+        <references refid="group__xasu__common__defs_1gaf5b9744500c904d364e7a2983888f1cb" compoundref="xasu__lmsinfo_8h" startline="77">XASU_LMS_MSG_NOT_PREHASHED</references>
+        <references refid="group__xasu__common__defs_1ga020fcee6d3556cf5343d439c42f5f314" compoundref="xasu__lmsinfo_8h" startline="78">XASU_LMS_MSG_PREHASHED</references>
+        <references refid="group__xasu__common__defs_1gace4ebdca1e597787ab053b7d2f6ed041" compoundref="xasu__lmsinfo_8h" startline="59">XASU_LMS_PUB_KEY_SIZE</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+        <references refid="group__xasu__common__defs_1gaacee72cf9c2d25a922f117c6da956f25" compoundref="xasu__shainfo_8h" startline="54">XASU_SHA_MODE_SHAKE256</references>
+        <referencedby refid="group__xasu__lms__client__apis_1ga82e8754efc7bf804924fd4c107fbab54" compoundref="xasu__lms_8c" startline="266" endline="310">XAsu_HssSignVerify</referencedby>
+        <referencedby refid="group__xasu__lms__client__apis_1gaaa6e70a20d08e1f575cc85b36087be43" compoundref="xasu__lms_8c" startline="201" endline="245">XAsu_LmsSignVerify</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the LMS function prototypes which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   ss   03/24/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_LMS_COMMON_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_LMS_COMMON_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__lmsinfo_8h" kindref="compound">xasu_lmsinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal">s32<sp/><ref refid="group__xasu__lms__common__apis_1ga5424e0629ae8a2da990c72a8aba4b92d" kindref="member">XAsu_LmsValidateParams</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___lms_hss_sign_verify_params" kindref="compound">XAsu_LmsHssSignVerifyParams</ref><sp/>*LmsParamsPtr);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_LMS_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_lms_common.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_31ff3da3d4b4d13d849bb74b303b6b3d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xiicps_8c">xiicps.c</innerfile>
+    <innerfile refid="xiicps_8h">xiicps.h</innerfile>
+    <innerfile refid="xiicps__g_8c">xiicps_g.c</innerfile>
+    <innerfile refid="xiicps__hw_8c">xiicps_hw.c</innerfile>
+    <innerfile refid="xiicps__hw_8h">xiicps_hw.h</innerfile>
+    <innerfile refid="xiicps__intr_8c">xiicps_intr.c</innerfile>
+    <innerfile refid="xiicps__master_8c">xiicps_master.c</innerfile>
+    <innerfile refid="xiicps__options_8c">xiicps_options.c</innerfile>
+    <innerfile refid="xiicps__selftest_8c">xiicps_selftest.c</innerfile>
+    <innerfile refid="xiicps__sinit_8c">xiicps_sinit.c</innerfile>
+    <innerfile refid="xiicps__slave_8c">xiicps_slave.c</innerfile>
+    <innerfile refid="xiicps__xfer_8c">xiicps_xfer.c</innerfile>
+    <innerfile refid="xiicps__xfer_8h">xiicps_xfer.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/src/"/>
+  </compounddef>
+</doxygen>

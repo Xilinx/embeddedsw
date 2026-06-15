@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___aes_data_block_params" kind="struct" prot="public">
+    <compoundname>XSecure_AesDataBlockParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a32a405aa0b3b7347ea011c06e82112bb" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDataBlockParams::IvAddr</definition>
+        <argsstring></argsstring>
+        <name>IvAddr</name>
+        <briefdescription>
+<para>IV address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1ab305c36cde6d062cb2d9ec684eb884f3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDataBlockParams::InDataAddr</definition>
+        <argsstring></argsstring>
+        <name>InDataAddr</name>
+        <briefdescription>
+<para>Input data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="209" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a0a399c993534db75688840d98da985ff" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDataBlockParams::OutDataAddr</definition>
+        <argsstring></argsstring>
+        <name>OutDataAddr</name>
+        <briefdescription>
+<para>Output data address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="210" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1abba392dfef2cf097328fa01ebdcf4a0b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDataBlockParams::GcmTagAddr</definition>
+        <argsstring></argsstring>
+        <name>GcmTagAddr</name>
+        <briefdescription>
+<para>Gcm Tag address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="211" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a9ef0690b92cb373e4edba5f737c4e8ec" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_AesDataBlockParams::AadAddr</definition>
+        <argsstring></argsstring>
+        <name>AadAddr</name>
+        <briefdescription>
+<para>Aad address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="212" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a01bac95e3068af0ce8456da0be15ee99" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::OperationId</definition>
+        <argsstring></argsstring>
+        <name>OperationId</name>
+        <briefdescription>
+<para>Operation type - Encrypt or decrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="213" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a9feccfc797d95c76df391388198737a7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::KeySrc</definition>
+        <argsstring></argsstring>
+        <name>KeySrc</name>
+        <briefdescription>
+<para>AES Key source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="214" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a5cb25284ffcb35d77f835feba3c80cca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::KeySize</definition>
+        <argsstring></argsstring>
+        <name>KeySize</name>
+        <briefdescription>
+<para>Size of AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="215" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a15ca86870bbcfea76408b68684b8fb39" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Length of input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="216" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1ac1ebf1943406ef6c58967a22f316f411" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Flag to indicate last update of data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a89359753467bd723766dd276a129fb8a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::AadSize</definition>
+        <argsstring></argsstring>
+        <name>AadSize</name>
+        <briefdescription>
+<para>Aad size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a70006cade009be77a4bfd46988dffd07" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::IsGmacEnable</definition>
+        <argsstring></argsstring>
+        <name>IsGmacEnable</name>
+        <briefdescription>
+<para>Flag for GMAC operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="219" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___aes_data_block_params_1a5de1a144f2ca49b828bfd35dfca31098" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDataBlockParams::IsUpdateAadEn</definition>
+        <argsstring></argsstring>
+        <name>IsUpdateAadEn</name>
+        <briefdescription>
+<para>Enable if operation includes update AAD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga1be5abccbec8cce45963a979c72828e1" compoundref="xsecure__aesclient_8c" startline="867" endline="934">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__aes__client__apis_1ga92901f6856f8e7ea38caac86fb44e10b" compoundref="xsecure__plat__aes__client_8c" startline="62" endline="120">XSecure_AesPerformOperationAndZeroizeKey</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for AES Encryption and Decryption of single block of data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="207" bodyend="221"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___aes_data_block_params_1a9ef0690b92cb373e4edba5f737c4e8ec" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>AadAddr</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a89359753467bd723766dd276a129fb8a" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>AadSize</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1abba392dfef2cf097328fa01ebdcf4a0b" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>GcmTagAddr</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1ab305c36cde6d062cb2d9ec684eb884f3" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>InDataAddr</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a70006cade009be77a4bfd46988dffd07" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>IsGmacEnable</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1ac1ebf1943406ef6c58967a22f316f411" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a5de1a144f2ca49b828bfd35dfca31098" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>IsUpdateAadEn</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a32a405aa0b3b7347ea011c06e82112bb" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>IvAddr</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a5cb25284ffcb35d77f835feba3c80cca" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>KeySize</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a9feccfc797d95c76df391388198737a7" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>KeySrc</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a01bac95e3068af0ce8456da0be15ee99" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>OperationId</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a0a399c993534db75688840d98da985ff" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>OutDataAddr</name></member>
+      <member refid="struct_x_secure___aes_data_block_params_1a15ca86870bbcfea76408b68684b8fb39" prot="public" virt="non-virtual"><scope>XSecure_AesDataBlockParams</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

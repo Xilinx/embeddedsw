@@ -1,0 +1,2094 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtrafgen__hw_8h" kind="file">
+    <compoundname>xtrafgen_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xtrafgen_8h" local="yes">xtrafgen.h</includedby>
+    <incdepgraph>
+      <node id="42">
+        <label>xil_io.h</label>
+      </node>
+      <node id="40">
+        <label>xtrafgen_hw.h</label>
+        <link refid="xtrafgen_hw.h"/>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="46">
+        <label>xtrafgen_g.c</label>
+        <link refid="xtrafgen__g_8c"/>
+      </node>
+      <node id="49">
+        <label>xtrafgen_master_streaming_example.c</label>
+        <link refid="xtrafgen__master__streaming__example_8c"/>
+      </node>
+      <node id="51">
+        <label>xtrafgen_static_mode_example.c</label>
+        <link refid="xtrafgen__static__mode__example_8c"/>
+      </node>
+      <node id="50">
+        <label>xtrafgen_polling_example.c</label>
+        <link refid="xtrafgen__polling__example_8c"/>
+      </node>
+      <node id="45">
+        <label>xtrafgen.c</label>
+        <link refid="xtrafgen_8c"/>
+      </node>
+      <node id="44">
+        <label>xtrafgen.h</label>
+        <link refid="xtrafgen_8h"/>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="43">
+        <label>xtrafgen_hw.h</label>
+        <link refid="xtrafgen_hw.h"/>
+        <childnode refid="44" relation="include">
+        </childnode>
+      </node>
+      <node id="47">
+        <label>xtrafgen_sinit.c</label>
+        <link refid="xtrafgen__sinit_8c"/>
+      </node>
+      <node id="48">
+        <label>xtrafgen_interrupt_example.c</label>
+        <link refid="xtrafgen__interrupt__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Device registers</header>
+      <memberdef kind="define" id="group__trafgen_1ga2aee9e721b35ce512abb502ede5b8a06" prot="public" static="no">
+        <name>XTG_MCNTL_OFFSET</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Master Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga16ab165b5d7fd7c84206606b1bc2dcfa" prot="public" static="no">
+        <name>XTG_SCNTL_OFFSET</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Slave Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga6d44ba5c998cf48c8162812f1b183cfa" prot="public" static="no">
+        <name>XTG_ERR_STS_OFFSET</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Error Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga54f00a5d7ea7acb0a8917b79f6aeeb57" prot="public" static="no">
+        <name>XTG_ERR_EN_OFFSET</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Error Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga8549ea88039b3f646e33299b490b8904" prot="public" static="no">
+        <name>XTG_MSTERR_INTR_OFFSET</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Master Err Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gadf7e15dfd4ecd23278ff780bf4369058" prot="public" static="no">
+        <name>XTG_CFG_STS_OFFSET</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+<para>Config Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gadad67dedb6f0b5c0e7aed2e0d62e08eb" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_OFFSET</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Streaming Control. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga0faa9082cff01c4e5e53bb957b69dae2" prot="public" static="no">
+        <name>XTG_STREAM_CFG_OFFSET</name>
+        <initializer>0x34</initializer>
+        <briefdescription>
+<para>Streaming Config. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga476caa717b80c4d276d7ff98aae5f3ca" prot="public" static="no">
+        <name>XTG_STREAM_TL_OFFSET</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+<para>Streaming Transfer Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gafee2ca23e3fc2ed4964740ba69dde023" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_OFFSET</name>
+        <initializer>0x60</initializer>
+        <briefdescription>
+<para>Static Mode Register Descriptions. </para>        </briefdescription>
+        <detaileddescription>
+<para>Static Control </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga1813133f0d9bd28861fac1a854137411" prot="public" static="no">
+        <name>XTG_STATIC_LEN_OFFSET</name>
+        <initializer>0x64</initializer>
+        <briefdescription>
+<para>Static Length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Internal RAM Offsets</header>
+      <memberdef kind="define" id="group__trafgen_1ga3252ba966b4231b39738858474879b33" prot="public" static="no">
+        <name>XTG_PARAM_RAM_OFFSET</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>Parameter RAM Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga1b4f5daeb95b5827db0760c1c0dc13e5" prot="public" static="no">
+        <name>XTG_COMMAND_RAM_OFFSET</name>
+        <initializer>0x8000</initializer>
+        <briefdescription>
+<para>Command RAM Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga5f8872e23f0ea33fda1193c114fa9224" prot="public" static="no">
+        <name>XTG_MASTER_RAM_OFFSET</name>
+        <initializer>0xC000</initializer>
+        <briefdescription>
+<para>Master RAM Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga6fd650735d7eb15cc3cd76679f8b7894" prot="public" static="no">
+        <name>XTG_COMMAND_RAM_MSB_OFFSET</name>
+        <initializer>0xa000</initializer>
+        <briefdescription>
+<para>Command RAM MSB Offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Master Control Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_MCNTL_OFFSET register. </para></description>
+      <memberdef kind="define" id="group__trafgen_1ga2197ba1e4ea908189bc7d77e70ba5a06" prot="public" static="no">
+        <name>XTG_MCNTL_REV_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Core Revision Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga912b534ed07c85f5147d86a5125e6cd8" prot="public" static="no">
+        <name>XTG_MCNTL_MSTID_MASK</name>
+        <initializer>0x00E00000</initializer>
+        <briefdescription>
+<para>M_ID_WIDTH Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gaf8fafcd0c1061fbf9d6d61680a251309" prot="public" static="no">
+        <name>XTG_MCNTL_MSTEN_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Master Logic Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga736a0c4efcd60c172f0c5b5bc19fa11b" prot="public" static="no">
+        <name>XTG_MCNTL_LOOPEN_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Loop enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga07d0697117d702e5a767bc8cc5083ea0" prot="public" static="no">
+        <name>XTG_MCNTL_REV_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Core Rev shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gab849a5c24ef2753d38f62531ed5dcba9" prot="public" static="no">
+        <name>XTG_MCNTL_MSTID_SHIFT</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>M_ID_WIDTH shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Slave Control Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_SCNTL_OFFSET register. </para></description>
+      <memberdef kind="define" id="group__trafgen_1ga8a90a170c2c59e105bca09bf32cc5762" prot="public" static="no">
+        <name>XTG_SCNTL_BLKRD_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Enable Block Read. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga68091fdd6f9b82d0d6bf65c92b131e38" prot="public" static="no">
+        <name>XTG_SCNTL_DISEXCL_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>Disable Exclusive Access. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga05a3dd5b5ff4ddb1ed8bd33f091893d3" prot="public" static="no">
+        <name>XTG_SCNTL_WORDR_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>Write Response Order Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gadd90aa32d6ffdb6c248aae48b4d03990" prot="public" static="no">
+        <name>XTG_SCNTL_RORDR_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Read Response Order Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gab3fd9e680a247d1ad78ba6cab9b061fb" prot="public" static="no">
+        <name>XTG_SCNTL_ERREN_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Slv Error Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Error bitmasks</header>
+      <description><para>These bits are shared with the XTG_ERR_STS_OFFSET and XTG_ERR_EN_OFFSET register. </para></description>
+      <memberdef kind="define" id="group__trafgen_1ga7a6d5a7be767a9e7de7e441416584ba5" prot="public" static="no">
+        <name>XTG_ERR_ALL_MSTERR_MASK</name>
+        <initializer>0x001F0000</initializer>
+        <briefdescription>
+<para>Master Errors Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga9c335dd2550acee9495bfd72fc7e3e4d" prot="public" static="no">
+        <name>XTG_ERR_ALL_SLVERR_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+<para>Slave Errors Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gafdb598343bdb0bf2c6c5d29f8258f692" prot="public" static="no">
+        <name>XTG_ERR_ALL_ERR_MASK</name>
+        <initializer>0x001F0003</initializer>
+        <briefdescription>
+<para>All Errors Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga5cefaef257524651df762212be509765" prot="public" static="no">
+        <name>XTG_ERR_MSTCMP_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+<para>Master Complete Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gaf6d50ea72391faca9e9bf364ac16abbe" prot="public" static="no">
+        <name>XTG_ERR_RIDER_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+<para>Master Invalid RVALID Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga93be7e7fdaaa372c2b888c07ecfd6466" prot="public" static="no">
+        <name>XTG_ERR_WIDER_MASK</name>
+        <initializer>0x00080000</initializer>
+        <briefdescription>
+<para>Master Invalid BVALID Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga6e70386e2b3071efc1391dea0c6d7ff7" prot="public" static="no">
+        <name>XTG_ERR_WRSPER_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+<para>MW Invalid RESP Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga40d2ed4ab43a43d5911d28db379536f9" prot="public" static="no">
+        <name>XTG_ERR_RERRSP_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+<para>MR Invalid RESP Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1gad4008be388657e20fcb49511a5d38a3e" prot="public" static="no">
+        <name>XTG_ERR_RLENER_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+<para>Master Read Length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga9585c4a750db5e61e49ada2c30d2cc71" prot="public" static="no">
+        <name>XTG_ERR_SWSTRB_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Slave WSTRB Illegal Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__trafgen_1ga8f39b5d4a784a673cad5225ac1253f1b" prot="public" static="no">
+        <name>XTG_ERR_SWLENER_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Slave Read Length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Master Error Interrupt Enable Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_MSTERR_INTR_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a7f69f7e850cdf6eaeacb76be85d8ad51" prot="public" static="no">
+        <name>XTG_MSTERR_INTR_MINTREN_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+<para>Master Err Interrupt Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Config Status Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_CFG_STS_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a43010263c928054845a6e4da818c5cb6" prot="public" static="no">
+        <name>XTG_CFG_STS_MWIDTH_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Master Width Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a7387f793b21568825291b8ae05e9a8dc" prot="public" static="no">
+        <name>XTG_CFG_STS_MWIDTH_MASK</name>
+        <initializer>0x70000000</initializer>
+        <briefdescription>
+<para>Master Width Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ab8521be4a5dc1628cb3a3afe87298843" prot="public" static="no">
+        <name>XTG_CFG_STS_SWIDTH_SHIFT</name>
+        <initializer>25</initializer>
+        <briefdescription>
+<para>Slave Width Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="203" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a641638626484a52b81fbbf8f30bd45dc" prot="public" static="no">
+        <name>XTG_CFG_STS_SWIDTH_MASK</name>
+        <initializer>0x0E000000</initializer>
+        <briefdescription>
+<para>Slave Width Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="204" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a1816012cab8ec1b93b06d20dde1e0128" prot="public" static="no">
+        <name>XTG_CFG_STS_MFULL_MASK</name>
+        <initializer>0x01000000</initializer>
+        <briefdescription>
+<para>Full Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="206" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a73aac9edd6e776525f4e44865ed7e481" prot="public" static="no">
+        <name>XTG_CFG_STS_MBASIC_MASK</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>Basic Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="207" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1ga4d40f6d5551836dab49e0d22e8d5e1eb" compoundref="xtrafgen_8c" startline="93" endline="168">XTrafGen_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Streaming Control Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_STR_CFG_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a49c88fdab76f14bbf070eebcedc16ef1" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_VER_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a33aba05b605e1929b2045d76228f04f5" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_VER_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Version Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a3e492e71798bc4139c136551452503fa" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_TD_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Transfer Done Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a4b0674a7c9f7879bf6462860641b4d89" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_TD_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Transfer Done Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="220" bodyend="-1"/>
+        <referencedby refid="xtrafgen__static__mode__example_8c_1aaa266c48b0dc3b136af1735a77e77bcb" compoundref="xtrafgen__static__mode__example_8c" startline="161" endline="267">XTrafGenStaticModeExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a96e6916449a1ded46ea7882b67d2d732" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_STEN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Streaming Enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ad4ac7a7ef3c84748869c001e04d5dade" prot="public" static="no">
+        <name>XTG_STREAM_CNTL_RESET_MASK</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Streaming Disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Streaming Config Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_STR_CFG_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1aea7d215adbbf69b18fac485e2d150bd9" prot="public" static="no">
+        <name>XTG_STREAM_CFG_PDLY_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Programmable Delay Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a490ccc5cf897e6daf0e403fdb5028cc8" prot="public" static="no">
+        <name>XTG_STREAM_CFG_PDLY_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Programmable Delay Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1acf47f8d5a9f92da3d0d5b4fd6be627a6" prot="public" static="no">
+        <name>XTG_STREAM_CFG_TDEST_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>TDEST PORT Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a27be0cf2c90513010b73b0b8db1163dc" prot="public" static="no">
+        <name>XTG_STREAM_CFG_TDEST_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+<para>TDEST PORT Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae0436a212983ec018bba1d0a4352f32f" prot="public" static="no">
+        <name>XTG_STREAM_CFG_RANDLY_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Random Delay Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae6da854602744d63b3fe0dfdc2dc22f9" prot="public" static="no">
+        <name>XTG_STREAM_CFG_RANDLY_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Random Delay Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae44681fc73afbcdb7ae0015719f8ac47" prot="public" static="no">
+        <name>XTG_STREAM_CFG_RANDL_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Random Length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Streaming Transfer Length Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_STR_TL_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a826017ee56ef1171a4d132dc12ca8341" prot="public" static="no">
+        <name>XTG_STREAM_TL_TCNT_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Transfer Count Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a556bcb7b08d4170167ee65c08c7a0ebe" prot="public" static="no">
+        <name>XTG_STREAM_TL_TCNT_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Transfer Count Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae28f53acd7ef1f38265f560c17c64800" prot="public" static="no">
+        <name>XTG_STREAM_TL_TLEN_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+<para>Transfer Length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Static Control Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_STATIC_CNTL_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a128106d0d3435137e96192b0386eeec4" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_VER_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Version Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a2f470f08ec693fff5af6c5109f1b3ffc" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_VER_MASK</name>
+        <initializer>0xFF000000</initializer>
+        <briefdescription>
+<para>Version Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ac0e75db08cd3774207a38bdfe78f2ac9" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_TD_SHIFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Transfer Done Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="238" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae82296e2d81edb5da14c813e36b604cc" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_TD_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Transfer Done Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="239" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a820c08467cb0fc69af91e8747bf52199" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_STEN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Static enable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="241" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a4955ccf9832cc09dd5f05b54f49104dd" prot="public" static="no">
+        <name>XTG_STATIC_CNTL_RESET_MASK</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+<para>Static Disable Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Static Length Register bit definitions.</header>
+      <description><para>These bits are associated with the XTG_STATIC_LEN_OFFSET register. </para></description>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a6a65cb71fdd0717246547dbbe16b6e1b" prot="public" static="no">
+        <name>XTG_STATIC_LEN_BLEN_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+<para>Burst length Mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Axi Traffic Generator Command Entry field mask/shifts</header>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a575795d7d5b2348195e02fd8cccabe39" prot="public" static="no">
+        <name>XTG_ADDR_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+<para>Driven to a*_addr line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a74fdcca6bba8dfbfd0ed288f9132bab0" prot="public" static="no">
+        <name>XTG_LEN_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Driven to a*_len line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a6575f2dffb01e56c6b38eda8190664b8" prot="public" static="no">
+        <name>XTG_LOCK_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Driven to a*_lock line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae149dfc387f997a33cbe70d57362fc0f" prot="public" static="no">
+        <name>XTG_BURST_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Driven to a*_burst line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1acba37550ee94c7c7022aa5a3ad946fc3" prot="public" static="no">
+        <name>XTG_SIZE_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Driven to a*_size line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a5a7178fbdfb4b46aaa7bd0fc308ec636" prot="public" static="no">
+        <name>XTG_ID_MASK</name>
+        <initializer>0x3F</initializer>
+        <briefdescription>
+<para>Driven to a*_id line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae6b714a335a4b02967a37f0ead14508a" prot="public" static="no">
+        <name>XTG_PROT_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Driven to a*_prot line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a9267c6248c021a02be574f803f11c677" prot="public" static="no">
+        <name>XTG_LAST_ADDR_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Last address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a584b02e4845e493b2854d3c865aaed19" prot="public" static="no">
+        <name>XTG_VALID_CMD_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Valid Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae797ad9c3446d0523af686f5a1360a2e" prot="public" static="no">
+        <name>XTG_MSTRAM_INDEX_MASK</name>
+        <initializer>0x1FFF</initializer>
+        <briefdescription>
+<para>Master RAM Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a50464785b101e677032e4956a4592a0e" prot="public" static="no">
+        <name>XTG_OTHER_DEPEND_MASK</name>
+        <initializer>0x1FF</initializer>
+        <briefdescription>
+<para>Other depend Command no. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a23937f160c785883f46e3e8ac03af193" prot="public" static="no">
+        <name>XTG_MY_DEPEND_MASK</name>
+        <initializer>0x1FF</initializer>
+        <briefdescription>
+<para>My depend command no. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a31f414339e85047271ed193829b066b6" prot="public" static="no">
+        <name>XTG_QOS_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Driven to a*_qos line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a6dda4f385ddd7962f4b7978fc1c42664" prot="public" static="no">
+        <name>XTG_USER_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Driven to a*_user line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="294" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a3b4631d92345fd27ee3e40d827a184f3" prot="public" static="no">
+        <name>XTG_CACHE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Driven to a*_cache line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ad893dd4b8011e14e68b21afa20c019c8" prot="public" static="no">
+        <name>XTG_EXPECTED_RESP_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Expected response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a4fec29a2aedb84ed9410fe5298245d24" prot="public" static="no">
+        <name>XTG_ADDR_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Driven to a*_addr line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae25779b53195ced1e45d64bc53344c28" prot="public" static="no">
+        <name>XTG_LEN_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Driven to a*_len line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a819696f324a87fbdf9dbce5c6aafcdaf" prot="public" static="no">
+        <name>XTG_LOCK_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Driven to a*_lock line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a70414e4d0c831df19899fe7c050a7a03" prot="public" static="no">
+        <name>XTG_BURST_SHIFT</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Driven to a*_burst line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a6523ef7f08423cbc5150e3d6e55abd99" prot="public" static="no">
+        <name>XTG_SIZE_SHIFT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+<para>Driven to a*_size line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1abf8893d48139c874e7628a7d32d1861b" prot="public" static="no">
+        <name>XTG_ID_SHIFT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+<para>Driven to a*_id line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a0796a27df8444fd763ccd6c0356aa8e4" prot="public" static="no">
+        <name>XTG_PROT_SHIFT</name>
+        <initializer>21</initializer>
+        <briefdescription>
+<para>Driven to a*_prot line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ab2e214bbd75cfa106a9cf34a075ca7c3" prot="public" static="no">
+        <name>XTG_LAST_ADDR_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Last address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a4387f942768e60fd471499c63ad5e7dd" prot="public" static="no">
+        <name>XTG_VALID_CMD_SHIFT</name>
+        <initializer>31</initializer>
+        <briefdescription>
+<para>Valid Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1adac26542aa0ea0c464a48d0c60086788" prot="public" static="no">
+        <name>XTG_MSTRAM_INDEX_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Master RAM Index. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a18b2f14ba07703fe0e078d326496231d" prot="public" static="no">
+        <name>XTG_OTHER_DEPEND_SHIFT</name>
+        <initializer>13</initializer>
+        <briefdescription>
+<para>Other depend cmd num. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a43673c92101ad1d1af680384add5f610" prot="public" static="no">
+        <name>XTG_MY_DEPEND_SHIFT</name>
+        <initializer>22</initializer>
+        <briefdescription>
+<para>My depend cmd num. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae3f2ee00c71bc8f847738acf83bf1c5c" prot="public" static="no">
+        <name>XTG_QOS_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Driven to a*_qos line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="285" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a280ef09f695b10f97848ce74d68f7c02" prot="public" static="no">
+        <name>XTG_USER_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Driven to a*_user line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="286" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a6496641578aa8a7a22dd3c6147221175" prot="public" static="no">
+        <name>XTG_CACHE_SHIFT</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Driven to a*_cache line. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1abc9721f5268f2b05074b669d5603b1e7" prot="public" static="no">
+        <name>XTG_EXPECTED_RESP_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Expected response. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="288" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Axi Traffic Generator Parameter Entry field mask/shifts</header>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a428fb28a58206c20a2bda291fd8966a4" prot="public" static="no">
+        <name>XTG_PARAM_ADDRMODE_SHIFT</name>
+        <initializer>24</initializer>
+        <briefdescription>
+<para>Address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="297" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ac10bb6f9809e4f577bd36cb5dde0354e" prot="public" static="no">
+        <name>XTG_PARAM_INTERVALMODE_SHIFT</name>
+        <initializer>26</initializer>
+        <briefdescription>
+<para>Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="298" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1adf334f6bf0852006382b697cc4ab59ce" prot="public" static="no">
+        <name>XTG_PARAM_IDMODE_SHIFT</name>
+        <initializer>28</initializer>
+        <briefdescription>
+<para>Id mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a120a164368673bb038500e599e1501ea" prot="public" static="no">
+        <name>XTG_PARAM_OP_SHIFT</name>
+        <initializer>29</initializer>
+        <briefdescription>
+<para>Opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="300" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1aec8150e49af318bfd447d9b3cbf80734" prot="public" static="no">
+        <name>XTG_PARAM_COUNT_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Repeat/Delay count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="303" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a67d17cf7158e597c2307e21521e35812" prot="public" static="no">
+        <name>XTG_PARAM_DELAYRANGE_SHIFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Delay Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="304" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1afd5037cc1466de72917fbcdd8c87e784" prot="public" static="no">
+        <name>XTG_PARAM_DELAY_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>FIXED RPT Delay count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="305" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="330" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a0ecc1e7486d1e09d8e771674e163e215" prot="public" static="no">
+        <name>XTG_PARAM_ADDRRANGE_SHIFT</name>
+        <initializer>20</initializer>
+        <briefdescription>
+<para>Address Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="306" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a1db016038b97b33a8f6ac84a1aeb9b05" prot="public" static="no">
+        <name>XTG_PARAM_ADDRMODE_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Address mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a5e5c93dc4a415adb31056d163fff03db" prot="public" static="no">
+        <name>XTG_PARAM_INTERVALMODE_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+<para>Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="310" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a7358e0b257a66c3dea934297d4ce2e4c" prot="public" static="no">
+        <name>XTG_PARAM_IDMODE_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+<para>Id mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="311" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="336" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a65d8f9067f4a40826da17eca055cac9e" prot="public" static="no">
+        <name>XTG_PARAM_OP_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Opcode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="312" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ab433ce1c62131e78ac0d5376c85cfeab" prot="public" static="no">
+        <name>XTG_PARAM_COUNT_MASK</name>
+        <initializer>0xFFFFFF</initializer>
+        <briefdescription>
+<para>Repeat/Delay count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="315" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ae2ffe39b97ed925d219f1abb0ce23916" prot="public" static="no">
+        <name>XTG_PARAM_DELAYRANGE_MASK</name>
+        <initializer>0xFF</initializer>
+        <briefdescription>
+<para>Delay Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="316" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="341" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ad8b0023a1d6151920452773820e2e1a0" prot="public" static="no">
+        <name>XTG_PARAM_DELAY_MASK</name>
+        <initializer>0xFFF</initializer>
+        <briefdescription>
+<para>FIXED RPT Delay count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="317" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="342" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a04045088459eca529c1dc34dccdcc889" prot="public" static="no">
+        <name>XTG_PARAM_ADDRRANGE_MASK</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+<para>Address Range. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="318" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a71baeb60d7cd7baa527e7d87378632c0" prot="public" static="no">
+        <name>XTG_PARAM_OP_NOP</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>NOP mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="321" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ad4415c801c23c948e6c180ad252e0d8f" prot="public" static="no">
+        <name>XTG_PARAM_OP_RPT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Repeat mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="347" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a888fa5e45c08153523c902eacb4078a8" prot="public" static="no">
+        <name>XTG_PARAM_OP_DELAY</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Delay mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a64bfe0cfa6be21facf834f5d49c2a706" prot="public" static="no">
+        <name>XTG_PARAM_OP_FIXEDRPT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Fixed Repeat Delay. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1aa9eeb814676b06669a3e4fe310717efe" prot="public" static="no">
+        <name>XTG_PARAM_OP_ADDRMODE_CONST</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Constant Addr mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a36f53cac2eca3c077bfc7691b4bae390" prot="public" static="no">
+        <name>XTG_PARAM_OP_ADDRMODE_INCR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Increment Addr mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a277fae0e2fc80d4ee117d512dd487343" prot="public" static="no">
+        <name>XTG_PARAM_OP_ADDRMODE_RAND</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Random Addr mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a23774b21bbe0901e320b466de35008a2" prot="public" static="no">
+        <name>XTG_PARAMOP_INTERVALMODE_CONST</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Constant Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="332" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a2b331214337314d34e905dd2d3b5c0a2" prot="public" static="no">
+        <name>XTG_PARAMOP_INTERVALMODE_RAND</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Random Interval mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="333" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__trafgen_1gafd3fe07d9d88e384ec8c77e4983d35dd" prot="public" static="no">
+        <name>XTRAFGEN_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1affb7c95abd8cad50d7efa83f94ea3344" prot="public" static="no">
+        <name>XTrafGen_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + (RegOffset))))</initializer>
+        <briefdescription>
+<para>XTrafGen_ReadReg returns the value read from the register specified by <emphasis>RegOffset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="xtrafgen__hw_8h_1affb7c95abd8cad50d7efa83f94ea3344" kindref="member">XTrafGen_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="355" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ac6e57b26c1f5674deb7c571dc319bf9e" prot="public" static="no">
+        <name>XTrafGen_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + (RegOffset)), (Data))</initializer>
+        <briefdescription>
+<para>XTrafGen_WriteReg, writes <emphasis>Data</emphasis> to the register specified by <emphasis>RegOffset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="xtrafgen__hw_8h_1ac6e57b26c1f5674deb7c571dc319bf9e" kindref="member">XTrafGen_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="375" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="400" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a29995f5e78072a8756081fed9ccb36bd" prot="public" static="no">
+        <name>XTrafGen_ReadParamRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + <ref refid="group__trafgen_1ga3252ba966b4231b39738858474879b33" kindref="member">XTG_PARAM_RAM_OFFSET</ref> + (Offset))))</initializer>
+        <briefdescription>
+<para>XTrafGen_ReadParamRam returns the value read from the Parameter RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the Parameter RAM to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the memory location.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="xtrafgen__hw_8h_1a29995f5e78072a8756081fed9ccb36bd" kindref="member">XTrafGen_ReadParamRam(u32 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="393" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="418" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1affbc767805f25351f801dc04114d513f" prot="public" static="no">
+        <name>XTrafGen_WriteParamRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + <ref refid="group__trafgen_1ga3252ba966b4231b39738858474879b33" kindref="member">XTG_PARAM_RAM_OFFSET</ref> + (Offset)), (Data))</initializer>
+        <briefdescription>
+<para>XTrafGen_WriteParamRam, writes <emphasis>Data</emphasis> to the Parameter RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the location in Parameter RAM to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the Parameter RAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="xtrafgen__hw_8h_1affbc767805f25351f801dc04114d513f" kindref="member">XTrafGen_WriteParamRam(u32 BaseAddress, u32 Offset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="414" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="439" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a04a570c3b4cc407d745237050374013c" prot="public" static="no">
+        <name>XTrafGen_ReadCmdRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + <ref refid="group__trafgen_1ga1b4f5daeb95b5827db0760c1c0dc13e5" kindref="member">XTG_COMMAND_RAM_OFFSET</ref> + (Offset))))</initializer>
+        <briefdescription>
+<para>XTrafGen_ReadCmdRam returns the value read from the Command RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the Command RAM to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the memory location.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="xtrafgen__hw_8h_1a04a570c3b4cc407d745237050374013c" kindref="member">XTrafGen_ReadCmdRam(u32 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="432" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="457" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1ab9c29e9e8361e7dc553c689e7cfd8ee1" prot="public" static="no">
+        <name>XTrafGen_ReadCmdRam_Msb</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + <ref refid="group__trafgen_1ga6fd650735d7eb15cc3cd76679f8b7894" kindref="member">XTG_COMMAND_RAM_MSB_OFFSET</ref> + (Offset))))</initializer>
+        <briefdescription>
+<para>XTrafGen_ReadCmdRam_Msb returns the value read from the Command RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the MSB of base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the Command RAM to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the memory location.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="xtrafgen__hw_8h_1ab9c29e9e8361e7dc553c689e7cfd8ee1" kindref="member">XTrafGen_ReadCmdRam_Msb(u32 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="450" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="475" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a25bf6ea33be9bb74e718dc810c6760f5" prot="public" static="no">
+        <name>XTrafGen_WriteCmdRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + <ref refid="group__trafgen_1ga1b4f5daeb95b5827db0760c1c0dc13e5" kindref="member">XTG_COMMAND_RAM_OFFSET</ref> + (Offset)), (Data))</initializer>
+        <briefdescription>
+<para>XTrafGen_WriteCmdRam, writes <emphasis>Data</emphasis> to the Command RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the location in Command RAM to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the Command RAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="xtrafgen__hw_8h_1a25bf6ea33be9bb74e718dc810c6760f5" kindref="member">XTrafGen_WriteCmdRam(u32 BaseAddress, u32 Offset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="470" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="495" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1afebb93dc8864de6d9466a5fd6355c117" prot="public" static="no">
+        <name>XTrafGen_WriteCmdRam_Msb</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + <ref refid="group__trafgen_1ga6fd650735d7eb15cc3cd76679f8b7894" kindref="member">XTG_COMMAND_RAM_MSB_OFFSET</ref> + (Offset)), (Data))</initializer>
+        <briefdescription>
+<para>XTrafGen_WriteCmdRam_Msb, writes <emphasis>Data</emphasis> to the Command RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the MSB of base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the location in Command RAM to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the Command RAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="xtrafgen__hw_8h_1afebb93dc8864de6d9466a5fd6355c117" kindref="member">XTrafGen_WriteCmdRam_Msb(u32 BaseAddress, u32 Offset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="490" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="515" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a60ceec5d839e8a8f1cdda74c93c425b8" prot="public" static="no">
+        <name>XTrafGen_ReadMasterRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + <ref refid="group__trafgen_1ga5f8872e23f0ea33fda1193c114fa9224" kindref="member">XTG_MASTER_RAM_OFFSET</ref> + (Offset))))</initializer>
+        <briefdescription>
+<para>XTrafGen_ReadMasterRam returns the value read from the Master RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the Master RAM to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the memory location.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="xtrafgen__hw_8h_1a60ceec5d839e8a8f1cdda74c93c425b8" kindref="member">XTrafGen_ReadMasterRam(u32 BaseAddress, u32 Offset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="508" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="533" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1gaaea625b89454268bbbe7f93e309141c4" compoundref="xtrafgen_8c" startline="379" endline="403">XTrafGen_AccessMasterRam</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xtrafgen__hw_8h_1a8fe8b5ce12fefb6bba6acee1b89cb2a7" prot="public" static="no">
+        <name>XTrafGen_WriteMasterRam</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Offset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + <ref refid="group__trafgen_1ga5f8872e23f0ea33fda1193c114fa9224" kindref="member">XTG_MASTER_RAM_OFFSET</ref> + (Offset)), (Data))</initializer>
+        <briefdescription>
+<para>XTrafGen_WriteMasterRam, writes <emphasis>Data</emphasis> to the Master RAM specified by <emphasis>Offset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Axi TrafGen device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the location in Master RAM to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the Master RAM.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="xtrafgen__hw_8h_1a8fe8b5ce12fefb6bba6acee1b89cb2a7" kindref="member">XTrafGen_WriteMasterRam(u32 BaseAddress, u32 Offset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" line="529" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h" bodystart="554" bodyend="-1"/>
+        <referencedby refid="group__trafgen_1gaaea625b89454268bbbe7f93e309141c4" compoundref="xtrafgen_8c" startline="379" endline="403">XTrafGen_AccessMasterRam</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#ifndef<sp/>XTRAFGEN_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTRAFGEN_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Unless<sp/>otherwise<sp/>noted,<sp/>register<sp/>access<sp/>is</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>32<sp/>bit.</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*/</highlight></codeline>
+<codeline lineno="62" refid="group__trafgen_1ga2aee9e721b35ce512abb502ede5b8a06" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__trafgen_1ga16ab165b5d7fd7c84206606b1bc2dcfa" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="group__trafgen_1ga6d44ba5c998cf48c8162812f1b183cfa" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ERR_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="group__trafgen_1ga54f00a5d7ea7acb0a8917b79f6aeeb57" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ERR_EN_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="group__trafgen_1ga8549ea88039b3f646e33299b490b8904" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MSTERR_INTR_OFFSET<sp/><sp/>0x10<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="group__trafgen_1gadf7e15dfd4ecd23278ff780bf4369058" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x14<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__trafgen_1gadad67dedb6f0b5c0e7aed2e0d62e08eb" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_OFFSET<sp/><sp/>0x30<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__trafgen_1ga0faa9082cff01c4e5e53bb957b69dae2" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_OFFSET<sp/><sp/><sp/>0x34<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__trafgen_1ga476caa717b80c4d276d7ff98aae5f3ca" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STREAM_TL_OFFSET<sp/><sp/><sp/><sp/>0x38<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__trafgen_1gafee2ca23e3fc2ed4964740ba69dde023" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_OFFSET<sp/><sp/>0x60<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__trafgen_1ga1813133f0d9bd28861fac1a854137411" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STATIC_LEN_OFFSET<sp/><sp/><sp/>0x64<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="group__trafgen_1ga3252ba966b4231b39738858474879b33" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_RAM_OFFSET<sp/><sp/><sp/><sp/>0x1000<sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group__trafgen_1ga1b4f5daeb95b5827db0760c1c0dc13e5" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_COMMAND_RAM_OFFSET<sp/><sp/>0x8000<sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__trafgen_1ga5f8872e23f0ea33fda1193c114fa9224" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MASTER_RAM_OFFSET<sp/><sp/><sp/>0xC000<sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__trafgen_1ga6fd650735d7eb15cc3cd76679f8b7894" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_COMMAND_RAM_MSB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0xa000<sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="94" refid="group__trafgen_1ga2197ba1e4ea908189bc7d77e70ba5a06" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_REV_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__trafgen_1ga912b534ed07c85f5147d86a5125e6cd8" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_MSTID_MASK<sp/><sp/><sp/><sp/>0x00E00000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__trafgen_1gaf8fafcd0c1061fbf9d6d61680a251309" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_MSTEN_MASK<sp/><sp/><sp/><sp/>0x00100000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_LOOPEN_MASK<sp/><sp/><sp/>0x00080000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_REV_SHIFT<sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="group__trafgen_1ga07d0697117d702e5a767bc8cc5083ea0" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MCNTL_MSTID_SHIFT<sp/><sp/><sp/>21<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_BLKRD_MASK<sp/><sp/><sp/><sp/>0x00080000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_DISEXCL_MASK<sp/><sp/>0x00040000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="group__trafgen_1ga68091fdd6f9b82d0d6bf65c92b131e38" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_WORDR_MASK<sp/><sp/><sp/><sp/>0x00020000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_RORDR_MASK<sp/><sp/><sp/><sp/>0x00010000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XTG_SCNTL_ERREN_MASK<sp/><sp/><sp/><sp/>0x00008000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="group__trafgen_1gab3fd9e680a247d1ad78ba6cab9b061fb" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XTG_ERR_ALL_MSTERR_MASK<sp/>0x001F0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor">#define<sp/>XTG_ERR_ALL_SLVERR_MASK<sp/>0x00000003<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">#define<sp/>XTG_ERR_ALL_ERR_MASK<sp/><sp/><sp/><sp/>0x001F0003<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor">#define<sp/>XTG_ERR_MSTCMP_MASK<sp/><sp/><sp/><sp/><sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="group__trafgen_1ga9c335dd2550acee9495bfd72fc7e3e4d" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ERR_RIDER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00100000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="139" refid="group__trafgen_1gafdb598343bdb0bf2c6c5d29f8258f692" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ERR_WIDER_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00080000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XTG_ERR_WRSPER_MASK<sp/><sp/><sp/><sp/><sp/>0x00040000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XTG_ERR_RERRSP_MASK<sp/><sp/><sp/><sp/><sp/>0x00020000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor">#define<sp/>XTG_ERR_RLENER_MASK<sp/><sp/><sp/><sp/><sp/>0x00010000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="group__trafgen_1ga93be7e7fdaaa372c2b888c07ecfd6466" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ERR_SWSTRB_MASK<sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XTG_ERR_SWLENER_MASK<sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="166" refid="group__trafgen_1gad4008be388657e20fcb49511a5d38a3e" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MSTERR_INTR_MINTREN_MASK<sp/><sp/><sp/><sp/>0x00008000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="171" refid="group__trafgen_1ga9585c4a750db5e61e49ada2c30d2cc71" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_MWIDTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>28<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="176" refid="group__trafgen_1ga8f39b5d4a784a673cad5225ac1253f1b" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_MWIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x70000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_SWIDTH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_SWIDTH_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0E000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_MFULL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor">#define<sp/>XTG_CFG_STS_MBASIC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_VER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_VER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_TD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_TD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_STEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CNTL_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="200" refid="xtrafgen__hw_8h_1a43010263c928054845a6e4da818c5cb6" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201" refid="xtrafgen__hw_8h_1a7387f793b21568825291b8ae05e9a8dc" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="206" refid="xtrafgen__hw_8h_1a1816012cab8ec1b93b06d20dde1e0128" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_PDLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207" refid="xtrafgen__hw_8h_1a73aac9edd6e776525f4e44865ed7e481" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_PDLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_TDEST_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_TDEST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_RANDLY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_RANDLY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor">#define<sp/>XTG_STREAM_CFG_RANDL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="217" refid="xtrafgen__hw_8h_1a33aba05b605e1929b2045d76228f04f5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor">#define<sp/>XTG_STREAM_TL_TCNT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor">#define<sp/>XTG_STREAM_TL_TCNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF0000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor">#define<sp/>XTG_STREAM_TL_TLEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="235" refid="xtrafgen__hw_8h_1a27be0cf2c90513010b73b0b8db1163dc" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_VER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_VER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="238" refid="xtrafgen__hw_8h_1ae6da854602744d63b3fe0dfdc2dc22f9" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_TD_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_TD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_STEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor">#define<sp/>XTG_STATIC_CNTL_RESET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="250" refid="xtrafgen__hw_8h_1a556bcb7b08d4170167ee65c08c7a0ebe" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_STATIC_LEN_BLEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000FF<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="252" refid="xtrafgen__hw_8h_1ae28f53acd7ef1f38265f560c17c64800" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor">#define<sp/>XTG_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor">#define<sp/>XTG_LEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor">#define<sp/>XTG_LOCK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor">#define<sp/>XTG_BURST_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="260" refid="xtrafgen__hw_8h_1a128106d0d3435137e96192b0386eeec4" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_SIZE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="261" refid="xtrafgen__hw_8h_1a2f470f08ec693fff5af6c5109f1b3ffc" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3F<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor">#define<sp/>XTG_PROT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="263" refid="xtrafgen__hw_8h_1ac0e75db08cd3774207a38bdfe78f2ac9" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_LAST_ADDR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="264" refid="xtrafgen__hw_8h_1ae82296e2d81edb5da14c813e36b604cc" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_VALID_CMD_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor">#define<sp/>XTG_MSTRAM_INDEX_MASK<sp/><sp/><sp/>0x1FFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="266" refid="xtrafgen__hw_8h_1a820c08467cb0fc69af91e8747bf52199" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_OTHER_DEPEND_MASK<sp/><sp/><sp/>0x1FF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="267" refid="xtrafgen__hw_8h_1a4955ccf9832cc09dd5f05b54f49104dd" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MY_DEPEND_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x1FF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor">#define<sp/>XTG_QOS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor">#define<sp/>XTG_USER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor">#define<sp/>XTG_CACHE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor">#define<sp/>XTG_EXPECTED_RESP_MASK<sp/><sp/>0x7<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor">#define<sp/>XTG_ADDR_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XTG_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="275" refid="xtrafgen__hw_8h_1a6a65cb71fdd0717246547dbbe16b6e1b" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_LOCK_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor">#define<sp/>XTG_BURST_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor">#define<sp/>XTG_SIZE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor">#define<sp/>XTG_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor">#define<sp/>XTG_PROT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor">#define<sp/>XTG_LAST_ADDR_SHIFT<sp/><sp/><sp/><sp/><sp/>28<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="281" refid="xtrafgen__hw_8h_1a575795d7d5b2348195e02fd8cccabe39" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_VALID_CMD_SHIFT<sp/><sp/><sp/><sp/><sp/>31<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="282" refid="xtrafgen__hw_8h_1a74fdcca6bba8dfbfd0ed288f9132bab0" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MSTRAM_INDEX_SHIFT<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="283" refid="xtrafgen__hw_8h_1a6575f2dffb01e56c6b38eda8190664b8" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_OTHER_DEPEND_SHIFT<sp/><sp/>13<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="284" refid="xtrafgen__hw_8h_1ae149dfc387f997a33cbe70d57362fc0f" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_MY_DEPEND_SHIFT<sp/><sp/><sp/><sp/><sp/>22<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="285" refid="xtrafgen__hw_8h_1acba37550ee94c7c7022aa5a3ad946fc3" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_QOS_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="286" refid="xtrafgen__hw_8h_1a5a7178fbdfb4b46aaa7bd0fc308ec636" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_USER_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="287" refid="xtrafgen__hw_8h_1ae6b714a335a4b02967a37f0ead14508a" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_CACHE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="288" refid="xtrafgen__hw_8h_1a9267c6248c021a02be574f803f11c677" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_EXPECTED_RESP_SHIFT<sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="291" refid="xtrafgen__hw_8h_1a50464785b101e677032e4956a4592a0e" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="292" refid="xtrafgen__hw_8h_1a23937f160c785883f46e3e8ac03af193" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="296" refid="xtrafgen__hw_8h_1ad893dd4b8011e14e68b21afa20c019c8" refkind="member"><highlight class="comment">/*<sp/>Parameter<sp/>Entry<sp/>field<sp/>shift<sp/>values<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_ADDRMODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>24<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="298" refid="xtrafgen__hw_8h_1a4fec29a2aedb84ed9410fe5298245d24" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_INTERVALMODE_SHIFT<sp/><sp/><sp/><sp/>26<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="299" refid="xtrafgen__hw_8h_1ae25779b53195ced1e45d64bc53344c28" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_IDMODE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>28<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="300" refid="xtrafgen__hw_8h_1a819696f324a87fbdf9dbce5c6aafcdaf" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>29<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="302" refid="xtrafgen__hw_8h_1a6523ef7f08423cbc5150e3d6e55abd99" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PARAM<sp/>RAM<sp/>Opcode<sp/>shift<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="303" refid="xtrafgen__hw_8h_1abf8893d48139c874e7628a7d32d1861b" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_COUNT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="304" refid="xtrafgen__hw_8h_1a0796a27df8444fd763ccd6c0356aa8e4" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_DELAYRANGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="305" refid="xtrafgen__hw_8h_1ab2e214bbd75cfa106a9cf34a075ca7c3" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_DELAY_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="306" refid="xtrafgen__hw_8h_1a4387f942768e60fd471499c63ad5e7dd" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_ADDRRANGE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="308" refid="xtrafgen__hw_8h_1a18b2f14ba07703fe0e078d326496231d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Parameter<sp/>Entry<sp/>field<sp/>mask<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="309" refid="xtrafgen__hw_8h_1a43673c92101ad1d1af680384add5f610" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_ADDRMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="310" refid="xtrafgen__hw_8h_1ae3f2ee00c71bc8f847738acf83bf1c5c" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_INTERVALMODE_MASK<sp/><sp/><sp/><sp/><sp/>0x3<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="311" refid="xtrafgen__hw_8h_1a280ef09f695b10f97848ce74d68f7c02" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_IDMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="312" refid="xtrafgen__hw_8h_1a6496641578aa8a7a22dd3c6147221175" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="314"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PARAM<sp/>RAM<sp/>Opcode<sp/>mask<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_COUNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFF</highlight></codeline>
+<codeline lineno="316"><highlight class="preprocessor">#define<sp/>XTG_PARAM_DELAYRANGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="317"><highlight class="preprocessor">#define<sp/>XTG_PARAM_DELAY_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFF<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="318"><highlight class="preprocessor">#define<sp/>XTG_PARAM_ADDRRANGE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xF<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PARAM<sp/>RAM<sp/>Opcode<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="321"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_NOP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="322" refid="xtrafgen__hw_8h_1a428fb28a58206c20a2bda291fd8966a4" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_RPT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="323" refid="xtrafgen__hw_8h_1ac10bb6f9809e4f577bd36cb5dde0354e" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="324" refid="xtrafgen__hw_8h_1adf334f6bf0852006382b697cc4ab59ce" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_FIXEDRPT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PARAM<sp/>RAM<sp/>Address<sp/>mode<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_ADDRMODE_CONST<sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="328" refid="xtrafgen__hw_8h_1aec8150e49af318bfd447d9b3cbf80734" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_ADDRMODE_INCR<sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="329" refid="xtrafgen__hw_8h_1a67d17cf7158e597c2307e21521e35812" refkind="member"><highlight class="preprocessor">#define<sp/>XTG_PARAM_OP_ADDRMODE_RAND<sp/><sp/><sp/><sp/><sp/><sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="331" refid="xtrafgen__hw_8h_1a0ecc1e7486d1e09d8e771674e163e215" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>PARAM<sp/>RAM<sp/>Interval<sp/>mode<sp/>values<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTG_PARAMOP_INTERVALMODE_CONST<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="333"><highlight class="preprocessor">#define<sp/>XTG_PARAMOP_INTERVALMODE_RAND<sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="336" refid="xtrafgen__hw_8h_1a7358e0b257a66c3dea934297d4ce2e4c" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="337" refid="xtrafgen__hw_8h_1a65d8f9067f4a40826da17eca055cac9e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340" refid="xtrafgen__hw_8h_1ab433ce1c62131e78ac0d5376c85cfeab" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="355"><highlight class="preprocessor">#define<sp/>XTrafGen_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="356"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>(RegOffset))))</highlight></codeline>
+<codeline lineno="357" refid="xtrafgen__hw_8h_1a23774b21bbe0901e320b466de35008a2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358" refid="xtrafgen__hw_8h_1a2b331214337314d34e905dd2d3b5c0a2" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="375"><highlight class="preprocessor">#define<sp/>XTrafGen_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="376"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="377"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="393"><highlight class="preprocessor">#define<sp/>XTrafGen_ReadParamRam(BaseAddress,<sp/>Offset)<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="394"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>XTG_PARAM_RAM_OFFSET<sp/>+<sp/>(Offset))))</highlight></codeline>
+<codeline lineno="395"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor">#define<sp/>XTrafGen_WriteParamRam(BaseAddress,<sp/>Offset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="415"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>XTG_PARAM_RAM_OFFSET<sp/>+<sp/>(Offset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="432"><highlight class="preprocessor">#define<sp/>XTrafGen_ReadCmdRam(BaseAddress,<sp/>Offset)<sp/>\</highlight></codeline>
+<codeline lineno="433"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>XTG_COMMAND_RAM_OFFSET<sp/>+<sp/>(Offset))))</highlight></codeline>
+<codeline lineno="434"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor">#define<sp/>XTrafGen_ReadCmdRam_Msb(BaseAddress,<sp/>Offset)<sp/>\</highlight></codeline>
+<codeline lineno="451"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>XTG_COMMAND_RAM_MSB_OFFSET<sp/>+<sp/>(Offset))))</highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="470"><highlight class="preprocessor">#define<sp/>XTrafGen_WriteCmdRam(BaseAddress,<sp/>Offset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="471"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>XTG_COMMAND_RAM_OFFSET<sp/>+<sp/>(Offset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="472"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="490"><highlight class="preprocessor">#define<sp/>XTrafGen_WriteCmdRam_Msb(BaseAddress,<sp/>Offset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="491"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>XTG_COMMAND_RAM_MSB_OFFSET<sp/>+<sp/>(Offset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="492"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="508"><highlight class="preprocessor">#define<sp/>XTrafGen_ReadMasterRam(BaseAddress,<sp/>Offset)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="509"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>XTG_MASTER_RAM_OFFSET<sp/>+<sp/>(Offset))))</highlight></codeline>
+<codeline lineno="510"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="529"><highlight class="preprocessor">#define<sp/>XTrafGen_WriteMasterRam(BaseAddress,<sp/>Offset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="530"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>XTG_MASTER_RAM_OFFSET<sp/>+<sp/>(Offset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="531"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="533" refid="xtrafgen__hw_8h_1a60ceec5d839e8a8f1cdda74c93c425b8" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="535"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="536"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="537"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trafgen/src/xtrafgen_hw.h"/>
+  </compounddef>
+</doxygen>

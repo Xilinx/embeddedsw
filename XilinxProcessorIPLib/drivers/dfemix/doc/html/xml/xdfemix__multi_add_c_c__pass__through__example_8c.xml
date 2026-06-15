@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfemix__multi_add_c_c__pass__through__example_8c" kind="file">
+    <compoundname>xdfemix_multiAddCC_pass_through_example.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeMix_MultiAddCCExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeMix_MultiAddCCExample</name>
+        <briefdescription>
+<para>This example configures Mixer driver for one CC with multiAddCC APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Set the triggers</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>Get current configuration.</para></listitem><listitem><para>Add CC.</para></listitem><listitem><para>Trigger configuration update.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample2] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_multiAddCC_pass_through_example.c" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_multiAddCC_pass_through_example.c" bodystart="68" bodyend="205"/>
+        <references refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" compoundref="xdfemix_8h" startline="261">XDfeMix_TriggerCfg::Activate</references>
+        <references refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a35c7833cc86f7fd89ed24c8ba114a75b" compoundref="xdfemix_8h" startline="404">XDfeMix_DUCDDCCfg::CCGain</references>
+        <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" compoundref="xdfemix_8h" startline="266">XDfeMix_TriggerCfg::CCUpdate</references>
+        <references refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" compoundref="xdfemix_8h" startline="503">XDfeMix_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_mix_1a329540ffe939609c3958ec8bc56ad276" compoundref="xdfemix_8h" startline="542">XDfeMix::Config</references>
+        <references refid="struct_x_dfe_mix___carrier_cfg_1a51f0c310e1f598ab568f5b0c9980d330" compoundref="xdfemix_8h" startline="430">XDfeMix_CarrierCfg::DUCDDCCfg</references>
+        <references refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" compoundref="xdfemix_8h" startline="501">XDfeMix_Status::DUCDDCOverflow</references>
+        <references refid="struct_x_dfe_mix___n_c_o_1a68be3477a3fd9cb875234ce4ad916225" compoundref="xdfemix_8h" startline="370">XDfeMix_NCO::FrequencyCfg</references>
+        <references refid="struct_x_dfe_mix___frequency_1a7a1488c7bb977b513f5b38036d6a7674" compoundref="xdfemix_8h" startline="331">XDfeMix_Frequency::FrequencyControlWord</references>
+        <references refid="struct_x_dfe_mix___c_c_sequence_1a79d8904a132c5004b8d0704cbb766d48" compoundref="xdfemix_8h" startline="276">XDfeMix_CCSequence::Length</references>
+        <references refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" compoundref="xdfemix_8h" startline="208">XDfeMix_Version::Major</references>
+        <references refid="struct_x_dfe_mix___config_1abcd3c56dcb7f5080155544363e3bf872" compoundref="xdfemix_8h" startline="526">XDfeMix_Config::MaxUseableCcids</references>
+        <references refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" compoundref="xdfemix_8h" startline="209">XDfeMix_Version::Minor</references>
+        <references refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" compoundref="xdfemix_8h" startline="502">XDfeMix_Status::MixerOverflow</references>
+        <references refid="struct_x_dfe_mix___trigger_1a9abab2731f4977a10ab9c9c5ed6df74c" compoundref="xdfemix_8h" startline="222">XDfeMix_Trigger::Mode</references>
+        <references refid="struct_x_dfe_mix___n_c_o_1a8482f94fbc00e305c1eacd2e78e013ea" compoundref="xdfemix_8h" startline="372">XDfeMix_NCO::NCOGain</references>
+        <references refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a725d2046d45ee60e61083b1465434308" compoundref="xdfemix_8h" startline="403">XDfeMix_DUCDDCCfg::NCOIdx</references>
+        <references refid="struct_x_dfe_mix___version_1a3e008974f46642083bd193fb40e4d7e0" compoundref="xdfemix_8h" startline="211">XDfeMix_Version::Patch</references>
+        <references refid="struct_x_dfe_mix___version_1a9aa720deae91fc110ba6c393c9652283" compoundref="xdfemix_8h" startline="210">XDfeMix_Version::Revision</references>
+        <references refid="struct_x_dfe_mix___init_1a888f7c720f5c48d4106e72f362f01ab4" compoundref="xdfemix_8h" startline="316">XDfeMix_Init::Sequence</references>
+        <references refid="struct_x_dfe_mix___frequency_1ae609c50c31c270e9b4aee65d53d40b0f" compoundref="xdfemix_8h" startline="335">XDfeMix_Frequency::TriggerUpdateFlag</references>
+        <references refid="struct_x_dfe_mix___trigger_1aed06b1a3a476a35cb8c497ac0567756d" compoundref="xdfemix_8h" startline="253">XDfeMix_Trigger::TUSERBit</references>
+        <references refid="struct_x_dfe_mix___trigger_1aa4ef6ca987cb82638685f1f751d8c450" compoundref="xdfemix_8h" startline="238">XDfeMix_Trigger::TuserEdgeLevel</references>
+        <references refid="struct_x_dfe_mix___init_1af9aaa5104c75ff98b732d397fe844f21" compoundref="xdfemix_8h" startline="317">XDfeMix_Init::TuserSelect</references>
+        <references refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" compoundref="xdfemix_8c" startline="2054" endline="2086">XDfeMix_Activate</references>
+        <references refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" compoundref="xdfemix_8c" startline="2444" endline="2485">XDfeMix_AddCCtoCCCfg</references>
+        <references refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" compoundref="xdfemix__intr_8c" startline="235" endline="275">XDfeMix_ClearEventStatus</references>
+        <references refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" compoundref="xdfemix_8c" startline="1905" endline="1989">XDfeMix_Configure</references>
+        <references refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" compoundref="xdfemix_8c" startline="2096" endline="2126">XDfeMix_Deactivate</references>
+        <references refid="group__dfemix_1ga55eacf5f171e7530a27abfd12d2caf0d" compoundref="xdfemix_8c" startline="2156" endline="2164">XDfeMix_GetCurrentCCCfg</references>
+        <references refid="group__dfemix_1ga499409b4675bb141d962a2c15ad3dc61" compoundref="xdfemix_8c" startline="3625" endline="3650">XDfeMix_GetVersions</references>
+        <references refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" compoundref="xdfemix_8c" startline="2002" endline="2043">XDfeMix_Initialize</references>
+        <references refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" compoundref="xdfemix_8c" startline="1856" endline="1875">XDfeMix_InstanceClose</references>
+        <references refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" compoundref="xdfemix_8c" startline="1751" endline="1845">XDfeMix_InstanceInit</references>
+        <references refid="group__dfemix_1ga8d63f4fc15bb4344b6fb33d382468c35" compoundref="xdfemix_8c" startline="1885" endline="1893">XDfeMix_Reset</references>
+        <references refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" compoundref="xdfemix_8c" startline="3131" endline="3155">XDfeMix_SetAntennaGain</references>
+        <references refid="group__dfemix_1ga3fc0d6657fbed9b7f1baf1552c6ae316" compoundref="xdfemix_8c" startline="2624" endline="2645">XDfeMix_SetNextCCCfgAndTrigger</references>
+        <references refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" compoundref="xdfemix_8c" startline="3311" endline="3428">XDfeMix_SetTriggersCfg</references>
+        <references refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfemix_8h" startline="137">XST_FAILURE</references>
+        <references refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfemix_8h" startline="134">XST_SUCCESS</references>
+        <referencedby refid="xdfemix__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfemix__examples_8c" startline="82" endline="124">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a load coefficients example. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.2   dc     11/01/21 Add multi AddCC, RemoveCC and UpdateCC
+      dc     11/05/21 Align event handlers
+      dc     11/19/21 Update doxygen documentation
+1.4   dc     08/19/22 Update register map
+1.5   dc     10/24/22 Switching Uplink/Downlink support
+      dc     11/08/22 NCO assignment in arch5 mode
+      dc     02/21/23 Correct switch trigger register name</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfemix__examples_8h" kindref="compound">xdfemix_examples.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="68" refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" kindref="member">XDfeMix_MultiAddCCExample</ref>()</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_init_params<sp/>init_param<sp/>=<sp/>METAL_INIT_DEFAULTS;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___cfg" kindref="compound">XDfeMix_Cfg</ref><sp/>Cfg;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___c_c_cfg" kindref="compound">XDfeMix_CCCfg</ref><sp/>CurrentCCCfg;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___init" kindref="compound">XDfeMix_Init</ref><sp/>Init;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CCID;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CCSeqBitmap;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AntennaId;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AntennaGain;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>FreqMhz;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>NcoFreqMhz;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>FrequencyControlWord;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___trigger_cfg" kindref="compound">XDfeMix_TriggerCfg</ref><sp/>TriggerCfg;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___carrier_cfg" kindref="compound">XDfeMix_CarrierCfg</ref><sp/>CarrierCfg;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___n_c_o" kindref="compound">XDfeMix_NCO</ref><sp/>NCO;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___version" kindref="compound">XDfeMix_Version</ref><sp/>SwVersion;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___version" kindref="compound">XDfeMix_Version</ref><sp/>HwVersion;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_Status</ref><sp/>Status;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Return;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nMixer<sp/>\&quot;Multi<sp/>AddCC<sp/>Pass<sp/>Through\&quot;<sp/>Example<sp/>-<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>libmetal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/>metal_init(&amp;init_param))<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>run<sp/>metal<sp/>initialization\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>instance<sp/>of<sp/>Mixer<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/><ref refid="group__dfemix_1ga1e844159630d803dcc724e998b3d560d" kindref="member">XDfeMix_InstanceInit</ref>(XDFEMIX_NODE_NAME);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>SW<sp/>and<sp/>HW<sp/>version<sp/>numbers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga499409b4675bb141d962a2c15ad3dc61" kindref="member">XDfeMix_GetVersions</ref>(InstancePtr,<sp/>&amp;SwVersion,<sp/>&amp;HwVersion);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;SW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>SwVersion.<ref refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" kindref="member">Major</ref>,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SwVersion.<ref refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" kindref="member">Minor</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;HW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d,<sp/>Revision<sp/>%d,<sp/>Patch<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1abec5de931ad531370d0aace44ffd2018" kindref="member">Major</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1ab02bb9024d1186e4fa657020be59a6ed" kindref="member">Minor</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1a9aa720deae91fc110ba6c393c9652283" kindref="member">Revision</ref>,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_mix___version_1a3e008974f46642083bd193fb40e4d7e0" kindref="member">Patch</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Go<sp/>through<sp/>initialization<sp/>states<sp/>of<sp/>the<sp/>state<sp/>machine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga8d63f4fc15bb4344b6fb33d382468c35" kindref="member">XDfeMix_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gaa2cf38486d8a775970d6fa1c77c0f4a7" kindref="member">XDfeMix_Configure</ref>(InstancePtr,<sp/>&amp;Cfg);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialise<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Init.<ref refid="struct_x_dfe_mix___init_1a888f7c720f5c48d4106e72f362f01ab4" kindref="member">Sequence</ref>.<ref refid="struct_x_dfe_mix___c_c_sequence_1a79d8904a132c5004b8d0704cbb766d48" kindref="member">Length</ref><sp/>=<sp/>16;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Init.<ref refid="struct_x_dfe_mix___init_1af9aaa5104c75ff98b732d397fe844f21" kindref="member">TuserSelect</ref><sp/>=<sp/>XDFEMIX_SWITCHABLE_CONTROL_TUSER_SEL_DOWNLINK;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga789426bf0d0065ad899ef44cab1d1a45" kindref="member">XDfeMix_Initialize</ref>(InstancePtr,<sp/>&amp;Init);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>trigger<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" kindref="member">Activate</ref>.<ref refid="struct_x_dfe_mix___trigger_1a9abab2731f4977a10ab9c9c5ed6df74c" kindref="member">Mode</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" kindref="member">Activate</ref>.<ref refid="struct_x_dfe_mix___trigger_1aa4ef6ca987cb82638685f1f751d8c450" kindref="member">TuserEdgeLevel</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a43fff3e50b5af64abfaa006ba3f0c5b2" kindref="member">Activate</ref>.<ref refid="struct_x_dfe_mix___trigger_1aed06b1a3a476a35cb8c497ac0567756d" kindref="member">TUSERBit</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" kindref="member">CCUpdate</ref>.<ref refid="struct_x_dfe_mix___trigger_1a9abab2731f4977a10ab9c9c5ed6df74c" kindref="member">Mode</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" kindref="member">CCUpdate</ref>.<ref refid="struct_x_dfe_mix___trigger_1aa4ef6ca987cb82638685f1f751d8c450" kindref="member">TuserEdgeLevel</ref><sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TriggerCfg.<ref refid="struct_x_dfe_mix___trigger_cfg_1a36783b89190c2726bb32a6035dbc71dc" kindref="member">CCUpdate</ref>.<ref refid="struct_x_dfe_mix___trigger_1aed06b1a3a476a35cb8c497ac0567756d" kindref="member">TUSERBit</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga5a9e206d3191e92986737d8e2b0b8625" kindref="member">XDfeMix_SetTriggersCfg</ref>(InstancePtr,<sp/>&amp;TriggerCfg);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Activate<sp/>-<sp/>disable<sp/>low<sp/>power<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gac304b90aa0961397e33041aaf9ea7af4" kindref="member">XDfeMix_Activate</ref>(InstancePtr,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>antenna<sp/>gain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>event<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(10000);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" kindref="member">XDfeMix_ClearEventStatus</ref>(InstancePtr,<sp/>&amp;Status);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>antenna<sp/>0<sp/>gain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AntennaId<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AntennaGain<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" kindref="member">XDfeMix_SetAntennaGain</ref>(InstancePtr,<sp/>AntennaId,<sp/>AntennaGain);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>event<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(10000);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" kindref="member">XDfeMix_ClearEventStatus</ref>(InstancePtr,<sp/>&amp;Status);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>antenna<sp/>0<sp/>gain<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AntennaId<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1gae0a135411942e1b9a7c8b0f564b8fee9" kindref="member">XDfeMix_SetAntennaGain</ref>(InstancePtr,<sp/>AntennaId,<sp/>AntennaGain);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>component<sp/>carrier<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>event<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status.<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>=<sp/>XDFEMIX_ISR_CLEAR;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>usleep(10000);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" kindref="member">XDfeMix_ClearEventStatus</ref>(InstancePtr,<sp/>&amp;Status);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>CC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCID<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_dfe_mix_1a329540ffe939609c3958ec8bc56ad276" kindref="member">Config</ref>.<ref refid="struct_x_dfe_mix___config_1abcd3c56dcb7f5080155544363e3bf872" kindref="member">MaxUseableCcids</ref><sp/>==<sp/>8U)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCSeqBitmap<sp/>=<sp/>0xff;<sp/></highlight><highlight class="comment">/*<sp/>50%<sp/>occupataion<sp/>max.<sp/>in<sp/>ARCH4<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_dfe_mix_1a329540ffe939609c3958ec8bc56ad276" kindref="member">Config</ref>.<ref refid="struct_x_dfe_mix___config_1abcd3c56dcb7f5080155544363e3bf872" kindref="member">MaxUseableCcids</ref><sp/>==<sp/>16U)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCSeqBitmap<sp/>=<sp/>0xf;<sp/></highlight><highlight class="comment">/*<sp/>25%<sp/>occupataion<sp/>max.<sp/>in<sp/>ARCH5<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCSeqBitmap<sp/>=<sp/>0xffff;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CarrierCfg.<ref refid="struct_x_dfe_mix___carrier_cfg_1a51f0c310e1f598ab568f5b0c9980d330" kindref="member">DUCDDCCfg</ref>.<ref refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a725d2046d45ee60e61083b1465434308" kindref="member">NCOIdx</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CarrierCfg.<ref refid="struct_x_dfe_mix___carrier_cfg_1a51f0c310e1f598ab568f5b0c9980d330" kindref="member">DUCDDCCfg</ref>.<ref refid="struct_x_dfe_mix___d_u_c_d_d_c_cfg_1a35c7833cc86f7fd89ed24c8ba114a75b" kindref="member">CCGain</ref><sp/>=<sp/>3U;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NCO.<ref refid="struct_x_dfe_mix___n_c_o_1a8482f94fbc00e305c1eacd2e78e013ea" kindref="member">NCOGain</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FreqMhz<sp/>=<sp/>40;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NcoFreqMhz<sp/>=<sp/>491.52;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FrequencyControlWord<sp/>=<sp/>floor((FreqMhz<sp/>/<sp/>NcoFreqMhz)<sp/>*<sp/>0x100000000);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NCO.<ref refid="struct_x_dfe_mix___n_c_o_1a68be3477a3fd9cb875234ce4ad916225" kindref="member">FrequencyCfg</ref>.<ref refid="struct_x_dfe_mix___frequency_1a7a1488c7bb977b513f5b38036d6a7674" kindref="member">FrequencyControlWord</ref><sp/>=<sp/>FrequencyControlWord;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>NCO.<ref refid="struct_x_dfe_mix___n_c_o_1a68be3477a3fd9cb875234ce4ad916225" kindref="member">FrequencyCfg</ref>.<ref refid="struct_x_dfe_mix___frequency_1ae609c50c31c270e9b4aee65d53d40b0f" kindref="member">TriggerUpdateFlag</ref><sp/>=<sp/>XDFEMIX_IMMEDIATE_UPDATE;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga55eacf5f171e7530a27abfd12d2caf0d" kindref="member">XDfeMix_GetCurrentCCCfg</ref>(InstancePtr,<sp/>&amp;CurrentCCCfg);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Return<sp/>=<sp/><ref refid="group__dfemix_1ga1aaa2f28256b404ea1626f18ba1f2552" kindref="member">XDfeMix_AddCCtoCCCfg</ref>(InstancePtr,<sp/>&amp;CurrentCCCfg,<sp/>CCID,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CCSeqBitmap,<sp/>&amp;CarrierCfg,<sp/>&amp;NCO);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Return<sp/>==<sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Add<sp/>CC<sp/>done!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Add<sp/>CC<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Mixer<sp/>\&quot;Pass<sp/>Through\&quot;<sp/>Example:<sp/>Fail\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Return<sp/>=<sp/><ref refid="group__dfemix_1ga3fc0d6657fbed9b7f1baf1552c6ae316" kindref="member">XDfeMix_SetNextCCCfgAndTrigger</ref>(InstancePtr,<sp/>&amp;CurrentCCCfg);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Return<sp/>==<sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;XDfeMix_SetNextCCCfgAndTrigger<sp/>done!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;XDfeMix_SetNextCCCfgAndTrigger<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Mixer<sp/>\&quot;Pass<sp/>Through\&quot;<sp/>Example:<sp/>Fail\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>and<sp/>exit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga039c8a5929a26a9af72ef137817c6767" kindref="member">XDfeMix_Deactivate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfemix_1ga01627e33029344d87e1dce02269309d2" kindref="member">XDfeMix_InstanceClose</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Mixer<sp/>\&quot;Pass<sp/>Through\&quot;<sp/>Example:<sp/>Pass\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/examples/xdfemix_multiAddCC_pass_through_example.c"/>
+  </compounddef>
+</doxygen>

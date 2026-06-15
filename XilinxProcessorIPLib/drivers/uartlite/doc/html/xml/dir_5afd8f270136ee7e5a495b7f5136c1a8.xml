@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5afd8f270136ee7e5a495b7f5136c1a8" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xuartlite_8c">xuartlite.c</innerfile>
+    <innerfile refid="xuartlite_8h">xuartlite.h</innerfile>
+    <innerfile refid="xuartlite__g_8c">xuartlite_g.c</innerfile>
+    <innerfile refid="xuartlite__i_8h">xuartlite_i.h</innerfile>
+    <innerfile refid="xuartlite__intr_8c">xuartlite_intr.c</innerfile>
+    <innerfile refid="xuartlite__l_8c">xuartlite_l.c</innerfile>
+    <innerfile refid="xuartlite__l_8h">xuartlite_l.h</innerfile>
+    <innerfile refid="xuartlite__selftest_8c">xuartlite_selftest.c</innerfile>
+    <innerfile refid="xuartlite__sinit_8c">xuartlite_sinit.c</innerfile>
+    <innerfile refid="xuartlite__stats_8c">xuartlite_stats.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartlite/src/"/>
+  </compounddef>
+</doxygen>

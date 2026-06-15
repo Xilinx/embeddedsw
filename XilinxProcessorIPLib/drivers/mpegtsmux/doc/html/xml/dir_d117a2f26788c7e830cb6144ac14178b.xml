@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d117a2f26788c7e830cb6144ac14178b" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xmpegtsmux_8c">xmpegtsmux.c</innerfile>
+    <innerfile refid="xmpegtsmux_8h">xmpegtsmux.h</innerfile>
+    <innerfile refid="xmpegtsmux__g_8c">xmpegtsmux_g.c</innerfile>
+    <innerfile refid="xmpegtsmux__hw_8h">xmpegtsmux_hw.h</innerfile>
+    <innerfile refid="xmpegtsmux__intr_8c">xmpegtsmux_intr.c</innerfile>
+    <innerfile refid="xmpegtsmux__linux_8c">xmpegtsmux_linux.c</innerfile>
+    <innerfile refid="xmpegtsmux__sinit_8c">xmpegtsmux_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mpegtsmux/src/"/>
+  </compounddef>
+</doxygen>

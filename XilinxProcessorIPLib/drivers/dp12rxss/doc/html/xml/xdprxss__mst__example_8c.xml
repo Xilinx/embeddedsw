@@ -1,0 +1,1362 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdprxss__mst__example_8c" kind="file">
+    <compoundname>xdprxss_mst_example.c</compoundname>
+    <includes refid="xdprxss_8h" local="yes">xdprxss.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xtmrctr.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <incdepgraph>
+      <node id="904">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="903">
+        <label>xil_io.h</label>
+      </node>
+      <node id="906">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="907" relation="include">
+        </childnode>
+      </node>
+      <node id="907">
+        <label>xdp.h</label>
+      </node>
+      <node id="910">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="911" relation="include">
+        </childnode>
+      </node>
+      <node id="915">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="908">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
+        <childnode refid="909" relation="include">
+        </childnode>
+      </node>
+      <node id="914">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="902">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss__hw_8h"/>
+        <childnode refid="903" relation="include">
+        </childnode>
+      </node>
+      <node id="905">
+        <label>xstatus.h</label>
+      </node>
+      <node id="901">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="902" relation="include">
+        </childnode>
+        <childnode refid="904" relation="include">
+        </childnode>
+        <childnode refid="905" relation="include">
+        </childnode>
+        <childnode refid="906" relation="include">
+        </childnode>
+        <childnode refid="908" relation="include">
+        </childnode>
+        <childnode refid="910" relation="include">
+        </childnode>
+      </node>
+      <node id="913">
+        <label>xil_types.h</label>
+      </node>
+      <node id="900">
+        <label>xdprxss_mst_example.c</label>
+        <link refid="xdprxss_mst_example.c"/>
+        <childnode refid="901" relation="include">
+        </childnode>
+        <childnode refid="912" relation="include">
+        </childnode>
+        <childnode refid="913" relation="include">
+        </childnode>
+        <childnode refid="911" relation="include">
+        </childnode>
+        <childnode refid="905" relation="include">
+        </childnode>
+        <childnode refid="914" relation="include">
+        </childnode>
+        <childnode refid="915" relation="include">
+        </childnode>
+      </node>
+      <node id="911">
+        <label>xparameters.h</label>
+      </node>
+      <node id="912">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="909">
+        <label>xiic.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1af3f95d0a530bb04b8b1c7f37cac3509e" prot="public" static="no">
+        <name>INTRNAME_DPRX</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1a2a5878c68c6bdf608219921c4b9e36df" prot="public" static="no">
+        <name>XINTC_DPRXSS_DP_INTERRUPT_ID</name>
+        <initializer>XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1a16136319756e4257975f235e2d6ed24e" prot="public" static="no">
+        <name>XINTC_DEVICE_ID</name>
+        <initializer>XPAR_SCUGIC_SINGLE_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1ab7c5e8a4e1c2ac814050c57d1d5c6f50" prot="public" static="no">
+        <name>XINTC</name>
+        <initializer>XScuGic</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1ad8afa18f74b11f8d7109d1f1bd751656" prot="public" static="no">
+        <name>XINTC_HANDLER</name>
+        <initializer>XScuGic_InterruptHandler</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1a7ab1c5d0ee57cd0a594a10c807f148ce" prot="public" static="no">
+        <name>XTMR_CTRL_DEVICE_ID</name>
+        <initializer>XPAR_TMRCTR_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1a58c41bc3d12206e620d2820da0a10e34" prot="public" static="no">
+        <name>XDPRXSS_DEVICE_ID</name>
+        <initializer>XPAR_DPRXSS_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1aa22736573c6f820299099357153a5937" prot="public" static="no">
+        <name>DPRXSS_LINK_RATE</name>
+        <initializer><ref refid="group__dprxss_1ga931cc28d2f9318bfee0f2d60151bc8df" kindref="member">XDPRXSS_LINK_BW_SET_540GBPS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdprxss__mst__example_8c_1afcc39f849621b4497c2a71ca4cd127d9" prot="public" static="no">
+        <name>DPRXSS_LANE_COUNT</name>
+        <initializer><ref refid="group__dprxss_1gab87f0d5648bf0d231453fcfaf06daf7f" kindref="member">XDPRXSS_LANE_COUNT_SET_4</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdprxss__mst__example_8c_1ab47c14f7062b3830336db28e631e1359" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref></type>
+        <definition>XDpRxSs DpRxSsInst</definition>
+        <argsstring></argsstring>
+        <name>DpRxSsInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="xdprxss__mst__example_8c_1a77ddaf31aa938d82d3d1e663db4f7371" prot="public" static="no" mutable="no">
+        <type>XTmrCtr</type>
+        <definition>XTmrCtr TmrCtrInst</definition>
+        <argsstring></argsstring>
+        <name>TmrCtrInst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_MstExample</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>DpRxSs_MstExample</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function is the main entry point for the MST/SST example using the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the DisplayPort RX Subsystem core.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if DisplayPort RX Subsystem configured in SST/MST successfully.</para></listitem><listitem><para>XST_FAILURE, if DisplayPort RX Subsystem failed to configure in SST/MST.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="206" bodyend="277"/>
+        <references refid="struct_x_dp_rx_ss___config_1a51ebda7704c9682d7b8fc8073da88ad8" compoundref="xdprxss_8h" startline="301">XDpRxSs_Config::BaseAddress</references>
+        <references refid="xdprxss__debug__example_8c_1a26fb3eace6447299bbdedd12b314a6a8">DpRxSs_PlatformInit</references>
+        <references refid="xdprxss__debug__example_8c_1ae690e4e95545e8f6b37672430f1f910a">DpRxSs_Setup</references>
+        <references refid="xdprxss__intr__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793">DpRxSs_SetupIntrSystem</references>
+        <references refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" compoundref="xdprxss__mst__example_8c" startline="358" endline="384">DpRxSs_SetupTimerHandler</references>
+        <references refid="xdprxss__debug__example_8c_1a416674ea3b4fb518b781478d20c6bc51" compoundref="xdprxss__debug__example_8c" startline="269" endline="274">DpRxSs_VideoPhyInit</references>
+        <references refid="struct_x_dp_rx_ss___usr_opt_1a3b30d496a7ebaea9b6f78a4edd47e07a" compoundref="xdprxss_8h" startline="208">XDpRxSs_UsrOpt::MstSupport</references>
+        <references refid="struct_x_dp_rx_ss_1afc12f403a17670fcf650b2056576785d" compoundref="xdprxss_8h" startline="402">XDpRxSs::UsrOpt</references>
+        <references refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" compoundref="xdprxss_8c" startline="151" endline="388">XDpRxSs_CfgInitialize</references>
+        <references refid="group__dprxss_1ga86f5f310693db55d08ce5e8ed6054c72" compoundref="xdprxss__sinit_8c" startline="89" endline="110">XDpRxSs_LookupConfig</references>
+        <references refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" compoundref="xdprxss_8c" startline="523" endline="545">XDpRxSs_SetLaneCount</references>
+        <references refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" compoundref="xdprxss_8c" startline="481" endline="503">XDpRxSs_SetLinkRate</references>
+        <references refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" compoundref="xdprxss_8c" startline="442" endline="460">XDpRxSs_Start</references>
+        <referencedby refid="xdprxss__mst__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xdprxss__mst__example_8c" startline="160" endline="183">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a26fb3eace6447299bbdedd12b314a6a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_PlatformInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_PlatformInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initialize required platform specific peripherals. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if required peripherals are initialized and configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="115" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a416674ea3b4fb518b781478d20c6bc51" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_VideoPhyInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_VideoPhyInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function configures Video Phy. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Video Phy configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="116" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ae690e4e95545e8f6b37672430f1f910a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_Setup</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_Setup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function configures DisplayPort RX Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if DPRX Subsystem configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="117" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_SetupIntrSystem</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_SetupIntrSystem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets up the interrupt system so interrupts can occur for the DisplayPort RX Subsystem core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function is application-specific since the actual system may or may not have an interrupt controller. The DPRX Subsystem core could be directly connected to a processor without an interrupt controller. The user should modify this function to fit the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt setup was successful.</para></listitem><listitem><para>A specific error code defined in &quot;xstatus.h&quot; if an error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="120" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ab48f1eb74aef3c71a182fbbf1766f3c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_VideoModeHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_VideoModeHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a video mode change interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="121" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a182eb63ff50788f187a14f7a92642af6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_NoVideoHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_NoVideoHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a no video interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ab8b407dc14e0af7ec22c33d57f03759c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_VerticalBlankHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_VerticalBlankHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a vertical blank interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="123" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a1b44ac6b87efbb02046da6924c82ed70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_TrainingLostHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_TrainingLostHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a training lost interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="124" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a879656468e071dd105e3c1f05b042524" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_TrainingDoneHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_TrainingDoneHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when the training done interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="125" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a8c8998041786497da0f18239962b3556" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_DownReqestHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_DownReqestHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a down request interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="126" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ad3e32bce337c1d356f6831c816122cc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_DownReplyHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_DownReplyHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when a down reply interrupt occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="127" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1acb9293004b94de688e83af78d4f10ee1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_UnplugHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_UnplugHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when the unplug event occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="128" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a4e933da366c3f1d04022bfc4cede6852" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_LinkBandwidthHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_LinkBandwidthHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for when the link bandwidth change occurs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="129" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ad7edd4773da6da9a0e8d971ea269d79f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_PllResetHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpRxSs_PllResetHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the callback function for PLL reset request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="130" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_SetupTimerHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_SetupTimerHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets up a custom timer which the driver will use for MicroBlaze systems. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if a timer controller exists for use.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>A timer controller must be present in the system. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="358" bodyend="384"/>
+        <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="367">XDpRxSs::DpPtr</references>
+        <references refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" compoundref="xdprxss__mst__example_8c" startline="406" endline="420">DpRxSs_CustomWaitUs</references>
+        <references refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" compoundref="xdprxss__intr_8c" startline="479" endline="489">XDpRxSs_SetUserTimerHandler</references>
+        <referencedby refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" compoundref="xdprxss__mst__example_8c" startline="206" endline="277">DpRxSs_MstExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_CustomWaitUs</definition>
+        <argsstring>(void *InstancePtr, u32 MicroSeconds)</argsstring>
+        <name>DpRxSs_CustomWaitUs</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MicroSeconds</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to override the driver&apos;s default sleep functionality. </para>        </briefdescription>
+        <detaileddescription>
+<para>For MicroBlaze systems, the XDpRxSs_WaitUs driver function&apos;s default behavior is to use the MB_Sleep function from microblaze_sleep.h, which is implemented in software and only has millisecond accuracy. For this reason, using a hardware timer is preferable. For ARM/Zynq SoC systems, the SoC&apos;s timer is used - XDpRxSs_WaitUs will ignore this custom timer handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MicroSeconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of microseconds to delay/sleep for.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Use the XDpRxSs_SetUserTimerHandler driver function to set this function as the handler for when the XDpRxSs_WaitUs driver function is called. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="406" bodyend="420"/>
+        <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="367">XDpRxSs::DpPtr</references>
+        <referencedby refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" compoundref="xdprxss__mst__example_8c" startline="358" endline="384">DpRxSs_SetupTimerHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpRxSs_DetectResolution</definition>
+        <argsstring>(XDpRxSs *InstancePtr)</argsstring>
+        <name>DpRxSs_DetectResolution</name>
+        <param>
+          <type><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function will present the resolution of the incoming video stream. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The resolution will be rounded up to the nearest resolution present in the XVidC_VideoTimingModes table. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="626" bodyend="641"/>
+        <references refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" compoundref="xdprxss_8h" startline="367">XDpRxSs::DpPtr</references>
+        <references refid="group__dprxss_1gade9ba08af5232341cdb08e1cfecbe7da" compoundref="xdprxss__hw_8h" startline="90">XDPRXSS_MSA_HRES</references>
+        <references refid="group__dprxss_1gadb8bd23f822d2c71d2c1048fe0a63756" compoundref="xdprxss__hw_8h" startline="95">XDPRXSS_MSA_VRES</references>
+        <references refid="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" compoundref="xdprxss__hw_8h" startline="160">XDpRxSs_ReadReg</references>
+        <references refid="group__dprxss_1gac12fae71e2f814c34ebf8cf3007631e2" compoundref="xdprxss_8h" startline="508">XDpRxSs_WaitUs</references>
+      </memberdef>
+      <memberdef kind="function" id="xdprxss__mst__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+<para>This is the main function for <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> SST/MST example. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the MST/SST example passed.</para></listitem><listitem><para>XST_FAILURE if the MST/SST example was unsuccessful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c" bodystart="160" bodyend="183"/>
+        <references refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" compoundref="xdprxss__mst__example_8c" startline="206" endline="277">DpRxSs_MstExample</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a design example using the <ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref> driver in single stream (SST) transport or multi-stream transport (MST) mode. </para>    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>For this example to display output, the user need to implement initialization of the system (DpRxSs_PlatformInit), Video Phy (DpRxSs_VideoPhyInit), start DisplayPort RX subsystem (XDpRxSs_Start) and DisplayPort RX Subsystem setup (DpRxSs_Setup). The input to the Subsystem is from RX (GT). This example requires an interrupt controller in the system. The functions DpRxSs_PlatformInit, DpRxSs_VideoPhyInit and DpRxSs_Setup are declared and are left up to the user to implement.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver  Who Date     Changes
+<hruler/>
+
+1.00 sha 07/29/15 Initial release.
+2.00 sha 10/05/15 Changed DpTxSs_Setup <ndash/>&gt; DpRxSs_Setup.
+4.00 ms  01/23/17 Modified xil_printf statement in main function to
+                  ensure that &quot;Successfully ran&quot; and &quot;Failed&quot; strings
+                  are available in all examples. This is a fix for
+                  CR-965028.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdprxss_8h" kindref="compound">xdprxss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xtmrctr.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>MicroBlaze<sp/>systems.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>ARM/Zynq<sp/>SoC<sp/>systems.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>INTRNAME_DPRX<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="69"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>names<sp/>of<sp/>the<sp/>hardware<sp/>instances.</highlight></codeline>
+<codeline lineno="70"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change<sp/>all<sp/>the</highlight></codeline>
+<codeline lineno="71"><highlight class="comment">*<sp/>needed<sp/>device<sp/>IDs<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="72"><highlight class="comment">*<sp/>There<sp/>is<sp/>only<sp/>one<sp/>interrupt<sp/>controlled<sp/>to<sp/>be<sp/>selected<sp/>from<sp/>SCUGIC<sp/>and<sp/>GPIO</highlight></codeline>
+<codeline lineno="73"><highlight class="comment">*<sp/>INTC.<sp/>INTC<sp/>selection<sp/>is<sp/>based<sp/>on<sp/>INTC<sp/>parameters<sp/>defined<sp/>xparameters.h<sp/>file.</highlight></codeline>
+<codeline lineno="74"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID<sp/><sp/><sp/><sp/>XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>Else<sp/>part<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID<sp/><sp/><sp/><sp/>XPAR_INTC_0_DPRXSS_0_DPRXSS_DP_IRQ_VEC_ID</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_SCUGIC_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_InterruptHandler</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XPAR_INTC_0_DEVICE_ID<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>Timer<sp/>controller<sp/>instance<sp/>to<sp/>be<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTMR_CTRL_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_TMRCTR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>DisplayPort<sp/>Receiver<sp/>Subsystem<sp/>HIP<sp/>instance</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>to<sp/>be<sp/>used</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DPRXSS_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Example<sp/>will<sp/>run<sp/>either<sp/>in<sp/>MST<sp/>or<sp/>SST<sp/>mode<sp/>based<sp/>upon<sp/>config<sp/>parameters.</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>In<sp/>MST<sp/>mode,<sp/>this<sp/>example<sp/>exposes<sp/>maximum<sp/>number<sp/>of<sp/>input<sp/>and<sp/>output<sp/>ports</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>of<sp/>DP<sp/>RX<sp/>that<sp/>will<sp/>be<sp/>included<sp/>while<sp/>replying<sp/>to<sp/>sideband<sp/>messages<sp/>from<sp/>TX.</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DPRXSS_LINK_RATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPRXSS_LINK_BW_SET_540GBPS</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DPRXSS_LANE_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDPRXSS_LANE_COUNT_SET_4</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1a26fb3eace6447299bbdedd12b314a6a8" kindref="member">DpRxSs_PlatformInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1a416674ea3b4fb518b781478d20c6bc51" kindref="member">DpRxSs_VideoPhyInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1ae690e4e95545e8f6b37672430f1f910a" kindref="member">DpRxSs_Setup</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Interrupt<sp/>helper<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">u32<sp/><ref refid="xdprxss__intr__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793" kindref="member">DpRxSs_SetupIntrSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ab48f1eb74aef3c71a182fbbf1766f3c9" kindref="member">DpRxSs_VideoModeHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a182eb63ff50788f187a14f7a92642af6" kindref="member">DpRxSs_NoVideoHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ab8b407dc14e0af7ec22c33d57f03759c" kindref="member">DpRxSs_VerticalBlankHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a1b44ac6b87efbb02046da6924c82ed70" kindref="member">DpRxSs_TrainingLostHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a879656468e071dd105e3c1f05b042524" kindref="member">DpRxSs_TrainingDoneHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a8c8998041786497da0f18239962b3556" kindref="member">DpRxSs_DownReqestHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ad3e32bce337c1d356f6831c816122cc7" kindref="member">DpRxSs_DownReplyHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1acb9293004b94de688e83af78d4f10ee1" kindref="member">DpRxSs_UnplugHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a4e933da366c3f1d04022bfc4cede6852" kindref="member">DpRxSs_LinkBandwidthHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ad7edd4773da6da9a0e8d971ea269d79f" kindref="member">DpRxSs_PllResetHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" kindref="member">DpRxSs_SetupTimerHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" kindref="member">DpRxSs_CustomWaitUs</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" kindref="member">DpRxSs_DetectResolution</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>DpRxSsInst;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>DPRX<sp/>Subsystem<sp/>instance.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal">XINTC<sp/>IntcInst;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>interrupt<sp/>controller<sp/>instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal">XTmrCtr<sp/>TmrCtrInst;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>timer<sp/>counter<sp/>instance.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="160" refid="xdprxss__mst__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdprxss__debug__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;------------------------------------------\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DisplayPort<sp/>RX<sp/>Subsystem<sp/>SST/MST<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;(c)<sp/>2015<sp/>by<sp/>Xilinx\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;-------------------------------------------\n\r\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(XDPRXSS_DEVICE_ID);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(XPAR_DPRXSS_0_BASEADDR);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DisplayPort<sp/>RX<sp/>Subsystem<sp/>SST/MST<sp/>example<sp/>failed.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>DisplayPort<sp/>RX<sp/>Subsystem<sp/>SST/MST<sp/>example\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(u16<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="206" refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a24ea906f84ef101284e74aa4abd5c330" kindref="member">DpRxSs_MstExample</ref>(UINTPTR<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_rx_ss___config" kindref="compound">XDpRxSs_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Do<sp/>platform<sp/>initialization<sp/>in<sp/>this<sp/>function.<sp/>This<sp/>is<sp/>hardware</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>specific.<sp/>It<sp/>is<sp/>up<sp/>to<sp/>the<sp/>user<sp/>to<sp/>implement<sp/>this<sp/>function.</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;PlatformInit\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdprxss__debug__example_8c_1a26fb3eace6447299bbdedd12b314a6a8" kindref="member">DpRxSs_PlatformInit</ref>();</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Platform<sp/>init<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Platform<sp/>initialization<sp/>done.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Obtain<sp/>the<sp/>device<sp/>configuration<sp/>for<sp/>the<sp/>DisplayPort<sp/>RX<sp/>Subsystem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__dprxss_1ga86f5f310693db55d08ce5e8ed6054c72" kindref="member">XDpRxSs_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="group__dprxss_1ga86f5f310693db55d08ce5e8ed6054c72" kindref="member">XDpRxSs_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!ConfigPtr)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>device<sp/>configuration<sp/>into<sp/>the<sp/>DpRxSsInst&apos;s<sp/>Config</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>structure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__dprxss_1ga25f3b6123ff5cbf277c4117617980738" kindref="member">XDpRxSs_CfgInitialize</ref>(&amp;DpRxSsInst,<sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_dp_rx_ss___config_1a51ebda7704c9682d7b8fc8073da88ad8" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;DPRXSS<sp/>config<sp/>initialization<sp/>failed.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>SST/MST<sp/>support<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DpRxSsInst.<ref refid="struct_x_dp_rx_ss_1afc12f403a17670fcf650b2056576785d" kindref="member">UsrOpt</ref>.<ref refid="struct_x_dp_rx_ss___usr_opt_1a3b30d496a7ebaea9b6f78a4edd47e07a" kindref="member">MstSupport</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n\rINFO:DPRXSS<sp/>is<sp/>MST<sp/>enabled.<sp/>DPRXSS<sp/>can<sp/>be<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;switched<sp/>to<sp/>SST/MST\n\r\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n\rINFO:DPRXSS<sp/>is<sp/><sp/>SST<sp/>enabled.<sp/>DPRXSS<sp/>works<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;only<sp/>in<sp/>SST<sp/>mode.\n\r\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>up<sp/>a<sp/>timer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" kindref="member">DpRxSs_SetupTimerHandler</ref>();</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xdprxss__intr__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793" kindref="member">DpRxSs_SetupIntrSystem</ref>();</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR:<sp/>Interrupt<sp/>system<sp/>setup<sp/>failed.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Link<sp/>rate<sp/>and<sp/>lane<sp/>count<sp/>to<sp/>maximum<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gae447b427e7616d143f2170881fa79bb1" kindref="member">XDpRxSs_SetLinkRate</ref>(&amp;DpRxSsInst,<sp/>DPRXSS_LINK_RATE);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga180a0386c25a456d436bbfc9fec05c02" kindref="member">XDpRxSs_SetLaneCount</ref>(&amp;DpRxSsInst,<sp/>DPRXSS_LANE_COUNT);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>DPRXSS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__dprxss_1ga5ada36b95407b1169e183bbb7b9847d6" kindref="member">XDpRxSs_Start</ref>(&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR:DPRX<sp/>SS<sp/>start<sp/>failed\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>Video<sp/>Phy,<sp/>left<sp/>to<sp/>the<sp/>user<sp/>for<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__debug__example_8c_1a416674ea3b4fb518b781478d20c6bc51" kindref="member">DpRxSs_VideoPhyInit</ref>();</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>DPRX<sp/>SS,<sp/>left<sp/>to<sp/>the<sp/>user<sp/>for<sp/>implementation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__debug__example_8c_1ae690e4e95545e8f6b37672430f1f910a" kindref="member">DpRxSs_Setup</ref>();</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1a26fb3eace6447299bbdedd12b314a6a8" kindref="member">DpRxSs_PlatformInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="295"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>setup<sp/>platform<sp/>specific<sp/>initialization<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="299"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="315"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1a416674ea3b4fb518b781478d20c6bc51" kindref="member">DpRxSs_VideoPhyInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>setup<sp/>Video<sp/>Phy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="336"><highlight class="normal">u32<sp/><ref refid="xdprxss__debug__example_8c_1ae690e4e95545e8f6b37672430f1f910a" kindref="member">DpRxSs_Setup</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>setup<sp/>Video<sp/>Phy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="358" refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdprxss__mst__example_8c_1a502a615a3a5d923c6315cbdc85ad136a" kindref="member">DpRxSs_SetupTimerHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="359"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="363"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XTmrCtr_Initialize(&amp;TmrCtrInst,<sp/>XTMR_CTRL_DEVICE_ID);</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XTmrCtr_Initialize(&amp;TmrCtrInst,<sp/>XPAR_XTMRCTR_0_BASEADDR);</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>a<sp/>custom<sp/>timer<sp/>handler<sp/>for<sp/>improved<sp/>delay<sp/>accuracy<sp/>on<sp/>MicroBlaze</highlight></codeline>
+<codeline lineno="372"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>systems<sp/>since<sp/>the<sp/>driver<sp/>does<sp/>not<sp/>assume/have<sp/>a<sp/>dependency<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="373"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>system<sp/>having<sp/>a<sp/>timer<sp/>in<sp/>the<sp/>FPGA.</highlight></codeline>
+<codeline lineno="374"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Note:<sp/>This<sp/>only<sp/>has<sp/>an<sp/>affect<sp/>for<sp/>MicroBlaze<sp/>systems<sp/>since<sp/>the<sp/>Zynq</highlight></codeline>
+<codeline lineno="375"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ARM<sp/>SoC<sp/>contains<sp/>a<sp/>timer,<sp/>which<sp/>is<sp/>used<sp/>when<sp/>the<sp/>driver<sp/>calls<sp/>the</highlight></codeline>
+<codeline lineno="376"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>delay<sp/>function.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gaf684915f482b58b5b4dcd9950f4af1a7" kindref="member">XDpRxSs_SetUserTimerHandler</ref>(&amp;DpRxSsInst,<sp/>&amp;<ref refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" kindref="member">DpRxSs_CustomWaitUs</ref>,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;TmrCtrInst);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_SetResetValue(DpRxSsInst.<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;UserTimerPtr,<sp/>0,<sp/>0);</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_Reset(DpRxSsInst.<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;UserTimerPtr,<sp/>0);</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="384"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="406" refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__mst__example_8c_1ae5cf630dfb6e3d33763d14e4f32f0abc" kindref="member">DpRxSs_CustomWaitUs</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds)</highlight></codeline>
+<codeline lineno="407"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimerVal;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_Start(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;UserTimerPtr,<sp/>0);</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>specified<sp/>number<sp/>of<sp/>useconds.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimerVal<sp/>=<sp/>XTmrCtr_GetValue(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;UserTimerPtr,<sp/>0);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(TimerVal<sp/>&lt;<sp/>(MicroSeconds<sp/>*</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;Config.SAxiClkHz<sp/>/<sp/>1000000)));</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_Stop(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;UserTimerPtr,<sp/>0);</highlight></codeline>
+<codeline lineno="420"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="442"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="443"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__intr__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793" kindref="member">DpRxSs_SetupIntrSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="444"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTC<sp/>*IntcInstPtr<sp/>=<sp/>&amp;IntcInst;</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>callbacks<sp/>for<sp/>the<sp/>required<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab5882181a8edf31196932d84f82ced50" kindref="member">XDPRXSS_HANDLER_DP_VM_CHG_EVENT</ref>,</highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ab48f1eb74aef3c71a182fbbf1766f3c9" kindref="member">DpRxSs_VideoModeHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a7a6e35c4a9fac72087282bf5aa3216f7" kindref="member">XDPRXSS_HANDLER_DP_NO_VID_EVENT</ref>,</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a182eb63ff50788f187a14f7a92642af6" kindref="member">DpRxSs_NoVideoHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6d19a37b6271d02f50368d9284f64b6a" kindref="member">XDPRXSS_HANDLER_DP_VBLANK_EVENT</ref>,</highlight></codeline>
+<codeline lineno="454"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ab8b407dc14e0af7ec22c33d57f03759c" kindref="member">DpRxSs_VerticalBlankHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afd6250ba9a49ebe26f5be42103625e3f" kindref="member">XDPRXSS_HANDLER_DP_TLOST_EVENT</ref>,</highlight></codeline>
+<codeline lineno="456"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a1b44ac6b87efbb02046da6924c82ed70" kindref="member">DpRxSs_TrainingLostHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aeddd5b57682f2d8c3e7f07403d184339" kindref="member">XDPRXSS_HANDLER_DP_TDONE_EVENT</ref>,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a879656468e071dd105e3c1f05b042524" kindref="member">DpRxSs_TrainingDoneHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a93d97f416e80d71c176cd031b6d757cf" kindref="member">XDPRXSS_HANDLER_DP_DWN_REQ_EVENT</ref>,</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a8c8998041786497da0f18239962b3556" kindref="member">DpRxSs_DownReqestHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6e837e7f939c39fe6ce42f1c2c6af5cc" kindref="member">XDPRXSS_HANDLER_DP_DWN_REP_EVENT</ref>,</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ad3e32bce337c1d356f6831c816122cc7" kindref="member">DpRxSs_DownReplyHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a54d8a7534f2766333f1048fcad9e3cbd" kindref="member">XDPRXSS_HANDLER_UNPLUG_EVENT</ref>,</highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1acb9293004b94de688e83af78d4f10ee1" kindref="member">DpRxSs_UnplugHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a148ff5a3b54e14baaf0ce9740d4e90a3" kindref="member">XDPRXSS_HANDLER_LINKBW_EVENT</ref>,</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a4e933da366c3f1d04022bfc4cede6852" kindref="member">DpRxSs_LinkBandwidthHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4ee8d2b95922a7fd6a85f519b8e8919a" kindref="member">XDPRXSS_HANDLER_PLL_RESET_EVENT</ref>,</highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ad7edd4773da6da9a0e8d971ea269d79f" kindref="member">DpRxSs_PllResetHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="471"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it&apos;s<sp/>ready<sp/>to</highlight></codeline>
+<codeline lineno="472"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>use,<sp/>specify<sp/>the<sp/>device<sp/>ID<sp/>that<sp/>was<sp/>generated<sp/>in<sp/>xparameters.h</highlight></codeline>
+<codeline lineno="473"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Initialize(IntcInstPtr,<sp/>XINTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Intc<sp/>initialization<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hook<sp/>up<sp/>interrupt<sp/>service<sp/>routine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Connect(IntcInstPtr,<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID,</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XInterruptHandler)<ref refid="group__dprxss_1ga666df5371b82b3dec85271c007f1625d" kindref="member">XDpRxSs_DpIntrHandler</ref>,</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR:<sp/>DP<sp/>RX<sp/>SS<sp/>DP<sp/>interrupt<sp/>connect<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"></highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>interrupt<sp/>vector<sp/>at<sp/>the<sp/>interrupt<sp/>controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_Enable(IntcInstPtr,<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID);</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"></highlight></codeline>
+<codeline lineno="492"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>the<sp/>interrupt<sp/>controller<sp/>such<sp/>that<sp/>interrupts<sp/>are<sp/>recognized</highlight></codeline>
+<codeline lineno="493"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>and<sp/>handled<sp/>by<sp/>the<sp/>processor</highlight></codeline>
+<codeline lineno="494"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XIntc_Start(IntcInstPtr,<sp/>XIN_REAL_MODE);</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="500"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>configuration<sp/>parameters<sp/>of<sp/>the<sp/>interrupt<sp/>controller<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Config<sp/>*IntcConfig;</highlight></codeline>
+<codeline lineno="502"><highlight class="normal"></highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>interrupt<sp/>controller<sp/>driver<sp/>so<sp/>that<sp/>it<sp/>is<sp/>ready<sp/>to</highlight></codeline>
+<codeline lineno="504"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>use.</highlight></codeline>
+<codeline lineno="505"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig<sp/>=<sp/>XScuGic_LookupConfig(XINTC_DEVICE_ID);</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>IntcConfig)<sp/>{</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="510"><highlight class="normal"></highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_CfgInitialize(IntcInstPtr,<sp/>IntcConfig,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntcConfig-&gt;CpuBaseAddress);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"></highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Connect<sp/>the<sp/>device<sp/>driver<sp/>handler<sp/>that<sp/>will<sp/>be<sp/>called<sp/>when<sp/>an</highlight></codeline>
+<codeline lineno="518"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>interrupt<sp/>for<sp/>the<sp/>device<sp/>occurs,<sp/>the<sp/>handler<sp/>defined<sp/>above<sp/>performs</highlight></codeline>
+<codeline lineno="519"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>specific<sp/>interrupt<sp/>processing<sp/>for<sp/>the<sp/>device</highlight></codeline>
+<codeline lineno="520"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XScuGic_Connect(IntcInstPtr,<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID,</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_InterruptHandler)<ref refid="group__dprxss_1ga666df5371b82b3dec85271c007f1625d" kindref="member">XDpRxSs_DpIntrHandler</ref>,</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR:<sp/>DP<sp/>RX<sp/>SS<sp/>DP<sp/>interrupt<sp/>connect<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>interrupt<sp/>for<sp/>the<sp/>Pixel<sp/>Splitter<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XScuGic_Enable(IntcInstance,<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID);</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="532"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>exception<sp/>table.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionInit();</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Register<sp/>the<sp/>interrupt<sp/>controller<sp/>handler<sp/>with<sp/>the<sp/>exception</highlight></codeline>
+<codeline lineno="536"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>table.</highlight></codeline>
+<codeline lineno="537"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_ExceptionHandler)XINTC_HANDLER,<sp/>IntcInstPtr);</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"></highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>exceptions.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ExceptionEnable();</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"></highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="545"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="547"><highlight class="preprocessor"></highlight><highlight class="normal">u32<sp/><ref refid="xdprxss__intr__example_8c_1a0a7486431cab68af81fb7ba9f2bc4793" kindref="member">DpRxSs_SetupIntrSystem</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="548"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"></highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>callbacks<sp/>for<sp/>the<sp/>required<sp/>interrupts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31ab5882181a8edf31196932d84f82ced50" kindref="member">XDPRXSS_HANDLER_DP_VM_CHG_EVENT</ref>,</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ab48f1eb74aef3c71a182fbbf1766f3c9" kindref="member">DpRxSs_VideoModeHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="554"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a7a6e35c4a9fac72087282bf5aa3216f7" kindref="member">XDPRXSS_HANDLER_DP_NO_VID_EVENT</ref>,</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a182eb63ff50788f187a14f7a92642af6" kindref="member">DpRxSs_NoVideoHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="556"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6d19a37b6271d02f50368d9284f64b6a" kindref="member">XDPRXSS_HANDLER_DP_VBLANK_EVENT</ref>,</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ab8b407dc14e0af7ec22c33d57f03759c" kindref="member">DpRxSs_VerticalBlankHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="558"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31afd6250ba9a49ebe26f5be42103625e3f" kindref="member">XDPRXSS_HANDLER_DP_TLOST_EVENT</ref>,</highlight></codeline>
+<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a1b44ac6b87efbb02046da6924c82ed70" kindref="member">DpRxSs_TrainingLostHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31aeddd5b57682f2d8c3e7f07403d184339" kindref="member">XDPRXSS_HANDLER_DP_TDONE_EVENT</ref>,</highlight></codeline>
+<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a879656468e071dd105e3c1f05b042524" kindref="member">DpRxSs_TrainingDoneHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="562"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a93d97f416e80d71c176cd031b6d757cf" kindref="member">XDPRXSS_HANDLER_DP_DWN_REQ_EVENT</ref>,</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a8c8998041786497da0f18239962b3556" kindref="member">DpRxSs_DownReqestHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a6e837e7f939c39fe6ce42f1c2c6af5cc" kindref="member">XDPRXSS_HANDLER_DP_DWN_REP_EVENT</ref>,</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ad3e32bce337c1d356f6831c816122cc7" kindref="member">DpRxSs_DownReplyHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a54d8a7534f2766333f1048fcad9e3cbd" kindref="member">XDPRXSS_HANDLER_UNPLUG_EVENT</ref>,</highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1acb9293004b94de688e83af78d4f10ee1" kindref="member">DpRxSs_UnplugHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a148ff5a3b54e14baaf0ce9740d4e90a3" kindref="member">XDPRXSS_HANDLER_LINKBW_EVENT</ref>,</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1a4e933da366c3f1d04022bfc4cede6852" kindref="member">DpRxSs_LinkBandwidthHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="570"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1ga62ff0e8ca041ca225de6e1a0baefa0c6" kindref="member">XDpRxSs_SetCallBack</ref>(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1gga3ca7c841e35b2dfe41310092b3837b31a4ee8d2b95922a7fd6a85f519b8e8919a" kindref="member">XDPRXSS_HANDLER_PLL_RESET_EVENT</ref>,</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__intr__example_8c_1ad7edd4773da6da9a0e8d971ea269d79f" kindref="member">DpRxSs_PllResetHandler</ref>,<sp/>&amp;DpRxSsInst);</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Hook<sp/>up<sp/>Rx<sp/>interrupt<sp/>service<sp/>routine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSetupInterruptSystem(&amp;DpRxSsInst,<sp/><ref refid="group__dprxss_1ga666df5371b82b3dec85271c007f1625d" kindref="member">XDpRxSs_DpIntrHandler</ref>,</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsInst.<ref refid="struct_x_dp_rx_ss_1a38c927311884c9c247ce6bb7299b8f5d" kindref="member">Config</ref>.<ref refid="struct_x_dp_rx_ss___config_1a532d474637833a1f8cbf997803ddcf7c" kindref="member">IntrId</ref>[INTRNAME_DPRX],</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsInst.<ref refid="struct_x_dp_rx_ss_1a38c927311884c9c247ce6bb7299b8f5d" kindref="member">Config</ref>.<ref refid="struct_x_dp_rx_ss___config_1ae45824001394dfae50bb1513b0258893" kindref="member">IntrParent</ref>,</highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XINTERRUPT_DEFAULT_PRIORITY);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;ERR:<sp/>DP<sp/>RX<sp/>SS<sp/>DP<sp/>interrupt<sp/>connect<sp/>failed!\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="584"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="586"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="600"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ab48f1eb74aef3c71a182fbbf1766f3c9" kindref="member">DpRxSs_VideoModeHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="601"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>video<sp/>mode<sp/>change.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" kindref="member">VBlankCount</ref><sp/>&gt;=<sp/>20)<sp/>{</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" kindref="member">DpRxSs_DetectResolution</ref>(DpRxSsPtr);</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"></highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>for<sp/>resetting<sp/>the<sp/>video<sp/>pipe<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="611"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="626" refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" kindref="member">DpRxSs_DetectResolution</ref>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="627"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DpHres,<sp/>DpVres;</highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GetResCount<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal"></highlight></codeline>
+<codeline lineno="631"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpHres<sp/>=<sp/><ref refid="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" kindref="member">XDpRxSs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gade9ba08af5232341cdb08e1cfecbe7da" kindref="member">XDPRXSS_MSA_HRES</ref>);</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpVres<sp/>=<sp/><ref refid="group__dprxss_1gacbff65f42123f46ee5085f8a37634b76" kindref="member">XDpRxSs_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gadb8bd23f822d2c71d2c1048fe0a63756" kindref="member">XDPRXSS_MSA_VRES</ref>);</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetResCount++;</highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gac12fae71e2f814c34ebf8cf3007631e2" kindref="member">XDpRxSs_WaitUs</ref>(InstancePtr,<sp/>1000);</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(((DpHres<sp/>==<sp/>0)<sp/>||<sp/>(DpVres<sp/>==<sp/>0))<sp/>&amp;&amp;<sp/>(GetResCount<sp/>&lt;<sp/>2000));</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"></highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\n***<sp/>Detected<sp/>resolution:<sp/>%u<sp/>x<sp/>%u<sp/>***\n&quot;</highlight><highlight class="normal">,<sp/>DpHres,<sp/>DpVres);</highlight></codeline>
+<codeline lineno="641"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="642"><highlight class="normal"></highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="655"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a182eb63ff50788f187a14f7a92642af6" kindref="member">DpRxSs_NoVideoHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="656"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>no-video<sp/>flags<sp/>in<sp/>the<sp/>VBID<sp/>field<sp/>after<sp/>active<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;video<sp/>has<sp/>been<sp/>received.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="660"><highlight class="normal"></highlight></codeline>
+<codeline lineno="661"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="674"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a879656468e071dd105e3c1f05b042524" kindref="member">DpRxSs_TrainingDoneHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="675"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>training<sp/>done.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="677"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"></highlight></codeline>
+<codeline lineno="679"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="692"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a8c8998041786497da0f18239962b3556" kindref="member">DpRxSs_DownReqestHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="693"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"></highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>down<sp/>request.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"></highlight></codeline>
+<codeline lineno="698"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dprxss_1gaae2cb38734654cfeca1d77b0439c243e" kindref="member">XDpRxSs_HandleDownReq</ref>(DpRxSsPtr);</highlight></codeline>
+<codeline lineno="699"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="700"><highlight class="normal"></highlight></codeline>
+<codeline lineno="701"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="714"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ad3e32bce337c1d356f6831c816122cc7" kindref="member">DpRxSs_DownReplyHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="715"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>down<sp/>reply.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="717"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"></highlight></codeline>
+<codeline lineno="719"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="732"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ab8b407dc14e0af7ec22c33d57f03759c" kindref="member">DpRxSs_VerticalBlankHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="733"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*DpRxSsPtr<sp/>=<sp/>(<ref refid="struct_x_dp_rx_ss" kindref="compound">XDpRxSs</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1a343152b13dbd31833adcdeb6562432ed" kindref="member">VBlankEnable</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="738"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" kindref="member">VBlankCount</ref>++;</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>vertical<sp/>blanking<sp/>(frame<sp/>%d).\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="740"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" kindref="member">VBlankCount</ref>);</highlight></codeline>
+<codeline lineno="741"><highlight class="normal"></highlight></codeline>
+<codeline lineno="742"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>until<sp/>20<sp/>frames<sp/>have<sp/>been<sp/>received<sp/>before<sp/>forwarding<sp/>or</highlight></codeline>
+<codeline lineno="743"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>outputting<sp/>any<sp/>video<sp/>stream.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="744"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" kindref="member">VBlankCount</ref><sp/>&gt;=<sp/>20)<sp/>{</highlight></codeline>
+<codeline lineno="745"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1a343152b13dbd31833adcdeb6562432ed" kindref="member">VBlankEnable</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="746"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1ac5e4b8314b7628e4f3cc94a8ac0dfadf" kindref="member">VBlankCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="747"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDp_RxInterruptDisable(DpRxSsPtr-&gt;<ref refid="struct_x_dp_rx_ss_1aeaf3eee6d864238c89084759cfe0f6eb" kindref="member">DpPtr</ref>,</highlight></codeline>
+<codeline lineno="748"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDP_RX_INTERRUPT_MASK_VBLANK_MASK);</highlight></codeline>
+<codeline lineno="749"><highlight class="normal"></highlight></codeline>
+<codeline lineno="750"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__dprxss_1gad307346eadf7cca46055eb02f8e92ddb" kindref="member">XDpRxSs_CheckLinkStatus</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="751"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="752"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>for<sp/>resetting<sp/>the<sp/>video</highlight></codeline>
+<codeline lineno="753"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>pipe.</highlight></codeline>
+<codeline lineno="754"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="755"><highlight class="normal"></highlight></codeline>
+<codeline lineno="756"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Detect<sp/>resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="757"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdprxss__mst__example_8c_1a2ede858b1f7354569c0f65e8d608115b" kindref="member">DpRxSs_DetectResolution</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="758"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="761"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="762"><highlight class="normal"></highlight></codeline>
+<codeline lineno="763"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="776"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a1b44ac6b87efbb02046da6924c82ed70" kindref="member">DpRxSs_TrainingLostHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="777"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="778"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>training<sp/>done.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="779"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="780"><highlight class="normal"></highlight></codeline>
+<codeline lineno="781"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="793"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1acb9293004b94de688e83af78d4f10ee1" kindref="member">DpRxSs_UnplugHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="794"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="795"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>unplug<sp/>event.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="796"><highlight class="normal"></highlight></codeline>
+<codeline lineno="797"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>take<sp/>corrective<sp/>actions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="798"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="799"><highlight class="normal"></highlight></codeline>
+<codeline lineno="800"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="813"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1a4e933da366c3f1d04022bfc4cede6852" kindref="member">DpRxSs_LinkBandwidthHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="814"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="815"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>link<sp/>bandwidth<sp/>change<sp/>request.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="816"><highlight class="normal"></highlight></codeline>
+<codeline lineno="817"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>re-initialize<sp/>Video<sp/>Phy<sp/>if<sp/>link<sp/>rate</highlight></codeline>
+<codeline lineno="818"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>mismatching.</highlight></codeline>
+<codeline lineno="819"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="820"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="821"><highlight class="normal"></highlight></codeline>
+<codeline lineno="822"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="834"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__intr__example_8c_1ad7edd4773da6da9a0e8d971ea269d79f" kindref="member">DpRxSs_PllResetHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="835"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="836"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Interrupt:<sp/>PLL<sp/>reset<sp/>request.\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="837"><highlight class="normal"></highlight></codeline>
+<codeline lineno="838"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>User<sp/>is<sp/>responsible<sp/>to<sp/>reset<sp/>Video<sp/>Phy<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="839"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/xdprxss_mst_example.c"/>
+  </compounddef>
+</doxygen>

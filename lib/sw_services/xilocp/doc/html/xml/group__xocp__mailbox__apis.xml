@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xocp__mailbox__apis" kind="group">
+    <compoundname>xocp_mailbox_apis</compoundname>
+    <title>XilOcp Mailbox APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__mailbox__apis_1gaa164a8fafefc1e2b183db27281ee1b13" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ClientInit</definition>
+        <argsstring>(XOcp_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XOcp_ClientInit</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the mailbox instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful initialization</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Uses XMailbox instance to initiate the communication between client and server.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_client.c" bodystart="65" bodyend="80"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <referencedby refid="group__xocp__dev_keyexample__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__devicekey__example_8c" startline="130" endline="174">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_ProcessMailbox</definition>
+        <argsstring>(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XOcp_ProcessMailbox</name>
+        <param>
+          <type>XMailbox *</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Length of the message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the IPI send and receive is successful</para></listitem><listitem><para>XST_FAILURE - If there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API id and call arguments to be written in IPI buffer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Sends IPI CDO to PLM, returns XST_FAILURE if sending data is failed.</para></listitem><listitem><para>Waits for IPI response from PLM with a default timeout of 2 seconds.</para></listitem><listitem><para>If the timeout exceeds then error is returned otherwise, it returns the status of the IPI response</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/xocp_mailbox.c" bodystart="65" bodyend="94"/>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" compoundref="xocp__key__mgmt_8c" startline="95" endline="119">XOcp_ClientAttestWithDevAk</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" compoundref="xocp__key__mgmt_8c" startline="137" endline="164">XOcp_ClientAttestWithKeyWrapDevAk</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" compoundref="xocp__hwpcr_8c" startline="63" endline="89">XOcp_ExtendHwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <referencedby refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" compoundref="client_2dme_2xocp__dme_8c" startline="62" endline="88">XOcp_GenDmeResp</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" compoundref="xocp__key__mgmt_8c" startline="187" endline="214">XOcp_GenSharedSecretWithDevAk</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" compoundref="xocp__hwpcr_8c" startline="109" endline="134">XOcp_GetHwPcr</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" compoundref="xocp__hwpcr_8c" startline="150" endline="176">XOcp_GetHwPcrLog</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" compoundref="xocp__swpcr_8c" startline="112" endline="141">XOcp_GetSwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" compoundref="xocp__swpcr_8c" startline="196" endline="222">XOcp_GetSwPcrData</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" compoundref="xocp__swpcr_8c" startline="155" endline="181">XOcp_GetSwPcrLog</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" compoundref="xocp__key__mgmt_8c" startline="58" endline="81">XOcp_GetX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

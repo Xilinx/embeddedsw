@@ -1,0 +1,558 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__frmbufwr__hw_8h" kind="file">
+    <compoundname>xv_frmbufwr_hw.h</compoundname>
+    <includedby refid="xv__frmbufwr_8h" local="yes">xv_frmbufwr.h</includedby>
+    <invincdepgraph>
+      <node id="63">
+        <label>xv_frmbufwr.c</label>
+        <link refid="xv__frmbufwr_8c"/>
+      </node>
+      <node id="62">
+        <label>xv_frmbufwr.h</label>
+        <link refid="xv__frmbufwr_8h"/>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xv_frmbufwr_hw.h</label>
+        <link refid="xv_frmbufwr_hw.h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>xv_frmbufwr_sinit.c</label>
+        <link refid="xv__frmbufwr__sinit_8c"/>
+      </node>
+      <node id="68">
+        <label>xv_frmbufwr_example.c</label>
+        <link refid="xv__frmbufwr__example_8c"/>
+      </node>
+      <node id="67">
+        <label>xv_frmbufwr_l2_intr.c</label>
+        <link refid="xv__frmbufwr__l2__intr_8c"/>
+      </node>
+      <node id="66">
+        <label>xv_frmbufwr_l2.c</label>
+        <link refid="xv__frmbufwr__l2_8c"/>
+      </node>
+      <node id="65">
+        <label>xv_frmbufwr_l2.h</label>
+        <link refid="xv__frmbufwr__l2_8h"/>
+        <childnode refid="66" relation="include">
+        </childnode>
+        <childnode refid="67" relation="include">
+        </childnode>
+        <childnode refid="68" relation="include">
+        </childnode>
+      </node>
+      <node id="64">
+        <label>xv_frmbufwr_g.c</label>
+        <link refid="xv__frmbufwr__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a1681ddbf06ce1b9ab7041efd1b6d9be8" prot="public" static="no">
+        <name>XV_FRMBUFWR_HW_H_</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="7" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a3c2185d52ba2cbd93358bece1ed1d17e" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Base address of the control register for AP (Accelerator Protocol) control signals. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1ad436052c2cfc0cd7b6b79f561dca38ab" compoundref="xv__frmbufwr_8c" startline="170" endline="175">XV_frmbufwr_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac37a689a78739317839929d7cba96cff" compoundref="xv__frmbufwr_8c" startline="153" endline="158">XV_frmbufwr_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="213" endline="222">XV_frmbufwr_Get_FlushDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1a45172de1053c3dbd78eda7b85cfd86" compoundref="xv__frmbufwr_8c" startline="85" endline="93">XV_frmbufwr_IsDone</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1c126d44d62c2308a2c68a3b7a64046b" compoundref="xv__frmbufwr_8c" startline="108" endline="116">XV_frmbufwr_IsIdle</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a79c0154c54848e4215b04a297b684497" compoundref="xv__frmbufwr_8c" startline="130" endline="139">XV_frmbufwr_IsReady</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="189" endline="200">XV_frmbufwr_SetFlushbit</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1fa08ab807087c53eae5cda44cafd616" compoundref="xv__frmbufwr_8c" startline="64" endline="72">XV_frmbufwr_Start</referencedby>
+        <referencedby refid="group__v__frmbuf__wr_1ga7aa0fd061e4c759a245ec57b551d8d21" compoundref="xv__frmbufwr__l2_8c" startline="1029" endline="1105">XVFrmbufWr_DbgReportStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a464171f57ea79004d37bbceb1501806f" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT_POS</name>
+        <initializer>(5)</initializer>
+        <briefdescription>
+<para>Bit position for the flush command in the control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a38e6c6c562a609ea45c803d6a937359a" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT</name>
+        <initializer>(1 &lt;&lt; <ref refid="xv__frmbufwr__hw_8h_1a464171f57ea79004d37bbceb1501806f" kindref="member">XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT_POS</ref>)</initializer>
+        <briefdescription>
+<para>Bit mask for the flush command (bit 5) - initiates flush of pending AXI transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1aec97449765908eeabc6e2b5fd4153297" compoundref="xv__frmbufwr_8c" startline="189" endline="200">XV_frmbufwr_SetFlushbit</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a0aa22404db1120434603d54d48723cfb" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT_POS</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+<para>Bit position for the flush status in the control register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1add81b8b1f9540e31fd817b69acd3763a" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT</name>
+        <initializer>(1 &lt;&lt; <ref refid="xv__frmbufwr__hw_8h_1a0aa22404db1120434603d54d48723cfb" kindref="member">XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT_POS</ref>)</initializer>
+        <briefdescription>
+<para>Bit mask for the flush status (bit 6) - indicates flush operation completion. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1aec8603446c416ffcd590fb1dacc766d8" compoundref="xv__frmbufwr_8c" startline="213" endline="222">XV_frmbufwr_Get_FlushDone</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a0168ce27172300e330d015b9fddd250e" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_GIE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Address of the Global Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="92" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a8a20fdb5eda4f9e0776dbd061df04e19" compoundref="xv__frmbufwr_8c" startline="642" endline="647">XV_frmbufwr_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a54d671ea4a8f8f0b7643f122cc4d0206" compoundref="xv__frmbufwr_8c" startline="626" endline="631">XV_frmbufwr_InterruptGlobalEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a8a3d37f40922188009430d9789ba5e3f" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_IER</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Address of the IP Interrupt Enable Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a4566cdad05f19ee21c92150343677c7b" compoundref="xv__frmbufwr_8c" startline="684" endline="692">XV_frmbufwr_InterruptDisable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a99d1cb6b86e24d84059be2d1a90fc9f4" compoundref="xv__frmbufwr_8c" startline="661" endline="669">XV_frmbufwr_InterruptEnable</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a1cbba8d3981e50c0421ede6b361da7ce" compoundref="xv__frmbufwr_8c" startline="723" endline="728">XV_frmbufwr_InterruptGetEnabled</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ae1fa46d486797f0f525a19e25b32a90d" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_ISR</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+<para>Address of the IP Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a0d5ef16a3e39045cf9170304fb67b96e" compoundref="xv__frmbufwr_8c" startline="705" endline="710">XV_frmbufwr_InterruptClear</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a34eec22513f730be9a0740c7fffc9142" compoundref="xv__frmbufwr_8c" startline="741" endline="746">XV_frmbufwr_InterruptGetStatus</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1aaf12bd425d57cf07dab98af4e1e183e9" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_WIDTH_DATA</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Address of the hardware register for frame width configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a52dd135d5e0ee9f1d8d4aa7470b453d7" compoundref="xv__frmbufwr_8c" startline="252" endline="260">XV_frmbufwr_Get_HwReg_width</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a358b23884dce32646c0307ac9aab5ab2" compoundref="xv__frmbufwr_8c" startline="234" endline="239">XV_frmbufwr_Set_HwReg_width</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a5a578e5da28cf77820688e043faf7b10" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_WIDTH_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit width of the frame width register (16 bits, supporting values 0-65535) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a6acbf39d178c67d69cc2832ab4a0c3b3" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_HEIGHT_DATA</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+<para>Address of the hardware register for frame height configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a8e1b6040c53f4a53fe8abe58e57f86bd" compoundref="xv__frmbufwr_8c" startline="289" endline="297">XV_frmbufwr_Get_HwReg_height</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a223c96f00aeb45b5a4d6264f517fd54e" compoundref="xv__frmbufwr_8c" startline="273" endline="278">XV_frmbufwr_Set_HwReg_height</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ab651def78582d13c8268b31a3a322d33" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_HEIGHT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit width of the frame height register (16 bits, supporting values 0-65535) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1abe8ffec290864921d5a21a04ab111d96" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_STRIDE_DATA</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+<para>Address of the hardware register for stride configuration (bytes per line) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a713dc15464e73f63f32ae6d2a102e60f" compoundref="xv__frmbufwr_8c" startline="334" endline="342">XV_frmbufwr_Get_HwReg_stride</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a0895ffe348089ae1a845a3399326f775" compoundref="xv__frmbufwr_8c" startline="312" endline="317">XV_frmbufwr_Set_HwReg_stride</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ada5daeb2f5c47cada417085c3e56a0ca" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_STRIDE_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit width of the stride register (16 bits, supporting values 0-65535) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ac0d317949f1c326c16ec1f0e6856a306" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA</name>
+        <initializer>0x28</initializer>
+        <briefdescription>
+<para>Address of the hardware register for video format configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a8b8c974ce85abb60f3cbd9d8d9da8e0e" compoundref="xv__frmbufwr_8c" startline="374" endline="382">XV_frmbufwr_Get_HwReg_video_format</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a3979eb5235e31e4d611a2cbb2ab5a3a1" compoundref="xv__frmbufwr_8c" startline="354" endline="359">XV_frmbufwr_Set_HwReg_video_format</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a0414a285b8ff915a2ec2c4fe11e566d4" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit width of the video format register (16 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1aaebbbee612308422fc1edcdd615d9c1b" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+<para>Base address of the hardware register for primary frame buffer pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a3a5e315ab14def780bbdcbd280ab12cb" compoundref="xv__frmbufwr_8c" startline="418" endline="427">XV_frmbufwr_Get_HwReg_frm_buffer_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aa8ac854d44f035497782ec71d7199c31" compoundref="xv__frmbufwr_8c" startline="398" endline="404">XV_frmbufwr_Set_HwReg_frm_buffer_V</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1abaf8c377d8719ddfd10a83002ce1343e" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER_V_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Bit width of the frame buffer address (64 bits for 64-bit address space) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1aa233bdf16542b2e10ee67eb0550a5e57" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA</name>
+        <initializer>0x3c</initializer>
+        <briefdescription>
+<para>Base address of the hardware register for secondary frame buffer pointer (chroma plane) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1acd1ec05a706aae551741bd738dc874cc" compoundref="xv__frmbufwr_8c" startline="461" endline="470">XV_frmbufwr_Get_HwReg_frm_buffer2_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a7dd03b1adcd69e1d316efe8404bd30dc" compoundref="xv__frmbufwr_8c" startline="443" endline="449">XV_frmbufwr_Set_HwReg_frm_buffer2_V</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a493bfb987308ddb0d539ccc701256e87" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Bit width of the secondary frame buffer address (64 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a4673402653d086620cee553e15539d72" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_FIELD_ID_DATA</name>
+        <initializer>0x48</initializer>
+        <briefdescription>
+<para>Address of the hardware register for field ID (interlaced video field indicator) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="137" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a89f7402d7cbb640a3c9c465d58625016" compoundref="xv__frmbufwr_8c" startline="526" endline="535">XV_frmbufwr_Get_HwReg_field_id</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1af3bd95b1c82c6622f9e261adc9ca2b2a" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_FIELD_ID_DATA</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bit width of the field ID register (1 bit: 0 or 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a54a3b56d9a9a79469fd0bfa46e3f91b7" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA</name>
+        <initializer>0x54</initializer>
+        <briefdescription>
+<para>Base address of the hardware register for tertiary frame buffer pointer (second chroma plane) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1aa0a3f998f71dd0afcb5ed2755a8ad97f" compoundref="xv__frmbufwr_8c" startline="504" endline="511">XV_frmbufwr_Get_HwReg_frm_buffer3_V</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1a8cd85b1598a44028e8df3d35660516a0" compoundref="xv__frmbufwr_8c" startline="486" endline="491">XV_frmbufwr_Set_HwReg_frm_buffer3_V</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ae28f0b44142cfd92e8faec2f4242f88d" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER3_V_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+<para>Bit width of the tertiary frame buffer address (64 bits) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a8f2607f003b4ebd4406e7cb0dbb3be7a" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_FORCE_EOF_DATA</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+<para>Address of the hardware register for Forcing EOF. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="149" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a17047a6e2b84009f8732a0ffc6117234" compoundref="xv__frmbufwr_8c" startline="567" endline="575">XV_frmbufwr_Get_HwReg_force_eof</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1aaff3422d13e01740308050fd49f65cb9" compoundref="xv__frmbufwr_8c" startline="547" endline="552">XV_frmbufwr_Set_HwReg_force_eof</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a8a1dd32fe48d13c290a62c26ee7b50f2" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_FORCE_EOF_DATA</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Bit width of the Forcing EOF register (1 bit: 0 or 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="152" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1ade1cf77fc413138ca684a7a3b28566d0" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_ADDR_PARTIAL_FRM_CNT_DATA</name>
+        <initializer>0x70</initializer>
+        <briefdescription>
+<para>Address of the hardware register for partial frame count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="155" bodyend="-1"/>
+        <referencedby refid="xv__frmbufwr_8h_1a721346ceba05a8b2967a645b9d3f83cb" compoundref="xv__frmbufwr_8c" startline="607" endline="615">XV_frmbufwr_Get_HwReg_partial_frm_cnt</referencedby>
+        <referencedby refid="xv__frmbufwr_8h_1ac19a692596de64e0468c94bc957274ad" compoundref="xv__frmbufwr_8c" startline="587" endline="592">XV_frmbufwr_Set_HwReg_partial_frm_cnt</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__frmbufwr__hw_8h_1a2064be25297d28f87ce164463bda50b0" prot="public" static="no">
+        <name>XV_FRMBUFWR_CTRL_BITS_PARTIAL_FRM_CNT_DATA</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Bit width of the partial frame count register (16 bits, supporting values 0-65535) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><itemizedlist>
+<listitem></listitem></itemizedlist>
+</para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XV_FRMBUFWR_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_HW_H_<sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="8"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="19"><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x00<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>5<sp/><sp/>-<sp/>Flush<sp/>pending<sp/>AXI<sp/>transactions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>6<sp/><sp/>-<sp/>Flush<sp/>done</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x04<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x08<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x10<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_width[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x14<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x18<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_height[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x20<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_stride</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_stride[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x24<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x28<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_video_format</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>15~0<sp/>-<sp/>HwReg_video_format[15:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x2c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x30<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer_V[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x34<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer_V[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x38<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x3c<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer2_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer2_V[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x40<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer2_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer2_V[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x44<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x48<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_field_id</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>HwReg_field_id[0]<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x4c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x54<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer3_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer3_V[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x58<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>HwReg_frm_buffer3_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>HwReg_frm_buffer3_V[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="xv__frmbufwr__hw_8h_1a3c2185d52ba2cbd93358bece1ed1d17e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80" refid="xv__frmbufwr__hw_8h_1a464171f57ea79004d37bbceb1501806f" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(5)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="xv__frmbufwr__hw_8h_1a38e6c6c562a609ea45c803d6a937359a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_BIT_POS)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86" refid="xv__frmbufwr__hw_8h_1a0aa22404db1120434603d54d48723cfb" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="89" refid="xv__frmbufwr__hw_8h_1add81b8b1f9540e31fd817b69acd3763a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>XV_FRMBUFWR_CTRL_BITS_FLUSH_STATUSBIT_POS)</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92" refid="xv__frmbufwr__hw_8h_1a0168ce27172300e330d015b9fddd250e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95" refid="xv__frmbufwr__hw_8h_1a8a3d37f40922188009430d9789ba5e3f" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98" refid="xv__frmbufwr__hw_8h_1ae1fa46d486797f0f525a19e25b32a90d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0c</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101" refid="xv__frmbufwr__hw_8h_1aaf12bd425d57cf07dab98af4e1e183e9" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104" refid="xv__frmbufwr__hw_8h_1a5a578e5da28cf77820688e043faf7b10" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="xv__frmbufwr__hw_8h_1a6acbf39d178c67d69cc2832ab4a0c3b3" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110" refid="xv__frmbufwr__hw_8h_1ab651def78582d13c8268b31a3a322d33" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113" refid="xv__frmbufwr__hw_8h_1abe8ffec290864921d5a21a04ab111d96" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_STRIDE_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116" refid="xv__frmbufwr__hw_8h_1ada5daeb2f5c47cada417085c3e56a0ca" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_STRIDE_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="119" refid="xv__frmbufwr__hw_8h_1ac0d317949f1c326c16ec1f0e6856a306" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_VIDEO_FORMAT_DATA<sp/><sp/>0x28</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122" refid="xv__frmbufwr__hw_8h_1a0414a285b8ff915a2ec2c4fe11e566d4" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_VIDEO_FORMAT_DATA<sp/><sp/>16</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="125" refid="xv__frmbufwr__hw_8h_1aaebbbee612308422fc1edcdd615d9c1b" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER_V_DATA<sp/><sp/>0x30</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="128" refid="xv__frmbufwr__hw_8h_1abaf8c377d8719ddfd10a83002ce1343e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER_V_DATA<sp/><sp/>64</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131" refid="xv__frmbufwr__hw_8h_1aa233bdf16542b2e10ee67eb0550a5e57" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER2_V_DATA<sp/>0x3c</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="xv__frmbufwr__hw_8h_1a493bfb987308ddb0d539ccc701256e87" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER2_V_DATA<sp/>64</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137" refid="xv__frmbufwr__hw_8h_1a4673402653d086620cee553e15539d72" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_FIELD_ID_DATA<sp/><sp/><sp/><sp/><sp/><sp/>0x48</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="140" refid="xv__frmbufwr__hw_8h_1af3bd95b1c82c6622f9e261adc9ca2b2a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_FIELD_ID_DATA<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143" refid="xv__frmbufwr__hw_8h_1a54a3b56d9a9a79469fd0bfa46e3f91b7" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_HWREG_FRM_BUFFER3_V_DATA<sp/>0x54</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146" refid="xv__frmbufwr__hw_8h_1ae28f0b44142cfd92e8faec2f4242f88d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_HWREG_FRM_BUFFER3_V_DATA<sp/>64</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149" refid="xv__frmbufwr__hw_8h_1a8f2607f003b4ebd4406e7cb0dbb3be7a" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_FORCE_EOF_DATA<sp/><sp/>0x68</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="152" refid="xv__frmbufwr__hw_8h_1a8a1dd32fe48d13c290a62c26ee7b50f2" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_FORCE_EOF_DATA<sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155" refid="xv__frmbufwr__hw_8h_1ade1cf77fc413138ca684a7a3b28566d0" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_ADDR_PARTIAL_FRM_CNT_DATA<sp/><sp/>0x70</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="158" refid="xv__frmbufwr__hw_8h_1a2064be25297d28f87ce164463bda50b0" refkind="member"><highlight class="preprocessor">#define<sp/>XV_FRMBUFWR_CTRL_BITS_PARTIAL_FRM_CNT_DATA<sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/src/xv_frmbufwr_hw.h"/>
+  </compounddef>
+</doxygen>

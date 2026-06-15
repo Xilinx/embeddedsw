@@ -1,0 +1,291 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__kdf__client__example" kind="group">
+    <compoundname>xasu_kdf_client_example</compoundname>
+    <title>ASU KDF API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga13dc92fe1791e6afc788e4836dadf90a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Key[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Key</name>
+        <initializer>= {
+	0x5EU, 0x7BU, 0x3BU, 0x81U, 0xDEU, 0x4DU, 0xEEU, 0x2EU,
+	0xB2U, 0x21U, 0x67U, 0x4AU, 0x5DU, 0xA0U, 0x8FU, 0x22U,
+	0xC6U, 0x69U, 0x41U, 0xDCU, 0xB1U, 0x98U, 0x4CU, 0xB2U,
+	0x3FU, 0xD0U, 0x2EU, 0x5EU, 0x7FU, 0x55U, 0x16U, 0x4FU,
+	0x60U, 0x4AU, 0xF9U, 0xC1U, 0x4EU, 0xE8U, 0xA7U, 0x0BU,
+	0x42U, 0x77U, 0x55U, 0x29U, 0xC9U, 0xE3U, 0xA5U, 0x89U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1gaed5faff88172a95322e1bf46fdbe941a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Data</name>
+        <initializer>= {
+	0xE3U, 0x7BU, 0x6DU, 0xD6U, 0xCAU, 0x4FU, 0xA7U, 0xA5U,
+	0x5AU, 0x05U, 0x49U, 0x0FU, 0x5FU, 0xA0U, 0x82U, 0x88U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga3ff0e82fd31f44ca4633938da2546b3d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KdfOutput[ASU_KDF_OUTPUT_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_KDF_OUTPUT_LEN_IN_BYTES]</argsstring>
+        <name>KdfOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga4ac505e8e61dfd81cfb88f8244b2a782" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpKdf[ASU_KDF_OUTPUT_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_KDF_OUTPUT_LEN_IN_BYTES]</argsstring>
+        <name>ExpKdf</name>
+        <initializer>= {
+	0xEBU, 0x27U, 0xD2U, 0xF7U, 0x40U, 0xBAU, 0x83U, 0xF2U,
+	0x68U, 0x20U, 0xE5U, 0x6AU, 0xFEU, 0x6CU, 0x4CU, 0x93U,
+	0x73U, 0x1FU, 0x3AU, 0x44U, 0x35U, 0x32U, 0xACU, 0xCAU,
+	0x56U, 0x7EU, 0x6EU, 0xB1U, 0xAFU, 0x33U, 0xDCU, 0xE6U,
+	0xAFU, 0xFCU, 0xD3U, 0x4BU, 0x08U, 0x1CU, 0xEBU, 0x22U,
+	0xBDU, 0x8CU, 0x94U, 0x5DU, 0xC9U, 0xA9U, 0xBCU, 0x8DU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1gac20128c8a8de6861bb634f8d8151706a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 Asu_KdfExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>Asu_KdfExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function uses input key and fixed input data and calculates KDF output key. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            The purpose of this function is to illustrate how to use the ASU KDF client APIs.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF successfully generated for given inputS.</para></listitem><listitem><para>XST_FAILURE, if the KDF generation fails.//! [KDF example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="151" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1gaa46b8a399946c1bb45c40244fc6c1089" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KdfCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_KdfCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="242" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1ga250a7590f583c113ad3b30b310915de0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Asu_PrintKdf</definition>
+        <argsstring>(const u8 *Kdf)</argsstring>
+        <name>Asu_PrintKdf</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Kdf</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given KDF on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Kdf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to given array. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="221" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the Asu_KdfExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF successfully generated for given inputs.</para></listitem><listitem><para>XST_FAILURE, if the KDF generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="122" bodyend="138"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga970db3253bcdb665fb87caacae1d0725" prot="public" static="no">
+        <name>ASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" prot="public" static="no">
+        <name>ASU_KDF_OUTPUT_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>ASU KDF length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga850c619ebd660b0bc4994397a5d1f6b2" prot="public" static="no">
+        <name>ASU_KDF_KEY_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>ASU KDF Key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga2fda5ee0c63d9b61b2bc0041c81b9019" prot="public" static="no">
+        <name>ASU_KDF_FIXED_DATA_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>ASU KDF Fixed data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates the KDF calculation. </para>    </briefdescription>
+    <detaileddescription>
+<para>To build this application, xilmailbox library must be included in BSP and xilasu must be in client mode.</para><para><simplesect kind="note"><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para></simplesect>
+The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on ASU, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side
+               should be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+               static const char KdfOutput[ASU_KDF_LEN_IN_BYTES] __attribute__ ((section (&quot;.data.KdfOutput&quot;)));
+                                    should be changed to
+               static const char KdfOutput[ASU_KDF_LEN_IN_BYTES]
+                            __attribute__ ((section (&quot;.sharedmemory.KdfOutput&quot;)));
+</verbatim></para><para>To keep things simple, by default the cache is disabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   ma     01/21/25 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

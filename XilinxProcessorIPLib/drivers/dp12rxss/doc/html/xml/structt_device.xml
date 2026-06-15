@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structt_device" kind="struct" prot="public">
+    <compoundname>tDevice</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structt_device_1a803a91ac7ff64d5134ff0af0443c0b8a" prot="public" static="no" mutable="no">
+        <type>KEYMGMT_tDevID</type>
+        <definition>KEYMGMT_tDevID tDevice::fDevID</definition>
+        <argsstring></argsstring>
+        <name>fDevID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_device_1a5e34bed81934f4e517c8fa7ad8357123" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t tDevice::fFlags</definition>
+        <argsstring></argsstring>
+        <name>fFlags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structt_device_1a65bf0f20d0acd7d2146b0237af2f22eb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t tDevice::fBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>fBaseAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12rxss/examples/src/key/keymgmt_device.c" bodystart="56" bodyend="62"/>
+    <listofallmembers>
+      <member refid="structt_device_1a65bf0f20d0acd7d2146b0237af2f22eb" prot="public" virt="non-virtual"><scope>tDevice</scope><name>fBaseAddress</name></member>
+      <member refid="structt_device_1a803a91ac7ff64d5134ff0af0443c0b8a" prot="public" virt="non-virtual"><scope>tDevice</scope><name>fDevID</name></member>
+      <member refid="structt_device_1a5e34bed81934f4e517c8fa7ad8357123" prot="public" virt="non-virtual"><scope>tDevice</scope><name>fFlags</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

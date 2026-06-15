@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_0dfb66a15ee73b53783076ab5f14462a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_b14ed9cf733e867841e6669c1328a807">dp21_pt</innerdir>
+    <innerdir refid="dir_da8978e8333aa010b6d67aa512ea7b34">dp21_pt_hdcp</innerdir>
+    <innerdir refid="dir_95ca4bfe2053f1882da5817824112e48">dp21_pt_mst</innerdir>
+    <innerdir refid="dir_515cb10eab62ede623f972be63ffe7f5">dp21_rx_only</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/"/>
+  </compounddef>
+</doxygen>

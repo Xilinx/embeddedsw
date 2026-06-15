@@ -1,0 +1,729 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="diskio_8h" kind="file">
+    <compoundname>diskio.h</compoundname>
+    <includes refid="ff_8h" local="yes">ff.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="diskio_8c" local="yes">diskio.c</includedby>
+    <incdepgraph>
+      <node id="25">
+        <label>xil_io.h</label>
+      </node>
+      <node id="19">
+        <label>diskio.h</label>
+        <link refid="diskio.h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>xil_util.h</label>
+      </node>
+      <node id="22">
+        <label>xilffs_config.h</label>
+      </node>
+      <node id="21">
+        <label>ffconf.h</label>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xil_types.h</label>
+      </node>
+      <node id="23">
+        <label>xilffs.h</label>
+        <link refid="xilffs_8h"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>ff.h</label>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="28">
+        <label>diskio.c</label>
+        <link refid="diskio_8c"/>
+      </node>
+      <node id="27">
+        <label>diskio.h</label>
+        <link refid="diskio.h"/>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="diskio_8h_1a9a6bdc72dc58bacf4b496d95748cefac" prot="public" static="no">
+        <name>USE_WRITE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>1: Enable disk_write function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1ad10e6b9a90c685ea8fbe0a17d22cc0c7" prot="public" static="no">
+        <name>USE_IOCTL</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>1: Enable disk_ioctl function </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="13" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1abd6503c70d862b979a3f7080a59e9acd" prot="public" static="no">
+        <name>STA_NOINIT</name>
+        <initializer>0x01U</initializer>
+        <briefdescription>
+<para>Drive not initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1aec625080763d6cf487e550a6c9a2dd19" prot="public" static="no">
+        <name>STA_NODISK</name>
+        <initializer>0x02U</initializer>
+        <briefdescription>
+<para>No medium in the drive. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a9ec6dc5f6620a33fabe388d3a111ca8c" prot="public" static="no">
+        <name>STA_PROTECT</name>
+        <initializer>0x04U</initializer>
+        <briefdescription>
+<para>Write protected. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a1b3c492f9aec325f0655941b75256f3c" prot="public" static="no">
+        <name>CTRL_SYNC</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Complete pending write process (needed at FF_FS_READONLY == 0) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a570216006f6a8fc4e1698b1bbb2d1dde" prot="public" static="no">
+        <name>GET_SECTOR_COUNT</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Get media size (needed at FF_USE_MKFS == 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1ac73b5cf2135cbd459d109b96c9aa346a" prot="public" static="no">
+        <name>GET_SECTOR_SIZE</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Get sector size (needed at FF_MAX_SS != FF_MIN_SS) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1aec3bb4dfe075d0ba2f3b07b300a95500" prot="public" static="no">
+        <name>GET_BLOCK_SIZE</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Get erase block size (needed at FF_USE_MKFS == 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1af09fd84bea8d4e889e272471f44d60d6" prot="public" static="no">
+        <name>CTRL_TRIM</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Inform device that the data on the block of sectors is no longer used (needed at FF_USE_TRIM == 1) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a345531a07462afbd999f414708e3b65b" prot="public" static="no">
+        <name>CTRL_POWER</name>
+        <initializer>5U</initializer>
+        <briefdescription>
+<para>Get/Set power status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1af40e5cf3000553a978ff6e30dae70858" prot="public" static="no">
+        <name>CTRL_LOCK</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Lock/Unlock media removal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a5e40e16d2d7ce196858950f070b9ec03" prot="public" static="no">
+        <name>CTRL_EJECT</name>
+        <initializer>7U</initializer>
+        <briefdescription>
+<para>Eject media. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1add07021167069f5914211a2f8830fabb" prot="public" static="no">
+        <name>CTRL_FORMAT</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Create physical format on the media. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1aba3a81a9a47c7d1bf3ac7749bc72dcfd" prot="public" static="no">
+        <name>MMC_GET_TYPE</name>
+        <initializer>10U</initializer>
+        <briefdescription>
+<para>Get card type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1ae3b858b81287929f7c7bea3b7aec3087" prot="public" static="no">
+        <name>MMC_GET_CSD</name>
+        <initializer>11U</initializer>
+        <briefdescription>
+<para>Get CSD. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a17ad303dd18b19a4c90ab30a8a1c14c4" prot="public" static="no">
+        <name>MMC_GET_CID</name>
+        <initializer>12U</initializer>
+        <briefdescription>
+<para>Get CID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1aff118ba6bd7a9fe7699cee049cff5d6c" prot="public" static="no">
+        <name>MMC_GET_OCR</name>
+        <initializer>13U</initializer>
+        <briefdescription>
+<para>Get OCR. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a5cc43c8449b872e16ea5ab42592f793e" prot="public" static="no">
+        <name>MMC_GET_SDSTAT</name>
+        <initializer>14U</initializer>
+        <briefdescription>
+<para>Get SD status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a9eb2d8ccc0b89299bc442396811f8723" prot="public" static="no">
+        <name>ISDIO_READ</name>
+        <initializer>55</initializer>
+        <briefdescription>
+<para>Read data form SD iSDIO register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a9637dcd58e0f1f301edf0cccff9e3507" prot="public" static="no">
+        <name>ISDIO_WRITE</name>
+        <initializer>56</initializer>
+        <briefdescription>
+<para>Write data to SD iSDIO register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1aa79f4043470c49016d80558773e740a5" prot="public" static="no">
+        <name>ISDIO_MRITE</name>
+        <initializer>57</initializer>
+        <briefdescription>
+<para>Masked write data to SD iSDIO register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a23f5fff3341e98825ea1f7367fd09f1a" prot="public" static="no">
+        <name>ATA_GET_REV</name>
+        <initializer>20U</initializer>
+        <briefdescription>
+<para>Get F/W revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a31f556ab98ab80c39058b38d9283865d" prot="public" static="no">
+        <name>ATA_GET_MODEL</name>
+        <initializer>21U</initializer>
+        <briefdescription>
+<para>Get model name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="diskio_8h_1a469c4f989757ee1ee404134fea3c74ba" prot="public" static="no">
+        <name>ATA_GET_SN</name>
+        <initializer>22U</initializer>
+        <briefdescription>
+<para>Get serial number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2b" prot="public" static="no">
+        <name>DRESULT</name>
+        <enumvalue id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2ba2ea4b6ef3fffc17dd1d38ab5c2837737" prot="public">
+          <name>RES_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>0: Successful </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2ba78011f5557679ec178fb40bd21e89840" prot="public">
+          <name>RES_ERROR</name>
+          <briefdescription>
+<para>1: R/W Error </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2ba442a6d4393dc404827067bc4e981b322" prot="public">
+          <name>RES_WRPRT</name>
+          <briefdescription>
+<para>2: Write Protected </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2baad64c27c69eb1ff39ae67c5f77bb2b1d" prot="public">
+          <name>RES_NOTRDY</name>
+          <briefdescription>
+<para>3: Not Ready </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="diskio_8h_1aacdfef1dad6565f65c26d12fe0ea4b2baf4dcc07fd46310b5495fa8025c89a9f3" prot="public">
+          <name>RES_PARERR</name>
+          <briefdescription>
+<para>4: Invalid Parameter </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="22" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="22" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="diskio_8h_1adba6790898ce4029c20a34b898ce73c1" prot="public" static="no">
+        <type>BYTE</type>
+        <definition>typedef BYTE DSTATUS</definition>
+        <argsstring></argsstring>
+        <name>DSTATUS</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="19" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="diskio_8h_1a09cdaa6f36fa409bdf002727bff98eb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DSTATUS</type>
+        <definition>DSTATUS disk_initialize</definition>
+        <argsstring>(BYTE pdrv)</argsstring>
+        <name>disk_initialize</name>
+        <param>
+          <type>BYTE</type>
+          <declname>pdrv</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the drive. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of SD, it initializes the host controller and the card. This function also selects additional settings such as bus width, speed and block size.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pdrv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Drive number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>s - which contains an OR of the following information STA_NODISK Disk is not present STA_NOINIT Drive not initialized STA_PROTECT Drive is write protected 0 or only STA_PROTECT both indicate successful initialization.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="297" bodyend="419"/>
+        <references refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" compoundref="diskio_8c" startline="177" endline="273">disk_status</references>
+        <references refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" compoundref="diskio_8c" startline="105">XSDPS_NUM_INSTANCES</references>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8h_1a8348ac5ee6d709420c02e45c111f4793" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DSTATUS</type>
+        <definition>DSTATUS disk_status</definition>
+        <argsstring>(BYTE pdrv)</argsstring>
+        <name>disk_status</name>
+        <param>
+          <type>BYTE</type>
+          <declname>pdrv</declname>
+        </param>
+        <briefdescription>
+<para>Gets the status of the disk. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of SD, it checks whether card is present or not.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pdrv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Drive number</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 Status ok STA_NOINIT Drive not initialized STA_NODISK No medium in the drive STA_PROTECT Write protected</para></simplesect>
+<simplesect kind="note"><para>In case Card detect signal is not connected, this function will not be able to check if card is present. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="36" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="177" bodyend="273"/>
+        <references refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" compoundref="diskio_8c" startline="105">XSDPS_NUM_INSTANCES</references>
+        <referencedby refid="diskio_8c_1a09cdaa6f36fa409bdf002727bff98eb1" compoundref="diskio_8c" startline="297" endline="419">disk_initialize</referencedby>
+        <referencedby refid="diskio_8c_1a0711b1d03b833e9d73b3be1a6397f461" compoundref="diskio_8c" startline="444" endline="507">disk_read</referencedby>
+        <referencedby refid="diskio_8c_1ab00fa450a811dbdabe3c655c1a36fab4" compoundref="diskio_8c" startline="532" endline="688">disk_ioctl</referencedby>
+        <referencedby refid="diskio_8c_1ac24448955ef914f54a499df1fb45689d" compoundref="diskio_8c" startline="731" endline="795">disk_write</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8h_1a0711b1d03b833e9d73b3be1a6397f461" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DRESULT</type>
+        <definition>DRESULT disk_read</definition>
+        <argsstring>(BYTE pdrv, BYTE *buff, LBA_t sector, UINT count)</argsstring>
+        <name>disk_read</name>
+        <param>
+          <type>BYTE</type>
+          <declname>pdrv</declname>
+        </param>
+        <param>
+          <type>BYTE *</type>
+          <declname>buff</declname>
+        </param>
+        <param>
+          <type>LBA_t</type>
+          <declname>sector</declname>
+        </param>
+        <param>
+          <type>UINT</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pdrv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Drive number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the data buffer to store read data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Start sector number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Sector count</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RES_OK Read successful STA_NOINIT Drive not initialized RES_ERROR Read not successful</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="37" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="444" bodyend="507"/>
+        <references refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" compoundref="diskio_8c" startline="177" endline="273">disk_status</references>
+        <references refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" compoundref="diskio_8c" startline="105">XSDPS_NUM_INSTANCES</references>
+        <references refid="diskio_8c_1ae78c57957d7a0cd5922d35610b0831d6" compoundref="diskio_8c" startline="107">XUFSPSXC_START_INDEX</references>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8h_1ac24448955ef914f54a499df1fb45689d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DRESULT</type>
+        <definition>DRESULT disk_write</definition>
+        <argsstring>(BYTE pdrv, const BYTE *buff, LBA_t sector, UINT count)</argsstring>
+        <name>disk_write</name>
+        <param>
+          <type>BYTE</type>
+          <declname>pdrv</declname>
+        </param>
+        <param>
+          <type>const BYTE *</type>
+          <declname>buff</declname>
+        </param>
+        <param>
+          <type>LBA_t</type>
+          <declname>sector</declname>
+        </param>
+        <param>
+          <type>UINT</type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>Reads the drive In case of SD, it reads the SD card using ADMA2 in polled mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pdrv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Drive number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the data to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Sector address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Sector count</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RES_OK Read successful STA_NOINIT Drive not initialized RES_ERROR Read not successful</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="731" bodyend="795"/>
+        <references refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" compoundref="diskio_8c" startline="177" endline="273">disk_status</references>
+        <references refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" compoundref="diskio_8c" startline="105">XSDPS_NUM_INSTANCES</references>
+        <references refid="diskio_8c_1ae78c57957d7a0cd5922d35610b0831d6" compoundref="diskio_8c" startline="107">XUFSPSXC_START_INDEX</references>
+      </memberdef>
+      <memberdef kind="function" id="diskio_8h_1ab00fa450a811dbdabe3c655c1a36fab4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>DRESULT</type>
+        <definition>DRESULT disk_ioctl</definition>
+        <argsstring>(BYTE pdrv, BYTE cmd, void *buff)</argsstring>
+        <name>disk_ioctl</name>
+        <param>
+          <type>BYTE</type>
+          <declname>pdrv</declname>
+        </param>
+        <param>
+          <type>BYTE</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>buff</declname>
+        </param>
+        <briefdescription>
+<para>List specific features and do miscellaneous functions on device. </para>        </briefdescription>
+        <detaileddescription>
+<para>In case of SD, it control device specific features and miscellaneous functions other than generic read/write.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pdrv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Drive number </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cmd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Command code </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buff</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the parameter depends on the command code.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>RES_OK Command successful RES_PARERR Command is invalid RES_NOTRDY Drive not initialized RES_ERROR Error occurred</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/diskio.c" bodystart="532" bodyend="688"/>
+        <references refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" compoundref="diskio_8c" startline="177" endline="273">disk_status</references>
+        <references refid="diskio_8c_1a6a4641fe53e931f300c4d2c76b3729a0" compoundref="diskio_8c" startline="105">XSDPS_NUM_INSTANCES</references>
+        <references refid="diskio_8c_1ae78c57957d7a0cd5922d35610b0831d6" compoundref="diskio_8c" startline="107">XUFSPSXC_START_INDEX</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*-----------------------------------------------------------------------/</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">/<sp/><sp/>Low<sp/>level<sp/>disk<sp/>interface<sp/>module<sp/>include<sp/>file<sp/><sp/><sp/>(C)ChaN,<sp/>2025<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>/</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">/-----------------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_DISKIO_DEFINED</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>_DISKIO_DEFINED</highlight></codeline>
+<codeline lineno="7"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor">#define<sp/>USE_IOCTL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor">#include<sp/>&quot;ff.h&quot;</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Status<sp/>of<sp/>Disk<sp/>Functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>BYTE<sp/><sp/><sp/><sp/>DSTATUS;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Results<sp/>of<sp/>Disk<sp/>Functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RES_OK<sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RES_ERROR,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RES_WRPRT,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RES_NOTRDY,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RES_PARERR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}<sp/>DRESULT;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*---------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Prototypes<sp/>for<sp/>disk<sp/>control<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal">DSTATUS<sp/><ref refid="diskio_8c_1a09cdaa6f36fa409bdf002727bff98eb1" kindref="member">disk_initialize</ref><sp/>(BYTE<sp/>pdrv);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">DSTATUS<sp/><ref refid="diskio_8c_1a8348ac5ee6d709420c02e45c111f4793" kindref="member">disk_status</ref><sp/>(BYTE<sp/>pdrv);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">DRESULT<sp/><ref refid="diskio_8c_1a0711b1d03b833e9d73b3be1a6397f461" kindref="member">disk_read</ref><sp/>(BYTE<sp/>pdrv,<sp/>BYTE*<sp/>buff,<sp/>LBA_t<sp/>sector,<sp/>UINT<sp/>count);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">DRESULT<sp/><ref refid="diskio_8c_1ac24448955ef914f54a499df1fb45689d" kindref="member">disk_write</ref><sp/>(BYTE<sp/>pdrv,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BYTE*<sp/>buff,<sp/>LBA_t<sp/>sector,<sp/>UINT<sp/>count);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">DRESULT<sp/><ref refid="diskio_8c_1ab00fa450a811dbdabe3c655c1a36fab4" kindref="member">disk_ioctl</ref><sp/>(BYTE<sp/>pdrv,<sp/>BYTE<sp/>cmd,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>buff);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Disk<sp/>Status<sp/>Bits<sp/>(DSTATUS)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STA_NOINIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#define<sp/>STA_NODISK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>STA_PROTECT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04U<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Command<sp/>code<sp/>for<sp/>disk_ioctrl<sp/>function<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Generic<sp/>command<sp/>(Used<sp/>by<sp/>FatFs)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CTRL_SYNC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>GET_SECTOR_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#define<sp/>GET_SECTOR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>GET_BLOCK_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>CTRL_TRIM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Generic<sp/>command<sp/>(Not<sp/>used<sp/>by<sp/>FatFs)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CTRL_POWER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>CTRL_LOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor">#define<sp/>CTRL_EJECT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>CTRL_FORMAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>MMC/SDC<sp/>specific<sp/>ioctl<sp/>command<sp/>(Not<sp/>used<sp/>by<sp/>FatFs)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MMC_GET_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>MMC_GET_CSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>MMC_GET_CID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>MMC_GET_OCR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>MMC_GET_SDSTAT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>14U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>ISDIO_READ<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>55<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor">#define<sp/>ISDIO_WRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>56<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>ISDIO_MRITE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>57<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>ATA/CF<sp/>specific<sp/>ioctl<sp/>command<sp/>(Not<sp/>used<sp/>by<sp/>FatFs)<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ATA_GET_REV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>ATA_GET_MODEL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#define<sp/>ATA_GET_SN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>22U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilffs/src/include/diskio.h"/>
+  </compounddef>
+</doxygen>

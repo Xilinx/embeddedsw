@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="zcu__pt__dp14__mst_2idt__8t49n24x_8h" kind="file">
+    <compoundname>zcu_pt_dp14_mst/idt_8t49n24x.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="zcu__pt__dp14__mst_2idt__8t49n24x_8c" local="yes">idt_8t49n24x.c</includedby>
+    <incdepgraph>
+      <node id="448">
+        <label>idt_8t49n24x.h</label>
+        <link refid="zcu_pt_dp14_mst/idt_8t49n24x.h"/>
+        <childnode refid="449" relation="include">
+        </childnode>
+      </node>
+      <node id="449">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="451">
+        <label>idt_8t49n24x.c</label>
+      </node>
+      <node id="450">
+        <label>idt_8t49n24x.h</label>
+        <link refid="zcu_pt_dp14_mst/idt_8t49n24x.h"/>
+        <childnode refid="451" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_i_d_t__8_t49_n24x___settings" prot="public">IDT_8T49N24x_Settings</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga6403c7712c3aa59fb5be84a064b81ac8" prot="public" static="no">
+        <name>IDT_8T49N24X_H</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaebc93de546f7e0b0780636a51d607de7" prot="public" static="no">
+        <name>IDT_8T49N24X_REVID</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+<para>Device Revision. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gade98dea2877c91639d8d22fb41095d03" prot="public" static="no">
+        <name>IDT_8T49N24X_DEVID</name>
+        <initializer>0x0607</initializer>
+        <briefdescription>
+<para>Device ID Code. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" prot="public" static="no">
+        <name>IDT_8T49N24X_XTAL_FREQ</name>
+        <initializer>40000000</initializer>
+        <briefdescription>
+<para>The frequency of the crystal in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga2d83e1558736400d007a80a5349cf0d1" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MAX</name>
+        <initializer>4000000000</initializer>
+        <briefdescription>
+<para>Maximum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gaf9ad5b298900a22c9ebc37a486af6684" prot="public" static="no">
+        <name>IDT_8T49N24X_FVCO_MIN</name>
+        <initializer>3000000000</initializer>
+        <briefdescription>
+<para>Minimum VCO Operating Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MAX</name>
+        <initializer>400000000</initializer>
+        <briefdescription>
+<para>Maximum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" prot="public" static="no">
+        <name>IDT_8T49N24X_FOUT_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Output Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MAX</name>
+        <initializer>875000000</initializer>
+        <briefdescription>
+<para>Maximum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" prot="public" static="no">
+        <name>IDT_8T49N24X_FIN_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Input Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga4cea3fac38189fc8f029806786a8e4b5" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MAX</name>
+        <initializer>128000</initializer>
+        <briefdescription>
+<para>Maximum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga76e9e95139c5da228ab4dcbc956454b9" prot="public" static="no">
+        <name>IDT_8T49N24X_FPD_MIN</name>
+        <initializer>8000</initializer>
+        <briefdescription>
+<para>Minimum Phase Detector Frequency in Hz. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1ga50a1385556eb7661136cb84909dd75ef" prot="public" static="no">
+        <name>IDT_8T49N24X_P_MAX</name>
+        <initializer>pow(2,22)</initializer>
+        <briefdescription>
+<para>Maximum P divider value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___i_d_t__8_t49_n24x_1gab6d58c9a27a80b943dc2712b7d0509b6" prot="public" static="no">
+        <name>IDT_8T49N24X_M_MAX</name>
+        <initializer>pow(2,24)</initializer>
+        <briefdescription>
+<para>Maximum M multiplier value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_Init</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_Init</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the IDT 8TN49N24x with default values for use with the Video FMC. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function set the GPIO outputs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the input reference</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the output drivers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the lock mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function initializes the IDT 8TN49N24x with default values for use with the Video FMC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem></listitem><listitem></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" line="1409" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1409" bodyend="1468"/>
+        <referencedby refid="xdptxss__kcu105__dp14_8c_1a83b1170da398be3c53b87955c0a5b6a3" compoundref="xdptxss__kcu105__dp14_8c" startline="4254" endline="4336">VideoFMC_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_SetClock</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, int FIn, int FOut, u8 FreeRun)</argsstring>
+        <name>IDT_8T49N24x_SetClock</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FIn</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>FOut</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>FreeRun</declname>
+        </param>
+        <briefdescription>
+<para>This function calculates and sets the IDT 8TN49N24x device with the given clock configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the input frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the output frequency. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FreeRun</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies if the operation mode is locked/synthesizer mode.<itemizedlist>
+<listitem><para>TRUE Synthesizer mode (Fout only)</para></listitem><listitem><para>FALSE Locked mode (Fout locked to Fin)</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS Initialization was successful.</para></listitem><listitem><para>XST_FAILURE I2C write error or incorrect parameters detected.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="551" bodyend="644"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga5087444c7834c03e743b466138a36859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int IDT_8T49N24x_SetGPOut</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 PortID, u8 Set)</argsstring>
+        <name>IDT_8T49N24x_SetGPOut</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PortID</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Set</declname>
+        </param>
+        <briefdescription>
+<para>This function set the GPIO outputs. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the input reference</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function set the output drivers</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function sets the lock mode</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS</para></listitem><listitem><para>XST_FAILURE</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/kcu_dp14/idt_8t49n24x.c" bodystart="1361" bodyend="1404"/>
+      </memberdef>
+      <memberdef kind="function" id="group___i_d_t__8_t49_n24x_1ga2796e9b401d92b3f0fecc0417d5ade75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void IDT_8T49N24x_RegisterDump</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>IDT_8T49N24x_RegisterDump</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function displays a registerdump of the IDT 8TN49N24x device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>I2CBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the baseaddress of the I2C core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>I2CSlaveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 7-bit I2C slave address.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" line="1626" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/dats_dp14/idt_8t49n24x.c" bodystart="1626" bodyend="1664"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifdef<sp/>new</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>IDT_8T49N24X_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_H</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_REVID<sp/>0x0<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_DEVID<sp/>0x0607<sp/></highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_XTAL_FREQ<sp/>40000000<sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FVCO_MAX<sp/>4000000000<sp/></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FVCO_MIN<sp/>3000000000<sp/></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FOUT_MAX<sp/>400000000<sp/><sp/></highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FOUT_MIN<sp/><sp/><sp/><sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FIN_MAX<sp/>875000000<sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FIN_MIN<sp/><sp/><sp/><sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="comment">//#define<sp/>IDT_8T49N24X_FPD_MAX<sp/>8000000<sp/><sp/>//!&lt;<sp/>Maximum<sp/>Phase<sp/>Detector<sp/>Frequency<sp/>in<sp/>Hz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FPD_MAX<sp/>128000<sp/><sp/></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FPD_MIN<sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_P_MAX<sp/>pow(2,22)<sp/><sp/></highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_M_MAX<sp/>pow(2,24)<sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DELAY<sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>//increase<sp/>delay<sp/>if<sp/>encountering<sp/>iic<sp/>race<sp/>condition</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>configuration<sp/>was<sp/>created<sp/>with<sp/>the<sp/>IDT<sp/>timing<sp/>commander.</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>It<sp/>produces<sp/>a<sp/>148.5<sp/>MHz<sp/>free<sp/>running<sp/>clock<sp/>on<sp/>outputs<sp/>Q2<sp/>and<sp/>Q3.</highlight></codeline>
+<codeline lineno="65"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>IDT_8T49N24x_Config_Syn[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFE,<sp/>0xEF,<sp/>0x00,<sp/>0x03,<sp/>0x00,<sp/>0x31,<sp/>0x00,<sp/>0x04,<sp/>0x89,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x00,<sp/>0x63,<sp/>0xC6,<sp/>0x07,<sp/>0x00,<sp/>0x00,<sp/>0x77,<sp/>0x6D,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFF,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x01,<sp/>0x3F,<sp/>0x00,<sp/>0x28,<sp/>0x00,<sp/>0x1A,<sp/>0xCC,<sp/>0xCD,<sp/>0x00,<sp/>0x01,<sp/>0x00,<sp/>0x00,<sp/>0xD0,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x0C,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x44,<sp/>0x44,<sp/>0x00,</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x0B,<sp/>0x00,<sp/>0x00,<sp/>0x0B,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x89,<sp/>0x0A,<sp/>0x2B,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x03,</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x27,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>IDT_8T49N24x_Config_JA[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFE,<sp/>0xEF,<sp/>0x00,<sp/>0x03,<sp/>0x00,<sp/>0x20,<sp/>0x00,<sp/>0x04,<sp/>0x89,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x00,<sp/>0x63,<sp/>0xC6,<sp/>0x07,<sp/>0x00,<sp/>0x00,<sp/>0x77,<sp/>0x6D,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFF,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x01,<sp/>0x3F,<sp/>0x00,<sp/>0x28,<sp/>0x00,<sp/>0x1A,<sp/>0xCC,<sp/>0xCD,<sp/>0x00,<sp/>0x01,<sp/>0x00,<sp/>0x00,<sp/>0xD0,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x0C,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x44,<sp/>0x44,<sp/>0x00,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x0B,<sp/>0x00,<sp/>0x00,<sp/>0x0B,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x89,<sp/>0x02,<sp/>0x2B,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x03,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x06,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x27,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>IDT_8T49N24x_Config_xx[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0xFE,<sp/>0xEF,<sp/>0x00,<sp/>0x03,<sp/>0x00,<sp/>0x20,<sp/>0x00,<sp/>0x02,<sp/>0x45,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x01,<sp/>0x00,<sp/>0x5F,<sp/>0x52,<sp/>0x07,<sp/>0x00,<sp/>0x00,<sp/>0x77,<sp/>0x6D,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0xFF,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF,<sp/>0xFF,<sp/>0xFF,<sp/>0x01,<sp/>0x3F,<sp/>0x00,<sp/>0x26,<sp/>0x00,<sp/>0x1F,<sp/>0x66,<sp/>0x66,<sp/>0x00,<sp/>0x01,<sp/>0x00,<sp/>0x00,<sp/>0xD0,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x08,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x44,<sp/>0x44,<sp/>0x00,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x07,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x89,<sp/>0x02,<sp/>0x2B,<sp/>0x20,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x07,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x09,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x27,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00,<sp/>0x00,<sp/>0x00,<sp/>0x00</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Integer<sp/>Output<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>NS1_Qx;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>NS2_Qx;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Fractional<sp/>Output<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>N_Qx;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NFRAC_Qx;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Upper<sp/>Loop<sp/>Feedback<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DSM_INT;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DSM_FRAC;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Lower<sp/>Loop<sp/>Dividers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>M1_x;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PRE_x;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}<sp/>IDT_8T49N24x_Settings;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>IDT_8T49N24x_GetRegister(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_SetRegister(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_ModifyRegister(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress,<sp/>u8<sp/>Value,<sp/>u8<sp/>Mask);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_CheckDeviceID(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>IDT_8T49N24x_GPIO(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>IDT_8T49N24x_OutputDriver(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>Output,<sp/>u8<sp/>Enable);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>IDT_8T49N24x_LockMode(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_PreDivider(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u32<sp/>Value,<sp/>u8<sp/>Input);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_M1Feedback(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u32<sp/>Value,<sp/>u8<sp/>Input);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_DSMInteger(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>Value);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_DSMFractional(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_OutputDividerInteger(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u32<sp/>Value,<sp/>u8<sp/>Output);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_OutputDividerFractional(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u32<sp/>Value,<sp/>u8<sp/>Output);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_Mode(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>Synthesizer);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>IDT_8T49N24x_SelectInputReference(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>Input);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_GetIntDivTable(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*DivTable,<sp/>u8<sp/>Bypass);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_CalculateSettings(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FIn,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/>IDT_8T49N24x_Settings*<sp/>RegSettings);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_Enable(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_ReferenceInput(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>Input,<sp/>u8<sp/>Enable);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">//static<sp/>int<sp/>IDT_8T49N24x_Configure(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>IDT_8T49N24x_Configure_JA(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" kindref="member">IDT_8T49N24x_Init</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" kindref="member">IDT_8T49N24x_SetClock</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FIn,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/>u8<sp/>FreeRun);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga2796e9b401d92b3f0fecc0417d5ade75" kindref="member">IDT_8T49N24x_RegisterDump</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>IDT_8T49N24X_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>IDT_8T49N24X_H</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_H</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173" refid="group___i_d_t__8_t49_n24x_1gaebc93de546f7e0b0780636a51d607de7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_REVID<sp/>0x0<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="174" refid="group___i_d_t__8_t49_n24x_1gade98dea2877c91639d8d22fb41095d03" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_DEVID<sp/>0x0607<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176" refid="group___i_d_t__8_t49_n24x_1ga3d51ead033effe62e67b40f38304f49d" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_XTAL_FREQ<sp/>40000000<sp/><sp/></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="178" refid="group___i_d_t__8_t49_n24x_1ga2d83e1558736400d007a80a5349cf0d1" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FVCO_MAX<sp/>4000000000<sp/></highlight></codeline>
+<codeline lineno="179" refid="group___i_d_t__8_t49_n24x_1gaf9ad5b298900a22c9ebc37a486af6684" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FVCO_MIN<sp/>3000000000<sp/></highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="181" refid="group___i_d_t__8_t49_n24x_1ga27480ad3ebbfe934bade1ad6cbbb3bf2" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FOUT_MAX<sp/>400000000<sp/><sp/></highlight></codeline>
+<codeline lineno="182" refid="group___i_d_t__8_t49_n24x_1ga1555f1aaadca4eeebe6d097ea6088b73" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FOUT_MIN<sp/><sp/><sp/><sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184" refid="group___i_d_t__8_t49_n24x_1ga1b4b5da52bb6a4a1d86f35f945bafbaa" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FIN_MAX<sp/>875000000<sp/><sp/></highlight></codeline>
+<codeline lineno="185" refid="group___i_d_t__8_t49_n24x_1ga68638a8f1d4d7b9caebaaae6159e166d" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FIN_MIN<sp/><sp/><sp/><sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="comment">//#define<sp/>IDT_8T49N24X_FPD_MAX<sp/>8000000<sp/><sp/>//!&lt;<sp/>Maximum<sp/>Phase<sp/>Detector<sp/>Frequency<sp/>in<sp/>Hz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="group___i_d_t__8_t49_n24x_1ga4cea3fac38189fc8f029806786a8e4b5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FPD_MAX<sp/>128000<sp/><sp/></highlight></codeline>
+<codeline lineno="189" refid="group___i_d_t__8_t49_n24x_1ga76e9e95139c5da228ab4dcbc956454b9" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_FPD_MIN<sp/><sp/><sp/>8000<sp/><sp/></highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="191" refid="group___i_d_t__8_t49_n24x_1ga50a1385556eb7661136cb84909dd75ef" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_P_MAX<sp/>pow(2,22)<sp/><sp/></highlight></codeline>
+<codeline lineno="192" refid="group___i_d_t__8_t49_n24x_1gab6d58c9a27a80b943dc2712b7d0509b6" refkind="member"><highlight class="preprocessor">#define<sp/>IDT_8T49N24X_M_MAX<sp/>pow(2,24)<sp/><sp/></highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Integer<sp/>Output<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>NS1_Qx;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>NS2_Qx;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Fractional<sp/>Output<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>N_Qx;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NFRAC_Qx;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Upper<sp/>Loop<sp/>Feedback<sp/>Divider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>DSM_INT;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DSM_FRAC;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Lower<sp/>Loop<sp/>Dividers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>M1_x;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PRE_x;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}<sp/>IDT_8T49N24x_Settings;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga8682f371519c86ef2e8880298dd12e54" kindref="member">IDT_8T49N24x_Init</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga0c56d8545c64ae78a3423b7ce782676f" kindref="member">IDT_8T49N24x_SetClock</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FIn,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>FOut,<sp/>u8<sp/>FreeRun);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga5087444c7834c03e743b466138a36859" kindref="member">IDT_8T49N24x_SetGPOut</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>PortID,<sp/>u8<sp/>Set);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___i_d_t__8_t49_n24x_1ga2796e9b401d92b3f0fecc0417d5ade75" kindref="member">IDT_8T49N24x_RegisterDump</ref>(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declarations<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>IDT_8T49N24X_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_mst/idt_8t49n24x.h"/>
+  </compounddef>
+</doxygen>

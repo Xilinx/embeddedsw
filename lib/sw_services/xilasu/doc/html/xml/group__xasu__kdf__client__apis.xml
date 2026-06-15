@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xasu__kdf__client__apis" kind="group">
+    <compoundname>xasu_kdf_client_apis</compoundname>
+    <title>KDF Client APIs</title>
+    <innerclass refid="struct_x_asu___kdf_kat_cb_state" prot="public">XAsu_KdfKatCbState</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__kdf__client__apis_1ga3f961c8aa384e45d22bd410b34e9e957" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KdfKatKey[XASU_KDF_KAT_KEY_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KDF_KAT_KEY_LEN_IN_BYTES]</argsstring>
+        <name>KdfKatKey</name>
+        <initializer>= {
+	0x22U, 0x17U, 0x96U, 0x4FU, 0xB2U, 0x14U, 0x35U, 0x33U,
+	0xBAU, 0x93U, 0xAAU, 0x35U, 0xFEU, 0x09U, 0x37U, 0xA6U,
+	0x69U, 0x5EU, 0x20U, 0x87U, 0x27U, 0x07U, 0x06U, 0x44U,
+	0x99U, 0x21U, 0x7CU, 0x5FU, 0x6AU, 0xB8U, 0x09U, 0xDFU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__apis_1ga1b95e38592cebe35a5bf681aa0638a86" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 KdfKatCtx[XASU_KDF_KAT_CTX_LEN_IN_BYTES]</definition>
+        <argsstring>[XASU_KDF_KAT_CTX_LEN_IN_BYTES]</argsstring>
+        <name>KdfKatCtx</name>
+        <initializer>= {
+	0x2FU, 0xBFU, 0x02U, 0x9EU, 0xE9U, 0xFBU, 0xD6U, 0x11U,
+	0xC2U, 0x4DU, 0x81U, 0x4EU, 0x6AU, 0xFFU, 0x26U, 0x77U,
+	0xC3U, 0x5AU, 0x83U, 0xBCU, 0xE5U, 0x63U, 0x2CU, 0xE7U,
+	0x89U, 0x43U, 0x6CU, 0x68U, 0x82U, 0xCAU, 0x1CU, 0x71U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__apis_1ga5d1c46f303c6a1b76e1a31d230aab5c0" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpKdfSha3_256[XASU_KDF_KAT_SHA3_256_OUT_LEN]</definition>
+        <argsstring>[XASU_KDF_KAT_SHA3_256_OUT_LEN]</argsstring>
+        <name>ExpKdfSha3_256</name>
+        <initializer>= {
+	0x09U, 0x9DU, 0xCAU, 0xB0U, 0xF6U, 0xD7U, 0x0FU, 0x41U,
+	0x66U, 0x8FU, 0xEBU, 0x22U, 0xE9U, 0xFEU, 0x9DU, 0x0AU,
+	0x82U, 0x9BU, 0x6CU, 0x5BU, 0x19U, 0x4DU, 0x79U, 0x29U,
+	0xD7U, 0x8AU, 0x99U, 0xB8U, 0xE6U, 0xBDU, 0x51U, 0x23U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga1b447a5414362ab3d061c477030c8d7f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 XAsu_ValidateCmacKdfParameters</definition>
+        <argsstring>(const XAsu_CmacKdfParams *CmacKdfParamsPtr)</argsstring>
+        <name>XAsu_ValidateCmacKdfParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___cmac_kdf_params" kindref="compound">XAsu_CmacKdfParams</ref> *</type>
+          <declname>CmacKdfParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the CMAC KDF input parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CmacKdfParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___cmac_kdf_params" kindref="compound">XAsu_CmacKdfParams</ref> structure which holds the parameters of CMAC KDF input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if CMAC KDF input parameters validation is successful.</para></listitem><listitem><para>XST_FAILURE, if CMAC KDF input parameters validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate CMAC KDF parameters pointer.</para><para>Key manager is not supported for CMAC KDF, KeyId must be 0.</para><para>Validate CMAC KDF parameters.</para><para>Validate that the input key length is either 128 bits or 256 bits for CMAC KDF. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="411" bodyend="442"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KdfGenerate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_KdfParams *KdfParamsPtr)</argsstring>
+        <name>XAsu_KdfGenerate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref> *</type>
+          <declname>KdfParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to generate the derived key of specified key length by using the Key Derivative Function (KDF) in counter mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KdfParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref> structure which holds the parameters of KDF input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Get the command ID based on SHA type.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="103" bodyend="144"/>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga82d1de1442921681aaa4fcc1e9c04c91" compoundref="xasu__kdfinfo_8h" startline="46">XASU_KDF_GENERATE_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga5de13e611fea3834a66fe1f8764c7396" compoundref="xasu__kdfinfo_8h" startline="47">XASU_KDF_GENERATE_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1gae698f3b9e3922429f0dea99c0a20e541" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_CmacKdfGenerate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_CmacKdfParams *CmacKdfParamsPtr)</argsstring>
+        <name>XAsu_CmacKdfGenerate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___cmac_kdf_params" kindref="compound">XAsu_CmacKdfParams</ref> *</type>
+          <declname>CmacKdfParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to generate the derived key of specified key length by using the Key Derivative Function (KDF) in counter mode with CMAC as PRF. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmacKdfParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___cmac_kdf_params" kindref="compound">XAsu_CmacKdfParams</ref> structure which holds the parameters of KDF input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Create command header for the CMAC KDF command.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="163" bodyend="198"/>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga02176f92b96faa9d74b31e3897457da7" compoundref="xasu__kdfinfo_8h" startline="49">XASU_KDF_CMAC_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_HKdfGenerate</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr, XAsu_HkdfParams *HkdfParamsPtr)</argsstring>
+        <name>XAsu_HKdfGenerate</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_asu___hkdf_params" kindref="compound">XAsu_HkdfParams</ref> *</type>
+          <declname>HkdfParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to generate the derived key of specified key length by using the HKDF (HMAC-based Extract-and-Expand Key Derivation Function). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HkdfParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___hkdf_params" kindref="compound">XAsu_HkdfParams</ref> structure which holds the parameters of KDF input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Validate HMAC KDF parameters.</para><para>Get the command ID based on SHA type.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="217" bodyend="269"/>
+        <references refid="struct_x_asu___hkdf_params_1a420289ab8875be97825a029d1b116014" compoundref="xasu__kdfinfo_8h" startline="75">XAsu_HkdfParams::KdfParams</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55ba21f6a079219ddf14b57959e9a40be8b9" compoundref="xasu__status_8h" startline="49">XASU_INVALID_ARGUMENT</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1gac020e52afd03f20ab0df039bf091a228" compoundref="xasu__kdfinfo_8h" startline="50">XASU_KDF_HKDF_SHA2_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1ga7e85b2b6960bfe8465229a2fbc445142" compoundref="xasu__kdfinfo_8h" startline="51">XASU_KDF_HKDF_SHA3_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1gaa7423cf1e6eb12f6d307fcdfadde635e" compoundref="xasu__shainfo_8h" startline="57">XASU_SHA2_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+        <references refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" compoundref="xasu__kdf__common_8c" startline="60" endline="93">XAsu_ValidateKdfParameters</references>
+        <references refid="group__xasu__client__info_1ga8e8593fc336981968a9288ff63c61f5b" compoundref="xasu__client_8h" startline="52">XASU_WORD_LEN_IN_BYTES</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga3361507e3fd3db0fd6bdf820c3cafb3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KdfKat</definition>
+        <argsstring>(XAsu_ClientParams *ClientParamsPtr)</argsstring>
+        <name>XAsu_KdfKat</name>
+        <param>
+          <type>XAsu_ClientParams *</type>
+          <declname>ClientParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends command to ASUFW to perform KDF Known Answer Tests (KAT&apos;s). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XAsu_ClientParams structure which holds the client input parameters.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if IPI request to ASU is sent successfully.</para></listitem><listitem><para>XASU_INVALID_ARGUMENT, if any argument is invalid.</para></listitem><listitem><para>XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.</para></listitem><listitem><para>XST_FAILURE, if sending an IPI request to ASU fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate input parameters.</para><para>Update request buffer and send an IPI request to ASU. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="285" bodyend="311"/>
+        <references refid="group__xasu__client__info_1gae954c6c287fd8516f1cf18672f6b0eba" compoundref="xasu__client_8h" startline="51">XASU_CMD_LEN_ZERO</references>
+        <references refid="group__xasu__client__error__codes_1gga06fc87d81c62e9abb8790b6e5713c55bacf18aeeb8b7146572b4eadc9780ad4cb" compoundref="xasu__status_8h" startline="53">XASU_INVALID_UNIQUE_ID</references>
+        <references refid="group__xasu__common__defs_1ga53aba64a62db211fafa15c82404f93ad" compoundref="xasu__kdfinfo_8h" startline="48">XASU_KDF_KAT_CMD_ID</references>
+        <references refid="group__xasu__common__defs_1gadfa9d01d3fa1a5077547dca56ae377de" compoundref="xasu__def_8h" startline="57">XASU_MODULE_KDF_ID</references>
+        <references refid="group__xasu__client__info_1gabf24e9f135a85ff96d8acc23a5c83508" compoundref="xasu__client_8c" startline="327" endline="345">XAsu_RegCallBackNGetUniqueId</references>
+        <references refid="group__xasu__client__info_1ga717d31c270f3965991fdd19a0b70c633" compoundref="xasu__client_8c" startline="244" endline="308">XAsu_SendCmdToAsu</references>
+        <references refid="group__xasu__common__defs_1ga6d1fd341a9f72c4f16e5632e790b9ab9" compoundref="xasu__def_8h" startline="43">XASU_TRUE</references>
+        <references refid="group__xasu__common__defs_1ga0e29ca164aa8fa3ac30a7b9102b615d9" compoundref="xasu__sharedmem_8h" startline="67">XASU_UNIQUE_ID_MAX</references>
+        <references refid="group__xasu__client__info_1gae0f7072bf1eddf7ee11f1e5852570682" compoundref="xasu__client_8c" startline="193" endline="226">XAsu_ValidateClientParameters</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga87ea9eced53397321492af3619d60807" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KdfKatCallBack</definition>
+        <argsstring>(void *CallBackRefPtr, u32 Status)</argsstring>
+        <name>XAsu_KdfKatCallBack</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRefPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Callback function for KDF client-side KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the notify flag and stores the completion status via per-invocation state.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRefPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the caller&apos;s XAsu_KdfKatCbState on stack. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Completion status from the server. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="322" bodyend="328"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_KdfSha3Kat</definition>
+        <argsstring>(void)</argsstring>
+        <name>XAsu_KdfSha3Kat</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function runs the client-side KDF KAT using SHA3-256. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    It calls XAsu_KdfGenerate, busy-waits for the callback, and compares the
+    derived key output against the expected value.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF SHA3-256 KAT passes.</para></listitem><listitem><para>XST_FAILURE, if KDF computation or comparison fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Set up client parameters with KAT callback.</para><para>Set up KDF parameters.</para><para>Send KDF generate request to the server.</para><para>Busy-wait for the server response.</para><para>Check the callback status.</para><para>Compare the derived key against the expected value.</para><para>Zeroize local output buffer. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="341" bodyend="398"/>
+        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::ContextAddr</references>
+        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::ContextLen</references>
+        <references refid="struct_x_asu___cmac_kdf_params_1aa9f55320489367ebb155b9ce6b2a7b2d" compoundref="xasu__kdfinfo_8h" startline="83">XAsu_CmacKdfParams::KdfParams</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" compoundref="xasu__hmacinfo_8h" startline="54">XAsu_KdfHmacKeyObject::KeyInAddr</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" compoundref="xasu__hmacinfo_8h" startline="55">XAsu_KdfHmacKeyObject::KeyInLen</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::KeyOutAddr</references>
+        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::KeyOutLen</references>
+        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="67">XAsu_KdfParams::ShaMode</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="102">XASU_AES_KEY_SIZE_128_BITS</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" compoundref="xasu__def_8h" startline="46">XASU_CMD_SECURE</references>
+        <references refid="group__xasu__kdf__client__apis_1ga1ae01ca7eeb5326b9b6a01c6ba74ed2b" compoundref="xasu__kdf_8c" startline="42">XASU_KDF_KAT_CTX_LEN_IN_BYTES</references>
+        <references refid="group__xasu__kdf__client__apis_1ga23cba2f8caca3b90cb03962b433f8e5b" compoundref="xasu__kdf_8c" startline="41">XASU_KDF_KAT_KEY_LEN_IN_BYTES</references>
+        <references refid="group__xasu__kdf__client__apis_1gaa055700573f1428359bb154c5bd0e662" compoundref="xasu__kdf_8c" startline="43">XASU_KDF_KAT_SHA3_256_OUT_LEN</references>
+        <references refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" compoundref="xasu__kdfinfo_8h" startline="54">XASU_KDF_MAX_CONTEXT_LEN</references>
+        <references refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</references>
+        <references refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" compoundref="xasu__client_8h" startline="50">XASU_PRIORITY_HIGH</references>
+        <references refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" compoundref="xasu__shainfo_8h" startline="58">XASU_SHA3_TYPE</references>
+        <references refid="group__xasu__common__defs_1ga1b2246776bc9c632002768c9edd40340" compoundref="xasu__shainfo_8h" startline="51">XASU_SHA_MODE_256</references>
+        <references refid="group__xasu__common__defs_1gaac7d78d75140a49311500aeecaeb857f" compoundref="xasu__shainfo_8h" startline="61">XASU_SHA_SHAKE_256_HASH_LEN</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__kdf__client__apis_1ga23cba2f8caca3b90cb03962b433f8e5b" prot="public" static="no">
+        <name>XASU_KDF_KAT_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KDF KAT key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="41" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__apis_1ga1ae01ca7eeb5326b9b6a01c6ba74ed2b" prot="public" static="no">
+        <name>XASU_KDF_KAT_CTX_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KDF KAT context length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__apis_1gaa055700573f1428359bb154c5bd0e662" prot="public" static="no">
+        <name>XASU_KDF_KAT_SHA3_256_OUT_LEN</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>KDF KAT SHA3-256 output length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_kdf.c" bodystart="43" bodyend="-1"/>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga5d27af98bfa8b4d204e9a392d1e4a2da" compoundref="xasu__kdf_8c" startline="341" endline="398">XAsu_KdfSha3Kat</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_asu___aes_kat_vectors" kind="struct" prot="public">
+    <compoundname>XAsu_AesKatVectors</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a66ea080c615cc7a60c18931701bf5138" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::Key</definition>
+        <argsstring></argsstring>
+        <name>Key</name>
+        <briefdescription>
+<para>Pointer to AES key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1aaedd91d441b1979b14068ab7442cbfb0" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::Iv</definition>
+        <argsstring></argsstring>
+        <name>Iv</name>
+        <briefdescription>
+<para>Pointer to IV/Nonce. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1aae76702704070d3ed13cdba800d040a1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesKatVectors::IvLen</definition>
+        <argsstring></argsstring>
+        <name>IvLen</name>
+        <briefdescription>
+<para>IV/Nonce length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a7b91091075c9f7592cbb029e4ed3c46c" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::Aad</definition>
+        <argsstring></argsstring>
+        <name>Aad</name>
+        <briefdescription>
+<para>Pointer to AAD (NULL if none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1aceff5976b1b0b9f01b7fd5c3b9cfc515" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesKatVectors::AadLen</definition>
+        <argsstring></argsstring>
+        <name>AadLen</name>
+        <briefdescription>
+<para>AAD length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a3327534886981fd5fddccc7d0470eb58" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::InData</definition>
+        <argsstring></argsstring>
+        <name>InData</name>
+        <briefdescription>
+<para>Pointer to input data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1abe2678e1e9d804a9a95df1d7a472f426" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::ExpOutData</definition>
+        <argsstring></argsstring>
+        <name>ExpOutData</name>
+        <briefdescription>
+<para>Pointer to expected output data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a8757d22d6766dd8e4cf467562e989cb5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesKatVectors::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a9eaa10a11de7c5315cf08b33eeaa180e" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XAsu_AesKatVectors::ExpTag</definition>
+        <argsstring></argsstring>
+        <name>ExpTag</name>
+        <briefdescription>
+<para>Pointer to expected tag (NULL if none) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a0d426aa5e9622f742058e5ce8c6eb02b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAsu_AesKatVectors::TagLen</definition>
+        <argsstring></argsstring>
+        <name>TagLen</name>
+        <briefdescription>
+<para>Tag length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a600e05e79a11858ff0a909bb5b3c91b6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesKatVectors::EngineMode</definition>
+        <argsstring></argsstring>
+        <name>EngineMode</name>
+        <briefdescription>
+<para>AES engine mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_asu___aes_kat_vectors_1a10c9eda20f7026720060c0029fd756ac" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XAsu_AesKatVectors::OperationType</definition>
+        <argsstring></argsstring>
+        <name>OperationType</name>
+        <briefdescription>
+<para>Encrypt or decrypt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Internal structure to describe a KAT vector set. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/client/xasu_aes.c" bodystart="52" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_x_asu___aes_kat_vectors_1a7b91091075c9f7592cbb029e4ed3c46c" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>Aad</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1aceff5976b1b0b9f01b7fd5c3b9cfc515" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>AadLen</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a8757d22d6766dd8e4cf467562e989cb5" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>DataLen</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a600e05e79a11858ff0a909bb5b3c91b6" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>EngineMode</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1abe2678e1e9d804a9a95df1d7a472f426" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>ExpOutData</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a9eaa10a11de7c5315cf08b33eeaa180e" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>ExpTag</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a3327534886981fd5fddccc7d0470eb58" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>InData</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1aaedd91d441b1979b14068ab7442cbfb0" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>Iv</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1aae76702704070d3ed13cdba800d040a1" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>IvLen</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a66ea080c615cc7a60c18931701bf5138" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>Key</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a10c9eda20f7026720060c0029fd756ac" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>OperationType</name></member>
+      <member refid="struct_x_asu___aes_kat_vectors_1a0d426aa5e9622f742058e5ce8c6eb02b" prot="public" virt="non-virtual"><scope>XAsu_AesKatVectors</scope><name>TagLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__deinterlacer__hw_8h" kind="file">
+    <compoundname>xv_deinterlacer_hw.h</compoundname>
+    <includedby refid="xv__deinterlacer_8h" local="yes">xv_deinterlacer.h</includedby>
+    <invincdepgraph>
+      <node id="36">
+        <label>xv_deinterlacer_l2.c</label>
+        <link refid="xv__deinterlacer__l2_8c"/>
+      </node>
+      <node id="35">
+        <label>xv_deinterlacer_l2.h</label>
+        <link refid="xv__deinterlacer__l2_8h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="37">
+        <label>xv_deinterlacer_sinit.c</label>
+        <link refid="xv__deinterlacer__sinit_8c"/>
+      </node>
+      <node id="33">
+        <label>xv_deinterlacer.c</label>
+        <link refid="xv__deinterlacer_8c"/>
+      </node>
+      <node id="32">
+        <label>xv_deinterlacer.h</label>
+        <link refid="xv__deinterlacer_8h"/>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>xv_deinterlacer_hw.h</label>
+        <link refid="xv_deinterlacer_hw.h"/>
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>xv_deinterlacer_g.c</label>
+        <link refid="xv__deinterlacer__g_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1aa24b3ae75f5c4db8dabd62b99adb27eb" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_AP_CTRL</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Register address and bit-width definitions for XV Deinterlacer hardware control interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group__v__deinterlacer_1ga53dc58946156cbfe489bd8d71f0aaaa2" compoundref="xv__deinterlacer__l2_8c" startline="163" endline="199">XV_DeintDbgReportStatus</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a09a9f28fe1c7b560a8e50ab5874ee43a" compoundref="xv__deinterlacer_8c" startline="178" endline="183">XV_deinterlacer_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1aa92d622fc50414f543575970547d7b26" compoundref="xv__deinterlacer_8c" startline="159" endline="164">XV_deinterlacer_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a6d5b0ce48fe965fc0aba39444dc79b03" compoundref="xv__deinterlacer_8c" startline="89" endline="97">XV_deinterlacer_IsDone</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a8320b0d217c5ac7ea5e17080f61786aa" compoundref="xv__deinterlacer_8c" startline="110" endline="118">XV_deinterlacer_IsIdle</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a0b324dfad81cc4e11b5c908dc02d3836" compoundref="xv__deinterlacer_8c" startline="132" endline="141">XV_deinterlacer_IsReady</referencedby>
+        <referencedby refid="xv__deinterlacer_8h_1a2593a137e66fa7fa4e13263e2b8ba50c" compoundref="xv__deinterlacer_8c" startline="64" endline="72">XV_deinterlacer_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1aa8116a76bb6409c39c17d79262787a7a" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_GIE</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1ad89b1e4b2c1babdeb35730f6b3387c3b" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_IER</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1aeb3bd22e567732d28b94cebac7a61b78" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_ISR</name>
+        <initializer>0x0c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1adad2f298aae112e68e49c37eeda73540" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_WIDTH_DATA</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1ada27a85d14fda2414df095cb3b964d71" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_WIDTH_DATA</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a5da5dc2d5b4f0f819792f66601e91a3b" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_HEIGHT_DATA</name>
+        <initializer>0x18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a836d09ae54c48644af6a346a229ae71a" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_HEIGHT_DATA</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a9441b30e5fa510c3c1cfc0856b709ac4" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_READ_FB_V_DATA</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a62a52a542ba178d120d9bd2c7cad677f" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_READ_FB_V_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a50931aec892e48061b00ad04f3169be6" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_COLORFORMAT_DATA</name>
+        <initializer>0x30</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a1bf1465e192de0d1474a29be043d7b6e" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_COLORFORMAT_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1afb66fdc8cabe55889581a07234d20e44" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_ALGO_DATA</name>
+        <initializer>0x38</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a341c40ba4c461cc5ed28dfe35c3a53fe" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_ALGO_DATA</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a81ccd998453b3fcdf8686629982c1c6a" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_INVERT_FIELD_ID_DATA</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1ae14066b818a5c566ee993045355dbe0c" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_INVERT_FIELD_ID_DATA</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1a25469f5fd80049a9772cb487f94613df" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_ADDR_WRITE_FB_V_DATA</name>
+        <initializer>0x50</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xv__deinterlacer__hw_8h_1ab12c722cf011982388917e2df2618869" prot="public" static="no">
+        <name>XV_DEINTERLACER_CTRL_BITS_WRITE_FB_V_DATA</name>
+        <initializer>64</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">//<sp/>CTRL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x00<sp/>:<sp/>Control<sp/>signals</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>ap_start<sp/>(Read/Write/COH)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>ap_done<sp/>(Read/COR)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>2<sp/><sp/>-<sp/>ap_idle<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>3<sp/><sp/>-<sp/>ap_ready<sp/>(Read)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7<sp/><sp/>-<sp/>auto_restart<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x04<sp/>:<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x08<sp/>:<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x0c<sp/>:<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register<sp/>(Read/TOW)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>Channel<sp/>0<sp/>(ap_done)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>1<sp/><sp/>-<sp/>Channel<sp/>1<sp/>(ap_ready)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x10<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>width[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x14<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x18<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>height</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>height[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x1c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x20<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>read_fb_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>read_fb_V[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x24<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>read_fb_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>read_fb_V[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x28<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x30<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>colorFormat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>colorFormat[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x34<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x38<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>algo</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>7~0<sp/>-<sp/>algo[7:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/><sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x3c<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x40<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>invert_field_id</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>0<sp/><sp/>-<sp/>invert_field_id[0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>others<sp/>-<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x44<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x50<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>write_fb_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>write_fb_V[31:0]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x54<sp/>:<sp/>Data<sp/>signal<sp/>of<sp/>write_fb_V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bit<sp/>31~0<sp/>-<sp/>write_fb_V[63:32]<sp/>(Read/Write)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x58<sp/>:<sp/>reserved</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>(SC<sp/>=<sp/>Self<sp/>Clear,<sp/>COR<sp/>=<sp/>Clear<sp/>on<sp/>Read,<sp/>TOW<sp/>=<sp/>Toggle<sp/>on<sp/>Write,<sp/>COH<sp/>=<sp/>Clear<sp/>on<sp/>Handshake)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="xv__deinterlacer__hw_8h_1aa24b3ae75f5c4db8dabd62b99adb27eb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_AP_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/>//<sp/>Control<sp/>signals</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_GIE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04<sp/><sp/>//<sp/>Global<sp/>Interrupt<sp/>Enable<sp/>Register</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_IER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08<sp/><sp/>//<sp/>IP<sp/>Interrupt<sp/>Enable<sp/>Register</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_ISR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0c<sp/><sp/>//<sp/>IP<sp/>Interrupt<sp/>Status<sp/>Register</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10<sp/><sp/>//<sp/>Frame<sp/>width<sp/>data<sp/>register</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_WIDTH_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/><sp/><sp/>//<sp/>Width<sp/>data<sp/>bit-width</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x18<sp/><sp/>//<sp/>Frame<sp/>height<sp/>data<sp/>register</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_HEIGHT_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>32<sp/><sp/><sp/><sp/>//<sp/>Height<sp/>data<sp/>bit-width</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_READ_FB_V_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20<sp/><sp/>//<sp/>Read<sp/>frame<sp/>buffer<sp/>address<sp/>register</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_READ_FB_V_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/>64<sp/><sp/><sp/><sp/>//<sp/>Read<sp/>frame<sp/>buffer<sp/>address<sp/>bit-width</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_COLORFORMAT_DATA<sp/><sp/><sp/><sp/><sp/>0x30<sp/><sp/>//<sp/>Color<sp/>format<sp/>data<sp/>register</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_COLORFORMAT_DATA<sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/>//<sp/>Color<sp/>format<sp/>data<sp/>bit-width</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_ALGO_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x38<sp/><sp/>//<sp/>Algorithm<sp/>selection<sp/>register</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_ALGO_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/>//<sp/>Algorithm<sp/>data<sp/>bit-width</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_INVERT_FIELD_ID_DATA<sp/>0x40<sp/><sp/>//<sp/>Invert<sp/>field<sp/>ID<sp/>register</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_INVERT_FIELD_ID_DATA<sp/>1<sp/><sp/><sp/><sp/><sp/>//<sp/>Invert<sp/>field<sp/>ID<sp/>bit-width</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_ADDR_WRITE_FB_V_DATA<sp/><sp/><sp/><sp/><sp/><sp/>0x50<sp/><sp/>//<sp/>Write<sp/>frame<sp/>buffer<sp/>address<sp/>register</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_DEINTERLACER_CTRL_BITS_WRITE_FB_V_DATA<sp/><sp/><sp/><sp/><sp/><sp/>64<sp/><sp/><sp/><sp/>//<sp/>Write<sp/>frame<sp/>buffer<sp/>address<sp/>bit-width</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_deinterlacer/src/xv_deinterlacer_hw.h"/>
+  </compounddef>
+</doxygen>

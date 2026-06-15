@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp22__common_8h" kind="file">
+    <compoundname>xhdcp22_common.h</compoundname>
+    <includes refid="bigdigits_8h" local="yes">bigdigits.h</includes>
+    <includedby refid="hdcp__key__utility_8c" local="yes">hdcp_key_utility.c</includedby>
+    <includedby refid="hmac_8c" local="yes">hmac.c</includedby>
+    <incdepgraph>
+      <node id="393">
+        <label>stdlib.h</label>
+      </node>
+      <node id="392">
+        <label>bigdigits.h</label>
+        <link refid="bigdigits_8h"/>
+        <childnode refid="393" relation="include">
+        </childnode>
+        <childnode refid="394" relation="include">
+        </childnode>
+      </node>
+      <node id="395">
+        <label>stddef.h</label>
+      </node>
+      <node id="394">
+        <label>bigdtypes.h</label>
+        <childnode refid="395" relation="include">
+        </childnode>
+        <childnode refid="396" relation="include">
+        </childnode>
+      </node>
+      <node id="396">
+        <label>xil_types.h</label>
+      </node>
+      <node id="391">
+        <label>xhdcp22_common.h</label>
+        <link refid="xhdcp22_common.h"/>
+        <childnode refid="392" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="398">
+        <label>hdcp_key_utility.c</label>
+      </node>
+      <node id="399">
+        <label>hmac.c</label>
+        <link refid="hmac_8c"/>
+      </node>
+      <node id="397">
+        <label>xhdcp22_common.h</label>
+        <link refid="xhdcp22_common.h"/>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="399" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xhdcp22__common_8h_1a133c201a02c4a4be6e7d38bb450fa31e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cmn_Sha256Hash</definition>
+        <argsstring>(const u8 *Data, u32 DataSize, u8 *HashedData)</argsstring>
+        <name>XHdcp22Cmn_Sha256Hash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataSize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HashedData</declname>
+        </param>
+        <briefdescription>
+<para>This function computes a SHA256 hash on a array of data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the data on which a hash is calculated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the data array.. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashedData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a 256-bits size hash.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_common.h" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/sha2.c" bodystart="83" bodyend="91"/>
+        <referencedby refid="xhdcp22__common_8h_1a71ef3e6e62d58ef753a01bdb118b04c3" compoundref="hmac_8c" startline="65" endline="114">XHdcp22Cmn_HmacSha256Hash</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__common_8h_1a71ef3e6e62d58ef753a01bdb118b04c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp22Cmn_HmacSha256Hash</definition>
+        <argsstring>(const u8 *Data, int DataSize, const u8 *Key, int KeySize, u8 *HashedData)</argsstring>
+        <name>XHdcp22Cmn_HmacSha256Hash</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>DataSize</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>KeySize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>HashedData</declname>
+        </param>
+        <briefdescription>
+<para>This function does a HMAC_SHA256 transform: SHA256(K XOR opad, SHA256(K XOR ipad, text)) </para>        </briefdescription>
+        <detaileddescription>
+<para>ipad is the byte 0x36 repeated 64 times opad is the byte 0x5c repeated 64 times and text is the data being protected</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the data buffer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the hash-key to use. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the hash key. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashedData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the output of this function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS if no errors occurred<itemizedlist>
+<listitem><para>XST_FAILURE if the datasize exceeds the size of the local buffer.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_common.h" line="43" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/hmac.c" bodystart="65" bodyend="114"/>
+        <references refid="hmac_8c_1a7e07dab5a5c98bb6dc90b13e6c5392d7" compoundref="hmac_8c" startline="31">SHA256_SIZE</references>
+        <references refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" compoundref="sha2_8c" startline="83" endline="91">XHdcp22Cmn_Sha256Hash</references>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__common_8h_1ad5e814b224ecc2897b7eac3ebc228065" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cmn_Aes128Encrypt</definition>
+        <argsstring>(const u8 *Data, const u8 *Key, u8 *Output)</argsstring>
+        <name>XHdcp22Cmn_Aes128Encrypt</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Output</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts 128 bits data with a key of size 128 bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16 byte plaintext </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user supplied input key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16 byte ciphertext</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_common.h" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/aes.c" bodystart="260" bodyend="268"/>
+      </memberdef>
+      <memberdef kind="function" id="xhdcp22__common_8h_1a17d4f7eef03cb1d0a8f8a3f52d61edcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp22Cmn_Aes128Decrypt</definition>
+        <argsstring>(const u8 *Data, const u8 *Key, u8 *Output)</argsstring>
+        <name>XHdcp22Cmn_Aes128Decrypt</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Output</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts 128 bits data with a key of size 128 bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16 byte ciphertext </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the user supplied input key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Output</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 16 byte plaintext</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_common.h" line="45" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/aes.c" bodystart="284" bodyend="292"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains common functions shared between HDCP22 drivers. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who  Date     Changes
+<hruler/>
+
+ 1.00  MH   10/30/15 First Release.
+ 1.01  MH   01/15/16 Added prefix to function names.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>–<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XHDCP22_COMMON_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XHDCP22_COMMON_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="bigdigits_8h" kindref="compound">bigdigits.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Cryptographic<sp/>functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sha2_8c_1a133c201a02c4a4be6e7d38bb450fa31e" kindref="member">XHdcp22Cmn_Sha256Hash</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/>u32<sp/>DataSize,<sp/>u8<sp/>*HashedData);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="hmac_8c_1a71ef3e6e62d58ef753a01bdb118b04c3" kindref="member">XHdcp22Cmn_HmacSha256Hash</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DataSize,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Key,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>KeySize,<sp/>u8<sp/><sp/>*HashedData);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="aes_8c_1ad5e814b224ecc2897b7eac3ebc228065" kindref="member">XHdcp22Cmn_Aes128Encrypt</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Key,<sp/>u8<sp/>*Output);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="aes_8c_1a17d4f7eef03cb1d0a8f8a3f52d61edcc" kindref="member">XHdcp22Cmn_Aes128Decrypt</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Key,<sp/>u8<sp/>*Output);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP22_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitxss1/examples/hdcp_key_utility/xhdcp22_common.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="common_2versal__2vp__p_2xsecure__rsaalginfo_8h" kind="file">
+    <compoundname>common/versal_2vp_p/xsecure_rsaalginfo.h</compoundname>
+    <includes local="yes">xil_cryptoalginfo.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <incdepgraph>
+      <node id="3651">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="3649">
+        <label>xsecure_rsaalginfo.h</label>
+        <link refid="common/versal_2vp_p/xsecure_rsaalginfo.h"/>
+        <childnode refid="3650" relation="include">
+        </childnode>
+        <childnode refid="3651" relation="include">
+        </childnode>
+      </node>
+      <node id="3650">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a9ffcaca51065168911b21d9fb18b634b" prot="public" static="no">
+        <name>XSECURE_RSA_MAJOR_VERSION</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Major version of RSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a75f97ffd2aa1ee72003b2545c6f391e6" prot="public" static="no">
+        <name>XSECURE_RSA_MINOR_VERSION</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Minor version of RSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1acf35b0ce12de8bf66e7fe924b04751d8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSECURE_ALWAYS_INLINE void</type>
+        <definition>static XSECURE_ALWAYS_INLINE void XSecure_RsaGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_RsaGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the RSA crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>None. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" line="50" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h" bodystart="50" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.7   tvp  03/20/26 Initial Release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#ifndef<sp/>XSECURE_RSAALGINFO_H</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSAALGINFO_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cryptoalginfo.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a9ffcaca51065168911b21d9fb18b634b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RSA_MAJOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/>6U<sp/></highlight></codeline>
+<codeline lineno="35" refid="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a75f97ffd2aa1ee72003b2545c6f391e6" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RSA_MINOR_VERSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSECURE_ALWAYS_INLINE<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" kindref="member">XSecure_RsaGetCryptoAlgInfo</ref><sp/>(Xil_CryptoAlgInfo<sp/>*AlgInfo)</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;Version<sp/>=<sp/>XIL_BUILD_VERSION(<ref refid="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a9ffcaca51065168911b21d9fb18b634b" kindref="member">XSECURE_RSA_MAJOR_VERSION</ref>,<sp/><ref refid="common_2versal__2vp__p_2xsecure__rsaalginfo_8h_1a75f97ffd2aa1ee72003b2545c6f391e6" kindref="member">XSECURE_RSA_MINOR_VERSION</ref>);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AlgInfo-&gt;NistStatus<sp/>=<sp/>NIST_COMPLIANT;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_RSAALGINFO_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp_p/xsecure_rsaalginfo.h"/>
+  </compounddef>
+</doxygen>

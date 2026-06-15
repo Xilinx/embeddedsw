@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9f40caa1649bf636dc7f985662e205c6" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="sha1_8c">sha1.c</innerfile>
+    <innerfile refid="sha1_8h">sha1.h</innerfile>
+    <innerfile refid="xhdcp1x_8c">xhdcp1x.c</innerfile>
+    <innerfile refid="xhdcp1x_8h">xhdcp1x.h</innerfile>
+    <innerfile refid="xhdcp1x__cipher_8c">xhdcp1x_cipher.c</innerfile>
+    <innerfile refid="xhdcp1x__cipher_8h">xhdcp1x_cipher.h</innerfile>
+    <innerfile refid="xhdcp1x__cipher__intr_8c">xhdcp1x_cipher_intr.c</innerfile>
+    <innerfile refid="xhdcp1x__debug_8h">xhdcp1x_debug.h</innerfile>
+    <innerfile refid="xhdcp1x__g_8c">xhdcp1x_g.c</innerfile>
+    <innerfile refid="xhdcp1x__hw_8h">xhdcp1x_hw.h</innerfile>
+    <innerfile refid="xhdcp1x__intr_8c">xhdcp1x_intr.c</innerfile>
+    <innerfile refid="xhdcp1x__platform_8c">xhdcp1x_platform.c</innerfile>
+    <innerfile refid="xhdcp1x__platform_8h">xhdcp1x_platform.h</innerfile>
+    <innerfile refid="xhdcp1x__port_8c">xhdcp1x_port.c</innerfile>
+    <innerfile refid="xhdcp1x__port_8h">xhdcp1x_port.h</innerfile>
+    <innerfile refid="xhdcp1x__port__dp_8h">xhdcp1x_port_dp.h</innerfile>
+    <innerfile refid="xhdcp1x__port__dp__rx_8c">xhdcp1x_port_dp_rx.c</innerfile>
+    <innerfile refid="xhdcp1x__port__dp__tx_8c">xhdcp1x_port_dp_tx.c</innerfile>
+    <innerfile refid="xhdcp1x__port__hdmi_8h">xhdcp1x_port_hdmi.h</innerfile>
+    <innerfile refid="xhdcp1x__port__hdmi__rx_8c">xhdcp1x_port_hdmi_rx.c</innerfile>
+    <innerfile refid="xhdcp1x__port__hdmi__tx_8c">xhdcp1x_port_hdmi_tx.c</innerfile>
+    <innerfile refid="xhdcp1x__port__intr_8c">xhdcp1x_port_intr.c</innerfile>
+    <innerfile refid="xhdcp1x__rx_8c">xhdcp1x_rx.c</innerfile>
+    <innerfile refid="xhdcp1x__rx_8h">xhdcp1x_rx.h</innerfile>
+    <innerfile refid="xhdcp1x__selftest_8c">xhdcp1x_selftest.c</innerfile>
+    <innerfile refid="xhdcp1x__sinit_8c">xhdcp1x_sinit.c</innerfile>
+    <innerfile refid="xhdcp1x__tx_8c">xhdcp1x_tx.c</innerfile>
+    <innerfile refid="xhdcp1x__tx_8h">xhdcp1x_tx.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/"/>
+  </compounddef>
+</doxygen>

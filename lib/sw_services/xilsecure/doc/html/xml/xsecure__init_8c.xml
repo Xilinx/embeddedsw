@@ -1,0 +1,443 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsecure__init_8c" kind="file">
+    <compoundname>xsecure_init.c</compoundname>
+    <includes refid="xsecure__init_8h" local="yes">xsecure_init.h</includes>
+    <includes refid="xsecure__cmd_8h" local="yes">xsecure_cmd.h</includes>
+    <incdepgraph>
+      <node id="1704">
+        <label>xsecure_sha.h</label>
+      </node>
+      <node id="1700">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure_init.c"/>
+        <childnode refid="1701" relation="include">
+        </childnode>
+        <childnode refid="1705" relation="include">
+        </childnode>
+      </node>
+      <node id="1701">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="1702" relation="include">
+        </childnode>
+        <childnode refid="1703" relation="include">
+        </childnode>
+        <childnode refid="1704" relation="include">
+        </childnode>
+      </node>
+      <node id="1702">
+        <label>xsecure_aes.h</label>
+      </node>
+      <node id="1705">
+        <label>xsecure_cmd.h</label>
+        <link refid="xsecure__cmd_8h"/>
+      </node>
+      <node id="1703">
+        <label>xsecure_rsa_core.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__generic__server__apis_1ga523615d7e0addb52c674dfda36be2aba" prot="public" static="yes" mutable="no">
+        <type>XSecure_Sha</type>
+        <definition>XSecure_Sha XSecure_ShaInstance[XSECURE_SHA_NUM_OF_INSTANCES]</definition>
+        <argsstring>[XSECURE_SHA_NUM_OF_INSTANCES]</argsstring>
+        <name>XSecure_ShaInstance</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_AesShaInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_AesShaInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes AES and SHA hardware instances. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Initializes AES structure</para></listitem><listitem><para>Initializes SHA structure for operating the SHA3 engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="85" bodyend="130"/>
+        <references refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" compoundref="xsecure__aesclient_8c" startline="77" endline="88">XSecure_AesInitialize</references>
+        <references refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" compoundref="xsecure__init_8c" startline="216" endline="221">XSecure_GetAesInstance</references>
+        <references refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</references>
+        <references refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</references>
+        <references refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" compoundref="versal_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_0_DEVICE_ID</references>
+        <references refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" compoundref="versal__2ve__2vm_2xsecure__sha__hw_8h" startline="50">XSECURE_SHA_1_DEVICE_ID</references>
+        <references refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="789" endline="792">XSecure_ShaInitialize</references>
+        <references refid="group__xsecure__sha__server__apis_1ga41a0772cfe31c9e14e437c83e41ecfc2" compoundref="core_2sha_2sha__pmx_2xsecure__sha_8c" startline="923" endline="926">XSecure_ShaLookupConfig</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" compoundref="xsecure__init_8c" startline="143" endline="179">XSecure_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_Init</definition>
+        <argsstring>(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)</argsstring>
+        <name>XSecure_Init</name>
+        <param>
+          <type><ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref> *</type>
+          <declname>PpdiEventParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function registers the handlers for XilSecure IPI commands. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PpdiEventParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to partial PDI event parameters</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success</para></listitem><listitem><para>XST_FAILURE - On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="143" bodyend="179"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" compoundref="xsecure__plat__rsa_8c" startline="389" endline="405">XSecure_AddRsaKeyPairGenerationToScheduler</references>
+        <references refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</references>
+        <references refid="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" compoundref="2ve__2vm_2xsecure__cmd_8c" startline="358" endline="368">XSecure_CmdsInit</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha3Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha3Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha3 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="189" bodyend="192"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kdf__server__apis_1ga4ce6b83111541227a82cb8f566a02106" compoundref="xsecure__kdf_8c" startline="59" endline="161">XSecure_Hkdf</referencedby>
+        <referencedby refid="group__xsecure__hmac__server__apis_1gada22059d2f57912504ffc71677bb2718" compoundref="xsecure__hmac__ipihandler_8c" startline="63" endline="106">XSecure_HmacIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+        <referencedby refid="group__xsecure__sha__server__apis_1ga7f7ea6efde319f58105d7ae453081235" compoundref="xsecure__sha__ipihandler_8c" startline="88" endline="123">XSecure_Sha3IpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1ga77d5289144f7e1df2a55881809ba8255" compoundref="xsecure__slhdsa__ipihandler_8c" startline="56" endline="97">XSecure_SlhdsaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetSha2Instance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetSha2Instance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha2 instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="202" bodyend="205"/>
+        <references refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" compoundref="xsecure__init_8c" startline="250" endline="263">XSecure_GetShaInstance</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaf7cb17f01c5c5542c9c2b3d6f00699d3" compoundref="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c" startline="61" endline="108">XSecure_KatPlatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga7004972638c2036271d309af8ae5c351" compoundref="_2xsecure__sha__ipihandler_8c" startline="72" endline="120">XSecure_ShaIpiHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Aes *</type>
+        <definition>XSecure_Aes * XSecure_GetAesInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetAesInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Aes instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Aes instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="216" bodyend="221"/>
+        <referencedby refid="group__xsecure__aes__server__apis_1gaa58a05547f6ae883c23823bf0f3bed7d" compoundref="xsecure__aes__ipihandler_8c" startline="206" endline="221">XSecure_AesInit</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga3d0efd64b0f7ebbdc1b3be80aa10a840" compoundref="xsecure__aes__ipihandler_8c" startline="107" endline="195">XSecure_AesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga91032738bf5e54ecd090f802dd30a23e" compoundref="xsecure__aes__ipihandler_8c" startline="511" endline="535">XSecure_AesKeyWrite</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga6b5414d0bffdebf14b418d2d05135faa" compoundref="xsecure__aes__ipihandler_8c" startline="474" endline="493">XSecure_AesKeyZeroize</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga4dac9d051ab1e5fa765badf3b682a642" compoundref="xsecure__aes__ipihandler_8c" startline="619" endline="683">XSecure_AesPerformOperation</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gadc255b2085b85b148a6ab41d71fde8e2" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="296" endline="360">XSecure_AesPlatPmcDmaCfgAndXfer</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" compoundref="xsecure__init_8c" startline="85" endline="130">XSecure_AesShaInit</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" compoundref="versal__2ve__2vm_2xsecure__plat_8c" startline="238" endline="243">XSecure_ConfigureDmaByteSwap</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1ga693f088bbeaa2be1dd7a084c2bee6351" compoundref="xsecure__kat__ipihandler_8c" startline="80" endline="176">XSecure_KatIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__aes__server__apis_1ga1471a9dc9965ae80577a09aadafeeb53" compoundref="xsecure__plat__aes__ipihandler_8c" startline="60" endline="100">XSecure_PlatAesIpiHandler</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1ga07ca644998ec3bcf61557b4510708101" compoundref="xsecure__resourcehandling_8c" startline="491" endline="533">XSecure_SetDataContextLost</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> *</type>
+        <definition>XSecure_Rsa * XSecure_GetRsaInstance</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_GetRsaInstance</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the common Rsa instance which has to be used between PLM and xilsecure server. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="233" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="233" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XSecure_Sha *</type>
+        <definition>XSecure_Sha * XSecure_GetShaInstance</definition>
+        <argsstring>(u32 DeviceId)</argsstring>
+        <name>XSecure_GetShaInstance</name>
+        <param>
+          <type>u32</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function provides the pointer to the sha instance based on the DevieId. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>Pointer to the XSecure_Sha instance </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" line="250" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c" bodystart="250" bodyend="263"/>
+        <references refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" compoundref="versal_2xsecure__sha__hw_8h" startline="43">XSECURE_SHA_NUM_OF_INSTANCES</references>
+        <referencedby refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" compoundref="xsecure__init_8c" startline="202" endline="205">XSecure_GetSha2Instance</referencedby>
+        <referencedby refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" compoundref="xsecure__init_8c" startline="189" endline="192">XSecure_GetSha3Instance</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the initialization functions to be called by PLM. </para>    </briefdescription>
+    <detaileddescription>
+<para>This file will only be part of XilSecure when it is compiled with PLM.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rpo 06/25/2020 Initial release
+4.3   rpo 06/25/2020 Updated file version to sync with library version
+      rpo 08/19/2020 Clear the tamper interrupt source
+      am  09/24/2020 Resolved MISRA C violations
+      har 10/12/2020 Addressed security review comments
+4.5   ma  04/05/2021 Use error mask instead of ID to set an error action
+      bm  05/13/2021 Add common crypto instances
+4.6   har 07/14/2021 Fixed doxygen warnings
+4.7   ma  07/08/2022 Added support for secure lockdown
+5.1   dc  12/27/2022 Added SHA1 instance
+5.2   yog 08/07/2023 Moved Trng init API to xsecure_plat.c
+5.4   kpt 06/23/2024 Added XSecure_AddRsaKeyPairGenerationToScheduler
+      kpt 07/17/2024 Remove RSA key pair generation support on QEMU
+      kal 07/24/2024 Code refactoring for versal_2ve_2vm
+      pre 03/02/2025 Modified XSecure_Init for initialization of AES and SHA in server mode
+      sd  04/30/2025 Make XSecure_AesShaInit as non static function and move
+                     XSecure_QueuesAndTaskInit to XSecure_Init function
+      pre  05/10/2025 Added AES and SHA events queuing mechanism under XPLMI_IPI_DEVICE_ID macro
+      pre  06/05/2025 Bypassed AES &amp; SHA initialization for crypto disabled boards
+      vss  08/08/2025 Corrected associativity of AES/SHA events queuing by adding proper parenthesis.
+5.6   rpu  08/11/2025 Removed crypto check in xsecure_init
+      vss  09/30/2025 Updated AES/SHA queueing macro checks.
+5.7   tvp  02/23/2025 Initialize SHA2 for Versal_2vp_p
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__init_8h" kindref="compound">xsecure_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__cmd_8h" kindref="compound">xsecure_cmd.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_NET)<sp/>&amp;&amp;<sp/>!defined(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_plat_kat.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__plat__rsa_8h" kindref="compound">xsecure_plat_rsa.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__resourcehandling_8h" kindref="compound">xsecure_resourcehandling.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_dma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSecure_Sha<sp/>XSecure_ShaInstance[<ref refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" kindref="member">XSECURE_SHA_NUM_OF_INSTANCES</ref>];</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="85" refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" kindref="member">XSecure_AesShaInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha<sp/>*XSecureShaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal_2xsecure__sha__hw_8h_1a809692bfb3b5d91eb2e4b3eb722d4f83" kindref="member">XSECURE_SHA_0_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPmcDma<sp/>*PmcDmaInstPtr<sp/>=<sp/>XPlmi_GetDmaInstance(PMCDMA_0_DEVICE_ID);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_SECURE_EXCLUDE</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Aes<sp/>*XSecureAesInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>();</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" kindref="member">XSecure_AesInitialize</ref>(XSecureAesInstPtr,<sp/>PmcDmaInstPtr);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" kindref="member">XSecure_ShaInitialize</ref>(XSecureShaInstPtr,<sp/>PmcDmaInstPtr);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VERSAL_2VE_2VM)<sp/>||<sp/>defined(VERSAL_2VP_P)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecureShaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" kindref="member">XSecure_GetSha2Instance</ref>(<ref refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" kindref="member">XSECURE_SHA_1_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" kindref="member">XSecure_ShaInitialize</ref>(XSecureShaInstPtr,<sp/>PmcDmaInstPtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(VERSAL_NET)<sp/>&amp;&amp;<sp/>!defined(VERSAL_2VE_2VM))</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecureShaInstPtr<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(<ref refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" kindref="member">XSECURE_SHA_1_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1ga41a0772cfe31c9e14e437c83e41ecfc2" kindref="member">XSecure_ShaLookupConfig</ref>(XSecureShaInstPtr,<sp/><ref refid="versal__2ve__2vm_2xsecure__sha__hw_8h_1ae88a494ef68a7549d515d5afbc7727e5" kindref="member">XSECURE_SHA_1_DEVICE_ID</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__sha__server__apis_1gafeb87542b7de2a6f5e62c5fa6c84ff8b" kindref="member">XSecure_ShaInitialize</ref>(XSecureShaInstPtr,<sp/>PmcDmaInstPtr);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="143" refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gae97f3300511e1fce60d35fac22781594" kindref="member">XSecure_Init</ref>(<ref refid="struct_x_secure___partial_pdi_event_params" kindref="compound">XSecure_PartialPdiEventParams</ref><sp/>*PpdiEventParamsPtr)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__generic__server__apis_1ga9aa6e139b83f8847145b76986672d29a" kindref="member">XSecure_AesShaInit</ref>();</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING)<sp/>&amp;&amp;<sp/>defined(XPLMI_IPI_DEVICE_ID))</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)PpdiEventParamsPtr;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__generic__server__apis_1gae7ad1b3e38daf23bae35666d7a9876d8" kindref="member">XSecure_CmdsInit</ref>();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)<sp/>&amp;&amp;<sp/>!defined(PLM_RSA_EXCLUDE)<sp/>&amp;&amp;<sp/>!defined(VERSAL_2VE_2VM)</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XPLMI_PLATFORM<sp/>!=<sp/>PMC_TAP_VERSION_QEMU)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPLMI_PLATFORM<sp/>!=<sp/>PMC_TAP_VERSION_COSIM))<sp/>{</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Add<sp/>key<sp/>pair<sp/>generation<sp/>to<sp/>scheduler<sp/>for<sp/>versalnet<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xsecure__rsa__server__apis_1ga164469228a4eea6357072fee975418de" kindref="member">XSecure_AddRsaKeyPairGenerationToScheduler</ref>();</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="189" refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" refkind="member"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gaae2c6ce911d390c5176b5b4b7ff5a4fb" kindref="member">XSecure_GetSha3Instance</ref>(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" kindref="member">XSecure_GetShaInstance</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="202" refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" refkind="member"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gac9c421c34d99194009679bdb4cf888ca" kindref="member">XSecure_GetSha2Instance</ref>(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" kindref="member">XSecure_GetShaInstance</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="216" refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" refkind="member"><highlight class="normal">XSecure_Aes<sp/>*<ref refid="group__xsecure__generic__server__apis_1ga11d8bbf7423a10f98cbcfd4796ea6d6a" kindref="member">XSecure_GetAesInstance</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>XSecure_Aes<sp/>AesInstance<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;AesInstance;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>PLM_RSA_EXCLUDE</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="233" refid="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" refkind="member"><highlight class="normal"><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>*<ref refid="group__xsecure__generic__server__apis_1ga4d02aaca191ced35af31e6f80b76f2b8" kindref="member">XSecure_GetRsaInstance</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref><sp/>RsaInstance<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;RsaInstance;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="250" refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" refkind="member"><highlight class="normal">XSecure_Sha<sp/>*<ref refid="group__xsecure__generic__server__apis_1gab0b44f0c1faad2a80c53984e83549267" kindref="member">XSecure_GetShaInstance</ref>(u32<sp/>DeviceId)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sha<sp/>*XSecure_ShaInstPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(DeviceId<sp/>&gt;=<sp/><ref refid="versal_2xsecure__sha__hw_8h_1a20b9a0d810aec45fb949b752d3540a1a" kindref="member">XSECURE_SHA_NUM_OF_INSTANCES</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaInstPtr<sp/>=<sp/>&amp;XSecure_ShaInstance[DeviceId];</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_ShaInstPtr-&gt;DeviceId<sp/>=<sp/>DeviceId;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XSecure_ShaInstPtr;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/generic/xsecure_init.c"/>
+  </compounddef>
+</doxygen>

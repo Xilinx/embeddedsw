@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_r_fdc___block_status" kind="struct" prot="public">
+    <compoundname>XRFdc_BlockStatus</compoundname>
+    <includes local="no">xrfdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1a89b0706ed0d2b10726b4ac72ea281993" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double XRFdc_BlockStatus::SamplingFreq</definition>
+        <argsstring></argsstring>
+        <name>SamplingFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="575" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="575" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1ab28793c99543e63998f1db5be6ae387e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_BlockStatus::AnalogDataPathStatus</definition>
+        <argsstring></argsstring>
+        <name>AnalogDataPathStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="576" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="576" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1a88992bfa2504315b19e795d218307374" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XRFdc_BlockStatus::DigitalDataPathStatus</definition>
+        <argsstring></argsstring>
+        <name>DigitalDataPathStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="577" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="577" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1abef4c7d3f5783e36fcf4f367aa4f9ca0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_BlockStatus::DataPathClocksStatus</definition>
+        <argsstring></argsstring>
+        <name>DataPathClocksStatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="578" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="578" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1ac3285bbb6843da29857ce7dc27c38414" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_BlockStatus::IsFIFOFlagsEnabled</definition>
+        <argsstring></argsstring>
+        <name>IsFIFOFlagsEnabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="580" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="580" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_r_fdc___block_status_1a194ef7fcad16939fe43c8274d0959771" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XRFdc_BlockStatus::IsFIFOFlagsAsserted</definition>
+        <argsstring></argsstring>
+        <name>IsFIFOFlagsAsserted</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="582" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="582" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>status of DAC or ADC blocks in the RFSoC Data converter. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" line="574" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/rfdc/src/xrfdc.h" bodystart="574" bodyend="584"/>
+    <listofallmembers>
+      <member refid="struct_x_r_fdc___block_status_1ab28793c99543e63998f1db5be6ae387e" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>AnalogDataPathStatus</name></member>
+      <member refid="struct_x_r_fdc___block_status_1abef4c7d3f5783e36fcf4f367aa4f9ca0" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>DataPathClocksStatus</name></member>
+      <member refid="struct_x_r_fdc___block_status_1a88992bfa2504315b19e795d218307374" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>DigitalDataPathStatus</name></member>
+      <member refid="struct_x_r_fdc___block_status_1a194ef7fcad16939fe43c8274d0959771" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>IsFIFOFlagsAsserted</name></member>
+      <member refid="struct_x_r_fdc___block_status_1ac3285bbb6843da29857ce7dc27c38414" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>IsFIFOFlagsEnabled</name></member>
+      <member refid="struct_x_r_fdc___block_status_1a89b0706ed0d2b10726b4ac72ea281993" prot="public" virt="non-virtual"><scope>XRFdc_BlockStatus</scope><name>SamplingFreq</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

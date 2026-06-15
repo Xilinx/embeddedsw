@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="union_x_usb_psu___event" kind="union" prot="public">
+    <compoundname>XUsbPsu_Event</compoundname>
+    <includes local="no">xusbpsu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_x_usb_psu___event_1a592c8d05a931aa0dcba5c40c81897bed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XUsbPsu_Event::Raw</definition>
+        <argsstring></argsstring>
+        <name>Raw</name>
+        <briefdescription>
+<para>raw 32-bit event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="691" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gaa95e2a0adf788cfa67722243e0c6e803" compoundref="xusbpsu__event_8c" startline="170" endline="213">XUsbPsu_EventBufferHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_usb_psu___event_1a604a48e88a08d42f74073889a9100173" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___event___type" kindref="compound">XUsbPsu_Event_Type</ref></type>
+        <definition>struct XUsbPsu_Event_Type XUsbPsu_Event::Type</definition>
+        <argsstring></argsstring>
+        <name>Type</name>
+        <briefdescription>
+<para>type of the event </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="692" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" compoundref="xusbpsu__intr_8c" startline="288" endline="308">XUsbPsu_EventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_usb_psu___event_1a6cae79dab7c106d006ac1ed37bb0fa09" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___event___epevt" kindref="compound">XUsbPsu_Event_Epevt</ref></type>
+        <definition>struct XUsbPsu_Event_Epevt XUsbPsu_Event::Epevt</definition>
+        <argsstring></argsstring>
+        <name>Epevt</name>
+        <briefdescription>
+<para>Device Endpoint Event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="693" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" compoundref="xusbpsu__intr_8c" startline="288" endline="308">XUsbPsu_EventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_usb_psu___event_1a74779f9dd7dfb748446938aeaab08819" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___event___devt" kindref="compound">XUsbPsu_Event_Devt</ref></type>
+        <definition>struct XUsbPsu_Event_Devt XUsbPsu_Event::Devt</definition>
+        <argsstring></argsstring>
+        <name>Devt</name>
+        <briefdescription>
+<para>Device Event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="694" bodyend="-1"/>
+        <referencedby refid="group__usbpsu__api_1gae4f3c8a44c949edec84f94fc3346e77b" compoundref="xusbpsu__intr_8c" startline="288" endline="308">XUsbPsu_EventHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="union_x_usb_psu___event_1a30b4571bddf9e8db77dd42da9d99aecd" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_x_usb_psu___event___gevt" kindref="compound">XUsbPsu_Event_Gevt</ref></type>
+        <definition>struct XUsbPsu_Event_Gevt XUsbPsu_Event::Gevt</definition>
+        <argsstring></argsstring>
+        <name>Gevt</name>
+        <briefdescription>
+<para>Global Event. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="691" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="695" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>union XUsbPsu_event - representation of Event Buffer contents Representation of Event Buffers </para>    </briefdescription>
+    <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Raw</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw 32-bit event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>type of the event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Epevt</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Endpoint Event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Devt</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Event </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Gevt</parametername>
+<parametername>:</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global Event </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="94">
+        <label>XUsbPsu_Event_Devt</label>
+        <link refid="struct_x_usb_psu___event___devt"/>
+      </node>
+      <node id="93">
+        <label>XUsbPsu_Event_Type</label>
+        <link refid="struct_x_usb_psu___event___type"/>
+      </node>
+      <node id="91">
+        <label>XUsbPsu_Event_Epevt</label>
+        <link refid="struct_x_usb_psu___event___epevt"/>
+      </node>
+      <node id="90">
+        <label>XUsbPsu_Event</label>
+        <link refid="union_x_usb_psu___event"/>
+        <childnode refid="91" relation="usage">
+          <edgelabel>Epevt</edgelabel>
+        </childnode>
+        <childnode refid="92" relation="usage">
+          <edgelabel>Gevt</edgelabel>
+        </childnode>
+        <childnode refid="93" relation="usage">
+          <edgelabel>Type</edgelabel>
+        </childnode>
+        <childnode refid="94" relation="usage">
+          <edgelabel>Devt</edgelabel>
+        </childnode>
+      </node>
+      <node id="92">
+        <label>XUsbPsu_Event_Gevt</label>
+        <link refid="struct_x_usb_psu___event___gevt"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="690" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" bodystart="690" bodyend="696"/>
+    <listofallmembers>
+      <member refid="union_x_usb_psu___event_1a74779f9dd7dfb748446938aeaab08819" prot="public" virt="non-virtual"><scope>XUsbPsu_Event</scope><name>Devt</name></member>
+      <member refid="union_x_usb_psu___event_1a6cae79dab7c106d006ac1ed37bb0fa09" prot="public" virt="non-virtual"><scope>XUsbPsu_Event</scope><name>Epevt</name></member>
+      <member refid="union_x_usb_psu___event_1a30b4571bddf9e8db77dd42da9d99aecd" prot="public" virt="non-virtual"><scope>XUsbPsu_Event</scope><name>Gevt</name></member>
+      <member refid="union_x_usb_psu___event_1a592c8d05a931aa0dcba5c40c81897bed" prot="public" virt="non-virtual"><scope>XUsbPsu_Event</scope><name>Raw</name></member>
+      <member refid="union_x_usb_psu___event_1a604a48e88a08d42f74073889a9100173" prot="public" virt="non-virtual"><scope>XUsbPsu_Event</scope><name>Type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

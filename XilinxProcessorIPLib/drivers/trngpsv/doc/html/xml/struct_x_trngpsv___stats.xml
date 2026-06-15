@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsv___stats" kind="struct" prot="public">
+    <compoundname>XTrngpsv_Stats</compoundname>
+    <includes local="no">xtrngpsv.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsv___stats_1a081b8b3dcbcc8155ea41c4ad65dc6031" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XTrngpsv_Stats::RandBytes</definition>
+        <argsstring></argsstring>
+        <name>RandBytes</name>
+        <briefdescription>
+<para>Number of random bytes provided since instantiate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___stats_1affb0f69fc2bbdca271942224c5b9adb4" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XTrngpsv_Stats::RandBytesReseed</definition>
+        <argsstring></argsstring>
+        <name>RandBytesReseed</name>
+        <briefdescription>
+<para>Random bytes generated after last reseed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_trngpsv___stats_1af238bc5262916c69a0be35da6a51fe64" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XTrngpsv_Stats::ElapsedSeedLife</definition>
+        <argsstring></argsstring>
+        <name>ElapsedSeedLife</name>
+        <briefdescription>
+<para>Generate requests done after last reseed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__trngpsv__api_1ga2d5b1c7182c8de3767e0345a3435ffe5" compoundref="xtrngpsv_8c" startline="450" endline="627">XTrngpsv_Generate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains statistics information for the TRNGPSV driver. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/src/xtrngpsv.h" bodystart="236" bodyend="240"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsv___stats_1af238bc5262916c69a0be35da6a51fe64" prot="public" virt="non-virtual"><scope>XTrngpsv_Stats</scope><name>ElapsedSeedLife</name></member>
+      <member refid="struct_x_trngpsv___stats_1a081b8b3dcbcc8155ea41c4ad65dc6031" prot="public" virt="non-virtual"><scope>XTrngpsv_Stats</scope><name>RandBytes</name></member>
+      <member refid="struct_x_trngpsv___stats_1affb0f69fc2bbdca271942224c5b9adb4" prot="public" virt="non-virtual"><scope>XTrngpsv_Stats</scope><name>RandBytesReseed</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

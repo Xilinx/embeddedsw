@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_5877bf53d62d3c1c5ab41b82258884e7" kind="dir">
+    <compoundname>isp_drv</compoundname>
+    <innerdir refid="dir_729e41fb3c9ccfc1374b8ec79493eea2">cam_device</innerdir>
+    <innerdir refid="dir_45695198436889d735ef25fdccaa8007">common</innerdir>
+    <innerdir refid="dir_cb20ba9df43cfecf95e46f53f797926e">ebase</innerdir>
+    <innerdir refid="dir_2a8ee9b16aeb0edee49ce81f73996d81">isi</innerdir>
+    <innerdir refid="dir_ed85c806171917a12c9a5fb065756b25">oslayer</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/"/>
+  </compounddef>
+</doxygen>

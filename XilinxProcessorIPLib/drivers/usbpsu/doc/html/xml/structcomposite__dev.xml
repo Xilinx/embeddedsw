@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structcomposite__dev" kind="struct" prot="public">
+    <compoundname>composite_dev</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structcomposite__dev_1af3cce781e7338c23818abe52b734235c" prot="public" static="no" mutable="no">
+        <type>struct audio_if</type>
+        <definition>struct audio_if composite_dev::f_audio</definition>
+        <argsstring></argsstring>
+        <name>f_audio</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcomposite__dev_1adb46edd6b13a33320ef6097473aa3048" prot="public" static="no" mutable="no">
+        <type>struct dfu_if</type>
+        <definition>struct dfu_if composite_dev::f_dfu</definition>
+        <argsstring></argsstring>
+        <name>f_dfu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcomposite__dev_1acd5b162f721a0d7f41184a72e14b7a91" prot="public" static="no" mutable="no">
+        <type>struct storage_if</type>
+        <definition>struct storage_if composite_dev::f_storage</definition>
+        <argsstring></argsstring>
+        <name>f_storage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="343" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="350" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcomposite__dev_1ab9a225c9af02119b78f43aa28a0233dc" prot="public" static="no" mutable="no">
+        <type>TaskHandle_t</type>
+        <definition>TaskHandle_t composite_dev::xMainTask</definition>
+        <argsstring></argsstring>
+        <name>xMainTask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structcomposite__dev_1a2e3ea40bd5b14716b9c59c721106a271" prot="public" static="no" mutable="no">
+        <type>struct keyboard_if</type>
+        <definition>struct keyboard_if composite_dev::f_keyboard</definition>
+        <argsstring></argsstring>
+        <name>f_keyboard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_freertos_class_composite.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="347" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="347" bodyend="351"/>
+    <listofallmembers>
+      <member refid="structcomposite__dev_1af3cce781e7338c23818abe52b734235c" prot="public" virt="non-virtual"><scope>composite_dev</scope><name>f_audio</name></member>
+      <member refid="structcomposite__dev_1adb46edd6b13a33320ef6097473aa3048" prot="public" virt="non-virtual"><scope>composite_dev</scope><name>f_dfu</name></member>
+      <member refid="structcomposite__dev_1a2e3ea40bd5b14716b9c59c721106a271" prot="public" virt="non-virtual"><scope>composite_dev</scope><name>f_keyboard</name></member>
+      <member refid="structcomposite__dev_1acd5b162f721a0d7f41184a72e14b7a91" prot="public" virt="non-virtual"><scope>composite_dev</scope><name>f_storage</name></member>
+      <member refid="structcomposite__dev_1ab9a225c9af02119b78f43aa28a0233dc" prot="public" virt="non-virtual"><scope>composite_dev</scope><name>xMainTask</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

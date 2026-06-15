@@ -1,0 +1,734 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xaxivdma__intr_8c" kind="file">
+    <compoundname>xaxivdma_intr.c</compoundname>
+    <includes refid="xaxivdma_8h" local="yes">xaxivdma.h</includes>
+    <includes refid="xaxivdma__i_8h" local="yes">xaxivdma_i.h</includes>
+    <incdepgraph>
+      <node id="157">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="152">
+        <label>xil_io.h</label>
+      </node>
+      <node id="153">
+        <label>xaxivdma_i.h</label>
+        <link refid="xaxivdma__i_8h"/>
+        <childnode refid="154" relation="include">
+        </childnode>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="155" relation="include">
+        </childnode>
+      </node>
+      <node id="150">
+        <label>xaxivdma_hw.h</label>
+        <link refid="xaxivdma__hw_8h"/>
+        <childnode refid="151" relation="include">
+        </childnode>
+        <childnode refid="152" relation="include">
+        </childnode>
+      </node>
+      <node id="155">
+        <label>xdebug.h</label>
+      </node>
+      <node id="148">
+        <label>xaxivdma_intr.c</label>
+        <link refid="xaxivdma_intr.c"/>
+        <childnode refid="149" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+      </node>
+      <node id="154">
+        <label>string.h</label>
+      </node>
+      <node id="149">
+        <label>xaxivdma.h</label>
+        <link refid="xaxivdma_8h"/>
+        <childnode refid="150" relation="include">
+        </childnode>
+        <childnode refid="153" relation="include">
+        </childnode>
+        <childnode refid="156" relation="include">
+        </childnode>
+        <childnode refid="157" relation="include">
+        </childnode>
+      </node>
+      <node id="156">
+        <label>xstatus.h</label>
+      </node>
+      <node id="151">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__axivdma_1ga4c687431dde198458fb4e42dff22c106" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiVdma_IntrEnable</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)</argsstring>
+        <name>XAxiVdma_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrType</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Enable specific interrupts for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts not specified by the mask will not be affected</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit mask for the interrupts to be enabled</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If channel is invalid, then nothing is done </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="55" bodyend="66"/>
+        <references refid="group__axivdma_1ga64d6b39bc9e900efe9f14c9961f4da24" compoundref="xaxivdma__channel_8c" startline="1201" endline="1222">XAxiVdma_ChannelEnableIntr</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+        <referencedby refid="xaxivdma__example__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxivdma__example__intr_8c" startline="318" endline="641">main</referencedby>
+        <referencedby refid="vdma__api_8c_1a8f3f4f8546399efc071f59f35f17bdfa" compoundref="vdma__api_8c" startline="98" endline="236">run_triple_frame_buffer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1gaba9a0ebdb72696e24ccaa48e57802323" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiVdma_IntrDisable</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)</argsstring>
+        <name>XAxiVdma_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrType</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts for a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts not specified by the mask will not be affected</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit mask for the interrupts to be disabled </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If channel is invalid, then nothing is done </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="555" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="84" bodyend="95"/>
+        <references refid="group__axivdma_1ga2daa8c45a82867bedf786957b4154cdc" compoundref="xaxivdma__channel_8c" startline="1236" endline="1260">XAxiVdma_ChannelDisableIntr</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1ga90501638e7f1077232443f0a60b3b40d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAxiVdma_IntrGetPending</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u16 Direction)</argsstring>
+        <name>XAxiVdma_IntrGetPending</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Get the pending interrupts of a channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The bit mask for the currently pending interrupts</para></simplesect>
+<simplesect kind="note"><para>If Direction is invalid, return 0 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="556" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="110" bodyend="130"/>
+        <references refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" compoundref="xaxivdma__channel_8c" startline="1272" endline="1276">XAxiVdma_ChannelGetPendingIntr</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1gaaba3bd6f623637f15e16176ea77213b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiVdma_IntrClear</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u32 IntrType, u16 Direction)</argsstring>
+        <name>XAxiVdma_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntrType</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Clear the pending interrupts specified by the bit mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>Interrupts not specified by the mask will not be affected</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntrType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit mask for the interrupts to be cleared</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If channel is invalid, then nothing is done </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="557" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="148" bodyend="158"/>
+        <references refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" compoundref="xaxivdma__channel_8c" startline="1290" endline="1307">XAxiVdma_ChannelIntrClear</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1ga2650d7820ff062709d027bff2934cf58" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiVdma_MaskS2MMErrIntr</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u32 ErrorMask, u16 Direction)</argsstring>
+        <name>XAxiVdma_MaskS2MMErrIntr</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorMask</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Masks the S2MM error interrupt for the provided error mask value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> instance to operate on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask of error bits for which S2MM error interrupt can be disabled. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the channel to work on, use XAXIVDMA_READ/WRITE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS, when error bits are cleared.<itemizedlist>
+<listitem><para>XST_INVALID_PARAM, when channel pointer is invalid.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND, when the channel is not valid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>The register S2MM_DMA_IRQ_MASK is only applicable from IPv6.01a which is added at offset XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET. For older versions, this offset location is reserved and so the API does not have any effect. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="573" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="179" bodyend="203"/>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+        <references refid="group__axivdma_1gae3281565e12c47c4888e228ec6a59e3c" compoundref="xaxivdma__hw_8h" startline="133">XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET</references>
+        <references refid="group__axivdma_1ga0ba0af99c40314b1288a6a95ba2ee688" compoundref="xaxivdma__hw_8h" startline="278">XAXIVDMA_S2MM_IRQ_ERR_ALL_MASK</references>
+        <references refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" compoundref="xaxivdma_8h" startline="307">XAXIVDMA_WRITE</references>
+        <references refid="group__axivdma_1ga28900a15d22fc5a3729dfa102f5cbec9" compoundref="xaxivdma__hw_8h" startline="355">XAxiVdma_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiVdma_ReadIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XAxiVdma_ReadIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the read channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If the channel is invalid, then no interrupt handling </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="598" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="217" bodyend="265"/>
+        <references refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" compoundref="xaxivdma_8h" startline="495">XAxiVdma_ChannelCallBack::CompletionCallBack</references>
+        <references refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" compoundref="xaxivdma_8h" startline="496">XAxiVdma_ChannelCallBack::CompletionRef</references>
+        <references refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" compoundref="xaxivdma_8h" startline="498">XAxiVdma_ChannelCallBack::ErrCallBack</references>
+        <references refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" compoundref="xaxivdma_8h" startline="499">XAxiVdma_ChannelCallBack::ErrRef</references>
+        <references refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" compoundref="xaxivdma_8h" startline="520">XAxiVdma::ReadCallBack</references>
+        <references refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" compoundref="xaxivdma__channel_8c" startline="1319" endline="1323">XAxiVdma_ChannelGetEnabledIntr</references>
+        <references refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" compoundref="xaxivdma__channel_8c" startline="1272" endline="1276">XAxiVdma_ChannelGetPendingIntr</references>
+        <references refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" compoundref="xaxivdma__channel_8c" startline="1290" endline="1307">XAxiVdma_ChannelIntrClear</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+        <references refid="group__axivdma_1gaed70612ee26f1faf7699e301afda8048" compoundref="xaxivdma__hw_8h" startline="194">XAXIVDMA_IXR_COMPLETION_MASK</references>
+        <references refid="group__axivdma_1ga88ccc9e37f16a1b4ecffd5e09a4c8cfb" compoundref="xaxivdma__hw_8h" startline="193">XAXIVDMA_IXR_ERROR_MASK</references>
+        <references refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" compoundref="xaxivdma_8h" startline="308">XAXIVDMA_READ</references>
+        <referencedby refid="xaxivdma__example__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxivdma__example__intr_8c" startline="318" endline="641">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAxiVdma_WriteIntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XAxiVdma_WriteIntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the write channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If the channel is invalid, then no interrupt handling </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="599" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="279" bodyend="327"/>
+        <references refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" compoundref="xaxivdma_8h" startline="495">XAxiVdma_ChannelCallBack::CompletionCallBack</references>
+        <references refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" compoundref="xaxivdma_8h" startline="496">XAxiVdma_ChannelCallBack::CompletionRef</references>
+        <references refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" compoundref="xaxivdma_8h" startline="498">XAxiVdma_ChannelCallBack::ErrCallBack</references>
+        <references refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" compoundref="xaxivdma_8h" startline="499">XAxiVdma_ChannelCallBack::ErrRef</references>
+        <references refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" compoundref="xaxivdma_8h" startline="521">XAxiVdma::WriteCallBack</references>
+        <references refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" compoundref="xaxivdma__channel_8c" startline="1319" endline="1323">XAxiVdma_ChannelGetEnabledIntr</references>
+        <references refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" compoundref="xaxivdma__channel_8c" startline="1272" endline="1276">XAxiVdma_ChannelGetPendingIntr</references>
+        <references refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" compoundref="xaxivdma__channel_8c" startline="1290" endline="1307">XAxiVdma_ChannelIntrClear</references>
+        <references refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" compoundref="xaxivdma_8c" startline="79" endline="93">XAxiVdma_GetChannel</references>
+        <references refid="group__axivdma_1gaed70612ee26f1faf7699e301afda8048" compoundref="xaxivdma__hw_8h" startline="194">XAXIVDMA_IXR_COMPLETION_MASK</references>
+        <references refid="group__axivdma_1ga88ccc9e37f16a1b4ecffd5e09a4c8cfb" compoundref="xaxivdma__hw_8h" startline="193">XAXIVDMA_IXR_ERROR_MASK</references>
+        <references refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" compoundref="xaxivdma_8h" startline="307">XAXIVDMA_WRITE</references>
+        <referencedby refid="xaxivdma__example__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxivdma__example__intr_8c" startline="318" endline="641">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XAxiVdma_SetCallBack</definition>
+        <argsstring>(XAxiVdma *InstancePtr, u32 HandlerType, void *CallBackFunc, void *CallBackRef, u16 Direction)</argsstring>
+        <name>XAxiVdma_SetCallBack</name>
+        <param>
+          <type><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Direction</declname>
+        </param>
+        <briefdescription>
+<para>Set call back function and call back reference pointer for one channel. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the DMA engine to work on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt type that this callback handles </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the call back function pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the call back reference pointer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Direction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the DMA channel, use XAXIVDMA_READ or XAXIVDMA_WRITE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if everything is fine</para></listitem><listitem><para>XST_INVALID_PARAM if the handler type or direction invalid</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function overwrites the existing interrupt handler and its reference pointer. The function sets the handlers even if the channels are invalid. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma.h" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c" bodystart="347" bodyend="383"/>
+        <references refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" compoundref="xaxivdma_8h" startline="495">XAxiVdma_ChannelCallBack::CompletionCallBack</references>
+        <references refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" compoundref="xaxivdma_8h" startline="496">XAxiVdma_ChannelCallBack::CompletionRef</references>
+        <references refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" compoundref="xaxivdma_8h" startline="498">XAxiVdma_ChannelCallBack::ErrCallBack</references>
+        <references refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" compoundref="xaxivdma_8h" startline="499">XAxiVdma_ChannelCallBack::ErrRef</references>
+        <references refid="group__axivdma_1ga8b4441757224aa73135d6ed334bacdb5" compoundref="xaxivdma_8h" startline="508">XAxiVdma::IsReady</references>
+        <references refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" compoundref="xaxivdma_8h" startline="520">XAxiVdma::ReadCallBack</references>
+        <references refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" compoundref="xaxivdma_8h" startline="521">XAxiVdma::WriteCallBack</references>
+        <references refid="group__axivdma_1gafa8a6604771dc02e3a96eb09ac16fcaa" compoundref="xaxivdma_8h" startline="340">XAXIVDMA_DEVICE_READY</references>
+        <references refid="group__axivdma_1ga7ed954b5de3073f15b8e47c5736d627b" compoundref="xaxivdma_8h" startline="335">XAXIVDMA_HANDLER_ERROR</references>
+        <references refid="group__axivdma_1ga4c57db0180eafe041035a8d4781cb2b9" compoundref="xaxivdma_8h" startline="334">XAXIVDMA_HANDLER_GENERAL</references>
+        <references refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" compoundref="xaxivdma_8h" startline="308">XAXIVDMA_READ</references>
+        <referencedby refid="xaxivdma__example__intr_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xaxivdma__example__intr_8c" startline="318" endline="641">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2012<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxivdma_8h" kindref="compound">xaxivdma.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xaxivdma__i_8h" kindref="compound">xaxivdma_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="55" refid="group__axivdma_1ga4c687431dde198458fb4e42dff22c106" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga4c687431dde198458fb4e42dff22c106" kindref="member">XAxiVdma_IntrEnable</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>IntrType,<sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/>Direction);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga64d6b39bc9e900efe9f14c9961f4da24" kindref="member">XAxiVdma_ChannelEnableIntr</ref>(Channel,<sp/>IntrType);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84" refid="group__axivdma_1gaba9a0ebdb72696e24ccaa48e57802323" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1gaba9a0ebdb72696e24ccaa48e57802323" kindref="member">XAxiVdma_IntrDisable</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>IntrType,<sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/>Direction);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga2daa8c45a82867bedf786957b4154cdc" kindref="member">XAxiVdma_ChannelDisableIntr</ref>(Channel,<sp/>IntrType);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="110" refid="group__axivdma_1ga90501638e7f1077232443f0a60b3b40d" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__axivdma_1ga90501638e7f1077232443f0a60b3b40d" kindref="member">XAxiVdma_IntrGetPending</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/>Direction);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Channel)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;IntrGetPending:<sp/>invalid<sp/>direction<sp/>%d\n\r&quot;</highlight><highlight class="normal">,<sp/>Direction);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" kindref="member">XAxiVdma_ChannelGetPendingIntr</ref>(Channel);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>An<sp/>invalid<sp/>channel<sp/>has<sp/>no<sp/>intr</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="148" refid="group__axivdma_1gaaba3bd6f623637f15e16176ea77213b3" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1gaaba3bd6f623637f15e16176ea77213b3" kindref="member">XAxiVdma_IntrClear</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>IntrType,<sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/>Direction);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" kindref="member">XAxiVdma_ChannelIntrClear</ref>(Channel,<sp/>IntrType);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="group__axivdma_1ga2650d7820ff062709d027bff2934cf58" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga2650d7820ff062709d027bff2934cf58" kindref="member">XAxiVdma_MaskS2MMErrIntr</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>ErrorMask,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Direction<sp/>!=<sp/><ref refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kindref="member">XAXIVDMA_WRITE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(InstancePtr,<sp/>Direction);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Channel)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga28900a15d22fc5a3729dfa102f5cbec9" kindref="member">XAxiVdma_WriteReg</ref>(Channel-&gt;ChanBase,</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1gae3281565e12c47c4888e228ec6a59e3c" kindref="member">XAXIVDMA_S2MM_DMA_IRQ_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorMask<sp/>&amp;<sp/><ref refid="group__axivdma_1ga0ba0af99c40314b1288a6a95ba2ee688" kindref="member">XAXIVDMA_S2MM_IRQ_ERR_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_DEVICE_NOT_FOUND;</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="217" refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga60ceb86226e513a16d6776a97fcfa50f" kindref="member">XAxiVdma_ReadIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*DmaPtr;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma___channel_call_back" kindref="compound">XAxiVdma_ChannelCallBack</ref><sp/>*CallBack;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr<sp/>=<sp/>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack<sp/>=<sp/>&amp;(DmaPtr-&gt;<ref refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" kindref="member">ReadCallBack</ref>);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!CallBack-&gt;<ref refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kindref="member">CompletionCallBack</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(DmaPtr,<sp/><ref refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kindref="member">XAXIVDMA_READ</ref>);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Read<sp/>channel<sp/>is<sp/>invalid,<sp/>no<sp/>intr<sp/>handling\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" kindref="member">XAxiVdma_ChannelGetPendingIntr</ref>(Channel);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;=<sp/><ref refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" kindref="member">XAxiVdma_ChannelGetEnabledIntr</ref>(Channel);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" kindref="member">XAxiVdma_ChannelIntrClear</ref>(Channel,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!PendingIntr<sp/>||<sp/>(PendingIntr<sp/>&amp;<sp/><ref refid="group__axivdma_1ga88ccc9e37f16a1b4ecffd5e09a4c8cfb" kindref="member">XAXIVDMA_IXR_ERROR_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" kindref="member">ErrCallBack</ref>(CallBack-&gt;<ref refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" kindref="member">ErrRef</ref>,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;<sp/>XAXIVDMA_IXR_ERROR_MASK);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>channel&apos;s<sp/>error<sp/>callback<sp/>should<sp/>reset<sp/>the<sp/>channel</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>There<sp/>is<sp/>no<sp/>need<sp/>to<sp/>handle<sp/>other<sp/>interrupts</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PendingIntr<sp/>&amp;<sp/><ref refid="group__axivdma_1gaed70612ee26f1faf7699e301afda8048" kindref="member">XAXIVDMA_IXR_COMPLETION_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kindref="member">CompletionCallBack</ref>(CallBack-&gt;<ref refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" kindref="member">CompletionRef</ref>,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="279" refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1gaad76f2f6ab41e322ddcd240d2af8140d" kindref="member">XAxiVdma_WriteIntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="280"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*DmaPtr;</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAxiVdma_Channel<sp/>*Channel;</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma___channel_call_back" kindref="compound">XAxiVdma_ChannelCallBack</ref><sp/>*CallBack;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>PendingIntr;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DmaPtr<sp/>=<sp/>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Channel<sp/>=<sp/><ref refid="group__axivdma_1ga0eecc03385d10b80e8b17ff834033ac4" kindref="member">XAxiVdma_GetChannel</ref>(DmaPtr,<sp/><ref refid="group__axivdma_1ga525d0fa8fc04a9dde871ab55cf6b227b" kindref="member">XAXIVDMA_WRITE</ref>);</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Channel-&gt;IsValid)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_ERROR,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;Write<sp/>channel<sp/>is<sp/>invalid,<sp/>no<sp/>intr<sp/>handling\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>=<sp/><ref refid="group__axivdma_1ga361297a60672ab2552754d8a58d3f7ab" kindref="member">XAxiVdma_ChannelGetPendingIntr</ref>(Channel);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;=<sp/><ref refid="group__axivdma_1gaccc8d62d87870cb43c048938e405d4e6" kindref="member">XAxiVdma_ChannelGetEnabledIntr</ref>(Channel);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__axivdma_1ga7a8c557bce703f572d4e2dd9e362f489" kindref="member">XAxiVdma_ChannelIntrClear</ref>(Channel,<sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack<sp/>=<sp/>&amp;(DmaPtr-&gt;<ref refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" kindref="member">WriteCallBack</ref>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!CallBack-&gt;<ref refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kindref="member">CompletionCallBack</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!PendingIntr<sp/>||<sp/>(PendingIntr<sp/>&amp;<sp/><ref refid="group__axivdma_1ga88ccc9e37f16a1b4ecffd5e09a4c8cfb" kindref="member">XAXIVDMA_IXR_ERROR_MASK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" kindref="member">ErrCallBack</ref>(CallBack-&gt;<ref refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" kindref="member">ErrRef</ref>,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr<sp/>&amp;<sp/>XAXIVDMA_IXR_ERROR_MASK);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>channel&apos;s<sp/>error<sp/>callback<sp/>should<sp/>reset<sp/>the<sp/>channel</highlight></codeline>
+<codeline lineno="315"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>There<sp/>is<sp/>no<sp/>need<sp/>to<sp/>handle<sp/>other<sp/>interrupts</highlight></codeline>
+<codeline lineno="316"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(PendingIntr<sp/>&amp;<sp/><ref refid="group__axivdma_1gaed70612ee26f1faf7699e301afda8048" kindref="member">XAXIVDMA_IXR_COMPLETION_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kindref="member">CompletionCallBack</ref>(CallBack-&gt;<ref refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" kindref="member">CompletionRef</ref>,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PendingIntr);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="327"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="347" refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1gafd0477fae9534ebd2d2e15cc8885642d" kindref="member">XAxiVdma_SetCallBack</ref>(<ref refid="struct_x_axi_vdma" kindref="compound">XAxiVdma</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u16<sp/>Direction)</highlight></codeline>
+<codeline lineno="349"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_axi_vdma___channel_call_back" kindref="compound">XAxiVdma_ChannelCallBack</ref><sp/>*CallBack;</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="group__axivdma_1ga8b4441757224aa73135d6ed334bacdb5" kindref="member">IsReady</ref><sp/>==<sp/><ref refid="group__axivdma_1gafa8a6604771dc02e3a96eb09ac16fcaa" kindref="member">XAXIVDMA_DEVICE_READY</ref>);</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((HandlerType<sp/>!=<sp/><ref refid="group__axivdma_1ga4c57db0180eafe041035a8d4781cb2b9" kindref="member">XAXIVDMA_HANDLER_GENERAL</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(HandlerType<sp/>!=<sp/><ref refid="group__axivdma_1ga7ed954b5de3073f15b8e47c5736d627b" kindref="member">XAXIVDMA_HANDLER_ERROR</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Direction<sp/>==<sp/><ref refid="group__axivdma_1ga5fa27b3ce66d947167262fe918fb5373" kindref="member">XAXIVDMA_READ</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack<sp/>=<sp/>&amp;(InstancePtr-&gt;<ref refid="group__axivdma_1gac2cdde8d751e11e934ecea898574e99a" kindref="member">ReadCallBack</ref>);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack<sp/>=<sp/>&amp;(InstancePtr-&gt;<ref refid="group__axivdma_1gae92ec1b3f2075167e0f552a75ecfde46" kindref="member">WriteCallBack</ref>);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga4c57db0180eafe041035a8d4781cb2b9" kindref="member">XAXIVDMA_HANDLER_GENERAL</ref>:</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1gaf3e1965613b2d1a437d798e8a37df333" kindref="member">CompletionCallBack</ref><sp/>=<sp/>(<ref refid="group__axivdma_1ga07f81ffdbceb0024e3a675a787ca3d90" kindref="member">XAxiVdma_CallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1ga43dc909946c675490c5380e7f8f90ede" kindref="member">CompletionRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__axivdma_1ga7ed954b5de3073f15b8e47c5736d627b" kindref="member">XAXIVDMA_HANDLER_ERROR</ref>:</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1ga8bde9bc1e0f2871e63eebff6b4d3a11f" kindref="member">ErrCallBack</ref><sp/>=<sp/>(<ref refid="group__axivdma_1gaf4cafedb40698ffa21e672bf20ac3602" kindref="member">XAxiVdma_ErrorCallBack</ref>)CallBackFunc;</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CallBack-&gt;<ref refid="group__axivdma_1gaa39f1f408770ba9a38f520a0c0df5c48" kindref="member">ErrRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axivdma/src/xaxivdma_intr.c"/>
+  </compounddef>
+</doxygen>

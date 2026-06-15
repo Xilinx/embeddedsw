@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_trngpsx___status" kind="struct" prot="public">
+    <compoundname>XTrngpsx_Status</compoundname>
+    <includes local="no">xtrngpsx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_trngpsx___status_1a6829b403e9725800370da4b70cd94b39" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XTrngpsx_Status::ElapsedSeedLife</definition>
+        <argsstring></argsstring>
+        <name>ElapsedSeedLife</name>
+        <briefdescription>
+<para>Elapsed seed life. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__trngpsx__api_1gaa94d3f0522f2c56e9a4b6abe4193db2e" compoundref="xtrngpsx_8c" startline="629" endline="737">XTrngpsx_Generate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains status related to TRNG. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsx/src/xtrngpsx.h" bodystart="99" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_x_trngpsx___status_1a6829b403e9725800370da4b70cd94b39" prot="public" virt="non-virtual"><scope>XTrngpsx_Status</scope><name>ElapsedSeedLife</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

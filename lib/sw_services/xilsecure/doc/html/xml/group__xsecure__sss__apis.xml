@@ -1,0 +1,544 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__sss__apis" kind="group">
+    <compoundname>xsecure_sss_apis</compoundname>
+    <title>XilSecure SSS APIs</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__sss__apis_1ga0754b069dacca3c371fce4754b2d0a38" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS]</definition>
+        <argsstring>[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRCS]</argsstring>
+        <name>XSecure_SssLookupTable</name>
+        <initializer>= {
+
+	{0x00U, 0x05U, 0x0AU, 0x00U, 0x00U},
+	{0x03U, 0x05U, 0x0AU, 0x00U, 0x00U},
+	{0x00U, 0x05U, 0x00U, 0x00U, 0x00U},
+	{0x00U, 0x05U, 0x00U, 0x00U, 0x00U},
+	{0x00U, 0x00U, 0x00U, 0x00U, 0x00U}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__sss__apis_1ga983c5335a654dac69268d6e447796be8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_SssDmaSrc</definition>
+        <argsstring>(u16 DmaId, XSecure_SssSrc *Resource)</argsstring>
+        <name>XSecure_SssDmaSrc</name>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref> *</type>
+          <declname>Resource</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the DMA source of type XSecure_SssSrc based on the provided DMA device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>DMA source is updated into the pointer</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If DMA ID is correct</para></listitem><listitem><para>XST_FAILURE - On wrong DMA ID </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="38" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="239" bodyend="253"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1gad050ff86cc97da48e19e2d4899ca35d4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_SssCfg</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, XSecure_SssSrc Resource, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssCfg</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>Resource</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Resource for which input and output paths to be configured </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XST_FAILURE - On unsuccessful configuration of the switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Resource, InputSrc, OutputSrc are of type XSecure_SssSrc </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Recalculating to verify values </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="39" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="272" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1gafd8f0c5f3f14a72235b9aad0fa4bd91d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssInitialize</definition>
+        <argsstring>(XSecure_Sss *InstancePtr)</argsstring>
+        <name>XSecure_SssInitialize</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the secure stream switch instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If initialization was successful</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validates the input arguments</para></listitem><listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="55" bodyend="71"/>
+        <references refid="group__xsecure__helper__server__apis_1ga593410f924487f151707240494dbe52b" compoundref="spartanup_2xsecure__plat_8h" startline="53">XSECURE_SSS_ADDRESS</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1ga149d2122c6b082fafda37d6f20b013e3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssAes</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssAes</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input DMA to be selected for AES engine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output DMA to be selected for AES engine</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="89" bodyend="128"/>
+        <references refid="group__xsecure__generic__server__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" compoundref="core_2util_2xsecure__utils_8h" startline="219">XSecure_SecureOut32</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" compoundref="spartanup_2xsecure__plat_8h" startline="213">XSECURE_SSS_AES</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" compoundref="spartanup_2xsecure__plat_8c" startline="255" endline="277">XSecure_SssMask</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1ga9fd733a169850268505e89c96636a584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssSha</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, u16 DmaId, XSecure_SssSrc Resource)</argsstring>
+        <name>XSecure_SssSha</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>Resource</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for SHA hardware engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA which is to be used as an input to the SHA engine </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SHA resource for which input and output paths to be configured</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments</para></listitem><listitem><para>configure the secure stream switch </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="147" bodyend="184"/>
+        <references refid="group__xsecure__generic__server__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" compoundref="core_2util_2xsecure__utils_8h" startline="219">XSecure_SecureOut32</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+        <references refid="group__xsecure__helper__server__apis_1ga98bc3453d87d63579b5f60c19d2676c2" compoundref="spartanup_2xsecure__plat_8c" startline="255" endline="277">XSecure_SssMask</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1gab55d05fcfb4497a11b3571a703db2724" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_SssDmaLoopBack</definition>
+        <argsstring>(const XSecure_Sss *InstancePtr, u16 DmaId)</argsstring>
+        <name>XSecure_SssDmaLoopBack</name>
+        <param>
+          <type>const XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <briefdescription>
+<para>This function configures secure s loop back mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On successful configuration of the switch</para></listitem><listitem><para>XSECURE_SSS_INVALID_PARAM - On invalid parameter</para></listitem><listitem><para>XST_FAILURE - On failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_sss.c" bodystart="200" bodyend="224"/>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+        <references refid="spartanup_2xsecure__error_8h_1a0411cd49bb5b71852cecd93bcbf0ca2da3fb9d16d962aaa14ec522d6656d4a380" compoundref="spartanup_2xsecure__error_8h" startline="57">XSECURE_SSS_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1gab5781a42c818783cd60b6288654dfa93" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_SssCfg</definition>
+        <argsstring>(XSecure_Sss *InstancePtr, XSecure_SssSrc Resource, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssCfg</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>Resource</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resource</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Resource for which input and output paths to be configured. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input source to be selected for the resource. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output source to be selected for the resource.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - on successful configuration of the switch<itemizedlist>
+<listitem><para>XST_FAILURE - on unsuccessful configuration of the switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Resource, InputSrc, OutputSrc are of type XSecure_SssSrc. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Recalculating to verify values </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" bodystart="251" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1ga3aab27a2f2db374b0784f1207865f428" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_SssAes</definition>
+        <argsstring>(XSecure_Sss *InstancePtr, XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)</argsstring>
+        <name>XSecure_SssAes</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>InputSrc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref></type>
+          <declname>OutputSrc</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for AES engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input DMA to be selected for AES engine. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutputSrc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output DMA to be selected for AES engine.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - on successful configuration of the switch<itemizedlist>
+<listitem><para>XST_FAILURE - on failure to configure switch</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>InputSrc, OutputSrc are of type XSecure_SssSrc. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" bodystart="90" bodyend="102"/>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" compoundref="spartanup_2xsecure__plat_8h" startline="213">XSECURE_SSS_AES</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1ga1e64ba2ae31c58ee7018feedc442ba06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_SssSha</definition>
+        <argsstring>(XSecure_Sss *InstancePtr, u16 DmaId)</argsstring>
+        <name>XSecure_SssSha</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the secure stream switch for SHA hardware engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA which is to be used as an input to the SHA engine.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - on successful configuration of the switch.<itemizedlist>
+<listitem><para>XST_FAILURE - on failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" bodystart="117" bodyend="136"/>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a3f38942f010bb3b3747b6bd831ab88b0" compoundref="spartanup_2xsecure__plat_8h" startline="214">XSECURE_SSS_SHA</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__sss__apis_1gaaf97f88b2d86a0ac88a71741624fa720" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_SssDmaLoopBack</definition>
+        <argsstring>(XSecure_Sss *InstancePtr, u16 DmaId)</argsstring>
+        <name>XSecure_SssDmaLoopBack</name>
+        <param>
+          <type>XSecure_Sss *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DmaId</declname>
+        </param>
+        <briefdescription>
+<para>This function configures secure stream switch to set DMA in loop back mode. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instance pointer to the XSecure_Sss </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmaId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device ID of DMA.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - on successful configuration of the switch.<itemizedlist>
+<listitem><para>XST_FAILURE - on failure to configure switch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_sss.c" bodystart="186" bodyend="204"/>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" compoundref="spartanup_2xsecure__plat_8h" startline="216">XSECURE_SSS_INVALID</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

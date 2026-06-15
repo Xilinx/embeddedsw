@@ -1,0 +1,631 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__init__l2_8h" kind="file">
+    <compoundname>xv_warp_init_l2.h</compoundname>
+    <includes refid="xv__warp__init_8h" local="yes">xv_warp_init.h</includes>
+    <includedby refid="xv__warp__init__l2_8c" local="yes">xv_warp_init_l2.c</includedby>
+    <includedby refid="xwarp__input__configs_8h" local="yes">xwarp_input_configs.h</includedby>
+    <includedby refid="xwarp__example_8c" local="yes">xwarp_example.c</includedby>
+    <incdepgraph>
+      <node id="87">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="89">
+        <label>xil_io.h</label>
+      </node>
+      <node id="85">
+        <label>xv_warp_init.h</label>
+        <link refid="xv__warp__init_8h"/>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+      </node>
+      <node id="84">
+        <label>xv_warp_init_l2.h</label>
+        <link refid="xv_warp_init_l2.h"/>
+        <childnode refid="85" relation="include">
+        </childnode>
+      </node>
+      <node id="88">
+        <label>xstatus.h</label>
+      </node>
+      <node id="90">
+        <label>xv_warp_init_hw.h</label>
+        <link refid="xv__warp__init__hw_8h"/>
+      </node>
+      <node id="86">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="92">
+        <label>xv_warp_init_l2.c</label>
+        <link refid="xv__warp__init__l2_8c"/>
+      </node>
+      <node id="91">
+        <label>xv_warp_init_l2.h</label>
+        <link refid="xv_warp_init_l2.h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+      <node id="96">
+        <label>xwarp_input_configs.c</label>
+        <link refid="xwarp__input__configs_8c"/>
+      </node>
+      <node id="93">
+        <label>xwarp_input_configs.h</label>
+        <link refid="xwarp__input__configs_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>xwarp_example.c</label>
+        <link refid="xwarp__example_8c"/>
+      </node>
+      <node id="94">
+        <label>inputs.h</label>
+        <link refid="inputs_8h"/>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v_warp_init___arb_param___mesh_info" prot="public">XVWarpInit_ArbParam_MeshInfo</innerclass>
+    <innerclass refid="struct_x_v_warp_init_vector___hw" prot="public">XVWarpInitVector_Hw</innerclass>
+    <innerclass refid="struct_x_v_warp_init_vector___hw___aligned" prot="public">XVWarpInitVector_Hw_Aligned</innerclass>
+    <innerclass refid="struct_x_v_warp_init___arb_param" prot="public">XVWarpInit_ArbParam</innerclass>
+    <innerclass refid="struct_x_v_warp_init___input_configs" prot="public">XVWarpInit_InputConfigs</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1a3cb1069708424d686d2a1937a71acb4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpInit_EnableInterrupts</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 Mask)</argsstring>
+        <name>XVWarpInit_EnableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function Enables the Interrupts for the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Interrupt enable mask</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="75" bodyend="82"/>
+        <references refid="xv__warp__init_8c_1a2262029cd2093f79e7f04f21f0b9efe0" compoundref="xv__warp__init_8c" startline="366" endline="374">XV_warp_init_InterruptEnable</references>
+        <references refid="xv__warp__init_8c_1ad55655343d7384299276e18891cf65ca" compoundref="xv__warp__init_8c" startline="323" endline="328">XV_warp_init_InterruptGlobalEnable</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__init_1ga3d4df0723b540b430d51d69c20a6eb3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpInit_SetCallback</definition>
+        <argsstring>(XV_warp_init *InstancePtr, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVWarpInit_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Install asynchronous callback function. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function installs an asynchronous callback function for the v_warp_init IP instance. The callback will be invoked when a frame done interrupt occurs.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> IP instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_intr.c" bodystart="46" bodyend="56"/>
+        <references refid="struct_x_v__warp__init_1ac2b0bca9ab4e4687a9939901a5f49b24" compoundref="xv__warp__init_8h" startline="79">XV_warp_init::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__init_1aed44c6629e2a5fd482769a447e3ed5d4" compoundref="xv__warp__init_8h" startline="80">XV_warp_init::CallbackRef</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* XVWarpInit_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XVWarpInit_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for v_warp_init core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is the interrupt handler for the v_warp_init core driver. It clears the pending interrupt and determines if the source is a frame done signal. If yes, it calls the registered callback function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The application is responsible for connecting this function to the interrupt system </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_intr.c" bodystart="74" bodyend="90"/>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init_8c_1a649361eaec8b063948de05a5d26e1a14" compoundref="xv__warp__init_8c" startline="458" endline="463">XV_warp_init_InterruptGetStatus</references>
+        <references refid="xv__warp__init_8c_1aa46ac963cb95115434b753c3b1fcb5b1" compoundref="xv__warp__init_8c" startline="88" endline="96">XV_warp_init_IsDone</references>
+        <references refid="xv__warp__init_8c_1a8340dadb90e5190397e0ff75205d2069" compoundref="xv__warp__init_8c" startline="416" endline="421">XV_warp_init_InterruptClear</references>
+        <references refid="xv__warp__init__hw_8h_1adaff63549b3b993fb0483f337ad79615" compoundref="xv__warp__init__hw_8h" startline="152">XV_WARP_INIT_INTR_AP_DONE_MASK</references>
+        <references refid="struct_x_v__warp__init_1ac2b0bca9ab4e4687a9939901a5f49b24" compoundref="xv__warp__init_8h" startline="79">XV_warp_init::FrameDoneCallback</references>
+        <references refid="struct_x_v__warp__init_1aed44c6629e2a5fd482769a447e3ed5d4" compoundref="xv__warp__init_8h" startline="80">XV_warp_init::CallbackRef</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1a5db8b60d1ee85e3ee17b9941c33d2039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVWarpInit_SetNumOfDescriptors</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 num_descriptors)</argsstring>
+        <name>XVWarpInit_SetNumOfDescriptors</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>num_descriptors</declname>
+          <defname>num_desc</defname>
+        </param>
+        <briefdescription>
+<para>This function creates the descriptors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_desc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of descriptors to be created</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if Descriptors created successfully XST_FAILURE if Descriptors creation failed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="95" bodyend="125"/>
+        <references refid="struct_x_v__warp__init___config_1a4820f202dcf547c5e1e5621cabf03d47" compoundref="xv__warp__init_8h" startline="59">XV_warp_init_Config::axi_mm_data_width</references>
+        <references refid="struct_x_v__warp__init_1afda5f7950287dab6390d34044ecd5082" compoundref="xv__warp__init_8h" startline="76">XV_warp_init::config</references>
+        <references refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" compoundref="xv__warp__init_8h" startline="82">XV_warp_init::NumDescriptors</references>
+        <references refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" compoundref="xv__warp__init__l2_8h" startline="118">XVWarpInitVector_Hw_Aligned::remap_nextaddr</references>
+        <references refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" compoundref="xv__warp__init_8h" startline="81">XV_warp_init::RemapVectorDesc_BaseAddr</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1a56d0a250385807fb881c9c449cb702ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpInit_ClearNumOfDescriptors</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XVWarpInit_ClearNumOfDescriptors</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function clears and de-allocates all the descriptors. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="136" bodyend="153"/>
+        <references refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" compoundref="xv__warp__init_8h" startline="82">XV_warp_init::NumDescriptors</references>
+        <references refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" compoundref="xv__warp__init__l2_8h" startline="118">XVWarpInitVector_Hw_Aligned::remap_nextaddr</references>
+        <references refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" compoundref="xv__warp__init_8h" startline="81">XV_warp_init::RemapVectorDesc_BaseAddr</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1a912662f3c8acfec1e8fda7fc3a5721fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVWarpInit_ProgramDescriptor</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 Descnum, XVWarpInit_InputConfigs *ConfigPtr)</argsstring>
+        <name>XVWarpInit_ProgramDescriptor</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Descnum</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v_warp_init___input_configs" kindref="compound">XVWarpInit_InputConfigs</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function programs a descriptor with given configurations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Descnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number which to be configured </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input configuration pointer which to be configured into the descriptor</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if programming descriptor is successful XST_FAILURE if input configurations are not valid. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="168" bodyend="223"/>
+        <references refid="struct_x_v_warp_init_vector___hw_1a66505b9655e8c3931d6a3f6aa28cbc72" compoundref="xv__warp__init__l2_8h" startline="36">XVWarpInitVector_Hw::bytes_per_pixel</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" compoundref="xv__warp__init__l2_8h" startline="146">XVWarpInit_InputConfigs::bytes_per_pixel</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" compoundref="xv__warp__init__l2_8h" startline="154">XVWarpInit_InputConfigs::ctr_pts</references>
+        <references refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067dafd873ca3aad6f3f70c170890ec4e1929" compoundref="xv__warp__init_8h" startline="93">DISTORTION_ARBITRARY</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a1917a0d1dbaa2c75d223c0cac5c9390c" compoundref="xv__warp__init__l2_8h" startline="38">XVWarpInitVector_Hw::filter_table_addr_0</references>
+        <references refid="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" compoundref="xv__warp__init__l2_8h" startline="152">XVWarpInit_InputConfigs::filter_table_addr_0</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a6a5a66c632b91493c02a3308e648f197" compoundref="xv__warp__init__l2_8h" startline="39">XVWarpInitVector_Hw::filter_table_addr_1</references>
+        <references refid="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" compoundref="xv__warp__init__l2_8h" startline="153">XVWarpInit_InputConfigs::filter_table_addr_1</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a8ab20778cfd842ba513eb54cfc88006b" compoundref="xv__warp__init__l2_8h" startline="151">XVWarpInit_InputConfigs::h</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a77b8815408499d41edcf460d95612da0" compoundref="xv__warp__init__l2_8h" startline="35">XVWarpInitVector_Hw::height</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a254587748a4abd630d69fcf479fff9b4" compoundref="xv__warp__init__l2_8h" startline="145">XVWarpInit_InputConfigs::height</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a959abbba03edfb8d38de90d792e2a96d" compoundref="xv__warp__init__l2_8h" startline="41">XVWarpInitVector_Hw::height_Q4</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a417e0448aefc3a084d21d70568239718" compoundref="xv__warp__init__l2_8h" startline="66">XVWarpInitVector_Hw::interm_x</references>
+        <references refid="struct_x_v_warp_init___arb_param_1aa7b08cb2f65b0e36d28b18bd58eb3ec0" compoundref="xv__warp__init__l2_8h" startline="136">XVWarpInit_ArbParam::interm_x</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a19e9a7451662c5dda4e51ba2234bc43d" compoundref="xv__warp__init__l2_8h" startline="67">XVWarpInitVector_Hw::interm_y</references>
+        <references refid="struct_x_v_warp_init___arb_param_1a4d937a6be0fad85b75577305a4478877" compoundref="xv__warp__init__l2_8h" startline="137">XVWarpInit_ArbParam::interm_y</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a15778906de364fd9eb9ab67b3b2b7528" compoundref="xv__warp__init__l2_8h" startline="43">XVWarpInitVector_Hw::k_post</references>
+        <references refid="struct_x_v_warp_init___input_configs_1acfb9dc289f86ab91a631eebfd49df6a6" compoundref="xv__warp__init__l2_8h" startline="150">XVWarpInit_InputConfigs::k_post</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a69d4a6fce39b179f6fac107c765eacbd" compoundref="xv__warp__init__l2_8h" startline="42">XVWarpInitVector_Hw::k_pre</references>
+        <references refid="struct_x_v_warp_init___input_configs_1ae49478d4f3a671d6f4c78fbbda10adf0" compoundref="xv__warp__init__l2_8h" startline="149">XVWarpInit_InputConfigs::k_pre</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1af89d0daaa5a9a11518593c26d98eae32" compoundref="xv__warp__init__l2_8h" startline="61">XVWarpInitVector_Hw::num_ctrl_pts</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" compoundref="xv__warp__init__l2_8h" startline="148">XVWarpInit_InputConfigs::num_ctrl_pts</references>
+        <references refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" compoundref="xv__warp__init_8h" startline="82">XV_warp_init::NumDescriptors</references>
+        <references refid="xv__warp__init__l2_8c_1ad61fc46cd4a6ef04aa355d9a7aaea458" compoundref="xv__warp__init__l2_8c" startline="23">REMAP_FIX_ACC</references>
+        <references refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" compoundref="xv__warp__init__l2_8h" startline="118">XVWarpInitVector_Hw_Aligned::remap_nextaddr</references>
+        <references refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" compoundref="xv__warp__init_8h" startline="81">XV_warp_init::RemapVectorDesc_BaseAddr</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1adb7be0295b641e13c4c67ec7cf8abb01" compoundref="xv__warp__init__l2_8h" startline="62">XVWarpInitVector_Hw::src_ctrl_x_pts</references>
+        <references refid="struct_x_v_warp_init___arb_param_1a18c5e1c6a49e4c3bf916e6cc4311c4f2" compoundref="xv__warp__init__l2_8h" startline="129">XVWarpInit_ArbParam::src_ctrl_x_pts</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1aae892bb5be7686a9ebb1e4dd1445ae41" compoundref="xv__warp__init__l2_8h" startline="63">XVWarpInitVector_Hw::src_ctrl_y_pts</references>
+        <references refid="struct_x_v_warp_init___arb_param_1a956553c00933b5c728c4999dbdfd097e" compoundref="xv__warp__init__l2_8h" startline="130">XVWarpInit_ArbParam::src_ctrl_y_pts</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1abaf8ee3861852994bfb811e70f9d42c2" compoundref="xv__warp__init__l2_8h" startline="64">XVWarpInitVector_Hw::src_tangents_x</references>
+        <references refid="struct_x_v_warp_init___arb_param_1a2a185a148ebf9d5f07fbb031b51af251" compoundref="xv__warp__init__l2_8h" startline="131">XVWarpInit_ArbParam::src_tangents_x</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1ab186c3c4ec488f724ac7dfd68293b13b" compoundref="xv__warp__init__l2_8h" startline="65">XVWarpInitVector_Hw::src_tangents_y</references>
+        <references refid="struct_x_v_warp_init___arb_param_1a4203983e068904b58ba9cebd0ea2bd75" compoundref="xv__warp__init__l2_8h" startline="132">XVWarpInit_ArbParam::src_tangents_y</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1af18cb178c45fd65f2b5502256f2a1f3a" compoundref="xv__warp__init__l2_8h" startline="68">XVWarpInitVector_Hw::warp_type</references>
+        <references refid="struct_x_v_warp_init___input_configs_1aafc3e8a32f10e450dad63801eb65dfce" compoundref="xv__warp__init__l2_8h" startline="147">XVWarpInit_InputConfigs::warp_type</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1a8517475fbbf8cf42b117fcf6102fa2f6" compoundref="xv__warp__init__l2_8h" startline="34">XVWarpInitVector_Hw::width</references>
+        <references refid="struct_x_v_warp_init___input_configs_1a5ce99f81668c470d1f5e36e3bba96de1" compoundref="xv__warp__init__l2_8h" startline="144">XVWarpInit_InputConfigs::width</references>
+        <references refid="struct_x_v_warp_init_vector___hw_1ae73dfbe8b23e324ad8431f7aa6f4c8bd" compoundref="xv__warp__init__l2_8h" startline="40">XVWarpInitVector_Hw::width_Q4</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1ac6232e2fd0a2cccf6c5e902d2c27c729" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVWarpInit_start_with_desc</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 descnum)</argsstring>
+        <name>XVWarpInit_start_with_desc</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>descnum</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the IP core with a selected descriptor configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>descnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number with which configurations the IP { desc.k_pre = ConfigPtr-&gt;k_pre; desc.k_post = ConfigPtr-&gt;k_post; XVWarpInit_OneTimeCalcs(&amp;desc, ConfigPtr-&gt;h); }</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+XVWarpInit_SetDescriptor(descptr, &amp;desc);</para><para>return XST_SUCCESS; }</para><para>/* This function starts the IP core with a selected descriptor configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>descnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the descriptor number with which configurations the IP shall start</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if IP core start successful XST_FAILURE if selected descriptor number is not valid. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="254" bodyend="281"/>
+        <references refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" compoundref="xv__warp__init_8h" startline="82">XV_warp_init::NumDescriptors</references>
+        <references refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" compoundref="xv__warp__init__l2_8h" startline="118">XVWarpInitVector_Hw_Aligned::remap_nextaddr</references>
+        <references refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" compoundref="xv__warp__init_8h" startline="81">XV_warp_init::RemapVectorDesc_BaseAddr</references>
+        <references refid="xv__warp__init_8c_1a09f6b8f5d8fcdaaebfda25182778654b" compoundref="xv__warp__init_8c" startline="276" endline="282">XV_warp_init_Set_desc_addr</references>
+        <references refid="xv__warp__init_8c_1ae7df0f2a5209079f33adb22219b3bd82" compoundref="xv__warp__init_8c" startline="228" endline="234">XV_warp_init_Set_maxi_read_write</references>
+        <references refid="xv__warp__init_8c_1a894a0392e9fc275220cc8e0f6d89a951" compoundref="xv__warp__init_8c" startline="64" endline="72">XV_warp_init_Start</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init__l2_8h_1ad7d92fddb20a0644a7099c39d5bd19d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVWarpInit_Stop</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XVWarpInit_Stop</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.c" bodystart="292" bodyend="310"/>
+        <references refid="xv__warp__init__l2_8c_1a34469042deedafb14574f8a43284f3e5" compoundref="xv__warp__init__l2_8c" startline="32">XV_WAIT_FOR_FLUSH_DONE</references>
+        <references refid="xv__warp__init__l2_8c_1a19046cb2d8895cf51b3ff44a93ee2afa" compoundref="xv__warp__init__l2_8c" startline="35">XV_WAIT_FOR_FLUSH_DONE_TIMEOUT</references>
+        <references refid="xv__warp__init_8c_1a6d616342e1eb47e05768d11c56d47a36" compoundref="xv__warp__init_8c" startline="506" endline="515">XV_warp_init_Get_FlushDone</references>
+        <references refid="xv__warp__init_8c_1a7102b31303fda31be239a8e3b5d78235" compoundref="xv__warp__init_8c" startline="479" endline="490">XV_warp_init_SetFlushbit</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_WARP_INIT_L2_H<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Define<sp/>header<sp/>guard<sp/>macro<sp/>to<sp/>prevent<sp/>multiple<sp/>inclusion<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_L2_H</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__init_8h" kindref="compound">xv_warp_init.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="23" refid="struct_x_v_warp_init___arb_param___mesh_info" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24" refid="struct_x_v_warp_init___arb_param___mesh_info_1af80e7bd40b95fd208f8cd12efd479e1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info_1af80e7bd40b95fd208f8cd12efd479e1c" kindref="member">s_x</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="25" refid="struct_x_v_warp_init___arb_param___mesh_info_1a9225117d882ce77350a4773f8fe5b727" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info_1a9225117d882ce77350a4773f8fe5b727" kindref="member">s_y</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="26" refid="struct_x_v_warp_init___arb_param___mesh_info_1a4eb4d5ea95069d9bf9cc46ef9025277a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info_1a4eb4d5ea95069d9bf9cc46ef9025277a" kindref="member">d_x</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="27" refid="struct_x_v_warp_init___arb_param___mesh_info_1a52d53bcdbd864af9c086125d0fe9f711" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info_1a52d53bcdbd864af9c086125d0fe9f711" kindref="member">d_y</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info" kindref="compound">XVWarpInit_ArbParam_MeshInfo</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="struct_x_v_warp_init_vector___hw" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="34" refid="struct_x_v_warp_init_vector___hw_1a8517475fbbf8cf42b117fcf6102fa2f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a8517475fbbf8cf42b117fcf6102fa2f6" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35" refid="struct_x_v_warp_init_vector___hw_1a77b8815408499d41edcf460d95612da0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a77b8815408499d41edcf460d95612da0" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="36" refid="struct_x_v_warp_init_vector___hw_1a66505b9655e8c3931d6a3f6aa28cbc72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a66505b9655e8c3931d6a3f6aa28cbc72" kindref="member">bytes_per_pixel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="37" refid="struct_x_v_warp_init_vector___hw_1ab4670ff6f297de43eecf91b6b5cae4a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reserved_0[2];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="38" refid="struct_x_v_warp_init_vector___hw_1a1917a0d1dbaa2c75d223c0cac5c9390c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a1917a0d1dbaa2c75d223c0cac5c9390c" kindref="member">filter_table_addr_0</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="39" refid="struct_x_v_warp_init_vector___hw_1a6a5a66c632b91493c02a3308e648f197" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a6a5a66c632b91493c02a3308e648f197" kindref="member">filter_table_addr_1</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="40" refid="struct_x_v_warp_init_vector___hw_1ae73dfbe8b23e324ad8431f7aa6f4c8bd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1ae73dfbe8b23e324ad8431f7aa6f4c8bd" kindref="member">width_Q4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="41" refid="struct_x_v_warp_init_vector___hw_1a959abbba03edfb8d38de90d792e2a96d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a959abbba03edfb8d38de90d792e2a96d" kindref="member">height_Q4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="42" refid="struct_x_v_warp_init_vector___hw_1a69d4a6fce39b179f6fac107c765eacbd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a69d4a6fce39b179f6fac107c765eacbd" kindref="member">k_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="43" refid="struct_x_v_warp_init_vector___hw_1a15778906de364fd9eb9ab67b3b2b7528" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a15778906de364fd9eb9ab67b3b2b7528" kindref="member">k_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44" refid="struct_x_v_warp_init_vector___hw_1ade2735d7e0a8536a6126eccf092f8f9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1ade2735d7e0a8536a6126eccf092f8f9a" kindref="member">k0_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="45" refid="struct_x_v_warp_init_vector___hw_1a38ba1e90d19536b531b721e15ea9b2b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a38ba1e90d19536b531b721e15ea9b2b3" kindref="member">k1_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="struct_x_v_warp_init_vector___hw_1a78a3d58f1d2a94f57613a50d721802ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a78a3d58f1d2a94f57613a50d721802ac" kindref="member">k0_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="47" refid="struct_x_v_warp_init_vector___hw_1ab01321a0f2643852d61682b435b62256" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1ab01321a0f2643852d61682b435b62256" kindref="member">k1_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="48" refid="struct_x_v_warp_init_vector___hw_1a90115008b467a2318715f46608bde323" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a90115008b467a2318715f46608bde323" kindref="member">Q_fact_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="49" refid="struct_x_v_warp_init_vector___hw_1a5b24661d1569c98cc5dfc779938c4fb5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a5b24661d1569c98cc5dfc779938c4fb5" kindref="member">Q_fact_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="struct_x_v_warp_init_vector___hw_1a1a38f313ff157369be62cc4e0a679c4d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s8<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a1a38f313ff157369be62cc4e0a679c4d" kindref="member">k0_pre_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="struct_x_v_warp_init_vector___hw_1a1a717e8c969c04893231bad5c0ea52bf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s8<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a1a717e8c969c04893231bad5c0ea52bf" kindref="member">k0_post_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="struct_x_v_warp_init_vector___hw_1ac9e3275069eeefc2768b945f2ac294f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s8<sp/><ref refid="struct_x_v_warp_init_vector___hw_1ac9e3275069eeefc2768b945f2ac294f7" kindref="member">k1_pre_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="struct_x_v_warp_init_vector___hw_1a443598c994ecfa0e3473b2b911360fc3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s8<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a443598c994ecfa0e3473b2b911360fc3" kindref="member">k1_post_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="struct_x_v_warp_init_vector___hw_1a0cf597f5bbe23c04f94724131a5355c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/>h[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="struct_x_v_warp_init_vector___hw_1af2e156071fbbfc02e8695dca13d3aae1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>h_trans[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_x_v_warp_init_vector___hw_1ad77dc460781ecbfd4a474b40c1325cf4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>h_Qbits[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_x_v_warp_init_vector___hw_1ae7f87e49ab5d2144dd1169d765d17835" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reserved_1[2];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_v_warp_init_vector___hw_1a8782f681ebaa1e595884e10a7e070be0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a8782f681ebaa1e595884e10a7e070be0" kindref="member">normfactor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_v_warp_init_vector___hw_1aaf6027f4baedeb31b7b5d46c95222d86" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1aaf6027f4baedeb31b7b5d46c95222d86" kindref="member">cenX</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_v_warp_init_vector___hw_1a5269bd651d068b90e700bec130ee4e85" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a5269bd651d068b90e700bec130ee4e85" kindref="member">cenY</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_v_warp_init_vector___hw_1af89d0daaa5a9a11518593c26d98eae32" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1af89d0daaa5a9a11518593c26d98eae32" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="struct_x_v_warp_init_vector___hw_1adb7be0295b641e13c4c67ec7cf8abb01" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1adb7be0295b641e13c4c67ec7cf8abb01" kindref="member">src_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_v_warp_init_vector___hw_1aae892bb5be7686a9ebb1e4dd1445ae41" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1aae892bb5be7686a9ebb1e4dd1445ae41" kindref="member">src_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_v_warp_init_vector___hw_1abaf8ee3861852994bfb811e70f9d42c2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1abaf8ee3861852994bfb811e70f9d42c2" kindref="member">src_tangents_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_v_warp_init_vector___hw_1ab186c3c4ec488f724ac7dfd68293b13b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1ab186c3c4ec488f724ac7dfd68293b13b" kindref="member">src_tangents_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_v_warp_init_vector___hw_1a417e0448aefc3a084d21d70568239718" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a417e0448aefc3a084d21d70568239718" kindref="member">interm_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_v_warp_init_vector___hw_1a19e9a7451662c5dda4e51ba2234bc43d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a19e9a7451662c5dda4e51ba2234bc43d" kindref="member">interm_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_v_warp_init_vector___hw_1af18cb178c45fd65f2b5502256f2a1f3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><ref refid="struct_x_v_warp_init_vector___hw_1af18cb178c45fd65f2b5502256f2a1f3a" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_v_warp_init_vector___hw_1af83d184806619bbf01ec8eb30647fecd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>reserved_2[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_v_warp_init_vector___hw_1afbfdec3c388243c46d95b41b089cbe7c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1afbfdec3c388243c46d95b41b089cbe7c" kindref="member">valid_segs</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="71" refid="struct_x_v_warp_init_vector___hw_1a6ac9289da3d17d258cdf0753886accd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a6ac9289da3d17d258cdf0753886accd0" kindref="member">lblk_count</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_x_v_warp_init_vector___hw_1a78de0e818eae759807a9720102384b93" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw_1a78de0e818eae759807a9720102384b93" kindref="member">line_num_seg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_init_vector___hw" kindref="compound">XVWarpInitVector_Hw</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="struct_x_v_warp_init_vector___hw___aligned" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79" refid="struct_x_v_warp_init_vector___hw___aligned_1a25c3fa4cf6ec0e8764bcb4166e4c3dd1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a25c3fa4cf6ec0e8764bcb4166e4c3dd1" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_x_v_warp_init_vector___hw___aligned_1ae3eed3f08e201ad07bf009c67b803e59" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ae3eed3f08e201ad07bf009c67b803e59" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_x_v_warp_init_vector___hw___aligned_1ada5b3f5a71a5392b22921fa3b6a21ca7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ada5b3f5a71a5392b22921fa3b6a21ca7" kindref="member">k_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_v_warp_init_vector___hw___aligned_1af6807df3847a5efe597edd31ede79ccf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1af6807df3847a5efe597edd31ede79ccf" kindref="member">k_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83" refid="struct_x_v_warp_init_vector___hw___aligned_1a911ec68bae610a18668d97fd8b00d74c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a911ec68bae610a18668d97fd8b00d74c" kindref="member">k0_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="struct_x_v_warp_init_vector___hw___aligned_1a0263fc3da824376612d1ff2e6d8d6816" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a0263fc3da824376612d1ff2e6d8d6816" kindref="member">k1_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="struct_x_v_warp_init_vector___hw___aligned_1a0f96ed9fdea5d39f718028d86e49aa7c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a0f96ed9fdea5d39f718028d86e49aa7c" kindref="member">k0_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="struct_x_v_warp_init_vector___hw___aligned_1aa85f617aff403690f44073dea9780a57" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1aa85f617aff403690f44073dea9780a57" kindref="member">k1_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87" refid="struct_x_v_warp_init_vector___hw___aligned_1a24d5f513694aa32ffa0a82e150eddf0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a24d5f513694aa32ffa0a82e150eddf0b" kindref="member">Q_fact_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="88" refid="struct_x_v_warp_init_vector___hw___aligned_1aec98616ad036717b844987b96cf8a11c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1aec98616ad036717b844987b96cf8a11c" kindref="member">Q_fact_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="89" refid="struct_x_v_warp_init_vector___hw___aligned_1a888981f3c565944e4bcd285843e90578" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a888981f3c565944e4bcd285843e90578" kindref="member">k0_pre_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="struct_x_v_warp_init_vector___hw___aligned_1ab6576952d719ed80d388e276d5c72438" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ab6576952d719ed80d388e276d5c72438" kindref="member">k0_post_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="struct_x_v_warp_init_vector___hw___aligned_1abdded7d55e77dd61fd3974b5cddad377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1abdded7d55e77dd61fd3974b5cddad377" kindref="member">k1_pre_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="92" refid="struct_x_v_warp_init_vector___hw___aligned_1ada845e83979a4d7766868d61b82b4783" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ada845e83979a4d7766868d61b82b4783" kindref="member">k1_post_Q_bits</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="struct_x_v_warp_init_vector___hw___aligned_1a11746a61e44cc1fb79fecd7ca797beef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a11746a61e44cc1fb79fecd7ca797beef" kindref="member">normfactor</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="struct_x_v_warp_init_vector___hw___aligned_1af57641e5287e0f99fb7ea4015fd7e6f0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1af57641e5287e0f99fb7ea4015fd7e6f0" kindref="member">cenX</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="struct_x_v_warp_init_vector___hw___aligned_1ab014a2fb1c5eaf43b5224bf916842179" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ab014a2fb1c5eaf43b5224bf916842179" kindref="member">cenY</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="struct_x_v_warp_init_vector___hw___aligned_1a134e33e3ebd3c40196b01baa42a234ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a134e33e3ebd3c40196b01baa42a234ba" kindref="member">width_Q4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="struct_x_v_warp_init_vector___hw___aligned_1a98f107655172c6b15f7250a7ef1b43c3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a98f107655172c6b15f7250a7ef1b43c3" kindref="member">height_Q4</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="struct_x_v_warp_init_vector___hw___aligned_1a7d11edb403d1dde49dce8a3e07fa44ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><sp/><sp/><sp/><sp/>h[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="struct_x_v_warp_init_vector___hw___aligned_1a868fc2b2c35426c66ff079f2f624cb7f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>h_Qbits[6];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="100" refid="struct_x_v_warp_init_vector___hw___aligned_1a0c111a62cf967b4f3ad7487c36197326" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>h_trans[3];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101" refid="struct_x_v_warp_init_vector___hw___aligned_1a266df7c476c9531b2ad4597020463e68" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a266df7c476c9531b2ad4597020463e68" kindref="member">filter_table_addr_0</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="struct_x_v_warp_init_vector___hw___aligned_1a92a84fba2a0995e8adbe39c65f3373ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a92a84fba2a0995e8adbe39c65f3373ce" kindref="member">filter_table_addr_1</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="struct_x_v_warp_init_vector___hw___aligned_1a0e4e693960d1bf4382eb9254085b43e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a0e4e693960d1bf4382eb9254085b43e1" kindref="member">src_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="struct_x_v_warp_init_vector___hw___aligned_1a9547e628f47b3fd95673118e1deeb7e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a9547e628f47b3fd95673118e1deeb7e3" kindref="member">src_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105" refid="struct_x_v_warp_init_vector___hw___aligned_1acc74db45105b98c3bd2d2c41dc31b592" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1acc74db45105b98c3bd2d2c41dc31b592" kindref="member">src_tangents_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="struct_x_v_warp_init_vector___hw___aligned_1ae0b31c680a05294ee6fa7109254af423" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ae0b31c680a05294ee6fa7109254af423" kindref="member">src_tangents_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107" refid="struct_x_v_warp_init_vector___hw___aligned_1a234e4a2838f941fdc0ebdbc023637cee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a234e4a2838f941fdc0ebdbc023637cee" kindref="member">interm_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108" refid="struct_x_v_warp_init_vector___hw___aligned_1a63bd6c670598560933863af0b4fb5af3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a63bd6c670598560933863af0b4fb5af3" kindref="member">interm_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="struct_x_v_warp_init_vector___hw___aligned_1a8568b4a6c43614fda37e701c737153b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a8568b4a6c43614fda37e701c737153b1" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="struct_x_v_warp_init_vector___hw___aligned_1ac8638e9c16e5dc586e329c02f4a3b90d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ac8638e9c16e5dc586e329c02f4a3b90d" kindref="member">bytes_per_pixel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="struct_x_v_warp_init_vector___hw___aligned_1ab56fa931f839babbecff2e798c7b4b27" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1ab56fa931f839babbecff2e798c7b4b27" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112" refid="struct_x_v_warp_init_vector___hw___aligned_1a09429a213176de27c85bd9cec76be9ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a09429a213176de27c85bd9cec76be9ba" kindref="member">valid_seg</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="113" refid="struct_x_v_warp_init_vector___hw___aligned_1a3b32509c137f4d82a5914e475022d98a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a3b32509c137f4d82a5914e475022d98a" kindref="member">lblock_count</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="114" refid="struct_x_v_warp_init_vector___hw___aligned_1a22bb2933c20050a1e2d846943597725e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a22bb2933c20050a1e2d846943597725e" kindref="member">line_num</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="115" refid="struct_x_v_warp_init_vector___hw___aligned_1a864024a4a207ef764ff7ee92749addf5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a864024a4a207ef764ff7ee92749addf5" kindref="member">ip_status</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="struct_x_v_warp_init_vector___hw___aligned_1a2359dd4d559422f0e038e273bda5b1a0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a2359dd4d559422f0e038e273bda5b1a0" kindref="member">driver_checksum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="117" refid="struct_x_v_warp_init_vector___hw___aligned_1a8f49a6b91a41ff7b160b65380d5f7775" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a8f49a6b91a41ff7b160b65380d5f7775" kindref="member">ip_checksum</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="118" refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned_1a24c5342411086d12828842cb55090fbe" kindref="member">remap_nextaddr</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_init_vector___hw___aligned" kindref="compound">XVWarpInitVector_Hw_Aligned</ref>;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="struct_x_v_warp_init___arb_param" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125" refid="struct_x_v_warp_init___arb_param_1a8b84d35cf339d268ff723f9abecc5580" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init___arb_param_1a8b84d35cf339d268ff723f9abecc5580" kindref="member">grid_size</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126" refid="struct_x_v_warp_init___arb_param_1ab336215e7fa362909e37c0066cea2321" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init___arb_param_1ab336215e7fa362909e37c0066cea2321" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="127" refid="struct_x_v_warp_init___arb_param_1a077cc008937d4bfb4ef9b5c8f4a531b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a077cc008937d4bfb4ef9b5c8f4a531b7" kindref="member">dst_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="128" refid="struct_x_v_warp_init___arb_param_1ae013fb17cac88b1d1bd691bf63bb453c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1ae013fb17cac88b1d1bd691bf63bb453c" kindref="member">dst_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="129" refid="struct_x_v_warp_init___arb_param_1a18c5e1c6a49e4c3bf916e6cc4311c4f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a18c5e1c6a49e4c3bf916e6cc4311c4f2" kindref="member">src_ctrl_x_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="130" refid="struct_x_v_warp_init___arb_param_1a956553c00933b5c728c4999dbdfd097e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a956553c00933b5c728c4999dbdfd097e" kindref="member">src_ctrl_y_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="131" refid="struct_x_v_warp_init___arb_param_1a2a185a148ebf9d5f07fbb031b51af251" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a2a185a148ebf9d5f07fbb031b51af251" kindref="member">src_tangents_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="132" refid="struct_x_v_warp_init___arb_param_1a4203983e068904b58ba9cebd0ea2bd75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a4203983e068904b58ba9cebd0ea2bd75" kindref="member">src_tangents_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="133" refid="struct_x_v_warp_init___arb_param_1ac3ff0e9ad8037aa9b2d9c558e799265c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1ac3ff0e9ad8037aa9b2d9c558e799265c" kindref="member">knots_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="134" refid="struct_x_v_warp_init___arb_param_1abcd39ffb9944709aa1fd3546c79ffbb9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1abcd39ffb9944709aa1fd3546c79ffbb9" kindref="member">knots_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="135" refid="struct_x_v_warp_init___arb_param_1a23aadc72d2352a792c43c676af868e33" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a23aadc72d2352a792c43c676af868e33" kindref="member">temp_row</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="136" refid="struct_x_v_warp_init___arb_param_1aa7b08cb2f65b0e36d28b18bd58eb3ec0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1aa7b08cb2f65b0e36d28b18bd58eb3ec0" kindref="member">interm_x</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="137" refid="struct_x_v_warp_init___arb_param_1a4d937a6be0fad85b75577305a4478877" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>*<ref refid="struct_x_v_warp_init___arb_param_1a4d937a6be0fad85b75577305a4478877" kindref="member">interm_y</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_init___arb_param" kindref="compound">XVWarpInit_ArbParam</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="struct_x_v_warp_init___input_configs" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144" refid="struct_x_v_warp_init___input_configs_1a5ce99f81668c470d1f5e36e3bba96de1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1a5ce99f81668c470d1f5e36e3bba96de1" kindref="member">width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="145" refid="struct_x_v_warp_init___input_configs_1a254587748a4abd630d69fcf479fff9b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1a254587748a4abd630d69fcf479fff9b4" kindref="member">height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="146" refid="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v_warp_init___input_configs_1a0e3666b652f93bd7a687cc491d67252b" kindref="member">bytes_per_pixel</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="147" refid="struct_x_v_warp_init___input_configs_1aafc3e8a32f10e450dad63801eb65dfce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1aafc3e8a32f10e450dad63801eb65dfce" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="148" refid="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v_warp_init___input_configs_1a327f0e9612b072e51260589df1a18bfb" kindref="member">num_ctrl_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="149" refid="struct_x_v_warp_init___input_configs_1ae49478d4f3a671d6f4c78fbbda10adf0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1ae49478d4f3a671d6f4c78fbbda10adf0" kindref="member">k_pre</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="150" refid="struct_x_v_warp_init___input_configs_1acfb9dc289f86ab91a631eebfd49df6a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s16<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1acfb9dc289f86ab91a631eebfd49df6a6" kindref="member">k_post</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="151" refid="struct_x_v_warp_init___input_configs_1a8ab20778cfd842ba513eb54cfc88006b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>h[9];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="152" refid="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1ab43b6d68fe91fca8c43173562b897de7" kindref="member">filter_table_addr_0</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="153" refid="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___input_configs_1ad29aa01703029664de0877d6b6e0d742" kindref="member">filter_table_addr_1</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="154" refid="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v_warp_init___arb_param___mesh_info" kindref="compound">XVWarpInit_ArbParam_MeshInfo</ref><sp/>*<ref refid="struct_x_v_warp_init___input_configs_1a316536999948eb25abb836a2f2335255" kindref="member">ctr_pts</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}<sp/><ref refid="struct_x_v_warp_init___input_configs" kindref="compound">XVWarpInit_InputConfigs</ref>;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1a3cb1069708424d686d2a1937a71acb4f" kindref="member">XVWarpInit_EnableInterrupts</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__warp__init_1ga3d4df0723b540b430d51d69c20a6eb3a" kindref="member">XVWarpInit_SetCallback</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" kindref="member">XVWarpInit_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1a7f7121c5283c16c47d2a72efeb04e2bd" kindref="member">XVWarpInit_SetNumOfDescriptors</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>num_descriptors);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1a56d0a250385807fb881c9c449cb702ba" kindref="member">XVWarpInit_ClearNumOfDescriptors</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1a912662f3c8acfec1e8fda7fc3a5721fe" kindref="member">XVWarpInit_ProgramDescriptor</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Descnum,<sp/><ref refid="struct_x_v_warp_init___input_configs" kindref="compound">XVWarpInit_InputConfigs</ref><sp/>*ConfigPtr);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1ac6232e2fd0a2cccf6c5e902d2c27c729" kindref="member">XVWarpInit_start_with_desc</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>descnum);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init__l2_8c_1ad7d92fddb20a0644a7099c39d5bd19d4" kindref="member">XVWarpInit_Stop</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_l2.h"/>
+  </compounddef>
+</doxygen>

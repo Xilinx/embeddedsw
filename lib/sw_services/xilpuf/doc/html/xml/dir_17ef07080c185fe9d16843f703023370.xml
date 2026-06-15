@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_17ef07080c185fe9d16843f703023370" kind="dir">
+    <compoundname>spartanup</compoundname>
+    <innerfile refid="spartanup_2xpuf_8c">spartanup/xpuf.c</innerfile>
+    <innerfile refid="spartanup_2xpuf_8h">spartanup/xpuf.h</innerfile>
+    <innerfile refid="spartanup_2xpuf__hw_8h">spartanup/xpuf_hw.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/src/spartanup/"/>
+  </compounddef>
+</doxygen>

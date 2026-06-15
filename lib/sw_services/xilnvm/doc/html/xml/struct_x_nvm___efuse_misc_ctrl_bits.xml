@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_nvm___efuse_misc_ctrl_bits" kind="struct" prot="public">
+    <compoundname>XNvm_EfuseMiscCtrlBits</compoundname>
+    <includes local="no">xnvm_common_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a015262c0f1ac3b678dc4a8a47a3e169e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::GlitchDetHaltBootEn</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetHaltBootEn</name>
+        <briefdescription>
+<para>Glitch detection halt boot enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="192" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="192" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1affe26a8256db277a19debb508174e1cf" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::GlitchDetRomMonitorEn</definition>
+        <argsstring></argsstring>
+        <name>GlitchDetRomMonitorEn</name>
+        <briefdescription>
+<para>Glitch detection ROM monitor enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="193" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="193" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a7a92ed53dea9287d9ac547e4563f6244" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::HaltBootError</definition>
+        <argsstring></argsstring>
+        <name>HaltBootError</name>
+        <briefdescription>
+<para>Halt boot on error. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="194" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a736933b194a88a434d1be4e803d30c78" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::HaltBootEnv</definition>
+        <argsstring></argsstring>
+        <name>HaltBootEnv</name>
+        <briefdescription>
+<para>Halt boot on environment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="195" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="195" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a62463fe280eb715628406735d91e60e8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::CryptoKatEn</definition>
+        <argsstring></argsstring>
+        <name>CryptoKatEn</name>
+        <briefdescription>
+<para>Crypto KAT enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="196" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a2928c17cc1c4bd556cc1fc2bb2ad8249" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::LbistEn</definition>
+        <argsstring></argsstring>
+        <name>LbistEn</name>
+        <briefdescription>
+<para>LBIST enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="197" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a041a51ac883421f1fafee3abd81422e0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::SafetyMissionEn</definition>
+        <argsstring></argsstring>
+        <name>SafetyMissionEn</name>
+        <briefdescription>
+<para>Safety mission enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gace7f68b8a561aa12aed7ca066b9e28b2" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="244" endline="590">XNvm_EfuseWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a496f2ea5a9be4e55d18119bde3b69d20" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::Ppk0Invalid</definition>
+        <argsstring></argsstring>
+        <name>Ppk0Invalid</name>
+        <briefdescription>
+<para>PPK0 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="199" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1a9228ad2b3bf4fd1b1f6d066d5db58ae0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::Ppk1Invalid</definition>
+        <argsstring></argsstring>
+        <name>Ppk1Invalid</name>
+        <briefdescription>
+<para>PPK1 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_nvm___efuse_misc_ctrl_bits_1afd8442f9a8bcd4bcbbc67e0c8224b3ce" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XNvm_EfuseMiscCtrlBits::Ppk2Invalid</definition>
+        <argsstring></argsstring>
+        <name>Ppk2Invalid</name>
+        <briefdescription>
+<para>PPK2 invalid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="201" bodyend="-1"/>
+        <referencedby refid="group__xnvm__efuse__server__apis_1ga41a3f8903c46968528ef035b329fb58f" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1357" endline="1434">XNvm_EfuseReadMiscCtrlBits</referencedby>
+        <referencedby refid="group__xnvm__efuse__server__apis_1gac25f8f0b2dc9d17535f36f547b398f5a" compoundref="versal__gen_2versal_2server_2xnvm__efuse_8c" startline="1832" endline="1881">XNvm_EfuseRevokePpk</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for Misc Ctrl Bits. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/xnvm_common_defs.h" bodystart="191" bodyend="207"/>
+    <listofallmembers>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a62463fe280eb715628406735d91e60e8" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>CryptoKatEn</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a015262c0f1ac3b678dc4a8a47a3e169e" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>GlitchDetHaltBootEn</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1affe26a8256db277a19debb508174e1cf" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>GlitchDetRomMonitorEn</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a736933b194a88a434d1be4e803d30c78" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>HaltBootEnv</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a7a92ed53dea9287d9ac547e4563f6244" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>HaltBootError</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a2928c17cc1c4bd556cc1fc2bb2ad8249" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>LbistEn</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a496f2ea5a9be4e55d18119bde3b69d20" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>Ppk0Invalid</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a9228ad2b3bf4fd1b1f6d066d5db58ae0" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>Ppk1Invalid</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1afd8442f9a8bcd4bcbbc67e0c8224b3ce" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>Ppk2Invalid</name></member>
+      <member refid="struct_x_nvm___efuse_misc_ctrl_bits_1a041a51ac883421f1fafee3abd81422e0" prot="public" virt="non-virtual"><scope>XNvm_EfuseMiscCtrlBits</scope><name>SafetyMissionEn</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

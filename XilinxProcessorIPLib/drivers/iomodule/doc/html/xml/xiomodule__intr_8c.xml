@@ -1,0 +1,370 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xiomodule__intr_8c" kind="file">
+    <compoundname>xiomodule_intr.c</compoundname>
+    <includes refid="xiomodule_8h" local="yes">xiomodule.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <incdepgraph>
+      <node id="78">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="79">
+        <label>stdbool.h</label>
+      </node>
+      <node id="76">
+        <label>xil_io.h</label>
+      </node>
+      <node id="72">
+        <label>xiomodule.h</label>
+        <link refid="xiomodule_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xiomodule_intr.c</label>
+        <link refid="xiomodule_intr.c"/>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="77">
+        <label>xil_types.h</label>
+      </node>
+      <node id="74">
+        <label>xiomodule_l.h</label>
+        <link refid="xiomodule__l_8h"/>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+      </node>
+      <node id="75">
+        <label>xiomodule_io.h</label>
+        <link refid="xiomodule__io_8h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__iomodule_1ga09b9d000edbd48e9e166e660383490a1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT]</definition>
+        <argsstring>[XTC_DEVICE_TIMER_COUNT]</argsstring>
+        <name>XIOModule_TimerBitPosMask</name>
+        <initializer>= {
+  1 &lt;&lt; XIN_IOMODULE_PIT_1_INTERRUPT_INTR,
+  1 &lt;&lt; XIN_IOMODULE_PIT_2_INTERRUPT_INTR,
+  1 &lt;&lt; XIN_IOMODULE_PIT_3_INTERRUPT_INTR,
+  1 &lt;&lt; XIN_IOMODULE_PIT_4_INTERRUPT_INTR
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__iomodule_1ga848da9f83ad1188caca777cd324cec10" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_InterruptHandler</definition>
+        <argsstring>(XIOModule *InstancePtr)</argsstring>
+        <name>XIOModule_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The interrupt handler for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is provided mostly for backward compatibility. The user should use <ref refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" kindref="member">XIOModule_DeviceInterruptHandler()</ref>, defined in <ref refid="xiomodule__l_8c" kindref="compound">xiomodule_l.c</ref> when possible and pass the device ID of the interrupt controller device as its argument.</para><para>The user must connect this function to the interrupt system such that it is called whenever the devices which are connected to it cause an interrupt.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="554" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c" bodystart="154" bodyend="170"/>
+        <references refid="struct_x_i_o_module___config_1a96b1120954dbe1fdae2216fa85dac9a8" compoundref="xiomodule_8h" startline="362">XIOModule_Config::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" compoundref="xiomodule_8h" startline="436">XIOModule::CfgPtr</references>
+        <references refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" compoundref="xiomodule__l_8c" startline="143" endline="219">XIOModule_DeviceInterruptHandler</references>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_SetHandler</definition>
+        <argsstring>(XIOModule *InstancePtr, XIOModule_Timer_Handler FuncPtr, void *CallBackRef)</argsstring>
+        <name>XIOModule_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__iomodule_1ga3a95e8a205259686d85802168e10cdb3" kindref="member">XIOModule_Timer_Handler</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>Sets the timer callback function, which the driver calls when the specified timer times out. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper layer callback reference passed back when the callback function is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+The handler is called within interrupt context so the function that is called should either be short or pass the more extensive processing off to another task to allow the interrupt to return and normal processing to continue.</para><para>This function is provided for compatibility, and only allows setting a single handler for all Programmable Interval Timers. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="607" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c" bodystart="197" bodyend="215"/>
+        <references refid="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" compoundref="xiomodule_8h" startline="458">XIOModule::CallBackRef</references>
+        <references refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" compoundref="xiomodule_8h" startline="436">XIOModule::CfgPtr</references>
+        <references refid="struct_x_i_o_module___vector_table_entry_1a48dc3684c70bd12fd9a1fd46c604750a" compoundref="xiomodule__l_8h" startline="220">XIOModule_VectorTableEntry::Handler</references>
+        <references refid="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" compoundref="xiomodule_8h" startline="457">XIOModule::Handler</references>
+        <references refid="struct_x_i_o_module___config_1afcb02fbe1f9b90712964890a1429373d" compoundref="xiomodule_8h" startline="378">XIOModule_Config::HandlerTable</references>
+        <references refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" compoundref="xiomodule_8h" startline="434">XIOModule::IsReady</references>
+        <references refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" compoundref="xiomodule__intr_8c" startline="232" endline="291">XIOModule_Timer_InterruptHandler</references>
+        <referencedby refid="xiomodule__intr__example_8c_1a42a91b22019542c146d78f2c4bfe27fe" compoundref="xiomodule__intr__example_8c" startline="142" endline="252">IOModuleIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIOModule_Timer_InterruptHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XIOModule_Timer_InterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt Service Routine (ISR) for the driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function only performs processing for the Programmable Interval Timer and does not save and restore the interrupt context.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the IO Module instance for the interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule.h" line="610" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c" bodystart="232" bodyend="291"/>
+        <references refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" compoundref="xiomodule_8h" startline="433">XIOModule::BaseAddress</references>
+        <references refid="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" compoundref="xiomodule_8h" startline="458">XIOModule::CallBackRef</references>
+        <references refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" compoundref="xiomodule_8h" startline="436">XIOModule::CfgPtr</references>
+        <references refid="struct_x_i_o_module_1a23dc644971604b9b25ac2e217126de5e" compoundref="xiomodule_8h" startline="449">XIOModule::CurrentIMR</references>
+        <references refid="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" compoundref="xiomodule_8h" startline="457">XIOModule::Handler</references>
+        <references refid="struct_x_i_o_module___timer___stats_1aeea5691ebbd34f15b36be34b1bcf5cc5" compoundref="xiomodule_8h" startline="424">XIOModule_Timer_Stats::Interrupts</references>
+        <references refid="struct_x_i_o_module___config_1a3ebe198577cb922a5427f7d1bb1764bd" compoundref="xiomodule_8h" startline="371">XIOModule_Config::PitUsed</references>
+        <references refid="struct_x_i_o_module_1ac6a8d39469df123710c1f280458dc417" compoundref="xiomodule_8h" startline="451">XIOModule::Timer_Stats</references>
+        <references refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" compoundref="xiomodule__l_8h" startline="404">XIOModule_ReadReg</references>
+        <references refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" compoundref="xiomodule__l_8h" startline="384">XIOModule_WriteReg</references>
+        <referencedby refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" compoundref="xiomodule__intr_8c" startline="197" endline="215">XIOModule_SetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2011<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="72"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xiomodule_8h" kindref="compound">xiomodule.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="82"><highlight class="comment"><sp/>*<sp/>Array<sp/>of<sp/>masks<sp/>associated<sp/>with<sp/>the<sp/>bit<sp/>position,<sp/>improves<sp/>performance</highlight></codeline>
+<codeline lineno="83"><highlight class="comment"><sp/>*<sp/>in<sp/>the<sp/>ISR,<sp/>this<sp/>table<sp/>is<sp/>shared<sp/>between<sp/>all<sp/>instances<sp/>of<sp/>the<sp/>driver</highlight></codeline>
+<codeline lineno="84"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">u32<sp/>XIOModule_TimerBitPosMask[XTC_DEVICE_TIMER_COUNT]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>1<sp/>&lt;&lt;<sp/>XIN_IOMODULE_PIT_1_INTERRUPT_INTR,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/>1<sp/>&lt;&lt;<sp/>XIN_IOMODULE_PIT_2_INTERRUPT_INTR,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>1<sp/>&lt;&lt;<sp/>XIN_IOMODULE_PIT_3_INTERRUPT_INTR,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/>1<sp/>&lt;&lt;<sp/>XIN_IOMODULE_PIT_4_INTERRUPT_INTR</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_IOMODULE_SINGLE_DEVICE_ID</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="126"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XIOModule_VoidInterruptHandler()</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>the<sp/>single<sp/>instance<sp/>to<sp/>call<sp/>the<sp/>main<sp/>interrupt<sp/>handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" kindref="member">XIOModule_DeviceInterruptHandler</ref>(</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/>XPAR_IOMODULE_SINGLE_DEVICE_ID);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="154" refid="group__iomodule_1ga848da9f83ad1188caca777cd324cec10" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga848da9f83ad1188caca777cd324cec10" kindref="member">XIOModule_InterruptHandler</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*<sp/>InstancePtr)</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Assert<sp/>that<sp/>the<sp/>pointer<sp/>to<sp/>the<sp/>instance<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Use<sp/>the<sp/>instance&apos;s<sp/>device<sp/>ID<sp/>to<sp/>call<sp/>the<sp/>main<sp/>interrupt<sp/>handler.</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(the<sp/>casts<sp/>are<sp/>to<sp/>avoid<sp/>a<sp/>compiler<sp/>warning)</highlight></codeline>
+<codeline lineno="162"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" kindref="member">XIOModule_DeviceInterruptHandler</ref>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((UINTPTR)<sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;DeviceId)));</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga2e47bfda481c3ceab60d758f049758ef" kindref="member">XIOModule_DeviceInterruptHandler</ref>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((UINTPTR)<sp/>(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_i_o_module___config_1a96b1120954dbe1fdae2216fa85dac9a8" kindref="member">BaseAddress</ref>)));</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="197" refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1gab2e5ac3f9e5a286fd376120cb27f545d" kindref="member">XIOModule_SetHandler</ref>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*<sp/>InstancePtr,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga3a95e8a205259686d85802168e10cdb3" kindref="member">XIOModule_Timer_Handler</ref><sp/>FuncPtr,</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a0cee7cfb4687662370f0900c9c0b31d0" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" kindref="member">Handler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" kindref="member">CallBackRef</ref><sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>XIN_IOMODULE_PIT_1_INTERRUPT_INTR;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index<sp/>&lt;=<sp/>XIN_IOMODULE_PIT_4_INTERRUPT_INTR;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_i_o_module___config_1afcb02fbe1f9b90712964890a1429373d" kindref="member">HandlerTable</ref>[Index].<ref refid="struct_x_i_o_module___vector_table_entry_1a48dc3684c70bd12fd9a1fd46c604750a" kindref="member">Handler</ref><sp/>=</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" kindref="member">XIOModule_Timer_InterruptHandler</ref>;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="232" refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__iomodule_1ga431eb19a0f6aeab9bab0cdb09fdc30ce" kindref="member">XIOModule_Timer_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*IOModulePtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IntPendingReg,<sp/>ModeMask;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>that<sp/>each<sp/>of<sp/>the<sp/>inputs<sp/>are<sp/>valid.</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Convert<sp/>the<sp/>non-typed<sp/>pointer<sp/>to<sp/>an<sp/>IO<sp/>Module<sp/>instance<sp/>pointer</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>such<sp/>that<sp/>there<sp/>is<sp/>access<sp/>to<sp/>the<sp/>IO<sp/>Module</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/>IOModulePtr<sp/>=<sp/>(<ref refid="struct_x_i_o_module" kindref="compound">XIOModule</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>pending<sp/>interrupts<sp/>to<sp/>be<sp/>able<sp/>to<sp/>check<sp/>if<sp/>interrupt<sp/>occurred</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>IntPendingReg<sp/>=<sp/><ref refid="group__iomodule_1ga4eaff234e65f369a870fca3b92215df4" kindref="member">XIOModule_ReadReg</ref>(IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIN_IPR_OFFSET);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/>ModeMask<sp/>=<sp/>~IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1a23dc644971604b9b25ac2e217126de5e" kindref="member">CurrentIMR</ref>;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Loop<sp/>through<sp/>each<sp/>timer<sp/>in<sp/>the<sp/>device<sp/>and<sp/>call<sp/>the<sp/>callback<sp/>function</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>for<sp/>each<sp/>timer<sp/>which<sp/>has<sp/>caused<sp/>an<sp/>interrupt,<sp/>but<sp/>only<sp/>if<sp/>not<sp/>fast</highlight></codeline>
+<codeline lineno="260"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XTC_DEVICE_TIMER_COUNT;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>timer<sp/>is<sp/>enabled</highlight></codeline>
+<codeline lineno="264"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">)IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1ad44f07ede4a771acec5e5ae601868957" kindref="member">CfgPtr</ref>-&gt;<ref refid="struct_x_i_o_module___config_1a3ebe198577cb922a5427f7d1bb1764bd" kindref="member">PitUsed</ref>[Index])<sp/>{</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="268"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Check<sp/>if<sp/>timer<sp/>expired<sp/>and<sp/>interrupt<sp/>occurred,</highlight></codeline>
+<codeline lineno="269"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>but<sp/>only<sp/>if<sp/>it<sp/>is<sp/>not<sp/>a<sp/>fast<sp/>interrupt</highlight></codeline>
+<codeline lineno="270"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((</highlight><highlight class="keywordtype">bool</highlight><highlight class="normal">)(IntPendingReg<sp/>&amp;<sp/>ModeMask<sp/>&amp;<sp/>XIOModule_TimerBitPosMask[Index]))<sp/>{</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="274"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Increment<sp/>statistics<sp/>for<sp/>the<sp/>number<sp/>of<sp/>interrupts<sp/>and<sp/>call</highlight></codeline>
+<codeline lineno="275"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>the<sp/>callback<sp/>to<sp/>handle<sp/>any<sp/>application<sp/>specific<sp/>processing</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1ac6a8d39469df123710c1f280458dc417" kindref="member">Timer_Stats</ref>[Index].<ref refid="struct_x_i_o_module___timer___stats_1aeea5691ebbd34f15b36be34b1bcf5cc5" kindref="member">Interrupts</ref>++;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1aab92470605904d886037b7dc51b87dec" kindref="member">Handler</ref>(IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1a8b9fe4734807b32893f78a90e8c6a9de" kindref="member">CallBackRef</ref>,<sp/>Index);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="282"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Acknowledge<sp/>the<sp/>interrupt<sp/>in<sp/>the<sp/>interrupt<sp/>controller</highlight></codeline>
+<codeline lineno="283"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>acknowledge<sp/>register<sp/>to<sp/>mark<sp/>it<sp/>as<sp/>handled</highlight></codeline>
+<codeline lineno="284"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__iomodule_1ga829c77e3efe996211599f9a2a6bb4890" kindref="member">XIOModule_WriteReg</ref>(IOModulePtr-&gt;<ref refid="struct_x_i_o_module_1ae5c5a9e707642378f9e46a235bf7a3c6" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIN_IAR_OFFSET,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIOModule_TimerBitPosMask[Index]);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iomodule/src/xiomodule_intr.c"/>
+  </compounddef>
+</doxygen>

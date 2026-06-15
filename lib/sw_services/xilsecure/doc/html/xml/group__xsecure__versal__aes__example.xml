@@ -1,0 +1,785 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__versal__aes__example" kind="group">
+    <compoundname>xsecure_versal_aes_example</compoundname>
+    <title>XilSecure AES API Example Generic Usage</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga1adbe8ae56c0b53ee034f96a2a058730" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_TOTAL_MEM_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_TOTAL_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga657912ef25e9f469d0575ba5677c19cb" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Data[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga4b07c676a5ff55ee16d461fa3a1141f4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 DecData[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>DecData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga80f7dc2a6d236a2855289c9232ee0b54" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 EncData[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>EncData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga606f34f10872cb5186a9722e5ededffe" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]</definition>
+        <argsstring>[XSECURE_SECURE_GCM_TAG_SIZE]</argsstring>
+        <name>GcmTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1gad40ff465026d4283fc84af313209ee4a" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Aad[XSECURE_AAD_SIZE]</definition>
+        <argsstring>[XSECURE_AAD_SIZE]</argsstring>
+        <name>Aad</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga3bb6399a1afc6407910e58c613b43eb5" prot="public" static="yes" mutable="no">
+        <type>XSecure_Aes</type>
+        <definition>XSecure_Aes Secure_Aes</definition>
+        <argsstring></argsstring>
+        <name>Secure_Aes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga829dbcb2e54b2933cb2cfb1272c44db4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Iv[XSECURE_IV_SIZE]</definition>
+        <argsstring>[XSECURE_IV_SIZE]</argsstring>
+        <name>Iv</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga98203efe6580153f5929f7b3de24b8be" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Key[XSECURE_KEY_SIZE]</definition>
+        <argsstring>[XSECURE_KEY_SIZE]</argsstring>
+        <name>Key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga657912ef25e9f469d0575ba5677c19cb" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Data[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga4b07c676a5ff55ee16d461fa3a1141f4" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 DecData[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>DecData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga80f7dc2a6d236a2855289c9232ee0b54" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 EncData[XSECURE_DATA_SIZE]</definition>
+        <argsstring>[XSECURE_DATA_SIZE]</argsstring>
+        <name>EncData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1ga606f34f10872cb5186a9722e5ededffe" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 GcmTag[XSECURE_SECURE_GCM_TAG_SIZE]</definition>
+        <argsstring>[XSECURE_SECURE_GCM_TAG_SIZE]</argsstring>
+        <name>GcmTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__versal__aes__example_1gad40ff465026d4283fc84af313209ee4a" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 Aad[XSECURE_AAD_SIZE]</definition>
+        <argsstring>[XSECURE_AAD_SIZE]</argsstring>
+        <name>Aad</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__versal__aes__example_1ga6ba7e62b1145d4a4a60b16fbfc3e7eb1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 SecureAesExample</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)</argsstring>
+        <name>SecureAesExample</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Iv</declname>
+        </param>
+        <briefdescription>
+<para>This function runs both GCM and GMAC tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to AES key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Iv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to initialization vector</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if test was failed.</para></listitem><listitem><para>XST_SUCCESS if test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [Generic AES example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="263" bodyend="284"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__versal__aes__example_1gaa5408f7c3d0a8f300f77f9fbe7ffa5fc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 SecureAesGcmTest</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u8 *Key, u8 *Iv)</argsstring>
+        <name>SecureAesGcmTest</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Key</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Iv</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the data with provided key and IV. </para>        </briefdescription>
+        <detaileddescription>
+<para>The output result is then decrypted back to get original data and checks GCM tag. The test fails, if decryption not produce the original data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to AES key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Iv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to initialization vector</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the AES GCM test was successful.</para></listitem><listitem><para>ErrorCode if the AES GCM test was failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [Generic AES GCM example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="305" bodyend="430"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__versal__aes__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the SecureAesExample function. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if example runs successfully<itemizedlist>
+<listitem><para>ErrorCode if the example fails. </para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="156" bodyend="244"/>
+        <references refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="151" endline="200">SecureAesExample</references>
+        <references refid="group__xsecure__mailbox__apis_1ga14ac66445aa924c4c0bd9b91b9744af9" compoundref="xsecure__mailbox_8c" startline="119" endline="134">XSecure_ClientInit</references>
+        <references refid="group__xsecure__apis_1gac93fe32974d3c2dde52190edb3fb7f83" compoundref="xsecure_8h" startline="169">XSECURE_KEY_SIZE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__versal__aes__example_1ga2b8b3f8c925d15be80cff15f248c1532" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureAesExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>SecureAesExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function runs both GCM and GMAC tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointter to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to AES key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Iv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to initialization vector</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if test was failed.</para></listitem><listitem><para>XST_SUCCESS if test was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [Generic AES example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="108" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__versal__aes__example_1ga51ad24d1b80bc0373d9f4e684a933a7c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int SecureAesGcmTest</definition>
+        <argsstring>(XSecure_Aes *AesInstance)</argsstring>
+        <name>SecureAesGcmTest</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>AesInstance</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the data with provided key and IV. </para>        </briefdescription>
+        <detaileddescription>
+<para>The output result is then decrypted back to get original data and checks GCM tag. The test fails, if decryption not produce the original data.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AesInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the AES GCM test was successful.</para></listitem><listitem><para>ErrorCode if the AES GCM test was failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [Generic AES example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="275" bodyend="394"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaa7efc6d726aabaf436f8325c35f0b3d8" prot="public" static="no">
+        <name>XSECURE_AES_KEY</name>
+        <initializer>&quot;F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gad2d2014f63eb9bf148052c7db2c06940" prot="public" static="no">
+        <name>XSECURE_IV</name>
+        <initializer>&quot;D2450E07EA5DE0426C0FA133&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaecf9791e6233e870b1595e9a609c1111" prot="public" static="no">
+        <name>XSECURE_DATA</name>
+        <initializer>&quot;1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA10134&quot; \
+	&quot;ABCDEF12345678900987654321123487654124456679874309713627463801AD1056&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaff67ff58b0e019e097117a973b805dc6" prot="public" static="no">
+        <name>XSECURE_AAD</name>
+        <initializer>&quot;67e21cf3cb29e0dcbc4d8b1d0cc5334b&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga7e7a846e2d6ce5472dfa5ed7feb6e39d" prot="public" static="no">
+        <name>XSECURE_DATA_SIZE</name>
+        <initializer>(68)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gab782a512a18bc4395463e591b6289be3" prot="public" static="no">
+        <name>XSECURE_DATA_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_DATA_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga0a7731f1c924bb61e1a85942a33a16c2" prot="public" static="no">
+        <name>XSECURE_IV_SIZE</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga2a1895404ecfd198791e6468bf56dc0d" prot="public" static="no">
+        <name>XSECURE_IV_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_IV_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gac93fe32974d3c2dde52190edb3fb7f83" prot="public" static="no">
+        <name>XSECURE_KEY_SIZE</name>
+        <initializer>(32)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaf59579641961dc2d72e6b31a0eccec5c" prot="public" static="no">
+        <name>XSECURE_KEY_SIZE_IN_BITS</name>
+        <initializer>(<ref refid="group__xsecure__apis_1gac93fe32974d3c2dde52190edb3fb7f83" kindref="member">XSECURE_KEY_SIZE</ref> * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gadde19228ea7b3aaf95532ec36c9b7bcd" prot="public" static="no">
+        <name>XSECURE_AAD_SIZE</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gabb4e47b1512d69c0ba8cd0e4c00273f9" prot="public" static="no">
+        <name>XSECURE_AAD_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_AAD_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gafb041a8728c54e97cdc310326006af0a" prot="public" static="no">
+        <name>XSECURE_PMCDMA_DEVICEID</name>
+        <initializer>PMCDMA_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gad6d68ad6b217b7f6e018d355e55a246c" prot="public" static="no">
+        <name>XSECURE_SECURE_GCM_TAG_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaf07748059b49525244bdd24446804ba4" prot="public" static="no">
+        <name>XSECURE_AES_KEY_SIZE_256</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga95b2be104c44b45a4e891dd41f732d50" prot="public" static="no">
+        <name>XSECURE_SHARED_TOTAL_MEM_SIZE</name>
+        <initializer>(XSECURE_SHARED_MEM_SIZE +\
+						XSECURE_IV_SIZE + <ref refid="group__xsecure__apis_1gac93fe32974d3c2dde52190edb3fb7f83" kindref="member">XSECURE_KEY_SIZE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_client_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaa7efc6d726aabaf436f8325c35f0b3d8" prot="public" static="no">
+        <name>XSECURE_AES_KEY</name>
+        <initializer>&quot;F878B838D8589818E868A828C8488808F070B030D0509010E060A020C0408000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gad2d2014f63eb9bf148052c7db2c06940" prot="public" static="no">
+        <name>XSECURE_IV</name>
+        <initializer>&quot;D2450E07EA5DE0426C0FA133&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaecf9791e6233e870b1595e9a609c1111" prot="public" static="no">
+        <name>XSECURE_DATA</name>
+        <initializer>&quot;1234567808F070B030D0509010E060A020C0408000A5DE08D85898A5A5FEDCA10134&quot; \
+	&quot;ABCDEF12345678900987654321123487654124456679874309713627463801AD1056&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaff67ff58b0e019e097117a973b805dc6" prot="public" static="no">
+        <name>XSECURE_AAD</name>
+        <initializer>&quot;67e21cf3cb29e0dcbc4d8b1d0cc5334b&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga7e7a846e2d6ce5472dfa5ed7feb6e39d" prot="public" static="no">
+        <name>XSECURE_DATA_SIZE</name>
+        <initializer>(68)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gab782a512a18bc4395463e591b6289be3" prot="public" static="no">
+        <name>XSECURE_DATA_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_DATA_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga0a7731f1c924bb61e1a85942a33a16c2" prot="public" static="no">
+        <name>XSECURE_IV_SIZE</name>
+        <initializer>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1ga2a1895404ecfd198791e6468bf56dc0d" prot="public" static="no">
+        <name>XSECURE_IV_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_IV_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gac93fe32974d3c2dde52190edb3fb7f83" prot="public" static="no">
+        <name>XSECURE_KEY_SIZE</name>
+        <initializer>(32)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gaf59579641961dc2d72e6b31a0eccec5c" prot="public" static="no">
+        <name>XSECURE_KEY_SIZE_IN_BITS</name>
+        <initializer>(<ref refid="group__xsecure__apis_1gac93fe32974d3c2dde52190edb3fb7f83" kindref="member">XSECURE_KEY_SIZE</ref> * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gadde19228ea7b3aaf95532ec36c9b7bcd" prot="public" static="no">
+        <name>XSECURE_AAD_SIZE</name>
+        <initializer>(16)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gabb4e47b1512d69c0ba8cd0e4c00273f9" prot="public" static="no">
+        <name>XSECURE_AAD_SIZE_IN_BITS</name>
+        <initializer>(XSECURE_AAD_SIZE * 8U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__versal__aes__example_1gafb041a8728c54e97cdc310326006af0a" prot="public" static="no">
+        <name>XSECURE_PMCDMA_DEVICEID</name>
+        <initializer>PMCDMA_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_aes_server_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="note"><para>This example illustrates the usage of Versal AES APIs using below tests<orderedlist>
+<listitem><para>Encrypt the data with provided key and IV. The output result is then decrypted back to get original data and checks GCM tag. The test fails, if decryption not produce the original data.</para></listitem><listitem><para>Generating the GMAC tag using key and IV on updated AAD data and checks for GMAC tag match.</para></listitem></orderedlist>
+</para></simplesect>
+To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode. This example is supported for Versal, Versal Net and Versal_2Ve_2Vm devices.</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>    1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+            be updated to point all the required sections to shared memory(OCM or TCM)
+            using a memory region drop down selection
+
+                                    OR
+
+    1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+            .sharedmemory : {
+                    . = ALIGN(4);
+                    __sharedmemory_start = .;
+                    *(.sharedmemory)
+                    *(.sharedmemory.*)
+                    *(.gnu.linkonce.d.*)
+                    __sharedmemory_end = .;
+                    } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+            2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+               be stored in the above shared memory section. To make it happen in below example,
+       replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+    static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.data.Data&quot;)));
+                                    should be changed to
+    static u8 Data __attribute__ ((aligned (64U)) __attribute__ ((section (&quot;.sharedmemory.Data&quot;)));
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+4.1   vns    08/06/19 First Release
+4.3   har    10/12/20 Addressed security review comments
+4.5   har    03/02/21 Added support for AAD
+      kal    03/23/21 Updated example for client support
+      har    06/02/21 Fixed GCC warnings for R5 compiler
+4.7   kpt    01/13/22 Added support for PL microblaze
+      kpt    03/16/22 Removed IPI related code and added mailbox support
+5.2   am     05/03/23 Added KAT before crypto usage
+      pre    08/16/24 Added SSIT support
+5.7   bha    02/25/26 Removed ICCARM related code</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para>This example illustrates the usage of Versal AES APIs using below tests<orderedlist>
+<listitem><para>Encrypt the data with provided key and IV. The output result is then decrypted back to get original data and checks GCM tag. The test fails, if decryption not produce the original data.</para></listitem><listitem><para>Generating the GMAC tag using key and IV on updated AAD data and checks for GMAC tag match. This example is supported for Versal and Spartan Ultrascale Plus devices.</para></listitem></orderedlist>
+</para></simplesect>
+<heading level="2">Procedure to link and compile the example for the default ddr less designs in Spartan Ultrascale Plus device </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.</para><para>Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC</para><para>Open example linker script(lscript.ld) in Vitis project and section to memory mapping should be updated to point all the required sections to shared memory using a memory region drop down selection <verbatim>                                 OR
+</verbatim> In linker script(lscript.ld) user can point data section to shared memory. For example, .data : { . = ALIGN(4); __data_start = .; *(.data) *(.data.*) *(.gnu.linkonce.d.*) __data_end = .; } &gt; shared_mem</para><para>Note: The shared_mem section address is design and platform dependent. Users must map shared_mem to a memory region that is accessible to both the PMC and the PL, based on the target device and Vivado design.</para><para>MODIFICATION HISTORY: <preformatted>
+Ver   Who    Date     Changes
+<hruler/>
+
+1.0   kal    04/21/21 First Release
+4.5   kal    04/21/21 Updated file version to sync with library version
+      har    06/02/21 Fixed GCC warnings for R5 compiler
+4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+                      with xilinx maintained functions
+5.4   vss    01/08/25 Updated comments related to deprecated server mode of versalnet
+      mb     03/25/25 Add section attribute to global variables
+5.5   mb     06/10/25 Added description on usage of shared memory
+5.6   rpu    08/22/25 Updated the print statement to show error code when the example fails
+5.7   bha    02/25/26 Removed ICCARM related code
+      mb     02/29/26 Add section attribute to global variables
+      mb     03/25/26 Remove hard code shared_mem section address</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

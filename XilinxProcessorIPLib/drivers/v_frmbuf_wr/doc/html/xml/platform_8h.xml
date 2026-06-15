@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="platform_8h" kind="file">
+    <compoundname>platform.h</compoundname>
+    <includedby refid="xv__frmbufwr__example_8c" local="yes">xv_frmbufwr_example.c</includedby>
+    <invincdepgraph>
+      <node id="7">
+        <label>platform.h</label>
+        <link refid="platform.h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xv_frmbufwr_example.c</label>
+        <link refid="xv__frmbufwr__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="platform_8h_1afddcfa5cf23f52259c9da7f926a4af57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_platform</definition>
+        <argsstring>()</argsstring>
+        <name>init_platform</name>
+        <briefdescription>
+<para>Initializes the platform hardware and enables necessary features. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function performs platform-specific initialization steps required before running the main application. It optionally calls ps7_init() for Zynq platforms if running outside of the SDK, enables instruction and data caches, and initializes the UART for standard output.</para><para><itemizedlist>
+<listitem><para>For Zynq: Optionally calls ps7_init() if needed (see comments).</para></listitem><listitem><para>Enables processor caches.</para></listitem><listitem><para>Initializes UART for console output. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="16" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="106" bodyend="117"/>
+        <references refid="platform_8c_1a7a1d24821c9663bd8a1a9db242458765" compoundref="platform_8c" startline="39" endline="52">enable_caches</references>
+        <references refid="platform_8c_1a7c8ab9435f095e55019fe880192c3537" compoundref="platform_8c" startline="82" endline="91">init_uart</references>
+        <referencedby refid="xv__frmbufwr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xv__frmbufwr__example_8c" startline="805" endline="969">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="platform_8h_1a074e46b818accd4588b2fdf6dee7ec00" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cleanup_platform</definition>
+        <argsstring>()</argsstring>
+        <name>cleanup_platform</name>
+        <briefdescription>
+<para>Cleans up the platform by disabling caches. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is typically called during the shutdown or cleanup phase of the application to ensure that all processor caches are properly disabled before exiting or resetting the system. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h" line="17" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.c" bodystart="127" bodyend="130"/>
+        <references refid="platform_8c_1a592da31a05d50149a2bc4ebe0fe52470" compoundref="platform_8c" startline="63" endline="67">disable_caches</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor">#ifndef<sp/>__PLATFORM_H_</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__PLATFORM_H_</highlight></codeline>
+<codeline lineno="15"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="platform_8c_1afddcfa5cf23f52259c9da7f926a4af57" kindref="member">init_platform</ref>();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="platform_8c_1a074e46b818accd4588b2fdf6dee7ec00" kindref="member">cleanup_platform</ref>();</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_frmbuf_wr/examples/src/platform.h"/>
+  </compounddef>
+</doxygen>

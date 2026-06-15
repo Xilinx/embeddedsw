@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___rsa_key_mgmt" kind="struct" prot="public">
+    <compoundname>XSecure_RsaKeyMgmt</compoundname>
+    <includes local="no">xsecure_plat_rsa.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_mgmt_1ae329c4c1f8394e1c90d05fe72d3667ec" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___rsa_key_gen_param" kindref="compound">XSecure_RsaKeyGenParam</ref></type>
+        <definition>XSecure_RsaKeyGenParam XSecure_RsaKeyMgmt::Key[XSECURE_RSA_MAX_KEY_GEN_SUPPORT]</definition>
+        <argsstring>[XSECURE_RSA_MAX_KEY_GEN_SUPPORT]</argsstring>
+        <name>Key</name>
+        <briefdescription>
+<para>Key parameters for RSA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_RsaKeyMgmt::KeyInUse</definition>
+        <argsstring></argsstring>
+        <name>KeyInUse</name>
+        <briefdescription>
+<para>Index of the key currently in use. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__xsecure__rsa__server__apis_1gabc66468fdd66a559fa567f631fbae91c" compoundref="xsecure__plat__rsa_8c" startline="542" endline="551">XSecure_GetRsaKeyInUseIdx</referencedby>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga547d58774dd7e1821688203999e1b5e2" compoundref="xsecure__plat__rsa_8c" startline="562" endline="610">XSecure_RsaDestroyKeyInUse</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold parameters for RSA key management. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="121">
+        <label>XSecure_RsaKeyPair</label>
+        <link refid="struct_x_secure___rsa_key_pair"/>
+        <childnode refid="122" relation="usage">
+          <edgelabel>PrivKey</edgelabel>
+        </childnode>
+        <childnode refid="123" relation="usage">
+          <edgelabel>PubKey</edgelabel>
+        </childnode>
+      </node>
+      <node id="122">
+        <label>XSecure_RsaPrivKey</label>
+        <link refid="struct_x_secure___rsa_priv_key"/>
+      </node>
+      <node id="123">
+        <label>XSecure_RsaPubKey</label>
+        <link refid="struct_x_secure___rsa_pub_key"/>
+      </node>
+      <node id="120">
+        <label>XSecure_RsaKeyGenParam</label>
+        <link refid="struct_x_secure___rsa_key_gen_param"/>
+        <childnode refid="121" relation="usage">
+          <edgelabel>KeyPair</edgelabel>
+        </childnode>
+      </node>
+      <node id="119">
+        <label>XSecure_RsaKeyMgmt</label>
+        <link refid="struct_x_secure___rsa_key_mgmt"/>
+        <childnode refid="120" relation="usage">
+          <edgelabel>Key</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/key_unwrap/xsecure_plat_rsa.h" bodystart="160" bodyend="164"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___rsa_key_mgmt_1ae329c4c1f8394e1c90d05fe72d3667ec" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyMgmt</scope><name>Key</name></member>
+      <member refid="struct_x_secure___rsa_key_mgmt_1a9b34d39a9f35f55fb2e29bf9c9fbbcd5" prot="public" virt="non-virtual"><scope>XSecure_RsaKeyMgmt</scope><name>KeyInUse</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

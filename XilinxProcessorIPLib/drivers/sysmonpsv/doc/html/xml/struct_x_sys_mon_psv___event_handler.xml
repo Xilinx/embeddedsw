@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_sys_mon_psv___event_handler" kind="struct" prot="public">
+    <compoundname>XSysMonPsv_EventHandler</compoundname>
+    <includes local="no">xsysmonpsv_driver.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_sys_mon_psv___event_handler_1a7d819b2533611e30b36883fa9939aba9" prot="public" static="no" mutable="no">
+        <type><ref refid="xsysmonpsv__driver_8h_1ace82b8d812c9cfb257766db1aad68a66" kindref="member">XSysMonPsv_Handler</ref></type>
+        <definition>XSysMonPsv_Handler XSysMonPsv_EventHandler::Handler</definition>
+        <argsstring></argsstring>
+        <name>Handler</name>
+        <briefdescription>
+<para>Event handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psv___event_handler_1a44f72bf2d7f03f4a445ce880cacde776" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSysMonPsv_EventHandler::CallbackRef</definition>
+        <argsstring></argsstring>
+        <name>CallbackRef</name>
+        <briefdescription>
+<para>Callback reference for event handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psv___event_handler_1a1019d36bfb5387bb8d14381cf2355e12" prot="public" static="no" mutable="no">
+        <type>XSysMonPsv_Supply</type>
+        <definition>XSysMonPsv_Supply XSysMonPsv_EventHandler::Supply</definition>
+        <argsstring></argsstring>
+        <name>Supply</name>
+        <briefdescription>
+<para>Supply for which event is set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_sys_mon_psv___event_handler_1a8ad03542dd631d1a90c9bc74b36bdaa2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSysMonPsv_EventHandler::IsCallbackSet</definition>
+        <argsstring></argsstring>
+        <name>IsCallbackSet</name>
+        <briefdescription>
+<para>Flag to check if a callback has been set. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is an interrupt callback structure where callbacks and the callback reference is stored. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmonpsv/src/lowlevel/xsysmonpsv_driver.h" bodystart="98" bodyend="105"/>
+    <listofallmembers>
+      <member refid="struct_x_sys_mon_psv___event_handler_1a44f72bf2d7f03f4a445ce880cacde776" prot="public" virt="non-virtual"><scope>XSysMonPsv_EventHandler</scope><name>CallbackRef</name></member>
+      <member refid="struct_x_sys_mon_psv___event_handler_1a7d819b2533611e30b36883fa9939aba9" prot="public" virt="non-virtual"><scope>XSysMonPsv_EventHandler</scope><name>Handler</name></member>
+      <member refid="struct_x_sys_mon_psv___event_handler_1a8ad03542dd631d1a90c9bc74b36bdaa2" prot="public" virt="non-virtual"><scope>XSysMonPsv_EventHandler</scope><name>IsCallbackSet</name></member>
+      <member refid="struct_x_sys_mon_psv___event_handler_1a1019d36bfb5387bb8d14381cf2355e12" prot="public" virt="non-virtual"><scope>XSysMonPsv_EventHandler</scope><name>Supply</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

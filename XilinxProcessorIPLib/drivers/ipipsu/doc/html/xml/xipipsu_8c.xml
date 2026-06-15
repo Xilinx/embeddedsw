@@ -1,0 +1,619 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xipipsu_8c" kind="file">
+    <compoundname>xipipsu.c</compoundname>
+    <includes refid="xipipsu_8h" local="yes">xipipsu.h</includes>
+    <includes refid="xipipsu__hw_8h" local="yes">xipipsu_hw.h</includes>
+    <includes refid="xipipsu__buf_8h" local="yes">xipipsu_buf.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>xil_io.h</label>
+      </node>
+      <node id="10">
+        <label>xipipsu_hw.h</label>
+        <link refid="xipipsu__hw_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xipipsu.c</label>
+        <link refid="xipipsu.c"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xipipsu.h</label>
+        <link refid="xipipsu_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>xipipsu_buf.h</label>
+        <link refid="xipipsu__buf_8h"/>
+      </node>
+      <node id="9">
+        <label>xstatus.h</label>
+      </node>
+      <node id="11">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__ipipsu__api_1ga9fb4494480ae0079422956f2af1da357" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_CfgInitialize</definition>
+        <argsstring>(XIpiPsu *InstancePtr, XIpiPsu_Config *CfgPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XIpiPsu_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes the Instance pointer based on a given Config Pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the instance to be worked on </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device configuration structure containing required hardware build data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device. If address translation is not utilized, this parameter can be passed in using CfgPtr-&gt;Config. BaseAddress to specify the physical base address. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful XST_FAILURE in case of failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="69" bodyend="102"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" compoundref="xipipsu_8h" startline="134">XIpiPsu_Target::BufferIndex</references>
+        <references refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" compoundref="xipipsu_8h" startline="148">XIpiPsu_Config::BufferIndex</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" compoundref="xipipsu_8h" startline="149">XIpiPsu_Config::IntId</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" compoundref="xipipsu_8h" startline="133">XIpiPsu_Target::Mask</references>
+        <references refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" compoundref="xipipsu_8h" startline="154">XIpiPsu_Config::TargetCount</references>
+        <references refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" compoundref="xipipsu_8h" startline="155">XIpiPsu_Config::TargetList</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xipipsu__self__test__example_8c" startline="291" endline="357">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XIpiPsu_Reset</definition>
+        <argsstring>(XIpiPsu *InstancePtr)</argsstring>
+        <name>XIpiPsu_Reset</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Resets the given IPI register set. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>    This function can be called to disable the IPIs from all
+    the sources and clear any pending IPIs in status register
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="113" bodyend="128"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" compoundref="xipipsu__hw_8h" startline="93">XIPIPSU_ALL_MASK</references>
+        <references refid="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" compoundref="xipipsu__hw_8h" startline="76">XIPIPSU_IDR_OFFSET</references>
+        <references refid="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" compoundref="xipipsu__hw_8h" startline="73">XIPIPSU_ISR_OFFSET</references>
+        <references refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" compoundref="xipipsu_8h" startline="202">XIpiPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga8aa0005ec03abef3b3c1a506cb924e6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_TriggerIpi</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 DestCpuMask)</argsstring>
+        <name>XIpiPsu_TriggerIpi</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <briefdescription>
+<para>Triggers an IPI to a Destination CPU. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the CPU to which IPI is to be triggered</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="141" bodyend="152"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" compoundref="xipipsu__hw_8h" startline="71">XIPIPSU_TRIG_OFFSET</references>
+        <references refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" compoundref="xipipsu_8h" startline="202">XIpiPsu_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_PollForAck</definition>
+        <argsstring>(const XIpiPsu *InstancePtr, u32 DestCpuMask, u32 TimeOutCount)</argsstring>
+        <name>XIpiPsu_PollForAck</name>
+        <param>
+          <type>const <ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>TimeOutCount</declname>
+        </param>
+        <briefdescription>
+<para>Polls for an acknowledgement using Observation Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mask of the destination CPU from which ACK is expected </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TimeOutCount</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Count after which the routines returns failure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if a timeout occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="165" bodyend="191"/>
+        <references refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" compoundref="xipipsu_8h" startline="146">XIpiPsu_Config::BaseAddress</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" compoundref="xipipsu__hw_8h" startline="72">XIPIPSU_OBS_OFFSET</references>
+        <references refid="group__ipipsu_1gac400a6861c1d0ee565ad5fac914a7220" compoundref="xipipsu_8h" startline="184">XIpiPsu_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga64113249dac23760b5cc0e9d038f8361" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_ReadMessage</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLength, u8 BufferType)</argsstring>
+        <name>XIpiPsu_ReadMessage</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SrcCpuMask</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLength</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Read an Incoming Message from a Source. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Mask for the CPU which has sent the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Buffer to which the read message needs to be stored </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="207" bodyend="248"/>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" compoundref="xipipsu_8h" startline="77">XIPIPSU_CRC_ERROR</references>
+        <references refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" compoundref="xipipsu_8h" startline="73">XIPIPSU_CRC_INDEX</references>
+        <references refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</references>
+        <references refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" compoundref="xipipsu_8h" startline="93">XIPIPSU_MAX_MSG_LEN</references>
+        <references refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" compoundref="xipipsu_8h" startline="74">XIPIPSU_W0_TO_W6_SIZE</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__ipipsu__api_1ga429d934e93e38c71d92ad98775b9cd92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>XStatus</type>
+        <definition>XStatus XIpiPsu_WriteMessage</definition>
+        <argsstring>(XIpiPsu *InstancePtr, u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLength, u8 BufferType)</argsstring>
+        <name>XIpiPsu_WriteMessage</name>
+        <param>
+          <type><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DestCpuMask</declname>
+        </param>
+        <param>
+          <type>const u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLength</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>BufferType</declname>
+        </param>
+        <briefdescription>
+<para>Sends a Message to Destination. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to current IPI instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DestCpuMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Device Mask for the destination CPU </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Buffer which contains the message to be sent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLength</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of messages (each message is 4bytes) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufferType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Type of buffer (XIPIPSU_BUF_TYPE_MSG or XIPIPSU_BUF_TYPE_RESP)</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if successful XST_FAILURE if an error occurred </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c" bodystart="264" bodyend="296"/>
+        <references refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" compoundref="xipipsu_8h" startline="147">XIpiPsu_Config::BitMask</references>
+        <references refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" compoundref="xipipsu_8h" startline="164">XIpiPsu::Config</references>
+        <references refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" compoundref="xipipsu_8h" startline="165">XIpiPsu::IsReady</references>
+        <references refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" compoundref="xipipsu_8h" startline="73">XIPIPSU_CRC_INDEX</references>
+        <references refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" compoundref="xipipsu__buf_8c" startline="50" endline="85">XIpiPsu_GetBufferAddress</references>
+        <references refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" compoundref="xipipsu_8h" startline="93">XIPIPSU_MAX_MSG_LEN</references>
+        <references refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" compoundref="xipipsu_8h" startline="74">XIPIPSU_W0_TO_W6_SIZE</references>
+        <referencedby refid="xipipsu__self__test__example_8c_1a2dc7058c8f10506fd4279462d399d33a" compoundref="xipipsu__self__test__example_8c" startline="116" endline="169">IpiIntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xipipsu_8h" kindref="compound">xipipsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xipipsu__hw_8h" kindref="compound">xipipsu_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xipipsu__buf_8h" kindref="compound">xipipsu_buf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="69" refid="group__ipipsu_1ga9fb4494480ae0079422956f2af1da357" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="group__ipipsu__api_1ga9fb4494480ae0079422956f2af1da357" kindref="member">XIpiPsu_CfgInitialize</ref>(<ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddress)</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>device<sp/>base<sp/>address<sp/>and<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.DeviceId<sp/>=<sp/>CfgPtr-&gt;DeviceId;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref><sp/>=<sp/>EffectiveAddress;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" kindref="member">IntId</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" kindref="member">IntId</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.IntrParent<sp/>=<sp/>CfgPtr-&gt;IntrParent;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" kindref="member">BufferIndex</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" kindref="member">BufferIndex</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" kindref="member">TargetCount</ref><sp/>=<sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" kindref="member">TargetCount</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>TargetList<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a8df4537dada42c7a73d1072ad59d2626" kindref="member">TargetCount</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" kindref="member">TargetList</ref>[Index].<ref refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" kindref="member">Mask</ref><sp/>=</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" kindref="member">TargetList</ref>[Index].<ref refid="struct_x_ipi_psu___target_1a4ac80767ed4dcfd90d9a02db6a2a8eb4" kindref="member">Mask</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" kindref="member">TargetList</ref>[Index].<ref refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" kindref="member">BufferIndex</ref><sp/>=</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CfgPtr-&gt;<ref refid="struct_x_ipi_psu___config_1af7eb9b8148ebf278905b19dbd404b727" kindref="member">TargetList</ref>[Index].<ref refid="struct_x_ipi_psu___target_1ad8cf0011981eb538784e520195585e74" kindref="member">BufferIndex</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Mark<sp/>the<sp/>component<sp/>as<sp/>Ready<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XStatus)<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="group__ipipsu_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__ipipsu__api_1ga9c55b8deb0e6b0a4ff355ad3a74aa2f1" kindref="member">XIpiPsu_Reset</ref>(<ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/**************Disable***************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" kindref="member">XIpiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__ipipsu__api_1ga81c99cede6902a231b207281d9a6e212" kindref="member">XIPIPSU_IDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" kindref="member">XIPIPSU_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/**************Clear***************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" kindref="member">XIpiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__ipipsu__api_1ga5c9abd1d0247d6b28268131d90b62a05" kindref="member">XIPIPSU_ISR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu__api_1ga708ab6017d3971d9f9c0bf052fcdfd2f" kindref="member">XIPIPSU_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141" refid="group__ipipsu_1ga8aa0005ec03abef3b3c1a506cb924e6e" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="group__ipipsu__api_1ga8aa0005ec03abef3b3c1a506cb924e6e" kindref="member">XIpiPsu_TriggerIpi</ref>(<ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>DestCpuMask)</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>an<sp/>IPI<sp/>to<sp/>the<sp/>Target<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga72bcaac2f32ad480f79204f868309c31" kindref="member">XIpiPsu_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref>,<sp/><ref refid="group__ipipsu__api_1ga7b5daa2f9a7fef0e3897606b491dafcc" kindref="member">XIPIPSU_TRIG_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DestCpuMask);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XStatus)<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165" refid="group__ipipsu_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="group__ipipsu__api_1ga8153ea7257d7db9dd3f2ac0dd03e2ee2" kindref="member">XIpiPsu_PollForAck</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>DestCpuMask,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimeOutCount)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Flag,<sp/>PollCount;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PollCount<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Poll<sp/>the<sp/>OBS<sp/>register<sp/>until<sp/>the<sp/>corresponding<sp/>DestCpu<sp/>bit<sp/>is<sp/>cleared<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">do</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Flag<sp/>=<sp/>(<ref refid="group__ipipsu_1gac400a6861c1d0ee565ad5fac914a7220" kindref="member">XIpiPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu__api_1ga1ca8515703f72eb2194a408cfa5b4a18" kindref="member">XIPIPSU_OBS_OFFSET</ref>))<sp/>&amp;<sp/>(DestCpuMask);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PollCount++;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>if<sp/>the<sp/>IPI<sp/>was<sp/>Acknowledged<sp/>by<sp/>the<sp/>Target<sp/>or<sp/>we<sp/>Timed<sp/>Out*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((0x00000000U<sp/>!=<sp/>Flag)<sp/>&amp;&amp;<sp/>(PollCount<sp/>&lt;<sp/>TimeOutCount));</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0x00000000U<sp/>!=<sp/>Flag)<sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)XST_FAILURE;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207" refid="group__ipipsu_1ga64113249dac23760b5cc0e9d038f8361" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="group__ipipsu__api_1ga64113249dac23760b5cc0e9d038f8361" kindref="member">XIpiPsu_ReadMessage</ref>(<ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>SrcCpuMask,<sp/>u32<sp/>*MsgPtr,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLength,<sp/>u8<sp/>BufferType)</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>(XStatus)<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BufferPtr;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Crc;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Crc;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgLength<sp/>&lt;=<sp/><ref refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kindref="member">XIPIPSU_MAX_MSG_LEN</ref>);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Get<sp/>the<sp/>Buffer<sp/>Address<sp/>for<sp/>a<sp/>given<sp/>pair<sp/>of<sp/>CPUs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr<sp/>=<sp/><ref refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" kindref="member">XIpiPsu_GetBufferAddress</ref>(InstancePtr,<sp/>SrcCpuMask,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref>,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BufferPtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ENABLE_IPI_CRC</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Crc<sp/>=<sp/>XIpiPsu_CalculateCRC((u32)(uintptr_t)BufferPtr,<sp/><ref refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kindref="member">XIPIPSU_W0_TO_W6_SIZE</ref>);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Word<sp/>8<sp/>in<sp/>IPI<sp/>is<sp/>reserved<sp/>for<sp/>storing<sp/>CRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BufferPtr[<ref refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kindref="member">XIPIPSU_CRC_INDEX</ref>]<sp/>!=<sp/>Crc)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)<ref refid="group__ipipsu_1gac57efc54862ee5bea23a3e217388a2dc" kindref="member">XIPIPSU_CRC_ERROR</ref>;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>IPI<sp/>Buffer<sp/>contents<sp/>into<sp/>Users&apos;s<sp/>Buffer*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>MsgLength;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MsgPtr[Index]<sp/>=<sp/>BufferPtr[Index];</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ENABLE_IPI_CRC</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>statement<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264" refid="group__ipipsu_1ga429d934e93e38c71d92ad98775b9cd92" refkind="member"><highlight class="normal">XStatus<sp/><ref refid="group__ipipsu__api_1ga429d934e93e38c71d92ad98775b9cd92" kindref="member">XIpiPsu_WriteMessage</ref>(<ref refid="struct_x_ipi_psu" kindref="compound">XIpiPsu</ref><sp/>*InstancePtr,<sp/>u32<sp/>DestCpuMask,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>*MsgPtr,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MsgLength,<sp/>u8<sp/>BufferType)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XStatus<sp/>Status<sp/>=<sp/>(XStatus)XST_FAILURE;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*BufferPtr;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1adefbfd74e9c2ee38710b9ed805504a68" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(MsgLength<sp/>&lt;=<sp/><ref refid="group__ipipsu_1ga6191e58907dea92be1f8fd83a2673be8" kindref="member">XIPIPSU_MAX_MSG_LEN</ref>);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Get<sp/>the<sp/>Buffer<sp/>Address<sp/>for<sp/>a<sp/>given<sp/>pair<sp/>of<sp/>CPUs<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr<sp/>=<sp/><ref refid="group__ipipsu__api_1ga1404a6dc6d1ff0a6baf80a74e6bdb6e5" kindref="member">XIpiPsu_GetBufferAddress</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_ipi_psu_1ad9074c920ef0af4db9ea831e463d65ad" kindref="member">Config</ref>.<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref>,<sp/>DestCpuMask,<sp/>BufferType);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(BufferPtr<sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Copy<sp/>the<sp/>Message<sp/>to<sp/>IPI<sp/>Buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>MsgLength;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr[Index]<sp/>=<sp/>MsgPtr[Index];</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ENABLE_IPI_CRC</highlight></codeline>
+<codeline lineno="287"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Word<sp/>8<sp/>in<sp/>IPI<sp/>is<sp/>reserved<sp/>for<sp/>storing<sp/>CRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BufferPtr[<ref refid="group__ipipsu_1ga0b65ba4c02df42fe764615f99546fa56" kindref="member">XIPIPSU_CRC_INDEX</ref>]<sp/>=</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIpiPsu_CalculateCRC((u32)(uintptr_t)BufferPtr,<sp/><ref refid="group__ipipsu_1ga60f742faef33529c730b02614441789b" kindref="member">XIPIPSU_W0_TO_W6_SIZE</ref>);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XStatus)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Return<sp/>statement<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="319"><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="320"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XIpiPsu_SetConfigTable(u32<sp/>DeviceId,<sp/><ref refid="struct_x_ipi_psu___config" kindref="compound">XIpiPsu_Config</ref><sp/>*ConfigTblPtr)</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>input<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ConfigTblPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Loop<sp/>through<sp/>all<sp/>the<sp/>IPI<sp/>devices<sp/>present<sp/>in<sp/>the<sp/>system<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XIPIPSU_NUM_INSTANCES<sp/>!=<sp/>0</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>XPAR_XIPIPSU_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>up<sp/>the<sp/>device<sp/>configuration<sp/>based<sp/>on<sp/>the<sp/>unique<sp/>device<sp/>ID<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kindref="member">XIpiPsu_ConfigTable</ref>[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kindref="member">XIpiPsu_ConfigTable</ref>[Index].<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref><sp/>=<sp/>ConfigTblPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a0d87ebd028051d4a05ab03410aadbc00" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kindref="member">XIpiPsu_ConfigTable</ref>[Index].<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref><sp/>=<sp/>ConfigTblPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a2057231c9bccf22dadbb50ae9ef93222" kindref="member">BitMask</ref>;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kindref="member">XIpiPsu_ConfigTable</ref>[Index].<ref refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" kindref="member">BufferIndex</ref><sp/>=<sp/>ConfigTblPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a05cc5c627e65d8e37754913d0fc90470" kindref="member">BufferIndex</ref>;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__ipipsu_1ga3d2dd48cfc18bf089c15ce6b61c3f031" kindref="member">XIpiPsu_ConfigTable</ref>[Index].<ref refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" kindref="member">IntId</ref><sp/>=<sp/>ConfigTblPtr-&gt;<ref refid="struct_x_ipi_psu___config_1a3382d79fc242c571c9649aa91629689f" kindref="member">IntId</ref>;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="339"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)DeviceId;</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Index;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ipipsu/src/xipipsu.c"/>
+  </compounddef>
+</doxygen>

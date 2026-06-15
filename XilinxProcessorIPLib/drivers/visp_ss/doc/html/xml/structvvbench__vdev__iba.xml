@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structvvbench__vdev__iba" kind="struct" prot="public">
+    <compoundname>vvbench_vdev_iba</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1a14de5c2fc19250cecee03cc277365bd1" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga03d5afda881a720931044845b7659167" kindref="member">CamDeviceInputType_t</ref></type>
+        <definition>CamDeviceInputType_t vvbench_vdev_iba::inputType</definition>
+        <argsstring></argsstring>
+        <name>inputType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1af24bda25344bc4e4c88cfb17161cd670" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_iba::hpId</definition>
+        <argsstring></argsstring>
+        <name>hpId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1a0b93868cc6573ae56b9fa813667b45f6" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaa0ad14aca87c7d7a72a8ad7454245bcd" kindref="member">CamDeviceMcmPortId_t</ref></type>
+        <definition>CamDeviceMcmPortId_t vvbench_vdev_iba::portId</definition>
+        <argsstring></argsstring>
+        <name>portId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1a0712bc4ccc16db7f6f62b02869333e9f" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_iba::sensorHeight</definition>
+        <argsstring></argsstring>
+        <name>sensorHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1a57c56edbf147158be2a98b7490319412" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_iba::sensorWidth</definition>
+        <argsstring></argsstring>
+        <name>sensorWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1a1afe429fc3587ceac612ff4f0b23154e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t vvbench_vdev_iba::virtualChannelId</definition>
+        <argsstring></argsstring>
+        <name>virtualChannelId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvvbench__vdev__iba_1abef92c2f7ed0001d4012e50a84f8c645" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t vvbench_vdev_iba::ppc</definition>
+        <argsstring></argsstring>
+        <name>ppc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/iba_drv/iba.h" bodystart="118" bodyend="126"/>
+    <listofallmembers>
+      <member refid="structvvbench__vdev__iba_1af24bda25344bc4e4c88cfb17161cd670" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>hpId</name></member>
+      <member refid="structvvbench__vdev__iba_1a14de5c2fc19250cecee03cc277365bd1" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>inputType</name></member>
+      <member refid="structvvbench__vdev__iba_1a0b93868cc6573ae56b9fa813667b45f6" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>portId</name></member>
+      <member refid="structvvbench__vdev__iba_1abef92c2f7ed0001d4012e50a84f8c645" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>ppc</name></member>
+      <member refid="structvvbench__vdev__iba_1a0712bc4ccc16db7f6f62b02869333e9f" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>sensorHeight</name></member>
+      <member refid="structvvbench__vdev__iba_1a57c56edbf147158be2a98b7490319412" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>sensorWidth</name></member>
+      <member refid="structvvbench__vdev__iba_1a1afe429fc3587ceac612ff4f0b23154e" prot="public" virt="non-virtual"><scope>vvbench_vdev_iba</scope><name>virtualChannelId</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use iomodule driver.</para><sect1 id="example_1ex1">
+<title>xiomodule_selftest_example.c</title>
+<para>Contains an example on how to use the XIomodule driver directly. This example performs the basic selftest using the IO Module driver. TestApp Gen utility uses this file to perform the self test and setup of the IO Module.</para><para>For details, see <ref refid="xiomodule__selftest__example_8c" kindref="compound">xiomodule_selftest_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xiomodule_example.c</title>
+<para>Contains an example on how to use the XIomodule driver directly. This example performs the selftest using the IO Module driver.</para><para>For details, see xiomodule_example.c.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xiomodule_intr_example.c</title>
+<para>Contains an example on how to use the XIomodule driver directly. This example shows the usage of the IO Module driver in interrupt mode.</para><para>For details, see <ref refid="xiomodule__intr__example_8c" kindref="compound">xiomodule_intr_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>xiomodule_low_level_example.c</title>
+<para>Contains an example on how to use the XIomodule driver directly. This example shows the usage of the low level-0 driver, interface of the IO Module driver.</para><para>For details, see <ref refid="xiomodule__low__level__example_8c" kindref="compound">xiomodule_low_level_example.c</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

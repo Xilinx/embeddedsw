@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>v_hdmirxss</title>
+    <detaileddescription>
+<para>HDMI RX Subsystem Sub-Cores initialization The functions in this file provides an abstraction from the initialization sequence for included sub-cores. Subsystem is assigned an address and range on the axi-lite interface. This address space is condensed where-in each sub-core is at a fixed offset from the subsystem base address. For processor to be able to access the sub-core this offset needs to be translated into a absolute address within the subsystems addressable range</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00         10/07/15 Initial release.
+1.1   yh     20/01/16 Added remapper support
+1.2   MG     20/01/16 Added HDCP support
+1.3   MH     08/03/16 Added DDC read message not complete event to
+                      the function XV_HdmiRxSs_DdcHdcpCallback.
+                      Updated XV_HdmiRxSs_LinkErrorCallback
+                      function to set link error flag.
+1.4   MH     23/04/16 Remove XV_HdmiRxSs_Reset from
+                      function XV_HdmiRxSs_SubcoreInitHdmiRx
+1.5   MH     15/07/16 Added HDCP repeater support.
+1.6   YH     18/07/16 Replace xil_print with xdbg_printf.
+1.7   YH     25/07/16 Used UINTPTR instead of u32 for BaseAddr,HighAddr,Offset
+                      AbsAddr
+1.8   MH     08/08/16 Updates to optimize out HDCP when excluded.
+1.9   YH     14/11/16 Remove Remapper APIs as remapper feature is moved to
+                      video bridge and controlled by HDMI core
+1.10  MMO    03/01/17 Remove XV_HdmiRxSs_ComputeSubcoreAbsAddr API, as it
+                      handles in the &quot;_g&quot; TCL generation
+                      Move XV_HdmiRx_DdcLoadEdid to <ref refid="xv__hdmirxss_8h" kindref="compound">xv_hdmirxss.h</ref> and call it
+                      in user application
+                      Add compiler option(XV_HDMIRXSS_LOG_ENABLE) to enable Log
+3.2   MH     04/07/17 Fixed issue to prevent HDCP protocol switching when only
+                      one protocol is in the design.
+5.2   YB     13/08/18 Added XV_HdmiRxSs_DdcHdcp14ProtocolEvtCallback() and
+                      XV_HdmiRxSs_DdcHdcp22ProtocolEvtCallback() functions.
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

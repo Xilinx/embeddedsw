@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspips__hw_8c" kind="file">
+    <compoundname>xspips_hw.c</compoundname>
+    <includes refid="xspips__hw_8h" local="yes">xspips_hw.h</includes>
+    <incdepgraph>
+      <node id="101">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="98">
+        <label>xspips_hw.c</label>
+        <link refid="xspips_hw.c"/>
+        <childnode refid="99" relation="include">
+        </childnode>
+      </node>
+      <node id="99">
+        <label>xspips_hw.h</label>
+        <link refid="xspips__hw_8h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xil_io.h</label>
+      </node>
+      <node id="100">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spips_1gab466a4718bbee60293dc226ca043d5b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpiPs_ResetHw</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XSpiPs_ResetHw</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Resets the spi module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.c" bodystart="59" bodyend="120"/>
+        <references refid="group__spips_1gab5bbcb1636123949d0fb41c76d7f77bd" compoundref="xspips__hw_8h" startline="58">XSPIPS_CR_OFFSET</references>
+        <references refid="group__spips_1gaec8a40193324debd139e5f47fbb2c943" compoundref="xspips__hw_8h" startline="99">XSPIPS_CR_RESET_STATE</references>
+        <references refid="group__spips_1ga0a2016ac5799028970f07ff16749e135" compoundref="xspips__hw_8h" startline="86">XSPIPS_CR_SSCTRL_MASK</references>
+        <references refid="group__spips_1ga96a2524f86a513015b982462f7a6ffcb" compoundref="xspips__hw_8h" startline="63">XSPIPS_ER_OFFSET</references>
+        <references refid="group__spips_1gad82a11ae1f014d578834f1522a8a94ca" compoundref="xspips__hw_8h" startline="242">XSPIPS_FIFO_DEPTH</references>
+        <references refid="group__spips_1ga7c019fcf06dccd6efc0026238755e9bb" compoundref="xspips__hw_8h" startline="61">XSPIPS_IDR_OFFSET</references>
+        <references refid="group__spips_1ga58051be9e1582d618f4c75be29a32734" compoundref="xspips__hw_8h" startline="154">XSPIPS_IXR_DISABLE_ALL_MASK</references>
+        <references refid="group__spips_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" compoundref="xspips__hw_8h" startline="140">XSPIPS_IXR_RXNEMPTY_MASK</references>
+        <references refid="group__spips_1gaefc16123501616910c471781dc5a6763" compoundref="xspips__hw_8h" startline="148">XSPIPS_IXR_WR_TO_CLR_MASK</references>
+        <references refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" compoundref="xspips__hw_8h" startline="266">XSpiPs_ReadReg</references>
+        <references refid="group__spips_1ga63d53a4c31627791748d8b77d3c24cac" compoundref="xspips__hw_8h" startline="66">XSPIPS_RXD_OFFSET</references>
+        <references refid="group__spips_1ga8e6d59478b0789f6ea58abbc85fc1947" compoundref="xspips__hw_8h" startline="230">XSPIPS_RXWR_MASK</references>
+        <references refid="group__spips_1ga708b416f4994dca83b3d50a464552286" compoundref="xspips__hw_8h" startline="69">XSPIPS_RXWR_OFFSET</references>
+        <references refid="group__spips_1gab806ad4fc5536152742b74aa67f91cc7" compoundref="xspips__hw_8h" startline="231">XSPIPS_RXWR_RESET_VALUE</references>
+        <references refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" compoundref="xspips__hw_8h" startline="59">XSPIPS_SR_OFFSET</references>
+        <references refid="group__spips_1gac3beb6059f26dbf07ad7f2e8f1b8449c" compoundref="xspips__hw_8h" startline="216">XSPIPS_TXWR_MASK</references>
+        <references refid="group__spips_1ga82b0c7855556fbb3d13b1d0fc3f7ae24" compoundref="xspips__hw_8h" startline="68">XSPIPS_TXWR_OFFSET</references>
+        <references refid="group__spips_1ga7a9a7acd83ec76540bc267398ee3bb20" compoundref="xspips__hw_8h" startline="217">XSPIPS_TXWR_RESET_VALUE</references>
+        <references refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" compoundref="xspips__hw_8h" startline="285">XSpiPs_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2013<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspips__hw_8h" kindref="compound">xspips_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="59" refid="group__spips_1gab466a4718bbee60293dc226ca043d5b5" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spips_1gab466a4718bbee60293dc226ca043d5b5" kindref="member">XSpiPs_ResetHw</ref>(u32<sp/>BaseAddress)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Check;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(versal)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Count;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>Interrupts</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga7c019fcf06dccd6efc0026238755e9bb" kindref="member">XSPIPS_IDR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga58051be9e1582d618f4c75be29a32734" kindref="member">XSPIPS_IXR_DISABLE_ALL_MASK</ref>);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>device</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga96a2524f86a513015b982462f7a6ffcb" kindref="member">XSPIPS_ER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>default<sp/>value<sp/>to<sp/>RX<sp/>and<sp/>TX<sp/>threshold<sp/>registers</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>RX<sp/>threshold<sp/>should<sp/>be<sp/>set<sp/>to<sp/>1<sp/>here<sp/>as<sp/>the<sp/>corresponding</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>status<sp/>bit<sp/>is<sp/>used<sp/>to<sp/>clear<sp/>the<sp/>FIFO<sp/>next</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga82b0c7855556fbb3d13b1d0fc3f7ae24" kindref="member">XSPIPS_TXWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__spips_1ga7a9a7acd83ec76540bc267398ee3bb20" kindref="member">XSPIPS_TXWR_RESET_VALUE</ref><sp/>&amp;<sp/><ref refid="group__spips_1gac3beb6059f26dbf07ad7f2e8f1b8449c" kindref="member">XSPIPS_TXWR_MASK</ref>));</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga708b416f4994dca83b3d50a464552286" kindref="member">XSPIPS_RXWR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__spips_1gab806ad4fc5536152742b74aa67f91cc7" kindref="member">XSPIPS_RXWR_RESET_VALUE</ref><sp/>&amp;<sp/><ref refid="group__spips_1ga8e6d59478b0789f6ea58abbc85fc1947" kindref="member">XSPIPS_RXWR_MASK</ref>));</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="88"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>RXFIFO</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Check<sp/>=<sp/>(<ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(BaseAddress,<ref refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" kindref="member">XSPIPS_SR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" kindref="member">XSPIPS_IXR_RXNEMPTY_MASK</ref>);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Check<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga63d53a4c31627791748d8b77d3c24cac" kindref="member">XSPIPS_RXD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Check<sp/>=<sp/>(<ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(BaseAddress,<ref refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" kindref="member">XSPIPS_SR_OFFSET</ref>)<sp/>&amp;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga72359f1b9dc7e5c5f0c5fdb3f6d62fc4" kindref="member">XSPIPS_IXR_RXNEMPTY_MASK</ref>);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="99"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>all<sp/>RXFIFO<sp/>entries</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(versal)</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Count<sp/>=<sp/>0U;<sp/>Count<sp/>&lt;<sp/><ref refid="group__spips_1gad82a11ae1f014d578834f1522a8a94ca" kindref="member">XSPIPS_FIFO_DEPTH</ref>;<sp/>Count++)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__spips_1ga3c4c628392bc69b6295b28d8736d3c14" kindref="member">XSpiPs_ReadReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga63d53a4c31627791748d8b77d3c24cac" kindref="member">XSPIPS_RXD_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>status<sp/>register<sp/>by<sp/>writing<sp/>1<sp/>to<sp/>the<sp/>write<sp/>to<sp/>clear<sp/>bits</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1ga29c45b21694c49560b05b5773a976ff5" kindref="member">XSPIPS_SR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1gaefc16123501616910c471781dc5a6763" kindref="member">XSPIPS_IXR_WR_TO_CLR_MASK</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>default<sp/>value<sp/>to<sp/>configuration<sp/>register</highlight></codeline>
+<codeline lineno="114"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>De-select<sp/>all<sp/>slaves</highlight></codeline>
+<codeline lineno="115"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga16d6923c47520aea34852e4c439bc02a" kindref="member">XSpiPs_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__spips_1gab5bbcb1636123949d0fb41c76d7f77bd" kindref="member">XSPIPS_CR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1gaec8a40193324debd139e5f47fbb2c943" kindref="member">XSPIPS_CR_RESET_STATE</ref><sp/>|</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spips_1ga0a2016ac5799028970f07ff16749e135" kindref="member">XSPIPS_CR_SSCTRL_MASK</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spips/src/xspips_hw.c"/>
+  </compounddef>
+</doxygen>

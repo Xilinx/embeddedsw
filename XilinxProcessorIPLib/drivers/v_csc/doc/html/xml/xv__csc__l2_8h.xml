@@ -1,0 +1,1430 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__csc__l2_8h" kind="file">
+    <compoundname>xv_csc_l2.h</compoundname>
+    <includes local="yes">xvidc.h</includes>
+    <includes refid="xv__csc_8h" local="yes">xv_csc.h</includes>
+    <includedby refid="xv__csc__l2_8c" local="yes">xv_csc_l2.c</includedby>
+    <incdepgraph>
+      <node id="53">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="55">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>xstatus.h</label>
+      </node>
+      <node id="49">
+        <label>xv_csc_l2.h</label>
+        <link refid="xv_csc_l2.h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xvidc.h</label>
+      </node>
+      <node id="51">
+        <label>xv_csc.h</label>
+        <link refid="xv__csc_8h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xil_types.h</label>
+      </node>
+      <node id="56">
+        <label>xv_csc_hw.h</label>
+        <link refid="xv__csc__hw_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="58">
+        <label>xv_csc_l2.c</label>
+        <link refid="xv__csc__l2_8c"/>
+      </node>
+      <node id="57">
+        <label>xv_csc_l2.h</label>
+        <link refid="xv_csc_l2.h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v___csc__l2" prot="public">XV_Csc_l2</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__v__csc_1gaf833337764481ca5b97d889acfb90cee" prot="public" static="no">
+        <name>XV_CSC_L2_H</name>
+        <initializer>/* by using protection macros  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga64197c10301089d2df889c814d682276" prot="public" static="no">
+        <name>XV_CscSetColorDepth</name>
+        <param><defname>InstancePtr</defname></param>
+        <param><defname>val</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorDepth = val)</initializer>
+        <briefdescription>
+<para>This macro sets color depth for CSC core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to csc layer 2 fw register map </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the requested color depth</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga5c45599bf63494fa842fdfb46949f9db" prot="public" static="no">
+        <name>XV_CscGetBrightness</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Brightness-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current brightness setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga44247904cf7266b33bdfafe0b06056dc" prot="public" static="no">
+        <name>XV_CscGetContrast</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Contrast+200)/4)</initializer>
+        <briefdescription>
+<para>This macro returns current contrast setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga2c5f658989238bacea802495baacdcd5" prot="public" static="no">
+        <name>XV_CscGetSaturation</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;Saturation/2))</initializer>
+        <briefdescription>
+<para>This macro returns current saturation setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa84271d02b17ffc948826a8f2b8f642d" prot="public" static="no">
+        <name>XV_CscGetRedGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;RedGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current red gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gac7b104c7b9430aed10c28a8c54c507d8" prot="public" static="no">
+        <name>XV_CscGetGreenGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;GreenGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current green gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="240" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga09e0fb8bf2b17717b6e014d6b89a40a0" prot="public" static="no">
+        <name>XV_CscGetBlueGain</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>(((InstancePtr)-&gt;BlueGain-20)/2)</initializer>
+        <briefdescription>
+<para>This macro returns current blue gain setting by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates between hw register value and user view</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>current user view value (0-100) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaa7c01b92e88b643e2c8b58402a23cfde" prot="public" static="no">
+        <name>XV_CscGetColorFormatIn</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorFormatIn)</initializer>
+        <briefdescription>
+<para>This macro returns current set input color format by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set input color format<itemizedlist>
+<listitem><para>XVIDC_CSF_RGB</para></listitem><listitem><para>XVIDC_CSF_YCRCB_444</para></listitem><listitem><para>XVIDC_CSF_YCRCB_422</para></listitem><listitem><para>XVIDC_CSF_YCRCB_420 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf960cebc158ba892309bfb83af11d296" prot="public" static="no">
+        <name>XV_CscGetColorFormatOut</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;ColorFormatOut)</initializer>
+        <briefdescription>
+<para>This macro returns current set output color format by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output color format<itemizedlist>
+<listitem><para>XVIDC_CSF_RGB</para></listitem><listitem><para>XVIDC_CSF_YCRCB_444</para></listitem><listitem><para>XVIDC_CSF_YCRCB_422</para></listitem><listitem><para>XVIDC_CSF_YCRCB_420 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga43a4458bb55d2fbc58b65cd72b49db48" prot="public" static="no">
+        <name>XV_CscGetColorStdIn</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;StandardIn)</initializer>
+        <briefdescription>
+<para>This macro returns current set input color standard by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set input color standard<itemizedlist>
+<listitem><para>XVIDC_BT_2020</para></listitem><listitem><para>XVIDC_BT_709</para></listitem><listitem><para>XVIDC_BT_601 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="299" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga99a8ce4a7905aae4ceae065f48cd5370" prot="public" static="no">
+        <name>XV_CscGetColorStdOut</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;StandardOut)</initializer>
+        <briefdescription>
+<para>This macro returns current set output color standard by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output color standard<itemizedlist>
+<listitem><para>XVIDC_BT_2020</para></listitem><listitem><para>XVIDC_BT_709</para></listitem><listitem><para>XVIDC_BT_601 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="314" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga61bba94ca1f8272cd447ba620028273b" prot="public" static="no">
+        <name>XV_CscGetOutputRange</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;OutputRange)</initializer>
+        <briefdescription>
+<para>This macro returns current set output range by reading layer 2 fw register map. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current set output range<itemizedlist>
+<listitem><para>XVIDC_CR_16_235</para></listitem><listitem><para>XVIDC_CR_16_240</para></listitem><listitem><para>XVIDC_CR_0_255 </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1gaf7d53698d5230e388a1250a060785643" prot="public" static="no">
+        <name>XV_CscIs422Enabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.Is422Enabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for 4:2:2 processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="340" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="340" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" compoundref="xv__csc__l2_8c" startline="302" endline="408">XV_CscSetColorspace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" prot="public" static="no">
+        <name>XV_CscIs420Enabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.Is420Enabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for 4:2:0 processing. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="352" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" compoundref="xv__csc__l2_8c" startline="302" endline="408">XV_CscSetColorspace</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" prot="public" static="no">
+        <name>XV_CscIsDemoWindowEnabled</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>((InstancePtr)-&gt;Csc.Config.IsDemoWindowEnabled)</initializer>
+        <briefdescription>
+<para>This macro checks if Csc instance is enabled for the Demo Window. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns 1 if condition is TRUE or 0 if FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="364" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" compoundref="xv__csc__l2_8c" startline="1550" endline="1665">XV_CscDbgReportStatus</referencedby>
+        <referencedby refid="group__v__csc_1gaf292fda68307691c8eb707cef94a21e4" compoundref="xv__csc__l2_8c" startline="237" endline="253">XV_CscSetActiveSize</referencedby>
+        <referencedby refid="group__v__csc_1ga1acc886bb9176f51894cfdb8c86dbe52" compoundref="xv__csc__l2_8c" startline="268" endline="283">XV_CscSetDemoWindow</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__v__csc_1ga5727999afb7f47264f4cd625c8b56f8a" prot="public" static="no">
+        <name>XV_CSC_FW_REG_MMAP</name>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa38bd003d8f4a47a87dec8d9724013445" prot="public">
+          <name>CSC_FW_REG_ColStart</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa410afec614a45b8318a8644d5074c1fb" prot="public">
+          <name>CSC_FW_REG_ColEnd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0e9f8c26d5f0e1149d55086945599241" prot="public">
+          <name>CSC_FW_REG_RowStart</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aabecd9fbd3548a11b954f6859ba6bd53a" prot="public">
+          <name>CSC_FW_REG_RowEnd</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaa59a67bbd2f0013443c3f4ed5a20c1f5" prot="public">
+          <name>CSC_FW_REG_K11</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae5cd15b10d1d2a547b27c462e0697c13" prot="public">
+          <name>CSC_FW_REG_K12</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa5f1558abfa6e3d08a517bc226b1bdda3" prot="public">
+          <name>CSC_FW_REG_K13</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac36082c814e4ce27011fd96484b5a597" prot="public">
+          <name>CSC_FW_REG_K21</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa5d20cbe6621352abc535d279837c3c85" prot="public">
+          <name>CSC_FW_REG_K22</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa41061769737c98b37e045e46ce007e77" prot="public">
+          <name>CSC_FW_REG_K23</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa4099dad17196f1125e06dd85ff4e1eea" prot="public">
+          <name>CSC_FW_REG_K31</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac1eb6f1d6a4184271554ef3e235235af" prot="public">
+          <name>CSC_FW_REG_K32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0fc4fb20669cbeb80a94a65a3ea6d2e0" prot="public">
+          <name>CSC_FW_REG_K33</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa47b834e238702eb6ccae784a72003f75" prot="public">
+          <name>CSC_FW_REG_ROffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae0144eb22401fce0d8c3aaf06b859b99" prot="public">
+          <name>CSC_FW_REG_GOffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaca06858b6be530b497985504df81b10d" prot="public">
+          <name>CSC_FW_REG_BOffset</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa1cf8f7b07a7637ef9605f36fa877eefb" prot="public">
+          <name>CSC_FW_REG_ClampMin</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae07af33a8cc86c2e314eef82888a76ae" prot="public">
+          <name>CSC_FW_REG_ClipMax</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aafc83971dcde4121aa9dba9d917c651c9" prot="public">
+          <name>CSC_FW_REG_K11_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaefdb9182daca060446f852de9079a782" prot="public">
+          <name>CSC_FW_REG_K12_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa6d61328d876cab827c825c466c59cfb0" prot="public">
+          <name>CSC_FW_REG_K13_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa0b0fbdaa2062705198c7c901e1b4e3ad" prot="public">
+          <name>CSC_FW_REG_K21_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aac123ce8d7596341b8a4d23da843f4a87" prot="public">
+          <name>CSC_FW_REG_K22_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae32d7149c9c175b78356159526d51c47" prot="public">
+          <name>CSC_FW_REG_K23_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa15e427c3a1da4679637810675abdbbb9" prot="public">
+          <name>CSC_FW_REG_K31_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa2764a00b13826195e71aa61ade9fff8c" prot="public">
+          <name>CSC_FW_REG_K32_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaa3c896e28ebac88e79c38d4a11b8de08" prot="public">
+          <name>CSC_FW_REG_K33_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aae2dcb174ef884df9eed73dfc4293a840" prot="public">
+          <name>CSC_FW_REG_ROffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa50b25251f08390b5843b79095bd1de3e" prot="public">
+          <name>CSC_FW_REG_GOffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aab03485ccd81af15d72ba7feb7e9c3b6d" prot="public">
+          <name>CSC_FW_REG_BOffset_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aaf0b4d47412d7eb3b753a6f4cc92c26ba" prot="public">
+          <name>CSC_FW_REG_ClampMin_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa840f3cad188320e4a576a8cac5621c33" prot="public">
+          <name>CSC_FW_REG_ClipMax_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__v__csc_1gga5727999afb7f47264f4cd625c8b56f8aa54a193c1ac9b06b4acb7a39884871aad" prot="public">
+          <name>CSC_FW_NUM_REGS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>CSC Layer 2 Register Map. </para>        </briefdescription>
+        <detaileddescription>
+<para>Each instance of the csc core will have it&apos;s own register map </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h" bodystart="100" bodyend="135"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__csc_1gac0589adf3f09f600265cebc7b07a36cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscInitialize</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, u16 DeviceId)</argsstring>
+        <name>XV_CscInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>DeviceId</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the core instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to core instance to be worked upon </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is instance id of the core</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if device is found and initialized XST_DEVICE_NOT_FOUND if device is not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="133" bodyend="146"/>
+        <references refid="xv__csc_8h_1a84c5de6224bb013d089fb70e67940be9" compoundref="xv__csc__sinit_8c" startline="136" endline="150">XV_csc_Initialize</references>
+        <references refid="group__v__csc_1ga7c7f84f16fce5fe23a6920bc79c5c95f" compoundref="xv__csc__l2_8c" startline="157" endline="190">XV_CscSetPowerOnDefaultState</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga7c7f84f16fce5fe23a6920bc79c5c95f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetPowerOnDefaultState</definition>
+        <argsstring>(XV_Csc_l2 *CscPtr)</argsstring>
+        <name>XV_CscSetPowerOnDefaultState</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>CscPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the CSC IP layer 2 fw registers to power on default state. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CscPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the layer 2</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="157" bodyend="190"/>
+        <referencedby refid="group__v__csc_1gac0589adf3f09f600265cebc7b07a36cd" compoundref="xv__csc__l2_8c" startline="133" endline="146">XV_CscInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga6530def7371f71788fa5de71a9d9b886" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscStart</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscStart</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function starts the Color space converter core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="201" bodyend="207"/>
+        <references refid="xv__csc_8c_1a1f9b6ae52bfa2222ebbe3f75aa573508" compoundref="xv__csc_8c" startline="177" endline="182">XV_csc_EnableAutoRestart</references>
+        <references refid="xv__csc_8c_1a581de2fe3bbb051d654bd27413200a88" compoundref="xv__csc_8c" startline="77" endline="85">XV_csc_Start</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga42801845038afafff53e9c6d993c289b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscStop</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscStop</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stops the Color space converter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="218" bodyend="223"/>
+        <references refid="xv__csc_8c_1aec496e7295e4b195af47b5a49703f451" compoundref="xv__csc_8c" startline="201" endline="206">XV_csc_DisableAutoRestart</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaf292fda68307691c8eb707cef94a21e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetActiveSize</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, u32 width, u32 height)</argsstring>
+        <name>XV_CscSetActiveSize</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+<para>This function set the frame resolution for the Color space converter This also will reset the demo window to full frame. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream width </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>height</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the input stream height</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="237" bodyend="253"/>
+        <references refid="xv__csc_8c_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1a35c88ca527cee1ca2900237915b0c6e4" compoundref="xv__csc_8c" startline="343" endline="348">XV_csc_Set_HwReg_height</references>
+        <references refid="xv__csc_8c_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</references>
+        <references refid="xv__csc_8c_1a5a75fe188408191dcfabcccfa6d7368a" compoundref="xv__csc_8c" startline="304" endline="309">XV_csc_Set_HwReg_width</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga1acc886bb9176f51894cfdb8c86dbe52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscSetDemoWindow</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, XVidC_VideoWindow *DemoWindow)</argsstring>
+        <name>XV_CscSetDemoWindow</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_VideoWindow *</type>
+          <declname>DemoWindow</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the demo window for the Color space converter. </para>        </briefdescription>
+        <detaileddescription>
+<para>Any pixel outside the demo window will not be impacted and will be passed to output as-is</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DemoWindow</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is structure that contains window coordinates and size</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if this core instance has the demo window enabled XST_FAILURE if this instance does not have the demo window enabled </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="268" bodyend="283"/>
+        <references refid="xv__csc_8c_1a30b3c72b21e3173884300993c536a54a" compoundref="xv__csc_8c" startline="425" endline="430">XV_csc_Set_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1a98ba79ef63d272819249c122a0be9498" compoundref="xv__csc_8c" startline="386" endline="391">XV_csc_Set_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1aff6a75865ec9dbbe528a81330fb39e47" compoundref="xv__csc_8c" startline="506" endline="511">XV_csc_Set_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a2992ce020280a7131e122e2c281704de" compoundref="xv__csc_8c" startline="466" endline="471">XV_csc_Set_HwReg_RowStart</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_CscSetColorspace</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, XVidC_ColorFormat cfmtIn, XVidC_ColorFormat cfmtOut, XVidC_ColorStd cstdIn, XVidC_ColorStd cstdOut, XVidC_ColorRange cRangeOut)</argsstring>
+        <name>XV_CscSetColorspace</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmtIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorFormat</type>
+          <declname>cfmtOut</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdIn</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorStd</type>
+          <declname>cstdOut</declname>
+        </param>
+        <param>
+          <type>XVidC_ColorRange</type>
+          <declname>cRangeOut</declname>
+        </param>
+        <briefdescription>
+<para>This function configures the Color space converter to user specified settings. </para>        </briefdescription>
+        <detaileddescription>
+<para>Before any feature specific calls in layer-2 driver is made the csc core should have been configured via this call.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmtIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is input color space </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cfmtOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is output color space </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdIn</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is input color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cstdOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is output color standard </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>cRangeOut</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the selected output range</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the requested color format is allowed XST_FAILURE if YUV422/420 color format is requested but not allowed </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="302" bodyend="408"/>
+        <references refid="xv__csc_8c_1a6ce5722b5dcca57855b376e22ca955b7" compoundref="xv__csc_8c" startline="221" endline="226">XV_csc_Set_HwReg_InVideoFormat</references>
+        <references refid="xv__csc_8c_1a27a1dc48278f8fe5174adcf6547d7750" compoundref="xv__csc_8c" startline="262" endline="267">XV_csc_Set_HwReg_OutVideoFormat</references>
+        <references refid="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" compoundref="xv__csc__l2_8h" startline="352">XV_CscIs420Enabled</references>
+        <references refid="group__v__csc_1gaf7d53698d5230e388a1250a060785643" compoundref="xv__csc__l2_8h" startline="340">XV_CscIs422Enabled</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga60cbe310415d9dcd5e6db00a23be089b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetBrightness</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetBrightness</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set brightness to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new brightness value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1015" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1015" bodyend="1051"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga39498f3e3098cdde5734507533279447" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetContrast</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetContrast</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set contrast to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new contrast value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1064" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1064" bodyend="1102"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga06171a7d42f91d7adb7142c36cec466e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetSaturation</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetSaturation</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set saturation to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new saturation value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1115" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1115" bodyend="1213"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gaa3091d626dc4bcc874d0d0affbc6d1d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetRedGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetRedGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set red gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1226" bodyend="1262"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1gab0c861550c14ab24e4c9169d0dabdd45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetGreenGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetGreenGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set green gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1275" bodyend="1311"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga4650c3c96038d35ba1f00e19ecdebede" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscSetBlueGain</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr, s32 val)</argsstring>
+        <name>XV_CscSetBlueGain</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>s32</type>
+          <declname>val</declname>
+        </param>
+        <briefdescription>
+<para>This function set blue gain to specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para>It also translates user setting of 0-100 to hw register range</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to csc core instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>val</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is new gain value</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1324" bodyend="1360"/>
+      </memberdef>
+      <memberdef kind="function" id="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_CscDbgReportStatus</definition>
+        <argsstring>(XV_Csc_l2 *InstancePtr)</argsstring>
+        <name>XV_CscDbgReportStatus</name>
+        <param>
+          <type><ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function prints CSC IP status on console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the instance pointer to the CSC IP instance to be worked on</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" line="1550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.c" bodystart="1550" bodyend="1665"/>
+        <references refid="struct_x_v__csc___config_1a1f297fa0ed983778047000e20bfacc2d" compoundref="xv__csc_8h" startline="55">XV_csc_Config::BaseAddress</references>
+        <references refid="struct_x_v__csc_1aa5c39284c336caccb3d700680b1f73ed" compoundref="xv__csc_8h" startline="70">XV_csc::Config</references>
+        <references refid="group__v__csc_1ga83b645a410a8dc7e5d4f9c27bb624816" compoundref="xv__csc__hw_8h" startline="237">XV_CSC_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__csc_8c_1ae42005a17542d24272f720b3caed35f8" compoundref="xv__csc_8c" startline="1358" endline="1366">XV_csc_Get_HwReg_BOffset_2_V</references>
+        <references refid="xv__csc_8c_1ad98d76905b03c3db6a1cd8ed7a48596c" compoundref="xv__csc_8c" startline="938" endline="946">XV_csc_Get_HwReg_BOffset_V</references>
+        <references refid="xv__csc_8c_1ab90ed6c8a94b0e0e45d5f0703977ee54" compoundref="xv__csc_8c" startline="1388" endline="1396">XV_csc_Get_HwReg_ClampMin_2_V</references>
+        <references refid="xv__csc_8c_1a87a996c7449fe599b556001891398aa0" compoundref="xv__csc_8c" startline="968" endline="976">XV_csc_Get_HwReg_ClampMin_V</references>
+        <references refid="xv__csc_8c_1a65327fb05fce3c084015bba495bd0dce" compoundref="xv__csc_8c" startline="1418" endline="1426">XV_csc_Get_HwReg_ClipMax_2_V</references>
+        <references refid="xv__csc_8c_1a37a6fa57effd58b482af27beb0f70b52" compoundref="xv__csc_8c" startline="998" endline="1006">XV_csc_Get_HwReg_ClipMax_V</references>
+        <references refid="xv__csc_8c_1aae3fa4d2bc63ebd92a435b0e92ffdc40" compoundref="xv__csc_8c" startline="446" endline="454">XV_csc_Get_HwReg_ColEnd</references>
+        <references refid="xv__csc_8c_1aed9a23dda1e8bd1f2df9505f8f2c4f5d" compoundref="xv__csc_8c" startline="404" endline="412">XV_csc_Get_HwReg_ColStart</references>
+        <references refid="xv__csc_8c_1a6bb1e97d755318c356aaa765963571df" compoundref="xv__csc_8c" startline="1328" endline="1336">XV_csc_Get_HwReg_GOffset_2_V</references>
+        <references refid="xv__csc_8c_1a4240e6c41352852e7149fedf18495f46" compoundref="xv__csc_8c" startline="908" endline="916">XV_csc_Get_HwReg_GOffset_V</references>
+        <references refid="xv__csc_8c_1a181bbd14d25d0a00fd0fa9a768617e21" compoundref="xv__csc_8c" startline="362" endline="370">XV_csc_Get_HwReg_height</references>
+        <references refid="xv__csc_8c_1a41c21697ba4370619266f107e2a564ab" compoundref="xv__csc_8c" startline="239" endline="247">XV_csc_Get_HwReg_InVideoFormat</references>
+        <references refid="xv__csc_8c_1a7216117d3f10d0b79f2ca05136222587" compoundref="xv__csc_8c" startline="561" endline="569">XV_csc_Get_HwReg_K11</references>
+        <references refid="xv__csc_8c_1a5850ebe7b62db9e9fa0f9ba5e5ad1282" compoundref="xv__csc_8c" startline="1028" endline="1036">XV_csc_Get_HwReg_K11_2</references>
+        <references refid="xv__csc_8c_1a970a5d8f1fc900355f5d9996530b3ea6" compoundref="xv__csc_8c" startline="599" endline="607">XV_csc_Get_HwReg_K12</references>
+        <references refid="xv__csc_8c_1a5df661bedc7bd2bfd49b00b2c1a0d3da" compoundref="xv__csc_8c" startline="1058" endline="1066">XV_csc_Get_HwReg_K12_2</references>
+        <references refid="xv__csc_8c_1a1b64e290be48fdbbd136961d8eaae8a8" compoundref="xv__csc_8c" startline="640" endline="648">XV_csc_Get_HwReg_K13</references>
+        <references refid="xv__csc_8c_1ab599dea538bb8d247b29a8ed21603e47" compoundref="xv__csc_8c" startline="1088" endline="1096">XV_csc_Get_HwReg_K13_2</references>
+        <references refid="xv__csc_8c_1a3e8ec952e8331025a362ef3d0acac8d0" compoundref="xv__csc_8c" startline="681" endline="689">XV_csc_Get_HwReg_K21</references>
+        <references refid="xv__csc_8c_1a97db008681e8e0c47cdfbbf98259ea66" compoundref="xv__csc_8c" startline="1118" endline="1126">XV_csc_Get_HwReg_K21_2</references>
+        <references refid="xv__csc_8c_1ac2e62bbe175cc4cfa8a9b46a3d9c24f1" compoundref="xv__csc_8c" startline="722" endline="730">XV_csc_Get_HwReg_K22</references>
+        <references refid="xv__csc_8c_1a2833b85659c94f15b3ca94458f854302" compoundref="xv__csc_8c" startline="1148" endline="1156">XV_csc_Get_HwReg_K22_2</references>
+        <references refid="xv__csc_8c_1aa65f1084f09f69546f15215da1548c56" compoundref="xv__csc_8c" startline="757" endline="765">XV_csc_Get_HwReg_K23</references>
+        <references refid="xv__csc_8c_1a578075406869631aad822139241f5d4a" compoundref="xv__csc_8c" startline="1178" endline="1186">XV_csc_Get_HwReg_K23_2</references>
+        <references refid="xv__csc_8c_1ac9b5e6422f7c22d0da3d587be6495d55" compoundref="xv__csc_8c" startline="787" endline="795">XV_csc_Get_HwReg_K31</references>
+        <references refid="xv__csc_8c_1ae20ccca45067096347713ac4798e9950" compoundref="xv__csc_8c" startline="1208" endline="1216">XV_csc_Get_HwReg_K31_2</references>
+        <references refid="xv__csc_8c_1ad8975ad96ac269ca8398e1ef0262d5d6" compoundref="xv__csc_8c" startline="817" endline="825">XV_csc_Get_HwReg_K32</references>
+        <references refid="xv__csc_8c_1a73c1e70493bcb6d56d4f8e92781dfadc" compoundref="xv__csc_8c" startline="1238" endline="1246">XV_csc_Get_HwReg_K32_2</references>
+        <references refid="xv__csc_8c_1a4b2079eb4a597a20a46f4162a62a865a" compoundref="xv__csc_8c" startline="847" endline="855">XV_csc_Get_HwReg_K33</references>
+        <references refid="xv__csc_8c_1ac56d6c355abd342e932230daca7dd7b2" compoundref="xv__csc_8c" startline="1268" endline="1276">XV_csc_Get_HwReg_K33_2</references>
+        <references refid="xv__csc_8c_1a61b1d34bc8b1e8f7deb2447328ed0323" compoundref="xv__csc_8c" startline="281" endline="289">XV_csc_Get_HwReg_OutVideoFormat</references>
+        <references refid="xv__csc_8c_1a48d62c832cb0318b86638dcf5873f465" compoundref="xv__csc_8c" startline="1298" endline="1306">XV_csc_Get_HwReg_ROffset_2_V</references>
+        <references refid="xv__csc_8c_1ac45c3e29178cd4b9f1ad4884606dea66" compoundref="xv__csc_8c" startline="878" endline="886">XV_csc_Get_HwReg_ROffset_V</references>
+        <references refid="xv__csc_8c_1a477a37e00231d7173258fc57d86a0a93" compoundref="xv__csc_8c" startline="524" endline="532">XV_csc_Get_HwReg_RowEnd</references>
+        <references refid="xv__csc_8c_1a1be2750d8f4806b9f5e71af55ede8d26" compoundref="xv__csc_8c" startline="485" endline="493">XV_csc_Get_HwReg_RowStart</references>
+        <references refid="xv__csc_8c_1ad890d086dca06e33581d16e10d0826f2" compoundref="xv__csc_8c" startline="320" endline="328">XV_csc_Get_HwReg_width</references>
+        <references refid="xv__csc_8c_1a0a6d268b5f168e65c99376b2a052d44d" compoundref="xv__csc_8c" startline="99" endline="107">XV_csc_IsDone</references>
+        <references refid="xv__csc_8c_1a8dc1ebd5815055fe03ef358cc9e74a00" compoundref="xv__csc_8c" startline="123" endline="131">XV_csc_IsIdle</references>
+        <references refid="xv__csc_8c_1a719f8d4a659dac2ddeb418d894138d04" compoundref="xv__csc_8c" startline="148" endline="157">XV_csc_IsReady</references>
+        <references refid="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" compoundref="xv__csc__l2_8h" startline="352">XV_CscIs420Enabled</references>
+        <references refid="group__v__csc_1gaf7d53698d5230e388a1250a060785643" compoundref="xv__csc__l2_8h" startline="340">XV_CscIs422Enabled</references>
+        <references refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" compoundref="xv__csc__l2_8h" startline="364">XV_CscIsDemoWindowEnabled</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor">#ifndef<sp/>XV_CSC_L2_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_CSC_L2_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__csc_8h" kindref="compound">xv_csc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="100" refid="group__v__csc_1ga5727999afb7f47264f4cd625c8b56f8a" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ColStart<sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ColEnd,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_RowStart,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_RowEnd,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K11,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K12,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K13,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K21,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K22,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K23,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K31,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K32,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K33,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ROffset,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_GOffset,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_BOffset,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ClampMin,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ClipMax,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K11_2,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K12_2,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K13_2,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K21_2,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K22_2,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K23_2,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K31_2,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K32_2,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_K33_2,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ROffset_2,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_GOffset_2,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_BOffset_2,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ClampMin_2,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_REG_ClipMax_2,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/>CSC_FW_NUM_REGS</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">}<ref refid="group__v__csc_1ga5727999afb7f47264f4cd625c8b56f8a" kindref="member">XV_CSC_FW_REG_MMAP</ref>;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142" refid="struct_x_v___csc__l2" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><ref refid="struct_x_v__csc" kindref="compound">XV_csc</ref><sp/>Csc;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;&lt;<sp/>Layer<sp/>1<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/>XVidC_ColorFormat<sp/>ColorFormatIn;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>XVidC_ColorFormat<sp/>ColorFormatOut;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/>XVidC_ColorStd<sp/>StandardIn;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>XVidC_ColorStd<sp/>StandardOut;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>XVidC_ColorRange<sp/>OutputRange;</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>XVidC_ColorDepth<sp/>ColorDepth;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>s32<sp/>Brightness;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>s32<sp/>Contrast;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>s32<sp/>Saturation;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>s32<sp/>RedGain;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>s32<sp/>GreenGain;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>s32<sp/>BlueGain;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>s32<sp/>Brightness_active;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/>s32<sp/>Contrast_active;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>s32<sp/>Saturation_active;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/>s32<sp/>RedGain_active;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/>s32<sp/>GreenGain_active;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>s32<sp/>BlueGain_active;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/>s32<sp/>K_active[3][4];</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>s32<sp/>regMap[CSC_FW_NUM_REGS];</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Macros<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="179" refid="group__v__csc_1ga64197c10301089d2df889c814d682276" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscSetColorDepth(InstancePtr,<sp/>val)<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;ColorDepth<sp/>=<sp/>val)</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="group__v__csc_1ga5c45599bf63494fa842fdfb46949f9db" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetBrightness(InstancePtr)<sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;Brightness-20)/2)</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="204" refid="group__v__csc_1ga44247904cf7266b33bdfafe0b06056dc" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetContrast(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;Contrast+200)/4)</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="216" refid="group__v__csc_1ga2c5f658989238bacea802495baacdcd5" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetSaturation(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;Saturation/2))</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="228" refid="group__v__csc_1gaa84271d02b17ffc948826a8f2b8f642d" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetRedGain(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;RedGain-20)/2)</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="240" refid="group__v__csc_1gac7b104c7b9430aed10c28a8c54c507d8" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetGreenGain(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;GreenGain-20)/2)</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="252" refid="group__v__csc_1ga09e0fb8bf2b17717b6e014d6b89a40a0" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetBlueGain(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((InstancePtr)-&gt;BlueGain-20)/2)</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="268" refid="group__v__csc_1gaa7c01b92e88b643e2c8b58402a23cfde" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetColorFormatIn(InstancePtr)<sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;ColorFormatIn)</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="284" refid="group__v__csc_1gaf960cebc158ba892309bfb83af11d296" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetColorFormatOut(InstancePtr)<sp/><sp/><sp/>((InstancePtr)-&gt;ColorFormatOut)</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="299" refid="group__v__csc_1ga43a4458bb55d2fbc58b65cd72b49db48" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetColorStdIn(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;StandardIn)</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="314" refid="group__v__csc_1ga99a8ce4a7905aae4ceae065f48cd5370" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetColorStdOut(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;StandardOut)</highlight></codeline>
+<codeline lineno="315"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="329" refid="group__v__csc_1ga61bba94ca1f8272cd447ba620028273b" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscGetOutputRange(InstancePtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/>((InstancePtr)-&gt;OutputRange)</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="340" refid="group__v__csc_1gaf7d53698d5230e388a1250a060785643" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscIs422Enabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="341"><highlight class="preprocessor"><sp/><sp/><sp/>((InstancePtr)-&gt;Csc.Config.Is422Enabled)</highlight></codeline>
+<codeline lineno="342"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="352" refid="group__v__csc_1ga91c4bc0d3d5629de2513e11f5c8f597e" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscIs420Enabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="353"><highlight class="preprocessor"><sp/><sp/><sp/>((InstancePtr)-&gt;Csc.Config.Is420Enabled)</highlight></codeline>
+<codeline lineno="354"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="364" refid="group__v__csc_1ga15d61516819df5462ec57bdc5b647c15" refkind="member"><highlight class="preprocessor">#define<sp/>XV_CscIsDemoWindowEnabled(InstancePtr)<sp/>\</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"><sp/><sp/><sp/>((InstancePtr)-&gt;Csc.Config.IsDemoWindowEnabled)</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1gac0589adf3f09f600265cebc7b07a36cd" kindref="member">XV_CscInitialize</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga7c7f84f16fce5fe23a6920bc79c5c95f" kindref="member">XV_CscSetPowerOnDefaultState</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*CscPtr);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga6530def7371f71788fa5de71a9d9b886" kindref="member">XV_CscStart</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga42801845038afafff53e9c6d993c289b" kindref="member">XV_CscStop</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1gaf292fda68307691c8eb707cef94a21e4" kindref="member">XV_CscSetActiveSize</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/>width,</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/>height);</highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga1acc886bb9176f51894cfdb8c86dbe52" kindref="member">XV_CscSetDemoWindow</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>XVidC_VideoWindow<sp/>*DemoWindow);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1gab637899a2ea6f077f3222496cc6b4777" kindref="member">XV_CscSetColorspace</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>cfmtIn,</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorFormat<sp/>cfmtOut,</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorStd<sp/><sp/><sp/><sp/>cstdIn,</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorStd<sp/><sp/><sp/><sp/>cstdOut,</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_ColorRange<sp/><sp/>cRangeOut</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>);</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga60cbe310415d9dcd5e6db00a23be089b" kindref="member">XV_CscSetBrightness</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga39498f3e3098cdde5734507533279447" kindref="member">XV_CscSetContrast</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga06171a7d42f91d7adb7142c36cec466e" kindref="member">XV_CscSetSaturation</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1gaa3091d626dc4bcc874d0d0affbc6d1d5" kindref="member">XV_CscSetRedGain</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1gab0c861550c14ab24e4c9169d0dabdd45" kindref="member">XV_CscSetGreenGain</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga4650c3c96038d35ba1f00e19ecdebede" kindref="member">XV_CscSetBlueGain</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr,<sp/>s32<sp/>val);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__csc_1ga457129c97acda4bcd19b2ec799fe43f3" kindref="member">XV_CscDbgReportStatus</ref>(<ref refid="struct_x_v___csc__l2" kindref="compound">XV_Csc_l2</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="394"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="396"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="397"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_csc/src/xv_csc_l2.h"/>
+  </compounddef>
+</doxygen>

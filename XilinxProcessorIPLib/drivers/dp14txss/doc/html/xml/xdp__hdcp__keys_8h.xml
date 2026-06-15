@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdp__hdcp__keys_8h" kind="file">
+    <compoundname>xdp_hdcp_keys.h</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xiic.h</includes>
+    <includes refid="zcu__pt__dp14__hdcp_2aes256_8h" local="yes">aes256.h</includes>
+    <includes refid="sha256_8h" local="yes">sha256.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="yes">xuartps.h</includes>
+    <includedby refid="xdp__hdcp__keys_8c" local="yes">xdp_hdcp_keys.c</includedby>
+    <incdepgraph>
+      <node id="1889">
+        <label>xuartps.h</label>
+      </node>
+      <node id="1882">
+        <label>sleep.h</label>
+      </node>
+      <node id="1879">
+        <label>xdp_hdcp_keys.h</label>
+        <link refid="xdp_hdcp_keys.h"/>
+        <childnode refid="1880" relation="include">
+        </childnode>
+        <childnode refid="1881" relation="include">
+        </childnode>
+        <childnode refid="1882" relation="include">
+        </childnode>
+        <childnode refid="1883" relation="include">
+        </childnode>
+        <childnode refid="1884" relation="include">
+        </childnode>
+        <childnode refid="1885" relation="include">
+        </childnode>
+        <childnode refid="1887" relation="include">
+        </childnode>
+        <childnode refid="1888" relation="include">
+        </childnode>
+        <childnode refid="1889" relation="include">
+        </childnode>
+      </node>
+      <node id="1886">
+        <label>stddef.h</label>
+      </node>
+      <node id="1888">
+        <label>string.h</label>
+      </node>
+      <node id="1885">
+        <label>sha256.h</label>
+        <childnode refid="1886" relation="include">
+        </childnode>
+      </node>
+      <node id="1880">
+        <label>xstatus.h</label>
+      </node>
+      <node id="1884">
+        <label>aes256.h</label>
+      </node>
+      <node id="1887">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1881">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="1883">
+        <label>xiic.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1891">
+        <label>xdp_hdcp_keys.c</label>
+        <link refid="xdp__hdcp__keys_8c"/>
+      </node>
+      <node id="1890">
+        <label>xdp_hdcp_keys.h</label>
+        <link refid="xdp_hdcp_keys.h"/>
+        <childnode refid="1891" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdp__hdcp__keys_8h_1a659e5479b0b5cf586ac14189edd896eb" prot="public" static="no">
+        <name>XDP_HDCP_KEYS_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" line="26" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__hdcp__keys_8h_1a3a2c427ef364970942b3db15e9d0f04d" prot="public" static="no">
+        <name>XHdcp_KeyMgmtBlk_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Input Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdp__hdcp__keys_8h_1a08475cc8ee0597de3c01ae2308866bf5" prot="public" static="no">
+        <name>XHdcp_KeyMgmtBlk_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Output Operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdp__hdcp__keys_8h_1aecaae90ea9d3f9e2720059eb0b83dd6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp_LoadKeys</definition>
+        <argsstring>(u8 *Hdcp22Lc128, u32 Hdcp22Lc128Size, u8 *Hdcp22RxPrivateKey, u32 Hdcp22RxPrivateKeySize, u8 *Hdcp14KeyA, u32 Hdcp14KeyASize, u8 *Hdcp14KeyB, u32 Hdcp14KeyBSize)</argsstring>
+        <name>XHdcp_LoadKeys</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp22Lc128</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp22Lc128Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp22RxPrivateKey</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp22RxPrivateKeySize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14KeyA</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp14KeyASize</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14KeyB</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Hdcp14KeyBSize</declname>
+        </param>
+        <briefdescription>
+<para>This function loads the HDCP keys from the eeprom. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if action was successful</para></listitem><listitem><para>XST_FAILURE if action was not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" line="54" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.c" bodystart="111" bodyend="193"/>
+      </memberdef>
+      <memberdef kind="function" id="xdp__hdcp__keys_8h_1a1a85fb59f068baefa8d04e243f468e25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp_KeyManagerInit</definition>
+        <argsstring>(u32 BaseAddress, u8 *Hdcp14Key)</argsstring>
+        <name>XHdcp_KeyManagerInit</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Hdcp14Key</declname>
+        </param>
+        <briefdescription>
+<para>This function initialize the HDCP 1.4 key manager. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if action was successful</para></listitem><listitem><para>XST_FAILURE if action was not successful </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h" line="56" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.c" bodystart="206" bodyend="329"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main header file for the Xilinx HDCP key loading utility used in the DP example design. </para>    </briefdescription>
+    <detaileddescription>
+<para>The HDCP cores are used for content protection according to the HDCP 1.4 and HDCP 2.2 specifications.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date       Changes
+<hruler/>
+
+1.0   ND   30-12-2020 Initial version
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020-2021Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor">#ifndef<sp/>XDP_HDCP_KEYS_H_</highlight></codeline>
+<codeline lineno="25" refid="xdp__hdcp__keys_8h_1a659e5479b0b5cf586ac14189edd896eb" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_HDCP_KEYS_H_<sp/></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xiic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;aes256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sha256.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(XPAR_XUARTLITE_NUM_INSTANCES)<sp/>&amp;&amp;<sp/>(!defined<sp/>(versal))</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartlite_l.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>versal</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartpsv.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XHdcp_KeyMgmtBlk_In32<sp/><sp/>Xil_In32<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="50" refid="xdp__hdcp__keys_8h_1a3a2c427ef364970942b3db15e9d0f04d" refkind="member"><highlight class="preprocessor">#define<sp/>XHdcp_KeyMgmtBlk_Out32<sp/>Xil_Out32<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdp__hdcp__keys_8c_1aecaae90ea9d3f9e2720059eb0b83dd6e" kindref="member">XHdcp_LoadKeys</ref>(u8<sp/>*Hdcp22Lc128,<sp/>u32<sp/>Hdcp22Lc128Size,<sp/>u8<sp/>*Hdcp22RxPrivateKey,<sp/>u32<sp/>Hdcp22RxPrivateKeySize,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*Hdcp14KeyA,<sp/>u32<sp/>Hdcp14KeyASize,<sp/>u8<sp/>*Hdcp14KeyB,<sp/>u32<sp/>Hdcp14KeyBSize);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xdp__hdcp__keys_8c_1a1a85fb59f068baefa8d04e243f468e25" kindref="member">XHdcp_KeyManagerInit</ref>(u32<sp/>BaseAddress,<sp/>u8<sp/>*Hdcp14Key);</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14txss/examples/src/zcu_pt_dp14_hdcp/xdp_hdcp_keys.h"/>
+  </compounddef>
+</doxygen>

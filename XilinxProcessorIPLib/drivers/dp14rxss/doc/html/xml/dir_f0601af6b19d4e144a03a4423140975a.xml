@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_f0601af6b19d4e144a03a4423140975a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerdir refid="dir_1552216b5436e7a086b58835dce36f23">com</innerdir>
+    <innerdir refid="dir_47cab7ec5cb5e0a7248f978f00897148">dats_dp14</innerdir>
+    <innerdir refid="dir_72f4dd26b2b1800fc462bad83f4b028b">inc</innerdir>
+    <innerdir refid="dir_eb0f55012d0b188bf62fec7d70522c92">key</innerdir>
+    <innerdir refid="dir_fe0efb9d9335919bb06075b48f0927e9">rx_only</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp14rxss/examples/src/"/>
+  </compounddef>
+</doxygen>

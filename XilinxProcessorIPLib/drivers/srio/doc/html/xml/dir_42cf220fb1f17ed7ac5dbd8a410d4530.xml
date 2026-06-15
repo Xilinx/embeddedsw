@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_42cf220fb1f17ed7ac5dbd8a410d4530" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xsrio_8c">xsrio.c</innerfile>
+    <innerfile refid="xsrio_8h">xsrio.h</innerfile>
+    <innerfile refid="xsrio__g_8c">xsrio_g.c</innerfile>
+    <innerfile refid="xsrio__hw_8h">xsrio_hw.h</innerfile>
+    <innerfile refid="xsrio__sinit_8c">xsrio_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/srio/src/"/>
+  </compounddef>
+</doxygen>

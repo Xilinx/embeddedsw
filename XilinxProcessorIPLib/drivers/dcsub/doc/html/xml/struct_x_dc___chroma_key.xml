@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___chroma_key" kind="struct" prot="public">
+    <compoundname>XDc_ChromaKey</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a38e649e39d6b0e77a1abbf7b7eacba13" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::RMax</definition>
+        <argsstring></argsstring>
+        <name>RMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a0d961820c0d6c69f4e24e346e1606225" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::RMin</definition>
+        <argsstring></argsstring>
+        <name>RMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a52b64ab2772d7b644839c068cc969bda" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::GMax</definition>
+        <argsstring></argsstring>
+        <name>GMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a3e56a20ec7171ac96f930e3c70c143be" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::GMin</definition>
+        <argsstring></argsstring>
+        <name>GMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a7ab4f98ce632d2b2509630a5222b59d9" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::BMax</definition>
+        <argsstring></argsstring>
+        <name>BMax</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___chroma_key_1a7cf8f4dec89cf8606b6612688838af27" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_ChromaKey::BMin</definition>
+        <argsstring></argsstring>
+        <name>BMin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="287" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure stores the Chroma keys max, min value for each component. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="281" bodyend="288"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___chroma_key_1a7ab4f98ce632d2b2509630a5222b59d9" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>BMax</name></member>
+      <member refid="struct_x_dc___chroma_key_1a7cf8f4dec89cf8606b6612688838af27" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>BMin</name></member>
+      <member refid="struct_x_dc___chroma_key_1a52b64ab2772d7b644839c068cc969bda" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>GMax</name></member>
+      <member refid="struct_x_dc___chroma_key_1a3e56a20ec7171ac96f930e3c70c143be" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>GMin</name></member>
+      <member refid="struct_x_dc___chroma_key_1a38e649e39d6b0e77a1abbf7b7eacba13" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>RMax</name></member>
+      <member refid="struct_x_dc___chroma_key_1a0d961820c0d6c69f4e24e346e1606225" prot="public" virt="non-virtual"><scope>XDc_ChromaKey</scope><name>RMin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

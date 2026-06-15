@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structid__codes__t" kind="struct" prot="public">
+    <compoundname>id_codes_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structid__codes__t_1a058d8442b475224c51798514277bcc53" prot="public" static="no" mutable="no">
+        <type>XSKEfusePl_Fpga</type>
+        <definition>XSKEfusePl_Fpga id_codes_t::flag</definition>
+        <argsstring></argsstring>
+        <name>flag</name>
+        <briefdescription>
+<para>Fpga series of Efuse. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="228" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structid__codes__t_1a460723f9b3a3feafb876695118434726" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 id_codes_t::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+<para>Device ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="229" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structid__codes__t_1a49ed462d01fd3a8df7f4dec7b6e02145" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 id_codes_t::irLen</definition>
+        <argsstring></argsstring>
+        <name>irLen</name>
+        <briefdescription>
+<para>IR length for device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structid__codes__t_1a1109135b8a6db30fbf31d5e761bec8c9" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char id_codes_t::numSlr</definition>
+        <argsstring></argsstring>
+        <name>numSlr</name>
+        <briefdescription>
+<para>Number of SLRs in device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="231" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structid__codes__t_1ad6ab67d274d736e514eb85c9de773954" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int id_codes_t::masterSlr</definition>
+        <argsstring></argsstring>
+        <name>masterSlr</name>
+        <briefdescription>
+<para>master SLR number </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_jscmd.h" bodystart="227" bodyend="233"/>
+    <listofallmembers>
+      <member refid="structid__codes__t_1a058d8442b475224c51798514277bcc53" prot="public" virt="non-virtual"><scope>id_codes_t</scope><name>flag</name></member>
+      <member refid="structid__codes__t_1a460723f9b3a3feafb876695118434726" prot="public" virt="non-virtual"><scope>id_codes_t</scope><name>id</name></member>
+      <member refid="structid__codes__t_1a49ed462d01fd3a8df7f4dec7b6e02145" prot="public" virt="non-virtual"><scope>id_codes_t</scope><name>irLen</name></member>
+      <member refid="structid__codes__t_1ad6ab67d274d736e514eb85c9de773954" prot="public" virt="non-virtual"><scope>id_codes_t</scope><name>masterSlr</name></member>
+      <member refid="structid__codes__t_1a1109135b8a6db30fbf31d5e761bec8c9" prot="public" virt="non-virtual"><scope>id_codes_t</scope><name>numSlr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

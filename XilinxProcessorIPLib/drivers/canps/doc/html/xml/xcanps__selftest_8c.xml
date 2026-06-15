@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xcanps__selftest_8c" kind="file">
+    <compoundname>xcanps_selftest.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xcanps_8h" local="yes">xcanps.h</includes>
+    <incdepgraph>
+      <node id="95">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="92">
+        <label>xcanps.h</label>
+        <link refid="xcanps_8h"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="94" relation="include">
+        </childnode>
+      </node>
+      <node id="96">
+        <label>xil_io.h</label>
+      </node>
+      <node id="90">
+        <label>xcanps_selftest.c</label>
+        <link refid="xcanps_selftest.c"/>
+        <childnode refid="91" relation="include">
+        </childnode>
+        <childnode refid="92" relation="include">
+        </childnode>
+      </node>
+      <node id="93">
+        <label>xcanps_hw.h</label>
+        <link refid="xcanps__hw_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="96" relation="include">
+        </childnode>
+      </node>
+      <node id="91">
+        <label>xstatus.h</label>
+      </node>
+      <node id="94">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" prot="public" static="no">
+        <name>XCANPS_MAX_FRAME_SIZE_IN_WORDS</name>
+        <initializer>((<ref refid="group__canps_1ga87adc8cfc88e067c42ee749b5e59177a" kindref="member">XCANPS_MAX_FRAME_SIZE</ref>) / (sizeof(u32)))</initializer>
+        <briefdescription>
+<para>Flag for Max Frame size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" bodystart="45" bodyend="-1"/>
+        <referencedby refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" compoundref="xcanps__selftest_8c" startline="94" endline="208">XCanPs_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__canps_1ga3317b62fb7f445865d6d8288847a6dac" prot="public" static="no">
+        <name>FRAME_DATA_LENGTH</name>
+        <initializer>8U</initializer>
+        <briefdescription>
+<para>Frame Data field length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__canps_1ga4b7c1fe7f8f4de478e4d08e7f3ec1861" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 TxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XCANPS_MAX_FRAME_SIZE_IN_WORDS]</argsstring>
+        <name>TxFrame</name>
+        <briefdescription>
+<para>Buffers to hold frames to send and receive. </para>        </briefdescription>
+        <detaileddescription>
+<para>These are declared as global so that they are not on the stack.Txframe buffer </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__canps_1ga6dce7b570144913284d4d2b7175fb9ad" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 RxFrame[XCANPS_MAX_FRAME_SIZE_IN_WORDS]</definition>
+        <argsstring>[XCANPS_MAX_FRAME_SIZE_IN_WORDS]</argsstring>
+        <name>RxFrame</name>
+        <briefdescription>
+<para>Rxframe buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XCanPs_SelfTest</definition>
+        <argsstring>(XCanPs *InstancePtr)</argsstring>
+        <name>XCanPs_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the CAN driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The test resets the device, sets up the Loop Back mode, sends a standard frame, receives the frame, verifies the contents, and resets the device again.</para><para>Note that this is a destructive test in that resets of the device are performed. Refer the device specification for the device status after the reset operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed. i.e., the frame received via the internal loop back has the same contents as the frame sent.<itemizedlist>
+<listitem><para>XST_FAILURE Otherwise.</para></listitem></itemizedlist>
+</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+If the CAN device does not work properly, this function may enter an infinite loop and will never return to the caller. <linebreak/>
+<linebreak/>
+ If XST_FAILURE is returned, the device is not reset so that the caller could have a chance to check reason(s) causing the failure. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c" bodystart="94" bodyend="208"/>
+        <references refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" compoundref="xcanps_8h" startline="292">XCanPs::IsReady</references>
+        <references refid="group__canps_1ga8c9bf6d887f01a9726ef73fa9c3da816" compoundref="xcanps_8h" startline="488">XCanPs_CreateDlcValue</references>
+        <references refid="group__canps_1gada077a3bb7d30a6bca23529ee48ceb42" compoundref="xcanps_8h" startline="463">XCanPs_CreateIdValue</references>
+        <references refid="group__canps_1gae2000262a11f01d0b8a890445292b95f" compoundref="xcanps__hw_8h" startline="237">XCANPS_DLCR_TIMESTAMP_MASK</references>
+        <references refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" compoundref="xcanps_8c" startline="224" endline="317">XCanPs_EnterMode</references>
+        <references refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" compoundref="xcanps_8c" startline="167" endline="194">XCanPs_GetMode</references>
+        <references refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" compoundref="xcanps__hw_8h" startline="69">XCANPS_ISR_OFFSET</references>
+        <references refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" compoundref="xcanps__hw_8h" startline="178">XCANPS_IXR_RXNEMP_MASK</references>
+        <references refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" compoundref="xcanps__selftest_8c" startline="45">XCANPS_MAX_FRAME_SIZE_IN_WORDS</references>
+        <references refid="group__canps_1ga4e4f2c00506467b58276539cc1c2333e" compoundref="xcanps_8h" startline="213">XCANPS_MODE_CONFIG</references>
+        <references refid="group__canps_1ga815748d9ef7547d7fd43f2b729c3108c" compoundref="xcanps_8h" startline="215">XCANPS_MODE_LOOPBACK</references>
+        <references refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" compoundref="xcanps__hw_8h" startline="315">XCanPs_ReadReg</references>
+        <references refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" compoundref="xcanps_8c" startline="514" endline="546">XCanPs_Recv</references>
+        <references refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" compoundref="xcanps_8c" startline="141" endline="148">XCanPs_Reset</references>
+        <references refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" compoundref="xcanps_8c" startline="450" endline="492">XCanPs_Send</references>
+        <references refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" compoundref="xcanps_8c" startline="912" endline="928">XCanPs_SetBaudRatePrescaler</references>
+        <references refid="group__canps_1gac42876be22acc7e24262120000c4c548" compoundref="xcanps_8c" startline="984" endline="1012">XCanPs_SetBitTiming</references>
+        <referencedby refid="xcanps__intr__example_8c_1aa5372d75abf21251529fc57361192132" compoundref="xcanps__intr__example_8c" startline="237" endline="338">CanPsIntrExample</referencedby>
+        <referencedby refid="xcanps__polled__example_8c_1a0bd337ce93d64955109b034d61546eac" compoundref="xcanps__polled__example_8c" startline="185" endline="258">CanPsPolledExample</referencedby>
+        <referencedby refid="xcanps__watermark__intr__example_8c_1a6c810de1921e088a01fbd2c4670dbfe4" compoundref="xcanps__watermark__intr__example_8c" startline="230" endline="366">CanPsWatermarkIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xcanps_8h" kindref="compound">xcanps.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCANPS_MAX_FRAME_SIZE_IN_WORDS<sp/>((XCANPS_MAX_FRAME_SIZE)<sp/>/<sp/>(sizeof(u32)))</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="48" refid="group__canps_1ga3317b62fb7f445865d6d8288847a6dac" refkind="member"><highlight class="preprocessor">#define<sp/>FRAME_DATA_LENGTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/>8U<sp/></highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>TxFrame[<ref refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" kindref="member">XCANPS_MAX_FRAME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u32<sp/>RxFrame[<ref refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" kindref="member">XCANPS_MAX_FRAME_SIZE_IN_WORDS</ref>];<sp/></highlight></codeline>
+<codeline lineno="63"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__canps_1ga84d18d801c4f8ab5cc8eeadeff33d8b5" kindref="member">XCanPs_SelfTest</ref>(<ref refid="struct_x_can_ps" kindref="compound">XCanPs</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*FramePtr;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>GetModeResult;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RxEmptyResult;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_can_ps_1ab07950d363c9316882a112ec5b32de32" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" kindref="member">XCanPs_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>The<sp/>device<sp/>should<sp/>enter<sp/>Configuration<sp/>Mode<sp/>immediately<sp/>after</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>reset<sp/>above<sp/>is<sp/>finished.<sp/>Now<sp/>check<sp/>the<sp/>mode<sp/>and<sp/>return<sp/>error<sp/>code<sp/>if</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>it<sp/>is<sp/>not<sp/>Configuration<sp/>Mode.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" kindref="member">XCanPs_GetMode</ref>(InstancePtr)<sp/>!=<sp/><ref refid="group__canps_1ga4e4f2c00506467b58276539cc1c2333e" kindref="member">XCANPS_MODE_CONFIG</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Setup<sp/>Baud<sp/>Rate<sp/>Prescaler<sp/>Register<sp/>(BRPR)<sp/>and<sp/>Bit<sp/>Timing<sp/>Register</highlight></codeline>
+<codeline lineno="119"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>(BTR)<sp/>such<sp/>that<sp/>CAN<sp/>baud<sp/>rate<sp/>equals<sp/>40Kbps,<sp/>given<sp/>the<sp/>CAN<sp/>clock</highlight></codeline>
+<codeline lineno="120"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>equal<sp/>to<sp/>24MHz.<sp/>For<sp/>more<sp/>information<sp/>see<sp/>the<sp/>CAN<sp/>2.0A,<sp/>CAN<sp/>2.0B,</highlight></codeline>
+<codeline lineno="121"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>ISO<sp/>11898-1<sp/>specifications.</highlight></codeline>
+<codeline lineno="122"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__canps_1ga0e266c7af58c3b5eaef6e4dcd2354cbe" kindref="member">XCanPs_SetBaudRatePrescaler</ref>(InstancePtr,<sp/>(u8)29U);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__canps_1gac42876be22acc7e24262120000c4c548" kindref="member">XCanPs_SetBitTiming</ref>(InstancePtr,<sp/>(u8)3U,<sp/>(u8)2U,<sp/>(u8)15U);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enter<sp/>the<sp/>loop<sp/>back<sp/>mode.</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga5a32b11e15d347ecae566778bb1c5e33" kindref="member">XCanPs_EnterMode</ref>(InstancePtr,<sp/><ref refid="group__canps_1ga815748d9ef7547d7fd43f2b729c3108c" kindref="member">XCANPS_MODE_LOOPBACK</ref>);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetModeResult<sp/>=<sp/><ref refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" kindref="member">XCanPs_GetMode</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(GetModeResult<sp/>!=<sp/>((u8)<ref refid="group__canps_1ga815748d9ef7547d7fd43f2b729c3108c" kindref="member">XCANPS_MODE_LOOPBACK</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>GetModeResult<sp/>=<sp/><ref refid="group__canps_1ga3644ad3aa2b02def735751ed45d207a4" kindref="member">XCanPs_GetMode</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Create<sp/>a<sp/>frame<sp/>to<sp/>send<sp/>with<sp/>known<sp/>values<sp/>so<sp/>we<sp/>can<sp/>verify<sp/>them</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>on<sp/>receive.</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFrame[0]<sp/>=<sp/>(u32)<ref refid="group__canps_1gada077a3bb7d30a6bca23529ee48ceb42" kindref="member">XCanPs_CreateIdValue</ref>((u32)2000U,<sp/>(u32)0U,<sp/>(u32)0U,<sp/>(u32)0U,<sp/>(u32)0U);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxFrame[1]<sp/>=<sp/>(u32)<ref refid="group__canps_1ga8c9bf6d887f01a9726ef73fa9c3da816" kindref="member">XCanPs_CreateDlcValue</ref>((u32)8U);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FramePtr<sp/>=<sp/>(u8<sp/>*)(&amp;TxFrame[2]);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/>8U;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(*FramePtr<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*FramePtr<sp/>=<sp/>(u8)Index;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FramePtr++;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="151"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Send<sp/>the<sp/>frame.</highlight></codeline>
+<codeline lineno="152"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canps_1ga4bea2b2b897bad064ebbf6c87a934a40" kindref="member">XCanPs_Send</ref>(InstancePtr,<sp/>TxFrame);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Wait<sp/>until<sp/>the<sp/>frame<sp/>arrives<sp/>RX<sp/>FIFO<sp/>via<sp/>internal<sp/>loop<sp/>back.</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxEmptyResult<sp/>=<sp/><ref refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" kindref="member">XCanPs_ReadReg</ref>(((InstancePtr)-&gt;CanConfig.BaseAddr),</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" kindref="member">XCANPS_ISR_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" kindref="member">XCANPS_IXR_RXNEMP_MASK</ref>;</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(RxEmptyResult<sp/>==<sp/>(u32)0U)<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RxEmptyResult<sp/>=<sp/><ref refid="group__canps_1ga6bace9f8a3ecc5df69b5e9611deaa47c" kindref="member">XCanPs_ReadReg</ref>(((InstancePtr)-&gt;CanConfig.BaseAddr),</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1gaf4dd00135421b512fc9c7eb7ce6b67bc" kindref="member">XCANPS_ISR_OFFSET</ref>)<sp/>&amp;<sp/><ref refid="group__canps_1ga63bd136fc25bca2796bce56d60a31ea6" kindref="member">XCANPS_IXR_RXNEMP_MASK</ref>;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Receive<sp/>the<sp/>frame.</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__canps_1gaf821f77f00b8eca7c564b15d6c8f8b5e" kindref="member">XCanPs_Recv</ref>(InstancePtr,<sp/>RxFrame);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>(s32)XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>Identifier<sp/>and<sp/>Data<sp/>Length<sp/>Code.</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxFrame[0]<sp/>!=</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)<ref refid="group__canps_1gada077a3bb7d30a6bca23529ee48ceb42" kindref="member">XCanPs_CreateIdValue</ref>((u32)2000U,<sp/>(u32)0U,<sp/>(u32)0U,<sp/>(u32)0U,<sp/>(u32)0U))<sp/>{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((RxFrame[1]<sp/>&amp;<sp/>~<ref refid="group__canps_1gae2000262a11f01d0b8a890445292b95f" kindref="member">XCANPS_DLCR_TIMESTAMP_MASK</ref>)<sp/>!=<sp/>TxFrame[1])<sp/>{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>2U;<sp/>Index<sp/>&lt;<sp/>(<ref refid="group__canps_1gacfcfafaf3ae82d8c89c3b5b687b4b65e" kindref="member">XCANPS_MAX_FRAME_SIZE_IN_WORDS</ref>);<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RxFrame[Index]<sp/>!=<sp/>TxFrame[Index])<sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Reset<sp/>device<sp/>again<sp/>before<sp/>returning<sp/>to<sp/>the<sp/>caller.</highlight></codeline>
+<codeline lineno="203"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__canps_1ga13dce9f4dede25f041852b1c893ebfba" kindref="member">XCanPs_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/canps/src/xcanps_selftest.c"/>
+  </compounddef>
+</doxygen>

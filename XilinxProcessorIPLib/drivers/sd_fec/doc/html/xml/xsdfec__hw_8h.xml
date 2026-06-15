@@ -1,0 +1,1830 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xsdfec__hw_8h" kind="file">
+    <compoundname>xsdfec_hw.h</compoundname>
+    <includedby refid="xsdfec_8h" local="yes">xsdfec.h</includedby>
+    <invincdepgraph>
+      <node id="22">
+        <label>xsdfec.c</label>
+      </node>
+      <node id="21">
+        <label>xsdfec.h</label>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>xsdfec_hw.h</label>
+        <link refid="xsdfec_hw.h"/>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>xsdfec_sinit.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xsdfec__hw_8h_1a15fb87499a464808332aa251a0f19665" prot="public" static="no">
+        <name>XSDFEC_CORE_AXI_WR_PROTECT_ADDR</name>
+        <initializer>0x00000</initializer>
+        <briefdescription>
+<para>CORE_AXI_WR_PROTECT register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="10" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4be93f96a2fb88adede19a2c72a5af47" prot="public" static="no">
+        <name>XSDFEC_CORE_AXI_WR_PROTECT_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="11" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a113bcae3216d0ce4e5e47888160fedc1" prot="public" static="no">
+        <name>XSDFEC_CORE_AXI_WR_PROTECT_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="12" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3baf197e11b5067d79c70138b13248d8" prot="public" static="no">
+        <name>XSDFEC_CORE_CODE_WR_PROTECT_ADDR</name>
+        <initializer>0x00004</initializer>
+        <briefdescription>
+<para>CORE_CODE_WR_PROTECT register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="16" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ac12076300e9fcc23029b86be8194d146" prot="public" static="no">
+        <name>XSDFEC_CORE_CODE_WR_PROTECT_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="17" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ab22ab72eceb6e3084991c5de3468afe8" prot="public" static="no">
+        <name>XSDFEC_CORE_CODE_WR_PROTECT_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="18" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a0ebdc168214f1acc088b7f0e45f1d94b" prot="public" static="no">
+        <name>XSDFEC_CORE_ACTIVE_ADDR</name>
+        <initializer>0x00008</initializer>
+        <briefdescription>
+<para>CORE_ACTIVE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="22" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad233216a23caf30239d6cfe3f7e52ecb" prot="public" static="no">
+        <name>XSDFEC_CORE_ACTIVE_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="23" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a2093fcd7e8f5f8039ea813ea71a36e96" prot="public" static="no">
+        <name>XSDFEC_CORE_ACTIVE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="24" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a32ddf98476452bf913adac306b2ae0f4" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_ADDR</name>
+        <initializer>0x0000c</initializer>
+        <briefdescription>
+<para>CORE_AXIS_WIDTH register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="28" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ab5a67d17584d15d1a9bf1eab9ff434ba" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DIN_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad5af5a10004f8b656f9618cba2e2a166" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DIN_MASK</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="30" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a10cdf5568453b5eaac39fce498211f90" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DIN_WORDS_LSB</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1afe9e607ee1e517658d96d9b84fba5a9a" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DIN_WORDS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a5d77a2c7a06c1945f82c593ef2a5c3d7" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DOUT_LSB</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a55c8c207a81e06b2154a0167023f2fef" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DOUT_MASK</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3f116b40cf747e7a70bc96294a10c437" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DOUT_WORDS_LSB</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="35" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa9da9498b2cbeb5554be073dc922ff1e" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_WIDTH_DOUT_WORDS_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aaf95cd5b340604fc79e6aaa6025ad4d2" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_ADDR</name>
+        <initializer>0x00010</initializer>
+        <briefdescription>
+<para>CORE_AXIS_ENABLE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="40" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4fc0f57239ea5740a586de286704babf" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_CTRL_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a97f127e7b0f63f6a2b7abe4416f8573f" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_CTRL_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a800650dba7e2b70cfcde2d423ce294d1" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DIN_LSB</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a5334067541906c0d8fb608e1b011c3b8" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DIN_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a0576419006653d0eba849355dbaed1f4" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DIN_WORDS_LSB</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a94f7d9a178908aaf6adef0e6d59185ec" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DIN_WORDS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad2ea16c61188bcfb16a42239848e755b" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_STATUS_LSB</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4bb9f26a85676c76b2bb7a45d84a5f3f" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_STATUS_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7e1c1758605ff2aa4b38c85d4c0b682d" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DOUT_LSB</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a85524a17f9fcf860347a74a31ae1bbeb" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DOUT_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4ac5532cff67750c33343e00277966c2" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DOUT_WORDS_LSB</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4c040fcca56f985e61dd7773847c63af" prot="public" static="no">
+        <name>XSDFEC_CORE_AXIS_ENABLE_DOUT_WORDS_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7a696a3cbdbc8c694f39accb35d88a74" prot="public" static="no">
+        <name>XSDFEC_CORE_ORDER_ADDR</name>
+        <initializer>0x00018</initializer>
+        <briefdescription>
+<para>CORE_ORDER register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad3fdc0381ca1882f6dc953742596f062" prot="public" static="no">
+        <name>XSDFEC_CORE_ORDER_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a9b77260f13c09d01cf3bffcfabde3563" prot="public" static="no">
+        <name>XSDFEC_CORE_ORDER_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a27160c7f7d935a1a86c6a67b16aaebb7" prot="public" static="no">
+        <name>XSDFEC_CORE_ISR_ADDR</name>
+        <initializer>0x0001c</initializer>
+        <briefdescription>
+<para>CORE_ISR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3b0e8cb16dc01807f05e8aad084f63c3" prot="public" static="no">
+        <name>XSDFEC_CORE_ISR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a46d37c1d5210add77917cb20ed6b010c" prot="public" static="no">
+        <name>XSDFEC_CORE_ISR_MASK</name>
+        <initializer>0x0000003f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3c865359f834d0d26a1bce3d6b1b2f8e" prot="public" static="no">
+        <name>XSDFEC_CORE_IER_ADDR</name>
+        <initializer>0x00020</initializer>
+        <briefdescription>
+<para>CORE_IER register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4c8066192deb5e404180a01d338ad71c" prot="public" static="no">
+        <name>XSDFEC_CORE_IER_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a624f63854ca163c545ea94cf6ed8ec61" prot="public" static="no">
+        <name>XSDFEC_CORE_IER_MASK</name>
+        <initializer>0x0000003f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a067e2659e5bc54ebda6bc8e1fd934200" prot="public" static="no">
+        <name>XSDFEC_CORE_IDR_ADDR</name>
+        <initializer>0x00024</initializer>
+        <briefdescription>
+<para>CORE_IDR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ae0b57205b45e1c61dd99bef0d2d42d82" prot="public" static="no">
+        <name>XSDFEC_CORE_IDR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa5955e6f3f2367dcd8b93516dada1e95" prot="public" static="no">
+        <name>XSDFEC_CORE_IDR_MASK</name>
+        <initializer>0x0000003f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ae3e375dc69cd9e8d21212bb9fd08061d" prot="public" static="no">
+        <name>XSDFEC_CORE_IMR_ADDR</name>
+        <initializer>0x00028</initializer>
+        <briefdescription>
+<para>CORE_IMR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a750b613996ae569ea61e22bb7031c814" prot="public" static="no">
+        <name>XSDFEC_CORE_IMR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a853fb07aa09d6cbe784e31d4174d0e67" prot="public" static="no">
+        <name>XSDFEC_CORE_IMR_MASK</name>
+        <initializer>0x0000003f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a9d83a909902e40306704a34a435763d1" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_ISR_ADDR</name>
+        <initializer>0x0002c</initializer>
+        <briefdescription>
+<para>CORE_ECC_ISR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aac2491534ff34bdd8dbddaabeb907a16" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_ISR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a750ba8680f9dedb2e0b37fc229fa36b7" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_ISR_MASK</name>
+        <initializer>0x003fffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="88" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a6347c55d8b7f4776d1982ec0d4d2f62e" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IER_ADDR</name>
+        <initializer>0x00030</initializer>
+        <briefdescription>
+<para>CORE_ECC_IER register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ab64ad504c5a1c1eabd47c1c01e535782" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IER_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1adbe89fc303a5437508182035bf8c9597" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IER_MASK</name>
+        <initializer>0x003fffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a38b0c7e29c234c1253373911019549eb" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IDR_ADDR</name>
+        <initializer>0x00034</initializer>
+        <briefdescription>
+<para>CORE_ECC_IDR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a05b0ad08037f59b45facd885c110d105" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IDR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a2dd51ec8e642fc539c9892e232b92ffd" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IDR_MASK</name>
+        <initializer>0x003fffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1afb30b3236345e85feb03fd903fba13ce" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IMR_ADDR</name>
+        <initializer>0x00038</initializer>
+        <briefdescription>
+<para>CORE_ECC_IMR register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a334c8c0f3c59f33277ef6d2807f3b4b4" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IMR_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3f711c697bf5a6a4890468cf1c2ed6e0" prot="public" static="no">
+        <name>XSDFEC_CORE_ECC_IMR_MASK</name>
+        <initializer>0x003fffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aab2aaed4306d60234b501e4edada260f" prot="public" static="no">
+        <name>XSDFEC_CORE_BYPASS_ADDR</name>
+        <initializer>0x0003c</initializer>
+        <briefdescription>
+<para>CORE_BYPASS register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a030d39da4a212b6336a611f178828961" prot="public" static="no">
+        <name>XSDFEC_CORE_BYPASS_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aae5efb75f554db60d7bc03553fda3abe" prot="public" static="no">
+        <name>XSDFEC_CORE_BYPASS_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a39e68f55013d073ea80a4d7df1d050a7" prot="public" static="no">
+        <name>XSDFEC_CORE_VERSION_ADDR</name>
+        <initializer>0x00050</initializer>
+        <briefdescription>
+<para>CORE_VERSION register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a9ac2c9fd726202546e3f8bbcee6616e4" prot="public" static="no">
+        <name>XSDFEC_CORE_VERSION_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a914c39db89b36086a45faa720497f98d" prot="public" static="no">
+        <name>XSDFEC_CORE_VERSION_MASK</name>
+        <initializer>0xffffffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a1d06cacff562ef825d9eb1d2db26a27d" prot="public" static="no">
+        <name>XSDFEC_TURBO_ADDR</name>
+        <initializer>0x00100</initializer>
+        <briefdescription>
+<para>TURBO register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a6e1e17d59a9aac3d42881e4cbab932dc" prot="public" static="no">
+        <name>XSDFEC_TURBO_ALG_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7dd1875eb24b1e24b3a558981bf79193" prot="public" static="no">
+        <name>XSDFEC_TURBO_ALG_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1adb13b3d36b920db0edc30f5efa2649e1" prot="public" static="no">
+        <name>XSDFEC_TURBO_SCALE_FACTOR_LSB</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad1905fda9eed0a3ab30ec4e9fc797ef1" prot="public" static="no">
+        <name>XSDFEC_TURBO_SCALE_FACTOR_MASK</name>
+        <initializer>0x00000f00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a43c4eb528e1e5a20a45b937dec4a961b" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_ADDR_BASE</name>
+        <initializer>0x02000</initializer>
+        <briefdescription>
+<para>LDPC_CODE_REG0 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a863dc73f2e9856c14c3abcce71e7114b" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_ADDR_HIGH</name>
+        <initializer>0x027f0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1af413c77361a931a8cb355428ea10ec20" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_DEPTH</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a634172af6c8c9acb97402ab5ecf6e165" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_STEP</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a54972f78d502de40c73ac3c08a94f150" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_N_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a278055b4b5fcdf4bee8e11b50eebde80" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_N_MASK</name>
+        <initializer>0x0000ffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1abd24bab3359be403573dac8fbcb59e1c" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_K_LSB</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a76b826b8623cecaac8872e5c9a048409" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG0_K_MASK</name>
+        <initializer>0x7fff0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a056786270a84f9645b14637dd6f33e72" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_ADDR_BASE</name>
+        <initializer>0x02004</initializer>
+        <briefdescription>
+<para>LDPC_CODE_REG1 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="141" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ab7ac7e0e0c35983d0b28c415191fa30a" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_ADDR_HIGH</name>
+        <initializer>0x027f4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a64a4a9bbecec4624b61baeb8ec860ece" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_DEPTH</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ac9375a6272393b56e288ac418da9ef33" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_STEP</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aefbe1ae037427fb730455b018e561efd" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_PSIZE_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aeff7190baee70fe72c24bad0f3ad27ac" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_PSIZE_MASK</name>
+        <initializer>0x000003ff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad8a17fd1454d1c71b2663362cccb9973" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_NO_PACKING_LSB</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a70c392138083a9c08e3160df44132c0e" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_NO_PACKING_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ac1902e47c21887dd3c259ca5339f242d" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_NM_LSB</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a049ecef288a267d338153fe68664b2c9" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG1_NM_MASK</name>
+        <initializer>0x000ff800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a796fb7e8a3ca494c7d8bb54bbf84ba92" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_ADDR_BASE</name>
+        <initializer>0x02008</initializer>
+        <briefdescription>
+<para>LDPC_CODE_REG2 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ada173d31419e8897eb6db66bd80c5e4d" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_ADDR_HIGH</name>
+        <initializer>0x027f8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a221562cc64a213e42c2d3cc97d6f4a4a" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_DEPTH</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad8261ef5a56f2f5dd259be2164e46260" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_STEP</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="157" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4649ad53080b671b430d9f4ac095c71e" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NLAYERS_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1affea1da61a878f2ec71b8e7fd5c9cabd" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NLAYERS_MASK</name>
+        <initializer>0x000001ff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a438d504bb742fabb267ea7cb24c0b7bc" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NMQC_LSB</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a0a55fc1f2afb45040586aabfe7241e6f" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NMQC_MASK</name>
+        <initializer>0x000ffe00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad8835569f6049e0ebdb7808322514590" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NORM_TYPE_LSB</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa4841ba6b30a28f6a76c70c59c3e046e" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NORM_TYPE_MASK</name>
+        <initializer>0x00100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a28f81c76dbbc7c994dc88876c24a2203" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_SPECIAL_QC_LSB</name>
+        <initializer>21</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a51968077d860b8b741023e927c0cdf4a" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_SPECIAL_QC_MASK</name>
+        <initializer>0x00200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad20a3741e11c6017f1cb41c4263edf00" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_LSB</name>
+        <initializer>22</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="166" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a9f03bd1618d36e17c6cc8b6254cd05eb" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_MASK</name>
+        <initializer>0x00400000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1abbbf72b8c684a42986f99f1ec90f83ee" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_MAX_SCHEDULE_LSB</name>
+        <initializer>23</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="168" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ac49549caaa545a349bcee793df1ea600" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG2_MAX_SCHEDULE_MASK</name>
+        <initializer>0x01800000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aeb07a9baee57e38995cdbcc97cf9a378" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_ADDR_BASE</name>
+        <initializer>0x0200c</initializer>
+        <briefdescription>
+<para>LDPC_CODE_REG3 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1af16defd18aca38c6b962a011e6eb6bf1" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_ADDR_HIGH</name>
+        <initializer>0x027fc</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="174" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ad178375c457884203421fa60fbaf0b0f" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_DEPTH</name>
+        <initializer>128</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a8a3b11811605cfeca980578d1f111dff" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_STEP</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="176" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="176" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a8df47cce16a6d48817afc5c83f06d96c" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_SC_OFF_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a5db91163d83448a26bae525d280e2b89" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_SC_OFF_MASK</name>
+        <initializer>0x000000ff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aeeeb236beeac7fa10d96b8f24458abf9" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_LA_OFF_LSB</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a772bf12c92d39915ad1d64d17f93fc86" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_LA_OFF_MASK</name>
+        <initializer>0x0000ff00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a27c17376bc9a4c8ec72305638c8ed107" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_QC_OFF_LSB</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a71922b5bce122acbce0f4f42fe75ad7d" prot="public" static="no">
+        <name>XSDFEC_LDPC_CODE_REG3_QC_OFF_MASK</name>
+        <initializer>0x07ff0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="182" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aae89d77d5f03d0846d4f9b1c1364f58a" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_ADDR_BASE</name>
+        <initializer>0x10000</initializer>
+        <briefdescription>
+<para>LDPC_SC_TABLE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a95575e643e7a3c1195bec664788fde55" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_ADDR_HIGH</name>
+        <initializer>0x103fc</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a0fd0cbebf775dbc96d0096b7659c248c" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_DEPTH</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a5605e7c0d448b2c551f3c7a3c4eb8823" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_STEP</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4d2660e50f71f721a86c2ebd85b1f844" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_0_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4329886f7b33e1c1401f38f0b1b4c726" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_0_MASK</name>
+        <initializer>0x0000000f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aba0ca131caba34ee901f90d1d2fb1115" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_1_LSB</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a2abb21a6cdd98734c5ceea921a462862" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_1_MASK</name>
+        <initializer>0x000000f0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a8938d84fcc4402223c89466b8896301d" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_2_LSB</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aef58c4a88ee0afe1bd70cbc7bbbee64f" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_2_MASK</name>
+        <initializer>0x00000f00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa95e81474eced145105374227b6459ea" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_3_LSB</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1af21c8e21392e0792d872647e8d551822" prot="public" static="no">
+        <name>XSDFEC_LDPC_SC_TABLE_SCALE_3_MASK</name>
+        <initializer>0x0000f000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7beadf902130a48fabf0f3260e131464" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_ADDR_BASE</name>
+        <initializer>0x18000</initializer>
+        <briefdescription>
+<para>LDPC_LA_TABLE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a12d321e39fbba824ef28445d990f5dde" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_ADDR_HIGH</name>
+        <initializer>0x18ffc</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3a941fd23c838561ee24a629d7f5f501" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_DEPTH</name>
+        <initializer>1024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a9827ff4ef797b25344778223d39ea291" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_STEP</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a37a1323c80f92e725c97911a3465762d" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_CPLD_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a6c63c15b4faa903210e1b2b3b84de067" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_CPLD_MASK</name>
+        <initializer>0x0000007f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1adf98c4a5bdca24e6d3b7cb0d2607a05d" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_ACCUM_LSB</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a03f0a16b9892890e3fb4804a03f88a9e" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_ACCUM_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a0ea989f9af969da4dd0fbc86fc42c061" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_STALL_LSB</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a4182414e62ad5544876e1b0ff69089b2" prot="public" static="no">
+        <name>XSDFEC_LDPC_LA_TABLE_STALL_MASK</name>
+        <initializer>0x0000ff00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a19fa977b6f7b2ab66e16637e251dfc1d" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_ADDR_BASE</name>
+        <initializer>0x20000</initializer>
+        <briefdescription>
+<para>LDPC_QC_TABLE register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a2811c4f4f1dbd75996c25f4f31572b62" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_ADDR_HIGH</name>
+        <initializer>0x27ffc</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="215" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7180c937db33a1e99a6112ffd8019c6d" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_DEPTH</name>
+        <initializer>8192</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a76a41d831b27191f1451086462811d5a" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_STEP</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1ac2d790e4799782526ab14b2cb817d4f3" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_COLUMN_LSB</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa1b683f52d655b3e4fdb1949d16e0978" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_COLUMN_MASK</name>
+        <initializer>0x000000ff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a7b8fe4fdcbf4f844f2eb1fdd7590945f" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_ROTATION_LSB</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a2defa04b3304ac80e61b1c547341a7ec" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_ROTATION_MASK</name>
+        <initializer>0x0001ff00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a36b7f6242a53f191eae348ab3b8f1754" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_FIRST_USE_LSB</name>
+        <initializer>17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa56c8665845f3762938a18ccf19b3a81" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_FIRST_USE_MASK</name>
+        <initializer>0x00020000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1aa3f9504d0f145cca9df80bf3a508e972" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_IS_PARITY_LSB</name>
+        <initializer>18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="224" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xsdfec__hw_8h_1a3f5c51601f51a93638942a122a2cddd0" prot="public" static="no">
+        <name>XSDFEC_LDPC_QC_TABLE_IS_PARITY_MASK</name>
+        <initializer>0x00040000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" line="225" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXI_WR_PROTECT_ADDR<sp/>0x00000<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="11"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXI_WR_PROTECT_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXI_WR_PROTECT<sp/>field</highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXI_WR_PROTECT_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXI_WR_PROTECT<sp/>field</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_CODE_WR_PROTECT_ADDR<sp/>0x00004<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_CODE_WR_PROTECT_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_CODE_WR_PROTECT<sp/>field</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_CODE_WR_PROTECT_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_CODE_WR_PROTECT<sp/>field</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ACTIVE_ADDR<sp/>0x00008<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ACTIVE_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ACTIVE<sp/>field</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ACTIVE_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ACTIVE<sp/>field</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_ADDR<sp/>0x0000c<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DIN_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_WIDTH_DIN<sp/>field</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DIN_MASK<sp/>0x00000003<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_WIDTH_DIN<sp/>field</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DIN_WORDS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_WIDTH_DIN_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DIN_WORDS_MASK<sp/>0x00000004<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_WIDTH_DIN_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DOUT_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_WIDTH_DOUT<sp/>field</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DOUT_MASK<sp/>0x00000018<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_WIDTH_DOUT<sp/>field</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DOUT_WORDS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_WIDTH_DOUT_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_WIDTH_DOUT_WORDS_MASK<sp/>0x00000020<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_WIDTH_DOUT_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_ADDR<sp/>0x00010<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_CTRL_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_CTRL<sp/>field</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_CTRL_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_CTRL<sp/>field</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DIN_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_DIN<sp/>field</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DIN_MASK<sp/>0x00000002<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_DIN<sp/>field</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DIN_WORDS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_DIN_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DIN_WORDS_MASK<sp/>0x00000004<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_DIN_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_STATUS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_STATUS<sp/>field</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_STATUS_MASK<sp/>0x00000008<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_STATUS<sp/>field</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DOUT_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_DOUT<sp/>field</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DOUT_MASK<sp/>0x00000010<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_DOUT<sp/>field</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DOUT_WORDS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>5<sp/>//<sp/>LSB<sp/>for<sp/>CORE_AXIS_ENABLE_DOUT_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_AXIS_ENABLE_DOUT_WORDS_MASK<sp/>0x00000020<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_AXIS_ENABLE_DOUT_WORDS<sp/>field</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ORDER_ADDR<sp/>0x00018<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ORDER_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ORDER<sp/>field</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ORDER_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ORDER<sp/>field</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ISR_ADDR<sp/>0x0001c<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ISR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ISR<sp/>field</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ISR_MASK<sp/>0x0000003f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ISR<sp/>field</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IER_ADDR<sp/>0x00020<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IER_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_IER<sp/>field</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IER_MASK<sp/>0x0000003f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_IER<sp/>field</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IDR_ADDR<sp/>0x00024<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IDR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_IDR<sp/>field</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IDR_MASK<sp/>0x0000003f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_IDR<sp/>field</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IMR_ADDR<sp/>0x00028<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IMR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_IMR<sp/>field</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_IMR_MASK<sp/>0x0000003f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_IMR<sp/>field</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_ISR_ADDR<sp/>0x0002c<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_ISR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ECC_ISR<sp/>field</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_ISR_MASK<sp/>0x003fffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ECC_ISR<sp/>field</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IER_ADDR<sp/>0x00030<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IER_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ECC_IER<sp/>field</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IER_MASK<sp/>0x003fffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ECC_IER<sp/>field</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IDR_ADDR<sp/>0x00034<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IDR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ECC_IDR<sp/>field</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IDR_MASK<sp/>0x003fffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ECC_IDR<sp/>field</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IMR_ADDR<sp/>0x00038<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IMR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_ECC_IMR<sp/>field</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_ECC_IMR_MASK<sp/>0x003fffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_ECC_IMR<sp/>field</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_BYPASS_ADDR<sp/>0x0003c<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_BYPASS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_BYPASS<sp/>field</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_BYPASS_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_BYPASS<sp/>field</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_VERSION_ADDR<sp/>0x00050<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_VERSION_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>CORE_VERSION<sp/>field</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_CORE_VERSION_MASK<sp/>0xffffffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>CORE_VERSION<sp/>field</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XSDFEC_TURBO_ADDR<sp/>0x00100<sp/>//<sp/>Register<sp/>offset<sp/>from<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_TURBO_ALG_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>TURBO_ALG<sp/>field</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_TURBO_ALG_MASK<sp/>0x00000001<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>TURBO_ALG<sp/>field</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_TURBO_SCALE_FACTOR_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/>//<sp/>LSB<sp/>for<sp/>TURBO_SCALE_FACTOR<sp/>field</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_TURBO_SCALE_FACTOR_MASK<sp/>0x00000f00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>TURBO_SCALE_FACTOR<sp/>field</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_ADDR_BASE<sp/>0x02000<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_ADDR_HIGH<sp/>0x027f0<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_N_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG0_N<sp/>field</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_N_MASK<sp/>0x0000ffff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG0_N<sp/>field</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_K_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG0_K<sp/>field</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG0_K_MASK<sp/>0x7fff0000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG0_K<sp/>field</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_ADDR_BASE<sp/>0x02004<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_ADDR_HIGH<sp/>0x027f4<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_PSIZE_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG1_PSIZE<sp/>field</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_PSIZE_MASK<sp/>0x000003ff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG1_PSIZE<sp/>field</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_NO_PACKING_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG1_NO_PACKING<sp/>field</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_NO_PACKING_MASK<sp/>0x00000400<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG1_NO_PACKING<sp/>field</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_NM_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>11<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG1_NM<sp/>field</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG1_NM_MASK<sp/>0x000ff800<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG1_NM<sp/>field</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_ADDR_BASE<sp/>0x02008<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_ADDR_HIGH<sp/>0x027f8<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="158"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NLAYERS_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_NLAYERS<sp/>field</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NLAYERS_MASK<sp/>0x000001ff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_NLAYERS<sp/>field</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NMQC_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_NMQC<sp/>field</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NMQC_MASK<sp/>0x000ffe00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_NMQC<sp/>field</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NORM_TYPE_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>20<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_NORM_TYPE<sp/>field</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NORM_TYPE_MASK<sp/>0x00100000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_NORM_TYPE<sp/>field</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_SPECIAL_QC_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>21<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_SPECIAL_QC<sp/>field</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_SPECIAL_QC_MASK<sp/>0x00200000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_SPECIAL_QC<sp/>field</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>22<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK<sp/>field</highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK_MASK<sp/>0x00400000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_NO_FINAL_PARITY_CHECK<sp/>field</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_MAX_SCHEDULE_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>23<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG2_MAX_SCHEDULE<sp/>field</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG2_MAX_SCHEDULE_MASK<sp/>0x01800000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG2_MAX_SCHEDULE<sp/>field</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_ADDR_BASE<sp/>0x0200c<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_ADDR_HIGH<sp/>0x027fc<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>128<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_SC_OFF_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG3_SC_OFF<sp/>field</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_SC_OFF_MASK<sp/>0x000000ff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG3_SC_OFF<sp/>field</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_LA_OFF_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG3_LA_OFF<sp/>field</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_LA_OFF_MASK<sp/>0x0000ff00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG3_LA_OFF<sp/>field</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_QC_OFF_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_CODE_REG3_QC_OFF<sp/>field</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_CODE_REG3_QC_OFF_MASK<sp/>0x07ff0000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_CODE_REG3_QC_OFF<sp/>field</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_ADDR_BASE<sp/>0x10000<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_ADDR_HIGH<sp/>0x103fc<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>256<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_0_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_SC_TABLE_SCALE_0<sp/>field</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_0_MASK<sp/>0x0000000f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_SC_TABLE_SCALE_0<sp/>field</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_1_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_SC_TABLE_SCALE_1<sp/>field</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_1_MASK<sp/>0x000000f0<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_SC_TABLE_SCALE_1<sp/>field</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_2_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_SC_TABLE_SCALE_2<sp/>field</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_2_MASK<sp/>0x00000f00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_SC_TABLE_SCALE_2<sp/>field</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_3_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_SC_TABLE_SCALE_3<sp/>field</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_SC_TABLE_SCALE_3_MASK<sp/>0x0000f000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_SC_TABLE_SCALE_3<sp/>field</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_ADDR_BASE<sp/>0x18000<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_ADDR_HIGH<sp/>0x18ffc<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1024<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_CPLD_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_LA_TABLE_CPLD<sp/>field</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_CPLD_MASK<sp/>0x0000007f<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_LA_TABLE_CPLD<sp/>field</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_ACCUM_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>7<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_LA_TABLE_ACCUM<sp/>field</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_ACCUM_MASK<sp/>0x00000080<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_LA_TABLE_ACCUM<sp/>field</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_STALL_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_LA_TABLE_STALL<sp/>field</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_LA_TABLE_STALL_MASK<sp/>0x0000ff00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_LA_TABLE_STALL<sp/>field</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_ADDR_BASE<sp/>0x20000<sp/>//<sp/>Register<sp/>base<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_ADDR_HIGH<sp/>0x27ffc<sp/>//<sp/>Register<sp/>upper<sp/>address<sp/>relative<sp/>to<sp/>BaseAddress</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_DEPTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8192<sp/>//<sp/>Register<sp/>word<sp/>depth</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_STEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_COLUMN_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_QC_TABLE_COLUMN<sp/>field</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_COLUMN_MASK<sp/>0x000000ff<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_QC_TABLE_COLUMN<sp/>field</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_ROTATION_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_QC_TABLE_ROTATION<sp/>field</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_ROTATION_MASK<sp/>0x0001ff00<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_QC_TABLE_ROTATION<sp/>field</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_FIRST_USE_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_QC_TABLE_FIRST_USE<sp/>field</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_FIRST_USE_MASK<sp/>0x00020000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_QC_TABLE_FIRST_USE<sp/>field</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_IS_PARITY_LSB<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>18<sp/>//<sp/>LSB<sp/>for<sp/>LDPC_QC_TABLE_IS_PARITY<sp/>field</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSDFEC_LDPC_QC_TABLE_IS_PARITY_MASK<sp/>0x00040000<sp/>//<sp/>Bit<sp/>mask<sp/>for<sp/>LDPC_QC_TABLE_IS_PARITY<sp/>field</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sd_fec/src/xsdfec_hw.h"/>
+  </compounddef>
+</doxygen>

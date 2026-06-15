@@ -1,0 +1,1526 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="zynqmp_2xsecure__utils_8h" kind="file">
+    <compoundname>zynqmp/xsecure_utils.h</compoundname>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_mem.h</includes>
+    <includedby refid="core_2aes_2xsecure__aes_8c" local="yes">xsecure_aes.c</includedby>
+    <includedby refid="xsecure__ellipticplat_8c" local="yes">xsecure_ellipticplat.c</includedby>
+    <includedby refid="xsecure__elliptic_8c" local="yes">xsecure_elliptic.c</includedby>
+    <includedby refid="core_2generic_2xsecure__cryptochk_8c" local="yes">xsecure_cryptochk.c</includedby>
+    <includedby refid="xsecure__hmac_8c" local="yes">xsecure_hmac.c</includedby>
+    <includedby refid="xsecure__mldsa_8h" local="yes">xsecure_mldsa.h</includedby>
+    <includedby refid="xsecure__mldsa_8c" local="yes">xsecure_mldsa.c</includedby>
+    <includedby refid="core_2rsa_2xsecure__rsa__core_8h" local="yes">xsecure_rsa_core.h</includedby>
+    <includedby refid="core_2rsa_2xsecure__rsa_8c" local="yes">xsecure_rsa.c</includedby>
+    <includedby refid="core_2sha_2sha__pmxc_2xsecure__sha_8c" local="yes">xsecure_sha.c</includedby>
+    <includedby refid="xsecure__slhdsa__addr_8h" local="yes">xsecure_slhdsa_addr.h</includedby>
+    <includedby refid="xsecure__slhdsa_8c" local="yes">xsecure_slhdsa.c</includedby>
+    <includedby refid="xsecure__slhdsa__fors_8c" local="yes">xsecure_slhdsa_fors.c</includedby>
+    <includedby refid="xsecure__slhdsa__hash_8c" local="yes">xsecure_slhdsa_hash.c</includedby>
+    <includedby refid="xsecure__slhdsa__ht_8c" local="yes">xsecure_slhdsa_ht.c</includedby>
+    <includedby refid="xsecure__slhdsa__instance_8c" local="yes">xsecure_slhdsa_instance.c</includedby>
+    <includedby refid="trngpsv_2xsecure__trng_8c" local="yes">xsecure_trng.c</includedby>
+    <includedby refid="trngpsx_2xsecure__trng_8c" local="yes">xsecure_trng.c</includedby>
+    <includedby refid="versal_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includedby>
+    <includedby refid="versal__2vp_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includedby>
+    <includedby refid="versal__net_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includedby>
+    <includedby refid="zynqmp_2xsecure__rsa__core_8h" local="yes">xsecure_rsa_core.h</includedby>
+    <includedby refid="zynqmp_2xsecure__aes_8c" local="yes">xsecure_aes.c</includedby>
+    <includedby refid="zynqmp_2xsecure__cryptochk_8c" local="yes">xsecure_cryptochk.c</includedby>
+    <includedby refid="zynqmp_2xsecure__rsa_8c" local="yes">xsecure_rsa.c</includedby>
+    <includedby refid="zynqmp_2xsecure__sha_8c" local="yes">xsecure_sha.c</includedby>
+    <includedby refid="zynqmp_2xsecure__sss_8c" local="yes">xsecure_sss.c</includedby>
+    <includedby refid="zynqmp_2xsecure__utils_8c" local="yes">xsecure_utils.c</includedby>
+    <includedby refid="xilsecure__aes__example_8c" local="yes">xilsecure_aes_example.c</includedby>
+    <incdepgraph>
+      <node id="4965">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="4960">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4963">
+        <label>sleep.h</label>
+      </node>
+      <node id="4959">
+        <label>xsecure_utils.h</label>
+        <link refid="zynqmp/xsecure_utils.h"/>
+        <childnode refid="4960" relation="include">
+        </childnode>
+        <childnode refid="4961" relation="include">
+        </childnode>
+        <childnode refid="4962" relation="include">
+        </childnode>
+        <childnode refid="4963" relation="include">
+        </childnode>
+        <childnode refid="4964" relation="include">
+        </childnode>
+        <childnode refid="4965" relation="include">
+        </childnode>
+        <childnode refid="4966" relation="include">
+        </childnode>
+      </node>
+      <node id="4966">
+        <label>xil_mem.h</label>
+      </node>
+      <node id="4964">
+        <label>xstatus.h</label>
+      </node>
+      <node id="4962">
+        <label>xil_types.h</label>
+      </node>
+      <node id="4961">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5015">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="5027">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="5049">
+        <label>xsecure_plat_rsa.h</label>
+        <link refid="xsecure__plat__rsa_8h"/>
+        <childnode refid="5041" relation="include">
+        </childnode>
+        <childnode refid="5015" relation="include">
+        </childnode>
+        <childnode refid="5050" relation="include">
+        </childnode>
+        <childnode refid="5021" relation="include">
+        </childnode>
+      </node>
+      <node id="4969">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="5036">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="5060">
+        <label>xsecure.c</label>
+        <link refid="xsecure_8c"/>
+      </node>
+      <node id="5022">
+        <label>xilsecure_spartanup_lms_hss_server_example.c</label>
+        <link refid="xilsecure__spartanup__lms__hss__server__example_8c"/>
+      </node>
+      <node id="5059">
+        <label>xsecure.h</label>
+        <link refid="xsecure_8h"/>
+        <childnode refid="5060" relation="include">
+        </childnode>
+      </node>
+      <node id="4982">
+        <label>xsecure_slhdsa_addr.h</label>
+        <link refid="xsecure__slhdsa__addr_8h"/>
+        <childnode refid="4983" relation="include">
+        </childnode>
+        <childnode refid="4986" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+      </node>
+      <node id="5005">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="5068">
+        <label>xsecure_sha.c</label>
+        <link refid="zynqmp_2xsecure__sha_8c"/>
+      </node>
+      <node id="5042">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="5054">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="5007">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="4996">
+        <label>xsecure_slhdsa_instance.c</label>
+        <link refid="xsecure__slhdsa__instance_8c"/>
+      </node>
+      <node id="5008">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp_2xsecure__plat_8h"/>
+      </node>
+      <node id="4983">
+        <label>xsecure_slhdsa_instance.h</label>
+        <link refid="xsecure__slhdsa__instance_8h"/>
+        <childnode refid="4984" relation="include">
+        </childnode>
+        <childnode refid="4988" relation="include">
+        </childnode>
+        <childnode refid="4990" relation="include">
+        </childnode>
+        <childnode refid="4993" relation="include">
+        </childnode>
+        <childnode refid="4995" relation="include">
+        </childnode>
+        <childnode refid="4996" relation="include">
+        </childnode>
+        <childnode refid="4997" relation="include">
+        </childnode>
+      </node>
+      <node id="5033">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="5034">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="5061">
+        <label>xsecure_rsa.c</label>
+        <link refid="zynqmp_2xsecure__rsa_8c"/>
+      </node>
+      <node id="5053">
+        <label>xsecure_rsa.h</label>
+        <link refid="zynqmp_2xsecure__rsa_8h"/>
+        <childnode refid="5054" relation="include">
+        </childnode>
+        <childnode refid="5041" relation="include">
+        </childnode>
+        <childnode refid="5015" relation="include">
+        </childnode>
+        <childnode refid="5016" relation="include">
+        </childnode>
+        <childnode refid="5044" relation="include">
+        </childnode>
+        <childnode refid="5055" relation="include">
+        </childnode>
+        <childnode refid="5056" relation="include">
+        </childnode>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5057" relation="include">
+        </childnode>
+        <childnode refid="5058" relation="include">
+        </childnode>
+        <childnode refid="5051" relation="include">
+        </childnode>
+        <childnode refid="5059" relation="include">
+        </childnode>
+        <childnode refid="5061" relation="include">
+        </childnode>
+        <childnode refid="5062" relation="include">
+        </childnode>
+        <childnode refid="5063" relation="include">
+        </childnode>
+        <childnode refid="5064" relation="include">
+        </childnode>
+      </node>
+      <node id="4979">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="5070">
+        <label>xsecure_utils.c</label>
+        <link refid="zynqmp_2xsecure__utils_8c"/>
+      </node>
+      <node id="4976">
+        <label>xsecure_rsa_core.h</label>
+        <link refid="core_2rsa_2xsecure__rsa__core_8h"/>
+        <childnode refid="4977" relation="include">
+        </childnode>
+        <childnode refid="4979" relation="include">
+        </childnode>
+      </node>
+      <node id="4967">
+        <label>xsecure_utils.h</label>
+        <link refid="zynqmp/xsecure_utils.h"/>
+        <childnode refid="4968" relation="include">
+        </childnode>
+        <childnode refid="4969" relation="include">
+        </childnode>
+        <childnode refid="4970" relation="include">
+        </childnode>
+        <childnode refid="4971" relation="include">
+        </childnode>
+        <childnode refid="4972" relation="include">
+        </childnode>
+        <childnode refid="4973" relation="include">
+        </childnode>
+        <childnode refid="4974" relation="include">
+        </childnode>
+        <childnode refid="4976" relation="include">
+        </childnode>
+        <childnode refid="4978" relation="include">
+        </childnode>
+        <childnode refid="4981" relation="include">
+        </childnode>
+        <childnode refid="4982" relation="include">
+        </childnode>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4986" relation="include">
+        </childnode>
+        <childnode refid="4991" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+        <childnode refid="4996" relation="include">
+        </childnode>
+        <childnode refid="4998" relation="include">
+        </childnode>
+        <childnode refid="4999" relation="include">
+        </childnode>
+        <childnode refid="5000" relation="include">
+        </childnode>
+        <childnode refid="5003" relation="include">
+        </childnode>
+        <childnode refid="5006" relation="include">
+        </childnode>
+        <childnode refid="5009" relation="include">
+        </childnode>
+        <childnode refid="5012" relation="include">
+        </childnode>
+        <childnode refid="5024" relation="include">
+        </childnode>
+        <childnode refid="5066" relation="include">
+        </childnode>
+        <childnode refid="5067" relation="include">
+        </childnode>
+        <childnode refid="5061" relation="include">
+        </childnode>
+        <childnode refid="5068" relation="include">
+        </childnode>
+        <childnode refid="5069" relation="include">
+        </childnode>
+        <childnode refid="5070" relation="include">
+        </childnode>
+        <childnode refid="5071" relation="include">
+        </childnode>
+      </node>
+      <node id="4985">
+        <label>xsecure_slhdsa.c</label>
+        <link refid="xsecure__slhdsa_8c"/>
+      </node>
+      <node id="4993">
+        <label>xsecure_slhdsa.h</label>
+        <link refid="xsecure__slhdsa_8h"/>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4994" relation="include">
+        </childnode>
+      </node>
+      <node id="5041">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="4987">
+        <label>xsecure_slhdsa_wots.c</label>
+        <link refid="xsecure__slhdsa__wots_8c"/>
+      </node>
+      <node id="4997">
+        <label>xsecure_slhdsa_wots.h</label>
+        <link refid="xsecure__slhdsa__wots_8h"/>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+      </node>
+      <node id="4970">
+        <label>xsecure_elliptic.c</label>
+        <link refid="xsecure__elliptic_8c"/>
+      </node>
+      <node id="5058">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="5026">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="5016">
+        <label>xsecure_rsa_q.c</label>
+        <link refid="xsecure__rsa__q_8c"/>
+      </node>
+      <node id="5052">
+        <label>xsecure_rsa_q.h</label>
+        <link refid="xsecure__rsa__q_8h"/>
+        <childnode refid="5049" relation="include">
+        </childnode>
+        <childnode refid="5016" relation="include">
+        </childnode>
+        <childnode refid="5005" relation="include">
+        </childnode>
+        <childnode refid="5011" relation="include">
+        </childnode>
+      </node>
+      <node id="5020">
+        <label>xsecure_utils.c</label>
+        <link refid="core_2util_2xsecure__utils_8c"/>
+      </node>
+      <node id="5006">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__2vp_2xsecure__sha__hw_8h"/>
+        <childnode refid="5007" relation="include">
+        </childnode>
+        <childnode refid="5008" relation="include">
+        </childnode>
+      </node>
+      <node id="5013">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="5014">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__net_2xsecure__plat_8h"/>
+        <childnode refid="4970" relation="include">
+        </childnode>
+        <childnode refid="5015" relation="include">
+        </childnode>
+        <childnode refid="4974" relation="include">
+        </childnode>
+        <childnode refid="5016" relation="include">
+        </childnode>
+        <childnode refid="4979" relation="include">
+        </childnode>
+        <childnode refid="5017" relation="include">
+        </childnode>
+        <childnode refid="4998" relation="include">
+        </childnode>
+        <childnode refid="4999" relation="include">
+        </childnode>
+        <childnode refid="5018" relation="include">
+        </childnode>
+        <childnode refid="5020" relation="include">
+        </childnode>
+        <childnode refid="5021" relation="include">
+        </childnode>
+        <childnode refid="5022" relation="include">
+        </childnode>
+        <childnode refid="5023" relation="include">
+        </childnode>
+      </node>
+      <node id="5038">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="4980">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="5044">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4974">
+        <label>xsecure_mldsa.c</label>
+        <link refid="xsecure__mldsa_8c"/>
+      </node>
+      <node id="5066">
+        <label>xsecure_aes.c</label>
+        <link refid="zynqmp_2xsecure__aes_8c"/>
+      </node>
+      <node id="4973">
+        <label>xsecure_mldsa.h</label>
+        <link refid="xsecure__mldsa_8h"/>
+        <childnode refid="4974" relation="include">
+        </childnode>
+        <childnode refid="4975" relation="include">
+        </childnode>
+      </node>
+      <node id="5048">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="5065">
+        <label>xsecure_rsa_core.c</label>
+        <link refid="zynqmp_2xsecure__rsa__core_8c"/>
+      </node>
+      <node id="5024">
+        <label>xsecure_rsa_core.h</label>
+        <link refid="zynqmp_2xsecure__rsa__core_8h"/>
+        <childnode refid="5025" relation="include">
+        </childnode>
+        <childnode refid="5049" relation="include">
+        </childnode>
+        <childnode refid="5052" relation="include">
+        </childnode>
+        <childnode refid="5053" relation="include">
+        </childnode>
+        <childnode refid="5065" relation="include">
+        </childnode>
+      </node>
+      <node id="5011">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp__p_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="4971">
+        <label>xsecure_cryptochk.c</label>
+        <link refid="core_2generic_2xsecure__cryptochk_8c"/>
+      </node>
+      <node id="4999">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsx_2xsecure__trng_8c"/>
+      </node>
+      <node id="5051">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="5050">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="5027" relation="include">
+        </childnode>
+        <childnode refid="4969" relation="include">
+        </childnode>
+        <childnode refid="5015" relation="include">
+        </childnode>
+        <childnode refid="5013" relation="include">
+        </childnode>
+        <childnode refid="5051" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+      </node>
+      <node id="5029">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="5025">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="5026" relation="include">
+        </childnode>
+        <childnode refid="5027" relation="include">
+        </childnode>
+        <childnode refid="4969" relation="include">
+        </childnode>
+        <childnode refid="5028" relation="include">
+        </childnode>
+        <childnode refid="5029" relation="include">
+        </childnode>
+        <childnode refid="5030" relation="include">
+        </childnode>
+        <childnode refid="5032" relation="include">
+        </childnode>
+        <childnode refid="5040" relation="include">
+        </childnode>
+        <childnode refid="5041" relation="include">
+        </childnode>
+        <childnode refid="5033" relation="include">
+        </childnode>
+        <childnode refid="5034" relation="include">
+        </childnode>
+        <childnode refid="4980" relation="include">
+        </childnode>
+        <childnode refid="5035" relation="include">
+        </childnode>
+        <childnode refid="5036" relation="include">
+        </childnode>
+        <childnode refid="4994" relation="include">
+        </childnode>
+        <childnode refid="5042" relation="include">
+        </childnode>
+        <childnode refid="5043" relation="include">
+        </childnode>
+        <childnode refid="5044" relation="include">
+        </childnode>
+        <childnode refid="5045" relation="include">
+        </childnode>
+        <childnode refid="5037" relation="include">
+        </childnode>
+        <childnode refid="5007" relation="include">
+        </childnode>
+        <childnode refid="5046" relation="include">
+        </childnode>
+        <childnode refid="5038" relation="include">
+        </childnode>
+        <childnode refid="5047" relation="include">
+        </childnode>
+        <childnode refid="5039" relation="include">
+        </childnode>
+        <childnode refid="5048" relation="include">
+        </childnode>
+      </node>
+      <node id="4975">
+        <label>xsecure_mldsa_ipihandler.c</label>
+        <link refid="xsecure__mldsa__ipihandler_8c"/>
+      </node>
+      <node id="5031">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="5030">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="5026" relation="include">
+        </childnode>
+        <childnode refid="5027" relation="include">
+        </childnode>
+        <childnode refid="5031" relation="include">
+        </childnode>
+        <childnode refid="5032" relation="include">
+        </childnode>
+        <childnode refid="5033" relation="include">
+        </childnode>
+        <childnode refid="5034" relation="include">
+        </childnode>
+        <childnode refid="5035" relation="include">
+        </childnode>
+        <childnode refid="5036" relation="include">
+        </childnode>
+        <childnode refid="4994" relation="include">
+        </childnode>
+        <childnode refid="5037" relation="include">
+        </childnode>
+        <childnode refid="5038" relation="include">
+        </childnode>
+        <childnode refid="5039" relation="include">
+        </childnode>
+      </node>
+      <node id="5056">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="5040">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="5047">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="5009">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__2vp__p_2xsecure__sha__hw_8h"/>
+        <childnode refid="5010" relation="include">
+        </childnode>
+      </node>
+      <node id="5010">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8h"/>
+        <childnode refid="5011" relation="include">
+        </childnode>
+      </node>
+      <node id="5017">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmx_2xsecure__sha_8c"/>
+      </node>
+      <node id="5043">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="5000">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal_2xsecure__sha__hw_8h"/>
+        <childnode refid="5001" relation="include">
+        </childnode>
+        <childnode refid="5002" relation="include">
+        </childnode>
+      </node>
+      <node id="5071">
+        <label>xilsecure_aes_example.c</label>
+        <link refid="xilsecure__aes__example_8c"/>
+      </node>
+      <node id="4998">
+        <label>xsecure_trng.c</label>
+        <link refid="trngpsv_2xsecure__trng_8c"/>
+      </node>
+      <node id="4978">
+        <label>xsecure_rsa.c</label>
+        <link refid="core_2rsa_2xsecure__rsa_8c"/>
+      </node>
+      <node id="4968">
+        <label>xsecure_aes.c</label>
+        <link refid="core_2aes_2xsecure__aes_8c"/>
+      </node>
+      <node id="4977">
+        <label>xsecure_rsa.h</label>
+        <link refid="core_2rsa_2xsecure__rsa_8h"/>
+        <childnode refid="4978" relation="include">
+        </childnode>
+        <childnode refid="4979" relation="include">
+        </childnode>
+        <childnode refid="4980" relation="include">
+        </childnode>
+      </node>
+      <node id="5019">
+        <label>xsecure_sss.c</label>
+        <link refid="core_2util_2xsecure__sss_8c"/>
+      </node>
+      <node id="5018">
+        <label>xsecure_sss.h</label>
+        <link refid="core_2util_2xsecure__sss_8h"/>
+        <childnode refid="5019" relation="include">
+        </childnode>
+      </node>
+      <node id="5035">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="4994">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="5039">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="5062">
+        <label>xilsecure_rsa_example.c</label>
+        <link refid="xilsecure__rsa__example_8c"/>
+      </node>
+      <node id="4986">
+        <label>xsecure_slhdsa_fors.c</label>
+        <link refid="xsecure__slhdsa__fors_8c"/>
+      </node>
+      <node id="4984">
+        <label>xsecure_slhdsa_fors.h</label>
+        <link refid="xsecure__slhdsa__fors_8h"/>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4986" relation="include">
+        </childnode>
+        <childnode refid="4987" relation="include">
+        </childnode>
+      </node>
+      <node id="5067">
+        <label>xsecure_cryptochk.c</label>
+        <link refid="zynqmp_2xsecure__cryptochk_8c"/>
+      </node>
+      <node id="4989">
+        <label>xsecure_slhdsa_ht.c</label>
+        <link refid="xsecure__slhdsa__ht_8c"/>
+      </node>
+      <node id="4988">
+        <label>xsecure_slhdsa_ht.h</label>
+        <link refid="xsecure__slhdsa__ht_8h"/>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+      </node>
+      <node id="5021">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="net_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="5037">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="5057">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="5028">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="5064">
+        <label>xilsecure_versal_rsa_server_example.c</label>
+        <link refid="xilsecure__versal__rsa__server__example_8c"/>
+      </node>
+      <node id="5055">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="5045">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="5004">
+        <label>xsecure_plat.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8h"/>
+        <childnode refid="5005" relation="include">
+        </childnode>
+      </node>
+      <node id="5069">
+        <label>xsecure_sss.c</label>
+        <link refid="zynqmp_2xsecure__sss_8c"/>
+      </node>
+      <node id="4992">
+        <label>xsecure_slhdsa_xmss.c</label>
+        <link refid="xsecure__slhdsa__xmss_8c"/>
+      </node>
+      <node id="4995">
+        <label>xsecure_slhdsa_xmss.h</label>
+        <link refid="xsecure__slhdsa__xmss_8h"/>
+        <childnode refid="4989" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+      </node>
+      <node id="5063">
+        <label>xilsecure_rsa_generic_example.c</label>
+        <link refid="xilsecure__rsa__generic__example_8c"/>
+      </node>
+      <node id="5001">
+        <label>xsecure_plat.c</label>
+        <link refid="versal_2xsecure__plat_8c"/>
+      </node>
+      <node id="5002">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_2xsecure__plat_8h"/>
+      </node>
+      <node id="5003">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__sha__hw_8h"/>
+        <childnode refid="5004" relation="include">
+        </childnode>
+      </node>
+      <node id="4991">
+        <label>xsecure_slhdsa_hash.c</label>
+        <link refid="xsecure__slhdsa__hash_8c"/>
+      </node>
+      <node id="5023">
+        <label>xilsecure_spartanup_sha_server_example.c</label>
+        <link refid="xilsecure__spartanup__sha__server__example_8c"/>
+      </node>
+      <node id="4990">
+        <label>xsecure_slhdsa_hash.h</label>
+        <link refid="xsecure__slhdsa__hash_8h"/>
+        <childnode refid="4985" relation="include">
+        </childnode>
+        <childnode refid="4986" relation="include">
+        </childnode>
+        <childnode refid="4991" relation="include">
+        </childnode>
+        <childnode refid="4989" relation="include">
+        </childnode>
+        <childnode refid="4987" relation="include">
+        </childnode>
+        <childnode refid="4992" relation="include">
+        </childnode>
+      </node>
+      <node id="4981">
+        <label>xsecure_sha.c</label>
+        <link refid="core_2sha_2sha__pmxc_2xsecure__sha_8c"/>
+      </node>
+      <node id="4972">
+        <label>xsecure_hmac.c</label>
+        <link refid="xsecure__hmac_8c"/>
+      </node>
+      <node id="5032">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="5046">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="5012">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__net_2xsecure__sha__hw_8h"/>
+        <childnode refid="5013" relation="include">
+        </childnode>
+        <childnode refid="5014" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Definition of asserts if macro is defined</header>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" prot="public" static="no">
+        <name>XSecure_AssertVoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+<para>&lt; All asserts are under XSECDEBUG macro now </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="94" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga774447986423f485385d95049c6b3a49" prot="public" static="no">
+        <name>XSecure_AssertVoidAlways</name>
+        <param></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga657be42526bc347684ea0fc03d71fb71" prot="public" static="no">
+        <name>XSecure_AssertNonvoid</name>
+        <param><defname>Expression</defname></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gac27187d674d1eaa7d1a02d1ab14f6bbd" prot="public" static="no">
+        <name>XSecure_AssertNonvoidAlways</name>
+        <param></param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" prot="public" static="no">
+        <name>XSECURE_RESET_SET</name>
+        <initializer>(1U)</initializer>
+        <briefdescription>
+<para>To set the core into reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga887e3d01831123de7f307e6dbea2a86b" prot="public" static="no">
+        <name>XSECURE_RESET_UNSET</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+<para>To take the core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" prot="public" static="no">
+        <name>XSECURE_WORD_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>WORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" prot="public" static="no">
+        <name>XSECURE_QWORD_SIZE</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>QWORD size in BYTES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" prot="public" static="no">
+        <name>XSECURE_WORD_IN_BITS</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>WORD size in BITS. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga5d090a399a2fe568bea608504ae2b586" prot="public" static="no">
+        <name>XSECURE_WORD_ALIGN_MASK</name>
+        <initializer>(<ref refid="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" kindref="member">XSECURE_WORD_SIZE</ref> - 1U)</initializer>
+        <briefdescription>
+<para>WORD alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga3d5f1bc7790c89b72c761985d4ebd02b" prot="public" static="no">
+        <name>XSecure_MemCpy</name>
+        <initializer>Xil_MemCpy</initializer>
+        <briefdescription>
+<para>Backward compatibility. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1ga4e695dfc0e718c61fc93d707a9578f54" prot="public" static="no">
+        <name>XSecure_In32</name>
+        <initializer>(Xil_In32)</initializer>
+        <briefdescription>
+<para>Reads data from 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gae500e79a22c37a14027ce0ad88a8cafe" prot="public" static="no">
+        <name>XSecure_Out32</name>
+        <initializer>(Xil_Out32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="221" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__utils__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" prot="public" static="no">
+        <name>XSecure_SecureOut32</name>
+        <initializer>(Xil_SecureOut32)</initializer>
+        <briefdescription>
+<para>Writes data to 32-bit address and checks for blind writes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga3f7fe918bc7bc235cba30696d0d65f9d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_ReadReg</definition>
+        <argsstring>(u32 BaseAddress, u16 RegOffset)</argsstring>
+        <name>XSecure_ReadReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>Read from the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the offset from the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga709e87e680c9bac038fc6d1e6a0811a7" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_WriteReg</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, u32 RegisterValue)</argsstring>
+        <name>XSecure_WriteReg</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegisterValue</declname>
+        </param>
+        <briefdescription>
+<para>Write to the register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Contains the offset from the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Is the value to be written to the register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="127" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="zynqmp_2xsecure__utils_8h_1gadb8f605fc7e0699a62c0a77912eaea58" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XSecure_In64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_In64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads data from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="140" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="zynqmp_2xsecure__utils_8h_1ga9e32fcf66a5a42db44d6fed8f9a38402" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XSecure_InByte64</definition>
+        <argsstring>(u64 Addr)</argsstring>
+        <name>XSecure_InByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a byte from 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="158" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="zynqmp_2xsecure__utils_8h_1ga6e7833d733836dd3fad80eed9a76e76b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_Out64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_Out64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="177" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="zynqmp_2xsecure__utils_8h_1ga192d3ba15ccedc82c6e30c8ab6282835" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutWord64</definition>
+        <argsstring>(u64 Addr, u32 Data)</argsstring>
+        <name>XSecure_OutWord64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes 32 bit data to 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="194" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="194" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="zynqmp_2xsecure__utils_8h_1ga0c94c2fa5ed4aaa7bfddc26f808c2611" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_OutByte64</definition>
+        <argsstring>(u64 Addr, u8 Data)</argsstring>
+        <name>XSecure_OutByte64</name>
+        <param>
+          <type>u64</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a byte to a 64-bit address. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to be written </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h" bodystart="211" bodyend="218"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga97ae74348a2015f022bb5175337dda0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_SetReset</definition>
+        <argsstring>(u32 BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_SetReset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function places the hardware core into the reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="73" bodyend="76"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1gafa9d0a73fafd47603b9c077cd0ac90ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_ReleaseReset</definition>
+        <argsstring>(u32 BaseAddress, u32 Offset)</argsstring>
+        <name>XSecure_ReleaseReset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Offset</declname>
+        </param>
+        <briefdescription>
+<para>This function takes the hardware core out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Base address of the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Offset of the reset register </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.c" bodystart="59" bodyend="63"/>
+        <references refid="group__xsecure__generic__server__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" compoundref="core_2util_2xsecure__utils_8h" startline="50">XSECURE_RESET_SET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga887e3d01831123de7f307e6dbea2a86b" compoundref="core_2util_2xsecure__utils_8h" startline="51">XSECURE_RESET_UNSET</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_MemCpy64</definition>
+        <argsstring>(u64 DstAddr, u64 SrcAddr, u32 Cnt)</argsstring>
+        <name>XSecure_MemCpy64</name>
+        <param>
+          <type>u64</type>
+          <declname>DstAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>SrcAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Cnt</declname>
+        </param>
+        <briefdescription>
+<para>This function copies data from 64 bit address Src to 64 bit address Dst. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DstAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 64 bit destination address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 64 bit source address </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Cnt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of bytes of data to be copied </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.c" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/spartanup/xsecure_utils.c" bodystart="74" bodyend="95"/>
+        <references refid="group__xsecure__generic__server__apis_1ga5d090a399a2fe568bea608504ae2b586" compoundref="core_2util_2xsecure__utils_8h" startline="56">XSECURE_WORD_ALIGN_MASK</references>
+        <referencedby refid="group__xsecure__aes__server__apis_1gafc1c2624b3827e83af7c24b2906bb7db" compoundref="core_2aes_2xsecure__aes_8c" startline="948" endline="952">XSecure_AesEncryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__keyunwrap__server__apis_1gaf1df351e91ee42e7c281b2e676ffda7b" compoundref="xsecure__keyunwrap_8c" startline="185" endline="283">XSecure_KeyUnwrap</referencedby>
+        <referencedby refid="group__xsecure__helper__server__apis_1gae3c2624ba0d5bf2bbe227593043acae4" compoundref="spartanup_2xsecure__plat_8c" startline="521" endline="642">XSecure_ShaDmaXfer</referencedby>
+        <referencedby refid="group__xsecure__slhdsa__server__apis_1gaaa866ce6d1c865f26afda73bc6a2003b" compoundref="xsecure__slhdsa__hash_8c" startline="197" endline="258">XSecure_SlhdsaShake256sChain</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+4.0   vns     03/12/19 Initial Release
+4.1   kal     05/20/19 Updated doxygen tags
+      psl     08/05/19 Fixed MISRA-C violation
+4.2   har     01/06/20 Added macro XSecure_Out32
+      kpt     01/07/20 Added Macro XSECURE_WORD_SIZE common for
+                       both AES and RSA
+      rpo     04/02/20 Replaced function like macros with inline functions
+                       Redefined macros for reading and writing into registers
+      har     04/13/20 Removed code for SSS configuration
+4.3   rpo     09/01/20 Asserts are not compiled by default for
+                       secure libraries
+      am      09/24/20 Resolved MISRA C violations
+      har     10/12/20 Addressed security review comments
+      am      10/10/20 Resolved Coverity warning
+4.5   am      11/24/20 Resolved MISRA C violations
+      bm      01/13/21 Added 64 bit In and Out apis
+      har     02/01/21 Removed Status variable from XSecure_ReadReg
+      bm      05/19/21 Added macro for word aligned mask
+4.6   har     07/14/21 Fixed doxygen warnings
+      gm      07/16/21 Support added to read 32 bit data from 64bit address
+      har     08/14/21 Added macro for QWord
+      am      09/17/21 Resolved compiler warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2019<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#ifndef<sp/>XSECURE_UTILS_H_</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_UTILS_H_</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_mem.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="group__xsecure__utils__apis_1ga45b281f4082c516c7e1f16b1cc4aba60" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_RESET_SET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)<sp/></highlight></codeline>
+<codeline lineno="66" refid="group__xsecure__utils__apis_1ga887e3d01831123de7f307e6dbea2a86b" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_RESET_UNSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)<sp/></highlight></codeline>
+<codeline lineno="67" refid="group__xsecure__utils__apis_1ga014b8298824e67a2e9fe8a5c8719f59a" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_WORD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)<sp/></highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__utils__apis_1gac1a4435f3c1d7f6ca90c1b5838ee6b27" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_QWORD_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__utils__apis_1ga0ab39c362c3e2b0d6750187ce4e7c809" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_WORD_IN_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__utils__apis_1ga5d090a399a2fe568bea608504ae2b586" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_WORD_ALIGN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSECURE_WORD_SIZE<sp/>-<sp/>1U)</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Type<sp/>Definitions******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__utils__apis_1ga3d5f1bc7790c89b72c761985d4ebd02b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSecure_MemCpy<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_MemCpy<sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#ifdef<sp/>XSECDEBUG</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertVoid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_AssertVoid)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertVoidAlways<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_AssertVoidAlways)</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertNonvoid<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_AssertNonvoid)</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertNonvoidAlways<sp/><sp/><sp/><sp/><sp/>(Xil_AssertNonvoidAlways)</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="94" refid="group__xsecure__utils__apis_1ga2d44494aa84e82f6e26bd0c0a396b734" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertVoid(Expression)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertVoidAlways()</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertNonvoid(Expression)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSecure_AssertNonvoidAlways()</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="101"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="112"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XSecure_ReadReg(u32<sp/>BaseAddress,<sp/>u16<sp/>RegOffset)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xil_In32((UINTPTR)(BaseAddress<sp/>+<sp/>RegOffset));</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/***************************************************************************/</highlight></codeline>
+<codeline lineno="127"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_WriteReg(u32<sp/>BaseAddress,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegOffset,<sp/>u32<sp/>RegisterValue)</highlight></codeline>
+<codeline lineno="129"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((UINTPTR)(BaseAddress<sp/>+<sp/>RegOffset),<sp/>RegisterValue);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="140"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>XSecure_In64(u64<sp/>Addr)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadVal;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadVal<sp/>=<sp/>lwea(Addr);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadVal<sp/>=<sp/>(u32)Xil_In64((UINTPTR)Addr);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ReadVal;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="158"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XSecure_InByte64(u64<sp/>Addr)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>ReadVal;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadVal<sp/>=<sp/>(u8)lbuea(Addr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ReadVal<sp/>=<sp/>Xil_In8((UINTPTR)Addr);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ReadVal;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="177"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_Out64(u64<sp/>Addr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>swea(Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out64((UINTPTR)Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="194"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_OutWord64(u64<sp/>Addr,<sp/>u32<sp/>Data)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>swea(Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((UINTPTR)Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="211"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_OutByte64(u64<sp/>Addr,<sp/>u8<sp/>Data)</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>VERSAL_PLM</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sbea(Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out8((UINTPTR)Addr,<sp/>Data);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="group__xsecure__utils__apis_1ga4e695dfc0e718c61fc93d707a9578f54" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSecure_In32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="221" refid="group__xsecure__utils__apis_1gae500e79a22c37a14027ce0ad88a8cafe" refkind="member"><highlight class="preprocessor">#define<sp/>XSecure_Out32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_Out32)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="222" refid="group__xsecure__utils__apis_1gada4e7acc0eb717eb5ed62a29dc4b9bb6" refkind="member"><highlight class="preprocessor">#define<sp/>XSecure_SecureOut32<sp/><sp/><sp/><sp/><sp/>(Xil_SecureOut32)</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" kindref="member">XSecure_SetReset</ref>(u32<sp/>BaseAddress,<sp/>u32<sp/>Offset);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" kindref="member">XSecure_ReleaseReset</ref>(u32<sp/>BaseAddress,<sp/>u32<sp/>Offset);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__utils__apis_1ga0e0f4c7d8c32b8c6d680553e068f4614" kindref="member">XSecure_MemCpy64</ref>(u64<sp/>DstAddr,<sp/>u64<sp/>SrcAddr,<sp/>u32<sp/>Cnt);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_UTILS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_utils.h"/>
+  </compounddef>
+</doxygen>

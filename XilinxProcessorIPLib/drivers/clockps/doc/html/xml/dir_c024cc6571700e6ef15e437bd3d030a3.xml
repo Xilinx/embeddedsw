@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c024cc6571700e6ef15e437bd3d030a3" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xclockps_8c">xclockps.c</innerfile>
+    <innerfile refid="xclockps_8h">xclockps.h</innerfile>
+    <innerfile refid="xclockps__divider_8c">xclockps_divider.c</innerfile>
+    <innerfile refid="xclockps__fixedfactor_8c">xclockps_fixedfactor.c</innerfile>
+    <innerfile refid="xclockps__g_8c">xclockps_g.c</innerfile>
+    <innerfile refid="xclockps__gate_8c">xclockps_gate.c</innerfile>
+    <innerfile refid="xclockps__hw_8h">xclockps_hw.h</innerfile>
+    <innerfile refid="xclockps__mux_8c">xclockps_mux.c</innerfile>
+    <innerfile refid="xclockps__pll_8c">xclockps_pll.c</innerfile>
+    <innerfile refid="xclockps__sinit_8c">xclockps_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/clockps/src/"/>
+  </compounddef>
+</doxygen>

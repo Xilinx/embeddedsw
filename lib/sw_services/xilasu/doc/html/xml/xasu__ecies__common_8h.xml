@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ecies__common_8h" kind="file">
+    <compoundname>xasu_ecies_common.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xasu__eciesinfo_8h" local="yes">xasu_eciesinfo.h</includes>
+    <includedby refid="xasu__ecc_8c" local="yes">xasu_ecc.c</includedby>
+    <includedby refid="xasu__ecies_8c" local="yes">xasu_ecies.c</includedby>
+    <includedby refid="xasu__keymanager_8c" local="yes">xasu_keymanager.c</includedby>
+    <includedby refid="xasu__ecies__common_8c" local="yes">xasu_ecies_common.c</includedby>
+    <incdepgraph>
+      <node id="357">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="356">
+        <label>xasu_eciesinfo.h</label>
+        <link refid="xasu__eciesinfo_8h"/>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="357" relation="include">
+        </childnode>
+      </node>
+      <node id="355">
+        <label>xstatus.h</label>
+      </node>
+      <node id="353">
+        <label>xasu_ecies_common.h</label>
+        <link refid="xasu_ecies_common.h"/>
+        <childnode refid="354" relation="include">
+        </childnode>
+        <childnode refid="355" relation="include">
+        </childnode>
+        <childnode refid="356" relation="include">
+        </childnode>
+      </node>
+      <node id="354">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="359">
+        <label>xasu_ecc.c</label>
+        <link refid="xasu__ecc_8c"/>
+      </node>
+      <node id="362">
+        <label>xasu_ecies_common.c</label>
+        <link refid="xasu__ecies__common_8c"/>
+      </node>
+      <node id="358">
+        <label>xasu_ecies_common.h</label>
+        <link refid="xasu_ecies_common.h"/>
+        <childnode refid="359" relation="include">
+        </childnode>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+        <childnode refid="362" relation="include">
+        </childnode>
+      </node>
+      <node id="360">
+        <label>xasu_ecies.c</label>
+        <link refid="xasu__ecies_8c"/>
+      </node>
+      <node id="361">
+        <label>xasu_keymanager.c</label>
+        <link refid="xasu__keymanager_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ValidateEciesParameters</definition>
+        <argsstring>(const XAsu_EciesParams *EciesParams)</argsstring>
+        <name>XAsu_ValidateEciesParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___ecies_params" kindref="compound">XAsu_EciesParams</ref> *</type>
+          <declname>EciesParams</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the input parameters for ECIES. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>EciesParams</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___ecies_params" kindref="compound">XAsu_EciesParams</ref> structure that holds the input parameters for ECIES.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if ECIES input parameters validation is successful.</para></listitem><listitem><para>XST_FAILURE, if ECIES input parameters validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate SHA Mode and SHA Type.</para><para>Validate AES key size.</para><para>Validate IV and MAC length parameters.</para><para>Validate context and data lengths.</para><para>Validate ECC curve type.</para><para>Validate that the addresses of all input and output buffers are non-zero. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ecies_common.c" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ecies_common.c" bodystart="61" bodyend="106"/>
+        <references refid="struct_x_asu___ecies_params_1a5537a865706283c027ee9e95ba39bb5d" compoundref="xasu__eciesinfo_8h" startline="74">XAsu_EciesParams::AesKeySize</references>
+        <references refid="struct_x_asu___ecies_params_1a4d0d8cb38d8498d24bc76851076e9710" compoundref="xasu__eciesinfo_8h" startline="63">XAsu_EciesParams::ContextAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a30ccc1b46bce15797bf5cbdccd4acfc4" compoundref="xasu__eciesinfo_8h" startline="66">XAsu_EciesParams::ContextLen</references>
+        <references refid="struct_x_asu___ecies_params_1a10c2ea889b613ea55ca3c415e4c621e6" compoundref="xasu__eciesinfo_8h" startline="67">XAsu_EciesParams::DataLength</references>
+        <references refid="struct_x_asu___ecies_params_1a0bd65aa5b7faf176c9e52e3e2347cc98" compoundref="xasu__eciesinfo_8h" startline="68">XAsu_EciesParams::EccCurveType</references>
+        <references refid="struct_x_asu___ecies_params_1a0de4e32a344bfe210b9a8e60c387e152" compoundref="xasu__eciesinfo_8h" startline="76">XAsu_EciesParams::EccKeyLength</references>
+        <references refid="struct_x_asu___ecies_params_1a2bfd1ff2f154a70612c91d482c5ceea6" compoundref="xasu__eciesinfo_8h" startline="58">XAsu_EciesParams::InDataAddr</references>
+        <references refid="struct_x_asu___ecies_params_1abd49b0a55a8d01a3f7c58b1ae01de258" compoundref="xasu__eciesinfo_8h" startline="60">XAsu_EciesParams::IvAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a5d1fd299bcddc8bc104d0049fcef8a4d" compoundref="xasu__eciesinfo_8h" startline="77">XAsu_EciesParams::IvLength</references>
+        <references refid="struct_x_asu___ecies_params_1a66353da061945a39bccef5de85f92ff1" compoundref="xasu__eciesinfo_8h" startline="62">XAsu_EciesParams::MacAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a5e4045d64d4cddc996491a4355a39a8e" compoundref="xasu__eciesinfo_8h" startline="78">XAsu_EciesParams::MacLength</references>
+        <references refid="struct_x_asu___ecies_params_1aba4409421f368710659a861058b385df" compoundref="xasu__eciesinfo_8h" startline="61">XAsu_EciesParams::OutDataAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a71659976f54404c81a55e6b586d96b8d" compoundref="xasu__eciesinfo_8h" startline="54">XAsu_EciesParams::RxKeyAddr</references>
+        <references refid="struct_x_asu___ecies_params_1a7a3828422b375b9cb454b46ea9bf2404" compoundref="xasu__eciesinfo_8h" startline="70">XAsu_EciesParams::ShaMode</references>
+        <references refid="struct_x_asu___ecies_params_1ad61d0a4035cef34a092e8b8ee2413d1d" compoundref="xasu__eciesinfo_8h" startline="69">XAsu_EciesParams::ShaType</references>
+        <references refid="struct_x_asu___ecies_params_1a4907eea1457b2fc81b608306e89f59df" compoundref="xasu__eciesinfo_8h" startline="56">XAsu_EciesParams::TxKeyAddr</references>
+        <references refid="group__xasu__common__defs_1ga2ee13c774f1393949629518f645785b8" compoundref="xasu__aesinfo_8h" startline="50">XASU_AES_IV_SIZE_96BIT_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga7d2c1e79c450b652a8a299a7de7543f1" compoundref="xasu__aesinfo_8h" startline="102">XASU_AES_KEY_SIZE_128_BITS</references>
+        <references refid="group__xasu__common__defs_1ga565a9f9f9f947674eb43a1ce60e638d6" compoundref="xasu__aesinfo_8h" startline="103">XASU_AES_KEY_SIZE_256_BITS</references>
+        <references refid="group__xasu__common__defs_1ga2b23227296edca13de1f3732e04cca19" compoundref="xasu__aesinfo_8h" startline="60">XASU_AES_MAX_TAG_LENGTH_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga76ecdcdf1b1ad4bda09eac3baa13282f" compoundref="xasu__def_8h" startline="66">XASU_ASU_DMA_MAX_TRANSFER_LENGTH</references>
+        <references refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" compoundref="xasu__ecies__common_8c" startline="120" endline="169">XAsu_EccValidateCurveInfo</references>
+        <references refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" compoundref="xasu__kdfinfo_8h" startline="54">XASU_KDF_MAX_CONTEXT_LEN</references>
+        <referencedby refid="group__xasu__ecies__client__apis_1ga689f879d22a42d9da5fe3148cd307883" compoundref="xasu__ecies_8c" startline="124" endline="167">XAsu_EciesDecrypt</referencedby>
+        <referencedby refid="group__xasu__ecies__client__apis_1gafa9ae6edbd3dba6873779ab7bdc055b4" compoundref="xasu__ecies_8c" startline="62" endline="105">XAsu_EciesEncrypt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_EccValidateCurveInfo</definition>
+        <argsstring>(u32 CurveType, u32 CurveLen)</argsstring>
+        <name>XAsu_EccValidateCurveInfo</name>
+        <param>
+          <type>u32</type>
+          <declname>CurveType</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CurveLen</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the given ECC curve type and curve length. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CurveType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Curve type provided. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CurveLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Curve length provided.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if curve type is valid.</para></listitem><listitem><para>XST_FAILURE, if curve length is invalid. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ecies_common.c" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ecies_common.c" bodystart="120" bodyend="169"/>
+        <references refid="group__xasu__common__defs_1ga1c82f52a87a08576a6bde00ee9affc44" compoundref="xasu__eccinfo_8h" startline="65">XASU_ECC_BRAINPOOL_P256</references>
+        <references refid="group__xasu__common__defs_1gac03e0be6a7084a1bd1cba733058768f0" compoundref="xasu__eccinfo_8h" startline="66">XASU_ECC_BRAINPOOL_P320</references>
+        <references refid="group__xasu__common__defs_1gae0315d337fe37995bcf91bf563360b61" compoundref="xasu__eccinfo_8h" startline="67">XASU_ECC_BRAINPOOL_P384</references>
+        <references refid="group__xasu__common__defs_1ga572ce71914996f8df084f6f0804e82ef" compoundref="xasu__eccinfo_8h" startline="68">XASU_ECC_BRAINPOOL_P512</references>
+        <references refid="group__xasu__common__defs_1gac4a7489bb920d096da9a133d65d3345b" compoundref="xasu__eccinfo_8h" startline="73">XASU_ECC_CURVE25519</references>
+        <references refid="group__xasu__common__defs_1ga038d5d6cf5625497fad4bd0556a3a5d5" compoundref="xasu__eccinfo_8h" startline="74">XASU_ECC_CURVE448</references>
+        <references refid="group__xasu__common__defs_1ga529b019add259716d19b52b45d6b4dbf" compoundref="xasu__eccinfo_8h" startline="100">XASU_ECC_CURVE448_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gae16783efc2fed98ddee55f272ec0ed18" compoundref="xasu__eccinfo_8h" startline="97">XASU_ECC_ED448_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gaa2b7c60491a82de1e957abc66e6a299d" compoundref="xasu__eccinfo_8h" startline="69">XASU_ECC_NIST_ED25519</references>
+        <references refid="group__xasu__common__defs_1gad73ba0297081b9bfbfb58a959898c527" compoundref="xasu__eccinfo_8h" startline="71">XASU_ECC_NIST_ED25519_PH</references>
+        <references refid="group__xasu__common__defs_1ga165bdfeb12775565e04c4f325b658e93" compoundref="xasu__eccinfo_8h" startline="70">XASU_ECC_NIST_ED448</references>
+        <references refid="group__xasu__common__defs_1ga6f90795d7edb6d0ab23606dba11cda51" compoundref="xasu__eccinfo_8h" startline="72">XASU_ECC_NIST_ED448_PH</references>
+        <references refid="group__xasu__common__defs_1ga754d019499ce9c9e2714a9ef84ab84d1" compoundref="xasu__eccinfo_8h" startline="62">XASU_ECC_NIST_P192</references>
+        <references refid="group__xasu__common__defs_1ga1d16dca0caf0a762ede1a0e8672010a2" compoundref="xasu__eccinfo_8h" startline="63">XASU_ECC_NIST_P224</references>
+        <references refid="group__xasu__common__defs_1gae0d5b0eb8d6006304f667517a55da079" compoundref="xasu__eccinfo_8h" startline="60">XASU_ECC_NIST_P256</references>
+        <references refid="group__xasu__common__defs_1ga88f95ad530f35943b833d493264927f0" compoundref="xasu__eccinfo_8h" startline="61">XASU_ECC_NIST_P384</references>
+        <references refid="group__xasu__common__defs_1ga73d575865c062728ed5a08b966bf8334" compoundref="xasu__eccinfo_8h" startline="64">XASU_ECC_NIST_P521</references>
+        <references refid="group__xasu__common__defs_1ga738898d2f2254bccc70b957aae4454ad" compoundref="xasu__eccinfo_8h" startline="76">XASU_ECC_P192_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga976161f17e148ae433db7c62b8346a4f" compoundref="xasu__eccinfo_8h" startline="79">XASU_ECC_P224_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga166c1c1d215da0a56a5c4e042d78b4d5" compoundref="xasu__eccinfo_8h" startline="82">XASU_ECC_P256_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1gabd0b7982d7b8c999efca697c2fe10e3a" compoundref="xasu__eccinfo_8h" startline="85">XASU_ECC_P320_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga561202b987c6542752ab230cbb5d3257" compoundref="xasu__eccinfo_8h" startline="88">XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga43bafac78b7dbc5623a08b5795b9313e" compoundref="xasu__eccinfo_8h" startline="91">XASU_ECC_P512_PVT_KEY_SIZE_IN_BYTES</references>
+        <references refid="group__xasu__common__defs_1ga8472a238724905399a7aa23e410523f7" compoundref="xasu__eccinfo_8h" startline="94">XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES</references>
+        <referencedby refid="group__xasu__ecc__client__apis_1ga66e66b97823b69487c4c2e10635dc226" compoundref="xasu__ecc_8c" startline="234" endline="286">XAsu_EccValidatePubKey</referencedby>
+        <referencedby refid="group__xasu__keymanager__client__apis_1ga3705ea1001da546f3fc6f3b3721a2035" compoundref="xasu__keymanager_8c" startline="461" endline="522">XAsu_KmGenerateEccKeyPair</referencedby>
+        <referencedby refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" compoundref="xasu__ecies__common_8c" startline="61" endline="106">XAsu_ValidateEciesParameters</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the ECIES function prototypes which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who   Date     Changes
+<hruler/>
+
+1.0   yog   02/18/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor">#ifndef<sp/>XASU_ECIES_COMMON_H_</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_ECIES_COMMON_H_</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__eciesinfo_8h" kindref="compound">xasu_eciesinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal">s32<sp/><ref refid="group__xasu__ecies__common__apis_1ga91448b30f049e4d7596cff8103bb6d60" kindref="member">XAsu_ValidateEciesParameters</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___ecies_params" kindref="compound">XAsu_EciesParams</ref><sp/>*EciesParams);</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">s32<sp/><ref refid="group__xasu__ecies__common__apis_1gabea090d5e90377bd531c47b85e8854bc" kindref="member">XAsu_EccValidateCurveInfo</ref>(u32<sp/>CurveType,<sp/>u32<sp/>CurveLen);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XASU_ECIES_COMMON_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_ecies_common.h"/>
+  </compounddef>
+</doxygen>

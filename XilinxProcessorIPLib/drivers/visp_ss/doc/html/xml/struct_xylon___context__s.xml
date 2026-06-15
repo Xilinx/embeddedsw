@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xylon___context__s" kind="struct" prot="public">
+    <compoundname>Xylon_Context_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xylon___context__s_1a214d480286e81396edbf9ed7c3eb069c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Xylon_Context_s::num_of_serailizer</definition>
+        <argsstring></argsstring>
+        <name>num_of_serailizer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="384" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xylon___context__s_1aa6be9b971a39c1e6ec1d6e2607d386e8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Xylon_Context_s::num_of_deserializer</definition>
+        <argsstring></argsstring>
+        <name>num_of_deserializer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xylon___context__s_1afe3b9389d5f603c0d326150e6e76c624" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Xylon_Context_s::SlaveAddress</definition>
+        <argsstring></argsstring>
+        <name>SlaveAddress</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="386" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="386" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/sensor/usr_sensor/include/fmc/max9296.h" bodystart="383" bodyend="387"/>
+    <listofallmembers>
+      <member refid="struct_xylon___context__s_1aa6be9b971a39c1e6ec1d6e2607d386e8" prot="public" virt="non-virtual"><scope>Xylon_Context_s</scope><name>num_of_deserializer</name></member>
+      <member refid="struct_xylon___context__s_1a214d480286e81396edbf9ed7c3eb069c" prot="public" virt="non-virtual"><scope>Xylon_Context_s</scope><name>num_of_serailizer</name></member>
+      <member refid="struct_xylon___context__s_1afe3b9389d5f603c0d326150e6e76c624" prot="public" virt="non-virtual"><scope>Xylon_Context_s</scope><name>SlaveAddress</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

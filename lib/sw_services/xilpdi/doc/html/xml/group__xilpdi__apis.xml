@@ -1,0 +1,591 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xilpdi__apis" kind="group">
+    <compoundname>xilpdi_apis</compoundname>
+    <title>XilPDI APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidateChecksum</definition>
+        <argsstring>(const void *Buffer, u32 Length)</argsstring>
+        <name>XilPdi_ValidateChecksum</name>
+        <param>
+          <type>const void *</type>
+          <declname>Buffer</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to validate the word checksum for the Image Header table and Partition Headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            Checksum is based on the formula
+            Checksum = ~ (X1 + X2 + X3 + .... + Xn)
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the data for which checksum should be calculated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>of the buffer for which checksum should be calculated. Last word is taken as expected checksum.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS for successful checksum validation.</para></listitem><listitem><para>XST_FAILURE if checksum validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify the buffer is not empty and has at least 2 values. Otherwise, return XST_FAILURE</para></listitem><listitem><para>Calculate the checksum with the formula below Checksum = ~ (X1 + X2 + X3 + .... + Xn) where X1, X2, ...Xn are data words for which checksum should be calculated</para></listitem><listitem><para>Verify the calculated checksum with the last word (expected checksum) in buffer. If the checksum matches, return XST_SUCCESS. Otherwise, return XST_FAILURE.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="111" bodyend="157"/>
+        <references refid="xilpdi_8h_1a2aadc896b8c367654a52c3de7d830e43" compoundref="xilpdi_8h" startline="224">XILPDI_CHECKSUM_MIN_BUF_LEN</references>
+        <references refid="xilpdi_8h_1a84ae0b3fa3d2f28040e775618d16ce93" compoundref="xilpdi_8h" startline="229">XILPDI_INVERT_CHECKSUM</references>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" compoundref="xilpdi_8c" startline="176" endline="213">XilPdi_ValidateImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga797b37ca16b6096549489adff97e5dfc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidateImgHdrTbl</definition>
+        <argsstring>(const XilPdi_ImgHdrTbl *ImgHdrTbl)</argsstring>
+        <name>XilPdi_ValidateImgHdrTbl</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref> *</type>
+          <declname>ImgHdrTbl</declname>
+        </param>
+        <briefdescription>
+<para>This function checks the fields of the Image Header Table and validates them. </para>        </briefdescription>
+        <detaileddescription>
+<para>Image Header Table contains the fields that are common across all the partitions and images.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ImgHdrTbl</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>pointer to the Image Header Table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful Image Header Table validation.</para></listitem><listitem><para>XILPDI_ERR_IHT_CHECKSUM if checksum validation fails.</para></listitem><listitem><para>XILPDI_ERR_NO_OF_IMGS if number of images is less than 0 or more than 32.</para></listitem><listitem><para>XILPDI_ERR_NO_OF_PRTNS if number of partitions is less than 0 or more than 32. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Calculate the checksum of Image Header Table and compare it with the expected checksum in Image Header Table. If checksum does not match, return XILPDI_ERR_IHT_CHECKSUM error.</para></listitem><listitem><para>Verify the number of images is greater than zero and less than or equal to 32. Otherwise, return XILPDI_ERR_NO_OF_IMAGES error.</para></listitem><listitem><para>Verify the number of partitions is greater than zero and less than or equal to 32. If verification passes, return XST_SUCCESS. Otherwise, return XILPDI_ERR_NO_OF_PRTNS error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="176" bodyend="213"/>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1a7aa874dd9eccde3869f9ca7a99fb96f9" compoundref="xilpdi_8h" startline="194">XILPDI_ERR_IHT_CHECKSUM</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga68f9d9d52845d0060f3a12877e54e1cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ValidatePrtnHdr</definition>
+        <argsstring>(const XilPdi_PrtnHdr *PrtnHdr)</argsstring>
+        <name>XilPdi_ValidatePrtnHdr</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref> *</type>
+          <declname>PrtnHdr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the Partition Header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnHdr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Partition Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful Partition Header validation.</para></listitem><listitem><para>XILPDI_ERR_ZERO_LENGTH if partition length is 0.</para></listitem><listitem><para>XILPDI_ERR_TOTAL_LENGTH if total length does not match encoded and unencoded word length.</para></listitem><listitem><para>XILPDI_ERR_PRTN_TYPE if partition type is other than elf, cdo, raw, raw_elf, cfi_gsc and cfi_gsc_unmask. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify that the partition length is not zero. Otherwise, return XILPDI_ERR_ZERO_LENGTH error.</para></listitem><listitem><para>Verify the total partition length is not less than the encrypted data word and unencrypted data word length. Otherwise, return XILPDI_ERR_TOTAL_LENGTH error.</para></listitem><listitem><para>Verify that the partition type is one of elf, cdo, raw raw_elf, cfi_gsc or cfi_gsc_unmask. If verification passes, return XST_SUCCESS. Otherwise, return XILPDI_ERR_PRTN_TYPE error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="230" bodyend="274"/>
+        <references refid="struct_xil_pdi___prtn_hdr_1a895970f87fc8414aa672ad99914e5b6e" compoundref="xilpdi__plat_8h" startline="220">XilPdi_PrtnHdr::EncDataWordLen</references>
+        <references refid="struct_xil_pdi___prtn_hdr_1acf49ffc72ab5ba2487058e156c127bbc" compoundref="xilpdi__plat_8h" startline="222">XilPdi_PrtnHdr::TotalDataWordLen</references>
+        <references refid="struct_xil_pdi___prtn_hdr_1af9e907e03b6e473919d71225e9c01cc3" compoundref="xilpdi__plat_8h" startline="221">XilPdi_PrtnHdr::UnEncDataWordLen</references>
+        <references refid="xilpdi_8h_1ad2b34f8a94535a70a9cf14898261181f" compoundref="xilpdi_8h" startline="174">XIH_PH_ATTRB_PRTN_TYPE_RSVD</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab95449e9eb9805839f99e2b4aa107313" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XilPdi_ReadBootHdr</definition>
+        <argsstring>(const XilPdi_BootHdr **BootHdrPtr)</argsstring>
+        <name>XilPdi_ReadBootHdr</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref> **</type>
+          <declname>BootHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the boot header. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BootHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the address of Boot Header </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Copy boot header to local variable from PRAM address </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="283" bodyend="287"/>
+        <references refid="xilpdi__plat_8h_1ad49a1171235ff234ce6053c13c341363" compoundref="xilpdi__plat_8h" startline="147">XIH_BH_PRAM_ADDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadImgHdrTbl</definition>
+        <argsstring>(XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadImgHdrTbl</name>
+        <param>
+          <type><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function Reads the Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful copy of image header table. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Image header table of 64 bytes and update the Image Header Table structure. Return error code if the reading is unsuccessful.</para></listitem><listitem><para>Copy image header table. If copy is successful, return XST_SUCCESS. Otherwise, return error code. Discard or ignore SMAP header when detected in partial PDIs.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="300" bodyend="346"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" compoundref="xilpdi_8h" startline="308">XilPdi_MetaHdr::MetaHdrOfst</references>
+        <references refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" compoundref="xilpdi_8h" startline="121">SMAP_BUS_WIDTH_LENGTH</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadIhtAndOptionalData</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr, u8 PdiType)</argsstring>
+        <name>XilPdi_ReadIhtAndOptionalData</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PdiType</declname>
+        </param>
+        <briefdescription>
+<para>This function reads IHT and optional data in Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Clear 2KB PMC RAM which is allocated to store IHT OPTIONAL DATA. If failed to clear, return XST_FAILURE error.</para></listitem><listitem><para>Read the IHT from Meta header. If reading fails, return XST_FAILURE error.</para></listitem><listitem><para>Read optional data. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="359" bodyend="390"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+        <references refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadOptionalData</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr, u8 PdiType)</argsstring>
+        <name>XilPdi_ReadOptionalData</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>PdiType</declname>
+        </param>
+        <briefdescription>
+<para>This function reads optional data in Image Header Table. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PdiType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is type of PDI for which optional data is being read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful copy. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the IHT Optional data from Meta header</para></listitem><listitem><para>Verify that the length of optional data is less than or equal to 15872 bytes. Otherwise, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA error.</para></listitem><listitem><para>Copy optional data. If copy is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="404" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="404" bodyend="440"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" compoundref="xilpdi_8h" startline="308">XilPdi_MetaHdr::MetaHdrOfst</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" compoundref="xilpdi__plat_8h" startline="210">XilPdi_ImgHdrTbl::OptionalDataLen</references>
+        <references refid="xilpdi_8h_1a107d5dada2af10ad48a8c87f60da4fdb" compoundref="xilpdi_8h" startline="121">SMAP_BUS_WIDTH_LENGTH</references>
+        <references refid="xilpdi_8h_1a1d569af531389c06604431461dcd6206" compoundref="xilpdi_8h" startline="130">XIH_IHT_LEN</references>
+        <references refid="xilpdi_8h_1a339a46932d4db4aff7ddc1c922b1cf32" compoundref="xilpdi_8h" startline="252">XILPDI_OPTIONAL_DATA_MAX_SIZE_16K_BYTES</references>
+        <referencedby refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" compoundref="xilpdi_8c" startline="359" endline="390">XilPdi_ReadIhtAndOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_StoreDigestTable</definition>
+        <argsstring>(XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_StoreDigestTable</name>
+        <param>
+          <type><ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function stores digest table for given data Id. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on any failure while reading. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate optional data length. If length is less than 4 words, return XILPDI_ERR_NO_VALID_OPTIONAL_DATA error and if length is greater than 2048 bytes, return XILPDI_ERR_OVER_FLOW_OPTIONAL_DATA_AT_DATA_ID_3 error</para></listitem></itemizedlist>
+</para><para><verbatim>IHT Optional data format:
+-------------------------------------------------------------------------
+|    0x00    |            Size (31:16)            |    Data Id (15:0)   |
+-------------------------------------------------------------------------
+|    0x04    |            Data (Size in words)                          |
+-------------------------------------------------------------------------
+|    Last    |            Checksum (Sum of previous words in DS)        |
+-------------------------------------------------------------------------
+DigestTableSize is size of Data except first(0x00) and last word(Last)</verbatim></para><para><itemizedlist>
+<listitem><para>Verify that the digest table size is multiples of 52bytes (since each entry in digest table consists of a partition number of size 4bytes and a hash of size 48bytes). Otherwise, return XILPDI_ERR_INVALID_DIGEST_TABLE_SIZE error.</para></listitem><listitem><para>Verify checksum of data structure info. If checksum does not match, return XILPDI_ERR_OPTIONAL_DATA_CHECKSUM_FAILED error.</para></listitem><listitem><para>Copy digest table to 0xF201D200U in PMC RAM. If copy fails, return error code. Otherwise, return XST_SUCCESS</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="453" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="453" bodyend="548"/>
+        <references refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" compoundref="xilpdi_8h" startline="311">XilPdi_MetaHdr::DigestTableSize</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" compoundref="xilpdi_8h" startline="312">XilPdi_MetaHdr::IsAuthOptimized</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a576c524d2e5b2d8d99621a90d0ead74f" compoundref="xilpdi__plat_8h" startline="210">XilPdi_ImgHdrTbl::OptionalDataLen</references>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+        <references refid="xilpdi_8h_1ac7dd901f5a4647ca8a8b5540a6dd421c" compoundref="xilpdi_8h" startline="244">XILPDI_OPTIONAL_DATA_WORD_LEN</references>
+        <references refid="xilpdi_8h_1acc7c7bce644442453baceece73a280ee" compoundref="xilpdi_8h" startline="234">XILPDI_PARTITION_HASH_DATA_ID</references>
+        <references refid="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" compoundref="xilpdi_8c" startline="563" endline="583">XilPdi_SearchOptionalData</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga99aeeb01dc13465959103fa29625923a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XilPdi_SearchOptionalData</definition>
+        <argsstring>(u64 StartAddress, u64 EndAddress, u32 DataId)</argsstring>
+        <name>XilPdi_SearchOptionalData</name>
+        <param>
+          <type>u64</type>
+          <declname>StartAddress</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>EndAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>DataId</declname>
+        </param>
+        <briefdescription>
+<para>This function searches for optional data address based on given Data ID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StartAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is start address of IHT optional data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EndAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is end address of IHT optional data </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DataId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is to identify type of data in data structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Address of desired optional data if given data ID is found</para></listitem><listitem><para>End address of IHT optional data if given data ID is not found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Search for the data ID given and return optional data address if data ID is found. Otherwise, return end address of IHT optional data.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="563" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="563" bodyend="583"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab4d2ba6eeeac98dd13665d92c892a5ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_xil_pdi___prtn_hash_info" kindref="compound">XilPdi_PrtnHashInfo</ref> *</type>
+        <definition>XilPdi_PrtnHashInfo* XilPdi_IsPrtnHashPresent</definition>
+        <argsstring>(u32 PrtnNum, u32 HashTableSize)</argsstring>
+        <name>XilPdi_IsPrtnHashPresent</name>
+        <param>
+          <type>u32</type>
+          <declname>PrtnNum</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HashTableSize</declname>
+        </param>
+        <briefdescription>
+<para>This function returns address of hash entry for the given partition number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PrtnNum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of partition for which hash entry is requested</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashTableSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of hash table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Address of hash entry for the given partition number (to skip authentication) if it present in the hash table.</para></listitem><listitem><para>NULL if hash entry is not present for the given partition number (to authenticate the signature as regular flow). </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Search for the given partition num in hash table and return address of its entry if found. Otherwise, return NULL.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="600" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="600" bodyend="625"/>
+        <references refid="xilpdi_8h_1aed1210cba3367f72a3ae1a0a8d34f981" compoundref="xilpdi_8h" startline="239">XIH_PMC_RAM_IHT_OP_DATA_STORE_ADDR</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadImgHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadImgHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Image Headers from the pdi stored in device (flash/SBI buffer/DDR/SD) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Image headers of 64 bytes and update the Image Header structure for all images. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="639" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="639" bodyend="658"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" compoundref="xilpdi_8h" startline="302">XilPdi_MetaHdr::ImgHdr</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1aa39dc2024cd839b96cc35bd8911f3b70" compoundref="xilpdi__plat_8h" startline="196">XilPdi_ImgHdrTbl::ImgHdrAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_ReadPrtnHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_ReadPrtnHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the Partition Headers from the pdi stored in device (flash/SBI buffer/DDR/SD) </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful read.</para></listitem><listitem><para>Error code on unsuccessful read. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Read the Partition headers of 64 bytes and update the Image Header structure for all images. If reading is successful, return XST_SUCCESS. Otherwise, return error code.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="672" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="672" bodyend="689"/>
+        <references refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" compoundref="xilpdi_8h" startline="309">XilPdi_MetaHdr::DeviceCopy</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" compoundref="xilpdi_8h" startline="307">XilPdi_MetaHdr::FlashOfstAddr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" compoundref="xilpdi_8h" startline="303">XilPdi_MetaHdr::PrtnHdr</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1aaaf8539351352d20a9bbb77265c408a9" compoundref="xilpdi__plat_8h" startline="198">XilPdi_ImgHdrTbl::PrtnHdrAddr</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_VerifyPrtnHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_VerifyPrtnHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies Partition Headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success.</para></listitem><listitem><para>XILPDI_ERR_PH_CHECKSUM on checksum fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify checksum of all Partition Headers. If verification is passed, return XST_SUCCESS. Otherwise, return XILPDI_ERR_PH_CHECKSUM error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="702" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="702" bodyend="725"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a305d63ece76563b3e113b38817608210" compoundref="xilpdi__plat_8h" startline="197">XilPdi_ImgHdrTbl::NoOfPrtns</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" compoundref="xilpdi_8h" startline="303">XilPdi_MetaHdr::PrtnHdr</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XilPdi_VerifyImgHdrs</definition>
+        <argsstring>(const XilPdi_MetaHdr *MetaHdrPtr)</argsstring>
+        <name>XilPdi_VerifyImgHdrs</name>
+        <param>
+          <type>const <ref refid="struct_xil_pdi___meta_hdr" kindref="compound">XilPdi_MetaHdr</ref> *</type>
+          <declname>MetaHdrPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function verifies Image headers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MetaHdrPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to Meta Header table.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on successful image validation.</para></listitem><listitem><para>XILPDI_ERR_IH_CHECKSUM on checksum fail. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Verify checksum of all image Headers. If verification is passed, return XST_SUCCESS. Otherwise, return XILPDI_ERR_IH_CHECKSUM error.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="738" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="738" bodyend="761"/>
+        <references refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" compoundref="xilpdi_8h" startline="302">XilPdi_MetaHdr::ImgHdr</references>
+        <references refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" compoundref="xilpdi_8h" startline="301">XilPdi_MetaHdr::ImgHdrTbl</references>
+        <references refid="struct_xil_pdi___img_hdr_tbl_1a0bbcb045b71c8d6f86224e4bbd0e58a4" compoundref="xilpdi__plat_8h" startline="195">XilPdi_ImgHdrTbl::NoOfImgs</references>
+        <references refid="group__xilpdi__apis_1gacf4b60f3bfd29d0d200e4f218b74dcdf" compoundref="xilpdi_8c" startline="111" endline="157">XilPdi_ValidateChecksum</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xilpdi__apis_1gae284d479dc26f7eaf10c544b88b31ce2" prot="public" static="no">
+        <name>XILPDI_PDI_TYPE_PARTIAL_METAHEADER</name>
+        <initializer>(0x5U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xilpdi__apis_1gab2efc9caae5b45150e579dddc12bd225" prot="public" static="no">
+        <name>XILPDI_PDI_TYPE_PARTIAL</name>
+        <initializer>(0x2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.c" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

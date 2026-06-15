@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___usr_opt" kind="struct" prot="public">
+    <compoundname>XDpTxSs_UsrOpt</compoundname>
+    <includes local="no">xdptxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_opt_1a5249de794b208455bdf650305ad95295" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoMode</type>
+        <definition>XVidC_VideoMode XDpTxSs_UsrOpt::VmId</definition>
+        <argsstring></argsstring>
+        <name>VmId</name>
+        <briefdescription>
+<para>Video Mode ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="175" bodyend="-1"/>
+        <referencedby refid="xdptxss__debug__example_8c_1a7062e197ce83e1ad05bdcb81ae3ca621" compoundref="xdptxss__debug__example_8c" startline="177" endline="310">DpTxSs_DebugExample</referencedby>
+        <referencedby refid="xdptxss__hdcp__example_8c_1ad2f544479db0e7dfa88793acc2fc1bcb" compoundref="xdptxss__hdcp__example_8c" startline="158" endline="300">DpTxSs_HdcpExample</referencedby>
+        <referencedby refid="xdptxss__mst__example_8c_1a6c419e97ca043bfd1c39b003887c0e95" compoundref="xdptxss__mst__example_8c" startline="158" endline="267">DpTxSs_MstExample</referencedby>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1gae6b65b3bbfc9c6ed157e2bf3f7f936db" compoundref="xdptxss__dbg_8c" startline="407" endline="450">XDpTxSs_ReportLinkInfo</referencedby>
+        <referencedby refid="group__dptxss_1gac94df5d299e1a088c159a2be61840680" compoundref="xdptxss_8c" startline="743" endline="758">XDpTxSs_SetVidMode</referencedby>
+        <referencedby refid="group__dptxss_1ga883ba3d77b48aaaee5858de1e5620c76" compoundref="xdptxss_8c" startline="425" endline="506">XDpTxSs_Start</referencedby>
+        <referencedby refid="group__dptxss_1ga51a71c98f5346be40c4c76e091e121f8" compoundref="xdptxss_8c" startline="527" endline="609">XDpTxSs_StartCustomMsa</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_opt_1a16442ffe423d46d14197e462279219af" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrOpt::Bpc</definition>
+        <argsstring></argsstring>
+        <name>Bpc</name>
+        <briefdescription>
+<para>Bits per color. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="176" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1gae6b65b3bbfc9c6ed157e2bf3f7f936db" compoundref="xdptxss__dbg_8c" startline="407" endline="450">XDpTxSs_ReportLinkInfo</referencedby>
+        <referencedby refid="group__dptxss_1ga8edde5017977263b22afd3abb4ad6a10" compoundref="xdptxss_8c" startline="713" endline="725">XDpTxSs_SetBpc</referencedby>
+        <referencedby refid="group__dptxss_1ga883ba3d77b48aaaee5858de1e5620c76" compoundref="xdptxss_8c" startline="425" endline="506">XDpTxSs_Start</referencedby>
+        <referencedby refid="group__dptxss_1ga51a71c98f5346be40c4c76e091e121f8" compoundref="xdptxss_8c" startline="527" endline="609">XDpTxSs_StartCustomMsa</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_opt_1a1a6410ddf9e096e4eacb26a5f6ad14fe" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrOpt::MstSupport</definition>
+        <argsstring></argsstring>
+        <name>MstSupport</name>
+        <briefdescription>
+<para>Multi-stream transport (MST) support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="177" bodyend="-1"/>
+        <referencedby refid="xdptxss__debug__example_8c_1a7062e197ce83e1ad05bdcb81ae3ca621" compoundref="xdptxss__debug__example_8c" startline="177" endline="310">DpTxSs_DebugExample</referencedby>
+        <referencedby refid="xdptxss__hdcp__example_8c_1ad2f544479db0e7dfa88793acc2fc1bcb" compoundref="xdptxss__hdcp__example_8c" startline="158" endline="300">DpTxSs_HdcpExample</referencedby>
+        <referencedby refid="xdptxss__intr__example_8c_1ad9678951bcf73b3ab52d7dbb5243f531" compoundref="xdptxss__intr__example_8c" startline="618" endline="631">DpTxSs_HpdPulseHandler</referencedby>
+        <referencedby refid="xdptxss__intr__example_8c_1a2724f70eaac7051e45d0b9e0f3b3cbac" compoundref="xdptxss__intr__example_8c" startline="229" endline="285">DpTxSs_IntrExample</referencedby>
+        <referencedby refid="xdptxss__mst__example_8c_1a6c419e97ca043bfd1c39b003887c0e95" compoundref="xdptxss__mst__example_8c" startline="158" endline="267">DpTxSs_MstExample</referencedby>
+        <referencedby refid="xdptxss__debug__example_8c_1a8adb803565fe556bb1bede03b006e922" compoundref="xdptxss__debug__example_8c" startline="370" endline="433">DpTxSs_ReportEdidInfo</referencedby>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1gae497d800a09c0f6c8d443cd17e444f47" compoundref="xdptxss__dbg_8c" startline="236" endline="288">XDpTxSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__dptxss_1gaba3d0d5532d6ad4e89b9f58ae215a4d1" compoundref="xdptxss_8c" startline="906" endline="950">XDpTxSs_SetTransportMode</referencedby>
+        <referencedby refid="group__dptxss_1gac94df5d299e1a088c159a2be61840680" compoundref="xdptxss_8c" startline="743" endline="758">XDpTxSs_SetVidMode</referencedby>
+        <referencedby refid="group__dptxss_1ga883ba3d77b48aaaee5858de1e5620c76" compoundref="xdptxss_8c" startline="425" endline="506">XDpTxSs_Start</referencedby>
+        <referencedby refid="group__dptxss_1ga51a71c98f5346be40c4c76e091e121f8" compoundref="xdptxss_8c" startline="527" endline="609">XDpTxSs_StartCustomMsa</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_opt_1a592b9288cac79421f5aba71c924ad115" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrOpt::NumOfStreams</definition>
+        <argsstring></argsstring>
+        <name>NumOfStreams</name>
+        <briefdescription>
+<para>The total number of MST streams. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1ga51a71c98f5346be40c4c76e091e121f8" compoundref="xdptxss_8c" startline="527" endline="609">XDpTxSs_StartCustomMsa</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___usr_opt_1a212975289ac5ab6ddd4974c5d236c8f9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpTxSs_UsrOpt::VtcAdjustBs</definition>
+        <argsstring></argsstring>
+        <name>VtcAdjustBs</name>
+        <briefdescription>
+<para>Adjustment in Blanking symbol timing. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+        <referencedby refid="group__dptxss_1ga4b650b6b1316984487bcbc9b6bbb26a1" compoundref="xdptxss_8c" startline="684" endline="691">XDpTxSs_VtcAdjustBSTimingDisable</referencedby>
+        <referencedby refid="group__dptxss_1ga77e0e444121e167b215442fd9f941ea0" compoundref="xdptxss_8c" startline="665" endline="672">XDpTxSs_VtcAdjustBSTimingEnable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>User input structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="174" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="174" bodyend="180"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___usr_opt_1a16442ffe423d46d14197e462279219af" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrOpt</scope><name>Bpc</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_opt_1a1a6410ddf9e096e4eacb26a5f6ad14fe" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrOpt</scope><name>MstSupport</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_opt_1a592b9288cac79421f5aba71c924ad115" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrOpt</scope><name>NumOfStreams</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_opt_1a5249de794b208455bdf650305ad95295" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrOpt</scope><name>VmId</name></member>
+      <member refid="struct_x_dp_tx_ss___usr_opt_1a212975289ac5ab6ddd4974c5d236c8f9" prot="public" virt="non-virtual"><scope>XDpTxSs_UsrOpt</scope><name>VtcAdjustBs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

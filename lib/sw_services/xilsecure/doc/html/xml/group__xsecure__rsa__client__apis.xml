@@ -1,0 +1,979 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__rsa__client__apis" kind="group">
+    <compoundname>xsecure_rsa_client_apis</compoundname>
+    <title>XilSecure RSA Client APIs</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga149a6fcd019dc4f0ab2b709db4c12540" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 P[XSECURE_PRIME_FACTOR_P_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_P_SIZE]</argsstring>
+        <name>P</name>
+        <initializer>= {
+0xE6U, 0x16U, 0x56U, 0xE6U, 0x71U, 0x20U, 0xA4U, 0xB9U, 0x9AU, 0xFAU, 0x59U, 0xD9U, 0x31U, 0x1FU, 0xABU, 0xBFU,
+0x0EU, 0x6BU, 0xD1U, 0xF0U, 0xC1U, 0xBEU, 0x4EU, 0x14U, 0xF4U, 0x3FU, 0x9CU, 0x8CU, 0xFAU, 0x70U, 0x88U, 0x3AU,
+0x6AU, 0x98U, 0x55U, 0x43U, 0xCCU, 0x95U, 0xECU, 0x64U, 0x3FU, 0xA2U, 0xFDU, 0xE0U, 0xBAU, 0xA9U, 0xE3U, 0xFCU,
+0xB6U, 0x4CU, 0xB8U, 0xD0U, 0x92U, 0x57U, 0x02U, 0x7AU, 0x44U, 0xEDU, 0xEEU, 0xFBU, 0xD8U, 0xE9U, 0xD2U, 0x63U,
+0x9AU, 0xD2U, 0x0EU, 0x8AU, 0xC7U, 0x40U, 0x32U, 0x79U, 0x67U, 0x5DU, 0xEBU, 0xF1U, 0xDCU, 0xBFU, 0xC0U, 0x63U,
+0x08U, 0x51U, 0x2CU, 0x86U, 0x98U, 0x27U, 0xEDU, 0x47U, 0xB5U, 0x7CU, 0xDBU, 0x20U, 0x60U, 0x5CU, 0x4AU, 0xEBU,
+0xCAU, 0x26U, 0xD4U, 0xE4U, 0x10U, 0x80U, 0x96U, 0x6FU, 0xBAU, 0x13U, 0x46U, 0x95U, 0xBBU, 0xE7U, 0x16U, 0x1CU,
+0x3DU, 0xC4U, 0x55U, 0x1FU, 0x09U, 0x66U, 0xA3U, 0xA5U, 0x30U, 0x44U, 0xFEU, 0x00U, 0x15U, 0x25U, 0xFBU, 0x0BU,
+0x7DU, 0x3EU, 0x8DU, 0x89U, 0x2DU, 0x79U, 0xD6U, 0x7FU, 0xCDU, 0x4AU, 0x1DU, 0x6CU, 0xEEU, 0x3EU, 0xD9U, 0xDDU,
+0xB3U, 0x12U, 0x7AU, 0xFCU, 0x82U, 0xAFU, 0xD1U, 0xABU, 0x36U, 0xFCU, 0x93U, 0xFDU, 0xFFU, 0x01U, 0x9DU, 0x21U,
+0x03U, 0xB4U, 0x01U, 0x48U, 0x3FU, 0x99U, 0xD2U, 0x81U, 0xDCU, 0x03U, 0x45U, 0xB4U, 0x10U, 0xF7U, 0x08U, 0x8CU,
+0xE3U, 0x5DU, 0x3BU, 0xB3U, 0x1CU, 0x96U, 0x46U, 0xB7U, 0x83U, 0x2DU, 0xCFU, 0x94U, 0xD3U, 0x5EU, 0xCAU, 0x66U,
+0x38U, 0x55U, 0x82U, 0xAEU, 0x5FU, 0xB8U, 0x39U, 0xFEU, 0xA7U, 0xECU, 0xB0U, 0x79U, 0x0FU, 0x71U, 0x20U, 0x0DU,
+0x02U, 0x55U, 0xBCU, 0x82U, 0x86U, 0x6BU, 0xA7U, 0x1FU, 0x07U, 0xDFU, 0x36U, 0xF1U, 0xF7U, 0x5BU, 0xD7U, 0xCEU,
+0x3CU, 0xA3U, 0xB0U, 0x30U, 0xF7U, 0xA6U, 0x47U, 0xBAU, 0x2AU, 0xABU, 0x4FU, 0xAFU, 0x83U, 0xD4U, 0x17U, 0x37U,
+0x94U, 0xB8U, 0x78U, 0x1DU, 0xD3U, 0xB6U, 0x58U, 0x4DU, 0xC4U, 0x91U, 0xC1U, 0xABU, 0xDBU, 0xEDU, 0xE7U, 0x9FU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gaea157ac9ebfbaf6e7ae31ba31762aaf7" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Q[XSECURE_PRIME_FACTOR_Q_SIZE]</definition>
+        <argsstring>[XSECURE_PRIME_FACTOR_Q_SIZE]</argsstring>
+        <name>Q</name>
+        <initializer>= {
+0xE3U, 0x9AU, 0x8AU, 0x30U, 0x2AU, 0x0AU, 0xBBU, 0x94U, 0xA4U, 0x62U, 0x58U, 0x37U, 0xDFU, 0x9DU, 0xEAU, 0x1FU,
+0x6DU, 0x7BU, 0x27U, 0xC5U, 0x0AU, 0x11U, 0xB8U, 0xD9U, 0xA4U, 0x72U, 0x25U, 0xD7U, 0x3DU, 0x6DU, 0x73U, 0xC2U,
+0x03U, 0xD0U, 0x51U, 0x50U, 0xB3U, 0x58U, 0xC6U, 0x4BU, 0xBAU, 0xAAU, 0x69U, 0x24U, 0x73U, 0x37U, 0x50U, 0x31U,
+0xB5U, 0x83U, 0x86U, 0x12U, 0xEFU, 0xC0U, 0x26U, 0x35U, 0x5EU, 0x57U, 0xA7U, 0x64U, 0x63U, 0x4BU, 0x62U, 0x71U,
+0xBFU, 0xF3U, 0x9CU, 0x43U, 0x05U, 0xC8U, 0xCCU, 0x19U, 0x6EU, 0xB1U, 0x6CU, 0xEFU, 0xBEU, 0xD5U, 0xA9U, 0xBDU,
+0x79U, 0xFFU, 0x49U, 0x8CU, 0xC5U, 0xD9U, 0x95U, 0x7BU, 0xDBU, 0xA6U, 0x0AU, 0x28U, 0x7DU, 0xAFU, 0x46U, 0xEEU,
+0xB8U, 0x63U, 0x86U, 0x05U, 0x44U, 0xF8U, 0xE4U, 0x5DU, 0xB6U, 0x44U, 0x74U, 0x25U, 0x37U, 0x04U, 0x32U, 0xE9U,
+0xE0U, 0x30U, 0x2BU, 0x47U, 0x03U, 0x5CU, 0x3CU, 0x80U, 0x60U, 0xFEU, 0x81U, 0x11U, 0x8EU, 0x90U, 0x8EU, 0xDDU,
+0x46U, 0xB5U, 0xACU, 0xC5U, 0x10U, 0x4EU, 0xE9U, 0x96U, 0xCAU, 0x92U, 0x1FU, 0xE5U, 0x4AU, 0x30U, 0x0DU, 0xB4U,
+0x1DU, 0x47U, 0xF1U, 0xCAU, 0x94U, 0x4BU, 0xD9U, 0x3EU, 0x55U, 0x77U, 0xF0U, 0x3EU, 0xA1U, 0xCEU, 0x1FU, 0x25U,
+0x6AU, 0x21U, 0x25U, 0x50U, 0x82U, 0x21U, 0x24U, 0xC2U, 0x8EU, 0xF7U, 0x68U, 0x78U, 0x47U, 0x69U, 0x2EU, 0xB7U,
+0x36U, 0x6AU, 0x6BU, 0x71U, 0x9CU, 0xC0U, 0x1DU, 0x59U, 0x46U, 0xE4U, 0xA8U, 0x40U, 0xB0U, 0xE7U, 0x87U, 0x73U,
+0xA4U, 0x7FU, 0x92U, 0xC4U, 0xF0U, 0xEDU, 0x89U, 0xCCU, 0x52U, 0x14U, 0x23U, 0x72U, 0x9AU, 0x17U, 0xC6U, 0x0DU,
+0xCAU, 0x40U, 0x7DU, 0xB9U, 0x21U, 0x13U, 0x94U, 0xA9U, 0x82U, 0x25U, 0x9BU, 0x88U, 0x01U, 0x95U, 0xF3U, 0xA3U,
+0x9CU, 0xD0U, 0x4EU, 0x75U, 0x2BU, 0x91U, 0x35U, 0x84U, 0xA2U, 0xFCU, 0x1FU, 0xBBU, 0x1EU, 0x25U, 0xC8U, 0x50U,
+0xE5U, 0xCBU, 0x90U, 0x96U, 0x10U, 0x3DU, 0x50U, 0x43U, 0x00U, 0x59U, 0x2AU, 0xF5U, 0xB1U, 0x25U, 0x28U, 0x3BU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga13e219a47ca5643a7b64c39240fa51ba" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Tot[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>Tot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gadd5531f77e876f0296a0530b89225f06" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 DP[XSECURE_RSA_SIZE/2U]</definition>
+        <argsstring>[XSECURE_RSA_SIZE/2U]</argsstring>
+        <name>DP</name>
+        <initializer>= {
+0x8BU, 0xC9U, 0x36U, 0xB2U, 0x7AU, 0x38U, 0x62U, 0xDBU, 0x80U, 0x94U, 0x68U, 0xD1U, 0xD3U, 0x4EU, 0x72U, 0x81U,
+0x78U, 0xB9U, 0x78U, 0xAAU, 0xD4U, 0x8AU, 0x51U, 0xD5U, 0xD9U, 0x2EU, 0x6CU, 0x66U, 0x1AU, 0x21U, 0x14U, 0x22U,
+0xA9U, 0x70U, 0x33U, 0x1DU, 0x25U, 0xC6U, 0x4FU, 0xFFU, 0xF7U, 0xC9U, 0x86U, 0x84U, 0x69U, 0xE3U, 0x9DU, 0x67U,
+0x83U, 0x39U, 0xC9U, 0x6EU, 0xADU, 0xF9U, 0xBEU, 0xBFU, 0x99U, 0xF1U, 0x14U, 0x28U, 0x5DU, 0xF8U, 0x70U, 0xA1U,
+0xA3U, 0x05U, 0xCBU, 0x5FU, 0xF4U, 0xFDU, 0xC3U, 0xACU, 0x8EU, 0x68U, 0x39U, 0x58U, 0x8FU, 0xCCU, 0xCFU, 0x8DU,
+0x5BU, 0x18U, 0x35U, 0xFCU, 0xEFU, 0xA4U, 0x12U, 0x3CU, 0x66U, 0xBEU, 0x9CU, 0x42U, 0x67U, 0x48U, 0xABU, 0x1BU,
+0xE5U, 0x8DU, 0x01U, 0xFAU, 0x2DU, 0x2CU, 0x72U, 0x39U, 0x1EU, 0xCBU, 0x67U, 0x2EU, 0xC1U, 0x21U, 0xFCU, 0x04U,
+0xDCU, 0x61U, 0xD3U, 0x75U, 0x2FU, 0xB8U, 0xF3U, 0xE3U, 0x00U, 0x18U, 0x6AU, 0x58U, 0x92U, 0x80U, 0xA8U, 0xACU,
+0xAAU, 0x42U, 0xBEU, 0xAAU, 0x80U, 0xBEU, 0x6CU, 0xDAU, 0xE8U, 0x56U, 0x06U, 0xDAU, 0x8FU, 0x44U, 0x10U, 0x08U,
+0xE9U, 0x2AU, 0x69U, 0x1DU, 0xD0U, 0x28U, 0x11U, 0x31U, 0xFCU, 0x0EU, 0x27U, 0xBBU, 0x40U, 0x9AU, 0x32U, 0x64U,
+0x44U, 0x63U, 0xB0U, 0x03U, 0xBCU, 0xE0U, 0x2FU, 0x4CU, 0x45U, 0xE6U, 0x97U, 0x0AU, 0x76U, 0xE4U, 0x1EU, 0x85U,
+0xB9U, 0xFCU, 0x82U, 0xB0U, 0xA6U, 0xC5U, 0x85U, 0xE1U, 0x28U, 0x09U, 0x44U, 0xFCU, 0x1EU, 0x0EU, 0x90U, 0xD8U,
+0xD9U, 0x90U, 0xD9U, 0xFCU, 0x26U, 0x9BU, 0x3EU, 0x60U, 0xC0U, 0x94U, 0xC4U, 0x02U, 0x48U, 0xA7U, 0x69U, 0xD9U,
+0x7DU, 0x79U, 0xA9U, 0x35U, 0x83U, 0x85U, 0x13U, 0xDBU, 0x7EU, 0x64U, 0xD6U, 0x74U, 0xDAU, 0xDBU, 0x29U, 0x99U,
+0x5AU, 0xADU, 0xF7U, 0xF5U, 0x47U, 0xFFU, 0xF5U, 0xC3U, 0xDCU, 0xF8U, 0x87U, 0x49U, 0x12U, 0xC6U, 0x5FU, 0xF4U,
+0x9CU, 0x9EU, 0x16U, 0x1BU, 0xC8U, 0xECU, 0x17U, 0x69U, 0xE7U, 0xEAU, 0xC5U, 0xC7U, 0x2BU, 0xAEU, 0xB5U, 0xF1U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gae5538fd43b808b59c733ff043712fef4" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 DQ[XSECURE_RSA_SIZE/2U]</definition>
+        <argsstring>[XSECURE_RSA_SIZE/2U]</argsstring>
+        <name>DQ</name>
+        <initializer>= {
+0x14U, 0x43U, 0xAFU, 0x28U, 0x08U, 0xA6U, 0x39U, 0xFBU, 0x4BU, 0x03U, 0x82U, 0x8DU, 0x3EU, 0xF8U, 0xA5U, 0x5EU,
+0xB4U, 0xF5U, 0xB1U, 0x1DU, 0xC6U, 0xFEU, 0xBAU, 0xF1U, 0x8DU, 0xC5U, 0xA7U, 0xFEU, 0xD8U, 0xF6U, 0x44U, 0xC7U,
+0x32U, 0x65U, 0xBAU, 0xC7U, 0xAFU, 0xA0U, 0x28U, 0xCFU, 0x97U, 0x48U, 0x12U, 0xE2U, 0x6EU, 0xEBU, 0xAEU, 0xD5U,
+0x2EU, 0x2FU, 0x0EU, 0xA1U, 0xE2U, 0xFCU, 0xBDU, 0xAAU, 0x24U, 0xC3U, 0x33U, 0x21U, 0x2AU, 0x02U, 0x0DU, 0x3AU,
+0xC9U, 0x77U, 0x5CU, 0x23U, 0x4FU, 0x81U, 0x88U, 0x42U, 0x7FU, 0x6BU, 0x86U, 0xA2U, 0x75U, 0xE0U, 0x3AU, 0x23U,
+0xA7U, 0x98U, 0x06U, 0x29U, 0x65U, 0x78U, 0x30U, 0xE9U, 0xFDU, 0x2DU, 0x74U, 0x5CU, 0x14U, 0x8CU, 0xA5U, 0x89U,
+0x1DU, 0x9BU, 0xA6U, 0xD4U, 0x13U, 0x47U, 0x01U, 0xB6U, 0x22U, 0x43U, 0x48U, 0x00U, 0x04U, 0x3CU, 0xF8U, 0x77U,
+0x80U, 0x41U, 0x69U, 0xA9U, 0x01U, 0xF0U, 0x95U, 0x66U, 0x6CU, 0xBCU, 0x5CU, 0x2BU, 0x7FU, 0x00U, 0xF9U, 0xE7U,
+0x53U, 0xA3U, 0x5BU, 0x45U, 0x94U, 0x65U, 0x22U, 0x41U, 0x0DU, 0xBAU, 0x22U, 0xE2U, 0xDCU, 0x4FU, 0x18U, 0xF9U,
+0x3FU, 0x5EU, 0x27U, 0x75U, 0xFCU, 0xECU, 0x1FU, 0xE4U, 0x7FU, 0xE1U, 0x94U, 0xDFU, 0x4EU, 0xB2U, 0xB6U, 0x6DU,
+0x33U, 0x5CU, 0xCEU, 0x20U, 0xB3U, 0xE5U, 0x55U, 0x8BU, 0x89U, 0x05U, 0x18U, 0x25U, 0x15U, 0x5EU, 0x95U, 0x0DU,
+0x34U, 0xE8U, 0x16U, 0xB6U, 0xDFU, 0xD8U, 0xEFU, 0x04U, 0x02U, 0xDEU, 0xDAU, 0xE8U, 0x1FU, 0x98U, 0x0DU, 0xA4U,
+0x4BU, 0x32U, 0x1CU, 0x94U, 0x32U, 0x4BU, 0x43U, 0xE8U, 0x90U, 0x2AU, 0x40U, 0xD9U, 0xB4U, 0x44U, 0x87U, 0x9AU,
+0xB4U, 0xB6U, 0x37U, 0x3BU, 0x63U, 0x69U, 0x85U, 0xE3U, 0xEDU, 0xB5U, 0x81U, 0x7AU, 0x83U, 0x81U, 0xA1U, 0x56U,
+0xA0U, 0xE0U, 0x9FU, 0x0BU, 0xA9U, 0x9CU, 0x5DU, 0x22U, 0x79U, 0x0CU, 0x6FU, 0x9AU, 0xCEU, 0x5DU, 0x58U, 0xCFU,
+0x73U, 0x16U, 0x43U, 0xC2U, 0x48U, 0xA1U, 0xDCU, 0xE2U, 0x8AU, 0x46U, 0x66U, 0x1FU, 0xC7U, 0xECU, 0xE1U, 0xFFU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga33af13491dc642fbffe103cd067df4da" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 QInv[XSECURE_RSA_SIZE/2U]</definition>
+        <argsstring>[XSECURE_RSA_SIZE/2U]</argsstring>
+        <name>QInv</name>
+        <initializer>= {
+0xB2U, 0x2AU, 0x6FU, 0xD0U, 0x30U, 0x00U, 0x71U, 0xFAU, 0xCBU, 0xC3U, 0x7EU, 0x1DU, 0x7BU, 0x93U, 0x90U, 0xF3U,
+0x81U, 0x58U, 0xC2U, 0xA4U, 0x16U, 0xB7U, 0xD9U, 0x8BU, 0x52U, 0xF2U, 0x63U, 0x8DU, 0xD6U, 0x96U, 0xFBU, 0xFEU,
+0x1EU, 0x86U, 0xB3U, 0xA6U, 0x57U, 0x3DU, 0x0CU, 0x44U, 0x70U, 0x38U, 0xADU, 0xFAU, 0x75U, 0x54U, 0x7AU, 0x0BU,
+0xB6U, 0xB4U, 0xF8U, 0xE4U, 0x8EU, 0xD9U, 0xBAU, 0x68U, 0x63U, 0x71U, 0x18U, 0xDCU, 0x7AU, 0x43U, 0x02U, 0x95U,
+0xB6U, 0xA8U, 0x17U, 0x72U, 0x3DU, 0xDAU, 0x06U, 0x0DU, 0xA4U, 0x05U, 0x14U, 0x8DU, 0x4EU, 0xC1U, 0x94U, 0x12U,
+0x25U, 0x6BU, 0x7EU, 0x30U, 0x87U, 0xC9U, 0xEDU, 0x94U, 0xDCU, 0xB6U, 0xD6U, 0x0AU, 0x14U, 0x71U, 0x72U, 0x95U,
+0xF9U, 0x49U, 0x4DU, 0x2FU, 0x10U, 0xC8U, 0x33U, 0x91U, 0x71U, 0x95U, 0x71U, 0x1BU, 0x7BU, 0x61U, 0x1BU, 0x2DU,
+0x70U, 0xACU, 0x49U, 0xB7U, 0xABU, 0xA8U, 0x73U, 0x25U, 0x77U, 0x25U, 0x55U, 0xE4U, 0xC7U, 0x23U, 0xF3U, 0xFBU,
+0xADU, 0xE2U, 0x1AU, 0xD9U, 0x4CU, 0xF6U, 0x1AU, 0x74U, 0x4EU, 0x89U, 0x87U, 0xF2U, 0xF1U, 0x92U, 0xE5U, 0x89U,
+0x49U, 0x99U, 0xE3U, 0x3AU, 0x70U, 0xEFU, 0x29U, 0x3EU, 0xACU, 0x47U, 0x46U, 0xF2U, 0x34U, 0xD9U, 0xFBU, 0x36U,
+0x23U, 0xB2U, 0xD4U, 0x8EU, 0x6DU, 0xA2U, 0x0CU, 0x51U, 0x2FU, 0xE8U, 0xFDU, 0x18U, 0x8BU, 0xEFU, 0x56U, 0xE7U,
+0x24U, 0x06U, 0x76U, 0x23U, 0xBEU, 0x7EU, 0x7AU, 0xDBU, 0x9FU, 0x70U, 0x6BU, 0xE7U, 0x90U, 0x1AU, 0xD1U, 0x76U,
+0xB5U, 0xADU, 0xC1U, 0x3BU, 0xD9U, 0x52U, 0x86U, 0xFBU, 0xC5U, 0xBAU, 0x87U, 0x60U, 0x65U, 0xE4U, 0x7EU, 0x54U,
+0x6FU, 0x11U, 0x6BU, 0xB7U, 0x5EU, 0x9AU, 0x87U, 0xEBU, 0x59U, 0xF7U, 0x51U, 0x17U, 0x45U, 0x6CU, 0x8DU, 0xFBU,
+0x7BU, 0x2CU, 0x4FU, 0x65U, 0xA9U, 0x89U, 0xF8U, 0x3CU, 0x0BU, 0xC1U, 0x87U, 0x89U, 0x71U, 0x77U, 0x12U, 0x8CU,
+0xB0U, 0x2EU, 0xF1U, 0xB5U, 0x92U, 0xACU, 0xC7U, 0x5AU, 0x0BU, 0x8CU, 0xEAU, 0x97U, 0x77U, 0x01U, 0xE0U, 0x6DU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga4829effc9059dca800bb4a5c874085df" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 RN[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>RN</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga44895d625806786df172cb2f4181b001" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 RRN[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>RRN</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga939e370eb33715794cceeca0408ec494" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Data[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gaacb9eaa79b6e039b41f487bac2949018" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Modulus[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>Modulus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga1d7d8a0182698003f2425ab33ef2645c" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 PrivateExp[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>PrivateExp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="363" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="363" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gace4c9362986de6135c3ae21381fdb3c6" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpectedSign[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>ExpectedSign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="398" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="398" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gadcfc566233057c0444a9079f444485eb" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 PublicExp</definition>
+        <argsstring></argsstring>
+        <name>PublicExp</name>
+        <initializer>= 0x1000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga2c05396cc1ebfdd0c6122cb226444a2b" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <initializer>= <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga83dfe3cd00cd583c2e943ff4da546185" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_BUF_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_BUF_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="451" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gaa4d877cd82af7b2aefc5f8964fbb89ba" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_secure___rsa_key_param" kindref="compound">XSecure_RsaKeyParam</ref></type>
+        <definition>XSecure_RsaKeyParam RsaKeyParam</definition>
+        <argsstring></argsstring>
+        <name>RsaKeyParam</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="452" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="452" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga939e370eb33715794cceeca0408ec494" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Data[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>Data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gaacb9eaa79b6e039b41f487bac2949018" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Modulus[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>Modulus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga1d7d8a0182698003f2425ab33ef2645c" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 PrivateExp[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>PrivateExp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="368" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gace4c9362986de6135c3ae21381fdb3c6" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpectedSign[XSECURE_RSA_SIZE]</definition>
+        <argsstring>[XSECURE_RSA_SIZE]</argsstring>
+        <name>ExpectedSign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="434" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="434" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1gadcfc566233057c0444a9079f444485eb" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 PublicExp</definition>
+        <argsstring></argsstring>
+        <name>PublicExp</name>
+        <initializer>= 0x1000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="501" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga2c05396cc1ebfdd0c6122cb226444a2b" prot="public" static="yes" mutable="no">
+        <type>u32</type>
+        <definition>u32 Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <initializer>= <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="514" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="514" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xsecure__rsa__client__apis_1ga83dfe3cd00cd583c2e943ff4da546185" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XSECURE_SHARED_BUF_SIZE]</definition>
+        <argsstring>[XSECURE_SHARED_BUF_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="517" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga91b3194b7fea97a2880da9bff0c2a10c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_RsaGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_RsaGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the RSA crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaalginfo.c" bodystart="53" bodyend="56"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaad026ed28e47be9b59e0444deb3af85a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPrivateDecrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPrivateDecrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA decryption with private key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be decrypted </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the update is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="65" bodyend="114"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca1106e4714531244afe2851830e51af1b" compoundref="xsecure__plat__defs_8h" startline="57">XSECURE_API_RSA_PRIVATE_DECRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="289" endline="317">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gaff9e6accc6dbd6922eda1a4d2322fdf6" compoundref="xsecure__plat__kat_8c" startline="55" endline="107">XSecure_RsaPrivateDecryptKat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaf2a6250efae11b0bdbfe22e6642dedf4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaPublicEncrypt</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 KeyAddr, const u64 InDataAddr, const u32 Size, const u64 OutDataAddr)</argsstring>
+        <name>XSecure_RsaPublicEncrypt</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>KeyAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>InDataAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>OutDataAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA encryption with public key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the Key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the data which has to be encrypted with public key </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key size in bytes, Input size also should be same as key size mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE, XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>OutDataAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer where resultant decrypted data to be stored</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If encryption was successful</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size RsaParams to RsaParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="136" bodyend="185"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca64400e366afc1fa1c96b991d9061dc50" compoundref="xsecure__plat__defs_8h" startline="56">XSECURE_API_RSA_PUBLIC_ENCRYPT</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__keyunwrap__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__keyunwrap__client__example_8c" startline="233" endline="358">main</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="546" endline="590">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1ga55d3f721f0d915165ee23ead0d021857" compoundref="xsecure_8c" startline="289" endline="317">XSecure_RsaCore</referencedby>
+        <referencedby refid="group__xsecure__kat__server__apis_1gac4ab51058f2ef18bcb5a1aedf95b83d8" compoundref="xsecure__kat_8c" startline="1110" endline="1157">XSecure_RsaPublicEncryptKat</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga8bdc7108615c89806dae54dd56f428d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaSignVerification</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr, const u32 Size)</argsstring>
+        <name>XSecure_RsaSignVerification</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>SignAddr</declname>
+        </param>
+        <param>
+          <type>const u64</type>
+          <declname>HashAddr</declname>
+        </param>
+        <param>
+          <type>const u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to Perform RSA sign verification. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SignAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the buffer which holds the decrypted RSA signature. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HashAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of the HashAddr which has the hash calculated on the data to be authenticated </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of Hash used For SHA3 it should be 48 bytes</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If decryption was successful</para></listitem><listitem><para>XST_FAILURE In case of mismatch </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid</para></listitem><listitem><para>Link shared memory of size SignParams to SignParams structure for IPI usage. Validates the size of the shared memory whether the required size is available or not.</para></listitem><listitem><para>Fill Payload</para></listitem><listitem><para>Send request to PLM through generic request API. This internally handles SMC or IPI mailbox based on build configuration.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/rsa/xsecure_rsaclient.c" bodystart="204" bodyend="251"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36aca912e735422332f673c7eac208ba3927e" compoundref="xsecure__plat__defs_8h" startline="55">XSECURE_API_RSA_SIGN_VERIFY</references>
+        <references refid="group__xsecure__common__apis_1ga4dc28d692c8e56b1837e73a956ddec26" compoundref="xsecure__defs_8h" startline="94">XSecure_DCacheFlushRange</references>
+        <references refid="group__xsecure__client__apis_1ga05fa5011bc86e79725370a660a7172a1" compoundref="xsecure__generic_8c" startline="67" endline="104">XSecure_SendRequest</references>
+        <references refid="group__xsecure__aes__client__apis_1ga1ec86d85edf7d28d7581a348f0ec7866" compoundref="xsecure__aesclient_8c" startline="54">XSECURE_SLR_INDEX_SHIFT</references>
+        <referencedby refid="group__xsecure__apis_1ga17ffcc1179ee379019196d122403f8dc" compoundref="xsecure_8c" startline="546" endline="590">XSecure_DataAuth</referencedby>
+        <referencedby refid="group__xsecure__apis_1gae9ccb5dc051bf792ce88b8f3fe376122" compoundref="xsecure_8c" startline="1285" endline="1386">XSecure_SpkAuthentication</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gadfeaee7e0366427e1fdfd250b34106e0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 SecureRsaExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>SecureRsaExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function authenticates boot image located in DDR using RSA-4096 algorithm. </para>        </briefdescription>
+        <detaileddescription>
+<para>The decrypted hash is matched against the calculated boot image hash. The purpose of this function is to illustrate how to use the <ref refid="struct_x_secure___rsa" kindref="compound">XSecure_Rsa</ref> driver.</para><para><simplesect kind="return"><para>- ErrorCode if RSA authentication is failed<itemizedlist>
+<listitem><para>XST_SUCCESS if RSA authentication is successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None.//! [RSA generic example] </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="440" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="504" bodyend="560"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga146276ebc35d768dc570876595794809" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaCrtTest</definition>
+        <argsstring>(XSecure_ClientInstance *SecureClientInstance)</argsstring>
+        <name>XSecure_RsaCrtTest</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>SecureClientInstance</declname>
+        </param>
+        <briefdescription>
+<para>This function does the RSA CRT test. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureClientInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to XSecure_ClientInstance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- ErrorCode if RSA authentication is failed<itemizedlist>
+<listitem><para>XST_SUCCESS if RSA authentication is successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="573" bodyend="635"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaf113d685528776968beb10f264e0d9b6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaExpoptTest</definition>
+        <argsstring>(XSecure_ClientInstance *SecureClientInstance)</argsstring>
+        <name>XSecure_RsaExpoptTest</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>SecureClientInstance</declname>
+        </param>
+        <briefdescription>
+<para>This function does the RSA private encryption using pre-calculated modulus. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureClientInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to XSecure_ClientInstance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- ErrorCode if RSA authentication is failed<itemizedlist>
+<listitem><para>XST_SUCCESS if RSA authentication is successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="442" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="648" bodyend="713"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1gaabb834eae80ed669f878fab6db501252" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XSecure_RsaPublicEncryptTest</definition>
+        <argsstring>(XSecure_ClientInstance *SecureClientInstance)</argsstring>
+        <name>XSecure_RsaPublicEncryptTest</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>SecureClientInstance</declname>
+        </param>
+        <briefdescription>
+<para>This function does RSA public encryption. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecureClientInstance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to XSecure_ClientInstance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- ErrorCode if RSA encryption is failed<itemizedlist>
+<listitem><para>XST_SUCCESS if RSA encryption is successful. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="726" bodyend="782"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__client__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This example illustrates the usage of RSA APIs to encrypt or decrypt the signature. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the boot image authentication is successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>ErrorCode if the boot image authentication Failed. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="465" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="465" bodyend="485"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" prot="public" static="no">
+        <name>XSECURE_RSA_SIZE</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga1be2b0732b3a6c9b03ae669f6b88545f" prot="public" static="no">
+        <name>XSECURE_RSA_SHARED_DATA_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref> + <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref>+\
+									<ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref> + <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga29241f30da576cddb8b76a645e737b7c" prot="public" static="no">
+        <name>XSECURE_SHARED_BUF_SIZE</name>
+        <initializer>(XSECURE_SHARED_MEM_SIZE +\
+						XSECURE_RSA_SHARED_DATA_SIZE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga3889ef0cd21d5b09ffa60be16ce88140" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_P_SIZE</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(P) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1gaea22c8d9e551a75beb81099592d63ada" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_Q_SIZE</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(Q) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_net_rsa_client_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1gae737b24abf32c5906097070ead86c05a" prot="public" static="no">
+        <name>SLR_INDEX</name>
+        <initializer>XSECURE_SLR_INDEX_0 /* Change this for other SLRs */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" prot="public" static="no">
+        <name>XSECURE_RSA_SIZE</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga1be2b0732b3a6c9b03ae669f6b88545f" prot="public" static="no">
+        <name>XSECURE_RSA_SHARED_DATA_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref> + <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref>+\
+									<ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref> + <ref refid="group__xsecure__rsa__gen__apis_1ga0a31b3c51ef35089c7f0d9f0b6218731" kindref="member">XSECURE_RSA_SIZE</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__client__apis_1ga29241f30da576cddb8b76a645e737b7c" prot="public" static="no">
+        <name>XSECURE_SHARED_BUF_SIZE</name>
+        <initializer>(XSECURE_SHARED_MEM_SIZE +\
+						XSECURE_RSA_SHARED_DATA_SIZE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/examples/xilsecure_versal_rsa_client_example.c" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example illustrates RSA APIs usage for CRT and Expopt. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example illustrates RSA APIs usage, by taking some hash with PKCS padding.</para><para><itemizedlist>
+<listitem><para>Firstly data will be decrypted with Private key and generates RSA signature also verifies with expected signature.<itemizedlist>
+<listitem><para>Then signature will be encrypted with public key and generates the actual data also verifies with actual data.</para></listitem></itemizedlist>
+</para><para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal and Versal Net devices.</para></listitem></itemizedlist>
+</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>           1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+                   be updated to point all the required sections to shared memory(OCM or TCM)
+                   using a memory region drop down selection
+
+                                           OR
+
+           1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+                   .sharedmemory : {
+                   . = ALIGN(4);
+                   __sharedmemory_start = .;
+                   *(.sharedmemory)
+                   *(.sharedmemory.*)
+                   *(.gnu.linkonce.d.*)
+                   __sharedmemory_end = .;
+                   } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+           2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+              be stored in the above shared memory section. To make it happen in below example,
+              replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+              static const u8 Data __attribute__ ((section (&quot;.data.Data&quot;)))
+                                   should be changed to
+              static const u8 Data __attribute__ ((section (&quot;.sharedmemory.Data&quot;)))
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+ Ver   Who    Date     Changes
+<hruler/>
+
+ 1.0   kpt    05/22/24 Initial release.
+ 5.4   kpt    06/28/24 Fix compilation failure and remove unused variable
+       kpt    06/30/24 Removed endianness changes
+ 5.7   tvp    03/18/26 Fix compilation failure for versal_2vp_p</preformatted></para><para><preformatted> </preformatted></para><para><itemizedlist>
+<listitem><para>Firstly data will be decrypted with Private key and generates RSA signature also verifies with expected signature.<itemizedlist>
+<listitem><para>Then signature will be encrypted with public key and generates the actual data also verifies with actual data.</para></listitem></itemizedlist>
+</para><para>To build this application, xilmailbox library must be included in BSP and xilsecure must be in client mode This example is supported for Versal, Versal Net and Versal_2Ve_2Vm devices.</para></listitem></itemizedlist>
+</para><para><heading level="2">Procedure to link and compile the example for the default ddr less designs </heading>
+</para><para>The default linker settings places a software stack, heap and data in DDR memory. For this example to work, any data shared between client running on A72/R5/PL and server running on PMC, should be placed in area which is accessible to both client and server.</para><para>Following is the procedure to compile the example on OCM or any memory region which can be accessed by server <verbatim>           1. Open example linker script(lscript.ld) in Vitis project and section to memory mapping should
+                   be updated to point all the required sections to shared memory(OCM or TCM)
+                   using a memory region drop down selection
+
+                                           OR
+
+           1. In linker script(lscript.ld) user can add new memory section in source tab as shown below
+                   .sharedmemory : {
+                   . = ALIGN(4);
+                   __sharedmemory_start = .;
+                   *(.sharedmemory)
+                   *(.sharedmemory.*)
+                   *(.gnu.linkonce.d.*)
+                   __sharedmemory_end = .;
+                   } &gt; versal_cips_0_pspmc_0_psv_ocm_ram_0_psv_ocm_ram_0
+
+           2. In this example &quot;.data&quot; section elements that are passed by reference to the server-side should
+              be stored in the above shared memory section. To make it happen in below example,
+              replace &quot;.data&quot; in attribute section with &quot;.sharedmemory&quot;. For example,
+              static const u8 Data __attribute__ ((section (&quot;.data.Data&quot;)))
+                                   should be changed to
+              static const u8 Data __attribute__ ((section (&quot;.sharedmemory.Data&quot;)))
+</verbatim></para><para>By default the cache is enabled for this example</para><para>MODIFICATION HISTORY: <preformatted>
+ Ver   Who    Date     Changes
+<hruler/>
+
+ 1.0   kal    03/23/21 First release.
+ 4.5   kal    03/23/21 Updated file version to sync with library version
+       har    06/02/21 Fixed GCC warnings for R5 compiler
+ 4.7   kpt    12/01/21 Replaced library specific,standard utility functions
+                       with xilinx maintained functions
+       kpt    01/13/22 Added support for PL microblaze
+       kpt    03/16/22 Removed IPI related code and added mailbox support
+       kpt    04/11/22 Added comment on usage of shared memory
+ 5.2   am     05/03/23 Added KAT before crypto usage
+ 5.3   kpt    12/13/23 Add RSA quiet mode support
+       kpt    01/19/23 Enable totient calculation and PWCT for XSecure_RsaExpQOperation
+ 5.4   kpt    06/30/24 Removed endianness changes
+       pre    08/29/24 Added SSIT support
+ 5.7   tvp    03/18/26 Extend example for versal_2vp_p</preformatted></para><para><preformatted> </preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

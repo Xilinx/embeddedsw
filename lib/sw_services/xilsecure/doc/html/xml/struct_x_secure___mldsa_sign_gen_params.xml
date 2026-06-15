@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___mldsa_sign_gen_params" kind="struct" prot="public">
+    <compoundname>XSecure_MldsaSignGenParams</compoundname>
+    <includes local="no">xsecure_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1ad2c736e257fd52ee487b21f33f907da1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_MldsaSignGenParams::DataAddr</definition>
+        <argsstring></argsstring>
+        <name>DataAddr</name>
+        <briefdescription>
+<para>Address of message data buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1a0b5561d236ddde79975064b87652148c" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_MldsaSignGenParams::SecretKeyAddr</definition>
+        <argsstring></argsstring>
+        <name>SecretKeyAddr</name>
+        <briefdescription>
+<para>Address of secret key buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1a93220bba87c44328a06a2f438afee4d1" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_MldsaSignGenParams::SignatureAddr</definition>
+        <argsstring></argsstring>
+        <name>SignatureAddr</name>
+        <briefdescription>
+<para>Address of output signature buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1a4712244a01c479fdc358a6e3e64352ca" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_MldsaSignGenParams::DataLen</definition>
+        <argsstring></argsstring>
+        <name>DataLen</name>
+        <briefdescription>
+<para>Length of message data in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="267" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1abb6682ae950d4d17425badcbe6e2e7be" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_MldsaSignGenParams::SecretKeyLen</definition>
+        <argsstring></argsstring>
+        <name>SecretKeyLen</name>
+        <briefdescription>
+<para>Length of secret key in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="268" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___mldsa_sign_gen_params_1a2bb8bf8e681c4e0ae24cf8774470d89f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_MldsaSignGenParams::SignatureLen</definition>
+        <argsstring></argsstring>
+        <name>SignatureLen</name>
+        <briefdescription>
+<para>Length of signature buffer in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="269" bodyend="-1"/>
+        <referencedby refid="group__xsecure__mldsa__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__mldsa__client__example_8c" startline="592" endline="713">main</referencedby>
+        <referencedby refid="group__xsecure__mldsa__server__apis_1ga46920ff3a1a857a905036689c2bfc115" compoundref="xsecure__mldsa_8c" startline="295" endline="458">XSecure_MldsaSignGenerate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for input parameters for MLDSA Sign Generation. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/core/xsecure_defs.h" bodystart="263" bodyend="270"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1ad2c736e257fd52ee487b21f33f907da1" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>DataAddr</name></member>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1a4712244a01c479fdc358a6e3e64352ca" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>DataLen</name></member>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1a0b5561d236ddde79975064b87652148c" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>SecretKeyAddr</name></member>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1abb6682ae950d4d17425badcbe6e2e7be" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>SecretKeyLen</name></member>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1a93220bba87c44328a06a2f438afee4d1" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>SignatureAddr</name></member>
+      <member refid="struct_x_secure___mldsa_sign_gen_params_1a2bb8bf8e681c4e0ae24cf8774470d89f" prot="public" virt="non-virtual"><scope>XSecure_MldsaSignGenParams</scope><name>SignatureLen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

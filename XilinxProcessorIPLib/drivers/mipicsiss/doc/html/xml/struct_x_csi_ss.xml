@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi_ss" kind="struct" prot="public">
+    <compoundname>XCsiSs</compoundname>
+    <includes local="no">xcsiss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi_ss_1a9e11a24b49b049a215fe243afd1e9741" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_csi_ss___config" kindref="compound">XCsiSs_Config</ref></type>
+        <definition>XCsiSs_Config XCsiSs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="253" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="253" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1a6fb058d3bf941cd9a817bb6ad7e0a819" compoundref="xcsiss__intr__example_8c" startline="219" endline="349">CsiSs_IntrExample</referencedby>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+        <referencedby refid="pipeline__program_8h_1a27a98e798ed33a22a64a35485322bbdc" compoundref="pipeline__program_8c" startline="1581" endline="1588">SetColorDepth</referencedby>
+        <referencedby refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="235" endline="258">XCsiSs_Activate</referencedby>
+        <referencedby refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csiss_1ga32e53cbe89a9acc42816e016c39e1cd6" compoundref="xcsiss_8c" startline="442" endline="455">XCsiSs_GetLaneInfo</referencedby>
+        <referencedby refid="group__csiss_1ga5010fb2ee6d104be8fd63de6f2ff5ba1" compoundref="xcsiss_8c" startline="470" endline="487">XCsiSs_GetVCInfo</referencedby>
+        <referencedby refid="group__csiss_1gae291a001aba0f4141b360de5195ee81e" compoundref="xcsiss_8c" startline="391" endline="406">XCsiSs_GetVCSelection</referencedby>
+        <referencedby refid="group__csiss_1ga3c63d232d9c7c19a7206fe10d5713509" compoundref="xcsiss_8c" startline="304" endline="342">XCsiSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__csiss_1ga038b595c1a424408b3ee277a8496e8cf" compoundref="xcsiss_8c" startline="360" endline="375">XCsiSs_SetVCSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCsiSs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="254" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csiss_1ga806675fd5dc154656f12869b549e916a" compoundref="xcsiss__intr_8c" startline="117" endline="132">XCsiSs_SetCallBack</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" prot="public" static="no" mutable="no">
+        <type>XCsi *</type>
+        <definition>XCsi* XCsiSs::CsiPtr</definition>
+        <argsstring></argsstring>
+        <name>CsiPtr</name>
+        <briefdescription>
+<para>Handle to CSI sub-core driver instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="256" bodyend="-1"/>
+        <referencedby refid="group__csiss_1gaf30fdaf13ba08d8612f8e20ab21d8ff2" compoundref="xcsiss_8c" startline="235" endline="258">XCsiSs_Activate</referencedby>
+        <referencedby refid="group__csiss_1ga8fde229b1ad93697e0cf3f1710b2db7e" compoundref="xcsiss_8c" startline="126" endline="169">XCsiSs_CfgInitialize</referencedby>
+        <referencedby refid="group__csiss_1ga3b35fe38bf1b55eb8107f892caf67103" compoundref="xcsiss_8c" startline="193" endline="216">XCsiSs_Configure</referencedby>
+        <referencedby refid="group__csiss_1ga32e53cbe89a9acc42816e016c39e1cd6" compoundref="xcsiss_8c" startline="442" endline="455">XCsiSs_GetLaneInfo</referencedby>
+        <referencedby refid="group__csiss_1gad50495d88d4013368ccf7886554cfbe4" compoundref="xcsiss_8c" startline="421" endline="427">XCsiSs_GetShortPacket</referencedby>
+        <referencedby refid="group__csiss_1ga5010fb2ee6d104be8fd63de6f2ff5ba1" compoundref="xcsiss_8c" startline="470" endline="487">XCsiSs_GetVCInfo</referencedby>
+        <referencedby refid="group__csiss_1gae291a001aba0f4141b360de5195ee81e" compoundref="xcsiss_8c" startline="391" endline="406">XCsiSs_GetVCSelection</referencedby>
+        <referencedby refid="group__csiss_1gaac9801ecbee587a1672c26177a1613b7" compoundref="xcsiss__intr_8c" startline="147" endline="155">XCsiSs_IntrDisable</referencedby>
+        <referencedby refid="group__csiss_1ga7144ae932dcf2ddf7ad15e7ec7565bba" compoundref="xcsiss__intr_8c" startline="72" endline="81">XCsiSs_IntrHandler</referencedby>
+        <referencedby refid="group__csiss_1ga3c63d232d9c7c19a7206fe10d5713509" compoundref="xcsiss_8c" startline="304" endline="342">XCsiSs_ReportCoreInfo</referencedby>
+        <referencedby refid="group__csiss_1ga0436d17627c2acd4ed542efbbb584fab" compoundref="xcsiss_8c" startline="276" endline="290">XCsiSs_Reset</referencedby>
+        <referencedby refid="group__csiss_1ga138571d7c16631b9c6166a297e2b06d4" compoundref="xcsiss__selftest_8c" startline="62" endline="96">XCsiSs_SelfTest</referencedby>
+        <referencedby refid="group__csiss_1ga806675fd5dc154656f12869b549e916a" compoundref="xcsiss__intr_8c" startline="117" endline="132">XCsiSs_SetCallBack</referencedby>
+        <referencedby refid="group__csiss_1ga038b595c1a424408b3ee277a8496e8cf" compoundref="xcsiss_8c" startline="360" endline="375">XCsiSs_SetVCSelection</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1abfd37924d61fd89f9d28a72b6dec078a" prot="public" static="no" mutable="no">
+        <type>XCsi_ClkLaneInfo</type>
+        <definition>XCsi_ClkLaneInfo XCsiSs::ClkInfo</definition>
+        <argsstring></argsstring>
+        <name>ClkInfo</name>
+        <briefdescription>
+<para>Clock Lane information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="263" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga32e53cbe89a9acc42816e016c39e1cd6" compoundref="xcsiss_8c" startline="442" endline="455">XCsiSs_GetLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1ac5382f051411f3c32fa226df7a4a6890" prot="public" static="no" mutable="no">
+        <type>XCsi_DataLaneInfo</type>
+        <definition>XCsi_DataLaneInfo XCsiSs::DLInfo[XCSI_MAX_LANES]</definition>
+        <argsstring>[XCSI_MAX_LANES]</argsstring>
+        <name>DLInfo</name>
+        <briefdescription>
+<para>Data Lane information array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="264" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="264" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga32e53cbe89a9acc42816e016c39e1cd6" compoundref="xcsiss_8c" startline="442" endline="455">XCsiSs_GetLaneInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1a9f94784dc621d2cf0213645392f2e877" prot="public" static="no" mutable="no">
+        <type>XCsi_SPktData</type>
+        <definition>XCsi_SPktData XCsiSs::SpktData</definition>
+        <argsstring></argsstring>
+        <name>SpktData</name>
+        <briefdescription>
+<para>Short packet data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="265" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="265" bodyend="-1"/>
+        <referencedby refid="xcsiss__intr__example_8c_1aa82de58a14571625b9b396dca82a5627" compoundref="xcsiss__intr__example_8c" startline="684" endline="705">CsiSs_SPktEventHandler</referencedby>
+        <referencedby refid="group__csiss_1gad50495d88d4013368ccf7886554cfbe4" compoundref="xcsiss_8c" startline="421" endline="427">XCsiSs_GetShortPacket</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi_ss_1ae44557c21f321a56b6c1ca9dbd9e202e" prot="public" static="no" mutable="no">
+        <type>XCsi_VCInfo</type>
+        <definition>XCsi_VCInfo XCsiSs::VCInfo[XCSI_MAX_VC]</definition>
+        <argsstring>[XCSI_MAX_VC]</argsstring>
+        <name>VCInfo</name>
+        <briefdescription>
+<para>Virtual Channel information array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="266" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="266" bodyend="-1"/>
+        <referencedby refid="group__csiss_1ga5010fb2ee6d104be8fd63de6f2ff5ba1" compoundref="xcsiss_8c" startline="470" endline="487">XCsiSs_GetVCInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every <ref refid="struct_x_csi_ss" kindref="compound">XCsiSs</ref> device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="21">
+        <label>XCsiSs</label>
+        <link refid="struct_x_csi_ss"/>
+        <childnode refid="22" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="23">
+        <label>CsiRxSsSubCore</label>
+        <link refid="struct_csi_rx_ss_sub_core"/>
+      </node>
+      <node id="22">
+        <label>XCsiSs_Config</label>
+        <link refid="struct_x_csi_ss___config"/>
+        <childnode refid="23" relation="usage">
+          <edgelabel>MipiRxPhyInfo</edgelabel>
+          <edgelabel>CsiInfo</edgelabel>
+          <edgelabel>DphyInfo</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" line="252" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/src/xcsiss.h" bodystart="252" bodyend="267"/>
+    <listofallmembers>
+      <member refid="struct_x_csi_ss_1abfd37924d61fd89f9d28a72b6dec078a" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>ClkInfo</name></member>
+      <member refid="struct_x_csi_ss_1a9e11a24b49b049a215fe243afd1e9741" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>Config</name></member>
+      <member refid="struct_x_csi_ss_1ac471108e61ceee6dda85fa7de9b2eb09" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>CsiPtr</name></member>
+      <member refid="struct_x_csi_ss_1ac5382f051411f3c32fa226df7a4a6890" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>DLInfo</name></member>
+      <member refid="struct_x_csi_ss_1abdfbd85e6c88f0713868de83c79706ed" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>IsReady</name></member>
+      <member refid="struct_x_csi_ss_1a9f94784dc621d2cf0213645392f2e877" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>SpktData</name></member>
+      <member refid="struct_x_csi_ss_1ae44557c21f321a56b6c1ca9dbd9e202e" prot="public" virt="non-virtual"><scope>XCsiSs</scope><name>VCInfo</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

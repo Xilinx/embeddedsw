@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dct__assert_8h" kind="file">
+    <compoundname>dct_assert.h</compoundname>
+    <includes refid="types_8h" local="yes">types.h</includes>
+    <includedby refid="hal__i2c_8h" local="no">hal_i2c.h</includedby>
+    <includedby refid="max9295_8c" local="yes">max9295.c</includedby>
+    <includedby refid="max9296_8c" local="yes">max9296.c</includedby>
+    <includedby refid="ms__fw_8c" local="yes">ms_fw.c</includedby>
+    <includedby refid="hal__api_8h" local="no">hal_api.h</includedby>
+    <includedby refid="dct__assert_8c" local="yes">dct_assert.c</includedby>
+    <includedby refid="trace_8c" local="yes">trace.c</includedby>
+    <incdepgraph>
+      <node id="5288">
+        <label>stdlib.h</label>
+      </node>
+      <node id="5290">
+        <label>stddef.h</label>
+      </node>
+      <node id="5289">
+        <label>limits.h</label>
+      </node>
+      <node id="5285">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5286" relation="include">
+        </childnode>
+        <childnode refid="5289" relation="include">
+        </childnode>
+        <childnode refid="5290" relation="include">
+        </childnode>
+      </node>
+      <node id="5287">
+        <label>stdio.h</label>
+      </node>
+      <node id="5284">
+        <label>dct_assert.h</label>
+        <link refid="dct_assert.h"/>
+        <childnode refid="5285" relation="include">
+        </childnode>
+      </node>
+      <node id="5286">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="5287" relation="include">
+        </childnode>
+        <childnode refid="5288" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="5307">
+        <label>hal_api.h</label>
+        <childnode refid="5293" relation="include">
+        </childnode>
+        <childnode refid="5292" relation="include">
+        </childnode>
+        <childnode refid="5308" relation="include">
+        </childnode>
+        <childnode refid="5309" relation="include">
+        </childnode>
+        <childnode refid="5310" relation="include">
+        </childnode>
+      </node>
+      <node id="5304">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="5295">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="5293" relation="include">
+        </childnode>
+        <childnode refid="5296" relation="include">
+        </childnode>
+      </node>
+      <node id="5308">
+        <label>ox03f10_priv.h</label>
+        <childnode refid="5302" relation="include">
+        </childnode>
+        <childnode refid="5303" relation="include">
+        </childnode>
+      </node>
+      <node id="5309">
+        <label>ox05b1s_priv.h</label>
+        <link refid="ox05b1s__priv_8h"/>
+        <childnode refid="5304" relation="include">
+        </childnode>
+      </node>
+      <node id="5297">
+        <label>max9296.h</label>
+        <childnode refid="5298" relation="include">
+        </childnode>
+      </node>
+      <node id="5306">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="5294">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="5293" relation="include">
+        </childnode>
+      </node>
+      <node id="5310">
+        <label>ox08b40_priv.h</label>
+        <childnode refid="5305" relation="include">
+        </childnode>
+      </node>
+      <node id="5301">
+        <label>max9295.c</label>
+      </node>
+      <node id="5312">
+        <label>trace.c</label>
+        <link refid="trace_8c"/>
+      </node>
+      <node id="5311">
+        <label>dct_assert.c</label>
+        <link refid="dct__assert_8c"/>
+      </node>
+      <node id="5305">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="5293">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="5298">
+        <label>max9296.c</label>
+      </node>
+      <node id="5299">
+        <label>isi_fmc.h</label>
+        <childnode refid="5300" relation="include">
+        </childnode>
+        <childnode refid="5297" relation="include">
+        </childnode>
+        <childnode refid="5302" relation="include">
+        </childnode>
+        <childnode refid="5303" relation="include">
+        </childnode>
+        <childnode refid="5304" relation="include">
+        </childnode>
+        <childnode refid="5305" relation="include">
+        </childnode>
+      </node>
+      <node id="5296">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="5303">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="5302">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="5300">
+        <label>max9295.h</label>
+        <childnode refid="5301" relation="include">
+        </childnode>
+      </node>
+      <node id="5292">
+        <label>hal_i2c.h</label>
+        <childnode refid="5293" relation="include">
+        </childnode>
+        <childnode refid="5294" relation="include">
+        </childnode>
+        <childnode refid="5295" relation="include">
+        </childnode>
+        <childnode refid="5297" relation="include">
+        </childnode>
+        <childnode refid="5299" relation="include">
+        </childnode>
+        <childnode refid="5306" relation="include">
+        </childnode>
+      </node>
+      <node id="5291">
+        <label>dct_assert.h</label>
+        <link refid="dct_assert.h"/>
+        <childnode refid="5292" relation="include">
+        </childnode>
+        <childnode refid="5301" relation="include">
+        </childnode>
+        <childnode refid="5298" relation="include">
+        </childnode>
+        <childnode refid="5302" relation="include">
+        </childnode>
+        <childnode refid="5307" relation="include">
+        </childnode>
+        <childnode refid="5311" relation="include">
+        </childnode>
+        <childnode refid="5312" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__module__assert_1ga98c7ef8d3f2437e62bce09dcb19a26fc" prot="public" static="no">
+        <name>RET_FAILURE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>general failure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__assert_1ga216ca137f7f2605a6a2f171914d2c635" prot="public" static="no">
+        <name>DCT_ASSERT</name>
+        <param><defname>exp</defname></param>
+        <initializer>do { if (!(exp)){ static CHAR filename[] = __FILE__; <ref refid="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" kindref="member">exit_</ref>(&amp;filename[0], __LINE__);}}while(0)</initializer>
+        <briefdescription>
+<para>The assert macro. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expression which assumed to be true. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* ASSERT_HANDLER)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>ASSERT_HANDLER</name>
+        <briefdescription>
+<para>The type of the assert handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" kindref="member">assert_handler</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" prot="public" static="no" mutable="no">
+        <type><ref refid="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" kindref="member">ASSERT_HANDLER</ref></type>
+        <definition>ASSERT_HANDLER assert_handler</definition>
+        <argsstring></argsstring>
+        <name>assert_handler</name>
+        <briefdescription>
+<para>The assert handler is a function that is called in case an assertion failed. </para>        </briefdescription>
+        <detaileddescription>
+<para>If no handler is registered, which is the default, exit() is called. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/dct_assert.c" bodystart="33" bodyend="-1"/>
+        <referencedby refid="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" compoundref="dct__assert_8c" startline="35" endline="47">exit_</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void exit_</definition>
+        <argsstring>(const char *file, int line)</argsstring>
+        <name>exit_</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+<para>Dump information on stderr and exit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename where assertion occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linenumber where assertion occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/dct_assert.c" bodystart="35" bodyend="47"/>
+        <references refid="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" compoundref="dct__assert_8c" startline="33">assert_handler</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file defines the API for the assertion facility of the embedded lib. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor">#ifndef<sp/>ASSERT_H_</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ASSERT_H_</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="group__module__assert_1ga98c7ef8d3f2437e62bce09dcb19a26fc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RET_FAILURE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69" refid="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" kindref="member">ASSERT_HANDLER</ref>)(void)<sp/>__attribute__((noreturn));</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" kindref="member">ASSERT_HANDLER</ref><sp/><ref refid="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" kindref="member">assert_handler</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(ENABLE_ASSERT)<sp/>||<sp/>!defined(NDEBUG)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" kindref="member">exit_</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>line)<sp/>__attribute__((noreturn));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="group__module__assert_1ga216ca137f7f2605a6a2f171914d2c635" refkind="member"><highlight class="preprocessor">#define<sp/>DCT_ASSERT(exp)<sp/>do<sp/>{<sp/>if<sp/>(!(exp)){<sp/>static<sp/>CHAR<sp/>filename[]<sp/>=<sp/>__FILE__;<sp/>exit_(&amp;filename[0],<sp/>__LINE__);}}while(0)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DCT_ASSERT(exp)\</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{\</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((exp))<sp/>{\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}\</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>while(0)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>module_tracer*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*ASSERT_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h"/>
+  </compounddef>
+</doxygen>

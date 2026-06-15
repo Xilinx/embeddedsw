@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_tx_ss___vtc_sub_core" kind="struct" prot="public">
+    <compoundname>XDpTxSs_VtcSubCore</compoundname>
+    <includes local="no">xdptxss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___vtc_sub_core_1ab522e4042f6ee45201342a6de3299dd8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpTxSs_VtcSubCore::IsPresent</definition>
+        <argsstring></argsstring>
+        <name>IsPresent</name>
+        <briefdescription>
+<para>Flag to hold the presence of VTC core. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="199" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_tx_ss___vtc_sub_core_1a544271c63a5f886ec7c771f3f3113d7e" prot="public" static="no" mutable="no">
+        <type>XVtc_Config</type>
+        <definition>XVtc_Config XDpTxSs_VtcSubCore::VtcConfig</definition>
+        <argsstring></argsstring>
+        <name>VtcConfig</name>
+        <briefdescription>
+<para>Video Timing Controller (VTC) core configuration information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__dptxss_1gafb7b3b467a12177fb0c8053f4b7d70a1" compoundref="xdptxss_8c" startline="121" endline="356">XDpTxSs_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VTC Sub-core structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" line="198" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12txss/src/xdptxss.h" bodystart="198" bodyend="202"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_tx_ss___vtc_sub_core_1ab522e4042f6ee45201342a6de3299dd8" prot="public" virt="non-virtual"><scope>XDpTxSs_VtcSubCore</scope><name>IsPresent</name></member>
+      <member refid="struct_x_dp_tx_ss___vtc_sub_core_1a544271c63a5f886ec7c771f3f3113d7e" prot="public" virt="non-virtual"><scope>XDpTxSs_VtcSubCore</scope><name>VtcConfig</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

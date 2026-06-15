@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp_psu___aux_transaction" kind="struct" prot="public">
+    <compoundname>XDpPsu_AuxTransaction</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp_psu___aux_transaction_1aebec6d565607bf76cad77f803b25deb7" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDpPsu_AuxTransaction::CmdCode</definition>
+        <argsstring></argsstring>
+        <name>CmdCode</name>
+        <briefdescription>
+<para>The AUX command code that specifies what type of AUX transaction is taking place. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___aux_transaction_1a7865e548ac037e1e2510406c3c39d8a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDpPsu_AuxTransaction::NumBytes</definition>
+        <argsstring></argsstring>
+        <name>NumBytes</name>
+        <briefdescription>
+<para>The number of bytes that the AUX transaction will perform work on. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___aux_transaction_1a1df5c8d786bede54225e63c7f13fc392" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDpPsu_AuxTransaction::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>The AUX or I2C start address that the AUX transaction will perform work on. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp_psu___aux_transaction_1a1446eeaf08cca62a58490f0c23ca62a9" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XDpPsu_AuxTransaction::Data</definition>
+        <argsstring></argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>The data buffer that will store the data read from AUX read transactions or the data to write for AUX write transactions. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes an AUX transaction. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu.c" bodystart="65" bodyend="77"/>
+    <listofallmembers>
+      <member refid="struct_x_dp_psu___aux_transaction_1a1df5c8d786bede54225e63c7f13fc392" prot="public" virt="non-virtual"><scope>XDpPsu_AuxTransaction</scope><name>Address</name></member>
+      <member refid="struct_x_dp_psu___aux_transaction_1aebec6d565607bf76cad77f803b25deb7" prot="public" virt="non-virtual"><scope>XDpPsu_AuxTransaction</scope><name>CmdCode</name></member>
+      <member refid="struct_x_dp_psu___aux_transaction_1a1446eeaf08cca62a58490f0c23ca62a9" prot="public" virt="non-virtual"><scope>XDpPsu_AuxTransaction</scope><name>Data</name></member>
+      <member refid="struct_x_dp_psu___aux_transaction_1a7865e548ac037e1e2510406c3c39d8a8" prot="public" virt="non-virtual"><scope>XDpPsu_AuxTransaction</scope><name>NumBytes</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

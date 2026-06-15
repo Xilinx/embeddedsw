@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xloader__kat__apis" kind="group">
+    <compoundname>xloader_kat_apis</compoundname>
+    <title>XilLoader KAT APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__kat__apis_1gae405ddd66749be44915e8ae9a73aa8e0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XLoader_ClearKatStatusOnCfg</definition>
+        <argsstring>(XilPdi *PdiPtr, u32 PlmKatMask)</argsstring>
+        <name>XLoader_ClearKatStatusOnCfg</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function masks the KAT status based on KatOnConfig value when PDI type is partial pdi. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PlmKatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask of the KAT that is going to run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update RTC area before running KAT </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" line="44" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="121" bodyend="140"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_Sha3Kat</definition>
+        <argsstring>(XilPdi *PdiPtr)</argsstring>
+        <name>XLoader_Sha3Kat</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs SHA3 KAT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the xilpdi instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE if setting SHA3 data context lost fails</para></listitem><listitem><para>XLOADER_ERR_KAT_FAILED on SHA3 KAT failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update KAT status</para></listitem><listitem><para>Set the data context of previous SHA operation</para></listitem><listitem><para>Skip running the KAT for SHA3 if it is already run KAT will be run only when the CRYPTO_KAT_EN bits in eFUSE are set If KAT fails device will go into a secure lockdown state</para></listitem><listitem><para>Update KAT status </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="60" bodyend="95"/>
+        <references refid="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" compoundref="xloader_8h" startline="379">XilPdi::PlmKatStatus</references>
+        <references refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" compoundref="xloader__kat_8c" startline="105" endline="110">XLoader_ClearKatOnPPDI</references>
+        <referencedby refid="group__xloader__server__apis_1gaadc121bcc59feb4ece3c40802d81987b" compoundref="xloader_8c" startline="420" endline="594">XLoader_PdiInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XLoader_ClearKatOnPPDI</definition>
+        <argsstring>(XilPdi *PdiPtr, u32 PlmKatMask)</argsstring>
+        <name>XLoader_ClearKatOnPPDI</name>
+        <param>
+          <type><ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> *</type>
+          <declname>PdiPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>PlmKatMask</declname>
+        </param>
+        <briefdescription>
+<para>This function updates the KAT status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>PdiPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pointer to the <ref refid="struct_xil_pdi" kindref="compound">XilPdi</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PlmKatMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the mask of the KAT that is going to run </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="105" bodyend="110"/>
+        <references refid="struct_xil_pdi_1abfb2bdf4aada2ee8b70475e9dc179edc" compoundref="xloader_8h" startline="363">XilPdi::PdiType</references>
+        <referencedby refid="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" compoundref="xloader__kat_8c" startline="155" endline="215">XLoader_AesKatTest</referencedby>
+        <referencedby refid="group__xloader__kat__apis_1ga4fdf03478ad3c8bf86deac1e28d4ddda" compoundref="xloader__kat_8c" startline="60" endline="95">XLoader_Sha3Kat</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__kat__apis_1ga70adfd9ae96a869e8adbbc1d01f70916" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_AesKatTest</definition>
+        <argsstring>(XLoader_SecureParams *SecurePtr)</argsstring>
+        <name>XLoader_AesKatTest</name>
+        <param>
+          <type><ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref> *</type>
+          <declname>SecurePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function performs KAT test on AES crypto Engine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>SecurePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_loader___secure_params" kindref="compound">XLoader_SecureParams</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS on success</para></listitem><listitem><para>XST_FAILURE if setting AES data context lost fails</para></listitem><listitem><para>XLOADER_ERR_KAT_FAILED on AES DPACM or AES decrypt KAT failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Update KAT status based on the user configuration</para></listitem><listitem><para>Set the data context of previous AES operation</para></listitem><listitem><para>Skip running the KAT for AES DPACM or AES if it is already run KAT will be run only when the CRYPTO_KAT_EN bits in eFUSE are set If KAT fails device will go into a secure lockdown state</para></listitem><listitem><para>Update KAT status in RTC area</para></listitem><listitem><para>Update KAT status based on the user configuration</para></listitem><listitem><para>Update KAT status in RTC area </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_kat.c" bodystart="155" bodyend="215"/>
+        <references refid="struct_x_loader___secure_params_1a74d4252aad479886e11b3d2f3e4b210d" compoundref="xloader__auth__enc_8h" startline="800">XLoader_SecureParams::AesInstPtr</references>
+        <references refid="struct_x_loader___secure_params_1a52a99323f052ec7000d558dd6125357d" compoundref="xloader__auth__enc_8h" startline="773">XLoader_SecureParams::PdiPtr</references>
+        <references refid="struct_xil_pdi_1a8ed51e3954f76687de0b4e0528598dcf" compoundref="xloader_8h" startline="379">XilPdi::PlmKatStatus</references>
+        <references refid="group__xloader__kat__apis_1ga43a415ea9b49abb198cae9ba6f9eb0b5" compoundref="xloader__kat_8c" startline="105" endline="110">XLoader_ClearKatOnPPDI</references>
+        <references refid="xloader__auth__enc_8h_1ab20915f5ef825e824567de29f54a0bf9" compoundref="xloader__auth__enc_8h" startline="261">XLOADER_EFUSE_SEC_DPA_DIS_MASK</references>
+        <references refid="xloader__auth__enc_8h_1a27bdc13f6dce3d58ba3e844eb8b8473d" compoundref="xloader__auth__enc_8h" startline="259">XLOADER_EFUSE_SEC_MISC1_OFFSET</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

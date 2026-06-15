@@ -1,0 +1,249 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtpm__mailbox_8h" kind="file">
+    <compoundname>xtpm_mailbox.h</compoundname>
+    <includes local="yes">xilmailbox.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xtpm__client_8h" local="yes">xtpm_client.h</includedby>
+    <includedby refid="xtpm__mailbox_8c" local="yes">xtpm_mailbox.c</includedby>
+    <incdepgraph>
+      <node id="75">
+        <label>xtpm_mailbox.h</label>
+        <link refid="xtpm_mailbox.h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+      </node>
+      <node id="76">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="77">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="82">
+        <label>xtpm_mailbox.c</label>
+        <link refid="xtpm__mailbox_8c"/>
+      </node>
+      <node id="78">
+        <label>xtpm_mailbox.h</label>
+        <link refid="xtpm_mailbox.h"/>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="82" relation="include">
+        </childnode>
+      </node>
+      <node id="81">
+        <label>xiltpm_example.c</label>
+        <link refid="xiltpm__example_8c"/>
+      </node>
+      <node id="80">
+        <label>xtpm_client.c</label>
+        <link refid="xtpm__client_8c"/>
+      </node>
+      <node id="79">
+        <label>xtpm_client.h</label>
+        <link refid="xtpm__client_8h"/>
+        <childnode refid="80" relation="include">
+        </childnode>
+        <childnode refid="81" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_ProcessMailbox</definition>
+        <argsstring>(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XTpm_ProcessMailbox</name>
+        <param>
+          <type>XMailbox *</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to mailbox instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS If the IPI send and receive is successful</para></listitem><listitem><para>XST_FAILURE If there is a failure</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API id and call arguments to be written in IPI buffer </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Send IPI CDO to PLM. Return XST_FAILURE, if failure in IPI send request.</para><para>Wait for IPI response from PLM with a default timeout of 2 seconds. If the timeout exceeds, then error is returned otherwise it returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="59" bodyend="88"/>
+        <referencedby refid="group__xtpm__client__apis_1ga3fd111e4ad35260687349558a83ce99a" compoundref="xtpm__client_8c" startline="254" endline="277">XTpm_GetPcrLog</referencedby>
+        <referencedby refid="group__xtpm__client__apis_1ga9142864b29219b369059fa0dbefd8e80" compoundref="xtpm__client_8c" startline="54" endline="78">XTpm_Init</referencedby>
+        <referencedby refid="group__xtpm__client__apis_1ga26b8c02a6af5e48c9b5bfcfab3d1fcc2" compoundref="xtpm__client_8c" startline="167" endline="194">XTpm_PcrEvent</referencedby>
+        <referencedby refid="group__xtpm__client__apis_1ga3d699f51467cb6df1d9d3254b9f35fb2" compoundref="xtpm__client_8c" startline="211" endline="238">XTpm_PcrRead</referencedby>
+        <referencedby refid="group__xtpm__client__apis_1ga8343d3b91849066e61965c101fb2789e" compoundref="xtpm__client_8c" startline="126" endline="150">XTpm_SelfTest</referencedby>
+        <referencedby refid="group__xtpm__client__apis_1ga4630b1f402569684365c28b10342df99" compoundref="xtpm__client_8c" startline="90" endline="114">XTpm_Startup</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xtpm__mailbox__apis_1ga0d1f03472387c6f3c9f44f5027509c25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XTpm_ClientInit</definition>
+        <argsstring>(XTpm_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XTpm_ClientInit</name>
+        <param>
+          <type>XTpm_ClientInstance *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the mailbox instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful initialization</para></listitem><listitem><para>XST_FAILURE On failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Perform input parameter validation on InstancePtr. If not NULL initialize the InstancePtr, else return XST_FAILURE.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.c" bodystart="102" bodyend="116"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains declarations of xilTPM generic interface APIs. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   pre  03/09/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XTPM_MAILBOX_H</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_MAILBOX_H</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="34"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilmailbox.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="comment">/*<sp/>Payload<sp/>Packets<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Arg0,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[0U]<sp/>=<sp/>(u32)Arg0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[1U]<sp/>=<sp/>(u32)Arg1;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[2U]<sp/>=<sp/>(u32)Arg2;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[3U]<sp/>=<sp/>(u32)Arg3;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[4U]<sp/>=<sp/>(u32)Arg4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Payload[5U]<sp/>=<sp/>(u32)Arg5;</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD0(Payload,<sp/>ApiId)<sp/>\</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(0UL,<sp/>(ApiId)),<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD1(Payload,<sp/>ApiId,<sp/>Arg1)<sp/>\</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(1UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>0U,<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD2(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2)<sp/>\</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(2UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>0U,<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD3(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3)<sp/>\</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(3UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>0U,<sp/>0U)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD4(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4)<sp/>\</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(4UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>(Arg4),<sp/>0U)</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTPM_PACK_PAYLOAD5(Payload,<sp/>ApiId,<sp/>Arg1,<sp/>Arg2,<sp/>Arg3,<sp/>Arg4,<sp/>Arg5)<sp/>\</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTPM_PACK_PAYLOAD(Payload,<sp/>Header(5UL,<sp/>(ApiId)),<sp/>(Arg1),<sp/>(Arg2),<sp/>(Arg3),<sp/>(Arg4),<sp/>(Arg5))</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XILTPM_MODULE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(15U)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTPM_ADDR_HIGH_SHIFT<sp/><sp/><sp/><sp/>(32U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>1<sp/>for<sp/>API<sp/>ID<sp/>+<sp/>5<sp/>for<sp/>API<sp/>arguments<sp/>+<sp/>1<sp/>for<sp/>reserved<sp/>+<sp/>1<sp/>for<sp/>CRC<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PAYLOAD_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>1<sp/>for<sp/>status<sp/>+<sp/>3<sp/>for<sp/>values<sp/>+<sp/>3<sp/>for<sp/>reserved<sp/>+<sp/>1<sp/>for<sp/>CRC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RESPONSE_ARG_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIPIPSU_MAX_MSG_LEN</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XTPM_TARGET_IPI_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000002U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XTPM_MODULE_ID_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XTPM_PAYLOAD_LEN_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XILTPM_MODULE_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((u32)XILTPM_MODULE_ID<sp/>&lt;&lt;<sp/>XTPM_MODULE_ID_SHIFT)</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#define<sp/>XTPM_SHARED_MEM_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(160U)</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="87"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>*MailboxPtr;<sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SlrIndex;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">}<sp/>XTpm_ClientInstance;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u32<sp/>Header(u32<sp/>Len,<sp/>u32<sp/>ApiId)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((Len<sp/>&lt;&lt;<sp/>XTPM_PAYLOAD_LEN_SHIFT)<sp/>|</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XILTPM_MODULE_ID_MASK<sp/>|<sp/>(ApiId));</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__mailbox__apis_1ga1bd7ad7627dbfdd66c4f631af346b044" kindref="member">XTpm_ProcessMailbox</ref>(XMailbox<sp/>*MailboxPtr,<sp/>u32<sp/>*MsgPtr,<sp/>u32<sp/>MsgLen);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xtpm__mailbox__apis_1ga0d1f03472387c6f3c9f44f5027509c25" kindref="member">XTpm_ClientInit</ref>(XTpm_ClientInstance*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>InstancePtr,<sp/>XMailbox*<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>MailboxPtr);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XTPM_MAILBOX_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xiltpm/src/client/xtpm_mailbox.h"/>
+  </compounddef>
+</doxygen>

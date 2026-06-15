@@ -1,0 +1,1728 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="c_j_s_o_n_8h" kind="file">
+    <compoundname>cJSON.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="no">stdbool.h</includes>
+    <includedby refid="vvbench__2dnr__api_8h" local="yes">vvbench_2dnr_api.h</includedby>
+    <includedby refid="vvbench__3dnr__api_8h" local="yes">vvbench_3dnr_api.h</includedby>
+    <includedby refid="vvbench__ae__api_8h" local="yes">vvbench_ae_api.h</includedby>
+    <includedby refid="vvbench__af__api_8h" local="yes">vvbench_af_api.h</includedby>
+    <includedby refid="vvbench__afm__api_8h" local="yes">vvbench_afm_api.h</includedby>
+    <includedby refid="vvbench__afm__api__v3_8h" local="yes">vvbench_afm_api_v3.h</includedby>
+    <includedby refid="vvbench__awb__api_8h" local="yes">vvbench_awb_api.h</includedby>
+    <includedby refid="vvbench__bls__api_8h" local="yes">vvbench_bls_api.h</includedby>
+    <includedby refid="vvbench__ccm__api_8h" local="yes">vvbench_ccm_api.h</includedby>
+    <includedby refid="vvbench__cnr__api_8h" local="yes">vvbench_cnr_api.h</includedby>
+    <includedby refid="vvbench__cpd__api_8h" local="yes">vvbench_cpd_api.h</includedby>
+    <includedby refid="vvbench__cproc__api_8h" local="yes">vvbench_cproc_api.h</includedby>
+    <includedby refid="vvbench__dg__api_8h" local="yes">vvbench_dg_api.h</includedby>
+    <includedby refid="vvbench__dmsc__api_8h" local="yes">vvbench_dmsc_api.h</includedby>
+    <includedby refid="vvbench__dpcc__api_8h" local="yes">vvbench_dpcc_api.h</includedby>
+    <includedby refid="vvbench__ee__api_8h" local="yes">vvbench_ee_api.h</includedby>
+    <includedby refid="vvbench__exp__api__v2_8h" local="yes">vvbench_exp_api_v2.h</includedby>
+    <includedby refid="vvbench__exp__api__v3_8h" local="yes">vvbench_exp_api_v3.h</includedby>
+    <includedby refid="vvbench__fusa__api_8h" local="yes">vvbench_fusa_api.h</includedby>
+    <includedby refid="vvbench__gc__api_8h" local="yes">vvbench_gc_api.h</includedby>
+    <includedby refid="vvbench__ge__api_8h" local="yes">vvbench_ge_api.h</includedby>
+    <includedby refid="vvbench__gtm__api_8h" local="yes">vvbench_gtm_api.h</includedby>
+    <includedby refid="vvbench__hdr__api_8h" local="yes">vvbench_hdr_api.h</includedby>
+    <includedby refid="vvbench__hist64__api_8h" local="yes">vvbench_hist64_api.h</includedby>
+    <includedby refid="vvbench__hist256__api_8h" local="yes">vvbench_hist256_api.h</includedby>
+    <includedby refid="vvbench__lsc__api_8h" local="yes">vvbench_lsc_api.h</includedby>
+    <includedby refid="vvbench__lut3d__api_8h" local="yes">vvbench_lut3d_api.h</includedby>
+    <includedby refid="vvbench__pdaf__api_8h" local="yes">vvbench_pdaf_api.h</includedby>
+    <includedby refid="vvbench__rgbir__api_8h" local="yes">vvbench_rgbir_api.h</includedby>
+    <includedby refid="vvbench__tpg__api_8h" local="yes">vvbench_tpg_api.h</includedby>
+    <includedby refid="vvbench__vi200__api_8h" local="yes">vvbench_vi200_api.h</includedby>
+    <includedby refid="vvbench__wb__api_8h" local="yes">vvbench_wb_api.h</includedby>
+    <includedby refid="vvbench__wdr__api_8h" local="yes">vvbench_wdr_api.h</includedby>
+    <includedby refid="vvbench__gwdr__api_8h" local="yes">vvbench_gwdr_api.h</includedby>
+    <includedby refid="vvbparser_8h" local="yes">vvbparser.h</includedby>
+    <includedby refid="vvdevice__common_8h" local="yes">vvdevice_common.h</includedby>
+    <includedby refid="c_j_s_o_n_8c" local="yes">cJSON.c</includedby>
+    <includedby refid="vvbench__2dnr__api__v5__2_8c" local="yes">vvbench_2dnr_api_v5_2.c</includedby>
+    <includedby refid="vvbench__3dnr__api__dummy_8c" local="yes">vvbench_3dnr_api_dummy.c</includedby>
+    <includedby refid="vvbench__ae__api__v4_8c" local="yes">vvbench_ae_api_v4.c</includedby>
+    <includedby refid="vvbench__af__api__v4_8c" local="yes">vvbench_af_api_v4.c</includedby>
+    <includedby refid="vvbench__afm__api__dummy_8c" local="yes">vvbench_afm_api_dummy.c</includedby>
+    <includedby refid="vvbench__afm__api__v3__dummy_8c" local="yes">vvbench_afm_api_v3_dummy.c</includedby>
+    <includedby refid="vvbench__awb__api__v4_8c" local="yes">vvbench_awb_api_v4.c</includedby>
+    <includedby refid="vvbench__bls__api_8c" local="yes">vvbench_bls_api.c</includedby>
+    <includedby refid="vvbench__ccm__api__v1__1_8c" local="yes">vvbench_ccm_api_v1_1.c</includedby>
+    <includedby refid="vvbench__cnr__api__dummy_8c" local="yes">vvbench_cnr_api_dummy.c</includedby>
+    <includedby refid="vvbench__cpd__api__v1__1_8c" local="yes">vvbench_cpd_api_v1_1.c</includedby>
+    <includedby refid="vvbench__cproc__api_8c" local="yes">vvbench_cproc_api.c</includedby>
+    <includedby refid="vvbench__dg__api_8c" local="yes">vvbench_dg_api.c</includedby>
+    <includedby refid="vvbench__dmsc__api__v2_8c" local="yes">vvbench_dmsc_api_v2.c</includedby>
+    <includedby refid="vvbench__dpcc__api_8c" local="yes">vvbench_dpcc_api.c</includedby>
+    <includedby refid="vvbench__ee__api__v2_8c" local="yes">vvbench_ee_api_v2.c</includedby>
+    <includedby refid="vvbench__exp__api__v2_8c" local="yes">vvbench_exp_api_v2.c</includedby>
+    <includedby refid="vvbench__exp__api__v3__dummy_8c" local="yes">vvbench_exp_api_v3_dummy.c</includedby>
+    <includedby refid="vvbench__fusa__api_8c" local="yes">vvbench_fusa_api.c</includedby>
+    <includedby refid="vvbench__gc__api__v2_8c" local="yes">vvbench_gc_api_v2.c</includedby>
+    <includedby refid="vvbench__ge__api_8c" local="yes">vvbench_ge_api.c</includedby>
+    <includedby refid="vvbench__gtm__api_8c" local="yes">vvbench_gtm_api.c</includedby>
+    <includedby refid="vvbench__hdr__api__dummy_8c" local="yes">vvbench_hdr_api_dummy.c</includedby>
+    <includedby refid="vvbench__hist256__api_8c" local="yes">vvbench_hist256_api.c</includedby>
+    <includedby refid="vvbench__hist64__api_8c" local="yes">vvbench_hist64_api.c</includedby>
+    <includedby refid="vvbench__lsc__api__v3_8c" local="yes">vvbench_lsc_api_v3.c</includedby>
+    <includedby refid="vvbench__lut3d__api__dummy_8c" local="yes">vvbench_lut3d_api_dummy.c</includedby>
+    <includedby refid="vvbench__pdaf__api__dummy_8c" local="yes">vvbench_pdaf_api_dummy.c</includedby>
+    <includedby refid="vvbench__rgbir__api__v2__1_8c" local="yes">vvbench_rgbir_api_v2_1.c</includedby>
+    <includedby refid="vvbench__tpg__api_8c" local="yes">vvbench_tpg_api.c</includedby>
+    <includedby refid="vvbench__vi200__api__dummy_8c" local="yes">vvbench_vi200_api_dummy.c</includedby>
+    <includedby refid="vvbench__wb__api__v1__1_8c" local="yes">vvbench_wb_api_v1_1.c</includedby>
+    <includedby refid="vvbench__wdr__api__v5__2_8c" local="yes">vvbench_wdr_api_v5_2.c</includedby>
+    <includedby refid="vvbench_8c" local="yes">vvbench.c</includedby>
+    <includedby refid="vvbparser_8c" local="yes">vvbparser.c</includedby>
+    <incdepgraph>
+      <node id="4901">
+        <label>stdbool.h</label>
+      </node>
+      <node id="4900">
+        <label>stddef.h</label>
+      </node>
+      <node id="4899">
+        <label>cJSON.h</label>
+        <link refid="cJSON.h"/>
+        <childnode refid="4900" relation="include">
+        </childnode>
+        <childnode refid="4901" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4927">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="4976">
+        <label>vvdevice_common.h</label>
+        <childnode refid="4903" relation="include">
+        </childnode>
+        <childnode refid="4908" relation="include">
+        </childnode>
+        <childnode refid="4910" relation="include">
+        </childnode>
+        <childnode refid="4912" relation="include">
+        </childnode>
+        <childnode refid="4914" relation="include">
+        </childnode>
+        <childnode refid="4916" relation="include">
+        </childnode>
+        <childnode refid="4918" relation="include">
+        </childnode>
+        <childnode refid="4920" relation="include">
+        </childnode>
+        <childnode refid="4922" relation="include">
+        </childnode>
+        <childnode refid="4924" relation="include">
+        </childnode>
+        <childnode refid="4926" relation="include">
+        </childnode>
+        <childnode refid="4928" relation="include">
+        </childnode>
+        <childnode refid="4930" relation="include">
+        </childnode>
+        <childnode refid="4932" relation="include">
+        </childnode>
+        <childnode refid="4934" relation="include">
+        </childnode>
+        <childnode refid="4936" relation="include">
+        </childnode>
+        <childnode refid="4938" relation="include">
+        </childnode>
+        <childnode refid="4940" relation="include">
+        </childnode>
+        <childnode refid="4942" relation="include">
+        </childnode>
+        <childnode refid="4944" relation="include">
+        </childnode>
+        <childnode refid="4946" relation="include">
+        </childnode>
+        <childnode refid="4948" relation="include">
+        </childnode>
+        <childnode refid="4950" relation="include">
+        </childnode>
+        <childnode refid="4952" relation="include">
+        </childnode>
+        <childnode refid="4954" relation="include">
+        </childnode>
+        <childnode refid="4956" relation="include">
+        </childnode>
+        <childnode refid="4958" relation="include">
+        </childnode>
+        <childnode refid="4960" relation="include">
+        </childnode>
+        <childnode refid="4962" relation="include">
+        </childnode>
+        <childnode refid="4964" relation="include">
+        </childnode>
+        <childnode refid="4966" relation="include">
+        </childnode>
+        <childnode refid="4968" relation="include">
+        </childnode>
+        <childnode refid="4970" relation="include">
+        </childnode>
+        <childnode refid="4972" relation="include">
+        </childnode>
+      </node>
+      <node id="4951">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="4949">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="4945">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="4955">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="4906">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="4932">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4933" relation="include">
+        </childnode>
+      </node>
+      <node id="4913">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="4926">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4927" relation="include">
+        </childnode>
+      </node>
+      <node id="4969">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="4952">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4953" relation="include">
+        </childnode>
+      </node>
+      <node id="4933">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="4975">
+        <label>vvpath.c</label>
+      </node>
+      <node id="4963">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="4908">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4909" relation="include">
+        </childnode>
+      </node>
+      <node id="4943">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="4922">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4923" relation="include">
+        </childnode>
+      </node>
+      <node id="4904">
+        <label>submodule_def.h</label>
+        <childnode refid="4905" relation="include">
+        </childnode>
+        <childnode refid="4906" relation="include">
+        </childnode>
+      </node>
+      <node id="4970">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4971" relation="include">
+        </childnode>
+      </node>
+      <node id="4958">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4959" relation="include">
+        </childnode>
+      </node>
+      <node id="4937">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="4962">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4963" relation="include">
+        </childnode>
+      </node>
+      <node id="4953">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="4930">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4931" relation="include">
+        </childnode>
+      </node>
+      <node id="4940">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4911" relation="include">
+        </childnode>
+        <childnode refid="4941" relation="include">
+        </childnode>
+      </node>
+      <node id="4912">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4913" relation="include">
+        </childnode>
+      </node>
+      <node id="4956">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4957" relation="include">
+        </childnode>
+      </node>
+      <node id="4902">
+        <label>cJSON.h</label>
+        <link refid="cJSON.h"/>
+        <childnode refid="4903" relation="include">
+        </childnode>
+        <childnode refid="4908" relation="include">
+        </childnode>
+        <childnode refid="4910" relation="include">
+        </childnode>
+        <childnode refid="4912" relation="include">
+        </childnode>
+        <childnode refid="4914" relation="include">
+        </childnode>
+        <childnode refid="4916" relation="include">
+        </childnode>
+        <childnode refid="4918" relation="include">
+        </childnode>
+        <childnode refid="4920" relation="include">
+        </childnode>
+        <childnode refid="4922" relation="include">
+        </childnode>
+        <childnode refid="4924" relation="include">
+        </childnode>
+        <childnode refid="4926" relation="include">
+        </childnode>
+        <childnode refid="4928" relation="include">
+        </childnode>
+        <childnode refid="4930" relation="include">
+        </childnode>
+        <childnode refid="4932" relation="include">
+        </childnode>
+        <childnode refid="4934" relation="include">
+        </childnode>
+        <childnode refid="4936" relation="include">
+        </childnode>
+        <childnode refid="4938" relation="include">
+        </childnode>
+        <childnode refid="4940" relation="include">
+        </childnode>
+        <childnode refid="4942" relation="include">
+        </childnode>
+        <childnode refid="4944" relation="include">
+        </childnode>
+        <childnode refid="4946" relation="include">
+        </childnode>
+        <childnode refid="4948" relation="include">
+        </childnode>
+        <childnode refid="4950" relation="include">
+        </childnode>
+        <childnode refid="4952" relation="include">
+        </childnode>
+        <childnode refid="4954" relation="include">
+        </childnode>
+        <childnode refid="4956" relation="include">
+        </childnode>
+        <childnode refid="4958" relation="include">
+        </childnode>
+        <childnode refid="4960" relation="include">
+        </childnode>
+        <childnode refid="4962" relation="include">
+        </childnode>
+        <childnode refid="4964" relation="include">
+        </childnode>
+        <childnode refid="4966" relation="include">
+        </childnode>
+        <childnode refid="4968" relation="include">
+        </childnode>
+        <childnode refid="4970" relation="include">
+        </childnode>
+        <childnode refid="4972" relation="include">
+        </childnode>
+        <childnode refid="4973" relation="include">
+        </childnode>
+        <childnode refid="4976" relation="include">
+        </childnode>
+        <childnode refid="4977" relation="include">
+        </childnode>
+        <childnode refid="4907" relation="include">
+        </childnode>
+        <childnode refid="4909" relation="include">
+        </childnode>
+        <childnode refid="4911" relation="include">
+        </childnode>
+        <childnode refid="4913" relation="include">
+        </childnode>
+        <childnode refid="4915" relation="include">
+        </childnode>
+        <childnode refid="4917" relation="include">
+        </childnode>
+        <childnode refid="4919" relation="include">
+        </childnode>
+        <childnode refid="4921" relation="include">
+        </childnode>
+        <childnode refid="4923" relation="include">
+        </childnode>
+        <childnode refid="4925" relation="include">
+        </childnode>
+        <childnode refid="4927" relation="include">
+        </childnode>
+        <childnode refid="4929" relation="include">
+        </childnode>
+        <childnode refid="4931" relation="include">
+        </childnode>
+        <childnode refid="4933" relation="include">
+        </childnode>
+        <childnode refid="4935" relation="include">
+        </childnode>
+        <childnode refid="4937" relation="include">
+        </childnode>
+        <childnode refid="4939" relation="include">
+        </childnode>
+        <childnode refid="4941" relation="include">
+        </childnode>
+        <childnode refid="4943" relation="include">
+        </childnode>
+        <childnode refid="4945" relation="include">
+        </childnode>
+        <childnode refid="4947" relation="include">
+        </childnode>
+        <childnode refid="4949" relation="include">
+        </childnode>
+        <childnode refid="4951" relation="include">
+        </childnode>
+        <childnode refid="4955" relation="include">
+        </childnode>
+        <childnode refid="4953" relation="include">
+        </childnode>
+        <childnode refid="4957" relation="include">
+        </childnode>
+        <childnode refid="4959" relation="include">
+        </childnode>
+        <childnode refid="4961" relation="include">
+        </childnode>
+        <childnode refid="4963" relation="include">
+        </childnode>
+        <childnode refid="4965" relation="include">
+        </childnode>
+        <childnode refid="4967" relation="include">
+        </childnode>
+        <childnode refid="4969" relation="include">
+        </childnode>
+        <childnode refid="4971" relation="include">
+        </childnode>
+        <childnode refid="4978" relation="include">
+        </childnode>
+        <childnode refid="4905" relation="include">
+        </childnode>
+      </node>
+      <node id="4939">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="4972">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="4906" relation="include">
+        </childnode>
+      </node>
+      <node id="4918">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4919" relation="include">
+        </childnode>
+      </node>
+      <node id="4905">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="4929">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="4903">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4907" relation="include">
+        </childnode>
+      </node>
+      <node id="4941">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="4928">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4929" relation="include">
+        </childnode>
+      </node>
+      <node id="4942">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4943" relation="include">
+        </childnode>
+      </node>
+      <node id="4909">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="4915">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="4935">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="4938">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4939" relation="include">
+        </childnode>
+      </node>
+      <node id="4974">
+        <label>vvpath.h</label>
+        <childnode refid="4906" relation="include">
+        </childnode>
+        <childnode refid="4975" relation="include">
+        </childnode>
+      </node>
+      <node id="4946">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4947" relation="include">
+        </childnode>
+      </node>
+      <node id="4934">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4935" relation="include">
+        </childnode>
+      </node>
+      <node id="4936">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4937" relation="include">
+        </childnode>
+      </node>
+      <node id="4948">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4949" relation="include">
+        </childnode>
+      </node>
+      <node id="4923">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="4944">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4945" relation="include">
+        </childnode>
+      </node>
+      <node id="4968">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4969" relation="include">
+        </childnode>
+      </node>
+      <node id="4959">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="4966">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4967" relation="include">
+        </childnode>
+      </node>
+      <node id="4916">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4913" relation="include">
+        </childnode>
+        <childnode refid="4917" relation="include">
+        </childnode>
+      </node>
+      <node id="4924">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4925" relation="include">
+        </childnode>
+      </node>
+      <node id="4920">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4921" relation="include">
+        </childnode>
+      </node>
+      <node id="4931">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="4978">
+        <label>vvbench.c</label>
+      </node>
+      <node id="4964">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4965" relation="include">
+        </childnode>
+      </node>
+      <node id="4921">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="4917">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="4914">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4913" relation="include">
+        </childnode>
+        <childnode refid="4915" relation="include">
+        </childnode>
+      </node>
+      <node id="4907">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="4971">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="4910">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4911" relation="include">
+        </childnode>
+      </node>
+      <node id="4967">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="4950">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4951" relation="include">
+        </childnode>
+      </node>
+      <node id="4965">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="4925">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="4954">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4955" relation="include">
+        </childnode>
+      </node>
+      <node id="4973">
+        <label>vvbparser.h</label>
+        <childnode refid="4974" relation="include">
+        </childnode>
+        <childnode refid="4905" relation="include">
+        </childnode>
+        <childnode refid="4906" relation="include">
+        </childnode>
+      </node>
+      <node id="4977">
+        <label>cJSON.c</label>
+      </node>
+      <node id="4957">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="4961">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="4947">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="4911">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="4919">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="4960">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="4904" relation="include">
+        </childnode>
+        <childnode refid="4961" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structc_j_s_o_n" prot="public">cJSON</innerclass>
+    <innerclass refid="structc_j_s_o_n___hooks" prot="public">cJSON_Hooks</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a79203c3ba406ffd5736627cc1e082e38" prot="public" static="no">
+        <name>CJSON_CDECL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1aee2cdf14a236df79175ef257a5a94964" prot="public" static="no">
+        <name>CJSON_STDCALL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a70709a6f2a7e45debe4f5abe345fcb86" prot="public" static="no">
+        <name>CJSON_PUBLIC</name>
+        <param><defname>type</defname></param>
+        <initializer>type</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="78" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a78f100ac5089a51941e2ca573ad8e380" prot="public" static="no">
+        <name>CJSON_VERSION_MAJOR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a55a808fe6b77cef1e4c2cf02a4316301" prot="public" static="no">
+        <name>CJSON_VERSION_MINOR</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a6ad7073103d4b9aaf2153add95561c47" prot="public" static="no">
+        <name>CJSON_VERSION_PATCH</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a80c36e86d8d65b697bc623fe28027668" prot="public" static="no">
+        <name>cJSON_Invalid</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a2d240682316354b5748f909ad220184b" prot="public" static="no">
+        <name>cJSON_False</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1aad4e442b8095939decddfb67d87d9324" prot="public" static="no">
+        <name>cJSON_True</name>
+        <initializer>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1aeadaba63ddb68aaa518528595d503dcd" prot="public" static="no">
+        <name>cJSON_NULL</name>
+        <initializer>(1 &lt;&lt; 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a15e77e2f6457dc9b19c10ddb032af971" prot="public" static="no">
+        <name>cJSON_Number</name>
+        <initializer>(1 &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1aa2cb4765308e2bbdf01988b2acdf92d9" prot="public" static="no">
+        <name>cJSON_String</name>
+        <initializer>(1 &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a57cffa126740a8efcdcb7bcef80e8897" prot="public" static="no">
+        <name>cJSON_Array</name>
+        <initializer>(1 &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a22c6e13481c090629afbd77b7cebd24c" prot="public" static="no">
+        <name>cJSON_Object</name>
+        <initializer>(1 &lt;&lt; 6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1ae9ddc931ea84908d12f48c5b7f8731a1" prot="public" static="no">
+        <name>cJSON_Raw</name>
+        <initializer>(1 &lt;&lt; 7) /* raw json */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1ad3d18116aae3bfa46f13bcfd7fd6d4e7" prot="public" static="no">
+        <name>cJSON_IsReference</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="100" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a491c3484a36f3915cc4710088f55971f" prot="public" static="no">
+        <name>cJSON_StringIsConst</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="101" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a9c7ac4e1b31070b787afb3a4b67727f4" prot="public" static="no">
+        <name>CJSON_NESTING_LIMIT</name>
+        <initializer>1000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1ae5b1335bfccc358f566bea6f7e4bfdc6" prot="public" static="no">
+        <name>cJSON_SetIntValue</name>
+        <param><defname>object</defname></param>
+        <param><defname>number</defname></param>
+        <initializer>((object) ? (object)-&gt;valueint = (object)-&gt;valuedouble = (number) : (number))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="287" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1adab3f1e3586395bdb2da5a40059cb24b" prot="public" static="no">
+        <name>cJSON_SetNumberValue</name>
+        <param><defname>object</defname></param>
+        <param><defname>number</defname></param>
+        <initializer>((object != NULL) ? cJSON_SetNumberHelper(object, (double)number) : (number))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="290" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1a210748b11b9b4f93d29391591a37ad85" prot="public" static="no">
+        <name>cJSON_SetBoolValue</name>
+        <param><defname>object</defname></param>
+        <param><defname>boolValue</defname></param>
+        <initializer>( \
+		(object != NULL &amp;&amp; ((object)-&gt;type &amp; (cJSON_False|cJSON_True))) ? \
+		(object)-&gt;type=((object)-&gt;type &amp;(~(cJSON_False|cJSON_True)))|((boolValue)?cJSON_True:cJSON_False) : \
+		cJSON_Invalid\
+					      )</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="295" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="c_j_s_o_n_8h_1ac3d6e5782fb4bb3c7a25c7c5b1868f06" prot="public" static="no">
+        <name>cJSON_ArrayForEach</name>
+        <param><defname>element</defname></param>
+        <param><defname>array</defname></param>
+        <initializer>for(element = (array != NULL) ? (array)-&gt;child : NULL; element != NULL; element = element-&gt;next)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="302" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="c_j_s_o_n_8h_1a417c667b0692c463cf3c6c435f1d5978" prot="public" static="no">
+        <type>struct cJSON</type>
+        <definition>typedef struct cJSON  cJSON</definition>
+        <argsstring></argsstring>
+        <name>cJSON</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="122" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="c_j_s_o_n_8h_1a4c24043be07442b38adc0ef79fcfb3f8" prot="public" static="no">
+        <type>struct cJSON_Hooks</type>
+        <definition>typedef struct cJSON_Hooks  cJSON_Hooks</definition>
+        <argsstring></argsstring>
+        <name>cJSON_Hooks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="128" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="c_j_s_o_n_8h_1aea0a1491f73d98b7cc4b8b791c408a4a" prot="public" static="no">
+        <type>int</type>
+        <definition>typedef int cJSON_bool</definition>
+        <argsstring></argsstring>
+        <name>cJSON_bool</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a7beaf9b4ef5e4c7254cc3298a3424354" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t buffer_length</definition>
+        <argsstring></argsstring>
+        <name>buffer_length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a7725ae4fa33fc499614c6895ee9ee44a" prot="public" static="no" mutable="no">
+        <type>const char **</type>
+        <definition>size_t const char ** return_parse_end</definition>
+        <argsstring></argsstring>
+        <name>return_parse_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a68bc5d2265c7694323a75615f7ac0130" prot="public" static="no" mutable="no">
+        <type>const char cJSON_bool</type>
+        <definition>size_t const char cJSON_bool require_null_terminated</definition>
+        <argsstring></argsstring>
+        <name>require_null_terminated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a039dc262c2ae63f95cfe193245f8ee7e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int prebuffer</definition>
+        <argsstring></argsstring>
+        <name>prebuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1aa813b2b7bde1a5a1f528cd9d9aa9ee7d" prot="public" static="no" mutable="no">
+        <type>int cJSON_bool</type>
+        <definition>int cJSON_bool fmt</definition>
+        <argsstring></argsstring>
+        <name>fmt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1aff2566f4c366b48d73479bef43ee4d2e" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* buffer</definition>
+        <argsstring></argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a03c83e0884e2e3a1783db79f2d67101f" prot="public" static="no" mutable="no">
+        <type>char const int</type>
+        <definition>char const int length</definition>
+        <argsstring></argsstring>
+        <name>length</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1adb411a44855a4c49231d72a0fc9a3b3b" prot="public" static="no" mutable="no">
+        <type>char const int const cJSON_bool</type>
+        <definition>char const int const cJSON_bool format</definition>
+        <argsstring></argsstring>
+        <name>format</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a750b5d744c39a06bfb13e6eb010e35d0" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1addf925fe055723aa55a381a1ba45bda2" prot="public" static="no" mutable="no">
+        <type>const char *const</type>
+        <definition>const char *const const char *const string</definition>
+        <argsstring></argsstring>
+        <name>string</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="173" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1ad43c3812e6d13e0518d9f8b8f463ffcf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int count</definition>
+        <argsstring></argsstring>
+        <name>count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1ac76cea59d438ba893d2f82aabb367d14" prot="public" static="no" mutable="no">
+        <type>cJSON *</type>
+        <definition>cJSON *const item</definition>
+        <argsstring></argsstring>
+        <name>item</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1aa2a4dae2a14de4093826005f9bdfd3bb" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int which</definition>
+        <argsstring></argsstring>
+        <name>which</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1abd13e53985a93dee588f840f06aac973" prot="public" static="no" mutable="no">
+        <type>int cJSON *</type>
+        <definition>const char cJSON * newitem</definition>
+        <argsstring></argsstring>
+        <name>newitem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="246" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a10573fccca598ec39809e8beb3f7f791" prot="public" static="no" mutable="no">
+        <type>cJSON *const cJSON *</type>
+        <definition>cJSON* const cJSON* replacement</definition>
+        <argsstring></argsstring>
+        <name>replacement</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="248" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1afc8d1c385c6dc37e1c5b640869ce4ab6" prot="public" static="no" mutable="no">
+        <type>cJSON_bool</type>
+        <definition>cJSON_bool recurse</definition>
+        <argsstring></argsstring>
+        <name>recurse</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="256" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a1a175e87536301df98c805ac0636ad7c" prot="public" static="no" mutable="no">
+        <type>const cJSON *const</type>
+        <definition>const cJSON* const b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="262" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a05334336676ca1cd88db19ede4a065de" prot="public" static="no" mutable="no">
+        <type>const cJSON *const const cJSON_bool</type>
+        <definition>const cJSON* const const cJSON_bool case_sensitive</definition>
+        <argsstring></argsstring>
+        <name>case_sensitive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="263" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a25d22ecc7e656d2c59332072684e8766" prot="public" static="no" mutable="no">
+        <type>const char *const</type>
+        <definition>const char *const name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a08f076c86f430b6f0e301fcf94223b38" prot="public" static="no" mutable="no">
+        <type>const char *const const cJSON_bool</type>
+        <definition>const char* const const cJSON_bool boolean</definition>
+        <argsstring></argsstring>
+        <name>boolean</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a01b4671c6b7cc8f831c951c000a37735" prot="public" static="no" mutable="no">
+        <type>const char *const const double</type>
+        <definition>double number</definition>
+        <argsstring></argsstring>
+        <name>number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1a788db922597cf2fb6389e278f822e59f" prot="public" static="no" mutable="no">
+        <type>const char *const const char *const</type>
+        <definition>const char* const const char* const raw</definition>
+        <argsstring></argsstring>
+        <name>raw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="282" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="c_j_s_o_n_8h_1aa770d5dc55a1031ccff9aee4e96acf8f" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* valuestring</definition>
+        <argsstring></argsstring>
+        <name>valuestring</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" bodystart="292" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="c_j_s_o_n_8h_1ad111420010c8684e2acde69bb1ead4f8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(const char *) cJSON_Version(void)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="133" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1a5712efac9864c56f805260c5e2a5c01b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(void) cJSON_InitHooks(cJSON_Hooks *hooks)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="247" bodyend="264"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1abd55c37a5af547c3c1ada176e38afbc6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(cJSON *) cJSON_Parse(const char *value)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>cJSON *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="998" bodyend="1065"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1acc0bf2ad0de27db33e6471754c8f3ace" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(char *) cJSON_Print(const cJSON *item)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="379" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1aa7717765ab33f9dac70ff47e7e078b8b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(cJSON_bool) cJSON_PrintPreallocated(cJSON *item</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>cJSON_bool</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="1649" bodyend="1668"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1a228b429c345d298fa5b887420337a54c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(double) cJSON_GetNumberValue(const cJSON *const item)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>double</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="364" bodyend="377"/>
+      </memberdef>
+      <memberdef kind="function" id="c_j_s_o_n_8h_1a8172bffbb05eec3c761bf0b43484f62d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>CJSON_PUBLIC</definition>
+        <argsstring>(void *) cJSON_malloc(size_t size)</argsstring>
+        <name>CJSON_PUBLIC</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/cJSON.c" bodystart="2820" bodyend="2823"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>cJSON__h</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON__h</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(__WINDOWS__)<sp/>&amp;&amp;<sp/>(defined(WIN32)<sp/>||<sp/>defined(WIN64)<sp/>||<sp/>defined(_MSC_VER)<sp/>||<sp/>defined(_WIN32))</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>__WINDOWS__</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__WINDOWS__</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>When<sp/>compiling<sp/>for<sp/>windows,<sp/>we<sp/>specify<sp/>a<sp/>specific<sp/>calling<sp/>convention<sp/>to<sp/>avoid<sp/>issues<sp/>where<sp/>we<sp/>are<sp/>being<sp/>called<sp/>from<sp/>a<sp/>project<sp/>with<sp/>a<sp/>different<sp/>default<sp/>calling<sp/>convention.<sp/><sp/>For<sp/>windows<sp/>you<sp/>have<sp/>3<sp/>define<sp/>options:</highlight></codeline>
+<codeline lineno="44"><highlight class="comment">CJSON_HIDE_SYMBOLS<sp/>-<sp/>Define<sp/>this<sp/>in<sp/>the<sp/>case<sp/>where<sp/>you<sp/>don&apos;t<sp/>want<sp/>to<sp/>ever<sp/>dllexport<sp/>symbols</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">CJSON_EXPORT_SYMBOLS<sp/>-<sp/>Define<sp/>this<sp/>on<sp/>library<sp/>build<sp/>when<sp/>you<sp/>want<sp/>to<sp/>dllexport<sp/>symbols<sp/>(default)</highlight></codeline>
+<codeline lineno="46"><highlight class="comment">CJSON_IMPORT_SYMBOLS<sp/>-<sp/>Define<sp/>this<sp/>if<sp/>you<sp/>want<sp/>to<sp/>dllimport<sp/>symbol</highlight></codeline>
+<codeline lineno="47"><highlight class="comment">For<sp/>*nix<sp/>builds<sp/>that<sp/>support<sp/>visibility<sp/>attribute,<sp/>you<sp/>can<sp/>define<sp/>similar<sp/>behavior<sp/>by</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">setting<sp/>default<sp/>visibility<sp/>to<sp/>hidden<sp/>by<sp/>adding</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">-fvisibility=hidden<sp/>(for<sp/>gcc)</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">or</highlight></codeline>
+<codeline lineno="51"><highlight class="comment">-xldscope=hidden<sp/>(for<sp/>sun<sp/>cc)</highlight></codeline>
+<codeline lineno="52"><highlight class="comment">to<sp/>CFLAGS</highlight></codeline>
+<codeline lineno="53"><highlight class="comment">then<sp/>using<sp/>the<sp/>CJSON_API_VISIBILITY<sp/>flag<sp/>to<sp/>&quot;export&quot;<sp/>the<sp/>same<sp/>symbols<sp/>the<sp/>way<sp/>CJSON_EXPORT_SYMBOLS<sp/>does</highlight></codeline>
+<codeline lineno="54"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CJSON_CDECL<sp/>__cdecl</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_STDCALL<sp/>__stdcall</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>export<sp/>symbols<sp/>by<sp/>default,<sp/>this<sp/>is<sp/>necessary<sp/>for<sp/>copy<sp/>pasting<sp/>the<sp/>C<sp/>and<sp/>header<sp/>file<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(CJSON_HIDE_SYMBOLS)<sp/>&amp;&amp;<sp/>!defined(CJSON_IMPORT_SYMBOLS)<sp/>&amp;&amp;<sp/>!defined(CJSON_EXPORT_SYMBOLS)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_EXPORT_SYMBOLS</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(CJSON_HIDE_SYMBOLS)</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_PUBLIC(type)<sp/><sp/><sp/>type<sp/>CJSON_STDCALL</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(CJSON_EXPORT_SYMBOLS)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_PUBLIC(type)<sp/><sp/><sp/>__declspec(dllexport)<sp/>type<sp/>CJSON_STDCALL</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>defined(CJSON_IMPORT_SYMBOLS)</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_PUBLIC(type)<sp/><sp/><sp/>__declspec(dllimport)<sp/>type<sp/>CJSON_STDCALL</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else<sp/></highlight><highlight class="comment">/*<sp/>!__WINDOWS__<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_CDECL</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_STDCALL</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(defined(__GNUC__)<sp/>||<sp/>defined(__SUNPRO_CC)<sp/>||<sp/>defined<sp/>(__SUNPRO_C))<sp/>&amp;&amp;<sp/>defined(CJSON_API_VISIBILITY)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_PUBLIC(type)<sp/><sp/><sp/>__attribute__((visibility(&quot;default&quot;)))<sp/>type</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_PUBLIC(type)<sp/>type</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>project<sp/>version<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CJSON_VERSION_MAJOR<sp/>1</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_VERSION_MINOR<sp/>7</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_VERSION_PATCH<sp/>15</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>cJSON<sp/>Types:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_Invalid<sp/>(0)</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_False<sp/><sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_True<sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_NULL<sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_Number<sp/>(1<sp/>&lt;&lt;<sp/>3)</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_String<sp/>(1<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_Array<sp/><sp/>(1<sp/>&lt;&lt;<sp/>5)</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_Object<sp/>(1<sp/>&lt;&lt;<sp/>6)</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_Raw<sp/><sp/><sp/><sp/>(1<sp/>&lt;&lt;<sp/>7)<sp/></highlight><highlight class="comment">/*<sp/>raw<sp/>json<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_IsReference<sp/>256</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>cJSON_StringIsConst<sp/>512</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>cJSON<sp/>structure:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">cJSON<sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>next/prev<sp/>allow<sp/>you<sp/>to<sp/>walk<sp/>array/object<sp/>chains.<sp/>Alternatively,<sp/>use<sp/>GetArraySize/GetArrayItem/GetObjectItem<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">cJSON<sp/>*next;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">cJSON<sp/>*prev;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>An<sp/>array<sp/>or<sp/>object<sp/>item<sp/>will<sp/>have<sp/>a<sp/>child<sp/>pointer<sp/>pointing<sp/>to<sp/>a<sp/>chain<sp/>of<sp/>the<sp/>items<sp/>in<sp/>the<sp/>array/object.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">cJSON<sp/>*child;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>type<sp/>of<sp/>the<sp/>item,<sp/>as<sp/>above.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>type;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>item&apos;s<sp/>string,<sp/>if<sp/>type==cJSON_String<sp/><sp/>and<sp/>type<sp/>==<sp/>cJSON_Raw<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*valuestring;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>writing<sp/>to<sp/>valueint<sp/>is<sp/>DEPRECATED,<sp/>use<sp/>cJSON_SetNumberValue<sp/>instead<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>valueint;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>item&apos;s<sp/>number,<sp/>if<sp/>type==cJSON_Number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>valuedouble;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>The<sp/>item&apos;s<sp/>name<sp/>string,<sp/>if<sp/>this<sp/>item<sp/>is<sp/>the<sp/>child<sp/>of,<sp/>or<sp/>is<sp/>in<sp/>the<sp/>list<sp/>of<sp/>subitems<sp/>of<sp/>an<sp/>object.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*string;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}<sp/>cJSON;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">cJSON_Hooks<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>malloc/free<sp/>are<sp/>CDECL<sp/>on<sp/>Windows<sp/>regardless<sp/>of<sp/>the<sp/>default<sp/>calling<sp/>convention<sp/>of<sp/>the<sp/>compiler,<sp/>so<sp/>ensure<sp/>the<sp/>hooks<sp/>allow<sp/>passing<sp/>those<sp/>functions<sp/>directly.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*(CJSON_CDECL<sp/>*malloc_fn)(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>sz);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(CJSON_CDECL<sp/>*free_fn)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*ptr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}<sp/>cJSON_Hooks;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>cJSON_bool;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Limits<sp/>how<sp/>deeply<sp/>nested<sp/>arrays/objects<sp/>can<sp/>be<sp/>before<sp/>cJSON<sp/>rejects<sp/>to<sp/>parse<sp/>them.</highlight></codeline>
+<codeline lineno="133"><highlight class="comment"><sp/>*<sp/>This<sp/>is<sp/>to<sp/>prevent<sp/>stack<sp/>overflows.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>CJSON_NESTING_LIMIT</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CJSON_NESTING_LIMIT<sp/>1000</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>returns<sp/>the<sp/>version<sp/>of<sp/>cJSON<sp/>as<sp/>a<sp/>string<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*)<sp/>cJSON_Version(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Supply<sp/>malloc,<sp/>realloc<sp/>and<sp/>free<sp/>functions<sp/>to<sp/>cJSON<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_InitHooks(cJSON_Hooks*<sp/>hooks);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Memory<sp/>Management:<sp/>the<sp/>caller<sp/>is<sp/>always<sp/>responsible<sp/>to<sp/>free<sp/>the<sp/>results<sp/>from<sp/>all<sp/>variants<sp/>of<sp/>cJSON_Parse<sp/>(with<sp/>cJSON_Delete)<sp/>and<sp/>cJSON_Print<sp/>(with<sp/>stdlib<sp/>free,<sp/>cJSON_Hooks.free_fn,<sp/>or<sp/>cJSON_free<sp/>as<sp/>appropriate).<sp/>The<sp/>exception<sp/>is<sp/>cJSON_PrintPreallocated,<sp/>where<sp/>the<sp/>caller<sp/>has<sp/>full<sp/>responsibility<sp/>of<sp/>the<sp/>buffer.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Supply<sp/>a<sp/>block<sp/>of<sp/>JSON,<sp/>and<sp/>this<sp/>returns<sp/>a<sp/>cJSON<sp/>object<sp/>you<sp/>can<sp/>interrogate.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_Parse(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*value);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_ParseWithLength(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*value,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>buffer_length);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ParseWithOpts<sp/>allows<sp/>you<sp/>to<sp/>require<sp/>(and<sp/>check)<sp/>that<sp/>the<sp/>JSON<sp/>is<sp/>null<sp/>terminated,<sp/>and<sp/>to<sp/>retrieve<sp/>the<sp/>pointer<sp/>to<sp/>the<sp/>final<sp/>byte<sp/>parsed.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>If<sp/>you<sp/>supply<sp/>a<sp/>ptr<sp/>in<sp/>return_parse_end<sp/>and<sp/>parsing<sp/>fails,<sp/>then<sp/>return_parse_end<sp/>will<sp/>contain<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>error<sp/>so<sp/>will<sp/>match<sp/>cJSON_GetErrorPtr().<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_ParseWithOpts(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*value,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**return_parse_end,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON_bool<sp/>require_null_terminated);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_ParseWithLengthOpts(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*value,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>buffer_length,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**return_parse_end,<sp/>cJSON_bool<sp/>require_null_terminated);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Render<sp/>a<sp/>cJSON<sp/>entity<sp/>to<sp/>text<sp/>for<sp/>transfer/storage.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_Print(const<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Render<sp/>a<sp/>cJSON<sp/>entity<sp/>to<sp/>text<sp/>for<sp/>transfer/storage<sp/>without<sp/>any<sp/>formatting.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_PrintUnformatted(const<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Render<sp/>a<sp/>cJSON<sp/>entity<sp/>to<sp/>text<sp/>using<sp/>a<sp/>buffered<sp/>strategy.<sp/>prebuffer<sp/>is<sp/>a<sp/>guess<sp/>at<sp/>the<sp/>final<sp/>size.<sp/>guessing<sp/>well<sp/>reduces<sp/>reallocation.<sp/>fmt=0<sp/>gives<sp/>unformatted,<sp/>=1<sp/>gives<sp/>formatted<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_PrintBuffered(const<sp/>cJSON<sp/>*item,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prebuffer,<sp/>cJSON_bool<sp/>fmt);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Render<sp/>a<sp/>cJSON<sp/>entity<sp/>to<sp/>text<sp/>using<sp/>a<sp/>buffer<sp/>already<sp/>allocated<sp/>in<sp/>memory<sp/>with<sp/>given<sp/>length.<sp/>Returns<sp/>1<sp/>on<sp/>success<sp/>and<sp/>0<sp/>on<sp/>failure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>NOTE:<sp/>cJSON<sp/>is<sp/>not<sp/>always<sp/>100%<sp/>accurate<sp/>in<sp/>estimating<sp/>how<sp/>much<sp/>memory<sp/>it<sp/>will<sp/>use,<sp/>so<sp/>to<sp/>be<sp/>safe<sp/>allocate<sp/>5<sp/>bytes<sp/>more<sp/>than<sp/>you<sp/>actually<sp/>need<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_PrintPreallocated(cJSON<sp/>*item,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buffer,<sp/>const<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>length,</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>cJSON_bool<sp/>format);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Delete<sp/>a<sp/>cJSON<sp/>entity<sp/>and<sp/>all<sp/>subentities.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_Delete(cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Returns<sp/>the<sp/>number<sp/>of<sp/>items<sp/>in<sp/>an<sp/>array<sp/>(or<sp/>object).<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)<sp/>cJSON_GetArraySize(const<sp/>cJSON<sp/>*array);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Retrieve<sp/>item<sp/>number<sp/>&quot;index&quot;<sp/>from<sp/>array<sp/>&quot;array&quot;.<sp/>Returns<sp/>NULL<sp/>if<sp/>unsuccessful.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_GetArrayItem(const<sp/>cJSON<sp/>*array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Get<sp/>item<sp/>&quot;string&quot;<sp/>from<sp/>object.<sp/>Case<sp/>insensitive.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_GetObjectItem(const<sp/>cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_GetObjectItemCaseSensitive(const<sp/>cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*const<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_HasObjectItem(const<sp/>cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>analysing<sp/>failed<sp/>parses.<sp/>This<sp/>returns<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>parse<sp/>error.<sp/>You&apos;ll<sp/>probably<sp/>need<sp/>to<sp/>look<sp/>a<sp/>few<sp/>chars<sp/>back<sp/>to<sp/>make<sp/>sense<sp/>of<sp/>it.<sp/>Defined<sp/>when<sp/>cJSON_Parse()<sp/>returns<sp/>0.<sp/>0<sp/>when<sp/>cJSON_Parse()<sp/>succeeds.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal">CJSON_PUBLIC(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_GetErrorPtr(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Check<sp/>item<sp/>type<sp/>and<sp/>return<sp/>its<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_GetStringValue(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>cJSON_GetNumberValue(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>These<sp/>functions<sp/>check<sp/>the<sp/>type<sp/>of<sp/>an<sp/>item<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsInvalid(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsFalse(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsTrue(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsBool(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsNull(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsNumber(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsString(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsArray(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsObject(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_IsRaw(const<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>These<sp/>calls<sp/>create<sp/>a<sp/>cJSON<sp/>item<sp/>of<sp/>the<sp/>appropriate<sp/>type.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateNull(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateTrue(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateFalse(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateBool(cJSON_bool<sp/></highlight><highlight class="keywordtype">boolean</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateNumber(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>num);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateString(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>raw<sp/>json<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateRaw(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*raw);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateArray(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateObject(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Create<sp/>a<sp/>string<sp/>where<sp/>valuestring<sp/>references<sp/>a<sp/>string<sp/>so</highlight></codeline>
+<codeline lineno="209"><highlight class="comment"><sp/>*<sp/>it<sp/>will<sp/>not<sp/>be<sp/>freed<sp/>by<sp/>cJSON_Delete<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateStringReference(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Create<sp/>an<sp/>object/array<sp/>that<sp/>only<sp/>references<sp/>it&apos;s<sp/>elements<sp/>so</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/>*<sp/>they<sp/>will<sp/>not<sp/>be<sp/>freed<sp/>by<sp/>cJSON_Delete<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateObjectReference(const<sp/>cJSON<sp/>*child);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateArrayReference(const<sp/>cJSON<sp/>*child);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>These<sp/>utilities<sp/>create<sp/>an<sp/>Array<sp/>of<sp/>count<sp/>items.</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/>*<sp/>The<sp/>parameter<sp/>count<sp/>cannot<sp/>be<sp/>greater<sp/>than<sp/>the<sp/>number<sp/>of<sp/>elements<sp/>in<sp/>the<sp/>number<sp/>array,<sp/>otherwise<sp/>array<sp/>access<sp/>will<sp/>be<sp/>out<sp/>of<sp/>bounds.*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateIntArray(const<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*numbers,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateFloatArray(const<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*numbers,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateDoubleArray(const<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*numbers,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_CreateStringArray(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*const<sp/>*strings,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Append<sp/>item<sp/>to<sp/>the<sp/>specified<sp/>array/object.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_AddItemToArray(cJSON<sp/>*array,<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_AddItemToObject(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Use<sp/>this<sp/>when<sp/>string<sp/>is<sp/>definitely<sp/>const<sp/>(i.e.<sp/>a<sp/>literal,<sp/>or<sp/>as<sp/>good<sp/>as),<sp/>and<sp/>will<sp/>definitely<sp/>survive<sp/>the<sp/>cJSON<sp/>object.</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/>*<sp/>WARNING:<sp/>When<sp/>this<sp/>function<sp/>was<sp/>used,<sp/>make<sp/>sure<sp/>to<sp/>always<sp/>check<sp/>that<sp/>(item-&gt;type<sp/>&amp;<sp/>cJSON_StringIsConst)<sp/>is<sp/>zero<sp/>before</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/>*<sp/>writing<sp/>to<sp/>`item-&gt;string`<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_AddItemToObjectCS(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Append<sp/>reference<sp/>to<sp/>item<sp/>to<sp/>the<sp/>specified<sp/>array/object.<sp/>Use<sp/>this<sp/>when<sp/>you<sp/>want<sp/>to<sp/>add<sp/>an<sp/>existing<sp/>cJSON<sp/>to<sp/>a<sp/>new<sp/>cJSON,<sp/>but<sp/>don&apos;t<sp/>want<sp/>to<sp/>corrupt<sp/>your<sp/>existing<sp/>cJSON.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_AddItemReferenceToArray(cJSON<sp/>*array,<sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_AddItemReferenceToObject(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*item);</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Remove/Detach<sp/>items<sp/>from<sp/>Arrays/Objects.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_DetachItemViaPointer(cJSON<sp/>*parent,<sp/>cJSON<sp/>*<sp/>const<sp/>item);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_DetachItemFromArray(cJSON<sp/>*array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_DeleteItemFromArray(cJSON<sp/>*array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which);</highlight></codeline>
+<codeline lineno="239"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_DetachItemFromObject(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_DetachItemFromObjectCaseSensitive(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_DeleteItemFromObject(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_DeleteItemFromObjectCaseSensitive(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Update<sp/>array<sp/>items.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_InsertItemInArray(cJSON<sp/>*array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which,</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*newitem);<sp/></highlight><highlight class="comment">/*<sp/>Shifts<sp/>pre-existing<sp/>items<sp/>to<sp/>the<sp/>right.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_ReplaceItemViaPointer(cJSON<sp/>*<sp/>const<sp/>parent,<sp/>cJSON<sp/>*<sp/>const<sp/>item,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*<sp/>replacement);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_ReplaceItemInArray(cJSON<sp/>*array,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which,<sp/>cJSON<sp/>*newitem);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_ReplaceItemInObject(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*newitem);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_ReplaceItemInObjectCaseSensitive(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON<sp/>*newitem);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Duplicate<sp/>a<sp/>cJSON<sp/>item<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal">CJSON_PUBLIC(cJSON<sp/>*)<sp/>cJSON_Duplicate(const<sp/>cJSON<sp/>*item,<sp/>cJSON_bool<sp/>recurse);</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Duplicate<sp/>will<sp/>create<sp/>a<sp/>new,<sp/>identical<sp/>cJSON<sp/>item<sp/>to<sp/>the<sp/>one<sp/>you<sp/>pass,<sp/>in<sp/>new<sp/>memory<sp/>that<sp/>will</highlight></codeline>
+<codeline lineno="258"><highlight class="comment"><sp/>*<sp/>need<sp/>to<sp/>be<sp/>released.<sp/>With<sp/>recurse!=0,<sp/>it<sp/>will<sp/>duplicate<sp/>any<sp/>children<sp/>connected<sp/>to<sp/>the<sp/>item.</highlight></codeline>
+<codeline lineno="259"><highlight class="comment"><sp/>*<sp/>The<sp/>item-&gt;next<sp/>and<sp/>-&gt;prev<sp/>pointers<sp/>are<sp/>always<sp/>zero<sp/>on<sp/>return<sp/>from<sp/>Duplicate.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Recursively<sp/>compare<sp/>two<sp/>cJSON<sp/>items<sp/>for<sp/>equality.<sp/>If<sp/>either<sp/>a<sp/>or<sp/>b<sp/>is<sp/>NULL<sp/>or<sp/>invalid,<sp/>they<sp/>will<sp/>be<sp/>considered<sp/>unequal.</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/>*<sp/>case_sensitive<sp/>determines<sp/>if<sp/>object<sp/>keys<sp/>are<sp/>treated<sp/>case<sp/>sensitive<sp/>(1)<sp/>or<sp/>case<sp/>insensitive<sp/>(0)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal">CJSON_PUBLIC(cJSON_bool)<sp/>cJSON_Compare(const<sp/>cJSON<sp/>*<sp/>const<sp/>a,<sp/>const<sp/>cJSON<sp/>*<sp/>const<sp/>b,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>cJSON_bool<sp/>case_sensitive);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Minify<sp/>a<sp/>strings,<sp/>remove<sp/>blank<sp/>characters(such<sp/>as<sp/>&apos;<sp/>&apos;,<sp/>&apos;\t&apos;,<sp/>&apos;\r&apos;,<sp/>&apos;\n&apos;)<sp/>from<sp/>strings.</highlight></codeline>
+<codeline lineno="266"><highlight class="comment"><sp/>*<sp/>The<sp/>input<sp/>pointer<sp/>json<sp/>cannot<sp/>point<sp/>to<sp/>a<sp/>read-only<sp/>address<sp/>area,<sp/>such<sp/>as<sp/>a<sp/>string<sp/>constant,</highlight></codeline>
+<codeline lineno="267"><highlight class="comment"><sp/>*<sp/>but<sp/>should<sp/>point<sp/>to<sp/>a<sp/>readable<sp/>and<sp/>writable<sp/>address<sp/>area.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_Minify(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*json);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Helper<sp/>functions<sp/>for<sp/>creating<sp/>and<sp/>adding<sp/>items<sp/>to<sp/>an<sp/>object<sp/>at<sp/>the<sp/>same<sp/>time.</highlight></codeline>
+<codeline lineno="271"><highlight class="comment"><sp/>*<sp/>They<sp/>return<sp/>the<sp/>added<sp/>item<sp/>or<sp/>NULL<sp/>on<sp/>failure.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddNullToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddTrueToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddFalseToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddBoolToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>cJSON_bool<sp/></highlight><highlight class="keywordtype">boolean</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddNumberToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name,</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>number);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddStringToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*const<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddRawToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*const<sp/>raw);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddObjectToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">CJSON_PUBLIC(cJSON*)<sp/>cJSON_AddArrayToObject(cJSON<sp/>*<sp/>const<sp/></highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/>const<sp/>name);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>When<sp/>assigning<sp/>an<sp/>integer<sp/>value,<sp/>it<sp/>needs<sp/>to<sp/>be<sp/>propagated<sp/>to<sp/>valuedouble<sp/>too.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_SetIntValue(object,<sp/>number)<sp/>((object)<sp/>?<sp/>(object)-&gt;valueint<sp/>=<sp/>(object)-&gt;valuedouble<sp/>=<sp/>(number)<sp/>:<sp/>(number))</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>helper<sp/>for<sp/>the<sp/>cJSON_SetNumberValue<sp/>macro<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal">)<sp/>cJSON_SetNumberHelper(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>number);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_SetNumberValue(object,<sp/>number)<sp/>((object<sp/>!=<sp/>NULL)<sp/>?<sp/>cJSON_SetNumberHelper(object,<sp/>(double)number)<sp/>:<sp/>(number))</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Change<sp/>the<sp/>valuestring<sp/>of<sp/>a<sp/>cJSON_String<sp/>object,<sp/>only<sp/>takes<sp/>effect<sp/>when<sp/>type<sp/>of<sp/>object<sp/>is<sp/>cJSON_String<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*)<sp/>cJSON_SetValuestring(cJSON<sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">,<sp/>const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*valuestring);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>If<sp/>the<sp/>object<sp/>is<sp/>not<sp/>a<sp/>boolean<sp/>type<sp/>this<sp/>does<sp/>nothing<sp/>and<sp/>returns<sp/>cJSON_Invalid<sp/>else<sp/>it<sp/>returns<sp/>the<sp/>new<sp/>type*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_SetBoolValue(object,<sp/>boolValue)<sp/>(<sp/>\</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(object<sp/>!=<sp/>NULL<sp/>&amp;&amp;<sp/>((object)-&gt;type<sp/>&amp;<sp/>(cJSON_False|cJSON_True)))<sp/>?<sp/>\</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(object)-&gt;type=((object)-&gt;type<sp/>&amp;(~(cJSON_False|cJSON_True)))|((boolValue)?cJSON_True:cJSON_False)<sp/>:<sp/>\</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cJSON_Invalid\</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>)</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Macro<sp/>for<sp/>iterating<sp/>over<sp/>an<sp/>array<sp/>or<sp/>object<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>cJSON_ArrayForEach(element,<sp/>array)<sp/>for(element<sp/>=<sp/>(array<sp/>!=<sp/>NULL)<sp/>?<sp/>(array)-&gt;child<sp/>:<sp/>NULL;<sp/>element<sp/>!=<sp/>NULL;<sp/>element<sp/>=<sp/>element-&gt;next)</highlight></codeline>
+<codeline lineno="303"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>malloc/free<sp/>objects<sp/>using<sp/>the<sp/>malloc/free<sp/>functions<sp/>that<sp/>have<sp/>been<sp/>set<sp/>with<sp/>cJSON_InitHooks<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)<sp/>cJSON_malloc(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="306"><highlight class="normal">CJSON_PUBLIC(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>cJSON_free(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keywordtype">object</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/cJSON.h"/>
+  </compounddef>
+</doxygen>

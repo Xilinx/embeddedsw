@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_ps" kind="struct" prot="public">
+    <compoundname>XDmaPs</compoundname>
+    <includes local="no">xdmaps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_ps_1a45c4061741c55585776f412090ef1667" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dma_ps___config" kindref="compound">XDmaPs_Config</ref></type>
+        <definition>XDmaPs_Config XDmaPs::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Configuration data structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="237" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="237" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga593458e8f6ac55566fc235e8a93b9890" compoundref="xdmaps_8c" startline="223" endline="231">XDmaPs_ResetChannel</referencedby>
+        <referencedby refid="group__dmaps_1ga65cc22a994eb1ca6a9c56d86d469242e" compoundref="xdmaps_8c" startline="201" endline="208">XDmaPs_ResetManager</referencedby>
+        <referencedby refid="group__dmaps_1ga711e54b9c033b127fb582bde320f8823" compoundref="xdmaps__selftest_8c" startline="69" endline="86">XDmaPs_SelfTest</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps_1a0e39ae2cf0255dd2835c9b55449aaaf3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XDmaPs::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is Ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="238" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps_1a61881a8aab6272aa815bdbb8babf3a41" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XDmaPs::CacheLength</definition>
+        <argsstring></argsstring>
+        <name>CacheLength</name>
+        <briefdescription>
+<para>icache length </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="239" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="239" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps_1ade567db033942a4601c95b04761906e2" prot="public" static="no" mutable="no">
+        <type><ref refid="group__dmaps_1ga5dba8cc7cd39c53eed1dabac803ce74f" kindref="member">XDmaPsFaultHandler</ref></type>
+        <definition>XDmaPsFaultHandler XDmaPs::FaultHandler</definition>
+        <argsstring></argsstring>
+        <name>FaultHandler</name>
+        <briefdescription>
+<para>fault interrupt handler </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1gacda5c5523ed24451a7efacc7b9257fa3" compoundref="xdmaps_8c" startline="390" endline="400">XDmaPs_SetFaultHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps_1a4be3d7e948f1eb200b732a36e021b678" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XDmaPs::FaultRef</definition>
+        <argsstring></argsstring>
+        <name>FaultRef</name>
+        <briefdescription>
+<para>fault call back data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1gacda5c5523ed24451a7efacc7b9257fa3" compoundref="xdmaps_8c" startline="390" endline="400">XDmaPs_SetFaultHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps_1afb46f6085dc9e591775679f026025819" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dma_ps___channel_data" kindref="compound">XDmaPs_ChannelData</ref></type>
+        <definition>XDmaPs_ChannelData XDmaPs::Chans[XDMAPS_CHANNELS_PER_DEV]</definition>
+        <argsstring>[XDMAPS_CHANNELS_PER_DEV]</argsstring>
+        <name>Chans</name>
+        <briefdescription>
+<para>channel data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="242" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="242" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga96c4c2e45ab31a22f05767c24db425ea" compoundref="xdmaps_8c" startline="1414" endline="1437">XDmaPs_FreeDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1gabc2e04f69037f0bdba33275ae017af8a" compoundref="xdmaps_8c" startline="1337" endline="1396">XDmaPs_GenDmaProg</referencedby>
+        <referencedby refid="group__dmaps_1ga05047e523efd0dcc0e1f3ba16a32a796" compoundref="xdmaps_8c" startline="1542" endline="1552">XDmaPs_IsActive</referencedby>
+        <referencedby refid="group__dmaps_1gaccf32b08856fbe62745a4d0552aa1bff" compoundref="xdmaps_8c" startline="354" endline="374">XDmaPs_SetDoneHandler</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_dma_ps" kindref="compound">XDmaPs</ref> driver instance data structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>A pointer to an instance data structure is passed around by functions to refer to a specific driver instance. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XDmaPs_ChanCtrl</label>
+        <link refid="struct_x_dma_ps___chan_ctrl"/>
+      </node>
+      <node id="7">
+        <label>XDmaPs_BD</label>
+        <link refid="struct_x_dma_ps___b_d"/>
+      </node>
+      <node id="2">
+        <label>XDmaPs_Config</label>
+        <link refid="struct_x_dma_ps___config"/>
+      </node>
+      <node id="1">
+        <label>XDmaPs</label>
+        <link refid="struct_x_dma_ps"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Chans</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>XDmaPs_ChannelData</label>
+        <link refid="struct_x_dma_ps___channel_data"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>ProgBufPool</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>DmaCmdFromHw</edgelabel>
+          <edgelabel>DmaCmdToHw</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>XDmaPs_ProgBuf</label>
+        <link refid="struct_x_dma_ps___prog_buf"/>
+      </node>
+      <node id="5">
+        <label>XDmaPs_Cmd</label>
+        <link refid="struct_x_dma_ps___cmd"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>ChanCtrl</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>BD</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="236" bodyend="246"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_ps_1a61881a8aab6272aa815bdbb8babf3a41" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>CacheLength</name></member>
+      <member refid="struct_x_dma_ps_1afb46f6085dc9e591775679f026025819" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>Chans</name></member>
+      <member refid="struct_x_dma_ps_1a45c4061741c55585776f412090ef1667" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>Config</name></member>
+      <member refid="struct_x_dma_ps_1ade567db033942a4601c95b04761906e2" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>FaultHandler</name></member>
+      <member refid="struct_x_dma_ps_1a4be3d7e948f1eb200b732a36e021b678" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>FaultRef</name></member>
+      <member refid="struct_x_dma_ps_1a0e39ae2cf0255dd2835c9b55449aaaf3" prot="public" virt="non-virtual"><scope>XDmaPs</scope><name>IsReady</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

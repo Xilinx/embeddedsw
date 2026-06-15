@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_flash_command_set" kind="struct" prot="public">
+    <compoundname>XFlashCommandSet</compoundname>
+    <includes local="no">xilflash_properties.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_flash_command_set_1af46cab5abe7f7407fee3240fe6b46634" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashCommandSet::WriteBufferCommand</definition>
+        <argsstring></argsstring>
+        <name>WriteBufferCommand</name>
+        <briefdescription>
+<para>Write Buffer Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="106" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_command_set_1a77e5ff5d2fee3818bec520b51c73dfe4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashCommandSet::ProgramCommand</definition>
+        <argsstring></argsstring>
+        <name>ProgramCommand</name>
+        <briefdescription>
+<para>Program Command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Flash Specific Command Set. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="105" bodyend="108"/>
+    <listofallmembers>
+      <member refid="struct_x_flash_command_set_1a77e5ff5d2fee3818bec520b51c73dfe4" prot="public" virt="non-virtual"><scope>XFlashCommandSet</scope><name>ProgramCommand</name></member>
+      <member refid="struct_x_flash_command_set_1af46cab5abe7f7407fee3240fe6b46634" prot="public" virt="non-virtual"><scope>XFlashCommandSet</scope><name>WriteBufferCommand</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

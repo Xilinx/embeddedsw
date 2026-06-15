@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_aeb8aa3387e28f5ac1f2e98d59a79f16" kind="dir">
+    <compoundname>prd</compoundname>
+    <innerdir refid="dir_a0d7d4a922cfe1c2a72be548f8e9871f">examples</innerdir>
+    <innerdir refid="dir_7cbe979e32c93f5ae6ea60e751498dbd">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/"/>
+  </compounddef>
+</doxygen>

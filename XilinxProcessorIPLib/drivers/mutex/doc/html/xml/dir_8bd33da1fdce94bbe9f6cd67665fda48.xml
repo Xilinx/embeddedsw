@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_8bd33da1fdce94bbe9f6cd67665fda48" kind="dir">
+    <compoundname>mutex</compoundname>
+    <innerdir refid="dir_256059465240104a8f8647400b4b044c">examples</innerdir>
+    <innerdir refid="dir_c3f63cc41fc2120d804690d9e7ccb6c2">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/"/>
+  </compounddef>
+</doxygen>

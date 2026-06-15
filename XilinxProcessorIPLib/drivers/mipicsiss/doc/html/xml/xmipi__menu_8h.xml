@@ -1,0 +1,426 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xmipi__menu_8h" kind="file">
+    <compoundname>xmipi_menu.h</compoundname>
+    <includes local="no">string.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">ctype.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <includes local="yes">xuartps.h</includes>
+    <includes local="yes">xvphy.h</includes>
+    <includes local="yes">xv_hdmitxss.h</includes>
+    <includes local="yes">xv_tpg.h</includes>
+    <includedby refid="xmipi__example_8c" local="yes">xmipi_example.c</includedby>
+    <includedby refid="xmipi__menu_8c" local="yes">xmipi_menu.c</includedby>
+    <incdepgraph>
+      <node id="2545">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="2550">
+        <label>xuartps.h</label>
+      </node>
+      <node id="2541">
+        <label>xmipi_menu.h</label>
+        <link refid="xmipi_menu.h"/>
+        <childnode refid="2542" relation="include">
+        </childnode>
+        <childnode refid="2543" relation="include">
+        </childnode>
+        <childnode refid="2544" relation="include">
+        </childnode>
+        <childnode refid="2545" relation="include">
+        </childnode>
+        <childnode refid="2546" relation="include">
+        </childnode>
+        <childnode refid="2547" relation="include">
+        </childnode>
+        <childnode refid="2548" relation="include">
+        </childnode>
+        <childnode refid="2549" relation="include">
+        </childnode>
+        <childnode refid="2550" relation="include">
+        </childnode>
+        <childnode refid="2551" relation="include">
+        </childnode>
+        <childnode refid="2552" relation="include">
+        </childnode>
+        <childnode refid="2553" relation="include">
+        </childnode>
+      </node>
+      <node id="2551">
+        <label>xvphy.h</label>
+      </node>
+      <node id="2542">
+        <label>string.h</label>
+      </node>
+      <node id="2548">
+        <label>xstatus.h</label>
+      </node>
+      <node id="2549">
+        <label>xvidc.h</label>
+      </node>
+      <node id="2552">
+        <label>xv_hdmitxss.h</label>
+      </node>
+      <node id="2546">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2544">
+        <label>ctype.h</label>
+      </node>
+      <node id="2547">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2543">
+        <label>stdio.h</label>
+      </node>
+      <node id="2553">
+        <label>xv_tpg.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2556">
+        <label>xmipi_menu.c</label>
+        <link refid="xmipi__menu_8c"/>
+      </node>
+      <node id="2554">
+        <label>xmipi_menu.h</label>
+        <link refid="xmipi_menu.h"/>
+        <childnode refid="2555" relation="include">
+        </childnode>
+        <childnode refid="2556" relation="include">
+        </childnode>
+      </node>
+      <node id="2555">
+        <label>xmipi_example.c</label>
+        <link refid="xmipi__example_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_mipi___menu_config" prot="public">XMipi_MenuConfig</innerclass>
+    <innerclass refid="struct_x_mipi___menu" prot="public">XMipi_Menu</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xmipi__menu_8h_1a7a0fcb0f82e2e662239f22f7ba80c4b0" prot="public" static="no">
+        <name>XMIPI_MENU_H_</name>
+        <briefdescription>
+<para>Prevent circular inclusions by using protection macros. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="25" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" prot="public" static="no">
+        <name>XMipi_MenuType</name>
+        <enumvalue id="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3a9a484ee8a1b2054728b2075ff9768813" prot="public">
+          <name>XMIPI_MAIN_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3ad279eef25e76f447311914ac698e22ce" prot="public">
+          <name>XMIPI_RESOLUTION_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3a524840ab7fb783cb5350dadd58f2682f" prot="public">
+          <name>XMIPI_CSI_LANES_MENU</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3a93568a6e04bba3a49e90cfa7ebc9f80d" prot="public">
+          <name>XMIPI_NUM_MENUS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>The MIPI menu types. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" bodystart="52" bodyend="58"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xmipi__menu_8h_1af0db91312e15cacbd685acc33f8bfbe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_MenuInitialize</definition>
+        <argsstring>(XMipi_Menu *InstancePtr, u32 UartBaseAddress)</argsstring>
+        <name>XMipi_MenuInitialize</name>
+        <param>
+          <type><ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>UartBaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function takes care of the MIPI menu initialization. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>UartBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>points to the base address of PS uart.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.c" bodystart="117" bodyend="130"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1af9a8f7bf04b219aa044a98795614f300" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_MenuProcess</definition>
+        <argsstring>(XMipi_Menu *InstancePtr)</argsstring>
+        <name>XMipi_MenuProcess</name>
+        <param>
+          <type><ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is called to trigger the MIPI menu state machine. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.c" bodystart="456" bodyend="513"/>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1a1ba9a6b6dd08002647c9c9311d98c3d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMipi_MenuReset</definition>
+        <argsstring>(XMipi_Menu *InstancePtr)</argsstring>
+        <name>XMipi_MenuReset</name>
+        <param>
+          <type><ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the menu to the main menu. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.c" bodystart="144" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1ac06ed3176952d39fe028b9b13cdcbc38" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void InitImageProcessingPipe</definition>
+        <argsstring>(void)</argsstring>
+        <name>InitImageProcessingPipe</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function Initializes Image Processing blocks wrt to selected resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="1018" bodyend="1050"/>
+        <references refid="pipeline__program_8c_1a21ee37887dab63622f890ae50ffaccee" compoundref="pipeline__program_8c" startline="611" endline="633">ConfigCSC</references>
+        <references refid="pipeline__program_8c_1a5cc10afcf20d68eb7ad335b5a6ef4c13" compoundref="pipeline__program_8c" startline="684" endline="692">ConfigDemosaic</references>
+        <references refid="pipeline__program_8c_1aa251d18c526e8bb62900891757ee18fb" compoundref="pipeline__program_8c" startline="647" endline="670">ConfigGammaLut</references>
+        <referencedby refid="xmipi__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xmipi__example_8c" startline="926" endline="1441">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1aa46d8398be4f1386748a2dcaeb3f528d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void start_csi_cap_pipe</definition>
+        <argsstring>(XVidC_VideoMode VideoMode)</argsstring>
+        <name>start_csi_cap_pipe</name>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>VideoMode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="845" bodyend="934"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1a9698d142e2ca5e8ef2fc0a39521abdb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DisableImageProcessingPipe</definition>
+        <argsstring>(void)</argsstring>
+        <name>DisableImageProcessingPipe</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function disables Demosaic, GammaLut and VProcSS IPs. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/pipeline_program.c" bodystart="798" bodyend="804"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1a757a75677d4ddc9b3d14e2f4f3f0332c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CamReset</definition>
+        <argsstring>(void)</argsstring>
+        <name>CamReset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function resets IMX274 camera sensor. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+This function resets IMX274 camera sensor.</para><para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/sp701_ref_design/function_prototype.c" bodystart="1302" bodyend="1313"/>
+      </memberdef>
+      <memberdef kind="function" id="xmipi__menu_8h_1a27ae0b7f949e11fb7e55c2fe3fda88d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Reset_IP_Pipe</definition>
+        <argsstring>(void)</argsstring>
+        <name>Reset_IP_Pipe</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function resets image processing pipe. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_example.c" bodystart="899" bodyend="914"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This is the main header file for the Xilinx Menu implementation as used in the MIPI example design. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.00  pg    12/07/17 Initial release.
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>XMIPI_MENU_H_</highlight></codeline>
+<codeline lineno="24" refid="xmipi__menu_8h_1a7a0fcb0f82e2e662239f22f7ba80c4b0" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XMIPI_MENU_H_<sp/><sp/></highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctype.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xuartps.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvphy.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_hdmitxss.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_tpg.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight></codeline>
+<codeline lineno="51"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" refkind="member"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_MAIN_MENU,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_RESOLUTION_MENU,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_CSI_LANES_MENU,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMIPI_NUM_MENUS</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}<sp/><ref refid="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" kindref="member">XMipi_MenuType</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="struct_x_mipi___menu_config" refkind="compound"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>HdcpIsSupported;<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___menu_config" kindref="compound">XMipi_MenuConfig</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="struct_x_mipi___menu" refkind="compound"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_mipi___menu_config" kindref="compound">XMipi_MenuConfig</ref><sp/>Config;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>HDMI<sp/>menu<sp/>configuration<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xmipi__menu_8h_1ad152a71eec6c6e938d9dc27638785eb3" kindref="member">XMipi_MenuType</ref><sp/>CurrentMenu;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>menu<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UartBaseAddress;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Uart<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Value;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Sub<sp/>menu<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>WaitForColorbar;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}<sp/><ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xmipi__menu_8c_1af0db91312e15cacbd685acc33f8bfbe4" kindref="member">XMipi_MenuInitialize</ref>(<ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref><sp/>*InstancePtr,<sp/>u32<sp/>UartBaseAddress);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xmipi__menu_8c_1af9a8f7bf04b219aa044a98795614f300" kindref="member">XMipi_MenuProcess</ref>(<ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xmipi__menu_8c_1a1ba9a6b6dd08002647c9c9311d98c3d1" kindref="member">XMipi_MenuReset</ref>(<ref refid="struct_x_mipi___menu" kindref="compound">XMipi_Menu</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1ac06ed3176952d39fe028b9b13cdcbc38" kindref="member">InitImageProcessingPipe</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>start_csi_cap_pipe(XVidC_VideoMode<sp/>VideoMode);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pipeline__program_8c_1a9698d142e2ca5e8ef2fc0a39521abdb2" kindref="member">DisableImageProcessingPipe</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CamReset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xmipi__example_8c_1a27ae0b7f949e11fb7e55c2fe3fda88d5" kindref="member">Reset_IP_Pipe</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_ref_design/xmipi_menu.h"/>
+  </compounddef>
+</doxygen>

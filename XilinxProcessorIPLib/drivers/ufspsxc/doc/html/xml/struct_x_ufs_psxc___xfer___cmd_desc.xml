@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___xfer___cmd_desc" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_Xfer_CmdDesc</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___xfer___req_upiu" kindref="compound">XUfsPsxc_Xfer_ReqUpiu</ref></type>
+        <definition>XUfsPsxc_Xfer_ReqUpiu XUfsPsxc_Xfer_CmdDesc::ReqUpiu</definition>
+        <argsstring></argsstring>
+        <name>ReqUpiu</name>
+        <briefdescription>
+<para>Transfer Request UPIU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="178" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="237" endline="303">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="319" endline="376">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc_1ga13fea34df11f07626308ad42623497ff" compoundref="xufspsxc__init_8c" startline="449" endline="487">XUfsPsxc_Set4KBlkSize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___xfer___resp_upiu" kindref="compound">XUfsPsxc_Xfer_RespUpiu</ref></type>
+        <definition>XUfsPsxc_Xfer_RespUpiu XUfsPsxc_Xfer_CmdDesc::RespUpiu</definition>
+        <argsstring></argsstring>
+        <name>RespUpiu</name>
+        <briefdescription>
+<para>Transfer Response UPIU. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="179" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1gafa5f97c1a585f348eb57d7cfa82b5080" compoundref="xufspsxc__init_8c" startline="205" endline="257">XUfsPsxc_CardInitialize</referencedby>
+        <referencedby refid="group__ufspsxc_1ga88763b7077bb9b4880c84156663dc1cb" compoundref="xufspsxc__hw_8c" startline="492" endline="522">XUfsPsxc_FillAttrUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1gac6c05905f6fcef83ac0da3b72887164b" compoundref="xufspsxc__hw_8c" startline="442" endline="475">XUfsPsxc_FillDescUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga4f01785053f7c891ffceab509d137b1e" compoundref="xufspsxc__hw_8c" startline="391" endline="424">XUfsPsxc_FillFlagUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga033076869a57d47e1742f555bb6a0276" compoundref="xufspsxc__hw_8c" startline="175" endline="190">XUfsPsxc_FillNopOutUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="237" endline="303">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1gafd68bf712ad71a509ba5e9715d8b2827" compoundref="xufspsxc__hw_8c" startline="203" endline="221">XUfsPsxc_FillTestUnitRdyUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="319" endline="376">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga353f784dcc8a50185ea407bc0dcb4768" compoundref="xufspsxc__init_8c" startline="360" endline="436">XUfsPsxc_GetLUNInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga029d0b5ef73c6cd4daaf455d82afbd57" compoundref="xufspsxc__init_8c" startline="270" endline="346">XUfsPsxc_ReadDeviceInfo</referencedby>
+        <referencedby refid="group__ufspsxc_1ga7c68d7e7d43d9d3f3c327c4ea3d58dd6" compoundref="xufspsxc_8c" startline="338" endline="416">XUfsPsxc_ReadPolled</referencedby>
+        <referencedby refid="group__ufspsxc_1ga6e5ad67b7055e0c5174028c2bdd464c0" compoundref="xufspsxc_8c" startline="264" endline="322">XUfsPsxc_SwitchBootLUN</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5b503a6cef357e029c87ab07e4354763" compoundref="xufspsxc_8c" startline="432" endline="501">XUfsPsxc_WritePolled</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___cmd_desc_1af59555926e2c77d9dd831659abdcb0a4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___xfer___prdt" kindref="compound">XUfsPsxc_Xfer_Prdt</ref></type>
+        <definition>XUfsPsxc_Xfer_Prdt XUfsPsxc_Xfer_CmdDesc::Prdt[XUFSPSXC_PRDT_ENTRIES]</definition>
+        <argsstring>[XUFSPSXC_PRDT_ENTRIES]</argsstring>
+        <name>Prdt</name>
+        <briefdescription>
+<para>PRDT - Number of entries restricted to 1 for ROM/PLM use case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="180" bodyend="-1"/>
+        <referencedby refid="group__ufspsxc_1ga12ee1bec882160b1a0f4d273ad4af0e3" compoundref="xufspsxc__hw_8c" startline="237" endline="303">XUfsPsxc_FillReadCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga3c13cdebf8362d85f77b3b15fe52d2c3" compoundref="xufspsxc__hw_8c" startline="319" endline="376">XUfsPsxc_FillWriteCmdUpiu</referencedby>
+        <referencedby refid="group__ufspsxc_1ga5c93689c07193dfa1a85d9b093596b0e" compoundref="xufspsxc__hw_8c" startline="535" endline="656">XUfsPsxc_ProcessUpiu</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>UTP Command request Descriptor Structure - 128-byte aligned. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="36">
+        <label>XUfsPsxc_NopUpiu</label>
+        <link refid="struct_x_ufs_psxc___nop_upiu"/>
+      </node>
+      <node id="41">
+        <label>XUfsPsxc_Xfer_ReqUpiu</label>
+        <link refid="struct_x_ufs_psxc___xfer___req_upiu"/>
+        <childnode refid="36" relation="usage">
+          <edgelabel>NopOutUpiu</edgelabel>
+        </childnode>
+        <childnode refid="42" relation="usage">
+          <edgelabel>CmdUpiu</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>QueryReqUpiu</edgelabel>
+        </childnode>
+      </node>
+      <node id="40">
+        <label>XUfsPsxc_Xfer_Prdt</label>
+        <link refid="struct_x_ufs_psxc___xfer___prdt"/>
+      </node>
+      <node id="39">
+        <label>XUfsPsxc_TransSpecFlds</label>
+        <link refid="struct_x_ufs_psxc___trans_spec_flds"/>
+      </node>
+      <node id="34">
+        <label>XUfsPsxc_Xfer_CmdDesc</label>
+        <link refid="struct_x_ufs_psxc___xfer___cmd_desc"/>
+        <childnode refid="35" relation="usage">
+          <edgelabel>RespUpiu</edgelabel>
+        </childnode>
+        <childnode refid="40" relation="usage">
+          <edgelabel>Prdt</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>ReqUpiu</edgelabel>
+        </childnode>
+      </node>
+      <node id="37">
+        <label>XUfsPsxc_RespUpiu</label>
+        <link refid="struct_x_ufs_psxc___resp_upiu"/>
+      </node>
+      <node id="42">
+        <label>XUfsPsxc_CmdUpiu</label>
+        <link refid="struct_x_ufs_psxc___cmd_upiu"/>
+      </node>
+      <node id="38">
+        <label>XUfsPsxc_QueryUpiu</label>
+        <link refid="struct_x_ufs_psxc___query_upiu"/>
+        <childnode refid="39" relation="usage">
+          <edgelabel>Tsf</edgelabel>
+        </childnode>
+      </node>
+      <node id="35">
+        <label>XUfsPsxc_Xfer_RespUpiu</label>
+        <link refid="struct_x_ufs_psxc___xfer___resp_upiu"/>
+        <childnode refid="36" relation="usage">
+          <edgelabel>NopInUpiu</edgelabel>
+        </childnode>
+        <childnode refid="37" relation="usage">
+          <edgelabel>RespUpiu</edgelabel>
+        </childnode>
+        <childnode refid="38" relation="usage">
+          <edgelabel>QueryRespUpiu</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="177" bodyend="182"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___xfer___cmd_desc_1af59555926e2c77d9dd831659abdcb0a4" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_CmdDesc</scope><name>Prdt</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___cmd_desc_1a9618b038e5147f227c486520fae4f2fb" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_CmdDesc</scope><name>ReqUpiu</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___cmd_desc_1a20533afb5b19b888e50009bc077eac41" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_CmdDesc</scope><name>RespUpiu</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

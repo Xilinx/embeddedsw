@@ -1,0 +1,337 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_bram___config" kind="struct" prot="public">
+    <compoundname>XBram_Config</compoundname>
+    <includes local="no">xbram.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_bram___config_1ae10f0b7d50a7d312be6643ba7609cb4c" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XBram_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__bram_1ga08f91d2ae010f1a11667b587f582b654" compoundref="xbram__sinit_8c" startline="92" endline="107">XBram_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1aedb98bd8b7d5742f6f64f944d1931ed1" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ad6d36760e863506573b858fd6cfb3382" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XBram_Config::DataWidth</definition>
+        <argsstring></argsstring>
+        <name>DataWidth</name>
+        <briefdescription>
+<para>BRAM data width. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a75f61a0ada77e92ed76040a4556fc6d4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::EccPresent</definition>
+        <argsstring></argsstring>
+        <name>EccPresent</name>
+        <briefdescription>
+<para>Is ECC supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a58c670c0f23257fa4521b4fc219773bc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::FaultInjectionPresent</definition>
+        <argsstring></argsstring>
+        <name>FaultInjectionPresent</name>
+        <briefdescription>
+<para>Is Fault Injection supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="140" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a68ac643548b48f788d6c2f573cb5547a" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::CorrectableFailingRegisters</definition>
+        <argsstring></argsstring>
+        <name>CorrectableFailingRegisters</name>
+        <briefdescription>
+<para>Is Correctable Failing Registers supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="142" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a523f6c9b0013be3fc8cc5ab879e39035" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::CorrectableFailingDataRegs</definition>
+        <argsstring></argsstring>
+        <name>CorrectableFailingDataRegs</name>
+        <briefdescription>
+<para>Is Correctable Failing Data Registers supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="144" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1aaa48d2b7251ca2b7020514d29e56f97c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::UncorrectableFailingRegisters</definition>
+        <argsstring></argsstring>
+        <name>UncorrectableFailingRegisters</name>
+        <briefdescription>
+<para>Is Un-correctable Failing Registers supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="146" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a33d6e8224ae0b1a661e4c2dad194377c" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::UncorrectableFailingDataRegs</definition>
+        <argsstring></argsstring>
+        <name>UncorrectableFailingDataRegs</name>
+        <briefdescription>
+<para>Is Un-correctable Failing Data Registers supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="148" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ac12c18f690cc9dbc18392ee8c01c29d7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::EccStatusInterruptPresent</definition>
+        <argsstring></argsstring>
+        <name>EccStatusInterruptPresent</name>
+        <briefdescription>
+<para>Are ECC status and interrupts supported in H/W. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="150" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a58fc68e35caa4b6e99d6203feadf3867" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::CorrectableCounterBits</definition>
+        <argsstring></argsstring>
+        <name>CorrectableCounterBits</name>
+        <briefdescription>
+<para>Number of bits in the Correctable Error Counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="152" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ac31c4a853da7fc695b0a0f66e1b2b8ad" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::EccOnOffRegister</definition>
+        <argsstring></argsstring>
+        <name>EccOnOffRegister</name>
+        <briefdescription>
+<para>Is ECC on/off register supported in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ad4d63ef55fdf48af57677d9fd6ee8448" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::EccOnOffResetValue</definition>
+        <argsstring></argsstring>
+        <name>EccOnOffResetValue</name>
+        <briefdescription>
+<para>Reset value of the ECC on/off register in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ae19b307a3c7a9ed5649503385272072f" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XBram_Config::WriteAccess</definition>
+        <argsstring></argsstring>
+        <name>WriteAccess</name>
+        <briefdescription>
+<para>Is write access enabled in h/w. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="158" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a70b1c37ca7ecdeb186a05e75d8844a03" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::MemBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>MemBaseAddress</name>
+        <briefdescription>
+<para>Device memory base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="160" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1acd853cc9fe73dd4fc7c9af2da45b5a81" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::MemHighAddress</definition>
+        <argsstring></argsstring>
+        <name>MemHighAddress</name>
+        <briefdescription>
+<para>Device memory high address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="161" bodyend="-1"/>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::CtrlBaseAddress</definition>
+        <argsstring></argsstring>
+        <name>CtrlBaseAddress</name>
+        <briefdescription>
+<para>Device register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="xbram__example_8c_1af99823d42c99fe4218a5cbfe293d5c59" compoundref="xbram__example_8c" startline="124" endline="167">BramExample</referencedby>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+        <referencedby refid="group__bram_1gaa4ac1ca5c9c05eabbdea77f35ba9ac5a" compoundref="xbram__intr_8c" startline="135" endline="156">XBram_InterruptClear</referencedby>
+        <referencedby refid="group__bram_1ga9ce680e885511fdd26b6818b71b145c4" compoundref="xbram__intr_8c" startline="98" endline="115">XBram_InterruptDisable</referencedby>
+        <referencedby refid="group__bram_1ga4210a263bd85db259a74c20cd0b0176c" compoundref="xbram__intr_8c" startline="62" endline="79">XBram_InterruptEnable</referencedby>
+        <referencedby refid="group__bram_1gafec7418ceae662672c03a938290da9dd" compoundref="xbram__intr_8c" startline="174" endline="182">XBram_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__bram_1ga3880bb684ad362c6bd289f3e76a98b59" compoundref="xbram__intr_8c" startline="204" endline="212">XBram_InterruptGetStatus</referencedby>
+        <referencedby refid="group__bram_1gaedbdefb6cda5c212f03271143ccf7a98" compoundref="xbram__selftest_8c" startline="244" endline="505">XBram_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a390580d5224db7ed714f508b5dfdc672" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::CtrlHighAddress</definition>
+        <argsstring></argsstring>
+        <name>CtrlHighAddress</name>
+        <briefdescription>
+<para>Device register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1ac66c3fec0033eec027f0e66f154301c6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XBram_Config::IntId</definition>
+        <argsstring></argsstring>
+        <name>IntId</name>
+        <briefdescription>
+<para>Interrupt ID on GIC. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="165" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_bram___config_1a4e172daa52b71ac0db6e2e01946edac5" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XBram_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="166" bodyend="-1"/>
+        <referencedby refid="xbram__intr__example_8c_1a0218c4bde98e81f9f0d225148c7ebb90" compoundref="xbram__intr__example_8c" startline="169" endline="249">BramIntrExample</referencedby>
+        <referencedby refid="group__bram_1gab305438b0844ddb20139878c21ef0e6b" compoundref="xbram_8c" startline="85" endline="128">XBram_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/bram/src/xbram.h" bodystart="131" bodyend="169"/>
+    <listofallmembers>
+      <member refid="struct_x_bram___config_1aedb98bd8b7d5742f6f64f944d1931ed1" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_bram___config_1a58fc68e35caa4b6e99d6203feadf3867" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>CorrectableCounterBits</name></member>
+      <member refid="struct_x_bram___config_1a523f6c9b0013be3fc8cc5ab879e39035" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>CorrectableFailingDataRegs</name></member>
+      <member refid="struct_x_bram___config_1a68ac643548b48f788d6c2f573cb5547a" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>CorrectableFailingRegisters</name></member>
+      <member refid="struct_x_bram___config_1ae96ce11672cf82713b994dc80a1a05aa" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>CtrlBaseAddress</name></member>
+      <member refid="struct_x_bram___config_1a390580d5224db7ed714f508b5dfdc672" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>CtrlHighAddress</name></member>
+      <member refid="struct_x_bram___config_1ad6d36760e863506573b858fd6cfb3382" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>DataWidth</name></member>
+      <member refid="struct_x_bram___config_1ac31c4a853da7fc695b0a0f66e1b2b8ad" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>EccOnOffRegister</name></member>
+      <member refid="struct_x_bram___config_1ad4d63ef55fdf48af57677d9fd6ee8448" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>EccOnOffResetValue</name></member>
+      <member refid="struct_x_bram___config_1a75f61a0ada77e92ed76040a4556fc6d4" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>EccPresent</name></member>
+      <member refid="struct_x_bram___config_1ac12c18f690cc9dbc18392ee8c01c29d7" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>EccStatusInterruptPresent</name></member>
+      <member refid="struct_x_bram___config_1a58c670c0f23257fa4521b4fc219773bc" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>FaultInjectionPresent</name></member>
+      <member refid="struct_x_bram___config_1ac66c3fec0033eec027f0e66f154301c6" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>IntId</name></member>
+      <member refid="struct_x_bram___config_1a4e172daa52b71ac0db6e2e01946edac5" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_bram___config_1a70b1c37ca7ecdeb186a05e75d8844a03" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>MemBaseAddress</name></member>
+      <member refid="struct_x_bram___config_1acd853cc9fe73dd4fc7c9af2da45b5a81" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>MemHighAddress</name></member>
+      <member refid="struct_x_bram___config_1ae10f0b7d50a7d312be6643ba7609cb4c" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>Name</name></member>
+      <member refid="struct_x_bram___config_1a33d6e8224ae0b1a661e4c2dad194377c" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>UncorrectableFailingDataRegs</name></member>
+      <member refid="struct_x_bram___config_1aaa48d2b7251ca2b7020514d29e56f97c" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>UncorrectableFailingRegisters</name></member>
+      <member refid="struct_x_bram___config_1ae19b307a3c7a9ed5649503385272072f" prot="public" virt="non-virtual"><scope>XBram_Config</scope><name>WriteAccess</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

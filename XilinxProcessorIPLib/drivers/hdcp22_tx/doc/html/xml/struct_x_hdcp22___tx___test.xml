@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___test" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_Test</compoundname>
+    <includes local="no">xhdcp22_tx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___test_1a08740c4916c6cb386bf3d777dc8c6b73" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx_Test::TestMode</definition>
+        <argsstring></argsstring>
+        <name>TestMode</name>
+        <briefdescription>
+<para>Current used test mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="415" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="415" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___test_1a4e36d57edab3f2177f4f8275e4624bf1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp22_Tx_Test::TestFlags</definition>
+        <argsstring></argsstring>
+        <name>TestFlags</name>
+        <briefdescription>
+<para>Current used test flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="416" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="416" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___test_1a8903b18c3c3a1b409d4c563c40d2cfb3" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_Test::CurrentDdcAddress</definition>
+        <argsstring></argsstring>
+        <name>CurrentDdcAddress</name>
+        <briefdescription>
+<para>Current DDC address by the testing framework. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="417" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="417" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the HDCP22 test parameters and settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" line="414" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx/src/xhdcp22_tx.h" bodystart="414" bodyend="418"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___test_1a8903b18c3c3a1b409d4c563c40d2cfb3" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Test</scope><name>CurrentDdcAddress</name></member>
+      <member refid="struct_x_hdcp22___tx___test_1a4e36d57edab3f2177f4f8275e4624bf1" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Test</scope><name>TestFlags</name></member>
+      <member refid="struct_x_hdcp22___tx___test_1a08740c4916c6cb386bf3d777dc8c6b73" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_Test</scope><name>TestMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

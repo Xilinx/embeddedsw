@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mmi_dp___video_config" kind="struct" prot="public">
+    <compoundname>XMmiDp_VideoConfig</compoundname>
+    <includes local="no">xmmidp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1ab30de790a65e985e311dd53818125b30" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::HActive</definition>
+        <argsstring></argsstring>
+        <name>HActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a1e2d78f7359b98553312d56ad3cc1d2b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::HBlank</definition>
+        <argsstring></argsstring>
+        <name>HBlank</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a661d3a66e771c6bc495d1146da2127ce" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::VBlank</definition>
+        <argsstring></argsstring>
+        <name>VBlank</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1af41f8a15bebb97214a58859dd0ea535f" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::VActive</definition>
+        <argsstring></argsstring>
+        <name>VActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1abe24b42ff61e92f0c9d226aacbdf0435" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::HSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>HSyncWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a6199263d91cde24eacf69d0e4bba75a8" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XMmiDp_VideoConfig::VSyncWidth</definition>
+        <argsstring></argsstring>
+        <name>VSyncWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a68050047216d67f5898b459bc6b2ed96" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::DeInPolarity</definition>
+        <argsstring></argsstring>
+        <name>DeInPolarity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a18bafaf2fdbe6c9af0894a01f5605b0b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::HSyncInPolarity</definition>
+        <argsstring></argsstring>
+        <name>HSyncInPolarity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1ab5c9d01ad98a1ca18c1a39b316b58c1f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::VSyncInPolarity</definition>
+        <argsstring></argsstring>
+        <name>VSyncInPolarity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a1982899441ba6033963d9f6675ae80f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::I_P</definition>
+        <argsstring></argsstring>
+        <name>I_P</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a02a97a3b414e52930b9597967607534b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::RVBlankInOsc</definition>
+        <argsstring></argsstring>
+        <name>RVBlankInOsc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a27344a99da650d753ffac3d438ba1954" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::InitThresholdHi</definition>
+        <argsstring></argsstring>
+        <name>InitThresholdHi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a16d822f9e5aaeb548f8599710eb3bf0c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::En3DFrameFieldSeq</definition>
+        <argsstring></argsstring>
+        <name>En3DFrameFieldSeq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="325" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a0e0c91761f0821056079634931a48b56" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::AvgBytesPerTuFrac</definition>
+        <argsstring></argsstring>
+        <name>AvgBytesPerTuFrac</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="326" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1a41512b11938862d76fe1a0c7d46d0e42" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::InitThreshold</definition>
+        <argsstring></argsstring>
+        <name>InitThreshold</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1ac4996682c56984513db7eb7a7cfcee44" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::AvgBytesPerTu</definition>
+        <argsstring></argsstring>
+        <name>AvgBytesPerTu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="328" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_mmi_dp___video_config_1ac951e61eafb1a0aeb856c5ad6884da54" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XMmiDp_VideoConfig::Reserved[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>typedef contains VideoConfig values </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mmidp/src/xmmidp.h" bodystart="312" bodyend="330"/>
+    <listofallmembers>
+      <member refid="struct_x_mmi_dp___video_config_1ac4996682c56984513db7eb7a7cfcee44" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>AvgBytesPerTu</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a0e0c91761f0821056079634931a48b56" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>AvgBytesPerTuFrac</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a68050047216d67f5898b459bc6b2ed96" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>DeInPolarity</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a16d822f9e5aaeb548f8599710eb3bf0c" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>En3DFrameFieldSeq</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1ab30de790a65e985e311dd53818125b30" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>HActive</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a1e2d78f7359b98553312d56ad3cc1d2b" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>HBlank</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a18bafaf2fdbe6c9af0894a01f5605b0b" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>HSyncInPolarity</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1abe24b42ff61e92f0c9d226aacbdf0435" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>HSyncWidth</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a1982899441ba6033963d9f6675ae80f8" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>I_P</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a41512b11938862d76fe1a0c7d46d0e42" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>InitThreshold</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a27344a99da650d753ffac3d438ba1954" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>InitThresholdHi</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1ac951e61eafb1a0aeb856c5ad6884da54" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>Reserved</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a02a97a3b414e52930b9597967607534b" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>RVBlankInOsc</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1af41f8a15bebb97214a58859dd0ea535f" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>VActive</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a661d3a66e771c6bc495d1146da2127ce" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>VBlank</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1ab5c9d01ad98a1ca18c1a39b316b58c1f" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>VSyncInPolarity</name></member>
+      <member refid="struct_x_mmi_dp___video_config_1a6199263d91cde24eacf69d0e4bba75a8" prot="public" virt="non-virtual"><scope>XMmiDp_VideoConfig</scope><name>VSyncWidth</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

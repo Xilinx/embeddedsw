@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_isi_cam_drv_config__s" kind="struct" prot="public">
+    <compoundname>IsiCamDrvConfig_s</compoundname>
+    <includes local="no">isi_iss.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__isi__iss_1ga87c0635bd5f9fb2e5bdc557aeb85b27a" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::cameraDriverID</definition>
+        <argsstring></argsstring>
+        <name>cameraDriverID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga9cd02bb6874b6d98c982c9fd2a5514d9" prot="public" static="no" mutable="no">
+        <type>IsiGetSensorIss_t</type>
+        <definition>IsiGetSensorIss_t IsiCamDrvConfig_s::pIsiGetSensorIss</definition>
+        <argsstring></argsstring>
+        <name>pIsiGetSensorIss</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga0fab1c1cac11febee6f2a210b247454c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::cameraDevId</definition>
+        <argsstring></argsstring>
+        <name>cameraDevId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__isi__iss_1ga1ee5acbd94dc1909f7499c54fd33573b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t IsiCamDrvConfig_s::instanceId</definition>
+        <argsstring></argsstring>
+        <name>instanceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>IsiCamDrvConfig_t. </para>    </briefdescription>
+    <detaileddescription>
+<para>Camera sensor driver specific data </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/isi/include/isi_iss.h" bodystart="221" bodyend="226"/>
+    <listofallmembers>
+      <member refid="group__isi__iss_1ga0fab1c1cac11febee6f2a210b247454c" prot="public" virt="non-virtual"><scope>IsiCamDrvConfig_s</scope><name>cameraDevId</name></member>
+      <member refid="group__isi__iss_1ga87c0635bd5f9fb2e5bdc557aeb85b27a" prot="public" virt="non-virtual"><scope>IsiCamDrvConfig_s</scope><name>cameraDriverID</name></member>
+      <member refid="group__isi__iss_1ga1ee5acbd94dc1909f7499c54fd33573b" prot="public" virt="non-virtual"><scope>IsiCamDrvConfig_s</scope><name>instanceId</name></member>
+      <member refid="group__isi__iss_1ga9cd02bb6874b6d98c982c9fd2a5514d9" prot="public" virt="non-virtual"><scope>IsiCamDrvConfig_s</scope><name>pIsiGetSensorIss</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

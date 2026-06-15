@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_d4e90f82cd7f24080896bac290392778" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xsysmon__aux__polled__example_8c">xsysmon_aux_polled_example.c</innerfile>
+    <innerfile refid="xsysmon__extmux__example_8c">xsysmon_extmux_example.c</innerfile>
+    <innerfile refid="xsysmon__intr__example_8c">xsysmon_intr_example.c</innerfile>
+    <innerfile refid="xsysmon__intr__printf__example_8c">xsysmon_intr_printf_example.c</innerfile>
+    <innerfile refid="xsysmon__low__level__example_8c">xsysmon_low_level_example.c</innerfile>
+    <innerfile refid="xsysmon__polled__example_8c">xsysmon_polled_example.c</innerfile>
+    <innerfile refid="xsysmon__polled__printf__example_8c">xsysmon_polled_printf_example.c</innerfile>
+    <innerfile refid="xsysmon__single__ch__intr__example_8c">xsysmon_single_ch_intr_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/sysmon/examples/"/>
+  </compounddef>
+</doxygen>

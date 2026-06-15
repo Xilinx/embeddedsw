@@ -1,0 +1,464 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dp21__rx__only_2xvidframe__crc_8h" kind="file">
+    <compoundname>dp21_rx_only/xvidframe_crc.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includedby refid="xdprxss__dp21__rx_8c" local="yes">xdprxss_dp21_rx.c</includedby>
+    <includedby refid="dp21__rx__only_2xvidframe__crc_8c" local="yes">xvidframe_crc.c</includedby>
+    <incdepgraph>
+      <node id="1898">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="1899">
+        <label>xil_io.h</label>
+      </node>
+      <node id="1897">
+        <label>xil_types.h</label>
+      </node>
+      <node id="1900">
+        <label>xparameters.h</label>
+      </node>
+      <node id="1896">
+        <label>xvidframe_crc.h</label>
+        <link refid="dp21_rx_only/xvidframe_crc.h"/>
+        <childnode refid="1897" relation="include">
+        </childnode>
+        <childnode refid="1898" relation="include">
+        </childnode>
+        <childnode refid="1899" relation="include">
+        </childnode>
+        <childnode refid="1900" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1902">
+        <label>xdprxss_dp21_rx.c</label>
+        <link refid="xdprxss__dp21__rx_8c"/>
+      </node>
+      <node id="1903">
+        <label>xvidframe_crc.c</label>
+      </node>
+      <node id="1901">
+        <label>xvidframe_crc.h</label>
+        <link refid="dp21_rx_only/xvidframe_crc.h"/>
+        <childnode refid="1902" relation="include">
+        </childnode>
+        <childnode refid="1903" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_video___c_r_c___config" prot="public">Video_CRC_Config</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register access macro definitions.</header>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1aefe1d29bf3fcc88e324a7790b7f806c5" prot="public" static="no">
+        <name>XVidFrameCrc_In32</name>
+        <initializer>Xil_In32</initializer>
+        <briefdescription>
+<para>Read 32-bit register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a54e29579cee3b251deaf53a752bdf1c4" prot="public" static="no">
+        <name>XVidFrameCrc_Out32</name>
+        <initializer>Xil_Out32</initializer>
+        <briefdescription>
+<para>Write 32-bit register value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a993f56d9c852c4ae63ed95ae52a3a247" prot="public" static="no">
+        <name>XPAR_VIDEO_FRAME_CRC_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</initializer>
+        <briefdescription>
+<para>Base address of Video Frame CRC peripheral. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1aa6f251f75fc783c058d0bb4b121f6cf5" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_CONFIG</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+<para>Video Frame CRC configuration register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1ac5ec554b00f752bbdd707686e39b11f2" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_VALUE_G_R</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+<para>Video Frame CRC value for Green/Red components register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a36136e0041298ab7ddd340c5380c2279" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_VALUE_B</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+<para>Video Frame CRC value for Blue component register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1ae8be4e4500d02df7d4cc059be1efa659" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_ACTIVE_COUNTS</name>
+        <initializer>0x0C</initializer>
+        <briefdescription>
+<para>Video Frame CRC active pixel counts register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a07be7c3695fa2db220b1dd508e601c0d" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_MISSES</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Video Frame CRC misses register offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1af256210fafc067ec5f7017a2dfa327e9" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_CLEAR</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+<para>Video Frame CRC clear control value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a9d3f9b88e72d758e0c94f1f994602352" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_PXLMODE_MASK</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+<para>Video Frame CRC pixel mode mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a15d115770e8b75b9e0f7f51b18625c44" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_R_Y_COMP_MASK</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+<para>Video Frame CRC R/Y component mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1accce7a60780ffbaa0ee089cde3c97f07" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_G_CR_COMP_MASK</name>
+        <initializer>0xFFFF0000</initializer>
+        <briefdescription>
+<para>Video Frame CRC G/Cr component mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1accec4a958fea387525beefdf7ffcd846" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_B_CB_COMP_MASK</name>
+        <initializer>0xFFFF</initializer>
+        <briefdescription>
+<para>Video Frame CRC B/Cb component mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a4b3cb39a8cd91449aa8d4a6be56597f6" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_G_CR_COMP_SHIFT</name>
+        <initializer>16</initializer>
+        <briefdescription>
+<para>Video Frame CRC G/Cr component shift value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a8910f7db6c968e9cb63496adf65f1e06" prot="public" static="no">
+        <name>XVidFrameCrc_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>XVidFrameCrc_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>This is a low-level function that reads from the specified register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read from.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the specified register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XVidFrameCrc_ReadReg(u32 BaseAddress, u32 RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="dp21__rx__only_2xvidframe__crc_8h_1a194b55ba1f26318449125ee32ac6d75c" prot="public" static="no">
+        <name>XVidFrameCrc_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>XVidFrameCrc_Out32((BaseAddress) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>This is a low-level function that writes to the specified register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit data to write to the specified register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void XVidFrameCrc_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="dp21__rx__only_2xvidframe__crc_8h_1a89d145370f8d137b31262130bd66dc77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVidFrameCrc_Initialize</definition>
+        <argsstring>(Video_CRC_Config *VidFrameCRC)</argsstring>
+        <name>XVidFrameCrc_Initialize</name>
+        <param>
+          <type><ref refid="struct_video___c_r_c___config" kindref="compound">Video_CRC_Config</ref> *</type>
+          <declname>VidFrameCRC</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the Video Frame CRC instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS or XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>VidFrameCRC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an instance of <ref refid="struct_video___c_r_c___config" kindref="compound">Video_CRC_Config</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS or XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>VidFrameCRC</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the Video CRC configuration structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS or XST_FAILURE</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xvidframe_crc.c" bodystart="49" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="dp21__rx__only_2xvidframe__crc_8h_1a321d0f59b714c72d6e62ac1a1b1a32f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVidFrameCrc_Reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>XVidFrameCrc_Reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to reset the Video Frame CRC instance. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.c" bodystart="86" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="dp21__rx__only_2xvidframe__crc_8h_1a732c2a4829be922ca9620dc2748dfd4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVidFrameCrc_Report</definition>
+        <argsstring>(void)</argsstring>
+        <name>XVidFrameCrc_Report</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function reports CRC values of Video components. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.c" bodystart="116" bodyend="148"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2023-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor">#ifndef<sp/>SRC_XVIDFRAME_CRC_H_</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SRC_XVIDFRAME_CRC_H_</highlight></codeline>
+<codeline lineno="25"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_VIDEO_FRAME_CRC_BASEADDR</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_EN</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor">#define<sp/>XPAR_VIDEO_FRAME_CRC_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>Offsets<sp/>*/</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_VALUE_G_R<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_VALUE_B<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x08</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_ACTIVE_COUNTS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0C</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_MISSES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_CLEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_PXLMODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_R_Y_COMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_G_CR_COMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF0000</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_B_CB_COMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFF</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_G_CR_COMP_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Declaration<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight></codeline>
+<codeline lineno="78"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>TEST_CRC_CNT;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>TEST_CRC_SUPPORTED;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>TEST_CRC_START_STOP;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Pixel_r;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Pixel_g;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u16<sp/>Pixel_b;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>Mode_422;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}<sp/><ref refid="struct_video___c_r_c___config" kindref="compound">Video_CRC_Config</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor">#define<sp/>XVidFrameCrc_In32<sp/>Xil_In32</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor">#define<sp/>XVidFrameCrc_Out32<sp/>Xil_Out32</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XVidFrameCrc_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidFrameCrc_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">#define<sp/>XVidFrameCrc_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidFrameCrc_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XVidFrameCrc_Initialize(<ref refid="struct_video___c_r_c___config" kindref="compound">Video_CRC_Config</ref><sp/>*<ref refid="xdprxss__dp21__rx_8c_1a5e98a9afd817db49cd4924cfda1981d1" kindref="member">VidFrameCRC</ref>);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XVidFrameCrc_Reset(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XVidFrameCrc_Report(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>SRC_XVIDFRAME_CRC_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_rx_only/xvidframe_crc.h"/>
+  </compounddef>
+</doxygen>

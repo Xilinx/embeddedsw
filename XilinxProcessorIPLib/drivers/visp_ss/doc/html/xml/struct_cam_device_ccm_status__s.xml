@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ccm_status__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCcmStatus_s</compoundname>
+    <includes local="no">cam_device_ccm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ccm_status__s_1a1cdc8c45af026fb81cfbd6f2c525c577" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceCcmStatus_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+<para>CCM enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_status__s_1a12e3d0b39517a40824b18e2d8c868b9a" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceCcmStatus_s::currentMode</definition>
+        <argsstring></argsstring>
+        <name>currentMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ccm_status__s_1a0c134e5678b785d3f6c6acb129e92e39" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ccm_1ga89d77270f7a79e18d20fdec552df6d23" kindref="member">CamDeviceCcmManualConfig_t</ref></type>
+        <definition>CamDeviceCcmManualConfig_t CamDeviceCcmStatus_s::currentCfg</definition>
+        <argsstring></argsstring>
+        <name>currentCfg</name>
+        <briefdescription>
+<para>CCM current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CCM status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="220">
+        <label>CamDeviceCcmManualConfig_s</label>
+        <link refid="struct_cam_device_ccm_manual_config__s"/>
+      </node>
+      <node id="219">
+        <label>CamDeviceCcmStatus_s</label>
+        <link refid="struct_cam_device_ccm_status__s"/>
+        <childnode refid="220" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ccm_v1_1/cam_device_ccm_api.h" bodystart="89" bodyend="93"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ccm_status__s_1a0c134e5678b785d3f6c6acb129e92e39" prot="public" virt="non-virtual"><scope>CamDeviceCcmStatus_s</scope><name>currentCfg</name></member>
+      <member refid="struct_cam_device_ccm_status__s_1a12e3d0b39517a40824b18e2d8c868b9a" prot="public" virt="non-virtual"><scope>CamDeviceCcmStatus_s</scope><name>currentMode</name></member>
+      <member refid="struct_cam_device_ccm_status__s_1a1cdc8c45af026fb81cfbd6f2c525c577" prot="public" virt="non-virtual"><scope>CamDeviceCcmStatus_s</scope><name>enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

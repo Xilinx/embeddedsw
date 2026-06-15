@@ -1,0 +1,810 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xgpiops__hw_8h" kind="file">
+    <compoundname>xgpiops_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xgpiops_8h" local="yes">xgpiops.h</includedby>
+    <includedby refid="xgpiops__hw_8c" local="yes">xgpiops_hw.c</includedby>
+    <incdepgraph>
+      <node id="52">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="53">
+        <label>xil_io.h</label>
+      </node>
+      <node id="50">
+        <label>xgpiops_hw.h</label>
+        <link refid="xgpiops_hw.h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="51">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="57">
+        <label>xgpiops_g.c</label>
+        <link refid="xgpiops__g_8c"/>
+      </node>
+      <node id="62">
+        <label>xgpiops_intr_example.c</label>
+        <link refid="xgpiops__intr__example_8c"/>
+      </node>
+      <node id="60">
+        <label>xgpiops_selftest.c</label>
+        <link refid="xgpiops__selftest_8c"/>
+      </node>
+      <node id="63">
+        <label>xgpiops_polled_example.c</label>
+        <link refid="xgpiops__polled__example_8c"/>
+      </node>
+      <node id="58">
+        <label>xgpiops_hw.c</label>
+        <link refid="xgpiops__hw_8c"/>
+      </node>
+      <node id="54">
+        <label>xgpiops_hw.h</label>
+        <link refid="xgpiops_hw.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xgpiops_sinit.c</label>
+        <link refid="xgpiops__sinit_8c"/>
+      </node>
+      <node id="56">
+        <label>xgpiops.c</label>
+        <link refid="xgpiops_8c"/>
+      </node>
+      <node id="55">
+        <label>xgpiops.h</label>
+        <link refid="xgpiops_8h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+      </node>
+      <node id="59">
+        <label>xgpiops_intr.c</label>
+        <link refid="xgpiops__intr_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the GPIO. Each register is 32 bits.</header>
+      <memberdef kind="define" id="group__gpiops_1ga05aff41166bea96304f2fa71e21362c4" prot="public" static="no">
+        <name>XGPIOPS_DATA_LSW_OFFSET</name>
+        <initializer>0x00000000U</initializer>
+        <briefdescription>
+<para>Mask and Data Register LSW, WO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gab9ff633d57fb32cac3424571ba690332" compoundref="xgpiops_8c" startline="311" endline="348">XGpioPs_WritePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga05b7d35cd223526d8861934f44232284" prot="public" static="no">
+        <name>XGPIOPS_DATA_MSW_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Mask and Data Register MSW, WO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="51" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gab9ff633d57fb32cac3424571ba690332" compoundref="xgpiops_8c" startline="311" endline="348">XGpioPs_WritePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga3d795f07c1e9e4bfcac2859112fbbd88" prot="public" static="no">
+        <name>XGPIOPS_DATA_OFFSET</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Data Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1ga0f55b3804d13293880455a79d4f45e37" compoundref="xgpiops_8c" startline="277" endline="293">XGpioPs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga29e4ebe4ad7fef5e1a1fe215f578d8a8" prot="public" static="no">
+        <name>XGPIOPS_DATA_RO_OFFSET</name>
+        <initializer>0x00000060U</initializer>
+        <briefdescription>
+<para>Data Register - Input, RO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaac891da3a0b1ed5697644d621483ed62" compoundref="xgpiops_8c" startline="209" endline="225">XGpioPs_Read</referencedby>
+        <referencedby refid="group__gpiops_1ga5af7399d35110ae5f71be57316a2b9ee" compoundref="xgpiops_8c" startline="241" endline="260">XGpioPs_ReadPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gaee82145f62455e2928a5b8fe66553a40" prot="public" static="no">
+        <name>XGPIOPS_DIRM_OFFSET</name>
+        <initializer>0x00000204U</initializer>
+        <briefdescription>
+<para>Direction Mode Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga7eb1bb1c621ea32f0b14c9ee47c23319" compoundref="xgpiops_8c" startline="447" endline="463">XGpioPs_GetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gaa3bacad17006e4b01ff91f6f14e5d3f7" compoundref="xgpiops_8c" startline="481" endline="500">XGpioPs_GetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gaab9fbd0037438e57fa33d096ac724613" compoundref="xgpiops_8c" startline="370" endline="386">XGpioPs_SetDirection</referencedby>
+        <referencedby refid="group__gpiops_1ga7cbd9e1081b8ed84d38b475fc89271cf" compoundref="xgpiops_8c" startline="401" endline="431">XGpioPs_SetDirectionPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga74dfb9103ef810106a70f8355e319004" prot="public" static="no">
+        <name>XGPIOPS_OUTEN_OFFSET</name>
+        <initializer>0x00000208U</initializer>
+        <briefdescription>
+<para>Output Enable Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga7977b334cb165a1cc2859b1bc1ac43df" compoundref="xgpiops_8c" startline="602" endline="618">XGpioPs_GetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga17714eeb15fff954fc42d6008e67af17" compoundref="xgpiops_8c" startline="636" endline="655">XGpioPs_GetOutputEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1ga7c1ae54b29cedd921fbe9f6ef503ceef" compoundref="xgpiops_8c" startline="520" endline="536">XGpioPs_SetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga841cc1098a21bdedec893545f15b025a" compoundref="xgpiops_8c" startline="555" endline="586">XGpioPs_SetOutputEnablePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" prot="public" static="no">
+        <name>XGPIOPS_INTMASK_OFFSET</name>
+        <initializer>0x0000020CU</initializer>
+        <briefdescription>
+<para>Interrupt Mask Register, RO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="56" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__gpiops_1ga323857757f17a313a984de0b522341e3" compoundref="xgpiops__intr_8c" startline="265" endline="287">XGpioPs_IntrGetEnabledPin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" prot="public" static="no">
+        <name>XGPIOPS_INTEN_OFFSET</name>
+        <initializer>0x00000210U</initializer>
+        <briefdescription>
+<para>Interrupt Enable Register, WO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="57" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</referencedby>
+        <referencedby refid="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" compoundref="xgpiops__intr_8c" startline="109" endline="133">XGpioPs_IntrEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" prot="public" static="no">
+        <name>XGPIOPS_INTDIS_OFFSET</name>
+        <initializer>0x00000214U</initializer>
+        <briefdescription>
+<para>Interrupt Disable Register, WO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="58" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga44dd638bb4642b969f6ba6edbd55a748" compoundref="xgpiops_8c" startline="83" endline="193">XGpioPs_CfgInitialize</referencedby>
+        <referencedby refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</referencedby>
+        <referencedby refid="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" compoundref="xgpiops__intr_8c" startline="186" endline="210">XGpioPs_IntrDisablePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" prot="public" static="no">
+        <name>XGPIOPS_INTSTS_OFFSET</name>
+        <initializer>0x00000218U</initializer>
+        <briefdescription>
+<para>Interrupt Status Register, RO. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</referencedby>
+        <referencedby refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" compoundref="xgpiops__intr_8c" startline="408" endline="434">XGpioPs_IntrClearPin</referencedby>
+        <referencedby refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" compoundref="xgpiops__intr_8c" startline="336" endline="358">XGpioPs_IntrGetStatusPin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_OFFSET</name>
+        <initializer>0x0000021CU</initializer>
+        <briefdescription>
+<para>Interrupt Type Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="60" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" compoundref="xgpiops__intr_8c" startline="643" endline="699">XGpioPs_GetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" prot="public" static="no">
+        <name>XGPIOPS_INTPOL_OFFSET</name>
+        <initializer>0x00000220U</initializer>
+        <briefdescription>
+<para>Interrupt Polarity Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" compoundref="xgpiops__intr_8c" startline="643" endline="699">XGpioPs_GetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" prot="public" static="no">
+        <name>XGPIOPS_INTANY_OFFSET</name>
+        <initializer>0x00000224U</initializer>
+        <briefdescription>
+<para>Interrupt On Any Register, RW. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="62" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" compoundref="xgpiops__intr_8c" startline="643" endline="699">XGpioPs_GetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for each Bank.</header>
+      <memberdef kind="define" id="group__gpiops_1ga1a0e56e2d9952e68d3737707d7b29581" prot="public" static="no">
+        <name>XGPIOPS_DATA_MASK_OFFSET</name>
+        <initializer>0x00000008U</initializer>
+        <briefdescription>
+<para>Data/Mask Registers offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gab9ff633d57fb32cac3424571ba690332" compoundref="xgpiops_8c" startline="311" endline="348">XGpioPs_WritePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga2253433045676585190fa543860141d5" prot="public" static="no">
+        <name>XGPIOPS_DATA_BANK_OFFSET</name>
+        <initializer>0x00000004U</initializer>
+        <briefdescription>
+<para>Data Registers offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaac891da3a0b1ed5697644d621483ed62" compoundref="xgpiops_8c" startline="209" endline="225">XGpioPs_Read</referencedby>
+        <referencedby refid="group__gpiops_1ga5af7399d35110ae5f71be57316a2b9ee" compoundref="xgpiops_8c" startline="241" endline="260">XGpioPs_ReadPin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1ga0f55b3804d13293880455a79d4f45e37" compoundref="xgpiops_8c" startline="277" endline="293">XGpioPs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" prot="public" static="no">
+        <name>XGPIOPS_REG_MASK_OFFSET</name>
+        <initializer>0x00000040U</initializer>
+        <briefdescription>
+<para>Registers offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="70" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga44dd638bb4642b969f6ba6edbd55a748" compoundref="xgpiops_8c" startline="83" endline="193">XGpioPs_CfgInitialize</referencedby>
+        <referencedby refid="group__gpiops_1ga7eb1bb1c621ea32f0b14c9ee47c23319" compoundref="xgpiops_8c" startline="447" endline="463">XGpioPs_GetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gaa3bacad17006e4b01ff91f6f14e5d3f7" compoundref="xgpiops_8c" startline="481" endline="500">XGpioPs_GetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" compoundref="xgpiops__intr_8c" startline="643" endline="699">XGpioPs_GetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1ga7977b334cb165a1cc2859b1bc1ac43df" compoundref="xgpiops_8c" startline="602" endline="618">XGpioPs_GetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga17714eeb15fff954fc42d6008e67af17" compoundref="xgpiops_8c" startline="636" endline="655">XGpioPs_GetOutputEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</referencedby>
+        <referencedby refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" compoundref="xgpiops__intr_8c" startline="408" endline="434">XGpioPs_IntrClearPin</referencedby>
+        <referencedby refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</referencedby>
+        <referencedby refid="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" compoundref="xgpiops__intr_8c" startline="186" endline="210">XGpioPs_IntrDisablePin</referencedby>
+        <referencedby refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</referencedby>
+        <referencedby refid="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" compoundref="xgpiops__intr_8c" startline="109" endline="133">XGpioPs_IntrEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__gpiops_1ga323857757f17a313a984de0b522341e3" compoundref="xgpiops__intr_8c" startline="265" endline="287">XGpioPs_IntrGetEnabledPin</referencedby>
+        <referencedby refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" compoundref="xgpiops__intr_8c" startline="336" endline="358">XGpioPs_IntrGetStatusPin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gaab9fbd0037438e57fa33d096ac724613" compoundref="xgpiops_8c" startline="370" endline="386">XGpioPs_SetDirection</referencedby>
+        <referencedby refid="group__gpiops_1ga7cbd9e1081b8ed84d38b475fc89271cf" compoundref="xgpiops_8c" startline="401" endline="431">XGpioPs_SetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1ga7c1ae54b29cedd921fbe9f6ef503ceef" compoundref="xgpiops_8c" startline="520" endline="536">XGpioPs_SetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga841cc1098a21bdedec893545f15b025a" compoundref="xgpiops_8c" startline="555" endline="586">XGpioPs_SetOutputEnablePin</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Interrupt type reset values for each bank</header>
+      <memberdef kind="define" id="group__gpiops_1ga8c9a16d604addea8146e2672823f1dc4" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK0_RESET</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>Resets specific to Zynq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="84" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gae7120883729ac7440f9bbc378f21422a" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK1_RESET</name>
+        <initializer>0x003FFFFFU</initializer>
+        <briefdescription>
+<para>Resets specific to Zynq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga8aa4d8c9862e1f3af162c56a42b2e5f2" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK2_RESET</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>Resets specific to Zynq. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="86" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gafa809c9d03d6939520e98babf4361100" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK3_RESET</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>Reset common to both platforms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="89" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga514054481f5f916ee70f5d8ea40d926b" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK4_RESET</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>Resets specific to Zynq Ultrascale+ MP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="90" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="90" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gae5904f463885a5fda6141f578da35bea" prot="public" static="no">
+        <name>XGPIOPS_INTTYPE_BANK5_RESET</name>
+        <initializer>0xFFFFFFFFU</initializer>
+        <briefdescription>
+<para>Resets specific to Zynq Ultrascale+ MP. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="91" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="91" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__gpiops_1gae9716887ddbdd1ac6093380b90d0eb57" prot="public" static="no">
+        <name>XGPIOPS_HW_H</name>
+        <briefdescription>
+<para>by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="33" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gac021029c611041a62843fbf68caa22de" prot="public" static="no">
+        <name>XGPIOPS_BYPM_MASK_OFFSET</name>
+        <initializer>(u32)0x40</initializer>
+        <briefdescription>
+<para>Mask for backward support. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga4d0720a82ffbc02f22a5a2483415687a" prot="public" static="no">
+        <name>XGPIOPS_PS_GPIO_BASEADDR</name>
+        <initializer>0xFF0B0000U</initializer>
+        <briefdescription>
+<para>Flag for Base Address for PS_GPIO in Versal. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="93" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga7bd601d046958f33b4fcd879f4fd6e5d" prot="public" static="no">
+        <name>XGPIOPS_ZERO</name>
+        <initializer>0U</initializer>
+        <briefdescription>
+<para>Flag for 0 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="94" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" prot="public" static="no">
+        <name>XGPIOPS_ONE</name>
+        <initializer>1U</initializer>
+        <briefdescription>
+<para>Flag for 1 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga44dd638bb4642b969f6ba6edbd55a748" compoundref="xgpiops_8c" startline="83" endline="193">XGpioPs_CfgInitialize</referencedby>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+        <referencedby refid="group__gpiops_1ga7eb1bb1c621ea32f0b14c9ee47c23319" compoundref="xgpiops_8c" startline="447" endline="463">XGpioPs_GetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga7977b334cb165a1cc2859b1bc1ac43df" compoundref="xgpiops_8c" startline="602" endline="618">XGpioPs_GetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</referencedby>
+        <referencedby refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</referencedby>
+        <referencedby refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</referencedby>
+        <referencedby refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" compoundref="xgpiops__intr_8c" startline="748" endline="780">XGpioPs_IntrHandler</referencedby>
+        <referencedby refid="group__gpiops_1gaac891da3a0b1ed5697644d621483ed62" compoundref="xgpiops_8c" startline="209" endline="225">XGpioPs_Read</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gaab9fbd0037438e57fa33d096ac724613" compoundref="xgpiops_8c" startline="370" endline="386">XGpioPs_SetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga7c1ae54b29cedd921fbe9f6ef503ceef" compoundref="xgpiops_8c" startline="520" endline="536">XGpioPs_SetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga0f55b3804d13293880455a79d4f45e37" compoundref="xgpiops_8c" startline="277" endline="293">XGpioPs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" prot="public" static="no">
+        <name>XGPIOPS_TWO</name>
+        <initializer>2U</initializer>
+        <briefdescription>
+<para>Flag for 2 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga44dd638bb4642b969f6ba6edbd55a748" compoundref="xgpiops_8c" startline="83" endline="193">XGpioPs_CfgInitialize</referencedby>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+        <referencedby refid="group__gpiops_1ga7eb1bb1c621ea32f0b14c9ee47c23319" compoundref="xgpiops_8c" startline="447" endline="463">XGpioPs_GetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga7977b334cb165a1cc2859b1bc1ac43df" compoundref="xgpiops_8c" startline="602" endline="618">XGpioPs_GetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</referencedby>
+        <referencedby refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</referencedby>
+        <referencedby refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</referencedby>
+        <referencedby refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__gpiops_1gafd0478d095fee0db04a29b43436306ef" compoundref="xgpiops__intr_8c" startline="748" endline="780">XGpioPs_IntrHandler</referencedby>
+        <referencedby refid="group__gpiops_1gaac891da3a0b1ed5697644d621483ed62" compoundref="xgpiops_8c" startline="209" endline="225">XGpioPs_Read</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gaab9fbd0037438e57fa33d096ac724613" compoundref="xgpiops_8c" startline="370" endline="386">XGpioPs_SetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga7c1ae54b29cedd921fbe9f6ef503ceef" compoundref="xgpiops_8c" startline="520" endline="536">XGpioPs_SetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga0f55b3804d13293880455a79d4f45e37" compoundref="xgpiops_8c" startline="277" endline="293">XGpioPs_Write</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gae7e81604ed741912fbaf1dac2b17d90c" prot="public" static="no">
+        <name>XGPIOPS_THREE</name>
+        <initializer>3U</initializer>
+        <briefdescription>
+<para>Flag for 3 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="97" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga5e6bff389611d55cc6ca4d3f21a7e4d2" prot="public" static="no">
+        <name>XGPIOPS_FOUR</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+<para>Flag for 4 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga720e46128be37b99f48c07ed2f8587b3" prot="public" static="no">
+        <name>XGPIOPS_SIX</name>
+        <initializer>6U</initializer>
+        <briefdescription>
+<para>Flag for 6 Value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1gaefc766e08002c191864802d6e3a3434e" compoundref="xgpiops_8c" startline="676" endline="803">XGpioPs_GetBankPin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" prot="public" static="no">
+        <name>XGpioPs_ReadReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddr) + (u32)(RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga7eb1bb1c621ea32f0b14c9ee47c23319" compoundref="xgpiops_8c" startline="447" endline="463">XGpioPs_GetDirection</referencedby>
+        <referencedby refid="group__gpiops_1gaa3bacad17006e4b01ff91f6f14e5d3f7" compoundref="xgpiops_8c" startline="481" endline="500">XGpioPs_GetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1gaed18cb81aceda214dba440cf6ff3d0ec" compoundref="xgpiops__intr_8c" startline="513" endline="539">XGpioPs_GetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga848274dc058043932e802a3caa39db3e" compoundref="xgpiops__intr_8c" startline="643" endline="699">XGpioPs_GetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1ga7977b334cb165a1cc2859b1bc1ac43df" compoundref="xgpiops_8c" startline="602" endline="618">XGpioPs_GetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga17714eeb15fff954fc42d6008e67af17" compoundref="xgpiops_8c" startline="636" endline="655">XGpioPs_GetOutputEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" compoundref="xgpiops__intr_8c" startline="408" endline="434">XGpioPs_IntrClearPin</referencedby>
+        <referencedby refid="group__gpiops_1gaad995f8c0ff2801d22cc405dacb3ed19" compoundref="xgpiops__intr_8c" startline="228" endline="247">XGpioPs_IntrGetEnabled</referencedby>
+        <referencedby refid="group__gpiops_1ga323857757f17a313a984de0b522341e3" compoundref="xgpiops__intr_8c" startline="265" endline="287">XGpioPs_IntrGetEnabledPin</referencedby>
+        <referencedby refid="group__gpiops_1ga47fc6f53355030ef41927f38fe37753f" compoundref="xgpiops__intr_8c" startline="302" endline="318">XGpioPs_IntrGetStatus</referencedby>
+        <referencedby refid="group__gpiops_1ga405556c1d1bc856dd35f8a4a92f50345" compoundref="xgpiops__intr_8c" startline="336" endline="358">XGpioPs_IntrGetStatusPin</referencedby>
+        <referencedby refid="group__gpiops_1gaac891da3a0b1ed5697644d621483ed62" compoundref="xgpiops_8c" startline="209" endline="225">XGpioPs_Read</referencedby>
+        <referencedby refid="group__gpiops_1ga5af7399d35110ae5f71be57316a2b9ee" compoundref="xgpiops_8c" startline="241" endline="260">XGpioPs_ReadPin</referencedby>
+        <referencedby refid="group__gpiops_1ga7cbd9e1081b8ed84d38b475fc89271cf" compoundref="xgpiops_8c" startline="401" endline="431">XGpioPs_SetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1ga841cc1098a21bdedec893545f15b025a" compoundref="xgpiops_8c" startline="555" endline="586">XGpioPs_SetOutputEnablePin</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__gpiops_1ga3ad586332c0958c5044450d735127337" prot="public" static="no">
+        <name>XGpioPs_WriteReg</name>
+        <param><defname>BaseAddr</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddr) + (u32)(RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>This macro writes to the given register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h" bodystart="135" bodyend="-1"/>
+        <referencedby refid="group__gpiops_1ga44dd638bb4642b969f6ba6edbd55a748" compoundref="xgpiops_8c" startline="83" endline="193">XGpioPs_CfgInitialize</referencedby>
+        <referencedby refid="group__gpiops_1gace8ee040fe190af86afe59ec1bc3201c" compoundref="xgpiops__intr_8c" startline="376" endline="393">XGpioPs_IntrClear</referencedby>
+        <referencedby refid="group__gpiops_1ga1b7365f4849c4bc37dbd0cee7df2b73b" compoundref="xgpiops__intr_8c" startline="408" endline="434">XGpioPs_IntrClearPin</referencedby>
+        <referencedby refid="group__gpiops_1ga5b84f2cbaaa08abf138209b975192326" compoundref="xgpiops__intr_8c" startline="152" endline="171">XGpioPs_IntrDisable</referencedby>
+        <referencedby refid="group__gpiops_1ga8a00fd131bf76eab2dcdd48079845b37" compoundref="xgpiops__intr_8c" startline="186" endline="210">XGpioPs_IntrDisablePin</referencedby>
+        <referencedby refid="group__gpiops_1ga812e5a4df20dcae1a95ec4b15d36f039" compoundref="xgpiops__intr_8c" startline="75" endline="94">XGpioPs_IntrEnable</referencedby>
+        <referencedby refid="group__gpiops_1gadc4ea201a1c488a1b667a77f3c6fd23b" compoundref="xgpiops__intr_8c" startline="109" endline="133">XGpioPs_IntrEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" compoundref="xgpiops__hw_8c" startline="63" endline="240">XGpioPs_ResetHw</referencedby>
+        <referencedby refid="group__gpiops_1gaab9fbd0037438e57fa33d096ac724613" compoundref="xgpiops_8c" startline="370" endline="386">XGpioPs_SetDirection</referencedby>
+        <referencedby refid="group__gpiops_1ga7cbd9e1081b8ed84d38b475fc89271cf" compoundref="xgpiops_8c" startline="401" endline="431">XGpioPs_SetDirectionPin</referencedby>
+        <referencedby refid="group__gpiops_1gac729652384b6d04711a9d1f2a62aee1d" compoundref="xgpiops__intr_8c" startline="463" endline="488">XGpioPs_SetIntrType</referencedby>
+        <referencedby refid="group__gpiops_1ga4ef808e6f8e113ba1371f44c35b1d0d9" compoundref="xgpiops__intr_8c" startline="556" endline="627">XGpioPs_SetIntrTypePin</referencedby>
+        <referencedby refid="group__gpiops_1ga7c1ae54b29cedd921fbe9f6ef503ceef" compoundref="xgpiops_8c" startline="520" endline="536">XGpioPs_SetOutputEnable</referencedby>
+        <referencedby refid="group__gpiops_1ga841cc1098a21bdedec893545f15b025a" compoundref="xgpiops_8c" startline="555" endline="586">XGpioPs_SetOutputEnablePin</referencedby>
+        <referencedby refid="group__gpiops_1ga0f55b3804d13293880455a79d4f45e37" compoundref="xgpiops_8c" startline="277" endline="293">XGpioPs_Write</referencedby>
+        <referencedby refid="group__gpiops_1gab9ff633d57fb32cac3424571ba690332" compoundref="xgpiops_8c" startline="311" endline="348">XGpioPs_WritePin</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XGpioPs_ResetHw</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XGpioPs_ResetHw</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function resets the GPIO module by writing reset values to all registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>address of GPIO module</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.c" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.c" bodystart="63" bodyend="240"/>
+        <references refid="group__gpiops_1ga2253433045676585190fa543860141d5" compoundref="xgpiops__hw_8h" startline="69">XGPIOPS_DATA_BANK_OFFSET</references>
+        <references refid="group__gpiops_1ga05aff41166bea96304f2fa71e21362c4" compoundref="xgpiops__hw_8h" startline="50">XGPIOPS_DATA_LSW_OFFSET</references>
+        <references refid="group__gpiops_1ga1a0e56e2d9952e68d3737707d7b29581" compoundref="xgpiops__hw_8h" startline="68">XGPIOPS_DATA_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga05b7d35cd223526d8861934f44232284" compoundref="xgpiops__hw_8h" startline="51">XGPIOPS_DATA_MSW_OFFSET</references>
+        <references refid="group__gpiops_1ga3d795f07c1e9e4bfcac2859112fbbd88" compoundref="xgpiops__hw_8h" startline="52">XGPIOPS_DATA_OFFSET</references>
+        <references refid="group__gpiops_1gaee82145f62455e2928a5b8fe66553a40" compoundref="xgpiops__hw_8h" startline="54">XGPIOPS_DIRM_OFFSET</references>
+        <references refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" compoundref="xgpiops__hw_8h" startline="62">XGPIOPS_INTANY_OFFSET</references>
+        <references refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" compoundref="xgpiops__hw_8h" startline="58">XGPIOPS_INTDIS_OFFSET</references>
+        <references refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" compoundref="xgpiops__hw_8h" startline="57">XGPIOPS_INTEN_OFFSET</references>
+        <references refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" compoundref="xgpiops__hw_8h" startline="56">XGPIOPS_INTMASK_OFFSET</references>
+        <references refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" compoundref="xgpiops__hw_8h" startline="61">XGPIOPS_INTPOL_OFFSET</references>
+        <references refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" compoundref="xgpiops__hw_8h" startline="59">XGPIOPS_INTSTS_OFFSET</references>
+        <references refid="group__gpiops_1ga8c9a16d604addea8146e2672823f1dc4" compoundref="xgpiops__hw_8h" startline="84">XGPIOPS_INTTYPE_BANK0_RESET</references>
+        <references refid="group__gpiops_1gae7120883729ac7440f9bbc378f21422a" compoundref="xgpiops__hw_8h" startline="85">XGPIOPS_INTTYPE_BANK1_RESET</references>
+        <references refid="group__gpiops_1ga8aa4d8c9862e1f3af162c56a42b2e5f2" compoundref="xgpiops__hw_8h" startline="86">XGPIOPS_INTTYPE_BANK2_RESET</references>
+        <references refid="group__gpiops_1gafa809c9d03d6939520e98babf4361100" compoundref="xgpiops__hw_8h" startline="89">XGPIOPS_INTTYPE_BANK3_RESET</references>
+        <references refid="group__gpiops_1ga514054481f5f916ee70f5d8ea40d926b" compoundref="xgpiops__hw_8h" startline="90">XGPIOPS_INTTYPE_BANK4_RESET</references>
+        <references refid="group__gpiops_1gae5904f463885a5fda6141f578da35bea" compoundref="xgpiops__hw_8h" startline="91">XGPIOPS_INTTYPE_BANK5_RESET</references>
+        <references refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" compoundref="xgpiops__hw_8h" startline="60">XGPIOPS_INTTYPE_OFFSET</references>
+        <references refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" compoundref="xgpiops__hw_8h" startline="95">XGPIOPS_ONE</references>
+        <references refid="group__gpiops_1ga74dfb9103ef810106a70f8355e319004" compoundref="xgpiops__hw_8h" startline="55">XGPIOPS_OUTEN_OFFSET</references>
+        <references refid="group__gpiops_1ga4d0720a82ffbc02f22a5a2483415687a" compoundref="xgpiops__hw_8h" startline="93">XGPIOPS_PS_GPIO_BASEADDR</references>
+        <references refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" compoundref="xgpiops__hw_8h" startline="70">XGPIOPS_REG_MASK_OFFSET</references>
+        <references refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" compoundref="xgpiops__hw_8h" startline="96">XGPIOPS_TWO</references>
+        <references refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" compoundref="xgpiops__hw_8h" startline="135">XGpioPs_WriteReg</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor">#ifndef<sp/>XGPIOPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="33" refid="group__gpiops_1gae9716887ddbdd1ac6093380b90d0eb57" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIOPS_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__cplusplus<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__gpiops_1ga05aff41166bea96304f2fa71e21362c4" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_LSW_OFFSET<sp/><sp/>0x00000000U<sp/><sp/></highlight></codeline>
+<codeline lineno="51" refid="group__gpiops_1ga05b7d35cd223526d8861934f44232284" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_MSW_OFFSET<sp/><sp/>0x00000004U<sp/><sp/></highlight></codeline>
+<codeline lineno="52" refid="group__gpiops_1ga3d795f07c1e9e4bfcac2859112fbbd88" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000040U<sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__gpiops_1ga29e4ebe4ad7fef5e1a1fe215f578d8a8" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_RO_OFFSET<sp/><sp/><sp/>0x00000060U<sp/><sp/></highlight></codeline>
+<codeline lineno="54" refid="group__gpiops_1gaee82145f62455e2928a5b8fe66553a40" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DIRM_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00000204U<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__gpiops_1ga74dfb9103ef810106a70f8355e319004" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_OUTEN_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000208U<sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__gpiops_1ga63ee987794c805429f6e0c34b62ae5b9" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTMASK_OFFSET<sp/><sp/><sp/>0x0000020CU<sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__gpiops_1ga090dab3e38b9493eb63a30c4cc9a9267" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTEN_OFFSET<sp/><sp/><sp/><sp/><sp/>0x00000210U<sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="group__gpiops_1ga457b603b9dda39af3aad037e3fb7fe89" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTDIS_OFFSET<sp/><sp/><sp/><sp/>0x00000214U<sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__gpiops_1ga6eac2572743836b91aae65e35e2b4ff2" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTSTS_OFFSET<sp/><sp/><sp/><sp/>0x00000218U<sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__gpiops_1gad50a2feb73c4055285aa11d1de90c402" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_OFFSET<sp/><sp/><sp/>0x0000021CU<sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__gpiops_1gafd48f3262cc46cf828f219edcdb08920" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTPOL_OFFSET<sp/><sp/><sp/><sp/>0x00000220U<sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__gpiops_1ga9ba60ac847a2c6ad66240cf1a849afba" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTANY_OFFSET<sp/><sp/><sp/><sp/>0x00000224U<sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="group__gpiops_1ga1a0e56e2d9952e68d3737707d7b29581" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_MASK_OFFSET<sp/>0x00000008U<sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="group__gpiops_1ga2253433045676585190fa543860141d5" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_DATA_BANK_OFFSET<sp/>0x00000004U<sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="group__gpiops_1ga9ba138bbcd05d5e10978166741a8184b" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_REG_MASK_OFFSET<sp/><sp/>0x00000040U<sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>For<sp/>backwards<sp/>compatibility<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74" refid="group__gpiops_1gac021029c611041a62843fbf68caa22de" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIOPS_BYPM_MASK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)0x40<sp/></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor">#ifdef<sp/>XPAR_PSU_GPIO_0_BASEADDR</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK0_RESET<sp/><sp/>0x03FFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK1_RESET<sp/><sp/>0x03FFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK2_RESET<sp/><sp/>0x03FFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="84" refid="group__gpiops_1ga8c9a16d604addea8146e2672823f1dc4" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK0_RESET<sp/><sp/>0xFFFFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group__gpiops_1gae7120883729ac7440f9bbc378f21422a" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK1_RESET<sp/><sp/>0x003FFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="86" refid="group__gpiops_1ga8aa4d8c9862e1f3af162c56a42b2e5f2" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK2_RESET<sp/><sp/>0xFFFFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="group__gpiops_1gafa809c9d03d6939520e98babf4361100" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK3_RESET<sp/><sp/>0xFFFFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="90" refid="group__gpiops_1ga514054481f5f916ee70f5d8ea40d926b" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK4_RESET<sp/><sp/>0xFFFFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="91" refid="group__gpiops_1gae5904f463885a5fda6141f578da35bea" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_INTTYPE_BANK5_RESET<sp/><sp/>0xFFFFFFFFU<sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="group__gpiops_1ga4d0720a82ffbc02f22a5a2483415687a" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_PS_GPIO_BASEADDR<sp/><sp/><sp/><sp/><sp/>0xFF0B0000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="94" refid="group__gpiops_1ga7bd601d046958f33b4fcd879f4fd6e5d" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_ZERO<sp/><sp/><sp/><sp/>0U<sp/><sp/></highlight></codeline>
+<codeline lineno="95" refid="group__gpiops_1ga39c1b071b7df6679f0d1450de2b3bb48" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_ONE<sp/><sp/><sp/><sp/><sp/>1U<sp/><sp/></highlight></codeline>
+<codeline lineno="96" refid="group__gpiops_1ga2bbdd623677a2984b1d0eb497337f559" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_TWO<sp/><sp/><sp/><sp/><sp/>2U<sp/><sp/></highlight></codeline>
+<codeline lineno="97" refid="group__gpiops_1gae7e81604ed741912fbaf1dac2b17d90c" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_THREE<sp/><sp/><sp/>3U<sp/><sp/></highlight></codeline>
+<codeline lineno="98" refid="group__gpiops_1ga5e6bff389611d55cc6ca4d3f21a7e4d2" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_FOUR<sp/><sp/><sp/><sp/>4U<sp/><sp/></highlight></codeline>
+<codeline lineno="99" refid="group__gpiops_1ga720e46128be37b99f48c07ed2f8587b3" refkind="member"><highlight class="preprocessor">#define<sp/>XGPIOPS_SIX<sp/><sp/><sp/><sp/><sp/>6U<sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="118" refid="group__gpiops_1gaff08ac5be0729f046324cae2706aaf9a" refkind="member"><highlight class="preprocessor">#define<sp/>XGpioPs_ReadReg(BaseAddr,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddr)<sp/>+<sp/>(u32)(RegOffset))</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="135" refid="group__gpiops_1ga3ad586332c0958c5044450d735127337" refkind="member"><highlight class="preprocessor">#define<sp/>XGpioPs_WriteReg(BaseAddr,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddr)<sp/>+<sp/>(u32)(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__gpiops_1gafc3c808cbcebdad62fd51dae3721d832" kindref="member">XGpioPs_ResetHw</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__cplusplus<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XGPIOPS_HW_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/gpiops/src/xgpiops_hw.h"/>
+  </compounddef>
+</doxygen>

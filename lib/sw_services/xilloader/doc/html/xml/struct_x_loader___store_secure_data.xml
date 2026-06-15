@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___store_secure_data" kind="struct" prot="public">
+    <compoundname>XLoader_StoreSecureData</compoundname>
+    <includes local="no">xloader_auth_enc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___store_secure_data_1aff4e136135f2de1a23ee4fe01e1f63d9" prot="public" static="no" mutable="no">
+        <type>XLoader_AuthCertificate</type>
+        <definition>XLoader_AuthCertificate XLoader_StoreSecureData::AuthCert</definition>
+        <argsstring></argsstring>
+        <name>AuthCert</name>
+        <briefdescription>
+<para>Authentication certificate. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="819" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="819" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___store_secure_data_1adbb1f67b69cccaa8f91bbd4d0e93f756" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_StoreSecureData::RsaSha3Array[XLOADER_RSA_4096_KEY_SIZE]</definition>
+        <argsstring>[XLOADER_RSA_4096_KEY_SIZE]</argsstring>
+        <name>RsaSha3Array</name>
+        <briefdescription>
+<para>RSA Sha3 array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="820" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="820" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___store_secure_data_1a323b24c6684b284442af355277e6871b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XLoader_StoreSecureData::Buffer[XLOADER_RSA_PSS_BUFFER_LEN]</definition>
+        <argsstring>[XLOADER_RSA_PSS_BUFFER_LEN]</argsstring>
+        <name>Buffer</name>
+        <briefdescription>
+<para>Buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="821" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="821" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___store_secure_data_1acf8c3aa7502195a3efc5b8830811c507" prot="public" static="no" mutable="no">
+        <type>XPuf_Data</type>
+        <definition>XPuf_Data XLoader_StoreSecureData::PufData</definition>
+        <argsstring></argsstring>
+        <name>PufData</name>
+        <briefdescription>
+<para>Puf data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="822" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="822" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to hold secure data. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="818" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="818" bodyend="823"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___store_secure_data_1aff4e136135f2de1a23ee4fe01e1f63d9" prot="public" virt="non-virtual"><scope>XLoader_StoreSecureData</scope><name>AuthCert</name></member>
+      <member refid="struct_x_loader___store_secure_data_1a323b24c6684b284442af355277e6871b" prot="public" virt="non-virtual"><scope>XLoader_StoreSecureData</scope><name>Buffer</name></member>
+      <member refid="struct_x_loader___store_secure_data_1acf8c3aa7502195a3efc5b8830811c507" prot="public" virt="non-virtual"><scope>XLoader_StoreSecureData</scope><name>PufData</name></member>
+      <member refid="struct_x_loader___store_secure_data_1adbb1f67b69cccaa8f91bbd4d0e93f756" prot="public" virt="non-virtual"><scope>XLoader_StoreSecureData</scope><name>RsaSha3Array</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

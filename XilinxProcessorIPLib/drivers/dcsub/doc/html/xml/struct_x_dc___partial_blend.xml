@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dc___partial_blend" kind="struct" prot="public">
+    <compoundname>XDc_PartialBlend</compoundname>
+    <includes local="no">xdc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1a0627444b29127c091c0654cbdfad1aac" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::CoordX</definition>
+        <argsstring></argsstring>
+        <name>CoordX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="353" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="353" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1aefad4c9d34c71166c6499558a7e21740" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::CoordY</definition>
+        <argsstring></argsstring>
+        <name>CoordY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="354" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="354" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1ac9490d82c4195bf00a9b98d7e373b385" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::SizeX</definition>
+        <argsstring></argsstring>
+        <name>SizeX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1a6e5f6beba9da333e067ff43650021dd3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::SizeY</definition>
+        <argsstring></argsstring>
+        <name>SizeY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1a9f05404f8ef7fd8a1d2aa5a816e63a5b" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::OffsetX</definition>
+        <argsstring></argsstring>
+        <name>OffsetX</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="357" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dc___partial_blend_1a10c71d102058f47a10aa08e237897e29" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDc_PartialBlend::OffsetY</definition>
+        <argsstring></argsstring>
+        <name>OffsetY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes the partial blend coords. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" line="351" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dcsub/src/xdc.h" bodystart="351" bodyend="360"/>
+    <listofallmembers>
+      <member refid="struct_x_dc___partial_blend_1a0627444b29127c091c0654cbdfad1aac" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>CoordX</name></member>
+      <member refid="struct_x_dc___partial_blend_1aefad4c9d34c71166c6499558a7e21740" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>CoordY</name></member>
+      <member refid="struct_x_dc___partial_blend_1a9f05404f8ef7fd8a1d2aa5a816e63a5b" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>OffsetX</name></member>
+      <member refid="struct_x_dc___partial_blend_1a10c71d102058f47a10aa08e237897e29" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>OffsetY</name></member>
+      <member refid="struct_x_dc___partial_blend_1ac9490d82c4195bf00a9b98d7e373b385" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>SizeX</name></member>
+      <member refid="struct_x_dc___partial_blend_1a6e5f6beba9da333e067ff43650021dd3" prot="public" virt="non-virtual"><scope>XDc_PartialBlend</scope><name>SizeY</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

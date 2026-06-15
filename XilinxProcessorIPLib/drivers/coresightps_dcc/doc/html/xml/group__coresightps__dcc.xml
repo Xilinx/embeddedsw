@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__coresightps__dcc" kind="group">
+    <compoundname>coresightps_dcc</compoundname>
+    <title>Overview</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__coresightps__dcc_1ga74003f6d0f9f7987a8554dd389fd9182" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 XCoresightPs_DccGetStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XCoresightPs_DccGetStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>INLINE. </para>        </briefdescription>
+        <detaileddescription>
+<para>This functions read the status register of the DCC.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The contents of the Status Register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="153" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="group__coresightps__dcc_1ga8a5824ce159a24ea536a04cb80087249" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XCoresightPs_DccSendByte</definition>
+        <argsstring>(u32 BaseAddress, u8 Data)</argsstring>
+        <name>XCoresightPs_DccSendByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This functions sends a single byte using the DCC. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is blocking in that it waits for the transmitter to become non-full before it writes the byte to the transmit register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a dummy parameter to match the function proto of functions for other stdio devices. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the byte of data to send</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="78" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="group__coresightps__dcc_1ga9b2db90006be1a49e9e8428e91c6a655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 XCoresightPs_DccRecvByte</definition>
+        <argsstring>(u32 BaseAddress)</argsstring>
+        <name>XCoresightPs_DccRecvByte</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This functions receives a single byte using the DCC. </para>        </briefdescription>
+        <detaileddescription>
+<para>It is blocking in that it waits for the receiver to become non-empty before it reads from the receive register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a dummy parameter to match the function proto of functions for other stdio devices.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The byte of data received.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="116" bodyend="139"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__coresightps__dcc_1ga2eb6f9e0395b47b8d5e3eeae4fe0c116" prot="public" static="no">
+        <name>INLINE</name>
+        <initializer>__inline</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="53" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__coresightps__dcc_1ga2ee8d807420c735c1ba17a26fc4491b0" prot="public" static="no">
+        <name>XCORESIGHTPS_DCC_STATUS_RX</name>
+        <initializer>(1 &lt;&lt; 30)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__coresightps__dcc_1gade67de45c061af33652b3b410ee8b915" prot="public" static="no">
+        <name>XCORESIGHTPS_DCC_STATUS_TX</name>
+        <initializer>(1 &lt;&lt; 29)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__coresightps__dcc_1gaf77fb5d935e60314cf2b35deeae53c76" prot="public" static="no">
+        <name>XCORESIGHTPSDCC_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/coresightps_dcc/src/xcoresightpsdcc.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Functions in this file are the minimum required functions for the XCoreSightPs driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>}</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date               Changes
+<hruler/>
+
+1.00  kvn    02/14/15 First release
+1.1   kvn    06/12/15 Add support for Zynq Ultrascale+ MP.
+      kvn    08/18/15 Modified Makefile according to compiler changes.
+1.2   kvn    10/09/15 Add support for IAR Compiler.
+1.3   asa    07/01/16 Made changes to ensure that the file does not compile
+                      for MB BSPs. Instead it throws up a warning. This
+                      fixes the CR#953056.
+1.5   sne    01/19/19 Fixed MISRA-C Violations CR#1025101.
+1.9   ht     07/05/23 Added support for system device-tree flow.
+1.10  mus    10/06/23 Fix compilation error for Microblaze RISC-V processor.
+1.10  ml     11/15/23 Fix compilation errors reported with -std=c2x compiler flag
+1.13  ml     07/21/25 Fixed GCC warnings
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

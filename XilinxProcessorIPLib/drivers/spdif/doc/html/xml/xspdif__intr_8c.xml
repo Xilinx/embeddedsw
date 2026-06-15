@@ -1,0 +1,327 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspdif__intr_8c" kind="file">
+    <compoundname>xspdif_intr.c</compoundname>
+    <includes refid="xspdif_8h" local="yes">xspdif.h</includes>
+    <incdepgraph>
+      <node id="72">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="71">
+        <label>xil_io.h</label>
+      </node>
+      <node id="68">
+        <label>xspdif_intr.c</label>
+        <link refid="xspdif_intr.c"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="69">
+        <label>xspdif.h</label>
+        <link refid="xspdif_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="70">
+        <label>xspdif_hw.h</label>
+        <link refid="xspdif__hw_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpdif_IntrHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XSpdif_IntrHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler reads the pending interrupt from the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> peripheral, determines the source of the interrupts, clears the interrupts and calls call backs accordingly.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="232" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_intr.c" bodystart="55" bodyend="127"/>
+        <references refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" compoundref="xspdif_8h" startline="91">XSpdif_Config::BaseAddress</references>
+        <references refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" compoundref="xspdif_8h" startline="124">XSpdif::BmcErrHandler</references>
+        <references refid="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" compoundref="xspdif_8h" startline="125">XSpdif::BmcErrHandlerRef</references>
+        <references refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" compoundref="xspdif_8h" startline="109">XSpdif::Config</references>
+        <references refid="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" compoundref="xspdif_8h" startline="105">XSpdif::IsReady</references>
+        <references refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" compoundref="xspdif_8h" startline="127">XSpdif::PreambleErrHandler</references>
+        <references refid="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" compoundref="xspdif_8h" startline="129">XSpdif::PreambleErrHandlerRef</references>
+        <references refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" compoundref="xspdif_8h" startline="121">XSpdif::StartOfBlockHandler</references>
+        <references refid="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" compoundref="xspdif_8h" startline="122">XSpdif::StartOfBlockHandlerRef</references>
+        <references refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" compoundref="xspdif_8h" startline="116">XSpdif::TxOrRxFifoEmptyHandler</references>
+        <references refid="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" compoundref="xspdif_8h" startline="118">XSpdif::TxOrRxFifoEmptyHandlerRef</references>
+        <references refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" compoundref="xspdif_8h" startline="111">XSpdif::TxOrRxFifoFullHandler</references>
+        <references refid="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" compoundref="xspdif_8h" startline="113">XSpdif::TxOrRxFifoFullHandlerRef</references>
+        <references refid="group__spdif_1gaa68d454f0f8827129c0ec744fbf3138f" compoundref="xspdif__hw_8h" startline="121">XSPDIF_BMC_ERROR_MASK</references>
+        <references refid="group__spdif_1ga2e873c24b76b1f0c5ea5e2067fe96127" compoundref="xspdif__hw_8h" startline="47">XSPDIF_INTERRUPT_ENABLE_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1gafecdc424bebe7cf1f779fc5d479c48c3" compoundref="xspdif__hw_8h" startline="44">XSPDIF_INTERRUPT_STATUS_REGISTER_OFFSET</references>
+        <references refid="group__spdif_1ga4a060f08a718b7727555715810fb6caf" compoundref="xspdif__hw_8h" startline="127">XSPDIF_PREAMBLE_ERROR_MASK</references>
+        <references refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" compoundref="xspdif__hw_8h" startline="179">XSpdif_ReadReg</references>
+        <references refid="group__spdif_1ga85ffec35bf477ccfe1e0cfc949ff7b26" compoundref="xspdif__hw_8h" startline="115">XSPDIF_START_OF_BLOCK_MASK</references>
+        <references refid="group__spdif_1ga01764f0f8e04b295b8ec379e1c039190" compoundref="xspdif__hw_8h" startline="109">XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK</references>
+        <references refid="group__spdif_1gabe00ee416b556177d910c3e17fb9e873" compoundref="xspdif__hw_8h" startline="103">XSPDIF_TX_OR_RX_FIFO_FULL_MASK</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSpdif_SetHandler</definition>
+        <argsstring>(XSpdif *InstancePtr, XSpdif_HandlerType HandlerType, XSpdif_Callback FuncPtr, void *CallbackRef)</argsstring>
+        <name>XSpdif_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__spdif_1ga940a3713eec742adfc1a3e29c4b15380" kindref="member">XSpdif_HandlerType</ref></type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+          <declname>FuncPtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                              Callback Function
+--------------------------------         ----------------------------------
+(XSPDIF_HANDLER_START_OF_BLOCK)          StartOfBlockHandler
+(XSPDIF_HANDLE_PREAMBLE_ERROR)           PreambleErrHandler
+(XSPDIF_HANDLE_BMC_ERROR)                   BmcErrHandler
+(XSPDIF_HANDLER_TX_OR_RX_FIFO_EMPTY)     TxOrRxFifoEmptyHandler
+(XSPDIF_HANDLER_TX_OR_RX_FIFO_FULL)         TxOrRxFifoFullHandler
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> core instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference pointer passed on actual calling of the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_intr.c" bodystart="158" bodyend="200"/>
+        <references refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" compoundref="xspdif_8h" startline="124">XSpdif::BmcErrHandler</references>
+        <references refid="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" compoundref="xspdif_8h" startline="125">XSpdif::BmcErrHandlerRef</references>
+        <references refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" compoundref="xspdif_8h" startline="127">XSpdif::PreambleErrHandler</references>
+        <references refid="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" compoundref="xspdif_8h" startline="129">XSpdif::PreambleErrHandlerRef</references>
+        <references refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" compoundref="xspdif_8h" startline="121">XSpdif::StartOfBlockHandler</references>
+        <references refid="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" compoundref="xspdif_8h" startline="122">XSpdif::StartOfBlockHandlerRef</references>
+        <references refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" compoundref="xspdif_8h" startline="116">XSpdif::TxOrRxFifoEmptyHandler</references>
+        <references refid="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" compoundref="xspdif_8h" startline="118">XSpdif::TxOrRxFifoEmptyHandlerRef</references>
+        <references refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" compoundref="xspdif_8h" startline="111">XSpdif::TxOrRxFifoFullHandler</references>
+        <references refid="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" compoundref="xspdif_8h" startline="113">XSpdif::TxOrRxFifoFullHandlerRef</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380ae76aadd852b550320abf9c70c11c9edf" compoundref="xspdif_8h" startline="56">XSPDIF_HANDLER_BMC_ERROR</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a667ba4ab02ca92b8018394b5b83ba071" compoundref="xspdif_8h" startline="57">XSPDIF_HANDLER_PREAMBLE_ERROR</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a5fa88a88168c2940c70738fef4e98e44" compoundref="xspdif_8h" startline="55">XSPDIF_HANDLER_START_OF_BLOCK</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a1857cc8bbe2625f1fb4cb7bc3235a03a" compoundref="xspdif_8h" startline="53">XSPDIF_HANDLER_TX_OR_RX_FIFO_EMPTY</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380aa6ea099c732a106ff5a8065575c8d804" compoundref="xspdif_8h" startline="51">XSPDIF_HANDLER_TX_OR_RX_FIFO_FULL</references>
+        <references refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a6dcf2c3d86bf599fd9d9765924c400d9" compoundref="xspdif_8h" startline="58">XSPDIF_NUM_HANDLERS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspdif_8h" kindref="compound">xspdif.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="55" refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" kindref="member">XSpdif_IntrHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EnableMask;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>the<sp/>non-typed<sp/>pointer<sp/>to<sp/>a<sp/>XSpdif<sp/>instance<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*SpdifPtr<sp/>=<sp/>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*)InstancePtr;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SpdifPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>interrupt<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1gafecdc424bebe7cf1f779fc5d479c48c3" kindref="member">XSPDIF_INTERRUPT_STATUS_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>the<sp/>interrupt<sp/>enable<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EnableMask<sp/>=<sp/><ref refid="group__spdif_1ga8a5504bdf152f4699dda951a971b5ce5" kindref="member">XSpdif_ReadReg</ref>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" kindref="member">Config</ref>.<ref refid="struct_x_spdif___config_1acdcb872d4328715153ab3ccd5ef44e09" kindref="member">BaseAddress</ref>,</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga2e873c24b76b1f0c5ea5e2067fe96127" kindref="member">XSPDIF_INTERRUPT_ENABLE_REGISTER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>Data<sp/>&amp;<sp/>EnableMask;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Start<sp/>of<sp/>Block<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga85ffec35bf477ccfe1e0cfc949ff7b26" kindref="member">XSPDIF_START_OF_BLOCK_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>start<sp/>of<sp/>block<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_IntrClear(SpdifPtr,<sp/>XSPDIF_START_OF_BLOCK_MASK);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>start<sp/>of<sp/>block<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" kindref="member">StartOfBlockHandler</ref>)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" kindref="member">StartOfBlockHandler</ref>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" kindref="member">StartOfBlockHandlerRef</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Premble<sp/>error<sp/>detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga4a060f08a718b7727555715810fb6caf" kindref="member">XSPDIF_PREAMBLE_ERROR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>Preamble<sp/>error<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_IntrClear(SpdifPtr,<sp/>XSPDIF_PREAMBLE_ERROR_MASK);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>Preamble<sp/>error<sp/>Complete<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" kindref="member">PreambleErrHandler</ref>)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" kindref="member">PreambleErrHandler</ref>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" kindref="member">PreambleErrHandlerRef</ref>);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BMC<sp/>Error<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1gaa68d454f0f8827129c0ec744fbf3138f" kindref="member">XSPDIF_BMC_ERROR_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>BMC<sp/>error<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_IntrClear(SpdifPtr,<sp/>XSPDIF_BMC_ERROR_MASK);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>BMC<sp/>Error<sp/>Detected<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" kindref="member">BmcErrHandler</ref>)</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" kindref="member">BmcErrHandler</ref>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" kindref="member">BmcErrHandlerRef</ref>);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmitter<sp/>or<sp/>Receiver<sp/>FIFO<sp/>Empty<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1ga01764f0f8e04b295b8ec379e1c039190" kindref="member">XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>Transmitter<sp/>or<sp/>Receiver<sp/>Empty<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_IntrClear(SpdifPtr,<sp/>XSPDIF_TX_OR_RX_FIFO_EMPTY_MASK);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>Transmitter<sp/>or<sp/>Receiver<sp/>FIFO<sp/>Empty<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" kindref="member">TxOrRxFifoEmptyHandler</ref>)</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" kindref="member">TxOrRxFifoEmptyHandler</ref>(</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" kindref="member">TxOrRxFifoEmptyHandlerRef</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmitter<sp/>or<sp/>Receiver<sp/>FIFO<sp/>Full<sp/>Detected<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Data<sp/>&amp;<sp/><ref refid="group__spdif_1gabe00ee416b556177d910c3e17fb9e873" kindref="member">XSPDIF_TX_OR_RX_FIFO_FULL_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>Transmitter<sp/>or<sp/>Receiver<sp/>Empty<sp/>event<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSpdif_IntrClear(SpdifPtr,<sp/>XSPDIF_TX_OR_RX_FIFO_FULL_MASK);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Call<sp/>the<sp/>transmitter<sp/>or<sp/>Receiver<sp/>Empty<sp/>Handler<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SpdifPtr-&gt;<ref refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" kindref="member">TxOrRxFifoFullHandler</ref>)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" kindref="member">TxOrRxFifoFullHandler</ref>(</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SpdifPtr-&gt;<ref refid="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" kindref="member">TxOrRxFifoFullHandlerRef</ref>);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="158" refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" kindref="member">XSpdif_SetHandler</ref>(<ref refid="struct_x_spdif" kindref="compound">XSpdif</ref><sp/>*InstancePtr,<sp/><ref refid="group__spdif_1ga940a3713eec742adfc1a3e29c4b15380" kindref="member">XSpdif_HandlerType</ref><sp/>HandlerType,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref><sp/>FuncPtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&lt;<sp/><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a6dcf2c3d86bf599fd9d9765924c400d9" kindref="member">XSPDIF_NUM_HANDLERS</ref>);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a5fa88a88168c2940c70738fef4e98e44" kindref="member">XSPDIF_HANDLER_START_OF_BLOCK</ref>:</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" kindref="member">StartOfBlockHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" kindref="member">StartOfBlockHandlerRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a667ba4ab02ca92b8018394b5b83ba071" kindref="member">XSPDIF_HANDLER_PREAMBLE_ERROR</ref>:</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" kindref="member">PreambleErrHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" kindref="member">PreambleErrHandlerRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380ae76aadd852b550320abf9c70c11c9edf" kindref="member">XSPDIF_HANDLER_BMC_ERROR</ref>:</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" kindref="member">BmcErrHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" kindref="member">BmcErrHandlerRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380a1857cc8bbe2625f1fb4cb7bc3235a03a" kindref="member">XSPDIF_HANDLER_TX_OR_RX_FIFO_EMPTY</ref>:</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" kindref="member">TxOrRxFifoEmptyHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" kindref="member">TxOrRxFifoEmptyHandlerRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/><ref refid="group__spdif_1gga940a3713eec742adfc1a3e29c4b15380aa6ea099c732a106ff5a8065575c8d804" kindref="member">XSPDIF_HANDLER_TX_OR_RX_FIFO_FULL</ref>:</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" kindref="member">TxOrRxFifoFullHandler</ref><sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" kindref="member">TxOrRxFifoFullHandlerRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif_intr.c"/>
+  </compounddef>
+</doxygen>

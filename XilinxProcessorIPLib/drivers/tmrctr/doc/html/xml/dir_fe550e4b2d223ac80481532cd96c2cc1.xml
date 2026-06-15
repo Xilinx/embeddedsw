@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_fe550e4b2d223ac80481532cd96c2cc1" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xtmrctr_8c">xtmrctr.c</innerfile>
+    <innerfile refid="xtmrctr_8h">xtmrctr.h</innerfile>
+    <innerfile refid="xtmrctr__g_8c">xtmrctr_g.c</innerfile>
+    <innerfile refid="xtmrctr__i_8h">xtmrctr_i.h</innerfile>
+    <innerfile refid="xtmrctr__intr_8c">xtmrctr_intr.c</innerfile>
+    <innerfile refid="xtmrctr__l_8c">xtmrctr_l.c</innerfile>
+    <innerfile refid="xtmrctr__l_8h">xtmrctr_l.h</innerfile>
+    <innerfile refid="xtmrctr__options_8c">xtmrctr_options.c</innerfile>
+    <innerfile refid="xtmrctr__selftest_8c">xtmrctr_selftest.c</innerfile>
+    <innerfile refid="xtmrctr__sinit_8c">xtmrctr_sinit.c</innerfile>
+    <innerfile refid="xtmrctr__stats_8c">xtmrctr_stats.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/"/>
+  </compounddef>
+</doxygen>

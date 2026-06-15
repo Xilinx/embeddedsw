@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_22a21abd0eaf61e66e2954331df2902d" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xuartpsv_8c">xuartpsv.c</innerfile>
+    <innerfile refid="xuartpsv_8h">xuartpsv.h</innerfile>
+    <innerfile refid="xuartpsv__g_8c">xuartpsv_g.c</innerfile>
+    <innerfile refid="xuartpsv__hw_8c">xuartpsv_hw.c</innerfile>
+    <innerfile refid="xuartpsv__hw_8h">xuartpsv_hw.h</innerfile>
+    <innerfile refid="xuartpsv__intr_8c">xuartpsv_intr.c</innerfile>
+    <innerfile refid="xuartpsv__options_8c">xuartpsv_options.c</innerfile>
+    <innerfile refid="xuartpsv__selftest_8c">xuartpsv_selftest.c</innerfile>
+    <innerfile refid="xuartpsv__sinit_8c">xuartpsv_sinit.c</innerfile>
+    <innerfile refid="xuartpsv__xfer_8h">xuartpsv_xfer.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/uartpsv/src/"/>
+  </compounddef>
+</doxygen>

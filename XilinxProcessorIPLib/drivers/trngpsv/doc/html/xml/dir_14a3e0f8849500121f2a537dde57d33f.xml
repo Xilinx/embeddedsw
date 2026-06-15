@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_14a3e0f8849500121f2a537dde57d33f" kind="dir">
+    <compoundname>trngpsv</compoundname>
+    <innerdir refid="dir_02dd1c9d10498926f44e851e6f150de7">examples</innerdir>
+    <innerdir refid="dir_9e511163b686422a0288baffc64cc4e4">src</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/trngpsv/"/>
+  </compounddef>
+</doxygen>

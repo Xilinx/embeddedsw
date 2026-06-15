@@ -1,0 +1,342 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilskey__epl_8h" kind="file">
+    <compoundname>xilskey_epl.h</compoundname>
+    <includedby refid="xilskey__epl_8c" local="yes">xilskey_epl.c</includedby>
+    <includedby refid="xilskey__efuse__example_8c" local="yes">xilskey_efuse_example.c</includedby>
+    <invincdepgraph>
+      <node id="94">
+        <label>xilskey_epl.c</label>
+        <link refid="xilskey__epl_8c"/>
+      </node>
+      <node id="93">
+        <label>xilskey_epl.h</label>
+        <link refid="xilskey_epl.h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>xilskey_efuse_example.c</label>
+        <link refid="xilskey__efuse__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1gab832f8fd82a6f4797eff212ff27fc3eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_SystemInit</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_SystemInit</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Initializes PL eFUSE with input data given. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Input data to be written to PL eFUSE</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>Updates the global variable ErrorCode with error code(if any). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Start using the Jtag server to read the JTAG ID and compare with the stored ID, if it not matches return with unique error code. By reading the Jtag ID we will be sure that the JTAG related stuff is working as expected.</para><para>If everything is ok then return PASS.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="441" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="551" bodyend="613"/>
+        <references refid="group__xilskey__plefuse__error__codes_1gga8fd80cd0c662e8df2920d23077b48d65a8c019d98249e4139bac40e76d50fc624" compoundref="xilskey__utils_8h" startline="642">XSK_EFUSEPL_ERROR_PL_STRUCT_NULL</references>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1gaf56f656aaae5bb0ebc9a3fee806fe202" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_Program</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_Program</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Programs PL eFUSE with input data given through InstancePtr. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to PL eFUSE instance which holds the input data to be written to PL eFUSE.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE - In case of failure</para></listitem><listitem><para>XST_SUCCESS - In case of Success</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When this API is called: Initializes the timer, XADC/xsysmon and JTAG server subsystems. Returns an error in the following cases, if the reference clock frequency is not in the range or if the PL DAP ID is not identified, if the system is not in a position to write the requested PL eFUSE bits (because the bits are already written or not allowed to write) if the temperature and voltage are not within range. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Start using the Jtag server to read the JTAG ID and compare with the stored ID, if it not matches return with unique error code. By reading the Jtag ID we will be sure that the JTAG related stuff is working as expected.</para><para>If everything is ok then return PASS.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="443" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="636" bodyend="713"/>
+        <referencedby refid="xilskey__efuse__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="xilskey__efuse__example_8c" startline="244" endline="482">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1ga088a4e3919caebf725f3fdfaa1fecc41" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_ReadStatus</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr, u32 *StatusBits)</argsstring>
+        <name>XilSKey_EfusePl_ReadStatus</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>StatusBits</declname>
+        </param>
+        <briefdescription>
+<para>Reads the PL efuse status bits and gets all secure and control bits. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PL eFUSE instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatusBits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to store the status bits read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success</verbatim> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="445" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="1416" bodyend="1527"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilskey__zynq__ultra__efuse_1ga9e00ec217ec5fce9cf298e92050c41db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XilSKey_EfusePl_ReadKey</definition>
+        <argsstring>(XilSKey_EPl *InstancePtr)</argsstring>
+        <name>XilSKey_EfusePl_ReadKey</name>
+        <param>
+          <type><ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Reads the PL efuse keys and stores them in the corresponding arrays in instance structure. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to PL eFUSE instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>  - XST_FAILURE - In case of failure
+  - XST_SUCCESS - In case of Success
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>This function initializes the timer, XADC and JTAG server subsystems, if not already done so. In Zynq - Reads AES key and User keys. In Ultrascale - Reads 32 bit and 128 bit User keys and RSA hash But AES key cannot be read directly it can be verified with CRC check (for that we need to update the instance with 32 bit CRC value, API updates whether provided CRC value is matched with actuals or not). To calculate the CRC of expected AES key one can use any of the following APIs <ref refid="group__xilskey__cmn__crc_1gaf973666d5d2787e571a17f6c12d6cd29" kindref="member">XilSKey_CrcCalculation()</ref> or <ref refid="group__xilskey__cmn__crc_1ga0552daa4e1f376eaac1360aba6d23930" kindref="member">XilSkey_CrcCalculation_AesKey()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h" line="447" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/xilskey_epl.c" bodystart="1557" bodyend="1617"/>
+        <referencedby refid="xilskey__efuse__example_8c_1a4ea026a1ab321b06be36cf1cb5192148" compoundref="xilskey__efuse__example_8c" startline="633" endline="880">XilSKey_EfusePl_ReadnCheck</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><verbatim>           xilskey_epl.h
+</verbatim> </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2013<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor">#ifndef<sp/>XILSKEY_EPL_H</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILSKEY_EPL_H</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4U)</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_FOR_AES_ZEROS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x621C42AAU)</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CRC<sp/>of<sp/>AES<sp/>key<sp/>with<sp/>all<sp/>zeros<sp/>for<sp/>Ultrascale<sp/>plus<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x3117503AU)</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor">#define<sp/>XSK_EFUSEPL_AES_KEY_STRING_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>Status<sp/>register<sp/>index<sp/>values<sp/>of<sp/>Ultrascale&apos;s<sp/>Fuse</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSK_MICROBLAZE_ULTRA</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA,<sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_SECURE_READ_ULTRA,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_CNTRL_WRITE_ULTRA<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_READ_ULTRA,<sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_KEY_WRITE_ULTRA,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_WRITE_ULTRA,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA,<sp/><sp/></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_WRITE_ULTRA<sp/>=<sp/>15,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_FUSE_LOGIC_IS_BUSY_ULTRA<sp/>=<sp/>23,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC1_ULTRA,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}XSKEfusePl_FuseStatusBits_F8Series;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="102"><highlight class="comment"><sp/>*<sp/>Status<sp/>register<sp/>index<sp/>values<sp/>of<sp/>Ultrascale<sp/>plus&apos;s<sp/>Fuse</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_KEY_READ_ULTRA,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_READ_ULTRA,<sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_SECURE_READ_ULTRA,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_CNTRL_WRITE_ULTRA<sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_READ_ULTRA,<sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_KEY_WRITE_ULTRA,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_USER_KEY_WRITE_ULTRA,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_SECURE_WRITE_ULTRA,<sp/><sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_RSA_KEY_WRITE_ULTRA<sp/>=<sp/>15,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DIABLE_128BIT_USER_KEY_WRITE_ULTRA,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_AES_ONLY_ENABLED_ULTRA<sp/>=<sp/>25,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC1_ULTRA,<sp/></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_RSA_AUTH_ENABLED_ULTRA,<sp/><sp/></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_FUSE_SHAD_SEC3_ULTRA,<sp/></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_SCAN_DISABLE_ULTRA,<sp/></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_DISABLE_CRYPTO_ULTRA,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSK_EFUSEPL_STATUS_ENABLE_OBFUSCATED_EFUSE_KEY<sp/></highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}XSKEfusePl_FuseStatusBits_F8Series;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Number<sp/>of<sp/>SLRs<sp/>to<sp/>iterate<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>NumSlr;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Current<sp/>SLR<sp/>to<sp/>iterate<sp/>through<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>CurSlr;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>IR<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/>IrLen;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}XilSKey_JtagSlr;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>ForcePowerCycle;</highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeyWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>ZYNQ<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AESKeyRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserKeyRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CtrlWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSARead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UserKeyWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecureWrite;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSAWrite;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>User128BitWrite;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SecureRead;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>For<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>AESKeyExclusive;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Zynq<sp/>*/</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagDisable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>for<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>UseAESOnly;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>EncryptOnly;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>For<sp/>Ultrascale<sp/>only<sp/>*/</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntTestAccessDisable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>DecoderDisable;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RSAEnable;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>for<sp/>Ultrascale<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>Obfuscated<sp/>feature<sp/>for<sp/>decryption<sp/>of<sp/>eFUSE<sp/>AES</highlight></codeline>
+<codeline lineno="239"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>FuseObfusEn;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgAESandUserLowKey;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Zynq<sp/>*/</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUserHighKey;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Zynq<sp/>*/</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgAESKeyUltra;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUserKeyUltra;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgRSAKeyUltra;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ProgUser128BitUltra;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CheckAESKeyUltra;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadUserKeyUltra;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadRSAKeyUltra;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ReadUser128BitUltra;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*u32<sp/><sp/><sp/>RefClk;*/</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKey[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];<sp/></highlight><highlight class="comment">/*<sp/>for<sp/>both<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserKey[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];<sp/></highlight><highlight class="comment">/*<sp/>for<sp/>both<sp/>Zynq<sp/>and<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RSAKeyHash[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>User128Bit[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDI;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTDO;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTCK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioTMS;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMioMuxSel;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagMuxSelLineDefVal;</highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>ZYNQ<sp/>*/</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioID;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioStart;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioReady;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>HwmGpioEnd;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale*/</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDI;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTDO;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTMS;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>JtagGpioTCK;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioInputCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>GpioOutPutCh;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKeyReadback[XSK_EFUSEPL_AES_KEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>UserKeyReadback[XSK_EFUSEPL_USER_KEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>for<sp/>Ultrascale<sp/>and<sp/>Zynq<sp/>*/</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CrcOfAESKey;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>AESKeyMatched;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RSAHashReadback[XSK_EFUSEPL_RSA_KEY_HASH_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>User128BitReadBack[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SystemInitDone;</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSKEfusePl_Fpga<sp/>FpgaFlag;</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>CrcToVerify;<sp/></highlight><highlight class="comment">/*<sp/>Only<sp/>for<sp/>Ultrascale<sp/>*/</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>NumSlr;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MasterSlr;</highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SlrConfigOrderIndex;</highlight></codeline>
+<codeline lineno="435"><highlight class="normal">}<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref>;</highlight></codeline>
+<codeline lineno="438"><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="440"><highlight class="normal"></highlight></codeline>
+<codeline lineno="441"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__ultra__efuse_1gab832f8fd82a6f4797eff212ff27fc3eb" kindref="member">XilSKey_EfusePl_SystemInit</ref>(<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__ultra__efuse_1gaf56f656aaae5bb0ebc9a3fee806fe202" kindref="member">XilSKey_EfusePl_Program</ref>(<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__ultra__efuse_1ga088a4e3919caebf725f3fdfaa1fecc41" kindref="member">XilSKey_EfusePl_ReadStatus</ref>(<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref><sp/>*InstancePtr,<sp/>u32<sp/>*StatusBits);</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447"><highlight class="normal">u32<sp/><ref refid="group__xilskey__zynq__ultra__efuse_1ga9e00ec217ec5fce9cf298e92050c41db" kindref="member">XilSKey_EfusePl_ReadKey</ref>(<ref refid="struct_xil_s_key___e_pl" kindref="compound">XilSKey_EPl</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="450"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="452"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>XILSKEY_EPL_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="454"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilskey/src/include/xilskey_epl.h"/>
+  </compounddef>
+</doxygen>

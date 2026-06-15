@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use video_common driver.</para><sect1 id="example_1ex1">
+<title>xvidc_edid_print_example.c</title>
+<para>Contains an example on how to use the XVideo_common driver directly. This example gives a supplied base Extended Display Identification Data(EDID) structure, will parse, decode, and print its contents.</para><para>For details, see <ref refid="xvidc__edid__print__example_8c" kindref="compound">xvidc_edid_print_example.c</ref>.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xvidc_edid_print_example.h</title>
+<para>This example contains a headerfile.</para><para>For details, see <ref refid="xvidc__edid__print__example_8h" kindref="compound">xvidc_edid_print_example.h</ref>. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

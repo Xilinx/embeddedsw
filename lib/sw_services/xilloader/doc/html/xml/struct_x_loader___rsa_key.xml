@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_loader___rsa_key" kind="struct" prot="public">
+    <compoundname>XLoader_RsaKey</compoundname>
+    <includes local="no">xloader_auth_enc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_loader___rsa_key_1acb9601e3fe9f8f07b22a2328ca840d35" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_RsaKey::PubModulus[128U]</definition>
+        <argsstring>[128U]</argsstring>
+        <name>PubModulus</name>
+        <briefdescription>
+<para>Public Modulus. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="551" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="551" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___rsa_key_1a06f91d33033f4862f52dbe0ff4b3a1f4" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_RsaKey::PubModulusExt[128U]</definition>
+        <argsstring>[128U]</argsstring>
+        <name>PubModulusExt</name>
+        <briefdescription>
+<para>Public Modulus Extension. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="552" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_loader___rsa_key_1ab762c6e3ac6e56e4016f6550229c2d57" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XLoader_RsaKey::PubExponent</definition>
+        <argsstring></argsstring>
+        <name>PubExponent</name>
+        <briefdescription>
+<para>Public Exponent. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="553" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>&lt; RSA Key </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" line="550" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/server/xloader_auth_enc.h" bodystart="550" bodyend="554"/>
+    <listofallmembers>
+      <member refid="struct_x_loader___rsa_key_1ab762c6e3ac6e56e4016f6550229c2d57" prot="public" virt="non-virtual"><scope>XLoader_RsaKey</scope><name>PubExponent</name></member>
+      <member refid="struct_x_loader___rsa_key_1acb9601e3fe9f8f07b22a2328ca840d35" prot="public" virt="non-virtual"><scope>XLoader_RsaKey</scope><name>PubModulus</name></member>
+      <member refid="struct_x_loader___rsa_key_1a06f91d33033f4862f52dbe0ff4b3a1f4" prot="public" virt="non-virtual"><scope>XLoader_RsaKey</scope><name>PubModulusExt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

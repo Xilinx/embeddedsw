@@ -1,0 +1,502 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xenv__vxworks_8h" kind="file">
+    <compoundname>xenv_vxworks.h</compoundname>
+    <includes refid="xbasic__types_8h" local="yes">xbasic_types.h</includes>
+    <includes local="yes">vxWorks.h</includes>
+    <includes local="yes">vxLib.h</includes>
+    <includes local="yes">sysLibExtra.h</includes>
+    <includes local="yes">cacheLib.h</includes>
+    <includes local="no">string.h</includes>
+    <incdepgraph>
+      <node id="39">
+        <label>sysLibExtra.h</label>
+      </node>
+      <node id="36">
+        <label>xbasic_types.h</label>
+        <link refid="xbasic__types_8h"/>
+      </node>
+      <node id="38">
+        <label>vxLib.h</label>
+      </node>
+      <node id="41">
+        <label>string.h</label>
+      </node>
+      <node id="40">
+        <label>cacheLib.h</label>
+      </node>
+      <node id="37">
+        <label>vxWorks.h</label>
+      </node>
+      <node id="35">
+        <label>xenv_vxworks.h</label>
+        <link refid="xenv_vxworks.h"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_e_n_v___t_i_m_e___s_t_a_m_p" prot="public">XENV_TIME_STAMP</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__common_1ga23d8f4edc8649a0ba9deded0dbb7b05b" prot="public" static="no">
+        <name>XENV_MEM_COPY</name>
+        <param><defname>DestPtr</defname></param>
+        <param><defname>SrcPtr</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer>memcpy((void *) DestPtr, (const void *) SrcPtr, (size_t) Bytes)</initializer>
+        <briefdescription>
+<para>Copies a non-overlapping block of memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address to copy data to.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SrcPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Source address to copy data from.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to copy.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>XENV_MEM_COPY is deprecated. Use memcpy() instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gad29b4ad1407af9659a9295b4fab3e64e" prot="public" static="no">
+        <name>XENV_MEM_FILL</name>
+        <param><defname>DestPtr</defname></param>
+        <param><defname>Data</defname></param>
+        <param><defname>Bytes</defname></param>
+        <initializer>memset((void *) DestPtr, (int) Data, (size_t) Bytes)</initializer>
+        <briefdescription>
+<para>Fills an area of memory with constant data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DestPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination address to copy data to.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to set.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to copy.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>XENV_MEM_FILL is deprecated. Use memset() instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga21fae7ca3043fbd3f73cd6b761afa230" prot="public" static="no">
+        <name>XENV_TIME_STAMP_GET</name>
+        <param><defname>StampPtr</defname></param>
+        <initializer>{                                                       \
+    vxTimeBaseGet((UINT32*)&amp;(StampPtr)-&gt;TimeBaseUpper,  \
+                  (UINT32*)&amp;(StampPtr)-&gt;TimeBaseLower); \
+}</initializer>
+        <briefdescription>
+<para>Time is derived from the 64 bit PPC timebase register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>StampPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the storage for the retrieved time stamp.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+Signature: void <ref refid="group__common_1ga21fae7ca3043fbd3f73cd6b761afa230" kindref="member">XENV_TIME_STAMP_GET(XTIME_STAMP *StampPtr)</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gaa82c22bd74a502e0cdf081cd2b15f47d" prot="public" static="no">
+        <name>XENV_TIME_STAMP_DELTA_US</name>
+        <param><defname>Stamp1Ptr</defname></param>
+        <param><defname>Stamp2Ptr</defname></param>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>This macro is not yet implemented and always returns 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Stamp1Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the first sampled time stamp. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stamp2Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the second sampled time stamp.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga4e216393c2fbf374018da12bb110fc88" prot="public" static="no">
+        <name>XENV_TIME_STAMP_DELTA_MS</name>
+        <param><defname>Stamp1Ptr</defname></param>
+        <param><defname>Stamp2Ptr</defname></param>
+        <initializer>(0)</initializer>
+        <briefdescription>
+<para>This macro is not yet implemented and always returns 0. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Stamp1Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the first sampled time stamp. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Stamp2Ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the second sampled time stamp.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+None. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="163" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga45edf2c1128d69e881f9c54d8dcd6a26" prot="public" static="no">
+        <name>XENV_USLEEP</name>
+        <param><defname>delay</defname></param>
+        <initializer>sysUsDelay(delay)</initializer>
+        <briefdescription>
+<para>Delay the specified number of microseconds. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of microseconds to delay.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="186" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga7312c8f84f302255af420f91b51286d5" prot="public" static="no">
+        <name>udelay</name>
+        <param><defname>delay</defname></param>
+        <initializer>sysUsDelay(delay)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="188" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gac77da5ec93f4adfa1cf43600b52b9230" prot="public" static="no">
+        <name>XCACHE_ENABLE_CACHE</name>
+        <param></param>
+        <initializer>{ XCACHE_ENABLE_DCACHE(); XCACHE_ENABLE_ICACHE(); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gab1f027ad6c4338732a4d6a3b2ec72445" prot="public" static="no">
+        <name>XCACHE_DISABLE_CACHE</name>
+        <param></param>
+        <initializer>{ XCACHE_DISABLE_DCACHE(); XCACHE_DISABLE_ICACHE(); }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga4ed406c503904841a5fa1f77d6bda4ca" prot="public" static="no">
+        <name>XCACHE_ENABLE_DCACHE</name>
+        <param></param>
+        <initializer>cacheEnable(DATA_CACHE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gac5d1dbdd3411362214e7b75614401c92" prot="public" static="no">
+        <name>XCACHE_DISABLE_DCACHE</name>
+        <param></param>
+        <initializer>cacheDisable(DATA_CACHE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga8c931acc162abd742c4617f75213e590" prot="public" static="no">
+        <name>XCACHE_ENABLE_ICACHE</name>
+        <param></param>
+        <initializer>cacheEnable(INSTRUCTION_CACHE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gaa58d8e2e77d85697e82017fce2155007" prot="public" static="no">
+        <name>XCACHE_DISABLE_ICACHE</name>
+        <param></param>
+        <initializer>cacheDisable(INSTRUCTION_CACHE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="214" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gabb9f901c938c664b4ab42f78d667e20c" prot="public" static="no">
+        <name>XCACHE_INVALIDATE_DCACHE_RANGE</name>
+        <param><defname>Addr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>cacheInvalidate(DATA_CACHE, (void *)(Addr), (Len))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gabb1fc9e4bde14e3a1d912b599edad278" prot="public" static="no">
+        <name>XCACHE_FLUSH_DCACHE_RANGE</name>
+        <param><defname>Addr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>cacheFlush(DATA_CACHE, (void *)(Addr), (Len))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga950c56e75759f4d22666a7ba24693cf8" prot="public" static="no">
+        <name>XCACHE_INVALIDATE_ICACHE_RANGE</name>
+        <param><defname>Addr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>cacheInvalidate(INSTRUCTION_CACHE, (void *)(Addr), (Len))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="223" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga19600127e6032c666c820bdd971af581" prot="public" static="no">
+        <name>XCACHE_FLUSH_ICACHE_RANGE</name>
+        <param><defname>Addr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>cacheFlush(INSTRUCTION_CACHE, (void *)(Addr), (Len))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" line="226" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifndef<sp/>XENV_VXWORKS_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XENV_VXWORKS_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbasic__types_8h" kindref="compound">xbasic_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vxWorks.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vxLib.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sysLibExtra.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;cacheLib.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="74" refid="group__common_1ga23d8f4edc8649a0ba9deded0dbb7b05b" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_MEM_COPY(DestPtr,<sp/>SrcPtr,<sp/>Bytes)<sp/>\</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memcpy((void<sp/>*)<sp/>DestPtr,<sp/>(const<sp/>void<sp/>*)<sp/>SrcPtr,<sp/>(size_t)<sp/>Bytes)</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="98" refid="group__common_1gad29b4ad1407af9659a9295b4fab3e64e" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_MEM_FILL(DestPtr,<sp/>Data,<sp/>Bytes)<sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memset((void<sp/>*)<sp/>DestPtr,<sp/>(int)<sp/>Data,<sp/>(size_t)<sp/>Bytes)</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(CPU_FAMILY==PPC)</highlight></codeline>
+<codeline lineno="103"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107" refid="struct_x_e_n_v___t_i_m_e___s_t_a_m_p" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimeBaseUpper;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TimeBaseLower;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}<sp/><ref refid="group__common_1gae13dfc6253d3809555cb87f1ac76737a" kindref="member">XENV_TIME_STAMP</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="127" refid="group__common_1ga21fae7ca3043fbd3f73cd6b761afa230" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_TIME_STAMP_GET(StampPtr)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor">{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>vxTimeBaseGet((UINT32*)&amp;(StampPtr)-&gt;TimeBaseUpper,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(UINT32*)&amp;(StampPtr)-&gt;TimeBaseLower);<sp/>\</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor">}</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="146" refid="group__common_1gaa82c22bd74a502e0cdf081cd2b15f47d" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_TIME_STAMP_DELTA_US(Stamp1Ptr,<sp/>Stamp2Ptr)<sp/><sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__common_1ga4e216393c2fbf374018da12bb110fc88" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_TIME_STAMP_DELTA_MS(Stamp1Ptr,<sp/>Stamp2Ptr)<sp/><sp/><sp/><sp/><sp/>(0)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>non-PPC<sp/>systems<sp/>the<sp/>above<sp/>macros<sp/>are<sp/>not<sp/>defined.<sp/>Generate<sp/>a<sp/>error<sp/>to</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/>*<sp/>make<sp/>the<sp/>developer<sp/>aware<sp/>of<sp/>the<sp/>problem.</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>&quot;XENV_TIME_STAMP_GET<sp/>used<sp/>in<sp/>a<sp/>non-PPC<sp/>system.<sp/>Aborting.&quot;</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="186" refid="group__common_1ga45edf2c1128d69e881f9c54d8dcd6a26" refkind="member"><highlight class="preprocessor">#define<sp/>XENV_USLEEP(delay)<sp/><sp/><sp/><sp/><sp/><sp/>sysUsDelay(delay)</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>udelay(delay)<sp/><sp/><sp/>sysUsDelay(delay)</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="192"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="193"><highlight class="comment"><sp/>*<sp/>CACHE<sp/>handling<sp/>macros<sp/>/<sp/>mappings</highlight></codeline>
+<codeline lineno="194"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="195"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="197"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/>*<sp/>PowerPC<sp/>case</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(CPU_FAMILY==PPC)</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_ENABLE_CACHE()<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>XCACHE_ENABLE_DCACHE();<sp/>XCACHE_ENABLE_ICACHE();<sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_DISABLE_CACHE()<sp/><sp/>\</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>XCACHE_DISABLE_DCACHE();<sp/>XCACHE_DISABLE_ICACHE();<sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_ENABLE_DCACHE()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheEnable(DATA_CACHE)</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_DISABLE_DCACHE()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheDisable(DATA_CACHE)</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_ENABLE_ICACHE()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheEnable(INSTRUCTION_CACHE)</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_DISABLE_ICACHE()<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheDisable(INSTRUCTION_CACHE)</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_INVALIDATE_DCACHE_RANGE(Addr,<sp/>Len)<sp/>\</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheInvalidate(DATA_CACHE,<sp/>(void<sp/>*)(Addr),<sp/>(Len))</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_FLUSH_DCACHE_RANGE(Addr,<sp/>Len)<sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheFlush(DATA_CACHE,<sp/>(void<sp/>*)(Addr),<sp/>(Len))</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_INVALIDATE_ICACHE_RANGE(Addr,<sp/>Len)<sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheInvalidate(INSTRUCTION_CACHE,<sp/>(void<sp/>*)(Addr),<sp/>(Len))</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XCACHE_FLUSH_ICACHE_RANGE(Addr,<sp/>Len)<sp/>\</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cacheFlush(INSTRUCTION_CACHE,<sp/>(void<sp/>*)(Addr),<sp/>(Len))</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="231"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/>*<sp/>Unknown<sp/>processor<sp/>/<sp/>architecture</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#error<sp/>&quot;Unknown<sp/>processor<sp/>/<sp/>architecture.<sp/>Must<sp/>be<sp/>PPC<sp/>for<sp/>VxWorks.&quot;</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>#ifdef<sp/>XENV_VXWORKS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xenv_vxworks.h"/>
+  </compounddef>
+</doxygen>

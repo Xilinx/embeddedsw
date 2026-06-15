@@ -1,0 +1,1252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xxxvethernet__hw_8h" kind="file">
+    <compoundname>xxxvethernet_hw.h</compoundname>
+    <includes local="yes">xdebug.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xxxvethernet_8h" local="yes">xxxvethernet.h</includedby>
+    <incdepgraph>
+      <node id="97">
+        <label>xil_io.h</label>
+      </node>
+      <node id="96">
+        <label>xdebug.h</label>
+      </node>
+      <node id="98">
+        <label>xil_types.h</label>
+      </node>
+      <node id="95">
+        <label>xxxvethernet_hw.h</label>
+        <link refid="xxxvethernet_hw.h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="107">
+        <label>xxxvethernet_usxgmii_example_intr_mcdma.c</label>
+      </node>
+      <node id="105">
+        <label>xxxvethernet_example_intr_mcdma.c</label>
+        <link refid="xxxvethernet__example__intr__mcdma_8c"/>
+      </node>
+      <node id="103">
+        <label>xxxvethernet_sinit.c</label>
+        <link refid="xxxvethernet__sinit_8c"/>
+      </node>
+      <node id="101">
+        <label>xxxvethernet.c</label>
+        <link refid="xxxvethernet_8c"/>
+      </node>
+      <node id="100">
+        <label>xxxvethernet.h</label>
+        <link refid="xxxvethernet_8h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>xxxvethernet_example.h</label>
+        <link refid="xxxvethernet__example_8h"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+      </node>
+      <node id="106">
+        <label>xxxvethernet_example_util.c</label>
+        <link refid="xxxvethernet__example__util_8c"/>
+      </node>
+      <node id="102">
+        <label>xxxvethernet_g.c</label>
+      </node>
+      <node id="99">
+        <label>xxxvethernet_hw.h</label>
+        <link refid="xxxvethernet_hw.h"/>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>XXV Ethernet registers offset</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga0a0a558e7c5b10528d5b54e108a98e2c" prot="public" static="no">
+        <name>XXE_GRR_OFFSET</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga55be22be21c15b4feda92ba2e03da048" prot="public" static="no">
+        <name>XXE_RST_OFFSET</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gac9b8d9bde203502eb7ac2dff50e486c0" prot="public" static="no">
+        <name>XXE_MODE_OFFSET</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga54edc0613f955ac1f9f2675d6651fa73" prot="public" static="no">
+        <name>XXE_TXCFG_OFFSET</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3f513face09ddb089a52ae243d1313ee" prot="public" static="no">
+        <name>XXE_RXCFG_OFFSET</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaf33af3fdf6999af4b4b6b98391f88f51" prot="public" static="no">
+        <name>XXE_RXMTU_OFFSET</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3ff5b455eed6237283cb650c7b9b559b" prot="public" static="no">
+        <name>XXE_TICK_OFFSET</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gac7fc3fd441217d22dedfe91aca8142c1" prot="public" static="no">
+        <name>XXE_REV_OFFSET</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga185324944aa00e9e5ff5d345e12eb5a8" prot="public" static="no">
+        <name>XXE_USXGMII_AN_OFFSET</name>
+        <initializer>0x000000C8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga97c0e7bf6b393c6cf9bc5be205db5c43" prot="public" static="no">
+        <name>XXE_RSFEC_OFFSET</name>
+        <initializer>0x000000D0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gacc231ad86044c05b72b1a69d9d9ab6ad" prot="public" static="no">
+        <name>XXE_FEC_OFFSET</name>
+        <initializer>0x000000D4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gafbd5912304e614171e5666d60cc96991" prot="public" static="no">
+        <name>XXE_ANCR1_OFFSET</name>
+        <initializer>0x000000E0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga22578e7768357fff639e66c7c855368f" prot="public" static="no">
+        <name>XXE_ANCR2_OFFSET</name>
+        <initializer>0x000000E4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gae9e9fc6d01d64eca74e9c7870b717a55" prot="public" static="no">
+        <name>XXE_ANACR_OFFSET</name>
+        <initializer>0x000000F8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gae48034dc6268bb6a33eab13d8725bcb9" prot="public" static="no">
+        <name>XXE_LTCR_OFFSET</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga62aebcc60859d28dc3b4ffad9466d0b5" prot="public" static="no">
+        <name>XXE_LTTR_OFFSET</name>
+        <initializer>0x00000104</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga9a539966e09ba9267bf0c1f07020cc59" prot="public" static="no">
+        <name>XXE_LTPR_OFFSET</name>
+        <initializer>0x00000108</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gacf0d2c37799d00671ec3e17dbafedfbe" prot="public" static="no">
+        <name>XXE_LTIR_OFFSET</name>
+        <initializer>0x0000010C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga5a3f6d4a5a9f468303cb97ed61bca645" prot="public" static="no">
+        <name>XXE_LTSR_OFFSET</name>
+        <initializer>0x00000110</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gae7507b6fe1bdfc06d6b291fb163c5c35" prot="public" static="no">
+        <name>XXE_LTCOR_OFFSET</name>
+        <initializer>0x00000130</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga18214c3102b306e246a17fda9e86dcf5" prot="public" static="no">
+        <name>XXE_USR0_OFFSET</name>
+        <initializer>0x00000184</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaf7a0881396d27e8ed2167a834174b6fa" prot="public" static="no">
+        <name>XXE_USR1_OFFSET</name>
+        <initializer>0x00000188</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Xxv Ethernet status registers offset</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga015e1e902b4a017a14512bc0b0d13b1a" prot="public" static="no">
+        <name>XXE_CORESPEEDSR_OFFSET</name>
+        <initializer>0x00000180</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga1c14aaebd1af2c8d9c47c9c9bde74258" prot="public" static="no">
+        <name>XXE_TXSR_OFFSET</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga86fad2f6ff049cf5392119dc30329f7c" prot="public" static="no">
+        <name>XXE_RXSR_OFFSET</name>
+        <initializer>0x00000404</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga6990931f617719cce1bd2aaa2d989254" prot="public" static="no">
+        <name>XXE_SR_OFFSET</name>
+        <initializer>0x00000408</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga220c1ce781fb8ad229dc580a69796ed9" prot="public" static="no">
+        <name>XXE_RXBLSR_OFFSET</name>
+        <initializer>0x0000040C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga52002ee88a9a8b2ba693e4ed51a007b6" prot="public" static="no">
+        <name>XXE_ANSR_OFFSET</name>
+        <initializer>0x00000458</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3433e98c005d06088a47f78c10c3df5b" prot="public" static="no">
+        <name>XXE_ANASR_OFFSET</name>
+        <initializer>0x0000045C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="87" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MODE register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga2608ebc122b8df59f3461bc030dedc1e" prot="public" static="no">
+        <name>XXE_MODE_LCLLPBK_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="98" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TXCFG register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1gaa84df738fdf445b03046539bfc84b4ac" prot="public" static="no">
+        <name>XXE_TXCFG_TX_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="104" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga06f89cd9f998c0cc8e62240e315550ed" prot="public" static="no">
+        <name>XXE_TXCFG_FCS_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RXCFG register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1gaa6ee4fc8b094860e86dee1d747dc2015" prot="public" static="no">
+        <name>XXE_RXCFG_RX_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="110" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaa04279dfefec1d405197f608cee79abe" prot="public" static="no">
+        <name>XXE_RXCFG_DEL_FCS_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaf1748ccccd101b86b5c553d8dfa8815b" prot="public" static="no">
+        <name>XXE_RXCFG_IGN_FCS_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>USXGMII Auto negotiation register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga00e39d000759d301f34242592d158227" prot="public" static="no">
+        <name>XXE_USXGMII_ANBYPASS_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga435af3ddd5f8f87a61a529f48ec645d4" prot="public" static="no">
+        <name>XXE_USXGMII_ANENABLE_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga06a218cbbbb3e1e9b36e3702408e7d4d" prot="public" static="no">
+        <name>XXE_USXGMII_ANMAINRESET_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga7bd6f87b073ce0c1ac053b65d1cb5f3d" prot="public" static="no">
+        <name>XXE_USXGMII_ANRESTART_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga60a337843c5b317854d6212d437a9077" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_MASK</name>
+        <initializer>0x00000700</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gad14375d5bcd998bafb80f639404ee66d" prot="public" static="no">
+        <name>XXE_USXGMII_ANA_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3d21e22887d9bb8339acf328d72bdb23" prot="public" static="no">
+        <name>XXE_USXGMII_ANA_SPEED_MASK</name>
+        <initializer>0x0E000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga0847494208380f10f071c4efeeb168a5" prot="public" static="no">
+        <name>XXE_USXGMII_ANA_FD_MASK</name>
+        <initializer>0x10000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga6e2bda59919fd91ea8a5099716ac74b0" prot="public" static="no">
+        <name>XXE_USXGMII_ANACK_MASK</name>
+        <initializer>0x40000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gad7c0af3515f0a86121431d31b74fee2d" prot="public" static="no">
+        <name>XXE_USXGMII_LINK_STS_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga0a832a59a6e234bfc293bf7b8f261318" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_10M_MASK</name>
+        <initializer>0x0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga986b95743539ebdab84dfce40c77a70e" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_100M_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga6bd369034d977d7416265c6e8d1fd57e" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_1G_MASK</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga4efc84051486dd499d00adfe96b0ed45" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_10G_MASK</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga94d23c5dab2eaf8a2dacd59a90d6a170" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_2G5_MASK</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga513055892bb53eec0cf7adc885d21827" prot="public" static="no">
+        <name>XXE_USXGMII_RATE_SHIFT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="133" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga18783cad043595a44e01d951a792b4c8" prot="public" static="no">
+        <name>XXE_USXGMII_SPEED_SHIFT</name>
+        <initializer>25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RXMTU register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1gae3b679ced45fe7322a152052f5206876" prot="public" static="no">
+        <name>XXE_RXMTU_MIN_JUM_MASK</name>
+        <initializer>0x000000FF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga811185d9e193e3fcb0a5eb52f3232bb0" prot="public" static="no">
+        <name>XXE_RXMTU_MAX_JUM_MASK</name>
+        <initializer>0x7FFF0000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RXBLSR register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga911d37be05c0edc67227b2b622ae7beb" prot="public" static="no">
+        <name>XXE_RXBLKLCK_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>TICK register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1gae2a745d4abde9ea5dd24157f77edea6c" prot="public" static="no">
+        <name>XXE_TICK_STATEN_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AN status register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga465c69e51be16b7cabc52cb694e3ad70" prot="public" static="no">
+        <name>XXE_AN_COMP_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="155" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3a1e7e99a1840bdc874b1997bf7469be" prot="public" static="no">
+        <name>XXE_USXGMII_AN_COMP_MASK</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="156" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AN ability register masks</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga347384351121ac3103c3db9f4388631e" prot="public" static="no">
+        <name>XXE_ANA_10GKR_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="161" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Reset and Address Filter (RAF) Register bit definitions.</header>
+      <description><para>These bits are associated with the XAE_RAF_OFFSET register. </para></description>
+      <memberdef kind="define" id="group__xxvethernet_1gad5711af97154aeef5f2175a70456fd6a" prot="public" static="no">
+        <name>XXE_RAF_STATSRST_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+<para>Statistics Counter Reset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="170" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga4fa9657c9445a73d4580ddc4c33f6507" prot="public" static="no">
+        <name>XXE_RAF_RXBADFRMEN_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+<para>Receive Bad Frame Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Transmit Inter-Frame Gap Adjustment Register (TFGP) bit definitions</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga2cc8ef8e5952753a97d94a3ceb8becfb" prot="public" static="no">
+        <name>XXE_TFGP_IFGP_MASK</name>
+        <initializer>0x0000007F</initializer>
+        <briefdescription>
+<para>Transmit inter-frame gap adjustment value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="181" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Other Constant definitions used in the driver</header>
+      <memberdef kind="define" id="group__xxvethernet_1ga8f1033cd2bbe2db9e406d1c9d3f06684" prot="public" static="no">
+        <name>XXE_SPEED_10_GBPS</name>
+        <initializer>10</initializer>
+        <briefdescription>
+<para>Speed of 10 Gbps. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="198" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" compoundref="xxxvethernet_8c" startline="747" endline="762">XXxvEthernet_GetAutoNegSpeed</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga764c2fbd121e5eaa93a155ffac11ee66" prot="public" static="no">
+        <name>XXE_LOOPS_TO_COME_OUT_OF_RST</name>
+        <initializer>10000</initializer>
+        <briefdescription>
+<para>Number of loops in the driver API to wait for before returning a failure case. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="197" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="200" bodyend="-1"/>
+        <referencedby refid="group__xxvethernet_1gabd5dad43d5d82fd52bd8b9101f50a96e" compoundref="xxxvethernet_8c" startline="283" endline="308">XXxvEthernet_Reset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaba3e839e8b0ff28889dc79c9aa52d0a6" prot="public" static="no">
+        <name>XXE_RST_DELAY_LOOPCNT_VAL</name>
+        <initializer>10000</initializer>
+        <briefdescription>
+<para>Timeout in ticks used while checking if the core had come out of reset. </para>        </briefdescription>
+        <detaileddescription>
+<para>The exact tick time is defined in each case/loop where it will be used </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xxvethernet_1ga9f68a7379e16d081bedfd845b3339dd2" prot="public" static="no">
+        <name>XXXVETHERNET_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="32" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga18641e407299925cd1c99a3d5050fa95" prot="public" static="no">
+        <name>XXE_STS_TX_ERROR_MASK</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="184" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga61418677c50ac2d9949c5f90ef2c01c8" prot="public" static="no">
+        <name>XXE_STS_RX_ERROR_MASK</name>
+        <initializer>0xFF0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga3871789c396b9144f5472abc075cad8c" prot="public" static="no">
+        <name>XXxvEthernet_indent</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>((indent_on &amp;&amp; ((RegOffset) &gt;= XXE_GRR_OFFSET) &amp;&amp; ((RegOffset) &lt;= 	\
+			XXE_ANASR_OFFSET)) ? &quot;\t&quot; : &quot;&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga124814fb616738daf64430de831aca8d" prot="public" static="no">
+        <name>XXxvEthernet_reg_name</name>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(((RegOffset) == XXE_GRR_OFFSET) ? &quot;XXE_GRR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_RST_OFFSET) ? &quot;XXE_RST_OFFSET&quot;: \
+	 ((RegOffset) == XXE_MODE_OFFSET) ? &quot;XXE_MODE_OFFSET&quot;: \
+	 ((RegOffset) == XXE_TXCFG_OFFSET) ? &quot;XXE_TXCFG_OFFSET&quot;: \
+	 ((RegOffset) == XXE_RXCFG_OFFSET) ? &quot;XXE_RXCFG_OFFSET&quot;: \
+	 ((RegOffset) == XXE_RXMTU_OFFSET) ? &quot;XXE_RXMTU_OFFSET&quot;: \
+	 ((RegOffset) == XXE_TICK_OFFSET) ? &quot;XXE_TICK_OFFSET&quot;: \
+	 ((RegOffset) == XXE_REV_OFFSET) ? &quot;XXE_REV_OFFSET&quot;: \
+	 ((RegOffset) == XXE_TXSR_OFFSET) ? &quot;XXE_TXSR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_RXSR_OFFSET) ? &quot;XXE_RXSR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_SR_OFFSET) ? &quot;XXE_SR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_RXBLSR_OFFSET) ? &quot;XXE_RXBLSR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_ANSR_OFFSET) ? &quot;XXE_ANSR_OFFSET&quot;: \
+	 ((RegOffset) == XXE_ANASR_OFFSET) ? &quot;XXE_ANASR_OFFSET&quot;: \
+	 &quot;unknown&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="233" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga995c2adc8e52838833dfae79f9b66e99" prot="public" static="no">
+        <name>XXxvEthernet_print_reg_o</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_TEMAC_REG, &quot;%s0x%0x -&gt; %s(0x%0x)\n&quot;, 	\
+		    XXxvEthernet_indent(RegOffset), (Value), 	\
+		    XXxvEthernet_reg_name(RegOffset), (RegOffset)) 	\</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga6fa2c33156e7dc3582b87d90f128454a" prot="public" static="no">
+        <name>XXxvEthernet_print_reg_i</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Value</defname></param>
+        <initializer>xdbg_printf(XDBG_DEBUG_TEMAC_REG, &quot;%s%s(0x%0x) -&gt; 0x%0x\n&quot;, \
+		    XXxvEthernet_indent(RegOffset),  \
+		    XXxvEthernet_reg_name(RegOffset),(RegOffset), (Value)) \</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="240" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" prot="public" static="no">
+        <name>XXxvEthernet_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>(Xil_In32(((BaseAddress) + (RegOffset))))</initializer>
+        <briefdescription>
+<para>XXxvEthernet_ReadReg returns the value read from the register specified by <emphasis>RegOffset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Xxv Ethernet device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to be read.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns the 32-bit value of the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 <ref refid="group__xxvethernet_1ga739e90cc435465f16f1c78705a69e7e5" kindref="member">XXxvEthernet_ReadReg(u32 BaseAddress, u32 RegOffset)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="268" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="xxxvethernet__example__util_8c_1abb5bc0fd706a832742ca65487e6687af" compoundref="xxxvethernet__example__util_8c" startline="299" endline="313">XxvEthernetUtilEnterLocalLoopback</referencedby>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gaab034ac98398a6d6851db98a76b4e010" compoundref="xxxvethernet_8c" startline="747" endline="762">XXxvEthernet_GetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+        <referencedby refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" compoundref="xxxvethernet_8c" startline="673" endline="691">XXxvEthernet_UsxgmiiAnMainReset</referencedby>
+        <referencedby refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" prot="public" static="no">
+        <name>XXxvEthernet_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + (RegOffset)), (Data))</initializer>
+        <briefdescription>
+<para>XXxvEthernet_WriteReg, writes <emphasis>Data</emphasis> to the register specified by <emphasis>RegOffset</emphasis>. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Xxv Ethernet device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset of the register to be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: void <ref refid="group__xxvethernet_1gaf8fe72cb95db1fbc60514b6485020108" kindref="member">XXxvEthernet_WriteReg(u32 BaseAddress, u32 RegOffset, u32 Data)</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="296" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="xxxvethernet__example__util_8c_1abb5bc0fd706a832742ca65487e6687af" compoundref="xxxvethernet__example__util_8c" startline="299" endline="313">XxvEthernetUtilEnterLocalLoopback</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1ad48448f068a15369349deec579b8fc38" compoundref="xxxvethernet__example__util_8c" startline="336" endline="379">XxvEthernetUtilUsxgmiiSetup</referencedby>
+        <referencedby refid="xxxvethernet__example__util_8c_1a80999962d45ad1ec4e8dcb68df838cdf" compoundref="xxxvethernet__example__util_8c" startline="401" endline="444">XxvEthernetUtilUsxgmiiSetupBypassAN</referencedby>
+        <referencedby refid="group__xxvethernet_1ga03c42c411753d0fd0373094c420516dd" compoundref="xxxvethernet_8c" startline="476" endline="560">XXxvEthernet_ClearOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1gaf38776edab53749b9204fe1abf45d87a" compoundref="xxxvethernet_8c" startline="780" endline="795">XXxvEthernet_SetAutoNegSpeed</referencedby>
+        <referencedby refid="group__xxvethernet_1gabcf02a5b2b0ee38739bbe4fdc5691a59" compoundref="xxxvethernet_8c" startline="373" endline="455">XXxvEthernet_SetOptions</referencedby>
+        <referencedby refid="group__xxvethernet_1ga09e63e61d122a4f18d3dcd51456a1924" compoundref="xxxvethernet_8c" startline="603" endline="658">XXxvEthernet_SetUsxgmiiRateAndDuplex</referencedby>
+        <referencedby refid="group__xxvethernet_1ga6e4b05d1a7db9def0f688bb3f12839f1" compoundref="xxxvethernet_8c" startline="154" endline="219">XXxvEthernet_Start</referencedby>
+        <referencedby refid="group__xxvethernet_1gacd8a86e3ca2431a4181de0d75fd58759" compoundref="xxxvethernet_8c" startline="239" endline="267">XXxvEthernet_Stop</referencedby>
+        <referencedby refid="group__xxvethernet_1ga341ba96f890e5ca0f3af58c52cfd05b9" compoundref="xxxvethernet_8c" startline="673" endline="691">XXxvEthernet_UsxgmiiAnMainReset</referencedby>
+        <referencedby refid="group__xxvethernet_1ga3b0404e1d23019f56969ed3747175b44" compoundref="xxxvethernet_8c" startline="706" endline="730">XXxvEthernet_UsxgmiiAnMainRestart</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xxvethernet_1ga18308e9e4ec4fdf7d220924a068ce054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>xdbg_stmnt</definition>
+        <argsstring>(extern int indent_on)</argsstring>
+        <name>xdbg_stmnt</name>
+        <param>
+          <type>extern int</type>
+          <declname>indent_on</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h" line="226" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor">#ifndef<sp/>XXXVETHERNET_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXXVETHERNET_HW_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdebug.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>Register<sp/>offset<sp/>definitions.<sp/>Unless<sp/>otherwise<sp/>noted,<sp/>register<sp/>access<sp/>is</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>32<sp/>bit.</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor">#define<sp/>XXE_GRR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RST_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_MODE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_TXCFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000C</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXCFG_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXMTU_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_TICK_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_REV_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000024</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_AN_OFFSET<sp/><sp/><sp/>0x000000C8</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RSFEC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000D0</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_FEC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000D4</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_ANCR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000E0</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_ANCR2_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000E4</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_ANACR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x000000F8</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTTR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000104</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTPR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000108</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTIR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000010C</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000110</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_LTCOR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000130</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USR0_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000184</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USR1_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000188</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor">#define<sp/>XXE_CORESPEEDSR_OFFSET<sp/><sp/>0x00000180</highlight></codeline>
+<codeline lineno="82"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_TXSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000404</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_SR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000408</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXBLSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000040C</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_ANSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000458</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_ANASR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000045C</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Register<sp/>masks.<sp/>The<sp/>following<sp/>constants<sp/>define<sp/>bit<sp/>locations<sp/>of<sp/>various</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/>bits<sp/>in<sp/>the<sp/>registers.<sp/>Constants<sp/>are<sp/>not<sp/>defined<sp/>for<sp/>those<sp/>registers</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*<sp/>that<sp/>have<sp/>a<sp/>single<sp/>bit<sp/>field<sp/>representing<sp/>all<sp/>32<sp/>bits.<sp/>For<sp/>further</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/>*<sp/>information<sp/>on<sp/>the<sp/>meaning<sp/>of<sp/>the<sp/>various<sp/>bit<sp/>masks,<sp/>refer<sp/>to<sp/>the<sp/>HW<sp/>spec.</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XXE_MODE_LCLLPBK_MASK<sp/><sp/><sp/>0x80000000</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor">#define<sp/>XXE_TXCFG_TX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_TXCFG_FCS_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000002</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XXE_RXCFG_RX_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXCFG_DEL_FCS_MASK<sp/><sp/>0x00000002</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXCFG_IGN_FCS_MASK<sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANBYPASS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANENABLE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANMAINRESET_MASK<sp/><sp/><sp/><sp/>0x00000040</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANRESTART_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000080</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000700</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANA_SPEED_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x0E000000</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANA_FD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000000</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_ANACK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000000</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_LINK_STS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_10M_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_100M_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_1G_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_10G_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_2G5_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_RATE_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_SPEED_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>25</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XXE_RXMTU_MIN_JUM_MASK<sp/><sp/>0x000000FF</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_RXMTU_MAX_JUM_MASK<sp/><sp/>0x7FFF0000</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor">#define<sp/>XXE_RXBLKLCK_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XXE_TICK_STATEN_MASK<sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor">#define<sp/>XXE_AN_COMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_USXGMII_AN_COMP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor">#define<sp/>XXE_ANA_10GKR_MASK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="group__xxvethernet_1gad5711af97154aeef5f2175a70456fd6a" refkind="member"><highlight class="preprocessor">#define<sp/>XXE_RAF_STATSRST_MASK<sp/><sp/><sp/>0x00002000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XXE_RAF_RXBADFRMEN_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000<sp/></highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor">#define<sp/>XXE_TFGP_IFGP_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000007F<sp/></highlight></codeline>
+<codeline lineno="183" refid="group__xxvethernet_1ga2cc8ef8e5952753a97d94a3ceb8becfb" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_STS_TX_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXE_STS_RX_ERROR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFF0</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XXE_SPEED_10_GBPS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#define<sp/>XXE_LOOPS_TO_COME_OUT_OF_RST<sp/><sp/><sp/><sp/>10000<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor">#define<sp/>XXE_RST_DELAY_LOOPCNT_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/>10000<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="208" refid="group__xxvethernet_1gaba3e839e8b0ff28889dc79c9aa52d0a6" refkind="member"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal">xdbg_stmnt(</highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>indent_on);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_indent(RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((indent_on<sp/>&amp;&amp;<sp/>((RegOffset)<sp/>&gt;=<sp/>XXE_GRR_OFFSET)<sp/>&amp;&amp;<sp/>((RegOffset)<sp/>&lt;=<sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="215"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXE_ANASR_OFFSET))<sp/>?<sp/>&quot;\t&quot;<sp/>:<sp/>&quot;&quot;)</highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_reg_name(RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((RegOffset)<sp/>==<sp/>XXE_GRR_OFFSET)<sp/>?<sp/>&quot;XXE_GRR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_RST_OFFSET)<sp/>?<sp/>&quot;XXE_RST_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_MODE_OFFSET)<sp/>?<sp/>&quot;XXE_MODE_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_TXCFG_OFFSET)<sp/>?<sp/>&quot;XXE_TXCFG_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_RXCFG_OFFSET)<sp/>?<sp/>&quot;XXE_RXCFG_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_RXMTU_OFFSET)<sp/>?<sp/>&quot;XXE_RXMTU_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_TICK_OFFSET)<sp/>?<sp/>&quot;XXE_TICK_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_REV_OFFSET)<sp/>?<sp/>&quot;XXE_REV_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="227"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_TXSR_OFFSET)<sp/>?<sp/>&quot;XXE_TXSR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_RXSR_OFFSET)<sp/>?<sp/>&quot;XXE_RXSR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_SR_OFFSET)<sp/>?<sp/>&quot;XXE_SR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_RXBLSR_OFFSET)<sp/>?<sp/>&quot;XXE_RXBLSR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_ANSR_OFFSET)<sp/>?<sp/>&quot;XXE_ANSR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((RegOffset)<sp/>==<sp/>XXE_ANASR_OFFSET)<sp/>?<sp/>&quot;XXE_ANASR_OFFSET&quot;:<sp/>\</highlight></codeline>
+<codeline lineno="233"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;unknown&quot;)</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_print_reg_o(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_TEMAC_REG,<sp/>&quot;%s0x%0x<sp/>-&gt;<sp/>%s(0x%0x)\n&quot;,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_indent(RegOffset),<sp/>(Value),<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_reg_name(RegOffset),<sp/>(RegOffset))<sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_print_reg_i(BaseAddress,<sp/>RegOffset,<sp/>Value)<sp/>\</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xdbg_printf(XDBG_DEBUG_TEMAC_REG,<sp/>&quot;%s%s(0x%0x)<sp/>-&gt;<sp/>0x%0x\n&quot;,<sp/>\</highlight></codeline>
+<codeline lineno="242"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_indent(RegOffset),<sp/><sp/>\</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_reg_name(RegOffset),(RegOffset),<sp/>(Value))<sp/>\</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_ReadReg(BaseAddress,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>({<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>value;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>value<sp/>=<sp/>Xil_In32(((BaseAddress)<sp/>+<sp/>(RegOffset)));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_print_reg_i((BaseAddress),<sp/>(RegOffset),<sp/>value);<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>})</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_ReadReg(BaseAddress,<sp/>RegOffset)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Xil_In32(((BaseAddress)<sp/>+<sp/>(RegOffset))))</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="289"><highlight class="preprocessor">#ifdef<sp/>DEBUG</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="291"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>({<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XXxvEthernet_print_reg_o((BaseAddress),<sp/>(RegOffset),<sp/>(Data));<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(Data));<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>})</highlight></codeline>
+<codeline lineno="295"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="296"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XXxvEthernet_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="297"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>(RegOffset)),<sp/>(Data))</highlight></codeline>
+<codeline lineno="298"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="304"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="306"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/xxvethernet/src/xxxvethernet_hw.h"/>
+  </compounddef>
+</doxygen>

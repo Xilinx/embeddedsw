@@ -1,0 +1,284 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdppsu__selftest_8c" kind="file">
+    <compoundname>xdppsu_selftest.c</compoundname>
+    <includes refid="xdppsu_8h" local="yes">xdppsu.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="127">
+        <label>xdppsu.h</label>
+        <link refid="xdppsu_8h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+      <node id="129">
+        <label>xil_io.h</label>
+      </node>
+      <node id="126">
+        <label>xdppsu_selftest.c</label>
+        <link refid="xdppsu_selftest.c"/>
+        <childnode refid="127" relation="include">
+        </childnode>
+        <childnode refid="132" relation="include">
+        </childnode>
+      </node>
+      <node id="128">
+        <label>xdppsu_hw.h</label>
+        <link refid="xdppsu__hw_8h"/>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>xstatus.h</label>
+      </node>
+      <node id="131">
+        <label>xvidc.h</label>
+      </node>
+      <node id="130">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xdppsu__selftest_8c_1a45369eec332d708666390ffa6524a038" prot="public" static="no">
+        <name>XDPPSU_NUM_RESET_VALUES</name>
+        <initializer>33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" line="36" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xdppsu__selftest_8c_1a3944ea36bb71e872d37ec113d0ccba33" prot="public" static="no">
+        <name>XDPPSU_NUM_MSA_RESET_VALUES</name>
+        <initializer>19</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetValues[XDPPSU_NUM_RESET_VALUES][2]</definition>
+        <argsstring>[XDPPSU_NUM_RESET_VALUES][2]</argsstring>
+        <name>ResetValues</name>
+        <briefdescription>
+<para>This table contains the default values for the DisplayPort TX core&apos;s general usage registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" bodystart="42" bodyend="-1"/>
+        <referencedby refid="xdppsu__selftest_8c_1a361b97262d5192f5f357fb4fb27b3ec8" compoundref="xdppsu__selftest_8c" startline="123" endline="151">XDpPsu_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 ResetValuesMsa[XDPPSU_NUM_MSA_RESET_VALUES][2]</definition>
+        <argsstring>[XDPPSU_NUM_MSA_RESET_VALUES][2]</argsstring>
+        <name>ResetValuesMsa</name>
+        <initializer>=
+{
+	{<ref refid="xdppsu__hw_8h_1acfae349a9726fe324642e099ebbfb356" kindref="member">XDPPSU_MAIN_STREAM_HTOTAL</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1aa4d7607e0a3dbca00150115881ecca65" kindref="member">XDPPSU_MAIN_STREAM_VTOTAL</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1aa7738c02d0883e7d17f1ab000af800de" kindref="member">XDPPSU_MAIN_STREAM_POLARITY</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a12ef125fc3c17f329374fb7082d91e81" kindref="member">XDPPSU_MAIN_STREAM_HSWIDTH</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a89b4198d0838f5b13c3efc018bfff63e" kindref="member">XDPPSU_MAIN_STREAM_VSWIDTH</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a27ba254de82f62941d184b8962dca6a9" kindref="member">XDPPSU_MAIN_STREAM_HRES</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a9d8763c359f1036ef3af7aabd92fc61b" kindref="member">XDPPSU_MAIN_STREAM_VRES</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a6515d0120b4a6fcd2769d651f9c85335" kindref="member">XDPPSU_MAIN_STREAM_HSTART</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1adaccb873812cdd56a0a9400f525bccb0" kindref="member">XDPPSU_MAIN_STREAM_VSTART</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a4c8b7aedd1df781e3ca81a9d54fd3e6a" kindref="member">XDPPSU_MAIN_STREAM_MISC0</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a68bdadc636b21a7130f9d6f2444b6908" kindref="member">XDPPSU_MAIN_STREAM_MISC1</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1ae42d697245eb12b0caae5f2cdec459ed" kindref="member">XDPPSU_M_VID</ref>, 0},
+	{<ref refid="xdppsu__hw_8h_1a842268c74f2d73c00df473e71fb54b86" kindref="member">XDPPSU_TU_SIZE</ref>, 0x40},
+	{XDPPSU_N_VID, 0},
+	{XDPPSU_USER_PIXEL_WIDTH, 1},
+	{XDPPSU_USER_DATA_COUNT_PER_LANE, 0},
+	{XDPPSU_MIN_BYTES_PER_TU, 0},
+	{XDPPSU_FRAC_BYTES_PER_TU, 0},
+	{XDPPSU_INIT_WAIT, 0x20}
+}</initializer>
+        <briefdescription>
+<para>This table contains the default values for the DisplayPort TX core&apos;s main stream attribute (MSA) registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" bodystart="83" bodyend="-1"/>
+        <referencedby refid="xdppsu__selftest_8c_1a361b97262d5192f5f357fb4fb27b3ec8" compoundref="xdppsu__selftest_8c" startline="123" endline="151">XDpPsu_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xdppsu__selftest_8c_1a361b97262d5192f5f357fb4fb27b3ec8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDpPsu_SelfTest</definition>
+        <argsstring>(XDpPsu *InstancePtr)</argsstring>
+        <name>XDpPsu_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function runs a self-test on the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver/device. </para>        </briefdescription>
+        <detaileddescription>
+<para>The sanity test checks whether or not all tested registers hold their default reset values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the self-test passed - all tested registers hold their default reset values.</para></listitem><listitem><para>XST_FAILURE otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c" bodystart="123" bodyend="151"/>
+        <references refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" compoundref="xdppsu_8h" startline="63">XDpPsu_Config::BaseAddr</references>
+        <references refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" compoundref="xdppsu_8h" startline="239">XDpPsu::Config</references>
+        <references refid="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" compoundref="xdppsu__selftest_8c" startline="42">ResetValues</references>
+        <references refid="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" compoundref="xdppsu__selftest_8c" startline="83">ResetValuesMsa</references>
+        <references refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" compoundref="xdppsu__hw_8h" startline="1424">XDpPsu_ReadReg</references>
+        <referencedby refid="xdppsu__selftest__example_8c_1a813b92c07fdf38394fe53f1addda1a50" compoundref="xdppsu__selftest__example_8c" startline="98" endline="120">DpPsu_SelfTestExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a diagnostic self-test function for the <ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>It will check many of the DisplayPort TX&apos;s register values against the default reset values as a sanity-check that the core is ready to be used.</para><para><simplesect kind="note"><para>None.</para></simplesect>
+<preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   aad  01/17/17 Initial release.
+1.1   aad  10/04/17 Removed not applicable registers
+</preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2017<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*******************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdppsu_8h" kindref="compound">xdppsu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_NUM_RESET_VALUES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>33</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDPPSU_NUM_MSA_RESET_VALUES<sp/><sp/><sp/><sp/><sp/>19</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="42" refid="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" kindref="member">ResetValues</ref>[XDPPSU_NUM_RESET_VALUES][2]<sp/>=</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a39533d8f8e18fce7b13f84d440b6b176" kindref="member">XDPPSU_LINK_BW_SET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a25090ba43a6682938a143310ed73d844" kindref="member">XDPPSU_LANE_COUNT_SET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1acb217703567249190f6250fba75a0a38" kindref="member">XDPPSU_ENHANCED_FRAME_EN</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa2d0f8311673ee64d8836b35d31c09ad" kindref="member">XDPPSU_TRAINING_PATTERN_SET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a637f77a0a0d58a0c55799c07ceb8fa62" kindref="member">XDPPSU_LINK_QUAL_PATTERN_SET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a6025e9ebba67eb43d4e7894386b0806e" kindref="member">XDPPSU_SCRAMBLING_DISABLE</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ad4beaa963b7a63da99c8663caa7c7440" kindref="member">XDPPSU_DOWNSPREAD_CTRL</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a71f335fd19c1b8f3bc3eb9a3fbf4644c" kindref="member">XDPPSU_SOFT_RESET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a18e71ddca3a5336d64bdf3a7ed75e3f9" kindref="member">XDPPSU_ENABLE</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a13298309408d465cf884b2b5eb78009b" kindref="member">XDPPSU_ENABLE_MAIN_STREAM</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa04733c4a40ad233e107c38c163a3423" kindref="member">XDPPSU_FORCE_SCRAMBLER_RESET</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a31902e97fbf794a6d9922965934a58e7" kindref="member">XDPPSU_AUX_CMD</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a491175e394de4ec51f460abb147d7a1f" kindref="member">XDPPSU_AUX_WRITE_FIFO</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a2106632c315d3ad5f685330476ca417c" kindref="member">XDPPSU_AUX_ADDRESS</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aadb1a6ac37fc2e571c2a0c5ba90ece94" kindref="member">XDPPSU_AUX_CLK_DIVIDER</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a6100fd7c2396d31135f5576668e244d3" kindref="member">XDPPSU_TX_USER_FIFO_OVERFLOW</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a826c4ff76f6051e55152b916147fdbd9" kindref="member">XDPPSU_AUX_REPLY_CODE</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a7721ad9f0a05d04280627008ea3fdaa0" kindref="member">XDPPSU_AUX_REPLY_COUNT</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a7961eb41e1c88de739f7462d44818b4c" kindref="member">XDPPSU_INTR_MASK</ref>,<sp/>0xFFFFF03F},</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a6290aae7acf47770b47ca197d0a0c6c9" kindref="member">XDPPSU_REPLY_DATA_COUNT</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa9125d1e1b2dd161005e744f50514539" kindref="member">XDPPSU_REPLY_STATUS</ref>,<sp/>0x10},</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ad564b6d94b00f66d20f2469f924a0a19" kindref="member">XDPPSU_PHY_CONFIG</ref>,<sp/>0x10001},</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ad4d20e2d6ab1c2d9d4cd8ef7e1f6e04a" kindref="member">XDPPSU_PHY_TRANSMIT_PRBS7</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a35f964035ad6eade3df5b8539989b536" kindref="member">XDPPSU_PHY_CLOCK_SELECT</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a14ddf17f3094011de0f16a11d86bbc63" kindref="member">XDPPSU_TX_PHY_POWER_DOWN</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1afd27646d6bf849e2605ec977e0906bb0" kindref="member">XDPPSU_PHY_PRECURSOR_LANE_0</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a6b8dfc6e98b73a331306b25535d484bb" kindref="member">XDPPSU_PHY_PRECURSOR_LANE_1</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a2a830ba69a1227e5e0c81723ac207564" kindref="member">XDPPSU_TX_AUDIO_CONTROL</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a72f3966bc5404d485e40130efefe701e" kindref="member">XDPPSU_TX_AUDIO_CHANNELS</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a4a62dd1033e79b46709a6cecff92ab78" kindref="member">XDPPSU_TX_AUDIO_INFO_DATA</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a4e35ebb4abdeb956bdb8d9612ea69be2" kindref="member">XDPPSU_TX_AUDIO_MAUD</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1af176e2e67b35f97360402daad2386f9f" kindref="member">XDPPSU_TX_AUDIO_NAUD</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1acdaec86673f448a838cd31963d7368ff" kindref="member">XDPPSU_TX_AUDIO_EXT_DATA</ref>,<sp/>0}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" kindref="member">ResetValuesMsa</ref>[XDPPSU_NUM_MSA_RESET_VALUES][2]<sp/>=</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1acfae349a9726fe324642e099ebbfb356" kindref="member">XDPPSU_MAIN_STREAM_HTOTAL</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa4d7607e0a3dbca00150115881ecca65" kindref="member">XDPPSU_MAIN_STREAM_VTOTAL</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa7738c02d0883e7d17f1ab000af800de" kindref="member">XDPPSU_MAIN_STREAM_POLARITY</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a12ef125fc3c17f329374fb7082d91e81" kindref="member">XDPPSU_MAIN_STREAM_HSWIDTH</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a89b4198d0838f5b13c3efc018bfff63e" kindref="member">XDPPSU_MAIN_STREAM_VSWIDTH</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a27ba254de82f62941d184b8962dca6a9" kindref="member">XDPPSU_MAIN_STREAM_HRES</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a9d8763c359f1036ef3af7aabd92fc61b" kindref="member">XDPPSU_MAIN_STREAM_VRES</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a6515d0120b4a6fcd2769d651f9c85335" kindref="member">XDPPSU_MAIN_STREAM_HSTART</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1adaccb873812cdd56a0a9400f525bccb0" kindref="member">XDPPSU_MAIN_STREAM_VSTART</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a4c8b7aedd1df781e3ca81a9d54fd3e6a" kindref="member">XDPPSU_MAIN_STREAM_MISC0</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a68bdadc636b21a7130f9d6f2444b6908" kindref="member">XDPPSU_MAIN_STREAM_MISC1</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ae42d697245eb12b0caae5f2cdec459ed" kindref="member">XDPPSU_M_VID</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a842268c74f2d73c00df473e71fb54b86" kindref="member">XDPPSU_TU_SIZE</ref>,<sp/>0x40},</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a402b43e835fbfff366b961880262d3ba" kindref="member">XDPPSU_N_VID</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1aa9be13696d4f6db43e903d239a61dd2b" kindref="member">XDPPSU_USER_PIXEL_WIDTH</ref>,<sp/>1},</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a30a942297a72b501359f4818da8e5515" kindref="member">XDPPSU_USER_DATA_COUNT_PER_LANE</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ae809ab48c87900a9b2cd219d8385f3d5" kindref="member">XDPPSU_MIN_BYTES_PER_TU</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1a2221a5ada815d383adda40c0badcb74d" kindref="member">XDPPSU_FRAC_BYTES_PER_TU</ref>,<sp/>0},</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<ref refid="xdppsu__hw_8h_1ac1bfc95808e680c14095348df796eff3" kindref="member">XDPPSU_INIT_WAIT</ref>,<sp/>0x20}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Function<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="123" refid="xdppsu__selftest_8c_1a361b97262d5192f5f357fb4fb27b3ec8" refkind="member"><highlight class="normal">u32<sp/><ref refid="xdppsu_8h_1a361b97262d5192f5f357fb4fb27b3ec8" kindref="member">XDpPsu_SelfTest</ref>(<ref refid="struct_x_dp_psu" kindref="compound">XDpPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Index;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>general<sp/>usage<sp/>registers<sp/>with<sp/>their<sp/>default<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XDPPSU_NUM_RESET_VALUES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" kindref="member">ResetValues</ref>[Index][0]);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fail<sp/>if<sp/>register<sp/>does<sp/>not<sp/>hold<sp/>default<sp/>value.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Val<sp/>!=<sp/><ref refid="xdppsu__selftest_8c_1a204c61fb3a78ff580955c8823fe39eba" kindref="member">ResetValues</ref>[Index][1])<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compare<sp/>main<sp/>stream<sp/>attribute<sp/>(MSA)<sp/>registers<sp/>with<sp/>their<sp/>default</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XDPPSU_NUM_MSA_RESET_VALUES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/><ref refid="xdppsu__hw_8h_1a236d6b24b5cf2e0e8ac65a4079ae93bc" kindref="member">XDpPsu_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dp_psu_1a95a9619caa3d18b50a4562de54d57704" kindref="member">Config</ref>.<ref refid="struct_x_dp_psu___config_1a59991a74d33038e382665a3460a669ee" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" kindref="member">ResetValuesMsa</ref>[Index][0]);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Fail<sp/>if<sp/>register<sp/>does<sp/>not<sp/>hold<sp/>default<sp/>value.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Val<sp/>!=<sp/><ref refid="xdppsu__selftest_8c_1a40e49362f5db940bb26ae591fb0bc077" kindref="member">ResetValuesMsa</ref>[Index][1])<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>All<sp/>tested<sp/>registers<sp/>hold<sp/>their<sp/>default<sp/>reset<sp/>values.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dppsu/src/xdppsu_selftest.c"/>
+  </compounddef>
+</doxygen>

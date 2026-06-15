@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_s_b___c_b_w" kind="struct" prot="public">
+    <compoundname>USB_CBW</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1abe00e0cd6e36535ea8f113bc3af37be7" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CBW::dCBWSignature</definition>
+        <argsstring></argsstring>
+        <name>dCBWSignature</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1ad8b54e7b7c5d078b04a335def0572e2d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CBW::dCBWTag</definition>
+        <argsstring></argsstring>
+        <name>dCBWTag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1a1f3cb85bc32de34ff766c61de079a633" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 USB_CBW::dCBWDataTransferLength</definition>
+        <argsstring></argsstring>
+        <name>dCBWDataTransferLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1a1bad7b3c8fc40b3567bb4793fe49061b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CBW::bmCBWFlags</definition>
+        <argsstring></argsstring>
+        <name>bmCBWFlags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1a0b278f9f31b7e38dc802f933272b83ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CBW::cCBWLUN</definition>
+        <argsstring></argsstring>
+        <name>cCBWLUN</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1a8472d69d3a601dd34dcdc8f6e6ed4e01" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CBW::bCBWCBLength</definition>
+        <argsstring></argsstring>
+        <name>bCBWCBLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_s_b___c_b_w_1ac2da300ef1c7606e687ee783e40381aa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 USB_CBW::CBWCB[16]</definition>
+        <argsstring>[16]</argsstring>
+        <name>CBWCB</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbps/examples/xusbps_class_storage.h" bodystart="86" bodyend="98"/>
+    <listofallmembers>
+      <member refid="struct_u_s_b___c_b_w_1a8472d69d3a601dd34dcdc8f6e6ed4e01" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>bCBWCBLength</name></member>
+      <member refid="struct_u_s_b___c_b_w_1a1bad7b3c8fc40b3567bb4793fe49061b" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>bmCBWFlags</name></member>
+      <member refid="struct_u_s_b___c_b_w_1ac2da300ef1c7606e687ee783e40381aa" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>CBWCB</name></member>
+      <member refid="struct_u_s_b___c_b_w_1a0b278f9f31b7e38dc802f933272b83ed" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>cCBWLUN</name></member>
+      <member refid="struct_u_s_b___c_b_w_1a1f3cb85bc32de34ff766c61de079a633" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>dCBWDataTransferLength</name></member>
+      <member refid="struct_u_s_b___c_b_w_1abe00e0cd6e36535ea8f113bc3af37be7" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>dCBWSignature</name></member>
+      <member refid="struct_u_s_b___c_b_w_1ad8b54e7b7c5d078b04a335def0572e2d" prot="public" virt="non-virtual"><scope>USB_CBW</scope><name>dCBWTag</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

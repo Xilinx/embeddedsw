@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_pipe_out_fmt__s" kind="struct" prot="public">
+    <compoundname>CamDevicePipeOutFmt_s</compoundname>
+    <includes local="no">cam_device_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a7a84f56912487db3ce25aa9778de08eb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeOutFmt_s::outWidth</definition>
+        <argsstring></argsstring>
+        <name>outWidth</name>
+        <briefdescription>
+<para>Width of output image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1ae9a5e4e42b7586f40ae64be64fbb6a23" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeOutFmt_s::outHeight</definition>
+        <argsstring></argsstring>
+        <name>outHeight</name>
+        <briefdescription>
+<para>Height of output image. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1ac60dce75ba61d7013ed692f0a6bab30d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeOutFmt_s::pathOutType</definition>
+        <argsstring></argsstring>
+        <name>pathOutType</name>
+        <briefdescription>
+<para>path out type </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a1bd408f7a4b60c058909218e0326bb76" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga57993477aeed5b299101fa2920257d43" kindref="member">CamDevicePipePixOutFmt_t</ref></type>
+        <definition>CamDevicePipePixOutFmt_t CamDevicePipeOutFmt_s::outFormat</definition>
+        <argsstring></argsstring>
+        <name>outFormat</name>
+        <briefdescription>
+<para>Format of output pixel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a63f96fc83574fd28f040dfe5e726897b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDevicePipeOutFmt_s::dataBits</definition>
+        <argsstring></argsstring>
+        <name>dataBits</name>
+        <briefdescription>
+<para>Data width of each color component [8~14]. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="146" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a3f3e26c6f3c78b5aecd3b9707cec6992" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDevicePipeOutFmt_s::alpha</definition>
+        <argsstring></argsstring>
+        <name>alpha</name>
+        <briefdescription>
+<para>Alpha value of ARGB format , range 0~255 for ARGB/yuv8bit, range 0~3 for yuv10bit. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a0243e09547d7b60126ffa0580efb550f" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaba90f651b0f88c6d3f703af7010d7b8c" kindref="member">CamDeviceMiYuvOrder_t</ref></type>
+        <definition>CamDeviceMiYuvOrder_t CamDevicePipeOutFmt_s::yuvOrder</definition>
+        <argsstring></argsstring>
+        <name>yuvOrder</name>
+        <briefdescription>
+<para>The difference order of the three yuv channal save in ddr. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a2cbe0484da08a196abc07f06225f2253" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga0c013d70d96a342a8758ad6c23eb110a" kindref="member">CamDeviceMiSwap_u</ref></type>
+        <definition>CamDeviceMiSwap_u CamDevicePipeOutFmt_s::swap</definition>
+        <argsstring></argsstring>
+        <name>swap</name>
+        <briefdescription>
+<para>Output format swap control information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a06384367ab7933bdb599c81364dcf0a5" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gaebf47e59d01d93a3c85cf33096a6cb36" kindref="member">CamDeviceMiBufOffset_t</ref></type>
+        <definition>CamDeviceMiBufOffset_t CamDevicePipeOutFmt_s::bufOffset</definition>
+        <argsstring></argsstring>
+        <name>bufOffset</name>
+        <briefdescription>
+<para>Output format buffer offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_pipe_out_fmt__s_1a0f479f8363c0a94408e5a7eba3f4749a" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga027ba603ba20c167afd655f6b37e19ef" kindref="member">CamDeviceMiBufStride_t</ref></type>
+        <definition>CamDeviceMiBufStride_t CamDevicePipeOutFmt_s::bufStride</definition>
+        <argsstring></argsstring>
+        <name>bufStride</name>
+        <briefdescription>
+<para>Output format buffer stride. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to set ISP pipeline output format. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="527">
+        <label>CamDeviceMiSwap_s</label>
+        <link refid="union_cam_device_mi_swap__s"/>
+      </node>
+      <node id="528">
+        <label>CamDeviceMiBufStride_s</label>
+        <link refid="struct_cam_device_mi_buf_stride__s"/>
+      </node>
+      <node id="526">
+        <label>CamDevicePipeOutFmt_s</label>
+        <link refid="struct_cam_device_pipe_out_fmt__s"/>
+        <childnode refid="527" relation="usage">
+          <edgelabel>swap</edgelabel>
+        </childnode>
+        <childnode refid="528" relation="usage">
+          <edgelabel>bufStride</edgelabel>
+        </childnode>
+        <childnode refid="529" relation="usage">
+          <edgelabel>bufOffset</edgelabel>
+        </childnode>
+      </node>
+      <node id="529">
+        <label>CamDeviceMiBufOffset_s</label>
+        <link refid="struct_cam_device_mi_buf_offset__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/control/cam_device_api.h" bodystart="141" bodyend="152"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a3f3e26c6f3c78b5aecd3b9707cec6992" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>alpha</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a06384367ab7933bdb599c81364dcf0a5" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>bufOffset</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a0f479f8363c0a94408e5a7eba3f4749a" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>bufStride</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a63f96fc83574fd28f040dfe5e726897b" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>dataBits</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a1bd408f7a4b60c058909218e0326bb76" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>outFormat</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1ae9a5e4e42b7586f40ae64be64fbb6a23" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>outHeight</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a7a84f56912487db3ce25aa9778de08eb" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>outWidth</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1ac60dce75ba61d7013ed692f0a6bab30d" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>pathOutType</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a2cbe0484da08a196abc07f06225f2253" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>swap</name></member>
+      <member refid="struct_cam_device_pipe_out_fmt__s_1a0243e09547d7b60126ffa0580efb550f" prot="public" virt="non-virtual"><scope>CamDevicePipeOutFmt_s</scope><name>yuvOrder</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__trng__client__apis" kind="group">
+    <compoundname>xsecure_trng_client_apis</compoundname>
+    <title>XilSecure TRNG Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__trng__client__apis_1gaedcb193e236d201e7679048a63d45d3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_TrngGetCryptoAlgInfo</definition>
+        <argsstring>(Xil_CryptoAlgInfo *AlgInfo)</argsstring>
+        <name>XSecure_TrngGetCryptoAlgInfo</name>
+        <param>
+          <type>Xil_CryptoAlgInfo *</type>
+          <declname>AlgInfo</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the TRNG crypto algorithm information. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>AlgInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to memory for holding the crypto algorithm information</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngalginfo.c" bodystart="52" bodyend="55"/>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="xsecure__alghelper_8c_1aaf53b255cb80926070a852e882a331c9" compoundref="xsecure__alghelper_8c" startline="59" endline="111">XSecure_GetAlgInfo</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_TrngGenerateRandNum</definition>
+        <argsstring>(XSecure_ClientInstance *InstancePtr, u64 RandBufAddr, u32 Size)</argsstring>
+        <name>XSecure_TrngGenerateRandNum</name>
+        <param>
+          <type>XSecure_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>RandBufAddr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to generate random number. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RandBufAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Rand Buffer address to store the generated random number. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of random bytes needs to be generated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS When KAT Pass</para></listitem><listitem><para>XST_INVALID_PARAM If any input parameters are invalid.</para></listitem><listitem><para>XST_FAILURE If there is a failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Fill IPI Payload</para></listitem><listitem><para>Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum API and returns the status of the IPI response.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngclient.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngclient.c" bodystart="53" bodyend="82"/>
+        <references refid="group__xsecure__common__apis_1ga49179f0283044223009c733e01b79d5a" compoundref="xsecure__defs_8h" startline="118">XSECURE_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xsecure__common__apis_1gga48921cbba3a5713caf7d975bedbe36acaea0c287506ca3fcdde8c3583076360a3" compoundref="2ve__2vm_2xsecure__plat__defs_8h" startline="155">XSECURE_API_TRNG_GENERATE</references>
+        <references refid="group__xsecure__mailbox__apis_1ga6ac5f0da32dd8fb5fcd15a7e65b492bb" compoundref="xsecure__mailbox_8c" startline="76" endline="104">XSecure_ProcessMailbox</references>
+        <references refid="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" compoundref="xsecure__trngclient_8h" startline="46">XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</references>
+        <referencedby refid="group__xsecure__trng__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__trng__client__example_8c" startline="96" endline="143">main</referencedby>
+        <referencedby refid="group__xsecure__trng__server__apis_1ga1b389dc6ee1adeeff437018602b66742" compoundref="trngpsv_2xsecure__trng__ipihandler_8c" startline="53" endline="76">XSecure_TrngIpiHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__trng__client__apis_1gafaf6b2f4582742d4fb15beafb4875378" prot="public" static="no">
+        <name>XSECURE_TRNG_SEC_STRENGTH_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>TRNG security strength in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngclient.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/client/core/trng/xsecure_trngclient.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="group__xsecure__trng__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilsecure__versal__net__trng__client__example_8c" startline="96" endline="143">main</referencedby>
+        <referencedby refid="group__xsecure__ecdsa__server__apis_1ga261ca30dbb2a3390cac39562e499f63a" compoundref="xsecure__ellipticplat_8c" startline="85" endline="166">XSecure_EllipticPrvtKeyGenerate</referencedby>
+        <referencedby refid="group__xsecure__trng__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" compoundref="versal__2vp_2xsecure__plat_8c" startline="304" endline="366">XSecure_GetRandomNum</referencedby>
+        <referencedby refid="group__xsecure__trng__client__apis_1ga7d6de56d442c1199e990cfa01d45411c" compoundref="xsecure__trngclient_8c" startline="53" endline="82">XSecure_TrngGenerateRandNum</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

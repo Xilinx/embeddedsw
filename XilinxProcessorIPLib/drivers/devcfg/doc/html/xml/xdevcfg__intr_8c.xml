@@ -1,0 +1,502 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdevcfg__intr_8c" kind="file">
+    <compoundname>xdevcfg_intr.c</compoundname>
+    <includes refid="xdevcfg_8h" local="yes">xdevcfg.h</includes>
+    <incdepgraph>
+      <node id="74">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="72">
+        <label>xil_io.h</label>
+      </node>
+      <node id="69">
+        <label>xdevcfg.h</label>
+        <link refid="xdevcfg_8h"/>
+        <childnode refid="70" relation="include">
+        </childnode>
+        <childnode refid="73" relation="include">
+        </childnode>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+      <node id="73">
+        <label>xstatus.h</label>
+      </node>
+      <node id="68">
+        <label>xdevcfg_intr.c</label>
+        <link refid="xdevcfg_intr.c"/>
+        <childnode refid="69" relation="include">
+        </childnode>
+      </node>
+      <node id="71">
+        <label>xil_types.h</label>
+      </node>
+      <node id="70">
+        <label>xdevcfg_hw.h</label>
+        <link refid="xdevcfg__hw_8h"/>
+        <childnode refid="71" relation="include">
+        </childnode>
+        <childnode refid="72" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_IntrEnable</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_IntrEnable</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the specified interrupts in the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be enabled. Bit positions of 1 will be enabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XDCFG_INT_* bits defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="61" bodyend="80"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" compoundref="xdevcfg__hw_8h" startline="57">XDCFG_INT_MASK_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gab7606b370c10d68d61402bed68955a80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_IntrDisable</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_IntrDisable</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the specified interrupts in the device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be disabled. Bit positions of 1 will be disabled. Bit positions of 0 will keep the previous setting. This mask is formed by OR&apos;ing XDCFG_INT_* bits defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="375" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="99" bodyend="118"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" compoundref="xdevcfg__hw_8h" startline="57">XDCFG_INT_MASK_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_IntrGetEnabled</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_IntrGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the enabled interrupts read from the Interrupt Mask Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XDCFG_INT_* constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the IMR.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="377" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="133" bodyend="146"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" compoundref="xdevcfg__hw_8h" startline="57">XDCFG_INT_MASK_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDcfg_IntrGetStatus</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_IntrGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function returns the interrupt status read from Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>Use the XDCFG_INT_* constants defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref> to interpret the returned value.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A 32-bit value representing the contents of the Interrupt Status register.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="379" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="163" bodyend="176"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" compoundref="xdevcfg__hw_8h" startline="56">XDCFG_INT_STS_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gafff047d176ced3a255248219c1278e3b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_IntrClear</definition>
+        <argsstring>(XDcfg *InstancePtr, u32 Mask)</argsstring>
+        <name>XDcfg_IntrClear</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>This function clears the specified interrupts in the Interrupt Status Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the bit-mask of the interrupts to be cleared. Bit positions of 1 will be cleared. Bit positions of 0 will not change the previous interrupt status. This mask is formed by OR&apos;ing XDCFG_INT_* bits which are defined in <ref refid="xdevcfg__hw_8h" kindref="compound">xdevcfg_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="381" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="195" bodyend="207"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" compoundref="xdevcfg__hw_8h" startline="56">XDCFG_INT_STS_OFFSET</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__reg__readback__example_8c_1af9cf92cccf467028f2ac04b532a100c0" compoundref="xdevcfg__reg__readback__example_8c" startline="334" endline="419">XDcfg_GetConfigReg</referencedby>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+        <referencedby refid="xdevcfg__polled__example_8c_1a0f17ee455230bb2036927786e473c3ea" compoundref="xdevcfg__polled__example_8c" startline="164" endline="286">XDcfgPolledExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_InterruptHandler</definition>
+        <argsstring>(XDcfg *InstancePtr)</argsstring>
+        <name>XDcfg_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>The interrupt handler for the Device Config Interface. </para>        </briefdescription>
+        <detaileddescription>
+<para>Events are signaled to upper layer for proper handling.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="383" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="223" bodyend="253"/>
+        <references refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" compoundref="xdevcfg_8h" startline="188">XDcfg_Config::BaseAddr</references>
+        <references refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" compoundref="xdevcfg_8h" startline="201">XDcfg::Config</references>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <references refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" compoundref="xdevcfg__hw_8h" startline="56">XDCFG_INT_STS_OFFSET</references>
+        <references refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" compoundref="xdevcfg__hw_8h" startline="432">XDcfg_ReadReg</references>
+        <references refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" compoundref="xdevcfg__hw_8h" startline="450">XDcfg_WriteReg</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__devcfg_1gaed08df4afb0dd9c343bf994b4c18e926" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDcfg_SetHandler</definition>
+        <argsstring>(XDcfg *InstancePtr, void *CallBackFunc, void *CallBackRef)</argsstring>
+        <name>XDcfg_SetHandler</name>
+        <param>
+          <type><ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the handler that will be called when an event (interrupt) occurs that needs application&apos;s attention. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg.h" line="385" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c" bodystart="272" bodyend="285"/>
+        <references refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" compoundref="xdevcfg_8h" startline="202">XDcfg::IsReady</references>
+        <referencedby refid="xdevcfg__interrupt__example_8c_1a9af298cf6df14b196fb9f7c2fd6a74d3" compoundref="xdevcfg__interrupt__example_8c" startline="187" endline="336">XDcfg_IntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2010<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdevcfg_8h" kindref="compound">xdevcfg.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gab9c70f073e4522d6085c0059bc385aa9" kindref="member">XDcfg_IntrEnable</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>Interrupt<sp/>Mask<sp/>Register.</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>&amp;=<sp/>~(Mask<sp/>&amp;<sp/>XDCFG_IXR_ALL_MASK);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="99" refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gab7606b370c10d68d61402bed68955a80" kindref="member">XDcfg_IntrDisable</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>RegValue;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>specified<sp/>interrupts<sp/>in<sp/>the<sp/>Interrupt<sp/>Mask<sp/>Register.</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue<sp/>|=<sp/>(Mask<sp/>&amp;<sp/>XDCFG_IXR_ALL_MASK);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RegValue);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="133" refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga879fec56ba0f64d3b2128f11e2b022f0" kindref="member">XDcfg_IntrGetEnabled</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="134"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="136"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="137"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>value<sp/>read<sp/>from<sp/>the<sp/>Interrupt<sp/>Mask<sp/>Register.</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(~<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga15552ab3878c35ec94749ebed5247fe5" kindref="member">XDCFG_INT_MASK_OFFSET</ref>));</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="163" refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__devcfg_1ga9ed5382e8c80a2277816a4db98a1ec6f" kindref="member">XDcfg_IntrGetStatus</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Return<sp/>the<sp/>value<sp/>read<sp/>from<sp/>the<sp/>Interrupt<sp/>Status<sp/>register.</highlight></codeline>
+<codeline lineno="173"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="195" refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gafff047d176ced3a255248219c1278e3b" kindref="member">XDcfg_IntrClear</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="198"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>the<sp/>arguments.</highlight></codeline>
+<codeline lineno="199"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="223" refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1ga3cb50f996ae2577642b7d1b91c33105f" kindref="member">XDcfg_InterruptHandler</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IntrStatusReg;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Assert<sp/>validates<sp/>the<sp/>input<sp/>arguments.</highlight></codeline>
+<codeline lineno="229"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Read<sp/>the<sp/>Interrupt<sp/>status<sp/>register.</highlight></codeline>
+<codeline lineno="235"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg<sp/>=<sp/><ref refid="group__devcfg_1ga77561dc2e9ea13137f50a8193b8fbcd3" kindref="member">XDcfg_ReadReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Write<sp/>the<sp/>status<sp/>back<sp/>to<sp/>clear<sp/>the<sp/>interrupts<sp/>so<sp/>that<sp/>no</highlight></codeline>
+<codeline lineno="241"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>subsequent<sp/>interrupts<sp/>are<sp/>missed<sp/>while<sp/>processing<sp/>this<sp/>interrupt.</highlight></codeline>
+<codeline lineno="242"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>This<sp/>also<sp/>does<sp/>the<sp/>DMA<sp/>acknowledgment<sp/>automatically.</highlight></codeline>
+<codeline lineno="243"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga8ae617fbb2b3e148a8b2489e90fbdea3" kindref="member">XDcfg_WriteReg</ref>(InstancePtr-&gt;<ref refid="struct_x_dcfg_1aa781f458f64d74c8147d10f09683301e" kindref="member">Config</ref>.<ref refid="struct_x_dcfg___config_1a97b0e40ed1632649e15eedea77e84a82" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__devcfg_1ga5abc2123bae0a1d3512d41be98ca477c" kindref="member">XDCFG_INT_STS_OFFSET</ref>,<sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Signal<sp/>application<sp/>that<sp/>there<sp/>are<sp/>events<sp/>to<sp/>handle.</highlight></codeline>
+<codeline lineno="249"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;StatusHandler(InstancePtr-&gt;CallBackRef,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IntrStatusReg);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="272" refid="group__devcfg_1gaed08df4afb0dd9c343bf994b4c18e926" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__devcfg_1gaed08df4afb0dd9c343bf994b4c18e926" kindref="member">XDcfg_SetHandler</ref>(<ref refid="struct_x_dcfg" kindref="compound">XDcfg</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackFunc,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef)</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="276"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Asserts<sp/>validate<sp/>the<sp/>input<sp/>arguments</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>CallBackRef<sp/>not<sp/>checked,<sp/>no<sp/>way<sp/>to<sp/>know<sp/>what<sp/>is<sp/>valid</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CallBackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_dcfg_1acd5816f6958bdbe2081d586d2b613f27" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;StatusHandler<sp/>=<sp/>(<ref refid="group__devcfg_1ga98b91ecac0510dc4f55961e285f425ef" kindref="member">XDcfg_IntrHandler</ref>)<sp/>CallBackFunc;</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;CallBackRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/devcfg/src/xdevcfg_intr.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ee_dci_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceEeDciManualConfig_s</compoundname>
+    <includes local="no">cam_device_ee_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ee_dci_manual_config__s_1a946cd31b7469f18dd8015ce5fc5bf5c1" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceEeDciManualConfig_s::dciCurve[CAMDEV_EE_DCI_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_EE_DCI_CURVE_SIZE]</argsstring>
+        <name>dciCurve</name>
+        <briefdescription>
+<para>EE DCI curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice EE DCI manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="102" bodyend="104"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ee_dci_manual_config__s_1a946cd31b7469f18dd8015ce5fc5bf5c1" prot="public" virt="non-virtual"><scope>CamDeviceEeDciManualConfig_s</scope><name>dciCurve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

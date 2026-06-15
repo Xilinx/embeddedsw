@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_21961cb012fc56e46899af32f0d0dd88" kind="dir">
+    <compoundname>versal_2vp</compoundname>
+    <innerfile refid="common_2versal__2vp_2xsecure__aesalginfo_8h">common/versal_2vp/xsecure_aesalginfo.h</innerfile>
+    <innerfile refid="common_2versal__2vp_2xsecure__ellipticalginfo_8h">common/versal_2vp/xsecure_ellipticalginfo.h</innerfile>
+    <innerfile refid="2vp_2xsecure__plat__defs_8h">2vp/xsecure_plat_defs.h</innerfile>
+    <innerfile refid="common_2versal__2vp_2xsecure__rsaalginfo_8h">common/versal_2vp/xsecure_rsaalginfo.h</innerfile>
+    <innerfile refid="common_2versal__2vp_2xsecure__sha3alginfo_8h">common/versal_2vp/xsecure_sha3alginfo.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2vp/"/>
+  </compounddef>
+</doxygen>

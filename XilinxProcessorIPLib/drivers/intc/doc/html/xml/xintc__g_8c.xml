@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xintc__g_8c" kind="file">
+    <compoundname>xintc_g.c</compoundname>
+    <includes refid="xintc_8h" local="yes">xintc.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <incdepgraph>
+      <node id="52">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="55">
+        <label>xintc_l.h</label>
+        <link refid="xintc__l_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>xintc_drv_config.h</label>
+      </node>
+      <node id="49">
+        <label>xintc_g.c</label>
+        <link refid="xintc_g.c"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xstatus.h</label>
+      </node>
+      <node id="57">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="51">
+        <label>xil_types.h</label>
+      </node>
+      <node id="58">
+        <label>xparameters.h</label>
+      </node>
+      <node id="50">
+        <label>xintc.h</label>
+        <link refid="xintc_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="55" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__intc_1ga2187e69fdc39ef945a992d2602d0c1c1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref></type>
+        <definition>XIntc_Config XIntc_ConfigTable[XPAR_XINTC_NUM_INSTANCES]</definition>
+        <argsstring>[XPAR_XINTC_NUM_INSTANCES]</argsstring>
+        <name>XIntc_ConfigTable</name>
+        <initializer>= {
+	{
+	 XPAR_INTC_0_DEVICE_ID,
+	 XPAR_INTC_0_BASEADDR,
+	 XPAR_INTC_0_ACK_BEFORE,
+	 0
+	 }
+	,
+	{
+	 XPAR_INTC_1_DEVICE_ID,
+	 XPAR_INTC_1_BASEADDR,
+	 XPAR_INTC_1_ACK_BEFORE,
+	 0
+	 }
+}</initializer>
+        <briefdescription>
+<para>This table contains configuration information for each intc device in the system. </para>        </briefdescription>
+        <detaileddescription>
+<para>The <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver must know when to acknowledge the interrupt. The entry which specifies this as a bit mask where each bit corresponds to a specific interrupt. A bit set indicates to ack it before servicing it. Generally, acknowledge before service is used when the interrupt signal is edge-sensitive, and after when the signal is level-sensitive.</para><para>Refer to the <ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> data structure in <ref refid="xintc_8h" kindref="compound">xintc.h</ref> for details on how this table should be initialized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c" bodystart="75" bodyend="-1"/>
+        <referencedby refid="group__intc_1gaf8c9b9342d3f4190fe131c29765a1e02" compoundref="xintc__l_8c" startline="464" endline="484">LookupConfigByBaseAddress</referencedby>
+        <referencedby refid="group__intc_1gace91a1aeaf1a88e1b769decb4ac4a818" compoundref="xintc__l_8c" startline="179" endline="329">XIntc_DeviceInterruptHandler</referencedby>
+        <referencedby refid="group__intc_1gaa6e69276f3923a7d61d366c98269d750" compoundref="xintc_8c" startline="122" endline="139">XIntc_GetPrimaryController</referencedby>
+        <referencedby refid="group__intc_1ga29cc03aa40679a199de65e7657280dab" compoundref="xintc_8c" startline="974" endline="998">XIntc_LookupConfig</referencedby>
+        <referencedby refid="group__intc_1gaf090e932e35ede6c8cffe76e785de835" compoundref="xintc__l_8c" startline="355" endline="380">XIntc_SetIntrSvcOption</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xintc_8h" kindref="compound">xintc.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" refkind="member"><highlight class="normal"><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref><sp/><ref refid="group__intc_1ga6afbe6b28aa729c753744cba40ecf5b3" kindref="member">XIntc_ConfigTable</ref>[XPAR_XINTC_NUM_INSTANCES]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DEVICE_ID,<sp/></highlight><highlight class="comment">/*<sp/>Unique<sp/>ID<sp/><sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_BASEADDR,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Register<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_ACK_BEFORE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ack<sp/>before<sp/>or<sp/>after<sp/>service<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_1_DEVICE_ID,<sp/></highlight><highlight class="comment">/*<sp/>Unique<sp/>ID<sp/><sp/>of<sp/>device<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_1_BASEADDR,<sp/><sp/></highlight><highlight class="comment">/*<sp/>Register<sp/>base<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_1_ACK_BEFORE,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Ack<sp/>before<sp/>or<sp/>after<sp/>service<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Device<sp/>options<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc_g.c"/>
+  </compounddef>
+</doxygen>

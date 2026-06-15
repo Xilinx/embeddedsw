@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_gtm_auto_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceGtmAutoConfig_s</compoundname>
+    <includes local="no">cam_device_gtm_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1ad22f2ebf1f7b952157e69fce33fe4bc0" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::autoLevel</definition>
+        <argsstring></argsstring>
+        <name>autoLevel</name>
+        <briefdescription>
+<para>Auto level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a37cf574c5177a866ab064e21ea563a45" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::gain[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>gain</name>
+        <briefdescription>
+<para>GTM gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a1d0afe30680b23e1a160416d21fc35d6" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::bwcorMinLog[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>bwcorMinLog</name>
+        <briefdescription>
+<para>Black white Correction log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="203" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a4fb725632e87f2d779228657fe8d784d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::bwcorMaxLog[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>bwcorMaxLog</name>
+        <briefdescription>
+<para>Black white Correction max log. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="204" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1af38bb4e9d66afde88b805ad6ff138786" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::histContrastLimitLevel[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histContrastLimitLevel</name>
+        <briefdescription>
+<para>Histogram contrast limit level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1ae72c8e970fc23794e45204abe7300821" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::histHlcFactor[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histHlcFactor</name>
+        <briefdescription>
+<para>Histogram HLC factor. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a83d03f7987929a77caa652027e7a1d72" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::histLumaPreserveWeight[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histLumaPreserveWeight</name>
+        <briefdescription>
+<para>Histogram luma preserve weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a81ef6080085348a40d398fbdceed87b7" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::histMaxGain[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histMaxGain</name>
+        <briefdescription>
+<para>Histogram max gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a5164907bd6cebb4bf2c8c2c50a9b60dd" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::histMinGain[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histMinGain</name>
+        <briefdescription>
+<para>Histogram min gain. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="209" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a9bdc3b0927919d542305a3acb778745b" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::histStrength[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>histStrength</name>
+        <briefdescription>
+<para>Histogram strength. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a772a7105f53f9984db8c0a9b00a1ee58" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::gtmColorWeight[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_COLOR_WEIGHT_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_COLOR_WEIGHT_SIZE]</argsstring>
+        <name>gtmColorWeight</name>
+        <briefdescription>
+<para>Color weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a7021b145c0c847d26ea469e48299a924" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceGtmAutoConfig_s::histLumaWeight[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_HIST_LUMA_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_HIST_LUMA_SIZE]</argsstring>
+        <name>histLumaWeight</name>
+        <briefdescription>
+<para>Histogram luma weight. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a915d70387c059e81cdb85ed97798b07d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceGtmAutoConfig_s::userCurve[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_USER_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM][CAMDEV_GTM_USER_CURVE_SIZE]</argsstring>
+        <name>userCurve</name>
+        <briefdescription>
+<para>User curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1ae0f6acbdf0ac0589c6be34f83e2280bd" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__gtm_1ga5f0a8d33118351a930208d68e5a37a87" kindref="member">CamDeviceGtmCurveInfoConfig_t</ref></type>
+        <definition>CamDeviceGtmCurveInfoConfig_t CamDeviceGtmAutoConfig_s::gtmCurveInfo</definition>
+        <argsstring></argsstring>
+        <name>gtmCurveInfo</name>
+        <briefdescription>
+<para>Curve histogram information. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a16a26366de59cb78ee4c94299ab622e8" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t CamDeviceGtmAutoConfig_s::edrLevel</definition>
+        <argsstring></argsstring>
+        <name>edrLevel</name>
+        <briefdescription>
+<para>EDR level. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_gtm_auto_config__s_1a263a582d54c49cc7fe523ae8d1c2f8a5" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceGtmAutoConfig_s::edr[CAMDEV_ISO_STRENGTH_NUM]</definition>
+        <argsstring>[CAMDEV_ISO_STRENGTH_NUM]</argsstring>
+        <name>edr</name>
+        <briefdescription>
+<para>EDR array. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice GTM auto configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="404">
+        <label>CamDeviceGtmAutoConfig_s</label>
+        <link refid="struct_cam_device_gtm_auto_config__s"/>
+        <childnode refid="405" relation="usage">
+          <edgelabel>gtmCurveInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="405">
+        <label>CamDeviceGtmCurveInfoConfig_s</label>
+        <link refid="struct_cam_device_gtm_curve_info_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" line="200" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/gtm_v1/cam_device_gtm_api.h" bodystart="199" bodyend="219"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_gtm_auto_config__s_1ad22f2ebf1f7b952157e69fce33fe4bc0" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>autoLevel</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a4fb725632e87f2d779228657fe8d784d" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>bwcorMaxLog</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a1d0afe30680b23e1a160416d21fc35d6" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>bwcorMinLog</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a263a582d54c49cc7fe523ae8d1c2f8a5" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>edr</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a16a26366de59cb78ee4c94299ab622e8" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>edrLevel</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a37cf574c5177a866ab064e21ea563a45" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>gain</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a772a7105f53f9984db8c0a9b00a1ee58" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>gtmColorWeight</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1ae0f6acbdf0ac0589c6be34f83e2280bd" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>gtmCurveInfo</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1af38bb4e9d66afde88b805ad6ff138786" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histContrastLimitLevel</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1ae72c8e970fc23794e45204abe7300821" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histHlcFactor</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a83d03f7987929a77caa652027e7a1d72" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histLumaPreserveWeight</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a7021b145c0c847d26ea469e48299a924" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histLumaWeight</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a81ef6080085348a40d398fbdceed87b7" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histMaxGain</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a5164907bd6cebb4bf2c8c2c50a9b60dd" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histMinGain</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a9bdc3b0927919d542305a3acb778745b" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>histStrength</name></member>
+      <member refid="struct_cam_device_gtm_auto_config__s_1a915d70387c059e81cdb85ed97798b07d" prot="public" virt="non-virtual"><scope>CamDeviceGtmAutoConfig_s</scope><name>userCurve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

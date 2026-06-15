@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_module_auto_ctrl_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceModuleAutoCtrlConfig_s</compoundname>
+    <includes local="no">cam_device_module_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_module_auto_ctrl_config__s_1aa1d6dbf0707513431116293b45169da5" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga4d3527c663d834b49f0d33bacd8e7c07" kindref="member">CamDeviceModuleAutoWorkMode_t</ref></type>
+        <definition>CamDeviceModuleAutoWorkMode_t CamDeviceModuleAutoCtrlConfig_s::workMode</definition>
+        <argsstring></argsstring>
+        <name>workMode</name>
+        <briefdescription>
+<para>Submodule auto ctrl work mode configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cam_device_module_api.h" line="90" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cam_device_module_api.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice module configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cam_device_module_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cam_device_module_api.h" bodystart="89" bodyend="91"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_module_auto_ctrl_config__s_1aa1d6dbf0707513431116293b45169da5" prot="public" virt="non-virtual"><scope>CamDeviceModuleAutoCtrlConfig_s</scope><name>workMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

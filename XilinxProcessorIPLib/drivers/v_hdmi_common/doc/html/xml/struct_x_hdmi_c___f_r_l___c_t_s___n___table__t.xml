@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi_c___f_r_l___c_t_s___n___table__t" kind="struct" prot="public">
+    <compoundname>XHdmiC_FRL_CTS_N_Table_t</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__hdmi__common_1gac7f4c0dc7f1f00be3fcfebf493de5ec9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val" kindref="compound">XHdmiC_FRL_CTS_N_Val</ref></type>
+        <definition>XHdmiC_FRL_CTS_N_Val XHdmiC_FRL_CTS_N_Table_t::CTS_NVal[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>CTS_NVal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="369" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="369" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Top level data structure for XHdmiC_FRL_CTS_N_Table_t. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="29">
+        <label>XHdmiC_FRL_CTS_N_Val</label>
+        <link refid="struct_x_hdmi_c___f_r_l___c_t_s___n___val"/>
+      </node>
+      <node id="28">
+        <label>XHdmiC_FRL_CTS_N_Table_t</label>
+        <childnode refid="29" relation="usage">
+          <edgelabel>CTS_NVal</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" line="367" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.c" bodystart="367" bodyend="370"/>
+    <listofallmembers>
+      <member refid="group__hdmi__common_1gac7f4c0dc7f1f00be3fcfebf493de5ec9" prot="public" virt="non-virtual"><scope>XHdmiC_FRL_CTS_N_Table_t</scope><name>CTS_NVal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

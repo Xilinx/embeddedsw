@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_ee_ca_manual_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceEeCaManualConfig_s</compoundname>
+    <includes local="no">cam_device_ee_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_ee_ca_manual_config__s_1a9fa64554cedae6d5d4b5f6112efe9065" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__ee_1ga9aaaa64d7fb5b1ddbffd71be8ce7a8e9" kindref="member">CamDeviceEeCaMode_t</ref></type>
+        <definition>CamDeviceEeCaMode_t CamDeviceEeCaManualConfig_s::caMode</definition>
+        <argsstring></argsstring>
+        <name>caMode</name>
+        <briefdescription>
+<para>EE CA mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_ee_ca_manual_config__s_1ad6b340b2c84ae03a42668b82c5c15b50" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceEeCaManualConfig_s::caCurve[CAMDEV_EE_CA_CURVE_SIZE]</definition>
+        <argsstring>[CAMDEV_EE_CA_CURVE_SIZE]</argsstring>
+        <name>caCurve</name>
+        <briefdescription>
+<para>EE CA curve. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice EE CA manual configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/ee_v2/cam_device_ee_api.h" bodystart="131" bodyend="134"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_ee_ca_manual_config__s_1ad6b340b2c84ae03a42668b82c5c15b50" prot="public" virt="non-virtual"><scope>CamDeviceEeCaManualConfig_s</scope><name>caCurve</name></member>
+      <member refid="struct_cam_device_ee_ca_manual_config__s_1a9fa64554cedae6d5d4b5f6112efe9065" prot="public" virt="non-virtual"><scope>CamDeviceEeCaManualConfig_s</scope><name>caMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

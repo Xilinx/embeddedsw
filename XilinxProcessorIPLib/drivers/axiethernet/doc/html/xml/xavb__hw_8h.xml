@@ -1,0 +1,2236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xavb__hw_8h" kind="file">
+    <compoundname>xavb_hw.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xavb_8c" local="yes">xavb.c</includedby>
+    <includedby refid="xavb_8h" local="yes">xavb.h</includedby>
+    <includedby refid="xavb__example_8c" local="yes">xavb_example.c</includedby>
+    <includedby refid="xavb__hw_8c" local="yes">xavb_hw.c</includedby>
+    <includedby refid="xavb__ptp__bmca_8c" local="yes">xavb_ptp_bmca.c</includedby>
+    <includedby refid="xavb__ptp__packets_8c" local="yes">xavb_ptp_packets.c</includedby>
+    <includedby refid="xavb__rtc__sync_8c" local="yes">xavb_rtc_sync.c</includedby>
+    <incdepgraph>
+      <node id="53">
+        <label>xil_io.h</label>
+      </node>
+      <node id="51">
+        <label>xavb_hw.h</label>
+        <link refid="xavb_hw.h"/>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="55">
+        <label>xavb.c</label>
+        <link refid="xavb_8c"/>
+      </node>
+      <node id="59">
+        <label>xavb_ptp_packets.c</label>
+        <link refid="xavb__ptp__packets_8c"/>
+      </node>
+      <node id="56">
+        <label>xavb.h</label>
+        <link refid="xavb_8h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="61">
+        <label>xavb_hw.c</label>
+        <link refid="xavb__hw_8c"/>
+      </node>
+      <node id="54">
+        <label>xavb_hw.h</label>
+        <link refid="xavb_hw.h"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+      </node>
+      <node id="57">
+        <label>xavb_example.c</label>
+        <link refid="xavb__example_8c"/>
+      </node>
+      <node id="60">
+        <label>xavb_rtc_sync.c</label>
+      </node>
+      <node id="58">
+        <label>xavb_ptp_bmca.c</label>
+        <link refid="xavb__ptp__bmca_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_avb___rtc_format" prot="public">XAvb_RtcFormat</innerclass>
+    <innerclass refid="struct_x_avb___uint64" prot="public">XAvb_Uint64</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the Tri-Mode Ethernet MAC. Each register is 32</header>
+      <description><para>bits.</para><para>The MAC is addressable through the Ethernet AVB Endpoint core. </para></description>
+      <memberdef kind="define" id="xavb__hw_8h_1a3ba68470fe0e86604ad06c3e909aa7a9" prot="public" static="no">
+        <name>XAVB_MAC_RX_REG0_OFFSET</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>MAC Rx Config Register 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ac563b910c3a0bb2b55d2b3b1d8465101" prot="public" static="no">
+        <name>XAVB_MAC_RX_REG1_OFFSET</name>
+        <initializer>0x00000404</initializer>
+        <briefdescription>
+<para>MAC Rx Config Register 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1af573ab840d4c0f06dbecb120f4a8950f" prot="public" static="no">
+        <name>XAVB_MAC_TX_REG_OFFSET</name>
+        <initializer>0x00000408</initializer>
+        <briefdescription>
+<para>MAC Tx Config Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae5d89c2164737985208dda027b8d0387" prot="public" static="no">
+        <name>XAVB_MAC_FC_REG_OFFSET</name>
+        <initializer>0x0000040c</initializer>
+        <briefdescription>
+<para>MAC Flow Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a31ebb43f9bfd2a258493dc13f01a7f0b" prot="public" static="no">
+        <name>XAVB_MAC_SPD_REG_OFFSET</name>
+        <initializer>0x00000410</initializer>
+        <briefdescription>
+<para>MAC Speed Control Register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Register offsets for the Ethernet Audio Video Endpoint. Each register</header>
+      <description><para>is 32 bits. </para></description>
+      <memberdef kind="define" id="xavb__hw_8h_1ad99ca00362bea7facdddcc2cf4b665da" prot="public" static="no">
+        <name>XAVB_PTP_TX_CONTROL_OFFSET</name>
+        <initializer>0x00012000</initializer>
+        <briefdescription>
+<para>Tx PTP Control Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="67" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="67" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="311" endline="324">XAvb_WaitOnTxPtpQueue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ad0d33dc36a4a6b1f046d7ad862775922" prot="public" static="no">
+        <name>XAVB_PTP_RX_CONTROL_OFFSET</name>
+        <initializer>0x00012004</initializer>
+        <briefdescription>
+<para>Rx PTP Control Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="68" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aeb18774c7074b8558f6f3d92ee894308" prot="public" static="no">
+        <name>XAVB_RX_FILTER_CONTROL</name>
+        <initializer>0x00012008</initializer>
+        <briefdescription>
+<para>Rx Filter Control Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="69" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="705" endline="717">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="xavb_8h_1a4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="630" endline="647">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="xavb_8h_1afb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="669" endline="686">XAvb_SetupRxFilterControlVid</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a634b68c6d85a3fbadd2b6feb56a62d62" prot="public" static="no">
+        <name>XAVB_TX_SENDSLOPE</name>
+        <initializer>0x0001200C</initializer>
+        <briefdescription>
+<para>Tx rate sendSlope Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="70" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a355862c65f81390538cf5e8b19493ea5" prot="public" static="no">
+        <name>XAVB_TX_IDLESLOPE</name>
+        <initializer>0x00012010</initializer>
+        <briefdescription>
+<para>Tx rate idleSlope Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aa8ecc322bb424bdd59e02a09b7a91279" prot="public" static="no">
+        <name>XAVB_TX_HILIMIT</name>
+        <initializer>0x00012014</initializer>
+        <briefdescription>
+<para>Tx rate hiLimit Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a77bc297f703b667990fe302c8d7765ac" prot="public" static="no">
+        <name>XAVB_TX_LOLIMIT</name>
+        <initializer>0x00012018</initializer>
+        <briefdescription>
+<para>Tx rate loLimit Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" prot="public" static="no">
+        <name>XAVB_RTC_NANOSEC_OFFSET</name>
+        <initializer>0x00012800</initializer>
+        <briefdescription>
+<para>RTC ns offset Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" compoundref="xavb__rtc__sync_8c" startline="380" endline="432">XAvb_Adjust8kClock</referencedby>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1acc7285ad5177c30185fcd6e39992865b" prot="public" static="no">
+        <name>XAVB_RTC_SEC_LOWER_OFFSET</name>
+        <initializer>0x00012808</initializer>
+        <briefdescription>
+<para>RTC sec[31:0] offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="75" bodyend="-1"/>
+        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ac8683f10accad0c3fbb9ed86f7e63577" prot="public" static="no">
+        <name>XAVB_RTC_SEC_UPPER_OFFSET</name>
+        <initializer>0x0001280C</initializer>
+        <briefdescription>
+<para>RTC sec[47:32] offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="76" bodyend="-1"/>
+        <referencedby refid="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" compoundref="xavb__hw_8c" startline="129" endline="139">XAvb_WriteRtcOffset</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a48d76d16f8d685a65a1216614e548071" prot="public" static="no">
+        <name>XAVB_RTC_INCREMENT_OFFSET</name>
+        <initializer>0x00012810</initializer>
+        <briefdescription>
+<para>RTC Increment Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="77" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a59f550eaa57148613974c4aa5628bfb4" prot="public" static="no">
+        <name>XAVB_RTC_NANOSEC_VALUE_OFFSET</name>
+        <initializer>0x00012814</initializer>
+        <briefdescription>
+<para>RTC ns value Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="78" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" prot="public" static="no">
+        <name>XAVB_RTC_SEC_LOWER_VALUE_OFFSET</name>
+        <initializer>0x00012818</initializer>
+        <briefdescription>
+<para>RTC sec[31:0] value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae38e8307c8da64ba9f42516168855a8f" prot="public" static="no">
+        <name>XAVB_RTC_SEC_UPPER_VALUE_OFFSET</name>
+        <initializer>0x0001281C</initializer>
+        <briefdescription>
+<para>RTC sec[47:32] value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="80" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" compoundref="xavb__hw_8c" startline="96" endline="110">XAvb_ReadRtc</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a2f724f6845f2fc8b62dc841ef36525d5" prot="public" static="no">
+        <name>XAVB_RTC_CLEAR_INT_OFFSET</name>
+        <initializer>0x00012820</initializer>
+        <briefdescription>
+<para>RTC Interrupt Clear. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="81" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="81" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1af86466362cc51296ae22fd1cb6c1d6ad" prot="public" static="no">
+        <name>XAVB_RTC_8K_OFFSET_OFFSET</name>
+        <initializer>0x00012824</initializer>
+        <briefdescription>
+<para>RTC 8k phase offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="82" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="82" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" compoundref="xavb__rtc__sync_8c" startline="380" endline="432">XAvb_Adjust8kClock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae9e3a0562e191d4ea8eb166f5deadef3" prot="public" static="no">
+        <name>XAVB_SW_RESET_OFFSET</name>
+        <initializer>0x00012828</initializer>
+        <briefdescription>
+<para>S/W Reset Reg. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Packet base address offsets for the Ethernet Audio Video Endpoint Tx</header>
+      <description><para>Precise Timing Protocol (PTP) frame buffer.</para><para>Each PTP frames is stored in 256-byte chunks of BRAM. This BRAM can store 8 PTP frames of which only 6 are currently in use. </para></description>
+      <memberdef kind="define" id="xavb__hw_8h_1a6b7c29da7c7f49a541bae584bf94c559" prot="public" static="no">
+        <name>XAVB_PTP_TX_SYNC_OFFSET</name>
+        <initializer>0x00011000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a2461b11951e9884926d2f41aa6fbc7cf" prot="public" static="no">
+        <name>XAVB_PTP_TX_FOLLOW_UP_OFFSET</name>
+        <initializer>0x00011100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="93" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a25e98373619aec43e26b143f7dd772b8" prot="public" static="no">
+        <name>XAVB_PTP_TX_PDELAYREQ_OFFSET</name>
+        <initializer>0x00011200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae6c73d16c51dfb887ee8e6e59158a156" prot="public" static="no">
+        <name>XAVB_PTP_TX_PDELAYRESP_OFFSET</name>
+        <initializer>0x00011300</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a884b7b765c3222fb63680269ca1bd4b5" prot="public" static="no">
+        <name>XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP_OFFSET</name>
+        <initializer>0x00011400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="96" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a0c20629ddd1fe54531e00a9bb097619f" prot="public" static="no">
+        <name>XAVB_PTP_TX_ANNOUNCE_OFFSET</name>
+        <initializer>0x00011500</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Base address offset for the Ethernet Audio Video Endpoint Rx</header>
+      <description><para>Precise Timing Protocol (PTP) frame buffer.</para><para>These PTP frames are stored in 256-byte chunks of BRAM. This BRAM can store 16 PTP frames. </para></description>
+      <memberdef kind="define" id="xavb__hw_8h_1a9106ea16ef7e55defa178b3af9fa12b4" prot="public" static="no">
+        <name>XAVB_PTP_RX_BASE_OFFSET</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Tx PTP Control Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a23d0575e79fffc06dba35ebf43aee857" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_SYNC_FRAME_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="111" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ab250fe374350b32cc023c3d3dd6cbd7a" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_FOLLOWUP_FRAME_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ad8b49fecc058d895629fda0606f203a5" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_PDELAYREQ_FRAME_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="113" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a8bb6cfeae7bc98138b8fc4eaa6d852bc" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_PDELAYRESP_FRAME_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a23eea49756a97dddfbb3db3f0a8e07cc" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_PDELAYRESPFOLLOWUP_FRAME_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae267f03a2572c7e7f3ddc0690efd22f2" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_ANNOUNCE_FRAME_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="116" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1afde2818bd966bb3c47caff8b87623527" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_FRAME6_BIT_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aa5e31639c5616bf524992995caac4fa6" prot="public" static="no">
+        <name>XAVB_PTP_TX_SEND_FRAME7_BIT_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a21ab07b9b48b97188fb2293aae38e338" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_SYNC_FRAME_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a88498b811411a5382baea9ded3464014" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_FOLLOWUP_FRAME_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a5064c36e318853f7226c8438457d9ef6" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_PDELAYREQ_FRAME_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a324953095985f3ee1574fddccf0a91e8" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_PDELAYRESP_FRAME_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a6fce6714f2e7b0cf27bc62a4496393ee" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_PDELAYRESPFOLLOWUP_FRAME_MASK</name>
+        <initializer>0x00001000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ab9f4b67472363a3d8634fb8365604e41" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_ANNOUNCE_FRAME_MASK</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a40c9512de41a4db77e7e40fb054449e1" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_FRAME6_BIT_MASK</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a18a2f61a3c12d8b2e91530301f0e6f09" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_FRAME7_BIT_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="126" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a88ef3e83aa27122b0fbdfb29c995bfa1" prot="public" static="no">
+        <name>XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK</name>
+        <initializer>0x0000FF00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1af5a5d6b95595b009cac927c93bce75db" prot="public" static="no">
+        <name>XAVB_PTP_TX_PACKET_FIELD_MASK</name>
+        <initializer>0x00070000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Rx PTP Control Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a18d5b09853695aa9381fd95fed1f40e5" prot="public" static="no">
+        <name>XAVB_PTP_RX_CLEAR_BIT_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a5ec2c4da8fb6fa9f3c6f45de94b91e0b" prot="public" static="no">
+        <name>XAVB_PTP_RX_PACKET_FIELD_MASK</name>
+        <initializer>0x00000F00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="136" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Rx Filter Control Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1ae94f247e58d65211d9053d7b4cb48b18" prot="public" static="no">
+        <name>XAVB_RX_AV_VLAN_PRIORITY_A_MASK</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a7af8ceaa6279a4d27142e9bd4d293d6f" prot="public" static="no">
+        <name>XAVB_RX_AV_VLAN_VID_A_MASK</name>
+        <initializer>0x00007FF8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a5d1c16c77f210dfd12bacf94781e4eed" prot="public" static="no">
+        <name>XAVB_RX_AV_VLAN_MATCH_MODE_MASK</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ac38842ef291cd5ceb584c48e464d33da" prot="public" static="no">
+        <name>XAVB_RX_AV_VLAN_PRIORITY_B_MASK</name>
+        <initializer>0x00070000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="145" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a5dbc043051fbf541d6cda18cc90a804e" prot="public" static="no">
+        <name>XAVB_RX_AV_VLAN_VID_B_MASK</name>
+        <initializer>0x7FF80000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aa9f22863a54da46de65c4bce9201e5b6" prot="public" static="no">
+        <name>XAVB_RX_LEGACY_PROMISCUOUS_MODE_MASK</name>
+        <initializer>0x80000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="147" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Tx rate control sendSlope</header>
+      <memberdef kind="define" id="xavb__hw_8h_1ad4b5a63b9b5b51ce819fa6ee77554991" prot="public" static="no">
+        <name>XAVB_TX_SENDSLOPE_MASK</name>
+        <initializer>0X000FFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="153" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Tx rate control idleSlope</header>
+      <memberdef kind="define" id="xavb__hw_8h_1af5c9bc10a265a602afc3ce1bb30e86f1" prot="public" static="no">
+        <name>XAVB_TX_IDLESLOPE_MASK</name>
+        <initializer>0X000FFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="159" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Tx rate control hiLimit</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a811447187119ec75d8db80e6e14fb022" prot="public" static="no">
+        <name>XAVB_TX_HILIMIT_MASK</name>
+        <initializer>0X01FFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="165" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB Tx rate control loLimit</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a67e5406a645fc48ffb8556ae4a152ea3" prot="public" static="no">
+        <name>XAVB_TX_LOLIMIT_MASK</name>
+        <initializer>0X01FFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RTC field Registers</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a9395b306d75d0cbc3302e3f278dad5f5" prot="public" static="no">
+        <name>XAVB_RTC_NS_MASK</name>
+        <initializer>0x3FFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="177" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a9af5bf4ea5b56401b2f169c0dcd35312" prot="public" static="no">
+        <name>XAVB_RTC_SEC_LOWER_MASK</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="178" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a336c8d9bbe3a7fe0e799558a89b66a25" prot="public" static="no">
+        <name>XAVB_RTC_SEC_UPPER_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="179" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RTC Increment Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" prot="public" static="no">
+        <name>XAVB_RTC_INCREMENT_NOMINAL_RATE</name>
+        <initializer>0x00800000</initializer>
+        <briefdescription>
+<para>This value assumes a 125MHz rtc_clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="187" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="187" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" prot="public" static="no">
+        <name>XAVB_RTC_400PPM_OFFSET</name>
+        <initializer>0x00004189</initializer>
+        <briefdescription>
+<para>Add some rails so that recovery is possible after a string of bad pDelay values. </para>        </briefdescription>
+        <detaileddescription>
+<para>The RTC should be able to lock to within 100ppm of the slowest allowable clock (25 MHz). This equates to +/-4ps. Let&apos;s arbitrarily set the rails to 400ppm (+/-16ps) just in case someone decides to use a particularly bad oscillator. The lowest 20 bits of NewIncrement are fractions of a nanosecond, which equates to +/- 0x04189 </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="196" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RTC Interrupt Clear Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1abdd240f1c10b68d09feb9aade3d23643" prot="public" static="no">
+        <name>XAVB_RTC_INCREMENT_VALUE_MASK</name>
+        <initializer>0x03FFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="185" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1abdd240f1c10b68d09feb9aade3d23643" prot="public" static="no">
+        <name>XAVB_RTC_INCREMENT_VALUE_MASK</name>
+        <initializer>0x03FFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="202" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a468abe5b9d120f730960225526755663" prot="public" static="no">
+        <name>XAVB_RTC_CLEAR_INT_MASK</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>RTC 8k phase offset Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a4d12ac85a50cb0b96188e43b22207965" prot="public" static="no">
+        <name>XAVB_RTC_8K_PHASE_OFFSET_MASK</name>
+        <initializer>0x3FFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>S/W Reset  Register</header>
+      <memberdef kind="define" id="xavb__hw_8h_1ad4c2b07c843637a61dab226fee606a17" prot="public" static="no">
+        <name>XAVB_SW_RESET_TX_AND_RX_PATHS</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>AVB MAC MDIO register address space.</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a3230e39c8fefe1c6ddc5b8019d0c0b48" prot="public" static="no">
+        <name>XAVB_MAC_MDIO_BASE_OFFSET</name>
+        <initializer>0x00006000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MDIO valid data mask (MDIO registers are all 16-bits).</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a94694ac1d352857d2fe6ff8b6e21d762" prot="public" static="no">
+        <name>XAVB_MAC_MDIO_DATA_MASK</name>
+        <initializer>0x0000FFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>MAC Statistic Counter names and CounterID.</header>
+      <memberdef kind="define" id="xavb__hw_8h_1a62ce88b35de298b04eb73465e518e8c5" prot="public" static="no">
+        <name>XAVB_STATS_BYTES_TRANSMITTED</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="243" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a14f331cc8fc051bddd667e108b8ceb47" prot="public" static="no">
+        <name>XAVB_STATS_BYTES_RECEIVED</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="244" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="244" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a7a85f0b95bc4f58bfbb0586e760cbf2b" prot="public" static="no">
+        <name>XAVB_STATS_UNDERSIZED_FRAMES_RECEIVED</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a57b0fcce8f010ba5b6b38362143e39b9" prot="public" static="no">
+        <name>XAVB_STATS_FRAGMENT_FRAMES_RECEIVED</name>
+        <initializer>0x00000003</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a69b5decacfc1e10c55f86034348c16d7" prot="public" static="no">
+        <name>XAVB_STATS_64_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a8ca69fc035295586783117d216a76ba4" prot="public" static="no">
+        <name>XAVB_STATS_65_TO_127_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000005</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a32903d4dfd1475458c8b45d63557d1d4" prot="public" static="no">
+        <name>XAVB_STATS_128_TO_255_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000006</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a6af34659c5d16120c02bd90e5b89973c" prot="public" static="no">
+        <name>XAVB_STATS_256_TO_511_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000007</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1adc9e47153d7e6af11924e01bf9e72aca" prot="public" static="no">
+        <name>XAVB_STATS_512_TO_1023_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a43945a4d91219535a9bdb24607afe2a4" prot="public" static="no">
+        <name>XAVB_STATS_1024_TO_1518_BYTE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000009</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a298054995b44e8a76b7b597517dfb7be" prot="public" static="no">
+        <name>XAVB_STATS_OVERSIZED_FRAMES_RECEIVED_OK</name>
+        <initializer>0x0000000A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1acdf8156b7fe0eed810f134b9a5dc05e6" prot="public" static="no">
+        <name>XAVB_STATS_64_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000000B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a0d6018c888ad3c69d9bc8c139c12eff7" prot="public" static="no">
+        <name>XAVB_STATS_65_TO_127_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000000C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a08ea1e465a3acdfd48c7ab7704d72db9" prot="public" static="no">
+        <name>XAVB_STATS_128_TO_255_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000000D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ac08bfce45cc9803c822a07a318b20939" prot="public" static="no">
+        <name>XAVB_STATS_256_TO_511_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000000E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a5a74a8ffe6d85116e9eb73411b17b5c6" prot="public" static="no">
+        <name>XAVB_STATS_512_TO_1023_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000000F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a09c327eecbaf6c5dd5368359516218a7" prot="public" static="no">
+        <name>XAVB_STATS_1024_TO_1518_BYTE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="259" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a6c4411930cbc649bbec3178bf8fa8c37" prot="public" static="no">
+        <name>XAVB_STATS_OVERSIZE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x00000011</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="260" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="260" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a310802c50c074fd20a582b7fd2faba78" prot="public" static="no">
+        <name>XAVB_STATS_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000012</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="261" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1acfad6c20da1d193ed1e995aab1fbd195" prot="public" static="no">
+        <name>XAVB_STATS_FCS_ERRORS</name>
+        <initializer>0x00000013</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a753e78eae53424d16bc39821e0079605" prot="public" static="no">
+        <name>XAVB_STATS_BROADCAST_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000014</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="263" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae8e60d04a4df2066efaddfee6a0cf82c" prot="public" static="no">
+        <name>XAVB_STATS_MULTICAST_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000015</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aafc72d92d10d59378570014a6e206e96" prot="public" static="no">
+        <name>XAVB_STATS_CONTROL_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000016</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a9d4cf443326ee8eca2f89db283de1347" prot="public" static="no">
+        <name>XAVB_STATS_LENGTH_TYPE_OUT_OF_RANGE</name>
+        <initializer>0x00000017</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a47d5a6bbb51a3e49541b7936b38f18cb" prot="public" static="no">
+        <name>XAVB_STATS_VLAN_TAGGED_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000018</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a205307e94dad330b50501a7ebf8ad4be" prot="public" static="no">
+        <name>XAVB_STATS_PAUSE_FRAMES_RECEIVED_OK</name>
+        <initializer>0x00000019</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="268" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="268" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a287a2deac01b6eee331aaf85ae372bd6" prot="public" static="no">
+        <name>XAVB_STATS_CONTROL_FRAMES_WITH_UNSUPPORTED_OPCODE</name>
+        <initializer>0x0000001A</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="269" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1afcd59dec08d4786dcd0c9dac709fb61c" prot="public" static="no">
+        <name>XAVB_STATS_FRAMES_TRANSMITTED</name>
+        <initializer>0x0000001B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="270" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="270" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ab73942039778507b079ad5a575334ff1" prot="public" static="no">
+        <name>XAVB_STATS_BROADCAST_FRAMES_TRANSMITTED</name>
+        <initializer>0x0000001C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="271" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a678fcf906c72470aecfb05700b3f77e4" prot="public" static="no">
+        <name>XAVB_STATS_MULTICAST_FRAMES_TRANSMITTED</name>
+        <initializer>0x0000001D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="272" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a60fddd78223544ce46f8b5dcbea56dd6" prot="public" static="no">
+        <name>XAVB_STATS_UNDERRUN_ERRORS</name>
+        <initializer>0x0000001E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="273" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="273" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a93b5b5095952f9c3a053dd2a4ab17abc" prot="public" static="no">
+        <name>XAVB_STATS_CONTROL_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x0000001F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a0cf5d98fe75f844468dc355dff3e3a9f" prot="public" static="no">
+        <name>XAVB_STATS_VLAN_TAGGED_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="275" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="275" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae21c551ad3bd7cac86c0aeb28e4c3330" prot="public" static="no">
+        <name>XAVB_STATS_PAUSE_FRAMES_TRANSMITTED_OK</name>
+        <initializer>0x00000021</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="276" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a7c10b4c062c5697dc222c24a33417696" prot="public" static="no">
+        <name>XAVB_STATS_SINGLE_COLLISION_FRAMES</name>
+        <initializer>0x00000022</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a03ceb64ce9188c81edcb80d06245b486" prot="public" static="no">
+        <name>XAVB_STATS_MULTI_COLLISION_FRAMES</name>
+        <initializer>0x00000023</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="278" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1afa3906a82061932adb38897f8026b369" prot="public" static="no">
+        <name>XAVB_STATS_DEFERRAL_FRAMES</name>
+        <initializer>0x00000024</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="279" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a8c2ff74ee0c3e7ac2668d4523d679e80" prot="public" static="no">
+        <name>XAVB_STATS_LATE_COLLISION_FRAMES</name>
+        <initializer>0x00000025</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="280" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae717dce47a9480cfe62d54aeb2c06b2a" prot="public" static="no">
+        <name>XAVB_STATS_EXCESS_COLLISION_FRAMES</name>
+        <initializer>0x00000026</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="281" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aae6c893d6b3cf6595cf54bd0962eb5fb" prot="public" static="no">
+        <name>XAVB_STATS_EXCESS_DEFERRAL_FRAMES</name>
+        <initializer>0x00000027</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="282" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1abe2c4b46fdf42e9f83e145f709f0e6b7" prot="public" static="no">
+        <name>XAVB_STATS_CARRIER_SENSE_ERRORS</name>
+        <initializer>0x00000028</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="283" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1abc46b2d0244b69a62402dc5c0da6e442" prot="public" static="no">
+        <name>XAVB_STATS_ALIGNMENT_ERRORS</name>
+        <initializer>0x00000029</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="284" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xavb__hw_8h_1ac5fd40834085c96d1306cbc9d9972b40" prot="public" static="no">
+        <name>XAVB_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="37" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" prot="public" static="no">
+        <name>XAvb_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads from the given AVB core register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="326" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" compoundref="xavb__rtc__sync_8c" startline="380" endline="432">XAvb_Adjust8kClock</referencedby>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb_8h_1a888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="705" endline="717">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="xavb_8h_1a4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="630" endline="647">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="xavb_8h_1afb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="669" endline="686">XAvb_SetupRxFilterControlVid</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afcb3695de30c54e17e3c3e0a461ab0eb" compoundref="xavb__ptp__packets_8c" startline="311" endline="324">XAvb_WaitOnTxPtpQueue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" prot="public" static="no">
+        <name>XAvb_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>This macro writes to the given AVB core register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="344" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a2a46d84127016dacb2823b953acbfd20" compoundref="xavb__rtc__sync_8c" startline="380" endline="432">XAvb_Adjust8kClock</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a5ef1c55c51f5781c4395ff20cc07f410" compoundref="xavb__ptp__bmca_8c" startline="620" endline="656">XAvb_BecomeRtcMaster</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aeeaf9984303a07b8935d4a391f0ca188" compoundref="xavb__ptp__packets_8c" startline="341" endline="368">XAvb_MasterSendAnnounce</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb_8h_1aab96c1602bda46380e25d0bb03a8ac01" compoundref="xavb_8c" startline="279" endline="435">XAvb_PtpTimerInterruptHandler</referencedby>
+        <referencedby refid="xavb_8h_1af24c248c31c6c45cdb8a46f82de175c5" compoundref="xavb_8c" startline="131" endline="199">XAvb_Reset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb_8h_1a888d220aeb387018ce33558e08d0166e" compoundref="xavb_8c" startline="705" endline="717">XAvb_SetupRxFilterControlMatchMode</referencedby>
+        <referencedby refid="xavb_8h_1a4a970ecc2621c88825ecc3f01ff1c4ad" compoundref="xavb_8c" startline="630" endline="647">XAvb_SetupRxFilterControlPcp</referencedby>
+        <referencedby refid="xavb_8h_1afb10d8fd68257130d0fc50bfe71ad3e6" compoundref="xavb_8c" startline="669" endline="686">XAvb_SetupRxFilterControlVid</referencedby>
+        <referencedby refid="xavb_8h_1ada9dd75eb576b0e600686514fbea45e3" compoundref="xavb__rtc__sync_8c" startline="445" endline="615">XAvb_UpdateRtcIncrement</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" prot="public" static="no">
+        <name>XAvb_ReadPtpBuffer</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>PtpPacketBaseAddress</defname></param>
+        <param><defname>PtpPacketOffset</defname></param>
+        <initializer>Xil_In32(BaseAddress + PtpPacketBaseAddress + PtpPacketOffset)</initializer>
+        <briefdescription>
+<para>This macro reads from the given PTP frame buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PtpPacketBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the frame in the PTP BRAM packet buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PtpPacketOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset address within the PTP frame</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="363" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="363" bodyend="-1"/>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb_8h_1a3ce07f766a1033fab5a1981e947db52e" compoundref="xavb__rtc__sync_8c" startline="67" endline="89">XAvb_CaptureNanoSec</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afb8650c4c94082dc746db9ec0259e1cb" compoundref="xavb__ptp__packets_8c" startline="1075" endline="1162">XAvb_DecodeRxFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1acc5beb09f67f655b7eb8eb51b3cd2d8a" compoundref="xavb__ptp__packets_8c" startline="1179" endline="1252">XAvb_DecodeRxPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1afd53beaf90143fc360dc6276ba1c49f9" compoundref="xavb__ptp__packets_8c" startline="1269" endline="1334">XAvb_DecodeRxPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ab9afff73e01faafdc8ce9f8e0ee8d4de" compoundref="xavb__ptp__packets_8c" startline="1351" endline="1443">XAvb_DecodeRxSignaling</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a3ed6d94f92c94a88dce9444e8a27fe8a" compoundref="xavb__ptp__packets_8c" startline="1003" endline="1058">XAvb_DecodeRxSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2f2030902e6748712f30a59a62dff010" compoundref="xavb__ptp__packets_8c" startline="147" endline="166">XAvb_GetPortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a99e7a11b4a2960e116891ba88bbb6c84" compoundref="xavb__ptp__packets_8c" startline="271" endline="294">XAvb_IncSequenceId</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1aaefe66ad0ca9e6af05129765cca4c3df" compoundref="xavb__ptp__packets_8c" startline="953" endline="986">XAvb_IsRxFramePTP</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb_8h_1a99019d3795040dd7110d47aaa598ab7b" compoundref="xavb_8c" startline="452" endline="585">XAvb_PtpRxInterruptHandler</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1a7c77fd7953811584a36001e5e74165b3" compoundref="xavb__ptp__bmca_8c" startline="250" endline="296">XAvb_ReadAnnounceFrame</referencedby>
+        <referencedby refid="xavb__ptp__bmca_8c_1aa66e9752ef47bf7eafe4784cb59e1093" compoundref="xavb__ptp__bmca_8c" startline="315" endline="332">XAvb_ReadAnnounceReceiptTimeout</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2e3f462007beb73497bbded566d7f364" compoundref="xavb__ptp__packets_8c" startline="572" endline="611">XAvb_SendPDelayReq</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a9c3933020b616a2a57b6229bce6f6151" compoundref="xavb__ptp__packets_8c" startline="1554" endline="1577">XAvb_UpdateLogMeanMessageInterval</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae73f986654f8315075dd1c3158087605" compoundref="xavb__ptp__packets_8c" startline="189" endline="227">XAvb_WriteToMultipleTxPtpFrames</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1aeab8d086419859c0676c181c38252640" prot="public" static="no">
+        <name>XAvb_WritePtpBuffer</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>PtpPacketBaseAddress</defname></param>
+        <param><defname>PtpPacketOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(BaseAddress + PtpPacketBaseAddress + PtpPacketOffset, (Data))</initializer>
+        <briefdescription>
+<para>This macro writes to the given PTP frame buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PtpPacketBaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the frame in the PTP packet buffer </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>PtpPacketOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset address within the PTP frame </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="384" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="383" bodyend="-1"/>
+        <referencedby refid="xavb__ptp__packets_8c_1a99e7a11b4a2960e116891ba88bbb6c84" compoundref="xavb__ptp__packets_8c" startline="271" endline="294">XAvb_IncSequenceId</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a989d44c98695fd6f286858f8b7976e3f" compoundref="xavb__ptp__packets_8c" startline="496" endline="553">XAvb_MasterSendFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae239544f086bc86572b8e2d7e408a028" compoundref="xavb__ptp__packets_8c" startline="385" endline="478">XAvb_MasterSendSync</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a63281acd385453959b333154bca2d9c7" compoundref="xavb__ptp__packets_8c" startline="631" endline="814">XAvb_SendPDelayResp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a42cd78e966447edcb45a0f419cc84cb8" compoundref="xavb__ptp__packets_8c" startline="1598" endline="1717">XAvb_SetupSourcePortIdentity</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a9c3933020b616a2a57b6229bce6f6151" compoundref="xavb__ptp__packets_8c" startline="1554" endline="1577">XAvb_UpdateLogMeanMessageInterval</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1ae73f986654f8315075dd1c3158087605" compoundref="xavb__ptp__packets_8c" startline="189" endline="227">XAvb_WriteToMultipleTxPtpFrames</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ac935987ce15937b9a2b77a104f559bde" prot="public" static="no">
+        <name>XAvbMac_ReadConfig</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>This macro reads from the given TEMAC Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be read</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="401" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="401" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ad6392e55a276101131666b02007ed4c3" prot="public" static="no">
+        <name>XAvbMac_WriteConfig</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (Data))</initializer>
+        <briefdescription>
+<para>This macro writes to the given TEMAC Configuration Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the register offset to be written </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="419" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="419" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1ae599ca8c254011bb4ee0191e32327ee9" prot="public" static="no">
+        <name>XAvbMac_ReadMdio</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Phyad</defname></param>
+        <param><defname>Regad</defname></param>
+        <initializer>Xil_In32((BaseAddress) + XAVB_MAC_MDIO_BASE_OFFSET         \
+                                  + (((Phyad) &amp; 0x1F) &lt;&lt; 8)  \
+                                  + (((Regad) &amp; 0x1F) &lt;&lt; 3))</initializer>
+        <briefdescription>
+<para>This macro reads from the given MDIO Register using the TEMAC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Phyad</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical Address of the PHY </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Regad</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Address of the MDIO register within the addressed PHY</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value of the register (upper 16-bits will be all 0&apos;s)</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="437" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="437" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xavb__hw_8h_1a92871886d069080e57c72754659f4846" prot="public" static="no">
+        <name>XAvbMac_WriteMdio</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>Phyad</defname></param>
+        <param><defname>Regad</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32(BaseAddress + XAVB_MAC_MDIO_BASE_OFFSET \
+                        + (((Phyad) &amp; 0x1F) &lt;&lt; 8)   \
+                        + (((Regad) &amp; 0x1F) &lt;&lt; 3),  \
+           (Data &amp; XAVB_MAC_MDIO_DATA_MASK))</initializer>
+        <briefdescription>
+<para>This macro writes to the given MDIO Register using the TEMAC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Phyad</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical Address of the PHY </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Regad</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Address of the MDIO register within the addressed PHY </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32-bit value to write</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="458" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" bodystart="458" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xavb__hw_8h_1a18111ab5a605391b7a45186761ef671b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvbMac_ReadStats</definition>
+        <argsstring>(u32 BaseAddress, u32 CounterId, XAvb_Uint64 *Value)</argsstring>
+        <name>XAvbMac_ReadStats</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>CounterId</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___uint64" kindref="compound">XAvb_Uint64</ref> *</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the given Ethernet Statistic Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CounterID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Statistic Counter to be read </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a pointer to the read value of the 64-bit value of the counter and it is updated by this function</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The CounterID&apos;s defined here are the same as the Statistic Counter Addresses as used with the TEMAC core. Since each counter is 8-bytes wide, we must multiply these Counter ID&apos;s by 8 (or a left shift of 3) when mapping this into the PLB memory map. The 64-bit counter value is read as two separate 32-bit accesses. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="470" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="70" bodyend="76"/>
+        <references refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" compoundref="xavb__hw_8h" startline="308">XAvb_Uint64::Lower</references>
+        <references refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" compoundref="xavb__hw_8h" startline="307">XAvb_Uint64::Upper</references>
+      </memberdef>
+      <memberdef kind="function" id="xavb__hw_8h_1adbb46fbeb6b3bb40e8067ea6f8a0776c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_ReadRtc</definition>
+        <argsstring>(u32 BaseAddress, XAvb_RtcFormat *RtcValue)</argsstring>
+        <name>XAvb_ReadRtc</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref> *</type>
+          <declname>RtcValue</declname>
+        </param>
+        <briefdescription>
+<para>This function reads the current Real Time Counter (RTC) value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RtcValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a struct in which to store the value read from the RTC (The RTC 48-bit seconds field and the 32-bit ns field of this struct are updated).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is provided as a basic function since the ns field MUST be read before the seconds/epoch registers (reading the ns samples the entire RTC in hardware). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="471" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="96" bodyend="110"/>
+        <references refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" compoundref="xavb__hw_8h" startline="299">XAvb_RtcFormat::NanoSeconds</references>
+        <references refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" compoundref="xavb__hw_8h" startline="298">XAvb_RtcFormat::SecondsLower</references>
+        <references refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" compoundref="xavb__hw_8h" startline="297">XAvb_RtcFormat::SecondsUpper</references>
+        <references refid="xavb__hw_8h_1a59f550eaa57148613974c4aa5628bfb4" compoundref="xavb__hw_8h" startline="78">XAVB_RTC_NANOSEC_VALUE_OFFSET</references>
+        <references refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" compoundref="xavb__hw_8h" startline="79">XAVB_RTC_SEC_LOWER_VALUE_OFFSET</references>
+        <references refid="xavb__hw_8h_1ae38e8307c8da64ba9f42516168855a8f" compoundref="xavb__hw_8h" startline="80">XAVB_RTC_SEC_UPPER_VALUE_OFFSET</references>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+        <referencedby refid="xavb__ptp__packets_8c_1a2c1081cde03d0c53bc508927111fe87c" compoundref="xavb__ptp__packets_8c" startline="832" endline="933">XAvb_SendPDelayRespFollowUp</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xavb__hw_8h_1a07f6e740f5623df870beea331507baf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XAvb_WriteRtcOffset</definition>
+        <argsstring>(u32 BaseAddress, XAvb_RtcFormat *RtcValue)</argsstring>
+        <name>XAvb_WriteRtcOffset</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref> *</type>
+          <declname>RtcValue</declname>
+        </param>
+        <briefdescription>
+<para>This function writes to the Real Time Counter (RTC) Offset Registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RtcValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the nanoseconds and seconds offset values that should be written to the RTC.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is provided as a basic function since the ns field MUST be written after the seconds/epoch offset registers (writing to the ns offset registers samples the entire RTC offset in hardware). </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h" line="472" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.c" bodystart="129" bodyend="139"/>
+        <references refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" compoundref="xavb__hw_8h" startline="299">XAvb_RtcFormat::NanoSeconds</references>
+        <references refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" compoundref="xavb__hw_8h" startline="298">XAvb_RtcFormat::SecondsLower</references>
+        <references refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" compoundref="xavb__hw_8h" startline="297">XAvb_RtcFormat::SecondsUpper</references>
+        <references refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" compoundref="xavb__hw_8h" startline="74">XAVB_RTC_NANOSEC_OFFSET</references>
+        <references refid="xavb__hw_8h_1acc7285ad5177c30185fcd6e39992865b" compoundref="xavb__hw_8h" startline="75">XAVB_RTC_SEC_LOWER_OFFSET</references>
+        <references refid="xavb__hw_8h_1ac8683f10accad0c3fbb9ed86f7e63577" compoundref="xavb__hw_8h" startline="76">XAVB_RTC_SEC_UPPER_OFFSET</references>
+        <referencedby refid="xavb_8h_1a5ee8dd26b932ff82daa0dc87fd6d38d8" compoundref="xavb__rtc__sync_8c" startline="179" endline="364">XAvb_CalcRtcOffset</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This header file contains the identifiers and basic driver functions (or macros) that can be used to access the device. </para>    </briefdescription>
+    <detaileddescription>
+<para>Other driver functions are defined in <ref refid="xavb_8h" kindref="compound">xavb.h</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a mbr  09/19/08 First release
+1.01a mbr  06/24/09 PTP frame format updates for IEEE802.1 AS draft 5-0
+2_02a mbr  09/16/09 Updates for programmable PTP timers
+2_04a kag  07/23/10 PTP frame format updates for IEEE802.1 AS draft 6-7
+3_01a kag  08/29/11 Added new APIs to update the RX Filter Control Reg.
+              Fix for CR:572539. Updated bit map for Rx Filter
+              control reg.
+3_01a asa  04/10/12 The AVB core is now brought inside the AxiEthernet
+              core. Because of this there are changes in the
+              register map.</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2008<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor">#ifndef<sp/>XAVB_HW_H<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_HW_H<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="xavb__hw_8h_1a3ba68470fe0e86604ad06c3e909aa7a9" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_MAC_RX_REG0_OFFSET<sp/><sp/>0x00000400<sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="xavb__hw_8h_1ac563b910c3a0bb2b55d2b3b1d8465101" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_MAC_RX_REG1_OFFSET<sp/><sp/>0x00000404<sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="xavb__hw_8h_1af573ab840d4c0f06dbecb120f4a8950f" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_MAC_TX_REG_OFFSET<sp/><sp/><sp/>0x00000408<sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="xavb__hw_8h_1ae5d89c2164737985208dda027b8d0387" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_MAC_FC_REG_OFFSET<sp/><sp/><sp/>0x0000040c<sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="xavb__hw_8h_1a31ebb43f9bfd2a258493dc13f01a7f0b" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_MAC_SPD_REG_OFFSET<sp/><sp/>0x00000410<sp/><sp/></highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor">//#define<sp/>XAVB_MAC_MGMT_REG_OFFSET<sp/>0x0000050C<sp/><sp/></highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="67" refid="xavb__hw_8h_1ad99ca00362bea7facdddcc2cf4b665da" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00012000<sp/></highlight></codeline>
+<codeline lineno="68" refid="xavb__hw_8h_1ad0d33dc36a4a6b1f046d7ad862775922" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_PTP_RX_CONTROL_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/>0x00012004<sp/></highlight></codeline>
+<codeline lineno="69" refid="xavb__hw_8h_1aeb18774c7074b8558f6f3d92ee894308" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RX_FILTER_CONTROL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012008<sp/></highlight></codeline>
+<codeline lineno="70" refid="xavb__hw_8h_1a634b68c6d85a3fbadd2b6feb56a62d62" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_TX_SENDSLOPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001200C<sp/></highlight></codeline>
+<codeline lineno="71" refid="xavb__hw_8h_1a355862c65f81390538cf5e8b19493ea5" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_TX_IDLESLOPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012010<sp/></highlight></codeline>
+<codeline lineno="72" refid="xavb__hw_8h_1aa8ecc322bb424bdd59e02a09b7a91279" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_TX_HILIMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012014<sp/></highlight></codeline>
+<codeline lineno="73" refid="xavb__hw_8h_1a77bc297f703b667990fe302c8d7765ac" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_TX_LOLIMIT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012018<sp/></highlight></codeline>
+<codeline lineno="74" refid="xavb__hw_8h_1a17b4489a857a0fcb761a529b749d5ad3" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_NANOSEC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012800<sp/></highlight></codeline>
+<codeline lineno="75" refid="xavb__hw_8h_1acc7285ad5177c30185fcd6e39992865b" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_LOWER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012808<sp/></highlight></codeline>
+<codeline lineno="76" refid="xavb__hw_8h_1ac8683f10accad0c3fbb9ed86f7e63577" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_UPPER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0001280C<sp/></highlight></codeline>
+<codeline lineno="77" refid="xavb__hw_8h_1a48d76d16f8d685a65a1216614e548071" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_INCREMENT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012810<sp/></highlight></codeline>
+<codeline lineno="78" refid="xavb__hw_8h_1a59f550eaa57148613974c4aa5628bfb4" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_NANOSEC_VALUE_OFFSET<sp/><sp/><sp/>0x00012814<sp/></highlight></codeline>
+<codeline lineno="79" refid="xavb__hw_8h_1aa71292011b875c192d09141638c3a4e1" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_LOWER_VALUE_OFFSET<sp/>0x00012818<sp/></highlight></codeline>
+<codeline lineno="80" refid="xavb__hw_8h_1ae38e8307c8da64ba9f42516168855a8f" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_UPPER_VALUE_OFFSET<sp/>0x0001281C<sp/></highlight></codeline>
+<codeline lineno="81" refid="xavb__hw_8h_1a2f724f6845f2fc8b62dc841ef36525d5" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_CLEAR_INT_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012820<sp/></highlight></codeline>
+<codeline lineno="82" refid="xavb__hw_8h_1af86466362cc51296ae22fd1cb6c1d6ad" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_8K_OFFSET_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012824<sp/></highlight></codeline>
+<codeline lineno="83" refid="xavb__hw_8h_1ae9e3a0562e191d4ea8eb166f5deadef3" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_SW_RESET_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00012828<sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SYNC_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00011000</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_FOLLOW_UP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00011100</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_PDELAYREQ_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00011200</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_PDELAYRESP_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00011300</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_PDELAYRESP_FOLLOW_UP_OFFSET<sp/>0x00011400</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_ANNOUNCE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00011500</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XAVB_PTP_RX_BASE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00010000</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_SYNC_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_FOLLOWUP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_PDELAYREQ_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_PDELAYRESP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_PDELAYRESPFOLLOWUP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_ANNOUNCE_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_FRAME6_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_SEND_FRAME7_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_SYNC_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_FOLLOWUP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_PDELAYREQ_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_PDELAYRESP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_PDELAYRESPFOLLOWUP_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00001000</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_ANNOUNCE_FRAME_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00002000</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_FRAME6_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004000</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_FRAME7_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_WAIT_ALL_FRAMES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FF00</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_TX_PACKET_FIELD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00070000</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XAVB_PTP_RX_CLEAR_BIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_PTP_RX_PACKET_FIELD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000F00</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XAVB_RX_AV_VLAN_PRIORITY_A_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RX_AV_VLAN_VID_A_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00007FF8</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RX_AV_VLAN_MATCH_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00008000</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RX_AV_VLAN_PRIORITY_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00070000</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RX_AV_VLAN_VID_B_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x7FF80000</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RX_LEGACY_PROMISCUOUS_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000000</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor">#define<sp/>XAVB_TX_SENDSLOPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X000FFFFF</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor">#define<sp/>XAVB_TX_IDLESLOPE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X000FFFFF</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XAVB_TX_HILIMIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X01FFFFFF</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor">#define<sp/>XAVB_TX_LOLIMIT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0X01FFFFFF</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor">#define<sp/>XAVB_RTC_NS_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FFFFFFF</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_LOWER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_RTC_SEC_UPPER_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor">#define<sp/>XAVB_RTC_INCREMENT_VALUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03FFFFFF</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="187" refid="xavb__hw_8h_1aca5791394dd0b429d4c49559d0e1503c" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_INCREMENT_NOMINAL_RATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00800000</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="196" refid="xavb__hw_8h_1a870c4aa143bd3d85e0b1c48e1871ccb9" refkind="member"><highlight class="preprocessor">#define<sp/>XAVB_RTC_400PPM_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00004189</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor">#define<sp/>XAVB_RTC_INCREMENT_VALUE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x03FFFFFF</highlight></codeline>
+<codeline lineno="203"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#define<sp/>XAVB_RTC_CLEAR_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="preprocessor">#define<sp/>XAVB_RTC_8K_PHASE_OFFSET_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FFFFFFF</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor">#define<sp/>XAVB_SW_RESET_TX_AND_RX_PATHS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor">#define<sp/>XAVB_MAC_MDIO_BASE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00006000</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor">#define<sp/>XAVB_MAC_MDIO_DATA_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000FFFF</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor">#define<sp/>XAVB_STATS_BYTES_TRANSMITTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_BYTES_RECEIVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001</highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_UNDERSIZED_FRAMES_RECEIVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_FRAGMENT_FRAMES_RECEIVED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000003</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_64_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_65_TO_127_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000005</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_128_TO_255_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000006</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_256_TO_511_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000007</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_512_TO_1023_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_1024_TO_1518_BYTE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/>0x00000009</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_OVERSIZED_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000A</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_64_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000000B</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_65_TO_127_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/>0x0000000C</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_128_TO_255_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/>0x0000000D</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_256_TO_511_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/>0x0000000E</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_512_TO_1023_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/>0x0000000F</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_1024_TO_1518_BYTE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/>0x00000010</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_OVERSIZE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000011</highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000012</highlight></codeline>
+<codeline lineno="262"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_FCS_ERRORS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000013</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_BROADCAST_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000014</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_MULTICAST_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000015</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_CONTROL_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000016</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_LENGTH_TYPE_OUT_OF_RANGE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000017</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_VLAN_TAGGED_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000018</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_PAUSE_FRAMES_RECEIVED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000019</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_CONTROL_FRAMES_WITH_UNSUPPORTED_OPCODE<sp/><sp/><sp/><sp/>0x0000001A</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_FRAMES_TRANSMITTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001B</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_BROADCAST_FRAMES_TRANSMITTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001C</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_MULTICAST_FRAMES_TRANSMITTED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001D</highlight></codeline>
+<codeline lineno="273"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_UNDERRUN_ERRORS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001E</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_CONTROL_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0000001F</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_VLAN_TAGGED_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_PAUSE_FRAMES_TRANSMITTED_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000021</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_SINGLE_COLLISION_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000022</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_MULTI_COLLISION_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000023</highlight></codeline>
+<codeline lineno="279"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_DEFERRAL_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000024</highlight></codeline>
+<codeline lineno="280"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_LATE_COLLISION_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000025</highlight></codeline>
+<codeline lineno="281"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_EXCESS_COLLISION_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000026</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_EXCESS_DEFERRAL_FRAMES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000027</highlight></codeline>
+<codeline lineno="283"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_CARRIER_SENSE_ERRORS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000028</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XAVB_STATS_ALIGNMENT_ERRORS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000029</highlight></codeline>
+<codeline lineno="285"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295" refid="struct_x_avb___rtc_format" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="297" refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" refkind="member"><highlight class="normal"><sp/><sp/>u16<sp/><ref refid="struct_x_avb___rtc_format_1a84452962f60d5528bbb9da1df3c1bf7d" kindref="member">SecondsUpper</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="298" refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><ref refid="struct_x_avb___rtc_format_1a5015cb1ee0a5eb14ef15e03225450a81" kindref="member">SecondsLower</ref>;<sp/><sp/></highlight></codeline>
+<codeline lineno="299" refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><ref refid="struct_x_avb___rtc_format_1ad30a5df1748ad71907d830893f23cbba" kindref="member">NanoSeconds</ref>;<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="300"><highlight class="normal">}<sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref>;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305" refid="struct_x_avb___uint64" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="307" refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><ref refid="struct_x_avb___uint64_1a106cfc71a57bb8e01817eb6a20ed5347" kindref="member">Upper</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="308" refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" refkind="member"><highlight class="normal"><sp/><sp/>u32<sp/><ref refid="struct_x_avb___uint64_1ab7c91a4902ebdcbdc5341def2e98bda2" kindref="member">Lower</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="309"><highlight class="normal">}<sp/><ref refid="struct_x_avb___uint64" kindref="compound">XAvb_Uint64</ref>;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="326" refid="xavb__hw_8h_1a74fc84434da6ed0d4604020e9bed3a8b" refkind="member"><highlight class="preprocessor">#define<sp/>XAvb_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="344" refid="xavb__hw_8h_1a74f3dcc0fed12b1ee97541a109b8d98c" refkind="member"><highlight class="preprocessor">#define<sp/>XAvb_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="345"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="346"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="363" refid="xavb__hw_8h_1a072d5c22a5ff3e25e036146d552955bc" refkind="member"><highlight class="preprocessor">#define<sp/>XAvb_ReadPtpBuffer(BaseAddress,<sp/>PtpPacketBaseAddress,<sp/>PtpPacketOffset)\</highlight></codeline>
+<codeline lineno="364"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32(BaseAddress<sp/>+<sp/>PtpPacketBaseAddress<sp/>+<sp/>PtpPacketOffset)</highlight></codeline>
+<codeline lineno="365"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="383" refid="xavb__hw_8h_1aeab8d086419859c0676c181c38252640" refkind="member"><highlight class="preprocessor">#define<sp/>XAvb_WritePtpBuffer(BaseAddress,<sp/>PtpPacketBaseAddress,<sp/>\</highlight></codeline>
+<codeline lineno="384"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>PtpPacketOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="385"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>PtpPacketBaseAddress<sp/>+<sp/>PtpPacketOffset,<sp/>(Data))</highlight></codeline>
+<codeline lineno="386"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="401" refid="xavb__hw_8h_1ac935987ce15937b9a2b77a104f559bde" refkind="member"><highlight class="preprocessor">#define<sp/>XAvbMac_ReadConfig(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="402"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="403"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="419" refid="xavb__hw_8h_1ad6392e55a276101131666b02007ed4c3" refkind="member"><highlight class="preprocessor">#define<sp/>XAvbMac_WriteConfig(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="420"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(Data))</highlight></codeline>
+<codeline lineno="421"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="437" refid="xavb__hw_8h_1ae599ca8c254011bb4ee0191e32327ee9" refkind="member"><highlight class="preprocessor">#define<sp/>XAvbMac_ReadMdio(BaseAddress,<sp/>Phyad,<sp/>Regad)<sp/>\</highlight></codeline>
+<codeline lineno="438"><highlight class="preprocessor"><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>XAVB_MAC_MDIO_BASE_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="439"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(((Phyad)<sp/>&amp;<sp/>0x1F)<sp/>&lt;&lt;<sp/>8)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="440"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(((Regad)<sp/>&amp;<sp/>0x1F)<sp/>&lt;&lt;<sp/>3))</highlight></codeline>
+<codeline lineno="441"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="443"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="458" refid="xavb__hw_8h_1a92871886d069080e57c72754659f4846" refkind="member"><highlight class="preprocessor">#define<sp/>XAvbMac_WriteMdio(BaseAddress,<sp/>Phyad,<sp/>Regad,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="459"><highlight class="preprocessor"><sp/><sp/>Xil_Out32(BaseAddress<sp/>+<sp/>XAVB_MAC_MDIO_BASE_OFFSET<sp/>\</highlight></codeline>
+<codeline lineno="460"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(((Phyad)<sp/>&amp;<sp/>0x1F)<sp/>&lt;&lt;<sp/>8)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="461"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>+<sp/>(((Regad)<sp/>&amp;<sp/>0x1F)<sp/>&lt;&lt;<sp/>3),<sp/><sp/>\</highlight></codeline>
+<codeline lineno="462"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Data<sp/>&amp;<sp/>XAVB_MAC_MDIO_DATA_MASK))</highlight></codeline>
+<codeline lineno="463"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="468"><highlight class="comment"><sp/>*<sp/>Functions<sp/>in<sp/>xavb_hw.c</highlight></codeline>
+<codeline lineno="469"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="470"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1a18111ab5a605391b7a45186761ef671b" kindref="member">XAvbMac_ReadStats</ref>(u32<sp/>BaseAddress,<sp/>u32<sp/>CounterId,<sp/><ref refid="struct_x_avb___uint64" kindref="compound">XAvb_Uint64</ref>*<sp/>Value);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1adbb46fbeb6b3bb40e8067ea6f8a0776c" kindref="member">XAvb_ReadRtc</ref>(u32<sp/>BaseAddress,<sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref>*<sp/>RtcValue);</highlight></codeline>
+<codeline lineno="472"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xavb__hw_8c_1a07f6e740f5623df870beea331507baf3" kindref="member">XAvb_WriteRtcOffset</ref>(u32<sp/>BaseAddress,<sp/><ref refid="struct_x_avb___rtc_format" kindref="compound">XAvb_RtcFormat</ref>*<sp/>RtcValue);</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"></highlight></codeline>
+<codeline lineno="474"><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="476"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="478"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="479"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/axiethernet/examples/avb/xavb_hw.h"/>
+  </compounddef>
+</doxygen>

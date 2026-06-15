@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_csi___v_c_info" kind="struct" prot="public">
+    <compoundname>XCsi_VCInfo</compoundname>
+    <includes local="no">xcsi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_csi___v_c_info_1a26de732464bb575f9f4d5825066a4cbf" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCsi_VCInfo::LineCount</definition>
+        <argsstring></argsstring>
+        <name>LineCount</name>
+        <briefdescription>
+<para>Line Count from Image Info 1 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="162" bodyend="-1"/>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi___v_c_info_1a201d3c35d258a057c922fe693b861215" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XCsi_VCInfo::ByteCount</definition>
+        <argsstring></argsstring>
+        <name>ByteCount</name>
+        <briefdescription>
+<para>Byte Count from Image Info 1 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="163" bodyend="-1"/>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_csi___v_c_info_1a02fde36772ebfcf7fc6d7e8505701557" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCsi_VCInfo::DataType</definition>
+        <argsstring></argsstring>
+        <name>DataType</name>
+        <briefdescription>
+<para>Data Type like RGB, YUV, RAW from Image Info 2 register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="164" bodyend="-1"/>
+        <referencedby refid="group__csi_1gaccba2dc3c98a68b73ca3bfec33abe747" compoundref="xcsi_8c" startline="469" endline="498">XCsi_GetVCInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Virtual Channel information structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains the information about a Virtual Channel. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/csi/src/xcsi.h" bodystart="161" bodyend="166"/>
+    <listofallmembers>
+      <member refid="struct_x_csi___v_c_info_1a201d3c35d258a057c922fe693b861215" prot="public" virt="non-virtual"><scope>XCsi_VCInfo</scope><name>ByteCount</name></member>
+      <member refid="struct_x_csi___v_c_info_1a02fde36772ebfcf7fc6d7e8505701557" prot="public" virt="non-virtual"><scope>XCsi_VCInfo</scope><name>DataType</name></member>
+      <member refid="struct_x_csi___v_c_info_1a26de732464bb575f9f4d5825066a4cbf" prot="public" virt="non-virtual"><scope>XCsi_VCInfo</scope><name>LineCount</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

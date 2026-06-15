@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6fd8215766d5be29682d33f09ecb49dd" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__mix_8c">xv_mix.c</innerfile>
+    <innerfile refid="xv__mix_8h">xv_mix.h</innerfile>
+    <innerfile refid="xv__mix__g_8c">xv_mix_g.c</innerfile>
+    <innerfile refid="xv__mix__hw_8h">xv_mix_hw.h</innerfile>
+    <innerfile refid="xv__mix__l2_8c">xv_mix_l2.c</innerfile>
+    <innerfile refid="xv__mix__l2_8h">xv_mix_l2.h</innerfile>
+    <innerfile refid="xv__mix__l2__intr_8c">xv_mix_l2_intr.c</innerfile>
+    <innerfile refid="xv__mix__linux_8c">xv_mix_linux.c</innerfile>
+    <innerfile refid="xv__mix__sinit_8c">xv_mix_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/"/>
+  </compounddef>
+</doxygen>

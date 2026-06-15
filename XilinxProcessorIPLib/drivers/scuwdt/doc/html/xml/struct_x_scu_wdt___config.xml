@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_scu_wdt___config" kind="struct" prot="public">
+    <compoundname>XScuWdt_Config</compoundname>
+    <includes local="no">xscuwdt.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_scu_wdt___config_1aa363ada39d95c6e446421d5a84e15944" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XScuWdt_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="139" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga24bed0bb643b657bbd3f26ab2921246e" compoundref="xscuwdt__sinit_8c" startline="87" endline="101">XScuWdt_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XScuWdt_Config::BaseAddr</definition>
+        <argsstring></argsstring>
+        <name>BaseAddr</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="141" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="141" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+        <referencedby refid="xscuwdt__polled__example_8c_1a33e89f9e41ed0c166b878661da7f07f6" compoundref="xscuwdt__polled__example_8c" startline="128" endline="187">ScuWdtPolledExample</referencedby>
+        <referencedby refid="group___overview_1ga1fee56fc3ec3c8b003e6ae0528703b1c" compoundref="xscuwdt_8c" startline="62" endline="106">XScuWdt_CfgInitialize</referencedby>
+        <referencedby refid="group___overview_1ga87a7a8230fc5fa80f64cb66210e596b8" compoundref="xscuwdt_8c" startline="123" endline="151">XScuWdt_Start</referencedby>
+        <referencedby refid="group___overview_1gae1493503cc6e52afa681f23329e9abef" compoundref="xscuwdt_8c" startline="165" endline="193">XScuWdt_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_wdt___config_1acfc5af3a6097d0308dec5b6eb993e1eb" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XScuWdt_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="143" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="143" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_scu_wdt___config_1aec19a827380ec9a90d0f109615e4870c" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XScuWdt_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="145" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="145" bodyend="-1"/>
+        <referencedby refid="xscuwdt__intr__example_8c_1a0054ab1cdccc0040a5d9633b4c386d9a" compoundref="xscuwdt__intr__example_8c" startline="158" endline="336">ScuWdtIntrExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/scuwdt/src/xscuwdt.h" bodystart="135" bodyend="148"/>
+    <listofallmembers>
+      <member refid="struct_x_scu_wdt___config_1ade7297db74ccde96bfc2e94f451b5a56" prot="public" virt="non-virtual"><scope>XScuWdt_Config</scope><name>BaseAddr</name></member>
+      <member refid="struct_x_scu_wdt___config_1acfc5af3a6097d0308dec5b6eb993e1eb" prot="public" virt="non-virtual"><scope>XScuWdt_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_scu_wdt___config_1aec19a827380ec9a90d0f109615e4870c" prot="public" virt="non-virtual"><scope>XScuWdt_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_scu_wdt___config_1aa363ada39d95c6e446421d5a84e15944" prot="public" virt="non-virtual"><scope>XScuWdt_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

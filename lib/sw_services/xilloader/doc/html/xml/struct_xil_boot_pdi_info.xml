@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_boot_pdi_info" kind="struct" prot="public">
+    <compoundname>XilBootPdiInfo</compoundname>
+    <includes local="no">xloader.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_boot_pdi_info_1a18fca60c3339270e3204be848ca8e76b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilBootPdiInfo::PdiSrc</definition>
+        <argsstring></argsstring>
+        <name>PdiSrc</name>
+        <briefdescription>
+<para>Pdi Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="393" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga3dbbecc3b2545a3e076d421f086715e6" compoundref="xloader_8c" startline="1767" endline="1861">XLoader_RestartImage</referencedby>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_boot_pdi_info_1a25ad2aaeab6bfe65cf7f57f7a52efa8b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilBootPdiInfo::MetaHdrOfst</definition>
+        <argsstring></argsstring>
+        <name>MetaHdrOfst</name>
+        <briefdescription>
+<para>Offset to the start of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="394" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="394" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_boot_pdi_info_1ababcd22d776a7217c7e20afb6ec4045a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilBootPdiInfo::PlmKatStatus</definition>
+        <argsstring></argsstring>
+        <name>PlmKatStatus</name>
+        <briefdescription>
+<para>PLM Known Answer Test Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="396" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="396" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_boot_pdi_info_1a9ad8101e113ca52742e19f3138a8592d" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilBootPdiInfo::DecKeySrc</definition>
+        <argsstring></argsstring>
+        <name>DecKeySrc</name>
+        <briefdescription>
+<para>Decryption Key Source. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="397" bodyend="-1"/>
+        <referencedby refid="group__xloader__server__apis_1ga7be2984f0912856671c01e2132da604d" compoundref="xloader_8c" startline="2293" endline="2310">Xloader_SaveBootPdiInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This BootPDI info struct is to store required config for later use. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" line="392" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/common/xloader.h" bodystart="392" bodyend="399"/>
+    <listofallmembers>
+      <member refid="struct_xil_boot_pdi_info_1a9ad8101e113ca52742e19f3138a8592d" prot="public" virt="non-virtual"><scope>XilBootPdiInfo</scope><name>DecKeySrc</name></member>
+      <member refid="struct_xil_boot_pdi_info_1a25ad2aaeab6bfe65cf7f57f7a52efa8b" prot="public" virt="non-virtual"><scope>XilBootPdiInfo</scope><name>MetaHdrOfst</name></member>
+      <member refid="struct_xil_boot_pdi_info_1a18fca60c3339270e3204be848ca8e76b" prot="public" virt="non-virtual"><scope>XilBootPdiInfo</scope><name>PdiSrc</name></member>
+      <member refid="struct_xil_boot_pdi_info_1ababcd22d776a7217c7e20afb6ec4045a" prot="public" virt="non-virtual"><scope>XilBootPdiInfo</scope><name>PlmKatStatus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

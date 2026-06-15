@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_ccf___internal_carrier_cfg" kind="struct" prot="public">
+    <compoundname>XDfeCcf_InternalCarrierCfg</compoundname>
+    <includes local="no">xdfeccf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::Enable</definition>
+        <argsstring></argsstring>
+        <name>Enable</name>
+        <briefdescription>
+<para>[0,1] (Private) Enable/Disable CC while still reserving its slot in the TDM - set by helper functions when building the configuration the TDM </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="330" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="330" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1gaeb13bf603062867f0e7827abcf65fb34" compoundref="xdfeccf_8c" startline="1413" endline="1425">XDfeCcf_RemoveCCfromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::Flush</definition>
+        <argsstring></argsstring>
+        <name>Flush</name>
+        <briefdescription>
+<para>[0,1] (Private) Indicate CC should be flush following configuration update - set by helper functions when building the configuration channel_id? </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="333" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="333" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::MappedId</definition>
+        <argsstring></argsstring>
+        <name>MappedId</name>
+        <briefdescription>
+<para>[0-7] (Private) Defines the hardblock ID value to be used for the CC. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used to map arbitrary/system CCID values to available hard block TID values. Enumerated incrementally from 0 to max supported CC for a given IP configuration </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="336" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="336" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaab4eacc4f345b3e01db53abae16e997a" compoundref="xdfeccf_8c" startline="1674" endline="1693">XDfeCcf_RemoveCC</referencedby>
+        <referencedby refid="group__dfeccf_1gaeb13bf603062867f0e7827abcf65fb34" compoundref="xdfeccf_8c" startline="1413" endline="1425">XDfeCcf_RemoveCCfromCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::Gain</definition>
+        <argsstring></argsstring>
+        <name>Gain</name>
+        <briefdescription>
+<para>[0-(1&lt;&lt;16)-1] Gain setting for this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="341" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="341" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::ImagCoeffSet</definition>
+        <argsstring></argsstring>
+        <name>ImagCoeffSet</name>
+        <briefdescription>
+<para>[0-7] Identify the coefficient set for the complex data on this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="342" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeCcf_InternalCarrierCfg::RealCoeffSet</definition>
+        <argsstring></argsstring>
+        <name>RealCoeffSet</name>
+        <briefdescription>
+<para>[0-7] Identify the coefficient set for the real data on this CC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="344" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="344" bodyend="-1"/>
+        <referencedby refid="group__dfeccf_1ga2bfa4131ce8d5857886eafa44a99f6bb" compoundref="xdfeccf_8c" startline="1595" endline="1649">XDfeCcf_AddCC</referencedby>
+        <referencedby refid="group__dfeccf_1gad0fac8e80b48aebf7a8b3da0681b8d14" compoundref="xdfeccf_8c" startline="1361" endline="1399">XDfeCcf_AddCCtoCCCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gaadad4a797dff7b30ac37d42df1a540a0" compoundref="xdfeccf_8c" startline="1287" endline="1310">XDfeCcf_GetCarrierCfg</referencedby>
+        <referencedby refid="group__dfeccf_1gabc93998a929eabcbe6b5845626cef210" compoundref="xdfeccf_8c" startline="1721" endline="1751">XDfeCcf_UpdateCC</referencedby>
+        <referencedby refid="group__dfeccf_1gabd6cdd5621c842a4d6a8a58a4eaf6235" compoundref="xdfeccf_8c" startline="1441" endline="1466">XDfeCcf_UpdateCCinCCCfg</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Internal configuration for a single CC. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" line="329" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeccf/src/xdfeccf.h" bodystart="329" bodyend="346"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1a3847e553c40f0d1f08a3a343f4c2068b" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>Enable</name></member>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1aee376dadcaa544a74cc23900d1fbb0e0" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>Flush</name></member>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1ab067d47890d212aed74a445987b71ef1" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>Gain</name></member>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1aafe34a499b849b7b3f0ed2f736ee103f" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>ImagCoeffSet</name></member>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1ad9440709d81efb6c49b01dc5c651cf81" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>MappedId</name></member>
+      <member refid="struct_x_dfe_ccf___internal_carrier_cfg_1a375f3ab45068b847f2a9e18c5ec0dee2" prot="public" virt="non-virtual"><scope>XDfeCcf_InternalCarrierCfg</scope><name>RealCoeffSet</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

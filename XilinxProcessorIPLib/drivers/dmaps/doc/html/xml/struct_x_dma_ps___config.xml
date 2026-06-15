@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dma_ps___config" kind="struct" prot="public">
+    <compoundname>XDmaPs_Config</compoundname>
+    <includes local="no">xdmaps.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dma_ps___config_1a57ea296a31d35dd4f7fc23054648dbae" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XDmaPs_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique name of the device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga71854a1c11448fcf36b1b4f0796fd442" compoundref="xdmaps__sinit_8c" startline="85" endline="99">XDmaPs_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___config_1a5f381d00a2979ddc281fc8d48d0f7b2a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPs_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of device (IPIF) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="group__dmaps_1gae1f2b39fb5e2e8d369c3286aeada67be" compoundref="xdmaps_8c" startline="246" endline="337">XDmaPs_FaultISR</referencedby>
+        <referencedby refid="group__dmaps_1ga593458e8f6ac55566fc235e8a93b9890" compoundref="xdmaps_8c" startline="223" endline="231">XDmaPs_ResetChannel</referencedby>
+        <referencedby refid="group__dmaps_1ga65cc22a994eb1ca6a9c56d86d469242e" compoundref="xdmaps_8c" startline="201" endline="208">XDmaPs_ResetManager</referencedby>
+        <referencedby refid="group__dmaps_1ga711e54b9c033b127fb582bde320f8823" compoundref="xdmaps__selftest_8c" startline="69" endline="86">XDmaPs_SelfTest</referencedby>
+        <referencedby refid="group__dmaps_1ga3691ba115c788c4f68a05cf05c486eeb" compoundref="xdmaps_8c" startline="1464" endline="1526">XDmaPs_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___config_1a3dbd8e46dc71cf0e1a0199ddc5938255" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDmaPs_Config::IntrId[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="101" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dma_ps___config_1a07b95b027e1b7b87335761f529203a36" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XDmaPs_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="group__dmaps_1ga2fed90dfba1ff9f472b40ed492d78b4c" compoundref="xdmaps_8c" startline="129" endline="187">XDmaPs_CfgInitialize</referencedby>
+        <referencedby refid="xdmaps__example__w__intr_8c_1af60b7fc382748cf2c2d6d4b246f47b74" compoundref="xdmaps__example__w__intr_8c" startline="176" endline="332">XDmaPs_Example_W_Intr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dmaps/src/xdmaps.h" bodystart="92" bodyend="106"/>
+    <listofallmembers>
+      <member refid="struct_x_dma_ps___config_1a5f381d00a2979ddc281fc8d48d0f7b2a" prot="public" virt="non-virtual"><scope>XDmaPs_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_dma_ps___config_1a3dbd8e46dc71cf0e1a0199ddc5938255" prot="public" virt="non-virtual"><scope>XDmaPs_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_dma_ps___config_1a07b95b027e1b7b87335761f529203a36" prot="public" virt="non-virtual"><scope>XDmaPs_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_dma_ps___config_1a57ea296a31d35dd4f7fc23054648dbae" prot="public" virt="non-virtual"><scope>XDmaPs_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

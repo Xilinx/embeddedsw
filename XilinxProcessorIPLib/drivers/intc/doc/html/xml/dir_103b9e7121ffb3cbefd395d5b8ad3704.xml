@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_103b9e7121ffb3cbefd395d5b8ad3704" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xintc_8c">xintc.c</innerfile>
+    <innerfile refid="xintc_8h">xintc.h</innerfile>
+    <innerfile refid="xintc__g_8c">xintc_g.c</innerfile>
+    <innerfile refid="xintc__i_8h">xintc_i.h</innerfile>
+    <innerfile refid="xintc__intr_8c">xintc_intr.c</innerfile>
+    <innerfile refid="xintc__l_8c">xintc_l.c</innerfile>
+    <innerfile refid="xintc__l_8h">xintc_l.h</innerfile>
+    <innerfile refid="xintc__options_8c">xintc_options.c</innerfile>
+    <innerfile refid="xintc__selftest_8c">xintc_selftest.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/"/>
+  </compounddef>
+</doxygen>

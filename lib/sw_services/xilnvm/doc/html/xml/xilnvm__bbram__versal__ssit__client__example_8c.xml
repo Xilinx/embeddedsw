@@ -1,0 +1,814 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilnvm__bbram__versal__ssit__client__example_8c" kind="file">
+    <compoundname>xilnvm_bbram_versal_ssit_client_example.c</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xnvm__bbramclient_8h" local="yes">xnvm_bbramclient.h</includes>
+    <incdepgraph>
+      <node id="59">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="60">
+        <label>xil_util.h</label>
+      </node>
+      <node id="66">
+        <label>xnvm_defs.h</label>
+      </node>
+      <node id="64">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="58">
+        <label>xilnvm_bbram_versal_ssit_client_example.c</label>
+        <link refid="xilnvm_bbram_versal_ssit_client_example.c"/>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+      </node>
+      <node id="62">
+        <label>xil_types.h</label>
+      </node>
+      <node id="61">
+        <label>xnvm_bbramclient.h</label>
+        <link refid="xnvm__bbramclient_8h"/>
+        <childnode refid="62" relation="include">
+        </childnode>
+        <childnode refid="63" relation="include">
+        </childnode>
+        <childnode refid="66" relation="include">
+        </childnode>
+      </node>
+      <node id="65">
+        <label>xparameters.h</label>
+      </node>
+      <node id="63">
+        <label>xnvm_mailbox.h</label>
+        <link refid="xnvm__mailbox_8h"/>
+        <childnode refid="64" relation="include">
+        </childnode>
+        <childnode refid="65" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xnvm__apis_1ga3bea3a3b68aa8115170a9f88ee04baf7" prot="public" static="no">
+        <name>XNVM_MAX_SLR_NUM</name>
+        <initializer><ref refid="group__xnvm__efuse__client__apis_1gae83bff3d807531eee2767b16d00a54f4" kindref="member">XNVM_SLR_INDEX_3</ref></initializer>
+        <briefdescription>
+<para>Max SLR number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga62fcf2396cf8d6a3c77d8ed51b2b131c" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_MASTER</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="106" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga1f400d7baa81b16aeccedd2f55bba4f2" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR1</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gac6a85897f8f6de2a46c1db42123baf70" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR2</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga910f874ead1c45a1a4865894a0321893" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_SLAVE_SLR3</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="115" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga8e149908b7c6bc7ff1f439cb94a3935c" prot="public" static="no">
+        <name>XNVM_BBRAM_USER_DATA_MASTER</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gac68359900aa59bfc2ea0f454fb8fa26f" prot="public" static="no">
+        <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR1</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga81863bf5c49c78703addbe94e3b2c043" prot="public" static="no">
+        <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR2</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga41aa99286ccf5ee776ba891638a380bd" prot="public" static="no">
+        <name>XNVM_BBRAM_USER_DATA_SLAVE_SLR3</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="125" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gae294ab341c16219d171cb5cdf9e3aca9" prot="public" static="no">
+        <name>XNVM_MAX_SLRS</name>
+        <initializer>4U</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_LEN_IN_BITS</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>AES key length in Bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="128" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(<ref refid="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" kindref="member">XNVM_BBRAM_AES_KEY_LEN_IN_BITS</ref> / 8U)</initializer>
+        <briefdescription>
+<para>AES key length in Bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="131" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" prot="public" static="no">
+        <name>XNVM_BBRAM_AES_KEY_STR_LEN</name>
+        <initializer>(<ref refid="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" kindref="member">XNVM_BBRAM_AES_KEY_LEN_IN_BITS</ref> / 4U)</initializer>
+        <briefdescription>
+<para>String length of Key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="134" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gaec82562ab864eeb29b8aabf22976c4d0" prot="public" static="no">
+        <name>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(256U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="137" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gabba99fb12cce6a1d2286f7b0d80d24ce" prot="public" static="no">
+        <name>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</name>
+        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaec82562ab864eeb29b8aabf22976c4d0" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gaa9ef0da2274fe990e3150d2be706f9b0" prot="public" static="no">
+        <name>XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</name>
+        <initializer>(128U / XIL_SIZE_OF_BYTE_IN_BITS)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1ga358c030ad147484ce163feb5216aeed8" prot="public" static="no">
+        <name>XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</name>
+        <initializer>(<ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gaa9ef0da2274fe990e3150d2be706f9b0" kindref="member">XNVM_128_BITS_AES_KEY_LEN_IN_BYTES</ref> * 2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="140" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gae4c7451093c061675e604ae3426242a3" prot="public" static="no">
+        <name>XNVM_MAX_AES_KEY_LEN_IN_CHARS</name>
+        <initializer><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xnvm__apis_1gad06b4f6b23f3d8f9e5f1706df0e95db6" prot="public" static="no">
+        <name>XNVM_CACHE_LINE_LEN</name>
+        <initializer>(64U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xnvm__apis_1ga9b48aa9bd0a6492200707ac867cf70c5" prot="public" static="yes" mutable="no">
+        <type>const char</type>
+        <definition>const char XNVM_BBRAM_AES_KEY[XNVM_MAX_SLRS][XNVM_BBRAM_AES_KEY_STR_LEN+1U]</definition>
+        <argsstring>[XNVM_MAX_SLRS][XNVM_BBRAM_AES_KEY_STR_LEN+1U]</argsstring>
+        <name>XNVM_BBRAM_AES_KEY</name>
+        <initializer>= {
+	XNVM_BBRAM_AES_KEY_MASTER,
+	XNVM_BBRAM_AES_KEY_SLAVE_SLR1,
+	XNVM_BBRAM_AES_KEY_SLAVE_SLR2,
+	XNVM_BBRAM_AES_KEY_SLAVE_SLR3
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xnvm__apis_1ga0a06df1db11674b19b0564fbc7cc09eb" prot="public" static="yes" mutable="no">
+        <type>const u32</type>
+        <definition>const u32 XNVM_BBRAM_USER_DATA[XNVM_MAX_SLRS]</definition>
+        <argsstring>[XNVM_MAX_SLRS]</argsstring>
+        <name>XNVM_BBRAM_USER_DATA</name>
+        <initializer>= {
+	XNVM_BBRAM_USER_DATA_MASTER,
+	XNVM_BBRAM_USER_DATA_SLAVE_SLR1,
+	XNVM_BBRAM_USER_DATA_SLAVE_SLR2,
+	XNVM_BBRAM_USER_DATA_SLAVE_SLR3
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xnvm__apis_1gae26398b02f7a59e5206b1f3dffc180a9" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 SharedMem[XNVM_SHARED_MEM_SIZE]</definition>
+        <argsstring>[XNVM_SHARED_MEM_SIZE]</argsstring>
+        <name>SharedMem</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="171" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xnvm__apis_1ga40662f27fe674a344b2147e47d35b402" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int BbramWriteAesKey</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)</argsstring>
+        <name>BbramWriteAesKey</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>BbramWriteAesKey function writes AES key defined by macro XNVM_BBRAM_AES_KEY in BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLR index to which key has to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the Aes key write successful</para></listitem><listitem><para>XST_FAILURE if the Aes key write failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="175" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="293" bodyend="316"/>
+      </memberdef>
+      <memberdef kind="function" id="xilnvm__bbram__versal__ssit__client__example_8c_1gae2abbca8bbb25801c4a6206600252267" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_ValidateAesKey</definition>
+        <argsstring>(const char *Key)</argsstring>
+        <name>XNvm_ValidateAesKey</name>
+        <param>
+          <type>const char *</type>
+          <declname>Key</declname>
+        </param>
+        <briefdescription>
+<para>Validate the input string contains valid AES key. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Key</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to AES key.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - On valid input AES key string.<itemizedlist>
+<listitem><para>XST_INVALID_PARAM - On invalid length of the input string.</para></listitem><listitem><para>XST_FAILURE - On non hexadecimal character in string </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="176" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__apis_1ga950286f7c6395e235755acf6ba6134c7" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int BbramWriteUsrData</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)</argsstring>
+        <name>BbramWriteUsrData</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>BbramWriteUsrData function writes user data defined by macro XNVM_BBRAM_USER_DATA in BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SLR index to which user data has to be written</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the user data write successful</para></listitem><listitem><para>XST_FAILURE if the user data write failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="331" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="xilnvm__bbram__versal__ssit__client__example_8c_1gae912d38c715af81f0e02e0787f5c1bb1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int BbramReadUsrData</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr)</argsstring>
+        <name>BbramReadUsrData</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>BbramReadUsrData function reads user data present in BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the user data read successful</para></listitem><listitem><para>XST_FAILURE if the user data read failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="178" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="349" bodyend="363"/>
+      </memberdef>
+      <memberdef kind="function" id="xilnvm__bbram__versal__ssit__client__example_8c_1gad834498fc60b0f3a872a750860b9c705" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int BbramLockUsrData</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr)</argsstring>
+        <name>BbramLockUsrData</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>BbramLockUsrData function locks user data written in BBRAM. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the user data lock successful</para></listitem><listitem><para>XST_FAILURE if the user data lock failed </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="179" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="374" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__apis_1ga2457ee10aee6325e29ffc02dabd61342" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int XNvm_InputSlrIndex</definition>
+        <argsstring>(XNvm_ClientInstance *InstancePtr, u32 SlrIndex)</argsstring>
+        <name>XNvm_InputSlrIndex</name>
+        <param>
+          <type>XNvm_ClientInstance *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>SlrIndex</declname>
+        </param>
+        <briefdescription>
+<para>Adds the SLR Index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to instance XNvm_ClientInstance</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>SlrIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Number for slrId</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>- XST_SUCCESS - On valid input SlrIndex.<itemizedlist>
+<listitem><para>XST_FAILURE - On non valid input SlrIndex </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c" bodystart="426" bodyend="436"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xnvm__apis_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the function to provision Configuration limiter parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Main function to call the Bbram AES key write example function.</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the BBRAM programming failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>By default PLM does not include the NVM client code, it is disabled by a macro PLM_NVM_EXCLUDE. So, to run this client application successfully we need to enable NVM code in PLM before executing this application.</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_FAILURE if the BBRAM programming failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>If any error occurs during programming of any SLR, keys in all the SLRs get zeroized. User has to reload the example</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_config_limiter_client_example.c" bodystart="82" bodyend="114"/>
+        <references refid="group__xnvm__mailbox__apis_1ga051799e29b90346a34e49e8fddfc10e5" compoundref="xnvm__mailbox_8c" startline="109" endline="123">XNvm_ClientInit</references>
+        <references refid="group__xnvm__bbram__client__api_1ga3b6228f47fedbf81e4a4d428a59f2ed4" compoundref="xnvm__bbramclient_8h" startline="52">XNVM_SLR_INDEX_0</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="97"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*****************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xnvm__bbramclient_8h" kindref="compound">xnvm_bbramclient.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="group__xnvm__apis_1ga3bea3a3b68aa8115170a9f88ee04baf7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_MAX_SLR_NUM<sp/>XNVM_SLR_INDEX_3<sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>Key<sp/>of<sp/>master<sp/>SLR<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_MASTER<sp/>\</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>Key<sp/>of<sp/>slave<sp/>SLR1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR1<sp/>\</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>Key<sp/>of<sp/>slave<sp/>SLR2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR2<sp/>\</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>AES<sp/>Key<sp/>of<sp/>slave<sp/>SLR3<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR3<sp/>\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>User<sp/>data<sp/>of<sp/>master<sp/>SLR<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_USER_DATA_MASTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>User<sp/>data<sp/>of<sp/>slave<sp/>SLR1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR1<sp/>0x00000000</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>User<sp/>data<sp/>of<sp/>slave<sp/>SLR2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR2<sp/>0x00000000</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>User<sp/>data<sp/>of<sp/>slave<sp/>SLR3<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR3<sp/>0x00000000</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_MAX_SLRS<sp/>4U</highlight></codeline>
+<codeline lineno="128" refid="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_LEN_IN_BITS<sp/><sp/>(256U)<sp/></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Key<sp/>Length<sp/>of<sp/>AES<sp/>Key<sp/>defined<sp/>by<sp/>XNVM_BBRAM_AES_KEY<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="131" refid="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_LEN_IN_BYTES<sp/>(XNVM_BBRAM_AES_KEY_LEN_IN_BITS<sp/>/<sp/>8U)</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="134" refid="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" refkind="member"><highlight class="preprocessor">#define<sp/>XNVM_BBRAM_AES_KEY_STR_LEN<sp/><sp/><sp/><sp/><sp/><sp/>(XNVM_BBRAM_AES_KEY_LEN_IN_BITS<sp/>/<sp/>4U)</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XNVM_256_BITS_AES_KEY_LEN_IN_BYTES<sp/>(256U<sp/>/<sp/>XIL_SIZE_OF_BYTE_IN_BITS)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS<sp/>(XNVM_256_BITS_AES_KEY_LEN_IN_BYTES<sp/>*<sp/>2U)</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_128_BITS_AES_KEY_LEN_IN_BYTES<sp/>(128U<sp/>/<sp/>XIL_SIZE_OF_BYTE_IN_BITS)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XNVM_128_BITS_AES_KEY_LEN_IN_CHARS<sp/>(XNVM_128_BITS_AES_KEY_LEN_IN_BYTES<sp/>*<sp/>2U)</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_MAX_AES_KEY_LEN_IN_CHARS<sp/><sp/><sp/>XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XNVM_CACHE_LINE_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(64U)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>***************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>XNVM_BBRAM_AES_KEY[XNVM_MAX_SLRS][<ref refid="group__xnvm__apis_1ga8160f563678d1f39b84bb7d30033b824" kindref="member">XNVM_BBRAM_AES_KEY_STR_LEN</ref><sp/>+<sp/>1U]</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">__attribute__((aligned(64U)))__attribute__((section(&quot;.data.XNVM_BBRAM_AES_KEY&quot;)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_AES_KEY_MASTER,</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR1,</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR2,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_AES_KEY_SLAVE_SLR3</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u32<sp/>XNVM_BBRAM_USER_DATA[XNVM_MAX_SLRS]__attribute__((aligned(64U)))</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((section(&quot;.data.XNVM_BBRAM_USER_DATA&quot;)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_USER_DATA_MASTER,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR1,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR2,</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_BBRAM_USER_DATA_SLAVE_SLR3</highlight></codeline>
+<codeline lineno="164"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/>*<sp/>if<sp/>cache<sp/>is<sp/>enabled,<sp/>User<sp/>need<sp/>to<sp/>make<sp/>sure<sp/>the<sp/>data<sp/>is<sp/>aligned<sp/>to<sp/>cache<sp/>line</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>shared<sp/>memory<sp/>allocation<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>SharedMem[XNVM_SHARED_MEM_SIZE]<sp/>__attribute__((aligned(64U)))</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>__attribute__((section(&quot;.data.SharedMem&quot;)));</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>**************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramWriteAesKey(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1gae2abbca8bbb25801c4a6206600252267" kindref="member">XNvm_ValidateAesKey</ref>(const<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Key);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramWriteUsrData(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramReadUsrData(XNvm_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramLockUsrData(XNvm_ClientInstance<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">static<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_InputSlrIndex(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="196"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__apis_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="197"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNvm_ClientInstance<sp/>NvmClientInstance;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BBRAM<sp/>AES<sp/>Key<sp/>writing<sp/>SSIT<sp/>client<sp/>example<sp/>for<sp/>Versal\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifdef<sp/>XNVM_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>0U);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__mailbox__apis_1ga051799e29b90346a34e49e8fddfc10e5" kindref="member">XNvm_ClientInit</ref>(&amp;NvmClientInstance,<sp/>&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>shared<sp/>memory<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XMailbox_SetSharedMem(&amp;MailboxInstance,<sp/>(u64)(UINTPTR)&amp;SharedMem[0U],</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XNVM_SHARED_MEM_SIZE);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>shared<sp/>memory<sp/>initialization<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1gae4085a2c2243377cae4029f3236684e7" kindref="member">XNvm_BbramZeroize</ref>(&amp;NvmClientInstance);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Zeroization<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(u32<sp/>SlrIndex<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1ga3b6228f47fedbf81e4a4d428a59f2ed4" kindref="member">XNVM_SLR_INDEX_0</ref>;<sp/>SlrIndex<sp/>&lt;=<sp/><ref refid="group__xnvm__apis_1ga3bea3a3b68aa8115170a9f88ee04baf7" kindref="member">XNVM_MAX_SLR_NUM</ref>;<sp/>SlrIndex++)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XNvm_InputSlrIndex(&amp;NvmClientInstance,<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;invalid<sp/>SlrIndex<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>BbramWriteAesKey(&amp;NvmClientInstance,<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>BbramWriteUsrData(&amp;NvmClientInstance,<sp/>SlrIndex);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>BbramReadUsrData(&amp;NvmClientInstance);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>BbramLockUsrData(&amp;NvmClientInstance);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XST_SUCCESS<sp/>==<sp/>Status)<sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>Versal<sp/>SSIT<sp/>BBRAM<sp/>Client<sp/>example....\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;BBRAM<sp/>programming<sp/>failed<sp/>with<sp/>error<sp/>code<sp/>=<sp/>%08x\n\r&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="293"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramWriteAesKey(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>*AesKey<sp/>=<sp/>&amp;SharedMem[0U];</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Validate<sp/>the<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__util__apis_1gae2abbca8bbb25801c4a6206600252267" kindref="member">XNvm_ValidateAesKey</ref>(&amp;XNVM_BBRAM_AES_KEY[SlrIndex][0U]);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>key<sp/>given<sp/>in<sp/>macro<sp/>and<sp/>assign<sp/>it<sp/>to<sp/>the<sp/>variable<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_ConvertStringToHexLE(&amp;XNVM_BBRAM_AES_KEY[SlrIndex][0U],</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>AesKey,<sp/><ref refid="group__xnvm__apis_1ga1549af470b2278bd56555178fa8622b5" kindref="member">XNVM_BBRAM_AES_KEY_LEN_IN_BITS</ref>);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)AesKey,<sp/><ref refid="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" kindref="member">XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Write<sp/>AES<sp/>key<sp/>to<sp/>BBRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1ga3a9878e9a0eb1071cd34c4d14d842f10" kindref="member">XNvm_BbramWriteAesKey</ref>(InstancePtr,<sp/>(UINTPTR)AesKey,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xnvm__apis_1ga063185be808d423aa306a8ab64e793e5" kindref="member">XNVM_BBRAM_AES_KEY_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="316"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="331"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramWriteUsrData(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex)</highlight></codeline>
+<codeline lineno="332"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1ga99bad6a63ce3e2663bd7976371598b4f" kindref="member">XNvm_BbramWriteUsrData</ref>(InstancePtr,<sp/>XNVM_BBRAM_USER_DATA[SlrIndex]);</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="349"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramReadUsrData(XNvm_ClientInstance<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="350"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>*UsrData<sp/>=<sp/>(u32*)(UINTPTR)&amp;SharedMem[0U];</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)UsrData,<sp/>XNVM_CACHE_LINE_LEN);</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1ga8cdf06389845d0a30a2d48ae3373b72b" kindref="member">XNvm_BbramReadUsrData</ref>(InstancePtr,<sp/>(UINTPTR)UsrData);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)UsrData,<sp/>XNVM_CACHE_LINE_LEN);</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Bbram<sp/>UserData<sp/>:<sp/>%x\n\r&quot;</highlight><highlight class="normal">,<sp/>*UsrData);</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="363"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"></highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="374"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>BbramLockUsrData(XNvm_ClientInstance<sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="375"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xnvm__bbram__client__api_1ga5ab6ca734ee3f575632ba1c88164d182" kindref="member">XNvm_BbramLockUsrDataWrite</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="381"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="394"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xnvm__util__apis_1gae2abbca8bbb25801c4a6206600252267" kindref="member">XNvm_ValidateAesKey</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Key)</highlight></codeline>
+<codeline lineno="395"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len;</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(NULL<sp/>==<sp/>Key)<sp/>{</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Len<sp/>=<sp/>Xil_Strnlen(Key,<sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gae4c7451093c061675e604ae3426242a3" kindref="member">XNVM_MAX_AES_KEY_LEN_IN_CHARS</ref><sp/>+<sp/>1U);</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Len<sp/>!=<sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1gabba99fb12cce6a1d2286f7b0d80d24ce" kindref="member">XNVM_256_BITS_AES_KEY_LEN_IN_CHARS</ref>)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Len<sp/>!=<sp/><ref refid="group__xilnvm__efuse__spartan__ultrascale__plus__example_1ga358c030ad147484ce163feb5216aeed8" kindref="member">XNVM_128_BITS_AES_KEY_LEN_IN_CHARS</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(int)Xil_ValidateHexStr(Key);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="413"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="426"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XNvm_InputSlrIndex(XNvm_ClientInstance<sp/>*InstancePtr,<sp/>u32<sp/>SlrIndex)</highlight></codeline>
+<codeline lineno="427"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(SlrIndex<sp/>&lt;=<sp/><ref refid="group__xnvm__apis_1ga3bea3a3b68aa8115170a9f88ee04baf7" kindref="member">XNVM_MAX_SLR_NUM</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SlrIndex<sp/>=<sp/>SlrIndex;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="434"><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="436"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/examples/xilnvm_bbram_versal_ssit_client_example.c"/>
+  </compounddef>
+</doxygen>

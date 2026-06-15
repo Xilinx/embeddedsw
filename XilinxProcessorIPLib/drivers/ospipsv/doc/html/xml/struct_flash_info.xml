@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_flash_info" kind="struct" prot="public">
+    <compoundname>FlashInfo</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::jedec_id</definition>
+        <argsstring></argsstring>
+        <name>jedec_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::SectSize</definition>
+        <argsstring></argsstring>
+        <name>SectSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1af97490d94d6769ec426380408695d555" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::NumSect</definition>
+        <argsstring></argsstring>
+        <name>NumSect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::PageSize</definition>
+        <argsstring></argsstring>
+        <name>PageSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::NumPage</definition>
+        <argsstring></argsstring>
+        <name>NumPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::FlashDeviceSize</definition>
+        <argsstring></argsstring>
+        <name>FlashDeviceSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1af9b63415d9693edada42bfb9d3ca6acc" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::SectMask</definition>
+        <argsstring></argsstring>
+        <name>SectMask</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FlashInfo::NumDie</definition>
+        <argsstring></argsstring>
+        <name>NumDie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1ae472f6c3dc1cc141a7d8943db3cd1ac5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::ReadCmd</definition>
+        <argsstring></argsstring>
+        <name>ReadCmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a51321949e67e35064f9b41ba58707745" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::WriteCmd</definition>
+        <argsstring></argsstring>
+        <name>WriteCmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a438434ff734316455e7d182f8c511b39" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 FlashInfo::EraseCmd</definition>
+        <argsstring></argsstring>
+        <name>EraseCmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FlashInfo::StatusCmd</definition>
+        <argsstring></argsstring>
+        <name>StatusCmd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 FlashInfo::DummyCycles</definition>
+        <argsstring></argsstring>
+        <name>DummyCycles</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ospipsv/examples/xospipsv_flash_config.h" bodystart="122" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_flash_info_1a2c7c14d7df22487355b4cb096171130a" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>DummyCycles</name></member>
+      <member refid="struct_flash_info_1a438434ff734316455e7d182f8c511b39" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>EraseCmd</name></member>
+      <member refid="struct_flash_info_1a7e9af0d2efa0b7ffb6be46ea9a89c07e" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>FlashDeviceSize</name></member>
+      <member refid="struct_flash_info_1a61b332a8e161265ea65d297202483a9c" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>jedec_id</name></member>
+      <member refid="struct_flash_info_1a4e29ea9c35a5ea6ea72dceb8ab2d4611" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumDie</name></member>
+      <member refid="struct_flash_info_1a445fd36e36f3128345ad43e5e9886186" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumPage</name></member>
+      <member refid="struct_flash_info_1af97490d94d6769ec426380408695d555" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>NumSect</name></member>
+      <member refid="struct_flash_info_1a31e5e4864bad266b769885be6ee6adba" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>PageSize</name></member>
+      <member refid="struct_flash_info_1ae472f6c3dc1cc141a7d8943db3cd1ac5" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>ReadCmd</name></member>
+      <member refid="struct_flash_info_1af9b63415d9693edada42bfb9d3ca6acc" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>SectMask</name></member>
+      <member refid="struct_flash_info_1a8a1bdea5c0ebbc1db7766cf7bd840716" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>SectSize</name></member>
+      <member refid="struct_flash_info_1a0c6cfb0c7d2bce5fc540cbb5e8fca42e" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>StatusCmd</name></member>
+      <member refid="struct_flash_info_1a51321949e67e35064f9b41ba58707745" prot="public" virt="non-virtual"><scope>FlashInfo</scope><name>WriteCmd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

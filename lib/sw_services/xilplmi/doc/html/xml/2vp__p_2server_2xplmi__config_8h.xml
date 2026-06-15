@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="2vp__p_2server_2xplmi__config_8h" kind="file">
+    <compoundname>2vp_p/server/xplmi_config.h</compoundname>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xplmi_bsp_config.h</includes>
+    <includedby refid="2vp__p_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includedby>
+    <incdepgraph>
+      <node id="489">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="487">
+        <label>xplmi_config.h</label>
+        <link refid="2vp_p/server/xplmi_config.h"/>
+        <childnode refid="488" relation="include">
+        </childnode>
+        <childnode refid="489" relation="include">
+        </childnode>
+      </node>
+      <node id="488">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="492">
+        <label>xplmi_err.c</label>
+        <link refid="2vp__p_2server_2xplmi__err_8c"/>
+      </node>
+      <node id="493">
+        <label>xplmi_err.h</label>
+        <link refid="2vp__p_2server_2xplmi__err_8h"/>
+        <childnode refid="492" relation="include">
+        </childnode>
+      </node>
+      <node id="494">
+        <label>xplmi_plat.c</label>
+        <link refid="2vp__p_2server_2xplmi__plat_8c"/>
+      </node>
+      <node id="495">
+        <label>xplmi_plat.h</label>
+        <link refid="2vp__p_2server_2xplmi__plat_8h"/>
+        <childnode refid="494" relation="include">
+        </childnode>
+      </node>
+      <node id="491">
+        <label>xplmi_hw.h</label>
+        <link refid="2vp__p_2server_2xplmi__hw_8h"/>
+        <childnode refid="492" relation="include">
+        </childnode>
+        <childnode refid="493" relation="include">
+        </childnode>
+        <childnode refid="494" relation="include">
+        </childnode>
+        <childnode refid="495" relation="include">
+        </childnode>
+      </node>
+      <node id="490">
+        <label>xplmi_config.h</label>
+        <link refid="2vp_p/server/xplmi_config.h"/>
+        <childnode refid="491" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+<para>This is the header file which contains versal_2vp PLM configuration for users. </para>    </briefdescription>
+    <detaileddescription>
+<para>All key configuration options are now made available through Vitis GUI and xsct command line. Hence, the corresponding defines now appear in xparameters.h file. However, references for those configurations are retained here in comments, for users who prefer configuring by updating sources. Please refer xparameters.h file (under comment &quot;PLM/XilPLMI configuration&quot;) for the Vitis/tool generated definitions, while building, before attempting to edit definitions in this file.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- ----------------------------------------------------------------------------
+2.3   sd  10/13/25 Initial release
+2.4   rmv 01/30/26 Refactor OCP library
+2.5   sd  03/03/26 Added PLM_ENABLE_ADDR_RANGE_VALIDATION macro and enable by default</preformatted></para><para><preformatted></preformatted></para><para><simplesect kind="note"><para></para></simplesect>
+</para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor">#ifndef<sp/>XPLMI_CONFIG_H</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_CONFIG_H</highlight></codeline>
+<codeline lineno="35"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="51"><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************************/</highlight></codeline>
+<codeline lineno="71"><highlight class="comment">//#define<sp/>PLM_PRINT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG_INFO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_DEBUG_DETAILED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="comment">//<sp/>To<sp/>Enable<sp/>CDO<sp/>debug<sp/>prints</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>CDO_DEBUG_ENABLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="comment">//#define<sp/>PLM_PRINT_NO_UART</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="comment">//#define<sp/>PLM_PRINT_PERF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="comment">//#define<sp/>PLM_QSPI_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SD_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_OSPI_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_USB_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SEM_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_SECURE_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_NVM_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PUF_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_ECDSA_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_RSA_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_EXCLUDE</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_NVM_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_NVM))</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_NVM</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_PUF_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_PUF))</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_PUF</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_OCP_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_OCP))<sp/>&amp;&amp;<sp/>(!defined(PLM_SECURE_EXCLUDE))</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(!defined(PLM_OCP_KEY_MGMT_EXCLUDE))<sp/>&amp;&amp;<sp/>(!defined(PLM_OCP_KEY_MGMT))<sp/>&amp;&amp;<sp/>(!defined(PLM_ECDSA_EXCLUDE))</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_KEY_MGMT</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PLM_OCP_NATIVE_KEY_MGMT</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP_KEY_MGMT<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>PLM_OCP<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="153"><highlight class="comment">//#define<sp/>PLM_DEBUG_MODE</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"></highlight><highlight class="comment">//#define<sp/>PLM_ENABLE_STL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="comment">//#define<sp/>PLM_BANNER_TIMESTAMP_EXCLUDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_POLL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_DMA</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_CDO_PROCESS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_KEYHOLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_PRINT_PERF_PL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_MJTAG_WA_GASKET_TOGGLE_CNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>10U<sp/></highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor">#define<sp/>XPLMI_MJTAG_WA_DELAY_USED_IN_GASKET_TOGGLE<sp/><sp/><sp/><sp/><sp/><sp/>1U<sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor">//#define<sp/>PLM_ENABLE_PLM_TO_PLM_COMM</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="204"><highlight class="comment">//#define<sp/>PLM_ENABLE_SECURE_PLM_TO_PLM_COMM</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="comment">//#define<sp/>PLM_ENABLE_SHA_AES_EVENTS_QUEUING</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="comment">//#define<sp/>PLM_GET_OPT_DATA_EN</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>below<sp/>define<sp/>to<sp/>enable<sp/>CFI<sp/>selective<sp/>read<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_ENABLE_CFI_SELECTIVE_READ</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable<sp/>the<sp/>below<sp/>define<sp/>to<sp/>enable<sp/>PMC<sp/>I2C<sp/>Handshake<sp/>Feature*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>PLM_I2C_MB_HANDSHAKE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor">#define<sp/>PLM_ENABLE_ADDR_RANGE_VALIDATION</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_CONFIG_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_2vp_p/server/xplmi_config.h"/>
+  </compounddef>
+</doxygen>

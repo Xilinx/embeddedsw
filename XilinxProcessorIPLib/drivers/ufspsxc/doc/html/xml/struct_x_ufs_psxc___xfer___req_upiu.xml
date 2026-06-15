@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_ufs_psxc___xfer___req_upiu" kind="struct" prot="public">
+    <compoundname>XUfsPsxc_Xfer_ReqUpiu</compoundname>
+    <includes local="no">xufspsxc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___req_upiu_1a09e51700ed946db64cb1862acb037811" prot="public" static="no" mutable="no">
+        <type>XUfsPsxc_UpiuHeader</type>
+        <definition>XUfsPsxc_UpiuHeader XUfsPsxc_Xfer_ReqUpiu::UpiuHeader</definition>
+        <argsstring></argsstring>
+        <name>UpiuHeader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___req_upiu_1ad2abe1be3d8abc69cb273c576806e847" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___cmd_upiu" kindref="compound">XUfsPsxc_CmdUpiu</ref></type>
+        <definition>XUfsPsxc_CmdUpiu XUfsPsxc_Xfer_ReqUpiu::CmdUpiu</definition>
+        <argsstring></argsstring>
+        <name>CmdUpiu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___req_upiu_1ab4eab4f8eae7f5312b2800c474bda1e9" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___query_upiu" kindref="compound">XUfsPsxc_QueryUpiu</ref></type>
+        <definition>XUfsPsxc_QueryUpiu XUfsPsxc_Xfer_ReqUpiu::QueryReqUpiu</definition>
+        <argsstring></argsstring>
+        <name>QueryReqUpiu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___req_upiu_1a754fd95523ea68f4a6244942ec81b713" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_ufs_psxc___nop_upiu" kindref="compound">XUfsPsxc_NopUpiu</ref></type>
+        <definition>XUfsPsxc_NopUpiu XUfsPsxc_Xfer_ReqUpiu::NopOutUpiu</definition>
+        <argsstring></argsstring>
+        <name>NopOutUpiu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_ufs_psxc___xfer___req_upiu_1a8c38cd729100a8f828a34156e8b4cfe6" prot="public" static="no" mutable="no">
+        <type>union XUfsPsxc_Xfer_ReqUpiu::@0</type>
+        <definition>union XUfsPsxc_Xfer_ReqUpiu::@0 XUfsPsxc_Xfer_ReqUpiu::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="139" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>UTP Transfer Request Descriptor Structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="49">
+        <label>XUfsPsxc_NopUpiu</label>
+        <link refid="struct_x_ufs_psxc___nop_upiu"/>
+      </node>
+      <node id="48">
+        <label>XUfsPsxc_Xfer_ReqUpiu</label>
+        <link refid="struct_x_ufs_psxc___xfer___req_upiu"/>
+        <childnode refid="49" relation="usage">
+          <edgelabel>NopOutUpiu</edgelabel>
+        </childnode>
+        <childnode refid="50" relation="usage">
+          <edgelabel>CmdUpiu</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
+          <edgelabel>QueryReqUpiu</edgelabel>
+        </childnode>
+      </node>
+      <node id="52">
+        <label>XUfsPsxc_TransSpecFlds</label>
+        <link refid="struct_x_ufs_psxc___trans_spec_flds"/>
+      </node>
+      <node id="50">
+        <label>XUfsPsxc_CmdUpiu</label>
+        <link refid="struct_x_ufs_psxc___cmd_upiu"/>
+      </node>
+      <node id="51">
+        <label>XUfsPsxc_QueryUpiu</label>
+        <link refid="struct_x_ufs_psxc___query_upiu"/>
+        <childnode refid="52" relation="usage">
+          <edgelabel>Tsf</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/ufspsxc/src/xufspsxc.h" bodystart="133" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct_x_ufs_psxc___xfer___req_upiu_1ad2abe1be3d8abc69cb273c576806e847" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_ReqUpiu</scope><name>CmdUpiu</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___req_upiu_1a754fd95523ea68f4a6244942ec81b713" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_ReqUpiu</scope><name>NopOutUpiu</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___req_upiu_1ab4eab4f8eae7f5312b2800c474bda1e9" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_ReqUpiu</scope><name>QueryReqUpiu</name></member>
+      <member refid="struct_x_ufs_psxc___xfer___req_upiu_1a09e51700ed946db64cb1862acb037811" prot="public" virt="non-virtual"><scope>XUfsPsxc_Xfer_ReqUpiu</scope><name>UpiuHeader</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

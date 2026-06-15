@@ -1,0 +1,2370 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="mst_2main_8h" kind="file">
+    <compoundname>mst/main.h</compoundname>
+    <includes local="no">stddef.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="no">xdp.h</includes>
+    <includes local="no">xdp_hw.h</includes>
+    <includes refid="xdprxss_8h" local="no">xdprxss.h</includes>
+    <includes local="no">xdptxss.h</includes>
+    <includes local="no">xiic.h</includes>
+    <includes local="no">xiic_l.h</includes>
+    <includes local="no">xil_exception.h</includes>
+    <includes local="no">xil_printf.h</includes>
+    <includes local="no">xil_types.h</includes>
+    <includes local="no">xstatus.h</includes>
+    <includes local="no">xtmrctr.h</includes>
+    <includes local="no">xuartlite_l.h</includes>
+    <includes local="no">xvphy.h</includes>
+    <includes local="no">xvphy_dp.h</includes>
+    <includes local="no">xvphy_hw.h</includes>
+    <includes local="no">xil_cache.h</includes>
+    <includes refid="dp21__pt__mst_2xvidframe__crc_8h" local="yes">xvidframe_crc.h</includes>
+    <includes local="yes">xaxis_switch.h</includes>
+    <includes local="yes">xinterrupt_wrap.h</includes>
+    <includes refid="dp21__pt__mst_2videofmc__defs_8h" local="yes">videofmc_defs.h</includes>
+    <includes local="yes">xgpio.h</includes>
+    <includedby refid="mst_2menus_8c" local="yes">menus.c</includedby>
+    <includedby refid="mst_2passthrough_8c" local="yes">passthrough.c</includedby>
+    <includedby refid="mst_2rx_8c" local="yes">rx.c</includedby>
+    <includedby refid="mst_2tx_8c" local="yes">tx.c</includedby>
+    <includedby refid="xdprxss__dp21__pt__mst_8c" local="yes">xdprxss_dp21_pt_mst.c</includedby>
+    <includedby refid="mst_2xvid__clk__gen_8c" local="yes">xvid_clk_gen.c</includedby>
+    <incdepgraph>
+      <node id="373">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="370">
+        <label>xdprxss.h</label>
+        <link refid="xdprxss_8h"/>
+        <childnode refid="371" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="375" relation="include">
+        </childnode>
+        <childnode refid="376" relation="include">
+        </childnode>
+        <childnode refid="377" relation="include">
+        </childnode>
+      </node>
+      <node id="388">
+        <label>xvphy_hw.h</label>
+      </node>
+      <node id="387">
+        <label>xvphy_dp.h</label>
+      </node>
+      <node id="372">
+        <label>xil_io.h</label>
+      </node>
+      <node id="386">
+        <label>xvphy.h</label>
+      </node>
+      <node id="389">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="369">
+        <label>xdp_hw.h</label>
+      </node>
+      <node id="390">
+        <label>xvidframe_crc.h</label>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="373" relation="include">
+        </childnode>
+        <childnode refid="372" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="394">
+        <label>xgpio.h</label>
+      </node>
+      <node id="391">
+        <label>xaxis_switch.h</label>
+      </node>
+      <node id="376">
+        <label>xdprxss_iic.h</label>
+        <link refid="xdprxss__iic_8h"/>
+      </node>
+      <node id="366">
+        <label>stddef.h</label>
+      </node>
+      <node id="368">
+        <label>xdp.h</label>
+      </node>
+      <node id="380">
+        <label>xiic_l.h</label>
+      </node>
+      <node id="392">
+        <label>xinterrupt_wrap.h</label>
+      </node>
+      <node id="393">
+        <label>videofmc_defs.h</label>
+      </node>
+      <node id="384">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="375">
+        <label>xdprxss_dprx.h</label>
+        <link refid="xdprxss__dprx_8h"/>
+        <childnode refid="368" relation="include">
+        </childnode>
+      </node>
+      <node id="374">
+        <label>xstatus.h</label>
+      </node>
+      <node id="377">
+        <label>xdprxss_hdcp1x.h</label>
+        <link refid="xdprxss__hdcp1x_8h"/>
+        <childnode refid="367" relation="include">
+        </childnode>
+      </node>
+      <node id="381">
+        <label>xil_exception.h</label>
+      </node>
+      <node id="371">
+        <label>xdprxss_hw.h</label>
+        <link refid="xdprxss__hw_8h"/>
+        <childnode refid="372" relation="include">
+        </childnode>
+      </node>
+      <node id="383">
+        <label>xil_types.h</label>
+      </node>
+      <node id="378">
+        <label>xdptxss.h</label>
+      </node>
+      <node id="367">
+        <label>xparameters.h</label>
+      </node>
+      <node id="365">
+        <label>main.h</label>
+        <link refid="mst/main.h"/>
+        <childnode refid="366" relation="include">
+        </childnode>
+        <childnode refid="367" relation="include">
+        </childnode>
+        <childnode refid="368" relation="include">
+        </childnode>
+        <childnode refid="369" relation="include">
+        </childnode>
+        <childnode refid="370" relation="include">
+        </childnode>
+        <childnode refid="378" relation="include">
+        </childnode>
+        <childnode refid="379" relation="include">
+        </childnode>
+        <childnode refid="380" relation="include">
+        </childnode>
+        <childnode refid="381" relation="include">
+        </childnode>
+        <childnode refid="382" relation="include">
+        </childnode>
+        <childnode refid="383" relation="include">
+        </childnode>
+        <childnode refid="374" relation="include">
+        </childnode>
+        <childnode refid="384" relation="include">
+        </childnode>
+        <childnode refid="385" relation="include">
+        </childnode>
+        <childnode refid="386" relation="include">
+        </childnode>
+        <childnode refid="387" relation="include">
+        </childnode>
+        <childnode refid="388" relation="include">
+        </childnode>
+        <childnode refid="389" relation="include">
+        </childnode>
+        <childnode refid="390" relation="include">
+        </childnode>
+        <childnode refid="391" relation="include">
+        </childnode>
+        <childnode refid="392" relation="include">
+        </childnode>
+        <childnode refid="393" relation="include">
+        </childnode>
+        <childnode refid="394" relation="include">
+        </childnode>
+      </node>
+      <node id="382">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="379">
+        <label>xiic.h</label>
+      </node>
+      <node id="385">
+        <label>xuartlite_l.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="401">
+        <label>xvid_clk_gen.c</label>
+      </node>
+      <node id="400">
+        <label>xdprxss_dp21_pt_mst.c</label>
+      </node>
+      <node id="397">
+        <label>passthrough.c</label>
+      </node>
+      <node id="396">
+        <label>menus.c</label>
+      </node>
+      <node id="395">
+        <label>main.h</label>
+        <link refid="mst/main.h"/>
+        <childnode refid="396" relation="include">
+        </childnode>
+        <childnode refid="397" relation="include">
+        </childnode>
+        <childnode refid="398" relation="include">
+        </childnode>
+        <childnode refid="399" relation="include">
+        </childnode>
+        <childnode refid="400" relation="include">
+        </childnode>
+        <childnode refid="401" relation="include">
+        </childnode>
+      </node>
+      <node id="398">
+        <label>rx.c</label>
+      </node>
+      <node id="399">
+        <label>tx.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structlane__link__rate__struct" prot="public">lane_link_rate_struct</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="mst_2main_8h_1ae4b2022f7365f6b41ad50da4ee9ec042" prot="public" static="no">
+        <name>XPAR_XV_FRMBUFRD_NUM_INSTANCES</name>
+        <initializer>XPAR_XV_FRMBUF_RD_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a17adabdf88303732c81e512ec50e38cc" prot="public" static="no">
+        <name>XPAR_XV_FRMBUFWR_NUM_INSTANCES</name>
+        <initializer>XPAR_XV_FRMBUF_WR_NUM_INSTANCES</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a5f14c8f4b97e8fde635340fe44aafacd" prot="public" static="no">
+        <name>PT</name>
+        <briefdescription>
+<para>&lt; XPAR_INTC_0_DEVICE_ID </para>        </briefdescription>
+        <detaileddescription>
+<para>Passthrough Enable Rx </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a1803853d40a775230d2bd01a8a15ea91" prot="public" static="no">
+        <name>Rx</name>
+        <briefdescription>
+<para>Enable Tx. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="108" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1abbb96fbbe5d24b8f12a1fae621ced4d3" prot="public" static="no">
+        <name>Tx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="112" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ac18eb4008855eaf2d3fcf8aab52173a7" prot="public" static="no">
+        <name>AXIMMWIDTH</name>
+        <initializer>512</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="127" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a16136319756e4257975f235e2d6ed24e" prot="public" static="no">
+        <name>XINTC_DEVICE_ID</name>
+        <initializer>XPAR_INTC_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="129" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ad8afa18f74b11f8d7109d1f1bd751656" prot="public" static="no">
+        <name>XINTC_HANDLER</name>
+        <initializer>XIntc_InterruptHandler</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="130" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a58c41bc3d12206e620d2820da0a10e34" prot="public" static="no">
+        <name>XDPRXSS_DEVICE_ID</name>
+        <initializer>XPAR_DPRXSS_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="142" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a64213143cab739e53ff27281f3aacf8e" prot="public" static="no">
+        <name>XVPHY_DEVICE_ID</name>
+        <initializer>XPAR_VID_PHY_CONTROLLER_1_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="144" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a530b6cf4b2384c4f09985de876acc037" prot="public" static="no">
+        <name>XTIMER0_DEVICE_ID</name>
+        <initializer>XPAR_TMRCTR_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="146" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1adfdd943d6436315a5b0d599c5fa36697" prot="public" static="no">
+        <name>VIDEO_CRC_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="148" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a97f6ddc084aa89f3a79adad602117bbd" prot="public" static="no">
+        <name>UARTLITE_BASEADDR</name>
+        <initializer>XPAR_PSU_UART_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a0f30cbed9ffa29ab9145996f59ce1f7a" prot="public" static="no">
+        <name>VID_EDID_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="150" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a0e6e0ffd0c4cccde95481cdd329e887a" prot="public" static="no">
+        <name>IIC_DEVICE_ID</name>
+        <initializer>XPAR_IIC_0_DEVICE_ID</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="151" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a9bf9ad61685bf56deb0a6c755c713078" prot="public" static="no">
+        <name>IIC_BASE_ADDR</name>
+        <initializer>XPAR_XIIC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="155" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a584de2c9672fd5a07f2a77317ed7d139" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_TX_BASEADDR</name>
+        <initializer>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="158" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a9bae6862c11f61cf2bfd2e5c9e7909a1" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_TX1_BASEADDR</name>
+        <initializer>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX1_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="160" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af074ce90cb8205020b172f90bc9cc579" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_TX2_BASEADDR</name>
+        <initializer>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX2_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="162" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a289006674876b19abf389071b2e43455" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_TX3_BASEADDR</name>
+        <initializer>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX3_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="164" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a3da23f46cb11bcc19e8409015b3281a9" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_RX_BASEADDR</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="167" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1aca9b8d65e3982dd38390133cb24d74cc" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_RX_BASEADDR_1</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_1_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af5657463e7d1f182a6a7c4f1e9870c80" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_RX_BASEADDR_2</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_2_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="171" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af683659f1f316922803ef3d8156bf76d" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_RX_BASEADDR_3</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_3_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="173" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a3d3a6161eab156dd60a93006cb7c03a5" prot="public" static="no">
+        <name>VIDEO_FRAME_CRC_RX_BASEADDR_4</name>
+        <initializer>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_4_BASEADDR</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="175" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a6eb991e2b86a73efc4c7f63b2de6b414" prot="public" static="no">
+        <name>AXI_SYSTEM_CLOCK_FREQ_HZ</name>
+        <initializer>XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="182" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a165096ca132f333b2beb37989e37536d" prot="public" static="no">
+        <name>XDP_RX_CRC_CONFIG</name>
+        <initializer>0x074</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="189" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ac263a4bdee7fe35012fefb42e66d7528" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP0</name>
+        <initializer>0x078</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="190" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a84648d65d7d8df7b6a12706279f2ead8" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP1</name>
+        <initializer>0x07C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="191" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a1e242bb2569b0ca8ff3ca6bca43a6a7d" prot="public" static="no">
+        <name>XDP_RX_CRC_COMP2</name>
+        <initializer>0x080</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="192" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af9c85e1f497702aa01b1c77ad75304ff" prot="public" static="no">
+        <name>XDP_RX_DPC_LINK_QUAL_CONFIG</name>
+        <initializer>0x454</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="193" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ad7327d3c79135317805cf1824445d2a9" prot="public" static="no">
+        <name>XDP_RX_DPC_L01_PRBS_CNTR</name>
+        <initializer>0x45C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="194" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a28ea36eee620321414e317bfd7fc94e0" prot="public" static="no">
+        <name>XDP_RX_DPC_L23_PRBS_CNTR</name>
+        <initializer>0x460</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="195" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a26f7710b94440b14499cf71bb90bb6a5" prot="public" static="no">
+        <name>XDP_RX_DPCD_LINK_QUAL_PRBS</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="196" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a265be201a011d0585ded656e4b1a636b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L0</name>
+        <initializer>0x3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1aefe8ef7bbb49ee8b8f6f2fbb3dd2571b" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L1</name>
+        <initializer>0xD</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="199" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a4f8e5e893ab02768aad7052e9844f09f" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L2</name>
+        <initializer>0x16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="200" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ad35b96a4839f9ab0c7999c0a4dc3330a" prot="public" static="no">
+        <name>XVPHY_GTHE4_PREEMP_DP_L3</name>
+        <initializer>0x1D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="201" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a0999250b1c8e78114792e89d5496d34f" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P0</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="203" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1acdfb87625a0326080bd62d6145da7485" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P1</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="204" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ae542c84a5e9a3845a59ac3140f4583f9" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P2</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="205" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ae3ca0fca3b455f16bda8d0544c5cc869" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V0P3</name>
+        <initializer>0xB</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af87ef09384d1b53c8f3da6e52cb93d81" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P0</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="207" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a7c1363948fa2c14f8d24b1a5505fdf11" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P1</name>
+        <initializer>0x5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a75a1c7ff06522170d5db7d7f5306ef1a" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V1P2</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="209" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a577a7f270a0b07e88b394297e922e0f7" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P0</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="210" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a220bb05c504945b9034df573d4d91929" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V2P1</name>
+        <initializer>0x7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="211" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ada3e8f247a7d5b93ed60811a978b7da0" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_V3P0</name>
+        <initializer>0x8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="212" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1aecd2597a003817a946016dbb8f6be8d6" prot="public" static="no">
+        <name>XVPHY_GTHE4_DIFF_SWING_DP_DP20</name>
+        <initializer>0xF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="213" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1acffeeb6e240259adfba82dbc5f8aa7dd" prot="public" static="no">
+        <name>DP_BS_IDLE_TIMEOUT</name>
+        <initializer>0xFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a4e32821f82b5c8f861be9549a5127a8a" prot="public" static="no">
+        <name>VBLANK_WAIT_COUNT</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="220" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ad213a6b10143b16ae90ad8b2d4806af3" prot="public" static="no">
+        <name>AUX_DEFER_COUNT</name>
+        <initializer>(6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a9d20d9425d89812c06f8fdb5b5e4f9e9" prot="public" static="no">
+        <name>AUX_DEFER_COUNT_PHY</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="228" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="228" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a2b9f27128f0e5c24a9ae631a5b4b4009" prot="public" static="no">
+        <name>PRBS_ERRCNTR_CLEAR_ON_READ</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1aa78c597aca584e23e1406c5a64e974ad" prot="public" static="no">
+        <name>LINK_TRAINING_DEBUG</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af05aee7a6df1b51a715d664d80469d1d" prot="public" static="no">
+        <name>RATE_162</name>
+        <initializer>0x6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a74f0a8c174192190fe25f3bc98e3fb25" prot="public" static="no">
+        <name>RATE_270</name>
+        <initializer>0xA</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a28e1d6be249137fddda39c3e8df5f72d" prot="public" static="no">
+        <name>RATE_540</name>
+        <initializer>0x14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a7e0be388a72b2c971e2f6679f7dc398d" prot="public" static="no">
+        <name>RATE_810</name>
+        <initializer>0x1E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a7753a2cae36f6930ec7ee87c3f77897c" prot="public" static="no">
+        <name>RATE_1000</name>
+        <initializer>0x1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a0038f711fc37c0242fa4f9b9f6831993" prot="public" static="no">
+        <name>RATE_1350</name>
+        <initializer>0x4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a8a7e974d0fe20b9cb950db836c9c542d" prot="public" static="no">
+        <name>RATE_2000</name>
+        <initializer>0x2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1abed81fd3b505fe9636fd28714d1bb751" prot="public" static="no">
+        <name>XVPHY_DP_LINK_RATE_HZ_1000GBPS</name>
+        <initializer>10000000000LL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1af111ad14d004b22190c63fc4587bf686" prot="public" static="no">
+        <name>XVPHY_DP_LINK_RATE_HZ_1350GBPS</name>
+        <initializer>13500000000LL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a496611a84b7b01213ca4ba5af2d899d3" prot="public" static="no">
+        <name>XVPHY_DP_LINK_RATE_HZ_2000GBPS</name>
+        <initializer>20000000000LL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a79d7b49812664359b5da1051e49f173a" prot="public" static="no">
+        <name>XVPHY_DP_REF_CLK_FREQ_HZ_400</name>
+        <initializer>400000000LL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a34995b955465f6bbb37c359173d50477" prot="public" static="no">
+        <name>ANSI_COLOR_RED</name>
+        <initializer>&quot;\x1b[31m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="322" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a966c72d8d733c7734c6c784753d894c7" prot="public" static="no">
+        <name>ANSI_COLOR_GREEN</name>
+        <initializer>&quot;\x1b[32m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="323" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a5a123b382640b3aa65dd5db386002fbc" prot="public" static="no">
+        <name>ANSI_COLOR_YELLOW</name>
+        <initializer>&quot;\x1b[33m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="324" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1aca16e6a49eb51333c5fd3eee19487315" prot="public" static="no">
+        <name>ANSI_COLOR_BLUE</name>
+        <initializer>&quot;\x1b[34m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="325" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1acb30614ba1535da5b9d0c490b3c10515" prot="public" static="no">
+        <name>ANSI_COLOR_MAGENTA</name>
+        <initializer>&quot;\x1b[35m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="326" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a8d0b0043e152438bb39b918a1f98c65f" prot="public" static="no">
+        <name>ANSI_COLOR_CYAN</name>
+        <initializer>&quot;\x1b[36m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="327" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1ab126a29a20ee0fe9ada8269c91edb753" prot="public" static="no">
+        <name>ANSI_COLOR_WHITE</name>
+        <initializer>&quot;\x1b[37m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="328" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="mst_2main_8h_1a92a364c2b863dde1a024a77eac2a5b3b" prot="public" static="no">
+        <name>ANSI_COLOR_RESET</name>
+        <initializer>&quot;\x1b[0m&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="329" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="329" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="mst_2main_8h_1a00d749517f0634a7a5e9e3d49097d93e" prot="public" static="no">
+        <name>XVIDC_CUSTOM_MODES</name>
+        <enumvalue id="main_8h_1a00d749517f0634a7a5e9e3d49097d93ead520b420c808cd8042773c72bcad7c77" prot="public">
+          <name>XVIDC_VM_7680x4320_30_DELL</name>
+          <initializer>= (XVIDC_VM_CUSTOM + 1)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="main_8h_1a00d749517f0634a7a5e9e3d49097d93ea809dcc6dddee35dde6edd6a3cfc7d214" prot="public">
+          <name>XVIDC_CM_NUM_SUPPORTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp_2main_8h_1a00d749517f0634a7a5e9e3d49097d93ead520b420c808cd8042773c72bcad7c77" prot="public">
+          <name>XVIDC_VM_7680x4320_30_DELL</name>
+          <initializer>= (XVIDC_VM_CUSTOM + 1)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hdcp_2main_8h_1a00d749517f0634a7a5e9e3d49097d93ea809dcc6dddee35dde6edd6a3cfc7d214" prot="public">
+          <name>XVIDC_CM_NUM_SUPPORTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mst_2main_8h_1a00d749517f0634a7a5e9e3d49097d93ead520b420c808cd8042773c72bcad7c77" prot="public">
+          <name>XVIDC_VM_7680x4320_30_DELL</name>
+          <initializer>= (XVIDC_VM_CUSTOM + 1)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="mst_2main_8h_1a00d749517f0634a7a5e9e3d49097d93ea809dcc6dddee35dde6edd6a3cfc7d214" prot="public">
+          <name>XVIDC_CM_NUM_SUPPORTED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" bodystart="241" bodyend="244"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="mst_2main_8h_1a368daf275de3ce681d540fb0ebe88216" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_Main</definition>
+        <argsstring>()</argsstring>
+        <name>Dp21RxSs_PtMst_Main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; FrameBuffer Wr initialization.</para><para>&lt; FrameBuffer Wr callback.</para><para>&lt; FrameBuffer Rd callback. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="267" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="509" bodyend="732"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a47666604799b89de899895883f98a146" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_PlatformInit</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_PlatformInit</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initialize required platform specific peripherals. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if required peripherals are initialized and configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1129" bodyend="1219"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a037d3277f5cf348993b1864f07f30ce8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_FbStop</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_FbStop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="269" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1671" bodyend="1680"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a6687add751caf87179ef056c85e6e33e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_WrFbStop</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_WrFbStop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="270" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1705" bodyend="1722"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a6886d7f25ec74f1529fbe95cfe5ec3c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_RdFbStop</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_RdFbStop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="271" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1683" bodyend="1701"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a8fdf7d973696fc91c51688c174a9f2e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_PLLRefClkSel</definition>
+        <argsstring>(XVphy *InstancePtr, u8 link_rate, XVphy_ChannelId Channel)</argsstring>
+        <name>Dp21RxSs_PtMst_PLLRefClkSel</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>link_rate</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>Channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="272" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="734" bodyend="783"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ad8dbe7bc83f095b2435af6785901d68c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ReportVideoCRC</definition>
+        <argsstring>(u8 select)</argsstring>
+        <name>ReportVideoCRC</name>
+        <param>
+          <type>u8</type>
+          <declname>select</declname>
+        </param>
+        <briefdescription>
+<para>This function reports CRC values of Video components. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="273" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/rx.c" bodystart="1112" bodyend="1180"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1abe7b875effedb50c2b388426f89f0962" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_CalculateCRC</definition>
+        <argsstring>(u8 Stream)</argsstring>
+        <name>Dp21RxSs_PtMst_CalculateCRC</name>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+<para>This function Calculates CRC values of Video components. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="885" bodyend="985"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a097b6c75356e4c55d05d671fd4227a29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char XUartPs_RecvByte_NonBlocking</definition>
+        <argsstring>()</argsstring>
+        <name>XUartPs_RecvByte_NonBlocking</name>
+        <briefdescription>
+<para>This function is a non-blocking UART return byte. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None.</para></simplesect>
+<simplesect kind="return"><para>Received byte from UART.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt/menus.c" bodystart="178" bodyend="185"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1ad673f235f7cfedfa92f5e7b76e1dc6c8" compoundref="xdprxss__dp21__rx_8c" startline="2183" endline="2222">xil_getc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a46bebf8339e06275349f46d586349784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CustomWaitUs</definition>
+        <argsstring>(void *InstancePtr, u32 MicroSeconds)</argsstring>
+        <name>CustomWaitUs</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MicroSeconds</declname>
+        </param>
+        <briefdescription>
+<para>This function is called when DisplayPort Subsystem core requires delay or sleep. </para>        </briefdescription>
+        <detaileddescription>
+<para>It provides timer with predefined amount of loop iterations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+It provides timer with predefined amount of loop iterations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MicroSeconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the delay time in microseconds.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="276" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xdprxss_dp21_pt_hdcp.c" bodystart="1105" bodyend="1119"/>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0a7486431cab68af81fb7ba9f2bc4793" compoundref="hdcp_2rx_8c" startline="236" endline="296">DpRxSs_SetupIntrSystem</referencedby>
+        <referencedby refid="xdprxss__dp21__rx_8c_1a0ab062285606abd7aefe27bc5e4e783c" compoundref="xdprxss__dp21__rx_8c" startline="1896" endline="1991">CalculateCRC</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ad5434148edb079f4d9fbe61d7cbf7ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Dp21RxSs_PtMst_VideoFMC_Init</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_VideoFMC_Init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function initializes VFMC. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="277" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="234" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a0f6f193a52bbe38d9059783c8c7271c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_SetupIntrSystem</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_SetupIntrSystem</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function sets up the interrupt system so interrupts can occur for the DisplayPort TX Subsystem core. </para>        </briefdescription>
+        <detaileddescription>
+<para>The function is application-specific since the actual system may or may not have an interrupt controller. The DPTX Subsystem core could be directly connected to a processor without an interrupt controller. The user should modify this function to fit the application.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if interrupt setup was successful.</para></listitem><listitem><para>A specific error code defined in &quot;xstatus.h&quot; if an error occurs.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1371" bodyend="1445"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a6e5b492b075584802d8e448341ad463c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Vpg_StreamSrcConfigure</definition>
+        <argsstring>(XDp *InstancePtr, u8 VSplitMode, u8 first_time)</argsstring>
+        <name>Vpg_StreamSrcConfigure</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>VSplitMode</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>first_time</declname>
+        </param>
+        <briefdescription>
+<para>This function updates required timing values in Video Pattern Generator core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XDp instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VSplitMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies vertical split mode to be used for splitting resolution vertically.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if Video pattern configured successfully.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="194" bodyend="254"/>
+        <references refid="xvid__pat__gen_8c_1a00362bd6ffe6f58c8a88891c228f1b0c" compoundref="xvid__pat__gen_8c" startline="269" endline="282">Vpg_VidgenSetTestPattern</references>
+        <references refid="xvid__pat__gen_8h_1a371577d12faa08f59aba76c7fcf95746" compoundref="xvid__pat__gen_8h" startline="56">XPatGen_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ad23a875ad2640e133b3c60b9b2614854" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_PowerDown</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress)</argsstring>
+        <name>TI_LMK03318_PowerDown</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="289" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ad937e78df2d41b78c28fbaca437a77fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int TI_LMK03318_SetRegister</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value)</argsstring>
+        <name>TI_LMK03318_SetRegister</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="290" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1aaa3e9b3576f8ce77008bffcfc097c7e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char Dp21RxSs_PtMst_Getc</definition>
+        <argsstring>(u32 timeout_ms)</argsstring>
+        <name>Dp21RxSs_PtMst_Getc</name>
+        <param>
+          <type>u32</type>
+          <declname>timeout_ms</declname>
+        </param>
+        <briefdescription>
+<para>This function to get uart input from user. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>&lt; No timeout - wait for ever</para><para>&lt; No wait - special case </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/menus.c" bodystart="288" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a750a4704bf8054889b214e525059393c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_OperationMenu</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_OperationMenu</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="293" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/menus.c" bodystart="160" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1abf8ae9d629d427ac70733e846cfafcdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_WrFbStart</definition>
+        <argsstring>(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)</argsstring>
+        <name>Dp21RxSs_PtMst_WrFbStart</name>
+        <param>
+          <type>XDpTxSs_MainStreamAttributes</type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1725" bodyend="1805"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a4c7bc0fd951ac9f1c5983a9cf2b93495" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_RdFbStart</definition>
+        <argsstring>(XDpTxSs_MainStreamAttributes Msa[4], u8 Stream)</argsstring>
+        <name>Dp21RxSs_PtMst_RdFbStart</name>
+        <param>
+          <type>XDpTxSs_MainStreamAttributes</type>
+          <declname>Msa</declname>
+          <array>[4]</array>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="1807" bodyend="1892"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a1c5cb5eed9714a1caa27d0bc6b27349a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void DpPt_ffe_adjustHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>DpPt_ffe_adjustHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; XVPHY_GTHE4_PREEMP_DP_L0 </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="296" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/tx.c" bodystart="295" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a8dcda80c6b2a49beba02dce183a0e38d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_Gethex</definition>
+        <argsstring>(u8 num_chars)</argsstring>
+        <name>Dp21RxSs_PtMst_Gethex</name>
+        <param>
+          <type>u8</type>
+          <declname>num_chars</declname>
+        </param>
+        <briefdescription>
+<para>This function to convert integer to hex. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeout_ms</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>received character</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/menus.c" bodystart="252" bodyend="273"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1aefa4b2a30ff7253e5d3ed54442c8f335" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Dp21RxSs_PtMst_I2cWriteFreq</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u32 Value)</argsstring>
+        <name>Dp21RxSs_PtMst_I2cWriteFreq</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="291" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a97eb56f5e91dc02f558a7aa08db540f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 Dp21RxSs_PtMst_I2cReadFreq</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)</argsstring>
+        <name>Dp21RxSs_PtMst_I2cReadFreq</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="336" bodyend="375"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a7ce9380c62ff3cfa96d7de5eacf223de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u8</type>
+        <definition>u8 Dp21RxSs_PtMst_I2cReadTdp2004</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u16 RegisterAddress)</argsstring>
+        <name>Dp21RxSs_PtMst_I2cReadTdp2004</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="415" bodyend="454"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a8752d1cb2984af93aecb95259f032942" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Dp21RxSs_PtMst_I2cWriteTdp2004</definition>
+        <argsstring>(u32 I2CBaseAddress, u8 I2CSlaveAddress, u8 RegisterAddress, u8 Value)</argsstring>
+        <name>Dp21RxSs_PtMst_I2cWriteTdp2004</name>
+        <param>
+          <type>u32</type>
+          <declname>I2CBaseAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>I2CSlaveAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RegisterAddress</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="377" bodyend="413"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a4f289c526030028b8d87a4fc8a2e560b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_PhyConfig</definition>
+        <argsstring>(XVphy *InstancePtr, int LineRate_init_tx, XVphy_PllType Pll, XVphy_ChannelId Channel, XVphy_DirectionType Dir)</argsstring>
+        <name>Dp21RxSs_PtMst_PhyConfig</name>
+        <param>
+          <type>XVphy *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>LineRate_init_tx</declname>
+          <defname>LineRate</defname>
+        </param>
+        <param>
+          <type>XVphy_PllType</type>
+          <declname>Pll</declname>
+        </param>
+        <param>
+          <type>XVphy_ChannelId</type>
+          <declname>Channel</declname>
+        </param>
+        <param>
+          <type>XVphy_DirectionType</type>
+          <declname>Dir</declname>
+        </param>
+        <briefdescription>
+<para>This function sets VPHY based on the linerate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XVphy instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>LineRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is link rate value. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pll</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an instance to the XVphy_PllType. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Channel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an instance to the XVphy_ChannelId. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dir</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is an instance to the XVphy_DirectionType.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="801" bodyend="841"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a9269e27dbc56fef845b4f336a757706c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 Dp21RxSs_PtMst_Read</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset)</argsstring>
+        <name>Dp21RxSs_PtMst_Read</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a register value using XDp_ReadReg for MST operations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The base address of the DP core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The register offset to read from</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32-bit value read from the register</para></simplesect>
+<simplesect kind="note"><para>This is a wrapper function for XDp_ReadReg specifically for MST-related register reads </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="2210" bodyend="2213"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ad2366bf6733e35e649412e728c761574" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_Write</definition>
+        <argsstring>(u32 BaseAddress, u32 RegOffset, u32 Data)</argsstring>
+        <name>Dp21RxSs_PtMst_Write</name>
+        <param>
+          <type>u32</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>RegOffset</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a register value using XDp_WriteReg for MST operations. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The base address of the DP core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The register offset to write to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- The 32-bit value to write to the register</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>This is a wrapper function for XDp_WriteReg specifically for MST-related register writes </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xdprxss_dp21_pt_mst.c" bodystart="2230" bodyend="2233"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a505c052978b48616fe99f1ac7c85d753" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Read_EDID</definition>
+        <argsstring>(void *InstancePtr, u8 enable_print)</argsstring>
+        <name>Read_EDID</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>enable_print</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/tx.c" bodystart="158" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a51a2e9d036924145656f509947592675" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Set_EDID</definition>
+        <argsstring>(u8 edid_monitor[384])</argsstring>
+        <name>Set_EDID</name>
+        <param>
+          <type>u8</type>
+          <declname>edid_monitor</declname>
+          <array>[384]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/rx.c" bodystart="1301" bodyend="1317"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a4aa2d6078cb7f20cad91adb07fdcb5ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void main_loop</definition>
+        <argsstring>(void)</argsstring>
+        <name>main_loop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+<para>&lt; Duplicate</para><para>&lt; for menu loop <verbatim> &lt; 0x0: Sine tone,
+</verbatim> 0x2: Ping tone <verbatim> &lt; 0x0: Sine tone,
+</verbatim> 0x2: Ping tone </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/tx.c" bodystart="1471" bodyend="1994"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1adfd1308c51667d57cc976648bc220209" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Gen_vid_clk</definition>
+        <argsstring>(XDp *InstancePtr, u8 Stream)</argsstring>
+        <name>Gen_vid_clk</name>
+        <param>
+          <type>XDp *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Stream</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/xvid_clk_gen.c" bodystart="190" bodyend="202"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a1f5c65376206e9ff651d068cb46b2c64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Vpg_Reset</definition>
+        <argsstring>(void)</argsstring>
+        <name>Vpg_Reset</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function stops audio pattern generator. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/xvid_pat_gen.c" bodystart="364" bodyend="372"/>
+        <references refid="xvid__pat__gen_8h_1a371577d12faa08f59aba76c7fcf95746" compoundref="xvid__pat__gen_8h" startline="56">XPatGen_WriteReg</references>
+        <references refid="xvid__pat__gen_8c_1adbaec589a4574c0b38fdcb9f9ce59780" compoundref="xvid__pat__gen_8c" startline="84">Audio_Control</references>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1ae690e4e95545e8f6b37672430f1f910a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 DpRxSs_Setup</definition>
+        <argsstring>(void)</argsstring>
+        <name>DpRxSs_Setup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function configures DisplayPort RX Subsystem. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>None.</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if DP RX Subsystem configured successfully.</para></listitem><listitem><para>XST_FAILURE, otherwise.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_hdcp/rx.c" bodystart="83" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="mst_2main_8h_1a8330ffe934d8aea6ee6ce50656b14f0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Dp21RxSs_PtMst_RxTracking</definition>
+        <argsstring>(void)</argsstring>
+        <name>Dp21RxSs_PtMst_RxTracking</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/passthrough.c" bodystart="747" bodyend="826"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdp_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="xdprxss_8h" kindref="compound">xdprxss.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xdptxss.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xiic.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xiic_l.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_exception.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_printf.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xstatus.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xtmrctr.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xuartlite_l.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy_dp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xvphy_hw.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;xil_cache.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidframe_crc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xaxis_switch.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XV_FRMBUFRD_NUM_INSTANCES<sp/>XPAR_XV_FRMBUF_RD_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XV_FRMBUFWR_NUM_INSTANCES<sp/>XPAR_XV_FRMBUF_WR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="55"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>For<sp/>MicroBlaze<sp/>systems.</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xintc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/>For<sp/>ARM/Zynq<sp/>SoC<sp/>systems.</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="71"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xscugic.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xinterrupt_wrap.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor">#include<sp/>&quot;videofmc_defs.h&quot;</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFRD_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufrd_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_RD_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFRD_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFWR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_WR_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFWR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="90"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFRD_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufrd_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_RD_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFRD_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="94"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFWR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xv_frmbufwr_l2.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FRMBUF_WR_DEVICE_ID<sp/><sp/>XPAR_XV_FRMBUFWR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xgpio.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PT</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>PT<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#ifndef<sp/>Rx<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>Rx</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>Tx<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor">#define<sp/>Tx</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">*<sp/>The<sp/>following<sp/>constants<sp/>map<sp/>to<sp/>the<sp/>names<sp/>of<sp/>the<sp/>hardware<sp/>instances.</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">*<sp/>They<sp/>are<sp/>only<sp/>defined<sp/>here<sp/>such<sp/>that<sp/>a<sp/>user<sp/>can<sp/>easily<sp/>change<sp/>all<sp/>the</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">*<sp/>needed<sp/>device<sp/>IDs<sp/>in<sp/>one<sp/>place.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment">*<sp/>There<sp/>is<sp/>only<sp/>one<sp/>interrupt<sp/>controlled<sp/>to<sp/>be<sp/>selected<sp/>from<sp/>SCUGIC<sp/>and<sp/>GPIO</highlight></codeline>
+<codeline lineno="124"><highlight class="comment">*<sp/>INTC.<sp/>INTC<sp/>selection<sp/>is<sp/>based<sp/>on<sp/>INTC<sp/>parameters<sp/>defined<sp/>xparameters.h<sp/>file.</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AXIMMWIDTH<sp/>512</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_HANDLER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XIntc_InterruptHandler</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPTXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_INTC_0_DP21TXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XINTC_DPRXSS_DP_INTERRUPT_ID<sp/>\</highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>XPAR_INTC_0_DP21RXSS_0_VEC_ID</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/>*<sp/>The<sp/>unique<sp/>device<sp/>ID<sp/>of<sp/>the<sp/>instances<sp/>used<sp/>in<sp/>example</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDPRXSS_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DPRXSS_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_VID_PHY_CONTROLLER_1_DEVICE_ID</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTIMER0_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_TMRCTR_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_CRC_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>UARTLITE_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PSU_UART_0_BASEADDR</highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VID_EDID_BASEADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VID_EDID_0_BASEADDR</highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_DEVICE_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_DEVICE_ID</highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_IIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>IIC_BASE_ADDR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_XIIC_0_BASEADDR</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX_BASEADDR</highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX1_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX1_BASEADDR</highlight></codeline>
+<codeline lineno="162"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX2_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX2_BASEADDR</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_TX3_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_TX_HIER_0_VIDEO_FRAME_CRC_TX3_BASEADDR</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR<sp/>\</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_0_BASEADDR</highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR_1<sp/>\</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_1_BASEADDR</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR_2<sp/>\</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_2_BASEADDR</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR_3<sp/>\</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_3_BASEADDR</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VIDEO_FRAME_CRC_RX_BASEADDR_4<sp/>\</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_DP_RX_HIER_0_VIDEO_FRAME_CRC_4_BASEADDR</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXI_SYSTEM_CLOCK_FREQ_HZ<sp/>\</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AXI_SYSTEM_CLOCK_FREQ_HZ<sp/>\</highlight></codeline>
+<codeline lineno="183"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPAR_PROC_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY</highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="187"><highlight class="comment"><sp/>*<sp/>DP<sp/>Specific<sp/>Defines</highlight></codeline>
+<codeline lineno="188"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x074</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x078</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x07C</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_CRC_COMP2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x080</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_LINK_QUAL_CONFIG<sp/><sp/><sp/><sp/><sp/>0x454</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_L01_PRBS_CNTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x45C</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPC_L23_PRBS_CNTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x460</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XDP_RX_DPCD_LINK_QUAL_PRBS<sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xD</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x16</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_PREEMP_DP_L3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1D</highlight></codeline>
+<codeline lineno="202"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P0<sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="204"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P1<sp/><sp/>0x2</highlight></codeline>
+<codeline lineno="205"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P2<sp/><sp/>0x5</highlight></codeline>
+<codeline lineno="206"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V0P3<sp/><sp/>0xB</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P0<sp/><sp/>0x2</highlight></codeline>
+<codeline lineno="208"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P1<sp/><sp/>0x5</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V1P2<sp/><sp/>0x7</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P0<sp/><sp/>0x4</highlight></codeline>
+<codeline lineno="211"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V2P1<sp/><sp/>0x7</highlight></codeline>
+<codeline lineno="212"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_V3P0<sp/><sp/>0x8</highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_GTHE4_DIFF_SWING_DP_DP20<sp/><sp/>0xF</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/>*<sp/>Max<sp/>timeout<sp/>tuned<sp/>as<sp/>per<sp/>tester<sp/>-<sp/>AXI<sp/>Clock<sp/>=<sp/>100<sp/>MHz</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/>*<sp/>Some<sp/>GPUs<sp/>may<sp/>need<sp/>larger<sp/>value,<sp/>So<sp/>user<sp/>may<sp/>tune<sp/>if<sp/>needed</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DP_BS_IDLE_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFF</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>VBLANK_WAIT_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>200</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="223"><highlight class="comment"><sp/>*<sp/>For<sp/>compliance,<sp/>please<sp/>set<sp/>AUX_DEFER_COUNT<sp/>to<sp/>be<sp/>8</highlight></codeline>
+<codeline lineno="224"><highlight class="comment"><sp/>*<sp/>(Only<sp/>for<sp/>ZCU102-ARM<sp/>R5<sp/>based<sp/>Rx<sp/>system).</highlight></codeline>
+<codeline lineno="225"><highlight class="comment"><sp/>*<sp/>For<sp/>Interop,<sp/>set<sp/>this<sp/>to<sp/>6.</highlight></codeline>
+<codeline lineno="226"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AUX_DEFER_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(6)</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>AUX_DEFER_COUNT_PHY<sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PRBS_ERRCNTR_CLEAR_ON_READ<sp/>1</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment"><sp/>*<sp/>DEFAULT<sp/>VALUE<sp/>=<sp/>0.<sp/>Enabled<sp/>programming<sp/>of</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/>*<sp/>Rx<sp/>Training<sp/>Algo<sp/>Register<sp/>for<sp/>Debugging<sp/>Purpose</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LINK_TRAINING_DEBUG<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_VM_7680x4320_30_DELL<sp/>=<sp/>(XVIDC_VM_CUSTOM<sp/>+<sp/>1),</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVIDC_CM_NUM_SUPPORTED</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">}<sp/>XVIDC_CUSTOM_MODES;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RATE_162<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x6</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_270<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xA</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_540<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x14</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_810<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1E</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_1000<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x1</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_1350<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x4</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>RATE_2000<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DP_LINK_RATE_HZ_1000GBPS<sp/><sp/>10000000000LL</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DP_LINK_RATE_HZ_1350GBPS<sp/><sp/>13500000000LL</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DP_LINK_RATE_HZ_2000GBPS<sp/><sp/>20000000000LL</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XVPHY_DP_REF_CLK_FREQ_HZ_400<sp/><sp/><sp/><sp/><sp/>400000000LL</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>lane_count;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>link_rate;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal">}<sp/>lane_link_rate_struct;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_Main();</highlight></codeline>
+<codeline lineno="268"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_PlatformInit(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_FbStop(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_WrFbStop(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_RdFbStop(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_PLLRefClkSel<sp/>(XVphy<sp/>*InstancePtr,<sp/>u8<sp/>link_rate,<sp/>XVphy_ChannelId<sp/>Channel);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__dp21__rx_8c_1a831ff4b2e94846a5b371aa22223b9ac0" kindref="member">ReportVideoCRC</ref>(u8<sp/>select);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_CalculateCRC(u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="xdprxss__dp21__rx_8c_1a097b6c75356e4c55d05d671fd4227a29" kindref="member">XUartPs_RecvByte_NonBlocking</ref>();</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xdprxss__dp21__pt__hdcp_8c_1a46bebf8339e06275349f46d586349784" kindref="member">CustomWaitUs</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u32<sp/>MicroSeconds);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_VideoFMC_Init(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_SetupIntrSystem(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xvid__pat__gen_8c_1a6e5b492b075584802d8e448341ad463c" kindref="member">Vpg_StreamSrcConfigure</ref>(XDp<sp/>*InstancePtr,<sp/>u8<sp/>VSplitMode,<sp/>u8<sp/>first_time);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFWR_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="282"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_WrBufferCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="284"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>XPAR_XV_FRMBUFRD_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="286"><highlight class="preprocessor"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_RdBufferCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="288"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TI_LMK03318_PowerDown(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TI_LMK03318_SetRegister(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RegisterAddress,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_Getc(u32<sp/>timeout_ms);</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_OperationMenu(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_WrFbStart(XDpTxSs_MainStreamAttributes<sp/>Msa[4],<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_RdFbStart(XDpTxSs_MainStreamAttributes<sp/>Msa[4],<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>DpPt_ffe_adjustHandler(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_Gethex(u8<sp/>num_chars);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_I2cWriteFreq(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u8<sp/>RegisterAddress,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">u8<sp/>Dp21RxSs_PtMst_I2cReadFreq(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress);</highlight></codeline>
+<codeline lineno="302"><highlight class="normal">u8<sp/>Dp21RxSs_PtMst_I2cReadTdp2004(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,<sp/>u16<sp/>RegisterAddress);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_I2cWriteTdp2004(u32<sp/>I2CBaseAddress,<sp/>u8<sp/>I2CSlaveAddress,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>RegisterAddress,<sp/>u8<sp/>Value);</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_PhyConfig(XVphy<sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>LineRate_init_tx,<sp/>XVphy_PllType<sp/>Pll,</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVphy_ChannelId<sp/>Channel,<sp/>XVphy_DirectionType<sp/>Dir);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal">u32<sp/>Dp21RxSs_PtMst_Read(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_Write(u32<sp/>BaseAddress,<sp/>u32<sp/>RegOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Read_EDID<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr,<sp/>u8<sp/>enable_print);</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Set_EDID<sp/>(u8<sp/>edid_monitor[384]);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Forward<sp/>declarations<sp/>to<sp/>avoid<sp/>implicit<sp/>declaration<sp/>warnings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>main_loop(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Gen_vid_clk(XDp<sp/>*InstancePtr,<sp/>u8<sp/>Stream);</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xvid__pat__gen_8c_1a1f5c65376206e9ff651d068cb46b2c64" kindref="member">Vpg_Reset</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">u32<sp/>DpRxSs_Setup(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dp21RxSs_PtMst_RxTracking(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Defining<sp/>constants<sp/>for<sp/>colors<sp/>in<sp/>printing<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_RED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;\x1b[31m&quot;</highlight></codeline>
+<codeline lineno="323"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_GREEN<sp/><sp/><sp/><sp/>&quot;\x1b[32m&quot;</highlight></codeline>
+<codeline lineno="324"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_YELLOW<sp/><sp/><sp/>&quot;\x1b[33m&quot;</highlight></codeline>
+<codeline lineno="325"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_BLUE<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[34m&quot;</highlight></codeline>
+<codeline lineno="326"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_MAGENTA<sp/><sp/>&quot;\x1b[35m&quot;</highlight></codeline>
+<codeline lineno="327"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_CYAN<sp/><sp/><sp/><sp/><sp/>&quot;\x1b[36m&quot;</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_WHITE<sp/><sp/><sp/><sp/>&quot;\x1b[37m&quot;</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ANSI_COLOR_RESET<sp/><sp/><sp/><sp/>&quot;\x1b[0m&quot;</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21rxss/examples/src/dp21_pt_mst/main.h"/>
+  </compounddef>
+</doxygen>

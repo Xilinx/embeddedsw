@@ -1,0 +1,1196 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__warp__init_8h" kind="file">
+    <compoundname>xv_warp_init.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_assert.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xv__warp__init__hw_8h" local="yes">xv_warp_init_hw.h</includes>
+    <includedby refid="xv__warp__init_8c" local="yes">xv_warp_init.c</includedby>
+    <includedby refid="xv__warp__init__g_8c" local="yes">xv_warp_init_g.c</includedby>
+    <includedby refid="xv__warp__init__intr_8c" local="yes">xv_warp_init_intr.c</includedby>
+    <includedby refid="xv__warp__init__l2_8h" local="yes">xv_warp_init_l2.h</includedby>
+    <includedby refid="xv__warp__init__sinit_8c" local="yes">xv_warp_init_sinit.c</includedby>
+    <incdepgraph>
+      <node id="26">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="28">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>xv_warp_init.h</label>
+        <link refid="xv_warp_init.h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>xstatus.h</label>
+      </node>
+      <node id="29">
+        <label>xv_warp_init_hw.h</label>
+        <link refid="xv__warp__init__hw_8h"/>
+      </node>
+      <node id="25">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="32">
+        <label>xv_warp_init_g.c</label>
+        <link refid="xv__warp__init__g_8c"/>
+      </node>
+      <node id="31">
+        <label>xv_warp_init.c</label>
+        <link refid="xv__warp__init_8c"/>
+      </node>
+      <node id="30">
+        <label>xv_warp_init.h</label>
+        <link refid="xv_warp_init.h"/>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>xv_warp_init_sinit.c</label>
+        <link refid="xv__warp__init__sinit_8c"/>
+      </node>
+      <node id="35">
+        <label>xv_warp_init_l2.c</label>
+        <link refid="xv__warp__init__l2_8c"/>
+      </node>
+      <node id="34">
+        <label>xv_warp_init_l2.h</label>
+        <link refid="xv__warp__init__l2_8h"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>xwarp_input_configs.c</label>
+        <link refid="xwarp__input__configs_8c"/>
+      </node>
+      <node id="36">
+        <label>xwarp_input_configs.h</label>
+        <link refid="xwarp__input__configs_8h"/>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>xv_warp_init_intr.c</label>
+        <link refid="xv__warp__init__intr_8c"/>
+      </node>
+      <node id="38">
+        <label>xwarp_example.c</label>
+        <link refid="xwarp__example_8c"/>
+      </node>
+      <node id="37">
+        <label>inputs.h</label>
+        <link refid="inputs_8h"/>
+        <childnode refid="38" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_v__warp__init___config" prot="public">XV_warp_init_Config</innerclass>
+    <innerclass refid="struct_x_v__warp__init" prot="public">XV_warp_init</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" prot="public" static="no">
+        <name>XV_warp_init_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>Data</defname></param>
+        <initializer>Xil_Out32((BaseAddress) + (RegOffset), (u32)(Data))</initializer>
+        <briefdescription>
+<para>Write a value to a register at the specified offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a8946b1e5d07efb564675b3607515f339" compoundref="xv__warp__init_8c" startline="182" endline="187">XV_warp_init_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a78c0265a05e907b51b8a04d7b4ac02ea" compoundref="xv__warp__init_8c" startline="161" endline="166">XV_warp_init_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a8340dadb90e5190397e0ff75205d2069" compoundref="xv__warp__init_8c" startline="416" endline="421">XV_warp_init_InterruptClear</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aa3b1dcd9b0d9e7711a990ee41698e631" compoundref="xv__warp__init_8c" startline="391" endline="399">XV_warp_init_InterruptDisable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a2262029cd2093f79e7f04f21f0b9efe0" compoundref="xv__warp__init_8c" startline="366" endline="374">XV_warp_init_InterruptEnable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a75bb3d1d09053f6d01e59ba8648bd1e5" compoundref="xv__warp__init_8c" startline="344" endline="349">XV_warp_init_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ad55655343d7384299276e18891cf65ca" compoundref="xv__warp__init_8c" startline="323" endline="328">XV_warp_init_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a09f6b8f5d8fcdaaebfda25182778654b" compoundref="xv__warp__init_8c" startline="276" endline="282">XV_warp_init_Set_desc_addr</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ae7df0f2a5209079f33adb22219b3bd82" compoundref="xv__warp__init_8c" startline="228" endline="234">XV_warp_init_Set_maxi_read_write</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a7102b31303fda31be239a8e3b5d78235" compoundref="xv__warp__init_8c" startline="479" endline="490">XV_warp_init_SetFlushbit</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a894a0392e9fc275220cc8e0f6d89a951" compoundref="xv__warp__init_8c" startline="64" endline="72">XV_warp_init_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" prot="public" static="no">
+        <name>XV_warp_init_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read a value from a register at the specified offset. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="103" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" bodystart="103" bodyend="-1"/>
+        <referencedby refid="xv__warp__init_8h_1a850f224e076fb288e5bd369b39c9fa7f" compoundref="xv__warp__init_8c" startline="298" endline="307">XV_warp_init_Get_desc_addr</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a6d616342e1eb47e05768d11c56d47a36" compoundref="xv__warp__init_8c" startline="506" endline="515">XV_warp_init_Get_FlushDone</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a53caf177b8412aa07bec78489db7cbc6" compoundref="xv__warp__init_8c" startline="203" endline="211">XV_warp_init_Get_ip_status</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aca7453333c52413e5b36d7fcfa9b956e" compoundref="xv__warp__init_8c" startline="250" endline="259">XV_warp_init_Get_maxi_read_write</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aa3b1dcd9b0d9e7711a990ee41698e631" compoundref="xv__warp__init_8c" startline="391" endline="399">XV_warp_init_InterruptDisable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a2262029cd2093f79e7f04f21f0b9efe0" compoundref="xv__warp__init_8c" startline="366" endline="374">XV_warp_init_InterruptEnable</referencedby>
+        <referencedby refid="xv__warp__init_8h_1ada2d148b67381daac37db3d694351b09" compoundref="xv__warp__init_8c" startline="437" endline="442">XV_warp_init_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a649361eaec8b063948de05a5d26e1a14" compoundref="xv__warp__init_8c" startline="458" endline="463">XV_warp_init_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aa46ac963cb95115434b753c3b1fcb5b1" compoundref="xv__warp__init_8c" startline="88" endline="96">XV_warp_init_IsDone</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a1d1f4b4d9a8e99220b98ec293d38a732" compoundref="xv__warp__init_8c" startline="112" endline="120">XV_warp_init_IsIdle</referencedby>
+        <referencedby refid="xv__warp__init_8h_1aab4485ec0a4dfbf831603eabcb68d652" compoundref="xv__warp__init_8c" startline="136" endline="145">XV_warp_init_IsReady</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a7102b31303fda31be239a8e3b5d78235" compoundref="xv__warp__init_8c" startline="479" endline="490">XV_warp_init_SetFlushbit</referencedby>
+        <referencedby refid="xv__warp__init_8h_1a894a0392e9fc275220cc8e0f6d89a951" compoundref="xv__warp__init_8c" startline="64" endline="72">XV_warp_init_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067d" prot="public" static="no">
+        <name>XV_warp_init_warp_type</name>
+        <enumvalue id="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067daf6be0f4910c6cdb4711d72a1b1e063e3" prot="public">
+          <name>DISTORTION_LENS</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>Lens distortion warp type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067dafd873ca3aad6f3f70c170890ec4e1929" prot="public">
+          <name>DISTORTION_ARBITRARY</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>Arbitrary distortion warp type. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Warp type enumeration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" bodystart="91" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="xv__warp__init_8h_1a6e19842191cb28a71d32d37247002769" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* XV_warp_init_Callback)(void *CallbackRef)</definition>
+        <argsstring>)(void *CallbackRef)</argsstring>
+        <name>XV_warp_init_Callback</name>
+        <briefdescription>
+<para>Callback function pointer type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="xv__warp__init_8h_1a416153030fd55ef69b61209076c91d00" prot="public" static="no">
+        <type>u32</type>
+        <definition>typedef u32 word_type</definition>
+        <argsstring></argsstring>
+        <name>word_type</name>
+        <briefdescription>
+<para>Word type definition. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__warp__init_8h_1a0ddc4ba708f5f4e98c83439c636cf26d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_warp_init_Initialize</definition>
+        <argsstring>(XV_warp_init *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_warp_init_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the warp init driver instance by base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> driver instance by looking up the configuration structure based on the base address and calling the configuration initialization function.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance to initialize </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address to look up in the configuration table, or 0 to use the first available configuration</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful initialization XST_DEVICE_NOT_FOUND if the base address is not found</para></simplesect>
+<simplesect kind="note"><para>This function is only available in SDT builds. The InstancePtr must not be NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_sinit.c" bodystart="140" bodyend="152"/>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init_8c_1ae18fafb8f603165bc083a8b821c4bd39" compoundref="xv__warp__init_8c" startline="35" endline="47">XV_warp_init_CfgInitialize</references>
+        <references refid="xv__warp__init_8h_1a5dc46923da18871435076b8ded3ea24e" compoundref="xv__warp__init__sinit_8c" startline="105" endline="119">XV_warp_init_LookupConfig</references>
+        <referencedby refid="xwarp__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xwarp__example_8c" startline="136" endline="336">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a5dc46923da18871435076b8ded3ea24e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref> *</type>
+        <definition>XV_warp_init_Config* XV_warp_init_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_warp_init_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Lookup configuration structure by base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the configuration table for a matching base address and returns a pointer to the corresponding configuration structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address to search for in the configuration table, or 0 to return the first entry</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the matching <ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref> structure, or NULL if no match is found</para></simplesect>
+<simplesect kind="note"><para>This function is only available in SDT builds </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="140" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init_sinit.c" bodystart="105" bodyend="119"/>
+        <references refid="struct_x_v__warp__init___config_1a218ec0cb4fd7afee41568d40fa5b0cee" compoundref="xv__warp__init_8h" startline="53">XV_warp_init_Config::Name</references>
+        <referencedby refid="xv__warp__init__sinit_8c_1a0ddc4ba708f5f4e98c83439c636cf26d" compoundref="xv__warp__init__sinit_8c" startline="140" endline="152">XV_warp_init_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1ae18fafb8f603165bc083a8b821c4bd39" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_warp_init_CfgInitialize</definition>
+        <argsstring>(XV_warp_init *InstancePtr, XV_warp_init_Config *ConfigPtr)</argsstring>
+        <name>XV_warp_init_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the warp init instance with configuration. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function initializes the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> driver instance using the provided configuration structure. Sets up base addresses and initializes the descriptor configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the configuration structure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS on successful initialization</para></simplesect>
+<simplesect kind="note"><para>This function is only available in non-Linux builds. Both pointers must not be NULL. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="142" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="35" bodyend="47"/>
+        <references refid="struct_x_v__warp__init_1afda5f7950287dab6390d34044ecd5082" compoundref="xv__warp__init_8h" startline="76">XV_warp_init::config</references>
+        <references refid="struct_x_v__warp__init___config_1a304ef2661b39509a1fa264ff1671b016" compoundref="xv__warp__init_8h" startline="55">XV_warp_init_Config::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" compoundref="xv__warp__init_8h" startline="82">XV_warp_init::NumDescriptors</references>
+        <references refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" compoundref="xv__warp__init_8h" startline="81">XV_warp_init::RemapVectorDesc_BaseAddr</references>
+        <referencedby refid="xv__warp__init__sinit_8c_1a0ddc4ba708f5f4e98c83439c636cf26d" compoundref="xv__warp__init__sinit_8c" startline="140" endline="152">XV_warp_init_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a894a0392e9fc275220cc8e0f6d89a951" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_Start</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_Start</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Start the warp init IP core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function starts the warp init IP core by setting the AP_START bit in the control register while preserving the auto-restart configuration.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>The instance must be ready before calling this function </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="148" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="64" bodyend="72"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1ac6232e2fd0a2cccf6c5e902d2c27c729" compoundref="xv__warp__init__l2_8c" startline="254" endline="281">XVWarpInit_start_with_desc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1aa46ac963cb95115434b753c3b1fcb5b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_IsDone</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_IsDone</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the warp init IP core has finished processing. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks the AP_DONE bit in the control register to determine if the IP core has completed its current operation.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if operation is done, 0 otherwise</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="149" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="88" bodyend="96"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <referencedby refid="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" compoundref="xv__warp__init__intr_8c" startline="74" endline="90">XVWarpInit_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a1d1f4b4d9a8e99220b98ec293d38a732" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_IsIdle</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_IsIdle</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the warp init IP core is idle. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks the AP_IDLE bit in the control register to determine if the IP core is currently idle.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if idle, 0 if busy</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="112" bodyend="120"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1aab4485ec0a4dfbf831603eabcb68d652" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_IsReady</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_IsReady</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Check if the warp init IP core is ready for next input. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks if the IP core is ready to accept new input by verifying that the AP_START bit is not set.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>1 if ready for next input, 0 otherwise</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="151" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="136" bodyend="145"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a78c0265a05e907b51b8a04d7b4ac02ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_EnableAutoRestart</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_EnableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable auto-restart mode for the warp init IP core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables auto-restart mode by setting bit 7 of the control register, allowing the IP to automatically restart after completion.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="152" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="161" bodyend="166"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a8946b1e5d07efb564675b3607515f339" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_DisableAutoRestart</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_DisableAutoRestart</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable auto-restart mode for the warp init IP core. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables auto-restart mode by clearing the control register, requiring manual restart after each operation completes.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="153" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="182" bodyend="187"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a6d616342e1eb47e05768d11c56d47a36" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_Get_FlushDone</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_Get_FlushDone</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the flush done status. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks if the flush operation has completed by reading the flush done status bit from the control register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Flush done status (non-zero if flush is complete, 0 otherwise)</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="154" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="506" bodyend="515"/>
+        <references refid="xv__warp__init__hw_8h_1a0a9c087324755f58c0103309d0d2d696" compoundref="xv__warp__init__hw_8h" startline="145">AP_CTRL_FLUSH_STATUSBIT</references>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1ad7d92fddb20a0644a7099c39d5bd19d4" compoundref="xv__warp__init__l2_8c" startline="292" endline="310">XVWarpInit_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a7102b31303fda31be239a8e3b5d78235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_SetFlushbit</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_SetFlushbit</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Set the flush bit to initiate IP core flush. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the flush bit in the control register to initiate a flush operation, clearing any pending data in the IP core pipeline.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Check flush completion using <ref refid="xv__warp__init_8c_1a6d616342e1eb47e05768d11c56d47a36" kindref="member">XV_warp_init_Get_FlushDone()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="155" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="479" bodyend="490"/>
+        <references refid="xv__warp__init__hw_8h_1ae46000c978cee02028105e3f066a8a6f" compoundref="xv__warp__init__hw_8h" startline="135">AP_CTRL_FLUSH_BIT</references>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a936df21cbdb3b6bbd1d126e286df4503" compoundref="xv__warp__init__hw_8h" startline="49">XV_WARP_INIT_CTRL_ADDR_AP_CTRL</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1ad7d92fddb20a0644a7099c39d5bd19d4" compoundref="xv__warp__init__l2_8c" startline="292" endline="310">XVWarpInit_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a53caf177b8412aa07bec78489db7cbc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_Get_ip_status</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_Get_ip_status</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the IP status register value. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads and returns the IP status register which contains various status flags from the warp init IP core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IP status register value</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="203" bodyend="211"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a84f048bc5d9a38e2c1c0372e6968ecf1" compoundref="xv__warp__init__hw_8h" startline="89">XV_WARP_INIT_CTRL_ADDR_IP_STATUS_REG_DATA</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1ae7df0f2a5209079f33adb22219b3bd82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_Set_maxi_read_write</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u64 Data)</argsstring>
+        <name>XV_warp_init_Set_maxi_read_write</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the AXI master read/write address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the 64-bit AXI master read/write base address for memory access operations.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit address value to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Address is written as two 32-bit registers </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="228" bodyend="234"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1aa3a7115c0bf46e4b2de82522ad3127de" compoundref="xv__warp__init__hw_8h" startline="79">XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1ac6232e2fd0a2cccf6c5e902d2c27c729" compoundref="xv__warp__init__l2_8c" startline="254" endline="281">XVWarpInit_start_with_desc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1aca7453333c52413e5b36d7fcfa9b956e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XV_warp_init_Get_maxi_read_write</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_Get_maxi_read_write</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the AXI master read/write address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads and returns the current 64-bit AXI master read/write base address.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current 64-bit address value</para></simplesect>
+<simplesect kind="note"><para>Address is read from two 32-bit registers </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="158" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="250" bodyend="259"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1aa3a7115c0bf46e4b2de82522ad3127de" compoundref="xv__warp__init__hw_8h" startline="79">XV_WARP_INIT_CTRL_ADDR_MAXI_READ_WRITE_DATA</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a09f6b8f5d8fcdaaebfda25182778654b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_Set_desc_addr</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u64 Data)</argsstring>
+        <name>XV_warp_init_Set_desc_addr</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>Data</declname>
+        </param>
+        <briefdescription>
+<para>Set the descriptor address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the 64-bit descriptor base address for the warp initialization descriptor data structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>64-bit descriptor address to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Address is written as two 32-bit registers </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="159" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="276" bodyend="282"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1ab931db7a9b064bf84b533170f3cb57c6" compoundref="xv__warp__init__hw_8h" startline="69">XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1ac6232e2fd0a2cccf6c5e902d2c27c729" compoundref="xv__warp__init__l2_8c" startline="254" endline="281">XVWarpInit_start_with_desc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a850f224e076fb288e5bd369b39c9fa7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u64</type>
+        <definition>u64 XV_warp_init_Get_desc_addr</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_Get_desc_addr</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get the descriptor address. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads and returns the current 64-bit descriptor base address.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current 64-bit descriptor address</para></simplesect>
+<simplesect kind="note"><para>Address is read from two 32-bit registers </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="160" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="298" bodyend="307"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1ab931db7a9b064bf84b533170f3cb57c6" compoundref="xv__warp__init__hw_8h" startline="69">XV_WARP_INIT_CTRL_ADDR_DESC_ADDR_DATA</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1ad55655343d7384299276e18891cf65ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_InterruptGlobalEnable</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_InterruptGlobalEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the global interrupt output by setting the Global Interrupt Enable (GIE) register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="162" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="323" bodyend="328"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a8f60d7fcb2e940f2f8501f64fd5fa71d" compoundref="xv__warp__init__hw_8h" startline="54">XV_WARP_INIT_CTRL_ADDR_GIE</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1a3cb1069708424d686d2a1937a71acb4f" compoundref="xv__warp__init__l2_8c" startline="75" endline="82">XVWarpInit_EnableInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a75bb3d1d09053f6d01e59ba8648bd1e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_InterruptGlobalDisable</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_InterruptGlobalDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disable global interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the global interrupt output by clearing the Global Interrupt Enable (GIE) register.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="344" bodyend="349"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a8f60d7fcb2e940f2f8501f64fd5fa71d" compoundref="xv__warp__init__hw_8h" startline="54">XV_WARP_INIT_CTRL_ADDR_GIE</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a2262029cd2093f79e7f04f21f0b9efe0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_InterruptEnable</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_warp_init_InterruptEnable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Enable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function enables the interrupts specified by the mask parameter by setting the corresponding bits in the Interrupt Enable Register (IER).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask with bits set for interrupts to enable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Multiple interrupts can be enabled simultaneously using OR&apos;d mask </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="366" bodyend="374"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1aba84bc90d844ceda687efafe68338a57" compoundref="xv__warp__init__hw_8h" startline="59">XV_WARP_INIT_CTRL_ADDR_IER</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="xv__warp__init__l2_8h_1a3cb1069708424d686d2a1937a71acb4f" compoundref="xv__warp__init__l2_8c" startline="75" endline="82">XVWarpInit_EnableInterrupts</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1aa3b1dcd9b0d9e7711a990ee41698e631" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_InterruptDisable</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_warp_init_InterruptDisable</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Disable specific interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function disables the interrupts specified by the mask parameter by clearing the corresponding bits in the Interrupt Enable Register (IER).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask with bits set for interrupts to disable</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Multiple interrupts can be disabled simultaneously using OR&apos;d mask </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="391" bodyend="399"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1aba84bc90d844ceda687efafe68338a57" compoundref="xv__warp__init__hw_8h" startline="59">XV_WARP_INIT_CTRL_ADDR_IER</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a8340dadb90e5190397e0ff75205d2069" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XV_warp_init_InterruptClear</definition>
+        <argsstring>(XV_warp_init *InstancePtr, u32 Mask)</argsstring>
+        <name>XV_warp_init_InterruptClear</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Clear interrupt status flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function clears the interrupt status flags specified by the mask parameter by writing to the Interrupt Status Register (ISR).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask with bits set for interrupts to clear</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Write 1 to clear the corresponding interrupt status bit </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="416" bodyend="421"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a85bc0e7687dcf013d23630aa4b3796e9" compoundref="xv__warp__init__hw_8h" startline="64">XV_WARP_INIT_CTRL_ADDR_ISR</references>
+        <references refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" compoundref="xv__warp__init_8h" startline="99">XV_warp_init_WriteReg</references>
+        <referencedby refid="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" compoundref="xv__warp__init__intr_8c" startline="74" endline="90">XVWarpInit_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1ada2d148b67381daac37db3d694351b09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_InterruptGetEnabled</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_InterruptGetEnabled</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get enabled interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads and returns the Interrupt Enable Register (IER) value showing which interrupts are currently enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the Interrupt Enable Register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="437" bodyend="442"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1aba84bc90d844ceda687efafe68338a57" compoundref="xv__warp__init__hw_8h" startline="59">XV_WARP_INIT_CTRL_ADDR_IER</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="xv__warp__init_8h_1a649361eaec8b063948de05a5d26e1a14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XV_warp_init_InterruptGetStatus</definition>
+        <argsstring>(XV_warp_init *InstancePtr)</argsstring>
+        <name>XV_warp_init_InterruptGetStatus</name>
+        <param>
+          <type><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Get interrupt status. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads and returns the Interrupt Status Register (ISR) value showing which interrupts are currently pending.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref> instance</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Contents of the Interrupt Status Register</para></simplesect>
+<simplesect kind="note"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.c" bodystart="458" bodyend="463"/>
+        <references refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" compoundref="xv__warp__init_8h" startline="77">XV_warp_init::Ctrl_BaseAddress</references>
+        <references refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" compoundref="xv__warp__init_8h" startline="78">XV_warp_init::IsReady</references>
+        <references refid="xv__warp__init__hw_8h_1a85bc0e7687dcf013d23630aa4b3796e9" compoundref="xv__warp__init__hw_8h" startline="64">XV_WARP_INIT_CTRL_ADDR_ISR</references>
+        <references refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" compoundref="xv__warp__init_8h" startline="103">XV_warp_init_ReadReg</references>
+        <referencedby refid="group__v__warp__init_1gac958c5e19267cda8b1f5cdb37b09117e" compoundref="xv__warp__init__intr_8c" startline="74" endline="90">XVWarpInit_IntrHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>1986<sp/>-<sp/>2022<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>XV_WARP_INIT_H</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XV_WARP_INIT_H</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_assert.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;assert.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;dirent.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;fcntl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/mman.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;unistd.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__warp__init__hw_8h" kindref="compound">xv_warp_init_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__linux__</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/>u8;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint16_t<sp/>u16;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/>u32;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint64_t<sp/>u64;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49" refid="struct_x_v__warp__init___config" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/>DeviceId;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="53" refid="struct_x_v__warp__init___config_1a218ec0cb4fd7afee41568d40fa5b0cee" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__warp__init___config_1a218ec0cb4fd7afee41568d40fa5b0cee" kindref="member">Name</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="55" refid="struct_x_v__warp__init___config_1a304ef2661b39509a1fa264ff1671b016" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__warp__init___config_1a304ef2661b39509a1fa264ff1671b016" kindref="member">Ctrl_BaseAddress</ref>;<sp/></highlight></codeline>
+<codeline lineno="56" refid="struct_x_v__warp__init___config_1a9f3f1de4f291556374c48b7803cdc577" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1a9f3f1de4f291556374c48b7803cdc577" kindref="member">max_width</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="struct_x_v__warp__init___config_1a22d5c622c7b6bb569b0b40f130dbe8f3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1a22d5c622c7b6bb569b0b40f130dbe8f3" kindref="member">max_height</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="58" refid="struct_x_v__warp__init___config_1a394e09dc57593c1a339275779c3cb85d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u8<sp/><sp/><ref refid="struct_x_v__warp__init___config_1a394e09dc57593c1a339275779c3cb85d" kindref="member">warp_type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="struct_x_v__warp__init___config_1a4820f202dcf547c5e1e5621cabf03d47" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1a4820f202dcf547c5e1e5621cabf03d47" kindref="member">axi_mm_data_width</ref>;<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="struct_x_v__warp__init___config_1ae2e394b2d3fdfde789e35e401032528a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1ae2e394b2d3fdfde789e35e401032528a" kindref="member">bpc</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="struct_x_v__warp__init___config_1a5c47382c64852f2c46ca8e392ca5ac79" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1a5c47382c64852f2c46ca8e392ca5ac79" kindref="member">max_control_pts</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="63" refid="struct_x_v__warp__init___config_1a6e6499b02ff7be4005953e69d666a33a" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/>u16<sp/><ref refid="struct_x_v__warp__init___config_1a6e6499b02ff7be4005953e69d666a33a" kindref="member">IntrId</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_v__warp__init___config_1a70ac35eb0c2ae6e07d75f67a4b405b23" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__warp__init___config_1a70ac35eb0c2ae6e07d75f67a4b405b23" kindref="member">IntrParent</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="70" refid="xv__warp__init_8h_1a6e19842191cb28a71d32d37247002769" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="xv__warp__init_8h_1a6e19842191cb28a71d32d37247002769" kindref="member">XV_warp_init_Callback</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="struct_x_v__warp__init" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76" refid="struct_x_v__warp__init_1afda5f7950287dab6390d34044ecd5082" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref><sp/>*<ref refid="struct_x_v__warp__init_1afda5f7950287dab6390d34044ecd5082" kindref="member">config</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="77" refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__warp__init_1ac3277bec09e76cf15bd97420be5b630e" kindref="member">Ctrl_BaseAddress</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78" refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v__warp__init_1a6f7b98667e0c7b0af5a2dfe8e0612f68" kindref="member">IsReady</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="79" refid="struct_x_v__warp__init_1ac2b0bca9ab4e4687a9939901a5f49b24" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="xv__warp__init_8h_1a6e19842191cb28a71d32d37247002769" kindref="member">XV_warp_init_Callback</ref><sp/><ref refid="struct_x_v__warp__init_1ac2b0bca9ab4e4687a9939901a5f49b24" kindref="member">FrameDoneCallback</ref>;<sp/></highlight></codeline>
+<codeline lineno="80" refid="struct_x_v__warp__init_1aed44c6629e2a5fd482769a447e3ed5d4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="struct_x_v__warp__init_1aed44c6629e2a5fd482769a447e3ed5d4" kindref="member">CallbackRef</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="81" refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>UINTPTR<sp/><ref refid="struct_x_v__warp__init_1a2148e59eaae842e7ded78fa8a8e3eb69" kindref="member">RemapVectorDesc_BaseAddr</ref>;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82" refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>u32<sp/><ref refid="struct_x_v__warp__init_1a9dab4c927ee7892a3c0bf5247be2ad0a" kindref="member">NumDescriptors</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}<sp/><ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="xv__warp__init_8h_1a416153030fd55ef69b61209076c91d00" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="xv__warp__init_8h_1a416153030fd55ef69b61209076c91d00" kindref="member">word_type</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067d" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="92" refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067daf6be0f4910c6cdb4711d72a1b1e063e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067daf6be0f4910c6cdb4711d72a1b1e063e3" kindref="member">DISTORTION_LENS</ref><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="93" refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067dafd873ca3aad6f3f70c170890ec4e1929" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067dafd873ca3aad6f3f70c170890ec4e1929" kindref="member">DISTORTION_ARBITRARY</ref><sp/>=<sp/>1<sp/><sp/></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}<ref refid="xv__warp__init_8h_1a0dd7962c90072ca61b3ab7dddba1067d" kindref="member">XV_warp_init_warp_type</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="99" refid="xv__warp__init_8h_1a4ac25f4dcb70f7f308a8a37f8526888c" refkind="member"><highlight class="preprocessor">#define<sp/>XV_warp_init_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_Out32((BaseAddress)<sp/>+<sp/>(RegOffset),<sp/>(u32)(Data))</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="103" refid="xv__warp__init_8h_1aabbcb484f634f60c799985ced501a0ee" refkind="member"><highlight class="preprocessor">#define<sp/>XV_warp_init_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="104"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor">#define<sp/>XV_warp_init_WriteReg(BaseAddress,<sp/>RegOffset,<sp/>Data)<sp/>\</highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))<sp/>=<sp/>(u32)(Data)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XV_warp_init_ReadReg(BaseAddress,<sp/>RegOffset)<sp/>\</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>*(volatile<sp/>u32*)((BaseAddress)<sp/>+<sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>Xil_AssertVoid(expr)<sp/><sp/><sp/><sp/>assert(expr)</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>Xil_AssertNonvoid(expr)<sp/>assert(expr)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XST_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XST_DEVICE_NOT_FOUND<sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor">#define<sp/>XST_OPEN_DEVICE_FAILED<sp/><sp/>3</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor">#define<sp/>XIL_COMPONENT_IS_READY<sp/><sp/>1</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8h_1a0ddc4ba708f5f4e98c83439c636cf26d" kindref="member">XV_warp_init_Initialize</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref>*<sp/><ref refid="xv__warp__init_8h_1a5dc46923da18871435076b8ded3ea24e" kindref="member">XV_warp_init_LookupConfig</ref>(u16<sp/>DeviceId);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8h_1a0ddc4ba708f5f4e98c83439c636cf26d" kindref="member">XV_warp_init_Initialize</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref>*<sp/><ref refid="xv__warp__init_8h_1a5dc46923da18871435076b8ded3ea24e" kindref="member">XV_warp_init_LookupConfig</ref>(UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1ae18fafb8f603165bc083a8b821c4bd39" kindref="member">XV_warp_init_CfgInitialize</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_v__warp__init___config" kindref="compound">XV_warp_init_Config</ref><sp/>*ConfigPtr);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8h_1a0ddc4ba708f5f4e98c83439c636cf26d" kindref="member">XV_warp_init_Initialize</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>InstanceName);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>XV_warp_init_Release(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a894a0392e9fc275220cc8e0f6d89a951" kindref="member">XV_warp_init_Start</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1aa46ac963cb95115434b753c3b1fcb5b1" kindref="member">XV_warp_init_IsDone</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1a1d1f4b4d9a8e99220b98ec293d38a732" kindref="member">XV_warp_init_IsIdle</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1aab4485ec0a4dfbf831603eabcb68d652" kindref="member">XV_warp_init_IsReady</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a78c0265a05e907b51b8a04d7b4ac02ea" kindref="member">XV_warp_init_EnableAutoRestart</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a8946b1e5d07efb564675b3607515f339" kindref="member">XV_warp_init_DisableAutoRestart</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1a6d616342e1eb47e05768d11c56d47a36" kindref="member">XV_warp_init_Get_FlushDone</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a7102b31303fda31be239a8e3b5d78235" kindref="member">XV_warp_init_SetFlushbit</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1a53caf177b8412aa07bec78489db7cbc6" kindref="member">XV_warp_init_Get_ip_status</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1ae7df0f2a5209079f33adb22219b3bd82" kindref="member">XV_warp_init_Set_maxi_read_write</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">u64<sp/><ref refid="xv__warp__init_8c_1aca7453333c52413e5b36d7fcfa9b956e" kindref="member">XV_warp_init_Get_maxi_read_write</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a09f6b8f5d8fcdaaebfda25182778654b" kindref="member">XV_warp_init_Set_desc_addr</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u64<sp/>Data);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">u64<sp/><ref refid="xv__warp__init_8c_1a850f224e076fb288e5bd369b39c9fa7f" kindref="member">XV_warp_init_Get_desc_addr</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1ad55655343d7384299276e18891cf65ca" kindref="member">XV_warp_init_InterruptGlobalEnable</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a75bb3d1d09053f6d01e59ba8648bd1e5" kindref="member">XV_warp_init_InterruptGlobalDisable</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a2262029cd2093f79e7f04f21f0b9efe0" kindref="member">XV_warp_init_InterruptEnable</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1aa3b1dcd9b0d9e7711a990ee41698e631" kindref="member">XV_warp_init_InterruptDisable</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="xv__warp__init_8c_1a8340dadb90e5190397e0ff75205d2069" kindref="member">XV_warp_init_InterruptClear</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr,<sp/>u32<sp/>Mask);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1ada2d148b67381daac37db3d694351b09" kindref="member">XV_warp_init_InterruptGetEnabled</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">u32<sp/><ref refid="xv__warp__init_8c_1a649361eaec8b063948de05a5d26e1a14" kindref="member">XV_warp_init_InterruptGetStatus</ref>(<ref refid="struct_x_v__warp__init" kindref="compound">XV_warp_init</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_warp_init/src/xv_warp_init.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilsfl__flashconfig_8c" kind="file">
+    <compoundname>xilsfl_flashconfig.c</compoundname>
+    <includes refid="xilsfl__flashconfig_8h" local="yes">xilsfl_flashconfig.h</includes>
+    <incdepgraph>
+      <node id="53">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="48">
+        <label>xilsfl_flashconfig.c</label>
+        <link refid="xilsfl_flashconfig.c"/>
+        <childnode refid="49" relation="include">
+        </childnode>
+      </node>
+      <node id="49">
+        <label>xilsfl_flashconfig.h</label>
+        <link refid="xilsfl__flashconfig_8h"/>
+        <childnode refid="50" relation="include">
+        </childnode>
+      </node>
+      <node id="50">
+        <label>xilsfl.h</label>
+        <link refid="xilsfl_8h"/>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="54">
+        <label>xstatus.h</label>
+      </node>
+      <node id="51">
+        <label>xparameters.h</label>
+      </node>
+      <node id="52">
+        <label>xil_printf.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xilsfl_1ga49546ca692512f2b92129b92006af985" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_x_flash_info" kindref="compound">XFlashInfo</ref></type>
+        <definition>const XFlashInfo Flash_Config_Table[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Flash_Config_Table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c" line="35" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSfl_CalculateFCTIndex</definition>
+        <argsstring>(u32 ReadId, u32 *FCTIndex)</argsstring>
+        <name>XSfl_CalculateFCTIndex</name>
+        <param>
+          <type>u32</type>
+          <declname>ReadId</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>FCTIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function used to Identifies the flash in FCT table. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS if successful, otherwise XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/include/xilsfl_control.h" line="48" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c" bodystart="198" bodyend="211"/>
+        <referencedby refid="group__xilsfl_1gab3c547fa045d3b91a7c0d6c3a16f6fc1" compoundref="xilsfl__control_8c" startline="60" endline="102">XSfl_FlashIdRead</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xilsfl__flashconfig_8h" kindref="compound">xilsfl_flashconfig.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_flash_info" kindref="compound">XFlashInfo</ref><sp/>Flash_Config_Table[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Octal<sp/>SPI<sp/>Flash<sp/>Parts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Micron<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*MT35XL512ABA1G*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1a,<sp/>XSFL_FLASH_SECTOR_SIZE_128KB,<sp/>0x200,<sp/>XSFL_FLASH_PAGE_SIZE_256,<sp/>0x40000,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_DEVICE_SIZE_512M,<sp/>0xFFFE0000,<sp/>(XSFL_READ_CMD_OCTAL_4B<sp/><sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_READ_CMD_OCTAL_IO_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_WRITE_CMD_OCTAL_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_WRITE_CMD_4B,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DIE_ERASE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_BULK_ERASE_CMD<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_SEC_ERASE_CMD_4B,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_8<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_FLASH_PROTO_8_8_8<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_16<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_OSPI_FLASH</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*MT35XL01GABA1G*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1b,<sp/>XSFL_FLASH_SECTOR_SIZE_128KB,<sp/>0x400,<sp/>XSFL_FLASH_PAGE_SIZE_256,<sp/>0x80000,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_DEVICE_SIZE_1G,<sp/>0xFFFE0000,<sp/>(XSFL_READ_CMD_OCTAL_4B<sp/><sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_READ_CMD_OCTAL_IO_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_WRITE_CMD_OCTAL_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_WRITE_CMD_4B,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DIE_ERASE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_BULK_ERASE_CMD<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_SEC_ERASE_CMD_4B,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_8<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_FLASH_PROTO_8_8_8<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_16<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_OSPI_FLASH</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*MT35XU02GCBA*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x2c5b1c,<sp/>XSFL_FLASH_SECTOR_SIZE_128KB,<sp/>0x800,<sp/>XSFL_FLASH_PAGE_SIZE_256,<sp/>0x100000,</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_DEVICE_SIZE_2G,<sp/>0xFFFE0000,<sp/>(XSFL_READ_CMD_OCTAL_4B<sp/><sp/>&lt;&lt;<sp/>16)<sp/>|</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_READ_CMD_OCTAL_IO_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><sp/>XSFL_READ_CMD<sp/>,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_WRITE_CMD_OCTAL_4B<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_WRITE_CMD_4B,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DIE_ERASE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_BULK_ERASE_CMD<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_SEC_ERASE_CMD_4B,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_8<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>(XSFL_FLASH_PROTO_8_8_8<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_16<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8<sp/>,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_OSPI_FLASH</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Quad<sp/>SPI<sp/>Flash<sp/>Parts<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q00a*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20bb20,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x400,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000,<sp/>XSFL_FLASH_DEVICE_SIZE_512M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_SEC_ERASE_CMD_4B,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q00aa<sp/>1Gb*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20bb21,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x800,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000,<sp/>XSFL_FLASH_DEVICE_SIZE_1G,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*MT25QU128<sp/><sp/>128Mb*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20bb18,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x100,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000,<sp/>XSFL_FLASH_DEVICE_SIZE_128M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q128a13*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20ba18,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x100,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000,<sp/>XSFL_FLASH_DEVICE_SIZE_128M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q256ax1*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20bb19,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x200,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000,<sp/>XSFL_FLASH_DEVICE_SIZE_256M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q256a*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20ba19,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x200,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20000,<sp/>XSFL_FLASH_DEVICE_SIZE_256M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>1,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q512ax3*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20ba20,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x400,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x40000,<sp/>XSFL_FLASH_DEVICE_SIZE_512M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_SEC_ERASE_CMD_4B,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>2,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*n25q00*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20ba21,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x800,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x80000,<sp/>XSFL_FLASH_DEVICE_SIZE_1G,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_150_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>4,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*mt25qu02g*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20bb22,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x1000,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100000,<sp/>XSFL_FLASH_DEVICE_SIZE_2G,<sp/>0xFFFF0000,<sp/><sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>4,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*mt25ql02g*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20ba22,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x1000,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x100000,<sp/>XSFL_FLASH_DEVICE_SIZE_2G,<sp/>0xFFFF0000,<sp/><sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_DUAL_WRITE_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_FLASH_FREQUENCY_166_MHZ,<sp/>(XSFL_FLASH_DUMMY_CYCLES_10<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_FLAG_STATUS_CMD,<sp/>4,<sp/>1,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Winbond<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>W25Q128JW<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="175"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>no<sp/>1-1-2<sp/>Page<sp/>Program;<sp/>bits[31:24]<sp/>of<sp/>WriteCmd<sp/>MUST<sp/>NOT<sp/>be</highlight></codeline>
+<codeline lineno="176"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>used<sp/>for<sp/>writes<sp/>(W25Q128JW<sp/>has<sp/>no<sp/>dual-write<sp/>opcode).</highlight></codeline>
+<codeline lineno="177"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xef8018,<sp/>XSFL_FLASH_SECTOR_SIZE_64KB,<sp/>0x100,<sp/>XSFL_FLASH_PAGE_SIZE_256,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x10000,<sp/>XSFL_FLASH_DEVICE_SIZE_128M,<sp/>0xFFFF0000,<sp/>(XSFL_DUAL_READ_CMD<sp/>&lt;&lt;<sp/>24)<sp/>|</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_QUAD_READ_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_READ_CMD,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__xilsfl_1ga4637f9147285c905db0e03d91620731c" kindref="member">XSFL_NO_CMD</ref><sp/>&lt;&lt;<sp/>24)<sp/>|<sp/>(XSFL_QUAD_WRITE_CMD<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_WRITE_CMD,<sp/>XSFL_QUAD_SEC_ERASE_CMD,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XSFL_FLASH_PROTO_1_1_2<sp/>&lt;&lt;<sp/>24)<sp/><sp/>|<sp/>(XSFL_FLASH_PROTO_1_1_4<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/><ref refid="group__xilsfl_1ga1b818167c6543cccebb14f2c2ab25ea3" kindref="member">XSFL_FLASH_PROTO_1_1_1</ref>,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xilsfl_1ga41b90824c16a7992f9d6807302368f9f" kindref="member">XSFL_FLASH_FREQUENCY_133_MHZ</ref>,<sp/>(XSFL_FLASH_DUMMY_CYCLES_8<sp/>&lt;&lt;<sp/>16)<sp/>|<sp/>XSFL_FLASH_DUMMY_CYCLES_8,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSFL_READ_STATUS_CMD,<sp/>1,<sp/>0,<sp/><ref refid="group__xilsfl_1gab205ac473b0e82e74c430c729a3ed465" kindref="member">XSFL_DUAL_BYTE_OP_DISABLE</ref>,<sp/>XSFL_QSPI_FLASH</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="187"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198" refid="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xilsfl_1ga3117ca4afac19f594039caade68a1466" kindref="member">XSfl_CalculateFCTIndex</ref>(u32<sp/>ReadId,<sp/>u32<sp/>*FCTIndex)</highlight></codeline>
+<codeline lineno="199"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Flash_Config_Table)<sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(Flash_Config_Table[0]);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ReadId<sp/>==<sp/>Flash_Config_Table[Index].jedec_id)<sp/>{</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*FCTIndex<sp/>=<sp/>Index;</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsfl/src/xilsfl_flashconfig.c"/>
+  </compounddef>
+</doxygen>

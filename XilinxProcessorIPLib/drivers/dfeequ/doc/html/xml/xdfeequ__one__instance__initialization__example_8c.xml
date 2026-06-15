@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfeequ__one__instance__initialization__example_8c" kind="file">
+    <compoundname>xdfeequ_one_instance_initialization_example.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDfeEqu_SelfExample</definition>
+        <argsstring>()</argsstring>
+        <name>XDfeEqu_SelfExample</name>
+        <briefdescription>
+<para>This function runs the DFE Equalizer device using the driver APIs. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function does the following tasks:<itemizedlist>
+<listitem><para>Create and system initialize the device driver instance.</para></listitem><listitem><para>Read SW and HW version numbers.</para></listitem><listitem><para>Reset the device.</para></listitem><listitem><para>Configure the device.</para></listitem><listitem><para>Initialize the device.</para></listitem><listitem><para>Activate the device.</para></listitem><listitem><para>DeActivate the device.</para></listitem></itemizedlist>
+</para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the example has completed successfully.</para></listitem><listitem><para>XST_FAILURE if the example has failed.//! [testexample1] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_one_instance_initialization_example.c" line="57" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_one_instance_initialization_example.c" bodystart="57" bodyend="102"/>
+        <references refid="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" compoundref="xdfeequ_8h" startline="282">XDfeEqu_EqConfig::DatapathMode</references>
+        <references refid="struct_x_dfe_equ___version_1a3c30dc13799220be1b6e67d5b6b7a20f" compoundref="xdfeequ_8h" startline="184">XDfeEqu_Version::Major</references>
+        <references refid="struct_x_dfe_equ___version_1a9cb8895049b445403caa7eb4db644a0d" compoundref="xdfeequ_8h" startline="185">XDfeEqu_Version::Minor</references>
+        <references refid="struct_x_dfe_equ___version_1a7baa2749b782aeef17e8b0804135de37" compoundref="xdfeequ_8h" startline="187">XDfeEqu_Version::Patch</references>
+        <references refid="struct_x_dfe_equ___version_1a4536bb52d5a8f7f1837e6c1c66fd220a" compoundref="xdfeequ_8h" startline="186">XDfeEqu_Version::Revision</references>
+        <references refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" compoundref="xdfeequ_8c" startline="861" endline="889">XDfeEqu_Activate</references>
+        <references refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" compoundref="xdfeequ_8c" startline="748" endline="798">XDfeEqu_Configure</references>
+        <references refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" compoundref="xdfeequ_8c" startline="899" endline="924">XDfeEqu_Deactivate</references>
+        <references refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" compoundref="xdfeequ_8c" startline="1351" endline="1376">XDfeEqu_GetVersions</references>
+        <references refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" compoundref="xdfeequ_8c" startline="810" endline="850">XDfeEqu_Initialize</references>
+        <references refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" compoundref="xdfeequ_8c" startline="699" endline="718">XDfeEqu_InstanceClose</references>
+        <references refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" compoundref="xdfeequ_8c" startline="593" endline="688">XDfeEqu_InstanceInit</references>
+        <references refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" compoundref="xdfeequ_8c" startline="728" endline="736">XDfeEqu_Reset</references>
+        <references refid="group__dfeequ_1ga9478d2b97aa40e09052dee2571940ef9" compoundref="xdfeequ_8h" startline="113">XST_FAILURE</references>
+        <references refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" compoundref="xdfeequ_8h" startline="110">XST_SUCCESS</references>
+        <referencedby refid="xdfeequ__examples_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xdfeequ__examples_8c" startline="77" endline="109">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains a load coefficients example. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.1   dc     07/21/21 Add and reorganise examples
+1.2   dc     11/19/21 Update doxygen documentation</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfeequ__examples_8h" kindref="compound">xdfeequ_examples.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="57" refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dfeequ_1gaf6db33d7a9353be5cfaa65046001a7ee" kindref="member">XDfeEqu_SelfExample</ref>()</highlight></codeline>
+<codeline lineno="58"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">metal_init_params<sp/>init_param<sp/>=<sp/>METAL_INIT_DEFAULTS;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_equ___cfg" kindref="compound">XDfeEqu_Cfg</ref><sp/>Cfg;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_equ" kindref="compound">XDfeEqu</ref><sp/>*InstancePtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_equ___version" kindref="compound">XDfeEqu_Version</ref><sp/>SwVersion;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_equ___version" kindref="compound">XDfeEqu_Version</ref><sp/>HwVersion;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_equ___eq_config" kindref="compound">XDfeEqu_EqConfig</ref><sp/>Config;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;\r\nEqualizer<sp/>\&quot;One<sp/>Instance<sp/>Initialization\&quot;<sp/>Example<sp/>-<sp/>Start\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>libmetal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref><sp/>!=<sp/>metal_init(&amp;init_param))<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)printf(</highlight><highlight class="stringliteral">&quot;ERROR:<sp/>Failed<sp/>to<sp/>run<sp/>metal<sp/>initialization\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeequ_1ga9478d2b97aa40e09052dee2571940ef9" kindref="member">XST_FAILURE</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>instance<sp/>of<sp/>Equalizer<sp/>driver<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr<sp/>=<sp/><ref refid="group__dfeequ_1ga57eeb135c4ee22d243462e43795fcd45" kindref="member">XDfeEqu_InstanceInit</ref>(XDFEEQU_NODE_NAME);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>SW<sp/>and<sp/>HW<sp/>version<sp/>numbers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1ga91f5801fc102819ea32fe8f0a40c43cb" kindref="member">XDfeEqu_GetVersions</ref>(InstancePtr,<sp/>&amp;SwVersion,<sp/>&amp;HwVersion);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;SW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d\r\n&quot;</highlight><highlight class="normal">,<sp/>SwVersion.<ref refid="struct_x_dfe_equ___version_1a3c30dc13799220be1b6e67d5b6b7a20f" kindref="member">Major</ref>,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SwVersion.<ref refid="struct_x_dfe_equ___version_1a9cb8895049b445403caa7eb4db644a0d" kindref="member">Minor</ref>);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;HW<sp/>Version:<sp/>Major<sp/>%d,<sp/>Minor<sp/>%d,<sp/>Revision<sp/>%d,<sp/>Patch<sp/>%d\r\n&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_equ___version_1a3c30dc13799220be1b6e67d5b6b7a20f" kindref="member">Major</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_equ___version_1a9cb8895049b445403caa7eb4db644a0d" kindref="member">Minor</ref>,<sp/>HwVersion.<ref refid="struct_x_dfe_equ___version_1a4536bb52d5a8f7f1837e6c1c66fd220a" kindref="member">Revision</ref>,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>HwVersion.<ref refid="struct_x_dfe_equ___version_1a7baa2749b782aeef17e8b0804135de37" kindref="member">Patch</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Go<sp/>through<sp/>initialization<sp/>states<sp/>of<sp/>the<sp/>state<sp/>machine<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1ga14d48b6aa1a784e94ac55d1a8950c2bf" kindref="member">XDfeEqu_Reset</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1ga8517b5d3c53f9694d03a3fe0868b3937" kindref="member">XDfeEqu_Configure</ref>(InstancePtr,<sp/>&amp;Cfg);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialise<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Config.<ref refid="struct_x_dfe_equ___eq_config_1a42c1ff0831f5080a2cc3db9f90c482d6" kindref="member">DatapathMode</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1ga84403d8f6f2f4e9a45668d9dc7dc5b28" kindref="member">XDfeEqu_Initialize</ref>(InstancePtr,<sp/>&amp;Config);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Activate<sp/>-<sp/>disable<sp/>low<sp/>power<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1gac3eedb65f956253285490a558a751862" kindref="member">XDfeEqu_Activate</ref>(InstancePtr,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Close<sp/>and<sp/>exit<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1gace488d54e41f3d8d9179f9be9bbbef58" kindref="member">XDfeEqu_Deactivate</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dfeequ_1ga197062db05b1c51bc800b6a90e82838a" kindref="member">XDfeEqu_InstanceClose</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Equalizer<sp/>\&quot;One<sp/>Instance<sp/>Initialization\&quot;<sp/>Example:<sp/>Pass\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="group__dfeequ_1ga959ffc15251ddc9b3a883a30f97b7715" kindref="member">XST_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/examples/xdfeequ_one_instance_initialization_example.c"/>
+  </compounddef>
+</doxygen>

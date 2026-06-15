@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_87c9249397b72a45cc9ccd17f517a58a" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="aes_8c">aes.c</innerfile>
+    <innerfile refid="bigdigits_8c">bigdigits.c</innerfile>
+    <innerfile refid="bigdigits_8h">bigdigits.h</innerfile>
+    <innerfile refid="bigdtypes_8h">bigdtypes.h</innerfile>
+    <innerfile refid="hmac_8c">hmac.c</innerfile>
+    <innerfile refid="sha2_8c">sha2.c</innerfile>
+    <innerfile refid="xhdcp22__common_8h">xhdcp22_common.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_common/src/"/>
+  </compounddef>
+</doxygen>

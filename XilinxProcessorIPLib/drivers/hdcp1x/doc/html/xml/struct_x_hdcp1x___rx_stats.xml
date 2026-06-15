@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp1x___rx_stats" kind="struct" prot="public">
+    <compoundname>XHdcp1x_RxStats</compoundname>
+    <includes local="no">xhdcp1x.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_stats_1a2aa5dfdc43cab072fb23bea4c44600fe" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_RxStats::AuthAttempts</definition>
+        <argsstring></argsstring>
+        <name>AuthAttempts</name>
+        <briefdescription>
+<para>Num of rxd authentication requests. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="994" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="994" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_stats_1a0413a42e1eef857cca353d47c132ac4c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_RxStats::LinkFailures</definition>
+        <argsstring></argsstring>
+        <name>LinkFailures</name>
+        <briefdescription>
+<para>Num of link verifications that failed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="995" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="995" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp1x___rx_stats_1ae57022364910875a93bd7019bae98c12" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHdcp1x_RxStats::RiUpdates</definition>
+        <argsstring></argsstring>
+        <name>RiUpdates</name>
+        <briefdescription>
+<para>Num of Ri updates performed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="996" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="996" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1ga89cf71a1a7edefa4671fdefa3cc7222b" compoundref="xhdcp1x__rx_8c" startline="779" endline="835">XHdcp1x_RxInfo</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef defines the statistics collected receive port instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" line="993" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x.h" bodystart="993" bodyend="997"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp1x___rx_stats_1a2aa5dfdc43cab072fb23bea4c44600fe" prot="public" virt="non-virtual"><scope>XHdcp1x_RxStats</scope><name>AuthAttempts</name></member>
+      <member refid="struct_x_hdcp1x___rx_stats_1a0413a42e1eef857cca353d47c132ac4c" prot="public" virt="non-virtual"><scope>XHdcp1x_RxStats</scope><name>LinkFailures</name></member>
+      <member refid="struct_x_hdcp1x___rx_stats_1ae57022364910875a93bd7019bae98c12" prot="public" virt="non-virtual"><scope>XHdcp1x_RxStats</scope><name>RiUpdates</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_hist64_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceHist64Config_s</compoundname>
+    <includes local="no">cam_device_hist64_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a9e07fe181854ccddd904e42f0053724f" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__hist64_1ga5434aa6df87372a9f439ca3270b80cf9" kindref="member">CamDeviceHist64Mode_t</ref></type>
+        <definition>CamDeviceHist64Mode_t CamDeviceHist64Config_s::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+<para>HIST64 mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a46651056e7441cbb4c950f2f4dd9aa40" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__hist64_1ga48173f8d35df1cd6184e7c3c8c5d341d" kindref="member">CamDeviceHist64Channel_t</ref></type>
+        <definition>CamDeviceHist64Channel_t CamDeviceHist64Config_s::channel</definition>
+        <argsstring></argsstring>
+        <name>channel</name>
+        <briefdescription>
+<para>HIST64 channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a4eae1c4b5119e4ea1218124e2f180683" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga6507b5dc7e317b5d3395ee90b3d95adc" kindref="member">CamDeviceWindow_t</ref></type>
+        <definition>CamDeviceWindow_t CamDeviceHist64Config_s::window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <briefdescription>
+<para>HIST64 window. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a8a7706080d9909befeadc8b7febfdf8c" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceHist64Config_s::rCoeff</definition>
+        <argsstring></argsstring>
+        <name>rCoeff</name>
+        <briefdescription>
+<para>Red channel coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a8c41d93505c21e885c7cd7c4a8c3eee2" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceHist64Config_s::gCoeff</definition>
+        <argsstring></argsstring>
+        <name>gCoeff</name>
+        <briefdescription>
+<para>Green channel coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_hist64_config__s_1a2d407739e44c13ccc856e48ed5c57309" prot="public" static="no" mutable="no">
+        <type>float32_t</type>
+        <definition>float32_t CamDeviceHist64Config_s::bCoeff</definition>
+        <argsstring></argsstring>
+        <name>bCoeff</name>
+        <briefdescription>
+<para>Blue channel coefficient. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice HIST64 configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="445">
+        <label>CamDeviceHist64Config_s</label>
+        <link refid="struct_cam_device_hist64_config__s"/>
+        <childnode refid="446" relation="usage">
+          <edgelabel>window</edgelabel>
+        </childnode>
+      </node>
+      <node id="446">
+        <label>CamDeviceWindow_s</label>
+        <link refid="struct_cam_device_window__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/hist/cam_device_hist64_api.h" bodystart="96" bodyend="104"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_hist64_config__s_1a2d407739e44c13ccc856e48ed5c57309" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>bCoeff</name></member>
+      <member refid="struct_cam_device_hist64_config__s_1a46651056e7441cbb4c950f2f4dd9aa40" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>channel</name></member>
+      <member refid="struct_cam_device_hist64_config__s_1a8c41d93505c21e885c7cd7c4a8c3eee2" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>gCoeff</name></member>
+      <member refid="struct_cam_device_hist64_config__s_1a9e07fe181854ccddd904e42f0053724f" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>mode</name></member>
+      <member refid="struct_cam_device_hist64_config__s_1a8a7706080d9909befeadc8b7febfdf8c" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>rCoeff</name></member>
+      <member refid="struct_cam_device_hist64_config__s_1a4eae1c4b5119e4ea1218124e2f180683" prot="public" virt="non-virtual"><scope>CamDeviceHist64Config_s</scope><name>window</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

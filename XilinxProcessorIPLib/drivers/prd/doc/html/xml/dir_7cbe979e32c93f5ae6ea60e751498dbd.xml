@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_7cbe979e32c93f5ae6ea60e751498dbd" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xprd_8c">xprd.c</innerfile>
+    <innerfile refid="xprd_8h">xprd.h</innerfile>
+    <innerfile refid="xprd__g_8c">xprd_g.c</innerfile>
+    <innerfile refid="xprd__hw_8h">xprd_hw.h</innerfile>
+    <innerfile refid="xprd__selftest_8c">xprd_selftest.c</innerfile>
+    <innerfile refid="xprd__sinit_8c">xprd_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/prd/src/"/>
+  </compounddef>
+</doxygen>

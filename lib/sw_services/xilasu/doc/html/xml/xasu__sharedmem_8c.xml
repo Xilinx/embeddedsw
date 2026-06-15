@@ -1,0 +1,186 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__sharedmem_8c" kind="file">
+    <compoundname>xasu_sharedmem.c</compoundname>
+    <includes refid="xasu__sharedmem_8h" local="yes">xasu_sharedmem.h</includes>
+    <incdepgraph>
+      <node id="1157">
+        <label>xasu_sharedmem.c</label>
+        <link refid="xasu_sharedmem.c"/>
+        <childnode refid="1158" relation="include">
+        </childnode>
+      </node>
+      <node id="1158">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="1159" relation="include">
+        </childnode>
+      </node>
+      <node id="1159">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" prot="public" static="no">
+        <name>XASU_INVALID_SUBSYS_ID</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Invalid Subsystem ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="34" bodyend="-1"/>
+        <referencedby refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" compoundref="xasu__sharedmem_8c" startline="82" endline="96">XAsu_GetSubsysIdFromIpiMask</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref> *</type>
+        <definition>XAsu_CommChannelInfo* CommChannelInfo</definition>
+        <argsstring></argsstring>
+        <name>CommChannelInfo</name>
+        <initializer>= (<ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref> *)(UINTPTR)
+	<ref refid="group__xasu__common__defs_1gaa9716937444e9436cdfc3eb14bf87419" kindref="member">XASU_RTCA_COMM_CHANNEL_INFO_ADDR</ref></initializer>
+        <briefdescription>
+<para>Pointer to the IPI communication channel information received from user configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="40" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_GetIpiMask</definition>
+        <argsstring>(u32 ChannelIndex)</argsstring>
+        <name>XAsu_GetIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>ChannelIndex</declname>
+        </param>
+        <briefdescription>
+<para>This function returns IPI Mask corresponding to the Channel Index. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ChannelIndex</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI Channel Index.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>IPI Bit Mask. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="58" bodyend="69"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XAsu_GetSubsysIdFromIpiMask</definition>
+        <argsstring>(u32 IpiMask)</argsstring>
+        <name>XAsu_GetSubsysIdFromIpiMask</name>
+        <param>
+          <type>u32</type>
+          <declname>IpiMask</declname>
+        </param>
+        <briefdescription>
+<para>This function provides subsystem ID based on IPI mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>IpiMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>IPI mask.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>Returns subsystem ID correspond to IPI mask.</para></listitem><listitem><para>XASU_INVALID_SUBSYS_ID if no matching IPI mask is found. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c" bodystart="82" bodyend="96"/>
+        <references refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" compoundref="xasu__sharedmem_8h" startline="177">XAsu_CommChannelInfo::Channel</references>
+        <references refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" compoundref="xasu__sharedmem_8h" startline="167">XAsu_CommChannel::IpiBitMask</references>
+        <references refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" compoundref="xasu__sharedmem_8h" startline="176">XAsu_CommChannelInfo::NumOfIpiChannels</references>
+        <references refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" compoundref="xasu__sharedmem_8h" startline="169">XAsu_CommChannel::SubsystemId</references>
+        <references refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" compoundref="xasu__sharedmem_8c" startline="34">XASU_INVALID_SUBSYS_ID</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the IPI communication channel function definitions. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   vas  04/07/26 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/************************************<sp/>Include<sp/>Files<sp/>**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__sharedmem_8h" kindref="compound">xasu_sharedmem.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Constant<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XASU_INVALID_SUBSYS_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight></codeline>
+<codeline lineno="40" refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" refkind="member"><highlight class="normal"><ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*<ref refid="group__xasu__sharedmem__apis_1gacdac79066080531f4293b5796ac10ee2" kindref="member">CommChannelInfo</ref><sp/>=<sp/>(<ref refid="struct_x_asu___comm_channel_info" kindref="compound">XAsu_CommChannelInfo</ref><sp/>*)(UINTPTR)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__common__defs_1gaa9716937444e9436cdfc3eb14bf87419" kindref="member">XASU_RTCA_COMM_CHANNEL_INFO_ADDR</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1gab7baf8908fd849424cefb1738edb74fc" kindref="member">XAsu_GetIpiMask</ref>(u32<sp/>ChannelIndex)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>IpiBitMask;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>&gt;=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>IpiBitMask<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>IpiBitMask;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="82" refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__xasu__sharedmem__apis_1ga7c6b10e8c9e75576ca858d70529e24e4" kindref="member">XAsu_GetSubsysIdFromIpiMask</ref>(u32<sp/>IpiMask)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChannelIndex;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SubsystemId<sp/>=<sp/><ref refid="group__xasu__sharedmem__apis_1ga0c17784a7b57124ecb63d177b31087d2" kindref="member">XASU_INVALID_SUBSYS_ID</ref>;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ChannelIndex<sp/>=<sp/>0U;<sp/>ChannelIndex<sp/>&lt;<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1aae88a6b5fc1371423e75ba0eff863c25" kindref="member">NumOfIpiChannels</ref>;<sp/>++ChannelIndex)<sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1af7649fa343d5eda766279b9e6033fb6d" kindref="member">IpiBitMask</ref><sp/>==<sp/>IpiMask)<sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SubsystemId<sp/>=<sp/>CommChannelInfo-&gt;<ref refid="struct_x_asu___comm_channel_info_1ae163920888661eaf6ac17e3357546105" kindref="member">Channel</ref>[ChannelIndex].<ref refid="struct_x_asu___comm_channel_1a06b6409c913c25cdaac10f5fce1b7986" kindref="member">SubsystemId</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>SubsystemId;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_sharedmem.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_tx___config" kind="struct" prot="public">
+    <compoundname>XV_HdmiTx_Config</compoundname>
+    <includes local="no">xv_hdmitx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___config_1a1cab1f296a0148c055eeff0351dcfad3" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_HdmiTx_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="206" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_HdmiTx_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para><verbatim>   BaseAddress is the physical
+</verbatim> base address of the core&apos;s registers </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="208" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="208" bodyend="-1"/>
+        <referencedby refid="xv__hdmitx_8h_1ae75f2ab194a44b9f67b7fa9d4545cb57" compoundref="xv__hdmitx_8c" startline="1690" endline="1731">XV_HdmiTx_AuxSend</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1acfeb8c295991a88031817404dd4135f3" compoundref="xv__hdmitx_8c" startline="107" endline="224">XV_HdmiTx_CfgInitialize</referencedby>
+        <referencedby refid="xv__hdmitx_8c_1abdb511167dc499eacf28789225e83a24" compoundref="xv__hdmitx_8c" startline="1254" endline="1262">XV_HdmiTx_DdcGetAck</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a3fe50d870f063d85a274d2cbe9dee549" compoundref="xv__hdmitx_8c" startline="1225" endline="1240">XV_HdmiTx_DdcInit</referencedby>
+        <referencedby refid="xv__hdmitx_8c_1a8c78e41a57fd48c1a392bc7448b93488" compoundref="xv__hdmitx_8c" startline="1387" endline="1422">XV_HdmiTx_DdcReadData</referencedby>
+        <referencedby refid="xv__hdmitx_8c_1ace17bdbb13a83051c81e70162707c1bb" compoundref="xv__hdmitx_8c" startline="1278" endline="1326">XV_HdmiTx_DdcWaitForDone</referencedby>
+        <referencedby refid="xv__hdmitx_8c_1a4e0fa58d0c4b103aaa0493f875b7a8fb" compoundref="xv__hdmitx_8c" startline="1341" endline="1373">XV_HdmiTx_DdcWriteCommand</referencedby>
+        <referencedby refid="xv__hdmitx__intr_8c_1a25e91176ce93f223449dcb56c375ac51" compoundref="xv__hdmitx__intr_8c" startline="74" endline="104">XV_HdmiTx_IntrHandler</referencedby>
+        <referencedby refid="xv__hdmitx__selftest_8c_1a0934e75073446925a9698485b52e2c00" compoundref="xv__hdmitx__selftest_8c" startline="59" endline="78">XV_HdmiTx_SelfTest</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1a9271b92c3193e1ce46a2b610080c6f06" compoundref="xv__hdmitx_8c" startline="1172" endline="1210">XV_HdmiTx_SetColorDepth</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1aa8eb6378fdb4a48a22fdedb89cc3702a" compoundref="xv__hdmitx_8c" startline="1123" endline="1158">XV_HdmiTx_SetColorFormat</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1abe6e4feed643a46f8c5a09494d2e2874" compoundref="xv__hdmitx_8c" startline="1020" endline="1052">XV_HdmiTx_SetPixelRate</referencedby>
+        <referencedby refid="xv__hdmitx_8h_1abb0cde0fed5637779f430ca6eb2a9199" compoundref="xv__hdmitx_8c" startline="1070" endline="1109">XV_HdmiTx_SetSampleRate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_tx___config_1a61c188b1b90124ba7dd1d3a835ca418b" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XV_HdmiTx_Config::AxiLiteClkFreq</definition>
+        <argsstring></argsstring>
+        <name>AxiLiteClkFreq</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the HDMI TX core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each HDMI TX device should have a configuration structure associated. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" line="202" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmitx/src/xv_hdmitx.h" bodystart="202" bodyend="211"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_tx___config_1a61c188b1b90124ba7dd1d3a835ca418b" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Config</scope><name>AxiLiteClkFreq</name></member>
+      <member refid="struct_x_v___hdmi_tx___config_1aed2a0eebe95b28c31ac48848df2a32bc" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v___hdmi_tx___config_1a1cab1f296a0148c055eeff0351dcfad3" prot="public" virt="non-virtual"><scope>XV_HdmiTx_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

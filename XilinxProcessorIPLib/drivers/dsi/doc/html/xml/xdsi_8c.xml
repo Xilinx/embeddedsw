@@ -1,0 +1,1195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdsi_8c" kind="file">
+    <compoundname>xdsi.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xdsi_8h" local="yes">xdsi.h</includes>
+    <includes local="yes">xvidc.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>xdsi_hw.h</label>
+        <link refid="xdsi__hw_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xil_io.h</label>
+      </node>
+      <node id="4">
+        <label>xdsi.c</label>
+        <link refid="xdsi.c"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xdsi.h</label>
+        <link refid="xdsi_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xstatus.h</label>
+      </node>
+      <node id="10">
+        <label>xvidc.h</label>
+      </node>
+      <node id="7">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dsi_1ga940fa1ae7db63021ffaed876ec0f7230" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void StubErrCallback</definition>
+        <argsstring>(void *CallbackRef, u32 ErrorMask)</argsstring>
+        <name>StubErrCallback</name>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ErrorMask</declname>
+        </param>
+        <briefdescription>
+<para>This routine is a stub for the asynchronous error interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+<para>The stub is here in case the upper layer forgot to set the handler. On initialization, Error interrupt handler is set to this callback. It is considered an error for this handler to be invoked.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a callback reference passed in by the upper layer when setting the callback functions, and passed back to the upper layer when the callback is invoked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ErrorMask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a bit mask indicating the cause of the error. Its value equals &apos;OR&apos;ing one or more XDSI_ISR_*_MASK values defined in <ref refid="xdsi__hw_8h" kindref="compound">xdsi_hw.h</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="53" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="757" bodyend="762"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi_CfgInitialize</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_Config *CfgPtr, UINTPTR EffectiveAddr)</argsstring>
+        <name>XDsi_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi___config" kindref="compound">XDsi_Config</ref> *</type>
+          <declname>CfgPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddr</declname>
+        </param>
+        <briefdescription>
+<para>Initialize the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance provided by the caller based on the given Config structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>Initializes the DSI controller instance with hardware configuration information and sets up default callback handlers.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CfgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing information about a specific DSI controller (base address, lanes, FIFO size, etc.) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. If address translation is being used, then this parameter must reflect the virtual base address. Otherwise, the physical address should be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_FAILURE if initialization failed.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>All callback handlers are initialized to stub functions that will assert on invocation. Application must set actual callback handlers using <ref refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" kindref="member">XDsi_SetCallback()</ref> if interrupt handling is required.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga6e0292fd10d992deb9922469707d8ee7" kindref="member">XDsi_SetCallback</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="82" bodyend="106"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" compoundref="xdsi_8h" startline="224">XDsi::CmdQFIFOFullCallback</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" compoundref="xdsi_8h" startline="228">XDsi::ErrorCallback</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" compoundref="xdsi_8h" startline="218">XDsi::PixelDataUnderrunCallback</references>
+        <references refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" compoundref="xdsi_8h" startline="213">XDsi::UnSupportedDataTypeCallback</references>
+        <referencedby refid="xdsi__example__selftest_8c_1abc2bef82a217b4adf700a597eb510ce6" compoundref="xdsi__example__selftest_8c" startline="110" endline="131">DsiSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga2294e22112b6a7aa5ed1c2714f674f72" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_Reset</definition>
+        <argsstring>(XDsi *InstancePtr)</argsstring>
+        <name>XDsi_Reset</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Perform a soft reset of the DSI controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Resets the DSI controller including interrupt status registers, command queue FIFO, and state machine. The controller gracefully waits for current operations to complete before resetting. After reset is released, controller starts from VSS (Vertical Sync Start) packet (new video frame).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="122" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi_DefaultConfigure</definition>
+        <argsstring>(XDsi *InstancePtr)</argsstring>
+        <name>XDsi_DefaultConfigure</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Configure default DSI protocol settings. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configures the DSI controller protocol register with video mode, blank packet mode, blank packet type, and End-of-Transmission (EoTP) packet settings based on the instance parameters. This function sets up the Protocol Control Register (PCR) with the instance VideoMode, BlankPacketType, BLLPMode, and EoTp configuration values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if configuration was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function assumes the instance is already initialized. The instance member variables (VideoMode, BlankPacketType, BLLPMode, EoTp) must be set before calling this function or it will use default/uninitialized values.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize</ref>, <ref refid="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" kindref="member">XDsi_Activate</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="156" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="156" bodyend="184"/>
+        <references refid="struct_x_dsi_1abe4ea811e93c542ba12f6317cbc822d9" compoundref="xdsi_8h" startline="207">XDsi::BlankPacketType</references>
+        <references refid="struct_x_dsi_1a33228b83b0f5f4b1ef6f7811d15d087e" compoundref="xdsi_8h" startline="209">XDsi::BLLPMode</references>
+        <references refid="struct_x_dsi_1adaae19c5dae3ac66934afc5cd823490d" compoundref="xdsi_8h" startline="211">XDsi::EoTp</references>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
+        <references refid="struct_x_dsi_1aca7763799081d967ef5067b325a9bab0" compoundref="xdsi_8h" startline="205">XDsi::VideoMode</references>
+        <references refid="group__dsi_1ga8ae113e8b2d35582f48aae14848a9ec2" compoundref="xdsi__hw_8h" startline="123">XDSI_PCR_BLLPMODE_MASK</references>
+        <references refid="group__dsi_1ga601afb13b1b8b27b9b6d7ba8ab7972d7" compoundref="xdsi__hw_8h" startline="142">XDSI_PCR_BLLPMODE_SHIFT</references>
+        <references refid="group__dsi_1ga6ef282e9923450aa24813440b0d3166d" compoundref="xdsi__hw_8h" startline="126">XDSI_PCR_BLLPTYPE_MASK</references>
+        <references refid="group__dsi_1ga72fda4b1dfd3be762e1f9edb46cd4cbb" compoundref="xdsi__hw_8h" startline="145">XDSI_PCR_BLLPTYPE_SHIFT</references>
+        <references refid="group__dsi_1gabc0ff6dc79f1ebd472b213955331d771" compoundref="xdsi__hw_8h" startline="117">XDSI_PCR_EOTPENABLE_MASK</references>
+        <references refid="group__dsi_1ga8c2438103e15a67ad1a3d871da9df8c3" compoundref="xdsi__hw_8h" startline="136">XDSI_PCR_EOTPENABLE_SHIFT</references>
+        <references refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" compoundref="xdsi__hw_8h" startline="51">XDSI_PCR_OFFSET</references>
+        <references refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" compoundref="xdsi__hw_8h" startline="129">XDSI_PCR_VIDEOMODE_MASK</references>
+        <references refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" compoundref="xdsi__hw_8h" startline="148">XDSI_PCR_VIDEOMODE_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XDsi_Activate</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_Selection Flag)</argsstring>
+        <name>XDsi_Activate</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dsi_1ga44640c43b524c6d0ebe79cf4ffbe88a9" kindref="member">XDsi_Selection</ref></type>
+          <declname>Flag</declname>
+        </param>
+        <briefdescription>
+<para>Enable or disable the DSI controller core. </para>        </briefdescription>
+        <detaileddescription>
+<para>Activates or deactivates the DSI controller IP core. When enabling (Flag=XDSI_ENABLE), the global interrupt output is set and the core is enabled for packet processing. When disabling (Flag=XDSI_DISABLE), the global interrupt is reset and the core is disabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>indicates the desired action:<itemizedlist>
+<listitem><para>XDSI_ENABLE: Enable global interrupt and activate DSI core</para></listitem><listitem><para>XDSI_DISABLE: Reset global interrupt and disable DSI core</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if enable/disable operation was successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_INVALID_PARAM if an invalid Flag value is provided.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>Must be called after <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref> and <ref refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" kindref="member">XDsi_DefaultConfigure()</ref>. The core must be configured with video mode or command mode settings before activation.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize</ref>, <ref refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" kindref="member">XDsi_DefaultConfigure</ref>, <ref refid="group__dsi_1ga445dc0c1ca405f81b367d7e556e83f8c" kindref="member">XDsi_SetMode</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="213" bodyend="230"/>
+        <references refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" compoundref="xdsi_8h" startline="231">XDsi::IsReady</references>
+        <references refid="group__dsi_1gga44640c43b524c6d0ebe79cf4ffbe88a9a3c23663bed683ac50ced426aa55067b0" compoundref="xdsi_8h" startline="70">XDSI_DISABLE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_SendShortPacket</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_ShortPacket *ShortPacket)</argsstring>
+        <name>XDsi_SendShortPacket</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi___short_packet" kindref="compound">XDsi_ShortPacket</ref> *</type>
+          <declname>ShortPacket</declname>
+        </param>
+        <briefdescription>
+<para>Send a DSI short packet to the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sends a DSI short packet (up to 2 data bytes) to the DSI controller via the Generic Short Packet Register. The function packs the Virtual Channel ID, Data Type, and two data bytes into the command register format and writes to the XDSI_COMMAND_OFFSET register. Short packets are typically used for commands and status updates.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized and activated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ShortPacket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi___short_packet" kindref="compound">XDsi_ShortPacket</ref> structure containing:<itemizedlist>
+<listitem><para>VcId: Virtual channel identifier (0-3)</para></listitem><listitem><para>DataType: DSI data type code for the packet</para></listitem><listitem><para>Data0: First data byte</para></listitem><listitem><para>Data1: Second data byte</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function does not wait for transmission to complete. The caller must check controller status if synchronization is needed. Only valid for sending up to 2 bytes of data; use <ref refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" kindref="member">XDsi_SendLongPacket()</ref> for longer payloads.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" kindref="member">XDsi_SendLongPacket</ref>, <ref refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" kindref="member">XDsi_SendCmdModePkt</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="258" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="258" bodyend="274"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" compoundref="xdsi_8h" startline="84">XDsi_ShortPacket::Data0</references>
+        <references refid="struct_x_dsi___short_packet_1a5b56fab1a76f81ae7b4bcf6d0dab46f8" compoundref="xdsi_8h" startline="85">XDsi_ShortPacket::Data1</references>
+        <references refid="struct_x_dsi___short_packet_1a31197e6b8434c207d452eb6c8a25c2aa" compoundref="xdsi_8h" startline="83">XDsi_ShortPacket::DataType</references>
+        <references refid="struct_x_dsi___short_packet_1aa83630a9b5982b428894d845f68c2825" compoundref="xdsi_8h" startline="82">XDsi_ShortPacket::VcId</references>
+        <references refid="group__dsi_1ga756164904eef9cd3ebee25d94e973236" compoundref="xdsi__hw_8h" startline="60">XDSI_COMMAND_OFFSET</references>
+        <references refid="group__dsi_1gad3423a9a2931ef18ef5698e033aa9da0" compoundref="xdsi__hw_8h" startline="340">XDSI_SPKTR_BYTE1_SHIFT</references>
+        <references refid="group__dsi_1ga13297e8c2c110f69404cbf9424a468a3" compoundref="xdsi__hw_8h" startline="341">XDSI_SPKTR_BYTE2_SHIFT</references>
+        <references refid="group__dsi_1gaceaab8ceddb1f0642bd2429156d1b7ff" compoundref="xdsi__hw_8h" startline="339">XDSI_SPKTR_VC_SHIFT</references>
+        <referencedby refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" compoundref="xdsi_8c" startline="352" endline="371">XDsi_SendCmdModePkt</referencedby>
+        <referencedby refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad642065adf499f3953713cc5b94a456a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_SendLongPacket</definition>
+        <argsstring>(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPacket)</argsstring>
+        <name>XDsi_SendLongPacket</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref> *</type>
+          <declname>CmdPacket</declname>
+        </param>
+        <briefdescription>
+<para>Send a DSI long packet to the controller. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sends a DSI long packet (&gt;2 data bytes, up to 255 bytes) to the DSI controller. The function writes the payload data to the XDSI_DATA_OFFSET register in 32-bit chunks, then sends the packet header as a short packet. Long packets are used for bulk data transfers such as image data or command sequences in command mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized and activated. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdPacket</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref> structure containing:<itemizedlist>
+<listitem><para>LongPktData[]: Array of up to 64 32-bit words with payload data</para></listitem><listitem><para>SpktData: Short packet header with VcId, DataType, and packet info</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Payload size must be specified in CmdPacket-&gt;SpktData.Data0 (word count). The function calculates the number of 32-bit writes needed. Data is padded automatically to 32-bit boundary. Maximum payload is 255 bytes (64 32-bit words).</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" kindref="member">XDsi_SendShortPacket</ref>, <ref refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" kindref="member">XDsi_SendCmdModePkt</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="300" bodyend="321"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" compoundref="xdsi_8h" startline="84">XDsi_ShortPacket::Data0</references>
+        <references refid="struct_x_dsi_tx___cmd_mode_pkt_1a3bc2a87db912e52ba6ae5a2696c46d3b" compoundref="xdsi_8h" startline="119">XDsiTx_CmdModePkt::LongPktData</references>
+        <references refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" compoundref="xdsi_8h" startline="121">XDsiTx_CmdModePkt::SpktData</references>
+        <references refid="group__dsi_1ga8bca0e71c69c9b8dd7b02928754671e1" compoundref="xdsi__hw_8h" startline="61">XDSI_DATA_OFFSET</references>
+        <references refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</references>
+        <referencedby refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" compoundref="xdsi_8c" startline="352" endline="371">XDsi_SendCmdModePkt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDsi_SendCmdModePkt</definition>
+        <argsstring>(XDsi *InstancePtr, XDsiTx_CmdModePkt *CmdPktData)</argsstring>
+        <name>XDsi_SendCmdModePkt</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref> *</type>
+          <declname>CmdPktData</declname>
+        </param>
+        <briefdescription>
+<para>Send a DSI command mode packet (short or long). </para>        </briefdescription>
+        <detaileddescription>
+<para>Sends a DSI packet in command mode. This function supports both short packets (up to 2 bytes) and long packets (up to 255 bytes). It waits for the controller to be ready for the appropriate packet type before transmission. For short packets, waits on XDSI_GetReadyForShortPkt(); for long packets, waits on XDSI_GetReadyForLongPkt().</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized, activated, and switched to command mode via XDsi_SetMode(XDSI_COMMAND_MODE). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CmdPktData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref> structure specifying:<itemizedlist>
+<listitem><para>CmdPkt: Packet type (XDSI_CMD_MODE_SHORT_PKT or XDSI_CMD_MODE_LONG_PKT)</para></listitem><listitem><para>SpktData: Short packet header information</para></listitem><listitem><para>LongPktData: Payload for long packets</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the DSI packet was successfully sent.</para></listitem><listitem><para>XST_FAILURE if DSI is not enabled or not in command mode.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function blocks waiting for the controller to be ready. Ensure controller is in command mode before calling. The appropriate packet type must be selected in CmdPktData-&gt;CmdPkt.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga445dc0c1ca405f81b367d7e556e83f8c" kindref="member">XDsi_SetMode</ref>, <ref refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" kindref="member">XDsi_SendShortPacket</ref>, <ref refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" kindref="member">XDsi_SendLongPacket</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="352" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="352" bodyend="371"/>
+        <references refid="struct_x_dsi_tx___cmd_mode_pkt_1a9b74650eccd16e860d82f8f00aaf0dec" compoundref="xdsi_8h" startline="120">XDsiTx_CmdModePkt::CmdPkt</references>
+        <references refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" compoundref="xdsi_8h" startline="121">XDsiTx_CmdModePkt::SpktData</references>
+        <references refid="group__dsi_1gga0fa6b406aaf37b7635a6ba53740fa9deaf93a3007ae08fc6dc80af9d43012959f" compoundref="xdsi_8h" startline="101">XDSI_CMD_MODE_SHORT_PKT</references>
+        <references refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" compoundref="xdsi_8c" startline="300" endline="321">XDsi_SendLongPacket</references>
+        <references refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" compoundref="xdsi_8c" startline="258" endline="274">XDsi_SendShortPacket</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1ga445dc0c1ca405f81b367d7e556e83f8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XDsi_SetMode</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_DsiModeType mode)</argsstring>
+        <name>XDsi_SetMode</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dsi_1gaea217ff22790ee5e53f51470f67b94a0" kindref="member">XDsi_DsiModeType</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>Switch DSI controller between video and command modes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Configures the DSI controller to operate in either video mode or command mode. In video mode, the controller processes continuous video frame data streams with synchronization packets. In command mode, the controller accepts individual short and long packets sent by the application. Transitions between modes include appropriate waits for pending operations to complete.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the desired DSI mode:<itemizedlist>
+<listitem><para>XDSI_VIDEO_MODE: Configure for continuous video stream processing</para></listitem><listitem><para>XDSI_COMMAND_MODE: Configure for packet-based command transmission</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if mode switch was successful.</para></listitem><listitem><para>XST_INVALID_PARAM if the requested mode is invalid or an invalid transition is attempted.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Certain mode transitions are not allowed by the hardware. For example, cannot switch from video mode to command mode directly while in progress. The function waits for XDsi_GetInProgress() to clear before switching.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize</ref>, <ref refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" kindref="member">XDsi_SendCmdModePkt</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="401" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="401" bodyend="426"/>
+        <references refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a2a6fb2908e45211e87adca28aa7f5454" compoundref="xdsi_8h" startline="95">XDSI_COMMAND_MODE</references>
+        <references refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a01e63ec5b9f77bc7d231d2cc2df19c85" compoundref="xdsi_8h" startline="94">XDSI_VIDEO_MODE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDsi_GetConfigParams</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_ConfigParameters *ConfigInfo)</argsstring>
+        <name>XDsi_GetConfigParams</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi___config_parameters" kindref="compound">XDsi_ConfigParameters</ref> *</type>
+          <declname>ConfigInfo</declname>
+        </param>
+        <briefdescription>
+<para>Read current DSI controller configuration parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Reads the current configuration settings from the DSI controller hardware registers and the driver instance. This includes the protocol control settings (video mode, blank packet type, BLLP mode, EoTP), timing parameters (HSA, VACT, blanking intervals, etc.), and line/BLLP timing. All settings are populated into the provided ConfigInfo structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigInfo</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi___config_parameters" kindref="compound">XDsi_ConfigParameters</ref> structure to be filled with current configuration. The structure will contain:<itemizedlist>
+<listitem><para>Config: GUI configuration settings</para></listitem><listitem><para>VideoMode: Current video transmission mode</para></listitem><listitem><para>BlankPacketType: Blanking packet type for BLLP</para></listitem><listitem><para>BLLPMode: Blank packet mode selection</para></listitem><listitem><para>EoTp: End-of-Transmission packet enable status</para></listitem><listitem><para>Timing: All horizontal/vertical timing parameters</para></listitem><listitem><para>LineTime, BLLPTime: Total line and BLLP timing values</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>This function performs multiple register reads. The caller must ensure the controller is in a stable state before reading. Timing parameters reflect current register values which may differ from hard-coded configuration if modified at runtime.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize</ref>, <ref refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" kindref="member">XDsi_DefaultConfigure</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="457" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="457" bodyend="532"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi___config_parameters_1af4115683dda967c09f5801e4f36d3bcd" compoundref="xdsi_8h" startline="170">XDsi_ConfigParameters::BlankPacketType</references>
+        <references refid="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" compoundref="xdsi_8h" startline="140">XDsi_VideoTiming::BLLPBurst</references>
+        <references refid="struct_x_dsi___config_parameters_1a5db0abb127dbd384356f552fc0f965f9" compoundref="xdsi_8h" startline="172">XDsi_ConfigParameters::BLLPMode</references>
+        <references refid="struct_x_dsi___config_parameters_1ae4a682beace1fdcc338207b2371e4a89" compoundref="xdsi_8h" startline="176">XDsi_ConfigParameters::BLLPTime</references>
+        <references refid="struct_x_dsi___config_parameters_1a148dc8d5b5992733b8504fc570a15305" compoundref="xdsi_8h" startline="167">XDsi_ConfigParameters::Config</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="struct_x_dsi___config_parameters_1ad61ccf6a6fc23112623076e6d3e82623" compoundref="xdsi_8h" startline="173">XDsi_ConfigParameters::EoTp</references>
+        <references refid="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" compoundref="xdsi_8h" startline="128">XDsi_VideoTiming::HActive</references>
+        <references refid="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" compoundref="xdsi_8h" startline="134">XDsi_VideoTiming::HBackPorch</references>
+        <references refid="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" compoundref="xdsi_8h" startline="130">XDsi_VideoTiming::HFrontPorch</references>
+        <references refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" compoundref="xdsi_8h" startline="132">XDsi_VideoTiming::HSyncWidth</references>
+        <references refid="struct_x_dsi___config_parameters_1a8d7d3f2da7b8b292bf61f97d144491da" compoundref="xdsi_8h" startline="175">XDsi_ConfigParameters::LineTime</references>
+        <references refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" compoundref="xdsi_8h" startline="174">XDsi_ConfigParameters::Timing</references>
+        <references refid="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" compoundref="xdsi_8h" startline="136">XDsi_VideoTiming::VActive</references>
+        <references refid="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" compoundref="xdsi_8h" startline="139">XDsi_VideoTiming::VBackPorch</references>
+        <references refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" compoundref="xdsi_8h" startline="137">XDsi_VideoTiming::VFrontPorch</references>
+        <references refid="struct_x_dsi___config_parameters_1a9578d1e50519ec42ad991c9bdd459cc9" compoundref="xdsi_8h" startline="168">XDsi_ConfigParameters::VideoMode</references>
+        <references refid="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" compoundref="xdsi_8h" startline="138">XDsi_VideoTiming::VSyncWidth</references>
+        <references refid="group__dsi_1gabdb4cb3cca3cc63b0768f17d86d2ad78" compoundref="xdsi__hw_8h" startline="360">XDSI_BLLP_TIME_MASK</references>
+        <references refid="group__dsi_1gac838501f9d54d130a9b3599b7b9117f8" compoundref="xdsi__hw_8h" startline="67">XDSI_BLLP_TIME_OFFSET</references>
+        <references refid="group__dsi_1gab33892b702ec12e0b363196d16a6467a" compoundref="xdsi__hw_8h" startline="362">XDSI_BLLP_TIME_SHIFT</references>
+        <references refid="group__dsi_1ga4aa0ee6eb41e7de52340066bd78af3b6" compoundref="xdsi__hw_8h" startline="350">XDSI_LTIME_MASK</references>
+        <references refid="group__dsi_1ga59b5452a5b5f1076b77a024729ef910d" compoundref="xdsi__hw_8h" startline="66">XDSI_LTIME_OFFSET</references>
+        <references refid="group__dsi_1ga8c26d704be758564707d5a0d169c2642" compoundref="xdsi__hw_8h" startline="352">XDSI_LTIME_SHIFT</references>
+        <references refid="group__dsi_1ga8ae113e8b2d35582f48aae14848a9ec2" compoundref="xdsi__hw_8h" startline="123">XDSI_PCR_BLLPMODE_MASK</references>
+        <references refid="group__dsi_1ga601afb13b1b8b27b9b6d7ba8ab7972d7" compoundref="xdsi__hw_8h" startline="142">XDSI_PCR_BLLPMODE_SHIFT</references>
+        <references refid="group__dsi_1ga6ef282e9923450aa24813440b0d3166d" compoundref="xdsi__hw_8h" startline="126">XDSI_PCR_BLLPTYPE_MASK</references>
+        <references refid="group__dsi_1ga72fda4b1dfd3be762e1f9edb46cd4cbb" compoundref="xdsi__hw_8h" startline="145">XDSI_PCR_BLLPTYPE_SHIFT</references>
+        <references refid="group__dsi_1gabc0ff6dc79f1ebd472b213955331d771" compoundref="xdsi__hw_8h" startline="117">XDSI_PCR_EOTPENABLE_MASK</references>
+        <references refid="group__dsi_1ga8c2438103e15a67ad1a3d871da9df8c3" compoundref="xdsi__hw_8h" startline="136">XDSI_PCR_EOTPENABLE_SHIFT</references>
+        <references refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" compoundref="xdsi__hw_8h" startline="51">XDSI_PCR_OFFSET</references>
+        <references refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" compoundref="xdsi__hw_8h" startline="129">XDSI_PCR_VIDEOMODE_MASK</references>
+        <references refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" compoundref="xdsi__hw_8h" startline="148">XDSI_PCR_VIDEOMODE_SHIFT</references>
+        <references refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" compoundref="xdsi__hw_8h" startline="190">XDSI_TIME1_BLLP_BURST_MASK</references>
+        <references refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" compoundref="xdsi__hw_8h" startline="195">XDSI_TIME1_BLLP_BURST_SHIFT</references>
+        <references refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" compoundref="xdsi__hw_8h" startline="187">XDSI_TIME1_HSA_MASK</references>
+        <references refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" compoundref="xdsi__hw_8h" startline="194">XDSI_TIME1_HSA_SHIFT</references>
+        <references refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" compoundref="xdsi__hw_8h" startline="62">XDSI_TIME1_OFFSET</references>
+        <references refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" compoundref="xdsi__hw_8h" startline="204">XDSI_TIME2_HACT_MASK</references>
+        <references refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" compoundref="xdsi__hw_8h" startline="210">XDSI_TIME2_HACT_SHIFT</references>
+        <references refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" compoundref="xdsi__hw_8h" startline="63">XDSI_TIME2_OFFSET</references>
+        <references refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" compoundref="xdsi__hw_8h" startline="207">XDSI_TIME2_VACT_MASK</references>
+        <references refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" compoundref="xdsi__hw_8h" startline="211">XDSI_TIME2_VACT_SHIFT</references>
+        <references refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" compoundref="xdsi__hw_8h" startline="219">XDSI_TIME3_HBP_MASK</references>
+        <references refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" compoundref="xdsi__hw_8h" startline="226">XDSI_TIME3_HBP_SHIFT</references>
+        <references refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" compoundref="xdsi__hw_8h" startline="222">XDSI_TIME3_HFP_MASK</references>
+        <references refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" compoundref="xdsi__hw_8h" startline="227">XDSI_TIME3_HFP_SHIFT</references>
+        <references refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" compoundref="xdsi__hw_8h" startline="64">XDSI_TIME3_OFFSET</references>
+        <references refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" compoundref="xdsi__hw_8h" startline="65">XDSI_TIME4_OFFSET</references>
+        <references refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" compoundref="xdsi__hw_8h" startline="238">XDSI_TIME4_VBP_MASK</references>
+        <references refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" compoundref="xdsi__hw_8h" startline="246">XDSI_TIME4_VBP_SHIFT</references>
+        <references refid="group__dsi_1gacc660200910868714ec0c22d555237d0" compoundref="xdsi__hw_8h" startline="241">XDSI_TIME4_VFP_MASK</references>
+        <references refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" compoundref="xdsi__hw_8h" startline="247">XDSI_TIME4_VFP_SHIFT</references>
+        <references refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" compoundref="xdsi__hw_8h" startline="235">XDSI_TIME4_VSA_MASK</references>
+        <references refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" compoundref="xdsi__hw_8h" startline="245">XDSI_TIME4_VSA_SHIFT</references>
+        <references refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" compoundref="xdsi__hw_8h" startline="68">XDSI_TIME5_OFFSET</references>
+        <references refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" compoundref="xdsi__hw_8h" startline="256">XDSI_TIME5_VFP_MASK</references>
+        <references refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" compoundref="xdsi__hw_8h" startline="259">XDSI_TIME5_VFP_SHIFT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gad26d8689133a90687735f528ff96b97d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDsi_SetVideoInterfaceTiming</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_VideoMode VideoMode, XVidC_VideoMode Resolution, u16 BurstPacketSize)</argsstring>
+        <name>XDsi_SetVideoInterfaceTiming</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dsi_1ga7931c0f0d26ec1b2bc681f2efe0cf62f" kindref="member">XDsi_VideoMode</ref></type>
+          <declname>VideoMode</declname>
+        </param>
+        <param>
+          <type>XVidC_VideoMode</type>
+          <declname>Resolution</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>BurstPacketSize</declname>
+        </param>
+        <briefdescription>
+<para>Configure video interface timing based on standard resolution. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the DSI controller video interface timing parameters based on a specified video mode and standard resolution. Looks up timing parameters from the video common library (XVidC_GetVideoModeData), including horizontal and vertical synchronization, active regions, and blanking intervals. The burst packet size is set for burst mode operations. This function is typically called for standard video resolutions (e.g., 1920x1080@60Hz).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VideoMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the DSI video transmission mode:<itemizedlist>
+<listitem><para>XDSI_VM_NON_BURST_SYNC_PULSES: Non-burst with sync pulses</para></listitem><listitem><para>XDSI_VM_NON_BURST_SYNC_EVENT: Non-burst with sync events</para></listitem><listitem><para>XDSI_VM_BURST_MODE: Burst mode transmission </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Resolution</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the video resolution to configure (e.g., XVIDC_VM_1920x1080_60_P for 1920x1080@60Hz progressive). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BurstPacketSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the packet size for burst mode blanking.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if video interface timing was successfully configured.</para></listitem><listitem><para>XST_FAILURE if the requested resolution is not supported or timing information cannot be retrieved.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function looks up timing data from the video common library. The requested resolution must be supported by the library. For custom resolutions not in the library, use <ref refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" kindref="member">XDsi_SetCustomVideoInterfaceTiming()</ref>.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" kindref="member">XDsi_SetCustomVideoInterfaceTiming</ref>, XVidC_GetVideoModeData </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="568" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="568" bodyend="630"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" compoundref="xdsi__hw_8h" startline="51">XDSI_PCR_OFFSET</references>
+        <references refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" compoundref="xdsi__hw_8h" startline="129">XDSI_PCR_VIDEOMODE_MASK</references>
+        <references refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" compoundref="xdsi__hw_8h" startline="148">XDSI_PCR_VIDEOMODE_SHIFT</references>
+        <references refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" compoundref="xdsi__hw_8h" startline="190">XDSI_TIME1_BLLP_BURST_MASK</references>
+        <references refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" compoundref="xdsi__hw_8h" startline="195">XDSI_TIME1_BLLP_BURST_SHIFT</references>
+        <references refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" compoundref="xdsi__hw_8h" startline="187">XDSI_TIME1_HSA_MASK</references>
+        <references refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" compoundref="xdsi__hw_8h" startline="194">XDSI_TIME1_HSA_SHIFT</references>
+        <references refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" compoundref="xdsi__hw_8h" startline="62">XDSI_TIME1_OFFSET</references>
+        <references refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" compoundref="xdsi__hw_8h" startline="204">XDSI_TIME2_HACT_MASK</references>
+        <references refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" compoundref="xdsi__hw_8h" startline="210">XDSI_TIME2_HACT_SHIFT</references>
+        <references refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" compoundref="xdsi__hw_8h" startline="63">XDSI_TIME2_OFFSET</references>
+        <references refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" compoundref="xdsi__hw_8h" startline="207">XDSI_TIME2_VACT_MASK</references>
+        <references refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" compoundref="xdsi__hw_8h" startline="211">XDSI_TIME2_VACT_SHIFT</references>
+        <references refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" compoundref="xdsi__hw_8h" startline="219">XDSI_TIME3_HBP_MASK</references>
+        <references refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" compoundref="xdsi__hw_8h" startline="226">XDSI_TIME3_HBP_SHIFT</references>
+        <references refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" compoundref="xdsi__hw_8h" startline="222">XDSI_TIME3_HFP_MASK</references>
+        <references refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" compoundref="xdsi__hw_8h" startline="227">XDSI_TIME3_HFP_SHIFT</references>
+        <references refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" compoundref="xdsi__hw_8h" startline="64">XDSI_TIME3_OFFSET</references>
+        <references refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" compoundref="xdsi__hw_8h" startline="65">XDSI_TIME4_OFFSET</references>
+        <references refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" compoundref="xdsi__hw_8h" startline="238">XDSI_TIME4_VBP_MASK</references>
+        <references refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" compoundref="xdsi__hw_8h" startline="246">XDSI_TIME4_VBP_SHIFT</references>
+        <references refid="group__dsi_1gacc660200910868714ec0c22d555237d0" compoundref="xdsi__hw_8h" startline="241">XDSI_TIME4_VFP_MASK</references>
+        <references refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" compoundref="xdsi__hw_8h" startline="247">XDSI_TIME4_VFP_SHIFT</references>
+        <references refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" compoundref="xdsi__hw_8h" startline="235">XDSI_TIME4_VSA_MASK</references>
+        <references refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" compoundref="xdsi__hw_8h" startline="245">XDSI_TIME4_VSA_SHIFT</references>
+        <references refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" compoundref="xdsi__hw_8h" startline="68">XDSI_TIME5_OFFSET</references>
+        <references refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" compoundref="xdsi__hw_8h" startline="256">XDSI_TIME5_VFP_MASK</references>
+        <references refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" compoundref="xdsi__hw_8h" startline="259">XDSI_TIME5_VFP_SHIFT</references>
+        <references refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62faa0ce23cebac0882bb704f18eec65f5cc" compoundref="xdsi_8h" startline="111">XDSI_VM_NUM_SUPPORTED</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XDsi_SetCustomVideoInterfaceTiming</definition>
+        <argsstring>(XDsi *InstancePtr, XDsi_VideoMode VideoMode, XDsi_VideoTiming *Timing)</argsstring>
+        <name>XDsi_SetCustomVideoInterfaceTiming</name>
+        <param>
+          <type><ref refid="struct_x_dsi" kindref="compound">XDsi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__dsi_1ga7931c0f0d26ec1b2bc681f2efe0cf62f" kindref="member">XDsi_VideoMode</ref></type>
+          <declname>VideoMode</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dsi___video_timing" kindref="compound">XDsi_VideoTiming</ref> *</type>
+          <declname>Timing</declname>
+        </param>
+        <briefdescription>
+<para>Configure video interface timing with custom parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para>Sets the DSI controller video interface timing parameters using user-provided custom timing values. Unlike <ref refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" kindref="member">XDsi_SetVideoInterfaceTiming()</ref> which uses standard resolutions from the video library, this function allows arbitrary custom timing configurations. Horizontal and vertical synchronization, active region, and blanking parameters are all configurable. Burst packet size is only applied in burst mode.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the <ref refid="struct_x_dsi" kindref="compound">XDsi</ref> instance to operate on. The instance must have been initialized via <ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize()</ref>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>VideoMode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the DSI video transmission mode:<itemizedlist>
+<listitem><para>XDSI_VM_NON_BURST_SYNC_PULSES: Non-burst with sync pulses</para></listitem><listitem><para>XDSI_VM_NON_BURST_SYNC_EVENT: Non-burst with sync events</para></listitem><listitem><para>XDSI_VM_BURST_MODE: Burst mode (burst packet size applies) </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Timing</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_dsi___video_timing" kindref="compound">XDsi_VideoTiming</ref> structure containing custom timing parameters:<itemizedlist>
+<listitem><para>HActive: Active horizontal pixels/bytes per line</para></listitem><listitem><para>HFrontPorch, HSyncWidth, HBackPorch: Horizontal blanking intervals</para></listitem><listitem><para>VActive: Active vertical lines</para></listitem><listitem><para>VFrontPorch, VSyncWidth, VBackPorch: Vertical blanking intervals</para></listitem><listitem><para>BLLPBurst: Burst packet size (only used in burst mode)</para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if video interface timing was successfully configured.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>This function allows maximum flexibility but does not validate timing parameters for spec compliance. Burst packet size is only written in burst mode; non-burst modes override it to 0. Ensure custom timing values comply with DSI and display controller specifications.</para></simplesect>
+<simplesect kind="see"><para><ref refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" kindref="member">XDsi_SetVideoInterfaceTiming</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" line="668" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c" bodystart="668" bodyend="738"/>
+        <references refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" compoundref="xdsi_8h" startline="154">XDsi_Config::BaseAddr</references>
+        <references refid="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" compoundref="xdsi_8h" startline="140">XDsi_VideoTiming::BLLPBurst</references>
+        <references refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" compoundref="xdsi_8h" startline="203">XDsi::Config</references>
+        <references refid="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" compoundref="xdsi_8h" startline="128">XDsi_VideoTiming::HActive</references>
+        <references refid="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" compoundref="xdsi_8h" startline="134">XDsi_VideoTiming::HBackPorch</references>
+        <references refid="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" compoundref="xdsi_8h" startline="130">XDsi_VideoTiming::HFrontPorch</references>
+        <references refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" compoundref="xdsi_8h" startline="132">XDsi_VideoTiming::HSyncWidth</references>
+        <references refid="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" compoundref="xdsi_8h" startline="136">XDsi_VideoTiming::VActive</references>
+        <references refid="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" compoundref="xdsi_8h" startline="139">XDsi_VideoTiming::VBackPorch</references>
+        <references refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" compoundref="xdsi_8h" startline="137">XDsi_VideoTiming::VFrontPorch</references>
+        <references refid="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" compoundref="xdsi_8h" startline="138">XDsi_VideoTiming::VSyncWidth</references>
+        <references refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" compoundref="xdsi__hw_8h" startline="51">XDSI_PCR_OFFSET</references>
+        <references refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" compoundref="xdsi__hw_8h" startline="129">XDSI_PCR_VIDEOMODE_MASK</references>
+        <references refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" compoundref="xdsi__hw_8h" startline="148">XDSI_PCR_VIDEOMODE_SHIFT</references>
+        <references refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" compoundref="xdsi__hw_8h" startline="190">XDSI_TIME1_BLLP_BURST_MASK</references>
+        <references refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" compoundref="xdsi__hw_8h" startline="195">XDSI_TIME1_BLLP_BURST_SHIFT</references>
+        <references refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" compoundref="xdsi__hw_8h" startline="187">XDSI_TIME1_HSA_MASK</references>
+        <references refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" compoundref="xdsi__hw_8h" startline="194">XDSI_TIME1_HSA_SHIFT</references>
+        <references refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" compoundref="xdsi__hw_8h" startline="62">XDSI_TIME1_OFFSET</references>
+        <references refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" compoundref="xdsi__hw_8h" startline="204">XDSI_TIME2_HACT_MASK</references>
+        <references refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" compoundref="xdsi__hw_8h" startline="210">XDSI_TIME2_HACT_SHIFT</references>
+        <references refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" compoundref="xdsi__hw_8h" startline="63">XDSI_TIME2_OFFSET</references>
+        <references refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" compoundref="xdsi__hw_8h" startline="207">XDSI_TIME2_VACT_MASK</references>
+        <references refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" compoundref="xdsi__hw_8h" startline="211">XDSI_TIME2_VACT_SHIFT</references>
+        <references refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" compoundref="xdsi__hw_8h" startline="219">XDSI_TIME3_HBP_MASK</references>
+        <references refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" compoundref="xdsi__hw_8h" startline="226">XDSI_TIME3_HBP_SHIFT</references>
+        <references refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" compoundref="xdsi__hw_8h" startline="222">XDSI_TIME3_HFP_MASK</references>
+        <references refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" compoundref="xdsi__hw_8h" startline="227">XDSI_TIME3_HFP_SHIFT</references>
+        <references refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" compoundref="xdsi__hw_8h" startline="64">XDSI_TIME3_OFFSET</references>
+        <references refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" compoundref="xdsi__hw_8h" startline="65">XDSI_TIME4_OFFSET</references>
+        <references refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" compoundref="xdsi__hw_8h" startline="238">XDSI_TIME4_VBP_MASK</references>
+        <references refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" compoundref="xdsi__hw_8h" startline="246">XDSI_TIME4_VBP_SHIFT</references>
+        <references refid="group__dsi_1gacc660200910868714ec0c22d555237d0" compoundref="xdsi__hw_8h" startline="241">XDSI_TIME4_VFP_MASK</references>
+        <references refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" compoundref="xdsi__hw_8h" startline="247">XDSI_TIME4_VFP_SHIFT</references>
+        <references refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" compoundref="xdsi__hw_8h" startline="235">XDSI_TIME4_VSA_MASK</references>
+        <references refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" compoundref="xdsi__hw_8h" startline="245">XDSI_TIME4_VSA_SHIFT</references>
+        <references refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" compoundref="xdsi__hw_8h" startline="68">XDSI_TIME5_OFFSET</references>
+        <references refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" compoundref="xdsi__hw_8h" startline="256">XDSI_TIME5_VFP_MASK</references>
+        <references refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" compoundref="xdsi__hw_8h" startline="259">XDSI_TIME5_VFP_SHIFT</references>
+        <references refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62fa1fdb665221676fcc52a3f4a2e89c0fb2" compoundref="xdsi_8h" startline="110">XDSI_VM_BURST_MODE</references>
+        <references refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62faa0ce23cebac0882bb704f18eec65f5cc" compoundref="xdsi_8h" startline="111">XDSI_VM_NUM_SUPPORTED</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdsi_8h" kindref="compound">xdsi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xvidc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="48"><highlight class="comment">*<sp/>Each<sp/>of<sp/>callback<sp/>functions<sp/>to<sp/>be<sp/>called<sp/>on<sp/>different<sp/>types<sp/>of<sp/>interrupts.</highlight></codeline>
+<codeline lineno="49"><highlight class="comment">*<sp/>These<sp/>stub<sp/>functions<sp/>are<sp/>set<sp/>during<sp/>XDsi_CfgInitialize<sp/>as<sp/>default</highlight></codeline>
+<codeline lineno="50"><highlight class="comment">*<sp/>callback<sp/>functions.<sp/>If<sp/>application<sp/>is<sp/>not<sp/>registered<sp/>any<sp/>of<sp/>the<sp/>callback</highlight></codeline>
+<codeline lineno="51"><highlight class="comment">*<sp/>function,<sp/>these<sp/>functions<sp/>will<sp/>be<sp/>called<sp/>for<sp/>doing<sp/>nothing.</highlight></codeline>
+<codeline lineno="52"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>ErrorMask);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="82" refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi_1ga7ee417c05f7b0171f4b5ab732fd92054" kindref="member">XDsi_CfgInitialize</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi___config" kindref="compound">XDsi_Config</ref><sp/>*CfgPtr,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>EffectiveAddr)</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CfgPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(EffectiveAddr<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Setup<sp/>the<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref><sp/>=<sp/>*CfgPtr;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref><sp/>=<sp/>EffectiveAddr;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>all<sp/>handlers<sp/>to<sp/>stub<sp/>values,<sp/>let<sp/>user<sp/>configure<sp/>this<sp/>data<sp/>later</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1af8b0713407874012d72fb3a0deec7e53" kindref="member">UnSupportedDataTypeCallback</ref><sp/>=<sp/>StubErrCallback;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a555240a5dd42150ed0ad44c94ed40604" kindref="member">PixelDataUnderrunCallback</ref><sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1aa2734c226ad06d581cfb44252f59bb47" kindref="member">CmdQFIFOFullCallback</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>StubErrCallback;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1acc514c75e7ab9aaf48c50921a2b34953" kindref="member">ErrorCallback</ref><sp/>=<sp/>StubErrCallback;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" kindref="member">IsReady</ref><sp/>=<sp/>XIL_COMPONENT_IS_READY;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__dsi_1ga2294e22112b6a7aa5ed1c2714f674f72" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga2294e22112b6a7aa5ed1c2714f674f72" kindref="member">XDsi_Reset</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>argument<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ClearSoftReset(InstancePtr);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="156" refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi_1ga342762351ea237fa26e737d13bcbfcac" kindref="member">XDsi_DefaultConfigure</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="157"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Video<sp/>Mode<sp/>to<sp/>Burst/NoN<sp/>Burst<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" kindref="member">XDSI_PCR_VIDEOMODE_MASK</ref>,<sp/><ref refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" kindref="member">XDSI_PCR_VIDEOMODE_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1aca7763799081d967ef5067b325a9bab0" kindref="member">VideoMode</ref>);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Blank<sp/>packet<sp/>or<sp/>NULL<sp/>packet<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga6ef282e9923450aa24813440b0d3166d" kindref="member">XDSI_PCR_BLLPTYPE_MASK</ref>,<sp/><ref refid="group__dsi_1ga72fda4b1dfd3be762e1f9edb46cd4cbb" kindref="member">XDSI_PCR_BLLPTYPE_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1abe4ea811e93c542ba12f6317cbc822d9" kindref="member">BlankPacketType</ref>);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Blank<sp/>packet<sp/>Mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga8ae113e8b2d35582f48aae14848a9ec2" kindref="member">XDSI_PCR_BLLPMODE_MASK</ref>,<sp/><ref refid="group__dsi_1ga601afb13b1b8b27b9b6d7ba8ab7972d7" kindref="member">XDSI_PCR_BLLPMODE_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a33228b83b0f5f4b1ef6f7811d15d087e" kindref="member">BLLPMode</ref>);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>EOTP<sp/>Enable*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1gabc0ff6dc79f1ebd472b213955331d771" kindref="member">XDSI_PCR_EOTPENABLE_MASK</ref>,<sp/><ref refid="group__dsi_1ga8c2438103e15a67ad1a3d871da9df8c3" kindref="member">XDSI_PCR_EOTPENABLE_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1adaae19c5dae3ac66934afc5cd823490d" kindref="member">EoTp</ref>);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="213" refid="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" refkind="member"><highlight class="normal">u32<sp/><ref refid="group__dsi_1ga96a76baa5b141b35af0d7cc697ade584" kindref="member">XDsi_Activate</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="group__dsi_1ga44640c43b524c6d0ebe79cf4ffbe88a9" kindref="member">XDsi_Selection</ref><sp/>Flag)</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;<ref refid="struct_x_dsi_1a67a8fb9ad74652a0aab81eb036482f9e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Flag<sp/>==<sp/><ref refid="group__dsi_1gga44640c43b524c6d0ebe79cf4ffbe88a9a3c23663bed683ac50ced426aa55067b0" kindref="member">XDSI_DISABLE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_ResetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetGlobalInterrupt(InstancePtr);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="258" refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" kindref="member">XDsi_SendShortPacket</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi___short_packet" kindref="compound">XDsi_ShortPacket</ref><sp/>*ShortPacket)</highlight></codeline>
+<codeline lineno="259"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Value<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ShortPacket<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Byte<sp/>1:<sp/>2<sp/>bits:VcId<sp/>6<sp/>bits:DataType<sp/>Byte<sp/>2:Data0<sp/><sp/>Byte<sp/>3:Data1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>((ShortPacket-&gt;<ref refid="struct_x_dsi___short_packet_1aa83630a9b5982b428894d845f68c2825" kindref="member">VcId</ref><sp/>&lt;&lt;<sp/><ref refid="group__dsi_1gaceaab8ceddb1f0642bd2429156d1b7ff" kindref="member">XDSI_SPKTR_VC_SHIFT</ref><sp/>|</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ShortPacket-&gt;<ref refid="struct_x_dsi___short_packet_1a31197e6b8434c207d452eb6c8a25c2aa" kindref="member">DataType</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(ShortPacket-&gt;<ref refid="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" kindref="member">Data0</ref><sp/>&lt;&lt;<sp/><ref refid="group__dsi_1gad3423a9a2931ef18ef5698e033aa9da0" kindref="member">XDSI_SPKTR_BYTE1_SHIFT</ref>)<sp/>|</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(u32)(ShortPacket-&gt;<ref refid="struct_x_dsi___short_packet_1a5b56fab1a76f81ae7b4bcf6d0dab46f8" kindref="member">Data1</ref><sp/>&lt;&lt;<sp/><ref refid="group__dsi_1ga13297e8c2c110f69404cbf9424a468a3" kindref="member">XDSI_SPKTR_BYTE2_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga756164904eef9cd3ebee25d94e973236" kindref="member">XDSI_COMMAND_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="300" refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" kindref="member">XDsi_SendLongPacket</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref><sp/>*CmdPacket)</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>i;</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>MaxSize;</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(CmdPacket<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxSize<sp/>=<sp/>CmdPacket-&gt;<ref refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" kindref="member">SpktData</ref>.<ref refid="struct_x_dsi___short_packet_1a699b7355c6865a7dee80d2e4ac59ebf4" kindref="member">Data0</ref>;</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(MaxSize%4<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxSize<sp/>/=<sp/>4;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MaxSize<sp/>=<sp/>MaxSize/4<sp/>+<sp/>1;</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>MaxSize;<sp/>i++)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_WriteReg(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga8bca0e71c69c9b8dd7b02928754671e1" kindref="member">XDSI_DATA_OFFSET</ref>,<sp/>CmdPacket-&gt;<ref refid="struct_x_dsi_tx___cmd_mode_pkt_1a3bc2a87db912e52ba6ae5a2696c46d3b" kindref="member">LongPktData</ref>[i]);</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" kindref="member">XDsi_SendShortPacket</ref>(InstancePtr,<sp/>&amp;CmdPacket-&gt;<ref refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" kindref="member">SpktData</ref>);</highlight></codeline>
+<codeline lineno="321"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="352" refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga7e20d1d932530d9be8987b78136b7864" kindref="member">XDsi_SendCmdModePkt</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dsi_tx___cmd_mode_pkt" kindref="compound">XDsiTx_CmdModePkt</ref><sp/>*CmdPktData)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(XDsi_IsEnabled(InstancePtr))<sp/>||</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!(XDsi_IsModeEnabled(InstancePtr)))</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(CmdPktData-&gt;<ref refid="struct_x_dsi_tx___cmd_mode_pkt_1a9b74650eccd16e860d82f8f00aaf0dec" kindref="member">CmdPkt</ref><sp/>==<sp/><ref refid="group__dsi_1gga0fa6b406aaf37b7635a6ba53740fa9deaf93a3007ae08fc6dc80af9d43012959f" kindref="member">XDSI_CMD_MODE_SHORT_PKT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Wait<sp/>for<sp/>short<sp/>command<sp/>ready<sp/>status*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!XDsi_GetReadyForShortPkt(InstancePtr));</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gab2cf4f33eff4d4e77d083335025c08f9" kindref="member">XDsi_SendShortPacket</ref>(InstancePtr,<sp/>&amp;CmdPktData-&gt;<ref refid="struct_x_dsi_tx___cmd_mode_pkt_1ae2313ff180089ada9a4c62f0734279fa" kindref="member">SpktData</ref>);</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Wait<sp/>for<sp/>Long<sp/>command<sp/>ready<sp/>status*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!XDsi_GetReadyForLongPkt(InstancePtr));</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gad642065adf499f3953713cc5b94a456a" kindref="member">XDsi_SendLongPacket</ref>(InstancePtr,<sp/>CmdPktData);</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="401" refid="group__dsi_1ga445dc0c1ca405f81b367d7e556e83f8c" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1ga445dc0c1ca405f81b367d7e556e83f8c" kindref="member">XDsi_SetMode</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="group__dsi_1gaea217ff22790ee5e53f51470f67b94a0" kindref="member">XDsi_DsiModeType</ref><sp/>mode)</highlight></codeline>
+<codeline lineno="402"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((!(XDsi_IsModeEnabled(InstancePtr))<sp/>&amp;&amp;<sp/>(mode<sp/>==<sp/><ref refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a01e63ec5b9f77bc7d231d2cc2df19c85" kindref="member">XDSI_VIDEO_MODE</ref>))<sp/>||</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XDsi_IsModeEnabled(InstancePtr)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(mode<sp/>==<sp/><ref refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a2a6fb2908e45211e87adca28aa7f5454" kindref="member">XDSI_COMMAND_MODE</ref>)))<sp/>{</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!(XDsi_IsModeEnabled(InstancePtr))<sp/>&amp;&amp;<sp/>(mode<sp/>==<sp/><ref refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a2a6fb2908e45211e87adca28aa7f5454" kindref="member">XDSI_COMMAND_MODE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_Disable(InstancePtr);</highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_CmdModeEnable(InstancePtr);</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_Enable(InstancePtr);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XDsi_IsModeEnabled(InstancePtr)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(mode<sp/>==<sp/><ref refid="group__dsi_1ggaea217ff22790ee5e53f51470f67b94a0a01e63ec5b9f77bc7d231d2cc2df19c85" kindref="member">XDSI_VIDEO_MODE</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*Wait<sp/>for<sp/>in<sp/>progress<sp/>status<sp/>to<sp/>be<sp/>clear*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(XDsi_GetInProgress(InstancePtr));</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_VideoModeEnable(InstancePtr);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_INVALID_PARAM;</highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="424"><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="457" refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dsi_1gaef3bbf8bd7a39e7154eb3ce1129fdda7" kindref="member">XDsi_GetConfigParams</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dsi___config_parameters" kindref="compound">XDsi_ConfigParameters</ref><sp/>*ConfigInfo)</highlight></codeline>
+<codeline lineno="459"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="462"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(ConfigInfo<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>XDsi<sp/>Config<sp/>structure<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a148dc8d5b5992733b8504fc570a15305" kindref="member">Config</ref><sp/>=<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>;</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"></highlight></codeline>
+<codeline lineno="467"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Video<sp/>mode<sp/>transmission<sp/>sequence*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a9578d1e50519ec42ad991c9bdd459cc9" kindref="member">VideoMode</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="470"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" kindref="member">XDSI_PCR_VIDEOMODE_MASK</ref>,<sp/><ref refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" kindref="member">XDSI_PCR_VIDEOMODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="471"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Blank<sp/>Packet<sp/>Type*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="472"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1af4115683dda967c09f5801e4f36d3bcd" kindref="member">BlankPacketType</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="473"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="474"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga6ef282e9923450aa24813440b0d3166d" kindref="member">XDSI_PCR_BLLPTYPE_MASK</ref>,<sp/><ref refid="group__dsi_1ga72fda4b1dfd3be762e1f9edb46cd4cbb" kindref="member">XDSI_PCR_BLLPTYPE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="475"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>Blank<sp/>Packet<sp/>Mode*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5db0abb127dbd384356f552fc0f965f9" kindref="member">BLLPMode</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="478"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga8ae113e8b2d35582f48aae14848a9ec2" kindref="member">XDSI_PCR_BLLPMODE_MASK</ref>,<sp/><ref refid="group__dsi_1ga601afb13b1b8b27b9b6d7ba8ab7972d7" kindref="member">XDSI_PCR_BLLPMODE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>EOTP<sp/>Value*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1ad61ccf6a6fc23112623076e6d3e82623" kindref="member">EoTp</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gabc0ff6dc79f1ebd472b213955331d771" kindref="member">XDSI_PCR_EOTPENABLE_MASK</ref>,<sp/><ref refid="group__dsi_1ga8c2438103e15a67ad1a3d871da9df8c3" kindref="member">XDSI_PCR_EOTPENABLE_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Peripheral<sp/>timing<sp/>parameters<sp/>from<sp/>table<sp/>as<sp/>per<sp/>Resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="485"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>HSA<sp/>and<sp/>BLLP<sp/>in<sp/>Timing<sp/>1<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="486"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" kindref="member">HSyncWidth</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" kindref="member">XDSI_TIME1_HSA_MASK</ref>,<sp/><ref refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" kindref="member">XDSI_TIME1_HSA_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" kindref="member">BLLPBurst</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="490"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="491"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" kindref="member">XDSI_TIME1_BLLP_BURST_MASK</ref>,<sp/><ref refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" kindref="member">XDSI_TIME1_BLLP_BURST_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="492"><highlight class="normal"></highlight></codeline>
+<codeline lineno="493"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>HACT<sp/>and<sp/>VACT<sp/>in<sp/>Timing<sp/>2<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" kindref="member">HActive</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="495"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" kindref="member">XDSI_TIME2_HACT_MASK</ref>,<sp/><ref refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" kindref="member">XDSI_TIME2_HACT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="497"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" kindref="member">VActive</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="499"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" kindref="member">XDSI_TIME2_VACT_MASK</ref>,<sp/><ref refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" kindref="member">XDSI_TIME2_VACT_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="500"><highlight class="normal"></highlight></codeline>
+<codeline lineno="501"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>HBP<sp/>and<sp/>HFP<sp/>in<sp/>Timing<sp/>3<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="502"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" kindref="member">HBackPorch</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="503"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="504"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" kindref="member">XDSI_TIME3_HBP_MASK</ref>,<sp/><ref refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" kindref="member">XDSI_TIME3_HBP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="505"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" kindref="member">HFrontPorch</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="506"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="507"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" kindref="member">XDSI_TIME3_HFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" kindref="member">XDSI_TIME3_HFP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="508"><highlight class="normal"></highlight></codeline>
+<codeline lineno="509"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>VSA,<sp/>VBP<sp/>and<sp/>VFP<sp/>in<sp/>Vertical<sp/>Timing<sp/>4<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="510"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" kindref="member">VSyncWidth</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="511"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="512"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" kindref="member">XDSI_TIME4_VSA_MASK</ref>,<sp/><ref refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" kindref="member">XDSI_TIME4_VSA_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="513"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" kindref="member">VBackPorch</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="514"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="515"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" kindref="member">XDSI_TIME4_VBP_MASK</ref>,<sp/><ref refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" kindref="member">XDSI_TIME4_VBP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="516"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" kindref="member">VFrontPorch</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="517"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="518"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gacc660200910868714ec0c22d555237d0" kindref="member">XDSI_TIME4_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" kindref="member">XDSI_TIME4_VFP_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="519"><highlight class="normal"></highlight></codeline>
+<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Extended<sp/>VFP<sp/>in<sp/>Timing<sp/>5<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a5b80ccc98918a36a87e31ed5ac843135" kindref="member">Timing</ref>.<ref refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" kindref="member">VFrontPorch</ref><sp/>|=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" kindref="member">XDSI_TIME5_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" kindref="member">XDSI_TIME5_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" kindref="member">XDSI_TIME5_VFP_SHIFT</ref>)<sp/>&lt;&lt;<sp/>8;</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>Line<sp/>Time<sp/>and<sp/>BLLP<sp/>Time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1a8d7d3f2da7b8b292bf61f97d144491da" kindref="member">LineTime</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1ga59b5452a5b5f1076b77a024729ef910d" kindref="member">XDSI_LTIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga4aa0ee6eb41e7de52340066bd78af3b6" kindref="member">XDSI_LTIME_MASK</ref>,<sp/><ref refid="group__dsi_1ga8c26d704be758564707d5a0d169c2642" kindref="member">XDSI_LTIME_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigInfo-&gt;<ref refid="struct_x_dsi___config_parameters_1ae4a682beace1fdcc338207b2371e4a89" kindref="member">BLLPTime</ref><sp/>=<sp/>XDsi_GetBitField</highlight></codeline>
+<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,<sp/><ref refid="group__dsi_1gac838501f9d54d130a9b3599b7b9117f8" kindref="member">XDSI_BLLP_TIME_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gabdb4cb3cca3cc63b0768f17d86d2ad78" kindref="member">XDSI_BLLP_TIME_MASK</ref>,<sp/><ref refid="group__dsi_1gab33892b702ec12e0b363196d16a6467a" kindref="member">XDSI_BLLP_TIME_SHIFT</ref>);</highlight></codeline>
+<codeline lineno="532"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"></highlight></codeline>
+<codeline lineno="534"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="568" refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__dsi_1gad26d8689133a90687735f528ff96b97d" kindref="member">XDsi_SetVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,<sp/><ref refid="group__dsi_1ga7931c0f0d26ec1b2bc681f2efe0cf62f" kindref="member">XDsi_VideoMode</ref><sp/>VideoMode,</highlight></codeline>
+<codeline lineno="569"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XVidC_VideoMode<sp/>Resolution,<sp/>u16<sp/>BurstPacketSize)</highlight></codeline>
+<codeline lineno="570"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>XVidC_VideoTimingMode<sp/>*TimingMode<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="572"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="574"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(VideoMode<sp/>&lt;<sp/><ref refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62faa0ce23cebac0882bb704f18eec65f5cc" kindref="member">XDSI_VM_NUM_SUPPORTED</ref>);</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Resolution<sp/>&lt;<sp/>XVIDC_VM_NUM_SUPPORTED);</highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode<sp/>=<sp/>XVidC_GetVideoModeData(Resolution);</highlight></codeline>
+<codeline lineno="578"><highlight class="normal"></highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TimingMode<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight></codeline>
+<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Video<sp/>mode<sp/>transmission<sp/>sequence*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" kindref="member">XDSI_PCR_VIDEOMODE_MASK</ref>,</highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" kindref="member">XDSI_PCR_VIDEOMODE_SHIFT</ref>,<sp/>VideoMode);</highlight></codeline>
+<codeline lineno="586"><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Peripheral<sp/>timing<sp/>parameters<sp/>from<sp/>table<sp/>as<sp/>per<sp/>Resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="588"><highlight class="normal"></highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HSA<sp/>and<sp/>Burst<sp/>Packet<sp/>size<sp/>in<sp/>Timing<sp/>1<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="590"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" kindref="member">XDSI_TIME1_HSA_MASK</ref>,<sp/><ref refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" kindref="member">XDSI_TIME1_HSA_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.HSyncWidth);</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" kindref="member">XDSI_TIME1_BLLP_BURST_MASK</ref>,</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" kindref="member">XDSI_TIME1_BLLP_BURST_SHIFT</ref>,<sp/>BurstPacketSize);</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"></highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HACT<sp/>and<sp/>VACT<sp/>in<sp/>Timing<sp/>2<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,<sp/><ref refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" kindref="member">XDSI_TIME2_HACT_MASK</ref>,<sp/><ref refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" kindref="member">XDSI_TIME2_HACT_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.HActive);</highlight></codeline>
+<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" kindref="member">XDSI_TIME2_VACT_MASK</ref>,<sp/><ref refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" kindref="member">XDSI_TIME2_VACT_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.VActive);</highlight></codeline>
+<codeline lineno="604"><highlight class="normal"></highlight></codeline>
+<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HBP<sp/>and<sp/>HFP<sp/>in<sp/>Timing<sp/>3<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" kindref="member">XDSI_TIME3_HBP_MASK</ref>,<sp/><ref refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" kindref="member">XDSI_TIME3_HBP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.HBackPorch);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,<sp/><ref refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" kindref="member">XDSI_TIME3_HFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" kindref="member">XDSI_TIME3_HFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="611"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.HFrontPorch);</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"></highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>VSA,<sp/>VBP<sp/>and<sp/>VFP<sp/>in<sp/>Timing<sp/>4<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" kindref="member">XDSI_TIME4_VSA_MASK</ref>,<sp/><ref refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" kindref="member">XDSI_TIME4_VSA_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.F0PVSyncWidth);</highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" kindref="member">XDSI_TIME4_VBP_MASK</ref>,<sp/><ref refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" kindref="member">XDSI_TIME4_VBP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.F0PVBackPorch);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1gacc660200910868714ec0c22d555237d0" kindref="member">XDSI_TIME4_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" kindref="member">XDSI_TIME4_VFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.F0PVFrontPorch);</highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Extended<sp/>VFP<sp/>in<sp/>Timing<sp/>5<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="625"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" kindref="member">XDSI_TIME5_OFFSET</ref>,<sp/><ref refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" kindref="member">XDSI_TIME5_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" kindref="member">XDSI_TIME5_VFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="627"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TimingMode-&gt;Timing.F0PVFrontPorch<sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="628"><highlight class="normal"></highlight></codeline>
+<codeline lineno="629"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="630"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="631"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="668" refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__dsi_1gab9519a80289d049534bfbafefdc41c4e" kindref="member">XDsi_SetCustomVideoInterfaceTiming</ref>(<ref refid="struct_x_dsi" kindref="compound">XDsi</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga7931c0f0d26ec1b2bc681f2efe0cf62f" kindref="member">XDsi_VideoMode</ref><sp/>VideoMode,<sp/><ref refid="struct_x_dsi___video_timing" kindref="compound">XDsi_VideoTiming</ref><sp/><sp/>*Timing)</highlight></codeline>
+<codeline lineno="670"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="673"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Timing<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="674"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(VideoMode<sp/>&lt;<sp/><ref refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62faa0ce23cebac0882bb704f18eec65f5cc" kindref="member">XDSI_VM_NUM_SUPPORTED</ref>);</highlight></codeline>
+<codeline lineno="675"><highlight class="normal"></highlight></codeline>
+<codeline lineno="676"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>the<sp/>Video<sp/>mode<sp/>transmission<sp/>sequence*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="677"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="678"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga5473a7e6d9e1d01a628e9626c9ade095" kindref="member">XDSI_PCR_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga271f39b4ede2adc787ac512d872a1466" kindref="member">XDSI_PCR_VIDEOMODE_MASK</ref>,</highlight></codeline>
+<codeline lineno="679"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gad869da63d8dcc972866d7ab606f62a73" kindref="member">XDSI_PCR_VIDEOMODE_SHIFT</ref>,<sp/>VideoMode);</highlight></codeline>
+<codeline lineno="680"><highlight class="normal"></highlight></codeline>
+<codeline lineno="681"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Peripheral<sp/>timing<sp/>parameters<sp/>from<sp/>table<sp/>as<sp/>per<sp/>Resolution<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="682"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HSA<sp/>and<sp/>Burst<sp/>Packet<sp/>size<sp/>in<sp/>Timing<sp/>1<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="683"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField((InstancePtr)-&gt;Config.BaseAddr,</highlight></codeline>
+<codeline lineno="684"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" kindref="member">XDSI_TIME1_HSA_MASK</ref>,<sp/><ref refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" kindref="member">XDSI_TIME1_HSA_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="685"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" kindref="member">HSyncWidth</ref>);</highlight></codeline>
+<codeline lineno="686"><highlight class="normal"></highlight></codeline>
+<codeline lineno="687"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Burst<sp/>value<sp/>applicable<sp/>only<sp/>in<sp/>Burst<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="688"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(VideoMode<sp/>==<sp/><ref refid="group__dsi_1gga7931c0f0d26ec1b2bc681f2efe0cf62fa1fdb665221676fcc52a3f4a2e89c0fb2" kindref="member">XDSI_VM_BURST_MODE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="689"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="690"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" kindref="member">XDSI_TIME1_BLLP_BURST_MASK</ref>,</highlight></codeline>
+<codeline lineno="691"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" kindref="member">XDSI_TIME1_BLLP_BURST_SHIFT</ref>,<sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a140302217ee69895dc5661289af37cf8" kindref="member">BLLPBurst</ref>);</highlight></codeline>
+<codeline lineno="692"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="693"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="694"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="695"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga5121bc553dddc02a46d1217ae1f59cb2" kindref="member">XDSI_TIME1_BLLP_BURST_MASK</ref>,</highlight></codeline>
+<codeline lineno="696"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gaf929a8f5bc9aa8fb235dbee913b385c3" kindref="member">XDSI_TIME1_BLLP_BURST_SHIFT</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="697"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="698"><highlight class="normal"></highlight></codeline>
+<codeline lineno="699"><highlight class="normal"></highlight></codeline>
+<codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac4a366cd8b489f2300cf007185d74c6a" kindref="member">XDSI_TIME1_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga6ca60a035f038d32cc493b2add7658df" kindref="member">XDSI_TIME1_HSA_MASK</ref>,<sp/><ref refid="group__dsi_1ga7fb7c2dbe962b133f786d99190bc9f64" kindref="member">XDSI_TIME1_HSA_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a7650aff313a236a806819286cd8b2455" kindref="member">HSyncWidth</ref>);</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"></highlight></codeline>
+<codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HACT<sp/>and<sp/>VACT<sp/>in<sp/>Timing<sp/>2<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,<sp/><ref refid="group__dsi_1gabcd683e6c5c0ddca8d83b961c1c27571" kindref="member">XDSI_TIME2_HACT_MASK</ref>,</highlight></codeline>
+<codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gaaa4ff48185c352ee4048528679f61f0f" kindref="member">XDSI_TIME2_HACT_SHIFT</ref>,<sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1ac70bcb5607732c4f747bf8336b900610" kindref="member">HActive</ref>);</highlight></codeline>
+<codeline lineno="708"><highlight class="normal"></highlight></codeline>
+<codeline lineno="709"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="710"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gae376be8a524a2ed0c89edbbd4ef69e12" kindref="member">XDSI_TIME2_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga23fd9aec9678b9edee648c802e432708" kindref="member">XDSI_TIME2_VACT_MASK</ref>,<sp/><ref refid="group__dsi_1ga98f744957ce0523887308d0d240d62e7" kindref="member">XDSI_TIME2_VACT_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="711"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1abec61805b90042040bb99eee71843067" kindref="member">VActive</ref>);</highlight></codeline>
+<codeline lineno="712"><highlight class="normal"></highlight></codeline>
+<codeline lineno="713"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>HBP<sp/>and<sp/>HFP<sp/>in<sp/>Timing<sp/>3<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="714"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="715"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga78c45e2c8728415dfab29796abd2c7bc" kindref="member">XDSI_TIME3_HBP_MASK</ref>,<sp/><ref refid="group__dsi_1ga0a805d66d6f6f2bf59097b029e6b431d" kindref="member">XDSI_TIME3_HBP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="716"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a452cd59664dd726eb05e0cfb30cb00a4" kindref="member">HBackPorch</ref>);</highlight></codeline>
+<codeline lineno="717"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="718"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1gac71b3e52fa7de0307f51ab1f7131f732" kindref="member">XDSI_TIME3_OFFSET</ref>,<sp/><ref refid="group__dsi_1gaeb2b93d556f6bb2e46c31147cea739be" kindref="member">XDSI_TIME3_HFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga067a2b160256964ed106a368a8b076ab" kindref="member">XDSI_TIME3_HFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="719"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1aae1986959bbb08a04995ead71e50e9ee" kindref="member">HFrontPorch</ref>);</highlight></codeline>
+<codeline lineno="720"><highlight class="normal"></highlight></codeline>
+<codeline lineno="721"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>VSA,<sp/>VBP<sp/>and<sp/>VFP<sp/>in<sp/>Timing<sp/>4<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="722"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="723"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1gabedf15b8f6fccd8079018080ae7a5c33" kindref="member">XDSI_TIME4_VSA_MASK</ref>,<sp/><ref refid="group__dsi_1gae176d9e5d32984f3954dc074a8b61c18" kindref="member">XDSI_TIME4_VSA_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="724"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a89770b8a08d799533d74ffdd76d9ef80" kindref="member">VSyncWidth</ref>);</highlight></codeline>
+<codeline lineno="725"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="726"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1ga4997aca9165c650931dd9db4ff8a8030" kindref="member">XDSI_TIME4_VBP_MASK</ref>,<sp/><ref refid="group__dsi_1gaa40458dc22549ca1926f00e1e4621dcc" kindref="member">XDSI_TIME4_VBP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="727"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a27783adf0c5f9d371d26154813599665" kindref="member">VBackPorch</ref>);</highlight></codeline>
+<codeline lineno="728"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="729"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga85afc2d5f71f5a75f74c2011189e3dce" kindref="member">XDSI_TIME4_OFFSET</ref>,<sp/><ref refid="group__dsi_1gacc660200910868714ec0c22d555237d0" kindref="member">XDSI_TIME4_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1ga675c207e160bff65bb13acfb61a880fe" kindref="member">XDSI_TIME4_VFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="730"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" kindref="member">VFrontPorch</ref>);</highlight></codeline>
+<codeline lineno="731"><highlight class="normal"></highlight></codeline>
+<codeline lineno="732"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>Extended<sp/>VFP<sp/>in<sp/>Timing<sp/>5<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="733"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDsi_SetBitField(InstancePtr-&gt;<ref refid="struct_x_dsi_1a63fb2a71fdfd1d2d39a2b8827662b7c4" kindref="member">Config</ref>.<ref refid="struct_x_dsi___config_1a4691daa5e5f6b7f829e99c2075f45dcb" kindref="member">BaseAddr</ref>,</highlight></codeline>
+<codeline lineno="734"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__dsi_1ga2a81ddc1c99113e94de75b17bb9a7b83" kindref="member">XDSI_TIME5_OFFSET</ref>,<sp/><ref refid="group__dsi_1gae9213567f832c907adcde9bc546db5b7" kindref="member">XDSI_TIME5_VFP_MASK</ref>,<sp/><ref refid="group__dsi_1gaed4f0786b4332c55c442d182ba078c86" kindref="member">XDSI_TIME5_VFP_SHIFT</ref>,</highlight></codeline>
+<codeline lineno="735"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Timing-&gt;<ref refid="struct_x_dsi___video_timing_1a6367eedcbfb4eb0d61b994150d3e5e94" kindref="member">VFrontPorch</ref><sp/>&gt;&gt;<sp/>8);</highlight></codeline>
+<codeline lineno="736"><highlight class="normal"></highlight></codeline>
+<codeline lineno="737"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="738"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="739"><highlight class="normal"></highlight></codeline>
+<codeline lineno="740"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="757"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>StubErrCallback(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef,<sp/>u32<sp/>ErrorMask)</highlight></codeline>
+<codeline lineno="758"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="759"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)CallbackRef);</highlight></codeline>
+<codeline lineno="760"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<sp/>ErrorMask;</highlight></codeline>
+<codeline lineno="761"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoidAlways();</highlight></codeline>
+<codeline lineno="762"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi/src/xdsi.c"/>
+  </compounddef>
+</doxygen>

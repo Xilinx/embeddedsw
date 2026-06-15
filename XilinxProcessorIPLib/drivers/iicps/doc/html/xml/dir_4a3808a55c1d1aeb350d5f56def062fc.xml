@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_4a3808a55c1d1aeb350d5f56def062fc" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xiicps__eeprom__intr__example_8c">xiicps_eeprom_intr_example.c</innerfile>
+    <innerfile refid="xiicps__eeprom__polled__example_8c">xiicps_eeprom_polled_example.c</innerfile>
+    <innerfile refid="xiicps__intr__master__example_8c">xiicps_intr_master_example.c</innerfile>
+    <innerfile refid="xiicps__intr__multi__master__example_8c">xiicps_intr_multi_master_example.c</innerfile>
+    <innerfile refid="xiicps__intr__slave__example_8c">xiicps_intr_slave_example.c</innerfile>
+    <innerfile refid="xiicps__polled__master__example_8c">xiicps_polled_master_example.c</innerfile>
+    <innerfile refid="xiicps__polled__multi__master__example_8c">xiicps_polled_multi_master_example.c</innerfile>
+    <innerfile refid="xiicps__polled__slave__example_8c">xiicps_polled_slave_example.c</innerfile>
+    <innerfile refid="xiicps__repeated__start__example_8c">xiicps_repeated_start_example.c</innerfile>
+    <innerfile refid="xiicps__selftest__example_8c">xiicps_selftest_example.c</innerfile>
+    <innerfile refid="xiicps__slave__monitor__example_8c">xiicps_slave_monitor_example.c</innerfile>
+    <innerfile refid="xiicps__smbus__intr__master__example_8c">xiicps_smbus_intr_master_example.c</innerfile>
+    <innerfile refid="xiicps__smbus__intr__slave__example_8c">xiicps_smbus_intr_slave_example.c</innerfile>
+    <innerfile refid="xiicps__smbus__polled__master__example_8c">xiicps_smbus_polled_master_example.c</innerfile>
+    <innerfile refid="xiicps__smbus__polled__slave__example_8c">xiicps_smbus_polled_slave_example.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/iicps/examples/"/>
+  </compounddef>
+</doxygen>

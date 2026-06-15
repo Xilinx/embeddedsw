@@ -1,0 +1,550 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__kdf__example_8c" kind="file">
+    <compoundname>xasu_kdf_example.c</compoundname>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xil_util.h</includes>
+    <includes refid="xasu__client_8h" local="yes">xasu_client.h</includes>
+    <includes refid="xasu__kdf_8h" local="yes">xasu_kdf.h</includes>
+    <includes refid="xasu__shainfo_8h" local="yes">xasu_shainfo.h</includes>
+    <incdepgraph>
+      <node id="538">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="539" relation="include">
+        </childnode>
+      </node>
+      <node id="534">
+        <label>xasu_def.h</label>
+        <link refid="xasu__def_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+      <node id="528">
+        <label>xasu_sharedmem.h</label>
+        <link refid="xasu__sharedmem_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+      <node id="536">
+        <label>xasu_kdfinfo.h</label>
+        <link refid="xasu__kdfinfo_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="537" relation="include">
+        </childnode>
+        <childnode refid="532" relation="include">
+        </childnode>
+      </node>
+      <node id="525">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="527">
+        <label>xasu_client.h</label>
+        <link refid="xasu__client_8h"/>
+        <childnode refid="528" relation="include">
+        </childnode>
+        <childnode refid="530" relation="include">
+        </childnode>
+        <childnode refid="531" relation="include">
+        </childnode>
+        <childnode refid="533" relation="include">
+        </childnode>
+        <childnode refid="534" relation="include">
+        </childnode>
+      </node>
+      <node id="535">
+        <label>xasu_kdf.h</label>
+        <link refid="xasu__kdf_8h"/>
+        <childnode refid="527" relation="include">
+        </childnode>
+        <childnode refid="536" relation="include">
+        </childnode>
+      </node>
+      <node id="526">
+        <label>xil_util.h</label>
+      </node>
+      <node id="532">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="530">
+        <label>xilmailbox.h</label>
+      </node>
+      <node id="531">
+        <label>xasu_perf.h</label>
+        <link refid="xasu__perf_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="532" relation="include">
+        </childnode>
+      </node>
+      <node id="539">
+        <label>xstatus.h</label>
+      </node>
+      <node id="529">
+        <label>xil_types.h</label>
+      </node>
+      <node id="537">
+        <label>xasu_hmacinfo.h</label>
+        <link refid="xasu__hmacinfo_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="532" relation="include">
+        </childnode>
+      </node>
+      <node id="524">
+        <label>xasu_kdf_example.c</label>
+        <link refid="xasu_kdf_example.c"/>
+        <childnode refid="525" relation="include">
+        </childnode>
+        <childnode refid="526" relation="include">
+        </childnode>
+        <childnode refid="527" relation="include">
+        </childnode>
+        <childnode refid="535" relation="include">
+        </childnode>
+        <childnode refid="538" relation="include">
+        </childnode>
+      </node>
+      <node id="533">
+        <label>xasu_status.h</label>
+        <link refid="xasu__status_8h"/>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga970db3253bcdb665fb87caacae1d0725" prot="public" static="no">
+        <name>ASU_CACHE_DISABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" prot="public" static="no">
+        <name>ASU_KDF_OUTPUT_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>ASU KDF length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga850c619ebd660b0bc4994397a5d1f6b2" prot="public" static="no">
+        <name>ASU_KDF_KEY_LEN_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>ASU KDF Key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xasu__kdf__client__example_1ga2fda5ee0c63d9b61b2bc0041c81b9019" prot="public" static="no">
+        <name>ASU_KDF_FIXED_DATA_LEN_IN_BYTES</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>ASU KDF Fixed data length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga13dc92fe1791e6afc788e4836dadf90a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Key[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Key</name>
+        <initializer>= {
+	0x5EU, 0x7BU, 0x3BU, 0x81U, 0xDEU, 0x4DU, 0xEEU, 0x2EU,
+	0xB2U, 0x21U, 0x67U, 0x4AU, 0x5DU, 0xA0U, 0x8FU, 0x22U,
+	0xC6U, 0x69U, 0x41U, 0xDCU, 0xB1U, 0x98U, 0x4CU, 0xB2U,
+	0x3FU, 0xD0U, 0x2EU, 0x5EU, 0x7FU, 0x55U, 0x16U, 0x4FU,
+	0x60U, 0x4AU, 0xF9U, 0xC1U, 0x4EU, 0xE8U, 0xA7U, 0x0BU,
+	0x42U, 0x77U, 0x55U, 0x29U, 0xC9U, 0xE3U, 0xA5U, 0x89U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1gaed5faff88172a95322e1bf46fdbe941a" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 Data[]</definition>
+        <argsstring>[]</argsstring>
+        <name>Data</name>
+        <initializer>= {
+	0xE3U, 0x7BU, 0x6DU, 0xD6U, 0xCAU, 0x4FU, 0xA7U, 0xA5U,
+	0x5AU, 0x05U, 0x49U, 0x0FU, 0x5FU, 0xA0U, 0x82U, 0x88U
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga3ff0e82fd31f44ca4633938da2546b3d" prot="public" static="yes" mutable="no">
+        <type>u8</type>
+        <definition>u8 KdfOutput[ASU_KDF_OUTPUT_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_KDF_OUTPUT_LEN_IN_BYTES]</argsstring>
+        <name>KdfOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga4ac505e8e61dfd81cfb88f8244b2a782" prot="public" static="yes" mutable="no">
+        <type>const u8</type>
+        <definition>const u8 ExpKdf[ASU_KDF_OUTPUT_LEN_IN_BYTES]</definition>
+        <argsstring>[ASU_KDF_OUTPUT_LEN_IN_BYTES]</argsstring>
+        <name>ExpKdf</name>
+        <initializer>= {
+	0xEBU, 0x27U, 0xD2U, 0xF7U, 0x40U, 0xBAU, 0x83U, 0xF2U,
+	0x68U, 0x20U, 0xE5U, 0x6AU, 0xFEU, 0x6CU, 0x4CU, 0x93U,
+	0x73U, 0x1FU, 0x3AU, 0x44U, 0x35U, 0x32U, 0xACU, 0xCAU,
+	0x56U, 0x7EU, 0x6EU, 0xB1U, 0xAFU, 0x33U, 0xDCU, 0xE6U,
+	0xAFU, 0xFCU, 0xD3U, 0x4BU, 0x08U, 0x1CU, 0xEBU, 0x22U,
+	0xBDU, 0x8CU, 0x94U, 0x5DU, 0xC9U, 0xA9U, 0xBCU, 0x8DU
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga15547568239beb028a917f170b866338" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 Notify</definition>
+        <argsstring></argsstring>
+        <name>Notify</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+<para>To notify the call back from client library. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xasu__kdf__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>volatile u32 ErrorStatus</definition>
+        <argsstring></argsstring>
+        <name>ErrorStatus</name>
+        <initializer>= XST_FAILURE</initializer>
+        <briefdescription>
+<para>Status variable to store the error returned from server. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="110" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1gac20128c8a8de6861bb634f8d8151706a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>static s32 Asu_KdfExample</definition>
+        <argsstring>(void)</argsstring>
+        <name>Asu_KdfExample</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function uses input key and fixed input data and calculates KDF output key. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            The purpose of this function is to illustrate how to use the ASU KDF client APIs.
+</verbatim></para><para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF successfully generated for given inputS.</para></listitem><listitem><para>XST_FAILURE, if the KDF generation fails.//! [KDF example] </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Initialize mailbox instance. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="151" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1gaa46b8a399946c1bb45c40244fc6c1089" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XAsu_KdfCallBackRef</definition>
+        <argsstring>(void *CallBackRef, u32 Status)</argsstring>
+        <name>XAsu_KdfCallBackRef</name>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Call back function which will be registered with library to notify the completion of request. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the call back reference. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Status of the request will be passed as an argument during callback<itemizedlist>
+<listitem><para>0 Upon success</para></listitem><listitem><para>Error code from ASUFW application upon any error </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="242" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1ga250a7590f583c113ad3b30b310915de0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Asu_PrintKdf</definition>
+        <argsstring>(const u8 *Kdf)</argsstring>
+        <name>Asu_PrintKdf</name>
+        <param>
+          <type>const u8 *</type>
+          <declname>Kdf</declname>
+        </param>
+        <briefdescription>
+<para>This function prints the given KDF on the console. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Kdf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to given array. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="221" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xasu__kdf__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(void)</argsstring>
+        <name>main</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Main function to call the Asu_KdfExample. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF successfully generated for given inputs.</para></listitem><listitem><para>XST_FAILURE, if the KDF generation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c" bodystart="122" bodyend="138"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="61"><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>*******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_util.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__client_8h" kindref="compound">xasu_client.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__kdf_8h" kindref="compound">xasu_kdf.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__shainfo_8h" kindref="compound">xasu_shainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>*****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">/***************************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ASU_KDF_OUTPUT_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xasu__kdf__client__example_1ga850c619ebd660b0bc4994397a5d1f6b2" refkind="member"><highlight class="preprocessor">#define<sp/>ASU_KDF_KEY_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xasu__kdf__client__example_1ga2fda5ee0c63d9b61b2bc0041c81b9019" refkind="member"><highlight class="preprocessor">#define<sp/>ASU_KDF_FIXED_DATA_LEN_IN_BYTES<sp/>(16U)<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>Asu_KdfExample(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_KdfCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Asu_PrintKdf(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Kdf);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Variable<sp/>Definitions<sp/>***************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Key[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Key&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5EU,<sp/>0x7BU,<sp/>0x3BU,<sp/>0x81U,<sp/>0xDEU,<sp/>0x4DU,<sp/>0xEEU,<sp/>0x2EU,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xB2U,<sp/>0x21U,<sp/>0x67U,<sp/>0x4AU,<sp/>0x5DU,<sp/>0xA0U,<sp/>0x8FU,<sp/>0x22U,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xC6U,<sp/>0x69U,<sp/>0x41U,<sp/>0xDCU,<sp/>0xB1U,<sp/>0x98U,<sp/>0x4CU,<sp/>0xB2U,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x3FU,<sp/>0xD0U,<sp/>0x2EU,<sp/>0x5EU,<sp/>0x7FU,<sp/>0x55U,<sp/>0x16U,<sp/>0x4FU,</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x60U,<sp/>0x4AU,<sp/>0xF9U,<sp/>0xC1U,<sp/>0x4EU,<sp/>0xE8U,<sp/>0xA7U,<sp/>0x0BU,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x42U,<sp/>0x77U,<sp/>0x55U,<sp/>0x29U,<sp/>0xC9U,<sp/>0xE3U,<sp/>0xA5U,<sp/>0x89U</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>Data[]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.Data&quot;</highlight><highlight class="normal">)))<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xE3U,<sp/>0x7BU,<sp/>0x6DU,<sp/>0xD6U,<sp/>0xCAU,<sp/>0x4FU,<sp/>0xA7U,<sp/>0xA5U,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x5AU,<sp/>0x05U,<sp/>0x49U,<sp/>0x0FU,<sp/>0x5FU,<sp/>0xA0U,<sp/>0x82U,<sp/>0x88U</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>u8<sp/>KdfOutput[<ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>]<sp/>__attribute__<sp/>((section<sp/>(</highlight><highlight class="stringliteral">&quot;.data.KdfOutput&quot;</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>ExpKdf[<ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xEBU,<sp/>0x27U,<sp/>0xD2U,<sp/>0xF7U,<sp/>0x40U,<sp/>0xBAU,<sp/>0x83U,<sp/>0xF2U,</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x68U,<sp/>0x20U,<sp/>0xE5U,<sp/>0x6AU,<sp/>0xFEU,<sp/>0x6CU,<sp/>0x4CU,<sp/>0x93U,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x73U,<sp/>0x1FU,<sp/>0x3AU,<sp/>0x44U,<sp/>0x35U,<sp/>0x32U,<sp/>0xACU,<sp/>0xCAU,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x56U,<sp/>0x7EU,<sp/>0x6EU,<sp/>0xB1U,<sp/>0xAFU,<sp/>0x33U,<sp/>0xDCU,<sp/>0xE6U,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xAFU,<sp/>0xFCU,<sp/>0xD3U,<sp/>0x4BU,<sp/>0x08U,<sp/>0x1CU,<sp/>0xEBU,<sp/>0x22U,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xBDU,<sp/>0x8CU,<sp/>0x94U,<sp/>0x5DU,<sp/>0xC9U,<sp/>0xA9U,<sp/>0xBCU,<sp/>0x8DU</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="group__xasu__kdf__client__example_1ga15547568239beb028a917f170b866338" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u8<sp/><ref refid="group__xasufw__ecc__client__example_1ga15547568239beb028a917f170b866338" kindref="member">Notify</ref><sp/>=<sp/>0;<sp/></highlight></codeline>
+<codeline lineno="110" refid="group__xasu__kdf__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" refkind="member"><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>u32<sp/><ref refid="group__xasufw__ecc__client__example_1ga89bdef12ea1ad95bf3acb2ef59e4d299" kindref="member">ErrorStatus</ref><sp/>=<sp/>XST_FAILURE;<sp/></highlight></codeline>
+<codeline lineno="113"><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="122" refid="group__xasu__kdf__client__example_1ga840291bc02cba5474a4cb46a9b9566fe" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group___overview_1ga840291bc02cba5474a4cb46a9b9566fe" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="127"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheDisable();</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Asu_KdfExample();</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((ErrorStatus<sp/>==<sp/>XST_SUCCESS)<sp/>&amp;&amp;<sp/>(Status<sp/>==<sp/>XST_SUCCESS))<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;Successfully<sp/>ran<sp/>KDF<sp/>example&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;KDF<sp/>Example<sp/>failed&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="151"><highlight class="keyword">static</highlight><highlight class="normal"><sp/>s32<sp/>Asu_KdfExample(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XAsu_ClientParams<sp/>ClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref><sp/>KdfClientParam<sp/>=<sp/>{0U};</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XMailbox<sp/>MailboxInstance;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(s32)XMailbox_Initialize(&amp;MailboxInstance,<sp/>XPAR_XIPIPSU_0_BASEADDR);</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Mailbox<sp/>initialize<sp/>failed:<sp/>%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>the<sp/>client<sp/>instance<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__client__info_1ga3dc785000c560adedbb23beb0404beee" kindref="member">XAsu_ClientInit</ref>(&amp;MailboxInstance);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Client<sp/>initialize<sp/>failed:%08x<sp/>\r\n&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>ASU_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)Data,<sp/><ref refid="group__xasu__kdf__client__example_1ga2fda5ee0c63d9b61b2bc0041c81b9019" kindref="member">ASU_KDF_FIXED_DATA_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((UINTPTR)Key,<sp/><ref refid="group__xasu__kdf__client__example_1ga850c619ebd660b0bc4994397a5d1f6b2" kindref="member">ASU_KDF_KEY_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((UINTPTR)KdfOutput,<sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Inputs<sp/>of<sp/>client<sp/>request<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.Priority<sp/>=<sp/><ref refid="group__xasu__client__info_1gaf4bee00214accc868d4697e6745d83ca" kindref="member">XASU_PRIORITY_HIGH</ref>;</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.SecureFlag<sp/>=<sp/><ref refid="group__xasu__common__defs_1ga2ce83e6be7ef8a6dc0ec9067b7e8f396" kindref="member">XASU_CMD_SECURE</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackFuncPtr<sp/>=<sp/>(<ref refid="group__xasu__client__info_1gab35273f00eccc22237ed1fa5cffda558" kindref="member">XAsuClient_ResponseHandler</ref>)((</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)XAsu_KdfCallBackRef);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ClientParam.CallBackRefPtr<sp/>=<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*)&amp;ClientParam;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" kindref="member">ShaType</ref><sp/>=<sp/>(u8)<ref refid="group__xasu__common__defs_1ga7af115dffedb0e4d090e6fa4561a0693" kindref="member">XASU_SHA3_TYPE</ref>;</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" kindref="member">ShaMode</ref><sp/>=<sp/>(u8)<ref refid="group__xasu__common__defs_1gaa1612fa7174ed6da5dafeb55d8af9381" kindref="member">XASU_SHA_MODE_384</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" kindref="member">KeyInAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Key;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>=<sp/><ref refid="group__xasu__kdf__client__example_1ga850c619ebd660b0bc4994397a5d1f6b2" kindref="member">ASU_KDF_KEY_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" kindref="member">KeyId</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" kindref="member">ContextAddr</ref><sp/>=<sp/>(u64)(UINTPTR)Data;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" kindref="member">ContextLen</ref><sp/>=<sp/><ref refid="group__xasu__kdf__client__example_1ga2fda5ee0c63d9b61b2bc0041c81b9019" kindref="member">ASU_KDF_FIXED_DATA_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" kindref="member">KeyOutAddr</ref><sp/>=<sp/>(u64)(UINTPTR)KdfOutput;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfClientParam.<ref refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" kindref="member">KeyOutLen</ref><sp/>=<sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" kindref="member">XAsu_KdfGenerate</ref>(&amp;ClientParam,<sp/>&amp;KdfClientParam);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Calculation<sp/>of<sp/>KDF<sp/>failed,<sp/>Status<sp/>=<sp/>%x<sp/>\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!Notify);</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>KDF<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>Status<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ErrorStatus<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>KDF<sp/>client<sp/>example<sp/>failed<sp/>with<sp/>error<sp/>from<sp/>server<sp/>=<sp/>%08x&quot;</highlight><highlight class="normal">,<sp/>ErrorStatus);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>xil_printf(</highlight><highlight class="stringliteral">&quot;\r\n<sp/>Successfully<sp/>ran<sp/>KDF<sp/>client<sp/>example<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="221"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Asu_PrintKdf(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Kdf)</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Index;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0U;<sp/>Index<sp/>&lt;<sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;%02x<sp/>&quot;</highlight><highlight class="normal">,<sp/>Kdf[Index]);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;<sp/>\r\n<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="242"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XAsu_KdfCallBackRef(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,<sp/>u32<sp/>Status)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)CallBackRef;</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ErrorStatus<sp/>=<sp/>Status;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Example:<sp/>Received<sp/>response\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>0x0U)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;KDF<sp/>example<sp/>is<sp/>failed<sp/>with<sp/>the<sp/>response<sp/>%x\n\r&quot;</highlight><highlight class="normal">,<sp/>Status);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Calculated<sp/>KDF<sp/>key<sp/>output<sp/>\r\n<sp/>&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Asu_PrintKdf((u8<sp/>*)(UINTPTR)&amp;KdfOutput);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>Xil_SMemCmp_CT(ExpKdf,<sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>,<sp/>KdfOutput,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>,<sp/><ref refid="group__xasu__kdf__client__example_1ga4a7bf96b1fc513eec7f940b0d4513876" kindref="member">ASU_KDF_OUTPUT_LEN_IN_BYTES</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;Expected<sp/>KDF<sp/>key<sp/>output<sp/>\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Asu_PrintKdf(ExpKdf);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XilAsu_Printf(</highlight><highlight class="stringliteral">&quot;KDF<sp/>Example<sp/>Failed<sp/>at<sp/>KDF<sp/>Comparison\r\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Update<sp/>the<sp/>variable<sp/>to<sp/>notify<sp/>the<sp/>callback<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Notify<sp/>=<sp/>1U;</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_kdf_example.c"/>
+  </compounddef>
+</doxygen>

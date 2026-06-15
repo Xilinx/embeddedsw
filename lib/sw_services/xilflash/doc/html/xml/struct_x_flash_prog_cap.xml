@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_flash_prog_cap" kind="struct" prot="public">
+    <compoundname>XFlashProgCap</compoundname>
+    <includes local="no">xilflash_properties.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_flash_prog_cap_1aeb0b9b7bc3384993a876ba5d9e318f70" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashProgCap::WriteBufferSize</definition>
+        <argsstring></argsstring>
+        <name>WriteBufferSize</name>
+        <briefdescription>
+<para>Number of bytes that can be programmed at once. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_prog_cap_1af7555f0df244d8825062bc9526a82c93" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashProgCap::WriteBufferAlignmentMask</definition>
+        <argsstring></argsstring>
+        <name>WriteBufferAlignmentMask</name>
+        <briefdescription>
+<para>Alignment of the write buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_flash_prog_cap_1add074dc9a8025851bcf5cb22337d90a6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XFlashProgCap::EraseQueueSize</definition>
+        <argsstring></argsstring>
+        <name>EraseQueueSize</name>
+        <briefdescription>
+<para>Number of erase blocks that can be queued up at once. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Programming parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilflash/src/include/xilflash_properties.h" bodystart="84" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_flash_prog_cap_1add074dc9a8025851bcf5cb22337d90a6" prot="public" virt="non-virtual"><scope>XFlashProgCap</scope><name>EraseQueueSize</name></member>
+      <member refid="struct_x_flash_prog_cap_1af7555f0df244d8825062bc9526a82c93" prot="public" virt="non-virtual"><scope>XFlashProgCap</scope><name>WriteBufferAlignmentMask</name></member>
+      <member refid="struct_x_flash_prog_cap_1aeb0b9b7bc3384993a876ba5d9e318f70" prot="public" virt="non-virtual"><scope>XFlashProgCap</scope><name>WriteBufferSize</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

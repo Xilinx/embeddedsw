@@ -1,0 +1,815 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__mutex" kind="group">
+    <compoundname>mutex</compoundname>
+    <title>Overview</title>
+    <innerclass refid="struct_x_mutex___config" prot="public">XMutex_Config</innerclass>
+    <innerclass refid="struct_x_mutex" prot="public">XMutex</innerclass>
+      <sectiondef kind="user-defined">
+      <header>Register Offset Definitions</header>
+      <description><para>Register offsets within a Mutex, there are multiple Mutexes within a single device </para></description>
+      <memberdef kind="define" id="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" prot="public" static="no">
+        <name>XMU_MUTEX_REG_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Mutex register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" compoundref="xmutex_8c" startline="241" endline="252">XMutex_IsLocked</referencedby>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1ga7317a6291745987d25c994702005fff2" prot="public" static="no">
+        <name>XMU_USER_REG_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>User register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" compoundref="xmutex_8c" startline="312" endline="325">XMutex_GetUser</referencedby>
+        <referencedby refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" compoundref="xmutex_8c" startline="349" endline="362">XMutex_SetUser</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Mutex Register Bit Definitions</header>
+      <memberdef kind="define" id="group__mutex_1ga086991b467a934c97022a305bb957977" prot="public" static="no">
+        <name>LOCKED_BIT</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>This is the Lock bit. </para>        </briefdescription>
+        <detaileddescription>
+<para>Set to 1 indicates that the lock is currently owned by the processor ID specified by the CPU_ID (OWNER_MASK) in this register. Set to 0 indicates that the lock is free. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" compoundref="xmutex_8c" startline="241" endline="252">XMutex_IsLocked</referencedby>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1ga97587665957065c60155f02edb2d195d" prot="public" static="no">
+        <name>OWNER_MASK</name>
+        <initializer>0x000001FE</initializer>
+        <briefdescription>
+<para>This is CPU_ID Mask. </para>        </briefdescription>
+        <detaileddescription>
+<para>CPU_ID indicates the ID the processor holding the lock. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="74" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" prot="public" static="no">
+        <name>OWNER_SHIFT</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>This is CPU_ID Shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="79" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref></type>
+        <definition>XMutex_Config XMutex_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XMutex_ConfigTable</name>
+        <initializer>= {
+	{
+		XPAR_MUTEX_0_DEVICE_ID,
+		XPAR_MUTEX_0_BASEADDR,
+		XPAR_MUTEX_0_NUM_MUTEX,
+		XPAR_MUTEX_0_ENABLE_USER
+	}
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_g.c" line="42" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_g.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__mutex_1gaa6144336e4a9674cb9a3f2c5c0f0f79c" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref></type>
+        <definition>XMutex_Config XMutex_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XMutex_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_sinit.c" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_g.c" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_CfgInitialize</definition>
+        <argsstring>(XMutex *InstancePtr, XMutex_Config *ConfigPtr, UINTPTR EffectiveAddress)</argsstring>
+        <name>XMutex_CfgInitialize</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref> *</type>
+          <declname>ConfigPtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>EffectiveAddress</declname>
+        </param>
+        <briefdescription>
+<para>Initializes a specific Mutex instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ConfigPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device configuration structure containing required HW build data. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EffectiveAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Physical address of the hardware in a Virtual Memory operating system environment. It is the Base Address in a stand alone environment.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="76" bodyend="97"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="struct_x_mutex_1aab67818beece616d3da30ef3944681e8" compoundref="xmutex_8h" startline="141">XMutex::IsReady</references>
+        <references refid="struct_x_mutex___config_1a6a5e5f976fbe7c908f0595ee6d6ed0ee" compoundref="xmutex_8h" startline="128">XMutex_Config::NumMutex</references>
+        <references refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</references>
+        <referencedby refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" compoundref="xmutex__tapp__example_8c" startline="165" endline="219">MutexExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMutex_Lock</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber)</argsstring>
+        <name>XMutex_Lock</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <briefdescription>
+<para>Locks a particular Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call blocks till the Mutex is locked.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>XMutex_Trylock is a blocking call. This call blocks until the user gets the lock.</para></listitem><listitem><para>Use XMutex_Trylock for a Non-Blocking call. The user gets the lock if it is available and returns immediately if the lock is not available. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="119" bodyend="137"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga086991b467a934c97022a305bb957977" compoundref="xmutex__hw_8h" startline="63">LOCKED_BIT</references>
+        <references refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" compoundref="xmutex__hw_8h" startline="79">OWNER_SHIFT</references>
+        <references refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" compoundref="xmutex__hw_8h" startline="53">XMU_MUTEX_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+        <references refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" compoundref="xmutex__hw_8h" startline="131">XMutex_WriteReg</references>
+        <referencedby refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" compoundref="xmutex__tapp__example_8c" startline="165" endline="219">MutexExample</referencedby>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_Trylock</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber)</argsstring>
+        <name>XMutex_Trylock</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <briefdescription>
+<para>Locks a particular Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para>Call returns immediately if the Mutex is already locked (This is Non-Blocking call).</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if locking was successful.</para></listitem><listitem><para>XST_DEVICE_BUSY if the Mutex was found to be already locked</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>This is Non-Blocking call, the user gets the lock if it is available else XST_DEVICE_BUSY is returned.</para></listitem><listitem><para>Use XMutex_Lock if you need to block until a lock is obtained. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="161" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="161" bodyend="179"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga086991b467a934c97022a305bb957977" compoundref="xmutex__hw_8h" startline="63">LOCKED_BIT</references>
+        <references refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" compoundref="xmutex__hw_8h" startline="79">OWNER_SHIFT</references>
+        <references refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" compoundref="xmutex__hw_8h" startline="53">XMU_MUTEX_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+        <references refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" compoundref="xmutex__hw_8h" startline="131">XMutex_WriteReg</references>
+        <referencedby refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" compoundref="xmutex__tapp__example_8c" startline="165" endline="219">MutexExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_Unlock</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber)</argsstring>
+        <name>XMutex_Unlock</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <briefdescription>
+<para>Unlocks a particular Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><verbatim>    - XST_SUCCESS if locking was successful.
+    - XST_FAILURE if the Mutex was locked by process with
+      different ID.
+</verbatim></para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="201" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="201" bodyend="221"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga97587665957065c60155f02edb2d195d" compoundref="xmutex__hw_8h" startline="74">OWNER_MASK</references>
+        <references refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" compoundref="xmutex__hw_8h" startline="79">OWNER_SHIFT</references>
+        <references refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" compoundref="xmutex__hw_8h" startline="53">XMU_MUTEX_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+        <references refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" compoundref="xmutex__hw_8h" startline="131">XMutex_WriteReg</references>
+        <referencedby refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" compoundref="xmutex__tapp__example_8c" startline="165" endline="219">MutexExample</referencedby>
+        <referencedby refid="group__mutex_1gacb4152fb008849bcb87006d7bd0a97a8" compoundref="xmutex_8c" startline="76" endline="97">XMutex_CfgInitialize</referencedby>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_IsLocked</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber)</argsstring>
+        <name>XMutex_IsLocked</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current lock state of a Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>TRUE if locked</para></listitem><listitem><para>FALSE if unlocked</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="241" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="241" bodyend="252"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga086991b467a934c97022a305bb957977" compoundref="xmutex__hw_8h" startline="63">LOCKED_BIT</references>
+        <references refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" compoundref="xmutex__hw_8h" startline="53">XMU_MUTEX_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XMutex_GetStatus</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber, u32 *Locked, u32 *Owner)</argsstring>
+        <name>XMutex_GetStatus</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Locked</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>Owner</declname>
+        </param>
+        <briefdescription>
+<para>Gets the current status of a Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Locked</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer where the current lock status is stored. Sets memory pointed to by &apos;Locked&apos; to 1 if the Mutex is locked and 0 if it is unlocked. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Owner</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer where the current owner status is stored. . If the Mutex is locked, the memory pointed to by &apos;Owner&apos; is updated to reflect the CPU ID that has currently locked this Mutex.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="275" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="275" bodyend="289"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga086991b467a934c97022a305bb957977" compoundref="xmutex__hw_8h" startline="63">LOCKED_BIT</references>
+        <references refid="group__mutex_1ga97587665957065c60155f02edb2d195d" compoundref="xmutex__hw_8h" startline="74">OWNER_MASK</references>
+        <references refid="group__mutex_1gad3725eb84e9d09431334eecbcf66bcd1" compoundref="xmutex__hw_8h" startline="79">OWNER_SHIFT</references>
+        <references refid="group__mutex_1gac717e990a2cbe85f19525c46aefc84b6" compoundref="xmutex__hw_8h" startline="53">XMU_MUTEX_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+        <referencedby refid="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" compoundref="xmutex__selftest_8c" startline="65" endline="110">XMutex_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_GetUser</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber, u32 *User)</argsstring>
+        <name>XMutex_GetUser</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>User</declname>
+        </param>
+        <briefdescription>
+<para>Gets the USER register of a Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>User</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to an u32 where the current user register value is stored by this function. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful. Memory pointed to by User is updated to reflect the contents of the user register.</para></listitem><listitem><para>XST_NO_FEATURE if the Mutex was not configured with a USER register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="312" bodyend="325"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="struct_x_mutex___config_1aee8b1e02a59b48c5b337d6701e3661ce" compoundref="xmutex_8h" startline="129">XMutex_Config::UserReg</references>
+        <references refid="group__mutex_1ga7317a6291745987d25c994702005fff2" compoundref="xmutex__hw_8h" startline="54">XMU_USER_REG_OFFSET</references>
+        <references refid="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" compoundref="xmutex__hw_8h" startline="112">XMutex_ReadReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga941e13d2534884adf4926f05bae3966e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_SetUser</definition>
+        <argsstring>(XMutex *InstancePtr, u8 MutexNumber, u32 User)</argsstring>
+        <name>XMutex_SetUser</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>MutexNumber</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>User</declname>
+        </param>
+        <briefdescription>
+<para>Sets the USER register of a Mutex lock within a Mutex device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex lock within the device to operate on. Each device may contain multiple Mutex locks. The Mutex number is a zero based number with a range of 0 - (InstancePtr-&gt;Config.NumMutex - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>User</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the value to update the USER register with.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the USER register is written with the given value .</para></listitem><listitem><para>XST_NO_FEATURE if the Mutex was not configured with a USER register.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" line="349" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.c" bodystart="349" bodyend="362"/>
+        <references refid="struct_x_mutex___config_1a702073a45ef5b790e5c16cee5bb3a051" compoundref="xmutex_8h" startline="127">XMutex_Config::BaseAddress</references>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="struct_x_mutex___config_1aee8b1e02a59b48c5b337d6701e3661ce" compoundref="xmutex_8h" startline="129">XMutex_Config::UserReg</references>
+        <references refid="group__mutex_1ga7317a6291745987d25c994702005fff2" compoundref="xmutex__hw_8h" startline="54">XMU_USER_REG_OFFSET</references>
+        <references refid="group__mutex_1ga33160589a1793006209e4e259ca7de35" compoundref="xmutex__hw_8h" startline="131">XMutex_WriteReg</references>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga08913f199dc5f5ce55779aea1c987ab0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref> *</type>
+        <definition>XMutex_Config * XMutex_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XMutex_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>Looks up the device configuration based on the unique device ID/BaseAddress. </para>        </briefdescription>
+        <detaileddescription>
+<para>The XMutex_ConfigTable[] contains the configuration info for each device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the device</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration found or NULL if the specified device ID/BaseAddress was not found. See <ref refid="xmutex_8h" kindref="compound">xmutex.h</ref> for the definition of <ref refid="struct_x_mutex___config" kindref="compound">XMutex_Config</ref>.</para></simplesect>
+<simplesect kind="note"><para>In XSCT/classic flow, DeviceId is used to look up the device configuration. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="170" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_sinit.c" bodystart="87" bodyend="101"/>
+        <references refid="struct_x_mutex___config_1aadb73cbe51d07581ddf8d070fe28f40a" compoundref="xmutex_8h" startline="125">XMutex_Config::Name</references>
+        <referencedby refid="xmutex__tapp__example_8c_1a0206be6b117469067609f14d5dc6d07c" compoundref="xmutex__tapp__example_8c" startline="165" endline="219">MutexExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__mutex_1ga1599a86dd180f3bd789a2fc472e9aa29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XMutex_SelfTest</definition>
+        <argsstring>(XMutex *InstancePtr)</argsstring>
+        <name>XMutex_SelfTest</name>
+        <param>
+          <type><ref refid="struct_x_mutex" kindref="compound">XMutex</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Selftest a particular Mutex hardware core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if test was successful.</para></listitem><listitem><para>XST_FAILURE if test was not successful.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para></para></simplesect>
+This test is destructive. It will fail if the Mutex is currently being used. This is also a blocking call, if there is another process which has the Mutex, the first _lock will hand the test until the other process releases it. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_selftest.c" bodystart="65" bodyend="110"/>
+        <references refid="struct_x_mutex_1a7546022d3c935b840c762b763b94b460" compoundref="xmutex_8h" startline="140">XMutex::Config</references>
+        <references refid="group__mutex_1ga086991b467a934c97022a305bb957977" compoundref="xmutex__hw_8h" startline="63">LOCKED_BIT</references>
+        <references refid="struct_x_mutex___config_1a6a5e5f976fbe7c908f0595ee6d6ed0ee" compoundref="xmutex_8h" startline="128">XMutex_Config::NumMutex</references>
+        <references refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</references>
+        <references refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" compoundref="xmutex_8c" startline="241" endline="252">XMutex_IsLocked</references>
+        <references refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</references>
+        <references refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__mutex_1ga12f26d74626ae4179bad889dc5a3e6c9" prot="public" static="no">
+        <name>XMUTEX_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" line="102" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1ga60f85a9b89886d33d2e255bcf8abb0f2" prot="public" static="no">
+        <name>XMUTEX_HW_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="34" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1gac14e6e73d44fa8510ea7016607af6824" prot="public" static="no">
+        <name>XMU_MUTEX_OFFSET</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="79" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1gac12aae3b150f35f5b214c329ed88b0d8" prot="public" static="no">
+        <name>XMutex_Offset</name>
+        <param><defname>i</defname></param>
+        <initializer>(XMU_MUTEX_OFFSET * i)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="86" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1gac521c86ba5c4f2bad8f73e515897a766" prot="public" static="no">
+        <name>XMutex_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>MutexNumber</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + XMutex_Offset(MutexNumber) + (RegOffset))</initializer>
+        <briefdescription>
+<para>Read one of the Mutex registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the Mutex device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specific Mutex within the device, a zero based number, 0 - (NumMutexConfigured in HW - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the Mutex to select the specific register of the Mutex.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The 32 bit value read from the register.</para></simplesect>
+<simplesect kind="note"><para>C-style signature: u32 XMutex_ReadReg(u32 BaseAddress, u8 MutexNumber, unsigned RegOffset) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="112" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga0fcbb23b06dc9fb716e3812696321f66" compoundref="xmutex_8c" startline="275" endline="289">XMutex_GetStatus</referencedby>
+        <referencedby refid="group__mutex_1gad7d5c5cd3b24ffee6dcc093b98c8546a" compoundref="xmutex_8c" startline="312" endline="325">XMutex_GetUser</referencedby>
+        <referencedby refid="group__mutex_1ga37302270d3c1c86dc0bffdfc7043b902" compoundref="xmutex_8c" startline="241" endline="252">XMutex_IsLocked</referencedby>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__mutex_1ga33160589a1793006209e4e259ca7de35" prot="public" static="no">
+        <name>XMutex_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>MutexNumber</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>ValueToWrite</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + XMutex_Offset(MutexNumber) +		   \
+		   (RegOffset)), (ValueToWrite))</initializer>
+        <briefdescription>
+<para>Write a specified value to a register of a Mutex. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the Mutex device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MutexNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific Mutex within the device, a zero based number, 0 - (NumMutexConfigured in HW - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contain the offset from the 1st register of the Mutex to select the specific register of the Mutex. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueToWrite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>C-style signature: void XMutex_WriteReg(u32 BaseAddress, u8 MutexNumber, unsigned RegOffset, u32 ValueToWrite) </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" line="124" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mutex/src/xmutex_hw.h" bodystart="131" bodyend="-1"/>
+        <referencedby refid="group__mutex_1ga1255fbeea64f519d8def63e542ce8703" compoundref="xmutex_8c" startline="119" endline="137">XMutex_Lock</referencedby>
+        <referencedby refid="group__mutex_1ga941e13d2534884adf4926f05bae3966e" compoundref="xmutex_8c" startline="349" endline="362">XMutex_SetUser</referencedby>
+        <referencedby refid="group__mutex_1gaf1857cffa94ba8b3bdf491f1a0096340" compoundref="xmutex_8c" startline="161" endline="179">XMutex_Trylock</referencedby>
+        <referencedby refid="group__mutex_1ga82790dd21650e2b03e2c0a0f69a605d3" compoundref="xmutex_8c" startline="201" endline="221">XMutex_Unlock</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Contains required functions for the <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para>Implements static initialization See <ref refid="xmutex_8h" kindref="compound">xmutex.h</ref> for more information about the driver.</para><para>Contains <ref refid="struct_x_mutex" kindref="compound">XMutex</ref> driver selftest code.</para><para>This header file contains identifiers/definitions and macros that can be used to access the device.</para><para>This file contains a configuration table that specifies the configuration of Mutex devices in the system.</para><para>}</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a va            First release
+1.00b ecm  06/01/07 Cleanup, new coding standard, check into XCS
+2.00a hm   04/14/09 Fixed CR 466322, removed extra definitions
+                Also fixed canonical definitions treating an interface
+                as an device instance.
+3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
+                and xil_assert.
+4.00a bss  03/05/14 Modified XMutex_CfgInitialize to fix CR# 770096
+4.1   sk   11/10/15 Used UINTPTR instead of u32 for Baseaddress CR# 867425.
+                    Changed the prototype of XMutex_CfgInitialize API.
+4.2   mi   09/22/16 Fixed compilation warnings.
+4.7   ht   06/21/23 Added support for system device-tree flow.
+4.11  ht   02/24/26 Fix doxygen warnings.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+----- ---- -------- ---------------------------------------------------
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+</preformatted></para><para><simplesect kind="note"><para>None.</para></simplesect>
+The user should refer to the hardware device specification for more details of the device operation. The driver functions are defined in <ref refid="xmutex_8h" kindref="compound">xmutex.h</ref>.</para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a va            First release
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
+                and xil_assert.
+4.11  ht   02/24/26 Fix doxygen warnings
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a va            First release
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+3.00a hbm  10/15/09 Migrated to HAL phase 1 to use xil_io, xil_types,
+                and xil_assert.
+</preformatted></para><para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.00a ecm  06/01/07 Cleanup, new coding standard, check into XCS
+4.3   ms   08/07/17 Fixed compilation warnings.
+4.7   ht   06/21/23 Added support for system device-tree flow.
+4.11  vlt  12/14/25 Update Doxygen comments to include SDT flow details.
+      ht   02/24/26 Fix doxygen warnings</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

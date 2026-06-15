@@ -1,0 +1,552 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xusbpsu__controltransfers_8c" kind="file">
+    <compoundname>xusbpsu_controltransfers.c</compoundname>
+    <includes refid="xusbpsu__endpoint_8h" local="yes">xusbpsu_endpoint.h</includes>
+    <includes local="yes">sleep.h</includes>
+    <includes refid="xusbpsu__local_8h" local="yes">xusbpsu_local.h</includes>
+    <incdepgraph>
+      <node id="996">
+        <label>sleep.h</label>
+      </node>
+      <node id="997">
+        <label>xusbpsu_local.h</label>
+        <link refid="xusbpsu__local_8h"/>
+      </node>
+      <node id="994">
+        <label>xusbpsu_controltransfers.c</label>
+        <link refid="xusbpsu_controltransfers.c"/>
+        <childnode refid="995" relation="include">
+        </childnode>
+        <childnode refid="996" relation="include">
+        </childnode>
+        <childnode refid="997" relation="include">
+        </childnode>
+      </node>
+      <node id="995">
+        <label>xusbpsu_endpoint.h</label>
+        <link refid="xusbpsu__endpoint_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPsu_Ep0StallRestart</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_Ep0StallRestart</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Stalls control endpoint and restarts to receive setup packet. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu.h" line="902" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="61" bodyend="78"/>
+        <references refid="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" compoundref="xusbpsu_8h" startline="559">XUsbPsu::Ep0State</references>
+        <references refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" compoundref="xusbpsu_8h" startline="531">XUsbPsu::eps</references>
+        <references refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" compoundref="xusbpsu_8h" startline="419">XUsbPsu_Ep::EpStatus</references>
+        <references refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" compoundref="xusbpsu_8h" startline="115">XUSBPSU_EP_DIR_OUT</references>
+        <references refid="group__usbpsu__api_1ga07f17ab6f8a9e4881fab867ff7e4ecaa" compoundref="xusbpsu__ephandler_8c" startline="547" endline="568">XUsbPsu_EpSetStall</references>
+        <references refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</references>
+        <referencedby refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" compoundref="xusbpsu__controltransfers_8c" startline="164" endline="192">XUsbPsu_Ep0StatusDone</referencedby>
+        <referencedby refid="group__usbpsu__api_1gaa1b5bb2653180e74fb187989bd68ee5c" compoundref="xusbpsu__ep0handler_8c" startline="195" endline="227">XUsbPsu_Ep0XferNotReady</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPsu_Ep0DataDone</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, const struct XUsbPsu_Event_Epevt *Event)</argsstring>
+        <name>XUsbPsu_Ep0DataDone</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="struct_x_usb_psu___event___epevt" kindref="compound">XUsbPsu_Event_Epevt</ref> *</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>Checks the data phase and calls user endpoint handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Endpoint event occurred in core.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="91" bodyend="152"/>
+        <references refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" compoundref="xusbpsu_8h" startline="537">XUsbPsu::AppData</references>
+        <references refid="struct_x_usb_psu___ep_1a540a84bf7626bc472f26617c0b329221" compoundref="xusbpsu_8h" startline="430">XUsbPsu_Ep::BufferPtr</references>
+        <references refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" compoundref="xusbpsu_8h" startline="424">XUsbPsu_Ep::BytesTxed</references>
+        <references refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" compoundref="xusbpsu_8h" startline="530">XUsbPsu::ConfigPtr</references>
+        <references refid="struct_x_usb_psu___event___epevt_1ac84ccf04ba95b88597933245366eead6" compoundref="xusbpsu_8h" startline="612">XUsbPsu_Event_Epevt::Epnumber</references>
+        <references refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" compoundref="xusbpsu_8h" startline="531">XUsbPsu::eps</references>
+        <references refid="struct_x_usb_psu___ep_1a84744372d1d940a83666e89f560c9a6a" compoundref="xusbpsu_8h" startline="404">XUsbPsu_Ep::Handler</references>
+        <references refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" compoundref="xusbpsu_8h" startline="458">XUsbPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_usb_psu___ep_1ab44e7e5e239c2bd81d9cc9c9cde65884" compoundref="xusbpsu_8h" startline="423">XUsbPsu_Ep::RequestedBytes</references>
+        <references refid="struct_x_usb_psu___ep_1af55a1749af3f0e93a11a43722aacaf40" compoundref="xusbpsu_8h" startline="440">XUsbPsu_Ep::UnalignedTx</references>
+        <references refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" compoundref="xusbpsu_8h" startline="114">XUSBPSU_EP_DIR_IN</references>
+        <references refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" compoundref="xusbpsu_8h" startline="115">XUSBPSU_EP_DIR_OUT</references>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPsu_Ep0StatusDone</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr)</argsstring>
+        <name>XUsbPsu_Ep0StatusDone</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Checks the status phase and starts next control transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="164" bodyend="192"/>
+        <references refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" compoundref="xusbpsu_8h" startline="530">XUsbPsu::ConfigPtr</references>
+        <references refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" compoundref="xusbpsu_8h" startline="458">XUsbPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_usb_psu_1a331eaae0d8c8cfd0782f960138422358" compoundref="xusbpsu_8h" startline="557">XUsbPsu::IsInTestMode</references>
+        <references refid="struct_x_usb_psu_1a71a0cd96ef36f74fd8a258959195cfdb" compoundref="xusbpsu_8h" startline="558">XUsbPsu::TestMode</references>
+        <references refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" compoundref="xusbpsu__controltransfers_8c" startline="61" endline="78">XUsbPsu_Ep0StallRestart</references>
+        <references refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" compoundref="xusbpsu__ep0handler_8c" startline="53" endline="114">XUsbPsu_RecvSetup</references>
+        <references refid="group__usbpsu__api_1gab04d50803db3b336711a63dfd88de5a1" compoundref="xusbpsu__device_8c" startline="316" endline="347">XUsbPsu_SetTestMode</references>
+        <referencedby refid="group__usbpsu__api_1ga12ed169a9dd7d4138c1b2b6e32078f73" compoundref="xusbpsu__ep0handler_8c" startline="127" endline="182">XUsbPsu_Ep0XferComplete</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_Ep0StartStatus</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, const struct XUsbPsu_Event_Epevt *Event)</argsstring>
+        <name>XUsbPsu_Ep0StartStatus</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="struct_x_usb_psu___event___epevt" kindref="compound">XUsbPsu_Event_Epevt</ref> *</type>
+          <declname>Event</declname>
+        </param>
+        <briefdescription>
+<para>Starts status phase of control transfer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Event</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Endpoint event occurred in core.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" line="205" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="205" bodyend="271"/>
+        <references refid="struct_x_usb_psu___trb_1a545d775d43d34a707369903eb368b9ab" compoundref="xusbpsu_8h" startline="335">XUsbPsu_Trb::BufferPtrHigh</references>
+        <references refid="struct_x_usb_psu___trb_1ae5ea152e5ef5e898965e50acf74dc519" compoundref="xusbpsu_8h" startline="334">XUsbPsu_Trb::BufferPtrLow</references>
+        <references refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" compoundref="xusbpsu_8h" startline="530">XUsbPsu::ConfigPtr</references>
+        <references refid="struct_x_usb_psu_1a901a6ff790827750bf380fbd3187c71e" compoundref="xusbpsu_8h" startline="556">XUsbPsu::ControlDir</references>
+        <references refid="struct_x_usb_psu___trb_1a33543ca16a939ea769633dac14708785" compoundref="xusbpsu_8h" startline="337">XUsbPsu_Trb::Ctrl</references>
+        <references refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" compoundref="xusbpsu_8h" startline="439">XUsbPsu_Ep::Direction</references>
+        <references refid="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" compoundref="xusbpsu_8h" startline="559">XUsbPsu::Ep0State</references>
+        <references refid="struct_x_usb_psu___event___epevt_1ac84ccf04ba95b88597933245366eead6" compoundref="xusbpsu_8h" startline="612">XUsbPsu_Event_Epevt::Epnumber</references>
+        <references refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" compoundref="xusbpsu_8h" startline="531">XUsbPsu::eps</references>
+        <references refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" compoundref="xusbpsu_8h" startline="419">XUsbPsu_Ep::EpStatus</references>
+        <references refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" compoundref="xusbpsu_8h" startline="458">XUsbPsu_Config::IsCacheCoherent</references>
+        <references refid="struct_x_usb_psu_1ab4420cef27d39897c9cd53ef04f3db50" compoundref="xusbpsu_8h" startline="563">XUsbPsu::IsThreeStage</references>
+        <references refid="struct_x_usb_psu___ep_params_1a025a749009e1eab7b46f6ed9e7fe069d" compoundref="xusbpsu_8h" startline="355">XUsbPsu_EpParams::Param0</references>
+        <references refid="struct_x_usb_psu___ep_params_1a02fb87ba6563c49d0e60ee13644434d7" compoundref="xusbpsu_8h" startline="354">XUsbPsu_EpParams::Param1</references>
+        <references refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" compoundref="xusbpsu_8h" startline="431">XUsbPsu_Ep::ResourceIndex</references>
+        <references refid="struct_x_usb_psu___trb_1a220253ea99ff109beb8676a46a49d27c" compoundref="xusbpsu_8h" startline="336">XUsbPsu_Trb::Size</references>
+        <references refid="struct_x_usb_psu___ep_1aa7f9ebb45a33e0538854eb96929fe5a1" compoundref="xusbpsu_8h" startline="435">XUsbPsu_Ep::UsbEpNum</references>
+        <references refid="group__usbpsu__api_1ga28df688a0136bd0efa5cc25ea3272610" compoundref="xusbpsu__endpoint_8c" startline="63" endline="78">XUsbPsu_EpGetTransferIndex</references>
+        <references refid="group__usbpsu__api_1ga539653e2157529aeedf78d66aa135a7f" compoundref="xusbpsu__command_8c" startline="55" endline="66">XUsbPsu_GetEpParams</references>
+        <references refid="group__usbpsu__api_1ga2053aec2de928aab94f61f1639058b40" compoundref="xusbpsu__command_8c" startline="234" endline="262">XUsbPsu_SendEpCmd</references>
+        <referencedby refid="group__usbpsu__api_1gaa1b5bb2653180e74fb187989bd68ee5c" compoundref="xusbpsu__ep0handler_8c" startline="195" endline="227">XUsbPsu_Ep0XferNotReady</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga426259ea4430f2bccf744c55e88dcea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XUsbPsu_Ep0_EndControlData</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, struct XUsbPsu_Ep *Ept)</argsstring>
+        <name>XUsbPsu_Ep0_EndControlData</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref> *</type>
+          <declname>Ept</declname>
+        </param>
+        <briefdescription>
+<para>Ends data phase which is used in case of the error. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Ept</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Endpoint structure.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" line="284" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="284" bodyend="303"/>
+        <references refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" compoundref="xusbpsu_8h" startline="439">XUsbPsu_Ep::Direction</references>
+        <references refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" compoundref="xusbpsu_8h" startline="431">XUsbPsu_Ep::ResourceIndex</references>
+        <references refid="struct_x_usb_psu___ep_1aa7f9ebb45a33e0538854eb96929fe5a1" compoundref="xusbpsu_8h" startline="435">XUsbPsu_Ep::UsbEpNum</references>
+        <references refid="group__usbpsu__api_1ga539653e2157529aeedf78d66aa135a7f" compoundref="xusbpsu__command_8c" startline="55" endline="66">XUsbPsu_GetEpParams</references>
+        <references refid="group__usbpsu__api_1ga2053aec2de928aab94f61f1639058b40" compoundref="xusbpsu__command_8c" startline="234" endline="262">XUsbPsu_SendEpCmd</references>
+        <references refid="group__usbpsu__api_1ga4aefce4e996fb276192ce25ece82d56a" compoundref="xusbpsu__device_8c" startline="569" endline="572">XUsbPsu_Sleep</references>
+        <referencedby refid="group__usbpsu__api_1gaa1b5bb2653180e74fb187989bd68ee5c" compoundref="xusbpsu__ep0handler_8c" startline="195" endline="227">XUsbPsu_Ep0XferNotReady</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__usbpsu__api_1ga00919567ace4342c864e3c29cf69e58d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XUsbPsu_EnableControlEp</definition>
+        <argsstring>(struct XUsbPsu *InstancePtr, u16 Size)</argsstring>
+        <name>XUsbPsu_EnableControlEp</name>
+        <param>
+          <type>struct <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>Enables USB control endpoint that is EP0OUT and EP0IN of Core. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Control endpoint size.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS else XST_FAILURE. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c" bodystart="316" bodyend="335"/>
+        <references refid="group__usbpsu__api_1ga4cc1d5f5a9d9499d04de1ff248b1fb50" compoundref="xusbpsu_8h" startline="121">XUSBPSU_ENDPOINT_XFER_CONTROL</references>
+        <references refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" compoundref="xusbpsu_8h" startline="114">XUSBPSU_EP_DIR_IN</references>
+        <references refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" compoundref="xusbpsu_8h" startline="115">XUSBPSU_EP_DIR_OUT</references>
+        <references refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" compoundref="xusbpsu__command_8c" startline="86" endline="170">XUsbPsu_EpEnable</references>
+        <referencedby refid="group__usbpsu__api_1ga5d44b4cfe8de7ab1fa6b98710bd7836f" compoundref="xusbpsu__intr_8c" startline="189" endline="258">XUsbPsu_ConnDoneIntr</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2016<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbpsu__endpoint_8h" kindref="compound">xusbpsu_endpoint.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;sleep.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xusbpsu__local_8h" kindref="compound">xusbpsu_local.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" kindref="member">XUsbPsu_Ep0StallRestart</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ept;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>reinitialize<sp/>physical<sp/>ep1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[1U];</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" kindref="member">EpStatus</ref><sp/>=<sp/>XUSBPSU_EP_ENABLED;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>stall<sp/>is<sp/>always<sp/>issued<sp/>on<sp/>EP0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga07f17ab6f8a9e4881fab867ff7e4ecaa" kindref="member">XUsbPsu_EpSetStall</ref>(InstancePtr,<sp/>0U,<sp/><ref refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kindref="member">XUSBPSU_EP_DIR_OUT</ref>);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[0U];</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" kindref="member">EpStatus</ref><sp/>=<sp/>XUSBPSU_EP_ENABLED;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" kindref="member">Ep0State</ref><sp/>=<sp/>XUSBPSU_EP0_SETUP_PHASE;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" kindref="member">XUsbPsu_RecvSetup</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="91" refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1gaee37aa4d612811db703893d777308e3e" kindref="member">XUsbPsu_Ep0DataDone</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___event___epevt" kindref="compound">XUsbPsu_Event_Epevt</ref><sp/>*Event)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*Ept;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref><sp/><sp/><sp/><sp/><sp/><sp/>*TrbPtr;</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Status;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Length;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Epnum;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/><sp/><sp/><sp/><sp/>Dir;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Epnum<sp/>=<sp/>Event-&gt;<ref refid="struct_x_usb_psu___event___epevt_1ac84ccf04ba95b88597933245366eead6" kindref="member">Epnumber</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dir<sp/>=<sp/>(u8)(!!Epnum);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Epnum];</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr<sp/>=<sp/>&amp;InstancePtr-&gt;Ep0_Trb;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>-&gt;<ref refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>(u8)0U)<sp/>{</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)TrbPtr,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)TrbPtr,</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XUSBPSU_TRB_SIZE_TRBSTS(TrbPtr-&gt;Size);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Status<sp/>==<sp/>XUSBPSU_TRBSTS_SETUP_PENDING)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Length<sp/>=<sp/>TrbPtr-&gt;Size<sp/>&amp;<sp/>XUSBPSU_TRB_SIZE_MASK;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Length<sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref><sp/>=<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1ab44e7e5e239c2bd81d9cc9c9cde65884" kindref="member">RequestedBytes</ref>;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Dir<sp/>==<sp/><ref refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kindref="member">XUSBPSU_EP_DIR_IN</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref><sp/>=<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1ab44e7e5e239c2bd81d9cc9c9cde65884" kindref="member">RequestedBytes</ref><sp/>-<sp/>Length;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ept-&gt;<ref refid="struct_x_usb_psu___ep_1af55a1749af3f0e93a11a43722aacaf40" kindref="member">UnalignedTx</ref><sp/>==<sp/>1U)<sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref><sp/>=<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1ab44e7e5e239c2bd81d9cc9c9cde65884" kindref="member">RequestedBytes</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1af55a1749af3f0e93a11a43722aacaf40" kindref="member">UnalignedTx</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Dir<sp/>==<sp/><ref refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kindref="member">XUSBPSU_EP_DIR_OUT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Invalidate<sp/>Cache<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>-&gt;<ref refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>(u8)0U)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a540a84bf7626bc472f26617c0b329221" kindref="member">BufferPtr</ref>,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="143"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a540a84bf7626bc472f26617c0b329221" kindref="member">BufferPtr</ref>,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref>);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a84744372d1d940a83666e89f560c9a6a" kindref="member">Handler</ref><sp/>!=<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a84744372d1d940a83666e89f560c9a6a" kindref="member">Handler</ref>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a7d063081dccb62284227b99de12fd40a" kindref="member">AppData</ref>,<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1ab44e7e5e239c2bd81d9cc9c9cde65884" kindref="member">RequestedBytes</ref>,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1afe5ecb3fc2462b344e48f092f9ca3e5b" kindref="member">BytesTxed</ref>);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="164" refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga5fbc6f2e5e21efc273d5d44a4bdf21d1" kindref="member">XUsbPsu_Ep0StatusDone</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref><sp/><sp/><sp/><sp/><sp/><sp/>*TrbPtr;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr<sp/>=<sp/>&amp;InstancePtr-&gt;Ep0_Trb;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a331eaae0d8c8cfd0782f960138422358" kindref="member">IsInTestMode</ref><sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Ret;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ret<sp/>=<sp/><ref refid="group__usbpsu__api_1gab04d50803db3b336711a63dfd88de5a1" kindref="member">XUsbPsu_SetTestMode</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a71a0cd96ef36f74fd8a258959195cfdb" kindref="member">TestMode</ref>);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ret<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga78d9a929bbb9036e7eb4ba85b176df0d" kindref="member">XUsbPsu_Ep0StallRestart</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="182"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>-&gt;<ref refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>(u8)0U)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)TrbPtr,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheInvalidateRange((INTPTR)TrbPtr,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__usbpsu__api_1ga1cbbfbb1658f7fe29ec7f1b24ba87eeb" kindref="member">XUsbPsu_RecvSetup</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="205" refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga8dcb3237803d60fc90cea8270b6fe1a0" kindref="member">XUsbPsu_Ep0StartStatus</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___event___epevt" kindref="compound">XUsbPsu_Event_Epevt</ref><sp/>*Event)</highlight></codeline>
+<codeline lineno="207"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref><sp/><sp/>*Ept;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep_params" kindref="compound">XUsbPsu_EpParams</ref><sp/>*Params;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref><sp/>*TrbPtr;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Type;</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Ret;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>Dir;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept<sp/>=<sp/>&amp;InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a1e77666264bd13605a6ab7e7d82cda33" kindref="member">eps</ref>[Event-&gt;<ref refid="struct_x_usb_psu___event___epevt_1ac84ccf04ba95b88597933245366eead6" kindref="member">Epnumber</ref>];</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Params<sp/>=<sp/><ref refid="group__usbpsu__api_1ga539653e2157529aeedf78d66aa135a7f" kindref="member">XUsbPsu_GetEpParams</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(Params<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" kindref="member">EpStatus</ref><sp/>&amp;<sp/>XUSBPSU_EP_BUSY)<sp/>!=<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Type<sp/>=<sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1ab4420cef27d39897c9cd53ef04f3db50" kindref="member">IsThreeStage</ref><sp/>!=<sp/>0U)<sp/>?</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_TRBCTL_CONTROL_STATUS3</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>XUSBPSU_TRBCTL_CONTROL_STATUS2;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr<sp/>=<sp/>&amp;InstancePtr-&gt;Ep0_Trb;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>we<sp/>use<sp/>same<sp/>TrbPtr<sp/>for<sp/>setup<sp/>packet<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr-&gt;<ref refid="struct_x_usb_psu___trb_1ae5ea152e5ef5e898965e50acf74dc519" kindref="member">BufferPtrLow</ref><sp/>=<sp/>(UINTPTR)&amp;InstancePtr-&gt;SetupData;</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr-&gt;<ref refid="struct_x_usb_psu___trb_1a545d775d43d34a707369903eb368b9ab" kindref="member">BufferPtrHigh</ref><sp/>=<sp/>((UINTPTR)&amp;InstancePtr-&gt;SetupData<sp/>&gt;&gt;<sp/>16U)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;<sp/>16U;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr-&gt;<ref refid="struct_x_usb_psu___trb_1a220253ea99ff109beb8676a46a49d27c" kindref="member">Size</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr-&gt;<ref refid="struct_x_usb_psu___trb_1a33543ca16a939ea769633dac14708785" kindref="member">Ctrl</ref><sp/>=<sp/>Type;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TrbPtr-&gt;<ref refid="struct_x_usb_psu___trb_1a33543ca16a939ea769633dac14708785" kindref="member">Ctrl</ref><sp/>|=<sp/>(XUSBPSU_TRB_CTRL_HWO</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XUSBPSU_TRB_CTRL_LST</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XUSBPSU_TRB_CTRL_IOC</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XUSBPSU_TRB_CTRL_ISP_IMI);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(EL1_NONSECURE)<sp/>&amp;&amp;<sp/>(EL1_NONSECURE==1U)</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(InstancePtr-&gt;<ref refid="struct_x_usb_psu_1afdb9b0ea8fd80a598a133cce1dd7c05f" kindref="member">ConfigPtr</ref>-&gt;<ref refid="struct_x_usb_psu___config_1a87b9ea25fdd7468b4cb5cb72ee5b494a" kindref="member">IsCacheCoherent</ref><sp/>==<sp/>(u8)0U)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((INTPTR)TrbPtr,</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="244"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_DCacheFlushRange((INTPTR)TrbPtr,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___trb" kindref="compound">XUsbPsu_Trb</ref>));</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Params-&gt;<ref refid="struct_x_usb_psu___ep_params_1a025a749009e1eab7b46f6ed9e7fe069d" kindref="member">Param0</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Params-&gt;<ref refid="struct_x_usb_psu___ep_params_1a02fb87ba6563c49d0e60ee13644434d7" kindref="member">Param1</ref><sp/>=<sp/>(UINTPTR)TrbPtr;</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a3feb0ce5e323beddab4bd2ed7f05cb7d" kindref="member">Ep0State</ref><sp/>=<sp/>XUSBPSU_EP0_STATUS_PHASE;</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="253"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Control<sp/>OUT<sp/>transfer<sp/>-<sp/>Status<sp/>stage<sp/>happens<sp/>on<sp/>EP0<sp/>IN<sp/>-<sp/>EP1</highlight></codeline>
+<codeline lineno="254"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Control<sp/>IN<sp/>transfer<sp/>-<sp/>Status<sp/>stage<sp/>happens<sp/>on<sp/>EP0<sp/>OUT<sp/>-<sp/>EP0</highlight></codeline>
+<codeline lineno="255"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Dir<sp/>=<sp/>!InstancePtr-&gt;<ref refid="struct_x_usb_psu_1a901a6ff790827750bf380fbd3187c71e" kindref="member">ControlDir</ref>;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ret<sp/>=<sp/><ref refid="group__usbpsu__api_1ga2053aec2de928aab94f61f1639058b40" kindref="member">XUsbPsu_SendEpCmd</ref>(InstancePtr,<sp/>0U,<sp/>Dir,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUSBPSU_DEPCMD_STARTTRANSFER,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Params);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ret<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a9d896e975aee7d3ebf777702bdf1ad81" kindref="member">EpStatus</ref><sp/>|=<sp/>XUSBPSU_EP_BUSY;</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref><sp/>=<sp/>(u8)<ref refid="group__usbpsu__api_1ga28df688a0136bd0efa5cc25ea3272610" kindref="member">XUsbPsu_EpGetTransferIndex</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1aa7f9ebb45a33e0538854eb96929fe5a1" kindref="member">UsbEpNum</ref>,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" kindref="member">Direction</ref>);</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="284" refid="group__usbpsu__api_1ga426259ea4430f2bccf744c55e88dcea9" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__usbpsu__api_1ga426259ea4430f2bccf744c55e88dcea9" kindref="member">XUsbPsu_Ep0_EndControlData</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu___ep" kindref="compound">XUsbPsu_Ep</ref><sp/>*Ept)</highlight></codeline>
+<codeline lineno="286"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_usb_psu___ep_params" kindref="compound">XUsbPsu_EpParams</ref><sp/>*Params;</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/><sp/><sp/><sp/>Cmd;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref><sp/>==<sp/>0U)<sp/>{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Params<sp/>=<sp/><ref refid="group__usbpsu__api_1ga539653e2157529aeedf78d66aa135a7f" kindref="member">XUsbPsu_GetEpParams</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Params<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd<sp/>=<sp/>XUSBPSU_DEPCMD_ENDTRANSFER;</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd<sp/>|=<sp/>XUSBPSU_DEPCMD_PARAM(Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref>);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="group__usbpsu__api_1ga2053aec2de928aab94f61f1639058b40" kindref="member">XUsbPsu_SendEpCmd</ref>(InstancePtr,<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1aa7f9ebb45a33e0538854eb96929fe5a1" kindref="member">UsbEpNum</ref>,<sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a5d001c89b016fa7087350c46dfe747f2" kindref="member">Direction</ref>,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Cmd,<sp/>Params);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Ept-&gt;<ref refid="struct_x_usb_psu___ep_1a30d0aae28aa3a1d4a9a352db55450df4" kindref="member">ResourceIndex</ref><sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga4aefce4e996fb276192ce25ece82d56a" kindref="member">XUsbPsu_Sleep</ref>(200U);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="316" refid="group__usbpsu__api_1ga00919567ace4342c864e3c29cf69e58d" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__usbpsu__api_1ga00919567ace4342c864e3c29cf69e58d" kindref="member">XUsbPsu_EnableControlEp</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="struct_x_usb_psu" kindref="compound">XUsbPsu</ref><sp/>*InstancePtr,<sp/>u16<sp/>Size)</highlight></codeline>
+<codeline lineno="317"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>RetVal;</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid((Size<sp/>&gt;=<sp/>64U)<sp/>&amp;&amp;<sp/>(Size<sp/>&lt;=<sp/>512U));</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetVal<sp/>=<sp/><ref refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" kindref="member">XUsbPsu_EpEnable</ref>(InstancePtr,<sp/>0U,<sp/><ref refid="group__usbpsu__api_1ga512f27591b21fe69754687c156ad0c01" kindref="member">XUSBPSU_EP_DIR_OUT</ref>,<sp/>Size,</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga4cc1d5f5a9d9499d04de1ff248b1fb50" kindref="member">XUSBPSU_ENDPOINT_XFER_CONTROL</ref>,<sp/>(u8)FALSE);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RetVal<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RetVal<sp/>=<sp/><ref refid="group__usbpsu__api_1ga1a566eeb18fcd70e9cf6024f2cf8a35b" kindref="member">XUsbPsu_EpEnable</ref>(InstancePtr,<sp/>0U,<sp/><ref refid="group__usbpsu__api_1ga3126435e75abbfbfdcf3bfdf9d1175a0" kindref="member">XUSBPSU_EP_DIR_IN</ref>,<sp/>Size,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__usbpsu__api_1ga4cc1d5f5a9d9499d04de1ff248b1fb50" kindref="member">XUSBPSU_ENDPOINT_XFER_CONTROL</ref>,<sp/>(u8)FALSE);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(RetVal<sp/>==<sp/>XST_FAILURE)<sp/>{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_FAILURE;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(s32)XST_SUCCESS;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/xusbpsu_controltransfers.c"/>
+  </compounddef>
+</doxygen>

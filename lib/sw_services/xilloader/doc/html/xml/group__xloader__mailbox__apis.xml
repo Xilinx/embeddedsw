@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xloader__mailbox__apis" kind="group">
+    <compoundname>xloader_mailbox_apis</compoundname>
+    <title>XilLoader Mailbox APIs</title>
+    <innerclass refid="struct_x_loader___client_instance" prot="public">XLoader_ClientInstance</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xloader__mailbox__apis_1ga30114da18bad5f444a159376bfe3ac6e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u32</type>
+        <definition>static u32 PACK_XLOADER_HEADER</definition>
+        <argsstring>(u32 Len, u32 ApiId)</argsstring>
+        <name>PACK_XLOADER_HEADER</name>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>ApiId</declname>
+        </param>
+        <briefdescription>
+<para>This function creates the header for the command sent to xilloader module. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of Payload </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ApiId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>API ID of the requested service</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Header of the command </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="122" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ProcessMailbox</definition>
+        <argsstring>(XLoader_ClientInstance *ClientPtr, u32 *MsgPtr, u32 MsgLen)</argsstring>
+        <name>XLoader_ProcessMailbox</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *</type>
+          <declname>ClientPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>MsgPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>MsgLen</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to the target module and gets the response from it. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ClientPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the payload message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MsgLen</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Length of the message.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - If the IPI send and receive is successful.</para></listitem><listitem><para>XST_FAILURE - If there is a failure.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Payload consists of API id and call arguments to be written in IPI buffer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Send IPI CDO to PLM. Return XST_FAILURE if sending data failed</para><para><verbatim>- Wait for IPI response from PLM  with a default timeout of 2 seconds.
+</verbatim> If the timeout exceeds then error is returned otherwise it returns the status of the IPI response.</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="61" bodyend="89"/>
+        <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
+        <references refid="struct_x_loader___client_instance_1a1660f547b4a77019d9c99b65dc5cd314" compoundref="xloader__mailbox_8h" startline="99">XLoader_ClientInstance::Response</references>
+        <references refid="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" compoundref="xloader__mailbox_8h" startline="52">RESPONSE_ARG_CNT</references>
+        <references refid="group__xloader__mailbox__apis_1gacb2810d42f9b5a2853259fe6a5372c92" compoundref="xloader__mailbox_8h" startline="54">XLOADER_TARGET_IPI_INT_MASK</references>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="256" endline="281">XLoader_ConfigureJtagState</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xloader__mailbox__apis_1ga349dbfd771fbf6783438c7950ffd088d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XLoader_ClientInit</definition>
+        <argsstring>(XLoader_ClientInstance *const InstancePtr, XMailbox *const MailboxPtr)</argsstring>
+        <name>XLoader_ClientInit</name>
+        <param>
+          <type><ref refid="struct_x_loader___client_instance" kindref="compound">XLoader_ClientInstance</ref> *const</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XMailbox *const</type>
+          <declname>MailboxPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets the instance of mailbox. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the client instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>MailboxPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the mailbox instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS On successful initialization.</para></listitem><listitem><para>XST_FAILURE On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Perform input parameter validation on InstancePtr,if not NULL initialize the InstancePtr. Return XST_FAILURE if NULL.</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.c" bodystart="103" bodyend="117"/>
+        <references refid="struct_x_loader___client_instance_1a70881eafcc74159f111c98ad8f0e2b15" compoundref="xloader__mailbox_8h" startline="98">XLoader_ClientInstance::MailboxPtr</references>
+        <referencedby refid="group__xloader__client__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__add__pdi__to__image__store__client__example_8c" startline="82" endline="120">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1ga730fcc9743e95e9260ec8bb804efdde1" prot="public" static="no">
+        <name>XILLOADER_MODULE_ID</name>
+        <initializer>(7U)</initializer>
+        <briefdescription>
+<para>Module id for xilloader. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1ga4b6c33d928a245e03965396fdde7ceea" prot="public" static="no">
+        <name>PAYLOAD_ARG_CNT</name>
+        <initializer>XIPIPSU_MAX_MSG_LEN</initializer>
+        <briefdescription>
+<para>1 for API ID + 5 for API arguments + 1 for reserved + 1 for CRC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="50" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1ga63d94db8c3d206242d0527631c38c5fa" compoundref="xloader__client_8c" startline="293" endline="307">XLoader_AddImageStorePdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaabb2d5baeb7ebd06f2743edc48b28674" compoundref="xloader__client_8c" startline="387" endline="416">XLoader_CfiSelectiveReadback</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gae203b8b034ef118a5152903c58269878" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="256" endline="281">XLoader_ConfigureJtagState</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga6e571b298df7278911edeb130a4917c6" compoundref="xloader__client_8c" startline="230" endline="246">XLoader_ExtractMetaheader</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="349" endline="372">XLoader_GetATFHandOffParams</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga05ffa5255e46703e2b3762b3841104bc" compoundref="xloader__client_8c" startline="111" endline="123">XLoader_LoadImage</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="74" endline="96">XLoader_LoadPartialPdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gacc2cbcde55040cd535bd94e0e3f89ca7" compoundref="versal__2ve__2vm_2client_2xloader__plat__client_8c" startline="296" endline="326">XLoader_ReadDdrCryptoPerfCounters</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga2027ee38324a120aa3f23eb6a1f3476f" compoundref="xloader__client_8c" startline="321" endline="333">XLoader_RemoveImageStorePdi</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga29c0d281ad005ea2b4a987b8c1008694" compoundref="xloader__client_8c" startline="263" endline="277">XLoader_UpdateMultiboot</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1gaff9dc4f696e94fbe988997c3a4ba60c3" prot="public" static="no">
+        <name>RESPONSE_ARG_CNT</name>
+        <initializer>XIPIPSU_MAX_MSG_LEN</initializer>
+        <briefdescription>
+<para>1 for status + 3 for values + 3 for reserved + 1 for CRC </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="52" bodyend="-1"/>
+        <referencedby refid="group__xloader__client__apis_1gaf07025194b841bfa9aa96bdb87cb48c8" compoundref="xloader__client_8c" startline="349" endline="372">XLoader_GetATFHandOffParams</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac98e60c304d3cc096b362373ae9eb29e" compoundref="xloader__client_8c" startline="139" endline="164">XLoader_GetImageInfo</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gac4737ad97892352c05d25dc687aa87a1" compoundref="xloader__client_8c" startline="180" endline="214">XLoader_GetImageInfoList</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga8960e12865539b0b9a6c2e5f6a705ed7" compoundref="xloader__client_8c" startline="456" endline="492">XLoader_GetOptionalData</referencedby>
+        <referencedby refid="group__xloader__client__apis_1gaa46059a11b24bca179cdb16cec9d5e03" compoundref="xloader__client_8c" startline="74" endline="96">XLoader_LoadPartialPdi</referencedby>
+        <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
+        <referencedby refid="group__xloader__client__apis_1ga12bd581a072d452d7c37e18e79f09f0b" compoundref="xloader__generic_8c" startline="65" endline="113">XLoader_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1gacb2810d42f9b5a2853259fe6a5372c92" prot="public" static="no">
+        <name>XLOADER_TARGET_IPI_INT_MASK</name>
+        <initializer>(0x00000002U)</initializer>
+        <briefdescription>
+<para>Target PMC IPI interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="group__xloader__mailbox__apis_1gaec362edc32aeb812a5a06179372d81d1" compoundref="xloader__mailbox_8c" startline="61" endline="89">XLoader_ProcessMailbox</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1gabb6ce8d230ef6e964a2042a485824c66" prot="public" static="no">
+        <name>XLOADER_MODULE_ID_SHIFT</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>Module id shift. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1ga1112cbe4bce4d9fdb379cdc451f53b6e" prot="public" static="no">
+        <name>XLOADER_PAYLOAD_LEN_SHIFT</name>
+        <initializer>(16U)</initializer>
+        <briefdescription>
+<para>Length shift mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1ga4708a03d910fcf36e0d3e9ae5f81cf91" prot="public" static="no">
+        <name>XILLOADER_MODULE_ID_MASK</name>
+        <initializer>((u32)<ref refid="group__xloader__mailbox__apis_1ga730fcc9743e95e9260ec8bb804efdde1" kindref="member">XILLOADER_MODULE_ID</ref> &lt;&lt; <ref refid="group__xloader__mailbox__apis_1gabb6ce8d230ef6e964a2042a485824c66" kindref="member">XLOADER_MODULE_ID_SHIFT</ref>)</initializer>
+        <briefdescription>
+<para>Module id mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xloader__mailbox__apis_1ga23a0e86371657f1a57fbf44236f3c009" prot="public" static="no">
+        <name>XLOADER_SHARED_MEM_SIZE</name>
+        <initializer>(160U)</initializer>
+        <briefdescription>
+<para>Max size of shared memory used to store the CDO command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/xloader_mailbox.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="group__xloader__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilloader__get__opt__data__example_8c" startline="110" endline="152">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

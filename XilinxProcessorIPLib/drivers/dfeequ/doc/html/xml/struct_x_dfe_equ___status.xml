@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dfe_equ___status" kind="struct" prot="public">
+    <compoundname>XDfeEqu_Status</compoundname>
+    <includes local="no">xdfeequ.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dfe_equ___status_1aac90a3055325556a5a182f0ab95eda04" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Status::IStatus[XDFEEQU_CHANNEL_NUM]</definition>
+        <argsstring>[XDFEEQU_CHANNEL_NUM]</argsstring>
+        <name>IStatus</name>
+        <briefdescription>
+<para><verbatim>      bit0 is overflow of I datapath
+</verbatim> and bit 1 is overflow of Q datapath in real mode only. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" compoundref="xdfeequ__intr_8c" startline="93" endline="113">XDfeEqu_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" compoundref="xdfeequ__intr_8c" startline="56" endline="77">XDfeEqu_GetEventStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dfe_equ___status_1a2f0e6d4693e3e6e0a2493e5c88036087" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDfeEqu_Status::QStatus[XDFEEQU_CHANNEL_NUM]</definition>
+        <argsstring>[XDFEEQU_CHANNEL_NUM]</argsstring>
+        <name>QStatus</name>
+        <briefdescription>
+<para><verbatim>      Overflow of Q datapath in
+</verbatim> complex mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__dfeequ_1ga3e19322f6ba584b9be6f796a51a4fdc1" compoundref="xdfeequ__intr_8c" startline="93" endline="113">XDfeEqu_ClearEventStatus</referencedby>
+        <referencedby refid="group__dfeequ_1ga2e9a673ea4ad489f2525f095fb920aa4" compoundref="xdfeequ__intr_8c" startline="56" endline="77">XDfeEqu_GetEventStatus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Equalizer Status. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfeequ/src/xdfeequ.h" bodystart="300" bodyend="305"/>
+    <listofallmembers>
+      <member refid="struct_x_dfe_equ___status_1aac90a3055325556a5a182f0ab95eda04" prot="public" virt="non-virtual"><scope>XDfeEqu_Status</scope><name>IStatus</name></member>
+      <member refid="struct_x_dfe_equ___status_1a2f0e6d4693e3e6e0a2493e5c88036087" prot="public" virt="non-virtual"><scope>XDfeEqu_Status</scope><name>QStatus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

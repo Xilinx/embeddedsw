@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_audio_formatter_hw_params" kind="struct" prot="public">
+    <compoundname>XAudioFormatterHwParams</compoundname>
+    <includes local="no">xaudioformatter.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_audio_formatter_hw_params_1afe74ad159ce4d0f4d66ae0abc47da8ff" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XAudioFormatterHwParams::buf_addr</definition>
+        <argsstring></argsstring>
+        <name>buf_addr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="164" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter_hw_params_1a7c0028f0438f3edf6c34f49521a9c872" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAudioFormatterHwParams::active_ch</definition>
+        <argsstring></argsstring>
+        <name>active_ch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="165" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter_hw_params_1a5b312b11c2e596d1949af6f38a511f78" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAudioFormatterHwParams::bits_per_sample</definition>
+        <argsstring></argsstring>
+        <name>bits_per_sample</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter_hw_params_1a4bab886d26d20f9c2600f089ec68ace6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAudioFormatterHwParams::periods</definition>
+        <argsstring></argsstring>
+        <name>periods</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="167" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_audio_formatter_hw_params_1a4be88b90d40f5fafde8b9ee600d22a24" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XAudioFormatterHwParams::bytes_per_period</definition>
+        <argsstring></argsstring>
+        <name>bytes_per_period</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains hw params information for a audio formatter core. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" line="163" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/audio_formatter/src/xaudioformatter.h" bodystart="163" bodyend="169"/>
+    <listofallmembers>
+      <member refid="struct_x_audio_formatter_hw_params_1a7c0028f0438f3edf6c34f49521a9c872" prot="public" virt="non-virtual"><scope>XAudioFormatterHwParams</scope><name>active_ch</name></member>
+      <member refid="struct_x_audio_formatter_hw_params_1a5b312b11c2e596d1949af6f38a511f78" prot="public" virt="non-virtual"><scope>XAudioFormatterHwParams</scope><name>bits_per_sample</name></member>
+      <member refid="struct_x_audio_formatter_hw_params_1afe74ad159ce4d0f4d66ae0abc47da8ff" prot="public" virt="non-virtual"><scope>XAudioFormatterHwParams</scope><name>buf_addr</name></member>
+      <member refid="struct_x_audio_formatter_hw_params_1a4be88b90d40f5fafde8b9ee600d22a24" prot="public" virt="non-virtual"><scope>XAudioFormatterHwParams</scope><name>bytes_per_period</name></member>
+      <member refid="struct_x_audio_formatter_hw_params_1a4bab886d26d20f9c2600f089ec68ace6" prot="public" virt="non-virtual"><scope>XAudioFormatterHwParams</scope><name>periods</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

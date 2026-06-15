@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_axis___switch" kind="struct"><name>XAxis_Switch</name>
+    <member refid="struct_x_axis___switch_1a972eb32655a31bf486774848eb2c408d" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_axis___switch_1aa6fb801f6e169f44fb21f53317b36f1f" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_axis___switch___config" kind="struct"><name>XAxis_Switch_Config</name>
+    <member refid="struct_x_axis___switch___config_1abbfd77eacb26d69b401ee9e587e9197c" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_axis___switch___config_1aae0afeb8540a529d8080e73280ab5109" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_axis___switch___config_1a20390bb97a7d14720520293d27f97404" kind="variable"><name>MaxNumSI</name></member>
+    <member refid="struct_x_axis___switch___config_1a053a1f2027b8c3c2f81f6eaee1e5f824" kind="variable"><name>MaxNumMI</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xaxis__switch_8c" kind="file"><name>xaxis_switch.c</name>
+    <member refid="group__axis__switch_1ga91d899fe6d8456f8460acd4a122dce64" kind="function"><name>XAxisScr_CfgInitialize</name></member>
+    <member refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" kind="function"><name>XAxisScr_MiPortEnable</name></member>
+    <member refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" kind="function"><name>XAxisScr_MiPortDisable</name></member>
+    <member refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" kind="function"><name>XAxisScr_IsMiPortEnabled</name></member>
+    <member refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" kind="function"><name>XAxisScr_IsMiPortDisabled</name></member>
+    <member refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" kind="function"><name>XAxisScr_MiPortDisableAll</name></member>
+  </compound>
+  <compound refid="xaxis__switch_8h" kind="file"><name>xaxis_switch.h</name>
+    <member refid="group__axis__switch_1ga19b5f68d74238e0c11856dbe5e566237" kind="define"><name>XAXIS_SWITCH_H_</name></member>
+    <member refid="group__axis__switch_1gaa82658cbc43e600c53a429fce04d3a4c" kind="define"><name>XAxisScr_RegUpdateEnable</name></member>
+    <member refid="group__axis__switch_1gafc168e986cd2b401045578c06bc90869" kind="define"><name>XAxisScr_RegUpdateDisable</name></member>
+    <member refid="group__axis__switch_1gac2d1165dcc6dd3f7ef777b77c7752c0d" kind="function"><name>XAxisScr_LookupConfig</name></member>
+    <member refid="group__axis__switch_1ga91d899fe6d8456f8460acd4a122dce64" kind="function"><name>XAxisScr_CfgInitialize</name></member>
+    <member refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" kind="function"><name>XAxisScr_MiPortEnable</name></member>
+    <member refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" kind="function"><name>XAxisScr_MiPortDisable</name></member>
+    <member refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" kind="function"><name>XAxisScr_IsMiPortEnabled</name></member>
+    <member refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" kind="function"><name>XAxisScr_IsMiPortDisabled</name></member>
+    <member refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" kind="function"><name>XAxisScr_MiPortDisableAll</name></member>
+    <member refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" kind="function"><name>XAxisScr_SelfTest</name></member>
+  </compound>
+  <compound refid="xaxis__switch__example_8c" kind="file"><name>xaxis_switch_example.c</name>
+    <member refid="xaxis__switch__example_8c_1a6c9c949af1b8249e863d8f032191c9bf" kind="variable"><name>AxisSwitch</name></member>
+    <member refid="xaxis__switch__example_8c_1a2f2888c4ad40580a4c7aeff37fe1314e" kind="function"><name>AxisSwitch_Example</name></member>
+    <member refid="xaxis__switch__example_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xaxis__switch__g_8c" kind="file"><name>xaxis_switch_g.c</name>
+    <member refid="group__axis__switch_1ga14e1f6044fd4c0876c1f531cc32053a6" kind="variable"><name>XAxis_Switch_ConfigTable</name></member>
+  </compound>
+  <compound refid="xaxis__switch__hw_8h" kind="file"><name>xaxis_switch_hw.h</name>
+    <member refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kind="define"><name>XAXIS_SCR_CTRL_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" kind="define"><name>XAXIS_SCR_MI_MUX_START_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga227adbe778b570746da42ea0437261a1" kind="define"><name>XAXIS_SCR_MI_MUX_END_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga61bbd9728daef6347dc32ae4234f19de" kind="define"><name>XAXIS_SCR_CTRL_REG_UPDATE_MASK</name></member>
+    <member refid="group__axis__switch_1ga32f8940e49e11e5b238d5613ae4f667a" kind="define"><name>XAXIS_SCR_MI_X_MUX_MASK</name></member>
+    <member refid="group__axis__switch_1ga34b4d7358d3edcf4103e2aa5e18d1e1f" kind="define"><name>XAXIS_SCR_MI_X_DISABLE_MASK</name></member>
+    <member refid="group__axis__switch_1ga06b31a381d36b949c68bbfaf92610bc3" kind="define"><name>XAXIS_SCR_MI_X_DISABLE_SHIFT</name></member>
+    <member refid="group__axis__switch_1ga81d5f42ceeea6429358b40a24b990421" kind="define"><name>XAxisScr_In32</name></member>
+    <member refid="group__axis__switch_1gaca96433d3b19296beb0a781e5428a5f6" kind="define"><name>XAxisScr_Out32</name></member>
+    <member refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" kind="define"><name>XAxisScr_ReadReg</name></member>
+    <member refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" kind="define"><name>XAxisScr_WriteReg</name></member>
+    <member refid="group__axis__switch_1ga5a9a509c0aec471d47a841f955c087c5" kind="define"><name>XAXIS_SWITCH_HW_H_</name></member>
+  </compound>
+  <compound refid="xaxis__switch__selftest_8c" kind="file"><name>xaxis_switch_selftest.c</name>
+    <member refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" kind="function"><name>XAxisScr_SelfTest</name></member>
+  </compound>
+  <compound refid="xaxis__switch__sinit_8c" kind="file"><name>xaxis_switch_sinit.c</name>
+    <member refid="group__axis__switch_1gae64dba69ade8dab5a90245ef7b7e21fd" kind="define"><name>XPAR_XAXIS_SWITCH_NUM_INSTANCES</name></member>
+    <member refid="group__axis__switch_1gac2d1165dcc6dd3f7ef777b77c7752c0d" kind="function"><name>XAxisScr_LookupConfig</name></member>
+  </compound>
+  <compound refid="group__axis__switch" kind="group"><name>axis_switch</name>
+    <member refid="group__axis__switch_1ga05c58dacf3ab036292d57faac0bc1cca" kind="define"><name>XAXIS_SCR_CTRL_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga009bec9091359e44e8bf434e3528c2eb" kind="define"><name>XAXIS_SCR_MI_MUX_START_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga227adbe778b570746da42ea0437261a1" kind="define"><name>XAXIS_SCR_MI_MUX_END_OFFSET</name></member>
+    <member refid="group__axis__switch_1ga61bbd9728daef6347dc32ae4234f19de" kind="define"><name>XAXIS_SCR_CTRL_REG_UPDATE_MASK</name></member>
+    <member refid="group__axis__switch_1ga32f8940e49e11e5b238d5613ae4f667a" kind="define"><name>XAXIS_SCR_MI_X_MUX_MASK</name></member>
+    <member refid="group__axis__switch_1ga34b4d7358d3edcf4103e2aa5e18d1e1f" kind="define"><name>XAXIS_SCR_MI_X_DISABLE_MASK</name></member>
+    <member refid="group__axis__switch_1ga06b31a381d36b949c68bbfaf92610bc3" kind="define"><name>XAXIS_SCR_MI_X_DISABLE_SHIFT</name></member>
+    <member refid="group__axis__switch_1ga81d5f42ceeea6429358b40a24b990421" kind="define"><name>XAxisScr_In32</name></member>
+    <member refid="group__axis__switch_1gaca96433d3b19296beb0a781e5428a5f6" kind="define"><name>XAxisScr_Out32</name></member>
+    <member refid="group__axis__switch_1ga68fcd4f0df5a838b218c7ebde0e6b152" kind="define"><name>XAxisScr_ReadReg</name></member>
+    <member refid="group__axis__switch_1ga993bec85cbffd929a7f8418e65f293de" kind="define"><name>XAxisScr_WriteReg</name></member>
+    <member refid="group__axis__switch_1ga14e1f6044fd4c0876c1f531cc32053a6" kind="variable"><name>XAxis_Switch_ConfigTable</name></member>
+    <member refid="group__axis__switch_1ga91d899fe6d8456f8460acd4a122dce64" kind="function"><name>XAxisScr_CfgInitialize</name></member>
+    <member refid="group__axis__switch_1ga943a402b210b5f2901b6d6e7ae323d50" kind="function"><name>XAxisScr_MiPortEnable</name></member>
+    <member refid="group__axis__switch_1ga1fcba7107d4ecb9955aa302c1b798729" kind="function"><name>XAxisScr_MiPortDisable</name></member>
+    <member refid="group__axis__switch_1ga35ef34ba6c57b57506741b4a04f87e75" kind="function"><name>XAxisScr_IsMiPortEnabled</name></member>
+    <member refid="group__axis__switch_1ga993cbd838dd30de44a943c7f4a046101" kind="function"><name>XAxisScr_IsMiPortDisabled</name></member>
+    <member refid="group__axis__switch_1ga84a532ac4e377199c15802d84b43256e" kind="function"><name>XAxisScr_MiPortDisableAll</name></member>
+    <member refid="group__axis__switch_1gac2d1165dcc6dd3f7ef777b77c7752c0d" kind="function"><name>XAxisScr_LookupConfig</name></member>
+    <member refid="group__axis__switch_1gad9c646b6e8d7f5d6c431c2985592fb4b" kind="function"><name>XAxisScr_SelfTest</name></member>
+    <member refid="group__axis__switch_1ga19b5f68d74238e0c11856dbe5e566237" kind="define"><name>XAXIS_SWITCH_H_</name></member>
+    <member refid="group__axis__switch_1gaa82658cbc43e600c53a429fce04d3a4c" kind="define"><name>XAxisScr_RegUpdateEnable</name></member>
+    <member refid="group__axis__switch_1gafc168e986cd2b401045578c06bc90869" kind="define"><name>XAxisScr_RegUpdateDisable</name></member>
+    <member refid="group__axis__switch_1ga5a9a509c0aec471d47a841f955c087c5" kind="define"><name>XAXIS_SWITCH_HW_H_</name></member>
+    <member refid="group__axis__switch_1gae64dba69ade8dab5a90245ef7b7e21fd" kind="define"><name>XPAR_XAXIS_SWITCH_NUM_INSTANCES</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_e00bbcd46673a99b57ff6ad22a8fccfe" kind="dir"><name>axis_switch</name>
+  </compound>
+  <compound refid="dir_6ce86f4c65bbfc54dbc27de96315c25c" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_628ac9b267fe9484b3feb89c3e4baf86" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

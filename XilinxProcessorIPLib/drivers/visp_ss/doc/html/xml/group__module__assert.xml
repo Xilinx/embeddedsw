@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__module__assert" kind="group">
+    <compoundname>module_assert</compoundname>
+    <title>Assert macros</title>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* ASSERT_HANDLER)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>ASSERT_HANDLER</name>
+        <briefdescription>
+<para>The type of the assert handler. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" kindref="member">assert_handler</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" prot="public" static="no" mutable="no">
+        <type><ref refid="group__module__assert_1gaa691235e1917683d1f548a978ecc3a5c" kindref="member">ASSERT_HANDLER</ref></type>
+        <definition>ASSERT_HANDLER assert_handler</definition>
+        <argsstring></argsstring>
+        <name>assert_handler</name>
+        <briefdescription>
+<para>The assert handler is a function that is called in case an assertion failed. </para>        </briefdescription>
+        <detaileddescription>
+<para>If no handler is registered, which is the default, exit() is called. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="78" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/dct_assert.c" bodystart="33" bodyend="-1"/>
+        <referencedby refid="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" compoundref="dct__assert_8c" startline="35" endline="47">exit_</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void exit_</definition>
+        <argsstring>(const char *file, int line)</argsstring>
+        <name>exit_</name>
+        <param>
+          <type>const char *</type>
+          <declname>file</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>line</declname>
+        </param>
+        <briefdescription>
+<para>Dump information on stderr and exit. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Filename where assertion occurred. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>line</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Linenumber where assertion occurred. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="91" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/source/dct_assert.c" bodystart="35" bodyend="47"/>
+        <references refid="group__module__assert_1gad6930182027cc862cfd4f02346cd6561" compoundref="dct__assert_8c" startline="33">assert_handler</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__module__assert_1ga98c7ef8d3f2437e62bce09dcb19a26fc" prot="public" static="no">
+        <name>RET_FAILURE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>general failure </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__assert_1ga216ca137f7f2605a6a2f171914d2c635" prot="public" static="no">
+        <name>DCT_ASSERT</name>
+        <param><defname>exp</defname></param>
+        <initializer>do { if (!(exp)){ static CHAR filename[] = __FILE__; <ref refid="group__module__assert_1ga085df85c79764c94ab88b4415de62bae" kindref="member">exit_</ref>(&amp;filename[0], __LINE__);}}while(0)</initializer>
+        <briefdescription>
+<para>The assert macro. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expression which assumed to be true. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/dct_assert.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The assertion system used by Dream Chip. </para>    </briefdescription>
+    <detaileddescription>
+<para>Example use of the assert system:</para><para><itemizedlist>
+<listitem><para>In your source file just use the macro</para></listitem></itemizedlist>
+</para><para><programlisting><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>foo(<sp/>uint8_t*<sp/>pData,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__module__assert_1ga216ca137f7f2605a6a2f171914d2c635" kindref="member">DCT_ASSERT</ref>(pData<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__module__assert_1ga216ca137f7f2605a6a2f171914d2c635" kindref="member">DCT_ASSERT</ref>(size<sp/>&gt;<sp/>0);</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

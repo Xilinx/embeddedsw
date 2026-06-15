@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hw_icap___config" kind="struct" prot="public">
+    <compoundname>XHwIcap_Config</compoundname>
+    <includes local="no">xhwicap.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1a974e71fbdc7bac6774fa7b486d29ff58" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XHwIcap_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="234" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHwIcap_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Register base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="236" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="236" bodyend="-1"/>
+        <referencedby refid="xhwicap__intr__example_8c_1ad30f00094bfccf190e8f4400fc5842c1" compoundref="xhwicap__intr__example_8c" startline="205" endline="306">HwIcapIntrExample</referencedby>
+        <referencedby refid="xhwicap__read__config__reg__example_8c_1a0e29c54ec6e9cfd604c5c2551391fca6" compoundref="xhwicap__read__config__reg__example_8c" startline="152" endline="288">HwIcapReadConfigRegExample</referencedby>
+        <referencedby refid="xhwicap__read__frame__polled__example_8c_1a16ff4504349dbf3a25d488972402d87a" compoundref="xhwicap__read__frame__polled__example_8c" startline="147" endline="207">HwIcapReadFramePolledExample</referencedby>
+        <referencedby refid="xhwicap__testapp__example_8c_1adf45f08c1057b62d7e994a60e3e32303" compoundref="xhwicap__testapp__example_8c" startline="137" endline="183">HwIcapTestAppExample</referencedby>
+        <referencedby refid="group__hwicap_1ga2493ca18331cba6eb2162449b7dab66e" compoundref="xhwicap_8c" startline="761" endline="781">XHwIcap_Abort</referencedby>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+        <referencedby refid="group__hwicap_1ga92dbad9de7f4a4e41fcde30fc2ebda1c" compoundref="xhwicap_8c" startline="719" endline="746">XHwIcap_FlushFifo</referencedby>
+        <referencedby refid="group__hwicap_1ga305707eb013da39d038183c7f0d8fed9" compoundref="xhwicap__srp_8c" startline="180" endline="239">XHwIcap_GetConfigReg</referencedby>
+        <referencedby refid="group__hwicap_1ga6c516a5e0cb9f928e591a152cd567dca" compoundref="xhwicap_8c" startline="677" endline="705">XHwIcap_Reset</referencedby>
+        <referencedby refid="group__hwicap_1ga0716d6a3c65aabb73344bee9c4c9cfc7" compoundref="xhwicap__selftest_8c" startline="67" endline="132">XHwIcap_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1acad3ea1298f1cc4da7fc255ba2e104bf" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XHwIcap_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="238" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1a3d4755cab47f0d4779a16fda4721a988" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XHwIcap_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bits[11:0] Interrupt-id Bits[15:12] trigger type and level flags. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="240" bodyend="-1"/>
+        <referencedby refid="xhwicap__intr__example_8c_1ad30f00094bfccf190e8f4400fc5842c1" compoundref="xhwicap__intr__example_8c" startline="205" endline="306">HwIcapIntrExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1a65bee38ed10f278be07d83822af3439d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHwIcap_Config::IcapWidth</definition>
+        <argsstring></argsstring>
+        <name>IcapWidth</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Width of ICAP </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="243" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="243" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+        <referencedby refid="group__hwicap_1ga27e9ac291323ef043303367460b70de0" compoundref="xhwicap_8c" startline="528" endline="661">XHwIcap_DeviceRead</referencedby>
+        <referencedby refid="group__hwicap_1gaab446328af0c5b397eeaee15088bf8e8" compoundref="xhwicap_8c" startline="300" endline="503">XHwIcap_DeviceWrite</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hw_icap___config_1af8647231b7f462e3083ad2fcbc6647e8" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int XHwIcap_Config::IsLiteMode</definition>
+        <argsstring></argsstring>
+        <name>IsLiteMode</name>
+        <briefdescription>
+<para>IsLiteMode, 0 not present, 1 present. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="244" bodyend="-1"/>
+        <referencedby refid="group__hwicap_1gad497b5129aff666181e85457f1c5f678" compoundref="xhwicap_8c" startline="157" endline="262">XHwIcap_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for the device. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hwicap/src/xhwicap.h" bodystart="230" bodyend="247"/>
+    <listofallmembers>
+      <member refid="struct_x_hw_icap___config_1a6be849d17f51b639414cae9620f2dcd5" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_hw_icap___config_1a65bee38ed10f278be07d83822af3439d" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>IcapWidth</name></member>
+      <member refid="struct_x_hw_icap___config_1acad3ea1298f1cc4da7fc255ba2e104bf" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_hw_icap___config_1a3d4755cab47f0d4779a16fda4721a988" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_hw_icap___config_1af8647231b7f462e3083ad2fcbc6647e8" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>IsLiteMode</name></member>
+      <member refid="struct_x_hw_icap___config_1a974e71fbdc7bac6774fa7b486d29ff58" prot="public" virt="non-virtual"><scope>XHwIcap_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

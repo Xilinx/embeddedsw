@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v__axi4s__remap___config" kind="struct" prot="public">
+    <compoundname>XV_axi4s_remap_Config</compoundname>
+    <includes local="no">xv_axi4s_remap.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1abd10dab31af260a904cd6e4a33336aae" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XV_axi4s_remap_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Unique Name of device. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="59" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="59" bodyend="-1"/>
+        <referencedby refid="xv__axi4s__remap__sinit_8c_1a4ec83358c473bd1dd1413433476db490" compoundref="xv__axi4s__remap__sinit_8c" startline="120" endline="134">XV_axi4s_remap_LookupConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_axi4s_remap_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>The base address of the core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="61" bodyend="-1"/>
+        <referencedby refid="main_8c_1aca6c8ac5234bd20fc964dc5c20a427e4" compoundref="main_8c" startline="73" endline="128">driverInit</referencedby>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ae173d8c933eff784e841ac5f0210f9bc" compoundref="xv__axi4s__remap_8c" startline="34" endline="49">XV_axi4s_remap_CfgInitialize</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a58a64814ff2ecb80a378f30c3d523970" compoundref="xv__axi4s__remap_8c" startline="184" endline="189">XV_axi4s_remap_DisableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afff5b0d7a50476327f3256ed64efab5f" compoundref="xv__axi4s__remap_8c" startline="163" endline="168">XV_axi4s_remap_EnableAutoRestart</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a969d050b1514cd1a5a8b3f9460b213f0" compoundref="xv__axi4s__remap_8c" startline="319" endline="327">XV_axi4s_remap_Get_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6c754c1c09b21f92fea36a52e960ea68" compoundref="xv__axi4s__remap_8c" startline="227" endline="235">XV_axi4s_remap_Get_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab27cb65f1da442f8b867d7039e6cc3d2" compoundref="xv__axi4s__remap_8c" startline="457" endline="465">XV_axi4s_remap_Get_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a06a9f36d19d2af3c6219ab2f862b102f" compoundref="xv__axi4s__remap_8c" startline="365" endline="373">XV_axi4s_remap_Get_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a91a7dd205a573c309efb2fb7f5f10ea3" compoundref="xv__axi4s__remap_8c" startline="549" endline="557">XV_axi4s_remap_Get_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa0d733f2f1af598377ce45866faedb57" compoundref="xv__axi4s__remap_8c" startline="503" endline="511">XV_axi4s_remap_Get_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1afb73f3b3b69ad79fb12d40679365853f" compoundref="xv__axi4s__remap_8c" startline="411" endline="419">XV_axi4s_remap_Get_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a901b524fa549a3c5340cdcfc831fe1c9" compoundref="xv__axi4s__remap_8c" startline="595" endline="603">XV_axi4s_remap_Get_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a59eaeec1e8e7d67de71b3d1f9ac01861" compoundref="xv__axi4s__remap_8c" startline="273" endline="281">XV_axi4s_remap_Get_width</referencedby>
+        <referencedby refid="xv__axi4s__remap__sinit_8c_1ad3b6d0fd3c85cdabcfb25e77b0806eae" compoundref="xv__axi4s__remap__sinit_8c" startline="155" endline="169">XV_axi4s_remap_Initialize</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a088bad78ede022f42248f80fc315c366" compoundref="xv__axi4s__remap_8c" startline="715" endline="720">XV_axi4s_remap_InterruptClear</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abc70f3279632c8ecddae5a8c9e89d6f9" compoundref="xv__axi4s__remap_8c" startline="689" endline="697">XV_axi4s_remap_InterruptDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aa2f4ec7778d206f4d6f7881fc1947371" compoundref="xv__axi4s__remap_8c" startline="664" endline="672">XV_axi4s_remap_InterruptEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a802375a319bf4d5fbfc47957287b9a8d" compoundref="xv__axi4s__remap_8c" startline="736" endline="741">XV_axi4s_remap_InterruptGetEnabled</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a731437bea890cda27301b64a7bb80045" compoundref="xv__axi4s__remap_8c" startline="758" endline="763">XV_axi4s_remap_InterruptGetStatus</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ad1880d9e0af52561b9d4a66980676cdb" compoundref="xv__axi4s__remap_8c" startline="641" endline="646">XV_axi4s_remap_InterruptGlobalDisable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1abdf4a5d8f81e4716fa007df4ca4b494c" compoundref="xv__axi4s__remap_8c" startline="620" endline="625">XV_axi4s_remap_InterruptGlobalEnable</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a8420c0dd9b8304c3e19a9d1c86fbbedf" compoundref="xv__axi4s__remap_8c" startline="90" endline="98">XV_axi4s_remap_IsDone</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a26a1f9ec9a1a8fe5a94ca0bc7d59c1f3" compoundref="xv__axi4s__remap_8c" startline="114" endline="122">XV_axi4s_remap_IsIdle</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a3e9c5feb14cf78cd7d2f9fc2a365daae" compoundref="xv__axi4s__remap_8c" startline="138" endline="147">XV_axi4s_remap_IsReady</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a6e8b67ede52a11d74c2c2c7e9e8ae903" compoundref="xv__axi4s__remap_8c" startline="298" endline="303">XV_axi4s_remap_Set_ColorFormat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1aedbd7449447da1b3f14975cc0c90c966" compoundref="xv__axi4s__remap_8c" startline="206" endline="211">XV_axi4s_remap_Set_height</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a28d9e3f48e2b722840bbf6ed30b7986d" compoundref="xv__axi4s__remap_8c" startline="436" endline="441">XV_axi4s_remap_Set_inHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a77f9f62e7d191df271744850241d81d4" compoundref="xv__axi4s__remap_8c" startline="344" endline="349">XV_axi4s_remap_Set_inPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a99269876f11e022e1d945961eaf351e8" compoundref="xv__axi4s__remap_8c" startline="528" endline="533">XV_axi4s_remap_Set_inPixDrop</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a423440084f71d7a0bf5b67375220c385" compoundref="xv__axi4s__remap_8c" startline="482" endline="487">XV_axi4s_remap_Set_outHDMI420</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1ab1aef19d2557481c1211517325a94100" compoundref="xv__axi4s__remap_8c" startline="390" endline="395">XV_axi4s_remap_Set_outPixClk</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a2fcb6904b9d6ed0a94ac461bc9bbb55c" compoundref="xv__axi4s__remap_8c" startline="574" endline="579">XV_axi4s_remap_Set_outPixRepeat</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a0f4db0b3b4b6a236c763d891ce66fe91" compoundref="xv__axi4s__remap_8c" startline="252" endline="257">XV_axi4s_remap_Set_width</referencedby>
+        <referencedby refid="xv__axi4s__remap_8h_1a20a0ac05eb63d7d010fcc6b8fcce01e6" compoundref="xv__axi4s__remap_8c" startline="66" endline="74">XV_axi4s_remap_Start</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1acb89d5736d0c8a9c55fe6edac5e7f4e0" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::NumVidComponents</definition>
+        <argsstring></argsstring>
+        <name>NumVidComponents</name>
+        <briefdescription>
+<para>Number of Video Components. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a9f63bab2e531644b94ae55a5f09459f5" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::MaxWidth</definition>
+        <argsstring></argsstring>
+        <name>MaxWidth</name>
+        <briefdescription>
+<para>Maximum columns supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1aff27f105b801b9aece7820048a847f25" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::MaxHeight</definition>
+        <argsstring></argsstring>
+        <name>MaxHeight</name>
+        <briefdescription>
+<para>Maximum rows supported by core instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1aa52472632c961ee4ccce618045286583" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::PixPerClkIn</definition>
+        <argsstring></argsstring>
+        <name>PixPerClkIn</name>
+        <briefdescription>
+<para>Input Samples Per Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="65" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1ab29b76d1c131d14f918ab50a29822daa" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::PixPerClkOut</definition>
+        <argsstring></argsstring>
+        <name>PixPerClkOut</name>
+        <briefdescription>
+<para>Output Samples Per Clock. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="main_8c_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8c" startline="350" endline="453">main</referencedby>
+        <referencedby refid="main_8c_1aac2df9e08924d4dadbc4684d516a0002" compoundref="main_8c" startline="211" endline="300">videoClockConfig</referencedby>
+        <referencedby refid="main_8c_1a57dbd33a726b517d4667d7e85c501d7b" compoundref="main_8c" startline="147" endline="190">videoIpConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1ae4d7e9e9fcd741204d9e07ee3f8559f6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IsPixPerClockConvEn</definition>
+        <argsstring></argsstring>
+        <name>IsPixPerClockConvEn</name>
+        <briefdescription>
+<para>Samples Per Clock Conversion Feature Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a2ffbeeda7a1e669d8669e425b5d44636" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::MaxDataWidthIn</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidthIn</name>
+        <briefdescription>
+<para>Input Maximum Data width of each channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a003c2b3969e7ff0b0b64d0936609f9c3" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::MaxDataWidthOut</definition>
+        <argsstring></argsstring>
+        <name>MaxDataWidthOut</name>
+        <briefdescription>
+<para>Output Maximum Data width of each channel. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1ace30b4f880925eeda25c0f6b064ded85" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IsHdmi420InEn</definition>
+        <argsstring></argsstring>
+        <name>IsHdmi420InEn</name>
+        <briefdescription>
+<para>HDMI 420 to AXIS 420 converter block Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1ad18f573815e5a8846b60d16a9743b98a" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IsHdmi420OutEn</definition>
+        <argsstring></argsstring>
+        <name>IsHdmi420OutEn</name>
+        <briefdescription>
+<para>AXIS 420 to HDMI 420 converter block Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a03c21b61fa65d7838c7edb831b05eea6" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IsInPixelDropEn</definition>
+        <argsstring></argsstring>
+        <name>IsInPixelDropEn</name>
+        <briefdescription>
+<para>Input Pixel Drop block Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1af01d5e15cad997d41871e98c11d9ae1e" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IsOutPixelRepeatEn</definition>
+        <argsstring></argsstring>
+        <name>IsOutPixelRepeatEn</name>
+        <briefdescription>
+<para>Output Pixel Repeat block Enable. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a5f0ac21cffab4402f13980ad466b8409" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XV_axi4s_remap_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v__axi4s__remap___config_1a16c28f0f1a0e520da55741e02eba1252" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XV_axi4s_remap_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>AXI4-Stream Remap device configuration structure. </para>    </briefdescription>
+    <detaileddescription>
+<para>This structure contains configuration information for the AXI4-Stream Remap core instance. Each core instance should have a configuration structure associated with it. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" line="55" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_axi4s_remap/src/xv_axi4s_remap.h" bodystart="55" bodyend="78"/>
+    <listofallmembers>
+      <member refid="struct_x_v__axi4s__remap___config_1a9eaf9b3ab05717da0d1ea073cd8452ef" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a5f0ac21cffab4402f13980ad466b8409" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a16c28f0f1a0e520da55741e02eba1252" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1ace30b4f880925eeda25c0f6b064ded85" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IsHdmi420InEn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1ad18f573815e5a8846b60d16a9743b98a" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IsHdmi420OutEn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a03c21b61fa65d7838c7edb831b05eea6" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IsInPixelDropEn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1af01d5e15cad997d41871e98c11d9ae1e" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IsOutPixelRepeatEn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1ae4d7e9e9fcd741204d9e07ee3f8559f6" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>IsPixPerClockConvEn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a2ffbeeda7a1e669d8669e425b5d44636" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>MaxDataWidthIn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a003c2b3969e7ff0b0b64d0936609f9c3" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>MaxDataWidthOut</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1aff27f105b801b9aece7820048a847f25" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>MaxHeight</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1a9f63bab2e531644b94ae55a5f09459f5" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>MaxWidth</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1abd10dab31af260a904cd6e4a33336aae" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>Name</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1acb89d5736d0c8a9c55fe6edac5e7f4e0" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>NumVidComponents</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1aa52472632c961ee4ccce618045286583" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>PixPerClkIn</name></member>
+      <member refid="struct_x_v__axi4s__remap___config_1ab29b76d1c131d14f918ab50a29822daa" prot="public" virt="non-virtual"><scope>XV_axi4s_remap_Config</scope><name>PixPerClkOut</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

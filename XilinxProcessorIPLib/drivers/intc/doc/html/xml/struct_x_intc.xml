@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_intc" kind="struct" prot="public">
+    <compoundname>XIntc</compoundname>
+    <includes local="no">xintc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XIntc::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Base address of registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="357" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="357" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga8604653ac3a24bbb49c5fecb6a9ebfc7" compoundref="xintc_8c" startline="869" endline="908">XIntc_Acknowledge</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1029" endline="1116">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="803" endline="849">XIntc_Disable</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="636" endline="695">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="79" endline="153">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1140" endline="1281">XIntc_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="178" endline="248">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+        <referencedby refid="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" compoundref="xintc_8c" startline="535" endline="550">XIntc_Stop</referencedby>
+        <referencedby refid="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" compoundref="xintc_8c" startline="1423" endline="1461">XIntc_TriggerSwIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIntc::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="358" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="358" bodyend="-1"/>
+        <referencedby refid="group__intc_1ga8604653ac3a24bbb49c5fecb6a9ebfc7" compoundref="xintc_8c" startline="869" endline="908">XIntc_Acknowledge</referencedby>
+        <referencedby refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" compoundref="xintc_8c" startline="579" endline="615">XIntc_Connect</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1029" endline="1116">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1gaea44ec361097925f2994558d402988ab" compoundref="xintc_8c" startline="803" endline="849">XIntc_Disable</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="636" endline="695">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1ga6fdbe96b1db87f0c78e68da8bc767a69" compoundref="xintc__options_8c" startline="124" endline="133">XIntc_GetOptions</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1gaf9a9a16180b363930d21bc94dfe71147" compoundref="xintc__selftest_8c" startline="79" endline="153">XIntc_SelfTest</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1140" endline="1281">XIntc_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga17972363ab5a1a8f5f1d135c5b3c22c7" compoundref="xintc__selftest_8c" startline="178" endline="248">XIntc_SimulateIntr</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+        <referencedby refid="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" compoundref="xintc_8c" startline="535" endline="550">XIntc_Stop</referencedby>
+        <referencedby refid="group__intc_1ga7eb4ea6d2f66a5b3ca32b12ec68bc151" compoundref="xintc_8c" startline="1423" endline="1461">XIntc_TriggerSwIntr</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_intc_1a3e45bbc3ed1e84a8d708c25c23fa252e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIntc::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Device has been started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="359" bodyend="-1"/>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+        <referencedby refid="group__intc_1gafabb05cf2e5b62031524a33d1f88f405" compoundref="xintc_8c" startline="535" endline="550">XIntc_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_intc_1abf06c903e68a5569cdf238b185d83ff5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XIntc::UnhandledInterrupts</definition>
+        <argsstring></argsstring>
+        <name>UnhandledInterrupts</name>
+        <briefdescription>
+<para>Intc Statistics. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_intc___config" kindref="compound">XIntc_Config</ref> *</type>
+        <definition>XIntc_Config* XIntc::CfgPtr</definition>
+        <argsstring></argsstring>
+        <name>CfgPtr</name>
+        <briefdescription>
+<para>Pointer to instance config entry. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="xintc__example_8c_1aaea6614590c6c6eedade935ae1c1a26c" compoundref="xintc__example_8c" startline="271" endline="334">SetUpInterruptSystem</referencedby>
+        <referencedby refid="group__intc_1gaee9ec5873a764994d64b4da35a110084" compoundref="xintc_8c" startline="579" endline="615">XIntc_Connect</referencedby>
+        <referencedby refid="group__intc_1ga24a344d15b12b8acd82cd4c49a020d74" compoundref="xintc_8c" startline="1029" endline="1116">XIntc_ConnectFastHandler</referencedby>
+        <referencedby refid="group__intc_1ga8f7caaeb26b6b264fffefbd32f90f855" compoundref="xintc_8c" startline="636" endline="695">XIntc_Disconnect</referencedby>
+        <referencedby refid="group__intc_1gac7f59192d3b3ba2e2283a264677577b8" compoundref="xintc_8c" startline="715" endline="782">XIntc_Enable</referencedby>
+        <referencedby refid="group__intc_1ga6fdbe96b1db87f0c78e68da8bc767a69" compoundref="xintc__options_8c" startline="124" endline="133">XIntc_GetOptions</referencedby>
+        <referencedby refid="group__intc_1gaf005b035ffd9bfd042b3e85aada2d104" compoundref="xintc_8c" startline="292" endline="442">XIntc_Initialize</referencedby>
+        <referencedby refid="group__intc_1ga635187ed756cee70b4b4051560cbd7bc" compoundref="xintc__intr_8c" startline="143" endline="159">XIntc_InterruptHandler</referencedby>
+        <referencedby refid="group__intc_1ga881154092f4f8cd5e29a71b284f7b2ae" compoundref="xintc_8c" startline="1140" endline="1281">XIntc_SetNormalIntrMode</referencedby>
+        <referencedby refid="group__intc_1ga1f0d32716f082a51a751df84312c7d56" compoundref="xintc__options_8c" startline="76" endline="110">XIntc_SetOptions</referencedby>
+        <referencedby refid="group__intc_1ga863eb58a3ae9419c7ac5da7c9fa9cb50" compoundref="xintc_8c" startline="474" endline="520">XIntc_Start</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_intc" kindref="compound">XIntc</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every intc device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>XIntc</label>
+        <link refid="struct_x_intc"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>CfgPtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>XIntc_Config</label>
+        <link refid="struct_x_intc___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" line="356" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/intc/src/xintc.h" bodystart="356" bodyend="363"/>
+    <listofallmembers>
+      <member refid="struct_x_intc_1a36bcdd89bd3afdb96bbee08989c886c0" prot="public" virt="non-virtual"><scope>XIntc</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_intc_1ac76bb1d794c122fdb86f8e72a9ed22fd" prot="public" virt="non-virtual"><scope>XIntc</scope><name>CfgPtr</name></member>
+      <member refid="struct_x_intc_1a277e8f00e1f6eb05f8097c676e826b62" prot="public" virt="non-virtual"><scope>XIntc</scope><name>IsReady</name></member>
+      <member refid="struct_x_intc_1a3e45bbc3ed1e84a8d708c25c23fa252e" prot="public" virt="non-virtual"><scope>XIntc</scope><name>IsStarted</name></member>
+      <member refid="struct_x_intc_1abf06c903e68a5569cdf238b185d83ff5" prot="public" virt="non-virtual"><scope>XIntc</scope><name>UnhandledInterrupts</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

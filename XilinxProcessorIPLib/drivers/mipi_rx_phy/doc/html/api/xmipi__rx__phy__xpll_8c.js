@@ -1,0 +1,26 @@
+var xmipi__rx__phy__xpll_8c =
+[
+    [ "XMIPI_RX_PHY_LINERATE_NUM_BUCKETS", "xmipi__rx__phy__xpll_8c.html#gab3452211b3efdf8bf4b26a508de6174a", null ],
+    [ "XMIPI_RX_PHY_PLL_CONTROL_CONFIG_VAL", "xmipi__rx__phy__xpll_8c.html#ga3cdd584e95c5b11f811b41ef01d8952c", null ],
+    [ "XMIPI_RX_PHY_PLL_CONTROL_LOCK_VAL", "xmipi__rx__phy__xpll_8c.html#ga8bdfe44425486ef26d1d54ee62055bf9", null ],
+    [ "XMIPI_RX_PHY_PLL_DIS_INITSTATE", "xmipi__rx__phy__xpll_8c.html#ga1ab4c46048e76129d39d3c6f7e6f125c", null ],
+    [ "XMIPI_RX_PHY_PLL_DIS_ODISABLE", "xmipi__rx__phy__xpll_8c.html#gae9e875cdc3ca07f1d3fd36f4ef7d3d67", null ],
+    [ "XMIPI_RX_PHY_PLL_EN_INITSTATE_VAL", "xmipi__rx__phy__xpll_8c.html#ga274e94f1494ae64f3d073005e176ddf7", null ],
+    [ "XMIPI_RX_PHY_PLL_EN_ODISABLE_VAL", "xmipi__rx__phy__xpll_8c.html#ga64b3e23755e3886fce4eb676b79e7242", null ],
+    [ "XMIPI_RX_PHY_PLL_LOCK_VAL", "xmipi__rx__phy__xpll_8c.html#gadcde694718f59aa08afd3217697d63d2", null ],
+    [ "XMIPI_RX_PHY_PLL_MASK_VAL", "xmipi__rx__phy__xpll_8c.html#ga781881695cf9a55907f983ea36695e4d", null ],
+    [ "XMIPI_RX_PHY_PLL_NUM_REGS", "xmipi__rx__phy__xpll_8c.html#gade152de2610de5e05fdf7237ae4d21b0", null ],
+    [ "XMIPI_RX_PHY_PLL_UNLOCK_VAL", "xmipi__rx__phy__xpll_8c.html#gac93f29913cacc555f86cf33de3c258c3", null ],
+    [ "XPLL_REG_22_D_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga3197cfc2d67e17d439eee2d7d5cf4ad8", null ],
+    [ "XPLL_REG_23_D_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga28ba966ad821f6d1c02d75b71f460a41", null ],
+    [ "XPLL_REG_2_M_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga0d3eea386fc44ec21a263cde6fd7146b", null ],
+    [ "XPLL_REG_3_M_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga0cd3501d0203d1b78b72b8acf9c01e6a", null ],
+    [ "XPLL_REG_4_O1_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga2c95b5085b30c5424c3feb0df90d1989", null ],
+    [ "XPLL_REG_5_O1_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga5fbc15a8b64113c0f1b8aca4be361c03", null ],
+    [ "XPLL_REG_6_O0_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga95e2964158a7b7a84841a45338f37431", null ],
+    [ "XPLL_REG_7_O0_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga1ca1a29980cdd24fbc33b4d24e4946a0", null ],
+    [ "XPLL_REG_PCSR_CONTROL_OFFSET", "xmipi__rx__phy__xpll_8c.html#gaa8399ea046b36a74c0b8e88ecd412ec3", null ],
+    [ "XPLL_REG_PCSR_LOCK_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga963def7629c8b345499aa2081ef2f53c", null ],
+    [ "XPLL_REG_PCSR_MASK_OFFSET", "xmipi__rx__phy__xpll_8c.html#ga4fc64fd0ca8c74a49dbf950a26312074", null ],
+    [ "XMipi_Rx_Phy_XPllConfig", "xmipi__rx__phy__xpll_8c.html#ga6358e4d124dca47948b509d3e3bb4226", null ]
+];

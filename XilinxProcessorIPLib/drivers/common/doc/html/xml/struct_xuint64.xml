@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xuint64" kind="struct" prot="public">
+    <compoundname>Xuint64</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xuint64_1ad809f0558789d73f869490321fbbd039" prot="public" static="no" mutable="no">
+        <type><ref refid="group__common_1ga8cf3b6d075db16e3c6499d3aa39cea86" kindref="member">Xuint32</ref></type>
+        <definition>Xuint32 Xuint64::Upper</definition>
+        <argsstring></argsstring>
+        <name>Upper</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xuint64_1ab2990f6d800c6da6fa66e43dc48db238" prot="public" static="no" mutable="no">
+        <type><ref refid="group__common_1ga8cf3b6d075db16e3c6499d3aa39cea86" kindref="member">Xuint32</ref></type>
+        <definition>Xuint32 Xuint64::Lower</definition>
+        <argsstring></argsstring>
+        <name>Lower</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" line="103" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xbasic_types.h" bodystart="102" bodyend="106"/>
+    <listofallmembers>
+      <member refid="struct_xuint64_1ab2990f6d800c6da6fa66e43dc48db238" prot="public" virt="non-virtual"><scope>Xuint64</scope><name>Lower</name></member>
+      <member refid="struct_xuint64_1ad809f0558789d73f869490321fbbd039" prot="public" virt="non-virtual"><scope>Xuint64</scope><name>Upper</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__ude__keys__enc__input__example_8h" kind="file">
+    <compoundname>xasu_ude_keys_enc_input_example.h</compoundname>
+    <includedby refid="xasu__ude__keys__enc__example_8c" local="yes">xasu_ude_keys_enc_example.c</includedby>
+    <invincdepgraph>
+      <node id="1320">
+        <label>xasu_ude_keys_enc_example.c</label>
+        <link refid="xasu__ude__keys__enc__example_8c"/>
+      </node>
+      <node id="1319">
+        <label>xasu_ude_keys_enc_input_example.h</label>
+        <link refid="xasu_ude_keys_enc_input_example.h"/>
+        <childnode refid="1320" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1a8606f30dde57de4c2bd794b17f214f63" prot="public" static="no">
+        <name>XOCP_ENCRYPT_UDE_PRIV_KEY_0</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+<para>Enable/disable encryption of UDE Private Key 0. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="65" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1a81b34c77db66e7798f0621a2635c9952" prot="public" static="no">
+        <name>XOCP_ENCRYPT_UDE_PRIV_KEY_1</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+<para>Enable/disable encryption of UDE Private Key 1. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1ad6dbf5db231d121559e6c0fd4f5bb736" prot="public" static="no">
+        <name>XOCP_ENCRYPT_UDE_PRIV_KEY_2</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+<para>Enable/disable encryption of UDE Private Key 2. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1af8455723986e286c8179305c0340b1a4" prot="public" static="no">
+        <name>XOCP_ENV_MONITOR_DISABLE</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable environment monitoring during eFuse programming. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="73" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1a8afc7ba4758fb3481272cac1e38caad5" prot="public" static="no">
+        <name>XOCP_PRGM_ENC_UDE_PRIV_KEY_0</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable programming of encrypted UDE Private Key 0 into eFuses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1a58e97dfb31fc09cec2950112824e70be" prot="public" static="no">
+        <name>XOCP_PRGM_ENC_UDE_PRIV_KEY_1</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable programming of encrypted UDE Private Key 1 into eFuses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xasu__ude__keys__enc__input__example_8h_1a17ed1a2e27aaee3f0cf4817e48f8ae28" prot="public" static="no">
+        <name>XOCP_PRGM_ENC_UDE_PRIV_KEY_2</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Enable/disable programming of encrypted UDE Private Key 2 into eFuses. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" line="80" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This example is supported for versal_2ve_2vm devices.It contains macros which needs to be configured by user for <ref refid="xasu__ude__keys__enc__example_8c" kindref="compound">xasu_ude_keys_enc_example.c</ref> On the basis of the options selected by user, the required operations will be performed. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who     Date     Changes
+ ----- ------  -------- ------------------------------------------------------
+ 1.0   yog     08/20/25 First release</preformatted></para><para><preformatted> </preformatted></para><para><heading level="2">GUIDE for using example </heading>
+</para><para>This example is provided to generate black key, UDS prime and encrypted UDE private keys by using either PUF registration or PUF on demand regeneration. It can also be used to generate only the PUF ID.</para><para>Please follow below guide to configure the specific macros as per your requirement:</para><para>XOCP_ENCRYPT_UDE_PRIV_KEY_0 must be configured as TRUE to encrypt UDE Private key 0.</para><para>XOCP_ENCRYPT_UDE_PRIV_KEY_1 must be configured as TRUE to encrypt UDE Private key 1.</para><para>XOCP_ENCRYPT_UDE_PRIV_KEY_2 must be configured as TRUE to encrypt UDE Private key 2.</para><para>XOCP_ENV_MONITOR_DISABLE - configure as TRUE to disable the temperature and voltage checks before eFuse programming. FALSE will not disable the temperature and voltage checks before eFuse programming. By default the value will be FALSE.</para><para>XOCP_PRGM_ENC_UDE_PRIV_KEY_0 must be configured as TRUE to program the encrypted UDE Private key 0 into eFuses.</para><para>XOCP_PRGM_ENC_UDE_PRIV_KEY_1 must be configured as TRUE to program the encrypted UDE Private key 1 into eFuses.</para><para>XOCP_PRGM_ENC_UDE_PRIV_KEY_2 must be configured as TRUE to program the encrypted UDE Private key 2 into eFuses. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor">#ifndef<sp/>XASU_UDE_KEYS_ENC_INPUT_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="53"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XASU_UDE_KEYS_ENC_INPUT_EXAMPLE_H_</highlight></codeline>
+<codeline lineno="54"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="56"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="xasu__ude__keys__enc__input__example_8h_1a8606f30dde57de4c2bd794b17f214f63" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XOCP_ENCRYPT_UDE_PRIV_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)<sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#define<sp/>XOCP_ENCRYPT_UDE_PRIV_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)<sp/><sp/></highlight></codeline>
+<codeline lineno="70"><highlight class="preprocessor">#define<sp/>XOCP_ENCRYPT_UDE_PRIV_KEY_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)<sp/><sp/></highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor">#define<sp/>XOCP_ENV_MONITOR_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="74"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="76" refid="xasu__ude__keys__enc__input__example_8h_1af8455723986e286c8179305c0340b1a4" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_PRGM_ENC_UDE_PRIV_KEY_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="77"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XOCP_PRGM_ENC_UDE_PRIV_KEY_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="79" refid="xasu__ude__keys__enc__input__example_8h_1a8afc7ba4758fb3481272cac1e38caad5" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor">#define<sp/>XOCP_PRGM_ENC_UDE_PRIV_KEY_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="81" refid="xasu__ude__keys__enc__input__example_8h_1a58e97dfb31fc09cec2950112824e70be" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="xasu__ude__keys__enc__input__example_8h_1a17ed1a2e27aaee3f0cf4817e48f8ae28" refkind="member"><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="86"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XASU_UDE_KEYS_ENC_INPUT_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/xasu_ude_keys_enc_input_example.h"/>
+  </compounddef>
+</doxygen>

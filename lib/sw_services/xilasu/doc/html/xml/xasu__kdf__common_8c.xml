@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xasu__kdf__common_8c" kind="file">
+    <compoundname>xasu_kdf_common.c</compoundname>
+    <includes refid="xasu__kdf__common_8h" local="yes">xasu_kdf_common.h</includes>
+    <includes refid="xasu__kdfinfo_8h" local="yes">xasu_kdfinfo.h</includes>
+    <includes refid="xasu__hmacinfo_8h" local="yes">xasu_hmacinfo.h</includes>
+    <includes refid="xasu__keymanager__common_8h" local="yes">xasu_keymanager_common.h</includes>
+    <includes refid="xasu__shainfo_8h" local="yes">xasu_shainfo.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <incdepgraph>
+      <node id="513">
+        <label>xasu_shainfo.h</label>
+        <link refid="xasu__shainfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="514" relation="include">
+        </childnode>
+      </node>
+      <node id="507">
+        <label>xasu_keymanager_common.h</label>
+        <link refid="xasu__keymanager__common_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="508" relation="include">
+        </childnode>
+      </node>
+      <node id="504">
+        <label>xasu_kdfinfo.h</label>
+        <link refid="xasu__kdfinfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="509">
+        <label>xil_util.h</label>
+      </node>
+      <node id="506">
+        <label>xasu_bsp_config.h</label>
+      </node>
+      <node id="508">
+        <label>xasu_keymanagerinfo.h</label>
+        <link refid="xasu__keymanagerinfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="509" relation="include">
+        </childnode>
+        <childnode refid="510" relation="include">
+        </childnode>
+        <childnode refid="511" relation="include">
+        </childnode>
+        <childnode refid="512" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="514">
+        <label>xstatus.h</label>
+      </node>
+      <node id="503">
+        <label>xil_types.h</label>
+      </node>
+      <node id="501">
+        <label>xasu_kdf_common.c</label>
+        <link refid="xasu_kdf_common.c"/>
+        <childnode refid="502" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+        <childnode refid="505" relation="include">
+        </childnode>
+        <childnode refid="507" relation="include">
+        </childnode>
+        <childnode refid="513" relation="include">
+        </childnode>
+        <childnode refid="514" relation="include">
+        </childnode>
+      </node>
+      <node id="502">
+        <label>xasu_kdf_common.h</label>
+        <link refid="xasu__kdf__common_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="504" relation="include">
+        </childnode>
+      </node>
+      <node id="505">
+        <label>xasu_hmacinfo.h</label>
+        <link refid="xasu__hmacinfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="511">
+        <label>xasu_eccinfo.h</label>
+        <link refid="xasu__eccinfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="510">
+        <label>xasu_rsainfo.h</label>
+        <link refid="xasu__rsainfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="509" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+      <node id="512">
+        <label>xasu_aesinfo.h</label>
+        <link refid="xasu__aesinfo_8h"/>
+        <childnode refid="503" relation="include">
+        </childnode>
+        <childnode refid="506" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XAsu_ValidateKdfParameters</definition>
+        <argsstring>(const XAsu_KdfParams *KdfParamsPtr)</argsstring>
+        <name>XAsu_ValidateKdfParameters</name>
+        <param>
+          <type>const <ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref> *</type>
+          <declname>KdfParamsPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function validates the KDF input parameters. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>KdfParamsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to <ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref> structure which holds the parameters of KDF input arguments.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS, if KDF input parameters validation is successful.</para></listitem><listitem><para>XST_FAILURE, if KDF input parameters validation fails. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para>Validate SHA Mode and SHA Type.</para><para>Validate that exactly one of KeyInAddr or KeyId is provided.</para><para>When a direct key is provided, its length must be valid; context and output buffers must be valid. </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c" bodystart="60" bodyend="93"/>
+        <references refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" compoundref="xasu__kdfinfo_8h" startline="62">XAsu_KdfParams::ContextAddr</references>
+        <references refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" compoundref="xasu__kdfinfo_8h" startline="64">XAsu_KdfParams::ContextLen</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" compoundref="xasu__hmacinfo_8h" startline="56">XAsu_KdfHmacKeyObject::KeyId</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" compoundref="xasu__hmacinfo_8h" startline="54">XAsu_KdfHmacKeyObject::KeyInAddr</references>
+        <references refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" compoundref="xasu__hmacinfo_8h" startline="55">XAsu_KdfHmacKeyObject::KeyInLen</references>
+        <references refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" compoundref="xasu__kdfinfo_8h" startline="61">XAsu_KdfParams::KeyObject</references>
+        <references refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" compoundref="xasu__kdfinfo_8h" startline="63">XAsu_KdfParams::KeyOutAddr</references>
+        <references refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" compoundref="xasu__kdfinfo_8h" startline="65">XAsu_KdfParams::KeyOutLen</references>
+        <references refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" compoundref="xasu__kdfinfo_8h" startline="67">XAsu_KdfParams::ShaMode</references>
+        <references refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" compoundref="xasu__kdfinfo_8h" startline="66">XAsu_KdfParams::ShaType</references>
+        <references refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" compoundref="xasu__kdfinfo_8h" startline="54">XASU_KDF_MAX_CONTEXT_LEN</references>
+        <references refid="group__xasu__common__defs_1gaeecfde1eef6f8a357c4bb0bf2f235d70" compoundref="xasu__kdfinfo_8h" startline="55">XASU_KDF_MAX_KEY_LENGTH</references>
+        <references refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" compoundref="xasu__keymanager__common_8c" startline="192" endline="206">XAsu_KmValidateKeyAddrNdKeyId</references>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga013f9791db5b7cc455ec31a399952fc8" compoundref="xasu__kdf_8c" startline="217" endline="269">XAsu_HKdfGenerate</referencedby>
+        <referencedby refid="group__xasu__kdf__client__apis_1ga7a4b83725ed01255a8d9e31595a610b2" compoundref="xasu__kdf_8c" startline="103" endline="144">XAsu_KdfGenerate</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains the KDF function definitions which are common across the client and server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+1.0   rmv  09/11/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/**************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">**************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">/************************************<sp/>Include<sp/>Files<sp/>**********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__kdf__common_8h" kindref="compound">xasu_kdf_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__kdfinfo_8h" kindref="compound">xasu_kdfinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__hmacinfo_8h" kindref="compound">xasu_hmacinfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__keymanager__common_8h" kindref="compound">xasu_keymanager_common.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xasu__shainfo_8h" kindref="compound">xasu_shainfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Constant<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Macros<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/***********************************<sp/>Type<sp/>Definitions<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*********************************<sp/>Variable<sp/>Definitions<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/******************************<sp/>Inline<sp/>Function<sp/>Definitions<sp/>**************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/**********************************<sp/>Function<sp/>Prototypes<sp/>******************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*************************************************************************************************/</highlight></codeline>
+<codeline lineno="60" refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" refkind="member"><highlight class="normal">s32<sp/><ref refid="group__xasu__kdf__common__apis_1ga292e21219acdc8b7d0c7f233c74a5552" kindref="member">XAsu_ValidateKdfParameters</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_asu___kdf_params" kindref="compound">XAsu_KdfParams</ref><sp/>*KdfParamsPtr)</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>s32<sp/>Status<sp/>=<sp/>XST_FAILURE;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(KdfParamsPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XAsu_ShaValidateModeAndType(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1acfc258e4c0e322abcd915682679a3aa6" kindref="member">ShaType</ref>,<sp/>KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1ad004942dcf9e1533ed5ae17fbe9813a9" kindref="member">ShaMode</ref>)<sp/>!=</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__xasu__keymanager__common__apis_1gaf7896ecdb1b554bbbcf662ae5c2de3fe" kindref="member">XAsu_KmValidateKeyAddrNdKeyId</ref>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" kindref="member">KeyInAddr</ref>,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1ae1828d9c928fb0b79910e3f06e3f18c3" kindref="member">KeyId</ref>)<sp/>!=<sp/>XST_SUCCESS)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1a6478bb66b6eb171e9d3d1d439bcbef61" kindref="member">KeyInAddr</ref><sp/>!=<sp/>0U)<sp/>&amp;&amp;<sp/>((KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a1acd64b773c9df1cc64c35b4073671f7" kindref="member">KeyObject</ref>.<ref refid="struct_x_asu___kdf_hmac_key_object_1aa99618d3506017ef8945a10063ccfe3e" kindref="member">KeyInLen</ref><sp/>&gt;<sp/><ref refid="group__xasu__common__defs_1gaeecfde1eef6f8a357c4bb0bf2f235d70" kindref="member">XASU_KDF_MAX_KEY_LENGTH</ref>)))<sp/>||</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a9fce0aac1e081594002597979c5c8002" kindref="member">ContextAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" kindref="member">ContextLen</ref><sp/>==<sp/>0U)<sp/>||</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1aa180a8be1ed7ed744cac5f425ca01335" kindref="member">ContextLen</ref><sp/>&gt;<sp/><ref refid="group__xasu__common__defs_1ga1414c259c8c5950d2fb0ee88dfce70c3" kindref="member">XASU_KDF_MAX_CONTEXT_LEN</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1a748a655e339fa6d7f324629fb630ff60" kindref="member">KeyOutAddr</ref><sp/>==<sp/>0U)<sp/>||<sp/>(KdfParamsPtr-&gt;<ref refid="struct_x_asu___kdf_params_1ac49253dc0a0bca8e7498ab9a68e97293" kindref="member">KeyOutLen</ref><sp/>==<sp/>0U))<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>END;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal">END:</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Status;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/src/common/xasu_kdf_common.c"/>
+  </compounddef>
+</doxygen>

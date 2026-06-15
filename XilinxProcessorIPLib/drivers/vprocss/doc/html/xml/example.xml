@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use vprocss driver.</para><sect1 id="example_1ex1">
+<title>main.c</title>
+<para>Contains an example on how to use the XVprocss driver directly. This example is the main file for the Video Processing Subsystem.</para><para>For details, see main.c.</para></sect1>
+<sect1 id="example_1ex2">
+<title>periph.c</title>
+<para>Contains an example on how to use the XVprocss driver directly. This example is the top level resource file that will initialize all system level peripherals.</para><para>For details, see <ref refid="periph_8c" kindref="compound">periph.c</ref>.</para></sect1>
+<sect1 id="example_1ex3">
+<title>periph.h</title>
+<para>This is header for top level resource file that will initialize all system level peripherals.</para><para>For details, see <ref refid="periph_8h" kindref="compound">periph.h</ref>.</para></sect1>
+<sect1 id="example_1ex4">
+<title>system.c</title>
+<para>Contains an example on how to use the XVprocss driver directly. This example is the top level resource file that will initialize all system level peripherals.</para><para>For details, see <ref refid="system_8c" kindref="compound">system.c</ref>.</para></sect1>
+<sect1 id="example_1ex5">
+<title>system.h</title>
+<para>This is header for top level resource file that will initialize all system level peripherals.</para><para>For details, see <ref refid="system_8h" kindref="compound">system.h</ref>.</para></sect1>
+<sect1 id="example_1ex6">
+<title>vpss_example.tcl</title>
+<para>Contains a tcl file which automates the process of generating the downloadable bit &amp; elf files from the provided example xsa file.</para><para>Example application design source files (contained within &quot;examples/src&quot; folder) are tightly coupled with the video processing subsystem example design available in Vivado Catalogue. To run this tcl<orderedlist>
+<listitem><para>Copy the exported example design xsa file in the &quot;examples&quot; directory of the driver</para></listitem><listitem><para>Launch the xsct terminal</para></listitem><listitem><para>cd into the examples directory</para></listitem><listitem><para>source the tcl file <programlisting><codeline><highlight class="normal">xsct%&gt;source<sp/>vpss_example.tcl<sp/></highlight></codeline>
+</programlisting></para></listitem><listitem><para>execute the script <programlisting><codeline><highlight class="normal">xsct%&gt;vpss_example<sp/>&lt;xsa_file_name.xsa&gt;<sp/></highlight></codeline>
+</programlisting></para></listitem></orderedlist>
+</para><para>Script will perform following operations<orderedlist>
+<listitem><para>Create workspace</para></listitem><listitem><para>Create HW project</para></listitem><listitem><para>Create BSP</para></listitem><listitem><para>Create Application Project</para></listitem><listitem><para>Build BSP and Application Project</para></listitem></orderedlist>
+</para><para>After the process is complete required files will be available in <verbatim>  bit file -&gt; vpss_example.sdk/vpss_example_hw_platform folder
+  elf file -&gt; vpss_example.sdk/vpss_example_design/{Debug/Release} folder
+</verbatim></para><para>When executed on the board the example application will determine the video processing subsystem topology and set the input and output stream configuration accordingly. Test pattern generator IP is used to generate the input stream. Video Lock Monitor IP will then monitor the output of the subsystem (to vidout) to determine if lock is achieved and present the status (Pass/Fail) on the terminal.</para><para><simplesect kind="note"><para>Serial terminal baud rate should be set to 115200</para></simplesect>
+For details, see vpss_example.tcl. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

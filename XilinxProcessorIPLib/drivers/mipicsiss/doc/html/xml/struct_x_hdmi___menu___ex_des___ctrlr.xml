@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdmi___menu___ex_des___ctrlr" kind="struct" prot="public">
+    <compoundname>XHdmi_Menu_ExDes_Ctrlr</compoundname>
+    <includes local="no">xhdmi_menu.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdmi___menu___ex_des___ctrlr_1a9e3f8dcbb8f848473c22383113bbe544" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * XHdmi_Menu_ExDes_Ctrlr::ForceIndependentPtr</definition>
+        <argsstring></argsstring>
+        <name>ForceIndependentPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="181" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu___ex_des___ctrlr_1a82a8b66e4a155964ee215676e0601bdb" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * XHdmi_Menu_ExDes_Ctrlr::SystemEventPtr</definition>
+        <argsstring></argsstring>
+        <name>SystemEventPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="182" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu___ex_des___ctrlr_1abeb3b43325413a46210037fe5693e743" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * XHdmi_Menu_ExDes_Ctrlr::IsTxPresentPtr</definition>
+        <argsstring></argsstring>
+        <name>IsTxPresentPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="183" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdmi___menu___ex_des___ctrlr_1a0c8c630262c4e4bfb2a4ad71dc44dfa2" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * XHdmi_Menu_ExDes_Ctrlr::IsRxPresentPtr</definition>
+        <argsstring></argsstring>
+        <name>IsRxPresentPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The HDMI ExDes Settings. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" line="180" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/mipicsiss/examples/xmipi_scu200_hpio_example/xhdmi_menu.h" bodystart="180" bodyend="189"/>
+    <listofallmembers>
+      <member refid="struct_x_hdmi___menu___ex_des___ctrlr_1a9e3f8dcbb8f848473c22383113bbe544" prot="public" virt="non-virtual"><scope>XHdmi_Menu_ExDes_Ctrlr</scope><name>ForceIndependentPtr</name></member>
+      <member refid="struct_x_hdmi___menu___ex_des___ctrlr_1a0c8c630262c4e4bfb2a4ad71dc44dfa2" prot="public" virt="non-virtual"><scope>XHdmi_Menu_ExDes_Ctrlr</scope><name>IsRxPresentPtr</name></member>
+      <member refid="struct_x_hdmi___menu___ex_des___ctrlr_1abeb3b43325413a46210037fe5693e743" prot="public" virt="non-virtual"><scope>XHdmi_Menu_ExDes_Ctrlr</scope><name>IsTxPresentPtr</name></member>
+      <member refid="struct_x_hdmi___menu___ex_des___ctrlr_1a82a8b66e4a155964ee215676e0601bdb" prot="public" virt="non-virtual"><scope>XHdmi_Menu_ExDes_Ctrlr</scope><name>SystemEventPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

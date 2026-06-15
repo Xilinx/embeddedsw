@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c" kind="struct" prot="public">
+    <compoundname>UAC2_OUTPUT_TERMINAL_DESC</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a78427b2a551c2507baf3737877597311" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bLength</definition>
+        <argsstring></argsstring>
+        <name>bLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a49cf2007b48cfa0c221d8ba6ed64e736" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bDescriptorType</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a806c29d11fe5594fd1997f8c570a6147" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bDescriptorSubtype</definition>
+        <argsstring></argsstring>
+        <name>bDescriptorSubtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1add47dbc2e197b557803dfed4d3abe89b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bTerminalId</definition>
+        <argsstring></argsstring>
+        <name>bTerminalId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a8d47599da359ca6c7f240ef670920a45" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::wTerminalTypeL</definition>
+        <argsstring></argsstring>
+        <name>wTerminalTypeL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a8920dfd7983ce10ec47d3a7702bd0b88" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::wTerminalTypeH</definition>
+        <argsstring></argsstring>
+        <name>wTerminalTypeH</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="222" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1af3eac1bda0e62219bb6d6ea33efd8e89" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bAssocTerminal</definition>
+        <argsstring></argsstring>
+        <name>bAssocTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="223" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a92689668771be21f9cdcfe1f8bee7bf6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bSourceId</definition>
+        <argsstring></argsstring>
+        <name>bSourceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="224" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a7f8f0a86c3a07ec2ed72384946481415" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::bCSourceId</definition>
+        <argsstring></argsstring>
+        <name>bCSourceId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="225" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="225" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a226a7c5fe9da3ed5b523b9eff19d9308" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 UAC2_OUTPUT_TERMINAL_DESC::bmControls</definition>
+        <argsstring></argsstring>
+        <name>bmControls</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="226" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a91350aa2eb5ba62bd4e700d8867b464e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 UAC2_OUTPUT_TERMINAL_DESC::iTerminal</definition>
+        <argsstring></argsstring>
+        <name>iTerminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="227" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_ch9_composite.h" bodystart="216" bodyend="232"/>
+    <listofallmembers>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1af3eac1bda0e62219bb6d6ea33efd8e89" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bAssocTerminal</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a7f8f0a86c3a07ec2ed72384946481415" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bCSourceId</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a806c29d11fe5594fd1997f8c570a6147" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bDescriptorSubtype</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a49cf2007b48cfa0c221d8ba6ed64e736" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bDescriptorType</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a78427b2a551c2507baf3737877597311" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bLength</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a226a7c5fe9da3ed5b523b9eff19d9308" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bmControls</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a92689668771be21f9cdcfe1f8bee7bf6" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bSourceId</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1add47dbc2e197b557803dfed4d3abe89b" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>bTerminalId</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a91350aa2eb5ba62bd4e700d8867b464e" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>iTerminal</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a8920dfd7983ce10ec47d3a7702bd0b88" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>wTerminalTypeH</name></member>
+      <member refid="struct_u_a_c2___o_u_t_p_u_t___t_e_r_m_i_n_a_l___d_e_s_c_1a8d47599da359ca6c7f240ef670920a45" prot="public" virt="non-virtual"><scope>UAC2_OUTPUT_TERMINAL_DESC</scope><name>wTerminalTypeL</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

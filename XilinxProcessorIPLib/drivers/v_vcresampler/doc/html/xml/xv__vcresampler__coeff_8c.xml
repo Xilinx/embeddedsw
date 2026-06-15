@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__vcresampler__coeff_8c" kind="file">
+    <compoundname>xv_vcresampler_coeff.c</compoundname>
+    <includes refid="xv__vcresampler__l2_8h" local="yes">xv_vcresampler_l2.h</includes>
+    <incdepgraph>
+      <node id="28">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="23">
+        <label>xv_vcresampler_coeff.c</label>
+        <link refid="xv_vcresampler_coeff.c"/>
+        <childnode refid="24" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>xil_io.h</label>
+      </node>
+      <node id="24">
+        <label>xv_vcresampler_l2.h</label>
+        <link refid="xv__vcresampler__l2_8h"/>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>xv_vcresampler.h</label>
+        <link refid="xv__vcresampler_8h"/>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>xstatus.h</label>
+      </node>
+      <node id="25">
+        <label>xvidc.h</label>
+      </node>
+      <node id="27">
+        <label>xil_types.h</label>
+      </node>
+      <node id="31">
+        <label>xv_vcresampler_hw.h</label>
+        <link refid="xv__vcresampler__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps4[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps4</name>
+        <initializer>=
+{
+
+  {{   0, 1024, 2048, 1024},
+   {   0,    0,    0,    0}
+  },
+
+  {{ 506, 1542, 1542,  506},
+   {   0, 4096,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for 4-tap vertical chroma resampling conversions. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains the filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases per conversion.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_4]: Number of taps (coefficients) per phase (4-tap filter).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example usage: XV_vcrsmplrcoeff_taps4[conversion][phase][tap] </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="49" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="49" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps6[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps6</name>
+        <initializer>=
+{
+
+  {{   0,    0, 1298, 1500, 1298,    0},
+   {   0,    0,    0,    0,    0,    0}
+  },
+
+  {{-327,  792, 1583, 1583,  792, -327},
+   {   0,    0, 4096,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 6 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used by the vertical chroma resampler for different conversion modes and phases. The coefficients are organized as follows:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Phase of the resampling process</para></listitem><listitem><para>Third dimension: Tap coefficients for the filter (6 taps per phase)</para></listitem></itemizedlist>
+</para><para>The coefficients are used to perform chroma resampling between different chroma subsampling formats.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_6 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="81" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps8[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps8</name>
+        <initializer>=
+{
+
+  {{   0, -988,    0, 1703, 2666, 1703,    0, -988},
+   {   0,    0,    0,    0,    0,    0,    0,    0}
+  },
+
+  {{-423, -903,  977, 2397, 2397,  977, -903, -423},
+   {   0,    0,    0, 4096,    0,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampling with 8 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients used for vertical chroma resampling between different chroma subsampling formats (e.g., 4:2:2 to 4:2:0 and vice versa).</para><para>Dimensions:<itemizedlist>
+<listitem><para>[XV_VCRSMPLR_NUM_CONVERSIONS]: Number of conversion types (e.g., 422-&gt;420, 420-&gt;422).</para></listitem><listitem><para>[XV_VCRSMPLR_MAX_PHASES]: Number of filter phases.</para></listitem><listitem><para>[XV_VCRSMPLR_TAPS_8]: Number of taps per filter (8 taps).</para></listitem></itemizedlist>
+</para><para>Each entry contains the coefficients for a specific conversion and phase.</para><para>Example conversions:<itemizedlist>
+<listitem><para>422-&gt;420: Downsampling from 4:2:2 to 4:2:0 chroma format.</para></listitem><listitem><para>420-&gt;422: Upsampling from 4:2:0 to 4:2:2 chroma format. </para></listitem></itemizedlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" prot="public" static="no" mutable="no">
+        <type>const short</type>
+        <definition>const short XV_vcrsmplrcoeff_taps10[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</definition>
+        <argsstring>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]</argsstring>
+        <name>XV_vcrsmplrcoeff_taps10</name>
+        <initializer>=
+{
+
+  {{   0,    0, -988,    0, 1703, 2666, 1703,    0, -988,    0},
+   {   0,    0,    0,    0,    0,    0,    0,    0,    0,    0}
+  },
+
+  {{ 305, -638, -586,  705, 2262, 2262,  705, -586, -638,  305},
+   {   0,    0,    0,    0, 4096,    0,    0,    0,    0,    0}
+  }
+}</initializer>
+        <briefdescription>
+<para>Coefficient table for vertical chroma resampler with 10 taps. </para>        </briefdescription>
+        <detaileddescription>
+<para>This 3D array contains precomputed filter coefficients for chroma resampling conversions between 4:2:2 and 4:2:0 formats. The coefficients are organized as:<itemizedlist>
+<listitem><para>First dimension: Conversion type (e.g., 422-&gt;420, 420-&gt;422)</para></listitem><listitem><para>Second dimension: Filter phase</para></listitem><listitem><para>Third dimension: Tap index (10 taps per filter)</para></listitem></itemizedlist>
+</para><para>The coefficients are used by the vertical chroma resampler hardware or software to perform high-quality chroma sub-sampling or up-sampling.</para><para><simplesect kind="see"><para>XV_VCRSMPLR_NUM_CONVERSIONS </para><simplesectsep/><para>XV_VCRSMPLR_MAX_PHASES </para><simplesectsep/><para>XV_VCRSMPLR_TAPS_10 </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c" bodystart="150" bodyend="-1"/>
+        <referencedby refid="group__v__vcresampler_1ga503661b93cb4613ce5664458c300a15b" compoundref="xv__vcresampler__l2_8c" startline="118" endline="157">XV_VCrsmplLoadDefaultCoeff</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__vcresampler__l2_8h" kindref="compound">xv_vcresampler_l2.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>4<sp/>tap<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="49" refid="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1gaf55f0f64c22b47faeff44f90e839f079" kindref="member">XV_vcrsmplrcoeff_taps4</ref>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_4]<sp/>=</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/>{{<sp/><sp/><sp/>0,<sp/>1024,<sp/>2048,<sp/>1024},</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>},</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//420-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>{{<sp/>506,<sp/>1542,<sp/>1542,<sp/><sp/>506},</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/>4096,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/>6<sp/>tap<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1gae9d91f8a575831080178efacae08dbf1" kindref="member">XV_vcrsmplrcoeff_taps6</ref>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_6]<sp/>=</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/>{{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>1298,<sp/>1500,<sp/>1298,<sp/><sp/><sp/><sp/>0},</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/>},</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//420-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/>{{-327,<sp/><sp/>792,<sp/>1583,<sp/>1583,<sp/><sp/>792,<sp/>-327},</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>4096,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="comment">//<sp/>8<sp/>tap<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1gadf5d19248e464f251ad22246b332e37f" kindref="member">XV_vcrsmplrcoeff_taps8</ref>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_8]<sp/>=</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/>{{<sp/><sp/><sp/>0,<sp/>-988,<sp/><sp/><sp/><sp/>0,<sp/>1703,<sp/>2666,<sp/>1703,<sp/><sp/><sp/><sp/>0,<sp/>-988},</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/>},</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//420-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>{{-423,<sp/>-903,<sp/><sp/>977,<sp/>2397,<sp/>2397,<sp/><sp/>977,<sp/>-903,<sp/>-423},</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>4096,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//<sp/>10<sp/>tap<sp/>filter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="132"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" refkind="member"><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="group__v__vcresampler_1gaa9f9738f5278c32b71ffcfc423c8634e" kindref="member">XV_vcrsmplrcoeff_taps10</ref>[XV_VCRSMPLR_NUM_CONVERSIONS][XV_VCRSMPLR_MAX_PHASES][XV_VCRSMPLR_TAPS_10]<sp/>=</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//422-&gt;420</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>{{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>-988,<sp/><sp/><sp/><sp/>0,<sp/>1703,<sp/>2666,<sp/>1703,<sp/><sp/><sp/><sp/>0,<sp/>-988,<sp/><sp/><sp/><sp/>0},</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>},</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//420-&gt;422</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>{{<sp/>305,<sp/>-638,<sp/>-586,<sp/><sp/>705,<sp/>2262,<sp/>2262,<sp/><sp/>705,<sp/>-586,<sp/>-638,<sp/><sp/>305},</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/>{<sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/>4096,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/>0}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="160"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_vcresampler/src/xv_vcresampler_coeff.c"/>
+  </compounddef>
+</doxygen>

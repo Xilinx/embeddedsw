@@ -1,0 +1,1075 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xtmrctr__l_8h" kind="file">
+    <compoundname>xtmrctr_l.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includedby refid="xtmrctr_8h" local="yes">xtmrctr.h</includedby>
+    <includedby refid="xtmrctr__l_8c" local="yes">xtmrctr_l.c</includedby>
+    <includedby refid="xtmrctr__low__level__example_8c" local="yes">xtmrctr_low_level_example.c</includedby>
+    <incdepgraph>
+      <node id="100">
+        <label>xtmrctr_l.h</label>
+        <link refid="xtmrctr_l.h"/>
+        <childnode refid="101" relation="include">
+        </childnode>
+        <childnode refid="102" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>xil_io.h</label>
+      </node>
+      <node id="101">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="118">
+        <label>xtmrctr_l.c</label>
+        <link refid="xtmrctr__l_8c"/>
+      </node>
+      <node id="103">
+        <label>xtmrctr_l.h</label>
+        <link refid="xtmrctr_l.h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="118" relation="include">
+        </childnode>
+        <childnode refid="119" relation="include">
+        </childnode>
+      </node>
+      <node id="112">
+        <label>xtmrctr_fast_intr_example.c</label>
+        <link refid="xtmrctr__fast__intr__example_8c"/>
+      </node>
+      <node id="106">
+        <label>xtmrctr_g.c</label>
+        <link refid="xtmrctr__g_8c"/>
+      </node>
+      <node id="115">
+        <label>xtmrctr_polled_example.c</label>
+        <link refid="xtmrctr__polled__example_8c"/>
+      </node>
+      <node id="113">
+        <label>xtmrctr_intr_64bit_example.c</label>
+        <link refid="xtmrctr__intr__64bit__example_8c"/>
+      </node>
+      <node id="109">
+        <label>xtmrctr_selftest.c</label>
+        <link refid="xtmrctr__selftest_8c"/>
+      </node>
+      <node id="116">
+        <label>xtmrctr_pwm_example.c</label>
+        <link refid="xtmrctr__pwm__example_8c"/>
+      </node>
+      <node id="117">
+        <label>xtmrctr_selftest_example.c</label>
+        <link refid="xtmrctr__selftest__example_8c"/>
+      </node>
+      <node id="114">
+        <label>xtmrctr_intr_example.c</label>
+        <link refid="xtmrctr__intr__example_8c"/>
+      </node>
+      <node id="107">
+        <label>xtmrctr_intr.c</label>
+        <link refid="xtmrctr__intr_8c"/>
+      </node>
+      <node id="119">
+        <label>xtmrctr_low_level_example.c</label>
+        <link refid="xtmrctr__low__level__example_8c"/>
+      </node>
+      <node id="105">
+        <label>xtmrctr.c</label>
+        <link refid="xtmrctr_8c"/>
+      </node>
+      <node id="111">
+        <label>xtmrctr_stats.c</label>
+        <link refid="xtmrctr__stats_8c"/>
+      </node>
+      <node id="104">
+        <label>xtmrctr.h</label>
+        <link refid="xtmrctr_8h"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="111" relation="include">
+        </childnode>
+        <childnode refid="112" relation="include">
+        </childnode>
+        <childnode refid="113" relation="include">
+        </childnode>
+        <childnode refid="114" relation="include">
+        </childnode>
+        <childnode refid="115" relation="include">
+        </childnode>
+        <childnode refid="116" relation="include">
+        </childnode>
+        <childnode refid="117" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xtmrctr_sinit.c</label>
+        <link refid="xtmrctr__sinit_8c"/>
+      </node>
+      <node id="108">
+        <label>xtmrctr_options.c</label>
+        <link refid="xtmrctr__options_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Register Offset Definitions</header>
+      <description><para>Register offsets within a timer counter, there are multiple timer counters within a single device </para></description>
+      <memberdef kind="define" id="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" prot="public" static="no">
+        <name>XTC_TCSR_OFFSET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Control/Status register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="83" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" compoundref="xtmrctr__options_8c" startline="161" endline="191">XTmrCtr_GetOptions</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" compoundref="xtmrctr__options_8c" startline="105" endline="139">XTmrCtr_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" prot="public" static="no">
+        <name>XTC_TLR_OFFSET</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>Load register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="84" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="84" bodyend="-1"/>
+        <referencedby refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" compoundref="xtmrctr_8c" startline="426" endline="435">XTmrCtr_GetCaptureValue</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" compoundref="xtmrctr_8c" startline="397" endline="407">XTmrCtr_SetResetValue</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" prot="public" static="no">
+        <name>XTC_TCR_OFFSET</name>
+        <initializer>8</initializer>
+        <briefdescription>
+<para>Timer counter register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="85" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="85" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" compoundref="xtmrctr_8c" startline="366" endline="375">XTmrCtr_GetValue</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="user-defined">
+      <header>Control Status Register Bit Definitions</header>
+      <description><para>Control Status Register bit masks Used to configure the timer counter device. </para></description>
+      <memberdef kind="define" id="group___overview_1gaaf3300005339d29c2ee9a79e6bb81959" prot="public" static="no">
+        <name>XTC_CSR_CASC_MASK</name>
+        <initializer>0x00000800</initializer>
+        <briefdescription>
+<para>Cascade Mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="95" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="95" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gabfaa1357c7843a1a72c740b017061a38" prot="public" static="no">
+        <name>XTC_CSR_ENABLE_ALL_MASK</name>
+        <initializer>0x00000400</initializer>
+        <briefdescription>
+<para>Enables all timer counters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="97" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="96" bodyend="-1"/>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa6304f96140472ea199517984b5a18d5" prot="public" static="no">
+        <name>XTC_CSR_ENABLE_PWM_MASK</name>
+        <initializer>0x00000200</initializer>
+        <briefdescription>
+<para>Enables the Pulse Width Modulation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="99" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" prot="public" static="no">
+        <name>XTC_CSR_INT_OCCURED_MASK</name>
+        <initializer>0x00000100</initializer>
+        <briefdescription>
+<para>If bit is set, an interrupt has occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>If set and &apos;1&apos; is written to this bit position, bit is cleared. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="105" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="102" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" prot="public" static="no">
+        <name>XTC_CSR_ENABLE_TMR_MASK</name>
+        <initializer>0x00000080</initializer>
+        <briefdescription>
+<para>Enables only the specific timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="107" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga0e56ed788d0a3f4b6d89319e03797002" prot="public" static="no">
+        <name>XTC_CSR_ENABLE_INT_MASK</name>
+        <initializer>0x00000040</initializer>
+        <briefdescription>
+<para>Enables the interrupt output. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" prot="public" static="no">
+        <name>XTC_CSR_LOAD_MASK</name>
+        <initializer>0x00000020</initializer>
+        <briefdescription>
+<para>Loads the timer using the load value provided earlier in the Load Register, XTC_TLR_OFFSET. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="114" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="119" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gab06d844c7a245c7be88a63f3559bbd46" prot="public" static="no">
+        <name>XTC_CSR_AUTO_RELOAD_MASK</name>
+        <initializer>0x00000010</initializer>
+        <briefdescription>
+<para>In compare mode, configures the timer counter to reload from the Load Register. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default mode causes the timer counter to hold when the compare value is hit. In capture mode, configures the timer counter to not hold the previous capture value if a new event occurs. The default mode cause the timer counter to hold the capture value until recognized. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="132" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gadcf0bfbbe0244d0fc208c783858a9c5c" prot="public" static="no">
+        <name>XTC_CSR_EXT_CAPTURE_MASK</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+<para>Enables the external input to the timer counter. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="135" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2345d81184385344ae236b8aa99f2423" prot="public" static="no">
+        <name>XTC_CSR_EXT_GENERATE_MASK</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+<para>Enables the external generate output for the timer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="138" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="168" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga6b40b30b1d1d5b07f4101a5b657dddba" prot="public" static="no">
+        <name>XTC_CSR_DOWN_COUNT_MASK</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+<para>Configures the timer counter to count down from start value, the default is to count up. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="143" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="173" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa0563f5483d9fef6126df6b2e447da08" prot="public" static="no">
+        <name>XTC_CSR_CAPTURE_MODE_MASK</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+<para>Enables the timer to capture the timer counter value when the external capture line is asserted. </para>        </briefdescription>
+        <detaileddescription>
+<para>The default mode is compare mode. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="149" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="182" bodyend="-1"/>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group___overview_1gad575eebe2cbe61e414d82832385d63a1" prot="public" static="no">
+        <name>XTMRCTR_L_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" prot="public" static="no">
+        <name>XTC_DEVICE_TIMER_COUNT</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Defines the number of timer counters within a single hardware device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This number is not currently parameterized in the hardware but may be in the future. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="64" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="64" bodyend="-1"/>
+        <referencedby refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" compoundref="xtmrctr_8c" startline="426" endline="435">XTmrCtr_GetCaptureValue</referencedby>
+        <referencedby refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" compoundref="xtmrctr__options_8c" startline="161" endline="191">XTmrCtr_GetOptions</referencedby>
+        <referencedby refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" compoundref="xtmrctr_8c" startline="366" endline="375">XTmrCtr_GetValue</referencedby>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" compoundref="xtmrctr__options_8c" startline="105" endline="139">XTmrCtr_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" compoundref="xtmrctr_8c" startline="397" endline="407">XTmrCtr_SetResetValue</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga22c78277a54b31ec738e72eca0662e35" prot="public" static="no">
+        <name>XTC_TIMER_COUNTER_OFFSET</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="68" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gacbe3e1a524e50edb1098c1a824f0dc79" prot="public" static="no">
+        <name>XTC_TIMER_0</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="71" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga5693165001c579683430dfc150215290" prot="public" static="no">
+        <name>XTC_TIMER_1</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaf1b5b45fe13bd14e5045077eff1d522e" prot="public" static="no">
+        <name>XTC_MAX_LOAD_VALUE</name>
+        <initializer>0xFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="75" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" prot="public" static="no">
+        <name>XTmrCtr_ReadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <initializer>Xil_In32((BaseAddress) + XTmrCtr_Offsets[(TmrCtrNumber)] + \
+		 (RegOffset))</initializer>
+        <briefdescription>
+<para>Read one of the timer counter registers. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the base address of the timer counter device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains the offset from the 1st register of the timer counter to select the specific register of the timer counter.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 XTmrCtr_ReadReg(u32 BaseAddress, u8 TimerNumber, unsigned RegOffset); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="175" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="218" bodyend="-1"/>
+        <referencedby refid="group___overview_1gad8f339bdf71ed11fa92f08720c9ce663" compoundref="xtmrctr_8c" startline="426" endline="435">XTmrCtr_GetCaptureValue</referencedby>
+        <referencedby refid="group___overview_1gaaff209dc01c2946c239c6e5c1bdc1a5b" compoundref="xtmrctr__options_8c" startline="161" endline="191">XTmrCtr_GetOptions</referencedby>
+        <referencedby refid="group___overview_1ga325269055bb6f9f7a0c7f703bd2f2174" compoundref="xtmrctr_8c" startline="366" endline="375">XTmrCtr_GetValue</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga44d19561a31682753e4996c7b57d6982" compoundref="xtmrctr_8c" startline="499" endline="515">XTmrCtr_IsExpired</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga09ca31bffdcb5d86ce0059163b24bdaf" prot="public" static="no">
+        <name>XTimerCtr_ReadReg</name>
+        <initializer><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="180" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga56d9c2d54afce39c3693356e3892547f" prot="public" static="no">
+        <name>XTmrCtr_WriteReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <param><defname>RegOffset</defname></param>
+        <param><defname>ValueToWrite</defname></param>
+        <initializer>Xil_Out32(((BaseAddress) + XTmrCtr_Offsets[(TmrCtrNumber)] +	\
+		   (RegOffset)), (ValueToWrite))</initializer>
+        <briefdescription>
+<para>Write a specified value to a register of a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the timer counter device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegOffset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contain the offset from the 1st register of the timer counter to select the specific register of the timer counter. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ValueToWrite</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: void XTmrCtr_WriteReg(u32 BaseAddress, u8 TimerNumber, unsigned RegOffset, u32 ValueToWrite); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="198" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="241" bodyend="-1"/>
+        <referencedby refid="group___overview_1gac3ffcfef4ba4507d5f2b9e17a08c7bf0" compoundref="xtmrctr_8c" startline="130" endline="166">XTmrCtr_InitHw</referencedby>
+        <referencedby refid="group___overview_1ga2c00e99b19f58b5821c5541069ffb20b" compoundref="xtmrctr__intr_8c" startline="100" endline="210">XTmrCtr_InterruptHandler</referencedby>
+        <referencedby refid="group___overview_1ga295c8b4acc8b8fd71cb1085d3fa2c53c" compoundref="xtmrctr_8c" startline="533" endline="600">XTmrCtr_PwmConfigure</referencedby>
+        <referencedby refid="group___overview_1ga7442dd2a194e46db961019a29c9e755d" compoundref="xtmrctr_8c" startline="668" endline="703">XTmrCtr_PwmDisable</referencedby>
+        <referencedby refid="group___overview_1gaf13a8cf6dcc0f322abd768c41243220d" compoundref="xtmrctr_8c" startline="614" endline="652">XTmrCtr_PwmEnable</referencedby>
+        <referencedby refid="group___overview_1gaa7b4ca5a0ac2199ee5341fddd8056500" compoundref="xtmrctr_8c" startline="454" endline="476">XTmrCtr_Reset</referencedby>
+        <referencedby refid="group___overview_1ga42b972b6d7ae5d18a9bb2ca99446b1e7" compoundref="xtmrctr__selftest_8c" startline="73" endline="138">XTmrCtr_SelfTest</referencedby>
+        <referencedby refid="group___overview_1ga93d796cf55144d6adb3c51fedf6c3b76" compoundref="xtmrctr__options_8c" startline="105" endline="139">XTmrCtr_SetOptions</referencedby>
+        <referencedby refid="group___overview_1ga74b790866611a3ab1e96700feb48f6ea" compoundref="xtmrctr_8c" startline="397" endline="407">XTmrCtr_SetResetValue</referencedby>
+        <referencedby refid="group___overview_1ga009c17ab4fcedf73279638dd97b6edd4" compoundref="xtmrctr_8c" startline="249" endline="292">XTmrCtr_Start</referencedby>
+        <referencedby refid="group___overview_1gab8156ff2a16b8efc0fcd3ed2b7ecf91a" compoundref="xtmrctr_8c" startline="314" endline="346">XTmrCtr_Stop</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga74c246c9f5ac5fb8793f0f792bc8fa0e" prot="public" static="no">
+        <name>XTmrCtr_SetControlStatusReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,     \
+			 (RegisterValue))</initializer>
+        <briefdescription>
+<para>Set the Control Status Register of a timer counter to the specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XTmrCtr_SetControlStatusReg(u32 BaseAddress, u8 TmrCtrNumber,u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="218" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="261" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga45ca70c55615831432d0a2b32e0e77af" prot="public" static="no">
+        <name>XTmrCtr_GetControlStatusReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Get the Control Status Register of a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 XTmrCtr_GetControlStatusReg(u32 BaseAddress, u8 TmrCtrNumber); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gaa6ab051d2011676e6cc3ea8fbc4ec6da" prot="public" static="no">
+        <name>XTmrCtr_GetTimerCounterReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" kindref="member">XTC_TCR_OFFSET</ref>) \</initializer>
+        <briefdescription>
+<para>Get the Timer Counter Register of a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 XTmrCtr_GetTimerCounterReg(u32 BaseAddress, u8 TmrCtrNumber); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga66eee1751bc9d207eef8143492669c96" prot="public" static="no">
+        <name>XTmrCtr_SetLoadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <param><defname>RegisterValue</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" kindref="member">XTC_TLR_OFFSET</ref>, \
+			 (RegisterValue))</initializer>
+        <briefdescription>
+<para>Set the Load Register of a timer counter to the specified value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RegisterValue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the 32 bit value to be written to the register.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XTmrCtr_SetLoadReg(u32 BaseAddress, u8 TmrCtrNumber, u32 RegisterValue); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="274" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="317" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga248be00d1ff730871bf8201143dc1480" prot="public" static="no">
+        <name>XTmrCtr_GetLoadReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" kindref="member">XTC_TLR_OFFSET</ref>)</initializer>
+        <briefdescription>
+<para>Get the Load Register of a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The value read from the register, a 32 bit value.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: u32 <ref refid="group___overview_1ga248be00d1ff730871bf8201143dc1480" kindref="member">XTmrCtr_GetLoadReg(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="292" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="335" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gad1f98a1af5b68454aead939a5a727ff1" prot="public" static="no">
+        <name>XTmrCtr_Enable</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,   \
+			 (<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), ( TmrCtrNumber), \
+					  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) | <ref refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" kindref="member">XTC_CSR_ENABLE_TMR_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Enable a timer counter such that it starts running. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group___overview_1gad1f98a1af5b68454aead939a5a727ff1" kindref="member">XTmrCtr_Enable(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="309" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="352" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gae5874bbf23d48004ab15acd250a34688" prot="public" static="no">
+        <name>XTmrCtr_Disable</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>, \
+			 (<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber),\
+					  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) &amp; ~ <ref refid="group___overview_1gaa7cbbacf96f3f51bcd12d5826b03e620" kindref="member">XTC_CSR_ENABLE_TMR_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Disable a timer counter such that it stops running. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group___overview_1gae5874bbf23d48004ab15acd250a34688" kindref="member">XTmrCtr_Disable(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="328" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="371" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga2b0b144df40ea454cd791aa2fbdaeb94" prot="public" static="no">
+        <name>XTmrCtr_EnableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,   \
+			 (<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber),  \
+					  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) | <ref refid="group___overview_1ga0e56ed788d0a3f4b6d89319e03797002" kindref="member">XTC_CSR_ENABLE_INT_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Enable the interrupt for a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group___overview_1ga2b0b144df40ea454cd791aa2fbdaeb94" kindref="member">XTmrCtr_EnableIntr(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="347" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="390" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga582e5bbde5675a5750d3e4328493e318" prot="public" static="no">
+        <name>XTmrCtr_DisableIntr</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>,  \
+			 (<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber),		   \
+					  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) &amp; ~ (<ref refid="group___overview_1ga0e56ed788d0a3f4b6d89319e03797002" kindref="member">XTC_CSR_ENABLE_INT_MASK</ref> \
+							  | <ref refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kindref="member">XTC_CSR_INT_OCCURED_MASK</ref>)))</initializer>
+        <briefdescription>
+<para>Disable the interrupt for a timer counter. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void <ref refid="group___overview_1ga582e5bbde5675a5750d3e4328493e318" kindref="member">XTmrCtr_DisableIntr(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="366" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1ga433680f98acc79f69d227a041f20ecb9" prot="public" static="no">
+        <name>XTmrCtr_LoadTimerCounterReg</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer><ref refid="group___overview_1ga56d9c2d54afce39c3693356e3892547f" kindref="member">XTmrCtr_WriteReg</ref>((BaseAddress), (TmrCtrNumber), <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>, \
+			 (<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber),\
+					  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) | <ref refid="group___overview_1gaa10a23e3e387b53bac89f97cc5adf455" kindref="member">XTC_CSR_LOAD_MASK</ref>))</initializer>
+        <briefdescription>
+<para>Cause the timer counter to load it&apos;s Timer Counter Register with the value in the Load Register. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>C-Style signature: void XTmrCtr_LoadTimerCounterReg(u32 BaseAddress, u8 TmrCtrNumber); </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="388" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="431" bodyend="-1"/>
+        <referencedby refid="xtmrctr__low__level__example_8c_1a08b4e5049d6a7a3eb5aaf5cdc84de619" compoundref="xtmrctr__low__level__example_8c" startline="128" endline="185">TmrCtrLowLevelExample</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group___overview_1gac6bbcadfe43a528d4d895650bee25a4e" prot="public" static="no">
+        <name>XTmrCtr_HasEventOccurred</name>
+        <param><defname>BaseAddress</defname></param>
+        <param><defname>TmrCtrNumber</defname></param>
+        <initializer>((<ref refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" kindref="member">XTmrCtr_ReadReg</ref>((BaseAddress), (TmrCtrNumber),	\
+			  <ref refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" kindref="member">XTC_TCSR_OFFSET</ref>) &amp; <ref refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kindref="member">XTC_CSR_INT_OCCURED_MASK</ref>) ==		\
+	 <ref refid="group___overview_1ga2744df54b0fc4bc5df1dba14a6afc840" kindref="member">XTC_CSR_INT_OCCURED_MASK</ref>)</initializer>
+        <briefdescription>
+<para>Determine if a timer counter event has occurred. </para>        </briefdescription>
+        <detaileddescription>
+<para>Events are defined to be when a capture has occurred or the counter has roller over.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the base address of the device. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>TmrCtrNumber</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the specific timer counter within the device, a zero based number, 0 - (XTC_DEVICE_TIMER_COUNT - 1).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>C-Style signature: int <ref refid="group___overview_1gac6bbcadfe43a528d4d895650bee25a4e" kindref="member">XTmrCtr_HasEventOccurred(u32 BaseAddress, u8 TmrCtrNumber)</ref>; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="406" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" bodystart="449" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group___overview_1ga3e8a7c11d25b547077701a7affb8e6a9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XTmrCtr_Offsets[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XTmrCtr_Offsets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.c" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor">#ifndef<sp/>XTMRCTR_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTMRCTR_L_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="49"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="group___overview_1gaba99b973ef1f13bf0a2716cf52ca5319" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_DEVICE_TIMER_COUNT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Each<sp/>timer<sp/>counter<sp/>consumes<sp/>16<sp/>bytes<sp/>of<sp/>address<sp/>space<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTC_TIMER_COUNTER_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Timer<sp/>counter<sp/>instance<sp/>number<sp/>used<sp/>for<sp/>PWM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTC_TIMER_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTC_TIMER_1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="73"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Max<sp/>supported<sp/>load<sp/>value<sp/>for<sp/>timer/counter<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XTC_MAX_LOAD_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFFFFFFF</highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="83" refid="group___overview_1ga81c9a818cb57cf5f106cf5a3b7c3c59f" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_TCSR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84" refid="group___overview_1ga38a380fdcb3114c3db51524a8182c4ad" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_TLR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85" refid="group___overview_1gad054cd3c12bc686f9be366e093c2f97a" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_TCR_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="95" refid="group___overview_1gaaf3300005339d29c2ee9a79e6bb81959" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_CSR_CASC_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000800<sp/></highlight></codeline>
+<codeline lineno="96" refid="group___overview_1gabfaa1357c7843a1a72c740b017061a38" refkind="member"><highlight class="preprocessor">#define<sp/>XTC_CSR_ENABLE_ALL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000400<sp/></highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor">#define<sp/>XTC_CSR_ENABLE_PWM_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000200<sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor">#define<sp/>XTC_CSR_INT_OCCURED_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000100<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XTC_CSR_ENABLE_TMR_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000080<sp/></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XTC_CSR_ENABLE_INT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000040<sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XTC_CSR_LOAD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000020<sp/></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XTC_CSR_AUTO_RELOAD_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000010<sp/></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#define<sp/>XTC_CSR_EXT_CAPTURE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000008<sp/></highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor">#define<sp/>XTC_CSR_EXT_GENERATE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000004<sp/></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XTC_CSR_DOWN_COUNT_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000002<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XTC_CSR_CAPTURE_MODE_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000001<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="151"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u8<sp/>XTmrCtr_Offsets[];</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="175"><highlight class="preprocessor">#define<sp/>XTmrCtr_ReadReg(BaseAddress,<sp/>TmrCtrNumber,<sp/>RegOffset)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_In32((BaseAddress)<sp/>+<sp/>XTmrCtr_Offsets[(TmrCtrNumber)]<sp/>+<sp/>\</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset))</highlight></codeline>
+<codeline lineno="178"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XTimerCtr_ReadReg</highlight></codeline>
+<codeline lineno="180"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XTimerCtr_ReadReg<sp/>XTmrCtr_ReadReg</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="182" refid="group___overview_1gaa0563f5483d9fef6126df6b2e447da08" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor">#define<sp/>XTmrCtr_WriteReg(BaseAddress,<sp/>TmrCtrNumber,<sp/>RegOffset,<sp/>ValueToWrite)\</highlight></codeline>
+<codeline lineno="199"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_Out32(((BaseAddress)<sp/>+<sp/>XTmrCtr_Offsets[(TmrCtrNumber)]<sp/>+<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegOffset)),<sp/>(ValueToWrite))</highlight></codeline>
+<codeline lineno="201"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="218" refid="group___overview_1gaea427162ce7e92fd08afb7ee1cc1c12e" refkind="member"><highlight class="preprocessor">#define<sp/>XTmrCtr_SetControlStatusReg(BaseAddress,<sp/>TmrCtrNumber,<sp/>RegisterValue)\</highlight></codeline>
+<codeline lineno="219"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="221"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor">#define<sp/>XTmrCtr_GetControlStatusReg(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET)</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor">#define<sp/>XTmrCtr_GetTimerCounterReg(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCR_OFFSET)<sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor">#define<sp/>XTmrCtr_SetLoadReg(BaseAddress,<sp/>TmrCtrNumber,<sp/>RegisterValue)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TLR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(RegisterValue))</highlight></codeline>
+<codeline lineno="277"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor">#define<sp/>XTmrCtr_GetLoadReg(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="293"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TLR_OFFSET)</highlight></codeline>
+<codeline lineno="294"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="309"><highlight class="preprocessor">#define<sp/>XTmrCtr_Enable(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="310"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="311"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XTmrCtr_ReadReg((BaseAddress),<sp/>(<sp/>TmrCtrNumber),<sp/>\</highlight></codeline>
+<codeline lineno="312"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>|<sp/>XTC_CSR_ENABLE_TMR_MASK))</highlight></codeline>
+<codeline lineno="313"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="328"><highlight class="preprocessor">#define<sp/>XTmrCtr_Disable(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="329"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="330"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),\</highlight></codeline>
+<codeline lineno="331"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>&amp;<sp/>~<sp/>XTC_CSR_ENABLE_TMR_MASK))</highlight></codeline>
+<codeline lineno="332"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="347"><highlight class="preprocessor">#define<sp/>XTmrCtr_EnableIntr(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="348"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="349"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/><sp/>\</highlight></codeline>
+<codeline lineno="350"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>|<sp/>XTC_CSR_ENABLE_INT_MASK))</highlight></codeline>
+<codeline lineno="351"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352" refid="group___overview_1gad1f98a1af5b68454aead939a5a727ff1" refkind="member"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="366"><highlight class="preprocessor">#define<sp/>XTmrCtr_DisableIntr(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="367"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/><sp/>\</highlight></codeline>
+<codeline lineno="368"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="369"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>&amp;<sp/>~<sp/>(XTC_CSR_ENABLE_INT_MASK<sp/>\</highlight></codeline>
+<codeline lineno="370"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>XTC_CSR_INT_OCCURED_MASK)))</highlight></codeline>
+<codeline lineno="371" refid="group___overview_1gae5874bbf23d48004ab15acd250a34688" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="388"><highlight class="preprocessor">#define<sp/>XTmrCtr_LoadTimerCounterReg(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="389"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTmrCtr_WriteReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/>XTC_TCSR_OFFSET,<sp/>\</highlight></codeline>
+<codeline lineno="390" refid="group___overview_1ga2b0b144df40ea454cd791aa2fbdaeb94" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),\</highlight></codeline>
+<codeline lineno="391"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>|<sp/>XTC_CSR_LOAD_MASK))</highlight></codeline>
+<codeline lineno="392"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="406"><highlight class="preprocessor">#define<sp/>XTmrCtr_HasEventOccurred(BaseAddress,<sp/>TmrCtrNumber)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="407"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((XTmrCtr_ReadReg((BaseAddress),<sp/>(TmrCtrNumber),<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="408"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_TCSR_OFFSET)<sp/>&amp;<sp/>XTC_CSR_INT_OCCURED_MASK)<sp/>==<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="409" refid="group___overview_1ga582e5bbde5675a5750d3e4328493e318" refkind="member"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XTC_CSR_INT_OCCURED_MASK)</highlight></codeline>
+<codeline lineno="410"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="414"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="415"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="416"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="417"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/tmrctr/src/xtmrctr_l.h"/>
+  </compounddef>
+</doxygen>

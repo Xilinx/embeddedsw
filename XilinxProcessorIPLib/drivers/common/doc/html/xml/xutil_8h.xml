@@ -1,0 +1,402 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xutil_8h" kind="file">
+    <compoundname>xutil.h</compoundname>
+    <includes refid="xbasic__types_8h" local="yes">xbasic_types.h</includes>
+    <includes refid="xstatus_8h" local="yes">xstatus.h</includes>
+    <includedby refid="xutil__memtest_8c" local="yes">xutil_memtest.c</includedby>
+    <incdepgraph>
+      <node id="54">
+        <label>xstatus.h</label>
+        <link refid="xstatus_8h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+      </node>
+      <node id="52">
+        <label>xutil.h</label>
+        <link refid="xutil.h"/>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+      </node>
+      <node id="53">
+        <label>xbasic_types.h</label>
+        <link refid="xbasic__types_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="55">
+        <label>xutil.h</label>
+        <link refid="xutil.h"/>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="56">
+        <label>xutil_memtest.c</label>
+        <link refid="xutil__memtest_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>Memory subtests</header>
+      <memberdef kind="define" id="group__common_1ga93cc310a1d400abb7e4658d96c09d568" prot="public" static="no">
+        <name>XUT_ALLMEMTESTS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>See the detailed description of the subtests in the file description. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__common_1ga5c11abd9381dbdec3f55a97b41323ddd" compoundref="xutil__memtest_8c" startline="407" endline="715">XUtil_MemoryTest16</referencedby>
+        <referencedby refid="group__common_1gab898ebdd11950907ac66e978d2bd8d92" compoundref="xutil__memtest_8c" startline="72" endline="377">XUtil_MemoryTest32</referencedby>
+        <referencedby refid="group__common_1ga777417fa2028d84d0f03ebb3570ea90f" compoundref="xutil__memtest_8c" startline="746" endline="1053">XUtil_MemoryTest8</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gafc0d77b47a1a3189b08c2dc308fe9041" prot="public" static="no">
+        <name>XUT_INCREMENT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="118" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga76a9bbaca7aee2b39e2ae7bebef145c2" prot="public" static="no">
+        <name>XUT_WALKONES</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="119" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga5e15f0389e9a90b945c0b4cad1973ca8" prot="public" static="no">
+        <name>XUT_WALKZEROS</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="120" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gae727ae724d17b2c5b7e03fc4553ea3ff" prot="public" static="no">
+        <name>XUT_INVERSEADDR</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="121" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga71831986eecc8fe839df3840903fce78" prot="public" static="no">
+        <name>XUT_FIXEDPATTERN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="122" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1gadd4c6f4903c367bbc9d6b276d083e931" prot="public" static="no">
+        <name>XUT_MAXTEST</name>
+        <initializer>XUT_FIXEDPATTERN</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="123" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__common_1ga4faa4d8b08a34c853274456e3615f4e4" prot="public" static="no">
+        <name>XUTIL_H</name>
+        <initializer>/* by using protection macros */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="92" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__common_1ga85e9a3cde3b8c9f7336c1aa8552995a5" prot="public" static="no">
+        <name>XUT_MEMTEST_INIT_VALUE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="109" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__common_1gab898ebdd11950907ac66e978d2bd8d92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUtil_MemoryTest32</definition>
+        <argsstring>(u32 *Addr, u32 Words, u32 Pattern, u8 Subtest)</argsstring>
+        <name>XUtil_MemoryTest32</name>
+        <param>
+          <type>u32 *</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Words</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Pattern</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Subtest</declname>
+        </param>
+        <briefdescription>
+<para>Performs a destructive 32-bit wide memory test. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the region of memory to be tested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Words</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the block. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the constant used for the constant pattern test, if 0, 0xDEADBEEF is used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Subtest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the test selected. See <ref refid="xutil_8h" kindref="compound">xutil.h</ref> for possible values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+<itemizedlist>
+<listitem><para>XST_MEMTEST_FAILED is returned for a failure</para></listitem><listitem><para>XST_SUCCESS is returned for a pass</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para></para></simplesect>
+Used for spaces where the address range of the region is smaller than the data width. If the memory range is greater than 2 ** width, the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a boundary of a power of two making it more difficult to detect addressing errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same problem. Ideally, if large blocks of memory are to be tested, break them up into smaller regions of memory to allow the test patterns used not to repeat over the region tested. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil_memtest.c" bodystart="72" bodyend="377"/>
+        <references refid="group__common_1ga237c4df94339dabd56c08bfa8ef55cff" compoundref="xbasic__types_8h" startline="218">XASSERT_NONVOID</references>
+        <references refid="group__common_1ga93cc310a1d400abb7e4658d96c09d568" compoundref="xutil_8h" startline="117">XUT_ALLMEMTESTS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1ga5c11abd9381dbdec3f55a97b41323ddd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUtil_MemoryTest16</definition>
+        <argsstring>(u16 *Addr, u32 Words, u16 Pattern, u8 Subtest)</argsstring>
+        <name>XUtil_MemoryTest16</name>
+        <param>
+          <type>u16 *</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Words</declname>
+        </param>
+        <param>
+          <type>u16</type>
+          <declname>Pattern</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Subtest</declname>
+        </param>
+        <briefdescription>
+<para>Performs a destructive 16-bit wide memory test. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the region of memory to be tested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Words</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the block. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the constant used for the constant pattern test, if 0, 0xDEADBEEF is used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Subtest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the test selected. See <ref refid="xutil_8h" kindref="compound">xutil.h</ref> for possible values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+<itemizedlist>
+<listitem><para>XST_MEMTEST_FAILED is returned for a failure</para></listitem><listitem><para>XST_SUCCESS is returned for a pass</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para></para></simplesect>
+Used for spaces where the address range of the region is smaller than the data width. If the memory range is greater than 2 ** width, the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a boundary of a power of two making it more difficult to detect addressing errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same problem. Ideally, if large blocks of memory are to be tested, break them up into smaller regions of memory to allow the test patterns used not to repeat over the region tested. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil_memtest.c" bodystart="407" bodyend="715"/>
+        <references refid="group__common_1ga237c4df94339dabd56c08bfa8ef55cff" compoundref="xbasic__types_8h" startline="218">XASSERT_NONVOID</references>
+        <references refid="group__common_1ga93cc310a1d400abb7e4658d96c09d568" compoundref="xutil_8h" startline="117">XUT_ALLMEMTESTS</references>
+      </memberdef>
+      <memberdef kind="function" id="group__common_1ga777417fa2028d84d0f03ebb3570ea90f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XUtil_MemoryTest8</definition>
+        <argsstring>(u8 *Addr, u32 Words, u8 Pattern, u8 Subtest)</argsstring>
+        <name>XUtil_MemoryTest8</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Addr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Words</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Pattern</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Subtest</declname>
+        </param>
+        <briefdescription>
+<para>Performs a destructive 8-bit wide memory test. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the region of memory to be tested. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Words</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the length of the block. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pattern</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the constant used for the constant pattern test, if 0, 0xDEADBEEF is used. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Subtest</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the test selected. See <ref refid="xutil_8h" kindref="compound">xutil.h</ref> for possible values.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para></para></simplesect>
+<itemizedlist>
+<listitem><para>XST_MEMTEST_FAILED is returned for a failure</para></listitem><listitem><para>XST_SUCCESS is returned for a pass</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para></para></simplesect>
+Used for spaces where the address range of the region is smaller than the data width. If the memory range is greater than 2 ** width, the patterns used in XUT_WALKONES and XUT_WALKZEROS will repeat on a boundary of a power of two making it more difficult to detect addressing errors. The XUT_INCREMENT and XUT_INVERSEADDR tests suffer the same problem. Ideally, if large blocks of memory are to be tested, break them up into smaller regions of memory to allow the test patterns used not to repeat over the region tested. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil_memtest.c" bodystart="746" bodyend="1053"/>
+        <references refid="group__common_1ga237c4df94339dabd56c08bfa8ef55cff" compoundref="xbasic__types_8h" startline="218">XASSERT_NONVOID</references>
+        <references refid="group__common_1ga93cc310a1d400abb7e4658d96c09d568" compoundref="xutil_8h" startline="117">XUT_ALLMEMTESTS</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2023<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="91"><highlight class="preprocessor">#ifndef<sp/>XUTIL_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>prevent<sp/>circular<sp/>inclusions<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUTIL_H<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>by<sp/>using<sp/>protection<sp/>macros<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="93"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xbasic__types_8h" kindref="compound">xbasic_types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xstatus_8h" kindref="compound">xstatus.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xutil_memtest<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XUT_MEMTEST_INIT_VALUE<sp/><sp/>1</highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="117" refid="group__common_1ga93cc310a1d400abb7e4658d96c09d568" refkind="member"><highlight class="preprocessor">#define<sp/>XUT_ALLMEMTESTS<sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_INCREMENT<sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_WALKONES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_WALKZEROS<sp/><sp/><sp/><sp/><sp/><sp/><sp/>3</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_INVERSEADDR<sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_FIXEDPATTERN<sp/><sp/><sp/><sp/>5</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XUT_MAXTEST<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XUT_FIXEDPATTERN</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>@}<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>xutil_memtest<sp/>prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1gab898ebdd11950907ac66e978d2bd8d92" kindref="member">XUtil_MemoryTest32</ref>(u32<sp/>*Addr,<sp/>u32<sp/>Words,<sp/>u32<sp/>Pattern,<sp/>u8<sp/>Subtest);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga5c11abd9381dbdec3f55a97b41323ddd" kindref="member">XUtil_MemoryTest16</ref>(u16<sp/>*Addr,<sp/>u32<sp/>Words,<sp/>u16<sp/>Pattern,<sp/>u8<sp/>Subtest);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__common_1ga777417fa2028d84d0f03ebb3570ea90f" kindref="member">XUtil_MemoryTest8</ref>(u8<sp/>*Addr,<sp/>u32<sp/>Words,<sp/>u8<sp/>Pattern,<sp/>u8<sp/>Subtest);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>protection<sp/>macro<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/common/src/xutil.h"/>
+  </compounddef>
+</doxygen>

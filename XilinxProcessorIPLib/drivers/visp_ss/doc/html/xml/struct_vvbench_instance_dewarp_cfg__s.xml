@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_vvbench_instance_dewarp_cfg__s" kind="struct" prot="public">
+    <compoundname>VvbenchInstanceDewarpCfg_s</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a88c80007a27ac2bdfe0dec2e572aa644" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstanceDewarpCfg_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="302" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1afed7801b60e428fb3652fef82905a3a9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::dewarpMode</definition>
+        <argsstring></argsstring>
+        <name>dewarpMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a8f922c3b37795052e089fad7b5b7b1c2" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::mapSelect</definition>
+        <argsstring></argsstring>
+        <name>mapSelect</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a410f971ed9e0ba83da30f4d2d4c20319" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::hflip</definition>
+        <argsstring></argsstring>
+        <name>hflip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="305" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a336bb3e4f96ecb5dbe8ee5e4beb3cbff" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::vflip</definition>
+        <argsstring></argsstring>
+        <name>vflip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1ac4497798d8c3725c459422861b33d4cb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::bypass</definition>
+        <argsstring></argsstring>
+        <name>bypass</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a9df84fd938961e0c495ea0a60bafff36" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstanceDewarpCfg_s::inputEnable</definition>
+        <argsstring></argsstring>
+        <name>inputEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a37719570443bafc67f2566d48381a692" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::inputPath</definition>
+        <argsstring></argsstring>
+        <name>inputPath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a354a902954f947196d839cd8b8080710" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::inputHeight</definition>
+        <argsstring></argsstring>
+        <name>inputHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="310" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a2232bb3903c930079a540556b50e34ab" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::inputWidth</definition>
+        <argsstring></argsstring>
+        <name>inputWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a29458ed412a017d24360254d63d330e9" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::inputFormat</definition>
+        <argsstring></argsstring>
+        <name>inputFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a9184996efff94339bc1bcb03aeb67955" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::inputBit</definition>
+        <argsstring></argsstring>
+        <name>inputBit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="313" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a3e824f7745e56aac725421955ec1047a" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool VvbenchInstanceDewarpCfg_s::outputEnable</definition>
+        <argsstring></argsstring>
+        <name>outputEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="314" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a96b877d4d3ce6886851f5f1b12ad6935" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputPath</definition>
+        <argsstring></argsstring>
+        <name>outputPath</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="315" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a490a33b20ec0e276a08c439795605b7b" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputWidth</definition>
+        <argsstring></argsstring>
+        <name>outputWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="316" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="316" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a99af9f6961d570edaf8e226cd89aca49" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputHeight</definition>
+        <argsstring></argsstring>
+        <name>outputHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="317" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1aeb1f748a3ee339f14802c02b6621a36e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputNumber</definition>
+        <argsstring></argsstring>
+        <name>outputNumber</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="318" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1acc2fb0a82d380d35f98bef8a2a9b0654" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputFormat</definition>
+        <argsstring></argsstring>
+        <name>outputFormat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1ae0cc89e4cb4acc9dd67303e4496ebf85" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::outputBit</definition>
+        <argsstring></argsstring>
+        <name>outputBit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="320" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="320" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1aac80345021d015953e398ec9432bc373" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::tempWidth</definition>
+        <argsstring></argsstring>
+        <name>tempWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="321" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1a49f2095d1f545ab53208ffb980e76c3c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::tempHeight</definition>
+        <argsstring></argsstring>
+        <name>tempHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="322" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="322" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_vvbench_instance_dewarp_cfg__s_1af12722ed6287ae4b4ebb252f815d1295" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t VvbenchInstanceDewarpCfg_s::scaleFactor</definition>
+        <argsstring></argsstring>
+        <name>scaleFactor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="323" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/include/vvdevice.h" bodystart="301" bodyend="328"/>
+    <listofallmembers>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1ac4497798d8c3725c459422861b33d4cb" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>bypass</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1afed7801b60e428fb3652fef82905a3a9" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>dewarpMode</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a88c80007a27ac2bdfe0dec2e572aa644" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>enable</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a410f971ed9e0ba83da30f4d2d4c20319" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>hflip</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a9184996efff94339bc1bcb03aeb67955" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputBit</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a9df84fd938961e0c495ea0a60bafff36" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputEnable</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a29458ed412a017d24360254d63d330e9" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputFormat</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a354a902954f947196d839cd8b8080710" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputHeight</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a37719570443bafc67f2566d48381a692" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputPath</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a2232bb3903c930079a540556b50e34ab" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>inputWidth</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a8f922c3b37795052e089fad7b5b7b1c2" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>mapSelect</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1ae0cc89e4cb4acc9dd67303e4496ebf85" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputBit</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a3e824f7745e56aac725421955ec1047a" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputEnable</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1acc2fb0a82d380d35f98bef8a2a9b0654" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputFormat</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a99af9f6961d570edaf8e226cd89aca49" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputHeight</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1aeb1f748a3ee339f14802c02b6621a36e" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputNumber</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a96b877d4d3ce6886851f5f1b12ad6935" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputPath</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a490a33b20ec0e276a08c439795605b7b" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>outputWidth</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1af12722ed6287ae4b4ebb252f815d1295" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>scaleFactor</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a49f2095d1f545ab53208ffb980e76c3c" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>tempHeight</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1aac80345021d015953e398ec9432bc373" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>tempWidth</name></member>
+      <member refid="struct_vvbench_instance_dewarp_cfg__s_1a336bb3e4f96ecb5dbe8ee5e4beb3cbff" prot="public" virt="non-virtual"><scope>VvbenchInstanceDewarpCfg_s</scope><name>vflip</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

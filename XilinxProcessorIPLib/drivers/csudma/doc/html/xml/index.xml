@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.5">
+  <compound refid="struct_x_csu_dma" kind="struct"><name>XCsuDma</name>
+    <member refid="struct_x_csu_dma_1ab64e65f366955cbbc63436336de5ac48" kind="variable"><name>Config</name></member>
+    <member refid="struct_x_csu_dma_1ab458e2393e0b44a976037f496de9e679" kind="variable"><name>IsReady</name></member>
+  </compound>
+  <compound refid="struct_x_csu_dma___config" kind="struct"><name>XCsuDma_Config</name>
+    <member refid="struct_x_csu_dma___config_1ac71e32fb8008612626e493f04ffde089" kind="variable"><name>Name</name></member>
+    <member refid="struct_x_csu_dma___config_1a85e9f7798c5aa5ad4fbc9a8d0ba62990" kind="variable"><name>BaseAddress</name></member>
+    <member refid="struct_x_csu_dma___config_1a8bb59cb926fea92ce59604ca3423e505" kind="variable"><name>DmaType</name></member>
+    <member refid="struct_x_csu_dma___config_1a60d8578bcd8983055bbdf4dfd63a42e3" kind="variable"><name>IntrId</name></member>
+    <member refid="struct_x_csu_dma___config_1a9616c192663ef1643bf77d363de925c6" kind="variable"><name>IntrParent</name></member>
+  </compound>
+  <compound refid="struct_x_csu_dma___configure" kind="struct"><name>XCsuDma_Configure</name>
+    <member refid="struct_x_csu_dma___configure_1a524260e03c75bc8745da0e4b7dca71ed" kind="variable"><name>SssFifoThesh</name></member>
+    <member refid="struct_x_csu_dma___configure_1a7ca88dbe204c7b24ce7e529da53e1ae2" kind="variable"><name>ApbErr</name></member>
+    <member refid="struct_x_csu_dma___configure_1a4d1217d471a558f54534c15213bbb264" kind="variable"><name>EndianType</name></member>
+    <member refid="struct_x_csu_dma___configure_1a1aeadd99f4f96da636b9cb0c2be21c09" kind="variable"><name>AxiBurstType</name></member>
+    <member refid="struct_x_csu_dma___configure_1af2b9f211561ad313b726a60104afc32e" kind="variable"><name>TimeoutValue</name></member>
+    <member refid="struct_x_csu_dma___configure_1af17af84045f926ff8e386509cc0c9aee" kind="variable"><name>FifoThresh</name></member>
+    <member refid="struct_x_csu_dma___configure_1a984f69d8fa925618e85800ba8fd2d155" kind="variable"><name>Acache</name></member>
+    <member refid="struct_x_csu_dma___configure_1ac6f8c811d5b1ecf86d37091fc132717e" kind="variable"><name>RouteBit</name></member>
+    <member refid="struct_x_csu_dma___configure_1a2f45ba702e0487ed32152186339d7052" kind="variable"><name>TimeoutEn</name></member>
+    <member refid="struct_x_csu_dma___configure_1a00365f4d0973fcb3fd39382312775748" kind="variable"><name>TimeoutPre</name></member>
+    <member refid="struct_x_csu_dma___configure_1acdf6a30da74f891648e17d1ce9bfadae" kind="variable"><name>MaxOutCmds</name></member>
+  </compound>
+  <compound refid="src_2_c_make_lists_8txt" kind="file"><name>src/CMakeLists.txt</name>
+  </compound>
+  <compound refid="examples_2_c_make_lists_8txt" kind="file"><name>examples/CMakeLists.txt</name>
+  </compound>
+  <compound refid="readme_8txt" kind="file"><name>readme.txt</name>
+  </compound>
+  <compound refid="xasudma_8h" kind="file"><name>xasudma.h</name>
+  </compound>
+  <compound refid="xcsudma_8c" kind="file"><name>xcsudma.c</name>
+    <member refid="group__csuma__api_1gaf448568bb484f8b80052682f399f194d" kind="define"><name>XCSUDMA_WORD_SIZE</name></member>
+    <member refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" kind="function"><name>XCsuDma_CfgInitialize</name></member>
+    <member refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" kind="function"><name>XCsuDma_Transfer</name></member>
+    <member refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" kind="function"><name>XCsuDma_64BitTransfer</name></member>
+    <member refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" kind="function"><name>XCsuDma_GetAddr</name></member>
+    <member refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" kind="function"><name>XCsuDma_GetSize</name></member>
+    <member refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" kind="function"><name>XCsuDma_Pause</name></member>
+    <member refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" kind="function"><name>XCsuDma_IsPaused</name></member>
+    <member refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" kind="function"><name>XCsuDma_Resume</name></member>
+    <member refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" kind="function"><name>XCsuDma_GetCheckSum</name></member>
+    <member refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" kind="function"><name>XCsuDma_ClearCheckSum</name></member>
+    <member refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kind="function"><name>XCsuDma_WaitForDoneTimeout</name></member>
+    <member refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" kind="function"><name>XCsuDma_SetConfig</name></member>
+    <member refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" kind="function"><name>XCsuDma_GetConfig</name></member>
+  </compound>
+  <compound refid="xcsudma_8h" kind="file"><name>xcsudma.h</name>
+    <member refid="xcsudma_8h_1ab57550413ed1c53f70a33ad4b90965eb" kind="define"><name>XCSUDMA_SIZE_MAX</name></member>
+    <member refid="xcsudma_8h_1a8f5460a8a6a1848b2c4c2988f7428e73" kind="define"><name>XCSUDMA_DMATYPEIS_CSUDMA</name></member>
+    <member refid="xcsudma_8h_1af785114e3c13162c421d9e996904439d" kind="define"><name>XCSUDMA_DMATYPEIS_PMCDMA0</name></member>
+    <member refid="xcsudma_8h_1aa507d47c1f38cdce062c5215c47f6eb3" kind="define"><name>XCSUDMA_DMATYPEIS_PMCDMA1</name></member>
+    <member refid="xcsudma_8h_1a6bb92ac777bd1f10d3a1e71aa3f78c78" kind="define"><name>XCSUDMA_DMATYPEIS_ASUDMA0</name></member>
+    <member refid="xcsudma_8h_1aa8be6af2cc9347ba3b9f23e8dc209e34" kind="define"><name>XCSUDMA_DMATYPEIS_ASUDMA1</name></member>
+    <member refid="group__csuma__api_1ga8ee71e015a72b9441ead3a0f5541777c" kind="define"><name>XCSUDMA_H_</name></member>
+    <member refid="xcsudma_8h_1a4fd22ed9ee5ff0eae03ee717112b7087" kind="define"><name>XCsuDma_Reset</name></member>
+    <member refid="xcsudma_8h_1a97adf45a00577175416617745ddae9b8" kind="define"><name>XCsuDma_WaitForDone</name></member>
+    <member refid="xcsudma_8h_1adf6f5fdbd1556eecafa2ecf802b88e73" kind="define"><name>XCsuDma_GetDoneCount</name></member>
+    <member refid="xcsudma_8h_1a055148e26de969504f6b826af3fe9279" kind="define"><name>XCsuDma_GetFIFOLevel</name></member>
+    <member refid="xcsudma_8h_1a8b3c3d44a05b300dd2b60a1f15bc9a60" kind="define"><name>XCsuDma_GetWROutstandCount</name></member>
+    <member refid="xcsudma_8h_1af15d6d8d487734165214850984ac00f2" kind="define"><name>XCsuDma_IsBusy</name></member>
+    <member refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kind="enum"><name>XCsuDma_Channel</name></member>
+    <member refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kind="enumvalue"><name>XCSUDMA_SRC_CHANNEL</name></member>
+    <member refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kind="enumvalue"><name>XCSUDMA_DST_CHANNEL</name></member>
+    <member refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87" kind="enum"><name>XCsuDma_PauseType</name></member>
+    <member refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a4848b0d503f02b0b03be6cd1a14ef6a8" kind="enumvalue"><name>XCSUDMA_PAUSE_MEMORY</name></member>
+    <member refid="xcsudma_8h_1ad5ce08d197288cbdfb06941f1d46df87a67086fbe749ed37f5928c211ee6aa5b8" kind="enumvalue"><name>XCSUDMA_PAUSE_STREAM</name></member>
+    <member refid="xcsudma_8h_1a09afb5a6136c97f2cbe9d94c6dc5e23b" kind="variable"><name>XCsuDma_ConfigTable</name></member>
+    <member refid="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" kind="function"><name>XCsuDma_LookupConfig</name></member>
+    <member refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" kind="function"><name>XCsuDma_CfgInitialize</name></member>
+    <member refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" kind="function"><name>XCsuDma_Transfer</name></member>
+    <member refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" kind="function"><name>XCsuDma_64BitTransfer</name></member>
+    <member refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" kind="function"><name>XCsuDma_GetAddr</name></member>
+    <member refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" kind="function"><name>XCsuDma_GetSize</name></member>
+    <member refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" kind="function"><name>XCsuDma_Pause</name></member>
+    <member refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" kind="function"><name>XCsuDma_IsPaused</name></member>
+    <member refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" kind="function"><name>XCsuDma_Resume</name></member>
+    <member refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" kind="function"><name>XCsuDma_GetCheckSum</name></member>
+    <member refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" kind="function"><name>XCsuDma_ClearCheckSum</name></member>
+    <member refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" kind="function"><name>XCsuDma_SetConfig</name></member>
+    <member refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" kind="function"><name>XCsuDma_GetConfig</name></member>
+    <member refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kind="function"><name>XCsuDma_WaitForDoneTimeout</name></member>
+    <member refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" kind="function"><name>XCsuDma_IntrGetStatus</name></member>
+    <member refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" kind="function"><name>XCsuDma_IntrClear</name></member>
+    <member refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" kind="function"><name>XCsuDma_EnableIntr</name></member>
+    <member refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" kind="function"><name>XCsuDma_DisableIntr</name></member>
+    <member refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" kind="function"><name>XCsuDma_GetIntrMask</name></member>
+    <member refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" kind="function"><name>XCsuDma_SelfTest</name></member>
+  </compound>
+  <compound refid="xcsudma__g_8c" kind="file"><name>xcsudma_g.c</name>
+    <member refid="xcsudma__g_8c_1a09afb5a6136c97f2cbe9d94c6dc5e23b" kind="variable"><name>XCsuDma_ConfigTable</name></member>
+  </compound>
+  <compound refid="xcsudma__hw_8h" kind="file"><name>xcsudma_hw.h</name>
+    <member refid="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" kind="define"><name>XCSUDMA_ADDR_OFFSET</name></member>
+    <member refid="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" kind="define"><name>XCSUDMA_SIZE_OFFSET</name></member>
+    <member refid="group__csuma__api_1gaa69407558163d5fc58ac9621b3e313a3" kind="define"><name>XCSUDMA_STS_OFFSET</name></member>
+    <member refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" kind="define"><name>XCSUDMA_CTRL_OFFSET</name></member>
+    <member refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" kind="define"><name>XCSUDMA_I_STS_OFFSET</name></member>
+    <member refid="group__csuma__api_1ga2e9db5623d0c9b85088c528d43c9b411" kind="define"><name>XCSUDMA_SIZE_MASK</name></member>
+    <member refid="group__csuma__api_1gaf0a5114bb4e675c0e9d933a2d235ac6f" kind="define"><name>XCSUDMA_LAST_WORD_MASK</name></member>
+    <member refid="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" kind="define"><name>XCSUDMA_SIZE_SHIFT</name></member>
+    <member refid="group__csuma__api_1ga33dc1a1076170c9ca47df1c3451bdfe5" kind="define"><name>XCSUDMA_IXR_FIFO_OVERFLOW_MASK</name></member>
+    <member refid="group__csuma__api_1ga6e7d15f2dfaa7afef685f382db12c62e" kind="define"><name>XCSUDMA_IXR_INVALID_APB_MASK</name></member>
+    <member refid="group__csuma__api_1gaf727ccf4d9bbbce46d61f67be041b40c" kind="define"><name>XCSUDMA_IXR_FIFO_THRESHHIT_MASK</name></member>
+    <member refid="group__csuma__api_1gadb917cad64699bd0fc6e21c1fec74068" kind="define"><name>XCSUDMA_IXR_TIMEOUT_MEM_MASK</name></member>
+    <member refid="group__csuma__api_1ga7fc13f5152cf0098d76d4b78b08702e8" kind="define"><name>XCSUDMA_IXR_TIMEOUT_STRM_MASK</name></member>
+    <member refid="group__csuma__api_1gac6e2bc9f25b7160249710c395a74d933" kind="define"><name>XCSUDMA_IXR_AXI_WRERR_MASK</name></member>
+    <member refid="group__csuma__api_1ga0dbd333c70de601e769b8542552eb7e4" kind="define"><name>XCSUDMA_IXR_DONE_MASK</name></member>
+    <member refid="group__csuma__api_1ga670d9fac28bd9de6b6f6abcb5fda64cc" kind="define"><name>XCSUDMA_IXR_MEM_DONE_MASK</name></member>
+    <member refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" kind="define"><name>XCSUDMA_IXR_SRC_MASK</name></member>
+    <member refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" kind="define"><name>XCSUDMA_IXR_DST_MASK</name></member>
+    <member refid="group__csuma__api_1ga0bd0c9763013ce910920b46ad35d10ba" kind="define"><name>XCSUDMA_DONE_TIMEOUT_VAL</name></member>
+    <member refid="group__csuma__api_1gaf7ae40275005f5b2c827da41a0e3cc23" kind="define"><name>XCSUDMA_HW_H_</name></member>
+    <member refid="group__csuma__api_1gae02862bee946eeb9f0684d24550d1afa" kind="define"><name>XCsuDma_In32</name></member>
+    <member refid="group__csuma__api_1gae5b5c8718f050b6b4e25380a92c9aa0d" kind="define"><name>XCsuDma_Out32</name></member>
+    <member refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" kind="define"><name>XCsuDma_ReadReg</name></member>
+    <member refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kind="define"><name>XCsuDma_WriteReg</name></member>
+  </compound>
+  <compound refid="xcsudma__intr_8c" kind="file"><name>xcsudma_intr.c</name>
+    <member refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" kind="function"><name>XCsuDma_IntrGetStatus</name></member>
+    <member refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" kind="function"><name>XCsuDma_IntrClear</name></member>
+    <member refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" kind="function"><name>XCsuDma_EnableIntr</name></member>
+    <member refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" kind="function"><name>XCsuDma_DisableIntr</name></member>
+    <member refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" kind="function"><name>XCsuDma_GetIntrMask</name></member>
+  </compound>
+  <compound refid="xcsudma__intr__example_8c" kind="file"><name>xcsudma_intr_example.c</name>
+    <member refid="xcsudma__intr__example_8c_1a0e62fe5ebb6dbbfb67acfafe3c4f498e" kind="define"><name>CSUDMA_BASEADDR</name></member>
+    <member refid="xcsudma__intr__example_8c_1a1dac2e3409004e3277582a4066239395" kind="define"><name>CSU_SSS_CONFIG_OFFSET</name></member>
+    <member refid="xcsudma__intr__example_8c_1a36650147b2834be4261c304cbb5acbfb" kind="define"><name>CSUDMA_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__intr__example_8c_1a7a41b6cbdc050339c46b3ad81bf9d5f0" kind="define"><name>PMC_SSS_CONFIG_OFFSET</name></member>
+    <member refid="xcsudma__intr__example_8c_1a9be00cc50ff004d20e27675fc9d00709" kind="define"><name>PMCDMA0_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__intr__example_8c_1ac52f2e0501f3f595e3b8e92c12142f57" kind="define"><name>PMCDMA1_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__intr__example_8c_1a70ed59adcb4159ac551058053e649640" kind="define"><name>SIZE</name></member>
+    <member refid="xcsudma__intr__example_8c_1acaf18b341d1af3db65737995dbdabb2f" kind="variable"><name>DstBuf</name></member>
+    <member refid="xcsudma__intr__example_8c_1af61ae76555abcb873e18f6deee8ba5f5" kind="variable"><name>SrcBuf</name></member>
+    <member refid="xcsudma__intr__example_8c_1a6ac1478432df4951ce8f0fc753bb652d" kind="variable"><name>CsuDma</name></member>
+    <member refid="xcsudma__intr__example_8c_1a7813ad01a99f01d4a9992d132a467474" kind="variable"><name>DstDone</name></member>
+    <member refid="xcsudma__intr__example_8c_1a55502a98728facd6753005575994965e" kind="function"><name>XCsuDma_IntrExample</name></member>
+    <member refid="xcsudma__intr__example_8c_1aa2c2d73f33aa4a715c8b8b3c0c01ada6" kind="function"><name>IntrHandler</name></member>
+    <member refid="xcsudma__intr__example_8c_1a914fafb4d247ef1bd005773c6eab748f" kind="function"><name>SrcHandler</name></member>
+    <member refid="xcsudma__intr__example_8c_1a3e844e52179fc6aa2eba3480b2efe1fa" kind="function"><name>DstHandler</name></member>
+    <member refid="xcsudma__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xcsudma__polled__example_8c" kind="file"><name>xcsudma_polled_example.c</name>
+    <member refid="xcsudma__polled__example_8c_1a0e62fe5ebb6dbbfb67acfafe3c4f498e" kind="define"><name>CSUDMA_BASEADDR</name></member>
+    <member refid="xcsudma__polled__example_8c_1a1dac2e3409004e3277582a4066239395" kind="define"><name>CSU_SSS_CONFIG_OFFSET</name></member>
+    <member refid="xcsudma__polled__example_8c_1a36650147b2834be4261c304cbb5acbfb" kind="define"><name>CSUDMA_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__polled__example_8c_1a7a41b6cbdc050339c46b3ad81bf9d5f0" kind="define"><name>PMC_SSS_CONFIG_OFFSET</name></member>
+    <member refid="xcsudma__polled__example_8c_1a9be00cc50ff004d20e27675fc9d00709" kind="define"><name>PMCDMA0_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__polled__example_8c_1ac52f2e0501f3f595e3b8e92c12142f57" kind="define"><name>PMCDMA1_LOOPBACK_CFG</name></member>
+    <member refid="xcsudma__polled__example_8c_1a70ed59adcb4159ac551058053e649640" kind="define"><name>SIZE</name></member>
+    <member refid="xcsudma__polled__example_8c_1af61ae76555abcb873e18f6deee8ba5f5" kind="variable"><name>SrcBuf</name></member>
+    <member refid="xcsudma__polled__example_8c_1acaf18b341d1af3db65737995dbdabb2f" kind="variable"><name>DstBuf</name></member>
+    <member refid="xcsudma__polled__example_8c_1a6ac1478432df4951ce8f0fc753bb652d" kind="variable"><name>CsuDma</name></member>
+    <member refid="xcsudma__polled__example_8c_1a81a60cdabb01fb08aeec70021c7baa78" kind="function"><name>XCsuDma_PolledExample</name></member>
+    <member refid="xcsudma__polled__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xcsudma__selftest_8c" kind="file"><name>xcsudma_selftest.c</name>
+    <member refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" kind="function"><name>XCsuDma_SelfTest</name></member>
+  </compound>
+  <compound refid="xcsudma__selftest__example_8c" kind="file"><name>xcsudma_selftest_example.c</name>
+    <member refid="xcsudma__selftest__example_8c_1a0e62fe5ebb6dbbfb67acfafe3c4f498e" kind="define"><name>CSUDMA_BASEADDR</name></member>
+    <member refid="xcsudma__selftest__example_8c_1a6ac1478432df4951ce8f0fc753bb652d" kind="variable"><name>CsuDma</name></member>
+    <member refid="xcsudma__selftest__example_8c_1a6209354fab076157f08aa360d43a8e0a" kind="function"><name>XCsuDma_SelfTestExample</name></member>
+    <member refid="xcsudma__selftest__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="xcsudma__sinit_8c" kind="file"><name>xcsudma_sinit.c</name>
+    <member refid="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" kind="function"><name>XCsuDma_LookupConfig</name></member>
+  </compound>
+  <compound refid="xpmcdma_8h" kind="file"><name>xpmcdma.h</name>
+  </compound>
+  <compound refid="group__csuma__api" kind="group"><name>csuma_api</name>
+    <member refid="group__csuma__api_1ga76fcd0f2a0c7ebc2058f231a944c7109" kind="define"><name>XCSUDMA_ADDR_OFFSET</name></member>
+    <member refid="group__csuma__api_1gaf5d3e01cba7a5d0029901f690007a9c0" kind="define"><name>XCSUDMA_SIZE_OFFSET</name></member>
+    <member refid="group__csuma__api_1gaa69407558163d5fc58ac9621b3e313a3" kind="define"><name>XCSUDMA_STS_OFFSET</name></member>
+    <member refid="group__csuma__api_1ga60d1ed5209af6a5d9e9c55b6b95052de" kind="define"><name>XCSUDMA_CTRL_OFFSET</name></member>
+    <member refid="group__csuma__api_1gab56adb100901bb2b042a842619064ce5" kind="define"><name>XCSUDMA_I_STS_OFFSET</name></member>
+    <member refid="group__csuma__api_1ga2e9db5623d0c9b85088c528d43c9b411" kind="define"><name>XCSUDMA_SIZE_MASK</name></member>
+    <member refid="group__csuma__api_1gaf0a5114bb4e675c0e9d933a2d235ac6f" kind="define"><name>XCSUDMA_LAST_WORD_MASK</name></member>
+    <member refid="group__csuma__api_1gae1d5689d4fbd05c2e7f6b2a34bcbfb09" kind="define"><name>XCSUDMA_SIZE_SHIFT</name></member>
+    <member refid="group__csuma__api_1ga33dc1a1076170c9ca47df1c3451bdfe5" kind="define"><name>XCSUDMA_IXR_FIFO_OVERFLOW_MASK</name></member>
+    <member refid="group__csuma__api_1ga6e7d15f2dfaa7afef685f382db12c62e" kind="define"><name>XCSUDMA_IXR_INVALID_APB_MASK</name></member>
+    <member refid="group__csuma__api_1gaf727ccf4d9bbbce46d61f67be041b40c" kind="define"><name>XCSUDMA_IXR_FIFO_THRESHHIT_MASK</name></member>
+    <member refid="group__csuma__api_1gadb917cad64699bd0fc6e21c1fec74068" kind="define"><name>XCSUDMA_IXR_TIMEOUT_MEM_MASK</name></member>
+    <member refid="group__csuma__api_1ga7fc13f5152cf0098d76d4b78b08702e8" kind="define"><name>XCSUDMA_IXR_TIMEOUT_STRM_MASK</name></member>
+    <member refid="group__csuma__api_1gac6e2bc9f25b7160249710c395a74d933" kind="define"><name>XCSUDMA_IXR_AXI_WRERR_MASK</name></member>
+    <member refid="group__csuma__api_1ga0dbd333c70de601e769b8542552eb7e4" kind="define"><name>XCSUDMA_IXR_DONE_MASK</name></member>
+    <member refid="group__csuma__api_1ga670d9fac28bd9de6b6f6abcb5fda64cc" kind="define"><name>XCSUDMA_IXR_MEM_DONE_MASK</name></member>
+    <member refid="group__csuma__api_1ga441edc2ec9eadb8093ac0ab41e0162d2" kind="define"><name>XCSUDMA_IXR_SRC_MASK</name></member>
+    <member refid="group__csuma__api_1gadfb7ef2922c9ceb4804bc87620c35134" kind="define"><name>XCSUDMA_IXR_DST_MASK</name></member>
+    <member refid="group__csuma__api_1ga0bd0c9763013ce910920b46ad35d10ba" kind="define"><name>XCSUDMA_DONE_TIMEOUT_VAL</name></member>
+    <member refid="group__csuma__api_1ga46008337fdd632f2650b8727c305eba5" kind="enum"><name>XCsuDma_Channel</name></member>
+    <member refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5afe0a7c4c64751afddad37c4a15a00e0d" kind="enumvalue"><name>XCSUDMA_SRC_CHANNEL</name></member>
+    <member refid="group__csuma__api_1gga46008337fdd632f2650b8727c305eba5a08d300b013b7169bd1475fdf04737fe4" kind="enumvalue"><name>XCSUDMA_DST_CHANNEL</name></member>
+    <member refid="group__csuma__api_1gad0f7217bd295de82623179efb34adb96" kind="function"><name>XCsuDma_CfgInitialize</name></member>
+    <member refid="group__csuma__api_1gacf79144df19e9cd4116dd9f507037ff1" kind="function"><name>XCsuDma_Transfer</name></member>
+    <member refid="group__csuma__api_1ga83a1043112b6067b1901d2bdcb29563d" kind="function"><name>XCsuDma_64BitTransfer</name></member>
+    <member refid="group__csuma__api_1ga25049be545d8ec6eae2426b6248a8e4f" kind="function"><name>XCsuDma_GetAddr</name></member>
+    <member refid="group__csuma__api_1gad5fd579fb9c166e59ee1f9d3b39250c7" kind="function"><name>XCsuDma_GetSize</name></member>
+    <member refid="group__csuma__api_1ga00b5080126710866186d0bfafd26e9b6" kind="function"><name>XCsuDma_Pause</name></member>
+    <member refid="group__csuma__api_1gaa3450f812658f927f289b997b12a4174" kind="function"><name>XCsuDma_IsPaused</name></member>
+    <member refid="group__csuma__api_1gaeee3f2d5bcf265b57c9f214f2bc15a28" kind="function"><name>XCsuDma_Resume</name></member>
+    <member refid="group__csuma__api_1ga17f1a7ba935f4bf3626050e0b0e0142b" kind="function"><name>XCsuDma_GetCheckSum</name></member>
+    <member refid="group__csuma__api_1ga78bdd79674e2b5c92b9701cacfde1fe1" kind="function"><name>XCsuDma_ClearCheckSum</name></member>
+    <member refid="group__csuma__api_1ga73867b4acb189982642e4c1ae4f92fb9" kind="function"><name>XCsuDma_WaitForDoneTimeout</name></member>
+    <member refid="group__csuma__api_1gac9b6265e467b03cc903cd66781e95e63" kind="function"><name>XCsuDma_SetConfig</name></member>
+    <member refid="group__csuma__api_1gaab0b66bca3f38d26d38ff47544fa6b11" kind="function"><name>XCsuDma_GetConfig</name></member>
+    <member refid="group__csuma__api_1ga6169fa380a4d55e41d7ab96589372e8f" kind="function"><name>XCsuDma_IntrGetStatus</name></member>
+    <member refid="group__csuma__api_1ga1db5eabd96920efb06fb03c919420601" kind="function"><name>XCsuDma_IntrClear</name></member>
+    <member refid="group__csuma__api_1gad892a65e65ac14f48f7d7f53020511cf" kind="function"><name>XCsuDma_EnableIntr</name></member>
+    <member refid="group__csuma__api_1gadf3599e4d07ef05586a217ebbbd02999" kind="function"><name>XCsuDma_DisableIntr</name></member>
+    <member refid="group__csuma__api_1ga6ed420e8bfd9ab489a2d2c3e984ca7a2" kind="function"><name>XCsuDma_GetIntrMask</name></member>
+    <member refid="group__csuma__api_1ga774ab551d0ef59fd880ff834f2d83804" kind="function"><name>XCsuDma_SelfTest</name></member>
+    <member refid="group__csuma__api_1ga2420bd1fdfb8f4fb151aef5b4b6ee8ba" kind="function"><name>XCsuDma_LookupConfig</name></member>
+    <member refid="group__csuma__api_1gaf448568bb484f8b80052682f399f194d" kind="define"><name>XCSUDMA_WORD_SIZE</name></member>
+    <member refid="group__csuma__api_1ga8ee71e015a72b9441ead3a0f5541777c" kind="define"><name>XCSUDMA_H_</name></member>
+    <member refid="group__csuma__api_1gaf7ae40275005f5b2c827da41a0e3cc23" kind="define"><name>XCSUDMA_HW_H_</name></member>
+    <member refid="group__csuma__api_1gae02862bee946eeb9f0684d24550d1afa" kind="define"><name>XCsuDma_In32</name></member>
+    <member refid="group__csuma__api_1gae5b5c8718f050b6b4e25380a92c9aa0d" kind="define"><name>XCsuDma_Out32</name></member>
+    <member refid="group__csuma__api_1ga356d29aa2d43a1b724700007be7dcd51" kind="define"><name>XCsuDma_ReadReg</name></member>
+    <member refid="group__csuma__api_1ga5a2390fe93e02061d01c3b9e057b3b2b" kind="define"><name>XCsuDma_WriteReg</name></member>
+  </compound>
+  <compound refid="example" kind="page"><name>example</name>
+  </compound>
+  <compound refid="dir_0ff4b40ffae408781f7733e770c15202" kind="dir"><name>csudma</name>
+  </compound>
+  <compound refid="dir_9e6501728c75a0cf84e934475cfeed06" kind="dir"><name>examples</name>
+  </compound>
+  <compound refid="dir_30b177c95e8fdb676a1ab07467e94255" kind="dir"><name>src</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

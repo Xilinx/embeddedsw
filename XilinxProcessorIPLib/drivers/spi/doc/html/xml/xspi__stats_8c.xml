@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xspi__stats_8c" kind="file">
+    <compoundname>xspi_stats.c</compoundname>
+    <includes refid="xspi_8h" local="yes">xspi.h</includes>
+    <includes refid="xspi__i_8h" local="yes">xspi_i.h</includes>
+    <incdepgraph>
+      <node id="231">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="234">
+        <label>xil_io.h</label>
+      </node>
+      <node id="233">
+        <label>xspi_l.h</label>
+        <link refid="xspi__l_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="234" relation="include">
+        </childnode>
+      </node>
+      <node id="228">
+        <label>xspi_stats.c</label>
+        <link refid="xspi_stats.c"/>
+        <childnode refid="229" relation="include">
+        </childnode>
+        <childnode refid="235" relation="include">
+        </childnode>
+      </node>
+      <node id="236">
+        <label>xil_util.h</label>
+      </node>
+      <node id="229">
+        <label>xspi.h</label>
+        <link refid="xspi_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="232" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+      <node id="232">
+        <label>xstatus.h</label>
+      </node>
+      <node id="230">
+        <label>xil_types.h</label>
+      </node>
+      <node id="235">
+        <label>xspi_i.h</label>
+        <link refid="xspi__i_8h"/>
+        <childnode refid="230" relation="include">
+        </childnode>
+        <childnode refid="231" relation="include">
+        </childnode>
+        <childnode refid="236" relation="include">
+        </childnode>
+        <childnode refid="233" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpi_GetStats</definition>
+        <argsstring>(XSpi *InstancePtr, XSpi_Stats *StatsPtr)</argsstring>
+        <name>XSpi_GetStats</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_spi___stats" kindref="compound">XSpi_Stats</ref> *</type>
+          <declname>StatsPtr</declname>
+        </param>
+        <briefdescription>
+<para>Gets a copy of the statistics for an SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> instance to be worked on. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>StatsPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to a <ref refid="struct_x_spi___stats" kindref="compound">XSpi_Stats</ref> structure which will get a copy of current statistics.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Statistics are not updated in polled mode of operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="851" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_stats.c" bodystart="67" bodyend="79"/>
+        <references refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" compoundref="xspi_8h" startline="388">XSpi_Stats::BytesTransferred</references>
+        <references refid="struct_x_spi_1a19847c6916d3d7a325a2cebab966018a" compoundref="xspi_8h" startline="429">XSpi::IsReady</references>
+        <references refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" compoundref="xspi_8h" startline="384">XSpi_Stats::ModeFaults</references>
+        <references refid="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" compoundref="xspi_8h" startline="389">XSpi_Stats::NumInterrupts</references>
+        <references refid="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" compoundref="xspi_8h" startline="386">XSpi_Stats::RecvOverruns</references>
+        <references refid="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" compoundref="xspi_8h" startline="387">XSpi_Stats::SlaveModeFaults</references>
+        <references refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" compoundref="xspi_8h" startline="427">XSpi::Stats</references>
+        <references refid="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" compoundref="xspi_8h" startline="385">XSpi_Stats::XmitUnderruns</references>
+      </memberdef>
+      <memberdef kind="function" id="group__spi_1gaf243ac522e14869af82545ffc11d5821" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSpi_ClearStats</definition>
+        <argsstring>(XSpi *InstancePtr)</argsstring>
+        <name>XSpi_ClearStats</name>
+        <param>
+          <type><ref refid="struct_x_spi" kindref="compound">XSpi</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Clears the statistics for the SPI device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_spi" kindref="compound">XSpi</ref> instance to be worked on.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>Statistics are not updated in polled mode of operation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi.h" line="852" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_stats.c" bodystart="93" bodyend="105"/>
+        <references refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" compoundref="xspi_8h" startline="388">XSpi_Stats::BytesTransferred</references>
+        <references refid="struct_x_spi_1a19847c6916d3d7a325a2cebab966018a" compoundref="xspi_8h" startline="429">XSpi::IsReady</references>
+        <references refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" compoundref="xspi_8h" startline="384">XSpi_Stats::ModeFaults</references>
+        <references refid="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" compoundref="xspi_8h" startline="389">XSpi_Stats::NumInterrupts</references>
+        <references refid="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" compoundref="xspi_8h" startline="386">XSpi_Stats::RecvOverruns</references>
+        <references refid="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" compoundref="xspi_8h" startline="387">XSpi_Stats::SlaveModeFaults</references>
+        <references refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" compoundref="xspi_8h" startline="427">XSpi::Stats</references>
+        <references refid="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" compoundref="xspi_8h" startline="385">XSpi_Stats::XmitUnderruns</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2002<sp/>-<sp/>2023<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspi_8h" kindref="compound">xspi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xspi__i_8h" kindref="compound">xspi_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="67" refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spi_1ga8a40aee30eb6f0240b75e6ccd7596a53" kindref="member">XSpi_GetStats</ref>(<ref refid="struct_x_spi" kindref="compound">XSpi</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_spi___stats" kindref="compound">XSpi_Stats</ref><sp/>*StatsPtr)</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(StatsPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_spi_1a19847c6916d3d7a325a2cebab966018a" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" kindref="member">ModeFaults</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" kindref="member">ModeFaults</ref>;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" kindref="member">XmitUnderruns</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" kindref="member">XmitUnderruns</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" kindref="member">RecvOverruns</ref><sp/>=<sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" kindref="member">RecvOverruns</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" kindref="member">SlaveModeFaults</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" kindref="member">SlaveModeFaults</ref>;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" kindref="member">BytesTransferred</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" kindref="member">BytesTransferred</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>StatsPtr-&gt;<ref refid="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" kindref="member">NumInterrupts</ref><sp/>=<sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" kindref="member">NumInterrupts</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="93" refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__spi_1gaf243ac522e14869af82545ffc11d5821" kindref="member">XSpi_ClearStats</ref>(<ref refid="struct_x_spi" kindref="compound">XSpi</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_spi_1a19847c6916d3d7a325a2cebab966018a" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1ac470017b47fe6048e3db36bf4035cf5a" kindref="member">ModeFaults</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a4068d7bc8a1e2ee0ac7f51555b4dd2f5" kindref="member">XmitUnderruns</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a2c12f80f85aec2bd5868fd691728f343" kindref="member">RecvOverruns</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1ac328aff4f7f93db26eee1113d6cd4537" kindref="member">SlaveModeFaults</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a7684cf587c67273ed4d87a912d158363" kindref="member">BytesTransferred</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_spi_1a63d1a1254869f2599e4646388cec0c4c" kindref="member">Stats</ref>.<ref refid="struct_x_spi___stats_1a6abd7d1f4895aefda31c6f89cf53cf3d" kindref="member">NumInterrupts</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spi/src/xspi_stats.c"/>
+  </compounddef>
+</doxygen>

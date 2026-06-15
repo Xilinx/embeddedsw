@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_mailbox___ipi_shared_mem" kind="struct" prot="public">
+    <compoundname>XMailbox_IpiSharedMem</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XMailbox_IpiSharedMem::Address</definition>
+        <argsstring></argsstring>
+        <name>Address</name>
+        <briefdescription>
+<para>Address of the shared memory location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="117" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XMailbox_IpiSharedMem::Size</definition>
+        <argsstring></argsstring>
+        <name>Size</name>
+        <briefdescription>
+<para>Size of the shared memory location. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilmailbox_1gaa7c3c20ddbc2f808a7520d82d1f1778a" kindref="member">XMailbox_IpiSharedMemState</ref></type>
+        <definition>XMailbox_IpiSharedMemState XMailbox_IpiSharedMem::SharedMemState</definition>
+        <argsstring></argsstring>
+        <name>SharedMemState</name>
+        <briefdescription>
+<para>State of shared memory. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilmailbox/src/xilmailbox.h" bodystart="116" bodyend="120"/>
+    <listofallmembers>
+      <member refid="group__xilmailbox_1ga4a9a0371a0256d6ba537a3db7698fb08" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Address</name></member>
+      <member refid="group__xilmailbox_1ga73b6a118babef017d2679b59a0410a89" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>SharedMemState</name></member>
+      <member refid="group__xilmailbox_1gae27eb1bb697a00c85f295ef36cd55632" prot="public" virt="non-virtual"><scope>XMailbox_IpiSharedMem</scope><name>Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_c_s_i___i_n_q_u_i_r_y" kind="struct" prot="public">
+    <compoundname>SCSI_INQUIRY</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a25c69b7d903c648cb736e3dc8b0ff9d8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::deviceType</definition>
+        <argsstring></argsstring>
+        <name>deviceType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="211" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a4d68a4b18365a62279fba2e3222f9b9d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::rmb</definition>
+        <argsstring></argsstring>
+        <name>rmb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="212" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="212" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a283dceb031f5e48a51a7bc2a91b74fd1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a49ed3b3a7596b998a3ae0076635822b9" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::blah</definition>
+        <argsstring></argsstring>
+        <name>blah</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="214" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1ae8885b5d76f81e52c6c213b17efd30d7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::additionalLength</definition>
+        <argsstring></argsstring>
+        <name>additionalLength</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="215" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a61d943ca79a4fbe564f7e5391e2c0487" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::sccs</definition>
+        <argsstring></argsstring>
+        <name>sccs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="216" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a04c53a9cec93bc1415fc2106514c02fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::info0</definition>
+        <argsstring></argsstring>
+        <name>info0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="217" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a37befb384fe7bbc1cc79ca0e7da4f7a8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::info1</definition>
+        <argsstring></argsstring>
+        <name>info1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="218" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a48f2c73963a89b54a01f157987827342" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::vendorID</definition>
+        <argsstring>[8]</argsstring>
+        <name>vendorID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="219" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1aaa756403b93656273337361641ada092" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::productID</definition>
+        <argsstring>[16]</argsstring>
+        <name>productID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___i_n_q_u_i_r_y_1a87ad70ba98d5f3908aca5a527361fae4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_INQUIRY::revision</definition>
+        <argsstring>[4]</argsstring>
+        <name>revision</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="221" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="210" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="210" bodyend="226"/>
+    <listofallmembers>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1ae8885b5d76f81e52c6c213b17efd30d7" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>additionalLength</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a49ed3b3a7596b998a3ae0076635822b9" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>blah</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a25c69b7d903c648cb736e3dc8b0ff9d8" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>deviceType</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a04c53a9cec93bc1415fc2106514c02fa" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>info0</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a37befb384fe7bbc1cc79ca0e7da4f7a8" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>info1</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1aaa756403b93656273337361641ada092" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>productID</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a87ad70ba98d5f3908aca5a527361fae4" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>revision</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a4d68a4b18365a62279fba2e3222f9b9d" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>rmb</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a61d943ca79a4fbe564f7e5391e2c0487" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>sccs</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a48f2c73963a89b54a01f157987827342" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>vendorID</name></member>
+      <member refid="struct_s_c_s_i___i_n_q_u_i_r_y_1a283dceb031f5e48a51a7bc2a91b74fd1" prot="public" virt="non-virtual"><scope>SCSI_INQUIRY</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

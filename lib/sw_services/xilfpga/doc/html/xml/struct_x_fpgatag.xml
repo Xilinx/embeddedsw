@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_fpgatag" kind="struct" prot="public">
+    <compoundname>XFpgatag</compoundname>
+    <includes local="no">xilfpga.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_ValidateBitstream)(struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_ValidateBitstream</name>
+        <briefdescription>
+<para>Validate the bitstream header before programming the PL. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="120" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_PreConfig)(struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_PreConfig</name>
+        <briefdescription>
+<para>Prepare the FPGA to receive configuration data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1gade4f3d3efdce2034be71f597e84a667c" compoundref="xilfpga_8c" startline="279" endline="303">XFpga_PL_Preconfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_WriteToPl)(struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_WriteToPl</name>
+        <briefdescription>
+<para>Write count bytes of configuration data to the FPGA. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" compoundref="xilfpga__ipi__pcap_8c" startline="101" endline="128">XFpga_Initialize</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_PostConfig)(struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_PostConfig</name>
+        <briefdescription>
+<para>Set FPGA to operating state after writing is done. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="123" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1gae97b4dd15b87b8a9931a242bb855e031" compoundref="xilfpga_8c" startline="380" endline="405">XFpga_PL_PostConfig</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_GetFeatureList)(struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_GetFeatureList</name>
+        <briefdescription>
+<para>Gets the feature list that xilfpga library supports. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_GetInterfaceStatus)(void)</definition>
+        <argsstring>)(void)</argsstring>
+        <name>XFpga_GetInterfaceStatus</name>
+        <briefdescription>
+<para>Provides the STATUS of PL programming interface. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="126" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" compoundref="xilfpga__ipi__pcap_8c" startline="101" endline="128">XFpga_Initialize</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga2f8e3aaa97c67aaaae6521f75f989e59" compoundref="xilfpga_8c" startline="619" endline="638">XFpga_InterfaceStatus</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_GetConfigReg)(const struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(const struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_GetConfigReg</name>
+        <briefdescription>
+<para>Returns the value of the specified configuration register. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" compoundref="xilfpga_8c" startline="473" endline="511">XFpga_GetPlConfigReg</referencedby>
+        <referencedby refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" compoundref="xilfpga__ipi__pcap_8c" startline="101" endline="128">XFpga_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" prot="public" static="no" mutable="no">
+        <type>u32(*</type>
+        <definition>u32(* XFpgatag::XFpga_GetConfigData)(const struct XFpgatag *InstancePtr)</definition>
+        <argsstring>)(const struct XFpgatag *InstancePtr)</argsstring>
+        <name>XFpga_GetConfigData</name>
+        <briefdescription>
+<para>Provides the FPGA readback data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="128" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" compoundref="xilfpga_8c" startline="426" endline="451">XFpga_GetPlConfigData</referencedby>
+        <referencedby refid="group__xilfpga__zynq_1gaef5fb78d2b7e74b3a4f3b18ebf0a3599" compoundref="xilfpga__ipi__pcap_8c" startline="101" endline="128">XFpga_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a95e48f781a288df71e5ee599d78532b6" prot="public" static="no" mutable="no">
+        <type>XFpga_Info</type>
+        <definition>XFpga_Info XFpgatag::PLInfo</definition>
+        <argsstring></argsstring>
+        <name>PLInfo</name>
+        <briefdescription>
+<para>Structure which is used to store the secure image data. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_fpga___read" kindref="compound">XFpga_Read</ref></type>
+        <definition>XFpga_Read XFpgatag::ReadInfo</definition>
+        <argsstring></argsstring>
+        <name>ReadInfo</name>
+        <briefdescription>
+<para>Structure which is used to store the PL Image readback details. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="136" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="136" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga5e98e018395a91d666b1bf5322ead85a" compoundref="xilfpga_8c" startline="426" endline="451">XFpga_GetPlConfigData</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga16b3f58643bb4ca44b5f76cb15ca3c27" compoundref="xilfpga_8c" startline="473" endline="511">XFpga_GetPlConfigReg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_fpga___write" kindref="compound">XFpga_Write</ref></type>
+        <definition>XFpga_Write XFpgatag::WriteInfo</definition>
+        <argsstring></argsstring>
+        <name>WriteInfo</name>
+        <briefdescription>
+<para>Structure which is used to store the PL Write Image details. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="138" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="138" bodyend="-1"/>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga44b0cd1361ba0ff98ceed775997bc23b" compoundref="xilfpga_8c" startline="140" endline="202">XFpga_BitStream_Load</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1gab9954493b57ad172167f25a3aa1b0eb0" compoundref="xilfpga_8c" startline="234" endline="271">XFpga_ValidateImage</referencedby>
+        <referencedby refid="group__xilfpga__zynq__versal_1ga3801d1f23178289fb912ecc61cdc018d" compoundref="xilfpga_8c" startline="334" endline="371">XFpga_Write_Pl</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure to the XFpga instance. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XFpga_Write</label>
+        <link refid="struct_x_fpga___write"/>
+      </node>
+      <node id="5">
+        <label>XFpgatag</label>
+        <link refid="struct_x_fpgatag"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>WriteInfo</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>ReadInfo</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XFpga_Read</label>
+        <link refid="struct_x_fpga___read"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilfpga/src/xilfpga.h" bodystart="119" bodyend="142"/>
+    <listofallmembers>
+      <member refid="struct_x_fpgatag_1a95e48f781a288df71e5ee599d78532b6" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>PLInfo</name></member>
+      <member refid="struct_x_fpgatag_1acd5464c8e6c66bf80aa0139efe016bb7" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>ReadInfo</name></member>
+      <member refid="struct_x_fpgatag_1a43bcd659f5043721bf8f99df22330a19" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>WriteInfo</name></member>
+      <member refid="struct_x_fpgatag_1af817a3d9e50e29ae60448178d216df29" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_GetConfigData</name></member>
+      <member refid="struct_x_fpgatag_1a112c731b7c08c57308e95856658fae97" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_GetConfigReg</name></member>
+      <member refid="struct_x_fpgatag_1a088ada7ce0d61319dafb5bfd85290cb1" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_GetFeatureList</name></member>
+      <member refid="struct_x_fpgatag_1a6af355b88beaac6b872a53c13285514b" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_GetInterfaceStatus</name></member>
+      <member refid="struct_x_fpgatag_1a3e5baa8aaa7b73f6cd31737b2465515c" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_PostConfig</name></member>
+      <member refid="struct_x_fpgatag_1a542049e29b0804aabea8bcc577d71b47" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_PreConfig</name></member>
+      <member refid="struct_x_fpgatag_1a17d90caf2f96a1c0ce3a309015fd32ae" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_ValidateBitstream</name></member>
+      <member refid="struct_x_fpgatag_1a31407cee8cfa8d58cea94bda3147e757" prot="public" virt="non-virtual"><scope>XFpgatag</scope><name>XFpga_WriteToPl</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

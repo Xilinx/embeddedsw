@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_pki___ecdsa_sign_input_data" kind="struct" prot="public">
+    <compoundname>XPki_EcdsaSignInputData</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1a3be2958693048ab2a94985ba23771859" prot="public" static="no" mutable="no">
+        <type><ref refid="group__xilpki-api_1ga17397319ffdcb8c105f8aaa731eac7fa" kindref="member">XPki_EcdsaCrvType</ref></type>
+        <definition>XPki_EcdsaCrvType XPki_EcdsaSignInputData::CrvType</definition>
+        <argsstring></argsstring>
+        <name>CrvType</name>
+        <briefdescription>
+<para>ECC Curve type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1abdbc8291cb199deb66a77a53f4d6e1eb" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaSignInputData::Hashlen</definition>
+        <argsstring></argsstring>
+        <name>Hashlen</name>
+        <briefdescription>
+<para>Data hash length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="94" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1a191be1e8031b2d347254f6440afb62b0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaSignInputData::Dlen</definition>
+        <argsstring></argsstring>
+        <name>Dlen</name>
+        <briefdescription>
+<para>ECC Private key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="95" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1aee76ee98737ff5d08ce1b994a83b4add" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XPki_EcdsaSignInputData::Klen</definition>
+        <argsstring></argsstring>
+        <name>Klen</name>
+        <briefdescription>
+<para>ECC ephemeral key length. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="96" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1afe5222c7404303ff4661341e221e0b12" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaSignInputData::Hash</definition>
+        <argsstring></argsstring>
+        <name>Hash</name>
+        <briefdescription>
+<para>Pointer to the data hash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1ad372b1895b2e00c3fb4023065aa8d915" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaSignInputData::D</definition>
+        <argsstring></argsstring>
+        <name>D</name>
+        <briefdescription>
+<para>Pointer to the private key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_pki___ecdsa_sign_input_data_1afda559af0a6a8afea4dbc49b448cf25d" prot="public" static="no" mutable="no">
+        <type>const u8 *</type>
+        <definition>const u8* XPki_EcdsaSignInputData::K</definition>
+        <argsstring></argsstring>
+        <name>K</name>
+        <briefdescription>
+<para>Pointer to the ephemeral key. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" line="92" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpki/src/xilpki_ecdsa.h" bodystart="92" bodyend="100"/>
+    <listofallmembers>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1a3be2958693048ab2a94985ba23771859" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>CrvType</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1ad372b1895b2e00c3fb4023065aa8d915" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>D</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1a191be1e8031b2d347254f6440afb62b0" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>Dlen</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1afe5222c7404303ff4661341e221e0b12" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>Hash</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1abdbc8291cb199deb66a77a53f4d6e1eb" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>Hashlen</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1afda559af0a6a8afea4dbc49b448cf25d" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>K</name></member>
+      <member refid="struct_x_pki___ecdsa_sign_input_data_1aee76ee98737ff5d08ce1b994a83b4add" prot="public" virt="non-virtual"><scope>XPki_EcdsaSignInputData</scope><name>Klen</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

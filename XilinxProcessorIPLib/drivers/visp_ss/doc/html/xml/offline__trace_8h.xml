@@ -1,0 +1,1027 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="offline__trace_8h" kind="file">
+    <compoundname>offline_trace.h</compoundname>
+    <includes refid="linux__compat_8h" local="yes">linux_compat.h</includes>
+    <includes refid="types_8h" local="yes">types.h</includes>
+    <includes refid="return__codes_8h" local="no">return_codes.h</includes>
+    <includedby refid="cam__device__api_8h" local="no">cam_device_api.h</includedby>
+    <incdepgraph>
+      <node id="6832">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="6828">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6831">
+        <label>stddef.h</label>
+      </node>
+      <node id="6830">
+        <label>limits.h</label>
+      </node>
+      <node id="6825">
+        <label>offline_trace.h</label>
+        <link refid="offline_trace.h"/>
+        <childnode refid="6826" relation="include">
+        </childnode>
+        <childnode refid="6829" relation="include">
+        </childnode>
+        <childnode refid="6832" relation="include">
+        </childnode>
+      </node>
+      <node id="6829">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6826" relation="include">
+        </childnode>
+        <childnode refid="6830" relation="include">
+        </childnode>
+        <childnode refid="6831" relation="include">
+        </childnode>
+      </node>
+      <node id="6827">
+        <label>stdio.h</label>
+      </node>
+      <node id="6826">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="6827" relation="include">
+        </childnode>
+        <childnode refid="6828" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="6871">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="6848">
+        <label>vvdevice_common.h</label>
+        <childnode refid="6849" relation="include">
+        </childnode>
+        <childnode refid="6852" relation="include">
+        </childnode>
+        <childnode refid="6854" relation="include">
+        </childnode>
+        <childnode refid="6856" relation="include">
+        </childnode>
+        <childnode refid="6858" relation="include">
+        </childnode>
+        <childnode refid="6860" relation="include">
+        </childnode>
+        <childnode refid="6862" relation="include">
+        </childnode>
+        <childnode refid="6864" relation="include">
+        </childnode>
+        <childnode refid="6866" relation="include">
+        </childnode>
+        <childnode refid="6868" relation="include">
+        </childnode>
+        <childnode refid="6870" relation="include">
+        </childnode>
+        <childnode refid="6872" relation="include">
+        </childnode>
+        <childnode refid="6874" relation="include">
+        </childnode>
+        <childnode refid="6876" relation="include">
+        </childnode>
+        <childnode refid="6878" relation="include">
+        </childnode>
+        <childnode refid="6880" relation="include">
+        </childnode>
+        <childnode refid="6882" relation="include">
+        </childnode>
+        <childnode refid="6884" relation="include">
+        </childnode>
+        <childnode refid="6886" relation="include">
+        </childnode>
+        <childnode refid="6888" relation="include">
+        </childnode>
+        <childnode refid="6890" relation="include">
+        </childnode>
+        <childnode refid="6892" relation="include">
+        </childnode>
+        <childnode refid="6894" relation="include">
+        </childnode>
+        <childnode refid="6896" relation="include">
+        </childnode>
+        <childnode refid="6898" relation="include">
+        </childnode>
+        <childnode refid="6900" relation="include">
+        </childnode>
+        <childnode refid="6902" relation="include">
+        </childnode>
+        <childnode refid="6904" relation="include">
+        </childnode>
+        <childnode refid="6906" relation="include">
+        </childnode>
+        <childnode refid="6908" relation="include">
+        </childnode>
+        <childnode refid="6910" relation="include">
+        </childnode>
+        <childnode refid="6912" relation="include">
+        </childnode>
+        <childnode refid="6914" relation="include">
+        </childnode>
+        <childnode refid="6916" relation="include">
+        </childnode>
+      </node>
+      <node id="6895">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="6893">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="6889">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="6899">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="6839">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="6876">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6877" relation="include">
+        </childnode>
+      </node>
+      <node id="6857">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="6870">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6871" relation="include">
+        </childnode>
+      </node>
+      <node id="6913">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="6896">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6897" relation="include">
+        </childnode>
+      </node>
+      <node id="6877">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="6917">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="6834">
+        <label>cam_device_api.h</label>
+        <childnode refid="6835" relation="include">
+        </childnode>
+        <childnode refid="6919" relation="include">
+        </childnode>
+        <childnode refid="6921" relation="include">
+        </childnode>
+        <childnode refid="6836" relation="include">
+        </childnode>
+        <childnode refid="6920" relation="include">
+        </childnode>
+        <childnode refid="6922" relation="include">
+        </childnode>
+        <childnode refid="6844" relation="include">
+        </childnode>
+        <childnode refid="6923" relation="include">
+        </childnode>
+        <childnode refid="6847" relation="include">
+        </childnode>
+        <childnode refid="6918" relation="include">
+        </childnode>
+      </node>
+      <node id="6842">
+        <label>vvpath.c</label>
+      </node>
+      <node id="6907">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="6852">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6853" relation="include">
+        </childnode>
+      </node>
+      <node id="6887">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="6866">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6867" relation="include">
+        </childnode>
+      </node>
+      <node id="6850">
+        <label>submodule_def.h</label>
+        <childnode refid="6847" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6914">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6915" relation="include">
+        </childnode>
+      </node>
+      <node id="6902">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6903" relation="include">
+        </childnode>
+      </node>
+      <node id="6881">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="6906">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6907" relation="include">
+        </childnode>
+      </node>
+      <node id="6897">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="6874">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6875" relation="include">
+        </childnode>
+      </node>
+      <node id="6884">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6855" relation="include">
+        </childnode>
+        <childnode refid="6885" relation="include">
+        </childnode>
+      </node>
+      <node id="6920">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="6835">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="6836" relation="include">
+        </childnode>
+        <childnode refid="6837" relation="include">
+        </childnode>
+        <childnode refid="6840" relation="include">
+        </childnode>
+        <childnode refid="6844" relation="include">
+        </childnode>
+        <childnode refid="6918" relation="include">
+        </childnode>
+      </node>
+      <node id="6856">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6857" relation="include">
+        </childnode>
+      </node>
+      <node id="6900">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6901" relation="include">
+        </childnode>
+      </node>
+      <node id="6883">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="6836">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="6916">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6862">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6863" relation="include">
+        </childnode>
+      </node>
+      <node id="6847">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="6873">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="6849">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6851" relation="include">
+        </childnode>
+      </node>
+      <node id="6885">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="6872">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6873" relation="include">
+        </childnode>
+      </node>
+      <node id="6886">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6887" relation="include">
+        </childnode>
+      </node>
+      <node id="6853">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="6859">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="6879">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="6922">
+        <label>cam_common_calib_api.h</label>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6882">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6883" relation="include">
+        </childnode>
+      </node>
+      <node id="6919">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="6920" relation="include">
+        </childnode>
+        <childnode refid="6844" relation="include">
+        </childnode>
+      </node>
+      <node id="6846">
+        <label>vvpath.h</label>
+        <childnode refid="6839" relation="include">
+        </childnode>
+        <childnode refid="6842" relation="include">
+        </childnode>
+      </node>
+      <node id="6890">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6891" relation="include">
+        </childnode>
+      </node>
+      <node id="6878">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6879" relation="include">
+        </childnode>
+      </node>
+      <node id="6880">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6881" relation="include">
+        </childnode>
+      </node>
+      <node id="6892">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6893" relation="include">
+        </childnode>
+      </node>
+      <node id="6867">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="6888">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6889" relation="include">
+        </childnode>
+      </node>
+      <node id="6912">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6913" relation="include">
+        </childnode>
+      </node>
+      <node id="6844">
+        <label>vvdevice.h</label>
+        <childnode refid="6845" relation="include">
+        </childnode>
+        <childnode refid="6848" relation="include">
+        </childnode>
+        <childnode refid="6846" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+        <childnode refid="6917" relation="include">
+        </childnode>
+        <childnode refid="6842" relation="include">
+        </childnode>
+      </node>
+      <node id="6903">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="6910">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6911" relation="include">
+        </childnode>
+      </node>
+      <node id="6860">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6857" relation="include">
+        </childnode>
+        <childnode refid="6861" relation="include">
+        </childnode>
+      </node>
+      <node id="6868">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6869" relation="include">
+        </childnode>
+      </node>
+      <node id="6864">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6865" relation="include">
+        </childnode>
+      </node>
+      <node id="6875">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="6923">
+        <label>vvbench.c</label>
+      </node>
+      <node id="6908">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6909" relation="include">
+        </childnode>
+      </node>
+      <node id="6865">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="6838">
+        <label>oba.c</label>
+      </node>
+      <node id="6837">
+        <label>oba.h</label>
+        <childnode refid="6838" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6921">
+        <label>cam_device_api.c</label>
+      </node>
+      <node id="6861">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="6858">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6857" relation="include">
+        </childnode>
+        <childnode refid="6859" relation="include">
+        </childnode>
+      </node>
+      <node id="6851">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="6833">
+        <label>offline_trace.h</label>
+        <link refid="offline_trace.h"/>
+        <childnode refid="6834" relation="include">
+        </childnode>
+      </node>
+      <node id="6915">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="6854">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6855" relation="include">
+        </childnode>
+      </node>
+      <node id="6911">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="6894">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6895" relation="include">
+        </childnode>
+      </node>
+      <node id="6841">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="6840">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="6841" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+        <childnode refid="6842" relation="include">
+        </childnode>
+        <childnode refid="6843" relation="include">
+        </childnode>
+      </node>
+      <node id="6909">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="6869">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="6898">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6899" relation="include">
+        </childnode>
+      </node>
+      <node id="6845">
+        <label>vvbparser.h</label>
+        <childnode refid="6846" relation="include">
+        </childnode>
+        <childnode refid="6847" relation="include">
+        </childnode>
+        <childnode refid="6839" relation="include">
+        </childnode>
+      </node>
+      <node id="6901">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="6905">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="6891">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="6855">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="6863">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="6904">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="6850" relation="include">
+        </childnode>
+        <childnode refid="6905" relation="include">
+        </childnode>
+      </node>
+      <node id="6843">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="6918">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="6843" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__module__tracer_1ga0a94710bad47ecdda9165e7c65df7726" prot="public" static="no">
+        <name>CREATE_OFFLINE_TRACE</name>
+        <param><defname>name</defname></param>
+        <initializer>int32_t name</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="247" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga0c59fc05bae21789221b3584fcc6e2fd" prot="public" static="no">
+        <name>OPEN_OFFLINE_TRACE</name>
+        <param><defname>...</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga402ee47aab77add0a3a22f9b58f4f359" prot="public" static="no">
+        <name>CLOSE_OFFLINE_TRACE</name>
+        <param><defname>T</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga4b13c19e4af4bc9c0ed648623ad42c63" prot="public" static="no">
+        <name>USE_OFFLINE_TRACE</name>
+        <param><defname>name</defname></param>
+        <initializer>extern int32_t name</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga9b1607b640d57adcc115531ee2731b62" prot="public" static="no">
+        <name>OFFLINE_TRACE</name>
+        <param><defname>...</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga06a830ae71a3ca202a443b008a2d4b18" prot="public" static="no">
+        <name>OFFLINE_TRACE_ERR</name>
+        <param><defname>...</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gab582e8a8654c0729bb00de570abc7682" prot="public" static="no">
+        <name>OFFLINE_TRACE_WARN</name>
+        <param><defname>...</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="253" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="253" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1ga2e97594e54ab7753392a1a1a588d894a" prot="public" static="no">
+        <name>ENABLE_OFFLINE_TRACE</name>
+        <param><defname>T</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gaebd1904b56bf19a08da561cff5fc1ad9" prot="public" static="no">
+        <name>DISABLE_OFFLINE_TRACE</name>
+        <param><defname>T</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="255" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gaf9a3446086a65efc2ddd6632aacc8a2d" prot="public" static="no">
+        <name>SET_OFFLINE_TRACE_FILE</name>
+        <param><defname>I</defname></param>
+        <param><defname>F</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gadece77afbab1a98213cf38a1c2377e6f" prot="public" static="no">
+        <name>SET_FRAMEID_TRACE</name>
+        <param><defname>ispId</defname></param>
+        <param><defname>F</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="257" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="257" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__module__tracer_1gac6538c6b1acc651c3d5bb8fd55f68df9" prot="public" static="no">
+        <name>OFFLINE_TRACE_ARY</name>
+        <param><defname>T</defname></param>
+        <param><defname>F</defname></param>
+        <param><defname>prefix</defname></param>
+        <param><defname>variable</defname></param>
+        <param><defname>isFloat</defname></param>
+        <initializer>(void)0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__module__tracer_1gab2762451e59c4f10f659bbd76017b2a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setOffLineTraceCasePrefix</definition>
+        <argsstring>(const char *pCasePrefix)</argsstring>
+        <name>setOffLineTraceCasePrefix</name>
+        <param>
+          <type>const char *</type>
+          <declname>pCasePrefix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h" line="79" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file defines the API for the tracing facility of the embedded lib. </para>    </briefdescription>
+    <detaileddescription>
+<para>WARNING: Due to use of variadic macros which were introduced into C in c99 this can not be used with c++ code in pedantic mode. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor">#ifndef<sp/>OFFLINE_TRACE_H_</highlight></codeline>
+<codeline lineno="68"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_H_</highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>must<sp/>be<sp/>defined<sp/>even<sp/>for<sp/>release<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="linux__compat_8h" kindref="compound">linux_compat.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="types_8h" kindref="compound">types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="return__codes_8h" kindref="compound">return_codes.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="75"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setOffLineTraceCasePrefix(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>pCasePrefix);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>ISP_OFFLINE_TEST</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>MAX_SUPPORT_INSTANCE<sp/>4</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>glog_type[3][6];</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">offline_tracer_s<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>*fp;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>instanceId;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int8_t<sp/>enabled;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>index;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/>Offline_Tracer;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>enableOffLineTrace(Offline_Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>disableOffLineTrace(Offline_Tracer<sp/>*);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setOffLineTraceFile(Offline_Tracer<sp/>*,<sp/>FILE<sp/>*);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>OpenOffLineTrace(Offline_Tracer<sp/>*off_Tracer,<sp/>uint32_t<sp/>instanceId,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path_suffix);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CloseOffLineTrace(Offline_Tracer<sp/>*off_Tracer);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>offLinetrace(Offline_Tracer<sp/>*off_Tracer,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>log_type,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>func_name,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*sFormat,<sp/>...);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setoffLineTraceFrameid(uint32_t<sp/>instanceId,<sp/>uint32_t<sp/>i);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="106"><highlight class="comment">*<sp/><sp/><sp/>This<sp/>macro<sp/>creates<sp/>a<sp/>offlineTracer.<sp/>Every<sp/>offineTracer<sp/>has<sp/>its</highlight></codeline>
+<codeline lineno="107"><highlight class="comment">*<sp/><sp/><sp/>own<sp/>output<sp/>like<sp/>stdout<sp/>or<sp/>a<sp/>file.<sp/>A<sp/>tracer<sp/>may<sp/>be<sp/>enabled<sp/>and<sp/>disabled.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="109"><highlight class="comment">*<sp/><sp/><sp/>\warning<sp/>THIS<sp/>MACRO<sp/>MUST<sp/>BE<sp/>USED<sp/>IN<sp/>GLOBAL<sp/>SCOPE.</highlight></codeline>
+<codeline lineno="110"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="111"><highlight class="comment">*<sp/><sp/><sp/>@param<sp/><sp/><sp/><sp/>name<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Name<sp/>of<sp/>the<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_OFFLINE_TRACE(name)<sp/>\</highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offline_Tracer<sp/>offtrace__##name[MAX_SUPPORT_INSTANCE]<sp/>=<sp/>{0};<sp/>\</highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Offline_Tracer<sp/>*name<sp/>=<sp/>&amp;offtrace__##name[0];<sp/>\</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CHAR<sp/>tracer_##name[]<sp/>=<sp/>#name</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************</highlight></codeline>
+<codeline lineno="120"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="121"><highlight class="comment">*<sp/><sp/><sp/>If<sp/>offline<sp/>tracer<sp/>was<sp/>created<sp/>in<sp/>another<sp/>compile<sp/>unit<sp/>this<sp/>macro</highlight></codeline>
+<codeline lineno="122"><highlight class="comment">*<sp/><sp/><sp/>makes<sp/>the<sp/>named<sp/>tracer<sp/>available<sp/>in<sp/>the<sp/>current<sp/>unit.</highlight></codeline>
+<codeline lineno="123"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment">*<sp/><sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>Name<sp/>of<sp/>the<sp/>offline<sp/>tracer</highlight></codeline>
+<codeline lineno="125"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="126"><highlight class="comment">******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_OFFLINE_TRACE(name)\</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>Offline_Tracer<sp/>offtrace__##name[MAX_SUPPORT_INSTANCE];\</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>Offline_Tracer<sp/>*name;\</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>CHAR<sp/>tracer_##name[]</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************</highlight></codeline>
+<codeline lineno="134"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="135"><highlight class="comment">*<sp/><sp/>Initial<sp/>the<sp/>offline<sp/>tracer<sp/>*fp</highlight></codeline>
+<codeline lineno="136"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="137"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>First<sp/>parameter<sp/>is<sp/>name<sp/>of<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="138"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Second<sp/>parameter<sp/>is<sp/>the<sp/>multi-instance<sp/>index.</highlight></codeline>
+<codeline lineno="139"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Third<sp/>parameter<sp/>is<sp/>the<sp/>log<sp/>file<sp/>storage<sp/>path.</highlight></codeline>
+<codeline lineno="140"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fourth<sp/>parameter<sp/>is<sp/>the<sp/>File<sp/>*fp<sp/>pointer</highlight></codeline>
+<codeline lineno="141"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="142"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="143"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="144"><highlight class="comment">*******************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OPEN_OFFLINE_TRACE(T,I,C)<sp/>\</highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((Offline_Tracer<sp/>*)((T)+(I)))-&gt;name<sp/>=<sp/>tracer_##T;<sp/>\</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OpenOffLineTrace(T,I,C)</highlight></codeline>
+<codeline lineno="148"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">/*******************************************************************</highlight></codeline>
+<codeline lineno="150"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="151"><highlight class="comment">*<sp/><sp/><sp/>this<sp/>macro<sp/>is<sp/>used<sp/>to<sp/>close<sp/>the<sp/>offline<sp/>trace<sp/>*fp.</highlight></codeline>
+<codeline lineno="152"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="153"><highlight class="comment">*<sp/><sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>T<sp/>Name<sp/>of<sp/>the<sp/>offline<sp/>tracer</highlight></codeline>
+<codeline lineno="154"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="155"><highlight class="comment">********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLOSE_OFFLINE_TRACE(T)<sp/>CloseOffLineTrace(T)</highlight></codeline>
+<codeline lineno="157"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="comment">/********************************************************************</highlight></codeline>
+<codeline lineno="159"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Send<sp/>output<sp/>to<sp/>an<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="160"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="161"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>First<sp/>parameter<sp/>is<sp/>name<sp/>of<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="162"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Second<sp/>parameter<sp/>is<sp/>the<sp/>log<sp/>type.</highlight></codeline>
+<codeline lineno="163"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Third<sp/>parameter<sp/>is<sp/>the<sp/>function<sp/>name.</highlight></codeline>
+<codeline lineno="164"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Use<sp/>variable<sp/>argument<sp/>list<sp/>like<sp/>printf.</highlight></codeline>
+<codeline lineno="165"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="166"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="167"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="168"><highlight class="comment">********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE(T,...)<sp/>offLinetrace(T,glog_type[0],##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_ERR(T,...)<sp/>offLinetrace(T,glog_type[1],##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_WARN(T,...)<sp/>offLinetrace(T,glog_type[2],##__VA_ARGS__)</highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="comment">/********************************************************************</highlight></codeline>
+<codeline lineno="176"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Send<sp/>array<sp/>output<sp/>to<sp/>an<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="177"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="178"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>First<sp/>parameter<sp/>is<sp/>name<sp/>of<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="179"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Second<sp/>parameter<sp/>is<sp/>the<sp/>function<sp/>name.</highlight></codeline>
+<codeline lineno="180"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>variable<sp/>argument<sp/><sp/>is<sp/>the<sp/>name<sp/>of<sp/>array<sp/>variable</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>isFloat<sp/>is<sp/>whether<sp/>if<sp/>it<sp/>is<sp/>float<sp/>type</highlight></codeline>
+<codeline lineno="182"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="183"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="184"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="185"><highlight class="comment">********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_ARY(T,<sp/>F,<sp/>prefix,variable,<sp/>isFloat)<sp/>\</highlight></codeline>
+<codeline lineno="187"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>do<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="188"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>for<sp/>(int<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>sizeof(variable)/sizeof(typeof(variable[0]));<sp/>i++)<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="190"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(!isFloat)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="191"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OFFLINE_TRACE(T,<sp/>F,<sp/>&quot;%s<sp/>%s[%d]<sp/>%d\n&quot;,<sp/>prefix,<sp/>#variable,<sp/>i,<sp/>*(variable+i));<sp/>\</highlight></codeline>
+<codeline lineno="192"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OFFLINE_TRACE(T,<sp/>F,<sp/>&quot;%s<sp/>%s[%d]<sp/>%f\n&quot;,<sp/>prefix,<sp/>#variable,<sp/>i,<sp/>*(variable+i));<sp/>\</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>\</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}while(0)</highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************</highlight></codeline>
+<codeline lineno="199"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="200"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Enable<sp/>an<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="201"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="202"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>T<sp/>name<sp/>of<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="203"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="204"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="205"><highlight class="comment">*********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_OFFLINE_TRACE(T)<sp/>enableOffLineTrace(T)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">/*********************************************************************</highlight></codeline>
+<codeline lineno="210"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Disable<sp/>an<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="211"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="212"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>T<sp/><sp/><sp/>name<sp/>of<sp/>offline<sp/>tracer.</highlight></codeline>
+<codeline lineno="213"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="214"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="215"><highlight class="comment">*********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_OFFLINE_TRACE(T)<sp/>disableOffLineTrace(T)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="comment">/**********************************************************************</highlight></codeline>
+<codeline lineno="219"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="220"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set<sp/>the<sp/>offline<sp/>tracer<sp/>*fp</highlight></codeline>
+<codeline lineno="221"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="222"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>I<sp/><sp/><sp/>index<sp/>of<sp/>isp.</highlight></codeline>
+<codeline lineno="223"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>F<sp/><sp/><sp/>A<sp/>valid<sp/>FILE*.</highlight></codeline>
+<codeline lineno="224"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="225"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="226"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="227"><highlight class="comment">**********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_OFFLINE_TRACE_FILE(I,<sp/>F)<sp/>setOffLineTraceFile(I,<sp/>F)</highlight></codeline>
+<codeline lineno="229"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="comment">/**********************************************************************</highlight></codeline>
+<codeline lineno="231"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="232"><highlight class="comment">*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>set<sp/>the<sp/>Current<sp/>frame<sp/>index</highlight></codeline>
+<codeline lineno="233"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="234"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>ispId<sp/>isp<sp/>id<sp/>.</highlight></codeline>
+<codeline lineno="235"><highlight class="comment">*<sp/><sp/>@param<sp/><sp/><sp/><sp/><sp/><sp/>I<sp/><sp/><sp/>frame<sp/>Index.</highlight></codeline>
+<codeline lineno="236"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="237"><highlight class="comment">*<sp/><sp/>@return<sp/><sp/><sp/><sp/><sp/>No<sp/>return<sp/>value.</highlight></codeline>
+<codeline lineno="238"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="239"><highlight class="comment">**********************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_FRAMEID_TRACE(ispId,I)<sp/>setoffLineTraceFrameid(ispId,I)</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>The<sp/>macro<sp/>for<sp/>CREATE_TRACER<sp/>can<sp/>not<sp/>just<sp/>expand<sp/>to<sp/>nothing.<sp/>Otherwise<sp/>we</highlight></codeline>
+<codeline lineno="244"><highlight class="comment">*<sp/>would<sp/>have<sp/>a<sp/>single<sp/>semicolon<sp/>which<sp/>C<sp/>does<sp/>not<sp/>allow<sp/>outside<sp/>of<sp/>function</highlight></codeline>
+<codeline lineno="245"><highlight class="comment">*<sp/>bodies.<sp/>For<sp/>this<sp/>reason<sp/>we<sp/>expand<sp/>to<sp/>this<sp/>extern<sp/>declaration.<sp/>As<sp/>the</highlight></codeline>
+<codeline lineno="246"><highlight class="comment">*<sp/>external<sp/>variable<sp/>is<sp/>never<sp/>used<sp/>linking<sp/>should<sp/>not<sp/>be<sp/>a<sp/>problem.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CREATE_OFFLINE_TRACE(name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>name</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OPEN_OFFLINE_TRACE(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>CLOSE_OFFLINE_TRACE(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>USE_OFFLINE_TRACE(name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>extern<sp/>int32_t<sp/>name</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_ERR(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_WARN(...)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>ENABLE_OFFLINE_TRACE(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>DISABLE_OFFLINE_TRACE(T)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_OFFLINE_TRACE_FILE(I,<sp/>F)<sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>SET_FRAMEID_TRACE(ispId,F)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OFFLINE_TRACE_ARY(T,<sp/>F,<sp/>prefix,variable,<sp/>isFloat)<sp/><sp/><sp/><sp/>(void)0</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>ISP_OFFLINE_TEST<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="261"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>@}<sp/>module_tracer*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*OFFLINE_TRACE_H_*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/ebase/include/offline_trace.h"/>
+  </compounddef>
+</doxygen>

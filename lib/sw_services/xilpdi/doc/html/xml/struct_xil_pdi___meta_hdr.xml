@@ -1,0 +1,207 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_xil_pdi___meta_hdr" kind="struct" prot="public">
+    <compoundname>XilPdi_MetaHdr</compoundname>
+    <includes local="no">xilpdi.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1ad14403538e49275dc99eee9f7264b928" prot="public" static="no" mutable="no">
+        <type>const <ref refid="struct_xil_pdi___boot_hdr" kindref="compound">XilPdi_BootHdr</ref> *</type>
+        <definition>const XilPdi_BootHdr* XilPdi_MetaHdr::BootHdrPtr</definition>
+        <argsstring></argsstring>
+        <name>BootHdrPtr</name>
+        <briefdescription>
+<para>Boot Header Pointer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="300" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_xil_pdi___img_hdr_tbl" kindref="compound">XilPdi_ImgHdrTbl</ref></type>
+        <definition>XilPdi_ImgHdrTbl XilPdi_MetaHdr::ImgHdrTbl</definition>
+        <argsstring></argsstring>
+        <name>ImgHdrTbl</name>
+        <briefdescription>
+<para>Img header table structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaf79c8f43bf8b64976d3fffe442108861" compoundref="xilpdi_8c" startline="359" endline="390">XilPdi_ReadIhtAndOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_xil_pdi___img_hdr" kindref="compound">XilPdi_ImgHdr</ref></type>
+        <definition>XilPdi_ImgHdr XilPdi_MetaHdr::ImgHdr[XIH_MAX_IMGS]</definition>
+        <argsstring>[XIH_MAX_IMGS]</argsstring>
+        <name>ImgHdr</name>
+        <briefdescription>
+<para>Image header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="302" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="302" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga3351549fd88876c437726037b8bd5ca3" compoundref="xilpdi_8c" startline="738" endline="761">XilPdi_VerifyImgHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_xil_pdi___prtn_hdr" kindref="compound">XilPdi_PrtnHdr</ref></type>
+        <definition>XilPdi_PrtnHdr XilPdi_MetaHdr::PrtnHdr[XIH_MAX_PRTNS]</definition>
+        <argsstring>[XIH_MAX_PRTNS]</argsstring>
+        <name>PrtnHdr</name>
+        <briefdescription>
+<para>Prtn header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="303" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1gab201600dc6af30b8ca72b6fd0109767c" compoundref="xilpdi_8c" startline="702" endline="725">XilPdi_VerifyPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XilPdi_MetaHdr::FlashOfstAddr</definition>
+        <argsstring></argsstring>
+        <name>FlashOfstAddr</name>
+        <briefdescription>
+<para>Start of DPI start address in Flash. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="307" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="307" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_MetaHdr::MetaHdrOfst</definition>
+        <argsstring></argsstring>
+        <name>MetaHdrOfst</name>
+        <briefdescription>
+<para>Offset to the start of meta header. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="308" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="308" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" prot="public" static="no" mutable="no">
+        <type>int(*</type>
+        <definition>int(* XilPdi_MetaHdr::DeviceCopy)(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags)</definition>
+        <argsstring>)(u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags)</argsstring>
+        <name>DeviceCopy</name>
+        <briefdescription>
+<para>Function pointer for device copy. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1gaab206394653dbbd10d5fbdbb41832c8e" compoundref="xilpdi_8c" startline="639" endline="658">XilPdi_ReadImgHdrs</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0e8b30c329673e17c9068780d5039b62" compoundref="xilpdi_8c" startline="300" endline="346">XilPdi_ReadImgHdrTbl</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga0174729e4271ff3ed60e891b111a80fb" compoundref="xilpdi_8c" startline="404" endline="440">XilPdi_ReadOptionalData</referencedby>
+        <referencedby refid="group__xilpdi__apis_1ga34716af70cf4846e312a414d760d9e1b" compoundref="xilpdi_8c" startline="672" endline="689">XilPdi_ReadPrtnHdrs</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_MetaHdr::DigestTableSize</definition>
+        <argsstring></argsstring>
+        <name>DigestTableSize</name>
+        <briefdescription>
+<para>Digest table size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="311" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="311" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XilPdi_MetaHdr::IsAuthOptimized</definition>
+        <argsstring></argsstring>
+        <name>IsAuthOptimized</name>
+        <briefdescription>
+<para>Authentication optimization enabled or disabled by the user. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__xilpdi__apis_1ga3bac0965e4b613497a5126a4e34feae1" compoundref="xilpdi_8c" startline="453" endline="548">XilPdi_StoreDigestTable</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure of the image header which contains information of image header table and partition headers. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="16">
+        <label>XilPdi_PrtnHdr</label>
+        <link refid="struct_xil_pdi___prtn_hdr"/>
+      </node>
+      <node id="14">
+        <label>XilPdi_ImgHdr</label>
+        <link refid="struct_xil_pdi___img_hdr"/>
+      </node>
+      <node id="15">
+        <label>XilPdi_ImgHdrTbl</label>
+        <link refid="struct_xil_pdi___img_hdr_tbl"/>
+      </node>
+      <node id="13">
+        <label>XilPdi_MetaHdr</label>
+        <link refid="struct_xil_pdi___meta_hdr"/>
+        <childnode refid="14" relation="usage">
+          <edgelabel>ImgHdr</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>ImgHdrTbl</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>PrtnHdr</edgelabel>
+        </childnode>
+        <childnode refid="17" relation="usage">
+          <edgelabel>BootHdrPtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>XilPdi_BootHdrFwRsvd</label>
+        <link refid="struct_xil_pdi___boot_hdr_fw_rsvd"/>
+      </node>
+      <node id="17">
+        <label>XilPdi_BootHdr</label>
+        <link refid="struct_xil_pdi___boot_hdr"/>
+        <childnode refid="18" relation="usage">
+          <edgelabel>BootHdrFwRsvd</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpdi/src/common/xilpdi.h" bodystart="299" bodyend="313"/>
+    <listofallmembers>
+      <member refid="struct_xil_pdi___meta_hdr_1ad14403538e49275dc99eee9f7264b928" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>BootHdrPtr</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1af4c05505d849cc9cb018b43c8f848776" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>DeviceCopy</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1ab03eaa6f8cf7f87eb494327f7243f8ba" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>DigestTableSize</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1a7aedb1bc8b9897f706301f22ed7a1725" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>FlashOfstAddr</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1a11507d2e756a50021cb7b1ad8c1560f1" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>ImgHdr</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1a8a6314a7d4b3c68b8466d1c2f8fede3b" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>ImgHdrTbl</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1a34b97ff1d32e9192968c2dbe87218e1e" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>IsAuthOptimized</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1adce12a2a74474eccb3d8cce3040a6ac9" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>MetaHdrOfst</name></member>
+      <member refid="struct_xil_pdi___meta_hdr_1a1e1fdee165b368455fd4a57f2dc9310a" prot="public" virt="non-virtual"><scope>XilPdi_MetaHdr</scope><name>PrtnHdr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

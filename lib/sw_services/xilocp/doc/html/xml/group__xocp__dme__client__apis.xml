@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xocp__dme__client__apis" kind="group">
+    <compoundname>xocp_dme_client_apis</compoundname>
+    <title>XilOcp DME Client APIs</title>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XOcp_GenDmeResp</definition>
+        <argsstring>(XOcp_ClientInstance *InstancePtr, u64 NonceAddr, u64 DmeStructResAddr)</argsstring>
+        <name>XOcp_GenDmeResp</name>
+        <param>
+          <type><ref refid="struct_x_ocp___client_instance" kindref="compound">XOcp_ClientInstance</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>NonceAddr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>DmeStructResAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function sends IPI request to fill the DME structure and generates the response with signature. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- Pointer to the client instance </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>NonceAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- pointer to 48 bytes buffer which holds the Nonce, which shall be used to fill one of the member of DME structure </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DmeStructResAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- pointer to 224 bytes buffer, which is used to store the response DME structure of type XOcp_DmeResponseStructure</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - Upon success</para></listitem><listitem><para>XST_FAILURE - Upon any failure </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Fill IPI payload for XOCP_API_GENDMERESP command and send the request to Server </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/dme/xocp_dme.c" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/client/dme/xocp_dme.c" bodystart="62" bodyend="88"/>
+        <references refid="struct_x_ocp___client_instance_1ae59517a3e3e2e40d34b941bd40323cc1" compoundref="xocp__mailbox_8h" startline="95">XOcp_ClientInstance::MailboxPtr</references>
+        <references refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" compoundref="xocp__def_8h" startline="83">XOCP_ADDR_HIGH_SHIFT</references>
+        <references refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" compoundref="xocp__def_8h" startline="107">XOCP_API_GENDMERESP</references>
+        <references refid="group__xocp__mailbox__apis_1ga6bf28d17b9014d88926e36cd519dd804" compoundref="xocp__mailbox_8c" startline="65" endline="94">XOcp_ProcessMailbox</references>
+        <referencedby refid="group__xocp__example__apis_1ga840291bc02cba5474a4cb46a9b9566fe" compoundref="xilocp__client__dme__example_8c" startline="111" endline="164">main</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

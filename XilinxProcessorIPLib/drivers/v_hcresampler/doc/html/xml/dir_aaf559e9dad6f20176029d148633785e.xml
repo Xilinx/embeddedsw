@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_aaf559e9dad6f20176029d148633785e" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xv__hcresampler_8c">xv_hcresampler.c</innerfile>
+    <innerfile refid="xv__hcresampler_8h">xv_hcresampler.h</innerfile>
+    <innerfile refid="xv__hcresampler__coeff_8c">xv_hcresampler_coeff.c</innerfile>
+    <innerfile refid="xv__hcresampler__g_8c">xv_hcresampler_g.c</innerfile>
+    <innerfile refid="xv__hcresampler__hw_8h">xv_hcresampler_hw.h</innerfile>
+    <innerfile refid="xv__hcresampler__l2_8c">xv_hcresampler_l2.c</innerfile>
+    <innerfile refid="xv__hcresampler__l2_8h">xv_hcresampler_l2.h</innerfile>
+    <innerfile refid="xv__hcresampler__linux_8c">xv_hcresampler_linux.c</innerfile>
+    <innerfile refid="xv__hcresampler__sinit_8c">xv_hcresampler_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hcresampler/src/"/>
+  </compounddef>
+</doxygen>

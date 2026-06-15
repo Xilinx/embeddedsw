@@ -1,0 +1,995 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xhdcp1x__port_8h" kind="file">
+    <compoundname>xhdcp1x_port.h</compoundname>
+    <includes refid="xhdcp1x_8h" local="yes">xhdcp1x.h</includes>
+    <includes local="yes">xparameters.h</includes>
+    <includes local="yes">xstatus.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xhdcp1x_8c" local="yes">xhdcp1x.c</includedby>
+    <includedby refid="xhdcp1x__intr_8c" local="yes">xhdcp1x_intr.c</includedby>
+    <includedby refid="xhdcp1x__port_8c" local="yes">xhdcp1x_port.c</includedby>
+    <includedby refid="xhdcp1x__port__intr_8c" local="yes">xhdcp1x_port_intr.c</includedby>
+    <includedby refid="xhdcp1x__rx_8c" local="yes">xhdcp1x_rx.c</includedby>
+    <includedby refid="xhdcp1x__selftest_8c" local="yes">xhdcp1x_selftest.c</includedby>
+    <includedby refid="xhdcp1x__tx_8c" local="yes">xhdcp1x_tx.c</includedby>
+    <incdepgraph>
+      <node id="195">
+        <label>xil_io.h</label>
+      </node>
+      <node id="190">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x_port.h"/>
+        <childnode refid="191" relation="include">
+        </childnode>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+      </node>
+      <node id="197">
+        <label>xtmrctr.h</label>
+      </node>
+      <node id="196">
+        <label>xstatus.h</label>
+      </node>
+      <node id="194">
+        <label>xhdcp1x_hw.h</label>
+        <link refid="xhdcp1x__hw_8h"/>
+        <childnode refid="195" relation="include">
+        </childnode>
+      </node>
+      <node id="193">
+        <label>xil_types.h</label>
+      </node>
+      <node id="192">
+        <label>xparameters.h</label>
+      </node>
+      <node id="191">
+        <label>xhdcp1x.h</label>
+        <link refid="xhdcp1x_8h"/>
+        <childnode refid="192" relation="include">
+        </childnode>
+        <childnode refid="193" relation="include">
+        </childnode>
+        <childnode refid="194" relation="include">
+        </childnode>
+        <childnode refid="196" relation="include">
+        </childnode>
+        <childnode refid="197" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="202">
+        <label>xhdcp1x_port_intr.c</label>
+        <link refid="xhdcp1x__port__intr_8c"/>
+      </node>
+      <node id="204">
+        <label>xhdcp1x_selftest.c</label>
+        <link refid="xhdcp1x__selftest_8c"/>
+      </node>
+      <node id="205">
+        <label>xhdcp1x_tx.c</label>
+        <link refid="xhdcp1x__tx_8c"/>
+      </node>
+      <node id="203">
+        <label>xhdcp1x_rx.c</label>
+        <link refid="xhdcp1x__rx_8c"/>
+      </node>
+      <node id="201">
+        <label>xhdcp1x_port.c</label>
+        <link refid="xhdcp1x__port_8c"/>
+      </node>
+      <node id="198">
+        <label>xhdcp1x_port.h</label>
+        <link refid="xhdcp1x_port.h"/>
+        <childnode refid="199" relation="include">
+        </childnode>
+        <childnode refid="200" relation="include">
+        </childnode>
+        <childnode refid="201" relation="include">
+        </childnode>
+        <childnode refid="202" relation="include">
+        </childnode>
+        <childnode refid="203" relation="include">
+        </childnode>
+        <childnode refid="204" relation="include">
+        </childnode>
+        <childnode refid="205" relation="include">
+        </childnode>
+      </node>
+      <node id="199">
+        <label>xhdcp1x.c</label>
+        <link refid="xhdcp1x_8c"/>
+      </node>
+      <node id="200">
+        <label>xhdcp1x_intr.c</label>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_x_hdcp1x___port_phy_if_adaptor_s" prot="public">XHdcp1x_PortPhyIfAdaptorS</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__hdcp1x_1ga031431383ebf79ac5230c51596872619" prot="public" static="no">
+        <name>XHDCP1X_PORT_H</name>
+        <briefdescription>
+<para>&lt; Prevent circular inclusions by using protection macros </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="31" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gac0775b5a4d8356f29895da56601b027c" prot="public" static="no">
+        <name>XHDCP1X_PORT_UINT_TO_BUF</name>
+        <param><defname>buf</defname></param>
+        <param><defname>Value</defname></param>
+        <param><defname>numbits</defname></param>
+        <initializer>if ((numbits) &gt; 0) {						\
+		int byte;						\
+		for (byte = 0; byte &lt;= (int)(((numbits) - 1) &gt;&gt; 3); byte++) { \
+			buf[byte] = (uint8_t) (Value &amp; 0xFFu);		\
+			Value &gt;&gt;= 8;					\
+		}							\
+	}</initializer>
+        <briefdescription>
+<para>This macro converts from an unsigned integer to a little endian formatted buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer to write to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the unsigned integer to convert </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>numbits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of bits within the unsigned integer to use</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>The value of the &quot;Value&quot; parameter is destroyed by a call to this macro </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="94" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1ga265635e2887f54c34e032558d04c97fc" prot="public" static="no">
+        <name>XHDCP1X_PORT_BUF_TO_UINT</name>
+        <param><defname>Value</defname></param>
+        <param><defname>buf</defname></param>
+        <param><defname>numbits</defname></param>
+        <initializer>if ((numbits) &gt; 0) {						\
+		int byte;						\
+		Value = 0;	 					\
+		for (byte = (((numbits) - 1) &gt;&gt; 3); byte &gt;= 0; byte--) { \
+			Value &lt;&lt;= 8;					\
+			Value  |= buf[byte];				\
+		}							\
+	}</initializer>
+        <briefdescription>
+<para>This macro converts from a little endian formatted buffer to an unsigned integer value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the unsigned integer to write </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer to convert </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>numbits</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the number of bits within the buffer to use</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="117" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="117" bodyend="-1"/>
+        <referencedby refid="group__hdcp1x_1gaacbe196b64bd19fe98db62e552b89788" compoundref="xhdcp1x__tx_8c" startline="2354" endline="2373">XHdcp1x_TxGetTopologyBKSV</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gaf15471088fda7450a5b6c24c5c65e8da" prot="public" static="no">
+        <name>XHDCP1X_PORT_BSET_IN_BUF</name>
+        <param><defname>buf</defname></param>
+        <param><defname>bitnum</defname></param>
+        <initializer>buf[(bitnum) &gt;&gt; 3] |=  (1u &lt;&lt; ((bitnum) &amp; 0x07u));</initializer>
+        <briefdescription>
+<para>This macro sets a bit within a little endian formatted buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer to write to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bitnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the bit to set</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="139" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gad2baf460af0b886a5b2aedcc3085049b" prot="public" static="no">
+        <name>XHDCP1X_PORT_BCLR_IN_BUF</name>
+        <param><defname>buf</defname></param>
+        <param><defname>bitnum</defname></param>
+        <initializer>buf[(bitnum) &gt;&gt; 3] &amp;= ~(1u &lt;&lt; ((bitnum) &amp; 0x07u));</initializer>
+        <briefdescription>
+<para>This macro clears a bit within a little endian formatted buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer to write to </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bitnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the bit to clear</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="154" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__hdcp1x_1gae20b7b34529b50d90577913851201bf7" prot="public" static="no">
+        <name>XHDCP1X_PORT_BTST_IN_BUF</name>
+        <param><defname>buf</defname></param>
+        <param><defname>bitnum</defname></param>
+        <initializer>(buf[(bitnum) &gt;&gt; 3] &amp; (1u &lt;&lt; ((bitnum) &amp; 0x07u)))</initializer>
+        <briefdescription>
+<para>This macro tests a bit within a little endian formatted buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer containing the bit to test </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>bitnum</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the bit to test</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="169" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__hdcp1x_1ga758e8028b33a9204cabc6b8327eacaf3" prot="public" static="no">
+        <name>XHdcp1x_PortHandlerType</name>
+        <enumvalue id="group__hdcp1x_1gga758e8028b33a9204cabc6b8327eacaf3a1763ad0694adf51c42870df78089ec87" prot="public">
+          <name>XHDCP1X_PORT_HANDLER_AUTHENTICATE</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+<para>An (re)auth request. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>This typedef defines the different types of handlers that can be registered to service interrupt requests from the HDCP port instance. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="52" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" bodystart="52" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__hdcp1x_1gab3390f77e705a54ca5639baa56743d3a" prot="public" static="no">
+        <type>struct <ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s" kindref="compound">XHdcp1x_PortPhyIfAdaptorS</ref></type>
+        <definition>typedef struct XHdcp1x_PortPhyIfAdaptorS  XHdcp1x_PortPhyIfAdaptor</definition>
+        <argsstring></argsstring>
+        <name>XHdcp1x_PortPhyIfAdaptor</name>
+        <briefdescription>
+<para>The typedef defines the HDCP port adaptor table. </para>        </briefdescription>
+        <detaileddescription>
+<para>This contains a series of functions that map the external interface of the HDCP port device to the underlying physical interface that it is running over </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="75" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__hdcp1x_1gaf5f729774d507b92940336ef2112939a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__hdcp1x_1gab3390f77e705a54ca5639baa56743d3a" kindref="member">XHdcp1x_PortPhyIfAdaptor</ref> *</type>
+        <definition>const XHdcp1x_PortPhyIfAdaptor * XHdcp1x_PortDetermineAdaptor</definition>
+        <argsstring>(XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PortDetermineAdaptor</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function determines the adaptor for a specified port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device whose adaptor is to be determined.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the adaptor table. NULL if not found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="93" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="93" bodyend="132"/>
+        <references refid="struct_x_hdcp1x_1a4fd777f9a8a407ed4b2d6d02fab202ea" compoundref="xhdcp1x_8h" startline="1147">XHdcp1x::Config</references>
+        <references refid="struct_x_hdcp1x___config_1a737c4d0a7a9ceb9297a7383bf87a00c9" compoundref="xhdcp1x_8h" startline="905">XHdcp1x_Config::IsHDMI</references>
+        <references refid="struct_x_hdcp1x___config_1a2bd303115c93ce720649a9d59a291893" compoundref="xhdcp1x_8h" startline="904">XHdcp1x_Config::IsRx</references>
+        <referencedby refid="group__hdcp1x_1ga931fc14801a82c9cc3aa870d887bbc07" compoundref="xhdcp1x_8c" startline="132" endline="230">XHdcp1x_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga1f9860359eea1bd7989e76c11888734c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortSetCallback</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u32 HandlerType, XHdcp1x_Callback CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XHdcp1x_PortSetCallback</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref></type>
+          <declname>Callback</declname>
+          <defname>CallbackFunc</defname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Parameter</declname>
+          <defname>CallbackRef</defname>
+        </param>
+        <briefdescription>
+<para>This function installs an asynchronous callback function for the given HandlerType: </para>        </briefdescription>
+        <detaileddescription>
+<para><preformatted>
+HandlerType                           Callback Function Type
+------------------------------------  -------------------------------------
+(XHDCP1X_PORT_HANDLER_AUTHENTICATE)   AuthCallback
+</preformatted></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the HDCP port instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>specifies the type of handler. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if callback function installed successfully.</para></listitem><listitem><para>XST_INVALID_PARAM when HandlerType is invalid.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been installed replaces it with the new handler. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="176" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="66" bodyend="92"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a0b9372be6bbed654eb7809a3c571aac6" compoundref="xhdcp1x_8h" startline="972">XHdcp1x_PortStruct::AuthCallback</references>
+        <references refid="struct_x_hdcp1x___port_struct_1add20260f047759cae3278e3c7721d870" compoundref="xhdcp1x_8h" startline="973">XHdcp1x_PortStruct::AuthRef</references>
+        <references refid="struct_x_hdcp1x___port_struct_1a0236b727093565833b9902c0d6df5fdd" compoundref="xhdcp1x_8h" startline="974">XHdcp1x_PortStruct::IsAuthCallbackSet</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="group__hdcp1x_1gga758e8028b33a9204cabc6b8327eacaf3a1763ad0694adf51c42870df78089ec87" compoundref="xhdcp1x__port_8h" startline="53">XHDCP1X_PORT_HANDLER_AUTHENTICATE</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1gafe3971f3a49c69f3a316f3fab58fdf20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortEnable</definition>
+        <argsstring>(XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PortEnable</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function enables a port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to enables.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_NO_FEATURE if the port lacks an Enable function.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="147" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="147" bodyend="168"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" compoundref="xhdcp1x__port_8h" startline="63">XHdcp1x_PortPhyIfAdaptorS::Enable</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga152c8d8f9abdee612ce15f6e914a122a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortDisable</definition>
+        <argsstring>(XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PortDisable</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function disables a port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to disables.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_NO_FEATURE if the port lacks a Disable function.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="220" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="220" bodyend="241"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" compoundref="xhdcp1x__port_8h" startline="64">XHdcp1x_PortPhyIfAdaptorS::Disable</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1gaf1e24817724b0410a9b272343a0ef745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortIsCapable</definition>
+        <argsstring>(const XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PortIsCapable</name>
+        <param>
+          <type>const <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function queries a port device to determine if hdcp is supported. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="254" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="254" bodyend="271"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" compoundref="xhdcp1x__port_8h" startline="67">XHdcp1x_PortPhyIfAdaptorS::IsCapable</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <referencedby refid="group__hdcp1x_1gad30b097e8f3ff909c1ad5bd4c6a7d7c8" compoundref="xhdcp1x__tx_8c" startline="732" endline="745">XHdcp1x_TxIsDownstrmCapable</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga41b5285a790690159dece6baa5afadf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortIsRepeater</definition>
+        <argsstring>(const XHdcp1x *InstancePtr)</argsstring>
+        <name>XHdcp1x_PortIsRepeater</name>
+        <param>
+          <type>const <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function queries a port device to determine if it is connected to a repeater. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to query.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Truth value.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="285" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="285" bodyend="302"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" compoundref="xhdcp1x__port_8h" startline="68">XHdcp1x_PortPhyIfAdaptorS::IsRepeater</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <referencedby refid="group__hdcp1x_1gaee964dc4d6fc103705d6358fc2db9480" compoundref="xhdcp1x__tx_8c" startline="891" endline="902">XHdcp1x_TxIsRepeater</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga4ddc37a110b704b91553dea3646d18e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortSetRepeater</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u8 RptrConf)</argsstring>
+        <name>XHdcp1x_PortSetRepeater</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>RptrConf</declname>
+        </param>
+        <briefdescription>
+<para>This function set the REPEATER information in the connected device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to query. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RptrConf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the configuration of the device as repeater.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_NO_FEATURE if the port fails to set the Repeater value.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="318" bodyend="339"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" compoundref="xhdcp1x__port_8h" startline="69">XHdcp1x_PortPhyIfAdaptorS::SetRepeater</references>
+        <referencedby refid="group__hdcp1x_1ga0b43677a8ea30e51ee23b673349d488e" compoundref="xhdcp1x__rx_8c" startline="387" endline="400">XHdcp1x_RxSetRepeaterBcaps</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga8865a6a7279587d2a439f603b78bf35c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortGetRepeaterInfo</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u16 *InfoPtr)</argsstring>
+        <name>XHdcp1x_PortGetRepeaterInfo</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u16 *</type>
+          <declname>InfoPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function retrieves the repeater information from the connected device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to query. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>InfoPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the repeater info.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_NO_FEATURE if the port lacks a GetRepeaterInfo function.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="355" bodyend="377"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" compoundref="xhdcp1x__port_8h" startline="70">XHdcp1x_PortPhyIfAdaptorS::GetRepeaterInfo</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga6e36b9c8a021600e2c9e3766f94b6dc7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortRead</definition>
+        <argsstring>(const XHdcp1x *InstancePtr, u8 Offset, void *Buf, u32 BufSize)</argsstring>
+        <name>XHdcp1x_PortRead</name>
+        <param>
+          <type>const <ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Buf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function reads a register from a HDCP port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to read from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset to start reading from. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer to copy the data read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes read.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="393" bodyend="413"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" compoundref="xhdcp1x__port_8h" startline="65">XHdcp1x_PortPhyIfAdaptorS::Read</references>
+        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1606" endline="1630">XHdcp1x_RxSetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1520" endline="1548">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1561" endline="1594">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1gaacbe196b64bd19fe98db62e552b89788" compoundref="xhdcp1x__tx_8c" startline="2354" endline="2373">XHdcp1x_TxGetTopologyBKSV</referencedby>
+        <referencedby refid="group__hdcp1x_1gaf854c758691f491c5f80e89a795f2a24" compoundref="xhdcp1x__tx_8c" startline="2309" endline="2337">XHdcp1x_TxGetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga029629390d42624ba18930e5d73a948e" compoundref="xhdcp1x__tx_8c" startline="2390" endline="2418">XHdcp1x_TxGetTopologyMaxDevsExceeded</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga46da74febe033d53ef2420d318fd63b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_PortWrite</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u8 Offset, const void *Buf, u32 BufSize)</argsstring>
+        <name>XHdcp1x_PortWrite</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8</type>
+          <declname>Offset</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>Buf</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>BufSize</declname>
+        </param>
+        <briefdescription>
+<para>This function writes a register within a HDCP port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the offset to start writing at. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the buffer containing the data to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BufSize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the size of the buffer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The number of bytes written.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="429" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="429" bodyend="449"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" compoundref="xhdcp1x__port_8h" startline="66">XHdcp1x_PortPhyIfAdaptorS::Write</references>
+        <referencedby refid="group__hdcp1x_1gadc55a06b412b97147efb33690e6b1a81" compoundref="xhdcp1x__rx_8c" startline="1606" endline="1630">XHdcp1x_RxSetHdmiMode</referencedby>
+        <referencedby refid="group__hdcp1x_1gae3eacc3ce1104040154509de3edd755f" compoundref="xhdcp1x__rx_8c" startline="1520" endline="1548">XHdcp1x_RxSetTopologyMaxCascadeExceeded</referencedby>
+        <referencedby refid="group__hdcp1x_1ga9e592488862d8a1a599abbcf8bd1b30c" compoundref="xhdcp1x__rx_8c" startline="1561" endline="1594">XHdcp1x_RxSetTopologyMaxDevsExceeded</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XHdcp1x_PortHandleInterrupt</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u32 IntCause)</argsstring>
+        <name>XHdcp1x_PortHandleInterrupt</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>IntCause</declname>
+        </param>
+        <briefdescription>
+<para>This handles an interrupt generated by a HDCP port device. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to write to. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IntCause</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the interrupt cause bit map.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h" line="190" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port_intr.c" bodystart="104" bodyend="119"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x___port_stats_1a5e09862f792ac5882b922a58a4d78e72" compoundref="xhdcp1x_8h" startline="937">XHdcp1x_PortStats::IntCount</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" compoundref="xhdcp1x__port_8h" startline="72">XHdcp1x_PortPhyIfAdaptorS::IntrHandler</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_struct_1a316391664c4d927846ef9169bf723e0f" compoundref="xhdcp1x_8h" startline="975">XHdcp1x_PortStruct::Stats</references>
+        <referencedby refid="group__hdcp1x_1gaac0a3b497e4974beccb2adfba3d5fa19" compoundref="xhdcp1x__intr_8c" startline="125" endline="135">XHdcp1x_PortIntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__hdcp1x_1gabaa138ac8e69b6b515fc1abf6cf0b83d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XHdcp1x_SetEcfSlots</definition>
+        <argsstring>(XHdcp1x *InstancePtr, u64 timeslots)</argsstring>
+        <name>XHdcp1x_SetEcfSlots</name>
+        <param>
+          <type><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u64</type>
+          <declname>timeslots</declname>
+        </param>
+        <briefdescription>
+<para>This function enables encryption/decyption for all timeslots. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the device to enables.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>timeslots</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the timeslot configuration value.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if successful.</para></listitem><listitem><para>XST_NO_FEATURE if the port lacks an Enable function.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.c" bodystart="185" bodyend="206"/>
+        <references refid="struct_x_hdcp1x___port_struct_1a753ae75c4822a4a1e5e3e7e21486a4bb" compoundref="xhdcp1x_8h" startline="970">XHdcp1x_PortStruct::Adaptor</references>
+        <references refid="struct_x_hdcp1x_1a8234eabad6b1c38cb2cb725ef0ab9b47" compoundref="xhdcp1x_8h" startline="1149">XHdcp1x::Port</references>
+        <references refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" compoundref="xhdcp1x__port_8h" startline="74">XHdcp1x_PortPhyIfAdaptorS::SetEcfSlots</references>
+        <referencedby refid="group__hdcp1x_1ga4f752680b62e63e3c354880fd5d5156c" compoundref="xhdcp1x__tx_8c" startline="3596" endline="3599">XHdcp1x_TxEnableEcf</referencedby>
+        <referencedby refid="group__hdcp1x_1ga77e1f67d04fe05ef14dbc3c28e6a5942" compoundref="xhdcp1x__tx_8c" startline="547" endline="556">XHdcp1x_TxEnableEcfTimeslots</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx,<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor">#ifndef<sp/>XHDCP1X_PORT_H</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="31" refid="group__hdcp1x_1ga031431383ebf79ac5230c51596872619" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_H</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="34"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="36"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xhdcp1x_8h" kindref="compound">xhdcp1x.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="group__hdcp1x_1ga758e8028b33a9204cabc6b8327eacaf3" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53" refid="group__hdcp1x_1gga758e8028b33a9204cabc6b8327eacaf3a1763ad0694adf51c42870df78089ec87" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp1x_1gga758e8028b33a9204cabc6b8327eacaf3a1763ad0694adf51c42870df78089ec87" kindref="member">XHDCP1X_PORT_HANDLER_AUTHENTICATE</ref><sp/>=<sp/>1,<sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><ref refid="group__hdcp1x_1ga758e8028b33a9204cabc6b8327eacaf3" kindref="member">XHdcp1x_PortHandlerType</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="struct_x_hdcp1x___port_phy_if_adaptor_s" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s" kindref="compound">XHdcp1x_PortPhyIfAdaptorS</ref><sp/>{</highlight></codeline>
+<codeline lineno="62" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a21b4cbbff2e906b18b21ee2a614d6217" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a21b4cbbff2e906b18b21ee2a614d6217" kindref="member">Init</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a57ab492440b7738789d5458d3c2d621c" kindref="member">Enable</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="64" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a3d4d78ac9c53e61be087a3d193e30de5" kindref="member">Disable</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae57bfa58871123955d691a0e764b3e0c" kindref="member">Read</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u8,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>u32);<sp/></highlight></codeline>
+<codeline lineno="66" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ad9892dcb133381504c00b6db21e3a485" kindref="member">Write</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u8,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>u32);<sp/></highlight></codeline>
+<codeline lineno="67" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ac2c8553a0119a61454b55a636301ac22" kindref="member">IsCapable</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*);<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="68" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1acffa4b66e65db9e791093cc0b5dd2af6" kindref="member">IsRepeater</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*);<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a184af78bafe34409e91dd15a96cca351" kindref="member">SetRepeater</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u8);<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="70" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1afbf79bdc45c855b241e5e1302cee98ad" kindref="member">GetRepeaterInfo</ref>)(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u16<sp/>*);<sp/></highlight></codeline>
+<codeline lineno="72" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a5b044a08bc8025741a6a8acc5b54a10d" kindref="member">IntrHandler</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u32);<sp/></highlight></codeline>
+<codeline lineno="73" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae1ffcc9653d3052f365791c00d4f50aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1ae1ffcc9653d3052f365791c00d4f50aa" kindref="member">CallbackHandler</ref>)(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef);<sp/></highlight></codeline>
+<codeline lineno="74" refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>(*<ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s_1a29464d4bc157416de77ed37b60516636" kindref="member">SetEcfSlots</ref>)(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*,<sp/>u64);<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/><ref refid="group__hdcp1x_1gab3390f77e705a54ca5639baa56743d3a" kindref="member">XHdcp1x_PortPhyIfAdaptor</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="94" refid="group__hdcp1x_1gac0775b5a4d8356f29895da56601b027c" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_UINT_TO_BUF(buf,<sp/>Value,<sp/>numbits)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="95"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((numbits)<sp/>&gt;<sp/>0)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="96"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>byte;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="97"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>for<sp/>(byte<sp/>=<sp/>0;<sp/>byte<sp/>&lt;=<sp/>(int)(((numbits)<sp/>-<sp/>1)<sp/>&gt;&gt;<sp/>3);<sp/>byte++)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[byte]<sp/>=<sp/>(uint8_t)<sp/>(Value<sp/>&amp;<sp/>0xFFu);<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="99"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&gt;&gt;=<sp/>8;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="101"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="102"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="117" refid="group__hdcp1x_1ga265635e2887f54c34e032558d04c97fc" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_BUF_TO_UINT(Value,<sp/>buf,<sp/>numbits)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>((numbits)<sp/>&gt;<sp/>0)<sp/>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int<sp/>byte;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="120"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>=<sp/>0;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>for<sp/>(byte<sp/>=<sp/>(((numbits)<sp/>-<sp/>1)<sp/>&gt;&gt;<sp/>3);<sp/>byte<sp/>&gt;=<sp/>0;<sp/>byte--)<sp/>{<sp/>\</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/>&lt;&lt;=<sp/>8;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Value<sp/><sp/>|=<sp/>buf[byte];<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="139" refid="group__hdcp1x_1gaf15471088fda7450a5b6c24c5c65e8da" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_BSET_IN_BUF(buf,<sp/>bitnum)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[(bitnum)<sp/>&gt;&gt;<sp/>3]<sp/>|=<sp/><sp/>(1u<sp/>&lt;&lt;<sp/>((bitnum)<sp/>&amp;<sp/>0x07u));</highlight></codeline>
+<codeline lineno="141"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="154" refid="group__hdcp1x_1gad2baf460af0b886a5b2aedcc3085049b" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_BCLR_IN_BUF(buf,<sp/>bitnum)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf[(bitnum)<sp/>&gt;&gt;<sp/>3]<sp/>&amp;=<sp/>~(1u<sp/>&lt;&lt;<sp/>((bitnum)<sp/>&amp;<sp/>0x07u));</highlight></codeline>
+<codeline lineno="156"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="169" refid="group__hdcp1x_1gae20b7b34529b50d90577913851201bf7" refkind="member"><highlight class="preprocessor">#define<sp/>XHDCP1X_PORT_BTST_IN_BUF(buf,<sp/>bitnum)<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(buf[(bitnum)<sp/>&gt;&gt;<sp/>3]<sp/>&amp;<sp/>(1u<sp/>&lt;&lt;<sp/>((bitnum)<sp/>&amp;<sp/>0x07u)))</highlight></codeline>
+<codeline lineno="171"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x___port_phy_if_adaptor_s" kindref="compound">XHdcp1x_PortPhyIfAdaptor</ref><sp/>*<ref refid="group__hdcp1x_1gaf5f729774d507b92940336ef2112939a" kindref="member">XHdcp1x_PortDetermineAdaptor</ref>(</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga1f9860359eea1bd7989e76c11888734c" kindref="member">XHdcp1x_PortSetCallback</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__hdcp1x_1gadb148e6df96c874ba6a9cef6cd23921a" kindref="member">XHdcp1x_Callback</ref><sp/>Callback,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Parameter);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1gafe3971f3a49c69f3a316f3fab58fdf20" kindref="member">XHdcp1x_PortEnable</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga152c8d8f9abdee612ce15f6e914a122a" kindref="member">XHdcp1x_PortDisable</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1gaf1e24817724b0410a9b272343a0ef745" kindref="member">XHdcp1x_PortIsCapable</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga41b5285a790690159dece6baa5afadf9" kindref="member">XHdcp1x_PortIsRepeater</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga4ddc37a110b704b91553dea3646d18e2" kindref="member">XHdcp1x_PortSetRepeater</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u8<sp/>RptrConf);</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga8865a6a7279587d2a439f603b78bf35c" kindref="member">XHdcp1x_PortGetRepeaterInfo</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u16<sp/>*Info);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga6e36b9c8a021600e2c9e3766f94b6dc7" kindref="member">XHdcp1x_PortRead</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u8<sp/>Offset,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Buf,</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BufSize);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga46da74febe033d53ef2420d318fd63b9" kindref="member">XHdcp1x_PortWrite</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u8<sp/>Offset,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*Buf,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BufSize);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1ga5e84960fab8e0598e3dc0ecffd7fa2dc" kindref="member">XHdcp1x_PortHandleInterrupt</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u32<sp/>IntCause);</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__hdcp1x_1gabaa138ac8e69b6b515fc1abf6cf0b83d" kindref="member">XHdcp1x_SetEcfSlots</ref>(<ref refid="struct_x_hdcp1x" kindref="compound">XHdcp1x</ref><sp/>*InstancePtr,<sp/>u64<sp/>timeslots);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="193"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XHDCP1X_PORT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="197"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp1x/src/xhdcp1x_port.h"/>
+  </compounddef>
+</doxygen>

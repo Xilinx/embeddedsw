@@ -1,0 +1,600 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="net_2server_2xplmi__wdt_8h" kind="file">
+    <compoundname>net/server/xplmi_wdt.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includes refid="net_2server_2xplmi__hw_8h" local="yes">xplmi_hw.h</includes>
+    <includedby refid="xplmi_8c" local="yes">xplmi.c</includedby>
+    <includedby refid="xplmi__cdo_8c" local="yes">xplmi_cdo.c</includedby>
+    <includedby refid="xplmi__err__common_8c" local="yes">xplmi_err_common.c</includedby>
+    <includedby refid="xplmi__err__psm_8c" local="yes">xplmi_err_psm.c</includedby>
+    <includedby refid="server_2xplmi__generic_8c" local="yes">xplmi_generic.c</includedby>
+    <includedby refid="xplmi__scheduler_8c" local="yes">xplmi_scheduler.c</includedby>
+    <includedby refid="xplmi__sysmon_8c" local="yes">xplmi_sysmon.c</includedby>
+    <includedby refid="xplmi__task_8c" local="yes">xplmi_task.c</includedby>
+    <includedby refid="xplmi__util_8c" local="yes">xplmi_util.c</includedby>
+    <includedby refid="2ve__2vm_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="net_2server_2xplmi__plat_8c" local="yes">xplmi_plat.c</includedby>
+    <includedby refid="xplmi__update_8c" local="yes">xplmi_update.c</includedby>
+    <includedby refid="net_2server_2xplmi__wdt_8c" local="yes">xplmi_wdt.c</includedby>
+    <incdepgraph>
+      <node id="3294">
+        <label>xil_hw.h</label>
+      </node>
+      <node id="3293">
+        <label>xil_io.h</label>
+      </node>
+      <node id="3289">
+        <label>xplmi_hw.h</label>
+        <childnode refid="3290" relation="include">
+        </childnode>
+        <childnode refid="3291" relation="include">
+        </childnode>
+        <childnode refid="3293" relation="include">
+        </childnode>
+        <childnode refid="3294" relation="include">
+        </childnode>
+        <childnode refid="3295" relation="include">
+        </childnode>
+      </node>
+      <node id="3290">
+        <label>xplmi_config.h</label>
+        <childnode refid="3291" relation="include">
+        </childnode>
+        <childnode refid="3292" relation="include">
+        </childnode>
+      </node>
+      <node id="3295">
+        <label>xplmi_util.h</label>
+        <link refid="xplmi__util_8h"/>
+        <childnode refid="3288" relation="include">
+        </childnode>
+      </node>
+      <node id="3292">
+        <label>xplmi_bsp_config.h</label>
+      </node>
+      <node id="3287">
+        <label>xplmi_wdt.h</label>
+        <link refid="net/server/xplmi_wdt.h"/>
+        <childnode refid="3288" relation="include">
+        </childnode>
+        <childnode refid="3289" relation="include">
+        </childnode>
+      </node>
+      <node id="3288">
+        <label>xil_types.h</label>
+      </node>
+      <node id="3291">
+        <label>xparameters.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3302">
+        <label>xplmi_scheduler.c</label>
+        <link refid="xplmi__scheduler_8c"/>
+      </node>
+      <node id="3304">
+        <label>xplmi_task.c</label>
+        <link refid="xplmi__task_8c"/>
+      </node>
+      <node id="3306">
+        <label>xplmi_plat.c</label>
+      </node>
+      <node id="3303">
+        <label>xplmi_sysmon.c</label>
+        <link refid="xplmi__sysmon_8c"/>
+      </node>
+      <node id="3305">
+        <label>xplmi_util.c</label>
+        <link refid="xplmi__util_8c"/>
+      </node>
+      <node id="3297">
+        <label>xplmi.c</label>
+        <link refid="xplmi_8c"/>
+      </node>
+      <node id="3299">
+        <label>xplmi_err_common.c</label>
+        <link refid="xplmi__err__common_8c"/>
+      </node>
+      <node id="3308">
+        <label>xplmi_update.c</label>
+        <link refid="xplmi__update_8c"/>
+      </node>
+      <node id="3301">
+        <label>xplmi_generic.c</label>
+      </node>
+      <node id="3309">
+        <label>xplmi_wdt.c</label>
+      </node>
+      <node id="3296">
+        <label>xplmi_wdt.h</label>
+        <link refid="net/server/xplmi_wdt.h"/>
+        <childnode refid="3297" relation="include">
+        </childnode>
+        <childnode refid="3298" relation="include">
+        </childnode>
+        <childnode refid="3299" relation="include">
+        </childnode>
+        <childnode refid="3300" relation="include">
+        </childnode>
+        <childnode refid="3301" relation="include">
+        </childnode>
+        <childnode refid="3302" relation="include">
+        </childnode>
+        <childnode refid="3303" relation="include">
+        </childnode>
+        <childnode refid="3304" relation="include">
+        </childnode>
+        <childnode refid="3305" relation="include">
+        </childnode>
+        <childnode refid="3306" relation="include">
+        </childnode>
+        <childnode refid="3307" relation="include">
+        </childnode>
+        <childnode refid="3308" relation="include">
+        </childnode>
+        <childnode refid="3309" relation="include">
+        </childnode>
+      </node>
+      <node id="3300">
+        <label>xplmi_err_psm.c</label>
+        <link refid="xplmi__err__psm_8c"/>
+      </node>
+      <node id="3298">
+        <label>xplmi_cdo.c</label>
+        <link refid="xplmi__cdo_8c"/>
+      </node>
+      <node id="3307">
+        <label>xplmi_plat.c</label>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1a50b9f36a20b88329bcbbfeb093b4ee35" prot="public" static="no">
+        <name>XPLMI_INPLACE_UPDATE_WDT_TIMEOUT</name>
+        <initializer>(100U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="41" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1a4362c318cfc21cb8bd9954d3544698e5" prot="public" static="no">
+        <name>XPLMI_PM_STMIC_LMIO_0</name>
+        <initializer>(0x14104001U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="43" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1ad3b2c3a348035801e77d0fcc4f5251ff" prot="public" static="no">
+        <name>XPLMI_PM_STMIC_LMIO_25</name>
+        <initializer>(0x1410401aU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1af57d921006ec568207d4a173e061a85e" prot="public" static="no">
+        <name>XPLMI_PM_STMIC_PMIO_0</name>
+        <initializer>(0x1410801bU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="45" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1a1b99c20342284aa02741921212f3fb4f" prot="public" static="no">
+        <name>XPLMI_PM_STMIC_PMIO_51</name>
+        <initializer>(0x1410804eU)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1af2177ed5392b42fa1a4bc937a90abbb9" prot="public" static="no">
+        <name>XPLMI_PM_DEV_PMC_WDT</name>
+        <initializer>(0x1821C035U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1ac84ae994fb6b22531e27de1642ff4574" prot="public" static="no">
+        <name>XPLMI_WDT_EXTERNAL</name>
+        <initializer><ref refid="group__xilplmi__server__apis_1ga4362c318cfc21cb8bd9954d3544698e5" kindref="member">XPLMI_PM_STMIC_LMIO_0</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="net_2server_2xplmi__wdt_8h_1a43235206c21b87c739b8c9463b691dd0" prot="public" static="no">
+        <name>XPLMI_WDT_INTERNAL</name>
+        <initializer><ref refid="group__xilplmi__server__apis_1gaf2177ed5392b42fa1a4bc937a90abbb9" kindref="member">XPLMI_PM_DEV_PMC_WDT</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="net_2server_2xplmi__wdt_8h_1ab76420429043d80aca03375423836455" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>u8</type>
+        <definition>static u8 XPlmi_RomSwdtUsage</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_RomSwdtUsage</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function checks if ROM SWDT Usage is enabled in EFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>TRUE if Usage is enabled, else FALSE </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" bodystart="62" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_SetPlmLiveStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_SetPlmLiveStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function Sets the PLM Status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="175" bodyend="178"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga87aef31fe1a4af9ef9dbb6f9a06a3c34" compoundref="xplmi_8c" startline="126" endline="152">XPlmi_Init</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaaa4e2fe96baa321cd17c045bffb049b5" compoundref="xplmi__cdo_8c" startline="440" endline="590">XPlmi_ProcessCdo</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga0782e72375c56801fca2c8baa9469901" compoundref="xplmi__err__common_8c" startline="240" endline="336">XPlmi_ErrMgr</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gad6d0e16deb820f98b18689dc9966f3ff" compoundref="xplmi__ssit_8c" startline="1903" endline="1986">XPlmi_SsitSyncSlaves</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga5cb88dc15cd3354f65b346c3e92c2d88" compoundref="xplmi__ssit_8c" startline="2002" endline="2055">XPlmi_SsitWaitSlaves</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga2381d59a5154e7ef73fa658045a3c825" compoundref="xplmi__sysmon_8c" startline="178" endline="226">XPlmi_SysMonOTDetect</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gac417102cdb74ac7c522ce119729870ff" compoundref="xplmi__task_8c" startline="196" endline="274">XPlmi_TaskDispatchLoop</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gabcc76ee00f04f9e7586c5e0ab6c5a9c8" compoundref="xplmi__util_8c" startline="128" endline="168">XPlmi_UtilPoll</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga4ce17d2d9dd4664486f0507a0554baa7" compoundref="xplmi__util_8c" startline="184" endline="220">XPlmi_UtilPoll64</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1ga37b89dae983863fe5532461884763916" compoundref="xplmi__util_8c" startline="235" endline="259">XPlmi_UtilPollForMask</referencedby>
+        <referencedby refid="group__xilplmi__server__apis_1gaf4d0e99ec9cbb522cf183a747468c595" compoundref="xplmi__util_8c" startline="275" endline="299">XPlmi_UtilPollForMask64</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga52cec0dce77cee0da41100e4792aa2ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_ClearPlmLiveStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_ClearPlmLiveStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function clears the PLM status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="69" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_EnableWdt</definition>
+        <argsstring>(u32 NodeId, u32 Periodicity)</argsstring>
+        <name>XPlmi_EnableWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Periodicity</declname>
+        </param>
+        <briefdescription>
+<para>This function enables the WDT and sets NodeId and periodicity. </para>        </briefdescription>
+        <detaileddescription>
+<para><verbatim>            It also verifies the parameters.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID.</para></listitem></itemizedlist>
+</para></simplesect>
+It also verifies the parameters.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID.</para></listitem></itemizedlist>
+</para></simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>NodeId is the MIO node to be used by PLM for toggling. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Periodicity</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>at which MIO value should be toggled.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if success.</para></listitem><listitem><para>XPLMI_ERR_WDT_PERIODICITY on invalid Periodicity.</para></listitem><listitem><para>XPLMI_ERR_PMC_WDT_NOT_ENABLED if PMC WDT is tried use and it is not enabled in design.</para></listitem><listitem><para>XPLMI_ERR_PMC_WDT_DRV_INIT if PMC WDT driver initialization fails.</para></listitem><listitem><para>XPLMI_ERR_WDT_LPD_NOT_INITIALIZED if LPD is not initialized.</para></listitem><listitem><para>XPLMI_ERR_WDT_NODE_ID on invalid node ID. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Check for Valid Node ID</para></listitem><listitem><para>Check for Valid Node ID</para></listitem></itemizedlist>
+</para><para>Check for Valid Node ID </para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="106" bodyend="154"/>
+        <references refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" compoundref="net_2server_2xplmi__wdt_8c" startline="53">XPLMI_WDT_PERIODICITY_MIN</references>
+        <references refid="group__xilplmi__server__apis_1ga5d8cbcc3b768b671d9d962e23b290c79" compoundref="net_2server_2xplmi__wdt_8c" startline="54">XPLMI_WDT_PERIODICITY_MAX</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5aa930119634e74a1b7da35a5126eafaaf" compoundref="2vp_2server_2xplmi__plat_8h" startline="373">XPLMI_ERR_WDT_PERIODICITY</references>
+        <references refid="group__xilplmi__server__apis_1ga4362c318cfc21cb8bd9954d3544698e5" compoundref="net_2server_2xplmi__wdt_8c" startline="59">XPLMI_PM_STMIC_LMIO_0</references>
+        <references refid="group__xilplmi__server__apis_1gad3b2c3a348035801e77d0fcc4f5251ff" compoundref="net_2server_2xplmi__wdt_8c" startline="60">XPLMI_PM_STMIC_LMIO_25</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a7639e8ca8278bee32b86c32e3eb0701d" compoundref="2vp_2server_2xplmi__plat_8h" startline="379">XPLMI_ERR_WDT_LPD_NOT_INITIALIZED</references>
+        <references refid="group__xilplmi__server__apis_1ga4eb444b49ce4a70d9cda587bddafada9" compoundref="xplmi_8c" startline="393" endline="398">XPlmi_SetLpdInitialized</references>
+        <references refid="xplmi_8h_1a2da9f028be145a4f17852a4d3eb7898f" compoundref="xplmi_8h" startline="132">LPD_WDT_INITIALIZED</references>
+        <references refid="group__xilplmi__server__apis_1gaf57d921006ec568207d4a173e061a85e" compoundref="net_2server_2xplmi__wdt_8c" startline="61">XPLMI_PM_STMIC_PMIO_0</references>
+        <references refid="group__xilplmi__server__apis_1ga1b99c20342284aa02741921212f3fb4f" compoundref="net_2server_2xplmi__wdt_8c" startline="62">XPLMI_PM_STMIC_PMIO_51</references>
+        <references refid="group__xilplmi__server__apis_1ga4fe46ba3dac6e3b6193ce517e61c55bd" compoundref="net_2server_2xplmi__wdt_8c" startline="57">XPLMI_MIO_NUM_PER_BANK</references>
+        <references refid="2vp_2server_2xplmi__plat_8h_1a99fb83031ce9923c84392b4e92f956b5a85adec0c1a68eac5059e7a636db81edc" compoundref="2vp_2server_2xplmi__plat_8h" startline="376">XPLMI_ERR_WDT_NODE_ID</references>
+        <referencedby refid="group__xilplmi__server__apis_1gaa80acce34d3a6858f42b05b8a52df7bd" compoundref="net_2server_2xplmi__wdt_8c" startline="281" endline="297">XPlmi_DefaultSWdtConfig</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1ga55d8d2bbe4d87840df7d3b40d42355af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_KickWdt</definition>
+        <argsstring>(u32 NodeId)</argsstring>
+        <name>XPlmi_KickWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to kick the WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node ID of external WDT or internal PMC WDT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="439" bodyend="458"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga536288bdae9b622940b7152cbaff1eef" compoundref="xplmi__update_8c" startline="138" endline="190">XPlmi_UpdateInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gac4eadfbcae0dd8a8d8872640a32744b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_RestoreWdt</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_RestoreWdt</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is used to restore wdt after the In-Place PLM Update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="465" bodyend="473"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa331a666f6dbd1e7a908327e3898a11d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_StopWdt</definition>
+        <argsstring>(u32 NodeId)</argsstring>
+        <name>XPlmi_StopWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>This function stops PMC WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Used during In-Place PLM update.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node ID of external WDT or internal PMC WDT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="326" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaa80acce34d3a6858f42b05b8a52df7bd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XPlmi_DefaultSWdtConfig</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_DefaultSWdtConfig</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function configures the default WDT configuration if the wdt is not enabled and ROM SWDT usage bit is enabled in EFUSE. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>XST_SUCCESS on success and error code on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.c" bodystart="281" bodyend="297"/>
+        <references refid="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" compoundref="server_2xplmi__wdt_8c" startline="106" endline="154">XPlmi_EnableWdt</references>
+        <references refid="group__xilplmi__server__apis_1gaf2177ed5392b42fa1a4bc937a90abbb9" compoundref="net_2server_2xplmi__wdt_8c" startline="63">XPLMI_PM_DEV_PMC_WDT</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_DisableWdt</definition>
+        <argsstring>(u32 NodeId)</argsstring>
+        <name>XPlmi_DisableWdt</name>
+        <param>
+          <type>u32</type>
+          <declname>NodeId</declname>
+        </param>
+        <briefdescription>
+<para>This function disables the WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>This is required when LPD is powered down and if LPD MIO is used. Also required when debugging.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is not applicable for versal platform.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+This is required when LPD is powered down and if LPD MIO is used. Also required when debugging.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>NodeId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Node ID of external WDT or internal PMC WDT </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="164" bodyend="168"/>
+        <referencedby refid="group__xilplmi__server__apis_1ga6787ab6388dd1d5d6d188fb4f2292bef" compoundref="xplmi_8c" startline="375" endline="384">XPlmi_ResetLpdInitialized</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xilplmi__server__apis_1gaff7e70a010f506f46adf0622434f4b14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XPlmi_WdtHandler</definition>
+        <argsstring>(void)</argsstring>
+        <name>XPlmi_WdtHandler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is handler for WDT. </para>        </briefdescription>
+        <detaileddescription>
+<para>Scheduler calls this function periodically to check the PLM Live status and to toggle the MIO. </para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>if WDT is not enabled, just return</para></listitem><listitem><para>Toggle MIO only when last reset period exceeds periodicity</para></listitem><listitem><para>if WDT is not enabled, just return</para></listitem><listitem><para>Toggle MIO only when last reset period exceeds periodicity </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h" line="76" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal/server/xplmi_wdt.c" bodystart="196" bodyend="220"/>
+        <references refid="group__xilplmi__server__apis_1ga719e6bef7904db4977d7da58823b101f" compoundref="net_2server_2xplmi__wdt_8c" startline="51">XPLMI_SCHEDULER_PERIOD</references>
+        <references refid="group__xilplmi__server__apis_1ga93dca420dde8557945784982956d7547" compoundref="net_2server_2xplmi__wdt_8c" startline="53">XPLMI_WDT_PERIODICITY_MIN</references>
+        <referencedby refid="group__xilplmi__server__apis_1ga2b8f088fb0494d901a6016348fb33f41" compoundref="xplmi__scheduler_8c" startline="220" endline="277">XPlmi_SchedulerHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor">#ifndef<sp/>XPLMI_WDT_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_H</highlight></codeline>
+<codeline lineno="29"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="31"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="33"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xplmi_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>WDT<sp/>Timeout<sp/>(in<sp/>ms)<sp/>to<sp/>be<sp/>used<sp/>in<sp/>In-Place<sp/>Update<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_INPLACE_UPDATE_WDT_TIMEOUT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(100U)</highlight></codeline>
+<codeline lineno="42"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_LMIO_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x14104001U)</highlight></codeline>
+<codeline lineno="44"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_LMIO_25<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410401aU)</highlight></codeline>
+<codeline lineno="45"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_PMIO_0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410801bU)</highlight></codeline>
+<codeline lineno="46"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_STMIC_PMIO_51<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1410804eU)</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_PM_DEV_PMC_WDT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1821C035U)</highlight></codeline>
+<codeline lineno="48"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_EXTERNAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PM_STMIC_LMIO_0</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPLMI_WDT_INTERNAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPLMI_PM_DEV_PMC_WDT</highlight></codeline>
+<codeline lineno="51"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="62"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>u8<sp/>XPlmi_RomSwdtUsage(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XPlmi_In32(EFUSE_CACHE_ROM_RSVD)<sp/>&amp;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EFUSE_ROM_SWDT_USAGE_MASK)<sp/>?<sp/><sp/>(u8)TRUE<sp/>:<sp/>(u8)FALSE;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa4a47c5570d5ee0c85d80d71d4b66b28" kindref="member">XPlmi_SetPlmLiveStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga52cec0dce77cee0da41100e4792aa2ca" kindref="member">XPlmi_ClearPlmLiveStatus</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaf37f68542fdb6d4c42b74ab8862be551" kindref="member">XPlmi_EnableWdt</ref>(u32<sp/>NodeId,<sp/>u32<sp/>Periodicity);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1ga55d8d2bbe4d87840df7d3b40d42355af" kindref="member">XPlmi_KickWdt</ref>(u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gac4eadfbcae0dd8a8d8872640a32744b4" kindref="member">XPlmi_RestoreWdt</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa331a666f6dbd1e7a908327e3898a11d" kindref="member">XPlmi_StopWdt</ref>(u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaa80acce34d3a6858f42b05b8a52df7bd" kindref="member">XPlmi_DefaultSWdtConfig</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gab3c474d81cc4dd3d2fdafd04e6ce4d19" kindref="member">XPlmi_DisableWdt</ref>(u32<sp/>NodeId);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xilplmi__server__apis_1gaff7e70a010f506f46adf0622434f4b14" kindref="member">XPlmi_WdtHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="79"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="81"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XPLMI_WDT_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/versal_net/server/xplmi_wdt.h"/>
+  </compounddef>
+</doxygen>

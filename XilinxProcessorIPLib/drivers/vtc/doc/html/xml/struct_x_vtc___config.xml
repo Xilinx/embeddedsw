@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_vtc___config" kind="struct" prot="public">
+    <compoundname>XVtc_Config</compoundname>
+    <includes local="no">xvtc.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_vtc___config_1a251e587872d1e76f0253c867ed3686e1" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* XVtc_Config::Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="359" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___config_1a7fb375ab8fae91e6c3883520a447723e" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVtc_Config::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>BaseAddress is the physical base address of the core&apos;s registers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="361" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="361" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+        <referencedby refid="group__vtc_1ga5ba151c8fe1e5b01f6cf76e3ebd69f48" compoundref="xvtc_8c" startline="429" endline="446">XVtc_Disable</referencedby>
+        <referencedby refid="group__vtc_1gad35c4cf17655f24578f2c0db2d93fcc8" compoundref="xvtc_8c" startline="2644" endline="2656">XVtc_DisableAdaptiveSync</referencedby>
+        <referencedby refid="group__vtc_1gacfcf93230ec6c68bd94841fc64c3a54f" compoundref="xvtc_8c" startline="394" endline="413">XVtc_DisableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga24e096bb7515165b5bf238d0d1030c5f" compoundref="xvtc_8c" startline="360" endline="379">XVtc_DisableGenerator</referencedby>
+        <referencedby refid="group__vtc_1gaa11af9b1872e9f105aa60ac7c616fda7" compoundref="xvtc_8c" startline="328" endline="345">XVtc_Enable</referencedby>
+        <referencedby refid="group__vtc_1gaa36b5697cb3b4e864879347cd88e19de" compoundref="xvtc_8c" startline="295" endline="312">XVtc_EnableDetector</referencedby>
+        <referencedby refid="group__vtc_1ga77b77fdba574799d9c78b2c7c15f8f27" compoundref="xvtc_8c" startline="263" endline="280">XVtc_EnableGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga97b58d69b1752d2d1542a49d2cdb8b1d" compoundref="xvtc_8c" startline="1010" endline="1028">XVtc_GetDelay</referencedby>
+        <referencedby refid="group__vtc_1ga7f87049e38a6abab9495ed52f81ed279" compoundref="xvtc_8c" startline="1652" endline="1793">XVtc_GetDetector</referencedby>
+        <referencedby refid="group__vtc_1gaa42a49953fb922a5bd8851f4d0b7e9c3" compoundref="xvtc_8c" startline="1252" endline="1289">XVtc_GetDetectorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga3e7cf680b0bc9623c6430daa9ff8fadd" compoundref="xvtc_8c" startline="580" endline="619">XVtc_GetDetectorPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga48898cf9a0c2c38d5e2f0d520c9ffdba" compoundref="xvtc_8c" startline="1094" endline="1117">XVtc_GetFSync</referencedby>
+        <referencedby refid="group__vtc_1ga6a6e924c03e591c88f48ceda4c073ffd" compoundref="xvtc_8c" startline="1519" endline="1633">XVtc_GetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga7bbbedce0f72517db6b0fdb4593ccca2" compoundref="xvtc_8c" startline="1195" endline="1232">XVtc_GetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1gae46a82175546ee8c77ec9b9ab11353c3" compoundref="xvtc_8c" startline="523" endline="562">XVtc_GetPolarity</referencedby>
+        <referencedby refid="group__vtc_1ga6d52d08c551b4f6887f8d63220d89736" compoundref="xvtc_8c" startline="848" endline="868">XVtc_GetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1gaaefcaab9a4b1a05895f813eb45ba0006" compoundref="xvtc_8c" startline="929" endline="949">XVtc_GetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga84f6b9eda3791aee51ec5414a62cbb92" compoundref="xvtc_8c" startline="731" endline="787">XVtc_GetSource</referencedby>
+        <referencedby refid="group__vtc_1ga970f3fda51300164bf853b5e27469444" compoundref="xvtc_8c" startline="1808" endline="1820">XVtc_GetVersion</referencedby>
+        <referencedby refid="group__vtc_1gaa1bfbc5a9734c912172b3d3e630af06e" compoundref="xvtc_8c" startline="2613" endline="2629">XVtc_SetAdaptiveSyncMode</referencedby>
+        <referencedby refid="group__vtc_1gabfb3ffcd7f3ac258e1503b28c8f2a17c" compoundref="xvtc_8c" startline="969" endline="989">XVtc_SetDelay</referencedby>
+        <referencedby refid="group__vtc_1gacb67e4e6e1ca2fb525ccc9a4fd3bad06" compoundref="xvtc_8c" startline="1050" endline="1073">XVtc_SetFSync</referencedby>
+        <referencedby refid="group__vtc_1gaa2248614b46aa69717878b3706b11a52" compoundref="xvtc_8c" startline="1307" endline="1500">XVtc_SetGenerator</referencedby>
+        <referencedby refid="group__vtc_1ga93ca3256bd11b14fc2ed960028121e27" compoundref="xvtc_8c" startline="1130" endline="1175">XVtc_SetGeneratorHoriOffset</referencedby>
+        <referencedby refid="group__vtc_1ga048e84bcc5ac0f05cdd7423a40fe7574" compoundref="xvtc_8c" startline="463" endline="505">XVtc_SetPolarity</referencedby>
+        <referencedby refid="group__vtc_1gae88f7a15a28b29c5596a1bd8510c17b7" compoundref="xvtc_8c" startline="806" endline="827">XVtc_SetSkipLine</referencedby>
+        <referencedby refid="group__vtc_1ga84bc76452bd91c18af247a67e9cfdf4a" compoundref="xvtc_8c" startline="887" endline="908">XVtc_SetSkipPixel</referencedby>
+        <referencedby refid="group__vtc_1ga261e22d0a41a468263c0a1624da3bbf9" compoundref="xvtc_8c" startline="636" endline="713">XVtc_SetSource</referencedby>
+        <referencedby refid="group__vtc_1ga2ee6ed1a4d73cbff9d50a0b5ff657440" compoundref="xvtc_8c" startline="2672" endline="2679">XVtc_SetVfpStretchLimit</referencedby>
+        <referencedby refid="vtc__selftest__example_8c_1ad1efe3b317dd63a9c36b6caecfcbf172" compoundref="vtc__selftest__example_8c" startline="113" endline="149">XVtcSelfTestExample</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___config_1ac42caf6f82e63d9735bbdac2ef9e17bb" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XVtc_Config::IntrId</definition>
+        <argsstring></argsstring>
+        <name>IntrId</name>
+        <briefdescription>
+<para>Interrupt ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="364" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="364" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_vtc___config_1a4f8ab2ac3bba4793f01c953cb6675126" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XVtc_Config::IntrParent</definition>
+        <argsstring></argsstring>
+        <name>IntrParent</name>
+        <briefdescription>
+<para>Bit[0] Interrupt parent type Bit[64/32:1] Parent base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="365" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="365" bodyend="-1"/>
+        <referencedby refid="group__vtc_1ga4f99134583ebed63ee1ad5c85bd8e616" compoundref="xvtc_8c" startline="218" endline="248">XVtc_CfgInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains configuration information for a VTC core. </para>    </briefdescription>
+    <detaileddescription>
+<para>Each VTC device should have a configuration structure associated </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" line="355" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/vtc/src/xvtc.h" bodystart="355" bodyend="367"/>
+    <listofallmembers>
+      <member refid="struct_x_vtc___config_1a7fb375ab8fae91e6c3883520a447723e" prot="public" virt="non-virtual"><scope>XVtc_Config</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_vtc___config_1ac42caf6f82e63d9735bbdac2ef9e17bb" prot="public" virt="non-virtual"><scope>XVtc_Config</scope><name>IntrId</name></member>
+      <member refid="struct_x_vtc___config_1a4f8ab2ac3bba4793f01c953cb6675126" prot="public" virt="non-virtual"><scope>XVtc_Config</scope><name>IntrParent</name></member>
+      <member refid="struct_x_vtc___config_1a251e587872d1e76f0253c867ed3686e1" prot="public" virt="non-virtual"><scope>XVtc_Config</scope><name>Name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

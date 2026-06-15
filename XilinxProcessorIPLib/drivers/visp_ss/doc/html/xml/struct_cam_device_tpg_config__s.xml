@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_tpg_config__s" kind="struct" prot="public">
+    <compoundname>CamDeviceTpgConfig_s</compoundname>
+    <includes local="no">cam_device_tpg_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1ab18abec7e442e8f59d93b7896321e454" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__tpg_1gaa393ab7b124c543d2c2d560f6e5fd1b5" kindref="member">CamDeviceISPTpgImageType_t</ref></type>
+        <definition>CamDeviceISPTpgImageType_t CamDeviceTpgConfig_s::imageType</definition>
+        <argsstring></argsstring>
+        <name>imageType</name>
+        <briefdescription>
+<para>Image type. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="80" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a2be82681c48310c285a1957d393bb4fb" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1gabe9fccb93f742ca122d0a0b5d7e66298" kindref="member">CamDeviceRawPattern_t</ref></type>
+        <definition>CamDeviceRawPattern_t CamDeviceTpgConfig_s::bayerPattern</definition>
+        <argsstring></argsstring>
+        <name>bayerPattern</name>
+        <briefdescription>
+<para>Bayer pattern. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="81" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a8f59203a18056c555b1fd5f576855986" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga02520140484f611769722a9bca06fea5" kindref="member">CamDeviceBitDepth_t</ref></type>
+        <definition>CamDeviceBitDepth_t CamDeviceTpgConfig_s::colorDepth</definition>
+        <argsstring></argsstring>
+        <name>colorDepth</name>
+        <briefdescription>
+<para>Color depth. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="82" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a032f83ec9b9d7288e281caad3e829c90" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__tpg_1ga0d9bede6f3023ae67c80cbb9a7d200bd" kindref="member">CamDeviceIspTpgResolution_t</ref></type>
+        <definition>CamDeviceIspTpgResolution_t CamDeviceTpgConfig_s::resolution</definition>
+        <argsstring></argsstring>
+        <name>resolution</name>
+        <briefdescription>
+<para>TPG resolution. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="83" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a88e26e2b39e0efdfde1060e96b05a809" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceTpgConfig_s::pixleGap</definition>
+        <argsstring></argsstring>
+        <name>pixleGap</name>
+        <briefdescription>
+<para>The width of sub-picture. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a595bfb20cec5da116a8b501f97e8707b" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceTpgConfig_s::lineGap</definition>
+        <argsstring></argsstring>
+        <name>lineGap</name>
+        <briefdescription>
+<para>The height of sub-picture. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1afafe0bb82eefc5826338df97f15454ec" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t CamDeviceTpgConfig_s::gapStandard</definition>
+        <argsstring></argsstring>
+        <name>gapStandard</name>
+        <briefdescription>
+<para>The gap of sub-picture. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1ade00276f0aac4ca341cdd80693d7d89d" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceTpgConfig_s::randomSeed</definition>
+        <argsstring></argsstring>
+        <name>randomSeed</name>
+        <briefdescription>
+<para>Random seed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_tpg_config__s_1a957281714c3e3f3b938f7051c309cac6" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t CamDeviceTpgConfig_s::frameNum</definition>
+        <argsstring></argsstring>
+        <name>frameNum</name>
+        <briefdescription>
+<para>The number of frames. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice TPG configuration. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" line="79" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/tpg/cam_device_tpg_api.h" bodystart="78" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_tpg_config__s_1a2be82681c48310c285a1957d393bb4fb" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>bayerPattern</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1a8f59203a18056c555b1fd5f576855986" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>colorDepth</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1a957281714c3e3f3b938f7051c309cac6" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>frameNum</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1afafe0bb82eefc5826338df97f15454ec" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>gapStandard</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1ab18abec7e442e8f59d93b7896321e454" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>imageType</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1a595bfb20cec5da116a8b501f97e8707b" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>lineGap</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1a88e26e2b39e0efdfde1060e96b05a809" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>pixleGap</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1ade00276f0aac4ca341cdd80693d7d89d" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>randomSeed</name></member>
+      <member refid="struct_cam_device_tpg_config__s_1a032f83ec9b9d7288e281caad3e829c90" prot="public" virt="non-virtual"><scope>CamDeviceTpgConfig_s</scope><name>resolution</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

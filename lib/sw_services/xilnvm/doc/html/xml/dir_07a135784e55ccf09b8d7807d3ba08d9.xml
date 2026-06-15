@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_07a135784e55ccf09b8d7807d3ba08d9" kind="dir">
+    <compoundname>server</compoundname>
+    <innerfile refid="xnvm__bbram_8c">xnvm_bbram.c</innerfile>
+    <innerfile refid="xnvm__bbram_8h">xnvm_bbram.h</innerfile>
+    <innerfile refid="xnvm__bbram__common__cdohandler_8c">xnvm_bbram_common_cdohandler.c</innerfile>
+    <innerfile refid="xnvm__bbram__common__cdohandler_8h">xnvm_bbram_common_cdohandler.h</innerfile>
+    <innerfile refid="xnvm__bbram__hw_8h">xnvm_bbram_hw.h</innerfile>
+    <innerfile refid="xnvm__efuse__common_8c">xnvm_efuse_common.c</innerfile>
+    <innerfile refid="xnvm__efuse__common_8h">xnvm_efuse_common.h</innerfile>
+    <innerfile refid="xnvm__init_8c">xnvm_init.c</innerfile>
+    <innerfile refid="xnvm__init_8h">xnvm_init.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilnvm/src/versal_gen/common/server/"/>
+  </compounddef>
+</doxygen>

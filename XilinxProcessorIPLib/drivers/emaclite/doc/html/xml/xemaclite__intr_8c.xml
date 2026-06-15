@@ -1,0 +1,514 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xemaclite__intr_8c" kind="file">
+    <compoundname>xemaclite_intr.c</compoundname>
+    <includes refid="xemaclite__i_8h" local="yes">xemaclite_i.h</includes>
+    <includes local="yes">xil_io.h</includes>
+    <includes refid="xemaclite_8h" local="yes">xemaclite.h</includes>
+    <incdepgraph>
+      <node id="107">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="104">
+        <label>xemaclite.h</label>
+        <link refid="xemaclite_8h"/>
+        <childnode refid="105" relation="include">
+        </childnode>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="110">
+        <label>xil_io.h</label>
+      </node>
+      <node id="105">
+        <label>xenv.h</label>
+      </node>
+      <node id="102">
+        <label>xemaclite_intr.c</label>
+        <link refid="xemaclite_intr.c"/>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>xemaclite_i.h</label>
+        <link refid="xemaclite__i_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>xemaclite_l.h</label>
+        <link refid="xemaclite__l_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="110" relation="include">
+        </childnode>
+      </node>
+      <node id="108">
+        <label>xstatus.h</label>
+      </node>
+      <node id="106">
+        <label>xil_types.h</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XEmacLite_EnableInterrupts</definition>
+        <argsstring>(XEmacLite *InstancePtr)</argsstring>
+        <name>XEmacLite_EnableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Enable the EmacLite Interrupts. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called before other functions to send or receive data in interrupt driven mode. The user should have connected the interrupt handler of the driver to an interrupt source such as an interrupt controller or the processor interrupt prior to this function being called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if the device interrupts were enabled successfully.</para></listitem></itemizedlist>
+</para></simplesect>
+<itemizedlist>
+<listitem><para>XST_NO_CALLBACK if the callbacks were not set.</para></listitem></itemizedlist>
+</para><para><simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="390" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c" bodystart="72" bodyend="117"/>
+        <references refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" compoundref="xemaclite_8h" startline="230">XEmacLite_Config::BaseAddress</references>
+        <references refid="group__emaclite_1ga98577fb052d9327b2c5ed429d3740b97" compoundref="xemaclite_8c" startline="553" endline="557">StubHandler</references>
+        <references refid="group__emaclite_1ga5179e9952743fd9ea3056822ffe0df7d" compoundref="xemaclite__l_8h" startline="128">XEL_GIER_GIE_MASK</references>
+        <references refid="group__emaclite_1gae8b93ba79e75324605f0b3f4d760fbdb" compoundref="xemaclite__l_8h" startline="88">XEL_GIER_OFFSET</references>
+        <references refid="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" compoundref="xemaclite__l_8h" startline="160">XEL_RSR_RECV_IE_MASK</references>
+        <references refid="group__emaclite_1ga648d492605893da2556845d8f0cb3dcd" compoundref="xemaclite__l_8h" startline="137">XEL_TSR_XMIT_IE_MASK</references>
+        <references refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" compoundref="xemaclite__l_8h" startline="311">XEmacLite_GetRxStatus</references>
+        <references refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" compoundref="xemaclite__l_8h" startline="276">XEmacLite_GetTxStatus</references>
+        <references refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" compoundref="xemaclite__l_8h" startline="329">XEmacLite_SetRxStatus</references>
+        <references refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" compoundref="xemaclite__l_8h" startline="294">XEmacLite_SetTxStatus</references>
+        <references refid="group__emaclite_1ga96be859f6762b5de8817367548561035" compoundref="xemaclite__l_8h" startline="259">XEmacLite_WriteReg</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacLite_DisableInterrupts</definition>
+        <argsstring>(XEmacLite *InstancePtr)</argsstring>
+        <name>XEmacLite_DisableInterrupts</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Disables the interrupts from the device (the higher layer software is responsible for disabling interrupts at the interrupt controller). </para>        </briefdescription>
+        <detaileddescription>
+<para>To start using the device again, _EnableInterrupts must be called.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> instance .</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="391" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c" bodystart="134" bodyend="171"/>
+        <references refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" compoundref="xemaclite_8h" startline="230">XEmacLite_Config::BaseAddress</references>
+        <references refid="group__emaclite_1gae8b93ba79e75324605f0b3f4d760fbdb" compoundref="xemaclite__l_8h" startline="88">XEL_GIER_OFFSET</references>
+        <references refid="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" compoundref="xemaclite__l_8h" startline="160">XEL_RSR_RECV_IE_MASK</references>
+        <references refid="group__emaclite_1ga648d492605893da2556845d8f0cb3dcd" compoundref="xemaclite__l_8h" startline="137">XEL_TSR_XMIT_IE_MASK</references>
+        <references refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" compoundref="xemaclite__l_8h" startline="311">XEmacLite_GetRxStatus</references>
+        <references refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" compoundref="xemaclite__l_8h" startline="276">XEmacLite_GetTxStatus</references>
+        <references refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" compoundref="xemaclite__l_8h" startline="329">XEmacLite_SetRxStatus</references>
+        <references refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" compoundref="xemaclite__l_8h" startline="294">XEmacLite_SetTxStatus</references>
+        <references refid="group__emaclite_1ga96be859f6762b5de8817367548561035" compoundref="xemaclite__l_8h" startline="259">XEmacLite_WriteReg</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacLite_InterruptHandler</definition>
+        <argsstring>(void *InstancePtr)</argsstring>
+        <name>XEmacLite_InterruptHandler</name>
+        <param>
+          <type>void *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>Interrupt handler for the EmacLite driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>It performs the following processing: <verbatim>  - Get the interrupt status from the registers to determine the source
+    of the interrupt.
+    - Call the appropriate handler based on the source of the interrupt.
+</verbatim></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>contains a pointer to the EmacLite device instance for the interrupt.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="393" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c" bodystart="192" bodyend="266"/>
+        <references refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" compoundref="xemaclite_8h" startline="230">XEmacLite_Config::BaseAddress</references>
+        <references refid="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" compoundref="xemaclite__l_8h" startline="105">XEL_BUFFER_OFFSET</references>
+        <references refid="group__emaclite_1ga2d037dc424649948806dad6dd9b43430" compoundref="xemaclite__l_8h" startline="143">XEL_TSR_XMIT_ACTIVE_MASK</references>
+        <references refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" compoundref="xemaclite__l_8h" startline="133">XEL_TSR_XMIT_BUSY_MASK</references>
+        <references refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" compoundref="xemaclite__l_8h" startline="276">XEmacLite_GetTxStatus</references>
+        <references refid="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" compoundref="xemaclite__l_8h" startline="364">XEmacLite_IsRxEmpty</references>
+        <references refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" compoundref="xemaclite__l_8h" startline="294">XEmacLite_SetTxStatus</references>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emaclite_1ga5bacfdd394bc95a6b34dec438bfad8bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacLite_SetRecvHandler</definition>
+        <argsstring>(XEmacLite *InstancePtr, void *CallBackRef, XEmacLite_Handler FuncPtr)</argsstring>
+        <name>XEmacLite_SetRecvHandler</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>XEmacLite_Handler</type>
+          <declname>FuncPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the callback function for handling received frames in interrupt mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The upper layer software should call this function during initialization. The callback is called when a frame is received. The callback function should communicate the data to a thread such that the processing is not performed in an interrupt context.</para><para>The callback is invoked by the driver within interrupt context, so it needs to do its job quickly. If there are other potentially slow operations within the callback, these should be done at task-level.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> instance.. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference pointer to be passed back to the application in the callback. This helps the application correlate the callback to a particular driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="395" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c" bodystart="292" bodyend="301"/>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__emaclite_1ga2e48d33c6b41774f4cb37bffc85f59a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XEmacLite_SetSendHandler</definition>
+        <argsstring>(XEmacLite *InstancePtr, void *CallBackRef, XEmacLite_Handler FuncPtr)</argsstring>
+        <name>XEmacLite_SetSendHandler</name>
+        <param>
+          <type><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallBackRef</declname>
+        </param>
+        <param>
+          <type>XEmacLite_Handler</type>
+          <declname>FuncPtr</declname>
+        </param>
+        <briefdescription>
+<para>Sets the callback function for handling transmitted frames in interrupt mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>The upper layer software should call this function during initialization. The callback is called when a frame is transmitted. The callback function should communicate the data to a thread such that the processing is not performed in an interrupt context.</para><para>The callback is invoked by the driver within interrupt context, so it needs to do its job quickly. If there are other potentially slow operations within the callback, these should be done at task-level.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallBackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a reference pointer to be passed back to the application in the callback. This helps the application correlate the callback to a particular driver. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>FuncPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the pointer to the callback function.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite.h" line="397" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c" bodystart="328" bodyend="337"/>
+        <referencedby refid="xemaclite__intr__example_8c_1a518017ed22776c127596159fd5c86325" compoundref="xemaclite__intr__example_8c" startline="217" endline="409">EmacLiteIntrExample</referencedby>
+        <referencedby refid="xemaclite__internal__loopback__example_8c_1abcb2d06b54c6a59779c636ef76417519" compoundref="xemaclite__internal__loopback__example_8c" startline="162" endline="316">EmacLiteIntrLoopbackExample</referencedby>
+        <referencedby refid="xemaclite__phy__loopback__example_8c_1a402b5062f4c7679f905ec9d08ad40463" compoundref="xemaclite__phy__loopback__example_8c" startline="163" endline="340">EmacLitePhyLoopbackExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2004<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemaclite__i_8h" kindref="compound">xemaclite_i.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_io.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xemaclite_8h" kindref="compound">xemaclite.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="72" refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga28a0b4547f8b9b8eb675123df8ab8907" kindref="member">XEmacLite_EnableInterrupts</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>that<sp/>each<sp/>of<sp/>the<sp/>inputs<sp/>are<sp/>valid.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>InstancePtr-&gt;EmacLiteConfig.<ref refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>that<sp/>the<sp/>handlers<sp/>are<sp/>in<sp/>place.</highlight></codeline>
+<codeline lineno="87"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((InstancePtr-&gt;RecvHandler<sp/>==<sp/>(XEmacLite_Handler)<sp/><ref refid="group__emaclite_1ga98577fb052d9327b2c5ed429d3740b97" kindref="member">StubHandler</ref>)<sp/>||</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(InstancePtr-&gt;SendHandler<sp/>==<sp/>(XEmacLite_Handler)<sp/>StubHandler))<sp/>{</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_NO_CALLBACK;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>TX<sp/>interrupts<sp/>for<sp/>both<sp/>the<sp/>buffers,<sp/>the<sp/>Interrupt<sp/>Enable</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>common<sp/>for<sp/>the<sp/>both<sp/>the<sp/>buffers<sp/>and<sp/>is<sp/>defined<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ping<sp/>buffer.</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" kindref="member">XEmacLite_GetTxStatus</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>|=<sp/><ref refid="group__emaclite_1ga648d492605893da2556845d8f0cb3dcd" kindref="member">XEL_TSR_XMIT_IE_MASK</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" kindref="member">XEmacLite_SetTxStatus</ref>(BaseAddress,<sp/>Register);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="103"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>RX<sp/>interrupts<sp/>for<sp/>both<sp/>the<sp/>buffers,<sp/>the<sp/>Interrupt<sp/>Enable</highlight></codeline>
+<codeline lineno="104"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>common<sp/>for<sp/>the<sp/>both<sp/>the<sp/>buffers<sp/>and<sp/>is<sp/>defined<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="105"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ping<sp/>buffer.</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" kindref="member">XEmacLite_GetRxStatus</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>|=<sp/><ref refid="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" kindref="member">XEL_RSR_RECV_IE_MASK</ref>;</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" kindref="member">XEmacLite_SetRxStatus</ref>(BaseAddress,<sp/>Register);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Enable<sp/>the<sp/>global<sp/>interrupt<sp/>output.</highlight></codeline>
+<codeline lineno="113"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga96be859f6762b5de8817367548561035" kindref="member">XEmacLite_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__emaclite_1gae8b93ba79e75324605f0b3f4d760fbdb" kindref="member">XEL_GIER_OFFSET</ref>,<sp/><ref refid="group__emaclite_1ga5179e9952743fd9ea3056822ffe0df7d" kindref="member">XEL_GIER_GIE_MASK</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>XST_SUCCESS;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="134" refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1gacac27172503eee6a171afe1679c20f2c" kindref="member">XEmacLite_DisableInterrupts</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Register;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="140"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>that<sp/>each<sp/>of<sp/>the<sp/>inputs<sp/>are<sp/>valid.</highlight></codeline>
+<codeline lineno="141"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>InstancePtr-&gt;EmacLiteConfig.<ref refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="149"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>global<sp/>interrupt<sp/>output.</highlight></codeline>
+<codeline lineno="150"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga96be859f6762b5de8817367548561035" kindref="member">XEmacLite_WriteReg</ref>(BaseAddress,<sp/><ref refid="group__emaclite_1gae8b93ba79e75324605f0b3f4d760fbdb" kindref="member">XEL_GIER_OFFSET</ref>,<sp/>0);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="154"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>TX<sp/>interrupts<sp/>for<sp/>both<sp/>the<sp/>buffers,<sp/>the<sp/>Interrupt<sp/>Enable</highlight></codeline>
+<codeline lineno="155"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>common<sp/>for<sp/>the<sp/>both<sp/>the<sp/>buffers<sp/>and<sp/>is<sp/>defined<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ping<sp/>buffer.</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" kindref="member">XEmacLite_GetTxStatus</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;=<sp/>~<ref refid="group__emaclite_1ga648d492605893da2556845d8f0cb3dcd" kindref="member">XEL_TSR_XMIT_IE_MASK</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" kindref="member">XEmacLite_SetTxStatus</ref>(BaseAddress,<sp/>Register);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="163"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Disable<sp/>the<sp/>RX<sp/>interrupts<sp/>for<sp/>both<sp/>the<sp/>buffers,<sp/>the<sp/>Interrupt<sp/>Enable</highlight></codeline>
+<codeline lineno="164"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>is<sp/>common<sp/>for<sp/>the<sp/>both<sp/>the<sp/>buffers<sp/>and<sp/>is<sp/>defined<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="165"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Ping<sp/>buffer.</highlight></codeline>
+<codeline lineno="166"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>=<sp/><ref refid="group__emaclite_1ga19bae7ed135f7a70afb3b35192894d98" kindref="member">XEmacLite_GetRxStatus</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Register<sp/>&amp;=<sp/>~<ref refid="group__emaclite_1ga7cc4cab2536c294d4e715310fe3fbdf0" kindref="member">XEL_RSR_RECV_IE_MASK</ref>;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga837e05318ed150dbf8128e82113565c3" kindref="member">XEmacLite_SetRxStatus</ref>(BaseAddress,<sp/>Register);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="192" refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga72db0e7e81077c3ad3947009a5299fdf" kindref="member">XEmacLite_InterruptHandler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*EmacLitePtr;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>TxCompleteIntr<sp/>=<sp/>FALSE;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINTPTR<sp/>BaseAddress;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TxStatus;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Verify<sp/>that<sp/>each<sp/>of<sp/>the<sp/>inputs<sp/>are<sp/>valid.</highlight></codeline>
+<codeline lineno="202"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="206"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Convert<sp/>the<sp/>non-typed<sp/>pointer<sp/>to<sp/>an<sp/>EmacLite<sp/>instance<sp/>pointer</highlight></codeline>
+<codeline lineno="207"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>such<sp/>that<sp/>there<sp/>is<sp/>access<sp/>to<sp/>the<sp/>device.</highlight></codeline>
+<codeline lineno="208"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EmacLitePtr<sp/>=<sp/>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*)<sp/>InstancePtr;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>BaseAddress<sp/>=<sp/>EmacLitePtr-&gt;EmacLiteConfig.<ref refid="struct_x_emac_lite___config_1abd2e9fc4f5ca6eddbd068f8dd08bad4a" kindref="member">BaseAddress</ref>;</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((<ref refid="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" kindref="member">XEmacLite_IsRxEmpty</ref>(BaseAddress)<sp/>!=<sp/>TRUE)<sp/>||</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(<ref refid="group__emaclite_1ga0a23682af6087a70133d7f4fec504787" kindref="member">XEmacLite_IsRxEmpty</ref>(BaseAddress<sp/>+</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" kindref="member">XEL_BUFFER_OFFSET</ref>)<sp/>!=<sp/>TRUE))<sp/>{</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="216"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>RX<sp/>callback.</highlight></codeline>
+<codeline lineno="217"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EmacLitePtr-&gt;RecvHandler(EmacLitePtr-&gt;RecvRef);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxStatus<sp/>=<sp/><ref refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" kindref="member">XEmacLite_GetTxStatus</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((TxStatus<sp/>&amp;<sp/><ref refid="group__emaclite_1gabe750109f58b44cdf7c7e505c9d1acdc" kindref="member">XEL_TSR_XMIT_BUSY_MASK</ref>)<sp/>==<sp/>0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TxStatus<sp/>&amp;<sp/><ref refid="group__emaclite_1ga2d037dc424649948806dad6dd9b43430" kindref="member">XEL_TSR_XMIT_ACTIVE_MASK</ref>)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="227"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>Tx<sp/>Active<sp/>bit<sp/>in<sp/>the<sp/>Tx<sp/>Status<sp/>Register.</highlight></codeline>
+<codeline lineno="228"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxStatus<sp/>&amp;=<sp/>~XEL_TSR_XMIT_ACTIVE_MASK;</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" kindref="member">XEmacLite_SetTxStatus</ref>(BaseAddress,<sp/>TxStatus);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>flag<sp/>indicating<sp/>that<sp/>there<sp/>was<sp/>a<sp/>Tx<sp/>Interrupt.</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxCompleteIntr<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxStatus<sp/>=<sp/><ref refid="group__emaclite_1gad66fc12c63bb5e0a63289f63fa9d5e41" kindref="member">XEmacLite_GetTxStatus</ref>(BaseAddress<sp/>+<sp/><ref refid="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" kindref="member">XEL_BUFFER_OFFSET</ref>);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(((TxStatus<sp/>&amp;<sp/>XEL_TSR_XMIT_BUSY_MASK)<sp/>==<sp/>0)<sp/>&amp;&amp;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TxStatus<sp/>&amp;<sp/>XEL_TSR_XMIT_ACTIVE_MASK)<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Clear<sp/>the<sp/>Tx<sp/>Active<sp/>bit<sp/>in<sp/>the<sp/>Tx<sp/>Status<sp/>Register.</highlight></codeline>
+<codeline lineno="245"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxStatus<sp/>&amp;=<sp/>~XEL_TSR_XMIT_ACTIVE_MASK;</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__emaclite_1gae3bf9219fa76c0f1c10a7ebd4a64d3b8" kindref="member">XEmacLite_SetTxStatus</ref>(BaseAddress<sp/>+<sp/><ref refid="group__emaclite_1ga8f89271d7db92918eb1478566e922fce" kindref="member">XEL_BUFFER_OFFSET</ref>,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxStatus);</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="250"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Update<sp/>the<sp/>flag<sp/>indicating<sp/>that<sp/>there<sp/>was<sp/>a<sp/>Tx<sp/>Interrupt.</highlight></codeline>
+<codeline lineno="251"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TxCompleteIntr<sp/>=<sp/>TRUE;</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="256"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>there<sp/>was<sp/>a<sp/>TX<sp/>interrupt,<sp/>call<sp/>the<sp/>callback.</highlight></codeline>
+<codeline lineno="257"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(TxCompleteIntr<sp/>==<sp/>TRUE)<sp/>{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="261"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>Call<sp/>the<sp/>TX<sp/>callback.</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>EmacLitePtr-&gt;SendHandler(EmacLitePtr-&gt;SendRef);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="292" refid="group__emaclite_1ga5bacfdd394bc95a6b34dec438bfad8bf" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga5bacfdd394bc95a6b34dec438bfad8bf" kindref="member">XEmacLite_SetRecvHandler</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEmacLite_Handler<sp/>FuncPtr)</highlight></codeline>
+<codeline lineno="294"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvHandler<sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;RecvRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="301"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="328" refid="group__emaclite_1ga2e48d33c6b41774f4cb37bffc85f59a1" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__emaclite_1ga2e48d33c6b41774f4cb37bffc85f59a1" kindref="member">XEmacLite_SetSendHandler</ref>(<ref refid="struct_x_emac_lite" kindref="compound">XEmacLite</ref><sp/>*InstancePtr,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallBackRef,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XEmacLite_Handler<sp/>FuncPtr)</highlight></codeline>
+<codeline lineno="330"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(FuncPtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;IsReady<sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"></highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendHandler<sp/>=<sp/>FuncPtr;</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;SendRef<sp/>=<sp/>CallBackRef;</highlight></codeline>
+<codeline lineno="337"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/emaclite/src/xemaclite_intr.c"/>
+  </compounddef>
+</doxygen>

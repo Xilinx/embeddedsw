@@ -1,0 +1,783 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="versal__2vp_2xsecure__plat_8h" kind="file">
+    <compoundname>versal_2vp/xsecure_plat.h</compoundname>
+    <includes refid="versal__2vp_2xsecure__sha__hw_8h" local="yes">xsecure_sha_hw.h</includes>
+    <includes refid="xsecure__aes__core__hw_8h" local="yes">xsecure_aes_core_hw.h</includes>
+    <includes local="yes">xpmcdma.h</includes>
+    <includes refid="versal__2vp_2xsecure__error_8h" local="yes">xsecure_error.h</includes>
+    <includes refid="xsecure__core_8h" local="yes">xsecure_core.h</includes>
+    <incdepgraph>
+      <node id="2379">
+        <label>xsecure_plat.h</label>
+        <link refid="versal_2vp/xsecure_plat.h"/>
+        <childnode refid="2380" relation="include">
+        </childnode>
+        <childnode refid="2382" relation="include">
+        </childnode>
+        <childnode refid="2383" relation="include">
+        </childnode>
+        <childnode refid="2384" relation="include">
+        </childnode>
+        <childnode refid="2385" relation="include">
+        </childnode>
+      </node>
+      <node id="2385">
+        <label>xsecure_core.h</label>
+        <link refid="xsecure__core_8h"/>
+        <childnode refid="2386" relation="include">
+        </childnode>
+        <childnode refid="2387" relation="include">
+        </childnode>
+        <childnode refid="2388" relation="include">
+        </childnode>
+      </node>
+      <node id="2390">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="2387">
+        <label>xsecure_cryptochk.h</label>
+      </node>
+      <node id="2380">
+        <label>xsecure_sha_hw.h</label>
+        <link refid="versal__2vp_2xsecure__sha__hw_8h"/>
+        <childnode refid="2381" relation="include">
+        </childnode>
+      </node>
+      <node id="2391">
+        <label>xsecure_plat_defs.h</label>
+      </node>
+      <node id="2388">
+        <label>xsecure_defs.h</label>
+        <link refid="xsecure__defs_8h"/>
+        <childnode refid="2389" relation="include">
+        </childnode>
+        <childnode refid="2386" relation="include">
+        </childnode>
+        <childnode refid="2390" relation="include">
+        </childnode>
+        <childnode refid="2391" relation="include">
+        </childnode>
+        <childnode refid="2392" relation="include">
+        </childnode>
+      </node>
+      <node id="2381">
+        <label>xsecure_utils.h</label>
+      </node>
+      <node id="2392">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="2386">
+        <label>xil_types.h</label>
+      </node>
+      <node id="2383">
+        <label>xpmcdma.h</label>
+      </node>
+      <node id="2382">
+        <label>xsecure_aes_core_hw.h</label>
+        <link refid="xsecure__aes__core__hw_8h"/>
+      </node>
+      <node id="2389">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="2384">
+        <label>xsecure_error.h</label>
+        <link refid="versal__2vp_2xsecure__error_8h"/>
+      </node>
+    </incdepgraph>
+    <innerclass refid="struct_x_secure___aes_dma_cfg" prot="public">XSecure_AesDmaCfg</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga593410f924487f151707240494dbe52b" prot="public" static="no">
+        <name>XSECURE_SSS_ADDRESS</name>
+        <initializer>(0xF1110500U)</initializer>
+        <briefdescription>
+<para>SSS base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="42" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" prot="public" static="no">
+        <name>XSECURE_SSS_MAX_SRCS</name>
+        <initializer>(8U)</initializer>
+        <briefdescription>
+<para>SSS Maximum resources. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="44" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" prot="public" static="no">
+        <name>XSECURE_SSS_SHA3_0_MASK</name>
+        <initializer>(0xF0000U)</initializer>
+        <briefdescription>
+<para>SSS SHA3 instance 0 mask value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="46" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga0b49dfea206b16404c2a9ec0124bb2da" prot="public" static="no">
+        <name>XSECURE_SSS_SHA3_0_DMA0_VAL</name>
+        <initializer>(0xC0000U)</initializer>
+        <briefdescription>
+<para>SSS SHA3 instance 0 DMA0 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga9a22d9fa405a676e438cf522e96a57f7" prot="public" static="no">
+        <name>XSECURE_SSS_SHA3_0_DMA1_VAL</name>
+        <initializer>(0x70000U)</initializer>
+        <briefdescription>
+<para>SSS SHA3 instance 0 DMA1 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" prot="public" static="no">
+        <name>XSECURE_AES_NO_CFG_DST_DMA</name>
+        <initializer>(0xFFFFFFFFU)</initializer>
+        <briefdescription>
+<para>Not to configure Dst DMA at this address in AES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" prot="public" static="no">
+        <name>XSECURE_ENABLE_BYTE_SWAP</name>
+        <initializer>(0x1U)</initializer>
+        <briefdescription>
+<para>Enables data swap in AES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="51" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" prot="public" static="no">
+        <name>XSECURE_DISABLE_BYTE_SWAP</name>
+        <initializer>(0x0U)</initializer>
+        <briefdescription>
+<para>Disables data swap in AES. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" prot="public" static="no">
+        <name>XSECURE_SSS_SBI_MASK</name>
+        <initializer>(0xF00000U)</initializer>
+        <briefdescription>
+<para>SSS SBI mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" prot="public" static="no">
+        <name>XSECURE_SSS_AES_MASK</name>
+        <initializer>(0xF000U)</initializer>
+        <briefdescription>
+<para>SSS AES mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga2ef9d561ab24c0c49b3012c247729612" prot="public" static="no">
+        <name>XSECURE_SSS_DMA1_MASK</name>
+        <initializer>(0xF0U)</initializer>
+        <briefdescription>
+<para>SSS DMA1 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="57" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" prot="public" static="no">
+        <name>XSECURE_SSS_DMA0_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>SSS DMA0 mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="58" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1ga62057ed779b0e67ade3d35e51ce5d76c" prot="public" static="no">
+        <name>XSECURE_SSS_SRC_SEL_MASK</name>
+        <initializer>(0xFU)</initializer>
+        <briefdescription>
+<para>SSS Source Select mask. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="59" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gac94aaf5af67ffa8b4913cc97275a7117" prot="public" static="no">
+        <name>XSECURE_SSS_SBI_DMA0_VAL</name>
+        <initializer>(0x500000U)</initializer>
+        <briefdescription>
+<para>SSS SBI DMA0 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="60" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gab8289ec5862579296b264af809a12203" prot="public" static="no">
+        <name>XSECURE_SSS_SBI_DMA1_VAL</name>
+        <initializer>(0xB00000U)</initializer>
+        <briefdescription>
+<para>SSS SBI DMA1 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="61" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gaaf3e7bf563253ea992e8e7929067e821" prot="public" static="no">
+        <name>XSECURE_SSS_AES_DMA0_VAL</name>
+        <initializer>(0xE000U)</initializer>
+        <briefdescription>
+<para>SSS AES DMA0 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="62" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__helper__server__apis_1gae5cc984ad9e3350a3a890f5894c664ab" prot="public" static="no">
+        <name>XSECURE_SSS_AES_DMA1_VAL</name>
+        <initializer>(0x5000U)</initializer>
+        <briefdescription>
+<para>SSS AES DMA1 value. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="63" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" prot="public" static="no">
+        <name>XSecure_SssSrc</name>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a3f38942f010bb3b3747b6bd831ab88b0" prot="public">
+          <name>XSECURE_SSS_SHA</name>
+          <briefdescription>
+<para>SHA. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" prot="public">
+          <name>XSECURE_SSS_DMA1</name>
+          <briefdescription>
+<para>DMA1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" prot="public">
+          <name>XSECURE_SSS_PTPI</name>
+          <briefdescription>
+<para>PTPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" prot="public">
+          <name>XSECURE_SSS_SHA3_0</name>
+          <briefdescription>
+<para>SHA3_0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a9a377c8ced839316512da64ea2ed162d" prot="public">
+          <name>XSECURE_SSS_PZI</name>
+          <briefdescription>
+<para>PZI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a0d63165357fffb7b7ec71b0c652bdc19" prot="public">
+          <name>XSECURE_SSS_IGNORE</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>Ignore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" prot="public">
+          <name>XSECURE_SSS_DMA1</name>
+          <briefdescription>
+<para>DMA1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" prot="public">
+          <name>XSECURE_SSS_PTPI</name>
+          <briefdescription>
+<para>PTPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83" prot="public">
+          <name>XSECURE_SSS_SHA3</name>
+          <briefdescription>
+<para>SHA3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66" prot="public">
+          <name>XSECURE_SSS_SHA2</name>
+          <briefdescription>
+<para>SHA2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" prot="public">
+          <name>XSECURE_SSS_DMA1</name>
+          <briefdescription>
+<para>DMA1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" prot="public">
+          <name>XSECURE_SSS_PTPI</name>
+          <briefdescription>
+<para>PTPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" prot="public">
+          <name>XSECURE_SSS_SHA3_0</name>
+          <briefdescription>
+<para>SHA3_0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a9a377c8ced839316512da64ea2ed162d" prot="public">
+          <name>XSECURE_SSS_PZI</name>
+          <briefdescription>
+<para>PZI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a0d63165357fffb7b7ec71b0c652bdc19" prot="public">
+          <name>XSECURE_SSS_IGNORE</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+<para>Ignore. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" prot="public">
+          <name>XSECURE_SSS_DMA1</name>
+          <briefdescription>
+<para>DMA1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" prot="public">
+          <name>XSECURE_SSS_PTPI</name>
+          <briefdescription>
+<para>PTPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5af477b5c90154d07c19e0f98ae35aba83" prot="public">
+          <name>XSECURE_SSS_SHA3</name>
+          <briefdescription>
+<para>SHA3. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5af02a81d7582defc057757b53b3940e66" prot="public">
+          <name>XSECURE_SSS_SHA2</name>
+          <briefdescription>
+<para>SHA2. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" prot="public">
+          <name>XSECURE_SSS_DMA0</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+<para>DMA0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" prot="public">
+          <name>XSECURE_SSS_DMA1</name>
+          <briefdescription>
+<para>DMA1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" prot="public">
+          <name>XSECURE_SSS_PTPI</name>
+          <briefdescription>
+<para>PTPI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" prot="public">
+          <name>XSECURE_SSS_AES</name>
+          <briefdescription>
+<para>AES. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" prot="public">
+          <name>XSECURE_SSS_SHA3_0</name>
+          <briefdescription>
+<para>SHA3_0. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" prot="public">
+          <name>XSECURE_SSS_SBI</name>
+          <briefdescription>
+<para>SBI. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa65987c2c0b8c32adc9186a7c44963e1" prot="public">
+          <name>XSECURE_SSS_SHA3_1</name>
+          <briefdescription>
+<para>SHA3_1. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" prot="public">
+          <name>XSECURE_SSS_INVALID</name>
+          <briefdescription>
+<para>Invalid. </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Sources to be selected to configure secure stream switch. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="68" bodyend="77"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="versal__2vp_2xsecure__plat_8h_1ga6cc30d83b5001a45d7b743f8c4f2b734" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_UpdateCryptoStatus</definition>
+        <argsstring>(UINTPTR BaseAddress, u32 Op)</argsstring>
+        <name>XSecure_UpdateCryptoStatus</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Op</declname>
+        </param>
+        <briefdescription>
+<para>This function is not applicable for versal_2vp. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the core. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Op</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>To set or clear the bit. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="113" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="versal__2vp_2xsecure__plat_8h_1gae06187fd66f23773098b20a5ee7ec183" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void XSecure_SetRsaCryptoStatus</definition>
+        <argsstring>(void)</argsstring>
+        <name>XSecure_SetRsaCryptoStatus</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>This function is not applicable for versal_2vp. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h" bodystart="125" bodyend="128"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains versal_2vp specific code for xilsecure server. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who  Date     Changes
+<hruler/>
+
+5.6   tvp  07/07/25 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/***************************************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2025<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">***************************************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="26"><highlight class="preprocessor">#ifndef<sp/>XSECURE_PLAT_H</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PLAT_H</highlight></codeline>
+<codeline lineno="28"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/***************************************<sp/>Include<sp/>Files<sp/>********************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__2vp_2xsecure__sha__hw_8h" kindref="compound">xsecure_sha_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__aes__core__hw_8h" kindref="compound">xsecure_aes_core_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xpmcdma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="versal__2vp_2xsecure__error_8h" kindref="compound">xsecure_error.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__core_8h" kindref="compound">xsecure_core.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Constant<sp/>Definitions<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="group__xsecure__helper__server__apis_1ga593410f924487f151707240494dbe52b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_SSS_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF1110500U)<sp/></highlight></codeline>
+<codeline lineno="44" refid="group__xsecure__helper__server__apis_1ga5b3d5ffcbedbf1152a60c7b9d4fce8ad" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_MAX_SRCS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(8U)<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="46" refid="group__xsecure__helper__server__apis_1ga5529afe5bbe60a89690a77196f21755f" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SHA3_0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF0000U)<sp/></highlight></codeline>
+<codeline lineno="48" refid="group__xsecure__helper__server__apis_1ga0b49dfea206b16404c2a9ec0124bb2da" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SHA3_0_DMA0_VAL<sp/><sp/><sp/><sp/><sp/>(0xC0000U)<sp/></highlight></codeline>
+<codeline lineno="49" refid="group__xsecure__helper__server__apis_1ga9a22d9fa405a676e438cf522e96a57f7" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SHA3_0_DMA1_VAL<sp/><sp/><sp/><sp/><sp/>(0x70000U)<sp/></highlight></codeline>
+<codeline lineno="50" refid="group__xsecure__helper__server__apis_1ga3263636461cfef82330983351e80ba5c" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_AES_NO_CFG_DST_DMA<sp/><sp/><sp/><sp/><sp/><sp/>(0xFFFFFFFFU)<sp/></highlight></codeline>
+<codeline lineno="51" refid="group__xsecure__helper__server__apis_1gac526e7d08ad548f3b562e3c74f020a67" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_ENABLE_BYTE_SWAP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/><sp/></highlight></codeline>
+<codeline lineno="53" refid="group__xsecure__helper__server__apis_1gaabad70194ca8d8f8a4ed207eb2bc4af9" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_DISABLE_BYTE_SWAP<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/><sp/></highlight></codeline>
+<codeline lineno="55" refid="group__xsecure__helper__server__apis_1gaf76f0708eae2bc4b2bc887737c797dc2" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SBI_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF00000U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="56" refid="group__xsecure__helper__server__apis_1gab357c8f8f68636180ba63c9a932e47e5" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_AES_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF000U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="57" refid="group__xsecure__helper__server__apis_1ga2ef9d561ab24c0c49b3012c247729612" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_DMA1_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xF0U)<sp/></highlight></codeline>
+<codeline lineno="58" refid="group__xsecure__helper__server__apis_1gac7499c67413d7c6ef12b77d12c9ea08e" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_DMA0_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)<sp/><sp/></highlight></codeline>
+<codeline lineno="59" refid="group__xsecure__helper__server__apis_1ga62057ed779b0e67ade3d35e51ce5d76c" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SRC_SEL_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xFU)<sp/><sp/></highlight></codeline>
+<codeline lineno="60" refid="group__xsecure__helper__server__apis_1gac94aaf5af67ffa8b4913cc97275a7117" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SBI_DMA0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x500000U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="61" refid="group__xsecure__helper__server__apis_1gab8289ec5862579296b264af809a12203" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_SBI_DMA1_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xB00000U)<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="62" refid="group__xsecure__helper__server__apis_1gaaf3e7bf563253ea992e8e7929067e821" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_AES_DMA0_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0xE000U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="63" refid="group__xsecure__helper__server__apis_1gae5cc984ad9e3350a3a890f5894c664ab" refkind="member"><highlight class="preprocessor">#define<sp/>XSECURE_SSS_AES_DMA1_VAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x5000U)<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="65"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************************<sp/>Type<sp/>Definitions<sp/>******************************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="68" refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="69" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" kindref="member">XSECURE_SSS_DMA0</ref><sp/>=<sp/>0,<sp/></highlight></codeline>
+<codeline lineno="70" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5aa2a6923f1a527c87fb745b94a1004ebe" kindref="member">XSECURE_SSS_DMA1</ref>,<sp/></highlight></codeline>
+<codeline lineno="71" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac844833958cf8bafaaa08ed7a576a656" kindref="member">XSECURE_SSS_PTPI</ref>,<sp/></highlight></codeline>
+<codeline lineno="72" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ac4ff928a81736e880fe311e333fe981e" kindref="member">XSECURE_SSS_AES</ref>,<sp/></highlight></codeline>
+<codeline lineno="73" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a642d2f1768608978847daba90058a739" kindref="member">XSECURE_SSS_SHA3_0</ref>,<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a7bbe6f3237c77ed042fdc5f6cf06771b" kindref="member">XSECURE_SSS_SBI</ref>,<sp/></highlight></codeline>
+<codeline lineno="75" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a9a377c8ced839316512da64ea2ed162d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a9a377c8ced839316512da64ea2ed162d" kindref="member">XSECURE_SSS_PZI</ref>,<sp/></highlight></codeline>
+<codeline lineno="76" refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5a02f04a4ee012f45639714c64062d946c" kindref="member">XSECURE_SSS_INVALID</ref><sp/></highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}<ref refid="group__xsecure__helper__server__apis_1gab4e2a6423dfb2e446d7dc1ee602c6ea5" kindref="member">XSecure_SssSrc</ref>;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>SrcDataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u64<sp/>DestDataAddr;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>SrcChannelCfg;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>DestChannelCfg;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsLastChunkSrc;<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsLastChunkDest;<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}<sp/><ref refid="struct_x_secure___aes_dma_cfg" kindref="compound">XSecure_AesDmaCfg</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/************************************<sp/>Function<sp/>Prototypes<sp/>*****************************************/</highlight></codeline>
+<codeline lineno="94"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga9224168b6fa6d11f59c50046f2221d11" kindref="member">XSecure_AesPlatPmcDmaCfgAndXfer</ref>(XPmcDma<sp/>*PmcDmaPtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_secure___aes_dma_cfg" kindref="compound">XSecure_AesDmaCfg</ref><sp/>*AesDmaCfg,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size,<sp/>UINTPTR<sp/>BaseAddress);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga8b4948ee028360683bcc161bf576ec77" kindref="member">XSecure_AesPmcDmaCfgEndianness</ref>(XPmcDma<sp/>*InstancePtr,<sp/>XPmcDma_Channel<sp/>Channel,<sp/>u8<sp/>EndianType);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga2bd4a79988d4eb7a1612e1ccc6430ca1" kindref="member">XSecure_AesValidateSize</ref>(u32<sp/>Size,<sp/>u8<sp/>IsLastChunk);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga557eeba8aca187788ae1d41a4e255f0d" kindref="member">XSecure_ConfigureDmaByteSwap</ref>(u32<sp/>Op);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__trng__server__apis_1ga57bbf2056be52d8c1d21154930ae0751" kindref="member">XSecure_GetRandomNum</ref>(u8<sp/>*Output,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__helper__server__apis_1ga7ceaf28c4b557ab6cefc96402262ecc0" kindref="member">XSecure_ECCRandInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="105"><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="113"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_UpdateCryptoStatus(UINTPTR<sp/>BaseAddress,<sp/>u32<sp/>Op)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Not<sp/>applicable<sp/>for<sp/>versal_2vp<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)BaseAddress;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)Op;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">/**************************************************************************************************/</highlight></codeline>
+<codeline lineno="125"><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>XSecure_SetRsaCryptoStatus(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Not<sp/>applicable<sp/>for<sp/>versal_2vp<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">/*************************************<sp/>Variable<sp/>Prototypes<sp/>****************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="134"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="136"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/versal_2vp/xsecure_plat.h"/>
+  </compounddef>
+</doxygen>

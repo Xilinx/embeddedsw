@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dsi2_rx___config_parameters" kind="struct" prot="public">
+    <compoundname>XDsi2Rx_ConfigParameters</compoundname>
+    <includes local="no">xdsi2rx.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dsi2_rx___config" kindref="compound">XDsi2Rx_Config</ref></type>
+        <definition>XDsi2Rx_Config XDsi2Rx_ConfigParameters::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>GUI Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="88" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="88" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDsi2Rx_ConfigParameters::PixelMode</definition>
+        <argsstring></argsstring>
+        <name>PixelMode</name>
+        <briefdescription>
+<para>Specifies VideoMode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="89" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="89" bodyend="-1"/>
+        <referencedby refid="group__dsi_1ga732edd1bd3354efe3715f684a341f873" compoundref="xdsi2rx_8c" startline="214" endline="228">XDsi2Rx_GetConfigParams</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The structure to read DSI controller &amp; Configurable Parameters. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="6">
+        <label>XDsi2Rx_ConfigParameters</label>
+        <link refid="struct_x_dsi2_rx___config_parameters"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>XDsi2Rx_Config</label>
+        <link refid="struct_x_dsi2_rx___config"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dsi2rx/src/xdsi2rx.h" bodystart="87" bodyend="90"/>
+    <listofallmembers>
+      <member refid="struct_x_dsi2_rx___config_parameters_1ae6843da1fb5e14b90353827fecbcf8c7" prot="public" virt="non-virtual"><scope>XDsi2Rx_ConfigParameters</scope><name>Config</name></member>
+      <member refid="struct_x_dsi2_rx___config_parameters_1ac6ca53bfa1d1b660c58b5709f14b81b5" prot="public" virt="non-virtual"><scope>XDsi2Rx_ConfigParameters</scope><name>PixelMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,444 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xocp__def_8h" kind="file">
+    <compoundname>xocp_def.h</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes local="yes">xil_types.h</includes>
+    <includes local="yes">xil_cache.h</includes>
+    <includes local="yes">xilocp_bsp_config.h</includes>
+    <includedby refid="client_2dme_2xocp__dme_8h" local="yes">xocp_dme.h</includedby>
+    <includedby refid="xocp__hwpcr_8h" local="yes">xocp_hwpcr.h</includedby>
+    <includedby refid="xocp__key__mgmt_8h" local="yes">xocp_key_mgmt.h</includedby>
+    <includedby refid="xocp__swpcr_8h" local="yes">xocp_swpcr.h</includedby>
+    <includedby refid="xocp__client_8h" local="yes">xocp_client.h</includedby>
+    <incdepgraph>
+      <node id="130">
+        <label>xil_cache.h</label>
+      </node>
+      <node id="131">
+        <label>xilocp_bsp_config.h</label>
+      </node>
+      <node id="129">
+        <label>xil_types.h</label>
+      </node>
+      <node id="128">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="127">
+        <label>xocp_def.h</label>
+        <link refid="xocp_def.h"/>
+        <childnode refid="128" relation="include">
+        </childnode>
+        <childnode refid="129" relation="include">
+        </childnode>
+        <childnode refid="130" relation="include">
+        </childnode>
+        <childnode refid="131" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="138">
+        <label>xocp_key_mgmt.c</label>
+        <link refid="xocp__key__mgmt_8c"/>
+      </node>
+      <node id="143">
+        <label>xilocp_client_devicekey_example.c</label>
+        <link refid="xilocp__client__devicekey__example_8c"/>
+      </node>
+      <node id="137">
+        <label>xocp_key_mgmt.h</label>
+        <link refid="xocp__key__mgmt_8h"/>
+        <childnode refid="138" relation="include">
+        </childnode>
+      </node>
+      <node id="134">
+        <label>xocp_dme.c</label>
+      </node>
+      <node id="133">
+        <label>xocp_dme.h</label>
+        <childnode refid="134" relation="include">
+        </childnode>
+      </node>
+      <node id="140">
+        <label>xocp_swpcr.c</label>
+        <link refid="xocp__swpcr_8c"/>
+      </node>
+      <node id="139">
+        <label>xocp_swpcr.h</label>
+        <link refid="xocp__swpcr_8h"/>
+        <childnode refid="140" relation="include">
+        </childnode>
+      </node>
+      <node id="145">
+        <label>xilocp_client_pcr_example.c</label>
+        <link refid="xilocp__client__pcr__example_8c"/>
+      </node>
+      <node id="136">
+        <label>xocp_hwpcr.c</label>
+        <link refid="xocp__hwpcr_8c"/>
+      </node>
+      <node id="135">
+        <label>xocp_hwpcr.h</label>
+        <link refid="xocp__hwpcr_8h"/>
+        <childnode refid="136" relation="include">
+        </childnode>
+      </node>
+      <node id="132">
+        <label>xocp_def.h</label>
+        <link refid="xocp_def.h"/>
+        <childnode refid="133" relation="include">
+        </childnode>
+        <childnode refid="135" relation="include">
+        </childnode>
+        <childnode refid="137" relation="include">
+        </childnode>
+        <childnode refid="139" relation="include">
+        </childnode>
+        <childnode refid="141" relation="include">
+        </childnode>
+      </node>
+      <node id="144">
+        <label>xilocp_client_dme_example.c</label>
+        <link refid="xilocp__client__dme__example_8c"/>
+      </node>
+      <node id="142">
+        <label>xocp_client.c</label>
+        <link refid="xocp__client_8c"/>
+      </node>
+      <node id="141">
+        <label>xocp_client.h</label>
+        <link refid="xocp__client_8h"/>
+        <childnode refid="142" relation="include">
+        </childnode>
+        <childnode refid="143" relation="include">
+        </childnode>
+        <childnode refid="144" relation="include">
+        </childnode>
+        <childnode refid="145" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="user-defined">
+      <header>XOcp API ids</header>
+      <memberdef kind="enum" id="group__xocp__definitions_1gae95d465df2996596afe4dd4e5f669667" prot="public" static="no">
+        <name>XOcp_ApiId</name>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" prot="public">
+          <name>XOCP_API_FEATURES</name>
+          <initializer>= 0U</initializer>
+          <briefdescription>
+<para>0U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" prot="public">
+          <name>XOCP_API_EXTEND_HWPCR</name>
+          <briefdescription>
+<para>1U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" prot="public">
+          <name>XOCP_API_GET_HWPCR</name>
+          <briefdescription>
+<para>2U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" prot="public">
+          <name>XOCP_API_GET_HWPCRLOG</name>
+          <briefdescription>
+<para>3U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" prot="public">
+          <name>XOCP_API_GENDMERESP</name>
+          <briefdescription>
+<para>4U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a7af3c34b216fdfca90d0d831514044a0" prot="public">
+          <name>XOCP_API_DEVAKINPUT</name>
+          <briefdescription>
+<para>5U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a928aad79a711aa80ab131b85ca6951e5" prot="public">
+          <name>XOCP_API_GETCERTUSERCFG</name>
+          <briefdescription>
+<para>6U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" prot="public">
+          <name>XOCP_API_GETX509CERT</name>
+          <briefdescription>
+<para>7U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" prot="public">
+          <name>XOCP_API_ATTESTWITHDEVAK</name>
+          <briefdescription>
+<para>8U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0849254c181626b2ccc0bca601313933" prot="public">
+          <name>XOCP_API_SET_SWPCRCONFIG</name>
+          <briefdescription>
+<para>9U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" prot="public">
+          <name>XOCP_API_EXTEND_SWPCR</name>
+          <briefdescription>
+<para>10U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" prot="public">
+          <name>XOCP_API_GET_SWPCR</name>
+          <briefdescription>
+<para>11U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" prot="public">
+          <name>XOCP_API_GET_SWPCRLOG</name>
+          <briefdescription>
+<para>12U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" prot="public">
+          <name>XOCP_API_GET_SWPCRDATA</name>
+          <briefdescription>
+<para>13U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a159154b25019671afd2acc943f5ee6e2" prot="public">
+          <name>XOCP_API_GEN_SHARED_SECRET</name>
+          <briefdescription>
+<para>14U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3ee212594f10d93c996947ac021ac2ef" prot="public">
+          <name>XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK</name>
+          <briefdescription>
+<para>15U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a66f014b98820f9d137b873a196637968" prot="public">
+          <name>XOCP_API_OCP_SUBSYS_INPUT</name>
+          <briefdescription>
+<para>16U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3bc966370e0b71c627e2f312f0c3089e" prot="public">
+          <name>XOCP_API_MAX</name>
+          <briefdescription>
+<para>17U </para>          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>XilOcp API identifiers. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="102" bodyend="121"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xocp__definitions_1gaacfcb856e34e9be4766a8d0498ad832f" prot="public" static="no">
+        <name>XOcp_DCacheFlushRange</name>
+        <param><defname>SrcAddr</defname></param>
+        <param><defname>Len</defname></param>
+        <initializer>Xil_DCacheFlushRange((INTPTR)SrcAddr, Len)</initializer>
+        <briefdescription>
+<para>Cache Invalidate function. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="60" column="13" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga41127f0b373baf2090c38aaecfe71f0b" prot="public" static="no">
+        <name>XOCP_API</name>
+        <param><defname>ApiId</defname></param>
+        <initializer>((u32)ApiId)</initializer>
+        <briefdescription>
+<para>Macro to typecast XOCP API ID. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="66" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga5b1f076af518588d82d3c1292274a1d9" prot="public" static="no">
+        <name>XOCP_API_ID_MASK</name>
+        <initializer>0xFFU</initializer>
+        <briefdescription>
+<para>Mask for API ID in Secure IPI command. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="69" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga7365d3fa2793edeb5a50ca16d130f019" prot="public" static="no">
+        <name>XOCP_EXTENDED_HASH_SIZE_IN_BYTES</name>
+        <initializer>(48U)</initializer>
+        <briefdescription>
+<para>Extended hash buffer size in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="72" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="77" bodyend="-1"/>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gaa8d58e56f5d115e19424d4d0d02b8207" prot="public" static="no">
+        <name>XOCP_EXTENDED_HASH_SIZE_IN_BITS</name>
+        <initializer>(384U)</initializer>
+        <briefdescription>
+<para>Extended hash buffer size in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="74" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1gab835a3422a1a25e56cea83a48d48560e" prot="public" static="no">
+        <name>XOCP_DME_NONCE_SIZE_IN_BITS</name>
+        <initializer>(256U)</initializer>
+        <briefdescription>
+<para>Nonce buffer size in bits. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="76" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" prot="public" static="no">
+        <name>XOCP_ADDR_HIGH_SHIFT</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+<para>Shift to get higher address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" line="78" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h" bodystart="83" bodyend="-1"/>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga0c6bb44603339209f55de3ef94141395" compoundref="xocp__key__mgmt_8c" startline="95" endline="119">XOcp_ClientAttestWithDevAk</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga43e275e75f776f74a124968aa83d29a2" compoundref="xocp__key__mgmt_8c" startline="137" endline="164">XOcp_ClientAttestWithKeyWrapDevAk</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1gabe2000beca7269b9e9f1ba0434adfbb7" compoundref="xocp__hwpcr_8c" startline="63" endline="89">XOcp_ExtendHwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gab8fbe7fbfcb136e816374b295b769972" compoundref="xocp__swpcr_8c" startline="59" endline="92">XOcp_ExtendSwPcr</referencedby>
+        <referencedby refid="group__xocp__dme__client__apis_1gaebd4df862308eaeebbfb06a456a19f9f" compoundref="client_2dme_2xocp__dme_8c" startline="62" endline="88">XOcp_GenDmeResp</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga50bd2fa853d6aba7c12fec38bb3867ae" compoundref="xocp__key__mgmt_8c" startline="187" endline="214">XOcp_GenSharedSecretWithDevAk</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga729ea6a53f3410b330a4eb6635074c88" compoundref="xocp__hwpcr_8c" startline="109" endline="134">XOcp_GetHwPcr</referencedby>
+        <referencedby refid="group__xocp__hwpcr__client__apis_1ga36f63a2e8165e1f3360f8e2858d7aa53" compoundref="xocp__hwpcr_8c" startline="150" endline="176">XOcp_GetHwPcrLog</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaaca4f4567e961877901f3ed298ed01e9" compoundref="xocp__swpcr_8c" startline="112" endline="141">XOcp_GetSwPcr</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1gaa9d5159f23ac4215dff07b1a16a0e2e9" compoundref="xocp__swpcr_8c" startline="196" endline="222">XOcp_GetSwPcrData</referencedby>
+        <referencedby refid="group__xocp__swpcr__client__apis_1ga71a4d8aea262fc732fa812829dd891ae" compoundref="xocp__swpcr_8c" startline="155" endline="181">XOcp_GetSwPcrLog</referencedby>
+        <referencedby refid="group__xocp__key__mgmt__client__apis_1ga16013e82a245e7dfdd7a3c2e2df476e5" compoundref="xocp__key__mgmt_8c" startline="58" endline="81">XOcp_GetX509Cert</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026,<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="37"><highlight class="preprocessor">#ifndef<sp/>XOCP_DEF_H</highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XOCP_DEF_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="41"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="43"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_cache.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xilocp_bsp_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="52"><highlight class="preprocessor"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XOCP_CACHE_DISABLE</highlight></codeline>
+<codeline lineno="57"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#if<sp/>defined(__microblaze__)</highlight></codeline>
+<codeline lineno="58"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XOcp_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((UINTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="59"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#else</highlight></codeline>
+<codeline lineno="60" refid="group__xocp__definitions_1gaacfcb856e34e9be4766a8d0498ad832f" refkind="member"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XOcp_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>Xil_DCacheFlushRange((INTPTR)SrcAddr,<sp/>Len)</highlight></codeline>
+<codeline lineno="61"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#endif</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="63"><highlight class="preprocessor"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#define<sp/>XOcp_DCacheFlushRange(SrcAddr,<sp/>Len)<sp/>{}</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif<sp/></highlight></codeline>
+<codeline lineno="66"><highlight class="preprocessor">#define<sp/>XOCP_API(ApiId)<sp/>((u32)ApiId)</highlight></codeline>
+<codeline lineno="67"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="69"><highlight class="preprocessor">#define<sp/>XOCP_API_ID_MASK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xFFU</highlight></codeline>
+<codeline lineno="70" refid="group__xocp__definitions_1ga41127f0b373baf2090c38aaecfe71f0b" refkind="member"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="72"><highlight class="preprocessor">#define<sp/>XOCP_EXTENDED_HASH_SIZE_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)<sp/></highlight></codeline>
+<codeline lineno="74" refid="group__xocp__definitions_1ga5b1f076af518588d82d3c1292274a1d9" refkind="member"><highlight class="preprocessor">#define<sp/>XOCP_EXTENDED_HASH_SIZE_IN_BITS<sp/>(384U)<sp/></highlight></codeline>
+<codeline lineno="76"><highlight class="preprocessor">#define<sp/>XOCP_DME_NONCE_SIZE_IN_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(256U)<sp/></highlight></codeline>
+<codeline lineno="78"><highlight class="preprocessor">#define<sp/>XOCP_ADDR_HIGH_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)<sp/></highlight></codeline>
+<codeline lineno="80"><highlight class="preprocessor"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="81" refid="group__xocp__definitions_1gab835a3422a1a25e56cea83a48d48560e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="group__xocp__definitions_1ga4870addc7ba09c6a7cfdbb443f3e340d" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Variable<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" kindref="member">XOCP_API_FEATURES</ref><sp/>=<sp/>0U,<sp/></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" kindref="member">XOCP_API_EXTEND_HWPCR</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" kindref="member">XOCP_API_GET_HWPCR</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" kindref="member">XOCP_API_GET_HWPCRLOG</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="102" refid="group__xocp__definitions_1gae95d465df2996596afe4dd4e5f669667" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" kindref="member">XOCP_API_GENDMERESP</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="103" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a284a6e25cd4cd8ecd456b731f3ef8c94" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a7af3c34b216fdfca90d0d831514044a0" kindref="member">XOCP_API_DEVAKINPUT</ref>,<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="104" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0ea33ccca2247ae86b23182b1d691e25" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a928aad79a711aa80ab131b85ca6951e5" kindref="member">XOCP_API_GETCERTUSERCFG</ref>,</highlight></codeline>
+<codeline lineno="105" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0165a00496c3a9724f9e97be4262fef6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" kindref="member">XOCP_API_GETX509CERT</ref>,<sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="106" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a04912d871713dcd3b61d694f429bc095" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" kindref="member">XOCP_API_ATTESTWITHDEVAK</ref>,</highlight></codeline>
+<codeline lineno="107" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667ac30d0d7181e066b8a984ede325504cf8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0849254c181626b2ccc0bca601313933" kindref="member">XOCP_API_SET_SWPCRCONFIG</ref>,</highlight></codeline>
+<codeline lineno="108" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a7af3c34b216fdfca90d0d831514044a0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" kindref="member">XOCP_API_EXTEND_SWPCR</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="109" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a928aad79a711aa80ab131b85ca6951e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" kindref="member">XOCP_API_GET_SWPCR</ref>,<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a27d6f0ea57a51b0b5cb4b61f85c690a8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" kindref="member">XOCP_API_GET_SWPCRLOG</ref>,<sp/><sp/></highlight></codeline>
+<codeline lineno="111" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a82068a5409464a0f6dc3dcc23037d747" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" kindref="member">XOCP_API_GET_SWPCRDATA</ref>,<sp/></highlight></codeline>
+<codeline lineno="112" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0849254c181626b2ccc0bca601313933" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a159154b25019671afd2acc943f5ee6e2" kindref="member">XOCP_API_GEN_SHARED_SECRET</ref>,<sp/></highlight></codeline>
+<codeline lineno="113" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a802d68e4fc35a8bb08e4e79fd2a5aa48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3ee212594f10d93c996947ac021ac2ef" kindref="member">XOCP_API_ATTEST_WITH_KEYWRAP_DEVAK</ref>,<sp/></highlight></codeline>
+<codeline lineno="114" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a0d48b20c276c35c9e253b2756aa9f1ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a66f014b98820f9d137b873a196637968" kindref="member">XOCP_API_OCP_SUBSYS_INPUT</ref>,<sp/></highlight></codeline>
+<codeline lineno="115" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a4e737b47477267f9e7b792a237c388d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3bc966370e0b71c627e2f312f0c3089e" kindref="member">XOCP_API_MAX</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="116" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a6ad39f4af276b8893ca0e8975a6f8f6f" refkind="member"><highlight class="normal">}<sp/><ref refid="group__xocp__definitions_1gae95d465df2996596afe4dd4e5f669667" kindref="member">XOcp_ApiId</ref>;</highlight></codeline>
+<codeline lineno="119" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a66f014b98820f9d137b873a196637968" refkind="member"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="120" refid="group__xocp__definitions_1ggae95d465df2996596afe4dd4e5f669667a3bc966370e0b71c627e2f312f0c3089e" refkind="member"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">/*<sp/>XOCP_DEF_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilocp/src/common/xocp_def.h"/>
+  </compounddef>
+</doxygen>

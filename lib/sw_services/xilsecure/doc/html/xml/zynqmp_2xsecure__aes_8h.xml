@@ -1,0 +1,1272 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="zynqmp_2xsecure__aes_8h" kind="file">
+    <compoundname>zynqmp/xsecure_aes.h</compoundname>
+    <includes refid="xsecure__aes__hw_8h" local="yes">xsecure_aes_hw.h</includes>
+    <includes local="yes">xcsudma.h</includes>
+    <includes local="yes">xil_sutil.h</includes>
+    <includes refid="zynqmp_2xsecure__sss_8h" local="yes">xsecure_sss.h</includes>
+    <includes refid="server_2zynqmp_2xsecure__aesalginfo_8h" local="yes">xsecure_aesalginfo.h</includes>
+    <includes local="yes">xsecure_config.h</includes>
+    <includedby refid="xsecure__core_8c" local="yes">xsecure_core.c</includedby>
+    <includedby refid="xsecure__kat_8h" local="yes">xsecure_kat.h</includedby>
+    <includedby refid="xsecure__init_8h" local="yes">xsecure_init.h</includedby>
+    <includedby refid="xsecure__resourcehandling_8h" local="yes">xsecure_resourcehandling.h</includedby>
+    <includedby refid="xsecure__plat__aes_8h" local="yes">xsecure_plat_aes.h</includedby>
+    <includedby refid="xsecure__plat__aes__ipihandler_8c" local="yes">xsecure_plat_aes_ipihandler.c</includedby>
+    <includedby refid="spartanup_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__2ve__2vm_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__2vp_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="versal__2vp__p_2xsecure__plat_8c" local="yes">xsecure_plat.c</includedby>
+    <includedby refid="xsecure_8h" local="yes">xsecure.h</includedby>
+    <includedby refid="zynqmp_2xsecure__aes_8c" local="yes">xsecure_aes.c</includedby>
+    <includedby refid="xilsecure__aes__example_8c" local="yes">xilsecure_aes_example.c</includedby>
+    <includedby refid="xilsecure__simple__aes__example_8c" local="yes">xilsecure_simple_aes_example.c</includedby>
+    <includedby refid="xilsecure__versal__aes__server__example_8c" local="yes">xilsecure_versal_aes_server_example.c</includedby>
+    <incdepgraph>
+      <node id="526">
+        <label>xsecure_aes_hw.h</label>
+        <link refid="xsecure__aes__hw_8h"/>
+        <childnode refid="527" relation="include">
+        </childnode>
+      </node>
+      <node id="527">
+        <label>xil_io.h</label>
+      </node>
+      <node id="529">
+        <label>xil_sutil.h</label>
+      </node>
+      <node id="534">
+        <label>xsecure_aesalginfo.h</label>
+        <link refid="server_2zynqmp_2xsecure__aesalginfo_8h"/>
+        <childnode refid="535" relation="include">
+        </childnode>
+        <childnode refid="529" relation="include">
+        </childnode>
+      </node>
+      <node id="525">
+        <label>xsecure_aes.h</label>
+        <link refid="zynqmp/xsecure_aes.h"/>
+        <childnode refid="526" relation="include">
+        </childnode>
+        <childnode refid="528" relation="include">
+        </childnode>
+        <childnode refid="529" relation="include">
+        </childnode>
+        <childnode refid="530" relation="include">
+        </childnode>
+        <childnode refid="534" relation="include">
+        </childnode>
+        <childnode refid="533" relation="include">
+        </childnode>
+      </node>
+      <node id="535">
+        <label>xil_cryptoalginfo.h</label>
+      </node>
+      <node id="528">
+        <label>xcsudma.h</label>
+      </node>
+      <node id="533">
+        <label>xsecure_config.h</label>
+      </node>
+      <node id="531">
+        <label>xil_types.h</label>
+      </node>
+      <node id="532">
+        <label>xparameters.h</label>
+      </node>
+      <node id="530">
+        <label>xsecure_sss.h</label>
+        <link refid="zynqmp_2xsecure__sss_8h"/>
+        <childnode refid="531" relation="include">
+        </childnode>
+        <childnode refid="532" relation="include">
+        </childnode>
+        <childnode refid="533" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="556">
+        <label>xsecure_plat_rsa.c</label>
+        <link refid="xsecure__plat__rsa_8c"/>
+      </node>
+      <node id="540">
+        <label>xsecure_kat_ipihandler.c</label>
+        <link refid="xsecure__kat__ipihandler_8c"/>
+      </node>
+      <node id="555">
+        <label>xsecure_ellipticplat.c</label>
+        <link refid="xsecure__ellipticplat_8c"/>
+      </node>
+      <node id="569">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="_2xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="586">
+        <label>xsecure.c</label>
+        <link refid="xsecure_8c"/>
+      </node>
+      <node id="585">
+        <label>xsecure.h</label>
+        <link refid="xsecure_8h"/>
+        <childnode refid="586" relation="include">
+        </childnode>
+      </node>
+      <node id="575">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsv_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="539">
+        <label>xsecure_kat.c</label>
+        <link refid="xsecure__kat_8c"/>
+      </node>
+      <node id="579">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp_2xsecure__plat_8c"/>
+      </node>
+      <node id="538">
+        <label>xsecure_kat.h</label>
+        <link refid="xsecure__kat_8h"/>
+        <childnode refid="539" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="541" relation="include">
+        </childnode>
+        <childnode refid="542" relation="include">
+        </childnode>
+        <childnode refid="543" relation="include">
+        </childnode>
+        <childnode refid="548" relation="include">
+        </childnode>
+        <childnode refid="549" relation="include">
+        </childnode>
+        <childnode refid="554" relation="include">
+        </childnode>
+      </node>
+      <node id="566">
+        <label>xsecure_plat_aes_ipihandler.c</label>
+        <link refid="xsecure__plat__aes__ipihandler_8c"/>
+      </node>
+      <node id="567">
+        <label>xsecure_lms_ipihandler.c</label>
+        <link refid="xsecure__lms__ipihandler_8c"/>
+      </node>
+      <node id="584">
+        <label>xsecure_plat.c</label>
+        <link refid="spartanup_2xsecure__plat_8c"/>
+      </node>
+      <node id="537">
+        <label>xsecure_core.c</label>
+        <link refid="xsecure__core_8c"/>
+      </node>
+      <node id="573">
+        <label>xsecure_keyunwrap.c</label>
+        <link refid="xsecure__keyunwrap_8c"/>
+      </node>
+      <node id="553">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="549">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2vp__p_2xsecure__plat__kat_8h"/>
+        <childnode refid="550" relation="include">
+        </childnode>
+        <childnode refid="553" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+      </node>
+      <node id="561">
+        <label>xsecure_aes_ipihandler.c</label>
+        <link refid="xsecure__aes__ipihandler_8c"/>
+      </node>
+      <node id="583">
+        <label>xsecure_plat_aes.c</label>
+        <link refid="xsecure__plat__aes_8c"/>
+      </node>
+      <node id="557">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__net_2xsecure__plat_8c"/>
+      </node>
+      <node id="582">
+        <label>xsecure_plat_aes.h</label>
+        <link refid="xsecure__plat__aes_8h"/>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="583" relation="include">
+        </childnode>
+      </node>
+      <node id="589">
+        <label>xilsecure_simple_aes_example.c</label>
+        <link refid="xilsecure__simple__aes__example_8c"/>
+      </node>
+      <node id="571">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="574">
+        <label>xsecure_rsa_ipihandler.c</label>
+        <link refid="xsecure__rsa__ipihandler_8c"/>
+      </node>
+      <node id="577">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="587">
+        <label>xsecure_aes.c</label>
+        <link refid="zynqmp_2xsecure__aes_8c"/>
+      </node>
+      <node id="559">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__net_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="536">
+        <label>xsecure_aes.h</label>
+        <link refid="zynqmp/xsecure_aes.h"/>
+        <childnode refid="537" relation="include">
+        </childnode>
+        <childnode refid="538" relation="include">
+        </childnode>
+        <childnode refid="560" relation="include">
+        </childnode>
+        <childnode refid="563" relation="include">
+        </childnode>
+        <childnode refid="582" relation="include">
+        </childnode>
+        <childnode refid="566" relation="include">
+        </childnode>
+        <childnode refid="584" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="585" relation="include">
+        </childnode>
+        <childnode refid="587" relation="include">
+        </childnode>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+      </node>
+      <node id="558">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="net_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="562">
+        <label>xsecure_init.c</label>
+        <link refid="xsecure__init_8c"/>
+      </node>
+      <node id="554">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="net_2xsecure__plat__kat_8h"/>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="556" relation="include">
+        </childnode>
+        <childnode refid="557" relation="include">
+        </childnode>
+        <childnode refid="558" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="560">
+        <label>xsecure_init.h</label>
+        <link refid="xsecure__init_8h"/>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="555" relation="include">
+        </childnode>
+        <childnode refid="541" relation="include">
+        </childnode>
+        <childnode refid="562" relation="include">
+        </childnode>
+        <childnode refid="563" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="572" relation="include">
+        </childnode>
+        <childnode refid="573" relation="include">
+        </childnode>
+        <childnode refid="566" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="574" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="575" relation="include">
+        </childnode>
+        <childnode refid="576" relation="include">
+        </childnode>
+        <childnode refid="577" relation="include">
+        </childnode>
+        <childnode refid="578" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+        <childnode refid="579" relation="include">
+        </childnode>
+        <childnode refid="580" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="581" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+        <childnode refid="559" relation="include">
+        </childnode>
+      </node>
+      <node id="564">
+        <label>xsecure_resourcehandling.c</label>
+        <link refid="xsecure__resourcehandling_8c"/>
+      </node>
+      <node id="563">
+        <label>xsecure_resourcehandling.h</label>
+        <link refid="xsecure__resourcehandling_8h"/>
+        <childnode refid="561" relation="include">
+        </childnode>
+        <childnode refid="540" relation="include">
+        </childnode>
+        <childnode refid="564" relation="include">
+        </childnode>
+        <childnode refid="565" relation="include">
+        </childnode>
+        <childnode refid="566" relation="include">
+        </childnode>
+        <childnode refid="567" relation="include">
+        </childnode>
+        <childnode refid="568" relation="include">
+        </childnode>
+        <childnode refid="569" relation="include">
+        </childnode>
+        <childnode refid="570" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+        <childnode refid="571" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+      </node>
+      <node id="547">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="543">
+        <label>xsecure_plat_kat.h</label>
+        <link refid="2ve__2vm_2xsecure__plat__kat_8h"/>
+        <childnode refid="544" relation="include">
+        </childnode>
+        <childnode refid="547" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="572">
+        <label>xsecure_kdf.c</label>
+        <link refid="xsecure__kdf_8c"/>
+      </node>
+      <node id="581">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat_8c"/>
+      </node>
+      <node id="551">
+        <label>xsecure_cmd.c</label>
+        <link refid="2vp__p_2xsecure__cmd_8c"/>
+      </node>
+      <node id="576">
+        <label>xsecure_trng_ipihandler.c</label>
+        <link refid="trngpsx_2xsecure__trng__ipihandler_8c"/>
+      </node>
+      <node id="588">
+        <label>xilsecure_aes_example.c</label>
+        <link refid="xilsecure__aes__example_8c"/>
+      </node>
+      <node id="568">
+        <label>xsecure_sha_ipihandler.c</label>
+        <link refid="xsecure__sha__ipihandler_8c"/>
+      </node>
+      <node id="570">
+        <label>xsecure_slhdsa_ipihandler.c</label>
+        <link refid="xsecure__slhdsa__ipihandler_8c"/>
+      </node>
+      <node id="552">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="550">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2vp__p_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="551" relation="include">
+        </childnode>
+        <childnode refid="552" relation="include">
+        </childnode>
+      </node>
+      <node id="546">
+        <label>xsecure_plat_kat_ipihandler.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8c"/>
+      </node>
+      <node id="544">
+        <label>xsecure_plat_kat_ipihandler.h</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat__kat__ipihandler_8h"/>
+        <childnode refid="545" relation="include">
+        </childnode>
+        <childnode refid="546" relation="include">
+        </childnode>
+      </node>
+      <node id="548">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="2vp_2xsecure__plat__kat_8c"/>
+      </node>
+      <node id="541">
+        <label>xsecure_elliptic_ipihandler.c</label>
+        <link refid="xsecure__elliptic__ipihandler_8c"/>
+      </node>
+      <node id="542">
+        <label>xsecure_plat_kat.c</label>
+        <link refid="xsecure__plat__kat_8c"/>
+      </node>
+      <node id="578">
+        <label>xsecure_plat.c</label>
+        <link refid="versal__2ve__2vm_2xsecure__plat_8c"/>
+      </node>
+      <node id="545">
+        <label>xsecure_cmd.c</label>
+        <link refid="2ve__2vm_2xsecure__cmd_8c"/>
+      </node>
+      <node id="565">
+        <label>xsecure_hmac_ipihandler.c</label>
+        <link refid="xsecure__hmac__ipihandler_8c"/>
+      </node>
+      <node id="580">
+        <label>xsecure_plat_ipihandler.c</label>
+        <link refid="2vp_2xsecure__plat__ipihandler_8c"/>
+      </node>
+      <node id="590">
+        <label>xilsecure_versal_aes_server_example.c</label>
+        <link refid="xilsecure__versal__aes__server__example_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" prot="public" static="no">
+        <name>XSecure_AesWaitForDone</name>
+        <param><defname>InstancePtr</defname></param>
+        <initializer>Xil_WaitForEvent((InstancePtr)-&gt;BaseAddress + <ref refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" kindref="member">XSECURE_CSU_AES_STS_OFFSET</ref>,\
+	                XSECURE_CSU_AES_STS_AES_BUSY,	\
+	                0U,	\
+	                XSECURE_AES_TIMEOUT_MAX)</initializer>
+        <briefdescription>
+<para>This macro waits for AES engine to complete configured operation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if the AES engine completes configured operation. XST_FAILURE if a timeout has occurred. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.h" line="246" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.h" bodystart="246" bodyend="-1"/>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" compoundref="zynqmp_2xsecure__aes_8c" startline="585" endline="700">XSecure_AesDecryptUpdate</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" compoundref="zynqmp_2xsecure__aes_8c" startline="319" endline="387">XSecure_AesEncryptUpdate</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gadeb15e6ff58fe7e52935350e1a92a102" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesInitialize</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr, u32 KeySel, u32 *IvPtr, u32 *KeyPtr)</argsstring>
+        <name>XSecure_AesInitialize</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>XCsuDma *</type>
+          <declname>CsuDmaPtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>KeySel</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>IvPtr</declname>
+        </param>
+        <param>
+          <type>u32 *</type>
+          <declname>KeyPtr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the instance pointer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CsuDmaPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XCsuDma instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeySel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Key source for decryption, can be KUP/device key (XSECURE_CSU_AES_KEY_SRC_KUP for KUP key or XSECURE_CSU_AES_KEY_SRC_DEV for Device Key) </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>IvPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Initialization Vector for decryption </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>KeyPtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to Aes key in case KUP key is used. Pass <computeroutput>Null</computeroutput> if the device key is to be used.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>XST_SUCCESS if initialization was successful.</para></simplesect>
+<simplesect kind="note"><para>All the inputs are accepted in little endian format but the AES engine accepts the data in big endian format, The decryption and encryption functions in xsecure_aes handle the little endian to big endian conversion using few API&apos;s, Xil_Htonl (provided by Xilinx xil_io library) and XSecure_AesCsuDmaConfigureEndiannes for handling data endianness conversions. If higher performance is needed, users can strictly use data in big endian format and modify the xsecure_aes functions to remove the use of the Xil_Htonl and XSecure_AesCsuDmaConfigureEndiannes functions as required. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="150" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="150" bodyend="186"/>
+        <references refid="group__xsecure__generic__server__apis_1ga4900fde0f315a9807c11bf73a2e8d90d" compoundref="core_2generic_2xsecure__cryptochk_8c" startline="54" endline="80">XSecure_CryptoCheck</references>
+        <references refid="xsecure__aes__hw_8h_1aae1144b9830a93d8a345636a8082431c" compoundref="xsecure__aes__hw_8h" startline="41">XSECURE_CSU_AES_BASE</references>
+        <references refid="group__xsecure__generic__server__apis_1gac44d78314f59033c8bee53a3f1dee58b" compoundref="core_2util_2xsecure__sss_8c" startline="67" endline="83">XSecure_SssInitialize</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesDecryptInit</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *DecData, u32 Size, u8 *GcmTagAddr)</argsstring>
+        <name>XSecure_AesDecryptInit</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DecData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>GcmTagAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes the AES engine for decryption and is required to be called before calling XSecure_AesDecryptUpdate. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer in which decrypted data will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected size of the data in bytes whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GcmTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the GCM tag which needs to be verified during decryption of the data.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be decrypted is available, the XSecure_AesDecryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Configure AES for Decryption</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Configure the CSU DMA Tx/Rx for the incoming Block</para></listitem><listitem><para>Start the message.</para></listitem><listitem><para>Push IV into the AES engine.</para></listitem><listitem><para>Acknowledge the transfer has completed </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="450" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="450" bodyend="554"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" compoundref="xsecure__aes__hw_8h" startline="55">XSECURE_CSU_AES_START_MSG_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga4db7441166b2271ceaac1ac859a15c60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecryptUpdate</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)</argsstring>
+        <name>XSecure_AesDecryptUpdate</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function decrypts the encrypted data passed in and updates the GCM tag from any previous calls. </para>        </briefdescription>
+        <detaileddescription>
+<para>The size from XSecure_AesDecryptInit is decremented from the size passed into this function to determine when the GCM tag passed to XSecure_AesDecryptInit needs to be compared to the GCM tag calculated in the AES engine.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the encrypted data which needs to be decrypted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Final call of this API returns the status of GCM tag matching.<itemizedlist>
+<listitem><para>XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag is mismatched</para></listitem><listitem><para>XSECURE_CSU_AES_ZEROIZATION_ERROR: If GCM tag is mismatched, zeroize the decrypted data and send the status of zeroization.</para></listitem><listitem><para>XST_SUCCESS: If GCM tag is matching.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When Size of the data equals to size of the remaining data that data will be treated as final data. This API can be called multpile times but sum of all Sizes should be equal to Size mention in init. Return of the final call of this API tells whether GCM tag is matching or not. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Check if this is final update</para></listitem><listitem><para>Wait for the Src DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>If this is the last update for the data</para></listitem><listitem><para>Wait for the Src DMA completion.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Disable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Disable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Wait for AES Decryption completion.</para></listitem><listitem><para>Get the AES status to know if GCM check passed.</para></listitem><listitem><para>Zeroize the decrypted data</para></listitem><listitem><para>Update the size of data</para></listitem><listitem><para>Aes engine is set under reset when GCM tag is failed or when the next block length of decryption is zero</para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="585" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="585" bodyend="700"/>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" compoundref="zynqmp_2xsecure__aes_8h" startline="246">XSecure_AesWaitForDone</references>
+        <references refid="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" compoundref="xsecure__aes__hw_8h" startline="74">XSECURE_CSU_AES_IV_3_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1ad630ee247405208df10c42bea596dafb" compoundref="xsecure__aes__hw_8h" startline="52">XSECURE_CSU_AES_STS_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gabaf0da2dbbd5f793378a8cc3700a8ef7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecryptData</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *DecData, u8 *EncData, u32 Size, u8 *GcmTagAddr)</argsstring>
+        <name>XSecure_AesDecryptData</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>DecData</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>GcmTagAddr</declname>
+        </param>
+        <briefdescription>
+<para>This function decrypts the encrypted data provided and updates the DecData buffer with decrypted data. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DecData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer in which decrypted data will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the encrypted data which needs to be decrypted. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of data to be decrypted in bytes, whereas the number of bytes should be multiples of 4. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>GcmTagAddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to a buffer in which GCM tag address will be stored. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>This API returns the status of GCM tag matching.<itemizedlist>
+<listitem><para>XSECURE_CSU_AES_GCM_TAG_MISMATCH: If GCM tag was mismatched</para></listitem><listitem><para>XST_SUCCESS: If GCM tag was matched.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>When using this function to decrypt data that was encrypted with XSecure_AesEncryptData, the GCM tag will be stored as the last sixteen (16) bytes of data in XSecure_AesEncryptData&apos;s Dst (destination) buffer and should be used as the GcmTagAddr&apos;s pointer. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="767" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="767" bodyend="781"/>
+        <references refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" compoundref="xsecure__aesclient_8c" startline="166" endline="211">XSecure_AesDecryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" compoundref="xsecure__aesclient_8c" startline="419" endline="468">XSecure_AesDecryptUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>s32</type>
+        <definition>s32 XSecure_AesDecrypt</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src, u32 Length)</argsstring>
+        <name>XSecure_AesDecrypt</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Length</declname>
+        </param>
+        <briefdescription>
+<para>This function will handle the AES-GCM Decryption. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to encrypted data source location </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to location where decrypted data will be written. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Expected total length of decrypted image expected.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>returns XST_SUCCESS if successful, or the relevant errorcode.</para></simplesect>
+<simplesect kind="note"><para>This function is used for decrypting the Image&apos;s partition encrypted by Bootgen </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Chunking is only for bitstream partitions</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Configure AES for Decryption</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>First block is always secure header</para></listitem><listitem><para>Start decryption of Secure-Header/Block/Footer.</para></listitem><listitem><para>If decryption failed then return error.</para></listitem><listitem><para>Update the current image size.</para></listitem><listitem><para>After secure header, rest of the blocks are data blocks (image blocks)</para></listitem><listitem><para>Point IV to the CSU IV register.</para></listitem><listitem><para>Update the GcmTagAddr to get GCM-TAG for next block.</para></listitem><listitem><para>Zeroize the decrypted data </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="1438" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="1438" bodyend="1642"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" compoundref="zynqmp_2xsecure__aes_8c" startline="1185" endline="1383">XSecure_AesDecryptBlk</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a288b9458ee0a6ca2541a80df9bbdf2b5" compoundref="xsecure__aes__hw_8h" startline="71">XSECURE_CSU_AES_IV_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aec24a13d03bd602adc1f46eee16fcaf8" compoundref="xsecure__aes__hw_8h" startline="74">XSECURE_CSU_AES_IV_3_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+        <referencedby refid="group__xsecure__apis_1ga2b8b3f8c925d15be80cff15f248c1532" compoundref="xilsecure__aes__example_8c" startline="151" endline="200">SecureAesExample</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptInit</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)</argsstring>
+        <name>XSecure_AesEncryptInit</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>EncData</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function is used to initialize the AES engine for encryption. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EncData</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer of a buffer in which encrypted data along with GCM TAG will be stored. Buffer size should be Size of data plus 16 bytes. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 32 bit variable, which holds the size of the input data to be encrypted in bytes, whereas number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be encrypted is available, the XSecure_AesEncryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Configure the SSS for AES.</para></listitem><listitem><para>Clear AES contents by resetting it.</para></listitem><listitem><para>Clear AES_KEY_CLEAR bits to avoid clearing of key</para></listitem><listitem><para>Helion AES block expects the key in big-endian.</para></listitem><listitem><para>Configure the AES for Encryption.</para></listitem><listitem><para>Start the message.</para></listitem><listitem><para>Enable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Enable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Push IV into the AES engine.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Configure the CSU DMA Tx/Rx.</para></listitem><listitem><para>Update the size of data </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="207" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="207" bodyend="296"/>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" compoundref="zynqmp_2xsecure__aes_8c" startline="931" endline="959">XSecure_AesKeySelNLoad</references>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" compoundref="zynqmp_2xsecure__aes_8c" startline="858" endline="865">XSecure_AesReset</references>
+        <references refid="xsecure__aes__hw_8h_1a65de8895ca639c0793d5f3bc3b7ff127" compoundref="xsecure__aes__hw_8h" startline="58">XSECURE_CSU_AES_CFG_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aefe6749b6b1e100f76c8b489f5143452" compoundref="xsecure__aes__hw_8h" startline="57">XSECURE_CSU_AES_KEY_CLR_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aadc62cc398f22228ef7972c28b1bc2b4" compoundref="xsecure__aes__hw_8h" startline="61">XSECURE_CSU_AES_KUP_0_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="xsecure__aes__hw_8h_1a5fc757392b9473d3902cb3c214639e32" compoundref="xsecure__aes__hw_8h" startline="55">XSECURE_CSU_AES_START_MSG_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+        <references refid="group__xsecure__helper__server__apis_1ggab4e2a6423dfb2e446d7dc1ee602c6ea5ad99985ebb6cf4318c4ff571557bc6b09" compoundref="spartanup_2xsecure__plat_8h" startline="212">XSECURE_SSS_DMA0</references>
+        <references refid="group__xsecure__generic__server__apis_1ga149d2122c6b082fafda37d6f20b013e3" compoundref="core_2util_2xsecure__sss_8c" startline="101" endline="140">XSecure_SssAes</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gabdefc1128b9769010e42070e15f06d74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptUpdate</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)</argsstring>
+        <name>XSecure_AesEncryptUpdate</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Data</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts the clear-text data passed in and updates the GCM tag from any previous calls. </para>        </briefdescription>
+        <detaileddescription>
+<para>The size from XSecure_AesEncryptInit is decremented from the size passed into this function to determine when the final CSU DMA transfer of data to the AES-GCM cryptographic core.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the data for which encryption should be performed. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 32 bit variable, which holds the size of the input data in bytes, whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If all of the data to be encrypted is available, the XSecure_AesEncryptData function can be used instead. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments</para></listitem><listitem><para>Wait for Src DMA done.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Wait for Dst DMA done.</para></listitem><listitem><para>Acknowledge the transfer has completed</para></listitem><listitem><para>Disable CSU DMA Dst channel for byte swapping.</para></listitem><listitem><para>Disable CSU DMA Src channel for byte swapping.</para></listitem><listitem><para>Wait for AES encryption completion.</para></listitem><listitem><para>Update the size of instance </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="319" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="319" bodyend="387"/>
+        <references refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" compoundref="xsecure__aesclient_8c" startline="524" endline="549">XSecure_AesKeyZero</references>
+        <references refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" compoundref="zynqmp_2xsecure__aes_8h" startline="246">XSecure_AesWaitForDone</references>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga7d9385d1d7121998a9be90e90d3a8f7b" compoundref="core_2util_2xsecure__utils_8c" startline="64" endline="70">XSecure_SetReset</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1gace1d0dd6146035c42a6ae0add6f0d09a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>u32</type>
+        <definition>u32 XSecure_AesEncryptData</definition>
+        <argsstring>(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src, u32 Len)</argsstring>
+        <name>XSecure_AesEncryptData</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dst</declname>
+        </param>
+        <param>
+          <type>const u8 *</type>
+          <declname>Src</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>Len</declname>
+        </param>
+        <briefdescription>
+<para>This function encrypts Len (length) number of bytes of the passed in Src (source) buffer and stores the encrypted data along with its associated 16 byte tag in the Dst (destination) buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dst</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to a buffer where encrypted data along with GCM tag will be stored. The Size of buffer provided should be Size of the data plus 16 bytes </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Src</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to input data for encryption. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of input data in bytes, whereas the number of bytes provided should be multiples of 4.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>If data to be encrypted is not available in one buffer one can call <ref refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" kindref="member">XSecure_AesEncryptInit()</ref> and update the AES engine with data to be encrypted by calling <ref refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" kindref="member">XSecure_AesEncryptUpdate()</ref> API multiple times as required. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="412" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="412" bodyend="428"/>
+        <references refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" compoundref="xsecure__aesclient_8c" startline="104" endline="150">XSecure_AesEncryptInit</references>
+        <references refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" compoundref="xsecure__aesclient_8c" startline="306" endline="355">XSecure_AesEncryptUpdate</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XSecure_AesReset</definition>
+        <argsstring>(XSecure_Aes *InstancePtr)</argsstring>
+        <name>XSecure_AesReset</name>
+        <param>
+          <type>XSecure_Aes *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function sets and then clears the AES-GCM&apos;s reset line. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the XSecure_Aes instance. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Assert validates the input arguments </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" line="858" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.c" bodystart="858" bodyend="865"/>
+        <references refid="xsecure__aes__hw_8h_1aac3ef8dc2d3278648d10fcccab4c4267" compoundref="xsecure__aes__hw_8h" startline="56">XSECURE_CSU_AES_RESET_OFFSET</references>
+        <references refid="group__xsecure__generic__server__apis_1ga448da91f94630d83a52c21b895455ebf" compoundref="core_2util_2xsecure__utils_8c" startline="47" endline="54">XSecure_ReleaseReset</references>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" compoundref="zynqmp_2xsecure__aes_8c" startline="1438" endline="1642">XSecure_AesDecrypt</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga78edf33e47f7a19be135b194af962d2c" compoundref="zynqmp_2xsecure__aes_8c" startline="450" endline="554">XSecure_AesDecryptInit</referencedby>
+        <referencedby refid="group__xsecure__aes__zynqmp__apis_1ga7b2c563fa3324f4f329b775f314b96c4" compoundref="zynqmp_2xsecure__aes_8c" startline="207" endline="296">XSecure_AesEncryptInit</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2014<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="83"><highlight class="preprocessor">#ifndef<sp/>XSECURE_CSU_AES_H</highlight></codeline>
+<codeline lineno="84"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_H</highlight></codeline>
+<codeline lineno="85"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="87"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="89"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Include<sp/>Files<sp/>***********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xsecure__aes__hw_8h" kindref="compound">xsecure_aes_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xcsudma.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_sutil.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="zynqmp_2xsecure__sss_8h" kindref="compound">xsecure_sss.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="server_2zynqmp_2xsecure__aesalginfo_8h" kindref="compound">xsecure_aesalginfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>SDT</highlight></codeline>
+<codeline lineno="98"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xsecure_config.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="100"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>****************************/</highlight></codeline>
+<codeline lineno="105"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_AES_BUSY<sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)<sp/></highlight></codeline>
+<codeline lineno="106"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_AES_READY<sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="107"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="108"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_AES_DONE<sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>2)</highlight></codeline>
+<codeline lineno="109"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="110"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_GCM_TAG_OK<sp/><sp/>(1U<sp/>&lt;&lt;<sp/>3)<sp/></highlight></codeline>
+<codeline lineno="111"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_KEY_INIT_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
+<codeline lineno="112"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="113"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_AES_KEY_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>8)</highlight></codeline>
+<codeline lineno="114"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="115"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_KUP_ZEROED<sp/><sp/>(1U<sp/>&lt;&lt;<sp/>9)<sp/></highlight></codeline>
+<codeline lineno="116"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_BOOT_KEY_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>10)</highlight></codeline>
+<codeline lineno="117"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="118"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_STS_OKR_ZERO<sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>11)</highlight></codeline>
+<codeline lineno="119"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="121"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_SRC_KUP<sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="122"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_SRC_DEV<sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="124"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_CHUNKING_DISABLED<sp/>(0x0U)</highlight></codeline>
+<codeline lineno="125"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_CHUNKING_ENABLED<sp/>(0x1U)</highlight></codeline>
+<codeline lineno="126"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>XSECURE_TPM_ENABLE</highlight></codeline>
+<codeline lineno="128"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PL_DEC_TO_MEM_DISABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)</highlight></codeline>
+<codeline lineno="129"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_PL_DEC_TO_MEM_ENABLED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)</highlight></codeline>
+<codeline lineno="130"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="131"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_LOAD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="133"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="135"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_START_MSG<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)<sp/></highlight></codeline>
+<codeline lineno="137"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_WR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="138"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="139"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IV_WR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="140"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="142"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)<sp/></highlight></codeline>
+<codeline lineno="144"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="145"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="146"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KUP_ZERO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>1)</highlight></codeline>
+<codeline lineno="147"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="149"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_CFG_DEC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x0U)<sp/></highlight></codeline>
+<codeline lineno="150"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_CFG_ENC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1U)<sp/></highlight></codeline>
+<codeline lineno="152"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_KUP_WR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="154"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_IV_WR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U<sp/>&lt;&lt;<sp/>4)</highlight></codeline>
+<codeline lineno="155"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="157"><highlight class="comment">/*<sp/>Error<sp/>Codes<sp/>and<sp/>Statuses<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_DECRYPTION_DONE<sp/>(0L)</highlight></codeline>
+<codeline lineno="159"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="160"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_GCM_TAG_MISMATCH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1L)</highlight></codeline>
+<codeline lineno="161"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="163"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_IMAGE_LEN_MISMATCH<sp/><sp/><sp/><sp/><sp/><sp/>(2L)</highlight></codeline>
+<codeline lineno="164"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="165"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_DEVICE_COPY_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(3L)</highlight></codeline>
+<codeline lineno="166"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="167"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_ZEROIZATION_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(4L)</highlight></codeline>
+<codeline lineno="168"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="169"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_KEY_CLEAR_ERROR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x20U)</highlight></codeline>
+<codeline lineno="170"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="172"><highlight class="preprocessor">#define<sp/>XSECURE_SECURE_HDR_SIZE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(48U)</highlight></codeline>
+<codeline lineno="173"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="174"><highlight class="preprocessor">#define<sp/>XSECURE_SECURE_GCM_TAG_SIZE<sp/><sp/><sp/><sp/><sp/>(16U)<sp/></highlight></codeline>
+<codeline lineno="176"><highlight class="preprocessor">#define<sp/>XSECURE_DESTINATION_PCAP_ADDR<sp/><sp/><sp/><sp/>(0XFFFFFFFFU)</highlight></codeline>
+<codeline lineno="177"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_TIMEOUT_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x1FFFFU)</highlight></codeline>
+<codeline lineno="179"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_AES_DISABLE_KEY_CLEAR_OP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00)</highlight></codeline>
+<codeline lineno="181"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="184"><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_BLK_TYPE_SECURE_HEADER<sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="185"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XSECURE_CSU_AES_BLK_TYPE_DATA_BLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1U)</highlight></codeline>
+<codeline lineno="186"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Type<sp/>Definitions<sp/>********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_UNINITIALIZED,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_INITIALIZED,</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_ENCRYPT_INITIALIZED,</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_DECRYPT_INITIALIZED</highlight></codeline>
+<codeline lineno="194"><highlight class="normal">}<sp/>XSecure_AesState;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>BaseAddress;<sp/></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XCsuDma<sp/>*CsuDmaPtr;<sp/></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32*<sp/>Iv;<sp/></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32*<sp/>Key;<sp/></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32*<sp/>GcmTagAddr;<sp/></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/><sp/>KeySel;<sp/></highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor">#ifdef<sp/>XSECURE_TPM_ENABLE</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>void<sp/>(*ShaUpdate)<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>Ctx,<sp/>u8<sp/>*<sp/>Data,<sp/>u32<sp/>Size,<sp/>u32<sp/>HashLen);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsPlDecryptToMemEnabled;<sp/></highlight></codeline>
+<codeline lineno="213"><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="214"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/>IsChunkingEnabled;<sp/></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8*<sp/>ReadBuffer;<sp/></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkSize;<sp/></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>(*DeviceCopy)<sp/>(u32<sp/>SrcAddress,<sp/>UINTPTR<sp/>DestAddress,<sp/>u32<sp/>Length);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>SizeofData;<sp/></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u8<sp/><sp/>*Destination;<sp/></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>TotalSizeOfData;<sp/></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_Sss<sp/>SssInstance;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSecure_AesState<sp/>AesState;<sp/></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}<sp/>XSecure_Aes;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="246" refid="group__xsecure__aes__zynqmp__apis_1ga99f31d64c5559493db205be3c6bb4d69" refkind="member"><highlight class="preprocessor">#define<sp/>XSecure_AesWaitForDone(InstancePtr)<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="247"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_WaitForEvent((InstancePtr)-&gt;BaseAddress<sp/>+<sp/>XSECURE_CSU_AES_STS_OFFSET,\</highlight></codeline>
+<codeline lineno="248"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_CSU_AES_STS_AES_BUSY,<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U,<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XSECURE_AES_TIMEOUT_MAX)</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialization<sp/>Functions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal">s32<sp/><sp/><ref refid="group__xsecure__aes__client__apis_1ga2768b0d967bc577d2721682881592bb7" kindref="member">XSecure_AesInitialize</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>XCsuDma<sp/>*CsuDmaPtr,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>KeySel,<sp/>u32*<sp/>IvPtr,<sp/><sp/>u32*<sp/>KeyPtr);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Decryption<sp/>of<sp/>data<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__client__apis_1gacea2fc49243f66d0b440a95d1bd6170f" kindref="member">XSecure_AesDecryptInit</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*<sp/>DecData,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size,<sp/>u8<sp/>*<sp/>GcmTagAddr);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal">s32<sp/><ref refid="group__xsecure__aes__client__apis_1ga3150fb8656509ac0217c44c9609776cc" kindref="member">XSecure_AesDecryptUpdate</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*EncData,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal">s32<sp/><ref refid="group__xsecure__aes__client__apis_1ga074dbaf57b453f094f14c6b6c7aca964" kindref="member">XSecure_AesDecryptData</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*<sp/>DecData,<sp/>u8<sp/>*EncData,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size,<sp/>u8<sp/>*<sp/>GcmTagAddr);</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Decryption<sp/>of<sp/>boot<sp/>image<sp/>created<sp/>by<sp/>using<sp/>bootgen<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal">s32<sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga9d60cf825dcf6e7eb30d734f01014266" kindref="member">XSecure_AesDecrypt</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*Dst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Src,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Length);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Encryption<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__client__apis_1ga23f9b2bfaf978518d82c19d8331c9cb8" kindref="member">XSecure_AesEncryptInit</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*EncData,<sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__client__apis_1ga162a8009f9d4983d841b517fe53d14c4" kindref="member">XSecure_AesEncryptUpdate</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Data,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Size);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__client__apis_1gaa65c921632e25a29b33b883d85cf9058" kindref="member">XSecure_AesEncryptData</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*Dst,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Src,</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Len);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Reset<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga88b6213e7e2f971ea5de22040b4f2510" kindref="member">XSecure_AesReset</ref>(XSecure_Aes<sp/><sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga4fc84c4dd9023538aaff6201b9d63ad7" kindref="member">XSecure_AesKeySelNLoad</ref>(XSecure_Aes<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="284"><highlight class="normal">s32<sp/><ref refid="group__xsecure__aes__zynqmp__apis_1ga059f24728a94629252d443a1869a9c33" kindref="member">XSecure_AesDecryptBlk</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*Dst,</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Src,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>u8<sp/>*Tag,<sp/>u32<sp/>Len,<sp/>u32<sp/>Flag);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Enable/Disable<sp/>chunking<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__zynqmp__apis_1gacb0931126062f28653faf95b53608a8a" kindref="member">XSecure_AesSetChunking</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>Chunking);</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Configuring<sp/>Data<sp/>chunking<sp/>settings<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__xsecure__aes__zynqmp__apis_1gaf5b3e415f1e4c52d42f8fd9a5265dc90" kindref="member">XSecure_AesSetChunkConfig</ref>(XSecure_Aes<sp/>*InstancePtr,<sp/>u8<sp/>*ReadBuffer,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ChunkSize,<sp/>u32(*DeviceCopy)(u32,<sp/>UINTPTR,<sp/>u32));</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Zerioze<sp/>the<sp/>Aes<sp/>key<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal">u32<sp/><ref refid="group__xsecure__aes__client__apis_1gaa3c4b19232e0c5fa8cf14d69410e31e7" kindref="member">XSecure_AesKeyZero</ref>(XSecure_Aes<sp/>*InstancePtr);</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="300"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="302"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XSECURE_AES_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/zynqmp/xsecure_aes.h"/>
+  </compounddef>
+</doxygen>

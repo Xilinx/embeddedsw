@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx_port" kind="struct" prot="public">
+    <compoundname>XDp_RxPort</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_port_1a8c4b4f3bdd65843a1f89adc84f174ed4" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx_iic_map_entry" kindref="compound">XDp_RxIicMapEntry</ref></type>
+        <definition>XDp_RxIicMapEntry XDp_RxPort::IicMap[XDP_RX_NUM_I2C_ENTRIES_PER_PORT]</definition>
+        <argsstring>[XDP_RX_NUM_I2C_ENTRIES_PER_PORT]</argsstring>
+        <name>IicMap</name>
+        <briefdescription>
+<para>When the RX replies to a REMOTE_I2C_READ sideband message, it responds with the associated I2C map for the requested port. </para>        </briefdescription>
+        <detaileddescription>
+<para>The driver allows the user to define up to XDP_RX_NUM_I2C_ENTRIES_PER_PORT I2C addresses per port. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="771" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="771" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_port_1a61346167038e8fc7ce7f274f3a7b3e06" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___rx_dpcd_map" kindref="compound">XDp_RxDpcdMap</ref></type>
+        <definition>XDp_RxDpcdMap XDp_RxPort::DpcdMap</definition>
+        <argsstring></argsstring>
+        <name>DpcdMap</name>
+        <briefdescription>
+<para>When the RX replies to a REMOTE_DPCD_READ sideband message, it responds with the associated DPCD map for the requested port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="779" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="779" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_port_1a37b7deadf0d189899191564ae444a055" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDp_RxPort::FullPbn</definition>
+        <argsstring></argsstring>
+        <name>FullPbn</name>
+        <briefdescription>
+<para>The payload bandwidth number (PBN) associated with the sink connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="784" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="784" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_port_1a43a58b8400118677faa666e70587ee00" prot="public" static="no" mutable="no">
+        <type>u16</type>
+        <definition>u16 XDp_RxPort::AvailPbn</definition>
+        <argsstring></argsstring>
+        <name>AvailPbn</name>
+        <briefdescription>
+<para>The available PBN of the sink connected to this port. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="787" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="787" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_port_1a7a76ea63479b963f2e4f3033549435ab" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_RxPort::Exposed</definition>
+        <argsstring></argsstring>
+        <name>Exposed</name>
+        <briefdescription>
+<para>When set to 1, the RX branch device will expose the port in the LINK_ADDRESS reply. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="789" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="789" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains information on the directly connected ports to the RX branch. </para>    </briefdescription>
+    <detaileddescription>
+<para>Information contained in <ref refid="struct_x_dp___sb_msg_link_address_reply_device_info" kindref="compound">XDp_SbMsgLinkAddressReplyDeviceInfo</ref> is not duplicated here. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="39">
+        <label>XDp_RxPort</label>
+        <link refid="struct_x_dp___rx_port"/>
+        <childnode refid="40" relation="usage">
+          <edgelabel>IicMap</edgelabel>
+        </childnode>
+        <childnode refid="41" relation="usage">
+          <edgelabel>DpcdMap</edgelabel>
+        </childnode>
+      </node>
+      <node id="41">
+        <label>XDp_RxDpcdMap</label>
+        <link refid="struct_x_dp___rx_dpcd_map"/>
+      </node>
+      <node id="40">
+        <label>XDp_RxIicMapEntry</label>
+        <link refid="struct_x_dp___rx_iic_map_entry"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="770" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="770" bodyend="792"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_port_1a43a58b8400118677faa666e70587ee00" prot="public" virt="non-virtual"><scope>XDp_RxPort</scope><name>AvailPbn</name></member>
+      <member refid="struct_x_dp___rx_port_1a61346167038e8fc7ce7f274f3a7b3e06" prot="public" virt="non-virtual"><scope>XDp_RxPort</scope><name>DpcdMap</name></member>
+      <member refid="struct_x_dp___rx_port_1a7a76ea63479b963f2e4f3033549435ab" prot="public" virt="non-virtual"><scope>XDp_RxPort</scope><name>Exposed</name></member>
+      <member refid="struct_x_dp___rx_port_1a37b7deadf0d189899191564ae444a055" prot="public" virt="non-virtual"><scope>XDp_RxPort</scope><name>FullPbn</name></member>
+      <member refid="struct_x_dp___rx_port_1a8c4b4f3bdd65843a1f89adc84f174ed4" prot="public" virt="non-virtual"><scope>XDp_RxPort</scope><name>IicMap</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

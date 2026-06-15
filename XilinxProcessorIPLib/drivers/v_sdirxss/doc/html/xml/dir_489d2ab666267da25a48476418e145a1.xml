@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_489d2ab666267da25a48476418e145a1" kind="dir">
+    <compoundname>xuhdsdi_rx_example</compoundname>
+    <innerfile refid="xuhdsdi__rx__example_2platform_8c">xuhdsdi_rx_example/platform.c</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2platform_8h">xuhdsdi_rx_example/platform.h</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2platform__config_8h">xuhdsdi_rx_example/platform_config.h</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2si5324drv_8c">xuhdsdi_rx_example/si5324drv.c</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2si5324drv_8h">xuhdsdi_rx_example/si5324drv.h</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2xsdi__example_8c">xuhdsdi_rx_example/xsdi_example.c</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2xsdi__menu_8c">xuhdsdi_rx_example/xsdi_menu.c</innerfile>
+    <innerfile refid="xuhdsdi__rx__example_2xsdi__menu_8h">xuhdsdi_rx_example/xsdi_menu.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_sdirxss/examples/xuhdsdi_rx_example/"/>
+  </compounddef>
+</doxygen>

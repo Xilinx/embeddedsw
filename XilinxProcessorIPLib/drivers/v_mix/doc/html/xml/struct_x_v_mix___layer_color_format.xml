@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v_mix___layer_color_format" kind="struct" prot="public">
+    <compoundname>XVMix_LayerColorFormat</compoundname>
+    <includes local="no">xv_mix.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1ae04b730d0f32a8f85300c1dae4f2a14b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer1ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer1ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1ad8b90eeb6f7431f70735ee1ac5364d10" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer2ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer2ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a9041a468ff3db26002962cccca874f2f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer3ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer3ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a8367886cee84ca466d0ef0fceba8ed19" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer4ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer4ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a4c26bdea7b944bf5c7642b83e128e730" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer5ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer5ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a0a137dba003233e92c2cad489f95cea1" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer6ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer6ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1ae45c9f4bed69ff64cd99d3ff1922ab60" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer7ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer7ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a7fdb3559840887e36c7580644c18e9ed" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer8ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer8ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a112b656e96735c9b976c4ba2b6ef6b1f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer9ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer9ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1aaf0dc748d7b3cbe4a2012bec7725cf3e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer10ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer10ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a3b5941530904cdc86d71b83df11f64bd" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer11ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer11ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a48c78373ae7910c84bb588284f6ccdfa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer12ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer12ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a047e64ff7def84df27292b1395f886f8" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer13ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer13ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a2a9ca9c271dd59b610389ce2cbeeca37" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer14ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer14ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a57bf074f211ea32a4084eaf39fe8250e" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer15ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer15ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v_mix___layer_color_format_1a33e712f1349862a1182a970f44c6351d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XVMix_LayerColorFormat::Layer16ColorFmt</definition>
+        <argsstring></argsstring>
+        <name>Layer16ColorFmt</name>
+        <briefdescription>
+<para>Layer Video Color Format. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains color format per memory layer. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_mix/src/xv_mix.h" bodystart="118" bodyend="135"/>
+    <listofallmembers>
+      <member refid="struct_x_v_mix___layer_color_format_1aaf0dc748d7b3cbe4a2012bec7725cf3e" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer10ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a3b5941530904cdc86d71b83df11f64bd" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer11ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a48c78373ae7910c84bb588284f6ccdfa" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer12ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a047e64ff7def84df27292b1395f886f8" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer13ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a2a9ca9c271dd59b610389ce2cbeeca37" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer14ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a57bf074f211ea32a4084eaf39fe8250e" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer15ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a33e712f1349862a1182a970f44c6351d" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer16ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1ae04b730d0f32a8f85300c1dae4f2a14b" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer1ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1ad8b90eeb6f7431f70735ee1ac5364d10" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer2ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a9041a468ff3db26002962cccca874f2f" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer3ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a8367886cee84ca466d0ef0fceba8ed19" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer4ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a4c26bdea7b944bf5c7642b83e128e730" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer5ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a0a137dba003233e92c2cad489f95cea1" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer6ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1ae45c9f4bed69ff64cd99d3ff1922ab60" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer7ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a7fdb3559840887e36c7580644c18e9ed" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer8ColorFmt</name></member>
+      <member refid="struct_x_v_mix___layer_color_format_1a112b656e96735c9b976c4ba2b6ef6b1f" prot="public" virt="non-virtual"><scope>XVMix_LayerColorFormat</scope><name>Layer9ColorFmt</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

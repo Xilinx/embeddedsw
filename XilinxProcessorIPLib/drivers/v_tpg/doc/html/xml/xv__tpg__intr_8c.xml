@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__tpg__intr_8c" kind="file">
+    <compoundname>xv_tpg_intr.c</compoundname>
+    <includes local="yes">xil_printf.h</includes>
+    <includes refid="xv__tpg__hw_8h" local="yes">xv_tpg_hw.h</includes>
+    <includes refid="xv__tpg_8h" local="yes">xv_tpg.h</includes>
+    <incdepgraph>
+      <node id="59">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="61">
+        <label>xil_io.h</label>
+      </node>
+      <node id="54">
+        <label>xv_tpg_intr.c</label>
+        <link refid="xv_tpg_intr.c"/>
+        <childnode refid="55" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+        <childnode refid="57" relation="include">
+        </childnode>
+      </node>
+      <node id="60">
+        <label>xstatus.h</label>
+      </node>
+      <node id="58">
+        <label>xil_types.h</label>
+      </node>
+      <node id="57">
+        <label>xv_tpg.h</label>
+        <link refid="xv__tpg_8h"/>
+        <childnode refid="58" relation="include">
+        </childnode>
+        <childnode refid="59" relation="include">
+        </childnode>
+        <childnode refid="60" relation="include">
+        </childnode>
+        <childnode refid="61" relation="include">
+        </childnode>
+        <childnode refid="56" relation="include">
+        </childnode>
+      </node>
+      <node id="55">
+        <label>xil_printf.h</label>
+      </node>
+      <node id="56">
+        <label>xv_tpg_hw.h</label>
+        <link refid="xv__tpg__hw_8h"/>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVTpg_SetCallback</definition>
+        <argsstring>(XV_tpg *InstancePtr, u32 HandlerType, void *CallbackFunc, void *CallbackRef)</argsstring>
+        <name>XVTpg_SetCallback</name>
+        <param>
+          <type><ref refid="struct_x_v__tpg" kindref="compound">XV_tpg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>u32</type>
+          <declname>HandlerType</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackFunc</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>CallbackRef</declname>
+        </param>
+        <briefdescription>
+<para>Install an asynchronous callback function for interrupt handling. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function installs an asynchronous callback function for the given HandlerType:</para><para><preformatted>
+HandlerType                     Callback Function Type
+<hruler/>
+
+(XVTPG_HANDLER_DONE)       DoneCallback
+(XVTPG_HANDLER_READY)      ReadyCallback</preformatted></para><para><preformatted><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the tpg IP instance.
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>HandlerType</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the type of handler to be installed (DONE or READY).
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackFunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the address of the callback function.
+</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>CallbackRef</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a user data item that will be passed to the
+      callback function when it is invoked.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None</para></simplesect>
+<simplesect kind="note"><para>Invoking this function for a handler that already has been
+      installed replaces it with the new handler.
+</para></simplesect>
+</preformatted></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="58" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="58" bodyend="85"/>
+        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="139">XV_tpg::CallbackDoneRef</references>
+        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="142">XV_tpg::CallbackReadyRef</references>
+        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="138">XV_tpg::FrameDoneCallback</references>
+        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="141">XV_tpg::FrameReadyCallback</references>
+        <references refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8ad78cccfc9458c5c0bf5087b61b430a2b" compoundref="xv__tpg_8h" startline="97">XVTPG_HANDLER_DONE</references>
+        <references refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8a3719f627a799acef4db874cddb88852a" compoundref="xv__tpg_8h" startline="98">XVTPG_HANDLER_READY</references>
+      </memberdef>
+      <memberdef kind="function" id="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XVTpg_InterruptHandler</definition>
+        <argsstring>(XV_tpg *InstancePtr)</argsstring>
+        <name>XVTpg_InterruptHandler</name>
+        <param>
+          <type><ref refid="struct_x_v__tpg" kindref="compound">XV_tpg</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <briefdescription>
+<para>This function is the interrupt handler for the TPG core driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This handler clears the pending interrupt and determined if the source is frame done signal. If yes, starts the next frame processing and calls the registered callback function</para><para>The application is responsible for connecting this function to the interrupt system. Application beyond this driver is also responsible for providing callbacks to handle interrupts and installing the callbacks using <ref refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" kindref="member">XVTpg_SetCallback()</ref> during initialization phase.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the core instance that just interrupted.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c" bodystart="109" bodyend="139"/>
+        <references refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" compoundref="xv__tpg_8h" startline="139">XV_tpg::CallbackDoneRef</references>
+        <references refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" compoundref="xv__tpg_8h" startline="142">XV_tpg::CallbackReadyRef</references>
+        <references refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" compoundref="xv__tpg_8h" startline="138">XV_tpg::FrameDoneCallback</references>
+        <references refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" compoundref="xv__tpg_8h" startline="141">XV_tpg::FrameReadyCallback</references>
+        <references refid="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" compoundref="xv__tpg_8h" startline="137">XV_tpg::IsReady</references>
+        <references refid="xv__tpg_8c_1a040b3a764510bf1fa38ebec2c5969f9d" compoundref="xv__tpg_8c" startline="1512" endline="1517">XV_tpg_InterruptClear</references>
+        <references refid="xv__tpg_8c_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" compoundref="xv__tpg_8c" startline="1550" endline="1555">XV_tpg_InterruptGetStatus</references>
+        <references refid="xv__tpg_8h_1aed0be5e593434cc3bfe33ac671e6ac58" compoundref="xv__tpg_8h" startline="86">XVTPG_IRQ_DONE_MASK</references>
+        <references refid="xv__tpg_8h_1a10313bcf877f561921dc384b6e0c1f9b" compoundref="xv__tpg_8h" startline="88">XVTPG_IRQ_READY_MASK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2018<sp/>-<sp/>2021<sp/>Xilinx,<sp/>Inc.<sp/><sp/><sp/><sp/><sp/><sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>2022-2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_printf.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__tpg__hw_8h" kindref="compound">xv_tpg_hw.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__tpg_8h" kindref="compound">xv_tpg.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__tpg_1gac9207dd8927429257e206456a1a7596d" kindref="member">XVTpg_SetCallback</ref>(<ref refid="struct_x_v__tpg" kindref="compound">XV_tpg</ref><sp/>*InstancePtr,<sp/>u32<sp/>HandlerType,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackFunc,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*CallbackRef)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(HandlerType<sp/>&gt;=<sp/>(<ref refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8ad78cccfc9458c5c0bf5087b61b430a2b" kindref="member">XVTPG_HANDLER_DONE</ref>));</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackFunc<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(CallbackRef<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>handler<sp/>type<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(HandlerType)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8ad78cccfc9458c5c0bf5087b61b430a2b" kindref="member">XVTPG_HANDLER_DONE</ref>):</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" kindref="member">FrameDoneCallback</ref><sp/>=<sp/>(<ref refid="xv__tpg_8h_1aa2fa8471937129e0d6008d3a2855fb77" kindref="member">XVTpg_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" kindref="member">CallbackDoneRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>(<ref refid="xv__tpg_8h_1a43de5d62b44fd6aaae304043eb1193b8a3719f627a799acef4db874cddb88852a" kindref="member">XVTPG_HANDLER_READY</ref>):</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" kindref="member">FrameReadyCallback</ref><sp/>=<sp/>(<ref refid="xv__tpg_8h_1aa2fa8471937129e0d6008d3a2855fb77" kindref="member">XVTpg_Callback</ref>)CallbackFunc;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" kindref="member">CallbackReadyRef</ref><sp/>=<sp/>CallbackRef;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_SUCCESS);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/>(XST_INVALID_PARAM);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="109" refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__v__tpg_1ga180b4f0e1e275d80ae2eceadb2beb5db" kindref="member">XVTpg_InterruptHandler</ref>(<ref refid="struct_x_v__tpg" kindref="compound">XV_tpg</ref><sp/>*InstancePtr)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Status;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Verify<sp/>arguments<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a90433a42547a648492ef277251bd376e" kindref="member">IsReady</ref><sp/>==<sp/>XIL_COMPONENT_IS_READY);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>the<sp/>interrupt<sp/>source<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status<sp/>=<sp/><ref refid="xv__tpg_8c_1a7aa0c0ee7f93c3fce3d846ce8ae54c3f" kindref="member">XV_tpg_InterruptGetStatus</ref>(InstancePtr);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Done<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/><ref refid="xv__tpg_8h_1aed0be5e593434cc3bfe33ac671e6ac58" kindref="member">XVTPG_IRQ_DONE_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__tpg_8c_1a040b3a764510bf1fa38ebec2c5969f9d" kindref="member">XV_tpg_InterruptClear</ref>(InstancePtr,<sp/>XVTPG_IRQ_DONE_MASK);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" kindref="member">FrameDoneCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1aab3ba76174d3031fd0f5cef793b7ac22" kindref="member">FrameDoneCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v__tpg_1adc4f70ea792295cdd91c354300b315aa" kindref="member">CallbackDoneRef</ref>);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>for<sp/>Ready<sp/>Signal<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(Status<sp/>&amp;<sp/><ref refid="xv__tpg_8h_1a10313bcf877f561921dc384b6e0c1f9b" kindref="member">XVTPG_IRQ_READY_MASK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clear<sp/>the<sp/>interrupt<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="xv__tpg_8c_1a040b3a764510bf1fa38ebec2c5969f9d" kindref="member">XV_tpg_InterruptClear</ref>(InstancePtr,<sp/>XVTPG_IRQ_READY_MASK);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Call<sp/>user<sp/>registered<sp/>callback<sp/>function,<sp/>if<sp/>any</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" kindref="member">FrameReadyCallback</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a9a5f5641d776936c9e860151a9c9ce10" kindref="member">FrameReadyCallback</ref>(InstancePtr-&gt;<ref refid="struct_x_v__tpg_1a73ee4af9e17526a0fb6ac1f53f69fe50" kindref="member">CallbackReadyRef</ref>);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_tpg/src/xv_tpg_intr.c"/>
+  </compounddef>
+</doxygen>

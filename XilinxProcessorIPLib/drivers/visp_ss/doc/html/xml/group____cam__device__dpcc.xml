@@ -1,0 +1,252 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group____cam__device__dpcc" kind="group">
+    <compoundname>_cam_device_dpcc</compoundname>
+    <title>VsCamDevice E01C11 Device_DPCC Definitions</title>
+    <innerclass refid="struct_cam_device_dpcc_manual_config__s" prot="public">CamDeviceDpccManualConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_dpcc_auto_config__s" prot="public">CamDeviceDpccAutoConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_dpcc_config__s" prot="public">CamDeviceDpccConfig_s</innerclass>
+    <innerclass refid="struct_cam_device_dpcc_status__s" prot="public">CamDeviceDpccStatus_s</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group____cam__device__dpcc_1gaddc5f2dd3945d67c43c4dacb5e1d6c63" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_dpcc_manual_config__s" kindref="compound">CamDeviceDpccManualConfig_s</ref></type>
+        <definition>typedef struct CamDeviceDpccManualConfig_s CamDeviceDpccManualConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceDpccManualConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice DPCC manual configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="83" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__dpcc_1gaa0b8d67c7dac22245ab8885fea1bc096" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_dpcc_auto_config__s" kindref="compound">CamDeviceDpccAutoConfig_s</ref></type>
+        <definition>typedef struct CamDeviceDpccAutoConfig_s  CamDeviceDpccAutoConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceDpccAutoConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice DPCC auto configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="92" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__dpcc_1gaab99cdc749ea8176d4d992399a682426" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_dpcc_config__s" kindref="compound">CamDeviceDpccConfig_s</ref></type>
+        <definition>typedef struct CamDeviceDpccConfig_s CamDeviceDpccConfig_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceDpccConfig_t</name>
+        <briefdescription>
+<para>VsCamDevice DPCC configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="103" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group____cam__device__dpcc_1gabcfe42f0f6a2b2d6bd98aae556b318ac" prot="public" static="no">
+        <type>struct <ref refid="struct_cam_device_dpcc_status__s" kindref="compound">CamDeviceDpccStatus_s</ref></type>
+        <definition>typedef struct CamDeviceDpccStatus_s CamDeviceDpccStatus_t</definition>
+        <argsstring></argsstring>
+        <name>CamDeviceDpccStatus_t</name>
+        <briefdescription>
+<para>VsCamDevice DPCC status structure. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="114" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group____cam__device__dpcc_1ga5d0cd33d512048463701f2b1bd7c2ddf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccSetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceDpccConfig_t *pDpccCfg)</argsstring>
+        <name>VsiCamDeviceDpccSetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__dpcc_1gaab99cdc749ea8176d4d992399a682426" kindref="member">CamDeviceDpccConfig_t</ref> *</type>
+          <declname>pDpccCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="139" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="19" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1gac968ddba049148738c10a8ebe7979f44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccGetConfig</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceDpccConfig_t *pDpccCfg)</argsstring>
+        <name>VsiCamDeviceDpccGetConfig</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__dpcc_1gaab99cdc749ea8176d4d992399a682426" kindref="member">CamDeviceDpccConfig_t</ref> *</type>
+          <declname>pDpccCfg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="168" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="62" bodyend="101"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1ga49b2a7cc003f65a593597a02961e2081" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccEnable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceDpccEnable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="191" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="105" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1ga8b10362fb4e922dd5d5a5b291ce5e489" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccDisable</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceDpccDisable</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="213" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="143" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1ga1bf1d48edc06ab6cffa2eb4927acabe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccGetStatus</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, CamDeviceDpccStatus_t *pStatus)</argsstring>
+        <name>VsiCamDeviceDpccGetStatus</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type><ref refid="group____cam__device__dpcc_1gabcfe42f0f6a2b2d6bd98aae556b318ac" kindref="member">CamDeviceDpccStatus_t</ref> *</type>
+          <declname>pStatus</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="240" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="181" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1gaf5f474b44fac31728689bc36a5a106a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccReset</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice)</argsstring>
+        <name>VsiCamDeviceDpccReset</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="268" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="224" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group____cam__device__dpcc_1gaeecba1ca82305679709c816d0e3a6922" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>RESULT</type>
+        <definition>RESULT VsiCamDeviceDpccGetVersion</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, uint32_t *pVersion)</argsstring>
+        <name>VsiCamDeviceDpccGetVersion</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pVersion</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/source/module/dpcc/cam_device_dpcc_api.c" bodystart="262" bodyend="301"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group____cam__device__dpcc_1gab07f13e50da89b0dfedb0b2f93031127" prot="public" static="no">
+        <name>CAMDEV_DPCC_DEFECT_PIXEL_NUM</name>
+        <initializer>2048</initializer>
+        <briefdescription>
+<para>Maximum number of defected pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="47" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__dpcc_1gab355c34ae0dc63b784f005f77cd8f0c4" prot="public" static="no">
+        <name>CAMDEV_DPCC_CHANNEL_NUM</name>
+        <initializer>2</initializer>
+        <briefdescription>
+<para>Channel number of defected pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="48" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__dpcc_1ga31593888de5162124ecdd80a3b1a426d" prot="public" static="no">
+        <name>CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM</name>
+        <initializer>3</initializer>
+        <briefdescription>
+<para>Method parameter type number of defected pixels. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="49" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group____cam__device__dpcc_1ga182d9ae3698f6cb967a97add6f85dc96" prot="public" static="no">
+        <name>CAMDEV_DPCC_MODE_NUM</name>
+        <initializer>6</initializer>
+        <briefdescription>
+<para>Maximum number of auto mode. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" line="50" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/dpcc/cam_device_dpcc_api.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Provides interfaces for controlling the defect pixel cluster correction module working in the ISP pipeline. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

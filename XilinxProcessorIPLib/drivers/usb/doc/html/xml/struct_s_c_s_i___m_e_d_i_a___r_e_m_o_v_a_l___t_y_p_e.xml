@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e" kind="struct" prot="public">
+    <compoundname>SCSI_MEDIA_REMOVAL_TYPE</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1accb050cdf586b8cd84fb782a46090068" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_MEDIA_REMOVAL_TYPE::OpCode</definition>
+        <argsstring></argsstring>
+        <name>OpCode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="185" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a6478cd53e5e28111eb988eb4aae5f728" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_MEDIA_REMOVAL_TYPE::lun</definition>
+        <argsstring></argsstring>
+        <name>lun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="186" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1ac2496f7bf32f7851694ff35ca0085811" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_MEDIA_REMOVAL_TYPE::mb0[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>mb0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="187" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a5e618f81792d86aa086dc137eed390f0" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_MEDIA_REMOVAL_TYPE::prevent</definition>
+        <argsstring></argsstring>
+        <name>prevent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="188" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a73dc0119e8ba2ea74d56ed2b97feb431" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 SCSI_MEDIA_REMOVAL_TYPE::padding[11]</definition>
+        <argsstring>[11]</argsstring>
+        <name>padding</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="189" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="189" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" line="184" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usb/examples/xusb_storage.h" bodystart="184" bodyend="191"/>
+    <listofallmembers>
+      <member refid="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a6478cd53e5e28111eb988eb4aae5f728" prot="public" virt="non-virtual"><scope>SCSI_MEDIA_REMOVAL_TYPE</scope><name>lun</name></member>
+      <member refid="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1ac2496f7bf32f7851694ff35ca0085811" prot="public" virt="non-virtual"><scope>SCSI_MEDIA_REMOVAL_TYPE</scope><name>mb0</name></member>
+      <member refid="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1accb050cdf586b8cd84fb782a46090068" prot="public" virt="non-virtual"><scope>SCSI_MEDIA_REMOVAL_TYPE</scope><name>OpCode</name></member>
+      <member refid="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a73dc0119e8ba2ea74d56ed2b97feb431" prot="public" virt="non-virtual"><scope>SCSI_MEDIA_REMOVAL_TYPE</scope><name>padding</name></member>
+      <member refid="struct_s_c_s_i___m_e_d_i_a___r_e_m_o_v_a_l___t_y_p_e_1a5e618f81792d86aa086dc137eed390f0" prot="public" virt="non-virtual"><scope>SCSI_MEDIA_REMOVAL_TYPE</scope><name>prevent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

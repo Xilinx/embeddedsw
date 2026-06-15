@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__visp__ss__api" kind="group">
+    <compoundname>visp_ss_api</compoundname>
+    <title>VISP SS APIs</title>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__visp__ss__api_1gab835c76129bbc5332d20f1445ae2f4e5" prot="public" static="no" mutable="no">
+        <type><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref></type>
+        <definition>xvisp_ss_Config xvisp_ss_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>xvisp_ss_ConfigTable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" line="42" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structxvisp__ss___config" kindref="compound">xvisp_ss_Config</ref> *</type>
+        <definition>xvisp_ss_Config* XVisp_Ss_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XVisp_Ss_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function looks for the device configuration based on the unique device ID. </para>        </briefdescription>
+        <detaileddescription>
+<para>The table xvisp_ss_ConfigTable[] contains the configuration information for each instance of the device in the system.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique device ID of the device being looked up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration table entry corresponding to the given device ID, or NULL if no match is found.</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="75" bodyend="89"/>
+        <referencedby refid="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" compoundref="xvisp__ss__sinit_8c" startline="131" endline="147">XVisp_Ss_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__visp__ss__api_1ga485a78abe4444e082e2152f784565d52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XVisp_Ss_Initialize</definition>
+        <argsstring>(XVisp_Ss *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XVisp_Ss_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>This function initializes a <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance/driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function must be called prior to using the <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> driver.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a pointer to the <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>DeviceId</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the unique ID of the device controlled by this <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance. Passing in a device ID associates the generic <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> instance to a specific device, as chosen by the caller or application developer.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device configuration data was not found for a device with the supplied device ID.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/xvisp_ss_sinit.c" bodystart="131" bodyend="147"/>
+        <references refid="structxvisp__ss___config_1a60f84fcaaf259b545f07b64a1479fec8" compoundref="xvisp__ss_8h" startline="36">xvisp_ss_Config::BaseAddress</references>
+        <references refid="struct_x_visp___ss_1a85479e6b81ae9114d8c30c47cfb61e5f" compoundref="xvisp__ss_8h" startline="103">XVisp_Ss::IsReady</references>
+        <references refid="xvisp__ss_8c_1ae48c7ad91c20c72f07341b52b40c25a7" compoundref="xvisp__ss_8c" startline="74" endline="94">XVisp_Ss_CfgInitialize</references>
+        <references refid="group__visp__ss__api_1gac1095c7c564a32dfcf21a8e289604728" compoundref="xvisp__ss__sinit_8c" startline="75" endline="89">XVisp_Ss_LookupConfig</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains static initialization methods for the <ref refid="struct_x_visp___ss" kindref="compound">XVisp_Ss</ref> driver. </para>    </briefdescription>
+    <detaileddescription>
+<para><preformatted>
+MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who     Date     Changes
+<hruler/>
+
+1.0   system  01/22/24 Initial release</preformatted></para><para><preformatted></preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___rx_dpcd_map" kind="struct" prot="public">
+    <compoundname>XDp_RxDpcdMap</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___rx_dpcd_map_1a703db42a6c8c81fbbfbb671860e8b5c0" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8* XDp_RxDpcdMap::DataPtr</definition>
+        <argsstring></argsstring>
+        <name>DataPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="760" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="760" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_dpcd_map_1a558d69ec1905d8df85d49c7d7e6ea84c" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_RxDpcdMap::NumBytes</definition>
+        <argsstring></argsstring>
+        <name>NumBytes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="761" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="761" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___rx_dpcd_map_1a4e55c9fa007444093e41debe6a164b69" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XDp_RxDpcdMap::StartAddr</definition>
+        <argsstring></argsstring>
+        <name>StartAddr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="762" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="762" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef represents the DPCD address map for a device. </para>    </briefdescription>
+    <detaileddescription>
+<para>This is used to allow the user to define a DPCD map for any sink connected to one of the RX&apos;s ports. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" line="759" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp12/src/xdp.h" bodystart="759" bodyend="763"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___rx_dpcd_map_1a703db42a6c8c81fbbfbb671860e8b5c0" prot="public" virt="non-virtual"><scope>XDp_RxDpcdMap</scope><name>DataPtr</name></member>
+      <member refid="struct_x_dp___rx_dpcd_map_1a558d69ec1905d8df85d49c7d7e6ea84c" prot="public" virt="non-virtual"><scope>XDp_RxDpcdMap</scope><name>NumBytes</name></member>
+      <member refid="struct_x_dp___rx_dpcd_map_1a4e55c9fa007444093e41debe6a164b69" prot="public" virt="non-virtual"><scope>XDp_RxDpcdMap</scope><name>StartAddr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

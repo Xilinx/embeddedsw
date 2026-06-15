@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>usbpsu</title>
+    <detaileddescription>
+<para><preformatted></preformatted></para><para><preformatted>MODIFICATION HISTORY:</preformatted></para><para><preformatted>Ver   Who    Date     Changes
+<hruler/>
+
+1.0   sg    06/06/16 First release
+1.1   sg    10/24/16 Update for backward compatibility
+                     Added XUsbPsu_IsSuperSpeed function in <ref refid="xusbpsu_8c" kindref="compound">xusbpsu.c</ref>
+1.2   mn    01/20/17 removed unnecessary declaration of
+                     XUsbPsu_SetConfiguration in <ref refid="xusbpsu_8h" kindref="compound">xusbpsu.h</ref>
+1.2   mn    01/30/17 Corrected InstancePtr-&gt;UnalignedTx with
+                     Ept-&gt;UnalignedTx in <ref refid="xusbpsu__controltransfers_8c" kindref="compound">xusbpsu_controltransfers.c</ref>
+1.2   mus   02/10/17 Updated data structures to fix compilation errors for IAR
+                     compiler
+      ms    03/17/17 Added readme.txt file in examples folder for doxygen
+                     generation.
+      ms    04/10/17 Modified filename tag to include the file in doxygen
+                     examples.
+1.4     bk    12/01/18 Modify USBPSU driver code to fit USB common example code
+               for all USB IPs.
+      myk   12/01/18 Added hibernation support for device mode
+      vak   22/01/18 Added changes for supporting microblaze platform
+      vak   13/03/18 Moved the setup interrupt system calls from driver to
+               example.
+      vak   24/09/18 Added EnableSuperSpeed in <ref refid="struct_x_usb_psu___config" kindref="compound">XUsbPsu_Config</ref> for speed
+                     negotiation at the time of connection to Host
+1.5     vak   02/06/19 Added &quot;xusbpsu_endpoint.h&quot; header
+1.5     vak   03/25/19 Fixed incorrect data_alignment pragma directive for IAR
+1.6     pm    22/07/19 Removed coverity warnings
+1.7     pm    14/11/19 Updated number of TRB to improve performance
+        pm    03/23/20 Restructured the code for more readability and modularity
+      pm    03/14/20 Added clocking support
+1.8     pm    24/07/20 Fixed MISRA-C and Coverity warnings
+1.9     pm    03/21/21 Fixed doxygen warnings
+1.10    pm    08/30/21 Update MACRO to fix plm compilation warnings
+1.13    pm    01/05/23 Added &quot;xil_util.h&quot; header to use polling logic API
+1.14    pm    21/06/23 Added support for system device-tree flow.
+1.15  ml    11/16/23 Fix compilation errors reported with -std=c2x compiler flag
+1.15  np    26/03/24 Add doxygen and editorial fixes
+1.16   dn    17/05/24 Fix compilation error
+</preformatted> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

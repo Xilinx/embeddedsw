@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_9a65720ea62882857825dff947b0792e" kind="dir">
+    <compoundname>examples</compoundname>
+    <innerfile refid="xasu__aes__example_8c">xasu_aes_example.c</innerfile>
+    <innerfile refid="xasu__ecc__example_8c">xasu_ecc_example.c</innerfile>
+    <innerfile refid="xasu__ecdh__example_8c">xasu_ecdh_example.c</innerfile>
+    <innerfile refid="xasu__ecies__example_8c">xasu_ecies_example.c</innerfile>
+    <innerfile refid="xasu__hmac__example_8c">xasu_hmac_example.c</innerfile>
+    <innerfile refid="xasu__kdf__example_8c">xasu_kdf_example.c</innerfile>
+    <innerfile refid="xasu__keywrap__example_8c">xasu_keywrap_example.c</innerfile>
+    <innerfile refid="xasu__lms__example_8c">xasu_lms_example.c</innerfile>
+    <innerfile refid="xasu__multi__crypto__example_8c">xasu_multi_crypto_example.c</innerfile>
+    <innerfile refid="xasu__ocp__example_8c">xasu_ocp_example.c</innerfile>
+    <innerfile refid="xasu__ocp__ude__example_8c">xasu_ocp_ude_example.c</innerfile>
+    <innerfile refid="xasu__rsa__example_8c">xasu_rsa_example.c</innerfile>
+    <innerfile refid="xasu__sha2__example_8c">xasu_sha2_example.c</innerfile>
+    <innerfile refid="xasu__sha3__example_8c">xasu_sha3_example.c</innerfile>
+    <innerfile refid="xasu__trng__example_8c">xasu_trng_example.c</innerfile>
+    <innerfile refid="xasu__ude__keys__enc__example_8c">xasu_ude_keys_enc_example.c</innerfile>
+    <innerfile refid="xasu__ude__keys__enc__input__example_8h">xasu_ude_keys_enc_input_example.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilasu/examples/"/>
+  </compounddef>
+</doxygen>

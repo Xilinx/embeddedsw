@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___client_instance" kind="struct" prot="public">
+    <compoundname>XPlmi_ClientInstance</compoundname>
+    <includes local="no">xplmi_mailbox.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" prot="public" static="no" mutable="no">
+        <type>XMailbox *</type>
+        <definition>XMailbox* XPlmi_ClientInstance::MailboxPtr</definition>
+        <argsstring></argsstring>
+        <name>MailboxPtr</name>
+        <briefdescription>
+<para>Pointer to mailbox for IPI communication. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" bodystart="98" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" compoundref="xplmi__mailbox_8c" startline="101" endline="116">XPlmi_ClientInit</referencedby>
+        <referencedby refid="group__xilplmi__mailbox__apis_1ga1cd29e5865f729668d2048de195cf33f" compoundref="xplmi__mailbox_8c" startline="59" endline="87">XPlmi_ProcessMailbox</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___client_instance_1a49e482f71a9783ca3362e12ae33d85c3" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_ClientInstance::Response[RESPONSE_ARG_CNT]</definition>
+        <argsstring>[RESPONSE_ARG_CNT]</argsstring>
+        <name>Response</name>
+        <briefdescription>
+<para>Response payload buffer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" bodystart="99" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__mailbox__apis_1ga1cd29e5865f729668d2048de195cf33f" compoundref="xplmi__mailbox_8c" startline="59" endline="87">XPlmi_ProcessMailbox</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga062b72efe7931831fe213083a8da2e77" compoundref="client_2xplmi__generic_8c" startline="68" endline="116">XPlmi_SendRequest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XPlmi_ClientInstance::SlrIndex</definition>
+        <argsstring></argsstring>
+        <name>SlrIndex</name>
+        <briefdescription>
+<para>SLR index number. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" bodystart="100" bodyend="-1"/>
+        <referencedby refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" compoundref="xplmi__mailbox_8c" startline="101" endline="116">XPlmi_ClientInit</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1gab763892ce34e0750315c11168aafdc05" compoundref="xplmi__client_8c" startline="175" endline="245">XPlmi_EventLogging</referencedby>
+        <referencedby refid="group__xilplmi__client__apis_1ga9aa8c572abe57e4552a86bdf06e5c8e8" compoundref="xplmi__client_8c" startline="357" endline="365">XPlmi_InputSlrIndex</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This structure contains the client instance data for XilPlmi. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate an instance of this structure and initialize it using <ref refid="group__xilplmi__mailbox__apis_1gaea4605770a6e4090bac10578131ca925" kindref="member">XPlmi_ClientInit()</ref> before using it with other APIs. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/client/xplmi_mailbox.h" bodystart="97" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___client_instance_1af7f033f627d7374f83dcb651a7ac6271" prot="public" virt="non-virtual"><scope>XPlmi_ClientInstance</scope><name>MailboxPtr</name></member>
+      <member refid="struct_x_plmi___client_instance_1a49e482f71a9783ca3362e12ae33d85c3" prot="public" virt="non-virtual"><scope>XPlmi_ClientInstance</scope><name>Response</name></member>
+      <member refid="struct_x_plmi___client_instance_1a6ec961c66eaa6d65b71a82b57f1d6288" prot="public" virt="non-virtual"><scope>XPlmi_ClientInstance</scope><name>SlrIndex</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

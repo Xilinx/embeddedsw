@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="example" kind="page">
+    <compoundname>example</compoundname>
+    <title>Examples</title>
+    <detaileddescription>
+<para>You can refer to the below stated example applications for more details on how to use dsirxss driver.</para><sect1 id="example_1ex1">
+<title>xdsirxss_selftest_example.c</title>
+<para>Contains an example on how to use the XDsirxss driver directly. This example performs the basic selftest to test the sub-core functions.</para><para>For details, see xdsirxss_selftest_example.c.</para></sect1>
+<sect1 id="example_1ex2">
+<title>xdsirxss_intr_example.c</title>
+<para>Contains an example on how to use the XDsirxss driver directly. This example shows the usage of the driver with interrupts.</para><para>For details, see xdsirxss_intr_example.c.</para></sect1>
+<sect1 id="example_1ex3">
+<title>xdsirxss_video_test_example.c</title>
+<para>Contains an example on how to use the XDsirxss driver directly. This example performs the video test on the dsirxss driver.</para><para>For details, see xdsirxss_video_test_example.c. </para></sect1>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

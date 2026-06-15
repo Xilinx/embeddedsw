@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_cam_device_cpd_status__s" kind="struct" prot="public">
+    <compoundname>CamDeviceCpdStatus_s</compoundname>
+    <includes local="no">cam_device_cpd_api.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_cam_device_cpd_status__s_1ad70b2c09637c91c88e9c3fc9fbe09112" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t CamDeviceCpdStatus_s::enable</definition>
+        <argsstring></argsstring>
+        <name>enable</name>
+        <briefdescription>
+<para>CPD enable status. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="85" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cpd_status__s_1a0d763b280c0e4bfd1e0c15d07a8806ef" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__general_1ga7a54f95af23ab3af59d485ffaec2ae60" kindref="member">CamDeviceConfigMode_t</ref></type>
+        <definition>CamDeviceConfigMode_t CamDeviceCpdStatus_s::currentMode</definition>
+        <argsstring></argsstring>
+        <name>currentMode</name>
+        <briefdescription>
+<para>The run mode: 0<ndash/>manual, 1<ndash/>auto. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="86" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_cam_device_cpd_status__s_1a4ef61f56aad02c4ed96cbe2795642064" prot="public" static="no" mutable="no">
+        <type><ref refid="group____cam__device__cpd_1ga770ebba776000646b8c3865596aa59b9" kindref="member">CamDeviceExpandConfig_t</ref></type>
+        <definition>CamDeviceExpandConfig_t CamDeviceCpdStatus_s::currentCfg</definition>
+        <argsstring></argsstring>
+        <name>currentCfg</name>
+        <briefdescription>
+<para>The expand curve current configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>VsCamDevice CPD status structure. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="236">
+        <label>CamDeviceCpdStatus_s</label>
+        <link refid="struct_cam_device_cpd_status__s"/>
+        <childnode refid="237" relation="usage">
+          <edgelabel>currentCfg</edgelabel>
+        </childnode>
+      </node>
+      <node id="237">
+        <label>CamDeviceExpandConfig_s</label>
+        <link refid="struct_cam_device_expand_config__s"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" line="84" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/cam_device/include/module/cpd_v1_1/cam_device_cpd_api.h" bodystart="84" bodyend="88"/>
+    <listofallmembers>
+      <member refid="struct_cam_device_cpd_status__s_1a4ef61f56aad02c4ed96cbe2795642064" prot="public" virt="non-virtual"><scope>CamDeviceCpdStatus_s</scope><name>currentCfg</name></member>
+      <member refid="struct_cam_device_cpd_status__s_1a0d763b280c0e4bfd1e0c15d07a8806ef" prot="public" virt="non-virtual"><scope>CamDeviceCpdStatus_s</scope><name>currentMode</name></member>
+      <member refid="struct_cam_device_cpd_status__s_1ad70b2c09637c91c88e9c3fc9fbe09112" prot="public" virt="non-virtual"><scope>CamDeviceCpdStatus_s</scope><name>enable</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

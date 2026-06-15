@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_run___config" kind="struct" prot="public">
+    <compoundname>Run_Config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_run___config_1a61eeb66631aab5813528236bba2197d1" prot="public" static="no" mutable="no">
+        <type>XDpPsu *</type>
+        <definition>XDpPsu* Run_Config::DpPsuPtr</definition>
+        <argsstring></argsstring>
+        <name>DpPsuPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="61" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1ad779a9d9e2520292e8bdf3fce3effdeb" prot="public" static="no" mutable="no">
+        <type>XScuGic *</type>
+        <definition>XScuGic* Run_Config::IntrPtr</definition>
+        <argsstring></argsstring>
+        <name>IntrPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="62" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a95f64f1bf3b643ce4579863612cd7433" prot="public" static="no" mutable="no">
+        <type>XAVBuf *</type>
+        <definition>XAVBuf* Run_Config::AVBufPtr</definition>
+        <argsstring></argsstring>
+        <name>AVBufPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="63" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1ab8a17387bffef7089f5462edfbab8536" prot="public" static="no" mutable="no">
+        <type>XDpDma *</type>
+        <definition>XDpDma* Run_Config::DpDmaPtr</definition>
+        <argsstring></argsstring>
+        <name>DpDmaPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="64" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1aedd5a4602f8b18453330bc0746d5b87d" prot="public" static="no" mutable="no">
+        <type>XVidC_VideoMode</type>
+        <definition>XVidC_VideoMode Run_Config::VideoMode</definition>
+        <argsstring></argsstring>
+        <name>VideoMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="66" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a79c8b50643ef3c152688bdf4da3f5b71" prot="public" static="no" mutable="no">
+        <type>XVidC_ColorDepth</type>
+        <definition>XVidC_ColorDepth Run_Config::Bpc</definition>
+        <argsstring></argsstring>
+        <name>Bpc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="67" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a5fb98aad8aa94bdd66daa1b19165b749" prot="public" static="no" mutable="no">
+        <type>XDpPsu_ColorEncoding</type>
+        <definition>XDpPsu_ColorEncoding Run_Config::ColorEncode</definition>
+        <argsstring></argsstring>
+        <name>ColorEncode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="68" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1ad577c754b168c34af5af5400d92c986f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::UseMaxLaneCount</definition>
+        <argsstring></argsstring>
+        <name>UseMaxLaneCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="70" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a809be00a8e677cb29cbaae59cf2e64e7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::UseMaxLinkRate</definition>
+        <argsstring></argsstring>
+        <name>UseMaxLinkRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="71" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1af4e4ea4ee817aefc1aa5ff4efdc5c6c6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::LaneCount</definition>
+        <argsstring></argsstring>
+        <name>LaneCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="72" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1ad168013aabcf941785d81b3d942b0505" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::LinkRate</definition>
+        <argsstring></argsstring>
+        <name>LinkRate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1ae090e4407411ca9b0296da4a1afc9541" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::UseMaxCfgCaps</definition>
+        <argsstring></argsstring>
+        <name>UseMaxCfgCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="74" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a09646fb2c7512ca6af350f367df66fdc" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 Run_Config::EnSynchClkMode</definition>
+        <argsstring></argsstring>
+        <name>EnSynchClkMode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_run___config_1a1f774832b23ad7541a22266c37a2a257" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 Run_Config::PixClkHz</definition>
+        <argsstring></argsstring>
+        <name>PixClkHz</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="77" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" line="60" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dpdma/examples/xdpdma_video_example.h" bodystart="60" bodyend="78"/>
+    <listofallmembers>
+      <member refid="struct_run___config_1a95f64f1bf3b643ce4579863612cd7433" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>AVBufPtr</name></member>
+      <member refid="struct_run___config_1a79c8b50643ef3c152688bdf4da3f5b71" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>Bpc</name></member>
+      <member refid="struct_run___config_1a5fb98aad8aa94bdd66daa1b19165b749" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>ColorEncode</name></member>
+      <member refid="struct_run___config_1ab8a17387bffef7089f5462edfbab8536" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>DpDmaPtr</name></member>
+      <member refid="struct_run___config_1a61eeb66631aab5813528236bba2197d1" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>DpPsuPtr</name></member>
+      <member refid="struct_run___config_1a09646fb2c7512ca6af350f367df66fdc" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>EnSynchClkMode</name></member>
+      <member refid="struct_run___config_1ad779a9d9e2520292e8bdf3fce3effdeb" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>IntrPtr</name></member>
+      <member refid="struct_run___config_1af4e4ea4ee817aefc1aa5ff4efdc5c6c6" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>LaneCount</name></member>
+      <member refid="struct_run___config_1ad168013aabcf941785d81b3d942b0505" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>LinkRate</name></member>
+      <member refid="struct_run___config_1a1f774832b23ad7541a22266c37a2a257" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>PixClkHz</name></member>
+      <member refid="struct_run___config_1ae090e4407411ca9b0296da4a1afc9541" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>UseMaxCfgCaps</name></member>
+      <member refid="struct_run___config_1ad577c754b168c34af5af5400d92c986f" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>UseMaxLaneCount</name></member>
+      <member refid="struct_run___config_1a809be00a8e677cb29cbaae59cf2e64e7" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>UseMaxLinkRate</name></member>
+      <member refid="struct_run___config_1aedd5a4602f8b18453330bc0746d5b87d" prot="public" virt="non-virtual"><scope>Run_Config</scope><name>VideoMode</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

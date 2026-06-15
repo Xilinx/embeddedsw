@@ -1,0 +1,1982 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="oslayer_8h" kind="file">
+    <compoundname>oslayer.h</compoundname>
+    <includes refid="builtins_8h" local="no">builtins.h</includes>
+    <includes local="yes">ff.h</includes>
+    <includedby refid="mbox__api_8c" local="yes">mbox_api.c</includedby>
+    <includedby refid="mbox__cmd_8c" local="yes">mbox_cmd.c</includedby>
+    <includedby refid="mbox__fifo_8c" local="yes">mbox_fifo.c</includedby>
+    <includedby refid="hal__i2c_8h" local="no">hal_i2c.h</includedby>
+    <includedby refid="ox05b1s_8c" local="no">ox05b1s.c</includedby>
+    <includedby refid="src_2visp__ss_2common_2vlog_8h" local="no">vlog.h</includedby>
+    <includedby refid="cam__device__buffer__api_8h" local="yes">cam_device_buffer_api.h</includedby>
+    <includedby refid="cam__device_8c" local="yes">cam_device.c</includedby>
+    <includedby refid="cam__device__buffer__api_8c" local="yes">cam_device_buffer_api.c</includedby>
+    <includedby refid="cam__device__sensor__api_8c" local="yes">cam_device_sensor_api.c</includedby>
+    <includedby refid="trace_8h" local="yes">trace.h</includedby>
+    <includedby refid="mempool__test_8h" local="yes">mempool_test.h</includedby>
+    <includedby refid="mempool__test_8c" local="yes">mempool_test.c</includedby>
+    <includedby refid="oslayer___a_p_u_8c" local="yes">oslayer_APU.c</includedby>
+    <includedby refid="examples_2vvbench_2include_2vlog_8h" local="no">vlog.h</includedby>
+    <includedby refid="vvformat_8h" local="no">vvformat.h</includedby>
+    <includedby refid="vvdevice_8c" local="no">vvdevice.c</includedby>
+    <incdepgraph>
+      <node id="6938">
+        <label>oslayer.h</label>
+        <link refid="oslayer.h"/>
+        <childnode refid="6939" relation="include">
+        </childnode>
+        <childnode refid="6947" relation="include">
+        </childnode>
+      </node>
+      <node id="6943">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6945">
+        <label>stddef.h</label>
+      </node>
+      <node id="6944">
+        <label>limits.h</label>
+      </node>
+      <node id="6946">
+        <label>string.h</label>
+      </node>
+      <node id="6947">
+        <label>ff.h</label>
+      </node>
+      <node id="6940">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="6941" relation="include">
+        </childnode>
+        <childnode refid="6944" relation="include">
+        </childnode>
+        <childnode refid="6945" relation="include">
+        </childnode>
+      </node>
+      <node id="6939">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="6940" relation="include">
+        </childnode>
+        <childnode refid="6946" relation="include">
+        </childnode>
+      </node>
+      <node id="6942">
+        <label>stdio.h</label>
+      </node>
+      <node id="6941">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="6942" relation="include">
+        </childnode>
+        <childnode refid="6943" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7005">
+        <label>vvbench_cpd_api_v1_1.c</label>
+      </node>
+      <node id="6964">
+        <label>ox05b1s.c</label>
+      </node>
+      <node id="6949">
+        <label>mbox_api.c</label>
+      </node>
+      <node id="6982">
+        <label>vvdevice_common.h</label>
+        <childnode refid="6983" relation="include">
+        </childnode>
+        <childnode refid="6986" relation="include">
+        </childnode>
+        <childnode refid="6988" relation="include">
+        </childnode>
+        <childnode refid="6990" relation="include">
+        </childnode>
+        <childnode refid="6992" relation="include">
+        </childnode>
+        <childnode refid="6994" relation="include">
+        </childnode>
+        <childnode refid="6996" relation="include">
+        </childnode>
+        <childnode refid="6998" relation="include">
+        </childnode>
+        <childnode refid="7000" relation="include">
+        </childnode>
+        <childnode refid="7002" relation="include">
+        </childnode>
+        <childnode refid="7004" relation="include">
+        </childnode>
+        <childnode refid="7006" relation="include">
+        </childnode>
+        <childnode refid="7008" relation="include">
+        </childnode>
+        <childnode refid="7010" relation="include">
+        </childnode>
+        <childnode refid="7012" relation="include">
+        </childnode>
+        <childnode refid="7014" relation="include">
+        </childnode>
+        <childnode refid="7016" relation="include">
+        </childnode>
+        <childnode refid="7018" relation="include">
+        </childnode>
+        <childnode refid="7020" relation="include">
+        </childnode>
+        <childnode refid="7022" relation="include">
+        </childnode>
+        <childnode refid="7024" relation="include">
+        </childnode>
+        <childnode refid="7026" relation="include">
+        </childnode>
+        <childnode refid="7028" relation="include">
+        </childnode>
+        <childnode refid="7030" relation="include">
+        </childnode>
+        <childnode refid="7032" relation="include">
+        </childnode>
+        <childnode refid="7034" relation="include">
+        </childnode>
+        <childnode refid="7036" relation="include">
+        </childnode>
+        <childnode refid="7038" relation="include">
+        </childnode>
+        <childnode refid="7040" relation="include">
+        </childnode>
+        <childnode refid="7042" relation="include">
+        </childnode>
+        <childnode refid="7044" relation="include">
+        </childnode>
+        <childnode refid="7046" relation="include">
+        </childnode>
+        <childnode refid="7048" relation="include">
+        </childnode>
+        <childnode refid="7050" relation="include">
+        </childnode>
+      </node>
+      <node id="6955">
+        <label>hal_ps_i2c.h</label>
+        <childnode refid="6953" relation="include">
+        </childnode>
+        <childnode refid="6956" relation="include">
+        </childnode>
+      </node>
+      <node id="7029">
+        <label>vvbench_hdr_api_dummy.c</label>
+      </node>
+      <node id="7027">
+        <label>vvbench_gtm_api.c</label>
+      </node>
+      <node id="7023">
+        <label>vvbench_gc_api_v2.c</label>
+      </node>
+      <node id="7063">
+        <label>apu_to_rpu_ipi.c</label>
+      </node>
+      <node id="7033">
+        <label>vvbench_hist256_api.c</label>
+      </node>
+      <node id="6957">
+        <label>max9296.h</label>
+        <childnode refid="6958" relation="include">
+        </childnode>
+      </node>
+      <node id="6966">
+        <label>vvdevice.c</label>
+      </node>
+      <node id="7010">
+        <label>vvbench_dmsc_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7011" relation="include">
+        </childnode>
+      </node>
+      <node id="6948">
+        <label>oslayer.h</label>
+        <link refid="oslayer.h"/>
+        <childnode refid="6949" relation="include">
+        </childnode>
+        <childnode refid="6950" relation="include">
+        </childnode>
+        <childnode refid="6951" relation="include">
+        </childnode>
+        <childnode refid="6952" relation="include">
+        </childnode>
+        <childnode refid="6964" relation="include">
+        </childnode>
+        <childnode refid="6967" relation="include">
+        </childnode>
+        <childnode refid="6970" relation="include">
+        </childnode>
+        <childnode refid="7053" relation="include">
+        </childnode>
+        <childnode refid="6971" relation="include">
+        </childnode>
+        <childnode refid="7054" relation="include">
+        </childnode>
+        <childnode refid="7055" relation="include">
+        </childnode>
+        <childnode refid="7059" relation="include">
+        </childnode>
+        <childnode refid="7060" relation="include">
+        </childnode>
+        <childnode refid="7061" relation="include">
+        </childnode>
+        <childnode refid="7062" relation="include">
+        </childnode>
+        <childnode refid="7067" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="6991">
+        <label>vvbench_af_api_v4.c</label>
+      </node>
+      <node id="7004">
+        <label>vvbench_cpd_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7005" relation="include">
+        </childnode>
+      </node>
+      <node id="7047">
+        <label>vvbench_wb_api_v1_1.c</label>
+      </node>
+      <node id="7030">
+        <label>vvbench_hist64_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7031" relation="include">
+        </childnode>
+      </node>
+      <node id="7011">
+        <label>vvbench_dmsc_api_v2.c</label>
+      </node>
+      <node id="7051">
+        <label>vvMetadata.c</label>
+      </node>
+      <node id="6954">
+        <label>hal_axi_i2c.h</label>
+        <childnode refid="6953" relation="include">
+        </childnode>
+      </node>
+      <node id="6976">
+        <label>vvpath.c</label>
+      </node>
+      <node id="7041">
+        <label>vvbench_rgbir_api_v2_1.c</label>
+      </node>
+      <node id="6986">
+        <label>vvbench_3dnr_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6987" relation="include">
+        </childnode>
+      </node>
+      <node id="6967">
+        <label>vlog.h</label>
+        <childnode refid="6968" relation="include">
+        </childnode>
+      </node>
+      <node id="7021">
+        <label>vvbench_fusa_api.c</label>
+      </node>
+      <node id="7000">
+        <label>vvbench_ccm_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7001" relation="include">
+        </childnode>
+      </node>
+      <node id="6984">
+        <label>submodule_def.h</label>
+        <childnode refid="6981" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="6961">
+        <label>max9295.c</label>
+      </node>
+      <node id="7048">
+        <label>vvbench_wdr_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7049" relation="include">
+        </childnode>
+      </node>
+      <node id="7036">
+        <label>vvbench_lut3d_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7037" relation="include">
+        </childnode>
+      </node>
+      <node id="7015">
+        <label>vvbench_ee_api_v2.c</label>
+      </node>
+      <node id="7040">
+        <label>vvbench_rgbir_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7041" relation="include">
+        </childnode>
+      </node>
+      <node id="7031">
+        <label>vvbench_hist64_api.c</label>
+      </node>
+      <node id="7008">
+        <label>vvbench_dg_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7009" relation="include">
+        </childnode>
+      </node>
+      <node id="7018">
+        <label>vvbench_exp_api_v3.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6989" relation="include">
+        </childnode>
+        <childnode refid="7019" relation="include">
+        </childnode>
+      </node>
+      <node id="7057">
+        <label>trace.c</label>
+        <link refid="trace_8c"/>
+      </node>
+      <node id="7054">
+        <label>cam_device_sensor_api.c</label>
+      </node>
+      <node id="6970">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="6971" relation="include">
+        </childnode>
+        <childnode refid="6972" relation="include">
+        </childnode>
+        <childnode refid="6974" relation="include">
+        </childnode>
+        <childnode refid="6978" relation="include">
+        </childnode>
+        <childnode refid="7052" relation="include">
+        </childnode>
+      </node>
+      <node id="6990">
+        <label>vvbench_af_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6991" relation="include">
+        </childnode>
+      </node>
+      <node id="7034">
+        <label>vvbench_lsc_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7035" relation="include">
+        </childnode>
+      </node>
+      <node id="7017">
+        <label>vvbench_exp_api_v2.c</label>
+      </node>
+      <node id="7067">
+        <label>vvformat.h</label>
+        <childnode refid="7068" relation="include">
+        </childnode>
+      </node>
+      <node id="6971">
+        <label>cam_device_buffer_api.c</label>
+      </node>
+      <node id="7050">
+        <label>vvbench_gwdr_api.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="6996">
+        <label>vvbench_awb_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6997" relation="include">
+        </childnode>
+      </node>
+      <node id="6981">
+        <label>vvbparser.c</label>
+      </node>
+      <node id="7061">
+        <label>oslayer_APU.c</label>
+      </node>
+      <node id="6965">
+        <label>ox08b40.c</label>
+      </node>
+      <node id="7007">
+        <label>vvbench_cproc_api.c</label>
+      </node>
+      <node id="7056">
+        <label>sensor_drv.c</label>
+        <link refid="sensor__drv_8c"/>
+      </node>
+      <node id="6953">
+        <label>hal_i2c.c</label>
+      </node>
+      <node id="6958">
+        <label>max9296.c</label>
+      </node>
+      <node id="7053">
+        <label>cam_device.c</label>
+      </node>
+      <node id="6983">
+        <label>vvbench_2dnr_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6985" relation="include">
+        </childnode>
+      </node>
+      <node id="7019">
+        <label>vvbench_exp_api_v3_dummy.c</label>
+      </node>
+      <node id="7006">
+        <label>vvbench_cproc_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7007" relation="include">
+        </childnode>
+      </node>
+      <node id="7020">
+        <label>vvbench_fusa_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7021" relation="include">
+        </childnode>
+      </node>
+      <node id="7059">
+        <label>mempool_test.h</label>
+      </node>
+      <node id="6987">
+        <label>vvbench_3dnr_api_dummy.c</label>
+      </node>
+      <node id="6993">
+        <label>vvbench_afm_api_dummy.c</label>
+      </node>
+      <node id="7013">
+        <label>vvbench_dpcc_api.c</label>
+      </node>
+      <node id="6959">
+        <label>isi_fmc.h</label>
+        <childnode refid="6960" relation="include">
+        </childnode>
+        <childnode refid="6957" relation="include">
+        </childnode>
+        <childnode refid="6962" relation="include">
+        </childnode>
+        <childnode refid="6963" relation="include">
+        </childnode>
+        <childnode refid="6964" relation="include">
+        </childnode>
+        <childnode refid="6965" relation="include">
+        </childnode>
+      </node>
+      <node id="7068">
+        <label>vvformat.c</label>
+      </node>
+      <node id="7016">
+        <label>vvbench_exp_api_v2.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7017" relation="include">
+        </childnode>
+      </node>
+      <node id="6980">
+        <label>vvpath.h</label>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6976" relation="include">
+        </childnode>
+      </node>
+      <node id="7024">
+        <label>vvbench_ge_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7025" relation="include">
+        </childnode>
+      </node>
+      <node id="7065">
+        <label>vvbench.h</label>
+        <childnode refid="7066" relation="include">
+        </childnode>
+        <childnode refid="6981" relation="include">
+        </childnode>
+      </node>
+      <node id="7012">
+        <label>vvbench_dpcc_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7013" relation="include">
+        </childnode>
+      </node>
+      <node id="6951">
+        <label>mbox_fifo.c</label>
+      </node>
+      <node id="7014">
+        <label>vvbench_ee_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7015" relation="include">
+        </childnode>
+      </node>
+      <node id="7026">
+        <label>vvbench_gtm_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7027" relation="include">
+        </childnode>
+      </node>
+      <node id="7001">
+        <label>vvbench_ccm_api_v1_1.c</label>
+      </node>
+      <node id="7022">
+        <label>vvbench_gc_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7023" relation="include">
+        </childnode>
+      </node>
+      <node id="7046">
+        <label>vvbench_wb_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7047" relation="include">
+        </childnode>
+      </node>
+      <node id="6978">
+        <label>vvdevice.h</label>
+        <childnode refid="6979" relation="include">
+        </childnode>
+        <childnode refid="6982" relation="include">
+        </childnode>
+        <childnode refid="6980" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="7051" relation="include">
+        </childnode>
+        <childnode refid="6976" relation="include">
+        </childnode>
+      </node>
+      <node id="7037">
+        <label>vvbench_lut3d_api_dummy.c</label>
+      </node>
+      <node id="7044">
+        <label>vvbench_vi200_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7045" relation="include">
+        </childnode>
+      </node>
+      <node id="6956">
+        <label>hal_ps_i2c.c</label>
+      </node>
+      <node id="6994">
+        <label>vvbench_afm_api_v3.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6991" relation="include">
+        </childnode>
+        <childnode refid="6995" relation="include">
+        </childnode>
+      </node>
+      <node id="6963">
+        <label>ox03f10.c</label>
+      </node>
+      <node id="7002">
+        <label>vvbench_cnr_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7003" relation="include">
+        </childnode>
+      </node>
+      <node id="6998">
+        <label>vvbench_bls_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6999" relation="include">
+        </childnode>
+      </node>
+      <node id="7009">
+        <label>vvbench_dg_api.c</label>
+      </node>
+      <node id="7066">
+        <label>vvbench.c</label>
+      </node>
+      <node id="6969">
+        <label>visp_common.c</label>
+      </node>
+      <node id="7042">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7043" relation="include">
+        </childnode>
+      </node>
+      <node id="6968">
+        <label>visp_common.h</label>
+        <childnode refid="6969" relation="include">
+        </childnode>
+      </node>
+      <node id="6999">
+        <label>vvbench_bls_api.c</label>
+      </node>
+      <node id="6973">
+        <label>oba.c</label>
+      </node>
+      <node id="7055">
+        <label>trace.h</label>
+        <link refid="trace_8h"/>
+        <childnode refid="6953" relation="include">
+        </childnode>
+        <childnode refid="6963" relation="include">
+        </childnode>
+        <childnode refid="6964" relation="include">
+        </childnode>
+        <childnode refid="6965" relation="include">
+        </childnode>
+        <childnode refid="7056" relation="include">
+        </childnode>
+        <childnode refid="7057" relation="include">
+        </childnode>
+        <childnode refid="7058" relation="include">
+        </childnode>
+      </node>
+      <node id="6972">
+        <label>oba.h</label>
+        <childnode refid="6973" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="6995">
+        <label>vvbench_afm_api_v3_dummy.c</label>
+      </node>
+      <node id="6992">
+        <label>vvbench_afm_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6991" relation="include">
+        </childnode>
+        <childnode refid="6993" relation="include">
+        </childnode>
+      </node>
+      <node id="6985">
+        <label>vvbench_2dnr_api_v5_2.c</label>
+      </node>
+      <node id="7058">
+        <label>isi.c</label>
+        <link refid="isi_8c"/>
+      </node>
+      <node id="7049">
+        <label>vvbench_wdr_api_v5_2.c</label>
+      </node>
+      <node id="6988">
+        <label>vvbench_ae_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="6989" relation="include">
+        </childnode>
+      </node>
+      <node id="7045">
+        <label>vvbench_vi200_api_dummy.c</label>
+      </node>
+      <node id="7028">
+        <label>vvbench_hdr_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7029" relation="include">
+        </childnode>
+      </node>
+      <node id="6975">
+        <label>vmix_hdmi_bridge.c</label>
+      </node>
+      <node id="6974">
+        <label>vmix_hdmi_bridge.h</label>
+        <childnode refid="6975" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6976" relation="include">
+        </childnode>
+        <childnode refid="6977" relation="include">
+        </childnode>
+      </node>
+      <node id="7043">
+        <label>vvbench_tpg_api.c</label>
+      </node>
+      <node id="7003">
+        <label>vvbench_cnr_api_dummy.c</label>
+      </node>
+      <node id="7064">
+        <label>iba.c</label>
+      </node>
+      <node id="7032">
+        <label>vvbench_hist256_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7033" relation="include">
+        </childnode>
+      </node>
+      <node id="6962">
+        <label>ms_fw.c</label>
+      </node>
+      <node id="6960">
+        <label>max9295.h</label>
+        <childnode refid="6961" relation="include">
+        </childnode>
+      </node>
+      <node id="6952">
+        <label>hal_i2c.h</label>
+        <childnode refid="6953" relation="include">
+        </childnode>
+        <childnode refid="6954" relation="include">
+        </childnode>
+        <childnode refid="6955" relation="include">
+        </childnode>
+        <childnode refid="6957" relation="include">
+        </childnode>
+        <childnode refid="6959" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="6979">
+        <label>vvbparser.h</label>
+        <childnode refid="6980" relation="include">
+        </childnode>
+        <childnode refid="6981" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+      </node>
+      <node id="7035">
+        <label>vvbench_lsc_api_v3.c</label>
+      </node>
+      <node id="6950">
+        <label>mbox_cmd.c</label>
+      </node>
+      <node id="7060">
+        <label>mempool_test.c</label>
+      </node>
+      <node id="7039">
+        <label>vvbench_pdaf_api_dummy.c</label>
+      </node>
+      <node id="7062">
+        <label>vlog.h</label>
+        <childnode refid="7063" relation="include">
+        </childnode>
+        <childnode refid="6949" relation="include">
+        </childnode>
+        <childnode refid="6950" relation="include">
+        </childnode>
+        <childnode refid="7064" relation="include">
+        </childnode>
+        <childnode refid="6973" relation="include">
+        </childnode>
+        <childnode refid="7065" relation="include">
+        </childnode>
+        <childnode refid="6978" relation="include">
+        </childnode>
+        <childnode refid="7067" relation="include">
+        </childnode>
+        <childnode refid="6985" relation="include">
+        </childnode>
+        <childnode refid="6987" relation="include">
+        </childnode>
+        <childnode refid="6989" relation="include">
+        </childnode>
+        <childnode refid="6991" relation="include">
+        </childnode>
+        <childnode refid="6993" relation="include">
+        </childnode>
+        <childnode refid="6995" relation="include">
+        </childnode>
+        <childnode refid="6997" relation="include">
+        </childnode>
+        <childnode refid="6999" relation="include">
+        </childnode>
+        <childnode refid="7001" relation="include">
+        </childnode>
+        <childnode refid="7003" relation="include">
+        </childnode>
+        <childnode refid="7005" relation="include">
+        </childnode>
+        <childnode refid="7007" relation="include">
+        </childnode>
+        <childnode refid="7009" relation="include">
+        </childnode>
+        <childnode refid="7011" relation="include">
+        </childnode>
+        <childnode refid="7013" relation="include">
+        </childnode>
+        <childnode refid="7015" relation="include">
+        </childnode>
+        <childnode refid="7017" relation="include">
+        </childnode>
+        <childnode refid="7019" relation="include">
+        </childnode>
+        <childnode refid="7021" relation="include">
+        </childnode>
+        <childnode refid="7023" relation="include">
+        </childnode>
+        <childnode refid="7025" relation="include">
+        </childnode>
+        <childnode refid="7027" relation="include">
+        </childnode>
+        <childnode refid="7029" relation="include">
+        </childnode>
+        <childnode refid="7033" relation="include">
+        </childnode>
+        <childnode refid="7031" relation="include">
+        </childnode>
+        <childnode refid="7035" relation="include">
+        </childnode>
+        <childnode refid="7037" relation="include">
+        </childnode>
+        <childnode refid="7039" relation="include">
+        </childnode>
+        <childnode refid="7041" relation="include">
+        </childnode>
+        <childnode refid="7043" relation="include">
+        </childnode>
+        <childnode refid="7045" relation="include">
+        </childnode>
+        <childnode refid="7047" relation="include">
+        </childnode>
+        <childnode refid="7049" relation="include">
+        </childnode>
+        <childnode refid="6966" relation="include">
+        </childnode>
+        <childnode refid="6976" relation="include">
+        </childnode>
+      </node>
+      <node id="7025">
+        <label>vvbench_ge_api.c</label>
+      </node>
+      <node id="6989">
+        <label>vvbench_ae_api_v4.c</label>
+      </node>
+      <node id="6997">
+        <label>vvbench_awb_api_v4.c</label>
+      </node>
+      <node id="7038">
+        <label>vvbench_pdaf_api.h</label>
+        <childnode refid="6984" relation="include">
+        </childnode>
+        <childnode refid="7039" relation="include">
+        </childnode>
+      </node>
+      <node id="6977">
+        <label>xvisp_ss_example.c</label>
+      </node>
+      <node id="7052">
+        <label>xvisp_ss_example.h</label>
+        <childnode refid="6977" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct__os_file" prot="public">_osFile</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbf" prot="public" static="no">
+        <name>_OSLAYER_STATUS</name>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfad69cff80839249e878d0adfc3b2887bc" prot="public">
+          <name>OSLAYER_OK</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfa6723a3e01c733de6aedac4a96dfff14f" prot="public">
+          <name>OSLAYER_ERROR</name>
+          <initializer>= -1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfad50d38a8b3cc1a3743856c1eedff2de6" prot="public">
+          <name>OSLAYER_INVALID_PARAM</name>
+          <initializer>= -2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfaa3a89d7b0817366744e275fcd20ddedd" prot="public">
+          <name>OSLAYER_OPERATION_FAILED</name>
+          <initializer>= -3</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfa0520c54646c86c6375e7c55f4e083723" prot="public">
+          <name>OSLAYER_NOT_INITIALIZED</name>
+          <initializer>= -4</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfa460b33d8869fa7d2fe3e47811f22653c" prot="public">
+          <name>OSLAYER_TIMEOUT</name>
+          <initializer>= -5</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbfa12b5c4af398d7bebf9b200cb2b979e10" prot="public">
+          <name>OSLAYER_SIGNAL_PENDING</name>
+          <initializer>= -6</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Status codes of OS Abstraction Layer operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="46" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" bodystart="46" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="oslayer_8h_1ae48c4a662b1e634e9dadd785c4969920" prot="public" static="no">
+        <type>enum <ref refid="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbf" kindref="member">_OSLAYER_STATUS</ref></type>
+        <definition>typedef enum _OSLAYER_STATUS  OSLAYER_STATUS</definition>
+        <argsstring></argsstring>
+        <name>OSLAYER_STATUS</name>
+        <briefdescription>
+<para>Status codes of OS Abstraction Layer operation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="54" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" prot="public" static="no">
+        <type>struct <ref refid="struct__os_file" kindref="compound">_osFile</ref></type>
+        <definition>typedef struct _osFile  osFile</definition>
+        <argsstring></argsstring>
+        <name>osFile</name>
+        <briefdescription>
+<para>File object of OS Abstraction Layer. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="64" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* osMalloc</definition>
+        <argsstring>(uint32_t size)</argsstring>
+        <name>osMalloc</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+<para>Allocate a continuous block of memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of memory block to be allocated </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="75" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="53" bodyend="105"/>
+        <references refid="oslayer_8h_1a23995f7bd907b07e6f68624712db7b19" compoundref="oslayer___a_p_u_8c" startline="167" endline="182">osMemPoolPrintStats</references>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="oslayer_8h_1ab7e99fb1badb8d769f2de0ee661926cc" compoundref="oslayer___a_p_u_8c" startline="271" endline="287">osFopen</referencedby>
+        <referencedby refid="oslayer_8h_1a2180303b8f01b685689429cc74f96bdb" compoundref="oslayer___a_p_u_8c" startline="299" endline="318">osFread</referencedby>
+        <referencedby refid="oslayer_8h_1a89644e335dd94b57f538a8d356550c59" compoundref="oslayer___a_p_u_8c" startline="184" endline="209">osMemPoolVerify</referencedby>
+        <referencedby refid="sensor__drv_8c_1ab4e700ca39795736266f00e055261fc4" compoundref="sensor__drv_8c" startline="158" endline="217">VsiCamDeviceSensorMapping</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osFree</definition>
+        <argsstring>(void *p)</argsstring>
+        <name>osFree</name>
+        <param>
+          <type>void *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+<para>Free a continuous block of memory. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>p</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to previously allocated memory block</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>always OSLAYER_OK </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="87" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="107" bodyend="134"/>
+        <referencedby refid="mbox__fifo_8h_1a6e6ecc433f61a4edde5dbd00d13404a8" compoundref="mbox__fifo_8c" startline="200" endline="209">fifo_buffer_free</referencedby>
+        <referencedby refid="group__isi__iss_1ga9d5dad3fe0139e93edd3f589729e8a93" compoundref="isi_8c" startline="51" endline="94">IsiSensorDrvHandleRegisterIss</referencedby>
+        <referencedby refid="group__isi__iss_1gae918129f6476a5274727c79e5badfbf6" compoundref="isi_8c" startline="111" endline="134">IsiSensorDrvHandleUnRegisterIss</referencedby>
+        <referencedby refid="oslayer_8h_1a21236013e545b0a61c2cb02994769c68" compoundref="oslayer___a_p_u_8c" startline="289" endline="297">osFclose</referencedby>
+        <referencedby refid="oslayer_8h_1ab7e99fb1badb8d769f2de0ee661926cc" compoundref="oslayer___a_p_u_8c" startline="271" endline="287">osFopen</referencedby>
+        <referencedby refid="oslayer_8h_1a2180303b8f01b685689429cc74f96bdb" compoundref="oslayer___a_p_u_8c" startline="299" endline="318">osFread</referencedby>
+        <referencedby refid="oslayer_8h_1a89644e335dd94b57f538a8d356550c59" compoundref="oslayer___a_p_u_8c" startline="184" endline="209">osMemPoolVerify</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a89644e335dd94b57f538a8d356550c59" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osMemPoolVerify</definition>
+        <argsstring>(void)</argsstring>
+        <name>osMemPoolVerify</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Verify memory pool initialization and perform basic tests. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>OSLAYER_OK on success, OSLAYER_ERROR on failure </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="97" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="184" bodyend="209"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+        <references refid="oslayer_8h_1a23995f7bd907b07e6f68624712db7b19" compoundref="oslayer___a_p_u_8c" startline="167" endline="182">osMemPoolPrintStats</references>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a730cdffa1aa5bcb779bc765be808ba2d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osMemPoolGetStats</definition>
+        <argsstring>(uint32_t *pUsedBlocks, uint32_t *pFreeBlocks, uint32_t *pTotalMemory, uint32_t *pUsedMemory)</argsstring>
+        <name>osMemPoolGetStats</name>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pUsedBlocks</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pFreeBlocks</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pTotalMemory</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>pUsedMemory</declname>
+        </param>
+        <briefdescription>
+<para>Get memory pool statistics. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pUsedBlocks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store number of used blocks </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pFreeBlocks</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store number of free blocks </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pTotalMemory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store total memory size </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pUsedMemory</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to store used memory size</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>OSLAYER_OK on success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="112" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="136" bodyend="165"/>
+        <referencedby refid="oslayer_8h_1a23995f7bd907b07e6f68624712db7b19" compoundref="oslayer___a_p_u_8c" startline="167" endline="182">osMemPoolPrintStats</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a23995f7bd907b07e6f68624712db7b19" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osMemPoolPrintStats</definition>
+        <argsstring>(void)</argsstring>
+        <name>osMemPoolPrintStats</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Print memory pool statistics (debug function) </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>OSLAYER_OK on success </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="167" bodyend="182"/>
+        <references refid="oslayer_8h_1a730cdffa1aa5bcb779bc765be808ba2d" compoundref="oslayer___a_p_u_8c" startline="136" endline="165">osMemPoolGetStats</references>
+        <referencedby refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</referencedby>
+        <referencedby refid="oslayer_8h_1a89644e335dd94b57f538a8d356550c59" compoundref="oslayer___a_p_u_8c" startline="184" endline="209">osMemPoolVerify</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a3a920dd22e000c90a92cfdfa799bfd3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osSleep</definition>
+        <argsstring>(uint32_t msec)</argsstring>
+        <name>osSleep</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>msec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="211" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1ab7e99fb1badb8d769f2de0ee661926cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+        <definition>osFile* osFopen</definition>
+        <argsstring>(const char *filename, const char *mode)</argsstring>
+        <name>osFopen</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>Opens a file using the specified filename and mode. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function allocates and initializes an <computeroutput>osFile</computeroutput> structure, opens the file with the given filename and mode, and associates the resulting <computeroutput>FILE/FIL*</computeroutput> with the <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The name of the file to be opened. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The mode in which the file is to be opened (e.g., &quot;r&quot;, &quot;w&quot;).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the opened <computeroutput>osFile</computeroutput> structure, or NULL if an error occurred during file opening or memory allocation. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="144" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="271" bodyend="287"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a21236013e545b0a61c2cb02994769c68" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void osFclose</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFclose</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Closes the file associated with the given osFile structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function closes the file associated with the given <computeroutput>osFile</computeroutput> structure, frees the allocated memory for the structure, and performs necessary cleanup.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the <computeroutput>osFile</computeroutput> structure representing the file. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="157" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="289" bodyend="297"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a2180303b8f01b685689429cc74f96bdb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t osFread</definition>
+        <argsstring>(void *ptr, size_t size, size_t count, osFile *pVsiFile)</argsstring>
+        <name>osFread</name>
+        <param>
+          <type>void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Read data from a file into a specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads data from a file associated with the given <computeroutput>osFile</computeroutput> structure into the specified buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer where the read data will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of each data item to be read (in bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of data items to read. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of data items actually read. If the return value is less than <computeroutput>count</computeroutput>, it may indicate reaching the end of the file or encountering an error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="177" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="299" bodyend="318"/>
+        <references refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" compoundref="oslayer___a_p_u_8c" startline="107" endline="134">osFree</references>
+        <references refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" compoundref="oslayer___a_p_u_8c" startline="53" endline="105">osMalloc</references>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a5fa132696b31af283c243e5dbc3d2c3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>size_t</type>
+        <definition>size_t osFwrite</definition>
+        <argsstring>(const void *ptr, size_t size, size_t count, osFile *pVsiFile)</argsstring>
+        <name>osFwrite</name>
+        <param>
+          <type>const void *</type>
+          <declname>ptr</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>count</declname>
+        </param>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Write data from a specified buffer to a file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes data from the specified buffer into the file associated with the given <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer containing the data to be written to the file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of each data item to be written (in bytes). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of data items to write. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of data items actually written to the file. If the return value is less than <computeroutput>count</computeroutput>, it may indicate disk full or encountering an error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="197" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="320" bodyend="335"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1aea3b99eb0daf4f2cbc0feb42c54328ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFseek</definition>
+        <argsstring>(osFile *pVsiFile, long int offset, int origin)</argsstring>
+        <name>osFseek</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <param>
+          <type>long int</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>origin</declname>
+        </param>
+        <briefdescription>
+<para>Set the file position indicator for the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function sets the file position indicator for the file associated with the given <computeroutput>osFile</computeroutput> structure. The new position is determined by adding <computeroutput>offset</computeroutput> bytes to the position specified by <computeroutput>origin</computeroutput>.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes to offset from <computeroutput>origin</computeroutput>. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>origin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Position from where offset is added (SEEK_SET, SEEK_CUR, SEEK_END).</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if successful, non-zero on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="215" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="337" bodyend="364"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a75aaf3215304578f6eb595169f41ddc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int osFtell</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFtell</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Get the current file position indicator for the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function gets the current file position indicator for the file associated with the given <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Current file position indicator if successful, -1 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="230" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="366" bodyend="376"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1aaa799f9620cef65bcb1dc928edeef4ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long int</type>
+        <definition>long int osFileSize</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFileSize</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Get the size of the file associated with the specified <computeroutput>osFile</computeroutput> structure. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function returns the size of the file associated with the given <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Size of the file if successful, -1 on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="244" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="378" bodyend="387"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1aa43788efaf26ad94d6d6423a4b9e177d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFeof</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFeof</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Check if the end-of-file indicator is set for the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks whether the end-of-file indicator is set for the file associated with the given <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero value if the end-of-file indicator is set, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="259" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="389" bodyend="392"/>
+        <referencedby refid="oslayer_8h_1aa760c72965621eb2ba3a0c9bfeaa4276" compoundref="oslayer___a_p_u_8c" startline="399" endline="421">osFgetc</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a36ae4310985f8480ce1178e1580d2914" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFerror</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFerror</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Check if an error indicator is set for the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function checks whether an error indicator is set for the file associated with the given <computeroutput>osFile</computeroutput> structure.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Non-zero value if an error indicator is set, 0 otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="274" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="394" bodyend="397"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1aa760c72965621eb2ba3a0c9bfeaa4276" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFgetc</definition>
+        <argsstring>(osFile *pVsiFile)</argsstring>
+        <name>osFgetc</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Read a character from the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads a character from the file associated with the given <computeroutput>osFile</computeroutput> structure. It returns when either a character is read, the end-of-file is reached, or an error occurs, whichever comes first.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Integer of the read character on success, -1 on failure or end-of-file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="290" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="399" bodyend="421"/>
+        <references refid="oslayer_8h_1aa43788efaf26ad94d6d6423a4b9e177d" compoundref="oslayer___a_p_u_8c" startline="389" endline="392">osFeof</references>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a2365b2f4e87f27e834c499b6a02367c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char* osFgets</definition>
+        <argsstring>(char *str, int size, osFile *pVsiFile)</argsstring>
+        <name>osFgets</name>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <briefdescription>
+<para>Read a line from the specified file into the specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads a line from the file associated with the given <computeroutput>osFile</computeroutput> structure into the specified buffer. It stops when either (n-1) characters are read, the newline character is encountered, or the end-of-file is reached, whichever comes first. The newline character, if encountered, is included in the buffer.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the buffer where the line will be stored. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum number of characters to be read (including the null terminator). </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pointer to the read line on success, NULL on failure or end-of-file. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="423" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a30130922de5dbe405b9e4f4048ab24ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFputs</definition>
+        <argsstring>(const char *str, osFile *file)</argsstring>
+        <name>osFputs</name>
+        <param>
+          <type>const char *</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+<para>Read a line from the specified file into the specified buffer. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes a string to the file associated with the given <computeroutput>osFile</computeroutput> structure</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>str</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the string which will be written into the file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>0 if successful, non-zero on error. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="436" bodyend="444"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a6984af46be5667eb31ebc48d9b9e75c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFscanf</definition>
+        <argsstring>(osFile *pVsiFile, const char *format,...)</argsstring>
+        <name>osFscanf</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Read formatted data from the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function reads formatted data from the file associated with the given <computeroutput>osFile</computeroutput> structure, under the control of the format string <computeroutput>format</computeroutput>. The variable arguments must correspond to the placeholders in the format string.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Format string that specifies the expected format of the input. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Variable arguments corresponding to the placeholders in the format string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of input items successfully matched and assigned, or EOF if an error occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="342" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="446" bodyend="462"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a6db2d8a06e5a7b8c89a03ba042b5ae97" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int osFprintf</definition>
+        <argsstring>(osFile *pVsiFile, const char *format,...)</argsstring>
+        <name>osFprintf</name>
+        <param>
+          <type><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref> *</type>
+          <declname>pVsiFile</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>format</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+<para>Write formatted data to the specified file. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function writes formatted data to the file associated with the given <computeroutput>osFile</computeroutput> structure, under the control of the format string <computeroutput>format</computeroutput>. The variable arguments must correspond to the placeholders in the format string.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <computeroutput>osFile</computeroutput> structure representing the file. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>format</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Format string that specifies the expected format of the output. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>...</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Variable arguments corresponding to the placeholders in the format string.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Number of characters written, or a negative value if an error occurs. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="360" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="464" bodyend="483"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a626cbc25326ae708d66e78efb3cc0dca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void osUSleep</definition>
+        <argsstring>(unsigned int microseconds)</argsstring>
+        <name>osUSleep</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>microseconds</declname>
+        </param>
+        <briefdescription>
+<para>Sleeps the program for the specified number of microseconds. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function is used to make the program sleep for the specified number of microseconds.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>microseconds</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The number of microseconds to sleep. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="373" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="508" bodyend="511"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a52a3ba9784dc9336abdf5d91ad35edc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osTimeStampUs</definition>
+        <argsstring>(int64_t *pTimeStamp)</argsstring>
+        <name>osTimeStampUs</name>
+        <param>
+          <type>int64_t *</type>
+          <declname>pTimeStamp</declname>
+        </param>
+        <briefdescription>
+<para>Returns a 64-bit timestamp [us]. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pTimeStamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference of the timestamp object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>OSLAYER_OK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event successfully created </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="388" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="513" bodyend="516"/>
+      </memberdef>
+      <memberdef kind="function" id="oslayer_8h_1a5d47f198ef4e8d3adf5dfdb9e17d1310" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>int32_t osTimeStampNs</definition>
+        <argsstring>(float32_t *pTimeStamp)</argsstring>
+        <name>osTimeStampNs</name>
+        <param>
+          <type>float32_t *</type>
+          <declname>pTimeStamp</declname>
+        </param>
+        <briefdescription>
+<para>Returns a 64-bit timestamp [ns]. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>pTimeStamp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Reference of the timestamp object</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Status of operation </para></simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>OSLAYER_OK</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event successfully created </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h" line="402" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/source/oslayer_APU.c" bodystart="530" bodyend="533"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Operating System Abstraction Layer. </para>    </briefdescription>
+    <detaileddescription>
+<para>Encapsulates and abstracts services from different operating system, including user-mode as well as kernel-mode services. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2022<sp/>Vivante<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>****************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>VeriSilicon<sp/>2020<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="preprocessor">#ifndef<sp/>OSLAYER_H</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>OSLAYER_H</highlight></codeline>
+<codeline lineno="40"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="builtins_8h" kindref="compound">builtins.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;ff.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight></codeline>
+<codeline lineno="46" refid="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbf" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a9659b47207b7eb79e9f2c85d8bd16fbf" kindref="member">_OSLAYER_STATUS</ref><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_OK<sp/>=<sp/>0,<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>success<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_ERROR<sp/>=<sp/>-1,<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>general<sp/>error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_INVALID_PARAM<sp/>=<sp/>-2,<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>invalid<sp/>parameter<sp/>supplied<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_OPERATION_FAILED<sp/>=<sp/>-3,<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>operation<sp/>failed<sp/>(i.e.<sp/>current<sp/>operation<sp/>is<sp/>interrupted)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_NOT_INITIALIZED<sp/>=<sp/>-4,<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>resource<sp/>object<sp/>is<sp/>not<sp/>initialized<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_TIMEOUT<sp/>=<sp/>-5,<sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>operation<sp/>failed<sp/>due<sp/>to<sp/>elapsed<sp/>timeout<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>OSLAYER_SIGNAL_PENDING<sp/>=<sp/>-6<sp/><sp/><sp/></highlight><highlight class="comment">/*&lt;<sp/>operation<sp/>interrupted<sp/>due<sp/>to<sp/>pending<sp/>signal<sp/>for<sp/>waiting<sp/>thread/process<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}<sp/><ref refid="oslayer_8h_1ae48c4a662b1e634e9dadd785c4969920" kindref="member">OSLAYER_STATUS</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="58" refid="struct__os_file" refkind="compound"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct__os_file" kindref="compound">_osFile</ref><sp/>{</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>LINUX</highlight></codeline>
+<codeline lineno="60"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FILE<sp/>*file;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="62"><highlight class="preprocessor"></highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>FIL<sp/>file;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="64"><highlight class="preprocessor"></highlight><highlight class="normal">}<sp/><ref refid="oslayer_8h_1ae2b8e985eb9f8acac5f26c9ada469625" kindref="member">osFile</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/><sp/>osMalloc()</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="75"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="oslayer_8h_1a2df73b76a371066dd2073c08bfef2e89" kindref="member">osMalloc</ref>(uint32_t<sp/>size);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/><sp/>osFree()</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="87"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int32_t<sp/><ref refid="oslayer_8h_1a03f02aaf7ca437508bab5bd1fc8872e0" kindref="member">osFree</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*p);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/>*<sp/><sp/>osMemPoolVerify()</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="97"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int32_t<sp/><ref refid="oslayer_8h_1a89644e335dd94b57f538a8d356550c59" kindref="member">osMemPoolVerify</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="100"><highlight class="comment"><sp/>*<sp/><sp/>osMemPoolGetStats()</highlight></codeline>
+<codeline lineno="101"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="112"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int32_t<sp/><ref refid="oslayer_8h_1a730cdffa1aa5bcb779bc765be808ba2d" kindref="member">osMemPoolGetStats</ref>(uint32_t<sp/>*pUsedBlocks,<sp/>uint32_t<sp/>*pFreeBlocks,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>*pTotalMemory,<sp/>uint32_t<sp/>*pUsedMemory);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="116"><highlight class="comment"><sp/>*<sp/><sp/>osMemPoolPrintStats()</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="123"><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int32_t<sp/><ref refid="oslayer_8h_1a23995f7bd907b07e6f68624712db7b19" kindref="member">osMemPoolPrintStats</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>int32_t<sp/>osSleep(uint32_t<sp/>msec);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*<sp/><sp/>osFopen()</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><ref refid="struct__os_file" kindref="compound">osFile</ref><sp/>*<ref refid="oslayer_8h_1ab7e99fb1badb8d769f2de0ee661926cc" kindref="member">osFopen</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*filename,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*mode);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="147"><highlight class="comment"><sp/>*<sp/><sp/>osFclose()</highlight></codeline>
+<codeline lineno="148"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="157"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a21236013e545b0a61c2cb02994769c68" kindref="member">osFclose</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="160"><highlight class="comment"><sp/>*<sp/><sp/>osFread()</highlight></codeline>
+<codeline lineno="161"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="177"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a2180303b8f01b685689429cc74f96bdb" kindref="member">osFread</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count,<sp/><ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="180"><highlight class="comment"><sp/>*<sp/><sp/>osFwrite()</highlight></codeline>
+<codeline lineno="181"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="197"><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a5fa132696b31af283c243e5dbc3d2c3e" kindref="member">osFwrite</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count,<sp/><ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="200"><highlight class="comment"><sp/>*<sp/><sp/>osFseek()</highlight></codeline>
+<codeline lineno="201"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="215"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1aea3b99eb0daf4f2cbc0feb42c54328ab" kindref="member">osFseek</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile,<sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>offset,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>origin);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="218"><highlight class="comment"><sp/>*<sp/><sp/>osFtell()</highlight></codeline>
+<codeline lineno="219"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="230"><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a75aaf3215304578f6eb595169f41ddc0" kindref="member">osFtell</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="233"><highlight class="comment"><sp/>*<sp/><sp/>osFilesize()</highlight></codeline>
+<codeline lineno="234"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="244"><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1aaa799f9620cef65bcb1dc928edeef4ce" kindref="member">osFileSize</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="247"><highlight class="comment"><sp/>*<sp/><sp/>osFeof()</highlight></codeline>
+<codeline lineno="248"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="259"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1aa43788efaf26ad94d6d6423a4b9e177d" kindref="member">osFeof</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="262"><highlight class="comment"><sp/>*<sp/><sp/>osFerror()</highlight></codeline>
+<codeline lineno="263"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="274"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a36ae4310985f8480ce1178e1580d2914" kindref="member">osFerror</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="277"><highlight class="comment"><sp/>*<sp/><sp/>osFgetc()</highlight></codeline>
+<codeline lineno="278"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="290"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1aa760c72965621eb2ba3a0c9bfeaa4276" kindref="member">osFgetc</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="293"><highlight class="comment"><sp/>*<sp/><sp/>osFgets()</highlight></codeline>
+<codeline lineno="294"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="309"><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="oslayer_8h_1a2365b2f4e87f27e834c499b6a02367c9" kindref="member">osFgets</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>str,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>size,<sp/><ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile);</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="312"><highlight class="comment"><sp/>*<sp/><sp/>osFputs()</highlight></codeline>
+<codeline lineno="313"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="324"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a30130922de5dbe405b9e4f4048ab24ad" kindref="member">osFputs</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>str,<sp/><ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>file);</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"></highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="327"><highlight class="comment"><sp/>*<sp/><sp/>osFscanf()</highlight></codeline>
+<codeline lineno="328"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="342"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a6984af46be5667eb31ebc48d9b9e75c6" kindref="member">osFscanf</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>format,<sp/>...);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"></highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="345"><highlight class="comment"><sp/>*<sp/><sp/>osFprintf()</highlight></codeline>
+<codeline lineno="346"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="360"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a6db2d8a06e5a7b8c89a03ba042b5ae97" kindref="member">osFprintf</ref>(<ref refid="struct__os_file" kindref="compound">osFile</ref>*<sp/>pVsiFile,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>format,<sp/>...);</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="364"><highlight class="comment"><sp/>*<sp/>osUSleep()</highlight></codeline>
+<codeline lineno="365"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="373"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="oslayer_8h_1a626cbc25326ae708d66e78efb3cc0dca" kindref="member">osUSleep</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>microseconds);</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="377"><highlight class="comment"><sp/>*<sp/><sp/>osTimeStampUs()</highlight></codeline>
+<codeline lineno="378"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="388"><highlight class="normal">int32_t<sp/><ref refid="oslayer_8h_1a52a3ba9784dc9336abdf5d91ad35edc4" kindref="member">osTimeStampUs</ref>(int64_t<sp/>*pTimeStamp);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="391"><highlight class="comment"><sp/>*<sp/><sp/>osTimeStampNs()</highlight></codeline>
+<codeline lineno="392"><highlight class="comment"><sp/>*****************************************************************************/</highlight></codeline>
+<codeline lineno="402"><highlight class="normal">int32_t<sp/><ref refid="oslayer_8h_1a5d47f198ef4e8d3adf5dfdb9e17d1310" kindref="member">osTimeStampNs</ref>(float32_t<sp/>*pTimeStamp);</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//OSLAYER_H</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/src/visp_ss/isp_drv/oslayer/include/oslayer.h"/>
+  </compounddef>
+</doxygen>

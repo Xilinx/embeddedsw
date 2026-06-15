@@ -1,0 +1,479 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="group__xsecure__rsa__qmode__apis" kind="group">
+    <compoundname>xsecure_rsa_qmode_apis</compoundname>
+    <title>Xilsecure RSA QMODE Server APIs</title>
+    <innerclass refid="struct_x_secure___rsa_operation_param" prot="public">XSecure_RsaOperationParam</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1gae1a74baadcd5d96038076e38a6af64e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExpCRT</definition>
+        <argsstring>(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub, u8 *Mod, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExpCRT</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Dq</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Qinv</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the RSA exponentiation using CRT (Chinese Remainder Theorem). </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor&apos;s CRT exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Dq</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor&apos;s CRT exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Qinv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is (first) CRT coefficient, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the public modulus (p*q), if NULL, calculated internally. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation using CRT</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="73" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="73" bodyend="96"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+        <referencedby refid="group__xsecure__rsa__server__apis_1ga7fe869dab6a634c2866f9ec26ee8cec0" compoundref="xsecure__plat__rsa_8c" startline="346" endline="378">XSecure_RsaOaepDecrypt</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1gab93e9d20b03a5821f0b533b3c0a1f681" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExp</definition>
+        <argsstring>(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExp</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Exp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function performs the RSA exponentiation. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public modulus (p*q), NULL is invalid param. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is totient, a secret value equal to (p-1)*(q-1). if NULL, calculated internally with p and q. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="119" bodyend="141"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+      </memberdef>
+      <memberdef kind="function" id="group__xsecure__rsa__qmode__apis_1ga6d3412455d770af7b891c3c90df4dffd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XSecure_RsaExpopt</definition>
+        <argsstring>(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q, u8 *Pub, u8 *Tot, int Len, u8 *Res)</argsstring>
+        <name>XSecure_RsaExpopt</name>
+        <param>
+          <type>u8 *</type>
+          <declname>Hash</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Exp</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Mod</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RN</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>RRN</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>P</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Q</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Pub</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Tot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>Len</declname>
+        </param>
+        <param>
+          <type>u8 *</type>
+          <declname>Res</declname>
+        </param>
+        <briefdescription>
+<para>This function perofrms the RSA exponentiation using pre-calculated modulus. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Hash</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is Hash of the exponentiation. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Exp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is exponent, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mod</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public modulus (p*q), NULL is invalid param. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pre-calculated modulus RmodN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>RRN</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is pre-calculated modulus RRmodN </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>P</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is first factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Q</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is second factor, a positive integer. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Pub</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is public exponent to protect against the fault insertions. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Tot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is totient, a secret value equal to (p-1)*(q-1). if NULL, calculated internally with p and q. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is length of the full-length integer in bits. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Res</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is result of exponentiation r = (h^e) mod n.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS - On success.</para></listitem><listitem><para>XSECURE_RSA_EXPONENT_INVALID_PARAM - If any input parameter is invalid.</para></listitem><listitem><para>XST_FAILURE - On failure. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+<para><itemizedlist>
+<listitem><para>Validate input parameters</para></listitem><listitem><para>Release the RSA engine from reset</para></listitem><listitem><para>Perform the RSA exponentiation with pre-calculated modulus</para></listitem><listitem><para>Reset the RSA engine </para></listitem></itemizedlist>
+</para>        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" line="166" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.c" bodystart="166" bodyend="189"/>
+        <references refid="group__xsecure__rsa__server__apis_1ga38e1b28752d6069910cf90fb422e9cca" compoundref="xsecure__plat__rsa_8h" startline="80">XSECURE_ECDSA_RSA_SOFT_RESET</references>
+        <references refid="group__xsecure__generic__server__apis_1gae500e79a22c37a14027ce0ad88a8cafe" compoundref="core_2util_2xsecure__utils_8h" startline="218">XSecure_Out32</references>
+        <references refid="versal__2ve__2vm_2xsecure__error_8h_1ab04a0655cd1e3bcac5e8f48c18df1a57abec901590074cb2fc5128fcfeb2fe6be" compoundref="versal__2ve__2vm_2xsecure__error_8h" startline="177">XSECURE_RSA_EXPONENT_INVALID_PARAM</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gaa653fc0677efc4a466e7f5360dbc2abe" prot="public" static="no">
+        <name>externC</name>
+        <initializer>extern</initializer>
+        <briefdescription>
+<para>For compilation in C++. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="35" column="10" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1ga38e1b28752d6069910cf90fb422e9cca" prot="public" static="no">
+        <name>XSECURE_ECDSA_RSA_SOFT_RESET</name>
+        <initializer>(0xF1200040U)</initializer>
+        <briefdescription>
+<para>ECDSA/RSA soft reset address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="52" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" prot="public" static="no">
+        <name>XSECURE_RSA_SIZE_IN_BYTES</name>
+        <initializer>(512U)</initializer>
+        <briefdescription>
+<para>512 bytes for 4096 bit data </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="53" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1ga127677299bd2c7d46a4cf8941e91ccc3" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_P_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(P) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="54" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gae905dfaa14a252d9b935b0f5ce8e7583" prot="public" static="no">
+        <name>XSECURE_PRIME_FACTOR_MAX_Q_SIZE</name>
+        <initializer>(<ref refid="group__xsecure__rsa__qmode__apis_1gacba3eaa97a1cf39d9022dddcaded8e1b" kindref="member">XSECURE_RSA_SIZE_IN_BYTES</ref> &gt;&gt; 1U)</initializer>
+        <briefdescription>
+<para>256 bytes size of first prime factor(Q) </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="55" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__xsecure__rsa__qmode__apis_1gac68769cb4d2f865843c2e77b2b5c3fbd" prot="public" static="no">
+        <name>XSECURE_RSA_PUB_EXP_SIZE</name>
+        <initializer>(4U)</initializer>
+        <briefdescription>
+<para>RSA public exponent size. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" line="56" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/server/core/rsa/rsa_qmode/xsecure_rsa_q.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="vvbench__tpg__api_8c" kind="file">
+    <compoundname>vvbench_tpg_api.c</compoundname>
+    <includes refid="c_j_s_o_n_8h" local="yes">cJSON.h</includes>
+    <includes local="yes">vlog.h</includes>
+    <includes refid="vvbench__tpg__api_8h" local="yes">vvbench_tpg_api.h</includes>
+    <incdepgraph>
+      <node id="10920">
+        <label>stdbool.h</label>
+      </node>
+      <node id="10923">
+        <label>vvdevice_common.h</label>
+        <childnode refid="10924" relation="include">
+        </childnode>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10918" relation="include">
+        </childnode>
+      </node>
+      <node id="10941">
+        <label>return_codes.h</label>
+        <link refid="return__codes_8h"/>
+      </node>
+      <node id="10930">
+        <label>oslayer.h</label>
+        <link refid="oslayer_8h"/>
+        <childnode refid="10931" relation="include">
+        </childnode>
+        <childnode refid="10936" relation="include">
+        </childnode>
+      </node>
+      <node id="10938">
+        <label>stdint.h</label>
+      </node>
+      <node id="10953">
+        <label>system_module.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+      </node>
+      <node id="10929">
+        <label>stdlib.h</label>
+      </node>
+      <node id="10939">
+        <label>cam_device_api.h</label>
+        <childnode refid="10940" relation="include">
+        </childnode>
+        <childnode refid="10947" relation="include">
+        </childnode>
+        <childnode refid="10948" relation="include">
+        </childnode>
+        <childnode refid="10949" relation="include">
+        </childnode>
+      </node>
+      <node id="10947">
+        <label>cam_device_calibration.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+      </node>
+      <node id="10926">
+        <label>vvterminal.h</label>
+      </node>
+      <node id="10943">
+        <label>sensor_cmd.h</label>
+        <childnode refid="10944" relation="include">
+        </childnode>
+        <childnode refid="10941" relation="include">
+        </childnode>
+      </node>
+      <node id="10950">
+        <label>cam_device_buffer_api.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10941" relation="include">
+        </childnode>
+        <childnode refid="10930" relation="include">
+        </childnode>
+        <childnode refid="10939" relation="include">
+        </childnode>
+        <childnode refid="10942" relation="include">
+        </childnode>
+      </node>
+      <node id="10919">
+        <label>stddef.h</label>
+      </node>
+      <node id="10918">
+        <label>cJSON.h</label>
+        <childnode refid="10919" relation="include">
+        </childnode>
+        <childnode refid="10920" relation="include">
+        </childnode>
+      </node>
+      <node id="10934">
+        <label>limits.h</label>
+      </node>
+      <node id="10940">
+        <label>cam_device_common.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10941" relation="include">
+        </childnode>
+        <childnode refid="10931" relation="include">
+        </childnode>
+        <childnode refid="10942" relation="include">
+        </childnode>
+        <childnode refid="10943" relation="include">
+        </childnode>
+      </node>
+      <node id="10942">
+        <label>buf_defs.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+      </node>
+      <node id="10944">
+        <label>mbox_api.h</label>
+        <childnode refid="10920" relation="include">
+        </childnode>
+        <childnode refid="10938" relation="include">
+        </childnode>
+        <childnode refid="10945" relation="include">
+        </childnode>
+      </node>
+      <node id="10935">
+        <label>string.h</label>
+      </node>
+      <node id="10945">
+        <label>mbox_fifo.h</label>
+        <link refid="mbox__fifo_8h"/>
+        <childnode refid="10920" relation="include">
+        </childnode>
+        <childnode refid="10946" relation="include">
+        </childnode>
+      </node>
+      <node id="10952">
+        <label>cam_device_isp_system_api.h</label>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10941" relation="include">
+        </childnode>
+        <childnode refid="10940" relation="include">
+        </childnode>
+        <childnode refid="10953" relation="include">
+        </childnode>
+      </node>
+      <node id="10951">
+        <label>cam_device_sensor_api.h</label>
+        <childnode refid="10939" relation="include">
+        </childnode>
+      </node>
+      <node id="10937">
+        <label>cam_common_api.h</label>
+        <childnode refid="10938" relation="include">
+        </childnode>
+        <childnode refid="10920" relation="include">
+        </childnode>
+      </node>
+      <node id="10921">
+        <label>vlog.h</label>
+      </node>
+      <node id="10924">
+        <label>vvdevice.h</label>
+        <childnode refid="10925" relation="include">
+        </childnode>
+        <childnode refid="10926" relation="include">
+        </childnode>
+        <childnode refid="10927" relation="include">
+        </childnode>
+        <childnode refid="10937" relation="include">
+        </childnode>
+        <childnode refid="10939" relation="include">
+        </childnode>
+        <childnode refid="10950" relation="include">
+        </childnode>
+        <childnode refid="10940" relation="include">
+        </childnode>
+        <childnode refid="10951" relation="include">
+        </childnode>
+        <childnode refid="10952" relation="include">
+        </childnode>
+        <childnode refid="10942" relation="include">
+        </childnode>
+        <childnode refid="10931" relation="include">
+        </childnode>
+      </node>
+      <node id="10946">
+        <label>sys/_stdint.h</label>
+      </node>
+      <node id="10954">
+        <label>cam_device_tpg_api.h</label>
+        <childnode refid="10940" relation="include">
+        </childnode>
+      </node>
+      <node id="10922">
+        <label>vvbench_tpg_api.h</label>
+        <childnode refid="10923" relation="include">
+        </childnode>
+        <childnode refid="10918" relation="include">
+        </childnode>
+        <childnode refid="10954" relation="include">
+        </childnode>
+      </node>
+      <node id="10936">
+        <label>ff.h</label>
+      </node>
+      <node id="10948">
+        <label>offline_trace.h</label>
+        <link refid="offline__trace_8h"/>
+        <childnode refid="10933" relation="include">
+        </childnode>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10941" relation="include">
+        </childnode>
+      </node>
+      <node id="10932">
+        <label>types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="10933" relation="include">
+        </childnode>
+        <childnode refid="10934" relation="include">
+        </childnode>
+        <childnode refid="10919" relation="include">
+        </childnode>
+      </node>
+      <node id="10917">
+        <label>vvbench_tpg_api.c</label>
+        <link refid="vvbench_tpg_api.c"/>
+        <childnode refid="10918" relation="include">
+        </childnode>
+        <childnode refid="10921" relation="include">
+        </childnode>
+        <childnode refid="10922" relation="include">
+        </childnode>
+      </node>
+      <node id="10949">
+        <label>cam_device_ccm_api.h</label>
+        <childnode refid="10940" relation="include">
+        </childnode>
+      </node>
+      <node id="10925">
+        <label>vvbase.h</label>
+      </node>
+      <node id="10927">
+        <label>vlog.h</label>
+        <childnode refid="10928" relation="include">
+        </childnode>
+        <childnode refid="10929" relation="include">
+        </childnode>
+        <childnode refid="10930" relation="include">
+        </childnode>
+      </node>
+      <node id="10931">
+        <label>builtins.h</label>
+        <link refid="builtins_8h"/>
+        <childnode refid="10932" relation="include">
+        </childnode>
+        <childnode refid="10935" relation="include">
+        </childnode>
+      </node>
+      <node id="10928">
+        <label>stdio.h</label>
+      </node>
+      <node id="10933">
+        <label>linux_compat.h</label>
+        <link refid="linux__compat_8h"/>
+        <childnode refid="10928" relation="include">
+        </childnode>
+        <childnode refid="10929" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="vvbench__tpg__api_8c_1a409768d6dd32d3ff211bfccfe4ecce45" prot="public" static="no">
+        <name>LOGTAG</name>
+        <initializer>&quot;TPG&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_tpg_api.c" line="29" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_tpg_api.c" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vvbench__tpg__api_8c_1afa487fd1f3e2fdcfebeb70f136fccabb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int VsiVvbenchTpgFunc</definition>
+        <argsstring>(CamDeviceHandle_t hCamDevice, VvbenchVvdev_t *caseCtx, int index)</argsstring>
+        <name>VsiVvbenchTpgFunc</name>
+        <param>
+          <type>CamDeviceHandle_t</type>
+          <declname>hCamDevice</declname>
+        </param>
+        <param>
+          <type>VvbenchVvdev_t *</type>
+          <declname>caseCtx</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_tpg_api.c" line="34" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_tpg_api.c" bodystart="35" bodyend="101"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>Copyright<sp/>(C)<sp/>2024<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>The<sp/>MIT<sp/>License<sp/>(MIT)</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2014-2026<sp/>Vivantec<sp/>Corporation</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Permission<sp/>is<sp/>hereby<sp/>granted,<sp/>free<sp/>of<sp/>charge,<sp/>to<sp/>any<sp/>person<sp/>obtaining<sp/>a</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>copy<sp/>of<sp/>this<sp/>software<sp/>and<sp/>associated<sp/>documentation<sp/>files<sp/>(the<sp/>&quot;Software&quot;),</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>to<sp/>deal<sp/>in<sp/>the<sp/>Software<sp/>without<sp/>restriction,<sp/>including<sp/>without<sp/>limitation</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>the<sp/>rights<sp/>to<sp/>use,<sp/>copy,<sp/>modify,<sp/>merge,<sp/>publish,<sp/>distribute,<sp/>sublicense,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/>and/or<sp/>sell<sp/>copies<sp/>of<sp/>the<sp/>Software,<sp/>and<sp/>to<sp/>permit<sp/>persons<sp/>to<sp/>whom<sp/>the</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Software<sp/>is<sp/>furnished<sp/>to<sp/>do<sp/>so,<sp/>subject<sp/>to<sp/>the<sp/>following<sp/>conditions:</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>The<sp/>above<sp/>copyright<sp/>notice<sp/>and<sp/>this<sp/>permission<sp/>notice<sp/>shall<sp/>be<sp/>included<sp/>in</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>all<sp/>copies<sp/>or<sp/>substantial<sp/>portions<sp/>of<sp/>the<sp/>Software.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>THE<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>&quot;AS<sp/>IS&quot;,<sp/>WITHOUT<sp/>WARRANTY<sp/>OF<sp/>ANY<sp/>KIND,<sp/>EXPRESS<sp/>OR</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>IMPLIED,<sp/>INCLUDING<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO<sp/>THE<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY,</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE<sp/>AND<sp/>NONINFRINGEMENT.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>AUTHORS<sp/>OR<sp/>COPYRIGHT<sp/>HOLDERS<sp/>BE<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>CLAIM,<sp/>DAMAGES<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>LIABILITY,<sp/>WHETHER<sp/>IN<sp/>AN<sp/>ACTION<sp/>OF<sp/>CONTRACT,<sp/>TORT<sp/>OR<sp/>OTHERWISE,<sp/>ARISING</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>FROM,<sp/>OUT<sp/>OF<sp/>OR<sp/>IN<sp/>CONNECTION<sp/>WITH<sp/>THE<sp/>SOFTWARE<sp/>OR<sp/>THE<sp/>USE<sp/>OR<sp/>OTHER</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>DEALINGS<sp/>IN<sp/>THE<sp/>SOFTWARE.</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOGTAG<sp/>&quot;TPG&quot;</highlight></codeline>
+<codeline lineno="30"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;cJSON.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vlog.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;vvbench_tpg_api.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>VsiVvbenchTpgFunc</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">(</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>CamDeviceHandle_t<sp/>hCamDevice,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>VvbenchVvdev_t<sp/>*caseCtx,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>index</highlight></codeline>
+<codeline lineno="39"><highlight class="normal">)</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>result<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>enter<sp/>\n&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(NULL<sp/>==<sp/>hCamDevice<sp/>||<sp/>NULL<sp/>==<sp/>caseCtx)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceTpgDisable(hCamDevice);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Disable<sp/>TPG<sp/>failed!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bool_t<sp/>enable<sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.enable;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!enable)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>TPG<sp/>not<sp/>enabled\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>version;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_cam_device_tpg_config__s" kindref="compound">CamDeviceTpgConfig_t</ref><sp/>config;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>MEMSET(&amp;config,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="struct_cam_device_tpg_config__s" kindref="compound">CamDeviceTpgConfig_t</ref>));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(caseCtx-&gt;instanceCfgCtx[index].tpgCfg.useCfg)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1ab18abec7e442e8f59d93b7896321e454" kindref="member">imageType</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.imageType;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a2be82681c48310c285a1957d393bb4fb" kindref="member">bayerPattern</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.bayerPattern;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a8f59203a18056c555b1fd5f576855986" kindref="member">colorDepth</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.colorDepth;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a032f83ec9b9d7288e281caad3e829c90" kindref="member">resolution</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.resolution;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a88e26e2b39e0efdfde1060e96b05a809" kindref="member">pixleGap</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.pixleGap;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a595bfb20cec5da116a8b501f97e8707b" kindref="member">lineGap</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.lineGap;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1afafe0bb82eefc5826338df97f15454ec" kindref="member">gapStandard</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.gapStandard;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1ade00276f0aac4ca341cdd80693d7d89d" kindref="member">randomSeed</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.randomSeed;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>config.<ref refid="struct_cam_device_tpg_config__s_1a957281714c3e3f3b938f7051c309cac6" kindref="member">frameNum</ref><sp/>=<sp/>caseCtx-&gt;instanceCfgCtx[index].tpgCfg.frameNum;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceTpgSetConfig(hCamDevice,<sp/>&amp;config);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Set<sp/>TPG<sp/>config<sp/>failed!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceTpgEnable(hCamDevice);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Enable<sp/>TPG<sp/>failed!&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>VsiCamDeviceTpgGetVersion(hCamDevice,<sp/>&amp;version);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(0<sp/>!=<sp/>result)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGE(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>Get<sp/>TPG<sp/>version<sp/>failed!\n&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;Vvbench<sp/>TPG<sp/>version:<sp/>%x&quot;</highlight><highlight class="normal">,<sp/>version);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>LOGI(</highlight><highlight class="stringliteral">&quot;%s<sp/>exit<sp/>&quot;</highlight><highlight class="normal">,<sp/>__func__);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>result;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/visp_ss/examples/vvbench/source/submoduels/vvbench_tpg_api.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_secure___hmac_params" kind="struct" prot="public">
+    <compoundname>XSecure_HmacParams</compoundname>
+    <includes local="no">xsecure_plat_defs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1a877c1af90466f163737a12775d955cfe" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_HmacParams::KeyAddr</definition>
+        <argsstring></argsstring>
+        <name>KeyAddr</name>
+        <briefdescription>
+<para>HMAC key address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="120" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1a7e780b3dc4097ce6437b3142e839346b" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_HmacParams::MsgAddr</definition>
+        <argsstring></argsstring>
+        <name>MsgAddr</name>
+        <briefdescription>
+<para>Message data address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Input message address. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1a739e4c15e3123d3ab7b09cbbe79e6df3" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XSecure_HmacParams::OutputAddr</definition>
+        <argsstring></argsstring>
+        <name>OutputAddr</name>
+        <briefdescription>
+<para>Output HMAC result address. </para>        </briefdescription>
+        <detaileddescription>
+<para>Output hash address. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1a4d324a31da78774a446ac1ed0e27658a" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_HmacParams::KeyLen</definition>
+        <argsstring></argsstring>
+        <name>KeyLen</name>
+        <briefdescription>
+<para>HMAC key length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1ad11e84cc87e3413e148e93c5555a8870" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_HmacParams::MsgLen</definition>
+        <argsstring></argsstring>
+        <name>MsgLen</name>
+        <briefdescription>
+<para>Message length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+<para>Input message length in bytes. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1ac8baf0ed5f0dca6d60187479dbd8dd29" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSecure_HmacParams::OutputLen</definition>
+        <argsstring></argsstring>
+        <name>OutputLen</name>
+        <briefdescription>
+<para>Output buffer length in bytes. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1ae17ec436728b666cdb37a52f665a73a6" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_HmacParams::IsLast</definition>
+        <argsstring></argsstring>
+        <name>IsLast</name>
+        <briefdescription>
+<para>Is last update. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1a118748c9c9e8a5a877db72fa4c40e9c7" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_HmacParams::OperationFlags</definition>
+        <argsstring></argsstring>
+        <name>OperationFlags</name>
+        <briefdescription>
+<para>HMAC operation flags. </para>        </briefdescription>
+        <detaileddescription>
+<para>SHA3 operation flags. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_secure___hmac_params_1ae9a32cc231cb3d6e786b50019529a02d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XSecure_HmacParams::Reserved</definition>
+        <argsstring>[2U]</argsstring>
+        <name>Reserved</name>
+        <briefdescription>
+<para>Explicit padding for alignment. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Structure for HMAC operation parameters. </para>    </briefdescription>
+    <detaileddescription>
+<para>HMAC input parameters. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" line="119" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilsecure/src/common/versal_2ve_2vm/xsecure_plat_defs.h" bodystart="119" bodyend="129"/>
+    <listofallmembers>
+      <member refid="struct_x_secure___hmac_params_1ae17ec436728b666cdb37a52f665a73a6" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>IsLast</name></member>
+      <member refid="struct_x_secure___hmac_params_1a877c1af90466f163737a12775d955cfe" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>KeyAddr</name></member>
+      <member refid="struct_x_secure___hmac_params_1a4d324a31da78774a446ac1ed0e27658a" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>KeyLen</name></member>
+      <member refid="struct_x_secure___hmac_params_1a7e780b3dc4097ce6437b3142e839346b" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>MsgAddr</name></member>
+      <member refid="struct_x_secure___hmac_params_1ad11e84cc87e3413e148e93c5555a8870" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>MsgLen</name></member>
+      <member refid="struct_x_secure___hmac_params_1a118748c9c9e8a5a877db72fa4c40e9c7" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>OperationFlags</name></member>
+      <member refid="struct_x_secure___hmac_params_1a739e4c15e3123d3ab7b09cbbe79e6df3" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>OutputAddr</name></member>
+      <member refid="struct_x_secure___hmac_params_1ac8baf0ed5f0dca6d60187479dbd8dd29" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>OutputLen</name></member>
+      <member refid="struct_x_secure___hmac_params_1ae9a32cc231cb3d6e786b50019529a02d" prot="public" virt="non-virtual"><scope>XSecure_HmacParams</scope><name>Reserved</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

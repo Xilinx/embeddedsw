@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_dp___tx_topology" kind="struct" prot="public">
+    <compoundname>XDp_TxTopology</compoundname>
+    <includes local="no">xdp.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_1a87c65be84c7e234b204149fe570153ef" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopology::NodeTotal</definition>
+        <argsstring></argsstring>
+        <name>NodeTotal</name>
+        <briefdescription>
+<para>The total number of nodes that were found in the MST topology. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="868" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="868" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_1a44187c89317924ea3dfa7fd6594f5485" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_topology_node" kindref="compound">XDp_TxTopologyNode</ref></type>
+        <definition>XDp_TxTopologyNode XDp_TxTopology::NodeTable[63]</definition>
+        <argsstring>[63]</argsstring>
+        <name>NodeTable</name>
+        <briefdescription>
+<para>A table listing all the nodes in the MST topology. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="870" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="870" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_1ac673c01cc24bab16921fb469d120d6f4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XDp_TxTopology::SinkTotal</definition>
+        <argsstring></argsstring>
+        <name>SinkTotal</name>
+        <briefdescription>
+<para>The total number of sinks in the MST topology. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="872" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="872" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_dp___tx_topology_1a7fffcc07ed2dd282ee9847c7ebf7d932" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_dp___tx_topology_node" kindref="compound">XDp_TxTopologyNode</ref> *</type>
+        <definition>XDp_TxTopologyNode* XDp_TxTopology::SinkList[63]</definition>
+        <argsstring>[63]</argsstring>
+        <name>SinkList</name>
+        <briefdescription>
+<para>A pointer list of sinks in the MST topology. </para>        </briefdescription>
+        <detaileddescription>
+<para>The entries will point to the sinks in the NodeTable. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="874" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="874" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef describes a the entire topology of connected downstream DisplayPort devices (from the DisplayPort TX) when the driver is operating in multi-stream transport (MST) mode. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="94">
+        <label>XDp_TxTopologyNode</label>
+        <link refid="struct_x_dp___tx_topology_node"/>
+      </node>
+      <node id="93">
+        <label>XDp_TxTopology</label>
+        <link refid="struct_x_dp___tx_topology"/>
+        <childnode refid="94" relation="usage">
+          <edgelabel>SinkList</edgelabel>
+          <edgelabel>NodeTable</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" line="867" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dp21/src/xdp.h" bodystart="867" bodyend="878"/>
+    <listofallmembers>
+      <member refid="struct_x_dp___tx_topology_1a44187c89317924ea3dfa7fd6594f5485" prot="public" virt="non-virtual"><scope>XDp_TxTopology</scope><name>NodeTable</name></member>
+      <member refid="struct_x_dp___tx_topology_1a87c65be84c7e234b204149fe570153ef" prot="public" virt="non-virtual"><scope>XDp_TxTopology</scope><name>NodeTotal</name></member>
+      <member refid="struct_x_dp___tx_topology_1a7fffcc07ed2dd282ee9847c7ebf7d932" prot="public" virt="non-virtual"><scope>XDp_TxTopology</scope><name>SinkList</name></member>
+      <member refid="struct_x_dp___tx_topology_1ac673c01cc24bab16921fb469d120d6f4" prot="public" virt="non-virtual"><scope>XDp_TxTopology</scope><name>SinkTotal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

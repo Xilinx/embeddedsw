@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_spdif" kind="struct" prot="public">
+    <compoundname>XSpdif</compoundname>
+    <includes local="no">xspdif.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSpdif::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Core and the driver instance are initialized. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="105" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="105" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" compoundref="xspdif_8c" startline="69" endline="95">XSpdif_CfgInitialize</referencedby>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XSpdif::IsStarted</definition>
+        <argsstring></argsstring>
+        <name>IsStarted</name>
+        <briefdescription>
+<para>Core and the driver instance has started. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="107" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="107" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_spdif___config" kindref="compound">XSpdif_Config</ref></type>
+        <definition>XSpdif_Config XSpdif::Config</definition>
+        <argsstring></argsstring>
+        <name>Config</name>
+        <briefdescription>
+<para>Hardware Configuration. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="109" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="109" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga0fd1a9a8dba71df82291f9d0307366a3" compoundref="xspdif_8c" startline="69" endline="95">XSpdif_CfgInitialize</referencedby>
+        <referencedby refid="group__spdif_1ga1c7b903ef4c7052aa0f3b11350946594" compoundref="xspdif_8c" startline="106" endline="123">XSpdif_Enable</referencedby>
+        <referencedby refid="group__spdif_1gaf65b0871fbd61f85bff84b47ab5fc397" compoundref="xspdif_8c" startline="231" endline="239">XSpdif_GetFs</referencedby>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gabe3f017617a1beda897955974c20fc9d" compoundref="xspdif_8c" startline="147" endline="162">XSpdif_ResetFifo</referencedby>
+        <referencedby refid="group__spdif_1gab42041ee833dc5963d3d87f83bb05197" compoundref="xspdif_8c" startline="273" endline="287">XSpdif_Rx_GetChA_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga838302566560f7a0aeae1f154b2b615f" compoundref="xspdif_8c" startline="297" endline="312">XSpdif_Rx_GetChB_UserData</referencedby>
+        <referencedby refid="group__spdif_1ga6cc58a923df8991119d2ae9d894b5225" compoundref="xspdif_8c" startline="249" endline="263">XSpdif_Rx_GetChStat</referencedby>
+        <referencedby refid="group__spdif_1gab68e148095ed0fec2cccdea00c9a5169" compoundref="xspdif__selftest_8c" startline="54" endline="69">XSpdif_SelfTest</referencedby>
+        <referencedby refid="group__spdif_1ga663de6a5b3129b9af53363b95ddd1c8c" compoundref="xspdif_8c" startline="173" endline="220">XSpdif_SetClkConfig</referencedby>
+        <referencedby refid="group__spdif_1gae803b59eab34cf53ffcfb147b367f88f" compoundref="xspdif_8c" startline="132" endline="138">XSpdif_SoftReset</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" prot="public" static="no" mutable="no">
+        <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+        <definition>XSpdif_Callback XSpdif::TxOrRxFifoFullHandler</definition>
+        <argsstring></argsstring>
+        <name>TxOrRxFifoFullHandler</name>
+        <briefdescription>
+<para>Transmitter or Receiver Fifo Full Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="111" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="111" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSpdif::TxOrRxFifoFullHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>TxOrRxFifoFullHandlerRef</name>
+        <briefdescription>
+<para>Callback reference for Transmitter or. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="113" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="113" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" prot="public" static="no" mutable="no">
+        <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+        <definition>XSpdif_Callback XSpdif::TxOrRxFifoEmptyHandler</definition>
+        <argsstring></argsstring>
+        <name>TxOrRxFifoEmptyHandler</name>
+        <briefdescription>
+<para>Transmitter or Receiver Fifo Empty Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="116" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="116" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSpdif::TxOrRxFifoEmptyHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>TxOrRxFifoEmptyHandlerRef</name>
+        <briefdescription>
+<para>Callback reference for Transmitter or. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="118" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="118" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" prot="public" static="no" mutable="no">
+        <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+        <definition>XSpdif_Callback XSpdif::StartOfBlockHandler</definition>
+        <argsstring></argsstring>
+        <name>StartOfBlockHandler</name>
+        <briefdescription>
+<para>Start of Block Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="121" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="121" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSpdif::StartOfBlockHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>StartOfBlockHandlerRef</name>
+        <briefdescription>
+<para>Callback reference for Start of Block Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="122" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" prot="public" static="no" mutable="no">
+        <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+        <definition>XSpdif_Callback XSpdif::BmcErrHandler</definition>
+        <argsstring></argsstring>
+        <name>BmcErrHandler</name>
+        <briefdescription>
+<para>Start of BMC Error Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="124" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSpdif::BmcErrHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>BmcErrHandlerRef</name>
+        <briefdescription>
+<para>Callback reference for BMC Error Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="125" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" prot="public" static="no" mutable="no">
+        <type><ref refid="group__spdif_1ga7326768127188993e348633ff87ffa2a" kindref="member">XSpdif_Callback</ref></type>
+        <definition>XSpdif_Callback XSpdif::PreambleErrHandler</definition>
+        <argsstring></argsstring>
+        <name>PreambleErrHandler</name>
+        <briefdescription>
+<para>Start of Preamble Error Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="127" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XSpdif::PreambleErrHandlerRef</definition>
+        <argsstring></argsstring>
+        <name>PreambleErrHandlerRef</name>
+        <briefdescription>
+<para>Callback reference for Preamble Error Handler. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="129" bodyend="-1"/>
+        <referencedby refid="group__spdif_1ga6174ad5a016d53a99ddd0b41d0f22377" compoundref="xspdif__intr_8c" startline="55" endline="127">XSpdif_IntrHandler</referencedby>
+        <referencedby refid="group__spdif_1gaf97322a55fd92400b0f38a4f846c1d77" compoundref="xspdif__intr_8c" startline="158" endline="200">XSpdif_SetHandler</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>An instance must be allocated for each <ref refid="struct_x_spdif" kindref="compound">XSpdif</ref> core in use. </para>    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>XSpdif_Config</label>
+        <link refid="struct_x_spdif___config"/>
+      </node>
+      <node id="1">
+        <label>XSpdif</label>
+        <link refid="struct_x_spdif"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Config</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" line="104" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/spdif/src/xspdif.h" bodystart="104" bodyend="131"/>
+    <listofallmembers>
+      <member refid="struct_x_spdif_1a59c27ef158bff34e4e1d90c21fa25bd9" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>BmcErrHandler</name></member>
+      <member refid="struct_x_spdif_1a7ac918a9de6f2ea99fca5923c4df3373" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>BmcErrHandlerRef</name></member>
+      <member refid="struct_x_spdif_1a067162378b1d3419846e343962d2ce0f" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>Config</name></member>
+      <member refid="struct_x_spdif_1a29ca7bc4583f440ed962a38bfae1efc8" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>IsReady</name></member>
+      <member refid="struct_x_spdif_1ad5c4744b9e4947f80e431a6ab5f13510" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>IsStarted</name></member>
+      <member refid="struct_x_spdif_1a24288d8cb6d3fb0d73ffb1321c71f432" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>PreambleErrHandler</name></member>
+      <member refid="struct_x_spdif_1aa3b36234a22b83ffba8973799dbe127e" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>PreambleErrHandlerRef</name></member>
+      <member refid="struct_x_spdif_1adba3c3d49cb76c5b4a98f0669f3d7962" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>StartOfBlockHandler</name></member>
+      <member refid="struct_x_spdif_1a72b3a2640c7e38a1400642e1036877ca" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>StartOfBlockHandlerRef</name></member>
+      <member refid="struct_x_spdif_1aeb09c843028e244f2dad763ab79b7f0f" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>TxOrRxFifoEmptyHandler</name></member>
+      <member refid="struct_x_spdif_1a89e14e9b80c238c9203defbd1ff36bac" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>TxOrRxFifoEmptyHandlerRef</name></member>
+      <member refid="struct_x_spdif_1a11244bc2859196c1a9a7e1bbe22a8952" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>TxOrRxFifoFullHandler</name></member>
+      <member refid="struct_x_spdif_1ad6d4d0e57f4f7dccc7aa0f3fb05d3cf9" prot="public" virt="non-virtual"><scope>XSpdif</scope><name>TxOrRxFifoFullHandlerRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

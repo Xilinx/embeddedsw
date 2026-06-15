@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="structdfu__if" kind="struct" prot="public">
+    <compoundname>dfu_if</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdfu__if_1ae17eec8a07bcad7005433e4afedbd3fc" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct_usb___dev_data" kindref="compound">Usb_DevData</ref> *</type>
+        <definition>struct Usb_DevData * dfu_if::InstancePtr</definition>
+        <argsstring></argsstring>
+        <name>InstancePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="123" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a0497d8263d98f682a5c28d6d391970e4" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::curr_state</definition>
+        <argsstring></argsstring>
+        <name>curr_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="124" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a8b19bc632cf034521a7854793460f40b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::next_state</definition>
+        <argsstring></argsstring>
+        <name>next_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="125" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1af487b629a840e7b2d15174c8e1a41379" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="126" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1abedb699cf19cfd96dc4b617b2b45ba0c" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::got_reset</definition>
+        <argsstring></argsstring>
+        <name>got_reset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="127" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a32104a8a6dc05b1a505ebc586cb413e9" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::current_inf</definition>
+        <argsstring></argsstring>
+        <name>current_inf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="128" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1aa94f76e9ed40fc02f4d38a74ce0ce595" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::got_dnload_rqst</definition>
+        <argsstring></argsstring>
+        <name>got_dnload_rqst</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="129" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a272cd3e61af50f4227d3682b12086395" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_transfers</definition>
+        <argsstring></argsstring>
+        <name>total_transfers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="130" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a7e56e21b697437901e465c624607fe06" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_bytes_dnloaded</definition>
+        <argsstring></argsstring>
+        <name>total_bytes_dnloaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="131" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1abd15cf1fa7c0b3d8f3bc4ccd9f1276a6" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::total_bytes_uploaded</definition>
+        <argsstring></argsstring>
+        <name>total_bytes_uploaded</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="132" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a7af88c26b63603789d8745798f595e93" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::dfu_wait_for_interrupt</definition>
+        <argsstring></argsstring>
+        <name>dfu_wait_for_interrupt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="133" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::is_dfu</definition>
+        <argsstring></argsstring>
+        <name>is_dfu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="134" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a270a04c0391e88860c7b25b22c5d724d" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 dfu_if::runtime_to_dfu</definition>
+        <argsstring></argsstring>
+        <name>runtime_to_dfu</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="135" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a217db6ab8a96f9b9fe8371a8e0be8be7" prot="public" static="no" mutable="no">
+        <type>u8 *</type>
+        <definition>u8 * dfu_if::disk</definition>
+        <argsstring></argsstring>
+        <name>disk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="303" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a857d848e4fc0d6b79a5b38616a0734ae" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 dfu_if::disksize</definition>
+        <argsstring></argsstring>
+        <name>disksize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" line="304" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_composite.h" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdfu__if_1a899b72b8848bbf6af36fba18a208d470" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>volatile u8 dfu_if::dfu_wait_for_interrupt</definition>
+        <argsstring></argsstring>
+        <name>dfu_wait_for_interrupt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_dfu.h" line="101" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_dfu.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="11">
+        <label>dfu_if</label>
+        <childnode refid="12" relation="usage">
+          <edgelabel>InstancePtr</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Usb_DevData</label>
+        <link refid="struct_usb___dev_data"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" line="122" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/examples/xusb_class_audio_dfu.h" bodystart="122" bodyend="136"/>
+    <listofallmembers>
+      <member refid="structdfu__if_1a0497d8263d98f682a5c28d6d391970e4" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>curr_state</name></member>
+      <member refid="structdfu__if_1a32104a8a6dc05b1a505ebc586cb413e9" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>current_inf</name></member>
+      <member refid="structdfu__if_1a7af88c26b63603789d8745798f595e93" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>dfu_wait_for_interrupt</name></member>
+      <member refid="structdfu__if_1a899b72b8848bbf6af36fba18a208d470" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>dfu_wait_for_interrupt</name></member>
+      <member refid="structdfu__if_1a217db6ab8a96f9b9fe8371a8e0be8be7" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>disk</name></member>
+      <member refid="structdfu__if_1a857d848e4fc0d6b79a5b38616a0734ae" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>disksize</name></member>
+      <member refid="structdfu__if_1aa94f76e9ed40fc02f4d38a74ce0ce595" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>got_dnload_rqst</name></member>
+      <member refid="structdfu__if_1abedb699cf19cfd96dc4b617b2b45ba0c" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>got_reset</name></member>
+      <member refid="structdfu__if_1ae17eec8a07bcad7005433e4afedbd3fc" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>InstancePtr</name></member>
+      <member refid="structdfu__if_1aadcd4f1649783cc30a3cfb54f42e258f" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>is_dfu</name></member>
+      <member refid="structdfu__if_1a8b19bc632cf034521a7854793460f40b" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>next_state</name></member>
+      <member refid="structdfu__if_1a270a04c0391e88860c7b25b22c5d724d" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>runtime_to_dfu</name></member>
+      <member refid="structdfu__if_1af487b629a840e7b2d15174c8e1a41379" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>status</name></member>
+      <member refid="structdfu__if_1a7e56e21b697437901e465c624607fe06" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_bytes_dnloaded</name></member>
+      <member refid="structdfu__if_1abd15cf1fa7c0b3d8f3bc4ccd9f1276a6" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_bytes_uploaded</name></member>
+      <member refid="structdfu__if_1a272cd3e61af50f4227d3682b12086395" prot="public" virt="non-virtual"><scope>dfu_if</scope><name>total_transfers</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

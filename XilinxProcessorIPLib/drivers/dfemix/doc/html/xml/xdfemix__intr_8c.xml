@@ -1,0 +1,406 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xdfemix__intr_8c" kind="file">
+    <compoundname>xdfemix_intr.c</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__dfemix_1gae80ed5247f1ea805865e8c6da473c3b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeMix_GetInterruptMask</definition>
+        <argsstring>(const XDfeMix *InstancePtr, XDfeMix_InterruptMask *Mask)</argsstring>
+        <name>XDfeMix_GetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Gets interrupt mask status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Mixer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt masks container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="633" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix_intr.c" bodystart="61" bodyend="96"/>
+        <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" compoundref="xdfemix_8h" startline="503">XDfeMix_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" compoundref="xdfemix_8h" startline="507">XDfeMix_Status::CCUpdateError</references>
+        <references refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" compoundref="xdfemix_8h" startline="501">XDfeMix_Status::DUCDDCOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" compoundref="xdfemix_8h" startline="504">XDfeMix_Status::LowPower</references>
+        <references refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" compoundref="xdfemix_8h" startline="508">XDfeMix_Status::LowPowerError</references>
+        <references refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" compoundref="xdfemix_8h" startline="502">XDfeMix_Status::MixerOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" compoundref="xdfemix_8h" startline="505">XDfeMix_Status::Switchable</references>
+        <references refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" compoundref="xdfemix_8h" startline="509">XDfeMix_Status::SwitchableError</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfemix_1gaef276de62ecd728e84cb621093e56c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeMix_SetInterruptMask</definition>
+        <argsstring>(const XDfeMix *InstancePtr, const XDfeMix_InterruptMask *Mask)</argsstring>
+        <name>XDfeMix_SetInterruptMask</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_InterruptMask</ref> *</type>
+          <declname>Mask</declname>
+        </param>
+        <briefdescription>
+<para>Sets interrupt mask. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Mixer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mask</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mask flags container.<itemizedlist>
+<listitem><para>0 - does not mask corresponding interrupt</para></listitem><listitem><para>1 - masks corresponding interrupt </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="635" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix_intr.c" bodystart="108" bodyend="177"/>
+        <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" compoundref="xdfemix_8h" startline="503">XDfeMix_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" compoundref="xdfemix_8h" startline="507">XDfeMix_Status::CCUpdateError</references>
+        <references refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" compoundref="xdfemix_8h" startline="501">XDfeMix_Status::DUCDDCOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" compoundref="xdfemix_8h" startline="504">XDfeMix_Status::LowPower</references>
+        <references refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" compoundref="xdfemix_8h" startline="508">XDfeMix_Status::LowPowerError</references>
+        <references refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" compoundref="xdfemix_8h" startline="502">XDfeMix_Status::MixerOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" compoundref="xdfemix_8h" startline="505">XDfeMix_Status::Switchable</references>
+        <references refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" compoundref="xdfemix_8h" startline="509">XDfeMix_Status::SwitchableError</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfemix_1ga30b9d679358622d80119d933afdfbd77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeMix_GetEventStatus</definition>
+        <argsstring>(const XDfeMix *InstancePtr, XDfeMix_Status *Status)</argsstring>
+        <name>XDfeMix_GetEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Gets event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Mixer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event status container. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="637" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix_intr.c" bodystart="188" bodyend="222"/>
+        <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" compoundref="xdfemix_8h" startline="503">XDfeMix_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" compoundref="xdfemix_8h" startline="507">XDfeMix_Status::CCUpdateError</references>
+        <references refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" compoundref="xdfemix_8h" startline="501">XDfeMix_Status::DUCDDCOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" compoundref="xdfemix_8h" startline="504">XDfeMix_Status::LowPower</references>
+        <references refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" compoundref="xdfemix_8h" startline="508">XDfeMix_Status::LowPowerError</references>
+        <references refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" compoundref="xdfemix_8h" startline="502">XDfeMix_Status::MixerOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" compoundref="xdfemix_8h" startline="505">XDfeMix_Status::Switchable</references>
+        <references refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" compoundref="xdfemix_8h" startline="509">XDfeMix_Status::SwitchableError</references>
+      </memberdef>
+      <memberdef kind="function" id="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void XDfeMix_ClearEventStatus</definition>
+        <argsstring>(const XDfeMix *InstancePtr, const XDfeMix_Status *Status)</argsstring>
+        <name>XDfeMix_ClearEventStatus</name>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_Status</ref> *</type>
+          <declname>Status</declname>
+        </param>
+        <briefdescription>
+<para>Clears event status. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the Mixer instance. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clear event status container.<itemizedlist>
+<listitem><para>0 - does not clear corresponding event status</para></listitem><listitem><para>1 - clear corresponding event status </para></listitem></itemizedlist>
+</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix.h" line="638" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix_intr.c" bodystart="235" bodyend="275"/>
+        <references refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" compoundref="xdfemix_8h" startline="506">XDfeMix_Status::CCSequenceError</references>
+        <references refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" compoundref="xdfemix_8h" startline="503">XDfeMix_Status::CCUpdate</references>
+        <references refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" compoundref="xdfemix_8h" startline="507">XDfeMix_Status::CCUpdateError</references>
+        <references refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" compoundref="xdfemix_8h" startline="501">XDfeMix_Status::DUCDDCOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" compoundref="xdfemix_8h" startline="504">XDfeMix_Status::LowPower</references>
+        <references refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" compoundref="xdfemix_8h" startline="508">XDfeMix_Status::LowPowerError</references>
+        <references refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" compoundref="xdfemix_8h" startline="502">XDfeMix_Status::MixerOverflow</references>
+        <references refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" compoundref="xdfemix_8h" startline="505">XDfeMix_Status::Switchable</references>
+        <references refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" compoundref="xdfemix_8h" startline="509">XDfeMix_Status::SwitchableError</references>
+        <referencedby refid="group__dfemix_1ga1061d48f6c831d81557dff815fc7ff1f" compoundref="xdfemix__pass__through__example_8c" startline="66" endline="178">XDfeMix_AddCCExample</referencedby>
+        <referencedby refid="group__dfemix_1gad11616c20803424abe6edac0f5f4a900" compoundref="xdfemix__multi_add_c_c__pass__through__example_8c" startline="68" endline="205">XDfeMix_MultiAddCCExample</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2021-2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(C)<sp/>2022<sp/>-<sp/>2023<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="39"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xdfemix_8h" kindref="compound">xdfemix.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xdfemix_hw.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Macros<sp/>Definitions<sp/>****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Function<sp/>Prototypes<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeMix_RdBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>u32<sp/>XDfeMix_WrBitField(u32<sp/>FieldWidth,<sp/>u32<sp/>FieldOffset,<sp/>u32<sp/>Data,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val);</highlight></codeline>
+<codeline lineno="52"><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="61" refid="group__dfemix_1gae80ed5247f1ea805865e8c6da473c3b4" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1gae80ed5247f1ea805865e8c6da473c3b4" kindref="member">XDfeMix_GetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeMix_ReadReg(InstancePtr,<sp/>XDFEMIX_IMR);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_DUC_DDC_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_MIXER_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" kindref="member">LowPower</ref><sp/>=</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" kindref="member">Switchable</ref><sp/>=</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_SWITCH_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_SEQUENCE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" kindref="member">CCUpdateError</ref><sp/>=</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" kindref="member">LowPowerError</ref><sp/>=</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" kindref="member">SwitchableError</ref><sp/>=<sp/>XDfeMix_RdBitField(</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_ERROR_WIDTH,<sp/>XDFEMIX_SWITCH_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="108" refid="group__dfemix_1gaef276de62ecd728e84cb621093e56c35" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1gaef276de62ecd728e84cb621093e56c35" kindref="member">XDfeMix_SetInterruptMask</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_InterruptMask</ref><sp/>*Mask)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIER<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>ValIDR<sp/>=<sp/>0U;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_DUC_DDC_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_DUC_DDC_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_MIXER_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_MIXER_OVERFLOW_OFFSET);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" kindref="member">LowPower</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_LOW_POWER_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_LOW_POWER_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" kindref="member">Switchable</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_SWITCH_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_SWITCH_TRIGGERED_OFFSET);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_SEQUENCE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" kindref="member">CCUpdateError</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_UPDATE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_CC_UPDATE_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" kindref="member">LowPowerError</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_LOW_POWER_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_LOW_POWER_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Mask-&gt;<ref refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" kindref="member">SwitchableError</ref><sp/>==<sp/>XDFEMIX_IMR_INTERRUPT)<sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIER<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_SWITCH_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ValIDR<sp/>|=<sp/>(1U<sp/>&lt;&lt;<sp/>XDFEMIX_SWITCH_ERROR_OFFSET);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_WriteReg(InstancePtr,<sp/>XDFEMIX_IER,<sp/>ValIER);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_WriteReg(InstancePtr,<sp/>XDFEMIX_IDR,<sp/>ValIDR);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="188" refid="group__dfemix_1ga30b9d679358622d80119d933afdfbd77" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga30b9d679358622d80119d933afdfbd77" kindref="member">XDfeMix_GetEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr,<sp/><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Val;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Val<sp/>=<sp/>XDfeMix_ReadReg(InstancePtr,<sp/>XDFEMIX_ISR);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_DUC_DDC_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>=</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_MIXER_OVERFLOW_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>=</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" kindref="member">LowPower</ref><sp/>=</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" kindref="member">Switchable</ref><sp/>=</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_SWITCH_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_TRIGGERED_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>=</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_SEQUENCE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" kindref="member">CCUpdateError</ref><sp/>=</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" kindref="member">LowPowerError</ref><sp/>=</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_RdBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" kindref="member">SwitchableError</ref><sp/>=<sp/>XDfeMix_RdBitField(</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_ERROR_WIDTH,<sp/>XDFEMIX_SWITCH_ERROR_OFFSET,<sp/>Val);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">/****************************************************************************/</highlight></codeline>
+<codeline lineno="235" refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__dfemix_1ga3d52fd20ed69e1ee3f54b62c2479fbd8" kindref="member">XDfeMix_ClearEventStatus</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix" kindref="compound">XDfeMix</ref><sp/>*InstancePtr,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_x_dfe_mix___status" kindref="compound">XDfeMix_Status</ref><sp/>*Status)</highlight></codeline>
+<codeline lineno="237"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u32<sp/>Data<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xil_AssertVoid(Status-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref><sp/>&lt;=<sp/>1U);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_DUC_DDC_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_DUC_DDC_OVERFLOW_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a580a771ff0008bf5d71e3cc73468dee9" kindref="member">DUCDDCOverflow</ref>);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_MIXER_OVERFLOW_WIDTH,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_MIXER_OVERFLOW_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a79e07a218d9473c17fc0f6da7772be5c" kindref="member">MixerOverflow</ref>);</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_TRIGGERED_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1af5eb70ad9fd51becfc65872f0ffef39f" kindref="member">CCUpdate</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_LOW_POWER_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_TRIGGERED_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1ab2823db4b594c1a3a1d95d2cad47029d" kindref="member">LowPower</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_SWITCH_TRIGGERED_WIDTH,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_TRIGGERED_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a277d17fcceaf902ef1d0d951fa2b31e6" kindref="member">Switchable</ref>);</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_CC_SEQUENCE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_SEQUENCE_ERROR_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a7005bc0563415c0bdfab98cd4a2a926f" kindref="member">CCSequenceError</ref>);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_CC_UPDATE_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_CC_UPDATE_ERROR_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a793565e741d78984a6efa409308f478a" kindref="member">CCUpdateError</ref>);</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_LOW_POWER_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_LOW_POWER_ERROR_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a1c1ba39ffda4976688b805e19ca7ea89" kindref="member">LowPowerError</ref>);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Data<sp/>=<sp/>XDfeMix_WrBitField(XDFEMIX_SWITCH_ERROR_WIDTH,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDFEMIX_SWITCH_ERROR_OFFSET,<sp/>Data,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Status-&gt;<ref refid="struct_x_dfe_mix___status_1a791235c299edfaf7beef1d421dcf00df" kindref="member">SwitchableError</ref>);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XDfeMix_WriteReg(InstancePtr,<sp/>XDFEMIX_ISR,<sp/>Data);</highlight></codeline>
+<codeline lineno="275"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/dfemix/src/xdfemix_intr.c"/>
+  </compounddef>
+</doxygen>

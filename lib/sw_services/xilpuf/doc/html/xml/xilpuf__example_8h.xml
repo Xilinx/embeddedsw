@@ -1,0 +1,541 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xilpuf__example_8h" kind="file">
+    <compoundname>xilpuf_example.h</compoundname>
+    <includes local="yes">xil_types.h</includes>
+    <includedby refid="xilpuf__client__example_8c" local="yes">xilpuf_client_example.c</includedby>
+    <includedby refid="xilpuf__example_8c" local="yes">xilpuf_example.c</includedby>
+    <includedby refid="xilpuf__ssit__client__example_8c" local="yes">xilpuf_ssit_client_example.c</includedby>
+    <incdepgraph>
+      <node id="74">
+        <label>xil_types.h</label>
+      </node>
+      <node id="73">
+        <label>xilpuf_example.h</label>
+        <link refid="xilpuf_example.h"/>
+        <childnode refid="74" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="76">
+        <label>xilpuf_client_example.c</label>
+        <link refid="xilpuf__client__example_8c"/>
+      </node>
+      <node id="78">
+        <label>xilpuf_ssit_client_example.c</label>
+        <link refid="xilpuf__ssit__client__example_8c"/>
+      </node>
+      <node id="77">
+        <label>xilpuf_example.c</label>
+        <link refid="xilpuf__example_8c"/>
+      </node>
+      <node id="75">
+        <label>xilpuf_example.h</label>
+        <link refid="xilpuf_example.h"/>
+        <childnode refid="76" relation="include">
+        </childnode>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xilpuf__example_8h_1a86f485dd2e27757efe8266a82e4b5e20" prot="public" static="no">
+        <name>XPUF_READ_SEC_CTRL_BITS</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="206" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a94d0604a0d7e4af7bd43aa25d69a6cda" prot="public" static="no">
+        <name>XPUF_RED_KEY</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="208" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a8c62e5450d6fd6c55be85f99ef93e91f" prot="public" static="no">
+        <name>XPUF_RED_KEY_SIZE_128</name>
+        <initializer>(0U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="216" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="216" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1aba0d81b251bd7dae61feba4a7aab98f5" prot="public" static="no">
+        <name>XPUF_RED_KEY_SIZE_256</name>
+        <initializer>(2U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="217" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1af6ac744d2e0a6dd1cdbd19136dfabcb9" prot="public" static="no">
+        <name>XPUF_RED_KEY_LEN</name>
+        <initializer>(XPUF_RED_KEY_SIZE_256)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="219" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a368d441bbf6c18131c64f5a4f86a972e" prot="public" static="no">
+        <name>XPUF_RED_KEY_LEN_IN_BYTES</name>
+        <initializer>(32U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="222" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a3b086131f0f55679ce2b6a243cdcfdf0" prot="public" static="no">
+        <name>XPUF_IV</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="227" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1aef30dbf3d32eb628b8a376803a792078" prot="public" static="no">
+        <name>XPUF_GENERATE_KEK_N_ID</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="229" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="229" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1ac3aef9f7b8f99f9fcf1b205eb244487e" prot="public" static="no">
+        <name>XPUF_KEY_GENERATE_OPTION</name>
+        <initializer>(<ref refid="xilpuf__spartan__ultrascale__plus__example_8h_1aed547acdacee538b3d5edb8effdabd33" kindref="member">XPUF_REGISTRATION</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="230" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1aa7a813e775b6b24ef967fa5fa5fcc3d2" prot="public" static="no">
+        <name>XPUF_GLBL_VAR_FLTR_OPTION</name>
+        <initializer>(TRUE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="231" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a78c2e981739f5ca7ada104eb2ad139d3" prot="public" static="no">
+        <name>XPUF_READ_HD_OPTION</name>
+        <initializer>(<ref refid="xpuf__defs_8h_1a3c1267c815426a6c68ff76e7618f6d01a840cf45a2b10a58c8ea5c0790d4dda7d" kindref="member">XPUF_READ_FROM_RAM</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="234" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a2340fce575b3c309e6e61f3576768b6f" prot="public" static="no">
+        <name>XPUF_CHASH</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="235" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a2763557678c6d72906a09aa0c6b8b055" prot="public" static="no">
+        <name>XPUF_AUX</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="236" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a279c337d4ba8d387214d919c6309fe98" prot="public" static="no">
+        <name>XPUF_SYN_DATA_ADDRESS</name>
+        <initializer>(0x00000000U)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="237" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a75c54e204c968cc9deda5f14d8f0b382" prot="public" static="no">
+        <name>XPUF_WRITE_BLACK_KEY_OPTION</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+<para>Input SlrIndex. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="242" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1ae737b24abf32c5906097070ead86c05a" prot="public" static="no">
+        <name>SLR_INDEX</name>
+        <initializer><ref refid="xpuf__mailbox_8h_1a9fc9e137d33878bdfbca1d2a78610aeea14a48defd9a4e5fbb7da056988bfa5dc" kindref="member">XPUF_SLR_INDEX_0</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="245" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a2509402823d86949a35c52545245d429" prot="public" static="no">
+        <name>XPUF_IV0</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="248" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a1cf259da5dfefcfcdd4de11f489f2c83" prot="public" static="no">
+        <name>XPUF_IV1</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="249" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1ae3219539aae361eb99246b4fceaa3d7d" prot="public" static="no">
+        <name>XPUF_IV2</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="250" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a0e7bc11ec7015548dd432ddad2994972" prot="public" static="no">
+        <name>XPUF_IV3</name>
+        <initializer>&quot;000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="251" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a7d6a5126756007306c50dd34319fb8ee" prot="public" static="no">
+        <name>XPUF_RED_KEY0</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="252" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a099d7ac5309e290c557a76a40a9ed39c" prot="public" static="no">
+        <name>XPUF_RED_KEY1</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="254" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="254" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a75a83439a4db3a4e9a3156a0a7318bbc" prot="public" static="no">
+        <name>XPUF_RED_KEY2</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="256" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="256" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a0a1a35958e4c974b1cd63c2559c816c1" prot="public" static="no">
+        <name>XPUF_RED_KEY3</name>
+        <initializer>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="258" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1ac7b8fafed6215f5851ab996cc073004f" prot="public" static="no">
+        <name>XPUF_WRITE_SEC_CTRL_BITS</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="262" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="262" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1adee4229160c908cd3e9aeb8c6b759922" prot="public" static="no">
+        <name>PUF_DIS</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="264" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="264" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a4192a3cc4e2a67a58c63a84fd0d89eee" prot="public" static="no">
+        <name>PUF_REGEN_DIS</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="265" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="265" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a3d789e88e9a278ee1cbd35f8a65d9564" prot="public" static="no">
+        <name>PUF_HD_INVLD</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="266" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a5ab153cc82cd530ee4ee66ca38c62b9a" prot="public" static="no">
+        <name>PUF_SYN_LK</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="267" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="xilpuf__example_8h_1a33ea2aab4c7a2a29c43fe91f2e26321c" prot="public" static="no">
+        <name>XPUF_ENV_MONITOR_DISABLE</name>
+        <initializer>(FALSE)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="277" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="277" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="xilpuf__example_8h_1a1346189727b8955755c55b862f567bdb" prot="public" static="no">
+        <name>XPuf_WriteBlackKeyOption</name>
+        <enumvalue id="xilpuf__example_8h_1a1346189727b8955755c55b862f567bdba7fe0774adf1ec81ffd50114b631b3793" prot="public">
+          <name>XPUF_EFUSE_AES_KEY_N_IV</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilpuf__example_8h_1a1346189727b8955755c55b862f567bdba647a99a0c020fe71a5ded3b8cf38cc7e" prot="public">
+          <name>XPUF_BBRAM_AES_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilpuf__example_8h_1a1346189727b8955755c55b862f567bdbaa61725293072efda9688c30b3fbdfa88" prot="public">
+          <name>XPUF_EFUSE_USER_0_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="xilpuf__example_8h_1a1346189727b8955755c55b862f567bdbae092a445106d43336968d0750882cf86" prot="public">
+          <name>XPUF_EFUSE_USER_1_KEY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h" bodystart="280" bodyend="285"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This file contains macros which needs to configured by user for xilpuf_example.cand based on the options selected by user operations will be performed. </para>    </briefdescription>
+    <detaileddescription>
+<para>This example is supported for Versal and Versal Net devices.</para><para><preformatted>
+ MODIFICATION HISTORY:</preformatted></para><para><preformatted> Ver   Who     Date     Changes
+ ----- ------  -------- ------------------------------------------------------
+ 1.0   har     01/31/20 First release
+ 1.1   har     01/31/20 Updated file version to 1.1 to sync with library version
+ 1.2   am      08/14/20 Changed unsigned to signed enum object.
+ 1.3   har     05/20/21 Added option to program Black IV
+ 2.1   skg     12/14/22 Added enum for slr indexes
+ 2.5   hj      02/17/25 Added IV and red key macros for SSITs.
+ 2.7   bha     01/06/26 Fixed Doxygen warnings</preformatted></para><para><preformatted> </preformatted></para><para><heading level="2">User configurable parameters for PUF </heading>
+</para><para>#define XPUF_RED_KEY &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</para><para>#define XPUF_RED_KEY_LEN (XPUF_RED_KEY_SIZE_256) (or) (XPUF_RED_KEY_SIZE_128) XPUF_RED_KEY_LEN can be configured as one of the two provided options. This configuration should be done on the basis of the length of the red key in bits. Only 128 bit and 256 bit key are supported. By default the length of red key is configured as 256 bit.</para><para>#define XPUF_RED_KEY0 \ &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; SLR 0 Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</para><para>#define XPUF_RED_KEY1 \ &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; SLR 1 Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</para><para>#define XPUF_RED_KEY2 \ &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; SLR 2 Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</para><para>#define XPUF_RED_KEY3 \ &quot;0000000000000000000000000000000000000000000000000000000000000000&quot; SLR 3 Red Key to be encrypted by PUF KEY should be provided in string format.It should be either 32 or 64 characters long as only 128 bit and 256 bit key are supported.</para><para>#define XPUF_IV &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key.</para><para>#define XPUF_IV0 &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 0.</para><para>#define XPUF_IV1 &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 1.</para><para>#define XPUF_IV2 &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 2.</para><para>#define XPUF_IV3 &quot;000000000000000000000000&quot; IV should be provided in string format.It should be 24 characters long, valid characters are 0-9,a-f,A-F. Any other character is considered as invalid string.The value mentioned here will be converted to hex buffer.It is used with the AES-GCM cryptographic hardware in order to encrypt red key of SLR 3.</para><para>#define XPUF_GENERATE_KEK_N_ID (TRUE) This macro must be configured as TRUE to generate both PUF KEK and PUF ID. In order to generate PUF ID only, it should be configured as FALSE. The default option is set as TRUE to enable encryption of Red Key.</para><para>#define XPUF_KEY_GENERATE_OPTION (XPUF_REGISTRATION) (or) (XPUF_REGEN_ON_DEMAND) PUF Key can be generated by PUF registration or PUF on-demand regeneration.The user can configure XPUF_KEY_GENERATE_OPTION as either XPUF_REGISTRATION or XPUF_REGEN_ON_DEMAND to select the mode of PUF operation to generate helper data. It should be configured only when XPUF_GENERATE_KEK_N_ID as TRUE.</para><para>#define XPUF_READ_HD_OPTION (XPUF_READ_FROM_RAM) (or) (XPUF_READ_FROM_EFUSE_CACHE) This selects the location from where the helper data must be read by the application. This option must be configured if XPUF_KEY_GENERATE_OPTION is configured as XPUF_REGEN_ON_DEMAND.</para><para>#define XPUF_CHASH (0x00000000) CHASH value should be supplied if XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.The length of CHASH should be 24 bits This can be obtained by performing PUF registration and writing the helper data on the UART.</para><para>#define XPUF_AUX (0x00000000) AUX value should be supplied if XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.The length of AUX should be 32 bits This can be obtained by performing PUF registration and writing the helper data on the UART.</para><para>#define XPUF_SYN_DATA_ADDRESS (0x00000000) Address of syndrome data should be supplied if XPUF_READ_HD_OPTION is configured as XPUF_READ_FROM_RAM.</para><para>#define XPUF_WRITE_HD_IN_EFUSE (FALSE) If this option is configured as TRUE then PUF helper data is written into the eFUSE.</para><para>#define XPUF_WRITE_BLACK_KEY_OPTION (FALSE) (or) (XPUF_EFUSE_AES_KEY_N_IV) (or) (XPUF_BBRAM_AES_KEY) (or) (XPUF_EFUSE_USER_0_KEY) (or) (XPUF_EFUSE_USER_1_KEY) This selects the location where the Black key must be programmed. Please note that If this option is configured as XPUF_EFUSE_AES_KEY_N_IV then Black key will be programmed in eFUSE AES key and Black IV is programmed in efuses. If it is configured as XPUF_BBRAM_AES_KEY, XPUF_EFUSE_USER_0_KEY or XPUF_EFUSE_USER_1_KEY then the Black key is programmed in the corresponding location but Black IV is not programmed.</para><para>#define XPUF_READ_SEC_CTRL_BITS (FALSE) This option should be configured as TRUE to read secure control eFUSE bits of PUF</para><para>#define XPUF__SEC_CTRL_BITS (FALSE) This option should be configured as TRUE to program secure control eFUSE bits of PUF</para><para>#define PUF_DIS (FALSE) This option should be configured as TRUE to program the PUF_DIS eFUSE bit</para><para>#define PUF_REGEN_DIS (FALSE) This option should be configured as TRUE to program the PUF_REGEN_DIS eFUSE bit</para><para>#define PUF_HD_INVLD (FALSE) This option should be configured as TRUE to program the PUF_HD_INVLD eFUSE bit</para><para>#define PUF_SYN_LK (FALSE) This option should be configured as TRUE to program the PUF_SYN_LK eFUSE bit</para><para>#define XPUF_GLBL_VAR_FLTR_OPTION (TRUE) It is recommended to always enable this option to ensure entropy. It can be configured as FALSE to disable Global Variation Filter.</para><para>#define XPUF_ENV_MONITOR_DISABLE (FALSE) This option should be configured as TRUE to disable the temperature and voltage checks before eFuses programming.</para><para>#define SLR_INDEX (XPUF_SLR_INDEX_0) (or) (XPUF_SLR_INDEX_1) (or) (XPUF_SLR_INDEX_2) (or) (XPUF_SLR_INDEX_3) This option selects the Slave Slr for provisioning. </para>    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/******************************************************************************</highlight></codeline>
+<codeline lineno="2"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2020<sp/>-<sp/>2022<sp/>Xilinx,<sp/>Inc.<sp/><sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment">*<sp/>Copyright<sp/>(c)<sp/>2022<sp/>-<sp/>2026<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment">*<sp/>SPDX-License-Identifier:<sp/>MIT</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="194"><highlight class="preprocessor">#ifndef<sp/>XILPUF_EXAMPLE_H</highlight></codeline>
+<codeline lineno="195"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XILPUF_EXAMPLE_H</highlight></codeline>
+<codeline lineno="196"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="198"><highlight class="preprocessor"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="200"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">/*****************************<sp/>Include<sp/>Files<sp/>*********************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xil_types.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/**************************<sp/>Constant<sp/>Definitions<sp/>*****************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>reading<sp/>Secure<sp/>control<sp/>eFUSE<sp/>bits<sp/>of<sp/>PUF<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_READ_SEC_CTRL_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="207"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY<sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="209"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="210"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="212"><highlight class="comment"><sp/>*<sp/>Below<sp/>macro<sp/>values<sp/>should<sp/>match<sp/>with<sp/>enum<sp/>XSecure_AesKeySize.</highlight></codeline>
+<codeline lineno="213"><highlight class="comment"><sp/>*<sp/>As<sp/>preprocessor<sp/>can&apos;t<sp/>handle<sp/>enums<sp/>at<sp/>preprocessing<sp/>stage<sp/>of<sp/>compilation,</highlight></codeline>
+<codeline lineno="214"><highlight class="comment"><sp/>*<sp/>these<sp/>macros<sp/>are<sp/>defined.</highlight></codeline>
+<codeline lineno="215"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_SIZE_128<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0U)</highlight></codeline>
+<codeline lineno="217"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_SIZE_256<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(2U)</highlight></codeline>
+<codeline lineno="218"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_RED_KEY_SIZE_256)</highlight></codeline>
+<codeline lineno="220"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPUF_RED_KEY_LEN<sp/>==<sp/>XPUF_RED_KEY_SIZE_256)</highlight></codeline>
+<codeline lineno="222"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(32U)</highlight></codeline>
+<codeline lineno="223"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>(XPUF_RED_KEY_LEN<sp/>==<sp/>XPUF_RED_KEY_SIZE_128)</highlight></codeline>
+<codeline lineno="224"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY_LEN_IN_BYTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(16U)</highlight></codeline>
+<codeline lineno="225"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="226"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_IV<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="228"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_GENERATE_KEK_N_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)</highlight></codeline>
+<codeline lineno="230"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_KEY_GENERATE_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_REGISTRATION)</highlight></codeline>
+<codeline lineno="231"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_GLBL_VAR_FLTR_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/>(TRUE)</highlight></codeline>
+<codeline lineno="232"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(XPUF_KEY_GENERATE_OPTION<sp/>==<sp/>XPUF_REGEN_ON_DEMAND)</highlight></codeline>
+<codeline lineno="234"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_READ_HD_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(XPUF_READ_FROM_RAM)</highlight></codeline>
+<codeline lineno="235"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_CHASH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="236"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_AUX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="237"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_SYN_DATA_ADDRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000U)</highlight></codeline>
+<codeline lineno="238"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#elif<sp/>(XPUF_KEY_GENERATE_OPTION<sp/>==<sp/>XPUF_REGISTRATION)</highlight></codeline>
+<codeline lineno="239"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_WRITE_HD_IN_EFUSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="240"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="241"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="xilpuf__example_8h_1a75c54e204c968cc9deda5f14d8f0b382" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_WRITE_BLACK_KEY_OPTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="243"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="245"><highlight class="preprocessor">#define<sp/>SLR_INDEX<sp/><sp/><sp/><sp/><sp/>XPUF_SLR_INDEX_0</highlight></codeline>
+<codeline lineno="246"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Iv<sp/>and<sp/>Keys<sp/>for<sp/>all<sp/>ssit<sp/>devices<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_IV0<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_IV1<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_IV2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="251"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_IV3<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="252"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY0<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY1<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="255"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="256"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY2<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="258"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPUF_RED_KEY3<sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="259"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&quot;0000000000000000000000000000000000000000000000000000000000000000&quot;</highlight></codeline>
+<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>For<sp/>programming<sp/>Secure<sp/>control<sp/>eFUSE<sp/>bits<sp/>of<sp/>PUF<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_WRITE_SEC_CTRL_BITS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="263"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>(XPUF_WRITE_SEC_CTRL_BITS<sp/>==<sp/>TRUE)</highlight></codeline>
+<codeline lineno="264"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="265"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_REGEN_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_HD_INVLD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="267"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_SYN_LK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="268"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="269"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_REGIS_DIS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="270"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="271"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="272"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(VERSAL_NET)</highlight></codeline>
+<codeline lineno="274"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>PUF_RO_SWAP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00000000)</highlight></codeline>
+<codeline lineno="275"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="276"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>XPUF_ENV_MONITOR_DISABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(FALSE)</highlight></codeline>
+<codeline lineno="278"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="comment">/****************************<sp/>Type<sp/>Definitions<sp/>*******************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_AES_KEY_N_IV<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_BBRAM_AES_KEY,</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_USER_0_KEY,</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>XPUF_EFUSE_USER_1_KEY</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}<sp/>XPuf_WriteBlackKeyOption;</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">/*****************<sp/>Macros<sp/>(Inline<sp/>Functions)<sp/>Definitions<sp/>*********************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight></codeline>
+<codeline lineno="290"><highlight class="preprocessor"></highlight><highlight class="normal">}</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="292"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="293"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>XILPUF_EXAMPLE_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilpuf/examples/xilpuf_example.h"/>
+  </compounddef>
+</doxygen>

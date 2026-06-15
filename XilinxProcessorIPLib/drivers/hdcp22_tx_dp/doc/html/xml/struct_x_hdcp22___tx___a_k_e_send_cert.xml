@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_hdcp22___tx___a_k_e_send_cert" kind="struct" prot="public">
+    <compoundname>XHdcp22_Tx_AKESendCert</compoundname>
+    <includes local="no">xhdcp22_tx_dp_i.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_cert_1a85c7e81cb0536fbd44acda1b19674114" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKESendCert::MsgId</definition>
+        <argsstring></argsstring>
+        <name>MsgId</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_cert_1ade2e68e86500fa4e6b11c6c84949a189" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_hdcp22___tx___cert_rx" kindref="compound">XHdcp22_Tx_CertRx</ref></type>
+        <definition>XHdcp22_Tx_CertRx XHdcp22_Tx_AKESendCert::CertRx</definition>
+        <argsstring></argsstring>
+        <name>CertRx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="297" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_cert_1a2ca3ed493bf5b98e4fa5e81eceb24d41" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKESendCert::Rrx[XHDCP22_TX_RRX_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_RRX_SIZE]</argsstring>
+        <name>Rrx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_hdcp22___tx___a_k_e_send_cert_1aac5ae033b89451f09bf2c4c1c30e4546" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XHdcp22_Tx_AKESendCert::RxCaps[XHDCP22_TX_RXCAPS_SIZE]</definition>
+        <argsstring>[XHDCP22_TX_RXCAPS_SIZE]</argsstring>
+        <name>RxCaps</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="299" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>This typedef contains the received AKE_Send_Cert message definition. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>XHdcp22_Tx_AKESendCert</label>
+        <link refid="struct_x_hdcp22___tx___a_k_e_send_cert"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>CertRx</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>XHdcp22_Tx_CertRx</label>
+        <link refid="struct_x_hdcp22___tx___cert_rx"/>
+      </node>
+    </collaborationgraph>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" line="294" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/hdcp22_tx_dp/src/xhdcp22_tx_dp_i.h" bodystart="293" bodyend="300"/>
+    <listofallmembers>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_cert_1ade2e68e86500fa4e6b11c6c84949a189" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendCert</scope><name>CertRx</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_cert_1a85c7e81cb0536fbd44acda1b19674114" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendCert</scope><name>MsgId</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_cert_1a2ca3ed493bf5b98e4fa5e81eceb24d41" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendCert</scope><name>Rrx</name></member>
+      <member refid="struct_x_hdcp22___tx___a_k_e_send_cert_1aac5ae033b89451f09bf2c4c1c30e4546" prot="public" virt="non-virtual"><scope>XHdcp22_Tx_AKESendCert</scope><name>RxCaps</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

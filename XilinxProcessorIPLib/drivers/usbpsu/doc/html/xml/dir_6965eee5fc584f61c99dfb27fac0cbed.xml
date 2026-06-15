@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_6965eee5fc584f61c99dfb27fac0cbed" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="xusbpsu_8c">xusbpsu.c</innerfile>
+    <innerfile refid="xusbpsu_8h">xusbpsu.h</innerfile>
+    <innerfile refid="xusbpsu__command_8c">xusbpsu_command.c</innerfile>
+    <innerfile refid="xusbpsu__controltransfers_8c">xusbpsu_controltransfers.c</innerfile>
+    <innerfile refid="xusbpsu__device_8c">xusbpsu_device.c</innerfile>
+    <innerfile refid="xusbpsu__endpoint_8c">xusbpsu_endpoint.c</innerfile>
+    <innerfile refid="xusbpsu__endpoint_8h">xusbpsu_endpoint.h</innerfile>
+    <innerfile refid="xusbpsu__ep0handler_8c">xusbpsu_ep0handler.c</innerfile>
+    <innerfile refid="xusbpsu__ephandler_8c">xusbpsu_ephandler.c</innerfile>
+    <innerfile refid="xusbpsu__event_8c">xusbpsu_event.c</innerfile>
+    <innerfile refid="xusbpsu__g_8c">xusbpsu_g.c</innerfile>
+    <innerfile refid="xusbpsu__hibernation_8c">xusbpsu_hibernation.c</innerfile>
+    <innerfile refid="xusbpsu__hw_8h">xusbpsu_hw.h</innerfile>
+    <innerfile refid="xusbpsu__intr_8c">xusbpsu_intr.c</innerfile>
+    <innerfile refid="xusbpsu__local_8h">xusbpsu_local.h</innerfile>
+    <innerfile refid="xusbpsu__sinit_8c">xusbpsu_sinit.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/usbpsu/src/"/>
+  </compounddef>
+</doxygen>

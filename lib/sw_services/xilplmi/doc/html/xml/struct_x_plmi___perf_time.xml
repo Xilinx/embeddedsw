@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_plmi___perf_time" kind="struct" prot="public">
+    <compoundname>XPlmi_PerfTime</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_PerfTime::TPerfMs</definition>
+        <argsstring></argsstring>
+        <name>TPerfMs</name>
+        <briefdescription>
+<para>Whole part of time in milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="99" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XPlmi_PerfTime::TPerfMsFrac</definition>
+        <argsstring></argsstring>
+        <name>TPerfMsFrac</name>
+        <briefdescription>
+<para>Fractional part of time in milliseconds. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="100" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" line="98" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilplmi/src/common/server/xplmi_proc.h" bodystart="98" bodyend="101"/>
+    <listofallmembers>
+      <member refid="struct_x_plmi___perf_time_1a0569cd74c0a5094fb2a763da2cf36012" prot="public" virt="non-virtual"><scope>XPlmi_PerfTime</scope><name>TPerfMs</name></member>
+      <member refid="struct_x_plmi___perf_time_1a4c76d3676cc224cbe984de4a0c0bd194" prot="public" virt="non-virtual"><scope>XPlmi_PerfTime</scope><name>TPerfMsFrac</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

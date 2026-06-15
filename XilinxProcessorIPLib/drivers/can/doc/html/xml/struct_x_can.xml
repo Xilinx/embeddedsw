@@ -1,0 +1,352 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_can" kind="struct" prot="public">
+    <compoundname>XCan</compoundname>
+    <includes local="no">xcan.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" prot="public" static="no" mutable="no">
+        <type>UINTPTR</type>
+        <definition>UINTPTR XCan::BaseAddress</definition>
+        <argsstring></argsstring>
+        <name>BaseAddress</name>
+        <briefdescription>
+<para>Device Base address. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="279" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="279" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga02c9fb502d3fd8a0537c9efdf456defd" compoundref="xcan_8c" startline="809" endline="820">XCan_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+        <referencedby refid="group__can_1ga757aecce4c0c06ff8f4cb3dd4d0c79fa" compoundref="xcan_8c" startline="525" endline="531">XCan_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+        <referencedby refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" compoundref="xcan__config_8c" startline="101" endline="111">XCan_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__can_1ga242ec83578f9966bd7d562ed7f5dedd3" compoundref="xcan_8c" startline="495" endline="505">XCan_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+        <referencedby refid="group__can_1ga502a294405726d96834c2abf574a96e8" compoundref="xcan_8c" startline="438" endline="448">XCan_GetStatus</referencedby>
+        <referencedby refid="group__can_1gaf070d43e1240f9396a9b6f325bcf5fcb" compoundref="xcan_8c" startline="99" endline="136">XCan_Initialize</referencedby>
+        <referencedby refid="group__can_1gac53101769980d4aa036844100ac732af" compoundref="xcan__intr_8c" startline="180" endline="195">XCan_InterruptClear</referencedby>
+        <referencedby refid="group__can_1ga163cd737c7421ddbd0ff492883e32558" compoundref="xcan__intr_8c" startline="94" endline="109">XCan_InterruptDisable</referencedby>
+        <referencedby refid="group__can_1ga1abd3a018094fd4d586599d708c33e4f" compoundref="xcan__intr_8c" startline="67" endline="74">XCan_InterruptEnable</referencedby>
+        <referencedby refid="group__can_1ga5670f843250e65969ce6ef36d0e06e24" compoundref="xcan__intr_8c" startline="124" endline="134">XCan_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga26bb19c641bfce1cb3dac4f5c0b7f71d" compoundref="xcan__intr_8c" startline="151" endline="161">XCan_InterruptGetStatus</referencedby>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+        <referencedby refid="group__can_1ga6c52fb4d4b12d62e3e713ad182f00d8b" compoundref="xcan_8c" startline="246" endline="253">XCan_Reset</referencedby>
+        <referencedby refid="group__can_1ga0b5089d7561e88dec96e54fa618a6da4" compoundref="xcan_8c" startline="1190" endline="1201">XCan_ResetECC</referencedby>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+        <referencedby refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" compoundref="xcan__config_8c" startline="66" endline="83">XCan_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+        <referencedby refid="group__can_1ga9ad0e65a90ab46e6b7e56d7aae7910e9" compoundref="xcan_8c" startline="181" endline="219">XCan_VmInitialize</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" prot="public" static="no" mutable="no">
+        <type>u32</type>
+        <definition>u32 XCan::IsReady</definition>
+        <argsstring></argsstring>
+        <name>IsReady</name>
+        <briefdescription>
+<para>Device is initialized and ready. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="280" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="280" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga02c9fb502d3fd8a0537c9efdf456defd" compoundref="xcan_8c" startline="809" endline="820">XCan_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+        <referencedby refid="group__can_1ga757aecce4c0c06ff8f4cb3dd4d0c79fa" compoundref="xcan_8c" startline="525" endline="531">XCan_ClearBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga994a0b0bd9c938e99de9d7ffceb10ef3" compoundref="xcan_8c" startline="320" endline="423">XCan_EnterMode</referencedby>
+        <referencedby refid="group__can_1gaee29a9e04aa8993561e0c11d1222c1f9" compoundref="xcan__config_8c" startline="101" endline="111">XCan_GetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gab70138a7e54403355ec194f468f945fd" compoundref="xcan__config_8c" startline="190" endline="205">XCan_GetBitTiming</referencedby>
+        <referencedby refid="group__can_1ga1a905b9f2f47e605267817c58edd1112" compoundref="xcan_8c" startline="466" endline="479">XCan_GetBusErrorCounter</referencedby>
+        <referencedby refid="group__can_1ga242ec83578f9966bd7d562ed7f5dedd3" compoundref="xcan_8c" startline="495" endline="505">XCan_GetBusErrorStatus</referencedby>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+        <referencedby refid="group__can_1ga6b437133a6a2f40f56cf3c80102f5b0d" compoundref="xcan_8c" startline="271" endline="290">XCan_GetMode</referencedby>
+        <referencedby refid="group__can_1ga502a294405726d96834c2abf574a96e8" compoundref="xcan_8c" startline="438" endline="448">XCan_GetStatus</referencedby>
+        <referencedby refid="group__can_1gac53101769980d4aa036844100ac732af" compoundref="xcan__intr_8c" startline="180" endline="195">XCan_InterruptClear</referencedby>
+        <referencedby refid="group__can_1ga163cd737c7421ddbd0ff492883e32558" compoundref="xcan__intr_8c" startline="94" endline="109">XCan_InterruptDisable</referencedby>
+        <referencedby refid="group__can_1ga1abd3a018094fd4d586599d708c33e4f" compoundref="xcan__intr_8c" startline="67" endline="74">XCan_InterruptEnable</referencedby>
+        <referencedby refid="group__can_1ga5670f843250e65969ce6ef36d0e06e24" compoundref="xcan__intr_8c" startline="124" endline="134">XCan_InterruptGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga26bb19c641bfce1cb3dac4f5c0b7f71d" compoundref="xcan__intr_8c" startline="151" endline="161">XCan_InterruptGetStatus</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga1d8ac17789423c440872ffd4585b8c3c" compoundref="xcan_8c" startline="604" endline="640">XCan_Recv</referencedby>
+        <referencedby refid="group__can_1ga6c52fb4d4b12d62e3e713ad182f00d8b" compoundref="xcan_8c" startline="246" endline="253">XCan_Reset</referencedby>
+        <referencedby refid="group__can_1ga0b5089d7561e88dec96e54fa618a6da4" compoundref="xcan_8c" startline="1190" endline="1201">XCan_ResetECC</referencedby>
+        <referencedby refid="group__can_1gaa18e848a6ffc670e024972ffc71b2ba8" compoundref="xcan__selftest_8c" startline="90" endline="160">XCan_SelfTest</referencedby>
+        <referencedby refid="group__can_1gad4717011f46b8e9d5e15c0bfb04c33c8" compoundref="xcan_8c" startline="555" endline="582">XCan_Send</referencedby>
+        <referencedby refid="group__can_1ga8ba9b10678fbc6bd6093fdc5e9eb3edd" compoundref="xcan_8c" startline="667" endline="696">XCan_SendHighPriority</referencedby>
+        <referencedby refid="group__can_1ga75aabbb82d96151cadfd3c26a2a285e9" compoundref="xcan__config_8c" startline="66" endline="83">XCan_SetBaudRatePrescaler</referencedby>
+        <referencedby refid="group__can_1gaf60120410396727f6e9304ce9ba65980" compoundref="xcan__config_8c" startline="142" endline="167">XCan_SetBitTiming</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1af3bd9c08bdbdd31a078da056a924d429" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCan::NumOfAcceptFilters</definition>
+        <argsstring></argsstring>
+        <name>NumOfAcceptFilters</name>
+        <briefdescription>
+<para>Number of Acceptance Filters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="281" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="281" bodyend="-1"/>
+        <referencedby refid="group__can_1ga8bc758e3b0a5fc41bcb17b49fa1e7ed4" compoundref="xcan_8c" startline="768" endline="789">XCan_AcceptFilterDisable</referencedby>
+        <referencedby refid="group__can_1gae04419e368e843d5bf7384b8f32ba9b6" compoundref="xcan_8c" startline="720" endline="742">XCan_AcceptFilterEnable</referencedby>
+        <referencedby refid="group__can_1gab2385a83eb4e0e5f7bae366ac8ec86ec" compoundref="xcan_8c" startline="949" endline="1002">XCan_AcceptFilterGet</referencedby>
+        <referencedby refid="group__can_1ga02c9fb502d3fd8a0537c9efdf456defd" compoundref="xcan_8c" startline="809" endline="820">XCan_AcceptFilterGetEnabled</referencedby>
+        <referencedby refid="group__can_1ga3079df9559ea328b414b0f8438c7991e" compoundref="xcan_8c" startline="855" endline="923">XCan_AcceptFilterSet</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1ad1b7e8246d4595ef6bde028a562c08fa" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XCan::EnableECC</definition>
+        <argsstring></argsstring>
+        <name>EnableECC</name>
+        <briefdescription>
+<para>ECC is enabled or disabled. </para>        </briefdescription>
+        <detaileddescription>
+<para>Callback for TXOK interrupt </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="283" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="xcan__intr__example_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="xcan__intr__example_8c" startline="181" endline="197">main</referencedby>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a1860cf3346043b070b289f09f38ee6d5" prot="public" static="no" mutable="no">
+        <type><ref refid="group__can_1ga35ad388bd264c6d4226356cdfe14f8dc" kindref="member">XCan_SendRecvHandler</ref></type>
+        <definition>XCan_SendRecvHandler XCan::SendHandler</definition>
+        <argsstring></argsstring>
+        <name>SendHandler</name>
+        <briefdescription>
+<para>This will be passed to the TXOK interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="286" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="286" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a9f878dac03d57becb449745f0e443907" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCan::SendRef</definition>
+        <argsstring></argsstring>
+        <name>SendRef</name>
+        <briefdescription>
+<para>Callback for RXOK/RXNEMP interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="289" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a8f2d0f6050bb89ce5854b703caceb883" prot="public" static="no" mutable="no">
+        <type><ref refid="group__can_1ga35ad388bd264c6d4226356cdfe14f8dc" kindref="member">XCan_SendRecvHandler</ref></type>
+        <definition>XCan_SendRecvHandler XCan::RecvHandler</definition>
+        <argsstring></argsstring>
+        <name>RecvHandler</name>
+        <briefdescription>
+<para>This will be passed to the RXOK/RXNEMP interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="292" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="292" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a6bbcd54ab93e47c5cf5ba20194667760" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCan::RecvRef</definition>
+        <argsstring></argsstring>
+        <name>RecvRef</name>
+        <briefdescription>
+<para>Callback for ERROR interrupt. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="295" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="295" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a85a35a86e926f2f6c881b919323e1a8a" prot="public" static="no" mutable="no">
+        <type><ref refid="group__can_1ga15913601b8c17e959d80a0a28469e537" kindref="member">XCan_ErrorHandler</ref></type>
+        <definition>XCan_ErrorHandler XCan::ErrorHandler</definition>
+        <argsstring></argsstring>
+        <name>ErrorHandler</name>
+        <briefdescription>
+<para>This will be passed to the ERROR interrupt callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="298" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="298" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1acc444eee1192bc6a921d264b452c507c" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCan::ErrorRef</definition>
+        <argsstring></argsstring>
+        <name>ErrorRef</name>
+        <briefdescription>
+<para>Callback for RXOFLW/RXUFLW/TXBFLL/TXFLL/Wakeup/Sleep/Bus off/ARBLST interrupts. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="301" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="301" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1acc72a94f8c346fdf0925fab5ed957a79" prot="public" static="no" mutable="no">
+        <type><ref refid="group__can_1gae08cf54d17b722be5c51117d983dd776" kindref="member">XCan_EventHandler</ref></type>
+        <definition>XCan_EventHandler XCan::EventHandler</definition>
+        <argsstring></argsstring>
+        <name>EventHandler</name>
+        <briefdescription>
+<para>This will be passed to the EventHandler callback. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="306" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="306" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1aba90fb0e2c69978d21a8b53358c7f8b6" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* XCan::EventRef</definition>
+        <argsstring></argsstring>
+        <name>EventRef</name>
+        <briefdescription>
+<para>TXTLFIFO 2bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="309" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="309" bodyend="-1"/>
+        <referencedby refid="group__can_1gaafc4a0e025e8e3eb800778eba5a00c66" compoundref="xcan__intr_8c" startline="218" endline="305">XCan_IntrHandler</referencedby>
+        <referencedby refid="group__can_1ga3a7838a033b61a842b06e3ee4b06a614" compoundref="xcan__intr_8c" startline="350" endline="382">XCan_SetHandler</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1ac0e6fa8153f1209587d9304c3370efa7" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_2bit_txtlfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_2bit_txtlfifo_cnt</name>
+        <briefdescription>
+<para>TXTLFIFO 1bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="312" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="312" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a3cc5989a39ce47d7eaeb1dc2ee29570d" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_1bit_txtlfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_1bit_txtlfifo_cnt</name>
+        <briefdescription>
+<para>TXOLFIFO 2bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="315" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="315" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a67495bb45f05f78eceb23941c5566984" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_2bit_txolfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_2bit_txolfifo_cnt</name>
+        <briefdescription>
+<para>TXOLFIFO 1bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="318" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="318" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a0309ac9be44b592655714b4e6e30dcfd" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_1bit_txolfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_1bit_txolfifo_cnt</name>
+        <briefdescription>
+<para>RXFIFO 2bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="321" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="321" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1a02d7f8dee1f68f1d4481f3adfcac85ce" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_2bit_rxfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_2bit_rxfifo_cnt</name>
+        <briefdescription>
+<para>RXFIFO 1bit ECC count. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="324" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="324" bodyend="-1"/>
+        <referencedby refid="group__can_1ga5cf8f7db6b6726cd217e58e6224d56ad" compoundref="xcan_8c" startline="1215" endline="1252">XCan_GetECCCount</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_can_1af0b4e5ccbd492654934cea6e75f0d6d0" prot="public" static="no" mutable="no">
+        <type>u64</type>
+        <definition>u64 XCan::ecc_1bit_rxfifo_cnt</definition>
+        <argsstring></argsstring>
+        <name>ecc_1bit_rxfifo_cnt</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="327" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>The <ref refid="struct_x_can" kindref="compound">XCan</ref> driver instance data. </para>    </briefdescription>
+    <detaileddescription>
+<para>The user is required to allocate a variable of this type for every CAN device in the system. A pointer to a variable of this type is then passed to the driver API functions. </para>    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" line="278" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/can/src/xcan.h" bodystart="278" bodyend="328"/>
+    <listofallmembers>
+      <member refid="struct_x_can_1a8fa6a2c1022499c19ac3777e6f338ba5" prot="public" virt="non-virtual"><scope>XCan</scope><name>BaseAddress</name></member>
+      <member refid="struct_x_can_1af0b4e5ccbd492654934cea6e75f0d6d0" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_1bit_rxfifo_cnt</name></member>
+      <member refid="struct_x_can_1a0309ac9be44b592655714b4e6e30dcfd" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_1bit_txolfifo_cnt</name></member>
+      <member refid="struct_x_can_1a3cc5989a39ce47d7eaeb1dc2ee29570d" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_1bit_txtlfifo_cnt</name></member>
+      <member refid="struct_x_can_1a02d7f8dee1f68f1d4481f3adfcac85ce" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_2bit_rxfifo_cnt</name></member>
+      <member refid="struct_x_can_1a67495bb45f05f78eceb23941c5566984" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_2bit_txolfifo_cnt</name></member>
+      <member refid="struct_x_can_1ac0e6fa8153f1209587d9304c3370efa7" prot="public" virt="non-virtual"><scope>XCan</scope><name>ecc_2bit_txtlfifo_cnt</name></member>
+      <member refid="struct_x_can_1ad1b7e8246d4595ef6bde028a562c08fa" prot="public" virt="non-virtual"><scope>XCan</scope><name>EnableECC</name></member>
+      <member refid="struct_x_can_1a85a35a86e926f2f6c881b919323e1a8a" prot="public" virt="non-virtual"><scope>XCan</scope><name>ErrorHandler</name></member>
+      <member refid="struct_x_can_1acc444eee1192bc6a921d264b452c507c" prot="public" virt="non-virtual"><scope>XCan</scope><name>ErrorRef</name></member>
+      <member refid="struct_x_can_1acc72a94f8c346fdf0925fab5ed957a79" prot="public" virt="non-virtual"><scope>XCan</scope><name>EventHandler</name></member>
+      <member refid="struct_x_can_1aba90fb0e2c69978d21a8b53358c7f8b6" prot="public" virt="non-virtual"><scope>XCan</scope><name>EventRef</name></member>
+      <member refid="struct_x_can_1a6c2d9a0f9e4d91891e67e9204dbb7094" prot="public" virt="non-virtual"><scope>XCan</scope><name>IsReady</name></member>
+      <member refid="struct_x_can_1af3bd9c08bdbdd31a078da056a924d429" prot="public" virt="non-virtual"><scope>XCan</scope><name>NumOfAcceptFilters</name></member>
+      <member refid="struct_x_can_1a8f2d0f6050bb89ce5854b703caceb883" prot="public" virt="non-virtual"><scope>XCan</scope><name>RecvHandler</name></member>
+      <member refid="struct_x_can_1a6bbcd54ab93e47c5cf5ba20194667760" prot="public" virt="non-virtual"><scope>XCan</scope><name>RecvRef</name></member>
+      <member refid="struct_x_can_1a1860cf3346043b070b289f09f38ee6d5" prot="public" virt="non-virtual"><scope>XCan</scope><name>SendHandler</name></member>
+      <member refid="struct_x_can_1a9f878dac03d57becb449745f0e443907" prot="public" virt="non-virtual"><scope>XCan</scope><name>SendRef</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

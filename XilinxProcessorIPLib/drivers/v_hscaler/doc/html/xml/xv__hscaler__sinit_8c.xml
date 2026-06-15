@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="xv__hscaler__sinit_8c" kind="file">
+    <compoundname>xv_hscaler_sinit.c</compoundname>
+    <includes local="yes">xstatus.h</includes>
+    <includes refid="xv__hscaler_8h" local="yes">xv_hscaler.h</includes>
+    <incdepgraph>
+      <node id="78">
+        <label>xil_assert.h</label>
+      </node>
+      <node id="79">
+        <label>xil_io.h</label>
+      </node>
+      <node id="75">
+        <label>xstatus.h</label>
+      </node>
+      <node id="74">
+        <label>xv_hscaler_sinit.c</label>
+        <link refid="xv_hscaler_sinit.c"/>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="76" relation="include">
+        </childnode>
+      </node>
+      <node id="77">
+        <label>xil_types.h</label>
+      </node>
+      <node id="80">
+        <label>xv_hscaler_hw.h</label>
+        <link refid="xv__hscaler__hw_8h"/>
+      </node>
+      <node id="76">
+        <label>xv_hscaler.h</label>
+        <link refid="xv__hscaler_8h"/>
+        <childnode refid="77" relation="include">
+        </childnode>
+        <childnode refid="78" relation="include">
+        </childnode>
+        <childnode refid="75" relation="include">
+        </childnode>
+        <childnode refid="79" relation="include">
+        </childnode>
+        <childnode refid="80" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="xv__hscaler__sinit_8c_1a669dd73ead0b20c440bc4f87432eb7ef" prot="public" static="no">
+        <name>XPAR_XV_HSCALER_NUM_INSTANCES</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" line="21" column="9" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="xv__hscaler__sinit_8c_1aed8f6f37ccc9ed6b46505f25bad6cc40" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref></type>
+        <definition>XV_hscaler_Config XV_hscaler_ConfigTable[]</definition>
+        <argsstring>[]</argsstring>
+        <name>XV_hscaler_ConfigTable</name>
+        <briefdescription>
+<para>Configuration table for <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instances. </para>        </briefdescription>
+        <detaileddescription>
+<para>This table contains the configuration parameters for each instance of the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> hardware core. Each entry describes the hardware properties and capabilities of a specific <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> device.</para><para>Fields:<itemizedlist>
+<listitem><para>compatible: Device compatibility string.</para></listitem><listitem><para>reg: Base address of the hardware instance.</para></listitem><listitem><para>xlnx,samples-per-clock: Number of samples processed per clock cycle.</para></listitem><listitem><para>xlnx,num-video-components: Number of video components supported.</para></listitem><listitem><para>xlnx,max-cols: Maximum number of columns (horizontal resolution).</para></listitem><listitem><para>xlnx,max-rows: Maximum number of rows (vertical resolution).</para></listitem><listitem><para>xlnx,max-data-width: Maximum data width per component.</para></listitem><listitem><para>xlnx,phase-shift: Phase shift value for scaling.</para></listitem><listitem><para>xlnx,scale-mode: Supported scaling mode.</para></listitem><listitem><para>xlnx,taps: Number of filter taps.</para></listitem><listitem><para>xlnx,enable-422: Enable support for YUV 4:2:2 format.</para></listitem><listitem><para>xlnx,enable-420: Enable support for YUV 4:2:0 format.</para></listitem><listitem><para>xlnx,enable-csc: Enable color space conversion.</para></listitem></itemizedlist>
+</para><para>The table is placed in the &quot;.drvcfg_sec&quot; section for driver configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" line="24" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_g.c" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="xv__hscaler__sinit_8c_1ada737555ac06fc61f17951e74f5866e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref> *</type>
+        <definition>XV_hscaler_Config* XV_hscaler_LookupConfig</definition>
+        <argsstring>(UINTPTR BaseAddress)</argsstring>
+        <name>XV_hscaler_LookupConfig</name>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_LookupConfig - Looks up the configuration for a V_HScaler device. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function searches the XV_hscaler_ConfigTable for a configuration entry that matches the specified BaseAddress. If a matching entry is found, a pointer to its configuration structure is returned. If BaseAddress is zero or NULL, the function returns the first entry in the table.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The base address of the device instance to look up.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the configuration structure if found, or NULL if no matching entry exists. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" line="102" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" bodystart="102" bodyend="116"/>
+        <referencedby refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" compoundref="xv__hscaler__sinit_8c" startline="137" endline="151">XV_hscaler_Initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int XV_hscaler_Initialize</definition>
+        <argsstring>(XV_hscaler *InstancePtr, UINTPTR BaseAddress)</argsstring>
+        <name>XV_hscaler_Initialize</name>
+        <param>
+          <type><ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> *</type>
+          <declname>InstancePtr</declname>
+        </param>
+        <param>
+          <type>UINTPTR</type>
+          <declname>BaseAddress</declname>
+        </param>
+        <briefdescription>
+<para>XV_hscaler_Initialize - Initializes an instance of the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> driver. </para>        </briefdescription>
+        <detaileddescription>
+<para>This function looks up the configuration for a given device using the specified base address, and then initializes the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance with the found configuration. If the configuration cannot be found, the function sets the instance as not ready and returns an error code.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>InstancePtr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance to be initialized. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>BaseAddress</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Base address of the device to initialize.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><itemizedlist>
+<listitem><para>XST_SUCCESS if initialization was successful.</para></listitem><listitem><para>XST_DEVICE_NOT_FOUND if the device configuration could not be found.</para></listitem></itemizedlist>
+</para></simplesect>
+<simplesect kind="note"><para><itemizedlist>
+<listitem><para>The caller must ensure that the InstancePtr is not NULL.</para></listitem><listitem><para>This function must be called before using the <ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref> instance. </para></listitem></itemizedlist>
+</para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" line="137" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c" bodystart="137" bodyend="151"/>
+        <references refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" compoundref="xv__hscaler_8h" startline="56">XV_hscaler_Config::BaseAddress</references>
+        <references refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" compoundref="xv__hscaler_8h" startline="76">XV_hscaler::IsReady</references>
+        <references refid="xv__hscaler_8c_1a878705caed628a1ea0b1392e59d5110c" compoundref="xv__hscaler_8c" startline="54" endline="69">XV_hscaler_CfgInitialize</references>
+        <references refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" compoundref="xv__hscaler__sinit_8c" startline="102" endline="116">XV_hscaler_LookupConfig</references>
+        <referencedby refid="group__v__hscaler_1gaa56de9b8cf6d41a05c7fec3ce6d5adf2" compoundref="xv__hscaler__l2_8c" startline="92" endline="102">XV_HScalerInitialize</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>(c)<sp/>2015<sp/>-<sp/>2020<sp/>Xilinx<sp/>Inc.<sp/>All<sp/>rights<sp/>reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Copyright<sp/>2022-2025<sp/>Advanced<sp/>Micro<sp/>Devices,<sp/>Inc.<sp/>All<sp/>Rights<sp/>Reserved.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>SPDX-License-Identifier:<sp/>MIT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============================================================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="preprocessor">#ifndef<sp/>__linux__</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;xstatus.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="16"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;xparameters.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="xv__hscaler_8h" kindref="compound">xv_hscaler.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>XPAR_XV_HSCALER_NUM_INSTANCES</highlight></codeline>
+<codeline lineno="21"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#define<sp/>XPAR_XV_HSCALER_NUM_INSTANCES<sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/><ref refid="xv__hscaler__g_8c_1aed8f6f37ccc9ed6b46505f25bad6cc40" kindref="member">XV_hscaler_ConfigTable</ref>[];</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SDT</highlight></codeline>
+<codeline lineno="27"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*****************************************************************************/</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*<ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(u16<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>0;<sp/>Index<sp/>&lt;<sp/>XPAR_XV_HSCALER_NUM_INSTANCES;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(XV_hscaler_ConfigTable[Index].DeviceId<sp/>==<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XV_hscaler_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>u16<sp/>DeviceId)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(DeviceId);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a878705caed628a1ea0b1392e59d5110c" kindref="member">XV_hscaler_CfgInitialize</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight></codeline>
+<codeline lineno="88"><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="102" refid="xv__hscaler__sinit_8c_1ada737555ac06fc61f17951e74f5866e8" refkind="member"><highlight class="normal"><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*<ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(UINTPTR<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*ConfigPtr<sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>Index;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(Index<sp/>=<sp/>(u32)0x0;<sp/>XV_hscaler_ConfigTable[Index].Name<sp/>!=<sp/>NULL;<sp/>Index++)<sp/>{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((XV_hscaler_ConfigTable[Index].BaseAddress<sp/>==<sp/>BaseAddress)<sp/>||</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>!BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/>&amp;XV_hscaler_ConfigTable[Index];</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ConfigPtr;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137" refid="xv__hscaler__sinit_8c_1a0731bb21cae22988aefb0ec791851e7b" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8h_1a0731bb21cae22988aefb0ec791851e7b" kindref="member">XV_hscaler_Initialize</ref>(<ref refid="struct_x_v__hscaler" kindref="compound">XV_hscaler</ref><sp/>*InstancePtr,<sp/>UINTPTR<sp/>BaseAddress)<sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_x_v__hscaler___config" kindref="compound">XV_hscaler_Config</ref><sp/>*ConfigPtr;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>Xil_AssertNonvoid(InstancePtr<sp/>!=<sp/>NULL);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>ConfigPtr<sp/>=<sp/><ref refid="xv__hscaler_8h_1ada737555ac06fc61f17951e74f5866e8" kindref="member">XV_hscaler_LookupConfig</ref>(BaseAddress);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ConfigPtr<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>InstancePtr-&gt;<ref refid="struct_x_v__hscaler_1ad5d2908149e2c582f9e3377b05755b1e" kindref="member">IsReady</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(XST_DEVICE_NOT_FOUND);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="xv__hscaler_8c_1a878705caed628a1ea0b1392e59d5110c" kindref="member">XV_hscaler_CfgInitialize</ref>(InstancePtr,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ConfigPtr-&gt;<ref refid="struct_x_v__hscaler___config_1a696d45aced9351708a56107e1b336e26" kindref="member">BaseAddress</ref>);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="153"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hscaler/src/xv_hscaler_sinit.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="struct_x_v___hdmi_c___free_sync_pro" kind="struct" prot="public">
+    <compoundname>XV_HdmiC_FreeSyncPro</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a458b5dd1c2743f48211bef4ca45e95ab" prot="public" static="no" mutable="no">
+        <type>XV_HdmiC_FreeSync</type>
+        <definition>XV_HdmiC_FreeSync XV_HdmiC_FreeSyncPro::FreeSync</definition>
+        <argsstring></argsstring>
+        <name>FreeSync</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="616" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="616" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a9f0e70d157ed0b90e3250f4298af1e28" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::NativeColorSpaceActive</definition>
+        <argsstring></argsstring>
+        <name>NativeColorSpaceActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="617" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="617" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1adda2cffd170ffe376b1e113d88ac6e45" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::BrightnessControlActive</definition>
+        <argsstring></argsstring>
+        <name>BrightnessControlActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="618" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="618" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a31456547477cb20610f183ae37c29f06" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::LocalDimControlActive</definition>
+        <argsstring></argsstring>
+        <name>LocalDimControlActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="619" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="619" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a0033e3009810a0f02918ad66a56d4413" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::sRGBEOTFActive</definition>
+        <argsstring></argsstring>
+        <name>sRGBEOTFActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="620" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="620" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a14c169c592ff13d472debebe52e9ef0b" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::BT709EOTFActive</definition>
+        <argsstring></argsstring>
+        <name>BT709EOTFActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="621" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="621" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1ac7e8b7bce35ce58d96e33d29b914b7a2" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::Gamma22EOTFActive</definition>
+        <argsstring></argsstring>
+        <name>Gamma22EOTFActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="622" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="622" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a38b0dfca8839175e551ac95f15d20d15" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::Gamma26EOTFActive</definition>
+        <argsstring></argsstring>
+        <name>Gamma26EOTFActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="623" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="623" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1ad465f00465d484913d7c523210313d20" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::PQEOTFActive</definition>
+        <argsstring></argsstring>
+        <name>PQEOTFActive</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="624" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="624" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_x_v___hdmi_c___free_sync_pro_1a247cbcc15bede81f1f41f9005095ef70" prot="public" static="no" mutable="no">
+        <type>u8</type>
+        <definition>u8 XV_HdmiC_FreeSyncPro::BrightnessControl</definition>
+        <argsstring></argsstring>
+        <name>BrightnessControl</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="625" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="625" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" line="615" column="1" bodyfile="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/XilinxProcessorIPLib/drivers/v_hdmi_common/src/xv_hdmic.h" bodystart="615" bodyend="626"/>
+    <listofallmembers>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a247cbcc15bede81f1f41f9005095ef70" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>BrightnessControl</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1adda2cffd170ffe376b1e113d88ac6e45" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>BrightnessControlActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a14c169c592ff13d472debebe52e9ef0b" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>BT709EOTFActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a458b5dd1c2743f48211bef4ca45e95ab" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>FreeSync</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1ac7e8b7bce35ce58d96e33d29b914b7a2" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>Gamma22EOTFActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a38b0dfca8839175e551ac95f15d20d15" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>Gamma26EOTFActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a31456547477cb20610f183ae37c29f06" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>LocalDimControlActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a9f0e70d157ed0b90e3250f4298af1e28" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>NativeColorSpaceActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1ad465f00465d484913d7c523210313d20" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>PQEOTFActive</name></member>
+      <member refid="struct_x_v___hdmi_c___free_sync_pro_1a0033e3009810a0f02918ad66a56d4413" prot="public" virt="non-virtual"><scope>XV_HdmiC_FreeSyncPro</scope><name>sRGBEOTFActive</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

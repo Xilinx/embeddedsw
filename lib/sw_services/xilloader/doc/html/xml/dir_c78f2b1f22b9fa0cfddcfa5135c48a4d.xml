@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.5">
+  <compounddef id="dir_c78f2b1f22b9fa0cfddcfa5135c48a4d" kind="dir">
+    <compoundname>client</compoundname>
+    <innerfile refid="xloader__client_8c">xloader_client.c</innerfile>
+    <innerfile refid="xloader__client_8h">xloader_client.h</innerfile>
+    <innerfile refid="xloader__generic_8c">xloader_generic.c</innerfile>
+    <innerfile refid="xloader__generic_8h">xloader_generic.h</innerfile>
+    <innerfile refid="xloader__mailbox_8c">xloader_mailbox.c</innerfile>
+    <innerfile refid="xloader__mailbox_8h">xloader_mailbox.h</innerfile>
+    <innerfile refid="xloader__smc_8c">xloader_smc.c</innerfile>
+    <innerfile refid="xloader__smc_8h">xloader_smc.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/proj/xhdsswstaff1/bhawanas/patch_integration/auto_jobs/esw_github_doxy/git/2026.1/embeddedsw/lib/sw_services/xilloader/src/common/client/"/>
+  </compounddef>
+</doxygen>
